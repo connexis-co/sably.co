@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import FaqItem from '../components/FaqItem.astro';
+import { SITE, BLACK_UNIVERSITY } from '../data/site';
+
+const areas = [
+  ['💄', 'Belleza y estilo'],
+  ['📈', 'Marketing digital'],
+  ['💼', 'Negocios y emprendimiento'],
+  ['💰', 'Finanzas personales'],
+  ['🍳', 'Gastronomía y oficios'],
+  ['🧠', 'Desarrollo personal'],
+  ['💻', 'Tecnología y herramientas'],
+  ['📸', 'Contenido y redes sociales'],
+];
+---
+
+<Base
+  title={`Black University® — +${BLACK_UNIVERSITY.coursesCount} cursos incluidos | ${SITE.name}`}
+  description={`Cada curso de ${SITE.name} incluye la membresía Black University® (antes Seminarios.Online®): acceso a más de ${BLACK_UNIVERSITY.coursesCount} cursos, talleres y seminarios en español.`}
+>
+  <section class="relative overflow-hidden border-b border-white/5 bg-gradient-to-b from-[#101010] to-ink">
+    <div class="pointer-events-none absolute -top-32 left-1/2 h-80 w-[40rem] -translate-x-1/2 rounded-full bg-gold/10 blur-3xl" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 lg:px-8">
+      <p class="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-xs font-bold tracking-wide text-gold-soft uppercase">
+        🖤 Incluida con cualquier curso de {SITE.name}
+      </p>
+      <h1 class="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+        {BLACK_UNIVERSITY.name}
+        <span class="mt-2 block bg-gradient-to-r from-gold-soft to-gold bg-clip-text text-transparent">
+          +{BLACK_UNIVERSITY.coursesCount} cursos en una sola membresía
+        </span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl leading-relaxed text-slate-400">
+        {BLACK_UNIVERSITY.description}
+      </p>
+      <a
+        href="/cursos"
+        class="mt-8 inline-block rounded-xl bg-gradient-to-r from-gold-soft to-gold px-10 py-4 text-base font-bold text-black transition hover:opacity-90"
+      >
+        Elegir mi curso y activar el beneficio
+      </a>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <div class="grid items-start gap-12 lg:grid-cols-2">
+      <div>
+        <h2 class="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+          De {BLACK_UNIVERSITY.formerName} a {BLACK_UNIVERSITY.name}
+        </h2>
+        <div class="mt-5 space-y-4 leading-relaxed text-slate-400">
+          <p>
+            Durante años, {BLACK_UNIVERSITY.formerName} fue el beneficio estrella que acompañaba a
+            miles de cursos digitales en Hispanoamérica: una biblioteca gigante de seminarios y
+            talleres en español para seguir aprendiendo sin límites.
+          </p>
+          <p>
+            Ese proyecto evolucionó y hoy se llama <strong class="text-white">{BLACK_UNIVERSITY.name}</strong>:
+            la misma esencia, con más contenido, mejor plataforma y una comunidad activa de
+            estudiantes en toda Hispanoamérica.
+          </p>
+          <p>
+            En {SITE.name} lo incluimos como beneficio con la compra de cualquiera de nuestros
+            cursos de belleza: te llevas tu formación profesional principal <em>y</em> una
+            biblioteca completa para crecer en negocios, marketing, finanzas y mucho más.
+          </p>
+        </div>
+
+        <div class="mt-8 rounded-2xl border border-white/10 bg-panel p-6">
+          <h3 class="font-bold text-white">¿Cómo se activa?</h3>
+          <ol class="mt-4 space-y-3 text-sm text-slate-400">
+            <li class="flex gap-3"><span class="font-black text-gold-soft">1.</span> Compra cualquier curso de {SITE.name} a través de Hotmart.</li>
+            <li class="flex gap-3"><span class="font-black text-gold-soft">2.</span> Revisa el correo de bienvenida con tus accesos al curso.</li>
+            <li class="flex gap-3"><span class="font-black text-gold-soft">3.</span> Sigue las instrucciones de activación de {BLACK_UNIVERSITY.name} incluidas en tu área de miembros.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+          Áreas de aprendizaje
+        </h2>
+        <p class="mt-3 text-slate-400">
+          Una membresía pensada para que nunca dejes de aprender:
+        </p>
+        <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {areas.map(([emoji, label]) => (
+            <li class="flex items-center gap-3 rounded-xl border border-white/10 bg-panel px-4 py-3.5 text-sm font-semibold text-slate-200">
+              <span class="text-xl" aria-hidden="true">{emoji}</span>
+              {label}
+            </li>
+          ))}
+        </ul>
+
+        <div class="mt-8 space-y-3">
+          <FaqItem question="¿Black University® tiene costo adicional?">
+            No. Se incluye como beneficio con la compra de cualquier curso de {SITE.name}, siguiendo
+            las condiciones de activación indicadas al momento de tu compra.
+          </FaqItem>
+          <FaqItem question="¿En qué idioma está el contenido?">
+            Todo el contenido de la membresía está en español, creado para la comunidad
+            hispanohablante.
+          </FaqItem>
+          <FaqItem question="¿Quién está detrás de Black University®?">
+            {BLACK_UNIVERSITY.name} es la evolución de {BLACK_UNIVERSITY.formerName}, uno de los
+            proyectos de educación digital más grandes de habla hispana. {SITE.name} actúa como
+            afiliado autorizado que incluye este beneficio con sus cursos.
+          </FaqItem>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,19 @@
+{
+  // Despliegue del front estático como Cloudflare Worker con assets.
+  // Deploy local:   CLOUDFLARE_API_TOKEN=<token> npm run build && npx wrangler deploy
+  // Deploy en CI:   ver .github/workflows/deploy.yml (secreto CLOUDFLARE_API_TOKEN)
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sably-co",
+  "compatibility_date": "2026-08-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  "workers_dev": true,
+  // Dominio propio: requiere que la zona sably.co exista en la cuenta de Cloudflare.
+  // Si el deploy falla adjuntando el dominio, elimina temporalmente este bloque.
+  "routes": [
+    { "pattern": "sably.co", "custom_domain": true },
+    { "pattern": "www.sably.co", "custom_domain": true }
+  ]
+}

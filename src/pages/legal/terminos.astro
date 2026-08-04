@@ -1,0 +1,92 @@
+---
+import Legal from '../../layouts/Legal.astro';
+import { SITE, BLACK_UNIVERSITY, GUARANTEE_DAYS } from '../../data/site';
+---
+
+<Legal
+  title={`Términos y condiciones | ${SITE.name}`}
+  description={`Términos y condiciones de uso del sitio ${SITE.domain} y de la compra de cursos online promocionados por ${SITE.name}.`}
+>
+  <Fragment slot="heading">Términos y condiciones</Fragment>
+
+  <p>
+    Bienvenido a <strong>{SITE.name}</strong> ({SITE.url}), plataforma operada por
+    <strong>{SITE.legalName}</strong>. Al navegar este sitio o comprar a través de los enlaces aquí
+    publicados, aceptas los siguientes términos y condiciones. Si no estás de acuerdo, por favor no
+    utilices el sitio.
+  </p>
+
+  <h2>1. Objeto del sitio</h2>
+  <p>
+    {SITE.name} es una plataforma de difusión y venta de cursos 100% online de belleza y otras
+    áreas. Actuamos como <strong>afiliados autorizados</strong> de productos digitales publicados
+    en <strong>Hotmart</strong>, plataforma internacional que procesa los pagos, entrega el acceso al
+    contenido y gestiona la facturación de cada compra.
+  </p>
+
+  <h2>2. Proceso de compra</h2>
+  <ul>
+    <li>Los precios se publican en pesos colombianos (COP) salvo que se indique otra moneda, e incluyen los impuestos aplicables mostrados en el checkout de Hotmart.</li>
+    <li>Al hacer clic en "Inscribirme" serás dirigido al checkout seguro de Hotmart, donde se realiza la transacción bajo sus <a href="https://hotmart.com/es/legal" rel="noopener nofollow" target="_blank">términos de uso</a>.</li>
+    <li>El acceso al curso se entrega por correo electrónico de forma inmediata tras la confirmación del pago.</li>
+    <li>Los precios promocionales pueden cambiar sin previo aviso; el precio válido es el mostrado en el checkout al momento del pago.</li>
+  </ul>
+
+  <h2>3. Acceso y uso de los cursos</h2>
+  <ul>
+    <li>El acceso a los cursos es personal e intransferible.</li>
+    <li>Está prohibido compartir, revender, descargar masivamente o redistribuir el contenido de los cursos, cuyo titular es el productor de cada programa.</li>
+    <li>El acceso es "de por vida", entendido como la vigencia del producto en la plataforma del productor en Hotmart.</li>
+  </ul>
+
+  <h2>4. Beneficio {BLACK_UNIVERSITY.name}</h2>
+  <p>
+    La membresía {BLACK_UNIVERSITY.name} (antes {BLACK_UNIVERSITY.formerName}) se incluye como
+    beneficio promocional con la compra de los cursos anunciados en este sitio, conforme a las
+    condiciones de activación informadas en el área de miembros tras la compra. Este beneficio es
+    provisto por su titular y puede estar sujeto a sus propios términos de uso.
+  </p>
+
+  <h2>5. Certificados</h2>
+  <p>
+    Los cursos entregan certificado digital de finalización emitido a través de la plataforma del
+    curso. Se trata de certificados de educación informal, que no conducen a título académico ni
+    equivalen a educación formal o educación para el trabajo regulada.
+  </p>
+
+  <h2>6. Garantía y reembolsos</h2>
+  <p>
+    Todas las compras cuentan con una garantía de satisfacción de {GUARANTEE_DAYS} días gestionada
+    por Hotmart, además de los derechos que la ley colombiana otorga al consumidor. Consulta el
+    detalle en nuestra <a href="/legal/reembolsos">política de reembolsos</a>.
+  </p>
+
+  <h2>7. Propiedad intelectual</h2>
+  <p>
+    Los contenidos de este sitio (textos, diseño, logos de {SITE.name}) pertenecen
+    a {SITE.legalName}. Las marcas Hotmart®, {BLACK_UNIVERSITY.name} y {BLACK_UNIVERSITY.formerName} pertenecen
+    a sus respectivos titulares y se usan únicamente con fines descriptivos de los
+    productos y beneficios promocionados.
+  </p>
+
+  <h2>8. Limitación de responsabilidad</h2>
+  <p>
+    Los resultados de aprendizaje dependen de la dedicación de cada estudiante; no garantizamos
+    resultados económicos ni laborales específicos. {SITE.name} no es responsable por
+    indisponibilidades técnicas de plataformas de terceros (Hotmart o el área de miembros del
+    productor), aunque gestionaremos contigo cualquier inconveniente para que se resuelva.
+  </p>
+
+  <h2>9. Legislación aplicable</h2>
+  <p>
+    Estos términos se rigen por las leyes de la República de Colombia, incluyendo el Estatuto del
+    Consumidor (Ley 1480 de 2011). Cualquier controversia se someterá a los jueces competentes de
+    Colombia, sin perjuicio de los mecanismos de protección al consumidor disponibles.
+  </p>
+
+  <h2>10. Contacto</h2>
+  <p>
+    Para cualquier consulta sobre estos términos escríbenos
+    a <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+  </p>
+</Legal>

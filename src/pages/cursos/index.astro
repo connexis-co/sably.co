@@ -1,0 +1,87 @@
+---
+import Base from '../../layouts/Base.astro';
+import CourseCard from '../../components/CourseCard.astro';
+import { COURSES, CATEGORIES } from '../../data/courses';
+import { SITE } from '../../data/site';
+---
+
+<Base
+  title={`Catálogo de cursos de belleza online | ${SITE.name}`}
+  description={`Explora los ${COURSES.length} cursos de belleza de ${SITE.name}: maquillaje, uñas, peluquería, cejas y pestañas y estética. 100% online, con certificado y acceso de por vida.`}
+>
+  <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <div class="max-w-2xl">
+      <h1 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+        Catálogo de cursos
+      </h1>
+      <p class="mt-3 text-slate-400">
+        Todos los cursos son 100% online, con certificado digital, acceso de por vida y la membresía
+        Black University® incluida. Pago seguro a través de Hotmart.
+      </p>
+    </div>
+
+    <div class="mt-8 flex flex-wrap gap-2" role="group" aria-label="Filtrar por categoría">
+      <button
+        type="button"
+        data-filter="todos"
+        class="filter-btn rounded-full border border-brand bg-brand px-4 py-2 text-sm font-bold text-ink transition"
+      >
+        Todos
+      </button>
+      {CATEGORIES.map((cat) => (
+        <button
+          type="button"
+          data-filter={cat.slug}
+          class="filter-btn rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-brand/60 hover:text-brand"
+        >
+          {cat.emoji} {cat.name}
+        </button>
+      ))}
+    </div>
+
+    <div id="courses-grid" class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {COURSES.map((course) => <CourseCard course={course} />)}
+    </div>
+
+    <p id="no-results" class="mt-10 hidden rounded-xl border border-white/10 bg-panel px-6 py-8 text-center text-slate-400">
+      No hay cursos en esta categoría por ahora.
+    </p>
+  </section>
+</Base>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const cards = document.querySelectorAll<HTMLElement>('.course-card');
+  const empty = document.getElementById('no-results');
+
+  const activeClasses = ['border-brand', 'bg-brand', 'text-ink', 'font-bold'];
+  const inactiveClasses = ['border-white/15', 'text-slate-300', 'font-semibold'];
+
+  function applyFilter(filter: string) {
+    let visible = 0;
+    cards.forEach((card) => {
+      const show = filter === 'todos' || card.dataset.category === filter;
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    empty?.classList.toggle('hidden', visible > 0);
+
+    buttons.forEach((btn) => {
+      const isActive = btn.dataset.filter === filter;
+      activeClasses.forEach((c) => btn.classList.toggle(c, isActive));
+      inactiveClasses.forEach((c) => btn.classList.toggle(c, !isActive));
+    });
+  }
+
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter ?? 'todos';
+      history.replaceState(null, '', filter === 'todos' ? '/cursos' : `/cursos#${filter}`);
+      applyFilter(filter);
+    })
+  );
+
+  // Permite enlazar directo a una categoría: /cursos#unas
+  const hash = location.hash.replace('#', '');
+  if (hash && [...buttons].some((b) => b.dataset.filter === hash)) applyFilter(hash);
+</script>

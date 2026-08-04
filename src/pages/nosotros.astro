@@ -1,0 +1,78 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, BLACK_UNIVERSITY } from '../data/site';
+
+const values = [
+  {
+    emoji: '🎯',
+    title: 'Formación práctica',
+    text: 'Seleccionamos cursos con técnica real y aplicable: lo que aprendes hoy lo puedes cobrar mañana.',
+  },
+  {
+    emoji: '🤝',
+    title: 'Transparencia',
+    text: 'Precios claros, garantía visible y pagos procesados por Hotmart, una plataforma internacional de confianza.',
+  },
+  {
+    emoji: '🚀',
+    title: 'Crecimiento sin límites',
+    text: `No vendemos un curso: entregamos una ruta. Cada compra incluye ${BLACK_UNIVERSITY.name} para que sigas aprendiendo.`,
+  },
+];
+---
+
+<Base
+  title={`Nosotros | ${SITE.name}`}
+  description={`${SITE.name} es la plataforma de ${SITE.legalName} para aprender belleza de forma online, con certificado, acceso de por vida y la membresía Black University® incluida.`}
+>
+  <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+      Hacemos que aprender belleza sea <span class="text-brand">simple, serio y accesible</span>
+    </h1>
+
+    <div class="mt-8 space-y-5 leading-relaxed text-slate-400">
+      <p>
+        <strong class="text-white">{SITE.name}</strong> es una plataforma de educación online
+        operada por <strong class="text-white">{SITE.legalName}</strong>, enfocada en formación
+        profesional de belleza: maquillaje, uñas, cabello, cejas y pestañas y estética.
+      </p>
+      <p>
+        Creemos en un modelo honesto: seleccionamos y promocionamos, como afiliados autorizados,
+        cursos digitales de alta calidad publicados en <strong class="text-white">Hotmart</strong> —
+        la plataforma de productos digitales líder en Latinoamérica —, de forma que tu pago, tu
+        acceso, tu certificado y tu garantía quedan siempre respaldados por una infraestructura
+        internacional.
+      </p>
+      <p>
+        Además, cada compra incluye la
+        membresía <strong class="text-white">{BLACK_UNIVERSITY.name}</strong> (evolución
+        de {BLACK_UNIVERSITY.formerName}), con más de {BLACK_UNIVERSITY.coursesCount} cursos de
+        múltiples áreas, porque estamos convencidos de que una carrera se construye aprendiendo
+        siempre.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-6 md:grid-cols-3">
+      {values.map((v) => (
+        <div class="rounded-2xl border border-white/10 bg-panel p-6">
+          <span class="text-3xl" aria-hidden="true">{v.emoji}</span>
+          <h2 class="mt-3 font-bold text-white">{v.title}</h2>
+          <p class="mt-2 text-sm leading-relaxed text-slate-400">{v.text}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-12 rounded-2xl border border-brand/25 bg-gradient-to-br from-brand/10 to-panel p-8 text-center">
+      <h2 class="text-2xl font-extrabold text-white">¿Hablamos?</h2>
+      <p class="mx-auto mt-2 max-w-md text-slate-400">
+        Si tienes dudas sobre un curso o tu compra, escríbenos y te ayudamos.
+      </p>
+      <a
+        href="/contacto"
+        class="mt-6 inline-block rounded-xl bg-brand px-8 py-3.5 font-bold text-ink transition hover:bg-brand-strong"
+      >
+        Ir a contacto
+      </a>
+    </div>
+  </section>
+</Base>

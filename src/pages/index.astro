@@ -1,0 +1,302 @@
+---
+import Base from '../layouts/Base.astro';
+import CourseCard from '../components/CourseCard.astro';
+import FaqItem from '../components/FaqItem.astro';
+import { COURSES, CATEGORIES } from '../data/courses';
+import { SITE, BLACK_UNIVERSITY, GUARANTEE_DAYS } from '../data/site';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: SITE.name,
+    url: SITE.url,
+    email: SITE.email,
+    description: SITE.description,
+    logo: new URL('/favicon.svg', SITE.url).href,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE.name,
+    url: SITE.url,
+    inLanguage: 'es-CO',
+  },
+];
+
+const steps = [
+  {
+    n: '01',
+    title: 'Elige tu curso',
+    text: 'Explora el catálogo y encuentra la especialidad de belleza que quieres dominar.',
+  },
+  {
+    n: '02',
+    title: 'Paga seguro con Hotmart',
+    text: 'El pago se procesa en Hotmart con tarjeta, PSE y otros medios locales. Recibes factura y soporte de una plataforma internacional.',
+  },
+  {
+    n: '03',
+    title: 'Aprende y certifícate',
+    text: `Acceso inmediato y de por vida, certificado digital al finalizar y tu membresía ${BLACK_UNIVERSITY.name} de regalo.`,
+  },
+];
+
+const perks = [
+  {
+    emoji: '🎓',
+    title: 'Certificado digital',
+    text: 'Al completar tu curso obtienes un certificado digital para respaldar tu perfil profesional.',
+  },
+  {
+    emoji: '♾️',
+    title: 'Acceso de por vida',
+    text: 'Compra una vez y repasa las clases cuando quieras, sin mensualidades ni vencimientos.',
+  },
+  {
+    emoji: '🖤',
+    title: `${BLACK_UNIVERSITY.name} incluida`,
+    text: `Cada curso incluye la membresía con más de ${BLACK_UNIVERSITY.coursesCount} cursos (antes ${BLACK_UNIVERSITY.formerName}).`,
+  },
+  {
+    emoji: '📱',
+    title: 'Aprende desde cualquier lugar',
+    text: 'Clases en video disponibles 24/7 desde tu celular, tablet o computador.',
+  },
+  {
+    emoji: '🛡️',
+    title: `Garantía de ${GUARANTEE_DAYS} días`,
+    text: 'Si el curso no es para ti, solicita tu reembolso dentro del periodo de garantía directamente en Hotmart.',
+  },
+  {
+    emoji: '💬',
+    title: 'Acompañamiento',
+    text: 'Resuelve tus dudas con el soporte del curso y nuestra comunidad de estudiantes.',
+  },
+];
+---
+
+<Base jsonLd={jsonLd}>
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+      <div class="absolute -top-40 left-1/2 h-96 w-[52rem] -translate-x-1/2 rounded-full bg-brand/10 blur-3xl"></div>
+      <div class="absolute top-40 -right-40 h-80 w-80 rounded-full bg-fuchsia-500/10 blur-3xl"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 pt-16 pb-14 sm:px-6 sm:pt-24 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="inline-flex items-center gap-2 rounded-full border border-brand/30 bg-brand/10 px-4 py-1.5 text-xs font-semibold text-brand sm:text-sm">
+          <span class="size-1.5 rounded-full bg-brand" aria-hidden="true"></span>
+          Cursos 100% online · Certificado digital · Pago seguro con Hotmart
+        </p>
+        <h1 class="mt-6 text-4xl leading-tight font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Convierte tu pasión por la belleza en tu <span class="text-brand">profesión</span>
+        </h1>
+        <p class="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
+          Maquillaje, uñas, cabello, cejas y pestañas, estética. Aprende a tu ritmo con clases en
+          video, obtén tu certificado y llévate la membresía {BLACK_UNIVERSITY.name} con más
+          de {BLACK_UNIVERSITY.coursesCount} cursos incluida en tu compra.
+        </p>
+        <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <a
+            href="/cursos"
+            class="w-full rounded-xl bg-brand px-8 py-3.5 text-center text-base font-bold text-ink shadow-lg shadow-brand/20 transition hover:bg-brand-strong sm:w-auto"
+          >
+            Explorar cursos
+          </a>
+          <a
+            href="/black-university"
+            class="w-full rounded-xl border border-white/15 px-8 py-3.5 text-center text-base font-semibold text-white transition hover:border-white/30 hover:bg-white/5 sm:w-auto"
+          >
+            Conocer Black University®
+          </a>
+        </div>
+      </div>
+
+      <dl class="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 text-center lg:grid-cols-4">
+        {[
+          ['100%', 'Online y a tu ritmo'],
+          [`+${BLACK_UNIVERSITY.coursesCount}`, `Cursos con ${BLACK_UNIVERSITY.name}`],
+          ['∞', 'Acceso de por vida'],
+          [`${GUARANTEE_DAYS} días`, 'Garantía de reembolso'],
+        ].map(([value, label]) => (
+          <div class="bg-ink-soft px-4 py-6">
+            <dt class="text-2xl font-extrabold text-brand">{value}</dt>
+            <dd class="mt-1 text-xs font-medium text-slate-400">{label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <!-- CATEGORÍAS -->
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-wrap items-center justify-center gap-3">
+      {CATEGORIES.map((cat) => (
+        <a
+          href={`/cursos#${cat.slug}`}
+          class="flex items-center gap-2 rounded-full border border-white/10 bg-panel px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-brand/50 hover:text-brand"
+        >
+          <span aria-hidden="true">{cat.emoji}</span>
+          {cat.name}
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- CURSOS -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8" id="cursos">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h2 class="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+          Cursos profesionales de belleza
+        </h2>
+        <p class="mt-2 max-w-2xl text-slate-400">
+          Programas desde cero, con temario completo, certificado y acceso de por vida.
+        </p>
+      </div>
+      <a href="/cursos" class="text-sm font-bold text-brand underline-offset-4 hover:underline">
+        Ver catálogo completo →
+      </a>
+    </div>
+
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {COURSES.slice(0, 8).map((course) => <CourseCard course={course} />)}
+    </div>
+  </section>
+
+  <!-- BLACK UNIVERSITY -->
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="relative overflow-hidden rounded-3xl border border-gold/25 bg-gradient-to-br from-[#131313] via-[#0c0c0f] to-[#1a1503] px-6 py-12 sm:px-12 sm:py-16">
+      <div class="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full bg-gold/10 blur-3xl" aria-hidden="true"></div>
+      <div class="relative grid items-center gap-10 lg:grid-cols-2">
+        <div>
+          <p class="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-xs font-bold tracking-wide text-gold-soft uppercase">
+            🖤 Beneficio incluido en cada curso
+          </p>
+          <h2 class="mt-5 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+            {BLACK_UNIVERSITY.name}
+            <span class="mt-1 block bg-gradient-to-r from-gold-soft to-gold bg-clip-text text-transparent">
+              +{BLACK_UNIVERSITY.coursesCount} cursos para seguir creciendo
+            </span>
+          </h2>
+          <p class="mt-5 max-w-xl leading-relaxed text-slate-400">
+            {BLACK_UNIVERSITY.description} Lo que antes conocías
+            como {BLACK_UNIVERSITY.formerName} evolucionó: misma esencia, mucho más contenido.
+          </p>
+          <a
+            href="/black-university"
+            class="mt-8 inline-block rounded-xl bg-gradient-to-r from-gold-soft to-gold px-8 py-3.5 text-base font-bold text-black transition hover:opacity-90"
+          >
+            Descubre el beneficio
+          </a>
+        </div>
+        <ul class="grid gap-3 text-sm">
+          {[
+            ['📚', `Biblioteca con más de ${BLACK_UNIVERSITY.coursesCount} cursos, talleres y seminarios en español`],
+            ['🚀', 'Marketing, emprendimiento, finanzas, oficios y desarrollo personal'],
+            ['🎁', 'Se activa con la compra de cualquier curso de Sably'],
+            ['🔄', 'Contenido que se actualiza constantemente'],
+          ].map(([emoji, text]) => (
+            <li class="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5">
+              <span class="text-lg" aria-hidden="true">{emoji}</span>
+              <span class="text-slate-300">{text}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO FUNCIONA -->
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <h2 class="text-center text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+      Empieza en 3 pasos
+    </h2>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      {steps.map((s) => (
+        <div class="relative rounded-2xl border border-white/10 bg-panel p-6">
+          <span class="text-4xl font-black text-brand/20">{s.n}</span>
+          <h3 class="mt-3 text-lg font-bold text-white">{s.title}</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-400">{s.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- BENEFICIOS -->
+  <section class="border-y border-white/5 bg-ink-soft">
+    <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <h2 class="text-center text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+        ¿Por qué estudiar en {SITE.name}?
+      </h2>
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {perks.map((p) => (
+          <div class="rounded-2xl border border-white/10 bg-panel p-6 transition hover:border-brand/40">
+            <span class="text-3xl" aria-hidden="true">{p.emoji}</span>
+            <h3 class="mt-3 font-bold text-white">{p.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-400">{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <h2 class="text-center text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+      Preguntas frecuentes
+    </h2>
+    <div class="mt-8 space-y-3">
+      <FaqItem question="¿Cómo accedo a mi curso después de comprar?">
+        El pago se procesa a través de Hotmart. Al confirmarse, recibes de inmediato un correo con
+        tus datos de acceso al área de miembros, donde encontrarás todas las clases del curso y la
+        activación de tu membresía {BLACK_UNIVERSITY.name}.
+      </FaqItem>
+      <FaqItem question="¿Qué medios de pago puedo usar?">
+        Hotmart acepta tarjetas de crédito y débito, PSE y otros medios de pago locales según tu
+        país. El pago es 100% seguro y recibes comprobante de la transacción.
+      </FaqItem>
+      <FaqItem question="¿Los cursos tienen certificado?">
+        Sí. Al completar las clases obtienes un certificado digital emitido a través de la
+        plataforma del curso, que puedes descargar y compartir en tu hoja de vida o redes
+        profesionales.
+      </FaqItem>
+      <FaqItem question="¿Qué es Black University® y cómo la obtengo?">
+        Es la membresía educativa (evolución de {BLACK_UNIVERSITY.formerName}) con más
+        de {BLACK_UNIVERSITY.coursesCount} cursos de múltiples áreas. Se incluye como beneficio al
+        comprar cualquiera de nuestros cursos, siguiendo las instrucciones que llegan con tu compra.
+      </FaqItem>
+      <FaqItem question="¿Puedo pedir un reembolso?">
+        Sí. Todos los cursos cuentan con garantía de {GUARANTEE_DAYS} días: si el contenido no es lo
+        que esperabas, solicita el reembolso directamente en Hotmart dentro de ese plazo y te
+        devuelven el 100% de tu dinero. Consulta los detalles en
+        nuestra <a href="/legal/reembolsos" class="text-brand underline-offset-4 hover:underline">política de reembolsos</a>.
+      </FaqItem>
+      <FaqItem question="¿Los cursos tienen fecha de vencimiento?">
+        No. El acceso a tu curso es de por vida: puedes verlo a tu ritmo y repasarlo las veces que
+        necesites, desde cualquier dispositivo.
+      </FaqItem>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+    <div class="relative overflow-hidden rounded-3xl border border-brand/25 bg-gradient-to-br from-brand/15 via-panel to-panel px-6 py-14 text-center sm:px-12">
+      <h2 class="mx-auto max-w-2xl text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+        Tu carrera en la belleza empieza <span class="text-brand">hoy</span>
+      </h2>
+      <p class="mx-auto mt-4 max-w-xl text-slate-400">
+        Elige tu curso, aprende a tu ritmo y certifícate. Con la garantía de {GUARANTEE_DAYS} días,
+        el riesgo es cero.
+      </p>
+      <a
+        href="/cursos"
+        class="mt-8 inline-block rounded-xl bg-brand px-10 py-4 text-base font-bold text-ink shadow-lg shadow-brand/20 transition hover:bg-brand-strong"
+      >
+        Ver todos los cursos
+      </a>
+    </div>
+  </section>
+</Base>

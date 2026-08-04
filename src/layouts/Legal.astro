@@ -1,0 +1,27 @@
+---
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  updated?: string;
+}
+
+const { title, description, updated = '4 de agosto de 2026' } = Astro.props;
+---
+
+<Base title={title} description={description}>
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <p class="text-xs font-semibold tracking-wide text-brand uppercase">Legal</p>
+    <h1 class="mt-2 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+      <slot name="heading" />
+    </h1>
+    <p class="mt-2 text-sm text-slate-500">Última actualización: {updated}</p>
+
+    <div
+      class="legal-body mt-8 space-y-4 text-[0.95rem] leading-relaxed text-slate-400 [&_a]:text-brand [&_a]:underline-offset-4 hover:[&_a]:underline [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-extrabold [&_h2]:text-white [&_h3]:mt-5 [&_h3]:font-bold [&_h3]:text-white [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-slate-200"
+    >
+      <slot />
+    </div>
+  </section>
+</Base>

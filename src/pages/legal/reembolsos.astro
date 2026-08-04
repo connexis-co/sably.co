@@ -1,0 +1,57 @@
+---
+import Legal from '../../layouts/Legal.astro';
+import { SITE, GUARANTEE_DAYS } from '../../data/site';
+---
+
+<Legal
+  title={`Política de reembolsos | ${SITE.name}`}
+  description={`Garantía de satisfacción de ${GUARANTEE_DAYS} días y derecho de retracto para los cursos online promocionados por ${SITE.name}. Reembolso del 100% gestionado por Hotmart.`}
+>
+  <Fragment slot="heading">Política de garantía y reembolsos</Fragment>
+
+  <p>
+    Queremos que compres con total tranquilidad. Por eso, todos los cursos promocionados
+    en <strong>{SITE.name}</strong> cuentan con garantía de reembolso, gestionada directamente
+    por <strong>Hotmart</strong>, la plataforma que procesa los pagos.
+  </p>
+
+  <h2>1. Garantía de satisfacción de {GUARANTEE_DAYS} días</h2>
+  <ul>
+    <li>Dispones de <strong>{GUARANTEE_DAYS} días calendario</strong> contados desde la compra para solicitar el reembolso del 100% de tu dinero si el curso no cumple tus expectativas.</li>
+    <li>No necesitas justificar tu decisión.</li>
+    <li>El reembolso se procesa por el mismo medio de pago utilizado, en los tiempos que maneje tu banco o medio de pago.</li>
+  </ul>
+
+  <h2>2. ¿Cómo solicitar el reembolso?</h2>
+  <ol>
+    <li>Busca en tu correo el comprobante de compra enviado por Hotmart.</li>
+    <li>Abre el enlace de gestión de tu compra ("Solicitar reembolso") o ingresa al centro de ayuda de Hotmart (<a href="https://hotmart.com/es/support" rel="noopener nofollow" target="_blank">hotmart.com/es/support</a>) con el correo de compra.</li>
+    <li>Sigue los pasos indicados; recibirás confirmación por correo.</li>
+  </ol>
+  <p>
+    Si tienes dificultades con el proceso, escríbenos
+    a <a href={`mailto:${SITE.email}`}>{SITE.email}</a> con tu nombre y correo de compra, y te
+    guiaremos personalmente.
+  </p>
+
+  <h2>3. Derecho de retracto (Colombia)</h2>
+  <p>
+    Adicionalmente, conforme al artículo 47 de la Ley 1480 de 2011 (Estatuto del Consumidor),
+    tienes derecho de retracto dentro de los <strong>cinco (5) días hábiles</strong> siguientes a
+    la compra de productos adquiridos mediante métodos no tradicionales o a distancia, en los
+    términos y con las excepciones previstas por la ley. La garantía de {GUARANTEE_DAYS} días
+    descrita arriba cubre y amplía este plazo en la práctica.
+  </p>
+
+  <h2>4. Casos no cubiertos</h2>
+  <ul>
+    <li>Solicitudes presentadas después de vencido el periodo de garantía.</li>
+    <li>Compras realizadas fuera de los enlaces oficiales de este sitio, con terceros no autorizados.</li>
+  </ul>
+
+  <h2>5. Beneficios promocionales</h2>
+  <p>
+    Al procesarse un reembolso se desactivan el acceso al curso y los beneficios promocionales
+    asociados a la compra (incluida la membresía Black University®).
+  </p>
+</Legal>

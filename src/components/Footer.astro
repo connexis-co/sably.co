@@ -1,0 +1,73 @@
+---
+import { SITE, BLACK_UNIVERSITY } from '../data/site';
+import { COURSES } from '../data/courses';
+
+const year = new Date().getFullYear();
+const popular = COURSES.slice(0, 4);
+---
+
+<footer class="border-t border-white/5 bg-ink-soft">
+  <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <a href="/" class="flex items-center gap-2 text-xl font-extrabold tracking-tight text-white">
+          <span class="grid size-8 place-items-center rounded-lg bg-brand text-sm font-black text-ink">S</span>
+          sably<span class="text-brand">.</span>
+        </a>
+        <p class="mt-4 max-w-xs text-sm leading-relaxed text-slate-400">
+          Cursos online de belleza con certificado digital, acceso de por vida y la membresía {BLACK_UNIVERSITY.name} incluida en cada compra.
+        </p>
+        <p class="mt-4 text-sm text-slate-400">
+          <a href={`mailto:${SITE.email}`} class="text-slate-300 underline-offset-4 hover:text-brand hover:underline">{SITE.email}</a>
+          <br />{SITE.country}
+        </p>
+      </div>
+
+      <nav aria-label="Cursos populares">
+        <h3 class="text-sm font-bold tracking-wide text-white uppercase">Cursos</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {popular.map((c) => (
+            <li>
+              <a href={`/cursos/${c.slug}`} class="text-slate-400 transition hover:text-brand">{c.cardTitle}</a>
+            </li>
+          ))}
+          <li>
+            <a href="/cursos" class="font-semibold text-slate-300 transition hover:text-brand">Ver todos los cursos →</a>
+          </li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Plataforma">
+        <h3 class="text-sm font-bold tracking-wide text-white uppercase">Plataforma</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li><a href="/black-university" class="text-slate-400 transition hover:text-brand">Black University®</a></li>
+          <li><a href="/nosotros" class="text-slate-400 transition hover:text-brand">Nosotros</a></li>
+          <li><a href="/contacto" class="text-slate-400 transition hover:text-brand">Contacto</a></li>
+          <li><a href="/legal/reembolsos" class="text-slate-400 transition hover:text-brand">Garantía y reembolsos</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Legal">
+        <h3 class="text-sm font-bold tracking-wide text-white uppercase">Legal</h3>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li><a href="/legal/terminos" class="text-slate-400 transition hover:text-brand">Términos y condiciones</a></li>
+          <li><a href="/legal/privacidad" class="text-slate-400 transition hover:text-brand">Política de privacidad</a></li>
+          <li><a href="/legal/reembolsos" class="text-slate-400 transition hover:text-brand">Política de reembolsos</a></li>
+          <li><a href="/legal/cookies" class="text-slate-400 transition hover:text-brand">Política de cookies</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="mt-12 border-t border-white/5 pt-8 text-xs leading-relaxed text-slate-500">
+      <p>
+        © {year} {SITE.name} · Una plataforma de {SITE.legalName}. Todos los derechos reservados.
+      </p>
+      <p class="mt-2 max-w-3xl">
+        Los cursos se comercializan y entregan a través de Hotmart, plataforma internacional de
+        productos digitales que procesa los pagos de forma segura.
+        Hotmart®, {BLACK_UNIVERSITY.name} y {BLACK_UNIVERSITY.formerName} son marcas de sus respectivos titulares.
+        {SITE.name} actúa como afiliado autorizado de los productos que promociona.
+      </p>
+    </div>
+  </div>
+</footer>

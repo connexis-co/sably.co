@@ -1,0 +1,46 @@
+---
+import Legal from '../../layouts/Legal.astro';
+import { SITE } from '../../data/site';
+---
+
+<Legal
+  title={`Política de cookies | ${SITE.name}`}
+  description={`Información sobre las cookies y tecnologías similares que utiliza ${SITE.domain} para funcionar, medir el uso del sitio y optimizar campañas publicitarias.`}
+>
+  <Fragment slot="heading">Política de cookies</Fragment>
+
+  <p>
+    Este sitio utiliza cookies y tecnologías similares para funcionar correctamente, entender cómo
+    se usa y mejorar nuestras campañas de difusión. Esta política explica qué son, cuáles usamos y
+    cómo puedes controlarlas.
+  </p>
+
+  <h2>1. ¿Qué son las cookies?</h2>
+  <p>
+    Son pequeños archivos que el navegador guarda en tu dispositivo cuando visitas un sitio web.
+    Sirven para recordar preferencias, medir visitas o personalizar anuncios.
+  </p>
+
+  <h2>2. Cookies que puede usar este sitio</h2>
+  <ul>
+    <li><strong>Técnicas o esenciales:</strong> necesarias para que el sitio funcione (por ejemplo, las que usa nuestra infraestructura de entrega de contenido, como Cloudflare, por seguridad y rendimiento).</li>
+    <li><strong>Analíticas:</strong> nos ayudan a entender qué páginas se visitan más para mejorar el contenido.</li>
+    <li><strong>Publicitarias:</strong> píxeles de plataformas como Meta (Facebook e Instagram), que permiten medir la efectividad de nuestros anuncios y mostrarte publicidad relevante.</li>
+    <li><strong>De terceros en el checkout:</strong> al continuar tu compra en Hotmart, dicha plataforma puede usar sus propias cookies bajo sus políticas.</li>
+  </ul>
+
+  <h2>3. ¿Cómo controlarlas?</h2>
+  <p>
+    Puedes eliminar o bloquear las cookies desde la configuración de tu navegador (Chrome, Safari,
+    Firefox, Edge). Ten en cuenta que bloquear cookies esenciales puede afectar el funcionamiento
+    del sitio. También puedes gestionar tus preferencias publicitarias directamente en las
+    plataformas correspondientes (por ejemplo, en la configuración de anuncios de Meta).
+  </p>
+
+  <h2>4. Más información</h2>
+  <p>
+    El tratamiento de datos asociado a estas tecnologías se describe en
+    nuestra <a href="/legal/privacidad">política de privacidad</a>. Si tienes dudas, escríbenos
+    a <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.
+  </p>
+</Legal>

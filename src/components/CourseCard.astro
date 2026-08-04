@@ -1,0 +1,60 @@
+---
+import type { Course } from '../data/courses';
+import { formatCOP } from '../data/courses';
+
+interface Props {
+  course: Course;
+}
+
+const { course } = Astro.props;
+const discount = Math.round((1 - course.price / course.fullPrice) * 100);
+const totalLessons = course.curriculum.reduce((acc, m) => acc + m.lessons, 0);
+---
+
+<a
+  href={`/cursos/${course.slug}`}
+  data-category={course.categorySlug}
+  class="group course-card flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-panel transition duration-300 hover:-translate-y-1 hover:border-brand/50 hover:shadow-2xl hover:shadow-brand/5"
+>
+  <div class:list={['relative grid aspect-[16/9] place-items-center overflow-hidden bg-gradient-to-br', course.gradient]}>
+    <div
+      class="absolute inset-0 opacity-40 transition-opacity duration-300 group-hover:opacity-60"
+      style={`background: radial-gradient(circle at 50% 60%, ${course.glow}33 0%, transparent 65%)`}
+    >
+    </div>
+    <span class="relative text-6xl drop-shadow-lg transition-transform duration-300 group-hover:scale-110" aria-hidden="true">
+      {course.emoji}
+    </span>
+    <span class="absolute top-3 left-3 rounded-full border border-white/15 bg-ink/70 px-2.5 py-1 text-[11px] font-semibold text-slate-200 backdrop-blur">
+      {course.category}
+    </span>
+    <span class="absolute top-3 right-3 rounded-full bg-brand px-2.5 py-1 text-[11px] font-bold text-ink">
+      -{discount}%
+    </span>
+  </div>
+
+  <div class="flex flex-1 flex-col p-5">
+    <h3 class="text-lg font-bold text-white transition group-hover:text-brand">{course.cardTitle}</h3>
+    <p class="mt-2 line-clamp-2 flex-1 text-sm leading-relaxed text-slate-400">{course.excerpt}</p>
+
+    <div class="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500">
+      <span class="flex items-center gap-1.5">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+        {course.hours} horas
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10" /></svg>
+        {course.curriculum.length} módulos · {totalLessons} clases
+      </span>
+      <span class="flex items-center gap-1.5">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l2.5 5.5L20 9.5l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-1z" /></svg>
+        {course.level}
+      </span>
+    </div>
+
+    <div class="mt-4 flex items-baseline gap-2 border-t border-white/5 pt-4">
+      <span class="text-xl font-extrabold text-white">{formatCOP(course.price)}</span>
+      <span class="text-sm text-slate-500 line-through">{formatCOP(course.fullPrice)}</span>
+    </div>
+  </div>
+</a>

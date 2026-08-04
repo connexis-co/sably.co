@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@theme {
+  /* Identidad Sably: base navy profunda + verde lima (inspiración Platzi) */
+  --color-ink: #0b1120;
+  --color-ink-soft: #0e1628;
+  --color-panel: #111b30;
+  --color-panel-2: #16223c;
+  --color-brand: #a3e635;
+  --color-brand-strong: #84cc16;
+  --color-gold: #e8c05c;
+  --color-gold-soft: #f5d061;
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: #e2e8f0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: #0b1120;
+}
+
+/* Scrollbar sutil para el tema oscuro */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #24314e transparent;
+}
+
+details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .faq-icon {
+  transform: rotate(45deg);
+}
+.faq-icon {
+  transition: transform 0.2s ease;
+}
