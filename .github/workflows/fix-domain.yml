@@ -1,0 +1,64 @@
+name: Conectar dominio sably.co
+
+# One-off manual: libera los hostnames del apex y www (borra registros
+# A/AAAA/CNAME previos que bloquean el custom domain del Worker — los MX/TXT
+# de correo NO se tocan) y vuelve a desplegar para adjuntar el dominio.
+on:
+  workflow_dispatch:
+
+jobs:
+  fix-domain:
+    runs-on: ubuntu-latest
+    name: Liberar DNS y desplegar
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Build de Astro
+        run: npm run build
+
+      - name: Liberar hostnames sably.co y www.sably.co
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          api="https://api.cloudflare.com/client/v4"
+          auth=(-H "Authorization: Bearer $CF_TOKEN")
+
+          zone_id=$(curl -fsS "${auth[@]}" "$api/zones?name=sably.co" | jq -r '.result[0].id // empty')
+          if [ -z "$zone_id" ]; then
+            echo "::error::La zona sably.co no existe en esta cuenta de Cloudflare"
+            exit 1
+          fi
+          echo "Zona sably.co encontrada: $zone_id"
+
+          for name in sably.co www.sably.co; do
+            for type in A AAAA CNAME; do
+              records=$(curl -fsS "${auth[@]}" "$api/zones/$zone_id/dns_records?type=$type&name=$name&per_page=100" \
+                | jq -r '.result[]? | [.id,.type,.name,.content] | @tsv')
+              [ -z "$records" ] && continue
+              while IFS=$'\t' read -r id rtype rname rcontent; do
+                echo "Eliminando registro previo: $rtype $rname -> $rcontent"
+                curl -fsS -X DELETE "${auth[@]}" "$api/zones/$zone_id/dns_records/$id" > /dev/null || {
+                  echo "::error::No se pudo borrar $rtype $rname. ¿El token tiene permiso Zone → DNS → Edit sobre sably.co?"
+                  exit 1
+                }
+              done <<< "$records"
+            done
+          done
+          echo "Hostnames libres. El deploy adjuntará los dominios y creará los registros correctos."
+
+      - name: Deploy con Wrangler (adjunta sably.co y www.sably.co)
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy
