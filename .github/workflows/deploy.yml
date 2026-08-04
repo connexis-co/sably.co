@@ -31,6 +31,47 @@ jobs:
       - name: Build de Astro
         run: npm run build
 
+      # Libera sably.co y www.sably.co si aún no están adjuntados al Worker:
+      # borra solo sus registros A/AAAA/CNAME previos (los MX/TXT no se tocan)
+      # para que wrangler pueda crear el custom domain. Una vez adjuntados,
+      # este paso no borra nada en deploys futuros.
+      - name: Preparar dominios (sably.co / www)
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          api="https://api.cloudflare.com/client/v4"
+          auth=(-H "Authorization: Bearer $CF_TOKEN")
+
+          zone_id=$(curl -fsS "${auth[@]}" "$api/zones?name=sably.co" | jq -r '.result[0].id // empty')
+          if [ -z "$zone_id" ]; then
+            echo "::error::La zona sably.co no existe en esta cuenta de Cloudflare"
+            exit 1
+          fi
+          account_id=$(curl -fsS "${auth[@]}" "$api/zones/$zone_id" | jq -r '.result.account.id')
+          echo "Zona: $zone_id · Cuenta: $account_id"
+
+          for name in sably.co www.sably.co; do
+            attached=$(curl -fsS "${auth[@]}" "$api/accounts/$account_id/workers/domains?hostname=$name" \
+              | jq -r '.result[]? | .hostname' | head -1)
+            if [ -n "$attached" ]; then
+              echo "$name ya está adjuntado al Worker; no se toca."
+              continue
+            fi
+            for type in A AAAA CNAME; do
+              records=$(curl -fsS "${auth[@]}" "$api/zones/$zone_id/dns_records?type=$type&name=$name&per_page=100" \
+                | jq -r '.result[]? | [.id,.type,.name,.content] | @tsv')
+              [ -z "$records" ] && continue
+              while IFS=$'\t' read -r id rtype rname rcontent; do
+                echo "Eliminando registro previo: $rtype $rname -> $rcontent"
+                curl -fsS -X DELETE "${auth[@]}" "$api/zones/$zone_id/dns_records/$id" > /dev/null || {
+                  echo "::error::No se pudo borrar $rtype $rname. ¿El token tiene permiso Zone → DNS → Edit sobre sably.co?"
+                  exit 1
+                }
+              done <<< "$records"
+            done
+          done
+
       - name: Deploy con Wrangler
         uses: cloudflare/wrangler-action@v3
         with:
