@@ -1,5 +1,8 @@
 import { SITE } from './site';
 
+/** Código de afiliado Hotmart (PUBLIC_HOTMART_AFFILIATE). Se agrega a cada checkout. */
+const AFFILIATE = import.meta.env.PUBLIC_HOTMART_AFFILIATE ?? '';
+
 interface HotmartUrlParams {
   /** URL base del checkout Hotmart del curso (frontmatter `hotmartUrl`). */
   baseUrl: string;
@@ -28,6 +31,7 @@ export function buildHotmartUrl({
   url.searchParams.set('utm_medium', 'web');
   url.searchParams.set('utm_campaign', `course_${courseSlug}`);
   url.searchParams.set('utm_content', citySlug ?? countryCode);
+  if (AFFILIATE) url.searchParams.set('a', AFFILIATE);
   return url.toString();
 }
 

@@ -1,0 +1,32 @@
+{
+  "fecha": "2026-08-05",
+  "gsc": {
+    "propiedad": "sc-domain:sably.co",
+    "estado": "agregada; sitemap pendiente de envio manual (service account sin permiso de propietario)"
+  },
+  "ga4": {
+    "property": "properties/548757528",
+    "measurementId": "G-RZF4MSX5B7",
+    "keyEvents": [
+      "click_cta_hotmart",
+      "submit_lead_form",
+      "click_whatsapp"
+    ]
+  },
+  "meta_pixel": "1711030209407213",
+  "indexnow": {
+    "key": "60efb6327213c3f264d445b5357cb63d",
+    "enviadas": 91
+  },
+  "r2": {
+    "bucket": "sably-assets",
+    "cdn": "cdn.sably.co",
+    "objetos": 186,
+    "cache": "public, max-age=31536000, immutable"
+  },
+  "pendiente_jp": [
+    "Enviar sitemap en GSC (2 clicks)",
+    "Credenciales OAuth2 Hotmart para URLs reales",
+    "Codigo de afiliado en PUBLIC_HOTMART_AFFILIATE"
+  ]
+}

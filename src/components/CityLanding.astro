@@ -105,7 +105,7 @@ const schemas = [
       subtitle={`Precios en ${country.currency} con el descuento Sably aplicado.`}
     />
     <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {popular.map((course) => <CourseCard {course} {country} />)}
+      {popular.map((course) => <CourseCard {course} {country} citySlug={city.slug} />)}
     </div>
   </section>
 

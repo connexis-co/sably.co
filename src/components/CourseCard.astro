@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { getCategory, categoryCover } from '@/lib/categories';
+import { getCategory, courseCover } from '@/lib/categories';
 import { formatPrice, type Country } from '@/lib/countries';
 import { SITE } from '@/lib/site';
 import Rating from './Rating.astro';
@@ -29,7 +29,7 @@ const url = citySlug
       style={`background-image: linear-gradient(135deg, ${cat.gradient[0]}, ${cat.gradient[1]})`}
     >
       <img
-        src={categoryCover(cat.slug, 'card')}
+        src={courseCover(course.id, cat.slug, 'card')}
         alt=""
         width="480"
         height="320"
