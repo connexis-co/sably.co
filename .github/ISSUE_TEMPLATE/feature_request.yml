@@ -1,0 +1,29 @@
+name: 🆕 Feature Request
+description: Proponer una nueva funcionalidad
+title: '[FEAT] '
+labels: ['feature', 'triage']
+body:
+  - type: textarea
+    attributes:
+      label: ¿Qué problema resuelve?
+      description: Contexto y motivación de la propuesta
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Solución propuesta
+      description: Qué debería construirse y cómo debería comportarse
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Alternativas consideradas
+  - type: dropdown
+    attributes:
+      label: Prioridad sugerida
+      options:
+        - Baja
+        - Media
+        - Alta
+    validations:
+      required: true
