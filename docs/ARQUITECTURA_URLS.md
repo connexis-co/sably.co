@@ -10,7 +10,7 @@
 ## 1. Los tres principios
 
 1. **País en código ISO como primer segmento** → hreflang limpio y patrón que Google ya asocia a segmentación geográfica.
-2. **Ciudad solo donde existe intención local real** → una URL por búsqueda que existe, no por combinación posible.
+2. **Ciudad solo donde Keyword Planner confirma demanda** → una URL por búsqueda que existe, no por combinación posible. Verificado, nunca supuesto (§4).
 3. **El slug lleva la keyword exacta que la gente escribe** → `curso-de-barberia`, no `barberia`.
 
 De ahí sale la regla que resuelve todo lo demás: **ni un segmento de más, ni una página sin demanda detrás.**
@@ -56,12 +56,14 @@ sably.co/co/                                       Home
 sably.co/co/cursos/                                Catálogo
 sably.co/co/cursos/oficios/                        Categoría
 sably.co/co/curso-de-barberia/                     Curso (país)
-sably.co/co/curso-de-excel/                        Curso (país) — sin versión ciudad
+sably.co/co/curso-de-unas-acrilicas/               Curso (país)
 sably.co/co/bogota/                                Landing ciudad
 sably.co/co/bogota/cursos/oficios/                 Categoría en ciudad
-sably.co/co/bogota/curso-de-barberia/              Curso hiperlocal ✅
-sably.co/co/bucaramanga/curso-de-unas-acrilicas/   Curso hiperlocal ✅
-sably.co/co/medellin/curso-de-panaderia/           Curso hiperlocal ✅
+sably.co/co/bogota/curso-de-barberia/              ✅ 480/mes · LOW → prioridad alta
+sably.co/co/bogota/curso-de-ingles/                ✅ 1.300/mes · HIGH → prioridad media
+sably.co/co/medellin/curso-de-barberia/            ✅ 260/mes · LOW
+sably.co/co/bucaramanga/curso-de-ingles/           ✅ 480/mes
+sably.co/co/bucaramanga/curso-de-unas-acrilicas/   ❌ NO se genera — 0 búsquedas/mes
 ```
 
 Ciudades: `bogota` · `medellin` · `cali` · `barranquilla` · `cartagena` · `bucaramanga`
@@ -73,10 +75,11 @@ sably.co/mx/
 sably.co/mx/cursos/manualidades/
 sably.co/mx/curso-de-decoracion-con-globos/
 sably.co/mx/cdmx/
-sably.co/mx/cdmx/curso-de-decoracion-con-globos/   ✅ 14.800 búsquedas/mes en MX
-sably.co/mx/guadalajara/curso-de-barberia/         ✅ 3.600/mes, competencia LOW
+sably.co/mx/cdmx/curso-de-decoracion-con-globos/   ✅ "decoración con globos" 14.800/mes en MX
+sably.co/mx/cdmx/curso-de-barberia/                ✅ 390/mes · LOW → prioridad alta
+sably.co/mx/cdmx/curso-de-ingles/                  ✅ 1.300/mes · HIGH
+sably.co/mx/cdmx/curso-de-reposteria/              ✅ 880/mes
 sably.co/mx/monterrey/cursos/gastronomia/
-sably.co/mx/curso-de-ingles/                       ✗ sin ciudad (búsqueda no es geo)
 ```
 
 Ciudades: `cdmx` · `guadalajara` · `monterrey` · `puebla` · `cancun`
@@ -88,9 +91,10 @@ sably.co/pe/
 sably.co/pe/cursos/belleza/
 sably.co/pe/curso-de-unas-acrilicas/
 sably.co/pe/lima/
-sably.co/pe/lima/curso-de-unas-acrilicas/          ✅
+sably.co/pe/lima/curso-de-unas-acrilicas/          ✅ Lima = metrópolis → todas las categorías
+sably.co/pe/lima/curso-de-ingles/                  ✅
 sably.co/pe/arequipa/cursos/gastronomia/
-sably.co/pe/curso-de-python/                       ✗ sin ciudad
+sably.co/pe/arequipa/curso-de-python/              ❌ validar antes: ciudad media + categoría digital
 ```
 
 Ciudades: `lima` · `arequipa` · `trujillo` · `cusco`
@@ -108,19 +112,78 @@ Ciudades: `lima` · `arequipa` · `trujillo` · `cusco`
 
 ## 4. Geo escalonado — qué cursos llevan página de ciudad
 
-La regla es una sola pregunta: **¿el egresado presta un servicio en su ciudad?**
+> **Corregido 2026-08-05 con datos de Keyword Planner.** La hipótesis inicial ("solo oficios
+> físicos tienen intención local") resultó **falsa**. El eje predictivo real es el **tamaño de
+> la ciudad**, no la categoría del curso.
 
-| Nivel | Categorías | Ciudades por país | Razón |
-|---|---|---|---|
-| **A** — servicio local fuerte | `oficios` · `gastronomia` · `panaderia-y-pasteleria` · `cuidado-animal` · `hospitalidad` · `bienestar` · `belleza`* | Todas (3-6) | El graduado atiende clientes físicos en su ciudad. Evidencia: "curso de uñas barranquilla" genera clicks reales en GSC |
-| **B** — local moderado | `moda-y-confeccion` · `manualidades` | Top 3 | Vende por encargo y en ferias locales, pero también online |
-| **C** — digital / transversal | `idiomas` · `musica` · `emprendimiento` | Ninguna | "curso de excel en CDMX" no se busca. Se busca "curso de excel online" |
+### 4.1 Lo que muestran los datos
 
-\* Belleza en sably.co solo como variantes "online + certificado" y geo; los head terms son de `academiadebelleza.edu.co` (ver §8).
+| Ciudad | inglés | cocina/repostería | barbería | guitarra | excel | uñas |
+|---|---|---|---|---|---|---|
+| **Bogotá** | **1.300** | 720 | 480 `LOW` | 210 | 110 | — |
+| **CDMX** | **1.300** | 880 | 390 `LOW` | 260 | 70 | — |
+| Medellín | 590 | — | 260 `LOW` | — | — | — |
+| Bucaramanga | 480 | 170 `LOW` | 70 | — | 90 | **0** |
+| Cartagena | 260 | — | 20 | — | — | **0** |
 
-**Impacto:** de ~2.600 páginas de ciudad posibles a ~800 con demanda verificable. Google no premia cantidad de URLs, premia que cada URL responda a una búsqueda que existe.
+Búsquedas/mes, Google Ads Keyword Planner.
 
-**Regla de escalamiento:** una ciudad nueva entra solo si (a) GSC muestra impresiones para ese geo, o (b) supera 500K habitantes. Medir 90 días antes de ampliar.
+Tres conclusiones que invierten el modelo anterior:
+
+1. **Idiomas es la categoría con MÁS demanda geo**, no la que menos. "curso de inglés bogotá"
+   (1.300) y "curso de inglés cdmx" (1.300) superan a cualquier oficio físico. Excluirla habría
+   sido el error más caro.
+2. **Hasta Excel tiene volumen geo** en metrópolis (110 en Bogotá, 90 en Bucaramanga).
+3. **Uñas — categoría "de servicio local" por excelencia — da 0 en ciudades secundarias.**
+   La categoría no predice; el tamaño de la ciudad sí.
+
+### 4.2 Modelo corregido: la ciudad manda
+
+| Nivel de ciudad | Ejemplos | Qué se genera |
+|---|---|---|
+| **Metrópolis** | Bogotá, CDMX, Lima, Buenos Aires, Santiago, Guadalajara, Medellín, Monterrey | **Todas** las categorías, incluidas idiomas, música y tecnología |
+| **Ciudad media** | Bucaramanga, Cartagena, Cali, Barranquilla, Arequipa, Puebla, Cancún… | Solo categorías con volumen verificado para esa ciudad (§4.3) |
+| **Ciudad pequeña** | El resto | Solo landing de ciudad. Sin páginas curso×ciudad |
+
+### 4.3 Regla operativa (data-driven, sin adivinar)
+
+Una página `{ciudad}/{curso}` se genera **solo si Keyword Planner reporta ≥50 búsquedas/mes**
+para la combinación categoría×ciudad. Validación batch antes de cada expansión:
+
+```bash
+python3 scripts/seo-audit.py --country CO \
+  --seeds "curso de {categoria} {ciudad}" ... \
+  --out docs/data/geo-{cc}.json
+```
+
+12 categorías × ciudades del país ≈ 3-4 llamadas por país. Barato y elimina el juicio subjetivo.
+
+### 4.4 Volumen ≠ oportunidad: cruzar con competencia
+
+`curso de inglés bogotá` tiene 1.300/mes pero competencia **HIGH** — academias presenciales con
+años de autoridad. `curso de barbería bogotá` tiene 480 con competencia **LOW**.
+
+**Prioridad de publicación:**
+
+| Prioridad | Perfil | Ejemplos medidos |
+|---|---|---|
+| 🔴 Alta | Volumen ≥150 + competencia LOW | barbería Bogotá 480 · barbería CDMX 390 · barbería Medellín 260 · cocina Bucaramanga 170 |
+| 🟡 Media | Volumen ≥500 + competencia HIGH | inglés Bogotá 1.300 · inglés CDMX 1.300 · repostería CDMX 880 · cocina Bogotá 720 |
+| ⚪ Baja | Volumen 50-150 | excel Bogotá 110 · panadería Bogotá 170 |
+| ❌ No generar | <50 o sin datos | uñas Bucaramanga 0 · uñas Cartagena 0 · barbería Cartagena 20 |
+
+Las de prioridad alta se atacan primero: mismo esfuerzo, mucha más probabilidad de rankear.
+
+### 4.5 Nota sobre intención presencial
+
+Parte del volumen geo busca formación **presencial** ("cursos de inglés presenciales bogotá" 140,
+"escuelas de inglés cdmx" 1.900). En Bogotá medimos ~6.600 búsquedas/mes con intención presencial
+explícita frente a ~9.700 neutras.
+
+No se compite por las presenciales. El copy de las páginas de ciudad debe convertir la intención
+neutra dejando claro el formato desde el título: *"Curso de Barbería en Bogotá — 100% online,
+certificado válido en Colombia"*. Y aquí `/homologaciones/` captura al segmento que sí quiere
+presencialidad: se les ofrece certificar su experiencia con instituciones aliadas.
 
 ---
 
@@ -179,7 +242,7 @@ Siempre **con** barra final (`trailingSlash: 'always'` en `astro.config.mjs`). C
 | `/curso-de-barberia-en-bogota/` (todo plano) | Match perfecto con la query pero mata el hreflang y no escala: ¿de qué país es `/curso-de-barberia/`? |
 | `/co/cursos/oficios/curso-de-barberia/` | Nivel extra + URL frágil: cambiar la categoría de un curso rompe su URL. Los silos se construyen con **enlazado interno**, no con carpetas |
 | `co.sably.co/curso-de-barberia/` | Los subdominios fragmentan la autoridad. Subcarpeta gana para multi-país en un dominio joven |
-| Esta misma, pero **sin** geo escalonado | Estructura correcta, pero ~1.800 páginas de ciudad sin ninguna búsqueda detrás = riesgo de thin content |
+| Esta misma, pero con geo indiscriminado (todo curso × toda ciudad) | Estructura correcta, pero cientos de páginas sin ninguna búsqueda detrás ("curso de uñas bucaramanga" = 0/mes) = riesgo de thin content |
 
 ### Evaluación ponderada (criterios del prompt maestro SEO)
 
