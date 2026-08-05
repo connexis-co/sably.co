@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs';
+
 export interface Subcategory {
   slug: string;
   name: string;
@@ -249,6 +251,17 @@ export const INTERNAL_CATEGORIES = CATEGORIES.filter((c) => !c.externalUrl);
 /** Portada fotorrealista de la categoría (generadas con Gemini, public/covers/). */
 export function categoryCover(slug: string, variant: 'hero' | 'card' = 'hero'): string {
   return `/covers/${slug}${variant === 'card' ? '-card' : ''}.jpg`;
+}
+
+/**
+ * Portada única del curso (nano-banana, public/covers/cursos/). Fallback a la
+ * portada de su categoría si aún no se generó. El existsSync corre en build (SSG).
+ */
+export function courseCover(courseSlug: string, categorySlug: string, variant: 'hero' | 'card' = 'hero'): string {
+  const suffix = variant === 'card' ? '-card' : '';
+  const file = `covers/cursos/${courseSlug}${suffix}.jpg`;
+  if (existsSync(new URL(`../../public/${file}`, import.meta.url))) return `/${file}`;
+  return categoryCover(categorySlug, variant);
 }
 
 export function getCategory(slug: string): Category {

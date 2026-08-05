@@ -1115,8 +1115,8 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-unas-acrilicas.mdx": {
-    "mtime": 1785926060.475515,
-    "ast_hash": "2aae3ba5078a4dc63580bbc02fd1f944",
+    "mtime": 1785926178.1014376,
+    "ast_hash": "65003778ea621b0a19ec88fee86d49dd",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-unas.mdx": {
@@ -1137,6 +1137,11 @@
   "public/covers/belleza-online.jpg": {
     "mtime": 1785925976.8382173,
     "ast_hash": "9aa3c9d5fc47aaf1111ad834ff725a98",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-colorimetria.mdx": {
+    "mtime": 1785926181.592917,
+    "ast_hash": "dfaa027228043efc2aae2e76e9e8c01f",
     "semantic_hash": ""
   }
 }

@@ -4,11 +4,12 @@ import Seo from '@/components/Seo.astro';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import GeoDialog from '@/components/GeoDialog.astro';
+import SearchModal from '@/components/SearchModal.astro';
 import WhatsAppFloat from '@/components/WhatsAppFloat.astro';
 import type { Country, City } from '@/lib/countries';
 import type { HreflangAlternate } from '@/lib/seo';
 import { organizationSchema } from '@/lib/seo';
-import { GTM_ID } from '@/lib/site';
+import { GTM_ID, GA4_ID, META_PIXEL_ID } from '@/lib/site';
 
 interface Props {
   title: string;
@@ -57,6 +58,23 @@ const allSchemas = [organizationSchema(), ...schemas];
         />
       )
     }
+    {GA4_ID && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} />}
+    {
+      GA4_ID && (
+        <script
+          is:inline
+          set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${GA4_ID}');`}
+        />
+      )
+    }
+    {
+      META_PIXEL_ID && (
+        <script
+          is:inline
+          set:html={`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${META_PIXEL_ID}');fbq('track','PageView');`}
+        />
+      )
+    }
   </head>
   <body data-page-type={pageType}>
     {
@@ -84,6 +102,7 @@ const allSchemas = [organizationSchema(), ...schemas];
     </main>
     <Footer {country} />
     <GeoDialog {pathAfterCountry} />
+    <SearchModal {country} />
     <WhatsAppFloat {country} context={whatsappContext} />
   </body>
 </html>

@@ -1401,8 +1401,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_exitintent",
-      "community": 2,
-      "community_name": "analytics.ts",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "exitintent.astro"
     },
     {
@@ -1687,8 +1687,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_analytics",
-      "community": 2,
-      "community_name": "analytics.ts",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "analytics.ts"
     },
     {
@@ -1700,8 +1700,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_analytics_eventparams",
-      "community": 2,
-      "community_name": "analytics.ts",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "eventparams"
     },
     {
@@ -1713,8 +1713,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_analytics_window",
-      "community": 2,
-      "community_name": "analytics.ts",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "window"
     },
     {
@@ -1725,8 +1725,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_analytics_trackevent",
-      "community": 2,
-      "community_name": "analytics.ts",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "trackevent()"
     },
     {
@@ -5184,6 +5184,39 @@
       "norm_label": "del hobby al negocio"
     },
     {
+      "label": "curso-de-decoracion-de-unas.mdx",
+      "file_type": "document",
+      "source_file": "src/content/courses/curso-de-decoracion-de-unas.mdx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_content_courses_curso_de_decoracion_de_unas",
+      "community": 2,
+      "community_name": "curso-de-decoracion-de-unas.mdx",
+      "norm_label": "curso-de-decoracion-de-unas.mdx"
+    },
+    {
+      "label": "Aprende desde casa con pr\u00e1ctica real",
+      "file_type": "document",
+      "source_file": "src/content/courses/curso-de-decoracion-de-unas.mdx",
+      "source_location": "L81",
+      "_origin": "ast",
+      "id": "src_content_courses_curso_de_decoracion_de_unas_aprende_desde_casa_con_pr\u00e1ctica_real",
+      "community": 2,
+      "community_name": "curso-de-decoracion-de-unas.mdx",
+      "norm_label": "aprende desde casa con practica real"
+    },
+    {
+      "label": "Dise\u00f1os que suben tu ticket",
+      "file_type": "document",
+      "source_file": "src/content/courses/curso-de-decoracion-de-unas.mdx",
+      "source_location": "L85",
+      "_origin": "ast",
+      "id": "src_content_courses_curso_de_decoracion_de_unas_dise\u00f1os_que_suben_tu_ticket",
+      "community": 2,
+      "community_name": "curso-de-decoracion-de-unas.mdx",
+      "norm_label": "disenos que suben tu ticket"
+    },
+    {
       "label": "curso-de-defensa-personal-para-mujeres.mdx",
       "file_type": "document",
       "source_file": "src/content/courses/curso-de-defensa-personal-para-mujeres.mdx",
@@ -6601,6 +6634,39 @@
       "community": 30,
       "community_name": "curso-de-patronaje-profesional-de-ropa.mdx",
       "norm_label": "del hobby al negocio"
+    },
+    {
+      "label": "curso-de-pestanas-volumen-ruso.mdx",
+      "file_type": "document",
+      "source_file": "src/content/courses/curso-de-pestanas-volumen-ruso.mdx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_content_courses_curso_de_pestanas_volumen_ruso",
+      "community": 107,
+      "community_name": "curso-de-pestanas-volumen-ruso.mdx",
+      "norm_label": "curso-de-pestanas-volumen-ruso.mdx"
+    },
+    {
+      "label": "Pr\u00e1ctica guiada desde tu casa",
+      "file_type": "document",
+      "source_file": "src/content/courses/curso-de-pestanas-volumen-ruso.mdx",
+      "source_location": "L86",
+      "_origin": "ast",
+      "id": "src_content_courses_curso_de_pestanas_volumen_ruso_pr\u00e1ctica_guiada_desde_tu_casa",
+      "community": 107,
+      "community_name": "curso-de-pestanas-volumen-ruso.mdx",
+      "norm_label": "practica guiada desde tu casa"
+    },
+    {
+      "label": "Un estudio con agenda llena",
+      "file_type": "document",
+      "source_file": "src/content/courses/curso-de-pestanas-volumen-ruso.mdx",
+      "source_location": "L90",
+      "_origin": "ast",
+      "id": "src_content_courses_curso_de_pestanas_volumen_ruso_un_estudio_con_agenda_llena",
+      "community": 107,
+      "community_name": "curso-de-pestanas-volumen-ruso.mdx",
+      "norm_label": "un estudio con agenda llena"
     },
     {
       "label": "curso-de-piano.mdx",
@@ -15873,6 +15939,28 @@
     {
       "relation": "contains",
       "confidence": "EXTRACTED",
+      "source_file": "src/content/courses/curso-de-decoracion-de-unas.mdx",
+      "source_location": "L81",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_content_courses_curso_de_decoracion_de_unas",
+      "target": "src_content_courses_curso_de_decoracion_de_unas_aprende_desde_casa_con_pr\u00e1ctica_real",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/content/courses/curso-de-decoracion-de-unas.mdx",
+      "source_location": "L85",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_content_courses_curso_de_decoracion_de_unas",
+      "target": "src_content_courses_curso_de_decoracion_de_unas_dise\u00f1os_que_suben_tu_ticket",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
       "source_file": "src/content/courses/curso-de-defensa-personal-para-mujeres.mdx",
       "source_location": "L85",
       "weight": 1.0,
@@ -16814,6 +16902,28 @@
       "_origin": "ast",
       "source": "src_content_courses_curso_de_patronaje_profesional_de_ropa",
       "target": "src_content_courses_curso_de_patronaje_profesional_de_ropa_un_oficio_que_la_ia_no_puede_tocar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/content/courses/curso-de-pestanas-volumen-ruso.mdx",
+      "source_location": "L86",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_content_courses_curso_de_pestanas_volumen_ruso",
+      "target": "src_content_courses_curso_de_pestanas_volumen_ruso_pr\u00e1ctica_guiada_desde_tu_casa",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/content/courses/curso-de-pestanas-volumen-ruso.mdx",
+      "source_location": "L90",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_content_courses_curso_de_pestanas_volumen_ruso",
+      "target": "src_content_courses_curso_de_pestanas_volumen_ruso_un_estudio_con_agenda_llena",
       "confidence_score": 1.0
     },
     {
@@ -18001,5 +18111,5 @@
       "source_file": "src/content/courses/curso-de-panaderia-artesanal-y-masa-madre.mdx"
     }
   ],
-  "built_at_commit": "4a79473d9a62fe2da615021c75c21c8cbd0c26f6"
+  "built_at_commit": "4b1c5df527bef6ef3a1322cd58141766f2c36f45"
 }

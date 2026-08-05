@@ -32,3 +32,5 @@ export const SITE = {
 /** Endpoint de leads: Fase 2 lo sirve el backend Laravel. */
 export const LEADS_ENDPOINT = import.meta.env.PUBLIC_LEADS_ENDPOINT ?? '';
 export const GTM_ID = import.meta.env.PUBLIC_GTM_ID ?? '';
+export const GA4_ID = import.meta.env.PUBLIC_GA4_ID ?? '';
+export const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID ?? '';
