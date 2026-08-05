@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "-",
+    "keyword": "curso de ingles medellin",
+    "volume": 590,
+    "competition": "HIGH",
+    "cpc_low": 2708.38,
+    "cpc_high": 15454.6,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de ingles bucaramanga",
+    "volume": 480,
+    "competition": "HIGH",
+    "cpc_low": 2144.49,
+    "cpc_high": 10351.4,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de ingles cartagena",
+    "volume": 260,
+    "competition": "MEDIUM",
+    "cpc_low": 1324.29,
+    "cpc_high": 6023.16,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de barberia medellin",
+    "volume": 260,
+    "competition": "LOW",
+    "cpc_low": 91.9,
+    "cpc_high": 1020.02,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de cocina bucaramanga",
+    "volume": 170,
+    "competition": "LOW",
+    "cpc_low": 566.83,
+    "cpc_high": 1532.03,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de excel bucaramanga",
+    "volume": 90,
+    "competition": "MEDIUM",
+    "cpc_low": 599.59,
+    "cpc_high": 3008.09,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de barberia bucaramanga",
+    "volume": 70,
+    "competition": "LOW",
+    "cpc_low": 64.92,
+    "cpc_high": 107.3,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de barberia cartagena",
+    "volume": 20,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de unas bucaramanga",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de unas cartagena",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  }
+]
