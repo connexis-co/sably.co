@@ -1,0 +1,20 @@
+---
+/**
+ * Wordmark Sably: texto display + punto coral de marca.
+ * TODO(JP): reemplazar por el SVG definitivo con la fuente Surgena cuando esté el archivo.
+ */
+interface Props {
+  href?: string;
+  inverted?: boolean;
+  class?: string;
+}
+const { href = '/co/', inverted = false, class: className = '' } = Astro.props;
+---
+
+<a href={href} class={`inline-flex items-baseline gap-0.5 ${className}`} aria-label="Sably — inicio">
+  <span class={`size-2.5 self-end mb-1.5 rounded-full bg-accent`} aria-hidden="true"></span>
+  <span
+    class={`font-display text-2xl font-extrabold tracking-tight ${inverted ? 'text-white' : 'text-primary'}`}
+    >Sably</span
+  >
+</a>

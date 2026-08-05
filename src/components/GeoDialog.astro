@@ -1,0 +1,126 @@
+---
+import { COUNTRIES } from '@/lib/countries';
+
+/**
+ * Selector país → ciudad en dos pasos. Se abre desde el header.
+ * Persiste la preferencia (localStorage) y navega a la ruta equivalente.
+ */
+interface Props {
+  /** Ruta después del código de país, ej. "/cursos/oficios/". */
+  pathAfterCountry: string;
+}
+const { pathAfterCountry } = Astro.props;
+---
+
+<dialog
+  id="geo-dialog"
+  data-path={pathAfterCountry}
+  class="m-auto w-[min(92vw,480px)] rounded-lg p-0 shadow-2xl backdrop:bg-ink/50 backdrop:backdrop-blur-sm"
+>
+  <div class="p-6">
+    <div class="flex items-center justify-between gap-4">
+      <h2 class="text-lg font-bold" id="geo-title">¿Desde dónde nos visitas?</h2>
+      <button
+        type="button"
+        class="rounded-full p-2 text-muted hover:bg-surface-100"
+        data-geo-close
+        aria-label="Cerrar"
+      >
+        ✕
+      </button>
+    </div>
+
+    <div data-geo-step="country" class="mt-4 grid grid-cols-2 gap-2">
+      {
+        COUNTRIES.map((c) => (
+          <button
+            type="button"
+            data-geo-country={c.code}
+            class="flex items-center gap-3 rounded-md border border-surface-200 px-4 py-3 text-left text-sm font-medium text-heading transition hover:border-accent hover:bg-accent-soft"
+          >
+            <span class="text-xl" aria-hidden="true">
+              {c.flag}
+            </span>
+            {c.name}
+          </button>
+        ))
+      }
+    </div>
+
+    {
+      COUNTRIES.map((c) => (
+        <div data-geo-step={`cities-${c.code}`} class="mt-4 hidden">
+          <button type="button" data-geo-back class="mb-3 text-sm font-medium text-accent">
+            ← Cambiar país
+          </button>
+          <div class="grid grid-cols-2 gap-2">
+            <a
+              href={`/${c.code}/`}
+              data-geo-city=""
+              data-country={c.code}
+              class="flex items-center gap-2 rounded-md border border-surface-200 px-4 py-3 text-sm font-medium text-heading transition hover:border-accent hover:bg-accent-soft"
+            >
+              {c.flag} Todo {c.name}
+            </a>
+            {c.cities.map((city) => (
+              <a
+                href={`/${c.code}/${city.slug}/`}
+                data-geo-city={city.slug}
+                data-country={c.code}
+                class="rounded-md border border-surface-200 px-4 py-3 text-sm font-medium text-heading transition hover:border-accent hover:bg-accent-soft"
+              >
+                {city.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</dialog>
+
+<script>
+  import { $country, $city } from '@/stores/geo';
+
+  const dialog = document.getElementById('geo-dialog') as HTMLDialogElement | null;
+
+  if (dialog) {
+    const steps = dialog.querySelectorAll<HTMLElement>('[data-geo-step]');
+    const showStep = (name: string) => {
+      steps.forEach((s) => s.classList.toggle('hidden', s.dataset.geoStep !== name));
+    };
+
+    document.querySelectorAll('[data-geo-open]').forEach((btn) =>
+      btn.addEventListener('click', () => {
+        showStep('country');
+        dialog.showModal();
+      }),
+    );
+
+    dialog.querySelector('[data-geo-close]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
+
+    dialog.querySelectorAll<HTMLButtonElement>('[data-geo-country]').forEach((btn) =>
+      btn.addEventListener('click', () => showStep(`cities-${btn.dataset.geoCountry}`)),
+    );
+    dialog.querySelectorAll('[data-geo-back]').forEach((btn) =>
+      btn.addEventListener('click', () => showStep('country')),
+    );
+
+    dialog.querySelectorAll<HTMLAnchorElement>('[data-geo-city]').forEach((link) =>
+      link.addEventListener('click', () => {
+        const country = link.dataset.country ?? 'co';
+        $country.set(country);
+        $city.set(link.dataset.geoCity ?? '');
+        window.dataLayer ??= [];
+        window.dataLayer.push({
+          event: 'select_country',
+          country_code: country,
+          city: link.dataset.geoCity ?? 'all',
+        });
+      }),
+    );
+  }
+</script>

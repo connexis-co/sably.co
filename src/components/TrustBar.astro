@@ -1,0 +1,23 @@
+---
+import { SITE } from '@/lib/site';
+
+const items = [
+  { icon: '🎓', label: `${SITE.stats.students} estudiantes en LATAM` },
+  { icon: '⭐', label: `${SITE.stats.rating} de calificación promedio` },
+  { icon: '📜', label: 'Certificado incluido' },
+  { icon: '🔥', label: 'Cursos vía Hotmart — acceso de por vida' },
+];
+---
+
+<div class="border-y border-surface-200 bg-off-white">
+  <div class="container-site flex flex-wrap items-center justify-center gap-x-10 gap-y-3 py-5">
+    {
+      items.map((item) => (
+        <p class="flex items-center gap-2 text-sm font-semibold text-heading">
+          <span aria-hidden="true">{item.icon}</span>
+          {item.label}
+        </p>
+      ))
+    }
+  </div>
+</div>

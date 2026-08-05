@@ -1,0 +1,399 @@
+[
+  {
+    "id": "t-001",
+    "name": "Diana Marcela G.",
+    "citySlug": "bogota",
+    "countryCode": "co",
+    "courseSlug": "curso-de-panaderia-artesanal-y-masa-madre",
+    "category": "panaderia-y-pasteleria",
+    "text": "Empecé vendiendo pan de masa madre a mis vecinos del conjunto y hoy tengo pedidos fijos todas las semanas. El módulo de costos me ayudó a ponerle precio justo a mi trabajo.",
+    "rating": 5
+  },
+  {
+    "id": "t-002",
+    "name": "Andrés Felipe R.",
+    "citySlug": "medellin",
+    "countryCode": "co",
+    "courseSlug": "curso-de-electricidad-residencial-certificado",
+    "category": "oficios",
+    "text": "Yo era ayudante de obra y con el curso aprendí a hacer instalaciones completas. Ya hago trabajos por mi cuenta en el barrio y me llaman por recomendación. Se explica todo con la norma en la mano.",
+    "rating": 5
+  },
+  {
+    "id": "t-003",
+    "name": "Luz Ángela P.",
+    "citySlug": "cali",
+    "countryCode": "co",
+    "courseSlug": "curso-de-tortas-decoradas-desde-cero",
+    "category": "panaderia-y-pasteleria",
+    "text": "Mi primera torta la vendí para el cumpleaños de la hija de una amiga y quedó tan linda que me salieron tres pedidos más ese mes. Las clases de crema y forrado son súper claras.",
+    "rating": 5
+  },
+  {
+    "id": "t-004",
+    "name": "Jorge Iván M.",
+    "citySlug": "barranquilla",
+    "countryCode": "co",
+    "courseSlug": "curso-de-mecanica-de-motos-desde-cero",
+    "category": "oficios",
+    "text": "Monté un tallercito en el patio de la casa. Empecé arreglando la moto mía y la de mi hermano, y ahora atiendo clientes del sector. Me faltan herramientas, pero el conocimiento quedó firme.",
+    "rating": 4.5
+  },
+  {
+    "id": "t-005",
+    "name": "Carolina S.",
+    "citySlug": "bogota",
+    "countryCode": "co",
+    "courseSlug": "curso-de-corte-y-confeccion-desde-cero",
+    "category": "moda-y-confeccion",
+    "text": "No sabía ni enhebrar la máquina. Hoy hago arreglos y ropa a la medida para clientas fijas, y con eso pago varios recibos del mes. Los patrones descargables me sirvieron muchísimo.",
+    "rating": 5
+  },
+  {
+    "id": "t-006",
+    "name": "Óscar D.",
+    "citySlug": "cartagena",
+    "countryCode": "co",
+    "courseSlug": "curso-de-bartending-y-cocteleria-profesional",
+    "category": "hospitalidad",
+    "text": "Presenté lo que aprendí en una prueba práctica y me contrataron en un bar del centro histórico. Las técnicas de coctelería clásica fueron lo que marcó la diferencia en la entrevista.",
+    "rating": 5
+  },
+  {
+    "id": "t-007",
+    "name": "Paola T.",
+    "citySlug": "medellin",
+    "countryCode": "co",
+    "courseSlug": "curso-de-jabones-artesanales-para-vender",
+    "category": "manualidades",
+    "text": "Llevé mis jabones a una feria de emprendimiento y vendí casi todo el primer día. Ahora tengo catálogo propio y clientas que me repiten pedido cada mes. El curso trae hasta las recetas de saponificación.",
+    "rating": 5
+  },
+  {
+    "id": "t-008",
+    "name": "Camilo V.",
+    "citySlug": "bogota",
+    "countryCode": "co",
+    "courseSlug": "curso-de-marketing-digital-para-emprendedores",
+    "category": "emprendimiento",
+    "text": "Apliqué lo del curso en la panadería de mi mamá: perfil de Google, redes y WhatsApp Business. En dos meses se nota más gente nueva preguntando por los domicilios. Muy aterrizado a negocio pequeño.",
+    "rating": 4.5
+  },
+  {
+    "id": "t-009",
+    "name": "Yesica R.",
+    "citySlug": "cali",
+    "countryCode": "co",
+    "courseSlug": "curso-de-peluqueria-canina-profesional",
+    "category": "cuidado-animal",
+    "text": "Empecé bañando y motilando al perrito de una vecina y ya tengo agenda con citas casi todos los fines de semana. El módulo de razas y tipos de pelo me quitó el miedo a los perros grandes.",
+    "rating": 5
+  },
+  {
+    "id": "t-010",
+    "name": "Fabián C.",
+    "citySlug": "barranquilla",
+    "countryCode": "co",
+    "courseSlug": "curso-de-parrilla-y-asados-como-un-maestro",
+    "text": "Compré el curso para los asados de la familia y terminé cobrando por hacer parrilladas en eventos de amigos. El manejo del fuego y los términos de la carne los explican como a un principiante.",
+    "rating": 4.5
+  },
+  {
+    "id": "t-011",
+    "name": "Marcela H.",
+    "citySlug": "cartagena",
+    "countryCode": "co",
+    "courseSlug": "curso-de-masajes-terapeuticos-y-relajantes",
+    "category": "bienestar",
+    "text": "Atiendo a domicilio a señoras de mi sector y ya tengo cinco clientas fijas. Las clases de anatomía y contraindicaciones me dieron la seguridad que me faltaba para cobrar por mi trabajo.",
+    "rating": 5
+  },
+  {
+    "id": "t-012",
+    "name": "Julián E.",
+    "citySlug": "medellin",
+    "countryCode": "co",
+    "courseSlug": "curso-de-soldadura-mig-tig-y-arco-electrico",
+    "category": "oficios",
+    "text": "Trabajaba en ornamentación empírico y el curso me organizó la técnica: ahora mis cordones en MIG quedan parejos y me atrevo con acero inoxidable. Eso me abrió trabajos mejor pagados en el taller.",
+    "rating": 5
+  },
+  {
+    "id": "t-013",
+    "name": "María José L.",
+    "citySlug": "cdmx",
+    "countryCode": "mx",
+    "courseSlug": "curso-de-patronaje-profesional-de-ropa",
+    "category": "moda-y-confeccion",
+    "text": "Ya cosía, pero mis prendas nunca quedaban bien de talla. Con el patronaje por fin entiendo el porqué de cada medida. Ahora hago vestidos sobre pedido y mis clientas regresan.",
+    "rating": 5
+  },
+  {
+    "id": "t-014",
+    "name": "Guadalupe H.",
+    "citySlug": "guadalajara",
+    "countryCode": "mx",
+    "courseSlug": "curso-de-reposteria-fina-y-postres-gourmet",
+    "category": "panaderia-y-pasteleria",
+    "text": "Vendía gelatinas y ahora ofrezco postres gourmet para eventos. Una clienta me encargó la mesa de postres de una boda de 80 personas. Jamás pensé llegar tan rápido a algo así.",
+    "rating": 5
+  },
+  {
+    "id": "t-015",
+    "name": "Ricardo N.",
+    "citySlug": "monterrey",
+    "countryCode": "mx",
+    "courseSlug": "curso-de-electricidad-residencial-certificado",
+    "category": "oficios",
+    "text": "Trabajo en mantenimiento y el curso me ayudó a formalizar lo que hacía al tanteo. Ahora leo diagramas y calculo cargas sin miedo. Mi jefe ya me asigna las instalaciones completas.",
+    "rating": 4.5
+  },
+  {
+    "id": "t-016",
+    "name": "Fernanda A.",
+    "citySlug": "puebla",
+    "countryCode": "mx",
+    "courseSlug": "curso-de-velas-artesanales-y-aromaticas",
+    "category": "manualidades",
+    "text": "Empecé haciendo velas para regalar en diciembre y me llovieron encargos. Hoy tengo mi marquita con etiqueta y todo, y surto a dos tiendas de decoración de mi colonia.",
+    "rating": 5
+  },
+  {
+    "id": "t-017",
+    "name": "Alejandro G.",
+    "citySlug": "cdmx",
+    "countryCode": "mx",
+    "courseSlug": "curso-de-barismo-y-cafe-de-especialidad",
+    "category": "gastronomia",
+    "text": "Entré de barista a una cafetería de especialidad en la Roma gracias a lo que aprendí de extracción y arte latte. En la prueba me pidieron calibrar la molienda y lo hice sin ponerme nervioso.",
+    "rating": 5
+  },
+  {
+    "id": "t-018",
+    "name": "Itzel M.",
+    "citySlug": "cancun",
+    "countryCode": "mx",
+    "courseSlug": "curso-de-wedding-planner-y-eventos",
+    "category": "hospitalidad",
+    "text": "Vivo en zona de bodas de playa y quería entrarle a ese mundo. Ya coordiné mis dos primeros eventos como asistente de una planner y me acaban de confirmar el tercero. Los checklists del curso son oro.",
+    "rating": 5
+  },
+  {
+    "id": "t-019",
+    "name": "Rocío C.",
+    "citySlug": "guadalajara",
+    "countryCode": "mx",
+    "courseSlug": "curso-de-ventas-por-whatsapp-y-redes",
+    "category": "emprendimiento",
+    "text": "Vendo cosméticos por catálogo y aplicando los guiones de WhatsApp del curso cierro más pedidos sin sentir que molesto a la gente. Solo me hubiera gustado más contenido de historias en Instagram.",
+    "rating": 4.5
+  },
+  {
+    "id": "t-020",
+    "name": "Héctor S.",
+    "citySlug": "monterrey",
+    "countryCode": "mx",
+    "courseSlug": "curso-de-adiestramiento-canino-en-positivo",
+    "category": "cuidado-animal",
+    "text": "Empecé educando a mi propio perro, que era tremendo, y los vecinos me empezaron a pedir ayuda. Hoy doy sesiones los sábados en el parque y cobro por paquete. Todo en positivo, sin castigos.",
+    "rating": 5
+  },
+  {
+    "id": "t-021",
+    "name": "Rosa Elena Q.",
+    "citySlug": "lima",
+    "countryCode": "pe",
+    "courseSlug": "curso-de-cocina-desde-cero-a-profesional",
+    "category": "gastronomia",
+    "text": "Preparo menús para trabajadores de las oficinas cerca de mi casa. Con las técnicas del curso mejoré la sazón y la presentación, y pasé de 8 a 20 menús diarios. Mi esposo ya me ayuda con las entregas.",
+    "rating": 5
+  },
+  {
+    "id": "t-022",
+    "name": "José Luis H.",
+    "citySlug": "arequipa",
+    "countryCode": "pe",
+    "courseSlug": "curso-de-mecanica-de-motos-desde-cero",
+    "category": "oficios",
+    "text": "Acá la moto es la herramienta de trabajo de medio mundo. Aprendí desde el motor hasta el sistema eléctrico y ahora los mototaxistas de mi zona me buscan para el mantenimiento. Clases bien al grano.",
+    "rating": 5
+  },
+  {
+    "id": "t-023",
+    "name": "Milagros V.",
+    "citySlug": "trujillo",
+    "countryCode": "pe",
+    "courseSlug": "curso-de-lenceria-y-ropa-interior-a-medida",
+    "category": "moda-y-confeccion",
+    "text": "Es difícil encontrar lencería a medida y acá había un mercado que nadie atendía. Mis primeras clientas fueron mis amigas y ahora recibo pedidos por Instagram. El manejo de telas delicadas está muy bien explicado.",
+    "rating": 5
+  },
+  {
+    "id": "t-024",
+    "name": "Katherine A.",
+    "citySlug": "lima",
+    "countryCode": "pe",
+    "courseSlug": "curso-de-instructor-de-yoga-desde-cero",
+    "category": "bienestar",
+    "text": "Practicaba yoga hace años pero no me animaba a enseñar. Con el curso armé mis primeras secuencias y ya dicto dos clases semanales en un parque de mi distrito. Ver a mis alumnas progresar no tiene precio.",
+    "rating": 4.5
+  },
+  {
+    "id": "t-025",
+    "name": "Miguel Ángel C.",
+    "citySlug": "cusco",
+    "countryCode": "pe",
+    "courseSlug": "curso-de-barismo-y-cafe-de-especialidad",
+    "category": "gastronomia",
+    "text": "Trabajo en una cafetería para turistas y con lo aprendido sobre café de especialidad ahora explico orígenes y métodos de filtrado a los clientes. Mi jefa me subió el puesto a barista principal.",
+    "rating": 5
+  },
+  {
+    "id": "t-026",
+    "name": "Constanza R.",
+    "citySlug": "santiago",
+    "countryCode": "cl",
+    "courseSlug": "curso-de-tortas-decoradas-desde-cero",
+    "category": "panaderia-y-pasteleria",
+    "text": "Partí haciendo la torta del cumpleaños de mi hijo y las mamás del colegio me empezaron a encargar. Ya llevo más de veinte tortas vendidas y una lista de espera para fin de mes.",
+    "rating": 5
+  },
+  {
+    "id": "t-027",
+    "name": "Matías F.",
+    "citySlug": "valparaiso",
+    "countryCode": "cl",
+    "courseSlug": "curso-de-finanzas-para-tu-negocio",
+    "category": "emprendimiento",
+    "text": "Tengo un almacén y siempre mezclaba la plata del negocio con la de la casa. Con el curso ordené precios, margen y flujo de caja. Recién ahora sé cuánto gana de verdad mi negocio cada mes.",
+    "rating": 4.5
+  },
+  {
+    "id": "t-028",
+    "name": "Javiera L.",
+    "citySlug": "santiago",
+    "countryCode": "cl",
+    "courseSlug": "curso-de-peluqueria-canina-profesional",
+    "category": "cuidado-animal",
+    "text": "Renuncié a un trabajo que no me gustaba y me dediqué al grooming. Empecé atendiendo en mi casa con lo justo y ya junté para la mesa hidráulica. Mis clientos peludos y sus dueños me tienen full agenda.",
+    "rating": 5
+  },
+  {
+    "id": "t-029",
+    "name": "Cristóbal M.",
+    "citySlug": "concepcion",
+    "countryCode": "cl",
+    "courseSlug": "curso-de-resina-epoxica-paso-a-paso",
+    "category": "manualidades",
+    "text": "Partí haciendo llaveros y posavasos de resina para vender en ferias. Ahora me encargan cuadros con flores preservadas y mesas pequeñas. El módulo de curado y burbujas me ahorró harto material perdido.",
+    "rating": 5
+  },
+  {
+    "id": "t-030",
+    "name": "Sofía B.",
+    "citySlug": "buenosaires",
+    "countryCode": "ar",
+    "category": "moda-y-confeccion",
+    "text": "Con la costura encontré un ingreso extra que me salvó las cuentas más de un mes. Arranqué con arreglos para conocidos y ahora coso ropa a medida. Lo mejor es que trabajo desde casa y manejo mis horarios.",
+    "rating": 5
+  },
+  {
+    "id": "t-031",
+    "name": "Federico P.",
+    "citySlug": "cordoba",
+    "countryCode": "ar",
+    "courseSlug": "curso-de-parrilla-y-asados-como-un-maestro",
+    "category": "gastronomia",
+    "text": "Acá el asado es religión, pero igual aprendí un montón: cortes, puntos, ahumado y hasta parrilla de verduras. Ahora me contratan para eventos familiares los fines de semana. Un golazo el curso.",
+    "rating": 5
+  },
+  {
+    "id": "t-032",
+    "name": "Valentina D.",
+    "citySlug": "mendoza",
+    "countryCode": "ar",
+    "courseSlug": "curso-de-nutricion-practica-para-la-familia",
+    "category": "bienestar",
+    "text": "Lo hice para mejorar la alimentación de mis hijos y terminé armando viandas saludables que ahora vendo a familias del barrio. Nada de dietas raras: comida real, rica y bien planificada.",
+    "rating": 4.5
+  },
+  {
+    "id": "t-033",
+    "name": "Nicolás T.",
+    "citySlug": "buenosaires",
+    "countryCode": "ar",
+    "courseSlug": "curso-de-marketing-digital-para-emprendedores",
+    "category": "emprendimiento",
+    "text": "Tengo un emprendimiento de mates y bombillas y no sabía cómo moverlo en redes. Apliqué el módulo de contenido y anuncios básicos y las consultas por Instagram se multiplicaron. Ahora vendo a todo el país.",
+    "rating": 5
+  },
+  {
+    "id": "t-034",
+    "name": "Gabriela Z.",
+    "citySlug": "quito",
+    "countryCode": "ec",
+    "courseSlug": "curso-de-panaderia-artesanal-y-masa-madre",
+    "category": "panaderia-y-pasteleria",
+    "text": "Mi masa madre ya tiene nombre y todo. Vendo pan de fin de semana por encargo y se agota desde el viernes. El curso explica la fermentación tan bien que hasta en clima frío de Quito me sale perfecto.",
+    "rating": 5
+  },
+  {
+    "id": "t-035",
+    "name": "Christian O.",
+    "citySlug": "guayaquil",
+    "countryCode": "ec",
+    "courseSlug": "curso-de-bartending-y-cocteleria-profesional",
+    "category": "hospitalidad",
+    "text": "Trabajaba de mesero y quería pasar a la barra. Practiqué todas las recetas del curso en casa y cuando se abrió el puesto de bartender en el restaurante, me lo gané. Ahora sumo propinas mucho mejores.",
+    "rating": 5
+  },
+  {
+    "id": "t-036",
+    "name": "Andrea Y.",
+    "citySlug": "cuenca",
+    "countryCode": "ec",
+    "courseSlug": "curso-de-jabones-artesanales-para-vender",
+    "category": "manualidades",
+    "text": "Hago jabones con hierbas de la zona y los vendo en el mercado artesanal a los turistas. Empecé con una tanda de prueba y ahora produzco cada semana. Me faltó un poco más sobre empaques, pero muy completo.",
+    "rating": 4.5
+  },
+  {
+    "id": "t-037",
+    "name": "Carmen R.",
+    "citySlug": "miami",
+    "countryCode": "us",
+    "courseSlug": "curso-de-wedding-planner-y-eventos",
+    "category": "hospitalidad",
+    "text": "Llegué de Venezuela hace tres años buscando reinventarme. Con el curso organicé mi primera boda para una pareja latina de aquí y de ahí salieron dos referidos. Poder estudiar en español lo hizo todo más fácil.",
+    "rating": 5
+  },
+  {
+    "id": "t-038",
+    "name": "Luis O.",
+    "citySlug": "houston",
+    "countryCode": "us",
+    "courseSlug": "curso-de-soldadura-mig-tig-y-arco-electrico",
+    "text": "Trabajaba como ayudante general y quería especializarme. Practiqué MIG con las lecciones del curso y pasé la prueba práctica de un taller de estructuras. Ahora tengo un puesto estable y mejor pagado.",
+    "rating": 5
+  },
+  {
+    "id": "t-039",
+    "name": "Daniela M.",
+    "citySlug": "losangeles",
+    "countryCode": "us",
+    "courseSlug": "curso-de-ventas-por-whatsapp-y-redes",
+    "category": "emprendimiento",
+    "text": "Vendo postres colombianos a la comunidad latina de acá. Con el sistema de pedidos por WhatsApp del curso dejé de perder mensajes y ahora organizo las entregas de la semana en una sola tarde.",
+    "rating": 5
+  },
+  {
+    "id": "t-040",
+    "name": "Pedro J.",
+    "citySlug": "miami",
+    "countryCode": "us",
+    "courseSlug": "curso-de-masajes-terapeuticos-y-relajantes",
+    "category": "bienestar",
+    "text": "Después de años manejando camión quería un oficio más tranquilo. Aprendí las técnicas base y hoy atiendo clientes hispanos a domicilio los fines de semana mientras hago la transición completa.",
+    "rating": 4.5
+  }
+]

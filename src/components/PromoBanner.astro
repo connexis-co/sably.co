@@ -1,0 +1,67 @@
+---
+import { SITE } from '@/lib/site';
+import type { Country } from '@/lib/countries';
+
+interface Props {
+  country: Country;
+}
+const { country } = Astro.props;
+---
+
+<section class="bg-primary" aria-label="Oferta por tiempo limitado">
+  <div class="container-site flex flex-col items-center gap-6 py-12 text-center lg:flex-row lg:justify-between lg:text-left">
+    <div>
+      <p class="text-sm font-bold tracking-wide text-accent uppercase">Oferta por tiempo limitado</p>
+      <h2 class="mt-2 text-2xl font-bold text-white sm:text-3xl">
+        {SITE.couponDiscountPct}% de descuento con el cupón
+        <span class="rounded-md bg-accent px-2 py-0.5 font-mono">{SITE.defaultCoupon}</span>
+      </h2>
+      <p class="mt-2 text-white/70">El cupón se aplica automáticamente al inscribirte desde Sably.</p>
+    </div>
+    <div class="flex flex-col items-center gap-4">
+      <div
+        data-countdown={SITE.offerEndsAt}
+        class="flex gap-3 font-display text-white"
+        role="timer"
+        aria-label="Tiempo restante de la oferta"
+      >
+        {
+          ['Días', 'Horas', 'Min', 'Seg'].map((label) => (
+            <div class="flex w-16 flex-col items-center rounded-md bg-white/10 py-2">
+              <span class="text-2xl font-extrabold" data-countdown-unit={label}>
+                --
+              </span>
+              <span class="text-[11px] text-white/60 uppercase">{label}</span>
+            </div>
+          ))
+        }
+      </div>
+      <a
+        href={`/${country.code}/cursos/`}
+        class="animate-pulse-soft rounded-md bg-accent px-6 py-3 text-sm font-bold text-white transition hover:bg-accent-hover"
+      >
+        🔥 Ver cursos con descuento
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const el = document.querySelector<HTMLElement>('[data-countdown]');
+  if (el) {
+    const target = new Date(el.dataset.countdown!).getTime();
+    const units = el.querySelectorAll<HTMLElement>('[data-countdown-unit]');
+    const pad = (n: number) => String(Math.max(0, n)).padStart(2, '0');
+    const tick = () => {
+      const diff = Math.max(0, target - Date.now());
+      const d = Math.floor(diff / 86_400_000);
+      const h = Math.floor((diff % 86_400_000) / 3_600_000);
+      const m = Math.floor((diff % 3_600_000) / 60_000);
+      const s = Math.floor((diff % 60_000) / 1000);
+      const values = [d, h, m, s];
+      units.forEach((u, i) => (u.textContent = pad(values[i] ?? 0)));
+    };
+    tick();
+    setInterval(tick, 1000);
+  }
+</script>

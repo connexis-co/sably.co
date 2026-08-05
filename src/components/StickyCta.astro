@@ -1,0 +1,51 @@
+---
+import type { Country } from '@/lib/countries';
+import { formatPrice } from '@/lib/countries';
+
+/**
+ * Barra CTA fija que aparece al hacer scroll past hero en la página de curso.
+ * Requiere un elemento #hero-sentinel al final del hero.
+ */
+interface Props {
+  title: string;
+  priceUSD: number;
+  country: Country;
+  ctaUrl: string;
+}
+const { title, priceUSD, country, ctaUrl } = Astro.props;
+---
+
+<div
+  data-sticky-cta
+  class="fixed inset-x-0 top-0 z-40 -translate-y-full border-b border-surface-200 bg-white shadow-md transition-transform duration-300"
+>
+  <div class="container-site flex h-14 items-center justify-between gap-4">
+    <p class="hidden truncate text-sm font-bold text-primary sm:block">{title}</p>
+    <div class="flex flex-1 items-center justify-end gap-3 sm:flex-none">
+      <span class="text-sm font-extrabold text-primary">{formatPrice(priceUSD, country)}</span>
+      <a
+        href={ctaUrl}
+        target="_blank"
+        rel="noopener nofollow sponsored"
+        data-cta-hotmart
+        data-cta-position="sticky"
+        class="rounded-md bg-accent px-4 py-2 text-sm font-bold text-white transition hover:bg-accent-hover"
+      >
+        Inscribirme
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-sticky-cta]');
+  const sentinel = document.getElementById('hero-sentinel');
+  if (bar && sentinel) {
+    new IntersectionObserver(
+      ([entry]) => {
+        bar.classList.toggle('-translate-y-full', entry?.isIntersecting ?? true);
+      },
+      { rootMargin: '-64px 0px 0px 0px' },
+    ).observe(sentinel);
+  }
+</script>
