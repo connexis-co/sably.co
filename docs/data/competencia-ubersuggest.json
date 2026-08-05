@@ -1,0 +1,113 @@
+{
+  "fecha": "2026-08-05",
+  "fuente": "Ubersuggest (tier3) + Google Ads Keyword Planner",
+  "hallazgo_macro": "aprende.com y platzi.com perdieron ~85% de tráfico orgánico entre ago-2024 y jul-2026 (de ~1M/mes a ~150K). El SERP de cursos está en reorganización: ventana de entrada.",
+  "dominios": [
+    {
+      "dominio": "aprende.com",
+      "mercado": "MX",
+      "DA": 45,
+      "trafico_mes": 147169,
+      "kw_organicas": 32157,
+      "backlinks": 84470,
+      "ref_domains": 4584,
+      "tendencia_24m": "-86%",
+      "notas": "Tráfico concentrado en blog informacional (recetas, tipos de X), no en landings de curso. Vulnerable en transaccional."
+    },
+    {
+      "dominio": "platzi.com",
+      "mercado": "CO",
+      "DA": 72,
+      "trafico_mes": 154885,
+      "kw_organicas": 31857,
+      "backlinks": 780588,
+      "ref_domains": 15021,
+      "tendencia_24m": "-85%",
+      "notas": "Fuerte en tech: 'curso de programación' pos 1-2 (SD 45), 'curso de excel básico' pos 3 (SD 20), 'curso de diseño gráfico' pos 2 (SD 20)."
+    },
+    {
+      "dominio": "academiadebelleza.edu.co",
+      "mercado": "CO",
+      "DA": 14,
+      "trafico_mes": 592,
+      "kw_organicas": 958,
+      "backlinks": 17501,
+      "ref_domains": 207,
+      "tendencia_24m": "-90%",
+      "notas": "MODELO PROPIO: sus geo-páginas /{ciudad}/cursos-X/ rankean ('curso de estetica' pos 2 SD 17; 'barberia barranquilla' pos 12; 'academia de belleza en bucaramanga' pos 8). Caída por funnel roto dic-2025, no por el modelo."
+    },
+    {
+      "dominio": "cursodeglobosonline.com",
+      "mercado": "MX",
+      "DA": 18,
+      "trafico_mes": 139,
+      "kw_organicas": 35,
+      "backlinks": 26960,
+      "ref_domains": 149,
+      "tendencia_24m": "-60%",
+      "notas": "FILIAL PROPIA: DA y backlinks mejores que la academia, pero contenido débil (pos 32-75 en sus keywords core). 'cursos de decoración de globos' SD 15 vol 590 MX = quick win directo con relanzamiento."
+    }
+  ],
+  "sd_clave": [
+    {
+      "kw": "cursos de decoración de globos",
+      "pais": "MX",
+      "vol": 590,
+      "sd": 15
+    },
+    {
+      "kw": "curso de globoflexia",
+      "pais": "MX",
+      "vol": 590,
+      "sd": 23
+    },
+    {
+      "kw": "cursos de cosmetología",
+      "pais": "CO",
+      "vol": 590,
+      "sd": 12
+    },
+    {
+      "kw": "curso de estetica",
+      "pais": "CO",
+      "vol": 210,
+      "sd": 17
+    },
+    {
+      "kw": "curso de barberia",
+      "pais": "CO",
+      "vol": 1600,
+      "sd": 34
+    },
+    {
+      "kw": "curso de cejas y pestañas",
+      "pais": "CO",
+      "vol": 390,
+      "sd": 23
+    },
+    {
+      "kw": "curso de excel basico",
+      "pais": "CO",
+      "vol": 880,
+      "sd": 20
+    },
+    {
+      "kw": "curso de diseño grafico",
+      "pais": "CO",
+      "vol": 880,
+      "sd": 20
+    },
+    {
+      "kw": "curso de programación",
+      "pais": "CO",
+      "vol": 1300,
+      "sd": 45
+    },
+    {
+      "kw": "trafficker digital",
+      "pais": "CO",
+      "vol": 1300,
+      "sd": 14
+    }
+  ]
+}
