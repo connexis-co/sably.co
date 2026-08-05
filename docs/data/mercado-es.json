@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "-",
+    "keyword": "curso de ingles",
+    "volume": 5400,
+    "competition": "HIGH",
+    "cpc_low": 5029.67,
+    "cpc_high": 18537.99,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de electricidad",
+    "volume": 2900,
+    "competition": "HIGH",
+    "cpc_low": 5069.0,
+    "cpc_high": 21286.75,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de soldadura",
+    "volume": 2400,
+    "competition": "MEDIUM",
+    "cpc_low": 2263.55,
+    "cpc_high": 17416.59,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de excel",
+    "volume": 1900,
+    "competition": "HIGH",
+    "cpc_low": 2548.08,
+    "cpc_high": 12911.6,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de primeros auxilios",
+    "volume": 1300,
+    "competition": "HIGH",
+    "cpc_low": 1622.9,
+    "cpc_high": 6844.83,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de fotografia",
+    "volume": 1300,
+    "competition": "HIGH",
+    "cpc_low": 3192.74,
+    "cpc_high": 12141.2,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de reposteria",
+    "volume": 880,
+    "competition": "HIGH",
+    "cpc_low": 3150.8,
+    "cpc_high": 9329.92,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de manicura",
+    "volume": 590,
+    "competition": "HIGH",
+    "cpc_low": 2891.84,
+    "cpc_high": 10720.86,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de microblading",
+    "volume": 210,
+    "competition": "HIGH",
+    "cpc_low": 2732.28,
+    "cpc_high": 8000.2,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de extensiones de pestañas",
+    "volume": 110,
+    "competition": "HIGH",
+    "cpc_low": 1806.79,
+    "cpc_high": 7108.65,
+    "verdict": "OPTIMIZAR"
+  }
+]
