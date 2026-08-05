@@ -1,0 +1,124 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { COUNTRIES, getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
+import { INTERNAL_CATEGORIES } from '@/lib/categories';
+import { PROGRAMAS } from '@/lib/homologaciones';
+
+const country = getCountry(DEFAULT_COUNTRY);
+const courses = await getCollection('courses');
+const posts = await getCollection('blog');
+
+const byCategory = INTERNAL_CATEGORIES.map((cat) => ({
+  cat,
+  count: courses.filter((c) => c.data.category === cat.slug).length,
+})).filter((g) => g.count > 0);
+
+const title = 'Mapa del Sitio | Sably';
+const description = `Navega todo Sably: ${courses.length} cursos en ${INTERNAL_CATEGORIES.length} categorías, ${COUNTRIES.length} países y sus ciudades.`;
+---
+
+<BaseLayout {title} {description} {country} pathAfterCountry="/" pageType="sitemap">
+  <section class="bg-primary py-12">
+    <div class="container-site">
+      <h1 class="text-3xl font-extrabold text-white">Mapa del sitio</h1>
+      <p class="mt-2 text-white/80">{description}</p>
+    </div>
+  </section>
+
+  <div class="container-site grid gap-12 py-14 lg:grid-cols-3">
+    <!-- Cursos por categoría -->
+    <section aria-labelledby="sm-cats">
+      <h2 id="sm-cats" class="text-xl font-bold">Cursos por categoría</h2>
+      <ul class="mt-4 space-y-4" role="list">
+        {
+          byCategory.map(({ cat, count }) => (
+            <li>
+              <a href={`/${country.code}/cursos/${cat.slug}/`} class="font-semibold text-accent hover:underline">
+                {cat.emoji} {cat.name} ({count})
+              </a>
+              <ul class="mt-1.5 space-y-1 pl-5" role="list">
+                {courses
+                  .filter((c) => c.data.category === cat.slug)
+                  .slice(0, 6)
+                  .map((c) => (
+                    <li>
+                      <a href={`/${country.code}/${c.id}/`} class="text-sm text-body hover:text-accent">
+                        {c.data.title}
+                      </a>
+                    </li>
+                  ))}
+                {count > 6 && (
+                  <li>
+                    <a href={`/${country.code}/cursos/${cat.slug}/`} class="text-sm font-semibold text-accent">
+                      Ver los {count} →
+                    </a>
+                  </li>
+                )}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- Por país y ciudad -->
+    <section aria-labelledby="sm-geo">
+      <h2 id="sm-geo" class="text-xl font-bold">Cursos por país y ciudad</h2>
+      <ul class="mt-4 space-y-4" role="list">
+        {
+          COUNTRIES.map((c) => (
+            <li>
+              <a href={`/${c.code}/`} class="font-semibold text-accent hover:underline">
+                {c.flag} Cursos online en {c.name}
+              </a>
+              <ul class="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 pl-5" role="list">
+                {c.cities.map((city) => (
+                  <li>
+                    <a href={`/${c.code}/${city.slug}/`} class="text-sm text-body hover:text-accent">
+                      {city.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <!-- Páginas y blog -->
+    <section aria-labelledby="sm-pages">
+      <h2 id="sm-pages" class="text-xl font-bold">Sably</h2>
+      <ul class="mt-4 space-y-1.5" role="list">
+        <li><a href={`/${country.code}/`} class="text-sm text-body hover:text-accent">Inicio</a></li>
+        <li><a href="/nosotros/" class="text-sm text-body hover:text-accent">Sobre nosotros</a></li>
+        <li><a href="/homologaciones/" class="text-sm text-body hover:text-accent">Homologaciones</a></li>
+        {
+          PROGRAMAS.map((p) => (
+            <li class="pl-4">
+              <a href={`/homologaciones/${p.slug}/`} class="text-sm text-body hover:text-accent">
+                {p.name}
+              </a>
+            </li>
+          ))
+        }
+        <li><a href="/legal/terminos/" class="text-sm text-body hover:text-accent">Términos y condiciones</a></li>
+        <li><a href="/legal/privacidad/" class="text-sm text-body hover:text-accent">Política de privacidad</a></li>
+      </ul>
+      <h2 class="mt-8 text-xl font-bold">Blog</h2>
+      <ul class="mt-4 space-y-1.5" role="list">
+        <li><a href="/blog/" class="text-sm font-semibold text-accent hover:underline">Todos los artículos</a></li>
+        {
+          posts.map((p) => (
+            <li>
+              <a href={`/blog/${p.id}/`} class="text-sm text-body hover:text-accent">
+                {p.data.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</BaseLayout>

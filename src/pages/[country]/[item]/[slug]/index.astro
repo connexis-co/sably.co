@@ -3,12 +3,13 @@ import { getCollection } from 'astro:content';
 import CourseLanding from '@/components/CourseLanding.astro';
 import { COUNTRIES, getCountry, getCity } from '@/lib/countries';
 
+/** Curso hiperlocal: /{cc}/{ciudad}/{curso-slug}/ */
 export async function getStaticPaths() {
   const courses = await getCollection('courses');
   return COUNTRIES.flatMap((c) =>
     c.cities.flatMap((city) =>
       courses.map((course) => ({
-        params: { country: c.code, city: city.slug, slug: course.id },
+        params: { country: c.code, item: city.slug, slug: course.id },
         props: { course },
       })),
     ),
@@ -17,7 +18,7 @@ export async function getStaticPaths() {
 
 const { course } = Astro.props;
 const country = getCountry(Astro.params.country!);
-const city = getCity(country, Astro.params.city!);
+const city = getCity(country, Astro.params.item!);
 ---
 
 <CourseLanding {course} {country} {city} />

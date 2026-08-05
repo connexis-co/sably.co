@@ -6,19 +6,18 @@ import SectionHeading from '@/components/SectionHeading.astro';
 import TestimonialCard from '@/components/TestimonialCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import PromoBanner from '@/components/PromoBanner.astro';
-import { COUNTRIES, getCountry, getCity } from '@/lib/countries';
+import type { Country, City } from '@/lib/countries';
 import { INTERNAL_CATEGORIES } from '@/lib/categories';
 import { breadcrumbSchema, faqSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 
-export function getStaticPaths() {
-  return COUNTRIES.flatMap((c) =>
-    c.cities.map((city) => ({ params: { country: c.code, city: city.slug } })),
-  );
+/** Landing de ciudad — extraída a componente para la ruta unificada [item]. */
+interface Props {
+  country: Country;
+  city: City;
 }
 
-const country = getCountry(Astro.params.country!);
-const city = getCity(country, Astro.params.city!);
+const { country, city } = Astro.props;
 const base = `/${country.code}`;
 
 const courses = await getCollection('courses');

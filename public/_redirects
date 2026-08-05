@@ -1,4 +1,8 @@
 # Cloudflare Pages — la raíz redirige al país por defecto.
 # Fase 1.5: una Edge Function detectará el país por IP (request.cf.country)
 # y hará el rewrite dinámico aquí.
+# Migración 2026-08-05: estructura /curso/ intermedia → URLs planas
+/:country/curso/:slug/ /:country/:slug/ 301
+/:country/:city/curso/:slug/ /:country/:city/:slug/ 301
+
 / /co/ 302
