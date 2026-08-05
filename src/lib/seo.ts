@@ -74,11 +74,13 @@ interface CourseSchemaInput {
   title: string;
   description: string;
   url: string;
-  priceUSD: number;
+  price: number;
+  priceCurrency: string;
   rating: number;
   ratingCount: number;
   instructorName: string;
   category: string;
+  workloadHours: number;
 }
 
 export function courseSchema(c: CourseSchemaInput) {
@@ -103,15 +105,19 @@ export function courseSchema(c: CourseSchemaInput) {
     },
     offers: {
       '@type': 'Offer',
-      price: c.priceUSD,
-      priceCurrency: 'USD',
+      price: c.price,
+      priceCurrency: c.priceCurrency,
       availability: 'https://schema.org/InStock',
       category: 'Paid',
+      url: c.url,
     },
     hasCourseInstance: {
       '@type': 'CourseInstance',
       courseMode: 'Online',
-      courseWorkload: 'PT10H',
+      courseWorkload: `PT${c.workloadHours}H`,
+      location: { '@type': 'VirtualLocation', url: c.url },
     },
+    inLanguage: 'es',
+    availableLanguage: ['es'],
   };
 }

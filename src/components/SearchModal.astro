@@ -1,0 +1,121 @@
+---
+import type { Country } from '@/lib/countries';
+
+/** Buscador del sitio: modal con índice lazy (/search-index.json), atajo Cmd/Ctrl+K. */
+interface Props {
+  country: Country;
+}
+const { country } = Astro.props;
+---
+
+<dialog
+  id="search-modal"
+  data-country={country.code}
+  class="m-auto mt-[10vh] w-[min(92vw,560px)] rounded-lg p-0 shadow-2xl backdrop:bg-ink/50 backdrop:backdrop-blur-sm"
+>
+  <div class="p-4">
+    <div class="flex items-center gap-3 border-b border-surface-200 pb-3">
+      <svg class="size-5 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path>
+      </svg>
+      <label for="search-input" class="sr-only">Buscar cursos</label>
+      <input
+        type="search"
+        id="search-input"
+        data-search-input
+        aria-label="Buscar cursos"
+        placeholder="Busca un curso: uñas, inglés, electricidad…"
+        class="w-full bg-transparent text-base outline-none placeholder:text-muted"
+        autocomplete="off"
+      />
+      <button type="button" data-search-close class="rounded-md border border-surface-200 px-2 py-0.5 text-xs text-muted">esc</button>
+    </div>
+    <ul data-search-results class="mt-2 max-h-[50vh] divide-y divide-surface-100 overflow-y-auto" role="listbox"></ul>
+    <p data-search-empty class="hidden py-6 text-center text-sm text-muted">Sin resultados. Prueba con otra palabra.</p>
+  </div>
+</dialog>
+
+<script>
+  import { trackEvent } from '@/lib/analytics';
+
+  const modal = document.getElementById('search-modal') as HTMLDialogElement | null;
+  if (modal) {
+    const cc = modal.dataset.country ?? 'co';
+    const input = modal.querySelector<HTMLInputElement>('[data-search-input]')!;
+    const list = modal.querySelector<HTMLUListElement>('[data-search-results]')!;
+    const empty = modal.querySelector<HTMLElement>('[data-search-empty]')!;
+    let index: { t: string; s: string; c: string; k: string }[] | null = null;
+
+    const norm = (s: string) =>
+      s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+    const open = async () => {
+      modal.showModal();
+      input.focus();
+      if (!index) {
+        try {
+          index = await (await fetch('/search-index.json')).json();
+        } catch {
+          index = [];
+        }
+      }
+    };
+
+    const renderResults = (q: string) => {
+      const nq = norm(q.trim());
+      if (!index || nq.length < 2) {
+        list.innerHTML = '';
+        empty.classList.add('hidden');
+        return;
+      }
+      const terms = nq.split(/\s+/);
+      const scored = index
+        .map((item) => {
+          const hay = norm(`${item.t} ${item.c} ${item.k}`);
+          const title = norm(item.t);
+          let score = 0;
+          for (const t of terms) {
+            if (title.includes(t)) score += 3;
+            else if (hay.includes(t)) score += 1;
+            else return null;
+          }
+          if (title.startsWith(nq)) score += 2;
+          return { ...item, score };
+        })
+        .filter((x): x is NonNullable<typeof x> => x !== null)
+        .sort((a, b) => b.score - a.score)
+        .slice(0, 12);
+
+      empty.classList.toggle('hidden', scored.length > 0);
+      list.innerHTML = scored
+        .map(
+          (r) => `<li role="option">
+            <a href="/${cc}/${r.s}/" class="flex items-center justify-between gap-3 px-2 py-3 hover:bg-surface-100">
+              <span class="text-sm font-semibold text-heading">${r.t}</span>
+              <span class="shrink-0 rounded-full bg-surface-100 px-2 py-0.5 text-[11px] text-muted">${r.c}</span>
+            </a>
+          </li>`,
+        )
+        .join('');
+      trackEvent('site_search', { query: q.trim(), results: scored.length });
+    };
+
+    let timer: ReturnType<typeof setTimeout>;
+    input.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => renderResults(input.value), 160);
+    });
+
+    document.querySelectorAll('[data-search-open]').forEach((b) => b.addEventListener('click', open));
+    modal.querySelector('[data-search-close]')?.addEventListener('click', () => modal.close());
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        open();
+      }
+    });
+  }
+</script>

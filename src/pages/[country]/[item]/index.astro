@@ -12,14 +12,26 @@ import { COUNTRIES, getCountry, getCity } from '@/lib/countries';
  * `curso-de-`/`diplomado-` y ninguna ciudad puede empezar así; palabras
  * reservadas excluidas de ambos. El guard de abajo lo garantiza en build.
  */
-const RESERVED = new Set(['cursos', 'curso', 'blog', 'homologaciones', 'nosotros', 'legal', 'sitemap']);
-
 export async function getStaticPaths() {
+  /* Declarado aquí dentro: Astro extrae getStaticPaths a su propio chunk y no ve
+     las constantes del frontmatter del componente. */
+  const RESERVED = new Set(['cursos', 'curso', 'blog', 'homologaciones', 'nosotros', 'legal', 'sitemap']);
   const courses = await getCollection('courses');
 
   const citySlugs = new Set(COUNTRIES.flatMap((c) => c.cities.map((city) => city.slug)));
+
+  /* Ambos lados del namespace se validan: un slug de ciudad con prefijo de curso
+     (o una palabra reservada) haría ambigua la ruta /{cc}/{item}/. */
+  for (const slug of citySlugs) {
+    if (RESERVED.has(slug)) {
+      throw new Error(`Colisión de namespace: la ciudad "${slug}" usa una palabra reservada`);
+    }
+    if (/^(curso-de-|diplomado-)/.test(slug)) {
+      throw new Error(`Colisión de namespace: la ciudad "${slug}" no puede empezar por curso-de-/diplomado-`);
+    }
+  }
   for (const course of courses) {
-    if (citySlugs.has(course.id) || ['cursos', 'curso', 'blog', 'homologaciones', 'nosotros', 'legal', 'sitemap'].includes(course.id)) {
+    if (citySlugs.has(course.id) || RESERVED.has(course.id)) {
       throw new Error(`Colisión de namespace: el slug de curso "${course.id}" choca con ciudad o palabra reservada`);
     }
     if (!/^(curso-de-|diplomado-)/.test(course.id)) {

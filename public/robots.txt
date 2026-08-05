@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://sably.co/sitemap-index.xml
+
+# Guía para agentes de IA
+# https://sably.co/llms.txt

@@ -9,8 +9,8 @@ import TestimonialCard from '@/components/TestimonialCard.astro';
 import StickyCta from '@/components/StickyCta.astro';
 import ExitIntent from '@/components/ExitIntent.astro';
 import LeadModal from '@/components/LeadModal.astro';
-import { formatPrice, type Country, type City } from '@/lib/countries';
-import { getCategory, categoryCover } from '@/lib/categories';
+import { formatPrice, localPrice, type Country, type City } from '@/lib/countries';
+import { getCategory, courseCover } from '@/lib/categories';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
@@ -124,11 +124,13 @@ const schemas = [
     title: course.data.title,
     description: course.data.shortDescription,
     url: pageUrl,
-    priceUSD: course.data.priceUSD,
+    price: localPrice(course.data.priceUSD, country),
+    priceCurrency: country.currency,
     rating: course.data.rating,
     ratingCount: course.data.ratingCount,
     instructorName: course.data.instructor.name,
     category: category.name,
+    workloadHours: course.data.durationHours,
   }),
   faqSchema(faqs),
 ];
@@ -195,7 +197,7 @@ const schemas = [
           style={`background-image: linear-gradient(135deg, ${category.gradient[0]}, ${category.gradient[1]})`}
         >
           <img
-            src={categoryCover(category.slug)}
+            src={courseCover(course.id, category.slug)}
             alt={`${category.name}: ${course.data.title}`}
             width="800"
             height="533"

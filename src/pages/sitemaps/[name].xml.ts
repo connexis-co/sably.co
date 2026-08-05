@@ -13,12 +13,19 @@ export function getStaticPaths() {
 }
 
 export const GET: APIRoute = async ({ params }) => {
-  const name = params.name!.replace(/^sitemap-/, '');
+  const raw = params.name ?? '';
+  const name = raw.replace(/^sitemap-/, '');
+  /* Un nombre no reconocido debe ser 404, no un urlset vacío. */
+  if (!name || !SITEMAP_NAMES.includes(name)) {
+    return new Response('Not found', { status: 404 });
+  }
+
   let urls;
   if (name === 'pages') urls = pagesUrls();
   else if (name === 'categorias') urls = categoriasUrls();
   else if (name === 'blog') urls = await blogUrls();
   else urls = await cursosUrls(name.replace('cursos-', ''));
+
   return new Response(renderUrlset(urls), {
     headers: { 'Content-Type': 'application/xml' },
   });

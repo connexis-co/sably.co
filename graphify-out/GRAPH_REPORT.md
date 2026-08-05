@@ -1,23 +1,23 @@
 # Graph Report - sably-online-courses-64463a  (2026-08-05)
 
 ## Corpus Check
-- 193 files · ~201,283 words
+- 195 files · ~202,745 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 695 nodes · 885 edges · 127 communities (25 shown, 102 thin omitted)
+- 701 nodes · 889 edges · 128 communities (25 shown, 103 thin omitted)
 - Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 28 edges (avg confidence: 0.91)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `4a79473d`
+- Built from commit: `4b1c5df5`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - content.config.ts
 - Afiliación Hotmart con cupón SABLY40
-- analytics.ts
+- curso-de-decoracion-de-unas.mdx
 - dependencies
 - curso-de-colorimetria.mdx
 - El ranking
@@ -121,6 +121,7 @@
 - curso-de-tatuaje.mdx
 - countries.ts
 - Arquitectura de URLs — Ecosistema Sably
+- curso-de-pestanas-volumen-ruso.mdx
 - sitemap.ts
 - blog/[slug]/index.astro
 - Estrategia SEO Multi-Dominio y Geo-Posicionamiento — Fase 1 (Investigación)
@@ -174,7 +175,7 @@
 - **Narrativa compartida: oficio que la IA no puede reemplazar** — src_content_courses_curso_de_cocina_desde_cero_a_profesional, src_content_courses_curso_de_corte_y_confeccion_desde_cero, src_content_courses_curso_de_marketing_digital_para_emprendedores, src_content_courses_curso_de_masajes_terapeuticos_y_relajantes, src_content_courses_curso_de_panaderia_artesanal_y_masa_madre, src_content_courses_curso_de_peluqueria_canina_profesional, src_content_courses_curso_de_reposteria_fina_y_postres_gourmet, src_content_courses_curso_de_tortas_decoradas_desde_cero [INFERRED 0.85]
 - **Categoría panadería-y-pastelería** — src_content_courses_curso_de_panaderia_artesanal_y_masa_madre, src_content_courses_curso_de_reposteria_fina_y_postres_gourmet, src_content_courses_curso_de_tortas_decoradas_desde_cero [EXTRACTED 1.00]
 
-## Communities (127 total, 102 thin omitted)
+## Communities (128 total, 103 thin omitted)
 
 ### Community 0 - "content.config.ts"
 Cohesion: 0.33
@@ -245,8 +246,8 @@ Cohesion: 0.60
 Nodes (4): access_token(), keyword_ideas(), main(), Keyword Planner (Google Ads API) — volúmenes y CPC reales por país. Uso:…
 
 ### Community 105 - "countries.ts"
-Cohesion: 0.06
-Nodes (68): cityTestimonials, countryTestimonials, faqs, popular, schemas, testimonials, cat, rounded (+60 more)
+Cohesion: 0.05
+Nodes (70): cityTestimonials, countryTestimonials, faqs, popular, schemas, testimonials, cat, rounded (+62 more)
 
 ### Community 106 - "Arquitectura de URLs — Ecosistema Sably"
 Cohesion: 0.07
@@ -277,9 +278,9 @@ Nodes (3): main(), Reescritura de contenido con Gemini API orientada a keywords 
   src/content/courses/curso-de-peluqueria-canina-profesional.mdx · relation: semantically_similar_to
 
 ## Knowledge Gaps
-- **384 isolated node(s):** `@commitlint/config-conventional`, `never`, `name`, `type`, `version` (+379 more)
+- **388 isolated node(s):** `@commitlint/config-conventional`, `never`, `name`, `type`, `version` (+383 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **102 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **103 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -287,11 +288,11 @@ _Questions this graph is uniquely positioned to answer:_
 - **What is the exact relationship between `Marcela Quintero (masajista terapéutica, instructora)` and `Marcela Quintero (estilista canina, instructora)`?**
   _Edge tagged AMBIGUOUS (relation: semantically_similar_to) - confidence is low._
 - **Why does `dependencies` connect `dependencies` to `devDependencies`?**
-  _High betweenness centrality (0.005) - this node is a cross-community bridge._
+  _High betweenness centrality (0.004) - this node is a cross-community bridge._
 - **Why does `COUNTRIES` connect `countries.ts` to `sitemap.ts`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
 - **What connects `@commitlint/config-conventional`, `never`, `name` to the rest of the system?**
-  _384 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _388 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Afiliación Hotmart con cupón SABLY40` be split into smaller, more focused modules?**
   _Cohesion score 0.10080645161290322 - nodes in this community are weakly interconnected._
 - **Should `dependencies` be split into smaller, more focused modules?**

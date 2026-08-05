@@ -1280,8 +1280,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_citylanding",
-      "community": 115,
-      "community_name": "CityLanding.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "citylanding.astro"
     },
     {
@@ -1291,8 +1291,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "src_components_citylanding_popular",
-      "community": 115,
-      "community_name": "CityLanding.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "popular"
     },
     {
@@ -1302,8 +1302,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "src_components_citylanding_citytestimonials",
-      "community": 115,
-      "community_name": "CityLanding.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "citytestimonials"
     },
     {
@@ -1313,8 +1313,8 @@
       "source_location": "L30",
       "_origin": "ast",
       "id": "src_components_citylanding_countrytestimonials",
-      "community": 115,
-      "community_name": "CityLanding.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "countrytestimonials"
     },
     {
@@ -1324,8 +1324,8 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "src_components_citylanding_testimonials",
-      "community": 115,
-      "community_name": "CityLanding.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "testimonials"
     },
     {
@@ -1335,8 +1335,8 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "src_components_citylanding_faqs",
-      "community": 115,
-      "community_name": "CityLanding.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "faqs"
     },
     {
@@ -1346,8 +1346,8 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "src_components_citylanding_schemas",
-      "community": 115,
-      "community_name": "CityLanding.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "schemas"
     },
     {
@@ -1368,8 +1368,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_coursecard",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "coursecard.astro"
     },
     {
@@ -1379,8 +1379,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_components_coursecard_cat",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "cat"
     },
     {
@@ -1390,8 +1390,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_courselanding",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "courselanding.astro"
     },
     {
@@ -1412,8 +1412,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_faqaccordion",
-      "community": 109,
-      "community_name": "[programa]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "faqaccordion.astro"
     },
     {
@@ -1423,8 +1423,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_footer",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "footer.astro"
     },
     {
@@ -1445,8 +1445,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_header",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "header.astro"
     },
     {
@@ -1456,8 +1456,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_leadmodal",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "leadmodal.astro"
     },
     {
@@ -1467,8 +1467,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_logo",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "logo.astro"
     },
     {
@@ -1478,8 +1478,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_promobanner",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "promobanner.astro"
     },
     {
@@ -1489,8 +1489,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_rating",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "rating.astro"
     },
     {
@@ -1500,8 +1500,8 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "src_components_rating_rounded",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "rounded"
     },
     {
@@ -1511,8 +1511,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_sectionheading",
-      "community": 110,
-      "community_name": "[country]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "sectionheading.astro"
     },
     {
@@ -1522,8 +1522,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_seo",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "seo.astro"
     },
     {
@@ -1555,8 +1555,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_testimonialcard",
-      "community": 110,
-      "community_name": "[country]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "testimonialcard.astro"
     },
     {
@@ -1566,8 +1566,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_trustbar",
-      "community": 110,
-      "community_name": "[country]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "trustbar.astro"
     },
     {
@@ -1577,8 +1577,8 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "src_components_trustbar_items",
-      "community": 110,
-      "community_name": "[country]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "items"
     },
     {
@@ -1588,8 +1588,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_whatsappfloat",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "whatsappfloat.astro"
     },
     {
@@ -1599,8 +1599,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_components_whatsappfloat_url",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "url"
     },
     {
@@ -1676,8 +1676,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_layouts_baselayout",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "baselayout.astro"
     },
     {
@@ -1771,8 +1771,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_categories",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "categories.ts"
     },
     {
@@ -1784,8 +1784,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_categories_subcategory",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "subcategory"
     },
     {
@@ -1797,8 +1797,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_categories_category",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "category"
     },
     {
@@ -1808,8 +1808,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_lib_categories_categories",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 111,
+      "community_name": "blog/[slug]/index.astro",
       "norm_label": "categories"
     },
     {
@@ -1819,8 +1819,8 @@
       "source_location": "L247",
       "_origin": "ast",
       "id": "src_lib_categories_internal_categories",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "internal_categories"
     },
     {
@@ -1831,8 +1831,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_categories_categorycover",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "categorycover()"
     },
     {
@@ -1843,8 +1843,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_categories_getcategory",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "getcategory()"
     },
     {
@@ -1867,8 +1867,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_countries_city",
-      "community": 115,
-      "community_name": "CityLanding.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "city"
     },
     {
@@ -1880,8 +1880,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_countries_country",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "country"
     },
     {
@@ -1938,8 +1938,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_countries_localprice",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "localprice()"
     },
     {
@@ -1950,8 +1950,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_countries_formatprice",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "formatprice()"
     },
     {
@@ -1961,8 +1961,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_homologaciones",
-      "community": 109,
-      "community_name": "[programa]/index.astro",
+      "community": 108,
+      "community_name": "sitemap.ts",
       "norm_label": "homologaciones.ts"
     },
     {
@@ -1974,8 +1974,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_homologaciones_programahomologacion",
-      "community": 109,
-      "community_name": "[programa]/index.astro",
+      "community": 108,
+      "community_name": "sitemap.ts",
       "norm_label": "programahomologacion"
     },
     {
@@ -1985,8 +1985,8 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "src_lib_homologaciones_sedes",
-      "community": 109,
-      "community_name": "[programa]/index.astro",
+      "community": 108,
+      "community_name": "sitemap.ts",
       "norm_label": "sedes"
     },
     {
@@ -1996,8 +1996,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "src_lib_homologaciones_programas",
-      "community": 109,
-      "community_name": "[programa]/index.astro",
+      "community": 108,
+      "community_name": "sitemap.ts",
       "norm_label": "programas"
     },
     {
@@ -2008,8 +2008,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_homologaciones_getprograma",
-      "community": 109,
-      "community_name": "[programa]/index.astro",
+      "community": 108,
+      "community_name": "sitemap.ts",
       "norm_label": "getprograma()"
     },
     {
@@ -2019,8 +2019,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_hotmart",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "hotmart.ts"
     },
     {
@@ -2032,8 +2032,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_hotmart_hotmarturlparams",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "hotmarturlparams"
     },
     {
@@ -2044,8 +2044,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_hotmart_buildhotmarturl",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "buildhotmarturl()"
     },
     {
@@ -2056,8 +2056,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_hotmart_buildwhatsappurl",
-      "community": 109,
-      "community_name": "[programa]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "buildwhatsappurl()"
     },
     {
@@ -2067,8 +2067,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_seo",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "seo.ts"
     },
     {
@@ -2080,8 +2080,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_seo_hreflangalternate",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "hreflangalternate"
     },
     {
@@ -2092,8 +2092,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_seo_countryalternates",
-      "community": 110,
-      "community_name": "[country]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "countryalternates()"
     },
     {
@@ -2105,8 +2105,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_seo_breadcrumbitem",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "breadcrumbitem"
     },
     {
@@ -2117,8 +2117,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_seo_breadcrumbschema",
-      "community": 109,
-      "community_name": "[programa]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "breadcrumbschema()"
     },
     {
@@ -2129,8 +2129,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_seo_organizationschema",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "organizationschema()"
     },
     {
@@ -2142,8 +2142,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_seo_faqentry",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "faqentry"
     },
     {
@@ -2154,8 +2154,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_seo_faqschema",
-      "community": 109,
-      "community_name": "[programa]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "faqschema()"
     },
     {
@@ -2167,8 +2167,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_seo_courseschemainput",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "courseschemainput"
     },
     {
@@ -2179,8 +2179,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_seo_courseschema",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "courseschema()"
     },
     {
@@ -2190,8 +2190,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_site",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "site.ts"
     },
     {
@@ -2201,8 +2201,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_site_site",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "site"
     },
     {
@@ -2212,8 +2212,8 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "src_lib_site_leads_endpoint",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "leads_endpoint"
     },
     {
@@ -2223,8 +2223,8 @@
       "source_location": "L34",
       "_origin": "ast",
       "id": "src_lib_site_gtm_id",
-      "community": 4,
-      "community_name": "BaseLayout.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "gtm_id"
     },
     {
@@ -2408,8 +2408,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_pages_country_item_cursos_category_index",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "[item]/cursos/[category]/index.astro"
     },
     {
@@ -2431,8 +2431,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_pages_country_item_cursos_category_index_country",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "country"
     },
     {
@@ -2442,8 +2442,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "src_pages_country_item_cursos_category_index_city",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "city"
     },
     {
@@ -2453,8 +2453,8 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "src_pages_country_item_cursos_category_index_category",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "category"
     },
     {
@@ -2464,8 +2464,8 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "src_pages_country_item_cursos_category_index_courses",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "courses"
     },
     {
@@ -2475,8 +2475,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "src_pages_country_item_cursos_category_index_faqs",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "faqs"
     },
     {
@@ -2486,8 +2486,8 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "src_pages_country_item_cursos_category_index_schemas",
-      "community": 107,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "schemas"
     },
     {
@@ -2542,8 +2542,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_pages_country_cursos_category_index",
-      "community": 113,
-      "community_name": "[country]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "[country]/cursos/[category]/index.astro"
     },
     {
@@ -2554,8 +2554,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_pages_country_cursos_category_index_getstaticpaths",
-      "community": 113,
-      "community_name": "[country]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "getstaticpaths()"
     },
     {
@@ -2565,8 +2565,8 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "src_pages_country_cursos_category_index_country",
-      "community": 113,
-      "community_name": "[country]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "country"
     },
     {
@@ -2576,8 +2576,8 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "src_pages_country_cursos_category_index_category",
-      "community": 113,
-      "community_name": "[country]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "category"
     },
     {
@@ -2587,8 +2587,8 @@
       "source_location": "L21",
       "_origin": "ast",
       "id": "src_pages_country_cursos_category_index_courses",
-      "community": 113,
-      "community_name": "[country]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "courses"
     },
     {
@@ -2598,8 +2598,8 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "src_pages_country_cursos_category_index_bysubcategory",
-      "community": 113,
-      "community_name": "[country]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "bysubcategory"
     },
     {
@@ -2609,8 +2609,8 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "src_pages_country_cursos_category_index_uncategorized",
-      "community": 113,
-      "community_name": "[country]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "uncategorized"
     },
     {
@@ -2620,8 +2620,8 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "src_pages_country_cursos_category_index_faqs",
-      "community": 113,
-      "community_name": "[country]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "faqs"
     },
     {
@@ -2631,8 +2631,8 @@
       "source_location": "L54",
       "_origin": "ast",
       "id": "src_pages_country_cursos_category_index_schemas",
-      "community": 113,
-      "community_name": "[country]/cursos/[category]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "schemas"
     },
     {
@@ -2642,8 +2642,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_pages_country_cursos_index",
-      "community": 110,
-      "community_name": "[country]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "cursos/index.astro"
     },
     {
@@ -2654,8 +2654,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_pages_country_cursos_index_getstaticpaths",
-      "community": 110,
-      "community_name": "[country]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "getstaticpaths()"
     },
     {
@@ -2665,8 +2665,8 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "src_pages_country_cursos_index_country",
-      "community": 110,
-      "community_name": "[country]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "country"
     },
     {
@@ -2676,8 +2676,8 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "src_pages_country_cursos_index_bycategory",
-      "community": 110,
-      "community_name": "[country]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "bycategory"
     },
     {
@@ -2687,8 +2687,8 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "src_pages_country_cursos_index_schemas",
-      "community": 110,
-      "community_name": "[country]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "schemas"
     },
     {
@@ -2698,8 +2698,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_pages_country_index",
-      "community": 110,
-      "community_name": "[country]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "[country]/index.astro"
     },
     {
@@ -2710,8 +2710,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_pages_country_index_getstaticpaths",
-      "community": 110,
-      "community_name": "[country]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "getstaticpaths()"
     },
     {
@@ -2821,8 +2821,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_pages_homologaciones_programa_index",
-      "community": 109,
-      "community_name": "[programa]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "[programa]/index.astro"
     },
     {
@@ -2833,8 +2833,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_pages_homologaciones_programa_index_getstaticpaths",
-      "community": 109,
-      "community_name": "[programa]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "getstaticpaths()"
     },
     {
@@ -2844,8 +2844,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_pages_homologaciones_index",
-      "community": 109,
-      "community_name": "[programa]/index.astro",
+      "community": 105,
+      "community_name": "countries.ts",
       "norm_label": "homologaciones/index.astro"
     },
     {
@@ -4819,6 +4819,39 @@
       "community": 52,
       "community_name": "curso-de-chocolateria.mdx",
       "norm_label": "del antojo al negocio"
+    },
+    {
+      "label": "curso-de-colorimetria.mdx",
+      "file_type": "document",
+      "source_file": "src/content/courses/curso-de-colorimetria.mdx",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_content_courses_curso_de_colorimetria",
+      "community": 4,
+      "community_name": "curso-de-colorimetria.mdx",
+      "norm_label": "curso-de-colorimetria.mdx"
+    },
+    {
+      "label": "Estudia desde casa, aplica en tu silla",
+      "file_type": "document",
+      "source_file": "src/content/courses/curso-de-colorimetria.mdx",
+      "source_location": "L81",
+      "_origin": "ast",
+      "id": "src_content_courses_curso_de_colorimetria_estudia_desde_casa_aplica_en_tu_silla",
+      "community": 4,
+      "community_name": "curso-de-colorimetria.mdx",
+      "norm_label": "estudia desde casa, aplica en tu silla"
+    },
+    {
+      "label": "El color, tu servicio mejor pagado",
+      "file_type": "document",
+      "source_file": "src/content/courses/curso-de-colorimetria.mdx",
+      "source_location": "L85",
+      "_origin": "ast",
+      "id": "src_content_courses_curso_de_colorimetria_el_color_tu_servicio_mejor_pagado",
+      "community": 4,
+      "community_name": "curso-de-colorimetria.mdx",
+      "norm_label": "el color, tu servicio mejor pagado"
     },
     {
       "label": "curso-de-comidas-rapidas.mdx",
@@ -15593,6 +15626,28 @@
       "_origin": "ast",
       "source": "src_content_courses_curso_de_chocolateria",
       "target": "src_content_courses_curso_de_chocolateria_un_oficio_que_la_ia_no_puede_tocar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/content/courses/curso-de-colorimetria.mdx",
+      "source_location": "L85",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_content_courses_curso_de_colorimetria",
+      "target": "src_content_courses_curso_de_colorimetria_el_color_tu_servicio_mejor_pagado",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/content/courses/curso-de-colorimetria.mdx",
+      "source_location": "L81",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_content_courses_curso_de_colorimetria",
+      "target": "src_content_courses_curso_de_colorimetria_estudia_desde_casa_aplica_en_tu_silla",
       "confidence_score": 1.0
     },
     {
