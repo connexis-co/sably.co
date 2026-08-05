@@ -1,0 +1,200 @@
+[
+  {
+    "archiveSlug": "aprende-barberia-y-monta-tu-negocio",
+    "sablySlug": "curso-de-barberia",
+    "title": "Curso de Barbería desde Cero",
+    "category": "belleza",
+    "subcategory": "barberia",
+    "keyword": "curso de barbería",
+    "demand": "alta",
+    "score": 92,
+    "reason": "Keyword de altísimo volumen en LATAM, oficio anti-IA con monetización inmediata; mejor variante del cluster barbería."
+  },
+  {
+    "archiveSlug": "aprende-el-negocio-de-las-unas",
+    "sablySlug": "curso-de-unas",
+    "title": "Curso de Uñas: Aprende el Negocio",
+    "category": "belleza",
+    "subcategory": "unas",
+    "keyword": "curso de uñas",
+    "demand": "alta",
+    "score": 90,
+    "reason": "'Curso de uñas' es la keyword reina de belleza en LATAM con intención transaccional directa."
+  },
+  {
+    "archiveSlug": "master-en-unas-acrilicas",
+    "sablySlug": "curso-de-unas-acrilicas",
+    "title": "Curso de Uñas Acrílicas",
+    "category": "belleza",
+    "subcategory": "unas",
+    "keyword": "curso de uñas acrílicas",
+    "demand": "alta",
+    "score": 90,
+    "reason": "Long-tail de gran volumen del cluster uñas; mejor variante frente a el-arte-de-las-unas-acrilicas."
+  },
+  {
+    "archiveSlug": "cejas-perfectas-con-microblading",
+    "sablySlug": "curso-de-microblading",
+    "title": "Curso de Microblading de Cejas",
+    "category": "belleza",
+    "subcategory": "cejas",
+    "keyword": "curso de microblading",
+    "demand": "alta",
+    "score": 88,
+    "reason": "Keyword transaccional fuerte con ticket de servicio alto."
+  },
+  {
+    "archiveSlug": "experta-en-extensiones-de-pestanas",
+    "sablySlug": "curso-de-extensiones-de-pestanas",
+    "title": "Curso de Extensiones de Pestañas",
+    "category": "belleza",
+    "subcategory": "pestanas",
+    "keyword": "curso de extensiones de pestañas",
+    "demand": "alta",
+    "score": 86,
+    "reason": "Nicho lash muy buscado con servicio recurrente de buen margen."
+  },
+  {
+    "archiveSlug": "manicure-y-pedicure-como-negocio-a-domicilio",
+    "sablySlug": "curso-de-manicure-y-pedicure",
+    "title": "Curso de Manicure y Pedicure a Domicilio",
+    "category": "belleza",
+    "subcategory": "unas",
+    "keyword": "curso de manicure y pedicure",
+    "demand": "alta",
+    "score": 84,
+    "reason": "Keyword clásica de belleza con modelo a domicilio de baja inversión."
+  },
+  {
+    "archiveSlug": "500-diseno-de-cejas-con-hilo-y-henna-como-negocio-en-casa-o-a-domicilio",
+    "sablySlug": "curso-de-diseno-de-cejas-con-hilo-y-henna",
+    "title": "Curso de Diseño de Cejas con Hilo y Henna",
+    "category": "belleza",
+    "subcategory": "cejas",
+    "keyword": "curso de diseño de cejas",
+    "demand": "alta",
+    "score": 84,
+    "reason": "Alta demanda del nicho cejas; complementa microblading sin canibalizar (técnica distinta); mejor variante del cluster diseño de cejas."
+  },
+  {
+    "archiveSlug": "maquillaje-profesional-para-novias",
+    "sablySlug": "curso-de-maquillaje-profesional-de-novias",
+    "title": "Curso de Maquillaje Profesional para Novias",
+    "category": "belleza",
+    "subcategory": "maquillaje",
+    "keyword": "curso de maquillaje profesional",
+    "demand": "alta",
+    "score": 84,
+    "reason": "Maquillaje profesional es keyword de gran volumen y el nicho novias paga ticket alto."
+  },
+  {
+    "archiveSlug": "maquillaje-permanente",
+    "sablySlug": "curso-de-maquillaje-permanente",
+    "title": "Curso de Maquillaje Permanente",
+    "category": "belleza",
+    "subcategory": "micropigmentacion",
+    "keyword": "curso de maquillaje permanente",
+    "demand": "alta",
+    "score": 82,
+    "reason": "Micropigmentación con ticket de servicio alto y búsqueda sólida."
+  },
+  {
+    "archiveSlug": "colorimetria-para-estilistas-principiantes",
+    "sablySlug": "curso-de-colorimetria",
+    "title": "Curso de Colorimetría para Estilistas",
+    "category": "belleza",
+    "subcategory": "cabello",
+    "keyword": "curso de colorimetría",
+    "demand": "alta",
+    "score": 80,
+    "reason": "Keyword técnica de alto volumen entre estilistas que ya monetizan."
+  },
+  {
+    "archiveSlug": "pestanas-pelo-a-pelo-y-volumen-ruso",
+    "sablySlug": "curso-de-pestanas-volumen-ruso",
+    "title": "Curso de Pestañas Pelo a Pelo y Volumen Ruso",
+    "category": "belleza",
+    "subcategory": "pestanas",
+    "keyword": "curso de pestañas volumen ruso",
+    "demand": "alta",
+    "score": 80,
+    "reason": "Técnica lash avanzada muy buscada; complementa el curso base de extensiones."
+  },
+  {
+    "archiveSlug": "decoracion-de-unas-como-negocio",
+    "sablySlug": "curso-de-decoracion-de-unas",
+    "title": "Curso de Decoración de Uñas",
+    "category": "belleza",
+    "subcategory": "unas",
+    "keyword": "curso de decoración de uñas",
+    "demand": "alta",
+    "score": 78,
+    "reason": "Subnicho de uñas con búsqueda alta y enfoque negocio."
+  },
+  {
+    "archiveSlug": "barberia-artistica-paso-a-paso",
+    "sablySlug": "curso-de-barberia-artistica",
+    "title": "Curso de Barbería Artística",
+    "category": "belleza",
+    "subcategory": "barberia",
+    "keyword": "curso de barbería artística",
+    "demand": "media",
+    "score": 74,
+    "reason": "Complemento avanzado del cluster barbería (top del portafolio) con keyword propia."
+  },
+  {
+    "archiveSlug": "experta-en-balayage-rubio-platinado",
+    "sablySlug": "curso-de-balayage",
+    "title": "Curso de Balayage y Rubios Platinados",
+    "category": "belleza",
+    "subcategory": "cabello",
+    "keyword": "curso de balayage",
+    "demand": "media",
+    "score": 74,
+    "reason": "Técnica de colorimetría de moda con ticket alto por servicio."
+  },
+  {
+    "archiveSlug": "inicia-tu-negocio-de-alisados-y-keratina",
+    "sablySlug": "curso-de-alisados-y-keratina",
+    "title": "Curso de Alisados y Keratina",
+    "category": "belleza",
+    "subcategory": "cabello",
+    "keyword": "curso de alisados y keratina",
+    "demand": "media",
+    "score": 74,
+    "reason": "Servicio capilar recurrente de alta rotación en salones LATAM."
+  },
+  {
+    "archiveSlug": "extensiones-de-cabello-como-negocio",
+    "sablySlug": "curso-de-extensiones-de-cabello",
+    "title": "Curso de Extensiones de Cabello",
+    "category": "belleza",
+    "subcategory": "cabello",
+    "keyword": "curso de extensiones de cabello",
+    "demand": "media",
+    "score": 72,
+    "reason": "Servicio capilar de ticket alto con búsqueda sostenida; mejor variante del cluster."
+  },
+  {
+    "archiveSlug": "experta-en-trenzas-y-peinados",
+    "sablySlug": "curso-de-trenzas-y-peinados",
+    "title": "Curso de Trenzas y Peinados",
+    "category": "belleza",
+    "subcategory": "cabello",
+    "keyword": "curso de trenzas y peinados",
+    "demand": "media",
+    "score": 72,
+    "reason": "Demanda constante para eventos con servicio a domicilio; mejor variante frente a trenzas-y-peinados."
+  },
+  {
+    "archiveSlug": "limpieza-facial-profunda",
+    "sablySlug": "curso-de-limpieza-facial",
+    "title": "Curso de Limpieza Facial Profesional",
+    "category": "belleza",
+    "subcategory": "estetica-facial",
+    "keyword": "curso de limpieza facial",
+    "demand": "media",
+    "score": 72,
+    "reason": "Servicio base de cabina facial con demanda estable."
+  }
+]

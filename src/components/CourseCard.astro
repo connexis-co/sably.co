@@ -16,8 +16,8 @@ interface Props {
 const { course, country, citySlug } = Astro.props;
 const cat = getCategory(course.data.category);
 const url = citySlug
-  ? `/${country.code}/${citySlug}/curso/${course.id}/`
-  : `/${country.code}/curso/${course.id}/`;
+  ? `/${country.code}/${citySlug}/${course.id}/`
+  : `/${country.code}/${course.id}/`;
 ---
 
 <article
