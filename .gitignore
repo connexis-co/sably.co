@@ -1,0 +1,13 @@
+# Credenciales y salidas con datos sensibles — nunca commitear
+.env
+*.env
+!.env.example
+scripts/**/ventas_hotmart.json
+scripts/**/comisiones_hotmart.json
+scripts/**/informe_enlaces.json
+scripts/**/wp_auditoria_*.json
+scripts/**/wp_custom_fields_hotmart.json
+*service_account*.json
+*serviceaccount*.json
+venv/
+__pycache__/
