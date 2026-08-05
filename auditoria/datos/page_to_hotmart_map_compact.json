@@ -1,0 +1,607 @@
+{
+ "source": "GA4 347571020 clicks outbound linkUrl~hotm, 2026-02-01..2026-08-05",
+ "pages": {
+  "/bogota/cursos-cosmetologia-y-estetica/masajes-y-spa/": {
+   "total_clicks": 288,
+   "links": {
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 108,
+    "https://hotm.art/masajista-experto-curso-venta-SO": 100,
+    "https://hotm.art/spa-con-maderoterapia-curso-venta-SO": 43,
+    "https://hotm.art/spa-en-casa-curso-venta-SO": 25,
+    "https://pay.hotmart.com/J41994495N?checkoutMode=10": 12
+   }
+  },
+  "/bogota/cursos-cosmetologia-y-estetica/facial-y-corporal/": {
+   "total_clicks": 207,
+   "links": {
+    "https://hotm.art/reduccion-corporal-curso-venta-SO": 51,
+    "https://hotm.art/cuidado-facial-con-dermapen-curso-venta-SO": 42,
+    "https://hotm.art/limpieza-facial-con-aparatologia-curso-venta-SO": 37,
+    "https://hotm.art/limpieza-facial-profunda-curso-venta-SO": 33,
+    "https://hotm.art/rejuvenecimiento-facial-holistico-curso-venta-SO": 12,
+    "https://hotm.art/drenaje-facial-pro-curso-venta-SO": 10,
+    "https://hotm.art/emprende-cosmetica-8-pasos-curso-venta-SO": 10,
+    "https://hotm.art/cosmetica-oportunidad-de-negocio-curso-venta-SO": 5,
+    "https://hotm.art/tu-marca-cosmetica-premium-curso-venta-SO": 4,
+    "https://hotm.art/yoga-facial-con-aromaterapia-curso-venta-SO": 3
+   }
+  },
+  "/cali/cursos-cosmetologia-y-estetica/masajes-y-spa/": {
+   "total_clicks": 131,
+   "links": {
+    "https://hotm.art/masajista-experto-curso-venta-SO": 48,
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 37,
+    "https://hotm.art/spa-en-casa-curso-venta-SO": 18,
+    "https://hotm.art/spa-con-maderoterapia-curso-venta-SO": 17,
+    "https://pay.hotmart.com/J41994495N?checkoutMode=10": 11
+   }
+  },
+  "/cursos-cosmetologia-y-estetica/facial-y-corporal/": {
+   "total_clicks": 123,
+   "links": {
+    "https://hotm.art/cuidado-facial-con-dermapen-curso-venta-SO": 35,
+    "https://hotm.art/limpieza-facial-con-aparatologia-curso-venta-SO": 23,
+    "https://hotm.art/reduccion-corporal-curso-venta-SO": 19,
+    "https://hotm.art/limpieza-facial-profunda-curso-venta-SO": 14,
+    "https://hotm.art/rejuvenecimiento-facial-holistico-curso-venta-SO": 10,
+    "https://hotm.art/drenaje-facial-pro-curso-venta-SO": 9,
+    "https://hotm.art/cosmetica-oportunidad-de-negocio-curso-venta-SO": 5,
+    "https://hotm.art/yoga-facial-con-aromaterapia-curso-venta-SO": 5,
+    "https://hotm.art/tu-marca-cosmetica-premium-curso-venta-SO": 2,
+    "https://hotm.art/emprende-cosmetica-8-pasos-curso-venta-SO": 1
+   }
+  },
+  "/cali/cursos-belleza/cejas-y-pestanas/": {
+   "total_clicks": 95,
+   "links": {
+    "https://hotm.art/diseno-perfilado-de-cejas-curso-venta-SO": 17,
+    "https://hotm.art/cejas-perfectas-microblading-curso-venta-SO": 15,
+    "https://hotm.art/cejas-tresd-curso-venta-SO": 14,
+    "https://hotm.art/diseno-cejas-con-hilo-y-henna-curso-venta-SO": 13,
+    "https://hotm.art/experta-extension-pestanas-curso-venta-SO": 12,
+    "https://hotm.art/arte-diseno-cejas-como-negocio-curso-venta-SO": 9,
+    "https://hotm.art/pestanas-premium-curso-venta-SO": 8,
+    "https://hotm.art/cejas-perfectas-flash-design-curso-venta-SO": 7
+   }
+  },
+  "/medellin/cursos-cosmetologia-y-estetica/facial-y-corporal/": {
+   "total_clicks": 67,
+   "links": {
+    "https://hotm.art/cuidado-facial-con-dermapen-curso-venta-SO": 22,
+    "https://hotm.art/limpieza-facial-con-aparatologia-curso-venta-SO": 10,
+    "https://hotm.art/reduccion-corporal-curso-venta-SO": 8,
+    "https://hotm.art/emprende-cosmetica-8-pasos-curso-venta-SO": 7,
+    "https://hotm.art/drenaje-facial-pro-curso-venta-SO": 5,
+    "https://hotm.art/yoga-facial-con-aromaterapia-curso-venta-SO": 5,
+    "https://hotm.art/limpieza-facial-profunda-curso-venta-SO": 4,
+    "https://hotm.art/cosmetica-oportunidad-de-negocio-curso-venta-SO": 3,
+    "https://hotm.art/tu-marca-cosmetica-premium-curso-venta-SO": 2,
+    "https://hotm.art/rejuvenecimiento-facial-holistico-curso-venta-SO": 1
+   }
+  },
+  "/bucaramanga/cursos-cosmetologia-y-estetica/facial-y-corporal/": {
+   "total_clicks": 64,
+   "links": {
+    "https://hotm.art/cuidado-facial-con-dermapen-curso-venta-SO": 17,
+    "https://hotm.art/limpieza-facial-profunda-curso-venta-SO": 12,
+    "https://hotm.art/limpieza-facial-con-aparatologia-curso-venta-SO": 9,
+    "https://hotm.art/rejuvenecimiento-facial-holistico-curso-venta-SO": 9,
+    "https://hotm.art/cosmetica-oportunidad-de-negocio-curso-venta-SO": 8,
+    "https://hotm.art/drenaje-facial-pro-curso-venta-SO": 4,
+    "https://hotm.art/yoga-facial-con-aromaterapia-curso-venta-SO": 2,
+    "https://hotm.art/emprende-cosmetica-8-pasos-curso-venta-SO": 1,
+    "https://hotm.art/reduccion-corporal-curso-venta-SO": 1,
+    "https://hotm.art/tu-marca-cosmetica-premium-curso-venta-SO": 1
+   }
+  },
+  "/barranquilla/cursos-belleza/cejas-y-pestanas/": {
+   "total_clicks": 56,
+   "links": {
+    "https://hotm.art/cejas-perfectas-microblading-curso-venta-SO": 11,
+    "https://hotm.art/diseno-cejas-con-hilo-y-henna-curso-venta-SO": 10,
+    "https://hotm.art/diseno-perfilado-de-cejas-curso-venta-SO": 10,
+    "https://hotm.art/experta-extension-pestanas-curso-venta-SO": 9,
+    "https://hotm.art/cejas-tresd-curso-venta-SO": 6,
+    "https://hotm.art/arte-diseno-cejas-como-negocio-curso-venta-SO": 4,
+    "https://hotm.art/cejas-perfectas-flash-design-curso-venta-SO": 4,
+    "https://hotm.art/pestanas-premium-curso-venta-SO": 2
+   }
+  },
+  "/cali/cursos-cosmetologia-y-estetica/facial-y-corporal/": {
+   "total_clicks": 54,
+   "links": {
+    "https://hotm.art/cuidado-facial-con-dermapen-curso-venta-SO": 23,
+    "https://hotm.art/reduccion-corporal-curso-venta-SO": 10,
+    "https://hotm.art/limpieza-facial-con-aparatologia-curso-venta-SO": 9,
+    "https://hotm.art/limpieza-facial-profunda-curso-venta-SO": 5,
+    "https://hotm.art/drenaje-facial-pro-curso-venta-SO": 2,
+    "https://hotm.art/emprende-cosmetica-8-pasos-curso-venta-SO": 2,
+    "https://hotm.art/cosmetica-oportunidad-de-negocio-curso-venta-SO": 1,
+    "https://hotm.art/rejuvenecimiento-facial-holistico-curso-venta-SO": 1,
+    "https://hotm.art/tu-marca-cosmetica-premium-curso-venta-SO": 1
+   }
+  },
+  "/bucaramanga/cursos-belleza/cejas-y-pestanas/": {
+   "total_clicks": 46,
+   "links": {
+    "https://hotm.art/cejas-perfectas-microblading-curso-venta-SO": 14,
+    "https://hotm.art/cejas-tresd-curso-venta-SO": 13,
+    "https://hotm.art/experta-extension-pestanas-curso-venta-SO": 6,
+    "https://hotm.art/pestanas-premium-curso-venta-SO": 6,
+    "https://hotm.art/arte-diseno-cejas-como-negocio-curso-venta-SO": 2,
+    "https://hotm.art/diseno-cejas-con-hilo-y-henna-curso-venta-SO": 2,
+    "https://hotm.art/diseno-perfilado-de-cejas-curso-venta-SO": 2,
+    "https://hotm.art/cejas-perfectas-flash-design-curso-venta-SO": 1
+   }
+  },
+  "/cursos-belleza/cejas-y-pestanas/": {
+   "total_clicks": 45,
+   "links": {
+    "https://hotm.art/diseno-cejas-con-hilo-y-henna-curso-venta-SO": 10,
+    "https://hotm.art/experta-extension-pestanas-curso-venta-SO": 10,
+    "https://hotm.art/cejas-tresd-curso-venta-SO": 6,
+    "https://hotm.art/cejas-perfectas-microblading-curso-venta-SO": 5,
+    "https://hotm.art/arte-diseno-cejas-como-negocio-curso-venta-SO": 4,
+    "https://hotm.art/pestanas-premium-curso-venta-SO": 4,
+    "https://hotm.art/cejas-perfectas-flash-design-curso-venta-SO": 3,
+    "https://hotm.art/diseno-perfilado-de-cejas-curso-venta-SO": 3
+   }
+  },
+  "/barranquilla/cursos-cosmetologia-y-estetica/masajes-y-spa/": {
+   "total_clicks": 44,
+   "links": {
+    "https://hotm.art/masajista-experto-curso-venta-SO": 20,
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 13,
+    "https://hotm.art/spa-con-maderoterapia-curso-venta-SO": 8,
+    "https://hotm.art/spa-en-casa-curso-venta-SO": 3
+   }
+  },
+  "/cursos-cosmetologia-y-estetica/masajes-y-spa/": {
+   "total_clicks": 44,
+   "links": {
+    "https://hotm.art/masajista-experto-curso-venta-SO": 18,
+    "https://hotm.art/spa-con-maderoterapia-curso-venta-SO": 9,
+    "https://hotm.art/spa-en-casa-curso-venta-SO": 8,
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 7,
+    "https://pay.hotmart.com/J41994495N?checkoutMode=10": 2
+   }
+  },
+  "/bucaramanga/cursos-cosmetologia-y-estetica/masajes-y-spa/": {
+   "total_clicks": 40,
+   "links": {
+    "https://hotm.art/masajista-experto-curso-venta-SO": 24,
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 10,
+    "https://hotm.art/spa-con-maderoterapia-curso-venta-SO": 4,
+    "https://hotm.art/spa-en-casa-curso-venta-SO": 1,
+    "https://pay.hotmart.com/J41994495N?checkoutMode=10": 1
+   }
+  },
+  "/bucaramanga/cursos-belleza/barberia/": {
+   "total_clicks": 38,
+   "links": {
+    "https://pay.hotmart.com/C63857704B?checkoutMode=10": 14,
+    "https://pay.hotmart.com/H43635981L?checkoutMode=10": 10,
+    "https://pay.hotmart.com/D60401162V?checkoutMode=10": 8,
+    "https://pay.hotmart.com/S63192888Y?checkoutMode=10": 3,
+    "https://pay.hotmart.com/W69842801W?checkoutMode=10": 2,
+    "https://pay.hotmart.com/O42828007I?checkoutMode=10": 1
+   }
+  },
+  "/medellin/cursos-belleza/cejas-y-pestanas/": {
+   "total_clicks": 34,
+   "links": {
+    "https://hotm.art/cejas-perfectas-microblading-curso-venta-SO": 9,
+    "https://hotm.art/cejas-tresd-curso-venta-SO": 8,
+    "https://hotm.art/diseno-cejas-con-hilo-y-henna-curso-venta-SO": 7,
+    "https://hotm.art/arte-diseno-cejas-como-negocio-curso-venta-SO": 3,
+    "https://hotm.art/experta-extension-pestanas-curso-venta-SO": 3,
+    "https://hotm.art/cejas-perfectas-flash-design-curso-venta-SO": 2,
+    "https://hotm.art/diseno-perfilado-de-cejas-curso-venta-SO": 1,
+    "https://hotm.art/pestanas-premium-curso-venta-SO": 1
+   }
+  },
+  "/cali/cursos-belleza/unas/": {
+   "total_clicks": 33,
+   "links": {
+    "https://hotm.art/manicurista-profesional-premium-curso-venta-SO": 15,
+    "https://hotm.art/unas-press-on-nails-curso-venta-SO": 9,
+    "https://hotm.art/especialista-en-unas-curso": 4,
+    "https://hotm.art/pedicurista-premium-curso-venta-SO": 4,
+    "https://hotm.art/aprende-el-negocio-de-las-unas-curso-venta-SO": 1
+   }
+  },
+  "/cursos-belleza/peluqueria/": {
+   "total_clicks": 31,
+   "links": {
+    "https://hotm.art/colorimetria-para-estilistas-curso-venta-SO": 13,
+    "https://hotm.art/estilista-a-domicilio-curso-venta-SO": 11,
+    "https://hotm.art/experta-extensiones-cabello-curso-venta-SO": 3,
+    "https://hotm.art/estilismo-master-para-novias-curso-venta-SO": 2,
+    "https://hotm.art/estilista-express-curso-venta-SO": 1,
+    "https://hotm.art/extensiones-cabello-como-negocio-curso-venta-SO": 1
+   }
+  },
+  "/bogota/cursos-belleza/peluqueria/": {
+   "total_clicks": 29,
+   "links": {
+    "https://hotm.art/colorimetria-para-estilistas-curso-venta-SO": 14,
+    "https://hotm.art/estilista-a-domicilio-curso-venta-SO": 7,
+    "https://hotm.art/estilista-express-curso-venta-SO": 5,
+    "https://hotm.art/estilismo-master-para-novias-curso-venta-SO": 1,
+    "https://hotm.art/experta-extensiones-cabello-curso-venta-SO": 1,
+    "https://hotm.art/extensiones-cabello-como-negocio-curso-venta-SO": 1
+   }
+  },
+  "/cursos-belleza/unas/": {
+   "total_clicks": 29,
+   "links": {
+    "https://hotm.art/manicurista-profesional-premium-curso-venta-SO": 9,
+    "https://hotm.art/unas-press-on-nails-curso-venta-SO": 8,
+    "https://hotm.art/pedicurista-premium-curso-venta-SO": 7,
+    "https://hotm.art/aprende-el-negocio-de-las-unas-curso-venta-SO": 3,
+    "https://hotm.art/especialista-en-unas-curso": 2
+   }
+  },
+  "/medellin/cursos-belleza/peluqueria/": {
+   "total_clicks": 27,
+   "links": {
+    "https://hotm.art/colorimetria-para-estilistas-curso-venta-SO": 13,
+    "https://hotm.art/experta-extensiones-cabello-curso-venta-SO": 5,
+    "https://hotm.art/estilista-a-domicilio-curso-venta-SO": 3,
+    "https://hotm.art/estilista-express-curso-venta-SO": 3,
+    "https://hotm.art/extensiones-cabello-como-negocio-curso-venta-SO": 2,
+    "https://hotm.art/estilismo-master-para-novias-curso-venta-SO": 1
+   }
+  },
+  "/bogota/cursos-belleza/maquillaje/": {
+   "total_clicks": 27,
+   "links": {
+    "https://hotm.art/maquillaje-profesional-para-novias-curso-venta-SO": 10,
+    "https://hotm.art/maquillaje-pro-redes-sociales-curso-venta-SO": 9,
+    "https://hotm.art/maquillaje-fantasia-como-negocio-curso-venta-SO": 2,
+    "https://hotm.art/maquillaje-fx-curso-venta-SO": 2,
+    "https://hotm.art/maquillaje-artistico-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-heridas-para-disfraces-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-para-disfraces-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-para-seducir-curso-venta-SO": 1
+   }
+  },
+  "/bogota/cursos-belleza/cejas-y-pestanas/": {
+   "total_clicks": 27,
+   "links": {
+    "https://hotm.art/cejas-tresd-curso-venta-SO": 8,
+    "https://hotm.art/cejas-perfectas-microblading-curso-venta-SO": 7,
+    "https://hotm.art/experta-extension-pestanas-curso-venta-SO": 6,
+    "https://hotm.art/diseno-cejas-con-hilo-y-henna-curso-venta-SO": 2,
+    "https://hotm.art/pestanas-premium-curso-venta-SO": 2,
+    "https://hotm.art/cejas-perfectas-flash-design-curso-venta-SO": 1,
+    "https://hotm.art/diseno-perfilado-de-cejas-curso-venta-SO": 1
+   }
+  },
+  "/barranquilla/cursos-belleza/unas/": {
+   "total_clicks": 26,
+   "links": {
+    "https://hotm.art/unas-press-on-nails-curso-venta-SO": 16,
+    "https://hotm.art/especialista-en-unas-curso": 5,
+    "https://hotm.art/aprende-el-negocio-de-las-unas-curso-venta-SO": 2,
+    "https://hotm.art/manicurista-profesional-premium-curso-venta-SO": 2,
+    "https://hotm.art/pedicurista-premium-curso-venta-SO": 1
+   }
+  },
+  "/bogota/cursos-belleza/unas/": {
+   "total_clicks": 26,
+   "links": {
+    "https://hotm.art/manicurista-profesional-premium-curso-venta-SO": 10,
+    "https://hotm.art/especialista-en-unas-curso": 8,
+    "https://hotm.art/unas-press-on-nails-curso-venta-SO": 4,
+    "https://hotm.art/aprende-el-negocio-de-las-unas-curso-venta-SO": 3,
+    "https://hotm.art/pedicurista-premium-curso-venta-SO": 1
+   }
+  },
+  "/cursos-belleza/maquillaje/": {
+   "total_clicks": 26,
+   "links": {
+    "https://hotm.art/maquillaje-pro-redes-sociales-curso-venta-SO": 8,
+    "https://hotm.art/maquillaje-profesional-para-novias-curso-venta-SO": 7,
+    "https://hotm.art/maquillaje-fantasia-como-negocio-curso-venta-SO": 5,
+    "https://hotm.art/maquillaje-artistico-curso-venta-SO": 2,
+    "https://hotm.art/maquillaje-fx-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-para-disfraces-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-para-seducir-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-permanente-curso-venta-SO": 1
+   }
+  },
+  "/barranquilla/cursos-belleza/barberia/": {
+   "total_clicks": 23,
+   "links": {
+    "https://pay.hotmart.com/D60401162V?checkoutMode=10": 9,
+    "https://pay.hotmart.com/H43635981L?checkoutMode=10": 5,
+    "https://pay.hotmart.com/C63857704B?checkoutMode=10": 3,
+    "https://pay.hotmart.com/O42828007I?checkoutMode=10": 2,
+    "https://pay.hotmart.com/S63192888Y?checkoutMode=10": 2,
+    "https://pay.hotmart.com/W69842801W?checkoutMode=10": 2
+   }
+  },
+  "/barranquilla/cursos-belleza/peluqueria/": {
+   "total_clicks": 21,
+   "links": {
+    "https://hotm.art/colorimetria-para-estilistas-curso-venta-SO": 13,
+    "https://hotm.art/estilista-a-domicilio-curso-venta-SO": 5,
+    "https://hotm.art/estilista-express-curso-venta-SO": 3
+   }
+  },
+  "/cursos-belleza/barberia/": {
+   "total_clicks": 21,
+   "links": {
+    "https://pay.hotmart.com/H43635981L?checkoutMode=10": 7,
+    "https://pay.hotmart.com/S63192888Y?checkoutMode=10": 5,
+    "https://pay.hotmart.com/C63857704B?checkoutMode=10": 3,
+    "https://pay.hotmart.com/D60401162V?checkoutMode=10": 3,
+    "https://pay.hotmart.com/W69842801W?checkoutMode=10": 2,
+    "https://pay.hotmart.com/O42828007I?checkoutMode=10": 1
+   }
+  },
+  "/bogota/cursos-belleza/barberia/": {
+   "total_clicks": 19,
+   "links": {
+    "https://pay.hotmart.com/D60401162V?checkoutMode=10": 9,
+    "https://pay.hotmart.com/H43635981L?checkoutMode=10": 5,
+    "https://pay.hotmart.com/C63857704B?checkoutMode=10": 3,
+    "https://pay.hotmart.com/S63192888Y?checkoutMode=10": 2
+   }
+  },
+  "/barranquilla/cursos-belleza/maquillaje/": {
+   "total_clicks": 19,
+   "links": {
+    "https://hotm.art/maquillaje-profesional-para-novias-curso-venta-SO": 6,
+    "https://hotm.art/maquillaje-artistico-curso-venta-SO": 3,
+    "https://hotm.art/maquillaje-para-disfraces-curso-venta-SO": 3,
+    "https://hotm.art/maquillaje-fantasia-como-negocio-curso-venta-SO": 2,
+    "https://hotm.art/maquillaje-fx-curso-venta-SO": 2,
+    "https://hotm.art/maquillaje-pro-redes-sociales-curso-venta-SO": 2,
+    "https://hotm.art/maquillaje-heridas-para-disfraces-curso-venta-SO": 1
+   }
+  },
+  "/bucaramanga/cursos-belleza/peluqueria/": {
+   "total_clicks": 18,
+   "links": {
+    "https://hotm.art/colorimetria-para-estilistas-curso-venta-SO": 13,
+    "https://hotm.art/estilista-a-domicilio-curso-venta-SO": 2,
+    "https://hotm.art/estilista-express-curso-venta-SO": 2,
+    "https://hotm.art/experta-extensiones-cabello-curso-venta-SO": 1
+   }
+  },
+  "/medellin/cursos-cosmetologia-y-estetica/masajes-y-spa/": {
+   "total_clicks": 18,
+   "links": {
+    "https://hotm.art/masajista-experto-curso-venta-SO": 6,
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 5,
+    "https://hotm.art/spa-con-maderoterapia-curso-venta-SO": 5,
+    "https://hotm.art/spa-en-casa-curso-venta-SO": 2
+   }
+  },
+  "/cali/cursos-belleza/peluqueria/": {
+   "total_clicks": 16,
+   "links": {
+    "https://hotm.art/colorimetria-para-estilistas-curso-venta-SO": 7,
+    "https://hotm.art/estilista-a-domicilio-curso-venta-SO": 4,
+    "https://hotm.art/experta-extensiones-cabello-curso-venta-SO": 3,
+    "https://hotm.art/estilista-express-curso-venta-SO": 2
+   }
+  },
+  "/barranquilla/cursos-cosmetologia-y-estetica/facial-y-corporal/": {
+   "total_clicks": 15,
+   "links": {
+    "https://hotm.art/limpieza-facial-con-aparatologia-curso-venta-SO": 5,
+    "https://hotm.art/cuidado-facial-con-dermapen-curso-venta-SO": 3,
+    "https://hotm.art/emprende-cosmetica-8-pasos-curso-venta-SO": 3,
+    "https://hotm.art/cosmetica-oportunidad-de-negocio-curso-venta-SO": 1,
+    "https://hotm.art/drenaje-facial-pro-curso-venta-SO": 1,
+    "https://hotm.art/limpieza-facial-profunda-curso-venta-SO": 1,
+    "https://hotm.art/reduccion-corporal-curso-venta-SO": 1
+   }
+  },
+  "/bucaramanga/cursos-belleza/maquillaje/": {
+   "total_clicks": 14,
+   "links": {
+    "https://hotm.art/maquillaje-pro-redes-sociales-curso-venta-SO": 3,
+    "https://hotm.art/maquillaje-profesional-para-novias-curso-venta-SO": 3,
+    "https://hotm.art/maquillaje-fantasia-como-negocio-curso-venta-SO": 2,
+    "https://hotm.art/maquillaje-fx-curso-venta-SO": 2,
+    "https://hotm.art/maquillaje-artistico-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-heridas-para-disfraces-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-para-seducir-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-permanente-curso-venta-SO": 1
+   }
+  },
+  "/bucaramanga/cursos-belleza/unas/": {
+   "total_clicks": 12,
+   "links": {
+    "https://hotm.art/unas-press-on-nails-curso-venta-SO": 5,
+    "https://hotm.art/especialista-en-unas-curso": 3,
+    "https://hotm.art/manicurista-profesional-premium-curso-venta-SO": 2,
+    "https://hotm.art/aprende-el-negocio-de-las-unas-curso-venta-SO": 1,
+    "https://hotm.art/pedicurista-premium-curso-venta-SO": 1
+   }
+  },
+  "/cali/cursos-belleza/maquillaje/": {
+   "total_clicks": 11,
+   "links": {
+    "https://hotm.art/maquillaje-profesional-para-novias-curso-venta-SO": 4,
+    "https://hotm.art/maquillaje-permanente-curso-venta-SO": 3,
+    "https://hotm.art/maquillaje-pro-redes-sociales-curso-venta-SO": 2,
+    "https://hotm.art/maquillaje-artistico-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-fantasia-como-negocio-curso-venta-SO": 1
+   }
+  },
+  "/medellin/cursos-belleza/barberia/": {
+   "total_clicks": 11,
+   "links": {
+    "https://pay.hotmart.com/D60401162V?checkoutMode=10": 3,
+    "https://pay.hotmart.com/W69842801W?checkoutMode=10": 3,
+    "https://pay.hotmart.com/H43635981L?checkoutMode=10": 2,
+    "https://pay.hotmart.com/S63192888Y?checkoutMode=10": 2,
+    "https://pay.hotmart.com/O42828007I?checkoutMode=10": 1
+   }
+  },
+  "/medellin/cursos-belleza/unas/": {
+   "total_clicks": 9,
+   "links": {
+    "https://hotm.art/unas-press-on-nails-curso-venta-SO": 3,
+    "https://hotm.art/aprende-el-negocio-de-las-unas-curso-venta-SO": 2,
+    "https://hotm.art/especialista-en-unas-curso": 2,
+    "https://hotm.art/manicurista-profesional-premium-curso-venta-SO": 2
+   }
+  },
+  "/cali/cursos-belleza/barberia/": {
+   "total_clicks": 7,
+   "links": {
+    "https://pay.hotmart.com/C63857704B?checkoutMode=10": 2,
+    "https://pay.hotmart.com/S63192888Y?checkoutMode=10": 2,
+    "https://pay.hotmart.com/D60401162V?checkoutMode=10": 1,
+    "https://pay.hotmart.com/O42828007I?checkoutMode=10": 1,
+    "https://pay.hotmart.com/W69842801W?checkoutMode=10": 1
+   }
+  },
+  "/medellin/cursos-belleza/maquillaje/": {
+   "total_clicks": 7,
+   "links": {
+    "https://hotm.art/maquillaje-pro-redes-sociales-curso-venta-SO": 2,
+    "https://hotm.art/maquillaje-profesional-para-novias-curso-venta-SO": 2,
+    "https://hotm.art/maquillaje-fx-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-heridas-para-disfraces-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-para-disfraces-curso-venta-SO": 1
+   }
+  },
+  "/bucaramanga/cursos-cosmetologia-y-estetica/facial-y-corporal/curso-de-limpieza-facial/": {
+   "total_clicks": 5,
+   "links": {
+    "https://hotm.art/spa-con-maderoterapia-curso-venta-SO": 3,
+    "https://hotm.art/masaje-moldeador-pro-curso-venta-SO": 2
+   }
+  },
+  "/medellin/cursos-cosmetologia-y-estetica/masajes-y-spa/curso-de-masajes-relajantes/": {
+   "total_clicks": 3,
+   "links": {
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 3
+   }
+  },
+  "/bogota/cursos-belleza/cejas-y-pestanas/curso-cejas-y-pestanas/": {
+   "total_clicks": 2,
+   "links": {
+    "https://hotm.art/experta-extension-pestanas-curso-venta-SO": 2
+   }
+  },
+  "/bogota/cursos-cosmetologia-y-estetica/masajes-y-spa/curso-de-masaje-reductor/": {
+   "total_clicks": 2,
+   "links": {
+    "https://hotm.art/spa-con-maderoterapia-curso-venta-SO": 2
+   }
+  },
+  "/bogota/cursos-cosmetologia-y-estetica/masajes-y-spa/curso-de-masajes-relajantes/": {
+   "total_clicks": 2,
+   "links": {
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 2
+   }
+  },
+  "/bucaramanga/cursos-cosmetologia-y-estetica/masajes-y-spa/curso-de-masajes/": {
+   "total_clicks": 2,
+   "links": {
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 2
+   }
+  },
+  "/cursos-belleza/cejas-y-pestanas/curso-cejas-y-pestanas/": {
+   "total_clicks": 2,
+   "links": {
+    "https://hotm.art/cejas-perfectas-microblading-curso-venta-SO": 2
+   }
+  },
+  "/medellin/cursos-belleza/peluqueria/curso-de-peluqueria/": {
+   "total_clicks": 2,
+   "links": {
+    "https://hotm.art/experta-extensiones-cabello-curso-venta-SO": 2
+   }
+  },
+  "/barranquilla/cursos-belleza/maquillaje/curso-de-maquillaje/": {
+   "total_clicks": 2,
+   "links": {
+    "https://hotm.art/maquillaje-fantasia-como-negocio-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-permanente-curso-venta-SO": 1
+   }
+  },
+  "/bucaramanga/cursos-belleza/maquillaje/curso-de-maquillaje/": {
+   "total_clicks": 2,
+   "links": {
+    "https://hotm.art/maquillaje-fantasia-como-negocio-curso-venta-SO": 1,
+    "https://hotm.art/maquillaje-permanente-curso-venta-SO": 1
+   }
+  },
+  "/cursos-cosmetologia-y-estetica/facial-y-corporal/curso-de-limpieza-facial/": {
+   "total_clicks": 2,
+   "links": {
+    "https://hotm.art/masaje-moldeador-pro-curso-venta-SO": 1,
+    "https://hotm.art/spa-con-maderoterapia-curso-venta-SO": 1
+   }
+  },
+  "/barranquilla/cursos-cosmetologia-y-estetica/masajes-y-spa/curso-de-masajes-relajantes/": {
+   "total_clicks": 1,
+   "links": {
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 1
+   }
+  },
+  "/barranquilla/cursos-cosmetologia-y-estetica/masajes-y-spa/curso-de-masajes/": {
+   "total_clicks": 1,
+   "links": {
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 1
+   }
+  },
+  "/bucaramanga/cursos-belleza/peluqueria/curso-de-peluqueria/": {
+   "total_clicks": 1,
+   "links": {
+    "https://hotm.art/experta-extensiones-cabello-curso-venta-SO": 1
+   }
+  },
+  "/bucaramanga/cursos-cosmetologia-y-estetica/masajes-y-spa/curso-de-masaje-reductor/": {
+   "total_clicks": 1,
+   "links": {
+    "https://hotm.art/spa-con-maderoterapia-curso-venta-SO": 1
+   }
+  },
+  "/cali/cursos-belleza/peluqueria/curso-de-peinados/": {
+   "total_clicks": 1,
+   "links": {
+    "https://hotm.art/estilismo-master-para-novias-curso-venta-SO": 1
+   }
+  },
+  "/cali/cursos-belleza/peluqueria/curso-de-peluqueria/": {
+   "total_clicks": 1,
+   "links": {
+    "https://hotm.art/experta-extensiones-cabello-curso-venta-SO": 1
+   }
+  },
+  "/cali/cursos-cosmetologia-y-estetica/masajes-y-spa/curso-de-masajes-relajantes/": {
+   "total_clicks": 1,
+   "links": {
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 1
+   }
+  },
+  "/cursos-belleza/barberia/curso-de-barberia/": {
+   "total_clicks": 1,
+   "links": {
+    "https://hotm.art/barber-shop-basic-curso-venta-SO": 1
+   }
+  },
+  "/cursos-cosmetologia-y-estetica/masajes-y-spa/curso-de-masajes/": {
+   "total_clicks": 1,
+   "links": {
+    "https://hotm.art/masaje-descontracturante-curso-venta-SO": 1
+   }
+  },
+  "/medellin/cursos-belleza/cejas-y-pestanas/curso-cejas-y-pestanas/": {
+   "total_clicks": 1,
+   "links": {
+    "https://hotm.art/experta-extension-pestanas-curso-venta-SO": 1
+   }
+  }
+ }
+}

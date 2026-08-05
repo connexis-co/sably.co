@@ -1,0 +1,25 @@
+{
+ "sitemap": [
+  {
+   "path": "https://academiadebelleza.edu.co/sitemap_index.xml",
+   "lastSubmitted": "2025-05-05T20:04:33.065Z",
+   "isPending": false,
+   "isSitemapsIndex": true,
+   "lastDownloaded": "2026-08-02T20:52:51.137Z",
+   "warnings": "6",
+   "errors": "0",
+   "contents": [
+    {
+     "type": "web",
+     "submitted": "209",
+     "indexed": "0"
+    },
+    {
+     "type": "image",
+     "submitted": "2036",
+     "indexed": "0"
+    }
+   ]
+  }
+ ]
+}

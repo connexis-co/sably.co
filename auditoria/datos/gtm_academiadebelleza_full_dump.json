@@ -1,0 +1,2299 @@
+{
+  "container_meta": {
+    "GTM-NVWXPBB": {
+      "path": "accounts/6067344844/containers/99404957",
+      "accountId": "6067344844",
+      "containerId": "99404957",
+      "name": "Academiadebelleza.edu.co - GTM",
+      "publicId": "GTM-NVWXPBB",
+      "usageContext": [
+        "web"
+      ],
+      "fingerprint": "1737449283186",
+      "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces?apiLink=container",
+      "features": {
+        "supportUserPermissions": true,
+        "supportEnvironments": true,
+        "supportWorkspaces": true,
+        "supportGtagConfigs": false,
+        "supportBuiltInVariables": true,
+        "supportClients": false,
+        "supportFolders": true,
+        "supportTags": true,
+        "supportTemplates": true,
+        "supportTriggers": true,
+        "supportVariables": true,
+        "supportVersions": true,
+        "supportZones": true,
+        "supportTransformations": false
+      },
+      "tagIds": [
+        "GTM-NVWXPBB"
+      ]
+    },
+    "GTM-WNL62K7J": {
+      "path": "accounts/6067344844/containers/204407671",
+      "accountId": "6067344844",
+      "containerId": "204407671",
+      "name": "Academiadebelleza.co - GTM",
+      "publicId": "GTM-WNL62K7J",
+      "usageContext": [
+        "web"
+      ],
+      "fingerprint": "1737449298524",
+      "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/204407671/workspaces?apiLink=container",
+      "features": {
+        "supportUserPermissions": true,
+        "supportEnvironments": true,
+        "supportWorkspaces": true,
+        "supportGtagConfigs": false,
+        "supportBuiltInVariables": true,
+        "supportClients": false,
+        "supportFolders": true,
+        "supportTags": true,
+        "supportTemplates": true,
+        "supportTriggers": true,
+        "supportVariables": true,
+        "supportVersions": true,
+        "supportZones": true,
+        "supportTransformations": false
+      },
+      "tagIds": [
+        "GTM-WNL62K7J"
+      ]
+    }
+  },
+  "educo_GTM-NVWXPBB": {
+    "workspaces_live_version_headers": {
+      "workspaces": {
+        "status": 200,
+        "data": {
+          "workspace": [
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "name": "Default Workspace",
+              "fingerprint": "1782299312966",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17?apiLink=workspace"
+            }
+          ]
+        }
+      },
+      "live_version": {
+        "status": 200,
+        "data": {
+          "path": "accounts/6067344844/containers/99404957/versions/16",
+          "accountId": "6067344844",
+          "containerId": "99404957",
+          "containerVersionId": "16",
+          "container": {
+            "path": "accounts/6067344844/containers/99404957",
+            "accountId": "6067344844",
+            "containerId": "99404957",
+            "name": "Academiadebelleza.edu.co - GTM",
+            "publicId": "GTM-NVWXPBB",
+            "usageContext": [
+              "web"
+            ],
+            "fingerprint": "1737449283186",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces?apiLink=container",
+            "features": {
+              "supportUserPermissions": true,
+              "supportEnvironments": true,
+              "supportWorkspaces": true,
+              "supportGtagConfigs": false,
+              "supportBuiltInVariables": true,
+              "supportClients": false,
+              "supportFolders": true,
+              "supportTags": true,
+              "supportTemplates": true,
+              "supportTriggers": true,
+              "supportVariables": true,
+              "supportVersions": true,
+              "supportZones": true,
+              "supportTransformations": false
+            },
+            "tagIds": [
+              "GTM-NVWXPBB"
+            ]
+          },
+          "tag": [
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "tagId": "3",
+              "name": "GA4 - All Pages (G-G7HV230BFJ)",
+              "type": "googtag",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "tagId",
+                  "value": "G-G7HV230BFJ"
+                },
+                {
+                  "type": "list",
+                  "key": "configSettingsTable",
+                  "list": [
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "send_page_view"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "fingerprint": "1737451326193",
+              "firingTriggerId": [
+                "2147479553"
+              ],
+              "parentFolderId": "5",
+              "tagFiringOption": "oncePerEvent",
+              "monitoringMetadata": {
+                "type": "map"
+              },
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "tagId": "6",
+              "name": "Conversión Envio_Formulario_Compra - GA4",
+              "type": "gaawe",
+              "parameter": [
+                {
+                  "type": "boolean",
+                  "key": "sendEcommerceData",
+                  "value": "false"
+                },
+                {
+                  "type": "list",
+                  "key": "eventSettingsTable",
+                  "list": [
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "value"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "currency"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "USD"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "form_id"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "{{DataLayerValue - formId}}"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "form_name"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "{{DataLayerValue - formName}}"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "template",
+                  "key": "eventName",
+                  "value": "envio_formulario_compra_curso"
+                },
+                {
+                  "type": "template",
+                  "key": "measurementIdOverride",
+                  "value": "G-G7HV230BFJ"
+                }
+              ],
+              "fingerprint": "1689780772608",
+              "firingTriggerId": [
+                "8"
+              ],
+              "parentFolderId": "5",
+              "tagFiringOption": "oncePerEvent",
+              "monitoringMetadata": {
+                "type": "map"
+              },
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "tagId": "10",
+              "name": "Conversión lead_contacto - GA4",
+              "type": "gaawe",
+              "parameter": [
+                {
+                  "type": "boolean",
+                  "key": "sendEcommerceData",
+                  "value": "false"
+                },
+                {
+                  "type": "list",
+                  "key": "eventSettingsTable",
+                  "list": [
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "value"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "currency"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "USD"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "form_id"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "{{DataLayerValue - formId}}"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "form_name"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "{{DataLayerValue - formName}}"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "template",
+                  "key": "eventName",
+                  "value": "lead_contacto"
+                },
+                {
+                  "type": "template",
+                  "key": "measurementIdOverride",
+                  "value": "G-G7HV230BFJ"
+                }
+              ],
+              "fingerprint": "1689780328475",
+              "firingTriggerId": [
+                "9"
+              ],
+              "parentFolderId": "5",
+              "tagFiringOption": "oncePerEvent",
+              "monitoringMetadata": {
+                "type": "map"
+              },
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "tagId": "13",
+              "name": "Hotmart Analytics",
+              "type": "html",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "html",
+                  "value": "<script id=\"hotmart_launcher_script\">\n  (function(l,a,u,n,c,h,e,r){l['HotmartLauncherObject']=c;l[c]=l[c]||function(){\n  (l[c].q=l[c].q||[]).push(arguments)},l[c].l=1*new Date();h=a.createElement(u),\n  e=a.getElementsByTagName(u)[0];h.async=1;h.src=n;e.parentNode.insertBefore(h,e)\n  })(window,document,'script','//launcher.hotmart.com/launcher.js','hot');\n\n  hot('account','20885548-1d24-3e34-af01-b12e99dfcc69');\n</script>\n"
+                },
+                {
+                  "type": "boolean",
+                  "key": "supportDocumentWrite",
+                  "value": "false"
+                }
+              ],
+              "fingerprint": "1689811778017",
+              "firingTriggerId": [
+                "2147479553"
+              ],
+              "tagFiringOption": "oncePerEvent",
+              "monitoringMetadata": {
+                "type": "map"
+              },
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "tagId": "15",
+              "name": "Microsoft Clarity - Official",
+              "type": "html",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "html",
+                  "value": "<script type=\"text/javascript\">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src=\"https://www.clarity.ms/tag/\"+i+\"?ref=gtm2\";y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,\"clarity\",\"script\",\"jrj49926l0\");</script>"
+                },
+                {
+                  "type": "boolean",
+                  "key": "supportDocumentWrite",
+                  "value": "false"
+                }
+              ],
+              "fingerprint": "1700160071872",
+              "firingTriggerId": [
+                "2147479553"
+              ],
+              "tagFiringOption": "oncePerEvent",
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "tagId": "16",
+              "name": "Meta Pixel ID 1711030209407213",
+              "type": "html",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "html",
+                  "value": "<!-- Facebook Pixel Code -->\n<script nonce=\"fjxHOdbm\">\n!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?\nn.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;\nn.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;\nt.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,\ndocument,'script','https://connect.facebook.net/en_US/fbevents.js');\n\nfbq('init', '1711030209407213');\nfbq('set','agent','tmgoogletagmanager', '1711030209407213');\nfbq('track', \"PageView\");\n</script>\n<noscript><img height=\"1\" width=\"1\" style=\"display:none\"\nsrc=\"https://www.facebook.com/tr?id=1711030209407213&ev=PageView&noscript=1\"\n/></noscript>\n<!-- End Facebook Pixel Code -->"
+                },
+                {
+                  "type": "boolean",
+                  "key": "supportDocumentWrite",
+                  "value": "false"
+                }
+              ],
+              "fingerprint": "1703336126110",
+              "firingTriggerId": [
+                "2147479553"
+              ],
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "tagId": "17",
+              "name": "Meta Pixel - Base",
+              "type": "html",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "html",
+                  "value": "<!-- Meta Pixel Code -->\n<script>\n!function(f,b,e,v,n,t,s)\n{if(f.fbq)return;n=f.fbq=function(){n.callMethod?\nn.callMethod.apply(n,arguments):n.queue.push(arguments)};\nif(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\nn.queue=[];t=b.createElement(e);t.async=!0;\nt.src=v;s=b.getElementsByTagName(e)[0];\ns.parentNode.insertBefore(t,s)}(window, document,'script',\n'https://connect.facebook.net/en_US/fbevents.js');\nfbq('init', '1414716853721578');\nfbq('track', 'PageView');\n</script>\n<noscript><img height=\"1\" width=\"1\" style=\"display:none\"\nsrc=\"https://www.facebook.com/tr?id=1414716853721578&ev=PageView&noscript=1\"\n/></noscript>\n<!-- End Meta Pixel Code -->"
+                }
+              ],
+              "fingerprint": "1782298944786",
+              "firingTriggerId": [
+                "2147479553"
+              ],
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "tagId": "18",
+              "name": "Meta Pixel - Evento Purchase",
+              "type": "html",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "html",
+                  "value": "<script>\n  fbq('track', 'Purchase');\n</script>"
+                }
+              ],
+              "fingerprint": "1782299290126",
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            }
+          ],
+          "trigger": [
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "triggerId": "8",
+              "name": "custom_wpcf7_course_purchase",
+              "type": "customEvent",
+              "customEventFilter": [
+                {
+                  "type": "equals",
+                  "parameter": [
+                    {
+                      "type": "template",
+                      "key": "arg0",
+                      "value": "{{_event}}"
+                    },
+                    {
+                      "type": "template",
+                      "key": "arg1",
+                      "value": "wpcf7_course_purchase"
+                    }
+                  ]
+                }
+              ],
+              "fingerprint": "1689779154773"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "triggerId": "9",
+              "name": "custom_wpcf7_generate_lead",
+              "type": "customEvent",
+              "customEventFilter": [
+                {
+                  "type": "equals",
+                  "parameter": [
+                    {
+                      "type": "template",
+                      "key": "arg0",
+                      "value": "{{_event}}"
+                    },
+                    {
+                      "type": "template",
+                      "key": "arg1",
+                      "value": "wpcf7_generate_lead"
+                    }
+                  ]
+                }
+              ],
+              "fingerprint": "1689779193397"
+            }
+          ],
+          "variable": [
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "variableId": "11",
+              "name": "DataLayerValue - formName",
+              "type": "v",
+              "parameter": [
+                {
+                  "type": "integer",
+                  "key": "dataLayerVersion",
+                  "value": "2"
+                },
+                {
+                  "type": "boolean",
+                  "key": "setDefaultValue",
+                  "value": "false"
+                },
+                {
+                  "type": "template",
+                  "key": "name",
+                  "value": "formName"
+                }
+              ],
+              "fingerprint": "1689780104868",
+              "formatValue": {}
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "variableId": "12",
+              "name": "DataLayerValue - formId",
+              "type": "v",
+              "parameter": [
+                {
+                  "type": "integer",
+                  "key": "dataLayerVersion",
+                  "value": "2"
+                },
+                {
+                  "type": "boolean",
+                  "key": "setDefaultValue",
+                  "value": "false"
+                },
+                {
+                  "type": "template",
+                  "key": "name",
+                  "value": "formId"
+                }
+              ],
+              "fingerprint": "1689780094696",
+              "formatValue": {}
+            }
+          ],
+          "folder": [
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "folderId": "5",
+              "name": "Google Analytics 4",
+              "fingerprint": "1689773370370"
+            }
+          ],
+          "builtInVariable": [
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "pageUrl",
+              "name": "Page URL"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "pageHostname",
+              "name": "Page Hostname"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "pagePath",
+              "name": "Page Path"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "referrer",
+              "name": "Referrer"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "event",
+              "name": "Event"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "clickElement",
+              "name": "Click Element"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "clickClasses",
+              "name": "Click Classes"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "clickId",
+              "name": "Click ID"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "clickTarget",
+              "name": "Click Target"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "clickUrl",
+              "name": "Click URL"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "clickText",
+              "name": "Click Text"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "formElement",
+              "name": "Form Element"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "formClasses",
+              "name": "Form Classes"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "formTarget",
+              "name": "Form Target"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "formUrl",
+              "name": "Form URL"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "containerVersion",
+              "name": "Container Version"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "containerId",
+              "name": "Container ID"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "scrollDepthThreshold",
+              "name": "Scroll Depth Threshold"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "scrollDepthUnits",
+              "name": "Scroll Depth Units"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "elementVisibilityRatio",
+              "name": "Percent Visible"
+            },
+            {
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "type": "elementVisibilityTime",
+              "name": "On-Screen Duration"
+            }
+          ],
+          "fingerprint": "1782299312880",
+          "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/6067344844/containers/99404957/versions/16?apiLink=version"
+        }
+      },
+      "version_headers": {
+        "status": 200,
+        "data": {
+          "containerVersionHeader": [
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/1",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "1",
+              "name": "Empty Container"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/2",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "2",
+              "name": "Academia de Belleza GA4",
+              "numTags": "1"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/3",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "3",
+              "numTags": "1"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/4",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "4",
+              "name": "Config Purchase Convertion",
+              "numTags": "2",
+              "numTriggers": "1"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/5",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "5",
+              "numTags": "2",
+              "numTriggers": "1"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/6",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "6",
+              "numTags": "2",
+              "numTriggers": "1"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/7",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "7",
+              "name": "Variables y eventos personalizados",
+              "numTags": "3",
+              "numTriggers": "2",
+              "numVariables": "2"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/8",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "8",
+              "numTags": "3",
+              "numTriggers": "2",
+              "numVariables": "2"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/9",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "9",
+              "name": "Hotmart Analytics",
+              "numTags": "4",
+              "numTriggers": "2",
+              "numVariables": "2"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/10",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "10",
+              "numTags": "5",
+              "numTriggers": "2",
+              "numVariables": "2"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/11",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "11",
+              "numTags": "4",
+              "numTriggers": "2",
+              "numVariables": "2"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/12",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "12",
+              "numTags": "5",
+              "numTriggers": "2",
+              "numVariables": "2"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/13",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "13",
+              "numTags": "6",
+              "numTriggers": "2",
+              "numVariables": "2"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/14",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "14",
+              "name": "Pixel meta",
+              "numTags": "6",
+              "numTriggers": "2",
+              "numVariables": "2"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/15",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "15",
+              "name": "G-G7HV230BFJ",
+              "numTags": "6",
+              "numTriggers": "2",
+              "numVariables": "2"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/versions/16",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "containerVersionId": "16",
+              "numTags": "8",
+              "numTriggers": "2",
+              "numVariables": "2"
+            }
+          ]
+        }
+      }
+    },
+    "workspace17": {
+      "tags": {
+        "status": 200,
+        "data": {
+          "tag": [
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/tags/17",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "tagId": "17",
+              "name": "Meta Pixel - Base",
+              "type": "html",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "html",
+                  "value": "<!-- Meta Pixel Code -->\n<script>\n!function(f,b,e,v,n,t,s)\n{if(f.fbq)return;n=f.fbq=function(){n.callMethod?\nn.callMethod.apply(n,arguments):n.queue.push(arguments)};\nif(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\nn.queue=[];t=b.createElement(e);t.async=!0;\nt.src=v;s=b.getElementsByTagName(e)[0];\ns.parentNode.insertBefore(t,s)}(window, document,'script',\n'https://connect.facebook.net/en_US/fbevents.js');\nfbq('init', '1414716853721578');\nfbq('track', 'PageView');\n</script>\n<noscript><img height=\"1\" width=\"1\" style=\"display:none\"\nsrc=\"https://www.facebook.com/tr?id=1414716853721578&ev=PageView&noscript=1\"\n/></noscript>\n<!-- End Meta Pixel Code -->"
+                }
+              ],
+              "fingerprint": "1782298944786",
+              "firingTriggerId": [
+                "2147479553"
+              ],
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/tags/17?apiLink=tag",
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/tags/18",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "tagId": "18",
+              "name": "Meta Pixel - Evento Purchase",
+              "type": "html",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "html",
+                  "value": "<script>\n  fbq('track', 'Purchase');\n</script>"
+                }
+              ],
+              "fingerprint": "1782299290126",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/tags/18?apiLink=tag",
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/tags/3",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "tagId": "3",
+              "name": "GA4 - All Pages (G-G7HV230BFJ)",
+              "type": "googtag",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "tagId",
+                  "value": "G-G7HV230BFJ"
+                },
+                {
+                  "type": "list",
+                  "key": "configSettingsTable",
+                  "list": [
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "send_page_view"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "true"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "fingerprint": "1737451326193",
+              "firingTriggerId": [
+                "2147479553"
+              ],
+              "parentFolderId": "5",
+              "tagFiringOption": "oncePerEvent",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/tags/3?apiLink=tag",
+              "monitoringMetadata": {
+                "type": "map"
+              },
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/tags/16",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "tagId": "16",
+              "name": "Meta Pixel ID 1711030209407213",
+              "type": "html",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "html",
+                  "value": "<!-- Facebook Pixel Code -->\n<script nonce=\"fjxHOdbm\">\n!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?\nn.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;\nn.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;\nt.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,\ndocument,'script','https://connect.facebook.net/en_US/fbevents.js');\n\nfbq('init', '1711030209407213');\nfbq('set','agent','tmgoogletagmanager', '1711030209407213');\nfbq('track', \"PageView\");\n</script>\n<noscript><img height=\"1\" width=\"1\" style=\"display:none\"\nsrc=\"https://www.facebook.com/tr?id=1711030209407213&ev=PageView&noscript=1\"\n/></noscript>\n<!-- End Facebook Pixel Code -->"
+                },
+                {
+                  "type": "boolean",
+                  "key": "supportDocumentWrite",
+                  "value": "false"
+                }
+              ],
+              "fingerprint": "1703336126110",
+              "firingTriggerId": [
+                "2147479553"
+              ],
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/tags/16?apiLink=tag",
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/tags/15",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "tagId": "15",
+              "name": "Microsoft Clarity - Official",
+              "type": "html",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "html",
+                  "value": "<script type=\"text/javascript\">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src=\"https://www.clarity.ms/tag/\"+i+\"?ref=gtm2\";y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,\"clarity\",\"script\",\"jrj49926l0\");</script>"
+                },
+                {
+                  "type": "boolean",
+                  "key": "supportDocumentWrite",
+                  "value": "false"
+                }
+              ],
+              "fingerprint": "1700160071872",
+              "firingTriggerId": [
+                "2147479553"
+              ],
+              "tagFiringOption": "oncePerEvent",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/tags/15?apiLink=tag",
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/tags/13",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "tagId": "13",
+              "name": "Hotmart Analytics",
+              "type": "html",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "html",
+                  "value": "<script id=\"hotmart_launcher_script\">\n  (function(l,a,u,n,c,h,e,r){l['HotmartLauncherObject']=c;l[c]=l[c]||function(){\n  (l[c].q=l[c].q||[]).push(arguments)},l[c].l=1*new Date();h=a.createElement(u),\n  e=a.getElementsByTagName(u)[0];h.async=1;h.src=n;e.parentNode.insertBefore(h,e)\n  })(window,document,'script','//launcher.hotmart.com/launcher.js','hot');\n\n  hot('account','20885548-1d24-3e34-af01-b12e99dfcc69');\n</script>\n"
+                },
+                {
+                  "type": "boolean",
+                  "key": "supportDocumentWrite",
+                  "value": "false"
+                }
+              ],
+              "fingerprint": "1689811778017",
+              "firingTriggerId": [
+                "2147479553"
+              ],
+              "tagFiringOption": "oncePerEvent",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/tags/13?apiLink=tag",
+              "monitoringMetadata": {
+                "type": "map"
+              },
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/tags/6",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "tagId": "6",
+              "name": "Conversión Envio_Formulario_Compra - GA4",
+              "type": "gaawe",
+              "parameter": [
+                {
+                  "type": "boolean",
+                  "key": "sendEcommerceData",
+                  "value": "false"
+                },
+                {
+                  "type": "list",
+                  "key": "eventSettingsTable",
+                  "list": [
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "value"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "currency"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "USD"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "form_id"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "{{DataLayerValue - formId}}"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "form_name"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "{{DataLayerValue - formName}}"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "template",
+                  "key": "eventName",
+                  "value": "envio_formulario_compra_curso"
+                },
+                {
+                  "type": "template",
+                  "key": "measurementIdOverride",
+                  "value": "G-G7HV230BFJ"
+                }
+              ],
+              "fingerprint": "1689780772608",
+              "firingTriggerId": [
+                "8"
+              ],
+              "parentFolderId": "5",
+              "tagFiringOption": "oncePerEvent",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/tags/6?apiLink=tag",
+              "monitoringMetadata": {
+                "type": "map"
+              },
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/tags/10",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "tagId": "10",
+              "name": "Conversión lead_contacto - GA4",
+              "type": "gaawe",
+              "parameter": [
+                {
+                  "type": "boolean",
+                  "key": "sendEcommerceData",
+                  "value": "false"
+                },
+                {
+                  "type": "list",
+                  "key": "eventSettingsTable",
+                  "list": [
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "value"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "1"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "currency"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "USD"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "form_id"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "{{DataLayerValue - formId}}"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "map",
+                      "map": [
+                        {
+                          "type": "template",
+                          "key": "parameter",
+                          "value": "form_name"
+                        },
+                        {
+                          "type": "template",
+                          "key": "parameterValue",
+                          "value": "{{DataLayerValue - formName}}"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "template",
+                  "key": "eventName",
+                  "value": "lead_contacto"
+                },
+                {
+                  "type": "template",
+                  "key": "measurementIdOverride",
+                  "value": "G-G7HV230BFJ"
+                }
+              ],
+              "fingerprint": "1689780328475",
+              "firingTriggerId": [
+                "9"
+              ],
+              "parentFolderId": "5",
+              "tagFiringOption": "oncePerEvent",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/tags/10?apiLink=tag",
+              "monitoringMetadata": {
+                "type": "map"
+              },
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            }
+          ]
+        }
+      },
+      "triggers": {
+        "status": 200,
+        "data": {
+          "trigger": [
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/triggers/8",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "triggerId": "8",
+              "name": "custom_wpcf7_course_purchase",
+              "type": "customEvent",
+              "customEventFilter": [
+                {
+                  "type": "equals",
+                  "parameter": [
+                    {
+                      "type": "template",
+                      "key": "arg0",
+                      "value": "{{_event}}"
+                    },
+                    {
+                      "type": "template",
+                      "key": "arg1",
+                      "value": "wpcf7_course_purchase"
+                    }
+                  ]
+                }
+              ],
+              "fingerprint": "1689779154773",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/triggers/8?apiLink=trigger"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/triggers/9",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "triggerId": "9",
+              "name": "custom_wpcf7_generate_lead",
+              "type": "customEvent",
+              "customEventFilter": [
+                {
+                  "type": "equals",
+                  "parameter": [
+                    {
+                      "type": "template",
+                      "key": "arg0",
+                      "value": "{{_event}}"
+                    },
+                    {
+                      "type": "template",
+                      "key": "arg1",
+                      "value": "wpcf7_generate_lead"
+                    }
+                  ]
+                }
+              ],
+              "fingerprint": "1689779193397",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/triggers/9?apiLink=trigger"
+            }
+          ]
+        }
+      },
+      "variables": {
+        "status": 200,
+        "data": {
+          "variable": [
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/variables/11",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "variableId": "11",
+              "name": "DataLayerValue - formName",
+              "type": "v",
+              "parameter": [
+                {
+                  "type": "integer",
+                  "key": "dataLayerVersion",
+                  "value": "2"
+                },
+                {
+                  "type": "boolean",
+                  "key": "setDefaultValue",
+                  "value": "false"
+                },
+                {
+                  "type": "template",
+                  "key": "name",
+                  "value": "formName"
+                }
+              ],
+              "fingerprint": "1689780104868",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/variables/11?apiLink=variable",
+              "formatValue": {}
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/variables/12",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "variableId": "12",
+              "name": "DataLayerValue - formId",
+              "type": "v",
+              "parameter": [
+                {
+                  "type": "integer",
+                  "key": "dataLayerVersion",
+                  "value": "2"
+                },
+                {
+                  "type": "boolean",
+                  "key": "setDefaultValue",
+                  "value": "false"
+                },
+                {
+                  "type": "template",
+                  "key": "name",
+                  "value": "formId"
+                }
+              ],
+              "fingerprint": "1689780094696",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/variables/12?apiLink=variable",
+              "formatValue": {}
+            }
+          ]
+        }
+      },
+      "built_in_variables": {
+        "status": 200,
+        "data": {
+          "builtInVariable": [
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "clickElement",
+              "name": "Click Element"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "clickClasses",
+              "name": "Click Classes"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "clickId",
+              "name": "Click ID"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "clickTarget",
+              "name": "Click Target"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "clickUrl",
+              "name": "Click URL"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "clickText",
+              "name": "Click Text"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "formElement",
+              "name": "Form Element"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "formClasses",
+              "name": "Form Classes"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "formTarget",
+              "name": "Form Target"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "formUrl",
+              "name": "Form URL"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "containerVersion",
+              "name": "Container Version"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "containerId",
+              "name": "Container ID"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "scrollDepthThreshold",
+              "name": "Scroll Depth Threshold"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "scrollDepthUnits",
+              "name": "Scroll Depth Units"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "elementVisibilityRatio",
+              "name": "Percent Visible"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "elementVisibilityTime",
+              "name": "On-Screen Duration"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "pageUrl",
+              "name": "Page URL"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "pageHostname",
+              "name": "Page Hostname"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "pagePath",
+              "name": "Page Path"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "referrer",
+              "name": "Referrer"
+            },
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/built_in_variables",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "type": "event",
+              "name": "Event"
+            }
+          ]
+        }
+      },
+      "folders": {
+        "status": 200,
+        "data": {
+          "folder": [
+            {
+              "path": "accounts/6067344844/containers/99404957/workspaces/17/folders/5",
+              "accountId": "6067344844",
+              "containerId": "99404957",
+              "workspaceId": "17",
+              "folderId": "5",
+              "name": "Google Analytics 4",
+              "fingerprint": "1689773370370",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/99404957/workspaces/17/folders?apiLink=folder"
+            }
+          ]
+        }
+      },
+      "templates": {
+        "status": 200,
+        "data": {}
+      },
+      "zones": {
+        "status": 200,
+        "data": {}
+      },
+      "workspace_status": {
+        "status": 200,
+        "data": {}
+      }
+    },
+    "versions_9_16": "see audit/gtm_educo_versions_9_16.json",
+    "environments": {
+      "status": 200,
+      "data": {
+        "environment": [
+          {
+            "path": "accounts/6067344844/containers/99404957/environments/1",
+            "accountId": "6067344844",
+            "containerId": "99404957",
+            "environmentId": "1",
+            "type": "live",
+            "fingerprint": "1672190903489",
+            "name": "Live",
+            "description": "This environment points to the currently published version.",
+            "authorizationCode": "7d31FALiv_1wcnmAxO0wGQ",
+            "authorizationTimestamp": "2022-12-28T01:28:23.489Z",
+            "tagManagerUrl": "https://tagmanager.google.com/#/admin/accounts/6067344844/containers/99404957/environments?apiLink=environment"
+          },
+          {
+            "path": "accounts/6067344844/containers/99404957/environments/2",
+            "accountId": "6067344844",
+            "containerId": "99404957",
+            "environmentId": "2",
+            "type": "latest",
+            "fingerprint": "1672190903489",
+            "name": "Latest",
+            "description": "This environment points to the latest created version.",
+            "authorizationCode": "S-l3PfmAnuQwXjK11UaetA",
+            "authorizationTimestamp": "2022-12-28T01:28:23.489Z",
+            "tagManagerUrl": "https://tagmanager.google.com/#/admin/accounts/6067344844/containers/99404957/environments?apiLink=environment"
+          },
+          {
+            "path": "accounts/6067344844/containers/99404957/environments/4",
+            "accountId": "6067344844",
+            "containerId": "99404957",
+            "environmentId": "4",
+            "type": "workspace",
+            "fingerprint": "1689773301783",
+            "name": "Preview Environment 4 2023-07-19 062821",
+            "description": "This environment points to a workspace preview or container version.",
+            "authorizationCode": "EAh_LQ88VT802UsUgqAmww",
+            "authorizationTimestamp": "2023-07-19T13:28:21.783Z",
+            "workspaceId": "17",
+            "tagManagerUrl": "https://tagmanager.google.com/#/admin/accounts/6067344844/containers/99404957/environments?apiLink=environment"
+          }
+        ]
+      }
+    }
+  },
+  "co_GTM-WNL62K7J": {
+    "workspaces": {
+      "status": 200,
+      "data": {
+        "workspace": [
+          {
+            "path": "accounts/6067344844/containers/204407671/workspaces/4",
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "workspaceId": "4",
+            "name": "Default Workspace",
+            "fingerprint": "1782299243558",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/204407671/workspaces/4?apiLink=workspace"
+          }
+        ]
+      }
+    },
+    "live_version": {
+      "status": 200,
+      "data": {
+        "path": "accounts/6067344844/containers/204407671/versions/3",
+        "accountId": "6067344844",
+        "containerId": "204407671",
+        "containerVersionId": "3",
+        "container": {
+          "path": "accounts/6067344844/containers/204407671",
+          "accountId": "6067344844",
+          "containerId": "204407671",
+          "name": "Academiadebelleza.co - GTM",
+          "publicId": "GTM-WNL62K7J",
+          "usageContext": [
+            "web"
+          ],
+          "fingerprint": "1737449298524",
+          "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/204407671/workspaces?apiLink=container",
+          "features": {
+            "supportUserPermissions": true,
+            "supportEnvironments": true,
+            "supportWorkspaces": true,
+            "supportGtagConfigs": false,
+            "supportBuiltInVariables": true,
+            "supportClients": false,
+            "supportFolders": true,
+            "supportTags": true,
+            "supportTemplates": true,
+            "supportTriggers": true,
+            "supportVariables": true,
+            "supportVersions": true,
+            "supportZones": true,
+            "supportTransformations": false
+          },
+          "tagIds": [
+            "GTM-WNL62K7J"
+          ]
+        },
+        "tag": [
+          {
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "tagId": "3",
+            "name": "GA4 - All Pages (G-JFZ0VBBENC)",
+            "type": "googtag",
+            "parameter": [
+              {
+                "type": "template",
+                "key": "tagId",
+                "value": "G-JFZ0VBBENC"
+              },
+              {
+                "type": "list",
+                "key": "configSettingsTable",
+                "list": [
+                  {
+                    "type": "map",
+                    "map": [
+                      {
+                        "type": "template",
+                        "key": "parameter",
+                        "value": "send_page_view"
+                      },
+                      {
+                        "type": "template",
+                        "key": "parameterValue",
+                        "value": "true"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "fingerprint": "1737449544913",
+            "firingTriggerId": [
+              "2147479553"
+            ],
+            "tagFiringOption": "oncePerEvent",
+            "monitoringMetadata": {
+              "type": "map"
+            },
+            "consentSettings": {
+              "consentStatus": "notSet"
+            }
+          },
+          {
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "tagId": "4",
+            "name": "Meta Pixel - Base",
+            "type": "html",
+            "parameter": [
+              {
+                "type": "template",
+                "key": "html",
+                "value": "<!-- Meta Pixel Code -->\n<script>\n!function(f,b,e,v,n,t,s)\n{if(f.fbq)return;n=f.fbq=function(){n.callMethod?\nn.callMethod.apply(n,arguments):n.queue.push(arguments)};\nif(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\nn.queue=[];t=b.createElement(e);t.async=!0;\nt.src=v;s=b.getElementsByTagName(e)[0];\ns.parentNode.insertBefore(t,s)}(window, document,'script',\n'https://connect.facebook.net/en_US/fbevents.js');\nfbq('init', '1414716853721578');\nfbq('track', 'PageView');\n</script>\n<noscript><img height=\"1\" width=\"1\" style=\"display:none\"\nsrc=\"https://www.facebook.com/tr?id=1414716853721578&ev=PageView&noscript=1\"\n/></noscript>\n<!-- End Meta Pixel Code -->"
+              }
+            ],
+            "fingerprint": "1782298943719",
+            "firingTriggerId": [
+              "2147479553"
+            ],
+            "consentSettings": {
+              "consentStatus": "notSet"
+            }
+          }
+        ],
+        "builtInVariable": [
+          {
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "type": "pageUrl",
+            "name": "Page URL"
+          },
+          {
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "type": "pageHostname",
+            "name": "Page Hostname"
+          },
+          {
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "type": "pagePath",
+            "name": "Page Path"
+          },
+          {
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "type": "referrer",
+            "name": "Referrer"
+          },
+          {
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "type": "event",
+            "name": "Event"
+          }
+        ],
+        "fingerprint": "1782299243343",
+        "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/6067344844/containers/204407671/versions/3?apiLink=version"
+      }
+    },
+    "ws_tags": {
+      "status": 200,
+      "data": {
+        "tag": [
+          {
+            "path": "accounts/6067344844/containers/204407671/workspaces/4/tags/4",
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "workspaceId": "4",
+            "tagId": "4",
+            "name": "Meta Pixel - Base",
+            "type": "html",
+            "parameter": [
+              {
+                "type": "template",
+                "key": "html",
+                "value": "<!-- Meta Pixel Code -->\n<script>\n!function(f,b,e,v,n,t,s)\n{if(f.fbq)return;n=f.fbq=function(){n.callMethod?\nn.callMethod.apply(n,arguments):n.queue.push(arguments)};\nif(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\nn.queue=[];t=b.createElement(e);t.async=!0;\nt.src=v;s=b.getElementsByTagName(e)[0];\ns.parentNode.insertBefore(t,s)}(window, document,'script',\n'https://connect.facebook.net/en_US/fbevents.js');\nfbq('init', '1414716853721578');\nfbq('track', 'PageView');\n</script>\n<noscript><img height=\"1\" width=\"1\" style=\"display:none\"\nsrc=\"https://www.facebook.com/tr?id=1414716853721578&ev=PageView&noscript=1\"\n/></noscript>\n<!-- End Meta Pixel Code -->"
+              }
+            ],
+            "fingerprint": "1782298943719",
+            "firingTriggerId": [
+              "2147479553"
+            ],
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/204407671/workspaces/4/tags/4?apiLink=tag",
+            "consentSettings": {
+              "consentStatus": "notSet"
+            }
+          },
+          {
+            "path": "accounts/6067344844/containers/204407671/workspaces/4/tags/3",
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "workspaceId": "4",
+            "tagId": "3",
+            "name": "GA4 - All Pages (G-JFZ0VBBENC)",
+            "type": "googtag",
+            "parameter": [
+              {
+                "type": "template",
+                "key": "tagId",
+                "value": "G-JFZ0VBBENC"
+              },
+              {
+                "type": "list",
+                "key": "configSettingsTable",
+                "list": [
+                  {
+                    "type": "map",
+                    "map": [
+                      {
+                        "type": "template",
+                        "key": "parameter",
+                        "value": "send_page_view"
+                      },
+                      {
+                        "type": "template",
+                        "key": "parameterValue",
+                        "value": "true"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "fingerprint": "1737449544913",
+            "firingTriggerId": [
+              "2147479553"
+            ],
+            "tagFiringOption": "oncePerEvent",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/204407671/workspaces/4/tags/3?apiLink=tag",
+            "monitoringMetadata": {
+              "type": "map"
+            },
+            "consentSettings": {
+              "consentStatus": "notSet"
+            }
+          },
+          {
+            "path": "accounts/6067344844/containers/204407671/workspaces/4/tags/5",
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "workspaceId": "4",
+            "tagId": "5",
+            "name": "Meta Pixel - Evento Purchase",
+            "type": "html",
+            "parameter": [
+              {
+                "type": "template",
+                "key": "html",
+                "value": "<script>\n  fbq('track', 'Purchase');\n</script>"
+              }
+            ],
+            "fingerprint": "1782299289079",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/204407671/workspaces/4/tags/5?apiLink=tag",
+            "consentSettings": {
+              "consentStatus": "notSet"
+            }
+          }
+        ]
+      }
+    },
+    "ws_triggers": {
+      "status": 200,
+      "data": {}
+    },
+    "ws_variables": {
+      "status": 200,
+      "data": {}
+    },
+    "ws_status": {
+      "status": 200,
+      "data": {
+        "workspaceChange": [
+          {
+            "tag": {
+              "path": "accounts/6067344844/containers/204407671/workspaces/4/tags/5",
+              "accountId": "6067344844",
+              "containerId": "204407671",
+              "workspaceId": "4",
+              "tagId": "5",
+              "name": "Meta Pixel - Evento Purchase",
+              "type": "html",
+              "parameter": [
+                {
+                  "type": "template",
+                  "key": "html",
+                  "value": "<script>\n  fbq('track', 'Purchase');\n</script>"
+                }
+              ],
+              "fingerprint": "1782299289079",
+              "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/6067344844/containers/204407671/workspaces/4/tags/5?apiLink=tag",
+              "consentSettings": {
+                "consentStatus": "notSet"
+              }
+            },
+            "changeStatus": "added"
+          }
+        ]
+      }
+    },
+    "version_headers": {
+      "status": 200,
+      "data": {
+        "containerVersionHeader": [
+          {
+            "path": "accounts/6067344844/containers/204407671/versions/1",
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "containerVersionId": "1",
+            "name": "Empty Container"
+          },
+          {
+            "path": "accounts/6067344844/containers/204407671/versions/2",
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "containerVersionId": "2",
+            "numTags": "1"
+          },
+          {
+            "path": "accounts/6067344844/containers/204407671/versions/3",
+            "accountId": "6067344844",
+            "containerId": "204407671",
+            "containerVersionId": "3",
+            "numTags": "2"
+          }
+        ]
+      }
+    }
+  },
+  "user_permissions": {
+    "sa_email": "agents-analytics-reader@connexis-co.iam.gserviceaccount.com",
+    "readonly": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": 403,
+          "message": "Request had insufficient authentication scopes.",
+          "errors": [
+            {
+              "message": "Insufficient Permission",
+              "domain": "global",
+              "reason": "insufficientPermissions"
+            }
+          ],
+          "status": "PERMISSION_DENIED",
+          "details": [
+            {
+              "@type": "type.googleapis.com/google.rpc.ErrorInfo",
+              "reason": "ACCESS_TOKEN_SCOPE_INSUFFICIENT",
+              "domain": "googleapis.com",
+              "metadata": {
+                "method": "container_tag.apiary_v2.TagManagerServiceV2.ListUserPermissions",
+                "service": "tagmanager.googleapis.com"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "manage.users": {
+      "status": 200,
+      "body": {
+        "userPermission": [
+          {
+            "path": "accounts/6067344844/user_permissions/07722963923961239193",
+            "accountId": "6067344844",
+            "emailAddress": "rodrigomisat@gmail.com",
+            "accountAccess": {
+              "permission": "admin"
+            },
+            "containerAccess": [
+              {
+                "containerId": "204407671",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204423897",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204423002",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204424706",
+                "permission": "publish"
+              },
+              {
+                "containerId": "99404957",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204425006",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204423901",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204405693",
+                "permission": "publish"
+              }
+            ]
+          },
+          {
+            "path": "accounts/6067344844/user_permissions/08948642412569568195",
+            "accountId": "6067344844",
+            "emailAddress": "contacto@academiadeconduccion.academy",
+            "accountAccess": {
+              "permission": "admin"
+            },
+            "containerAccess": [
+              {
+                "containerId": "204425006",
+                "permission": "read"
+              },
+              {
+                "containerId": "204407671",
+                "permission": "read"
+              },
+              {
+                "containerId": "204405693",
+                "permission": "read"
+              },
+              {
+                "containerId": "204423002",
+                "permission": "read"
+              },
+              {
+                "containerId": "204424706",
+                "permission": "read"
+              },
+              {
+                "containerId": "99404957",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204423901",
+                "permission": "read"
+              },
+              {
+                "containerId": "204423897",
+                "permission": "read"
+              }
+            ]
+          },
+          {
+            "path": "accounts/6067344844/user_permissions/03223014835141878769",
+            "accountId": "6067344844",
+            "emailAddress": "sergiofernandezn2001@gmail.com",
+            "accountAccess": {
+              "permission": "admin"
+            },
+            "containerAccess": [
+              {
+                "containerId": "204423897",
+                "permission": "read"
+              },
+              {
+                "containerId": "204405693",
+                "permission": "read"
+              },
+              {
+                "containerId": "204423002",
+                "permission": "read"
+              },
+              {
+                "containerId": "204424706",
+                "permission": "read"
+              },
+              {
+                "containerId": "204407671",
+                "permission": "read"
+              },
+              {
+                "containerId": "204423901",
+                "permission": "read"
+              },
+              {
+                "containerId": "99404957",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204425006",
+                "permission": "read"
+              }
+            ]
+          },
+          {
+            "path": "accounts/6067344844/user_permissions/07026085116506104130",
+            "accountId": "6067344844",
+            "emailAddress": "agents-analytics-reader@connexis-co.iam.gserviceaccount.com",
+            "accountAccess": {
+              "permission": "admin"
+            },
+            "containerAccess": [
+              {
+                "containerId": "99404957",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204425006",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204407671",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204423897",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204424706",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204405693",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204423002",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204423901",
+                "permission": "publish"
+              }
+            ]
+          },
+          {
+            "path": "accounts/6067344844/user_permissions/13861429740439180705",
+            "accountId": "6067344844",
+            "emailAddress": "connexis.co@gmail.com",
+            "accountAccess": {
+              "permission": "admin"
+            },
+            "containerAccess": [
+              {
+                "containerId": "204423897",
+                "permission": "publish"
+              },
+              {
+                "containerId": "99404957",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204405693",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204423002",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204424706",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204423901",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204407671",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204425006",
+                "permission": "publish"
+              }
+            ]
+          },
+          {
+            "path": "accounts/6067344844/user_permissions/05043972566523266343",
+            "accountId": "6067344844",
+            "emailAddress": "juanpablo@innovamos.co",
+            "accountAccess": {
+              "permission": "admin"
+            },
+            "containerAccess": [
+              {
+                "containerId": "204423897",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204405693",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204423002",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204424706",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204407671",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204423901",
+                "permission": "publish"
+              },
+              {
+                "containerId": "99404957",
+                "permission": "publish"
+              },
+              {
+                "containerId": "204425006",
+                "permission": "publish"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

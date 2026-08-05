@@ -1,0 +1,469 @@
+{
+ "https://academiadebelleza.edu.co/": {
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:academiadebelleza.edu.co&id=jrxySrr2Xc-D_Z8lHa0New&utm_medium=link&utm_source=api",
+  "indexStatusResult": {
+   "verdict": "PASS",
+   "coverageState": "Enviada e indexada",
+   "robotsTxtState": "ALLOWED",
+   "indexingState": "INDEXING_ALLOWED",
+   "lastCrawlTime": "2026-08-03T14:49:08Z",
+   "pageFetchState": "SUCCESSFUL",
+   "googleCanonical": "https://academiadebelleza.edu.co/",
+   "userCanonical": "https://academiadebelleza.edu.co/",
+   "sitemap": [
+    "https://academiadebelleza.edu.co/sitemap_index.xml"
+   ],
+   "referringUrls": [
+    "https://cartagenadeindias.travel/",
+    "https://academiadebelleza.edu.co/page-sitemap.xml",
+    "https://academiadebelleza.edu.co/feed/",
+    "https://bateriasparacarrosbogota.com/?wccm=add-to-list&pid=2579&nonce=47a4adb897"
+   ],
+   "crawledAs": "MOBILE"
+  },
+  "mobileUsabilityResult": {
+   "verdict": "VERDICT_UNSPECIFIED"
+  }
+ },
+ "https://academiadebelleza.edu.co/bogota/cursos-cosmetologia-y-estetica/masajes-y-spa/": {
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:academiadebelleza.edu.co&id=Y6FJBP_WuoXXAUohcxSqNA&utm_medium=link&utm_source=api",
+  "indexStatusResult": {
+   "verdict": "PASS",
+   "coverageState": "Enviada e indexada",
+   "robotsTxtState": "ALLOWED",
+   "indexingState": "INDEXING_ALLOWED",
+   "lastCrawlTime": "2026-08-03T16:17:20Z",
+   "pageFetchState": "SUCCESSFUL",
+   "googleCanonical": "https://academiadebelleza.edu.co/bogota/cursos-cosmetologia-y-estetica/masajes-y-spa/",
+   "userCanonical": "https://academiadebelleza.edu.co/bogota/cursos-cosmetologia-y-estetica/masajes-y-spa/",
+   "referringUrls": [
+    "https://academiadebelleza.edu.co/sitemap/",
+    "https://academiadebelleza.edu.co/bogota/cursos-belleza/unas/curso-de-unas-acrilicas/"
+   ],
+   "crawledAs": "MOBILE"
+  },
+  "mobileUsabilityResult": {
+   "verdict": "VERDICT_UNSPECIFIED"
+  },
+  "richResultsResult": {
+   "verdict": "PASS",
+   "detectedItems": [
+    {
+     "richResultType": "Rutas de exploración",
+     "items": [
+      {
+       "name": "Elemento sin nombre"
+      }
+     ]
+    },
+    {
+     "richResultType": "Fragmentos de reseñas",
+     "items": [
+      {
+       "name": "Cursos de Masajes y Spa Bogotá"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "https://academiadebelleza.edu.co/las-10-mejores-academias-de-belleza-en-bogota/": {
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:academiadebelleza.edu.co&id=NRouSdshfabozsA10U5NUQ&utm_medium=link&utm_source=api",
+  "indexStatusResult": {
+   "verdict": "PASS",
+   "coverageState": "Enviada e indexada",
+   "robotsTxtState": "ALLOWED",
+   "indexingState": "INDEXING_ALLOWED",
+   "lastCrawlTime": "2026-07-25T01:06:06Z",
+   "pageFetchState": "SUCCESSFUL",
+   "googleCanonical": "https://academiadebelleza.edu.co/las-10-mejores-academias-de-belleza-en-bogota/",
+   "userCanonical": "https://academiadebelleza.edu.co/las-10-mejores-academias-de-belleza-en-bogota/",
+   "sitemap": [
+    "https://academiadebelleza.edu.co/sitemap_index.xml"
+   ],
+   "referringUrls": [
+    "https://academiadebelleza.edu.co/blog/",
+    "https://academiadebelleza.edu.co/post-sitemap.xml"
+   ],
+   "crawledAs": "MOBILE"
+  },
+  "mobileUsabilityResult": {
+   "verdict": "VERDICT_UNSPECIFIED"
+  },
+  "richResultsResult": {
+   "verdict": "PASS",
+   "detectedItems": [
+    {
+     "richResultType": "Rutas de exploración",
+     "items": [
+      {
+       "name": "Elemento sin nombre"
+      }
+     ]
+    },
+    {
+     "richResultType": "Fragmentos de reseñas",
+     "items": [
+      {
+       "name": "Las 10 Mejores Academias de Belleza en Bogotá: Lo que debes saber antes de elegir donde estudiar"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "https://academiadebelleza.edu.co/cali/cursos-cosmetologia-y-estetica/masajes-y-spa/": {
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:academiadebelleza.edu.co&id=HE1I3lOT_DOeGWIlfJGPMw&utm_medium=link&utm_source=api",
+  "indexStatusResult": {
+   "verdict": "PASS",
+   "coverageState": "Enviada e indexada",
+   "robotsTxtState": "ALLOWED",
+   "indexingState": "INDEXING_ALLOWED",
+   "lastCrawlTime": "2026-07-28T13:40:30Z",
+   "pageFetchState": "SUCCESSFUL",
+   "googleCanonical": "https://academiadebelleza.edu.co/cali/cursos-cosmetologia-y-estetica/masajes-y-spa/",
+   "userCanonical": "https://academiadebelleza.edu.co/cali/cursos-cosmetologia-y-estetica/masajes-y-spa/",
+   "sitemap": [
+    "https://academiadebelleza.edu.co/sitemap_index.xml"
+   ],
+   "referringUrls": [
+    "https://academiadebelleza.edu.co/sitemap/"
+   ],
+   "crawledAs": "MOBILE"
+  },
+  "mobileUsabilityResult": {
+   "verdict": "VERDICT_UNSPECIFIED"
+  },
+  "richResultsResult": {
+   "verdict": "PASS",
+   "detectedItems": [
+    {
+     "richResultType": "Rutas de exploración",
+     "items": [
+      {
+       "name": "Elemento sin nombre"
+      }
+     ]
+    },
+    {
+     "richResultType": "Fragmentos de reseñas",
+     "items": [
+      {
+       "name": "Cursos de Masajes y Spa Cali"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "https://academiadebelleza.edu.co/cali/cursos-belleza/cejas-y-pestanas/": {
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:academiadebelleza.edu.co&id=1RQ3-Ndl6npq-gOdXB77MA&utm_medium=link&utm_source=api",
+  "indexStatusResult": {
+   "verdict": "PASS",
+   "coverageState": "Enviada e indexada",
+   "robotsTxtState": "ALLOWED",
+   "indexingState": "INDEXING_ALLOWED",
+   "lastCrawlTime": "2026-08-02T09:44:25Z",
+   "pageFetchState": "SUCCESSFUL",
+   "googleCanonical": "https://academiadebelleza.edu.co/cali/cursos-belleza/cejas-y-pestanas/",
+   "userCanonical": "https://academiadebelleza.edu.co/cali/cursos-belleza/cejas-y-pestanas/",
+   "sitemap": [
+    "https://academiadebelleza.edu.co/sitemap_index.xml"
+   ],
+   "referringUrls": [
+    "https://academiadebelleza.edu.co/sitemap/"
+   ],
+   "crawledAs": "MOBILE"
+  },
+  "mobileUsabilityResult": {
+   "verdict": "VERDICT_UNSPECIFIED"
+  },
+  "richResultsResult": {
+   "verdict": "PASS",
+   "detectedItems": [
+    {
+     "richResultType": "Rutas de exploración",
+     "items": [
+      {
+       "name": "Elemento sin nombre"
+      }
+     ]
+    },
+    {
+     "richResultType": "Fragmentos de reseñas",
+     "items": [
+      {
+       "name": "Cursos de Cejas y Pestañas Cali"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "https://academiadebelleza.edu.co/cursos-cosmetologia-y-estetica/": {
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:academiadebelleza.edu.co&id=Q0fKp8u9EIdYkkpH-DRbLw&utm_medium=link&utm_source=api",
+  "indexStatusResult": {
+   "verdict": "PASS",
+   "coverageState": "Enviada e indexada",
+   "robotsTxtState": "ALLOWED",
+   "indexingState": "INDEXING_ALLOWED",
+   "lastCrawlTime": "2026-08-04T11:44:11Z",
+   "pageFetchState": "SUCCESSFUL",
+   "googleCanonical": "https://academiadebelleza.edu.co/cursos-cosmetologia-y-estetica/",
+   "userCanonical": "https://academiadebelleza.edu.co/cursos-cosmetologia-y-estetica/",
+   "referringUrls": [
+    "https://academiadebelleza.edu.co/sitemap/",
+    "https://academiadebelleza.edu.co/"
+   ],
+   "crawledAs": "MOBILE"
+  },
+  "mobileUsabilityResult": {
+   "verdict": "VERDICT_UNSPECIFIED"
+  },
+  "richResultsResult": {
+   "verdict": "PASS",
+   "detectedItems": [
+    {
+     "richResultType": "Rutas de exploración",
+     "items": [
+      {
+       "name": "Elemento sin nombre"
+      }
+     ]
+    },
+    {
+     "richResultType": "Fragmentos de reseñas",
+     "items": [
+      {
+       "name": "Cosmetología y Estética"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "https://academiadebelleza.edu.co/bogota/cursos-cosmetologia-y-estetica/facial-y-corporal/": {
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:academiadebelleza.edu.co&id=XqgKnYBrYDkRYbJNHLJq8w&utm_medium=link&utm_source=api",
+  "indexStatusResult": {
+   "verdict": "PASS",
+   "coverageState": "Enviada e indexada",
+   "robotsTxtState": "ALLOWED",
+   "indexingState": "INDEXING_ALLOWED",
+   "lastCrawlTime": "2026-07-28T10:47:29Z",
+   "pageFetchState": "SUCCESSFUL",
+   "googleCanonical": "https://academiadebelleza.edu.co/bogota/cursos-cosmetologia-y-estetica/facial-y-corporal/",
+   "userCanonical": "https://academiadebelleza.edu.co/bogota/cursos-cosmetologia-y-estetica/facial-y-corporal/",
+   "referringUrls": [
+    "https://academiadebelleza.edu.co/sitemap/",
+    "https://academiadebelleza.edu.co/bogota/cursos-belleza/unas/curso-de-unas-acrilicas/",
+    "https://qtfdt.wbrealtors.com/estetica-facial-y-corporal-bogota/1886472"
+   ],
+   "crawledAs": "MOBILE"
+  },
+  "mobileUsabilityResult": {
+   "verdict": "VERDICT_UNSPECIFIED"
+  },
+  "richResultsResult": {
+   "verdict": "PASS",
+   "detectedItems": [
+    {
+     "richResultType": "Rutas de exploración",
+     "items": [
+      {
+       "name": "Elemento sin nombre"
+      }
+     ]
+    },
+    {
+     "richResultType": "Fragmentos de reseñas",
+     "items": [
+      {
+       "name": "Cursos de Estética Facial y Corporal Bogotá"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "https://academiadebelleza.edu.co/bogota/": {
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:academiadebelleza.edu.co&id=TOE4FxMEgflo3rNmkxF0rQ&utm_medium=link&utm_source=api",
+  "indexStatusResult": {
+   "verdict": "PASS",
+   "coverageState": "Enviada e indexada",
+   "robotsTxtState": "ALLOWED",
+   "indexingState": "INDEXING_ALLOWED",
+   "lastCrawlTime": "2026-07-23T17:50:18Z",
+   "pageFetchState": "SUCCESSFUL",
+   "googleCanonical": "https://academiadebelleza.edu.co/bogota/",
+   "userCanonical": "https://academiadebelleza.edu.co/bogota/",
+   "sitemap": [
+    "https://academiadebelleza.edu.co/sitemap_index.xml"
+   ],
+   "referringUrls": [
+    "https://academiadebelleza.edu.co/sitemap/",
+    "https://academiadebelleza.edu.co/"
+   ],
+   "crawledAs": "MOBILE"
+  },
+  "mobileUsabilityResult": {
+   "verdict": "VERDICT_UNSPECIFIED"
+  },
+  "richResultsResult": {
+   "verdict": "PASS",
+   "detectedItems": [
+    {
+     "richResultType": "Rutas de exploración",
+     "items": [
+      {
+       "name": "Elemento sin nombre"
+      }
+     ]
+    },
+    {
+     "richResultType": "Fragmentos de reseñas",
+     "items": [
+      {
+       "name": "Bogotá"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "https://academiadebelleza.edu.co/cali/": {
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:academiadebelleza.edu.co&id=H2TeeQsCXcy_ZbWWRhnosg&utm_medium=link&utm_source=api",
+  "indexStatusResult": {
+   "verdict": "PASS",
+   "coverageState": "Enviada e indexada",
+   "robotsTxtState": "ALLOWED",
+   "indexingState": "INDEXING_ALLOWED",
+   "lastCrawlTime": "2026-08-01T21:10:05Z",
+   "pageFetchState": "SUCCESSFUL",
+   "googleCanonical": "https://academiadebelleza.edu.co/cali/",
+   "userCanonical": "https://academiadebelleza.edu.co/cali/",
+   "sitemap": [
+    "https://academiadebelleza.edu.co/sitemap_index.xml"
+   ],
+   "referringUrls": [
+    "https://academiadebelleza.edu.co/sitemap/",
+    "https://academiadebelleza.edu.co/"
+   ],
+   "crawledAs": "MOBILE"
+  },
+  "mobileUsabilityResult": {
+   "verdict": "VERDICT_UNSPECIFIED"
+  },
+  "richResultsResult": {
+   "verdict": "PASS",
+   "detectedItems": [
+    {
+     "richResultType": "Rutas de exploración",
+     "items": [
+      {
+       "name": "Elemento sin nombre"
+      }
+     ]
+    },
+    {
+     "richResultType": "Fragmentos de reseñas",
+     "items": [
+      {
+       "name": "Cali"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "https://academiadebelleza.edu.co/bucaramanga/cursos-belleza/cejas-y-pestanas/": {
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:academiadebelleza.edu.co&id=rWRyUKutAxCa_5SE4yHlkw&utm_medium=link&utm_source=api",
+  "indexStatusResult": {
+   "verdict": "PASS",
+   "coverageState": "Enviada e indexada",
+   "robotsTxtState": "ALLOWED",
+   "indexingState": "INDEXING_ALLOWED",
+   "lastCrawlTime": "2026-08-02T06:17:13Z",
+   "pageFetchState": "SUCCESSFUL",
+   "googleCanonical": "https://academiadebelleza.edu.co/bucaramanga/cursos-belleza/cejas-y-pestanas/",
+   "userCanonical": "https://academiadebelleza.edu.co/bucaramanga/cursos-belleza/cejas-y-pestanas/",
+   "sitemap": [
+    "https://academiadebelleza.edu.co/sitemap_index.xml"
+   ],
+   "referringUrls": [
+    "https://academiadebelleza.edu.co/bucaramanga/cursos-belleza/unas/curso-de-unas-semipermanente/?PageSpeed=noscript",
+    "https://academiadebelleza.edu.co/bucaramanga/cursos-belleza/peluqueria/curso-de-peluqueria/"
+   ],
+   "crawledAs": "MOBILE"
+  },
+  "mobileUsabilityResult": {
+   "verdict": "VERDICT_UNSPECIFIED"
+  },
+  "richResultsResult": {
+   "verdict": "PASS",
+   "detectedItems": [
+    {
+     "richResultType": "Rutas de exploración",
+     "items": [
+      {
+       "name": "Elemento sin nombre"
+      }
+     ]
+    },
+    {
+     "richResultType": "Fragmentos de reseñas",
+     "items": [
+      {
+       "name": "Cursos de Cejas y Pestañas Bucaramanga"
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "https://academiadebelleza.edu.co/10-tipos-de-cortes-de-cabello-para-hombre-en-2023/": {
+  "inspectionResultLink": "https://search.google.com/search-console/inspect?resource_id=sc-domain:academiadebelleza.edu.co&id=_8zPUzCSxEYd-xtrdHhzYQ&utm_medium=link&utm_source=api",
+  "indexStatusResult": {
+   "verdict": "PASS",
+   "coverageState": "Enviada e indexada",
+   "robotsTxtState": "ALLOWED",
+   "indexingState": "INDEXING_ALLOWED",
+   "lastCrawlTime": "2026-08-03T03:40:49Z",
+   "pageFetchState": "SUCCESSFUL",
+   "googleCanonical": "https://academiadebelleza.edu.co/10-tipos-de-cortes-de-cabello-para-hombre-en-2023/",
+   "userCanonical": "https://academiadebelleza.edu.co/10-tipos-de-cortes-de-cabello-para-hombre-en-2023/",
+   "sitemap": [
+    "https://academiadebelleza.edu.co/sitemap_index.xml"
+   ],
+   "referringUrls": [
+    "https://academiadebelleza.edu.co/20-mejores-tipos-de-cortes-de-cabello-para-mujer/",
+    "https://academiadebelleza.edu.co/post-sitemap.xml",
+    "https://academiadebelleza.edu.co/blog/"
+   ],
+   "crawledAs": "MOBILE"
+  },
+  "mobileUsabilityResult": {
+   "verdict": "VERDICT_UNSPECIFIED"
+  },
+  "richResultsResult": {
+   "verdict": "PASS",
+   "detectedItems": [
+    {
+     "richResultType": "Rutas de exploración",
+     "items": [
+      {
+       "name": "Elemento sin nombre"
+      }
+     ]
+    },
+    {
+     "richResultType": "Fragmentos de reseñas",
+     "items": [
+      {
+       "name": "10 Tipos de cortes de cabello para hombre en 2023"
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

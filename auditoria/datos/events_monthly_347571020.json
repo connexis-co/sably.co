@@ -1,0 +1,3462 @@
+{
+ "status": 200,
+ "body": {
+  "dimensionHeaders": [
+   {
+    "name": "yearMonth"
+   },
+   {
+    "name": "eventName"
+   }
+  ],
+  "metricHeaders": [
+   {
+    "name": "eventCount",
+    "type": "TYPE_INTEGER"
+   }
+  ],
+  "rows": [
+   {
+    "dimensionValues": [
+     {
+      "value": "202501"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "14335"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202501"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "10478"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202501"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "8675"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202501"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "7314"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202501"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1427"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202501"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "633"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202501"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "141"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202501"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "66"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202501"
+     },
+     {
+      "value": "envio_formulario_compra_curso"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "47"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202501"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "32"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202501"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "9"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202501"
+     },
+     {
+      "value": "purchase"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "10289"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "7299"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5954"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4972"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "966"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "415"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "96"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "54"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "envio_formulario_compra_curso"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "26"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "25"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "purchase"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202502"
+     },
+     {
+      "value": "view_search_results"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202503"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "11404"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202503"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "7463"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202503"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5952"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202503"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5037"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202503"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "820"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202503"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "438"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202503"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "96"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202503"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "46"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202503"
+     },
+     {
+      "value": "envio_formulario_compra_curso"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "29"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202503"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "13"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202503"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "10385"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "6712"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5569"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4684"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "754"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "435"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "85"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "36"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "envio_formulario_compra_curso"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "21"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "13"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "video_progress"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "view_search_results"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "purchase"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202504"
+     },
+     {
+      "value": "video_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202505"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "12043"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202505"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "7756"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202505"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "6472"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202505"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5527"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202505"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "826"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202505"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "557"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202505"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "98"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202505"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "31"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202505"
+     },
+     {
+      "value": "envio_formulario_compra_curso"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "18"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202505"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "13"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202505"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202506"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "11411"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202506"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "7287"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202506"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "6142"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202506"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5203"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202506"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "764"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202506"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "563"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202506"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "76"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202506"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "27"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202506"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "19"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202506"
+     },
+     {
+      "value": "envio_formulario_compra_curso"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "12"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202506"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "6"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202506"
+     },
+     {
+      "value": "purchase"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "12875"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "8500"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "6803"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5834"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "851"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "481"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "106"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "38"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "envio_formulario_compra_curso"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "24"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "17"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "video_progress"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202507"
+     },
+     {
+      "value": "video_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "11145"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "7188"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5882"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5059"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "941"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "528"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "98"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "27"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "24"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "envio_formulario_compra_curso"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "17"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "video_progress"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "8"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "3"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "purchase"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "video_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202508"
+     },
+     {
+      "value": "video_complete"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202509"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "10695"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202509"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "6978"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202509"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5580"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202509"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4716"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202509"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1141"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202509"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "454"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202509"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "120"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202509"
+     },
+     {
+      "value": "envio_formulario_compra_curso"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "37"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202509"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "36"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202509"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "32"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202509"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "9"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202509"
+     },
+     {
+      "value": "purchase"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "3"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "10480"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "6629"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5600"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4774"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "854"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "464"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "105"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "44"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "envio_formulario_compra_curso"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "40"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "22"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "video_progress"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202510"
+     },
+     {
+      "value": "video_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202511"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "9350"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202511"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "6010"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202511"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5155"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202511"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4475"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202511"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "554"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202511"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "418"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202511"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "71"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202511"
+     },
+     {
+      "value": "envio_formulario_compra_curso"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "31"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202511"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "23"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202511"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "23"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202511"
+     },
+     {
+      "value": "purchase"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202511"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202512"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "8688"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202512"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5479"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202512"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4697"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202512"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4175"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202512"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "586"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202512"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "397"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202512"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "83"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202512"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "54"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202512"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "12"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202512"
+     },
+     {
+      "value": "envio_formulario_compra_curso"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202512"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202512"
+     },
+     {
+      "value": "purchase"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202601"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "13221"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202601"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "8128"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202601"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "7044"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202601"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "6047"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202601"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "799"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202601"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "538"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202601"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "131"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202601"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "92"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202601"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202601"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202601"
+     },
+     {
+      "value": "purchase"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202602"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "8764"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202602"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5659"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202602"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4614"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202602"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "3912"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202602"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "547"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202602"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "439"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202602"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "84"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202602"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "68"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202602"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202602"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202603"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "8031"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202603"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5106"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202603"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4318"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202603"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "3745"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202603"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "508"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202603"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "406"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202603"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "82"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202603"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "57"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202603"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202603"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "3"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202604"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "6629"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202604"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4241"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202604"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "3553"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202604"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "3013"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202604"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "373"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202604"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "325"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202604"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "62"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202604"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "50"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202604"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "5"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202604"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202605"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "6112"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202605"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "3900"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202605"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "3364"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202605"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2895"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202605"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "389"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202605"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "282"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202605"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "149"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202605"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "75"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202605"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "73"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202605"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "6"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202606"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4730"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202606"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "3151"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202606"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2687"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202606"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2254"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202606"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "299"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202606"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "250"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202606"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "61"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202606"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "47"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202606"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202607"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "4406"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202607"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "3227"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202607"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2821"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202607"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "2372"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202607"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "294"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202607"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "244"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202607"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "90"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202607"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "65"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202607"
+     },
+     {
+      "value": "begin_checkout"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202607"
+     },
+     {
+      "value": "form_submit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "1"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202608"
+     },
+     {
+      "value": "page_view"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "507"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202608"
+     },
+     {
+      "value": "user_engagement"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "387"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202608"
+     },
+     {
+      "value": "session_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "300"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202608"
+     },
+     {
+      "value": "first_visit"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "253"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202608"
+     },
+     {
+      "value": "scroll"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "54"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202608"
+     },
+     {
+      "value": "click"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "33"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202608"
+     },
+     {
+      "value": "lead_contacto"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "12"
+     }
+    ]
+   },
+   {
+    "dimensionValues": [
+     {
+      "value": "202608"
+     },
+     {
+      "value": "form_start"
+     }
+    ],
+    "metricValues": [
+     {
+      "value": "11"
+     }
+    ]
+   }
+  ],
+  "rowCount": 229,
+  "metadata": {
+   "currencyCode": "COP",
+   "timeZone": "America/Bogota"
+  },
+  "kind": "analyticsData#runReport"
+ }
+}

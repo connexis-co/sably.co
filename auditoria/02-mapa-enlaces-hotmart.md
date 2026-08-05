@@ -65,10 +65,67 @@ Producto con hotlink `Y76953276W` (capturas del 2026-08-05):
 _Pendiente: confirmar a cuál de los 4 productos corresponde `Y76953276W` y
 completar los hotlinks de los demás desde el panel/API._
 
-## Cursos de belleza candidatos a añadir
+## Inventario real de acortadores en uso (GA4, 20 meses)
 
-_Se completa con el resultado de la investigación del catálogo de Seminarios
-Online (ver `01-auditoria-seo-funcional.md`, sección "Cursos faltantes")._
+La auditoría del 2026-08-05 encontró **111 URLs Hotmart únicas con clics** en 63
+páginas del sitio — el sitio ya monetiza muchos más cursos que los 4 de arriba.
+Lista completa en `datos/hotmart_links_unique_ga4.json`; mapa página→enlaces en
+`datos/page_to_hotmart_map_compact.json`. Los ~60 slugs `-curso-venta-SO` en uso
+siguen la convención (top por clics):
+
+`masajista-experto` (721) · `cuidado-facial-con-dermapen` (626) ·
+`masaje-descontracturante` (558) · `reduccion-corporal` (460) ·
+`limpieza-facial-con-aparatologia` (408) · `spa-con-maderoterapia` ·
+`colorimetria-para-estilistas` · `limpieza-facial-profunda` ·
+`cejas-perfectas-microblading` · `experta-extension-pestanas` ·
+`diseno-cejas-con-hilo-y-henna` · `cejas-tresd` · `spa-en-casa` ·
+`rejuvenecimiento-facial-holistico` · `unas-press-on-nails` ·
+`manicurista-profesional-premium` · `maquillaje-profesional-para-novias` ·
+`drenaje-facial-pro` · `diseno-perfilado-de-cejas` · `pestanas-premium` ·
+`estilista-a-domicilio` · `maquillaje-pro-redes-sociales` · … (resto en el JSON)
+
+### ⚠️ Enlaces con riesgo de comisión
+
+1. **7 checkouts directos sin referencia de afiliado visible**, usados sobre todo
+   en páginas de barbería: `pay.hotmart.com/{H43635981L, D60401162V, J41994495N,
+   S63192888Y, C63857704B, W69842801W, O42828007I}?checkoutMode=10`. Un checkout
+   sin token de afiliado atribuye la venta al productor → **comisión perdida**.
+   Validar cada uno con `scripts/hotmart/validar_enlaces.py` y en el checkout
+   real (siglas REF abajo a la derecha). Reemplazar por el hotlink propio.
+2. **Enlaces fuera de convención**: `hotm.art/especialista-en-unas-curso` (sin
+   sufijo `-venta-SO`), `http://hotm.art/diseno-cejas-con-hilo-y-henna-curso-venta-SO`
+   (http sin s).
+3. **Campañas muertas**: los `*-curso-crashing?offDiscount=031016` (barbería,
+   cejas, limpieza facial, uñas acrílicas) dejaron de recibir clics en 2026 —
+   confirmar si las páginas perdieron el CTA o fueron despublicadas.
+
+## Cursos de belleza faltantes (candidatos a añadir)
+
+Catálogo completo del productor MasterClasses.La® en
+`datos/seminarios_online_catalogo_belleza.json` (37 cursos de belleza activos).
+Cursos activos sin página dedicada ni clics, con acortadores propuestos según la
+convención:
+
+| Curso (ID producto) | Acortadores propuestos |
+|---|---|
+| Maquillaje Permanente (`J44578783I`) | `maquillaje-permanente-curso-venta-SO` / `-crashing` |
+| Master en Extensiones de Pestañas (`L79896912J`) | `master-extensiones-pestanas-curso-venta-SO` / `-crashing` |
+| Experta en Extensiones de Pestañas (`G75458369D`) | `experta-extensiones-pestanas-curso-venta-SO` / `-crashing` |
+| Master en Uñas Acrílicas (`C55918118T`) | `master-unas-acrilicas-curso-venta-SO` / `-crashing` |
+| Uñas Acrílicas, Semipermanentes y Tech Gel (`V45366158M`) | `unas-acrilicas-semi-techgel-curso-venta-SO` / `-crashing` |
+| Tintes Master (`L50322226B`) | `tintes-master-curso-venta-SO` / `-crashing` |
+| Estilista Premium (`O63751953D`) | `estilista-premium-curso-venta-SO` / `-crashing` |
+| Experta en Extensiones de Cabello (`G60509134A`) | `experta-extensiones-cabello-curso-venta-SO` / `-crashing` |
+| Trenzas y Peinados (`D41737748T`) | `trenzas-y-peinados-curso-venta-SO` / `-crashing` |
+| Maquillaje Pro para Redes Sociales (`T61997327V`) | `maquillaje-pro-redes-curso-venta-SO` / `-crashing` |
+| Maquillaje Artístico (`Q42346472T`) | `maquillaje-artistico-curso-venta-SO` / `-crashing` |
+| Automaquillaje Master (`U59401097I`) | `automaquillaje-master-curso-venta-SO` / `-crashing` |
+| Masajista Expert (`I46337891M`) | `masajista-expert-curso-venta-SO` / `-crashing` |
+| Emprende como Masajista Terapéutico (`T61450956V`) | `masajista-terapeutico-curso-venta-SO` / `-crashing` |
+
+IDs de los 4 productos priorizados: Maquillaje Social `N41531652U` · Aprende
+Barbería y Monta tu Negocio `P63130893D` · Especialista en Uñas `J43302170O` ·
+Masajista Master desde Cero `K63104274A`.
 
 ## Sobre la creación de acortadores por API
 
