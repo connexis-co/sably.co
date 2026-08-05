@@ -52,6 +52,21 @@ El `wrangler.jsonc` adjunta automáticamente los dominios `sably.co` y `www.sabl
 (la zona debe existir en la cuenta de Cloudflare). Si ese paso fallara, elimina el bloque
 `routes` y vuelve a desplegar; el sitio quedará en `sably-co.<subdominio>.workers.dev`.
 
+## API de Hotmart
+
+Credenciales en `.env` (ver `.env.example`) — **nunca** se commitean. Usos:
+
+- `node scripts/sync-hotmart.mjs` — trae el catálogo/estado de la cuenta a
+  `src/data/hotmart-products.json` (también disponible como workflow manual
+  "Sync Hotmart" si configuras los secretos `HOTMART_CLIENT_ID` y
+  `HOTMART_CLIENT_SECRET` en GitHub Actions).
+- El futuro backend Laravel usará estas mismas credenciales para webhooks de
+  ventas, reportes y automatización de accesos.
+
+Nota: la API **no genera enlaces de afiliado**. Los `hotmartUrl` de
+`src/data/courses.ts` se copian del panel de afiliado (enlaces
+`go.hotmart.com/...` o `pay.hotmart.com/...`).
+
 ## Páginas
 
 - `/` — inicio · `/cursos` — catálogo con filtros · `/cursos/[slug]` — detalle de curso
