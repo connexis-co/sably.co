@@ -40,6 +40,10 @@ export const CATEGORIES: Category[] = [
       { slug: 'reposteria-fina', name: 'Repostería fina' },
       { slug: 'pasteleria-francesa', name: 'Pastelería francesa' },
       { slug: 'masa-madre', name: 'Masa madre' },
+      { slug: 'pasteleria', name: 'Pastelería' },
+      { slug: 'reposteria', name: 'Repostería' },
+      { slug: 'tortas', name: 'Tortas' },
+      { slug: 'chocolateria', name: 'Chocolatería' },
     ],
   },
   {
@@ -55,6 +59,8 @@ export const CATEGORIES: Category[] = [
       { slug: 'cocina-vegana', name: 'Cocina vegana' },
       { slug: 'barismo', name: 'Barismo' },
       { slug: 'parrillas-y-asados', name: 'Parrillas y asados' },
+      { slug: 'bebidas', name: 'Bebidas' },
+      { slug: 'comida-rapida', name: 'Comida rápida' },
     ],
   },
   {
@@ -72,6 +78,13 @@ export const CATEGORIES: Category[] = [
       { slug: 'mecanica-de-motos', name: 'Mecánica de motos' },
       { slug: 'soldadura', name: 'Soldadura' },
       { slug: 'refrigeracion', name: 'Refrigeración' },
+      { slug: 'construccion', name: 'Construcción' },
+      { slug: 'electronica', name: 'Electrónica' },
+      { slug: 'electrodomesticos', name: 'Reparación de electrodomésticos' },
+      { slug: 'energia-solar', name: 'Energía solar' },
+      { slug: 'mecanica', name: 'Mecánica general' },
+      { slug: 'seguridad', name: 'Seguridad' },
+      { slug: 'tatuaje', name: 'Tatuaje' },
     ],
   },
   {
@@ -87,6 +100,7 @@ export const CATEGORIES: Category[] = [
       { slug: 'diseno-de-modas', name: 'Diseño de modas' },
       { slug: 'sastreria', name: 'Sastrería' },
       { slug: 'lenceria', name: 'Lencería' },
+      { slug: 'confeccion', name: 'Confección' },
     ],
   },
   {
@@ -102,6 +116,9 @@ export const CATEGORIES: Category[] = [
       { slug: 'yoga', name: 'Yoga' },
       { slug: 'masajes-terapeuticos', name: 'Masajes terapéuticos' },
       { slug: 'aromaterapia', name: 'Aromaterapia' },
+      { slug: 'defensa-personal', name: 'Defensa personal' },
+      { slug: 'estetica-corporal', name: 'Estética corporal' },
+      { slug: 'primeros-auxilios', name: 'Primeros auxilios' },
     ],
   },
   {
@@ -117,6 +134,11 @@ export const CATEGORIES: Category[] = [
       { slug: 'bordado', name: 'Bordado' },
       { slug: 'ceramica', name: 'Cerámica' },
       { slug: 'resina-epoxica', name: 'Resina epóxica' },
+      { slug: 'artesanias', name: 'Artesanías' },
+      { slug: 'joyeria', name: 'Joyería' },
+      { slug: 'tejido', name: 'Tejido' },
+      { slug: 'personalizados', name: 'Personalizados' },
+      { slug: 'eventos', name: 'Decoración de eventos' },
     ],
   },
   {
@@ -132,6 +154,11 @@ export const CATEGORIES: Category[] = [
       { slug: 'e-commerce', name: 'E-commerce' },
       { slug: 'ventas', name: 'Ventas' },
       { slug: 'contabilidad-basica', name: 'Contabilidad básica' },
+      { slug: 'marketing', name: 'Marketing' },
+      { slug: 'finanzas', name: 'Finanzas' },
+      { slug: 'negocios-caseros', name: 'Negocios caseros' },
+      { slug: 'fotografia', name: 'Fotografía' },
+      { slug: 'herramientas', name: 'Herramientas digitales' },
     ],
   },
   {
@@ -145,6 +172,40 @@ export const CATEGORIES: Category[] = [
       { slug: 'peluqueria-canina', name: 'Peluquería canina' },
       { slug: 'adiestramiento', name: 'Adiestramiento' },
       { slug: 'veterinaria-basica', name: 'Veterinaria básica' },
+      { slug: 'grooming', name: 'Grooming' },
+      { slug: 'salud-mascotas', name: 'Salud de mascotas' },
+      { slug: 'reposteria-mascotas', name: 'Repostería para mascotas' },
+    ],
+  },
+  {
+    slug: 'idiomas',
+    name: 'Idiomas',
+    emoji: '🗣️',
+    description:
+      'Inglés, coreano, francés y más: abre puertas laborales hablando un nuevo idioma.',
+    gradient: ['#0EA5E9', '#1E40AF'],
+    subcategories: [
+      { slug: 'ingles', name: 'Inglés' },
+      { slug: 'coreano', name: 'Coreano' },
+      { slug: 'frances', name: 'Francés' },
+      { slug: 'portugues', name: 'Portugués' },
+      { slug: 'italiano', name: 'Italiano' },
+      { slug: 'japones', name: 'Japonés' },
+    ],
+  },
+  {
+    slug: 'musica',
+    name: 'Música',
+    emoji: '🎸',
+    description:
+      'Guitarra, piano, canto y producción: aprende música y hasta vive de ella.',
+    gradient: ['#A855F7', '#6B21A8'],
+    subcategories: [
+      { slug: 'guitarra', name: 'Guitarra' },
+      { slug: 'piano', name: 'Piano' },
+      { slug: 'canto', name: 'Canto' },
+      { slug: 'produccion-musical', name: 'Producción musical' },
+      { slug: 'dj', name: 'DJ' },
     ],
   },
   {
@@ -159,12 +220,20 @@ export const CATEGORIES: Category[] = [
       { slug: 'wedding-planning', name: 'Wedding planning' },
       { slug: 'eventos', name: 'Eventos' },
       { slug: 'hoteleria', name: 'Hotelería' },
+      { slug: 'cocteleria', name: 'Coctelería' },
+      { slug: 'cafe', name: 'Café' },
+      { slug: 'alojamiento', name: 'Alojamiento' },
     ],
   },
 ];
 
 /** Categorías con cursos propios en este sitio (excluye filiales externas). */
 export const INTERNAL_CATEGORIES = CATEGORIES.filter((c) => !c.externalUrl);
+
+/** Portada fotorrealista de la categoría (generadas con Gemini, public/covers/). */
+export function categoryCover(slug: string, variant: 'hero' | 'card' = 'hero'): string {
+  return `/covers/${slug}${variant === 'card' ? '-card' : ''}.jpg`;
+}
 
 export function getCategory(slug: string): Category {
   const category = CATEGORIES.find((c) => c.slug === slug);

@@ -16,7 +16,7 @@ export interface Country {
   usdRate: number;
   /** Redondeo "bonito" del precio local (ej. 1000 → $119.000 COP). */
   priceRound: number;
-  /** TODO(JP): reemplazar por los números de WhatsApp reales por país. */
+  /** Línea WhatsApp central Sably (+57 311 457 4788); TODO(JP): números locales por país cuando existan. */
   whatsapp: string;
   phoneDisplay: string;
   cities: City[];
@@ -32,14 +32,15 @@ export const COUNTRIES: Country[] = [
     currencySymbol: '$',
     usdRate: 4000,
     priceRound: 1000,
-    whatsapp: '573000000000',
-    phoneDisplay: '+57 300 000 0000',
+    whatsapp: '573114574788',
+    phoneDisplay: '+57 311 457 4788',
     cities: [
       { slug: 'bogota', name: 'Bogotá' },
       { slug: 'medellin', name: 'Medellín' },
       { slug: 'cali', name: 'Cali' },
       { slug: 'barranquilla', name: 'Barranquilla' },
       { slug: 'cartagena', name: 'Cartagena' },
+      { slug: 'bucaramanga', name: 'Bucaramanga' },
     ],
   },
   {
@@ -51,7 +52,7 @@ export const COUNTRIES: Country[] = [
     currencySymbol: '$',
     usdRate: 18,
     priceRound: 10,
-    whatsapp: '525500000000',
+    whatsapp: '573114574788',
     phoneDisplay: '+52 55 0000 0000',
     cities: [
       { slug: 'cdmx', name: 'Ciudad de México' },
@@ -70,7 +71,7 @@ export const COUNTRIES: Country[] = [
     currencySymbol: 'S/',
     usdRate: 3.7,
     priceRound: 1,
-    whatsapp: '511000000000',
+    whatsapp: '573114574788',
     phoneDisplay: '+51 1 000 0000',
     cities: [
       { slug: 'lima', name: 'Lima' },
@@ -88,7 +89,7 @@ export const COUNTRIES: Country[] = [
     currencySymbol: '$',
     usdRate: 1,
     priceRound: 1,
-    whatsapp: '593900000000',
+    whatsapp: '573114574788',
     phoneDisplay: '+593 90 000 0000',
     cities: [
       { slug: 'quito', name: 'Quito' },
@@ -105,7 +106,7 @@ export const COUNTRIES: Country[] = [
     currencySymbol: '$',
     usdRate: 950,
     priceRound: 1000,
-    whatsapp: '562000000000',
+    whatsapp: '573114574788',
     phoneDisplay: '+56 2 0000 0000',
     cities: [
       { slug: 'santiago', name: 'Santiago' },
@@ -122,7 +123,7 @@ export const COUNTRIES: Country[] = [
     currencySymbol: '$',
     usdRate: 1400,
     priceRound: 1000,
-    whatsapp: '541100000000',
+    whatsapp: '573114574788',
     phoneDisplay: '+54 11 0000 0000',
     cities: [
       { slug: 'buenosaires', name: 'Buenos Aires' },
@@ -140,7 +141,7 @@ export const COUNTRIES: Country[] = [
     currencySymbol: '$',
     usdRate: 1,
     priceRound: 1,
-    whatsapp: '13050000000',
+    whatsapp: '573114574788',
     phoneDisplay: '+1 305 000 0000',
     cities: [
       { slug: 'miami', name: 'Miami' },

@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import CourseLanding from '@/components/CourseLanding.astro';
+import { COUNTRIES, getCountry, getCity } from '@/lib/countries';
+
+export async function getStaticPaths() {
+  const courses = await getCollection('courses');
+  return COUNTRIES.flatMap((c) =>
+    c.cities.flatMap((city) =>
+      courses.map((course) => ({
+        params: { country: c.code, city: city.slug, slug: course.id },
+        props: { course },
+      })),
+    ),
+  );
+}
+
+const { course } = Astro.props;
+const country = getCountry(Astro.params.country!);
+const city = getCity(country, Astro.params.city!);
+---
+
+<CourseLanding {course} {country} {city} />
