@@ -1,0 +1,18 @@
+---
+interface Props {
+  rating: number;
+  count?: number;
+  class?: string;
+}
+const { rating, count, class: className = '' } = Astro.props;
+const rounded = Math.round(rating);
+---
+
+<span class={`inline-flex items-center gap-1.5 text-sm ${className}`}>
+  <span class="text-warning" aria-hidden="true">
+    {'★'.repeat(rounded)}{'☆'.repeat(5 - rounded)}
+  </span>
+  <span class="font-semibold text-heading">{rating.toFixed(1)}</span>
+  {count !== undefined && <span class="text-muted">({count.toLocaleString('es-CO')})</span>}
+  <span class="sr-only">Calificación {rating.toFixed(1)} de 5</span>
+</span>

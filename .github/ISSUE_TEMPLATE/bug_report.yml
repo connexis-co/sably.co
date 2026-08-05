@@ -1,0 +1,40 @@
+name: 🐛 Bug Report
+description: Reportar un error o comportamiento inesperado
+title: '[BUG] '
+labels: ['bug', 'triage']
+body:
+  - type: textarea
+    attributes:
+      label: Descripción del bug
+      description: Descripción clara y concisa del problema
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Pasos para reproducir
+      description: |
+        1. Ir a '...'
+        2. Click en '...'
+        3. Ver error
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Comportamiento esperado
+      description: ¿Qué debería pasar?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Screenshots
+      description: Si aplica, agrega capturas de pantalla
+  - type: dropdown
+    attributes:
+      label: Severidad
+      options:
+        - Baja
+        - Media
+        - Alta
+        - Crítica
+    validations:
+      required: true

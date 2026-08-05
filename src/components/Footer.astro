@@ -1,0 +1,87 @@
+---
+import { CATEGORIES } from '@/lib/categories';
+import { COUNTRIES, type Country } from '@/lib/countries';
+import { SITE } from '@/lib/site';
+import Logo from './Logo.astro';
+
+interface Props {
+  country: Country;
+}
+const { country } = Astro.props;
+const base = `/${country.code}`;
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-primary text-white">
+  <div class="container-site grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
+    <div>
+      <Logo href={`${base}/`} inverted />
+      <p class="mt-4 max-w-xs text-sm text-white/70">{SITE.tagline}</p>
+      <p class="mt-4 text-sm text-white/70">
+        Parte del ecosistema Sably:
+        {
+          SITE.filiales.map((f) => (
+            <a href={f.url} target="_blank" rel="noopener" class="block mt-1 font-semibold text-white hover:text-accent">
+              {f.name} →
+            </a>
+          ))
+        }
+      </p>
+    </div>
+
+    <nav aria-label="Categorías">
+      <h2 class="mb-4 font-display text-sm font-bold tracking-wide text-white uppercase">Categorías</h2>
+      <ul class="space-y-2" role="list">
+        {
+          CATEGORIES.map((cat) => (
+            <li>
+              <a
+                href={cat.externalUrl ?? `${base}/cursos/${cat.slug}/`}
+                class="text-sm text-white/70 hover:text-white"
+                {...(cat.externalUrl ? { target: '_blank', rel: 'noopener' } : {})}
+              >
+                {cat.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <nav aria-label="Países">
+      <h2 class="mb-4 font-display text-sm font-bold tracking-wide text-white uppercase">Cursos por país</h2>
+      <ul class="space-y-2" role="list">
+        {
+          COUNTRIES.map((c) => (
+            <li>
+              <a href={`/${c.code}/`} class="text-sm text-white/70 hover:text-white">
+                {c.flag} Cursos online en {c.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="mb-4 font-display text-sm font-bold tracking-wide text-white uppercase">Sably</h2>
+      <ul class="space-y-2" role="list">
+        <li><a href="/blog/" class="text-sm text-white/70 hover:text-white">Blog</a></li>
+        <li><a href="/legal/terminos/" class="text-sm text-white/70 hover:text-white">Términos y condiciones</a></li>
+        <li><a href="/legal/privacidad/" class="text-sm text-white/70 hover:text-white">Política de privacidad</a></li>
+      </ul>
+      <div class="mt-5 flex gap-3">
+        <a href={SITE.social.instagram} target="_blank" rel="noopener" class="text-white/70 hover:text-white" aria-label="Instagram">IG</a>
+        <a href={SITE.social.tiktok} target="_blank" rel="noopener" class="text-white/70 hover:text-white" aria-label="TikTok">TT</a>
+        <a href={SITE.social.facebook} target="_blank" rel="noopener" class="text-white/70 hover:text-white" aria-label="Facebook">FB</a>
+        <a href={SITE.social.youtube} target="_blank" rel="noopener" class="text-white/70 hover:text-white" aria-label="YouTube">YT</a>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="container-site flex flex-col items-center justify-between gap-2 py-5 text-xs text-white/50 sm:flex-row">
+      <p>© {year} Sably — Todos los derechos reservados.</p>
+      <p>Los cursos se imparten a través de Hotmart. Certificado incluido.</p>
+    </div>
+  </div>
+</footer>

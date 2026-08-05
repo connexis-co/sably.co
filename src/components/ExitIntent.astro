@@ -1,0 +1,61 @@
+---
+import { SITE } from '@/lib/site';
+
+/**
+ * Popup de salida (desktop: mouseleave; una vez por sesión).
+ * CTA primario → checkout con cupón; secundario → modal de leads.
+ */
+interface Props {
+  ctaUrl: string;
+}
+const { ctaUrl } = Astro.props;
+---
+
+<dialog
+  id="exit-intent"
+  class="m-auto w-[min(92vw,420px)] rounded-lg p-0 text-center shadow-2xl backdrop:bg-ink/60 backdrop:backdrop-blur-sm"
+>
+  <div class="p-8">
+    <p class="text-4xl" aria-hidden="true">🎁</p>
+    <h2 class="mt-3 text-xl font-bold">¡Espera! Tu {SITE.couponDiscountPct}% OFF sigue activo</h2>
+    <p class="mt-2 text-sm text-body">
+      Inscríbete ahora con el cupón <strong class="font-mono text-accent">{SITE.defaultCoupon}</strong> antes de que
+      expire la oferta.
+    </p>
+    <a
+      href={ctaUrl}
+      target="_blank"
+      rel="noopener nofollow sponsored"
+      data-cta-hotmart
+      data-cta-position="exit_intent"
+      class="mt-5 block rounded-md bg-accent px-4 py-3 text-sm font-bold text-white transition hover:bg-accent-hover"
+    >
+      🔥 Inscribirme con {SITE.couponDiscountPct}% OFF
+    </a>
+    <button type="button" data-exit-close class="mt-3 text-sm text-muted underline">
+      No gracias, prefiero pagar precio completo
+    </button>
+  </div>
+</dialog>
+
+<script>
+  import { trackEvent } from '@/lib/analytics';
+
+  const dialog = document.getElementById('exit-intent') as HTMLDialogElement | null;
+  const KEY = 'sably:exit-shown';
+
+  if (dialog && !sessionStorage.getItem(KEY) && matchMedia('(pointer: fine)').matches) {
+    const onLeave = (e: MouseEvent) => {
+      if (e.clientY > 8 || sessionStorage.getItem(KEY)) return;
+      sessionStorage.setItem(KEY, '1');
+      dialog.showModal();
+      trackEvent('exit_intent_shown', { page_type: document.body.dataset.pageType ?? 'unknown' });
+      document.removeEventListener('mouseout', onLeave);
+    };
+    document.addEventListener('mouseout', onLeave);
+    dialog.querySelector('[data-exit-close]')?.addEventListener('click', () => dialog.close());
+    dialog.querySelector('[data-cta-hotmart]')?.addEventListener('click', () => {
+      trackEvent('exit_intent_converted', { page_type: document.body.dataset.pageType ?? 'unknown' });
+    });
+  }
+</script>

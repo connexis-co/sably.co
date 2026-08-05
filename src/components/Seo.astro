@@ -1,0 +1,34 @@
+---
+import { SITE } from '@/lib/site';
+import type { HreflangAlternate } from '@/lib/seo';
+
+interface Props {
+  title: string;
+  description: string;
+  alternates?: HreflangAlternate[];
+  schemas?: object[];
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+}
+
+const { title, description, alternates = [], schemas = [], noindex = false, ogType = 'website' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+{alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+
+<meta property="og:type" content={ogType} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content="es_CO" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+
+{schemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
