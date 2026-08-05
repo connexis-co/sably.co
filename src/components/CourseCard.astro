@@ -1,0 +1,52 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getCategory } from '@/lib/categories';
+import { formatPrice, type Country } from '@/lib/countries';
+import { SITE } from '@/lib/site';
+import Rating from './Rating.astro';
+
+interface Props {
+  course: CollectionEntry<'courses'>;
+  country: Country;
+  /** Prioridad de carga para cards above-the-fold. */
+  eager?: boolean;
+}
+const { course, country } = Astro.props;
+const cat = getCategory(course.data.category);
+const url = `/${country.code}/curso/${course.id}/`;
+---
+
+<article
+  class="group flex h-full flex-col overflow-hidden rounded-lg border border-surface-200 bg-white transition duration-300 hover:-translate-y-1 hover:shadow-xl"
+>
+  <a href={url} class="flex h-full flex-col" aria-label={course.data.title}>
+    <div
+      class="relative flex h-40 items-center justify-center text-5xl"
+      style={`background-image: linear-gradient(135deg, ${cat.gradient[0]}, ${cat.gradient[1]})`}
+    >
+      <span aria-hidden="true" class="transition-transform duration-300 group-hover:scale-110">{cat.emoji}</span>
+      <span class="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-heading">
+        {cat.name}
+      </span>
+      <span class="absolute top-3 right-3 rounded-full bg-accent px-2.5 py-1 text-[11px] font-bold text-white">
+        -{SITE.couponDiscountPct}%
+      </span>
+    </div>
+    <div class="flex flex-1 flex-col p-4">
+      <h3 class="line-clamp-2 font-display text-base font-bold text-primary group-hover:text-accent">
+        {course.data.title}
+      </h3>
+      <p class="mt-1.5 line-clamp-2 text-sm text-body">{course.data.shortDescription}</p>
+      <div class="mt-2">
+        <Rating rating={course.data.rating} count={course.data.ratingCount} />
+      </div>
+      <p class="mt-1 text-xs text-muted">
+        {course.data.students.toLocaleString('es-CO')} estudiantes · {course.data.durationHours} h · {course.data.level}
+      </p>
+      <div class="mt-auto flex items-baseline gap-2 pt-3">
+        <span class="text-lg font-extrabold text-primary">{formatPrice(course.data.priceUSD, country)}</span>
+        <span class="text-sm text-muted line-through">{formatPrice(course.data.originalPriceUSD, country)}</span>
+      </div>
+    </div>
+  </a>
+</article>

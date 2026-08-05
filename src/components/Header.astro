@@ -1,0 +1,321 @@
+---
+import { getCollection } from 'astro:content';
+import { CATEGORIES, INTERNAL_CATEGORIES } from '@/lib/categories';
+import type { Country, City } from '@/lib/countries';
+import { formatPrice } from '@/lib/countries';
+import Logo from './Logo.astro';
+
+interface Props {
+  country: Country;
+  city?: City;
+  /** Ruta después del código de país (para el switcher de país). */
+  pathAfterCountry: string;
+}
+const { country, city, pathAfterCountry } = Astro.props;
+
+const allCourses = await getCollection('courses');
+const featuredByCategory = new Map(
+  INTERNAL_CATEGORIES.map((cat) => {
+    const inCat = allCourses.filter((c) => c.data.category === cat.slug);
+    const pick = inCat.find((c) => c.data.featured) ?? inCat[0];
+    return [cat.slug, pick] as const;
+  }),
+);
+
+const base = `/${country.code}`;
+const geoLabel = city ? `${country.flag} ${city.name}` : `${country.flag} ${country.name}`;
+---
+
+<header class="sticky top-0 z-50 border-b border-surface-200 bg-white/95 backdrop-blur">
+  <div class="container-site flex h-16 items-center justify-between gap-4">
+    <Logo href={`${base}/`} />
+
+    <!-- Nav desktop -->
+    <nav class="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
+      <div class="relative" data-mega-root>
+        <button
+          type="button"
+          data-mega-trigger
+          aria-expanded="false"
+          aria-controls="mega-panel"
+          class="flex items-center gap-1.5 rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary"
+        >
+          Categorías
+          <svg class="size-4 transition-transform" data-mega-chevron viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+
+        <div
+          id="mega-panel"
+          data-mega-panel
+          class="invisible absolute left-1/2 top-full mt-2 w-[880px] -translate-x-1/2 rounded-lg border border-surface-200 bg-white opacity-0 shadow-2xl transition-all duration-200"
+        >
+          <div class="grid grid-cols-[240px_1fr_280px]">
+            <!-- Col 1: categorías -->
+            <ul class="border-r border-surface-100 p-3" role="list">
+              {
+                CATEGORIES.map((cat, i) =>
+                  cat.externalUrl ? (
+                    <li>
+                      <a
+                        href={cat.externalUrl}
+                        target="_blank"
+                        rel="noopener"
+                        class="flex items-center justify-between gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-heading hover:bg-accent-soft"
+                      >
+                        <span>{cat.emoji} {cat.name}</span>
+                        <span class="rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-white">Academia</span>
+                      </a>
+                    </li>
+                  ) : (
+                    <li>
+                      <button
+                        type="button"
+                        data-mega-cat={cat.slug}
+                        data-active={i === 1 ? 'true' : undefined}
+                        class="flex w-full items-center justify-between gap-2 rounded-md px-3 py-2.5 text-left text-sm font-medium text-heading transition hover:bg-surface-100 data-[active]:bg-surface-100 data-[active]:text-primary"
+                      >
+                        <span>{cat.emoji} {cat.name}</span>
+                        <span aria-hidden="true" class="text-muted">›</span>
+                      </button>
+                    </li>
+                  ),
+                )
+              }
+            </ul>
+
+            <!-- Col 2 + 3 por categoría -->
+            {
+              INTERNAL_CATEGORIES.map((cat, i) => {
+                const featured = featuredByCategory.get(cat.slug);
+                return (
+                  <div
+                    data-mega-content={cat.slug}
+                    class:list={['col-span-2 grid grid-cols-[1fr_280px]', { hidden: i !== 0 }]}
+                  >
+                    <div class="p-5">
+                      <p class="mb-3 text-xs font-bold tracking-wide text-muted uppercase">{cat.name}</p>
+                      <ul class="grid grid-cols-2 gap-1" role="list">
+                        {cat.subcategories.map((sub) => (
+                          <li>
+                            <a
+                              href={`${base}/cursos/${cat.slug}/#${sub.slug}`}
+                              class="block rounded-md px-3 py-2 text-sm text-body hover:bg-surface-100 hover:text-primary"
+                            >
+                              {sub.name}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                      <a
+                        href={`${base}/cursos/${cat.slug}/`}
+                        class="mt-3 inline-block text-sm font-semibold text-accent hover:text-accent-hover"
+                      >
+                        Ver todos los cursos de {cat.name} →
+                      </a>
+                    </div>
+                    <div class="flex flex-col justify-between rounded-r-lg bg-off-white p-5">
+                      {featured ? (
+                        <>
+                          <div>
+                            <span class="rounded-full bg-accent px-2.5 py-1 text-[11px] font-bold text-white">Destacado</span>
+                            <div
+                              class="mt-3 flex h-24 items-center justify-center rounded-md text-4xl"
+                              style={`background-image: linear-gradient(135deg, ${cat.gradient[0]}, ${cat.gradient[1]})`}
+                            >
+                              <span aria-hidden="true">{cat.emoji}</span>
+                            </div>
+                            <p class="mt-3 line-clamp-2 text-sm font-bold text-primary">{featured.data.title}</p>
+                            <p class="mt-1 text-sm font-semibold text-accent">
+                              {formatPrice(featured.data.priceUSD, country)}
+                            </p>
+                          </div>
+                          <a
+                            href={`${base}/curso/${featured.id}/`}
+                            class="mt-3 rounded-md bg-primary px-4 py-2 text-center text-sm font-semibold text-white transition hover:bg-primary-soft"
+                          >
+                            Ver curso
+                          </a>
+                        </>
+                      ) : (
+                        <p class="text-sm text-muted">Muy pronto nuevos cursos aquí.</p>
+                      )}
+                    </div>
+                  </div>
+                );
+              })
+            }
+          </div>
+        </div>
+      </div>
+
+      <a href={`${base}/cursos/`} class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">Cursos</a>
+      <a href="/blog/" class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">Blog</a>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        data-geo-open
+        class="hidden items-center gap-2 rounded-md border border-surface-200 px-3 py-2 text-sm font-medium text-heading transition hover:border-accent sm:flex"
+      >
+        {geoLabel}
+        <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <a
+        href={`${base}/cursos/`}
+        class="hidden rounded-md bg-accent px-4 py-2 text-sm font-bold text-white transition hover:bg-accent-hover lg:block"
+      >
+        Empezar ahora
+      </a>
+      <!-- Hamburger -->
+      <button
+        type="button"
+        data-drawer-open
+        class="rounded-md p-2 text-heading hover:bg-surface-100 lg:hidden"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+      >
+        <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Drawer mobile -->
+  <div
+    id="mobile-drawer"
+    data-drawer
+    class="fixed inset-0 z-50 hidden lg:hidden"
+  >
+    <div class="absolute inset-0 bg-ink/50 backdrop-blur-sm" data-drawer-backdrop></div>
+    <div class="absolute inset-y-0 right-0 flex w-[min(88vw,380px)] flex-col overflow-y-auto bg-white shadow-2xl">
+      <div class="flex items-center justify-between border-b border-surface-100 p-4">
+        <Logo href={`${base}/`} />
+        <button type="button" data-drawer-close class="rounded-full p-2 text-muted hover:bg-surface-100" aria-label="Cerrar menú">✕</button>
+      </div>
+      <div class="p-4">
+        <button
+          type="button"
+          data-geo-open
+          class="mb-4 flex w-full items-center justify-between rounded-md border border-surface-200 px-4 py-3 text-sm font-medium text-heading"
+        >
+          <span>{geoLabel}</span>
+          <span class="text-accent">Cambiar</span>
+        </button>
+        <nav aria-label="Categorías">
+          {
+            CATEGORIES.map((cat) =>
+              cat.externalUrl ? (
+                <a
+                  href={cat.externalUrl}
+                  target="_blank"
+                  rel="noopener"
+                  class="flex items-center justify-between border-b border-surface-100 py-3.5 text-sm font-semibold text-heading"
+                >
+                  <span>{cat.emoji} {cat.name}</span>
+                  <span class="rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-white">Academia</span>
+                </a>
+              ) : (
+                <details class="group border-b border-surface-100">
+                  <summary class="flex cursor-pointer list-none items-center justify-between py-3.5 text-sm font-semibold text-heading">
+                    <span>{cat.emoji} {cat.name}</span>
+                    <span class="text-muted transition-transform group-open:rotate-90" aria-hidden="true">›</span>
+                  </summary>
+                  <ul class="pb-3 pl-8" role="list">
+                    {cat.subcategories.map((sub) => (
+                      <li>
+                        <a href={`${base}/cursos/${cat.slug}/#${sub.slug}`} class="block py-2 text-sm text-body">
+                          {sub.name}
+                        </a>
+                      </li>
+                    ))}
+                    <li>
+                      <a href={`${base}/cursos/${cat.slug}/`} class="block py-2 text-sm font-semibold text-accent">
+                        Ver todos →
+                      </a>
+                    </li>
+                  </ul>
+                </details>
+              ),
+            )
+          }
+        </nav>
+        <div class="mt-4 space-y-2">
+          <a href={`${base}/cursos/`} class="block rounded-md bg-accent px-4 py-3 text-center text-sm font-bold text-white">Ver todos los cursos</a>
+          <a href="/blog/" class="block rounded-md border border-surface-200 px-4 py-3 text-center text-sm font-semibold text-heading">Blog</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  // ── Mega menú desktop ──────────────────────────────────────────────
+  const root = document.querySelector<HTMLElement>('[data-mega-root]');
+  if (root) {
+    const trigger = root.querySelector<HTMLButtonElement>('[data-mega-trigger]')!;
+    const panel = root.querySelector<HTMLElement>('[data-mega-panel]')!;
+    const chevron = root.querySelector<HTMLElement>('[data-mega-chevron]');
+    let closeTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const setOpen = (open: boolean) => {
+      panel.classList.toggle('invisible', !open);
+      panel.classList.toggle('opacity-0', !open);
+      trigger.setAttribute('aria-expanded', String(open));
+      chevron?.classList.toggle('rotate-180', open);
+    };
+    const scheduleClose = () => {
+      closeTimer = setTimeout(() => setOpen(false), 150);
+    };
+    const cancelClose = () => clearTimeout(closeTimer);
+
+    trigger.addEventListener('click', () => setOpen(panel.classList.contains('invisible')));
+    root.addEventListener('mouseenter', () => {
+      cancelClose();
+      setOpen(true);
+    });
+    root.addEventListener('mouseleave', scheduleClose);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+    document.addEventListener('click', (e) => {
+      if (!root.contains(e.target as Node)) setOpen(false);
+    });
+
+    // Cambio de panel por categoría
+    const catButtons = root.querySelectorAll<HTMLButtonElement>('[data-mega-cat]');
+    const contents = root.querySelectorAll<HTMLElement>('[data-mega-content]');
+    const activate = (slug: string) => {
+      catButtons.forEach((b) => {
+        if (b.dataset.megaCat === slug) b.dataset.active = 'true';
+        else delete b.dataset.active;
+      });
+      contents.forEach((c) => c.classList.toggle('hidden', c.dataset.megaContent !== slug));
+      window.dataLayer ??= [];
+      window.dataLayer.push({ event: 'mega_menu_interact', category_clicked: slug });
+    };
+    catButtons.forEach((b) => {
+      b.addEventListener('mouseenter', () => activate(b.dataset.megaCat!));
+      b.addEventListener('focus', () => activate(b.dataset.megaCat!));
+      b.addEventListener('click', () => activate(b.dataset.megaCat!));
+    });
+    if (catButtons[0]) activate(catButtons[0].dataset.megaCat!);
+  }
+
+  // ── Drawer mobile ──────────────────────────────────────────────────
+  const drawer = document.querySelector<HTMLElement>('[data-drawer]');
+  if (drawer) {
+    const openBtn = document.querySelector<HTMLButtonElement>('[data-drawer-open]');
+    const toggle = (open: boolean) => {
+      drawer.classList.toggle('hidden', !open);
+      document.body.classList.toggle('no-scroll', open);
+      openBtn?.setAttribute('aria-expanded', String(open));
+    };
+    openBtn?.addEventListener('click', () => toggle(true));
+    drawer.querySelector('[data-drawer-close]')?.addEventListener('click', () => toggle(false));
+    drawer.querySelector('[data-drawer-backdrop]')?.addEventListener('click', () => toggle(false));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') toggle(false);
+    });
+  }
+</script>

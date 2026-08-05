@@ -1,0 +1,29 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
+
+const country = getCountry(DEFAULT_COUNTRY);
+---
+
+<BaseLayout
+  title="Página no encontrada | Sably"
+  description="La página que buscas no existe o cambió de dirección."
+  {country}
+  pathAfterCountry="/"
+  pageType="404"
+  noindex
+>
+  <section class="container-site py-24 text-center">
+    <p class="text-6xl" aria-hidden="true">🧭</p>
+    <h1 class="mt-4 text-3xl font-extrabold">Ups, esta página no existe</h1>
+    <p class="mx-auto mt-3 max-w-md text-body">
+      Puede que el enlace haya cambiado. Lo importante: tus ganas de aprender siguen intactas.
+    </p>
+    <a
+      href={`/${country.code}/cursos/`}
+      class="mt-8 inline-block rounded-md bg-accent px-6 py-3 font-bold text-white transition hover:bg-accent-hover"
+    >
+      Explorar todos los cursos
+    </a>
+  </section>
+</BaseLayout>

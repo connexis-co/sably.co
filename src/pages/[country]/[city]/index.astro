@@ -1,0 +1,165 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CourseCard from '@/components/CourseCard.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import TestimonialCard from '@/components/TestimonialCard.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import PromoBanner from '@/components/PromoBanner.astro';
+import { COUNTRIES, getCountry, getCity } from '@/lib/countries';
+import { INTERNAL_CATEGORIES } from '@/lib/categories';
+import { breadcrumbSchema, faqSchema } from '@/lib/seo';
+import { SITE } from '@/lib/site';
+
+export function getStaticPaths() {
+  return COUNTRIES.flatMap((c) =>
+    c.cities.map((city) => ({ params: { country: c.code, city: city.slug } })),
+  );
+}
+
+const country = getCountry(Astro.params.country!);
+const city = getCity(country, Astro.params.city!);
+const base = `/${country.code}`;
+
+const courses = await getCollection('courses');
+const popular = [...courses].sort((a, b) => b.data.students - a.data.students).slice(0, 8);
+
+const allTestimonials = await getCollection('testimonials');
+const cityTestimonials = allTestimonials.filter(
+  (t) => t.data.countryCode === country.code && t.data.citySlug === city.slug,
+);
+const countryTestimonials = allTestimonials.filter((t) => t.data.countryCode === country.code);
+const testimonials = (cityTestimonials.length >= 2 ? cityTestimonials : countryTestimonials).slice(0, 3);
+
+/* Social proof local determinístico (hasta tener datos reales de Hotmart en Fase 2). */
+const cityStudents = 150 + ((city.slug.length * 37 + country.code.charCodeAt(0)) % 280);
+
+const faqs = [
+  {
+    q: `¿Puedo estudiar online desde ${city.name}?`,
+    a: `Sí. Todos los cursos de Sably son 100% online: solo necesitas internet para estudiar desde ${city.name} o cualquier lugar de ${country.name}, a tu ritmo y con acceso de por vida.`,
+  },
+  {
+    q: `¿El certificado tiene validez en ${city.name}?`,
+    a: `Recibes un certificado digital de finalización que respalda tus habilidades ante clientes y empleadores en ${city.name} y toda Latinoamérica.`,
+  },
+  {
+    q: '¿Cómo pago desde mi ciudad?',
+    a: `El pago es 100% seguro a través de Hotmart, con métodos de pago locales de ${country.name} y precios en ${country.currency}.`,
+  },
+  {
+    q: `¿Sirven para emprender en ${city.name}?`,
+    a: `Sí: nuestros cursos están diseñados para que montes tu propio negocio o mejores tus ingresos con un oficio de alta demanda en ciudades como ${city.name}.`,
+  },
+];
+
+const title = `Cursos Online en ${city.name}, ${country.name} | Certificado Incluido | Sably`;
+const description = `Aprende panadería, costura, electricidad, barbería y más desde ${city.name}. Cursos online con certificado, precios en ${country.currency} y ${SITE.couponDiscountPct}% OFF.`;
+
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Inicio', url: `${SITE.url}${base}/` },
+    { name: country.name, url: `${SITE.url}${base}/` },
+    { name: city.name, url: `${SITE.url}${base}/${city.slug}/` },
+  ]),
+  faqSchema(faqs),
+];
+---
+
+<BaseLayout
+  {title}
+  {description}
+  {country}
+  {city}
+  pathAfterCountry="/"
+  {schemas}
+  pageType="city"
+  whatsappContext={`Cursos en ${city.name}`}
+>
+  <section class="relative overflow-hidden bg-primary py-16">
+    <div class="absolute -top-20 -right-20 size-80 rounded-full bg-accent/20 blur-3xl" aria-hidden="true"></div>
+    <div class="container-site relative">
+      <nav aria-label="Breadcrumb" class="text-sm text-white/60">
+        <a href={`${base}/`} class="hover:text-white">Inicio</a> <span aria-hidden="true">›</span>
+        <a href={`${base}/`} class="hover:text-white">{country.name}</a> <span aria-hidden="true">›</span>
+        <span class="text-white">{city.name}</span>
+      </nav>
+      <h1 class="mt-4 max-w-3xl text-3xl font-extrabold text-white sm:text-4xl">
+        Cursos online con certificado en {city.name}, {country.name} {country.flag}
+      </h1>
+      <p class="mt-4 max-w-2xl text-lg text-white/80">
+        Desde {city.name} accede a formación práctica en oficios rentables: estudia a tu ritmo, certifícate y emprende
+        sin salir de tu ciudad.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-6 text-sm text-white/80">
+        <p><strong class="text-white">{cityStudents}</strong> estudiantes en {city.name}</p>
+        <p><strong class="text-white">{popular.length}</strong> cursos populares</p>
+        <p>⭐ <strong class="text-white">{SITE.stats.rating}</strong> calificación promedio</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container-site py-14">
+    <SectionHeading
+      eyebrow={`Populares en ${city.name}`}
+      title="Los cursos que más eligen en tu región"
+      subtitle={`Precios en ${country.currency} con el descuento Sably aplicado.`}
+    />
+    <div class="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      {popular.map((course) => <CourseCard {course} {country} />)}
+    </div>
+  </section>
+
+  <section class="bg-off-white py-14">
+    <div class="container-site">
+      <SectionHeading
+        eyebrow="Explora por categoría"
+        title={`¿Qué quieres aprender en ${city.name}?`}
+      />
+      <div class="mt-8 flex flex-wrap gap-3">
+        {
+          INTERNAL_CATEGORIES.map((cat) => (
+            <a
+              href={`${base}/${city.slug}/cursos/${cat.slug}/`}
+              class="rounded-full border border-surface-200 bg-white px-5 py-2.5 text-sm font-semibold text-heading transition hover:border-accent hover:text-accent"
+            >
+              {cat.emoji} {cat.name}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  {
+    testimonials.length > 0 && (
+      <section class="container-site py-14">
+        <SectionHeading
+          align="center"
+          eyebrow="Social proof local"
+          title={`Estudiantes de ${country.name} que ya lo lograron`}
+        />
+        <div class="mx-auto mt-8 grid max-w-4xl gap-5 md:grid-cols-3">
+          {testimonials.map((t) => (
+            <TestimonialCard
+              name={t.data.name}
+              citySlug={t.data.citySlug}
+              countryCode={t.data.countryCode}
+              text={t.data.text}
+              rating={t.data.rating}
+            />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <PromoBanner {country} />
+
+  <section class="container-site py-14">
+    <h2 class="text-center text-2xl font-bold">Preguntas frecuentes — {city.name}</h2>
+    <div class="mx-auto mt-8 max-w-3xl">
+      <FaqAccordion {faqs} />
+    </div>
+  </section>
+</BaseLayout>

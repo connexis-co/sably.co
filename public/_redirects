@@ -1,0 +1,4 @@
+# Cloudflare Pages — la raíz redirige al país por defecto.
+# Fase 1.5: una Edge Function detectará el país por IP (request.cf.country)
+# y hará el rewrite dinámico aquí.
+/ /co/ 302

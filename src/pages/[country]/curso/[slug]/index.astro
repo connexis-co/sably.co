@@ -1,0 +1,353 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Rating from '@/components/Rating.astro';
+import CourseCard from '@/components/CourseCard.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
+import TestimonialCard from '@/components/TestimonialCard.astro';
+import StickyCta from '@/components/StickyCta.astro';
+import ExitIntent from '@/components/ExitIntent.astro';
+import LeadModal from '@/components/LeadModal.astro';
+import { COUNTRIES, getCountry, formatPrice } from '@/lib/countries';
+import { getCategory } from '@/lib/categories';
+import { buildHotmartUrl } from '@/lib/hotmart';
+import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema } from '@/lib/seo';
+import { SITE } from '@/lib/site';
+
+export async function getStaticPaths() {
+  const courses = await getCollection('courses');
+  return COUNTRIES.flatMap((c) =>
+    courses.map((course) => ({
+      params: { country: c.code, slug: course.id },
+      props: { course },
+    })),
+  );
+}
+
+const { course } = Astro.props;
+const country = getCountry(Astro.params.country!);
+const category = getCategory(course.data.category);
+const base = `/${country.code}`;
+const { Content } = await render(course);
+
+const ctaUrl = buildHotmartUrl({
+  baseUrl: course.data.hotmartUrl,
+  courseSlug: course.id,
+  countryCode: country.code,
+});
+
+const related = (await getCollection('courses'))
+  .filter((c) => c.data.category === course.data.category && c.id !== course.id)
+  .slice(0, 4);
+
+const testimonials = (await getCollection('testimonials'))
+  .filter((t) => t.data.courseSlug === course.id || t.data.category === course.data.category)
+  .slice(0, 3);
+
+const discountPct = Math.round(
+  (1 - course.data.priceUSD / course.data.originalPriceUSD) * 100,
+);
+
+const pageUrl = `${SITE.url}${base}/curso/${course.id}/`;
+const title = course.data.metaTitle ?? `${course.data.title} | Curso Online con Certificado | Sably`;
+const description = course.data.shortDescription;
+
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Inicio', url: `${SITE.url}${base}/` },
+    { name: category.name, url: `${SITE.url}${base}/cursos/${category.slug}/` },
+    { name: course.data.title, url: pageUrl },
+  ]),
+  courseSchema({
+    title: course.data.title,
+    description,
+    url: pageUrl,
+    priceUSD: course.data.priceUSD,
+    rating: course.data.rating,
+    ratingCount: course.data.ratingCount,
+    instructorName: course.data.instructor.name,
+    category: category.name,
+  }),
+  faqSchema(course.data.faqs),
+];
+---
+
+<BaseLayout
+  {title}
+  {description}
+  {country}
+  pathAfterCountry={`/curso/${course.id}/`}
+  alternates={countryAlternates(`/curso/${course.id}/`)}
+  {schemas}
+  pageType="course"
+  whatsappContext={course.data.title}
+>
+  <StickyCta title={course.data.title} priceUSD={course.data.priceUSD} {country} {ctaUrl} />
+
+  <!-- Hero -->
+  <section class="bg-primary">
+    <div class="container-site grid gap-10 py-14 lg:grid-cols-[1fr_420px] lg:py-20">
+      <div>
+        <nav aria-label="Breadcrumb" class="text-sm text-white/60">
+          <a href={`${base}/`} class="hover:text-white">Inicio</a> <span aria-hidden="true">›</span>
+          <a href={`${base}/cursos/${category.slug}/`} class="hover:text-white">{category.name}</a>
+          <span aria-hidden="true">›</span>
+          <span class="text-white">{course.data.title}</span>
+        </nav>
+        <h1 class="mt-4 text-3xl leading-tight font-extrabold text-white sm:text-4xl">{course.data.title}</h1>
+        <p class="mt-4 max-w-xl text-lg text-white/80">{course.data.shortDescription}</p>
+        <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/80">
+          <Rating rating={course.data.rating} count={course.data.ratingCount} class="[&_*]:!text-white/90" />
+          <span>👥 {course.data.students.toLocaleString('es-CO')} estudiantes</span>
+          <span>🕐 {course.data.durationHours} horas</span>
+          <span>📚 {course.data.lessonsCount} lecciones</span>
+          <span>📈 {course.data.level}</span>
+        </div>
+      </div>
+
+      <!-- Card de compra -->
+      <div class="h-fit rounded-lg bg-white p-6 shadow-2xl">
+        <div
+          class="flex h-40 items-center justify-center rounded-md text-6xl"
+          style={`background-image: linear-gradient(135deg, ${category.gradient[0]}, ${category.gradient[1]})`}
+        >
+          <span aria-hidden="true">{category.emoji}</span>
+        </div>
+        <div class="mt-5 flex items-baseline gap-3">
+          <span class="text-3xl font-extrabold text-primary">{formatPrice(course.data.priceUSD, country)}</span>
+          <span class="text-lg text-muted line-through">{formatPrice(course.data.originalPriceUSD, country)}</span>
+          <span class="rounded-full bg-accent px-2.5 py-1 text-xs font-bold text-white">-{discountPct}%</span>
+        </div>
+        <p class="mt-1 text-xs font-semibold text-error">
+          🔥 Oferta con cupón {SITE.defaultCoupon} — se aplica automáticamente
+        </p>
+        <a
+          href={ctaUrl}
+          target="_blank"
+          rel="noopener nofollow sponsored"
+          data-cta-hotmart
+          data-cta-position="hero"
+          class="animate-pulse-soft mt-5 block rounded-md bg-accent px-6 py-4 text-center font-bold text-white transition hover:bg-accent-hover"
+        >
+          🔥 Inscribirme con {SITE.couponDiscountPct}% OFF
+        </a>
+        <button
+          type="button"
+          data-lead-open
+          class="mt-3 block w-full rounded-md border border-surface-300 px-6 py-3 text-center text-sm font-semibold text-heading transition hover:border-accent hover:text-accent"
+        >
+          Recibir más información
+        </button>
+        <ul class="mt-5 space-y-2 text-sm text-body" role="list">
+          <li>✅ Acceso de por vida, 24/7</li>
+          <li>✅ Certificado digital incluido</li>
+          <li>✅ Garantía de 7 días</li>
+          <li>✅ Pago seguro vía Hotmart</li>
+        </ul>
+      </div>
+    </div>
+    <div id="hero-sentinel" aria-hidden="true"></div>
+  </section>
+
+  <div class="container-site grid gap-12 py-14 lg:grid-cols-[1fr_380px]">
+    <div class="min-w-0 space-y-12">
+      <!-- Qué aprenderás -->
+      <section aria-labelledby="learnings-title">
+        <h2 id="learnings-title" class="text-2xl font-bold">Qué aprenderás</h2>
+        <ul class="mt-5 grid gap-3 sm:grid-cols-2" role="list">
+          {
+            course.data.learnings.map((item) => (
+              <li class="flex items-start gap-2.5 rounded-md bg-off-white p-3.5 text-sm text-heading">
+                <span class="text-success" aria-hidden="true">
+                  ✅
+                </span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <!-- Programa -->
+      <section aria-labelledby="program-title">
+        <h2 id="program-title" class="text-2xl font-bold">Programa del curso</h2>
+        <div class="mt-5 divide-y divide-surface-200 rounded-lg border border-surface-200">
+          {
+            course.data.modules.map((mod, i) => (
+              <details class="group p-5" open={i === 0}>
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold text-heading">
+                  <span>
+                    <span class="mr-2 text-accent">Módulo {i + 1}.</span>
+                    {mod.title}
+                  </span>
+                  <span class="text-accent transition-transform group-open:rotate-45" aria-hidden="true">
+                    +
+                  </span>
+                </summary>
+                <ul class="mt-3 space-y-2 pl-2" role="list">
+                  {mod.lessons.map((lesson) => (
+                    <li class="flex items-center gap-2.5 text-sm text-body">
+                      <span aria-hidden="true">▶️</span>
+                      {lesson}
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Sobre el curso (MDX) -->
+      <section class="prose-sably" aria-label="Sobre este curso">
+        <h2 class="text-2xl font-bold">Sobre este curso</h2>
+        <div class="mt-4 space-y-4 text-[15px] leading-relaxed text-body [&_h3]:mt-6 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-primary [&_strong]:text-heading">
+          <Content />
+        </div>
+      </section>
+
+      <!-- Para quién es -->
+      <section aria-labelledby="audience-title">
+        <h2 id="audience-title" class="text-2xl font-bold">¿Para quién es este curso?</h2>
+        <ul class="mt-5 space-y-3" role="list">
+          {
+            course.data.audience.map((item) => (
+              <li class="flex items-start gap-3 rounded-md border border-surface-200 p-4 text-sm text-heading">
+                <span aria-hidden="true">🎯</span>
+                {item}
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <!-- Testimonios -->
+      {
+        testimonials.length > 0 && (
+          <section aria-labelledby="testimonials-title">
+            <h2 id="testimonials-title" class="text-2xl font-bold">
+              Lo que dicen los estudiantes
+            </h2>
+            <div class="mt-5 grid gap-5 md:grid-cols-3">
+              {testimonials.map((t) => (
+                <TestimonialCard
+                  name={t.data.name}
+                  citySlug={t.data.citySlug}
+                  countryCode={t.data.countryCode}
+                  text={t.data.text}
+                  rating={t.data.rating}
+                />
+              ))}
+            </div>
+          </section>
+        )
+      }
+
+      <!-- FAQ -->
+      <section aria-labelledby="faq-title">
+        <h2 id="faq-title" class="text-2xl font-bold">Preguntas frecuentes</h2>
+        <div class="mt-5">
+          <FaqAccordion faqs={course.data.faqs} />
+        </div>
+      </section>
+    </div>
+
+    <!-- Sidebar instructor + garantía -->
+    <aside class="space-y-6 lg:sticky lg:top-24 lg:h-fit">
+      <div class="rounded-lg border border-surface-200 p-6">
+        <h2 class="text-sm font-bold tracking-wide text-muted uppercase">Tu instructor</h2>
+        <div class="mt-4 flex items-center gap-4">
+          <span class="flex size-14 items-center justify-center rounded-full bg-primary font-display text-xl font-bold text-white" aria-hidden="true">
+            {course.data.instructor.name.charAt(0)}
+          </span>
+          <div>
+            <p class="font-bold text-primary">{course.data.instructor.name}</p>
+            <p class="text-sm text-muted">{course.data.instructor.title}</p>
+          </div>
+        </div>
+        <p class="mt-4 text-sm leading-relaxed text-body">{course.data.instructor.bio}</p>
+      </div>
+      <div class="rounded-lg bg-success/10 p-6 text-center">
+        <p class="text-3xl" aria-hidden="true">🛡️</p>
+        <h2 class="mt-2 font-bold text-primary">Garantía de 7 días</h2>
+        <p class="mt-2 text-sm text-body">
+          Si el curso no cumple tus expectativas, te devolvemos el 100% de tu dinero. Sin preguntas.
+        </p>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Cursos relacionados -->
+  {
+    related.length > 0 && (
+      <section class="bg-off-white py-14">
+        <div class="container-site">
+          <h2 class="text-2xl font-bold">Cursos relacionados</h2>
+          <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {related.map((c) => (
+              <CourseCard course={c} {country} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- CTA final -->
+  <section class="bg-primary py-16 text-center">
+    <div class="container-site">
+      <h2 class="text-3xl font-extrabold text-white">¿Listo para empezar?</h2>
+      <p class="mx-auto mt-3 max-w-xl text-white/80">
+        Únete a {course.data.students.toLocaleString('es-CO')} estudiantes que ya están aprendiendo
+        {course.data.title.toLowerCase()}.
+      </p>
+      <a
+        href={ctaUrl}
+        target="_blank"
+        rel="noopener nofollow sponsored"
+        data-cta-hotmart
+        data-cta-position="footer"
+        class="animate-pulse-soft mt-7 inline-block rounded-md bg-accent px-8 py-4 font-bold text-white transition hover:bg-accent-hover"
+      >
+        🔥 Inscribirme con {SITE.couponDiscountPct}% OFF
+      </a>
+      <p class="mt-4 text-sm text-white/60">Garantía de 7 días · Acceso de por vida · Certificado incluido</p>
+    </div>
+  </section>
+
+  <LeadModal {country} courseTitle={course.data.title} courseSlug={course.id} />
+  <ExitIntent {ctaUrl} />
+</BaseLayout>
+
+<script>
+  import { trackEvent } from '@/lib/analytics';
+
+  // view_course + click_cta_hotmart con posición del CTA
+  const body = document.body;
+  trackEvent('view_course', { page: location.pathname });
+  document.querySelectorAll<HTMLAnchorElement>('[data-cta-hotmart]').forEach((cta) =>
+    cta.addEventListener('click', () => {
+      trackEvent('click_cta_hotmart', {
+        page: location.pathname,
+        cta_position: cta.dataset.ctaPosition ?? 'unknown',
+      });
+    }),
+  );
+
+  // scroll_depth 25/50/75/100
+  const marks = [25, 50, 75, 100];
+  const fired = new Set<number>();
+  addEventListener(
+    'scroll',
+    () => {
+      const depth = ((scrollY + innerHeight) / body.scrollHeight) * 100;
+      marks.forEach((m) => {
+        if (depth >= m && !fired.has(m)) {
+          fired.add(m);
+          trackEvent('scroll_depth', { page_type: 'course', depth: `${m}%` });
+        }
+      });
+    },
+    { passive: true },
+  );
+</script>
