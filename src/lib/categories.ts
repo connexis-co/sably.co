@@ -28,6 +28,22 @@ export const CATEGORIES: Category[] = [
     externalUrl: 'https://academiadebelleza.edu.co',
   },
   {
+    slug: 'belleza-online',
+    name: 'Belleza Online',
+    emoji: '💄',
+    description:
+      'Uñas, barbería, maquillaje y estética: certifícate online y emprende desde casa.',
+    gradient: ['#E8456B', '#C9A87C'],
+    subcategories: [
+      { slug: 'unas', name: 'Uñas' },
+      { slug: 'barberia', name: 'Barbería' },
+      { slug: 'maquillaje', name: 'Maquillaje' },
+      { slug: 'cejas-y-pestanas', name: 'Cejas y pestañas' },
+      { slug: 'cabello', name: 'Cabello' },
+      { slug: 'estetica-facial', name: 'Estética facial' },
+    ],
+  },
+  {
     slug: 'panaderia-y-pasteleria',
     name: 'Panadería y Pastelería',
     emoji: '🍞',

@@ -1,25 +1,25 @@
 # Graph Report - sably-online-courses-64463a  (2026-08-05)
 
 ## Corpus Check
-- 158 files · ~163,569 words
+- 193 files · ~201,283 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 582 nodes · 752 edges · 105 communities (19 shown, 86 thin omitted)
-- Extraction: 96% EXTRACTED · 4% INFERRED · 0% AMBIGUOUS · INFERRED: 28 edges (avg confidence: 0.91)
+- 695 nodes · 885 edges · 127 communities (25 shown, 102 thin omitted)
+- Extraction: 97% EXTRACTED · 3% INFERRED · 0% AMBIGUOUS · INFERRED: 28 edges (avg confidence: 0.91)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `7b5c3b10`
+- Built from commit: `4a79473d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- [city]/index.astro
+- content.config.ts
 - Afiliación Hotmart con cupón SABLY40
 - analytics.ts
 - dependencies
-- countries.ts
+- curso-de-colorimetria.mdx
 - El ranking
 - devDependencies
 - compilerOptions
@@ -119,18 +119,40 @@
 - curso-de-sublimacion.mdx
 - curso-de-sushi.mdx
 - curso-de-tatuaje.mdx
+- countries.ts
+- Arquitectura de URLs — Ecosistema Sably
+- sitemap.ts
+- blog/[slug]/index.astro
+- Estrategia SEO Multi-Dominio y Geo-Posicionamiento — Fase 1 (Investigación)
+- seo-audit.py
+- rewrite-gemini.py
+- curso-de-alisados-y-keratina.mdx
+- curso-de-balayage.mdx
+- curso-de-barberia.mdx
+- curso-de-barberia-artistica.mdx
+- curso-de-diseno-de-cejas-con-hilo-y-henna.mdx
+- curso-de-extensiones-de-cabello.mdx
+- curso-de-extensiones-de-pestanas.mdx
+- curso-de-limpieza-facial.mdx
+- curso-de-manicure-y-pedicure.mdx
+- curso-de-maquillaje-permanente.mdx
+- curso-de-maquillaje-profesional-de-novias.mdx
+- curso-de-microblading.mdx
+- curso-de-trenzas-y-peinados.mdx
+- curso-de-unas.mdx
+- curso-de-unas-acrilicas.mdx
 
 ## God Nodes (most connected - your core abstractions)
-1. `COUNTRIES` - 17 edges
+1. `COUNTRIES` - 18 edges
 2. `getCountry()` - 17 edges
-3. `SITE` - 15 edges
-4. `categoryCover()` - 11 edges
-5. `DEFAULT_COUNTRY` - 11 edges
-6. `El ranking` - 11 edges
-7. `Afiliación Hotmart con cupón SABLY40` - 11 edges
-8. `breadcrumbSchema()` - 10 edges
-9. `Plan Fase 1: Frontend SSG sably.co (2026-08-05)` - 10 edges
-10. `Decisión: Content Collections (MDX + zod)` - 10 edges
+3. `SITE` - 17 edges
+4. `DEFAULT_COUNTRY` - 12 edges
+5. `categoryCover()` - 11 edges
+6. `Arquitectura de URLs — Ecosistema Sably` - 11 edges
+7. `El ranking` - 11 edges
+8. `Afiliación Hotmart con cupón SABLY40` - 11 edges
+9. `breadcrumbSchema()` - 10 edges
+10. `Plan Fase 1: Frontend SSG sably.co (2026-08-05)` - 10 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `sably.co README` --conceptually_related_to--> `ROADMAP — Ecosistema Sably`  [INFERRED]
@@ -152,11 +174,11 @@
 - **Narrativa compartida: oficio que la IA no puede reemplazar** — src_content_courses_curso_de_cocina_desde_cero_a_profesional, src_content_courses_curso_de_corte_y_confeccion_desde_cero, src_content_courses_curso_de_marketing_digital_para_emprendedores, src_content_courses_curso_de_masajes_terapeuticos_y_relajantes, src_content_courses_curso_de_panaderia_artesanal_y_masa_madre, src_content_courses_curso_de_peluqueria_canina_profesional, src_content_courses_curso_de_reposteria_fina_y_postres_gourmet, src_content_courses_curso_de_tortas_decoradas_desde_cero [INFERRED 0.85]
 - **Categoría panadería-y-pastelería** — src_content_courses_curso_de_panaderia_artesanal_y_masa_madre, src_content_courses_curso_de_reposteria_fina_y_postres_gourmet, src_content_courses_curso_de_tortas_decoradas_desde_cero [EXTRACTED 1.00]
 
-## Communities (105 total, 86 thin omitted)
+## Communities (127 total, 102 thin omitted)
 
-### Community 0 - "[city]/index.astro"
-Cohesion: 0.08
-Nodes (24): blog, categorySlugs, collections, courses, testimonials, INTERNAL_CATEGORIES, COUNTRIES, getCity() (+16 more)
+### Community 0 - "content.config.ts"
+Cohesion: 0.33
+Nodes (5): blog, categorySlugs, collections, courses, testimonials
 
 ### Community 1 - "Afiliación Hotmart con cupón SABLY40"
 Cohesion: 0.10
@@ -165,10 +187,6 @@ Nodes (32): Decisión: Content Collections (MDX + zod), Decisión: covers como g
 ### Community 3 - "dependencies"
 Cohesion: 0.07
 Nodes (29): astro, @astrojs/mdx, @astrojs/react, @astrojs/sitemap, @fontsource-variable/inter, @fontsource-variable/outfit, lucide-react, nanostores (+21 more)
-
-### Community 4 - "countries.ts"
-Cohesion: 0.06
-Nodes (62): cat, rounded, sentinel, items, url, blogCover(), readingTime(), CATEGORIES (+54 more)
 
 ### Community 5 - "El ranking"
 Cohesion: 0.13
@@ -226,14 +244,42 @@ Nodes (7): changes, dir, files, NOMBRES, seenInstructor, seenRating, seenStudent
 Cohesion: 0.60
 Nodes (4): access_token(), keyword_ideas(), main(), Keyword Planner (Google Ads API) — volúmenes y CPC reales por país. Uso:…
 
+### Community 105 - "countries.ts"
+Cohesion: 0.06
+Nodes (68): cityTestimonials, countryTestimonials, faqs, popular, schemas, testimonials, cat, rounded (+60 more)
+
+### Community 106 - "Arquitectura de URLs — Ecosistema Sably"
+Cohesion: 0.07
+Nodes (26): 10. Checklist para agregar contenido nuevo, 1. Los tres principios, 2. Mapa completo de URLs, 3. Ejemplos por país, 4.1 Por qué cobertura total y no filtrada, 4.2 Volumen del grid, 4.3 Lo que sí nos protege: diferenciación obligatoria, 4.4 Priorización — los datos deciden esfuerzo, no existencia (+18 more)
+
+### Community 108 - "sitemap.ts"
+Cohesion: 0.21
+Nodes (13): getPrograma(), ProgramaHomologacion, PROGRAMAS, SEDES, blogUrls(), categoriasUrls(), cursosUrls(), pagesUrls() (+5 more)
+
+### Community 111 - "blog/[slug]/index.astro"
+Cohesion: 0.22
+Nodes (9): blogCover(), readingTime(), CATEGORIES, country, posts, country, minutes, related (+1 more)
+
+### Community 112 - "Estrategia SEO Multi-Dominio y Geo-Posicionamiento — Fase 1 (Investigación)"
+Cohesion: 0.18
+Nodes (10): 1. Auditoría del catálogo actual (87 cursos, Colombia), 2. España (nuevo mercado del prompt maestro), 3. Multi-dominio: ¿deben competir sably.co, academiadebelleza, cursodeglobosonline y terapiadpareja? → **SÍ, con splitting**, 4. Arquitectura de URLs — evaluación de las 3 opciones, 5. Expansión del catálogo — candidatos validados con datos, 6. Priorización de ciudades (escala progresiva), 7. Próximos pasos (Fase 2 del prompt maestro), Datos de las filiales (validación) (+2 more)
+
+### Community 114 - "seo-audit.py"
+Cohesion: 0.39
+Nodes (7): access_token(), course_keywords(), keyword_ideas(), main(), norm(), Auditoría SEO del catálogo: volumen/competencia/CPC reales por país (Google Ads…, Keyword principal de cada curso publicado (frontmatter `keywords[0]` o…
+
+### Community 116 - "rewrite-gemini.py"
+Cohesion: 0.67
+Nodes (3): main(), Reescritura de contenido con Gemini API orientada a keywords (prompt maestro…, rewrite()
+
 ## Ambiguous Edges - Review These
 - `Marcela Quintero (masajista terapéutica, instructora)` → `Marcela Quintero (estilista canina, instructora)`  [AMBIGUOUS]
   src/content/courses/curso-de-peluqueria-canina-profesional.mdx · relation: semantically_similar_to
 
 ## Knowledge Gaps
-- **321 isolated node(s):** `@commitlint/config-conventional`, `never`, `name`, `type`, `version` (+316 more)
+- **384 isolated node(s):** `@commitlint/config-conventional`, `never`, `name`, `type`, `version` (+379 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **86 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **102 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
@@ -241,14 +287,14 @@ _Questions this graph is uniquely positioned to answer:_
 - **What is the exact relationship between `Marcela Quintero (masajista terapéutica, instructora)` and `Marcela Quintero (estilista canina, instructora)`?**
   _Edge tagged AMBIGUOUS (relation: semantically_similar_to) - confidence is low._
 - **Why does `dependencies` connect `dependencies` to `devDependencies`?**
-  _High betweenness centrality (0.006) - this node is a cross-community bridge._
-- **Why does `COUNTRIES` connect `[city]/index.astro` to `countries.ts`?**
+  _High betweenness centrality (0.005) - this node is a cross-community bridge._
+- **Why does `COUNTRIES` connect `countries.ts` to `sitemap.ts`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
 - **What connects `@commitlint/config-conventional`, `never`, `name` to the rest of the system?**
-  _321 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `[city]/index.astro` be split into smaller, more focused modules?**
-  _Cohesion score 0.082010582010582 - nodes in this community are weakly interconnected._
+  _384 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Afiliación Hotmart con cupón SABLY40` be split into smaller, more focused modules?**
   _Cohesion score 0.10080645161290322 - nodes in this community are weakly interconnected._
 - **Should `dependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._
+- **Should `El ranking` be split into smaller, more focused modules?**
+  _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._

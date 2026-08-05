@@ -12,14 +12,14 @@ export function getStaticPaths() {
   return COUNTRIES.flatMap((c) =>
     c.cities.flatMap((city) =>
       INTERNAL_CATEGORIES.map((cat) => ({
-        params: { country: c.code, city: city.slug, category: cat.slug },
+        params: { country: c.code, item: city.slug, category: cat.slug },
       })),
     ),
   );
 }
 
 const country = getCountry(Astro.params.country!);
-const city = getCity(country, Astro.params.city!);
+const city = getCity(country, Astro.params.item!);
 const category = getCategory(Astro.params.category!);
 const base = `/${country.code}`;
 

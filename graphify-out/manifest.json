@@ -1,8 +1,8 @@
 {
   "astro.config.mjs": {
-    "mtime": 1785911512.8238206,
-    "ast_hash": "e7a3ce58939923969efc9390d34764cf",
-    "semantic_hash": "e7a3ce58939923969efc9390d34764cf"
+    "mtime": 1785925926.5668962,
+    "ast_hash": "4601f17ab233d88528bc86e2874ee883",
+    "semantic_hash": ""
   },
   "package.json": {
     "mtime": 1785913384.5355005,
@@ -10,8 +10,8 @@
     "semantic_hash": "7a56cd89f9505ab01c1ec7ed2a21c4bd"
   },
   "src/components/CourseCard.astro": {
-    "mtime": 1785915689.1699073,
-    "ast_hash": "69e22e6387ddf6e8f406dac80217e645",
+    "mtime": 1785925803.4393508,
+    "ast_hash": "2fec9841fe52394638f471de87a2c38a",
     "semantic_hash": ""
   },
   "src/components/ExitIntent.astro": {
@@ -25,8 +25,8 @@
     "semantic_hash": "29ee68eda97c9ade8ed0c45a0d6de513"
   },
   "src/components/Footer.astro": {
-    "mtime": 1785916751.578127,
-    "ast_hash": "fbe671aa705c112f705a7383f31a8228",
+    "mtime": 1785925926.5674791,
+    "ast_hash": "f3d89d97a2215b7b1bc4fd532bc7027b",
     "semantic_hash": ""
   },
   "src/components/GeoDialog.astro": {
@@ -35,8 +35,8 @@
     "semantic_hash": "bc36abb8338ae106b162b2bd07a94d31"
   },
   "src/components/Header.astro": {
-    "mtime": 1785916641.7232604,
-    "ast_hash": "6ad47f6f097647c986556c8a7b141c67",
+    "mtime": 1785925803.44031,
+    "ast_hash": "49f227aabe18d17add65a3a3b3df7eda",
     "semantic_hash": ""
   },
   "src/components/LeadModal.astro": {
@@ -110,8 +110,8 @@
     "semantic_hash": "b9bc948a68af0c7d3cff929ee04b90c9"
   },
   "src/lib/categories.ts": {
-    "mtime": 1785916303.0116334,
-    "ast_hash": "6e647816cd0df5e833c51090aebe1444",
+    "mtime": 1785925930.2638073,
+    "ast_hash": "e26221d00172d6308d43c3108e990263",
     "semantic_hash": ""
   },
   "src/lib/countries.ts": {
@@ -138,21 +138,6 @@
     "mtime": 1785912361.8932354,
     "ast_hash": "6d029d6395d6577d74e89358309e50ec",
     "semantic_hash": "6d029d6395d6577d74e89358309e50ec"
-  },
-  "src/pages/[country]/[city]/cursos/[category]/index.astro": {
-    "mtime": 1785915813.690146,
-    "ast_hash": "ffeea0aef50d16f7c1b5e8cf88fd1cc8",
-    "semantic_hash": ""
-  },
-  "src/pages/[country]/[city]/index.astro": {
-    "mtime": 1785912256.1032634,
-    "ast_hash": "a07b8f46b80462f9c55d49f13373ebf4",
-    "semantic_hash": "a07b8f46b80462f9c55d49f13373ebf4"
-  },
-  "src/pages/[country]/curso/[slug]/index.astro": {
-    "mtime": 1785915051.7654507,
-    "ast_hash": "ba910ba599a344ba0dc8acd42df1c5b6",
-    "semantic_hash": ""
   },
   "src/pages/[country]/cursos/[category]/index.astro": {
     "mtime": 1785915808.5229425,
@@ -205,9 +190,9 @@
     "semantic_hash": "7b351d2526fdce9c1a1a1a48ee10f486"
   },
   "docs/ROADMAP.md": {
-    "mtime": 1785912755.0181432,
-    "ast_hash": "c0fcb6fa30228f9b7cc8a80861119a2d",
-    "semantic_hash": "c0fcb6fa30228f9b7cc8a80861119a2d"
+    "mtime": 1785918812.0862093,
+    "ast_hash": "12e199d7cafc44f0ee7e00dd72631d44",
+    "semantic_hash": ""
   },
   "docs/plans/2026-08-05_fase1-frontend-sably.md": {
     "mtime": 1785912740.3352122,
@@ -300,13 +285,8 @@
     "semantic_hash": ""
   },
   "src/components/CourseLanding.astro": {
-    "mtime": 1785915818.5115092,
-    "ast_hash": "0c1f4e85a147e4591a12e764fb878db8",
-    "semantic_hash": ""
-  },
-  "src/pages/[country]/[city]/curso/[slug]/index.astro": {
-    "mtime": 1785915054.185774,
-    "ast_hash": "ba0f18a612a84efba009fd4484818a15",
+    "mtime": 1785926009.247352,
+    "ast_hash": "653a6f987ace694ca55a56218621e791",
     "semantic_hash": ""
   },
   ".github/ISSUE_TEMPLATE/bug_report.yml": {
@@ -375,18 +355,18 @@
     "semantic_hash": ""
   },
   "src/content/blog/como-emprender-con-un-oficio-en-2026.mdx": {
-    "mtime": 1785912953.7098782,
-    "ast_hash": "10c806f7bd1e25ab7c900cae0ba333b4",
+    "mtime": 1785925803.441631,
+    "ast_hash": "f37585ed9fdbe235be98c0d36e41ddc1",
     "semantic_hash": ""
   },
   "src/content/blog/cuanto-cuesta-aprender-un-oficio-online.mdx": {
-    "mtime": 1785913032.4687302,
-    "ast_hash": "d6794647d138dd2347bb829f4527e8b1",
+    "mtime": 1785925803.4412947,
+    "ast_hash": "58605a30b6232c431f36c1ddbcb4cf3a",
     "semantic_hash": ""
   },
   "src/content/blog/mejores-oficios-para-aprender-online.mdx": {
-    "mtime": 1785912992.7398908,
-    "ast_hash": "8e7c8a4196e8a08ac6add181e0ea2def",
+    "mtime": 1785925803.4409842,
+    "ast_hash": "e1727d616b8fab382dfa4b25090546ec",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-adiestramiento-canino-en-positivo.mdx": {
@@ -615,8 +595,8 @@
     "semantic_hash": ""
   },
   "scripts/keyword-planner.py": {
-    "mtime": 1785917286.097694,
-    "ast_hash": "194f3b4153bb8d54e01b0c40cb7f6ff6",
+    "mtime": 1785919523.0429263,
+    "ast_hash": "e21b78ee8923956d03eda27a0c5bca7e",
     "semantic_hash": ""
   },
   "src/lib/blog.ts": {
@@ -952,6 +932,216 @@
   "src/content/courses/curso-de-tatuaje.mdx": {
     "mtime": 1785917457.0222607,
     "ast_hash": "a1ced3e0d1c1d815b2fce92bcb177592",
+    "semantic_hash": ""
+  },
+  "docs/data/auditoria-cursos-co.json": {
+    "mtime": 1785920394.7625616,
+    "ast_hash": "e1fac970e88828ea985f95a3e3d2952d",
+    "semantic_hash": ""
+  },
+  "docs/data/candidatos-expansion-co.json": {
+    "mtime": 1785920701.688451,
+    "ast_hash": "d751713988987e9331980363e24189ce",
+    "semantic_hash": ""
+  },
+  "docs/data/cursos-belleza-sably.json": {
+    "mtime": 1785925682.0644639,
+    "ast_hash": "75679f37b483abacef687add6509d4ab",
+    "semantic_hash": ""
+  },
+  "docs/data/expansion-nuevas-categorias-co.json": {
+    "mtime": 1785920732.225445,
+    "ast_hash": "ef0062431714e8dd3c136c9c1124127f",
+    "semantic_hash": ""
+  },
+  "docs/data/filiales-CO.json": {
+    "mtime": 1785920574.18514,
+    "ast_hash": "141770157b37e90b94fa5c4ed1128e50",
+    "semantic_hash": ""
+  },
+  "docs/data/filiales-ES.json": {
+    "mtime": 1785920613.86211,
+    "ast_hash": "3e5a24130a13089850cbb2f2e5e7bde4",
+    "semantic_hash": ""
+  },
+  "docs/data/filiales-MX.json": {
+    "mtime": 1785920593.984223,
+    "ast_hash": "ad82ec8be23655a9e2e4544c1f537b5d",
+    "semantic_hash": ""
+  },
+  "docs/data/geo-ciudades2-co.json": {
+    "mtime": 1785922977.4594815,
+    "ast_hash": "e9b7587cc4fd6fc7fb06ce1bf19536d4",
+    "semantic_hash": ""
+  },
+  "docs/data/keywords-co.json": {
+    "mtime": 1785925682.0406692,
+    "ast_hash": "3268e8234b654bc23f28317e6d2f6af7",
+    "semantic_hash": ""
+  },
+  "docs/data/keywords-mx.json": {
+    "mtime": 1785922938.5788724,
+    "ast_hash": "50b6989a62904439a0605175f86ad66b",
+    "semantic_hash": ""
+  },
+  "docs/data/mercado-es.json": {
+    "mtime": 1785920682.9758344,
+    "ast_hash": "89d21dfccc060f432ea0df619a6f49cd",
+    "semantic_hash": ""
+  },
+  "scripts/rewrite-gemini.py": {
+    "mtime": 1785926024.1084793,
+    "ast_hash": "2a9b75551dab0d43fa4ab1fd7d7d6946",
+    "semantic_hash": ""
+  },
+  "scripts/seo-audit.py": {
+    "mtime": 1785920516.0952284,
+    "ast_hash": "00f639afdb0b7011b10877a3bc16e1db",
+    "semantic_hash": ""
+  },
+  "src/components/CityLanding.astro": {
+    "mtime": 1785925754.402954,
+    "ast_hash": "2328c3b3d95558cf4ceb00e8670df3ac",
+    "semantic_hash": ""
+  },
+  "src/lib/sitemap.ts": {
+    "mtime": 1785925888.9907153,
+    "ast_hash": "413e67ed53829dea80ba0cbde76e6762",
+    "semantic_hash": ""
+  },
+  "src/pages/[country]/[item]/[slug]/index.astro": {
+    "mtime": 1785925783.3518846,
+    "ast_hash": "75027212f5bbe7a1628f9e0336908419",
+    "semantic_hash": ""
+  },
+  "src/pages/[country]/[item]/cursos/[category]/index.astro": {
+    "mtime": 1785925803.439016,
+    "ast_hash": "ea49319242f1f4d8816a5d282f03e259",
+    "semantic_hash": ""
+  },
+  "src/pages/[country]/[item]/index.astro": {
+    "mtime": 1785925780.3840141,
+    "ast_hash": "45c59945c77b2130883cb79caa5b9219",
+    "semantic_hash": ""
+  },
+  "src/pages/sitemap-index.xml.ts": {
+    "mtime": 1785925891.7868505,
+    "ast_hash": "1f0464e6f76d71cf82ebce3ba74b6469",
+    "semantic_hash": ""
+  },
+  "src/pages/sitemap/index.astro": {
+    "mtime": 1785925919.2756963,
+    "ast_hash": "591b346ddc1615e1ed4e1104daddc363",
+    "semantic_hash": ""
+  },
+  "src/pages/sitemaps/[name].xml.ts": {
+    "mtime": 1785925895.382517,
+    "ast_hash": "16a31cfc0bd7b0c713e60106b174bf21",
+    "semantic_hash": ""
+  },
+  "docs/ARQUITECTURA_URLS.md": {
+    "mtime": 1785925976.8678913,
+    "ast_hash": "d19d81860aadd0d41d822867b77cacf8",
+    "semantic_hash": ""
+  },
+  "docs/plans/2026-08-05_estrategia-seo-multidominio.md": {
+    "mtime": 1785920798.3967438,
+    "ast_hash": "57d5ba996d139236ed35483ee13be551",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-alisados-y-keratina.mdx": {
+    "mtime": 1785926015.4580684,
+    "ast_hash": "370a5005eee85f89d97383640a36cb14",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-balayage.mdx": {
+    "mtime": 1785925996.0042753,
+    "ast_hash": "77701dcf219eeea961b5230e6bdb4ca9",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-barberia-artistica.mdx": {
+    "mtime": 1785925974.7408128,
+    "ast_hash": "da03fda31bf74cbfdc62625605507ad5",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-barberia.mdx": {
+    "mtime": 1785926017.3604329,
+    "ast_hash": "d70dcf1bb8686eeb97f958122ec3060e",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-diseno-de-cejas-con-hilo-y-henna.mdx": {
+    "mtime": 1785926127.9571831,
+    "ast_hash": "bd56b642dac51366e032f19d0275640d",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-extensiones-de-cabello.mdx": {
+    "mtime": 1785926039.9366047,
+    "ast_hash": "094eee59230879f5d4bb8ad493e5fce2",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-extensiones-de-pestanas.mdx": {
+    "mtime": 1785926102.3960342,
+    "ast_hash": "467fb0609b1db8bf4b62a0454141fd68",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-limpieza-facial.mdx": {
+    "mtime": 1785926080.3277743,
+    "ast_hash": "c36d4988091e07d2792765d068c89d86",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-manicure-y-pedicure.mdx": {
+    "mtime": 1785926122.7610722,
+    "ast_hash": "7cbf6edfe0108bc3b10834c1ddc5f75b",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-maquillaje-permanente.mdx": {
+    "mtime": 1785926164.6588154,
+    "ast_hash": "18fd2868db34cc83471759b8ac897e84",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-maquillaje-profesional-de-novias.mdx": {
+    "mtime": 1785926146.3804119,
+    "ast_hash": "0dd0083908c2212bedd943b8f13753e8",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-microblading.mdx": {
+    "mtime": 1785926081.128476,
+    "ast_hash": "9670c2a4645715751e2f732a7c1cabba",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-trenzas-y-peinados.mdx": {
+    "mtime": 1785926060.2029097,
+    "ast_hash": "4d2b9a0175e405d54bb597d4bc8214ea",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-unas-acrilicas.mdx": {
+    "mtime": 1785926178.1014376,
+    "ast_hash": "65003778ea621b0a19ec88fee86d49dd",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-unas.mdx": {
+    "mtime": 1785926038.1210155,
+    "ast_hash": "ee454135695fc2ba1761d1fe47ed56e3",
+    "semantic_hash": ""
+  },
+  "public/certificado-sably.jpg": {
+    "mtime": 1785925871.4751139,
+    "ast_hash": "1f4791b3af69a5a6042a5f576eebaf23",
+    "semantic_hash": ""
+  },
+  "public/covers/belleza-online-card.jpg": {
+    "mtime": 1785925976.8419456,
+    "ast_hash": "420fc1ec8336e0f0ef96b80e1ee03fa3",
+    "semantic_hash": ""
+  },
+  "public/covers/belleza-online.jpg": {
+    "mtime": 1785925976.8382173,
+    "ast_hash": "9aa3c9d5fc47aaf1111ad834ff725a98",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-colorimetria.mdx": {
+    "mtime": 1785926181.592917,
+    "ast_hash": "dfaa027228043efc2aae2e76e9e8c01f",
     "semantic_hash": ""
   }
 }

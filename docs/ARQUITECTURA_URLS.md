@@ -3,7 +3,7 @@
 > **Documento base.** Define cómo se construye toda URL del sitio y por qué.
 > Cualquier ruta nueva (curso, ciudad, país, categoría, filial) debe seguir estas reglas.
 >
-> **Última revisión:** 2026-08-05 · **Estado:** vigente
+> **Última revisión:** 2026-08-05 · **Estado:** vigente y APLICADO en producción
 
 ---
 
@@ -335,7 +335,7 @@ Redirecciones 301 en `public/_redirects` (Cloudflare Pages):
 /:country/:city/curso/:slug/     /:country/:city/:slug/      301
 ```
 
-> Migración hecha con el sitio recién lanzado y 0 páginas indexadas en GSC — costo de equity nulo. Cualquier cambio futuro de URLs debe evaluarse con el tráfico ya consolidado y requiere plan de 301 + monitoreo de posiciones.
+> ✅ **APLICADA en producción el 2026-08-05** (rutas [item] unificadas + 301 en _redirects). Migración hecha con el sitio recién lanzado y 0 páginas indexadas en GSC — costo de equity nulo. Cualquier cambio futuro de URLs debe evaluarse con el tráfico ya consolidado y requiere plan de 301 + monitoreo de posiciones.
 
 ---
 
