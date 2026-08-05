@@ -1,5 +1,21 @@
 # CHANGELOG — Frontend sably.co
 
+## 2026-08-05 — Expansión catálogo + GEO hiperlocal (fase 2 del día)
+
+- **Catálogo real**: extracción del catálogo de MasterClasses.La vía Wayback CDX API
+  (1.388 cursos, 26 categorías) + curación multi-agente → top 100 por demanda SEO/SEM
+  (`docs/data/seleccion-cursos.json`).
+- **Rutas hiperlocales**: `/{país}/{ciudad}/curso/{slug}/` con H1/meta/FAQ/testimonios/UTM
+  dinámicos por GEO (refactor a `CourseLanding.astro`). Bucaramanga agregada (30 ciudades).
+- **Fix menú mobile**: drawer fuera del header (el `backdrop-filter` del header rompía
+  `position:fixed`), animación slide + hamburger↔X.
+- **WhatsApp**: número real +57 311 457 4788 y botón estilo whatsbuilder (ondas expansivas,
+  mensaje contextual), replicado del plugin de JP.
+- **Categorías nuevas**: Idiomas y Música (justificadas por demanda del catálogo real).
+- **Portadas fotorrealistas**: 12 categorías generadas con Gemini (`gemini-3.1-flash-image`),
+  hero 800px + card 480px, integradas en cards, héroes, mega-menú y landing de curso.
+- MCP Ubersuggest registrado a nivel usuario (pendiente OAuth de JP).
+
 ## 2026-08-05 — Fase 1: scaffold completo del hub
 
 - Proyecto Astro 7.1.6 + React 19 + Tailwind CSS v4 (@tailwindcss/vite) + TypeScript estricto.
