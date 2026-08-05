@@ -1,0 +1,110 @@
+[
+  {
+    "slug": "-",
+    "keyword": "curso de programacion",
+    "volume": 1300,
+    "competition": "HIGH",
+    "cpc_low": 1502.12,
+    "cpc_high": 6241.53,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de inteligencia artificial",
+    "volume": 1000,
+    "competition": "HIGH",
+    "cpc_low": 1609.63,
+    "cpc_high": 10823.22,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de diseño grafico",
+    "volume": 880,
+    "competition": "HIGH",
+    "cpc_low": 1324.32,
+    "cpc_high": 8081.01,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de python",
+    "volume": 880,
+    "competition": "HIGH",
+    "cpc_low": 1064.8,
+    "cpc_high": 5850.07,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de atencion al cliente",
+    "volume": 480,
+    "competition": "MEDIUM",
+    "cpc_low": 794.04,
+    "cpc_high": 2628.19,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de recursos humanos",
+    "volume": 260,
+    "competition": "HIGH",
+    "cpc_low": 1492.02,
+    "cpc_high": 5343.88,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de gestion de proyectos",
+    "volume": 210,
+    "competition": "HIGH",
+    "cpc_low": 1681.81,
+    "cpc_high": 7930.3,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de cejas",
+    "volume": 170,
+    "competition": "LOW",
+    "cpc_low": 89.12,
+    "cpc_high": 1061.14,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de auxiliar contable",
+    "volume": 140,
+    "competition": "MEDIUM",
+    "cpc_low": 772.7,
+    "cpc_high": 2854.55,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de drywall",
+    "volume": 110,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de asistente administrativo",
+    "volume": 70,
+    "competition": "MEDIUM",
+    "cpc_low": 1252.72,
+    "cpc_high": 5314.58,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de depilacion",
+    "volume": 20,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  }
+]

@@ -9,10 +9,15 @@
 - [x] SEO: Schema.org, hreflang, sitemap, robots, meta/OG
 - [x] CRO: sticky CTA, exit-intent, countdown, lead modal, WhatsApp flotante
 - [x] Eventos GA4 vía dataLayer (view_course, click_cta_hotmart, submit_lead_form, etc.)
-- [ ] Catálogo completo ~25 cursos + blog + testimonios (workflow en curso)
+- [x] Catálogo real de 87 cursos (MasterClasses.La) + blog + testimonios
+- [x] GEO hiperlocal: rutas ciudad×curso, 30 ciudades
+- [x] Homologaciones (4 programas), Sobre nosotros, blog rediseñado
+- [x] Portadas fotorrealistas por categoría (Gemini)
+- [x] Deploy Cloudflare Pages (producción + staging con CI/CD)
+- [x] GSC: sc-domain:sably.co agregado
+- [ ] Conectar dominio sably.co (scripts/connect-domain.sh — requiere JP)
 - [ ] QA visual + Lighthouse ≥95
-- [ ] Deploy Cloudflare Pages
-- [ ] GSC: verificación sably.co + sitemap
+- [ ] GSC: enviar sitemap cuando el dominio resuelva
 - [ ] GA4: crear property sably.co (requiere OK de JP)
 
 ### Pendientes que dependen de JP

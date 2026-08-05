@@ -1,0 +1,79 @@
+[
+  {
+    "slug": "-",
+    "keyword": "decoracion con globos",
+    "volume": 2400,
+    "competition": "MEDIUM",
+    "cpc_low": 444.61,
+    "cpc_high": 960.2,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de barberia",
+    "volume": 1300,
+    "competition": "LOW",
+    "cpc_low": 74.71,
+    "cpc_high": 699.42,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de maquillaje",
+    "volume": 1000,
+    "competition": "MEDIUM",
+    "cpc_low": 507.31,
+    "cpc_high": 1901.36,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de decoracion con globos",
+    "volume": 260,
+    "competition": "LOW",
+    "cpc_low": 130.54,
+    "cpc_high": 630.98,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de globos",
+    "volume": 110,
+    "competition": "LOW",
+    "cpc_low": 173.61,
+    "cpc_high": 1086.5,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de terapia de pareja",
+    "volume": 20,
+    "competition": "MEDIUM",
+    "cpc_low": 798.27,
+    "cpc_high": 2588.04,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de unas",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "terapia de pareja",
+    "volume": 0,
+    "competition": "SIN DATOS",
+    "verdict": "SIN DATOS"
+  },
+  {
+    "slug": "-",
+    "keyword": "terapia de pareja online",
+    "volume": 0,
+    "competition": "SIN DATOS",
+    "verdict": "SIN DATOS"
+  }
+]

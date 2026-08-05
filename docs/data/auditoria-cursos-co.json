@@ -1,0 +1,783 @@
+[
+  {
+    "slug": "curso-de-ingles",
+    "keyword": "curso de inglés",
+    "volume": 9900,
+    "competition": "HIGH",
+    "cpc_low": 2274.06,
+    "cpc_high": 9394.21,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "curso-de-excel",
+    "keyword": "curso de excel",
+    "volume": 5400,
+    "competition": "HIGH",
+    "cpc_low": 685.64,
+    "cpc_high": 2306.45,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "curso-de-primeros-auxilios",
+    "keyword": "curso de primeros auxilios",
+    "volume": 1600,
+    "competition": "MEDIUM",
+    "cpc_low": 549.82,
+    "cpc_high": 2173.27,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "curso-de-electricista",
+    "keyword": "curso de electricista",
+    "volume": 880,
+    "competition": "LOW",
+    "cpc_low": 402.07,
+    "cpc_high": 2072.71,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "curso-de-contabilidad-basica",
+    "keyword": "curso de contabilidad",
+    "volume": 590,
+    "competition": "HIGH",
+    "cpc_low": 1005.07,
+    "cpc_high": 4002.02,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "curso-de-frances",
+    "keyword": "curso de francés",
+    "volume": 590,
+    "competition": "HIGH",
+    "cpc_low": 1089.2,
+    "cpc_high": 5263.33,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "curso-de-portugues",
+    "keyword": "curso de portugués",
+    "volume": 590,
+    "competition": "HIGH",
+    "cpc_low": 925.64,
+    "cpc_high": 7198.34,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "curso-de-reparacion-de-celulares",
+    "keyword": "curso de reparación de celulares",
+    "volume": 590,
+    "competition": "LOW",
+    "cpc_low": 178.44,
+    "cpc_high": 1270.9,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "curso-de-carpinteria-y-muebles",
+    "keyword": "curso de carpintería",
+    "volume": 480,
+    "competition": "LOW",
+    "cpc_low": 189.42,
+    "cpc_high": 1572.87,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-fotografia",
+    "keyword": "curso de fotografía",
+    "volume": 480,
+    "competition": "MEDIUM",
+    "cpc_low": 609.0,
+    "cpc_high": 3155.29,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-guitarra",
+    "keyword": "curso de guitarra",
+    "volume": 480,
+    "competition": "MEDIUM",
+    "cpc_low": 261.09,
+    "cpc_high": 2224.31,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-bartender",
+    "keyword": "curso de bartender",
+    "volume": 390,
+    "competition": "MEDIUM",
+    "cpc_low": 480.87,
+    "cpc_high": 2464.74,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-tatuaje",
+    "keyword": "curso de tatuaje",
+    "volume": 390,
+    "competition": "LOW",
+    "cpc_low": 224.21,
+    "cpc_high": 1490.01,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-barista",
+    "keyword": "curso de barista",
+    "volume": 320,
+    "competition": "LOW",
+    "cpc_low": 163.84,
+    "cpc_high": 1498.29,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-decoracion-con-globos",
+    "keyword": "curso de decoración con globos",
+    "volume": 260,
+    "competition": "LOW",
+    "cpc_low": 130.54,
+    "cpc_high": 630.98,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-modisteria",
+    "keyword": "curso de modistería",
+    "volume": 260,
+    "competition": "LOW",
+    "cpc_low": 366.9,
+    "cpc_high": 2333.07,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-crochet",
+    "keyword": "curso de crochet",
+    "volume": 210,
+    "competition": "MEDIUM",
+    "cpc_low": 182.64,
+    "cpc_high": 1321.37,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-piano",
+    "keyword": "curso de piano",
+    "volume": 210,
+    "competition": "MEDIUM",
+    "cpc_low": 745.62,
+    "cpc_high": 3725.0,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-canto",
+    "keyword": "curso de canto",
+    "volume": 170,
+    "competition": "MEDIUM",
+    "cpc_low": 625.8,
+    "cpc_high": 2876.39,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-dj",
+    "keyword": "curso de DJ",
+    "volume": 170,
+    "competition": "MEDIUM",
+    "cpc_low": 584.79,
+    "cpc_high": 3059.96,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-aire-acondicionado-y-refrigeracion",
+    "keyword": "curso de aire acondicionado",
+    "volume": 140,
+    "competition": "LOW",
+    "cpc_low": 125.23,
+    "cpc_high": 1399.16,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-community-manager",
+    "keyword": "curso de community manager",
+    "volume": 140,
+    "competition": "HIGH",
+    "cpc_low": 1429.09,
+    "cpc_high": 5038.91,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-fotografia-con-celular",
+    "keyword": "curso de fotografía con celular",
+    "volume": 140,
+    "competition": "MEDIUM",
+    "cpc_low": 215.33,
+    "cpc_high": 2276.37,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-sublimacion",
+    "keyword": "curso de sublimación",
+    "volume": 140,
+    "competition": "LOW",
+    "cpc_low": 119.44,
+    "cpc_high": 733.55,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-energia-solar",
+    "keyword": "curso de energía solar",
+    "volume": 110,
+    "competition": "MEDIUM",
+    "cpc_low": 782.74,
+    "cpc_high": 2145.16,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-japones",
+    "keyword": "curso de japonés",
+    "volume": 110,
+    "competition": "HIGH",
+    "cpc_low": 714.59,
+    "cpc_high": 7006.2,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-mecanica-de-bicicletas",
+    "keyword": "curso de mecánica de bicicletas",
+    "volume": 110,
+    "competition": "LOW",
+    "cpc_low": 77.95,
+    "cpc_high": 412.92,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "curso-de-coreano",
+    "keyword": "curso de coreano",
+    "volume": 90,
+    "competition": "MEDIUM",
+    "cpc_low": 563.27,
+    "cpc_high": 4400.35,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-macrame",
+    "keyword": "curso de macramé",
+    "volume": 90,
+    "competition": "LOW",
+    "cpc_low": 152.6,
+    "cpc_high": 1908.06,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-pasteleria",
+    "keyword": "curso de pastelería",
+    "volume": 90,
+    "competition": "MEDIUM",
+    "cpc_low": 789.28,
+    "cpc_high": 3718.59,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-reparacion-de-computadoras",
+    "keyword": "curso de reparación de computadoras",
+    "volume": 90,
+    "competition": "MEDIUM",
+    "cpc_low": 494.74,
+    "cpc_high": 2002.88,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-instalacion-de-camaras-de-seguridad",
+    "keyword": "curso de instalación de cámaras de seguridad",
+    "volume": 70,
+    "competition": "LOW",
+    "cpc_low": 127.91,
+    "cpc_high": 651.49,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-reparacion-de-lavadoras",
+    "keyword": "curso de reparación de lavadoras",
+    "volume": 70,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-serigrafia",
+    "keyword": "curso de serigrafía",
+    "volume": 70,
+    "competition": "LOW",
+    "cpc_low": 332.67,
+    "cpc_high": 1996.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-cerveza-artesanal",
+    "keyword": "curso de cerveza artesanal",
+    "volume": 50,
+    "competition": "LOW",
+    "cpc_low": 134.68,
+    "cpc_high": 873.24,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-sushi",
+    "keyword": "curso de sushi",
+    "volume": 50,
+    "competition": "LOW",
+    "cpc_low": 276.73,
+    "cpc_high": 932.35,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-chocolateria",
+    "keyword": "curso de chocolatería",
+    "volume": 40,
+    "competition": "MEDIUM",
+    "cpc_low": 292.56,
+    "cpc_high": 1142.33,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-desayunos-sorpresa",
+    "keyword": "curso de desayunos sorpresa",
+    "volume": 40,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-amigurumi",
+    "keyword": "curso de amigurumi",
+    "volume": 30,
+    "competition": "MEDIUM",
+    "cpc_low": 42.94,
+    "cpc_high": 1841.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-defensa-personal-para-mujeres",
+    "keyword": "curso de defensa personal para mujeres",
+    "volume": 30,
+    "competition": "LOW",
+    "cpc_low": 187.84,
+    "cpc_high": 637.78,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-drenaje-linfatico",
+    "keyword": "curso de drenaje linfático",
+    "volume": 30,
+    "competition": "MEDIUM",
+    "cpc_low": 181.94,
+    "cpc_high": 1744.95,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-estetica-canina",
+    "keyword": "curso de estética canina",
+    "volume": 30,
+    "competition": "LOW",
+    "cpc_low": 284.42,
+    "cpc_high": 1790.1,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-maderoterapia",
+    "keyword": "curso de maderoterapia",
+    "volume": 30,
+    "competition": "MEDIUM",
+    "cpc_low": 256.82,
+    "cpc_high": 2528.81,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-porcelana-fria",
+    "keyword": "curso de porcelana fría",
+    "volume": 30,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-airbnb",
+    "keyword": "curso de airbnb",
+    "volume": 20,
+    "competition": "LOW",
+    "cpc_low": 1046.05,
+    "cpc_high": 3994.99,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-ceviche-peruano",
+    "keyword": "curso de ceviche peruano",
+    "volume": 10,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-confeccion-de-ropa-interior",
+    "keyword": "curso de confección de ropa interior",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 900.55,
+    "cpc_high": 2549.09,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-corte-y-confeccion-desde-cero",
+    "keyword": "curso de corte y confección online",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-costura-industrial",
+    "keyword": "curso de costura industrial",
+    "volume": 10,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-cupcakes",
+    "keyword": "curso de cupcakes",
+    "volume": 10,
+    "competition": "MEDIUM",
+    "cpc_low": 304.82,
+    "cpc_high": 703.1,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-electricidad-residencial-certificado",
+    "keyword": "curso de electricidad residencial online",
+    "volume": 10,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-finanzas-para-tu-negocio",
+    "keyword": "curso de finanzas para emprendedores",
+    "volume": 10,
+    "competition": "MEDIUM",
+    "cpc_low": 1163.06,
+    "cpc_high": 5235.78,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-fondant",
+    "keyword": "curso de fondant",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-galletas-decoradas",
+    "keyword": "curso de galletas decoradas",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-hamburguesas-gourmet",
+    "keyword": "curso de hamburguesas gourmet",
+    "volume": 10,
+    "competition": "MEDIUM",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-joyeria-artesanal",
+    "keyword": "curso de joyería artesanal",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-marketing-digital-para-emprendedores",
+    "keyword": "curso de marketing digital para emprendedores",
+    "volume": 10,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-mecanica-de-motos-desde-cero",
+    "keyword": "curso de mecánica de motos online",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-molderia-y-confeccion",
+    "keyword": "curso de moldería y confección",
+    "volume": 10,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-panaderia-artesanal-y-masa-madre",
+    "keyword": "curso de panadería artesanal online",
+    "volume": 10,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-peluqueria-canina-profesional",
+    "keyword": "curso de peluquería canina online",
+    "volume": 10,
+    "competition": "MEDIUM",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-pizza-artesanal",
+    "keyword": "curso de pizza artesanal",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-pollo-broaster",
+    "keyword": "curso de pollo broaster",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-primeros-auxilios-para-mascotas",
+    "keyword": "curso de primeros auxilios para mascotas",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-reposteria-para-mascotas",
+    "keyword": "curso de repostería para mascotas",
+    "volume": 10,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-velas-artesanales-y-aromaticas",
+    "keyword": "curso de velas artesanales online",
+    "volume": 10,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-ventas-por-whatsapp-y-redes",
+    "keyword": "curso de ventas por whatsapp",
+    "volume": 10,
+    "competition": "HIGH",
+    "cpc_low": 1005.46,
+    "cpc_high": 5582.95,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-adiestramiento-canino-en-positivo",
+    "keyword": "curso de adiestramiento canino en positivo",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-barismo-y-cafe-de-especialidad",
+    "keyword": "curso de barismo online con certificado",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-bartending-y-cocteleria-profesional",
+    "keyword": "curso de bartending online con certificado",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-cocina-desde-cero-a-profesional",
+    "keyword": "curso de cocina online desde cero",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-comidas-rapidas",
+    "keyword": "curso de comidas rápidas",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-confeccion-de-trajes-de-bano",
+    "keyword": "curso de confección de trajes de baño",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-ingles-para-ninos",
+    "keyword": "curso de inglés para niños",
+    "volume": 0,
+    "competition": "SIN DATOS",
+    "verdict": "SIN DATOS"
+  },
+  {
+    "slug": "curso-de-instructor-de-yoga-desde-cero",
+    "keyword": "curso de instructor de yoga online",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-jabones-artesanales-para-vender",
+    "keyword": "curso de jabones artesanales para vender",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-lenceria-y-ropa-interior-a-medida",
+    "keyword": "curso de lencería a medida online",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-masajes-terapeuticos-y-relajantes",
+    "keyword": "curso de masajes terapéuticos online",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-nutricion-practica-para-la-familia",
+    "keyword": "curso de nutrición familiar online",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-parrilla-y-asados-como-un-maestro",
+    "keyword": "curso de parrilla y asados online",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-patronaje-profesional-de-ropa",
+    "keyword": "curso de patronaje de ropa online",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-remodelacion-de-banos-y-cocinas",
+    "keyword": "curso de remodelación",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-reposteria-fina-y-postres-gourmet",
+    "keyword": "curso de repostería fina online",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-resina-epoxica-paso-a-paso",
+    "keyword": "curso de resina epóxica paso a paso",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-soldadura-mig-tig-y-arco-electrico",
+    "keyword": "curso de soldadura online en español",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-tortas-decoradas-desde-cero",
+    "keyword": "curso de tortas decoradas online",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "curso-de-wedding-planner-y-eventos",
+    "keyword": "curso de wedding planner online con certificado",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  }
+]

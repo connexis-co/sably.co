@@ -121,7 +121,7 @@ def main() -> None:
         })
     rows.sort(key=lambda r: r['volume'], reverse=True)
 
-    print(f"{'keyword':<48} {'vol/mes':>9} {'comp':<12} {'CPC USD'}")
+    print(f"{'keyword':<48} {'vol/mes':>9} {'comp':<12} {'CPC (moneda cuenta)'}")
     print('-' * 88)
     for row in rows[: args.limit]:
         cpc = f"${row['cpc_low']}–{row['cpc_high']}"
