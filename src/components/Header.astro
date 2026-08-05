@@ -1,9 +1,10 @@
 ---
 import { getCollection } from 'astro:content';
-import { CATEGORIES, INTERNAL_CATEGORIES } from '@/lib/categories';
+import { CATEGORIES, INTERNAL_CATEGORIES, categoryCover } from '@/lib/categories';
 import type { Country, City } from '@/lib/countries';
 import { formatPrice } from '@/lib/countries';
 import Logo from './Logo.astro';
+import { buildWhatsAppUrl } from '@/lib/hotmart';
 
 interface Props {
   country: Country;
@@ -24,6 +25,7 @@ const featuredByCategory = new Map(
 
 const base = `/${country.code}`;
 const geoLabel = city ? `${country.flag} ${city.name}` : `${country.flag} ${country.name}`;
+const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y quiero más información sobre los cursos de Sably');
 ---
 
 <header class="sticky top-0 z-50 border-b border-surface-200 bg-white/95 backdrop-blur">
@@ -119,10 +121,17 @@ const geoLabel = city ? `${country.flag} ${city.name}` : `${country.flag} ${coun
                           <div>
                             <span class="rounded-full bg-accent px-2.5 py-1 text-[11px] font-bold text-white">Destacado</span>
                             <div
-                              class="mt-3 flex h-24 items-center justify-center rounded-md text-4xl"
+                              class="mt-3 h-24 overflow-hidden rounded-md"
                               style={`background-image: linear-gradient(135deg, ${cat.gradient[0]}, ${cat.gradient[1]})`}
                             >
-                              <span aria-hidden="true">{cat.emoji}</span>
+                              <img
+                                src={categoryCover(cat.slug, 'card')}
+                                alt=""
+                                width="480"
+                                height="320"
+                                loading="lazy"
+                                class="h-full w-full object-cover"
+                              />
                             </div>
                             <p class="mt-3 line-clamp-2 text-sm font-bold text-primary">{featured.data.title}</p>
                             <p class="mt-1 text-sm font-semibold text-accent">
@@ -149,6 +158,7 @@ const geoLabel = city ? `${country.flag} ${city.name}` : `${country.flag} ${coun
       </div>
 
       <a href={`${base}/cursos/`} class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">Cursos</a>
+      <a href="/homologaciones/" class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">Homologaciones</a>
       <a href="/blog/" class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">Blog</a>
     </nav>
 
@@ -156,7 +166,7 @@ const geoLabel = city ? `${country.flag} ${city.name}` : `${country.flag} ${coun
       <button
         type="button"
         data-geo-open
-        class="hidden items-center gap-2 rounded-md border border-surface-200 px-3 py-2 text-sm font-medium text-heading transition hover:border-accent sm:flex"
+        class="flex max-w-[46vw] items-center gap-1.5 truncate rounded-md border border-surface-200 px-2.5 py-2 text-sm font-medium text-heading transition hover:border-accent sm:max-w-none sm:gap-2 sm:px-3"
       >
         {geoLabel}
         <svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
@@ -176,24 +186,47 @@ const geoLabel = city ? `${country.flag} ${city.name}` : `${country.flag} ${coun
         aria-expanded="false"
         aria-controls="mobile-drawer"
       >
-        <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg data-icon-burger class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg data-icon-close class="hidden size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
     </div>
   </div>
+</header>
 
-  <!-- Drawer mobile -->
+<!-- Drawer mobile: FUERA del header — el backdrop-blur del header crea un
+     containing block que rompería position:fixed de sus descendientes.
+     Navegación multi-nivel con paneles deslizantes (patrón aprende.com). -->
+<div id="mobile-drawer" data-drawer class="pointer-events-none fixed inset-0 z-[60] lg:hidden" aria-hidden="true">
   <div
-    id="mobile-drawer"
-    data-drawer
-    class="fixed inset-0 z-50 hidden lg:hidden"
+    data-drawer-backdrop
+    class="absolute inset-0 bg-ink/50 opacity-0 backdrop-blur-sm transition-opacity duration-300"
   >
-    <div class="absolute inset-0 bg-ink/50 backdrop-blur-sm" data-drawer-backdrop></div>
-    <div class="absolute inset-y-0 right-0 flex w-[min(88vw,380px)] flex-col overflow-y-auto bg-white shadow-2xl">
-      <div class="flex items-center justify-between border-b border-surface-100 p-4">
-        <Logo href={`${base}/`} />
-        <button type="button" data-drawer-close class="rounded-full p-2 text-muted hover:bg-surface-100" aria-label="Cerrar menú">✕</button>
+  </div>
+  <div
+    data-drawer-panel
+    class="absolute inset-y-0 right-0 flex w-[min(92vw,400px)] translate-x-full flex-col bg-white shadow-2xl transition-transform duration-300 ease-out"
+  >
+    <div class="flex items-center justify-between border-b border-surface-100 p-4">
+      <Logo href={`${base}/`} />
+      <div class="flex items-center gap-2">
+        <a
+          href={waUrl}
+          target="_blank"
+          rel="noopener nofollow"
+          class="flex size-9 items-center justify-center rounded-full bg-[#00e676] text-white"
+          aria-label="Escríbenos por WhatsApp"
+        >
+          <svg viewBox="0 0 24 24" class="size-5 fill-current" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.7 14.1c-.2.7-1.4 1.3-1.9 1.3-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-2.9-1.3-4.8-4.2-5-4.4-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4-.1.7.5.2.6.8 2 .9 2.1.1.2.1.3 0 .5-.1.2-.2.4-.3.5l-.5.6c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.4 2.5 1.5.3.2.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3 0 .2 0 .7-.2 1.3Z"/></svg>
+        </a>
+        <button type="button" data-drawer-close class="rounded-full p-2 text-muted hover:bg-surface-100" aria-label="Cerrar menú">
+          <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
       </div>
-      <div class="p-4">
+    </div>
+
+    <div class="relative flex-1 overflow-hidden">
+      <!-- Nivel 1: principal -->
+      <div data-mnav-panel="main" class="absolute inset-0 overflow-y-auto p-4 transition-transform duration-300 ease-out">
         <button
           type="button"
           data-geo-open
@@ -202,52 +235,107 @@ const geoLabel = city ? `${country.flag} ${city.name}` : `${country.flag} ${coun
           <span>{geoLabel}</span>
           <span class="text-accent">Cambiar</span>
         </button>
-        <nav aria-label="Categorías">
-          {
-            CATEGORIES.map((cat) =>
-              cat.externalUrl ? (
-                <a
-                  href={cat.externalUrl}
-                  target="_blank"
-                  rel="noopener"
-                  class="flex items-center justify-between border-b border-surface-100 py-3.5 text-sm font-semibold text-heading"
-                >
-                  <span>{cat.emoji} {cat.name}</span>
-                  <span class="rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-white">Academia</span>
-                </a>
-              ) : (
-                <details class="group border-b border-surface-100">
-                  <summary class="flex cursor-pointer list-none items-center justify-between py-3.5 text-sm font-semibold text-heading">
-                    <span>{cat.emoji} {cat.name}</span>
-                    <span class="text-muted transition-transform group-open:rotate-90" aria-hidden="true">›</span>
-                  </summary>
-                  <ul class="pb-3 pl-8" role="list">
-                    {cat.subcategories.map((sub) => (
-                      <li>
-                        <a href={`${base}/cursos/${cat.slug}/#${sub.slug}`} class="block py-2 text-sm text-body">
-                          {sub.name}
-                        </a>
-                      </li>
-                    ))}
-                    <li>
-                      <a href={`${base}/cursos/${cat.slug}/`} class="block py-2 text-sm font-semibold text-accent">
-                        Ver todos →
-                      </a>
-                    </li>
-                  </ul>
-                </details>
-              ),
-            )
-          }
+        <nav aria-label="Menú principal">
+          <button
+            type="button"
+            data-mnav-go="programas"
+            class="flex w-full items-center justify-between border-b border-surface-100 py-4 text-[15px] font-semibold text-heading"
+          >
+            Programas
+            <span class="text-muted" aria-hidden="true">›</span>
+          </button>
+          <a href={`${base}/cursos/`} class="flex items-center justify-between border-b border-surface-100 py-4 text-[15px] font-semibold text-heading">
+            Todos los cursos
+            <span class="text-muted" aria-hidden="true">›</span>
+          </a>
+          <a href="/homologaciones/" class="flex items-center justify-between border-b border-surface-100 py-4 text-[15px] font-semibold text-heading">
+            Homologaciones
+            <span class="text-muted" aria-hidden="true">›</span>
+          </a>
+          <a href="/blog/" class="flex items-center justify-between border-b border-surface-100 py-4 text-[15px] font-semibold text-heading">
+            Blog
+            <span class="text-muted" aria-hidden="true">›</span>
+          </a>
+          <a href="/nosotros/" class="flex items-center justify-between border-b border-surface-100 py-4 text-[15px] font-semibold text-heading">
+            Sobre nosotros
+            <span class="text-muted" aria-hidden="true">›</span>
+          </a>
         </nav>
-        <div class="mt-4 space-y-2">
-          <a href={`${base}/cursos/`} class="block rounded-md bg-accent px-4 py-3 text-center text-sm font-bold text-white">Ver todos los cursos</a>
-          <a href="/blog/" class="block rounded-md border border-surface-200 px-4 py-3 text-center text-sm font-semibold text-heading">Blog</a>
-        </div>
+        <a href={`${base}/cursos/`} class="mt-6 block rounded-md bg-accent px-4 py-3.5 text-center text-sm font-bold text-white">
+          Ver todos los cursos
+        </a>
       </div>
+
+      <!-- Nivel 2: programas -->
+      <div data-mnav-panel="programas" class="absolute inset-0 translate-x-full overflow-y-auto p-4 transition-transform duration-300 ease-out">
+        <button type="button" data-mnav-back="main" class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-accent">
+          ‹ Volver
+        </button>
+        <h2 class="text-lg font-bold text-primary">Programas de estudio</h2>
+        <p class="mt-1 mb-4 text-sm text-body">Potencia tus habilidades, transforma tu futuro y obtén tu certificado.</p>
+        {
+          CATEGORIES.map((cat) =>
+            cat.externalUrl ? (
+              <a
+                href={cat.externalUrl}
+                target="_blank"
+                rel="noopener"
+                class="mb-2 flex w-full items-center justify-between rounded-md bg-off-white px-4 py-3.5 text-sm font-semibold text-heading"
+              >
+                <span>{cat.emoji} {cat.name}</span>
+                <span class="rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-white">Academia</span>
+              </a>
+            ) : (
+              <button
+                type="button"
+                data-mnav-go={`cat-${cat.slug}`}
+                class="mb-2 flex w-full items-center justify-between rounded-md bg-off-white px-4 py-3.5 text-sm font-semibold text-heading transition hover:bg-accent-soft"
+              >
+                <span>{cat.emoji} {cat.name}</span>
+                <span class="text-muted" aria-hidden="true">›</span>
+              </button>
+            ),
+          )
+        }
+        <a href={`${base}/cursos/`} class="mt-3 block rounded-md border border-surface-300 px-4 py-3 text-center text-sm font-semibold text-heading">
+          Explorar todos
+        </a>
+      </div>
+
+      <!-- Nivel 3: una por categoría -->
+      {
+        INTERNAL_CATEGORIES.map((cat) => (
+          <div
+            data-mnav-panel={`cat-${cat.slug}`}
+            class="absolute inset-0 translate-x-full overflow-y-auto p-4 transition-transform duration-300 ease-out"
+          >
+            <button type="button" data-mnav-back="programas" class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-accent">
+              ‹ Volver
+            </button>
+            <h2 class="text-lg font-bold text-primary">
+              {cat.emoji} {cat.name}
+            </h2>
+            <p class="mt-1 mb-4 text-sm text-body">{cat.description}</p>
+            <nav aria-label={`Subcategorías de ${cat.name}`}>
+              {cat.subcategories.map((sub) => (
+                <a
+                  href={`${base}/cursos/${cat.slug}/#${sub.slug}`}
+                  class="flex items-center justify-between border-b border-surface-100 py-3 text-sm text-heading"
+                >
+                  {sub.name}
+                  <span class="text-muted" aria-hidden="true">›</span>
+                </a>
+              ))}
+            </nav>
+            <a href={`${base}/cursos/${cat.slug}/`} class="mt-4 block rounded-md bg-accent px-4 py-3 text-center text-sm font-bold text-white">
+              Ver todos los cursos de {cat.name}
+            </a>
+          </div>
+        ))
+      }
     </div>
   </div>
-</header>
+</div>
 
 <script>
   // ── Mega menú desktop ──────────────────────────────────────────────
@@ -282,7 +370,6 @@ const geoLabel = city ? `${country.flag} ${city.name}` : `${country.flag} ${coun
       if (!root.contains(e.target as Node)) setOpen(false);
     });
 
-    // Cambio de panel por categoría
     const catButtons = root.querySelectorAll<HTMLButtonElement>('[data-mega-cat]');
     const contents = root.querySelectorAll<HTMLElement>('[data-mega-content]');
     const activate = (slug: string) => {
@@ -306,16 +393,56 @@ const geoLabel = city ? `${country.flag} ${city.name}` : `${country.flag} ${coun
   const drawer = document.querySelector<HTMLElement>('[data-drawer]');
   if (drawer) {
     const openBtn = document.querySelector<HTMLButtonElement>('[data-drawer-open]');
+    const backdrop = drawer.querySelector<HTMLElement>('[data-drawer-backdrop]');
+    const panel = drawer.querySelector<HTMLElement>('[data-drawer-panel]');
+    const burger = openBtn?.querySelector('[data-icon-burger]');
+    const close = openBtn?.querySelector('[data-icon-close]');
+
     const toggle = (open: boolean) => {
-      drawer.classList.toggle('hidden', !open);
+      drawer.classList.toggle('pointer-events-none', !open);
+      drawer.setAttribute('aria-hidden', String(!open));
+      backdrop?.classList.toggle('opacity-0', !open);
+      panel?.classList.toggle('translate-x-full', !open);
       document.body.classList.toggle('no-scroll', open);
       openBtn?.setAttribute('aria-expanded', String(open));
+      openBtn?.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+      burger?.classList.toggle('hidden', open);
+      close?.classList.toggle('hidden', !open);
+      if (!open) {
+        drawer.querySelectorAll<HTMLElement>('[data-mnav-panel]').forEach((pn) => {
+          const main = pn.dataset.mnavPanel === 'main';
+          pn.classList.toggle('translate-x-full', !main);
+          pn.classList.remove('-translate-x-full');
+        });
+      }
     };
-    openBtn?.addEventListener('click', () => toggle(true));
+    const isOpen = () => !drawer.classList.contains('pointer-events-none');
+
+    openBtn?.addEventListener('click', () => toggle(!isOpen()));
     drawer.querySelector('[data-drawer-close]')?.addEventListener('click', () => toggle(false));
-    drawer.querySelector('[data-drawer-backdrop]')?.addEventListener('click', () => toggle(false));
+    backdrop?.addEventListener('click', () => toggle(false));
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') toggle(false);
+      if (e.key === 'Escape' && isOpen()) toggle(false);
     });
+
+    // Paneles deslizantes multi-nivel (aprende.com style)
+    const panels = drawer.querySelectorAll<HTMLElement>('[data-mnav-panel]');
+    const showPanel = (id: string, direction: 'forward' | 'back') => {
+      panels.forEach((pn) => {
+        const isTarget = pn.dataset.mnavPanel === id;
+        pn.classList.toggle('translate-x-full', !isTarget && direction === 'back');
+        pn.classList.toggle('-translate-x-full', !isTarget && direction === 'forward');
+        if (isTarget) {
+          pn.classList.remove('translate-x-full', '-translate-x-full');
+          pn.scrollTop = 0;
+        }
+      });
+    };
+    drawer.querySelectorAll<HTMLButtonElement>('[data-mnav-go]').forEach((b) =>
+      b.addEventListener('click', () => showPanel(b.dataset.mnavGo!, 'forward')),
+    );
+    drawer.querySelectorAll<HTMLButtonElement>('[data-mnav-back]').forEach((b) =>
+      b.addEventListener('click', () => showPanel(b.dataset.mnavBack!, 'back')),
+    );
   }
 </script>

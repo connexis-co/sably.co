@@ -4,7 +4,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import { COUNTRIES, getCountry } from '@/lib/countries';
-import { INTERNAL_CATEGORIES, getCategory } from '@/lib/categories';
+import { INTERNAL_CATEGORIES, getCategory, categoryCover } from '@/lib/categories';
 import { countryAlternates, breadcrumbSchema, faqSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 
@@ -71,11 +71,22 @@ const schemas = [
   pageType="category"
   whatsappContext={`Cursos de ${category.name}`}
 >
-  <section
-    class="py-16"
-    style={`background-image: linear-gradient(135deg, ${category.gradient[0]}, ${category.gradient[1]})`}
-  >
-    <div class="container-site">
+  <section class="relative overflow-hidden py-16">
+    <img
+      src={categoryCover(category.slug)}
+      alt=""
+      width="800"
+      height="533"
+      fetchpriority="high"
+      class="absolute inset-0 h-full w-full object-cover"
+    />
+    <div
+      class="absolute inset-0"
+      style={`background-image: linear-gradient(135deg, ${category.gradient[0]}e6, ${category.gradient[1]}cc)`}
+      aria-hidden="true"
+    >
+    </div>
+    <div class="container-site relative">
       <nav aria-label="Breadcrumb" class="text-sm text-white/70">
         <a href={`${base}/`} class="hover:text-white">Inicio</a> <span aria-hidden="true">›</span>
         <a href={`${base}/cursos/`} class="hover:text-white">Cursos</a> <span aria-hidden="true">›</span>

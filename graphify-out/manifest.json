@@ -1,267 +1,957 @@
 {
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/astro.config.mjs": {
+  "astro.config.mjs": {
     "mtime": 1785911512.8238206,
     "ast_hash": "e7a3ce58939923969efc9390d34764cf",
     "semantic_hash": "e7a3ce58939923969efc9390d34764cf"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/package.json": {
+  "package.json": {
     "mtime": 1785913384.5355005,
     "ast_hash": "7a56cd89f9505ab01c1ec7ed2a21c4bd",
     "semantic_hash": "7a56cd89f9505ab01c1ec7ed2a21c4bd"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/CourseCard.astro": {
-    "mtime": 1785912047.7784343,
-    "ast_hash": "818f1cab376b0d9e3816cf21afccd72d",
-    "semantic_hash": "818f1cab376b0d9e3816cf21afccd72d"
+  "src/components/CourseCard.astro": {
+    "mtime": 1785915689.1699073,
+    "ast_hash": "69e22e6387ddf6e8f406dac80217e645",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/ExitIntent.astro": {
+  "src/components/ExitIntent.astro": {
     "mtime": 1785912112.6736684,
     "ast_hash": "0f26f24f17e4aefd49cdf8358edc3100",
     "semantic_hash": "0f26f24f17e4aefd49cdf8358edc3100"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/FaqAccordion.astro": {
+  "src/components/FaqAccordion.astro": {
     "mtime": 1785912051.074163,
     "ast_hash": "29ee68eda97c9ade8ed0c45a0d6de513",
     "semantic_hash": "29ee68eda97c9ade8ed0c45a0d6de513"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/Footer.astro": {
-    "mtime": 1785912008.6301434,
-    "ast_hash": "51f78bd6877f08c13653d889e4c911e9",
-    "semantic_hash": "51f78bd6877f08c13653d889e4c911e9"
+  "src/components/Footer.astro": {
+    "mtime": 1785916751.578127,
+    "ast_hash": "fbe671aa705c112f705a7383f31a8228",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/GeoDialog.astro": {
+  "src/components/GeoDialog.astro": {
     "mtime": 1785911839.713233,
     "ast_hash": "bc36abb8338ae106b162b2bd07a94d31",
     "semantic_hash": "bc36abb8338ae106b162b2bd07a94d31"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/Header.astro": {
-    "mtime": 1785911907.4239073,
-    "ast_hash": "7c51a3033fcbd83cff04875bc72d432a",
-    "semantic_hash": "7c51a3033fcbd83cff04875bc72d432a"
+  "src/components/Header.astro": {
+    "mtime": 1785916641.7232604,
+    "ast_hash": "6ad47f6f097647c986556c8a7b141c67",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/LeadModal.astro": {
-    "mtime": 1785912140.8059158,
-    "ast_hash": "fc3ea5f399793ba5ec8edd29fcf4a617",
-    "semantic_hash": "fc3ea5f399793ba5ec8edd29fcf4a617"
+  "src/components/LeadModal.astro": {
+    "mtime": 1785913666.5179,
+    "ast_hash": "a807b06c0a82283dee89a0bc30f1ea96",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/Logo.astro": {
+  "src/components/Logo.astro": {
     "mtime": 1785911818.5162587,
     "ast_hash": "13374efce8b7c3385324d56cb5cc687a",
     "semantic_hash": "13374efce8b7c3385324d56cb5cc687a"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/PromoBanner.astro": {
+  "src/components/PromoBanner.astro": {
     "mtime": 1785912076.166285,
     "ast_hash": "92f73e07861568353296de9969b8ae01",
     "semantic_hash": "92f73e07861568353296de9969b8ae01"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/Rating.astro": {
+  "src/components/Rating.astro": {
     "mtime": 1785912035.063365,
     "ast_hash": "65f3bd95b5a8f375dbcfe933b64f76ee",
     "semantic_hash": "65f3bd95b5a8f375dbcfe933b64f76ee"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/SectionHeading.astro": {
+  "src/components/SectionHeading.astro": {
     "mtime": 1785912037.8771198,
     "ast_hash": "cba06e0193b00f89bd2b2c87d14378ef",
     "semantic_hash": "cba06e0193b00f89bd2b2c87d14378ef"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/Seo.astro": {
+  "src/components/Seo.astro": {
     "mtime": 1785911823.2176192,
     "ast_hash": "ad88840a91e67497ab0a67a93fef7d2d",
     "semantic_hash": "ad88840a91e67497ab0a67a93fef7d2d"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/StickyCta.astro": {
+  "src/components/StickyCta.astro": {
     "mtime": 1785912103.0553524,
     "ast_hash": "c73bf5bee80c459f7de270d806b687fe",
     "semantic_hash": "c73bf5bee80c459f7de270d806b687fe"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/TestimonialCard.astro": {
-    "mtime": 1785912056.2320683,
-    "ast_hash": "9c836e3cbd8c93a211e00455e714b708",
-    "semantic_hash": "9c836e3cbd8c93a211e00455e714b708"
+  "src/components/TestimonialCard.astro": {
+    "mtime": 1785913667.9082987,
+    "ast_hash": "72c9eedb3dd10745d185150338085adc",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/TrustBar.astro": {
+  "src/components/TrustBar.astro": {
     "mtime": 1785912059.8891306,
     "ast_hash": "2626202fb44e46a3f19fc26b5cd44cba",
     "semantic_hash": "2626202fb44e46a3f19fc26b5cd44cba"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/components/WhatsAppFloat.astro": {
-    "mtime": 1785911852.456949,
-    "ast_hash": "ad43468645ef38b9fa20dc7f3b0481e9",
-    "semantic_hash": "ad43468645ef38b9fa20dc7f3b0481e9"
+  "src/components/WhatsAppFloat.astro": {
+    "mtime": 1785915441.011159,
+    "ast_hash": "938c0a78ef6d72a4a9179220c7e8dfad",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/content.config.ts": {
+  "src/content.config.ts": {
     "mtime": 1785911781.9373124,
     "ast_hash": "816c16349f6c9173226e6371fc565cf9",
     "semantic_hash": "816c16349f6c9173226e6371fc565cf9"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/content/testimonials.json": {
+  "src/content/testimonials.json": {
     "mtime": 1785913043.2512758,
     "ast_hash": "9e30500d6632fbbe387ca8c91d8be20e",
     "semantic_hash": "9e30500d6632fbbe387ca8c91d8be20e"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/layouts/BaseLayout.astro": {
+  "src/layouts/BaseLayout.astro": {
     "mtime": 1785912019.6196148,
     "ast_hash": "5ecb33bed84fc5dc75adf64a723adb34",
     "semantic_hash": "5ecb33bed84fc5dc75adf64a723adb34"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/lib/analytics.ts": {
+  "src/lib/analytics.ts": {
     "mtime": 1785911658.0435371,
     "ast_hash": "b9bc948a68af0c7d3cff929ee04b90c9",
     "semantic_hash": "b9bc948a68af0c7d3cff929ee04b90c9"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/lib/categories.ts": {
-    "mtime": 1785911621.9490452,
-    "ast_hash": "122070b68050ec1e3bea4036659eb03d",
-    "semantic_hash": "122070b68050ec1e3bea4036659eb03d"
+  "src/lib/categories.ts": {
+    "mtime": 1785916303.0116334,
+    "ast_hash": "6e647816cd0df5e833c51090aebe1444",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/lib/countries.ts": {
-    "mtime": 1785911597.0118175,
-    "ast_hash": "98279c5ddcf9ad3e609fe857ee173ba3",
-    "semantic_hash": "98279c5ddcf9ad3e609fe857ee173ba3"
+  "src/lib/countries.ts": {
+    "mtime": 1785915429.7324193,
+    "ast_hash": "cbcdf37930c4760afb4e2f7277c7339f",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/lib/hotmart.ts": {
+  "src/lib/hotmart.ts": {
     "mtime": 1785911627.5301247,
     "ast_hash": "8053b5a12fc859a9c6997f53a6eb1c4d",
     "semantic_hash": "8053b5a12fc859a9c6997f53a6eb1c4d"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/lib/seo.ts": {
+  "src/lib/seo.ts": {
     "mtime": 1785911655.5299063,
     "ast_hash": "d805b531c4761ae73bbd15941e0ef026",
     "semantic_hash": "d805b531c4761ae73bbd15941e0ef026"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/lib/site.ts": {
-    "mtime": 1785911563.9385083,
-    "ast_hash": "ddadabcc0b4912502cc9975409247db1",
-    "semantic_hash": "ddadabcc0b4912502cc9975409247db1"
+  "src/lib/site.ts": {
+    "mtime": 1785918150.314734,
+    "ast_hash": "21e9742608ff3d52f3fbfa6ff0343a30",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/pages/404.astro": {
+  "src/pages/404.astro": {
     "mtime": 1785912361.8932354,
     "ast_hash": "6d029d6395d6577d74e89358309e50ec",
     "semantic_hash": "6d029d6395d6577d74e89358309e50ec"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/pages/[country]/[city]/cursos/[category]/index.astro": {
-    "mtime": 1785912281.6321297,
-    "ast_hash": "767d5db124e4100926dd0e4d5b0315f5",
-    "semantic_hash": "767d5db124e4100926dd0e4d5b0315f5"
+  "src/pages/[country]/[city]/cursos/[category]/index.astro": {
+    "mtime": 1785915813.690146,
+    "ast_hash": "ffeea0aef50d16f7c1b5e8cf88fd1cc8",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/pages/[country]/[city]/index.astro": {
+  "src/pages/[country]/[city]/index.astro": {
     "mtime": 1785912256.1032634,
     "ast_hash": "a07b8f46b80462f9c55d49f13373ebf4",
     "semantic_hash": "a07b8f46b80462f9c55d49f13373ebf4"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/pages/[country]/curso/[slug]/index.astro": {
-    "mtime": 1785912329.7878888,
-    "ast_hash": "f10f3c1d68fa6215bf6eb3adeef75989",
-    "semantic_hash": "f10f3c1d68fa6215bf6eb3adeef75989"
+  "src/pages/[country]/curso/[slug]/index.astro": {
+    "mtime": 1785915051.7654507,
+    "ast_hash": "ba910ba599a344ba0dc8acd42df1c5b6",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/pages/[country]/cursos/[category]/index.astro": {
-    "mtime": 1785912230.8838181,
-    "ast_hash": "2818db64a0af815ffa1b9801a5e3e9a1",
-    "semantic_hash": "2818db64a0af815ffa1b9801a5e3e9a1"
+  "src/pages/[country]/cursos/[category]/index.astro": {
+    "mtime": 1785915808.5229425,
+    "ast_hash": "5e61857a8b8a66bd540af63ab2948ec9",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/pages/[country]/cursos/index.astro": {
-    "mtime": 1785912203.7241476,
-    "ast_hash": "5dd12a982e85c63fd2e4ed4ac75de765",
-    "semantic_hash": "5dd12a982e85c63fd2e4ed4ac75de765"
+  "src/pages/[country]/cursos/index.astro": {
+    "mtime": 1785913671.6779585,
+    "ast_hash": "73d1db2099acbd9f8dce484cd91f39b5",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/pages/[country]/index.astro": {
-    "mtime": 1785912192.0675213,
-    "ast_hash": "63893c94697b98365ec32488cc9fcd97",
-    "semantic_hash": "63893c94697b98365ec32488cc9fcd97"
+  "src/pages/[country]/index.astro": {
+    "mtime": 1785913669.800187,
+    "ast_hash": "72bd87dee659c97f50456487de990cef",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/pages/blog/[slug]/index.astro": {
-    "mtime": 1785912354.559173,
-    "ast_hash": "63647b635ace1a8c03c38e492b068e67",
-    "semantic_hash": "63647b635ace1a8c03c38e492b068e67"
+  "src/pages/blog/[slug]/index.astro": {
+    "mtime": 1785916739.9911938,
+    "ast_hash": "8a450befafe13fdb0c20f47ba6edce12",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/pages/blog/index.astro": {
-    "mtime": 1785912344.840363,
-    "ast_hash": "efcdbac9de413cf292b339a8e6db6b84",
-    "semantic_hash": "efcdbac9de413cf292b339a8e6db6b84"
+  "src/pages/blog/index.astro": {
+    "mtime": 1785916722.0758452,
+    "ast_hash": "5ff2869ee87ec34e58864777627d447d",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/pages/legal/privacidad/index.astro": {
+  "src/pages/legal/privacidad/index.astro": {
     "mtime": 1785912376.4921696,
     "ast_hash": "205f4dd3696dbedeae369be355805090",
     "semantic_hash": "205f4dd3696dbedeae369be355805090"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/pages/legal/terminos/index.astro": {
+  "src/pages/legal/terminos/index.astro": {
     "mtime": 1785912369.2599945,
     "ast_hash": "f7c168d62cba77a9a41ef7c2058551cd",
     "semantic_hash": "f7c168d62cba77a9a41ef7c2058551cd"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/stores/geo.ts": {
+  "src/stores/geo.ts": {
     "mtime": 1785911772.997916,
     "ast_hash": "03d3da39052b46b336bf05799a5791c8",
     "semantic_hash": "03d3da39052b46b336bf05799a5791c8"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/tsconfig.json": {
+  "tsconfig.json": {
     "mtime": 1785911515.1790645,
     "ast_hash": "b3d73e77e1c26d6d46a7be96d19b30bb",
     "semantic_hash": "b3d73e77e1c26d6d46a7be96d19b30bb"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/README.md": {
+  "README.md": {
     "mtime": 1785913368.2688265,
     "ast_hash": "7b351d2526fdce9c1a1a1a48ee10f486",
     "semantic_hash": "7b351d2526fdce9c1a1a1a48ee10f486"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/docs/ROADMAP.md": {
+  "docs/ROADMAP.md": {
     "mtime": 1785912755.0181432,
     "ast_hash": "c0fcb6fa30228f9b7cc8a80861119a2d",
     "semantic_hash": "c0fcb6fa30228f9b7cc8a80861119a2d"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/docs/plans/2026-08-05_fase1-frontend-sably.md": {
+  "docs/plans/2026-08-05_fase1-frontend-sably.md": {
     "mtime": 1785912740.3352122,
     "ast_hash": "109324096391a895ee5bfc85c126d57c",
     "semantic_hash": "109324096391a895ee5bfc85c126d57c"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/public/robots.txt": {
+  "public/robots.txt": {
     "mtime": 1785911785.518734,
     "ast_hash": "2af73637e7345ecfc9aab1af9f152ca3",
     "semantic_hash": "2af73637e7345ecfc9aab1af9f152ca3"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/content/courses/curso-de-cocina-desde-cero-a-profesional.mdx": {
-    "mtime": 1785913478.534973,
+  "src/content/courses/curso-de-cocina-desde-cero-a-profesional.mdx": {
+    "mtime": 1785917456.9967508,
     "ast_hash": "bdfd9db3ec9537a1c355cbdf19179515",
     "semantic_hash": "bdfd9db3ec9537a1c355cbdf19179515"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/content/courses/curso-de-corte-y-confeccion-desde-cero.mdx": {
-    "mtime": 1785913478.5353975,
+  "src/content/courses/curso-de-corte-y-confeccion-desde-cero.mdx": {
+    "mtime": 1785917457.0014067,
     "ast_hash": "b5a57e977a1759de1b3bba036964856b",
     "semantic_hash": "b5a57e977a1759de1b3bba036964856b"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/content/courses/curso-de-marketing-digital-para-emprendedores.mdx": {
-    "mtime": 1785913478.5380042,
+  "src/content/courses/curso-de-marketing-digital-para-emprendedores.mdx": {
+    "mtime": 1785917457.0130234,
     "ast_hash": "6e4ecfdc13fa91b043b0ac1b13bd3a30",
     "semantic_hash": "6e4ecfdc13fa91b043b0ac1b13bd3a30"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/content/courses/curso-de-masajes-terapeuticos-y-relajantes.mdx": {
-    "mtime": 1785913478.5385447,
-    "ast_hash": "986dc2e452a0dcc268a16cd60b0d12c7",
-    "semantic_hash": "986dc2e452a0dcc268a16cd60b0d12c7"
+  "src/content/courses/curso-de-masajes-terapeuticos-y-relajantes.mdx": {
+    "mtime": 1785917457.0131927,
+    "ast_hash": "f1ead88d52bfde39df6dd153a4883d21",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/content/courses/curso-de-panaderia-artesanal-y-masa-madre.mdx": {
-    "mtime": 1785913478.5397768,
+  "src/content/courses/curso-de-panaderia-artesanal-y-masa-madre.mdx": {
+    "mtime": 1785917457.0150125,
     "ast_hash": "a8e7fc41b9b06e8cc363d80bd1503ee4",
     "semantic_hash": "a8e7fc41b9b06e8cc363d80bd1503ee4"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/content/courses/curso-de-peluqueria-canina-profesional.mdx": {
-    "mtime": 1785913493.5029492,
-    "ast_hash": "1426c5f4e81d2d0694bcd46dc88f9e7b",
-    "semantic_hash": "1426c5f4e81d2d0694bcd46dc88f9e7b"
+  "src/content/courses/curso-de-peluqueria-canina-profesional.mdx": {
+    "mtime": 1785917457.0161335,
+    "ast_hash": "cdbd84d26679800c9c10db165a849c5a",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/content/courses/curso-de-reposteria-fina-y-postres-gourmet.mdx": {
-    "mtime": 1785913478.5410316,
+  "src/content/courses/curso-de-reposteria-fina-y-postres-gourmet.mdx": {
+    "mtime": 1785917457.0211089,
     "ast_hash": "ba80a6b7eb5bf74c6fe77a1252413cbc",
     "semantic_hash": "ba80a6b7eb5bf74c6fe77a1252413cbc"
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/src/content/courses/curso-de-tortas-decoradas-desde-cero.mdx": {
-    "mtime": 1785913478.5420551,
-    "ast_hash": "ac628700bcc95ebf06a062c2c985abb9",
-    "semantic_hash": "ac628700bcc95ebf06a062c2c985abb9"
+  "src/content/courses/curso-de-tortas-decoradas-desde-cero.mdx": {
+    "mtime": 1785917457.0223784,
+    "ast_hash": "45496af571b95e5b3a43760d38e30ad3",
+    "semantic_hash": ""
   },
-  "/Users/jpmisat/Documents/JP Projects/sably.co/.claude/worktrees/sably-online-courses-64463a/public/favicon.svg": {
+  "public/favicon.svg": {
     "mtime": 1785911783.850697,
     "ast_hash": "d77bee529e5515f8bf3bac48c466ee75",
     "semantic_hash": "d77bee529e5515f8bf3bac48c466ee75"
+  },
+  ".claude/launch.json": {
+    "mtime": 1785912844.3252785,
+    "ast_hash": "95a43c569a14f24586b5aa34a2cfd2a9",
+    "semantic_hash": ""
+  },
+  ".claude/settings.json": {
+    "mtime": 1785913560.4190857,
+    "ast_hash": "3d1b1afdafd4facffcf39a83a45ccc77",
+    "semantic_hash": ""
+  },
+  ".commitlintrc.json": {
+    "mtime": 1785913285.6462398,
+    "ast_hash": "2339e7a3914985d4247f1644d964cb77",
+    "semantic_hash": ""
+  },
+  "scripts/connect-domain.sh": {
+    "mtime": 1785914487.4613874,
+    "ast_hash": "03027c50d6651d588e60cc67171ecab2",
+    "semantic_hash": ""
+  },
+  "scripts/deploy-pages.sh": {
+    "mtime": 1785913133.5554366,
+    "ast_hash": "b3b7288932811ad906728fd7c9adce7d",
+    "semantic_hash": ""
+  },
+  "scripts/fix-content-qa.mjs": {
+    "mtime": 1785913475.026311,
+    "ast_hash": "ddfa656a648e2031ea42a73cbb92c983",
+    "semantic_hash": ""
+  },
+  "scripts/generate-covers.py": {
+    "mtime": 1785915776.7346601,
+    "ast_hash": "a9db0452d8f6ae1c1af4f97a40512156",
+    "semantic_hash": ""
+  },
+  "src/components/CourseLanding.astro": {
+    "mtime": 1785915818.5115092,
+    "ast_hash": "0c1f4e85a147e4591a12e764fb878db8",
+    "semantic_hash": ""
+  },
+  "src/pages/[country]/[city]/curso/[slug]/index.astro": {
+    "mtime": 1785915054.185774,
+    "ast_hash": "ba0f18a612a84efba009fd4484818a15",
+    "semantic_hash": ""
+  },
+  ".github/ISSUE_TEMPLATE/bug_report.yml": {
+    "mtime": 1785913318.505249,
+    "ast_hash": "1592a736bed4f0b3086cf3bf6ba1301f",
+    "semantic_hash": ""
+  },
+  ".github/ISSUE_TEMPLATE/feature_request.yml": {
+    "mtime": 1785913321.8562574,
+    "ast_hash": "7cb69d96e0c45ad3fc8b9299d8c2ed91",
+    "semantic_hash": ""
+  },
+  ".github/PULL_REQUEST_TEMPLATE.md": {
+    "mtime": 1785913312.0909169,
+    "ast_hash": "77adff2a3cfd0ac95582820163dcf98a",
+    "semantic_hash": ""
+  },
+  ".github/dependabot.yml": {
+    "mtime": 1785913308.3270628,
+    "ast_hash": "2f5badd974d137ef4b9763217cbdef46",
+    "semantic_hash": ""
+  },
+  ".github/workflows/ci.yml": {
+    "mtime": 1785914062.0248163,
+    "ast_hash": "af926615d6e60c43a9553e476a99bd77",
+    "semantic_hash": ""
+  },
+  ".github/workflows/deploy-production.yml": {
+    "mtime": 1785913303.6385272,
+    "ast_hash": "96f73537252158ba8c6a4e8523180550",
+    "semantic_hash": ""
+  },
+  ".github/workflows/deploy-staging.yml": {
+    "mtime": 1785913300.3345175,
+    "ast_hash": "9dd1544d35d01d870b98666c743feef9",
+    "semantic_hash": ""
+  },
+  ".github/workflows/release-please.yml": {
+    "mtime": 1785913305.5544043,
+    "ast_hash": "6ba8960e0b8338b497125d524ce47173",
+    "semantic_hash": ""
+  },
+  "CHANGELOG.md": {
+    "mtime": 1785913335.0885584,
+    "ast_hash": "17df7fc651639753e90a49a61ae58d27",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1785913560.4188576,
+    "ast_hash": "82efb97a359f5c7290bf2513d14686be",
+    "semantic_hash": ""
+  },
+  "CONTRIBUTING.md": {
+    "mtime": 1785913332.7415276,
+    "ast_hash": "5fa7d01c98f639f9cc9582571014afe4",
+    "semantic_hash": ""
+  },
+  "docs/CHANGELOG_FRONTEND.md": {
+    "mtime": 1785915935.713395,
+    "ast_hash": "794ba01f9d26ee3f5848ac523ba56e04",
+    "semantic_hash": ""
+  },
+  "docs/plans/2026-08-05_expansion-catalogo-geo.md": {
+    "mtime": 1785915906.4450548,
+    "ast_hash": "d6e5213cd9e1b1c7be61dc8739b818ee",
+    "semantic_hash": ""
+  },
+  "src/content/blog/como-emprender-con-un-oficio-en-2026.mdx": {
+    "mtime": 1785912953.7098782,
+    "ast_hash": "10c806f7bd1e25ab7c900cae0ba333b4",
+    "semantic_hash": ""
+  },
+  "src/content/blog/cuanto-cuesta-aprender-un-oficio-online.mdx": {
+    "mtime": 1785913032.4687302,
+    "ast_hash": "d6794647d138dd2347bb829f4527e8b1",
+    "semantic_hash": ""
+  },
+  "src/content/blog/mejores-oficios-para-aprender-online.mdx": {
+    "mtime": 1785912992.7398908,
+    "ast_hash": "8e7c8a4196e8a08ac6add181e0ea2def",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-adiestramiento-canino-en-positivo.mdx": {
+    "mtime": 1785917456.9922698,
+    "ast_hash": "ebb89afb2befbb7fdff630cf1d9e947d",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-barismo-y-cafe-de-especialidad.mdx": {
+    "mtime": 1785917456.9934072,
+    "ast_hash": "ff0fe00f38f49c19c5753494c17df780",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-bartending-y-cocteleria-profesional.mdx": {
+    "mtime": 1785917456.993992,
+    "ast_hash": "3acf408ddda225e89070cf09fa2e1d02",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-electricidad-residencial-certificado.mdx": {
+    "mtime": 1785917457.0067196,
+    "ast_hash": "5de8e936bbe3ebaf07ef6e594cb3e8fa",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-finanzas-para-tu-negocio.mdx": {
+    "mtime": 1785917457.0093951,
+    "ast_hash": "b7663c05b188b089ca4a6f387129b456",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-instructor-de-yoga-desde-cero.mdx": {
+    "mtime": 1785917457.0116818,
+    "ast_hash": "f5c34d663e3a7eb6125e3d6bb22356bf",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-jabones-artesanales-para-vender.mdx": {
+    "mtime": 1785917457.0118532,
+    "ast_hash": "fdf904c2f8ba57310719ba2bb9ff28a3",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-lenceria-y-ropa-interior-a-medida.mdx": {
+    "mtime": 1785917457.012361,
+    "ast_hash": "113eef1a875b9ac61e41325e5812c59d",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-mecanica-de-motos-desde-cero.mdx": {
+    "mtime": 1785917457.0139444,
+    "ast_hash": "b7488dc554dd6ef2186a92ef49a55a46",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-nutricion-practica-para-la-familia.mdx": {
+    "mtime": 1785917457.0148687,
+    "ast_hash": "c535575ac68a1c1e305df4732f012157",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-parrilla-y-asados-como-un-maestro.mdx": {
+    "mtime": 1785917457.0152168,
+    "ast_hash": "acd0aa62380b51b70d6660e02d01570f",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-patronaje-profesional-de-ropa.mdx": {
+    "mtime": 1785917457.0159514,
+    "ast_hash": "16438dcd4068c4b103d36ce37c13d3ee",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-resina-epoxica-paso-a-paso.mdx": {
+    "mtime": 1785917457.0214233,
+    "ast_hash": "1ad11fe662f0f8c769fd537cf827df10",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-soldadura-mig-tig-y-arco-electrico.mdx": {
+    "mtime": 1785917457.0217474,
+    "ast_hash": "2cceef3d713f42dbe6ee82fb6b79817c",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-velas-artesanales-y-aromaticas.mdx": {
+    "mtime": 1785917457.0225503,
+    "ast_hash": "c1cffb07217de5f652f796ceb888c080",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-ventas-por-whatsapp-y-redes.mdx": {
+    "mtime": 1785917457.023039,
+    "ast_hash": "4f440aa1ac336b298d106cc6c8f12473",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-wedding-planner-y-eventos.mdx": {
+    "mtime": 1785917457.023861,
+    "ast_hash": "100a16489c9a045a23e8a56f2ff20511",
+    "semantic_hash": ""
+  },
+  "public/covers/belleza-card.jpg": {
+    "mtime": 1785915667.7102888,
+    "ast_hash": "420fc1ec8336e0f0ef96b80e1ee03fa3",
+    "semantic_hash": ""
+  },
+  "public/covers/belleza.jpg": {
+    "mtime": 1785915576.1915019,
+    "ast_hash": "9aa3c9d5fc47aaf1111ad834ff725a98",
+    "semantic_hash": ""
+  },
+  "public/covers/bienestar-card.jpg": {
+    "mtime": 1785915667.7362378,
+    "ast_hash": "76e97dbaa5a37d706c2ba17c0f4d08c8",
+    "semantic_hash": ""
+  },
+  "public/covers/bienestar.jpg": {
+    "mtime": 1785915620.8117921,
+    "ast_hash": "c385494039bdeb4b0868264b168c0459",
+    "semantic_hash": ""
+  },
+  "public/covers/cuidado-animal-card.jpg": {
+    "mtime": 1785915667.7591057,
+    "ast_hash": "87274836c938b67beb31b1fc7fea364b",
+    "semantic_hash": ""
+  },
+  "public/covers/cuidado-animal.jpg": {
+    "mtime": 1785915652.3883867,
+    "ast_hash": "48a4dce938cbe7d174e90c82d010867c",
+    "semantic_hash": ""
+  },
+  "public/covers/emprendimiento-card.jpg": {
+    "mtime": 1785915667.7885754,
+    "ast_hash": "ea303550beeabc35612b3db28584ea09",
+    "semantic_hash": ""
+  },
+  "public/covers/emprendimiento.jpg": {
+    "mtime": 1785915641.846841,
+    "ast_hash": "cd9a59e336a369d988e164f94e16fc3a",
+    "semantic_hash": ""
+  },
+  "public/covers/gastronomia-card.jpg": {
+    "mtime": 1785915667.8164704,
+    "ast_hash": "5c00f874836d09f193efdd45dee7d41c",
+    "semantic_hash": ""
+  },
+  "public/covers/gastronomia.jpg": {
+    "mtime": 1785915593.4457867,
+    "ast_hash": "376900e106908271e87997becb6d0a9d",
+    "semantic_hash": ""
+  },
+  "public/covers/hospitalidad-card.jpg": {
+    "mtime": 1785915667.8387797,
+    "ast_hash": "0fff4585ba1faeef73fa73ab38e5b330",
+    "semantic_hash": ""
+  },
+  "public/covers/hospitalidad.jpg": {
+    "mtime": 1785915660.8466487,
+    "ast_hash": "5853382d7a0007a80810aa455db4f06f",
+    "semantic_hash": ""
+  },
+  "public/covers/idiomas-card.jpg": {
+    "mtime": 1785915794.2884178,
+    "ast_hash": "1fb5124821af73d8b51a282965c21901",
+    "semantic_hash": ""
+  },
+  "public/covers/idiomas.jpg": {
+    "mtime": 1785915785.5413451,
+    "ast_hash": "b6442c906d953c82cbbba4fea10695de",
+    "semantic_hash": ""
+  },
+  "public/covers/manualidades-card.jpg": {
+    "mtime": 1785915667.8778226,
+    "ast_hash": "f38aa6a23a97c32dc20c88838145c5bb",
+    "semantic_hash": ""
+  },
+  "public/covers/manualidades.jpg": {
+    "mtime": 1785915631.1787097,
+    "ast_hash": "c1a7f93df390df06120096bc5766fece",
+    "semantic_hash": ""
+  },
+  "public/covers/moda-y-confeccion-card.jpg": {
+    "mtime": 1785915667.9026756,
+    "ast_hash": "3e47f985e86a6856b8b05887262fdb24",
+    "semantic_hash": ""
+  },
+  "public/covers/moda-y-confeccion.jpg": {
+    "mtime": 1785915612.506905,
+    "ast_hash": "ed605f6ed5601900820a4c9496a75653",
+    "semantic_hash": ""
+  },
+  "public/covers/musica-card.jpg": {
+    "mtime": 1785915794.3131962,
+    "ast_hash": "17170036e7e73434e66de6940181eff9",
+    "semantic_hash": ""
+  },
+  "public/covers/musica.jpg": {
+    "mtime": 1785915794.2475207,
+    "ast_hash": "81c3d655abd7f6221303058262ac88b5",
+    "semantic_hash": ""
+  },
+  "public/covers/oficios-card.jpg": {
+    "mtime": 1785915667.9253414,
+    "ast_hash": "c63da409279d6061b8ff156ee30e86cd",
+    "semantic_hash": ""
+  },
+  "public/covers/oficios.jpg": {
+    "mtime": 1785915602.5697463,
+    "ast_hash": "8775e6795d892038d7487dcb5427cb1c",
+    "semantic_hash": ""
+  },
+  "public/covers/panaderia-y-pasteleria-card.jpg": {
+    "mtime": 1785915667.948544,
+    "ast_hash": "f4de38ff484428aad6ffdfea621f2c78",
+    "semantic_hash": ""
+  },
+  "public/covers/panaderia-y-pasteleria.jpg": {
+    "mtime": 1785915584.310445,
+    "ast_hash": "36c759b68373d63640410116c6c2c7a7",
+    "semantic_hash": ""
+  },
+  "docs/data/cursos-a-redactar.json": {
+    "mtime": 1785916202.9282744,
+    "ast_hash": "79206536a66bd54af672fa13c3e3f4c8",
+    "semantic_hash": ""
+  },
+  "docs/data/seleccion-cursos.json": {
+    "mtime": 1785916202.9235027,
+    "ast_hash": "767b062b3a9b0279c7ccd59f406dfd3a",
+    "semantic_hash": ""
+  },
+  "scripts/dedupe-content.mjs": {
+    "mtime": 1785917361.669497,
+    "ast_hash": "f4ab60c53337cb99a69d5621c3ad9d8a",
+    "semantic_hash": ""
+  },
+  "scripts/fix-yaml-colons.mjs": {
+    "mtime": 1785917497.6050432,
+    "ast_hash": "d154cadcdb8bda589b132d7a7987efed",
+    "semantic_hash": ""
+  },
+  "scripts/keyword-planner.py": {
+    "mtime": 1785917286.097694,
+    "ast_hash": "194f3b4153bb8d54e01b0c40cb7f6ff6",
+    "semantic_hash": ""
+  },
+  "src/lib/blog.ts": {
+    "mtime": 1785916707.5807164,
+    "ast_hash": "231aff95700078b1ad78e2b04b2daf33",
+    "semantic_hash": ""
+  },
+  "src/lib/homologaciones.ts": {
+    "mtime": 1785916549.940279,
+    "ast_hash": "a58b3dbfd1448861da31ef032eba8acf",
+    "semantic_hash": ""
+  },
+  "src/pages/homologaciones/[programa]/index.astro": {
+    "mtime": 1785916616.7336082,
+    "ast_hash": "accd9ad4be83b0f643ae5d2d3fb59a04",
+    "semantic_hash": ""
+  },
+  "src/pages/homologaciones/index.astro": {
+    "mtime": 1785916588.4160287,
+    "ast_hash": "ceed73d437d69f50bbc6c72a6471f943",
+    "semantic_hash": ""
+  },
+  "src/pages/nosotros/index.astro": {
+    "mtime": 1785916695.4441566,
+    "ast_hash": "4e37488dd86d9b29e8fb7bda52f6fa3e",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-airbnb.mdx": {
+    "mtime": 1785917456.9925017,
+    "ast_hash": "16d08c116be1ff43f84ceeee393c7b1f",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-aire-acondicionado-y-refrigeracion.mdx": {
+    "mtime": 1785917456.9929411,
+    "ast_hash": "2620864d5c98736f4edac99289d18771",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-amigurumi.mdx": {
+    "mtime": 1785917456.9931467,
+    "ast_hash": "132643820d3b1b3ba0c72098ceb70a02",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-barista.mdx": {
+    "mtime": 1785917456.993569,
+    "ast_hash": "358956a079eefdbf1b4545c1e0fae881",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-bartender.mdx": {
+    "mtime": 1785917456.9937818,
+    "ast_hash": "64ec49598435eb419db55672b1b728b2",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-canto.mdx": {
+    "mtime": 1785917456.994358,
+    "ast_hash": "4e9bdb760ca9e5f7a4e3002dc22a1aef",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-carpinteria-y-muebles.mdx": {
+    "mtime": 1785917456.994627,
+    "ast_hash": "0c27bbedb304f5649619b08da9c6fd3e",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-cerveza-artesanal.mdx": {
+    "mtime": 1785917456.9948275,
+    "ast_hash": "9feed88ecb29b4f31283ded55d1f31c5",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-ceviche-peruano.mdx": {
+    "mtime": 1785917456.9951527,
+    "ast_hash": "c58980d770d20a082075af8a6b4ae67e",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-chocolateria.mdx": {
+    "mtime": 1785917456.9954352,
+    "ast_hash": "dd52d02450ebd5896ad0d7042954dfa6",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-comidas-rapidas.mdx": {
+    "mtime": 1785917456.997674,
+    "ast_hash": "dd1fb26f409b2aeaaa9236e2e0ea5793",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-community-manager.mdx": {
+    "mtime": 1785917456.9979458,
+    "ast_hash": "0a4dff94b2e5b14152ba2d4b3b7c3182",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-confeccion-de-ropa-interior.mdx": {
+    "mtime": 1785917505.8162386,
+    "ast_hash": "bcb734f627be178b69110f0292a08ad1",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-confeccion-de-trajes-de-bano.mdx": {
+    "mtime": 1785917457.0001957,
+    "ast_hash": "516e6db1767988604229e16f00b6ac12",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-contabilidad-basica.mdx": {
+    "mtime": 1785917457.0004516,
+    "ast_hash": "15587b7a4ee5aa37a70e22d03ad95194",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-coreano.mdx": {
+    "mtime": 1785917457.0008392,
+    "ast_hash": "a317fee4d5dfed9c32087eec38fe078c",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-costura-industrial.mdx": {
+    "mtime": 1785917457.001637,
+    "ast_hash": "83fea8cd2e1b2bda6e11e4ab208dce42",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-crochet.mdx": {
+    "mtime": 1785917457.0018008,
+    "ast_hash": "e03ccd3068f1f4709121e163ba51bdca",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-cupcakes.mdx": {
+    "mtime": 1785917457.0020437,
+    "ast_hash": "ec15367824eef2f5061cfc0f89863097",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-decoracion-con-globos.mdx": {
+    "mtime": 1785917457.0022023,
+    "ast_hash": "b9a13bcf2764a4e90e45ee0e43679ebc",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-defensa-personal-para-mujeres.mdx": {
+    "mtime": 1785917457.002414,
+    "ast_hash": "181a3c166e9155391c0208ed8722a780",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-desayunos-sorpresa.mdx": {
+    "mtime": 1785917457.002785,
+    "ast_hash": "06188f7ecd1d2689f7362b6b29c6a343",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-dj.mdx": {
+    "mtime": 1785917457.004168,
+    "ast_hash": "d770e95cd3a8bb9f10a98d78edb1edb0",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-drenaje-linfatico.mdx": {
+    "mtime": 1785917457.0059767,
+    "ast_hash": "b315dd4ab5d7dfb126485dcd0769dd11",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-electricista.mdx": {
+    "mtime": 1785917457.0068812,
+    "ast_hash": "51d4efb9226d2a2810e2c1b772a8c869",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-energia-solar.mdx": {
+    "mtime": 1785917457.0070674,
+    "ast_hash": "b75af6d0e9b2714a4419c733f4bc7616",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-estetica-canina.mdx": {
+    "mtime": 1785917457.0079768,
+    "ast_hash": "ffc0ad23ff6a9696ada21fb7a473c4ec",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-excel.mdx": {
+    "mtime": 1785917457.0091698,
+    "ast_hash": "a06fde76180fce11a6068b0fe963bbe0",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-fondant.mdx": {
+    "mtime": 1785917457.0095928,
+    "ast_hash": "cf76b71335691c047752a5996e7d1357",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-fotografia-con-celular.mdx": {
+    "mtime": 1785917457.0098705,
+    "ast_hash": "07ffe9e2072ea18a18442196b090b8de",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-fotografia.mdx": {
+    "mtime": 1785917457.0101357,
+    "ast_hash": "571879289540941f9c1dce2b66e559fd",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-frances.mdx": {
+    "mtime": 1785917457.0102837,
+    "ast_hash": "f3bb5900f6d9f94895c89300bde24fdd",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-galletas-decoradas.mdx": {
+    "mtime": 1785918115.571707,
+    "ast_hash": "5426276d168d3f7458e29e345059104f",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-guitarra.mdx": {
+    "mtime": 1785917457.01089,
+    "ast_hash": "1a661f49369a0825d51fef9018e58571",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-hamburguesas-gourmet.mdx": {
+    "mtime": 1785917457.0110667,
+    "ast_hash": "72ca3df705b30928852548b9e43b848f",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-ingles-para-ninos.mdx": {
+    "mtime": 1785917457.01124,
+    "ast_hash": "20d38b331aa05c5442eed3d543275a00",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-ingles.mdx": {
+    "mtime": 1785917457.0113719,
+    "ast_hash": "8f2f26eb18283580dbb13c6574096dc2",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-instalacion-de-camaras-de-seguridad.mdx": {
+    "mtime": 1785917457.0115519,
+    "ast_hash": "c3d43451310cd2b2bb6964025eacdd60",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-japones.mdx": {
+    "mtime": 1785917457.0119932,
+    "ast_hash": "0686b086e6755493ad1526a4ea2897e7",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-joyeria-artesanal.mdx": {
+    "mtime": 1785917457.0122185,
+    "ast_hash": "e41157b07c6e727d036c80ae900cb81f",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-macrame.mdx": {
+    "mtime": 1785917457.0126681,
+    "ast_hash": "c9d68017b0860be3d1a71f80dfd61d04",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-maderoterapia.mdx": {
+    "mtime": 1785917457.012838,
+    "ast_hash": "9fc362241f9d8a1930f958e03cbb8a2a",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-mecanica-de-bicicletas.mdx": {
+    "mtime": 1785917457.0133677,
+    "ast_hash": "ef91e68fed291764ec01a56f36568e66",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-modisteria.mdx": {
+    "mtime": 1785917457.0141566,
+    "ast_hash": "349b59ce46c635f1c0404493591a94cb",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-molderia-y-confeccion.mdx": {
+    "mtime": 1785917457.014464,
+    "ast_hash": "a2d31dac6aca1ca683b8f08c77974d52",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-pasteleria.mdx": {
+    "mtime": 1785917457.0153735,
+    "ast_hash": "28dee289c1be1b5a681ea2d793a4dc56",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-piano.mdx": {
+    "mtime": 1785917457.0163043,
+    "ast_hash": "59449790826b9aacb715a06d05c1b9f9",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-pizza-artesanal.mdx": {
+    "mtime": 1785917457.0164773,
+    "ast_hash": "5bd75a4c4c7864793aa9c8d5c1d3e7a4",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-pollo-broaster.mdx": {
+    "mtime": 1785917457.0166442,
+    "ast_hash": "bbb08160f72315ca883744227e069845",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-porcelana-fria.mdx": {
+    "mtime": 1785917457.0167797,
+    "ast_hash": "b5dfc284951fe26ed38cb4e9bb67e701",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-portugues.mdx": {
+    "mtime": 1785917457.0169652,
+    "ast_hash": "76fea8e23f9d2e3e83698b7c3950bd7a",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-primeros-auxilios-para-mascotas.mdx": {
+    "mtime": 1785917457.017228,
+    "ast_hash": "e4ed24bbeac0778bdddf67189980ff9b",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-primeros-auxilios.mdx": {
+    "mtime": 1785917457.017422,
+    "ast_hash": "e98ce3b34101d26f9becafbaea6ed5e7",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-remodelacion-de-banos-y-cocinas.mdx": {
+    "mtime": 1785917457.017565,
+    "ast_hash": "7513a80979b6c42e8aabecc7368b6976",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-reparacion-de-celulares.mdx": {
+    "mtime": 1785917457.0203633,
+    "ast_hash": "bd6cfa25e4e4b6cd86b540190aa91aa7",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-reparacion-de-computadoras.mdx": {
+    "mtime": 1785917457.020613,
+    "ast_hash": "cf3faa84e68d14ef55803822e87f077f",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-reparacion-de-lavadoras.mdx": {
+    "mtime": 1785917457.0209079,
+    "ast_hash": "6920f1c6c594e6ed82847a4690a222b2",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-reposteria-para-mascotas.mdx": {
+    "mtime": 1785917457.0212796,
+    "ast_hash": "953fbcdb24ac75bf7a5c66f6349558f9",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-serigrafia.mdx": {
+    "mtime": 1785917457.021603,
+    "ast_hash": "625d959a7c3553e1279c7dc100657f9f",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-sublimacion.mdx": {
+    "mtime": 1785917457.0219297,
+    "ast_hash": "0581efd24d4e2dea156845a2c245c856",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-sushi.mdx": {
+    "mtime": 1785917457.0220914,
+    "ast_hash": "b9bde6d7144505208dad8e49ce507c14",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-tatuaje.mdx": {
+    "mtime": 1785917457.0222607,
+    "ast_hash": "a1ced3e0d1c1d815b2fce92bcb177592",
+    "semantic_hash": ""
   }
 }

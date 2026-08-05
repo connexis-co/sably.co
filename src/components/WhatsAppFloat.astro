@@ -2,6 +2,11 @@
 import type { Country } from '@/lib/countries';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 
+/**
+ * Botón flotante de WhatsApp estilo "whatsbuilder" (plugin de JP usado en
+ * academiadebelleza.edu.co): círculo verde oficial con ondas expansivas y
+ * mensaje pre-llenado contextual por página/curso.
+ */
 interface Props {
   country: Country;
   /** Contexto para el mensaje pre-llenado, ej. nombre del curso o página. */
@@ -9,8 +14,8 @@ interface Props {
 }
 const { country, context } = Astro.props;
 const message = context
-  ? `Hola Sably 👋 Quiero más información sobre "${context}"`
-  : 'Hola Sably 👋 Quiero información sobre sus cursos';
+  ? `Hola, estoy interesado(a) y quiero más información sobre "${context}"`
+  : 'Hola, estoy interesado(a) y quiero más información sobre los cursos de Sably';
 const url = buildWhatsAppUrl(country.whatsapp, message);
 ---
 
@@ -19,19 +24,79 @@ const url = buildWhatsAppUrl(country.whatsapp, message);
   target="_blank"
   rel="noopener nofollow"
   data-wa-float
-  class="fixed right-4 bottom-4 z-40 flex size-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:scale-105"
+  class="wa-float"
   aria-label={`Escríbenos por WhatsApp (${country.name})`}
 >
-  <svg viewBox="0 0 24 24" class="size-7 fill-current" aria-hidden="true">
-    <path
-      d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.7 14.1c-.2.7-1.4 1.3-1.9 1.3-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-2.9-1.3-4.8-4.2-5-4.4-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4-.1.7.5.2.6.8 2 .9 2.1.1.2.1.3 0 .5-.1.2-.2.4-.3.5l-.5.6c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.4 2.5 1.5.3.2.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3 0 .2 0 .7-.2 1.3Z"
-    ></path>
-  </svg>
+  <span class="wa-wave" style="animation-delay: 1s" aria-hidden="true"></span>
+  <span class="wa-wave" style="animation-delay: 1.3s" aria-hidden="true"></span>
+  <span class="wa-wave" style="animation-delay: 1.5s" aria-hidden="true"></span>
+  <span class="wa-circle">
+    <svg viewBox="0 0 24 24" class="size-8 fill-white" aria-hidden="true">
+      <path
+        d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.7 14.1c-.2.7-1.4 1.3-1.9 1.3-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-2.9-1.3-4.8-4.2-5-4.4-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4-.1.7.5.2.6.8 2 .9 2.1.1.2.1.3 0 .5-.1.2-.2.4-.3.5l-.5.6c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.4 2.5 1.5.3.2.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3 0 .2 0 .7-.2 1.3Z"
+      ></path>
+    </svg>
+  </span>
 </a>
 
+<style>
+  .wa-float {
+    position: fixed;
+    right: 21px;
+    bottom: 58px;
+    z-index: 40;
+    display: inline-block;
+    width: 56px;
+    height: 56px;
+  }
+  .wa-circle {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    width: 56px;
+    height: 56px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #00e676;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease;
+  }
+  .wa-float:hover .wa-circle {
+    transform: scale(1.07);
+  }
+  .wa-wave {
+    position: absolute;
+    inset: 5px;
+    z-index: 1;
+    border-radius: 50%;
+    background: #00e676;
+    opacity: 0;
+    animation: wa-wave 1.7s infinite;
+  }
+  @keyframes wa-wave {
+    0% {
+      transform: scale(1);
+    }
+    15% {
+      opacity: 0.9;
+    }
+    100% {
+      opacity: 0;
+      transform: scale(2.5);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wa-wave {
+      animation: none;
+    }
+  }
+</style>
+
 <script>
+  import { trackEvent } from '@/lib/analytics';
+
   document.querySelector('[data-wa-float]')?.addEventListener('click', () => {
-    window.dataLayer ??= [];
-    window.dataLayer.push({ event: 'click_whatsapp', page_type: document.body.dataset.pageType ?? 'unknown' });
+    trackEvent('click_whatsapp', { page_type: document.body.dataset.pageType ?? 'unknown' });
   });
 </script>
