@@ -37,7 +37,7 @@ content_type() {
 uploaded=0
 skipped=0
 
-# Sube todo lo que está bajo public/covers/ y public/media/ (si existe)
+# Sube todo lo que está bajo public/covers/, public/heroes/ y public/media/ (si existen)
 while IFS= read -r file; do
   key="${file#public/}"
   ct=$(content_type "$file")
@@ -60,7 +60,7 @@ while IFS= read -r file; do
     --data-binary "@${file}"
   uploaded=$((uploaded + 1))
   printf '\r  subidos: %s · omitidos: %s' "$uploaded" "$skipped"
-done < <(find public/covers public/media -type f \( -name '*.jpg' -o -name '*.png' -o -name '*.webp' -o -name '*.avif' -o -name '*.mp4' -o -name '*.webm' \) 2>/dev/null)
+done < <(find public/covers public/heroes public/media -type f \( -name '*.jpg' -o -name '*.png' -o -name '*.webp' -o -name '*.avif' -o -name '*.mp4' -o -name '*.webm' \) 2>/dev/null)
 
 echo ""
 echo "✓ R2 sincronizado — subidos: ${uploaded} · sin cambios: ${skipped}"
