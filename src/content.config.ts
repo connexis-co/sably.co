@@ -67,6 +67,33 @@ const testimonials = defineCollection({
   }),
 });
 
+/**
+ * Variante por país de cada curso, generada con Gemini y validada por
+ * scripts/generar-catalogo.py. Un archivo por (curso, país); si falta,
+ * la página usa el contenido genérico del MDX — la variante es opcional
+ * por diseño para que el build nunca dependa del lote completo.
+ */
+const courseLocales = defineCollection({
+  loader: glob({ pattern: '*.json', base: './src/content/course-locales' }),
+  schema: z.object({
+    course: z.string(),
+    country: z.string(),
+    angulo: z.string(),
+    meta_title: z.string(),
+    meta_description: z.string(),
+    h1: z.string(),
+    subtitulo: z.string(),
+    descripcion: z.string(),
+    faqs: z.array(z.object({ q: z.string(), a: z.string() })).min(4),
+    beneficios: z.array(z.string()).min(4),
+    para_quien: z.array(z.string()).min(3),
+    requisitos: z.array(z.string()).min(2),
+    certificado: z.string(),
+    garantia: z.string(),
+    _meta: z.object({ usd: z.number(), fallos: z.array(z.string()).nullable() }).passthrough(),
+  }),
+});
+
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.mdx', base: './src/content/blog' }),
   schema: z.object({
@@ -78,4 +105,4 @@ const blog = defineCollection({
   }),
 });
 
-export const collections = { courses, testimonials, blog };
+export const collections = { courses, courseLocales, testimonials, blog };
