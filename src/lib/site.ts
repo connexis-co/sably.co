@@ -25,7 +25,7 @@ export const SITE = {
     students: '15.000+',
     rating: 4.8,
     courses: 105,
-    countries: 7,
+    countries: 8,
   },
 } as const;
 
