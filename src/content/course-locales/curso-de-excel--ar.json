@@ -1,0 +1,71 @@
+{
+  "course": "curso-de-excel",
+  "country": "ar",
+  "angulo": "emprendimiento",
+  "meta_title": "Curso de Excel para Principiantes | Gestiona tu Negocio",
+  "meta_description": "Aprende a calcular costos, presupuestos y ventas de tu emprendimiento en Argentina. Usa el cupón SABLY40 para 40% OFF. ¡Inscríbete con Mercado Pago!",
+  "h1": "Aprende Excel desde Cero y Toma el Control Financiero de tu Emprendimiento",
+  "subtitulo": "Organiza inventarios, calcula precios reales y proyecta tus ventas sin depender de planillas confusas ni sistemas costosos.",
+  "descripcion": "Si estás al frente de una PyME, vendes servicios independientes o gestionas un comercio en Argentina, llevar las cuentas en papel o en la cabeza suele generar desorden y pérdidas invisibles. Inscribirte en un **curso de excel para principiantes** te permite tomar las riendas operativas de tu proyecto desde el primer día, transformando datos dispersos en información clara para tomar decisiones con total seguridad.\n\n## La diferencia entre improvisar y profesionalizar tus finanzas\n\nMuchos emprendedores postergan la organización administrativa porque consideran que los software de gestión comerciales son costosos o difíciles de configurar. Sin embargo, una hoja de cálculo bien estructurada resuelve desde el cálculo exacto del margen de ganancia hasta el control de stock del mes. A lo largo de 14 horas de formación práctica, guiadas por Felipe Zambrano, vas a dominar la herramienta desde las funciones más elementales hasta la automatización de reportes clave.\n\nEl programa está distribuido en 5 módulos con 20 lecciones en video que abordan situaciones reales del día a día comercial. No perderás tiempo en teoría abstracta; por el contrario, trabajarás directamente sobre casos de uso aplicados al cálculo de costos fijos, variables e impuestos locales.\n\n### Contenido diseñado para resolver problemas reales\n\n- **Dominio de la interfaz:** Aprende a moverte con agilidad, formatear datos comerciales y aplicar atajos de teclado para ahorrar horas de trabajo semanal.\n- **Fórmulas y operaciones fundamentales:** Automatiza sumas, promedios y cálculos de rentabilidad sobre cada producto o servicio que vendes.\n- **Lógica de datos y búsquedas:** Utiliza condicionales y funciones de búsqueda para cruzar listas de clientes, listas de precios y códigos de inventario.\n- **Visualización de resultados:** Diseña gráficos e informes visuales simples para identificar qué líneas de negocio te dejan mayor margen.\n- **Tableros de control:** Construye tu propia planilla centralizada de caja diaria, seguimiento de pagos y proyección de ventas.\n\n## Capacitación flexible adaptada a tu ritmo de trabajo\n\nSabemos que administrar un emprendimiento en Argentina exige tiempo y adaptabilidad. Por esa razón, el acceso a las 20 lecciones es ilimitado y permanente. Vas a poder avanzar durante tus momentos libres, pausar, repetir las clases y descargar los recursos de apoyo cada vez que necesites implementar una nueva plantilla en tu comercio.\n\nAl completar el recorrido de 14 horas, obtendrás un certificado digital que acredita la adquisición de estas habilidades prácticas, útil tanto para fortalecer la gestión interna de tu firma como para destacar tu perfil profesional.\n\n## Invierte en la eficiencia de tu proyecto\n\nAcceder a este **curso de excel para principiantes** representa una mejora directa en la productividad de tu negocio. El curso tiene un valor base de USD 27, pero aplicando el código promocional **SABLY40** obtienes un 40% de descuento inmediato. Para facilitar tu inscripción desde Argentina, la plataforma procesa la transacción en pesos (ARS) a través de Mercado Pago, así como con tarjetas de crédito y débito locales.",
+  "faqs": [
+    {
+      "q": "¿Puedo pagar el curso en pesos argentinos (ARS) y con Mercado Pago?",
+      "a": "Sí, el sistema convierte la tarifa al tipo de cambio correspondiente y te permite abonar en ARS utilizando Mercado Pago, saldo en cuenta, tarjeta de débito o tarjeta de crédito emitida en Argentina."
+    },
+    {
+      "q": "¿El certificado otorgado tiene validez en Argentina?",
+      "a": "El certificado digital acredita 14 horas de capacitación práctica con Felipe Zambrano. Es totalmente válido para adjuntar a tu CV, perfil de LinkedIn o respaldar la formación técnica de tu personal en Argentina."
+    },
+    {
+      "q": "¿Necesito conocimientos previos de contabilidad o sistemas para realizar la capacitación?",
+      "a": "No, el curso inicia desde el nivel cero. Se explica la descarga, la interfaz y las funciones básicas paso a paso, sin asumir ningún tipo de experiencia previa en la herramienta."
+    },
+    {
+      "q": "¿Cómo se aplica el cupón de descuento del 40%?",
+      "a": "En la pantalla de pago, debes introducir el código SABLY40 en el campo dedicado a cupones promocionales. El descuento se reflejará de inmediato sobre el precio base de USD 27."
+    },
+    {
+      "q": "¿Cuánto tiempo tengo para ver las 20 lecciones del curso?",
+      "a": "El acceso al contenido es vitalicio. Una vez efectuada la inscripción, podrás ingresar al aula virtual las veces que quieras, a cualquier hora y desde cualquier dispositivo."
+    },
+    {
+      "q": "¿Qué versión de Microsoft Excel necesito para seguir las clases?",
+      "a": "Puedes utilizar cualquier versión de Microsoft Excel a partir de la edición 2013 en adelante, incluyendo Excel 365. La gran mayoría de las funciones explicadas también son compatibles con Google Sheets."
+    },
+    {
+      "q": "¿Quién dicta las clases del curso?",
+      "a": "El programa es impartido por Felipe Zambrano, instructor especializado en el desarrollo de competencias digitales y optimización de procesos operativos para negocios y profesionales."
+    },
+    {
+      "q": "¿Tengo la posibilidad de hacer preguntas si me surge una duda en un ejercicio?",
+      "a": "Sí, debajo de cada una de las 20 lecciones dispones de un área de comentarios en la que podrás formular tus dudas y recibir respuesta del equipo docente."
+    }
+  ],
+  "beneficios": [
+    "Organiza el inventario de tu negocio sin errores manuales.",
+    "Calcula tus costos y márgenes de ganancia con fórmulas precisas.",
+    "Automatiza el registro de ventas para ahorrar horas de trabajo.",
+    "Crea tablas dinámicas para entender qué productos se venden más.",
+    "Genera reportes financieros claros para tomar mejores decisiones.",
+    "Diseña presupuestos mensuales para gestionar el flujo de caja."
+  ],
+  "para_quien": [
+    "Dueños de pequeños negocios que llevan sus cuentas en papel.",
+    "Emprendedores que buscan profesionalizar la gestión de sus ventas.",
+    "Personas que quieren dejar de perder tiempo con cálculos manuales.",
+    "Quienes necesitan organizar información sin depender de terceros."
+  ],
+  "requisitos": [
+    "Una computadora con acceso a Microsoft Excel instalado.",
+    "Conexión a internet para ver las 20 lecciones del curso de excel para principiantes.",
+    "Disposición para aplicar lo aprendido en tu propio proyecto."
+  ],
+  "certificado": "Al finalizar los 5 módulos y las 14 horas de contenido, recibirás un certificado digital que acredita tus nuevas competencias en el manejo de planillas de cálculo.",
+  "garantia": "Tienes 7 días de garantía desde el momento de la compra a través de Hotmart. Si el contenido no cumple lo que necesitas, solicitas el reembolso total sin preguntas.",
+  "_meta": {
+    "usd": 0.0114,
+    "modelo": "gemini-3.6-flash",
+    "fallos": null,
+    "fecha": "2026-08-06"
+  }
+}
