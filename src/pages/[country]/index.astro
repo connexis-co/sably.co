@@ -10,7 +10,7 @@ import FaqAccordion from '@/components/FaqAccordion.astro';
 import { COUNTRIES, getCountry } from '@/lib/countries';
 import { CATEGORIES } from '@/lib/categories';
 import { countryAlternates, faqSchema } from '@/lib/seo';
-import { SITE } from '@/lib/site';
+import { SITE, CDN_URL } from '@/lib/site';
 
 export function getStaticPaths() {
   return COUNTRIES.map((c) => ({ params: { country: c.code } }));
@@ -72,7 +72,7 @@ const description = `Aprende panadería, costura, electricidad, gastronomía y m
   <section class="relative overflow-hidden bg-primary">
     <div class="absolute -top-24 -right-24 size-96 rounded-full bg-accent/20 blur-3xl" aria-hidden="true"></div>
     <div class="absolute -bottom-32 -left-16 size-80 rounded-full bg-info/10 blur-3xl" aria-hidden="true"></div>
-    <div class="container-site relative py-20 lg:py-28">
+    <div class="container-site relative grid items-center gap-6 py-12 sm:py-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-10 lg:py-24">
       <div class="max-w-2xl">
         <p class="animate-fade-up text-sm font-bold tracking-wide text-accent uppercase">
           {country.flag} Cursos online para {country.name}
@@ -102,6 +102,22 @@ const description = `Aprende panadería, costura, electricidad, gastronomía y m
         <p class="mt-6 text-sm text-white/60">
           ⭐ {SITE.stats.rating}/5 · {SITE.stats.students} estudiantes en {SITE.stats.countries} países
         </p>
+      </div>
+
+      <!-- Collage de oficios: WebP con alfa real (chroma-key), distinto por país.
+           En móvil va debajo del texto y algo más ancho que el contenedor para
+           que se sienta inmersivo sin empujar el CTA fuera del pliegue. -->
+      <div class="relative -mx-4 mt-2 sm:mx-0 lg:mt-0">
+        <div class="absolute inset-x-4 inset-y-0 -z-10 rounded-full bg-accent/15 blur-3xl" aria-hidden="true"></div>
+        <img
+          src={`${CDN_URL}/heroes/${country.code}.webp`}
+          alt={`Profesionales de distintos oficios que estudian en Sably desde ${country.name}`}
+          width="900"
+          height="491"
+          fetchpriority="high"
+          decoding="async"
+          class="animate-fade-up mx-auto w-full max-w-md drop-shadow-2xl sm:max-w-lg lg:max-w-none"
+        />
       </div>
     </div>
   </section>
