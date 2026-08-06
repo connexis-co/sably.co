@@ -43,11 +43,16 @@ while IFS= read -r file; do
   ct=$(content_type "$file")
 
   if [ "$FORCE" != "--force" ]; then
-    remote_etag=$(curl -s -o /dev/null -D - -X HEAD "${API}/${key}" \
-      -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" 2>/dev/null \
-      | grep -i '^etag:' | tr -d '"\r' | awk '{print $2}' || true)
+    # --head (no "-X HEAD"): con -X curl espera un cuerpo que nunca llega y las
+    # cabeceras salen vacías, así que el ETag quedaba en blanco unas veces y
+    # otras no. Se exige además un 200 explícito: si el objeto no está en R2,
+    # nunca se puede omitir.
+    headers=$(curl -s -D - -o /dev/null --head "${API}/${key}" \
+      -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" 2>/dev/null || true)
+    status=$(printf '%s' "$headers" | awk 'NR==1{print $2}')
+    remote_etag=$(printf '%s' "$headers" | grep -i '^etag:' | tr -d '"\r' | awk '{print $2}')
     local_md5=$(md5 -q "$file" 2>/dev/null || md5sum "$file" | awk '{print $1}')
-    if [ -n "$remote_etag" ] && [ "$remote_etag" = "$local_md5" ]; then
+    if [ "$status" = "200" ] && [ -n "$remote_etag" ] && [ "$remote_etag" = "$local_md5" ]; then
       skipped=$((skipped + 1))
       continue
     fi

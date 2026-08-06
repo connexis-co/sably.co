@@ -38,8 +38,24 @@ const ctaUrl = buildHotmartUrl({
   citySlug: city?.slug,
 });
 
-const related = (await getCollection('courses'))
-  .filter((c) => c.data.category === course.data.category && c.id !== course.id)
+const allCourses = await getCollection('courses');
+
+/* Jerarquía pilar/satélite: el pilar es el único que apunta al head term.
+   El satélite enlaza hacia arriba y el pilar lista sus especializaciones, de
+   modo que la señal se concentra en una sola página en vez de repartirse. */
+const pillar = course.data.pillar
+  ? (allCourses.find((c) => c.id === course.data.pillar) ?? null)
+  : null;
+const satellites = allCourses.filter((c) => c.data.pillar === course.id);
+
+const related = allCourses
+  .filter(
+    (c) =>
+      c.data.category === course.data.category &&
+      c.id !== course.id &&
+      c.id !== pillar?.id &&
+      !satellites.some((s) => s.id === c.id),
+  )
   .slice(0, 4);
 
 const allTestimonials = (await getCollection('testimonials')).filter(
@@ -444,6 +460,50 @@ const schemas = [
       </div>
     </aside>
   </div>
+
+  <!-- Especializaciones (si este curso es el pilar del clúster) -->
+  {
+    satellites.length > 0 && (
+      <section class="container-site py-14">
+        <h2 class="text-2xl font-bold">Especialízate después de este curso</h2>
+        <p class="mt-2 max-w-2xl text-body">
+          Este es el curso general. Cuando domines la base, estas especializaciones te dejan cobrar
+          más por servicio.
+        </p>
+        <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {satellites.slice(0, 8).map((c) => (
+            <CourseCard course={c} {country} citySlug={city?.slug} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Enlace al pilar (si este curso es una especialización) -->
+  {
+    pillar && (
+      <section class="container-site py-10">
+        <a
+          href={city ? `${base}/${city.slug}/${pillar.id}/` : `${base}/${pillar.id}/`}
+          class="group flex flex-wrap items-center gap-x-4 gap-y-2 rounded-lg border border-surface-200 bg-off-white p-6 transition hover:border-accent hover:shadow-lg"
+        >
+          <span class="text-3xl" aria-hidden="true">
+            {category.emoji}
+          </span>
+          <span class="min-w-0 flex-1">
+            <span class="block text-xs font-bold tracking-wide text-accent uppercase">
+              ¿Prefieres empezar por lo general?
+            </span>
+            <span class="mt-1 block font-display text-lg font-bold text-primary group-hover:text-accent">
+              {pillar.data.title}
+            </span>
+            <span class="mt-1 block text-sm text-body">{pillar.data.shortDescription}</span>
+          </span>
+          <span class="font-semibold text-accent">Ver curso →</span>
+        </a>
+      </section>
+    )
+  }
 
   <!-- Cursos relacionados -->
   {
