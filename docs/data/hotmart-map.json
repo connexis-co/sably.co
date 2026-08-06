@@ -1,0 +1,184 @@
+{
+  "_nota": "Productos Hotmart reales extraídos de academiadebelleza.edu.co y cursodeglobosonline.com (ambos de Connexis). Los 33 enlaces se verificaron con HTTP 200 contra pay.hotmart.com el 2026-08-06. El frontmatter guarda la URL directa a pay.hotmart.com, no el acortador hotm.art: evita un salto de redirección en el checkout y buildHotmartUrl() ya añade cupón, src y utm.",
+  "_fuentes": {
+    "academiadebelleza.edu.co": "17 páginas de curso · sufijo -crashing = producto propio de la página, -venta-SO = cross-sell",
+    "cursodeglobosonline.com": "4 productos"
+  },
+  "existentes": {
+    "curso-de-barberia": {
+      "id": "H43635981L",
+      "producto": "barber-shop-basic"
+    },
+    "curso-de-decoracion-de-unas": {
+      "id": "P58716037X",
+      "producto": "decoracion-unas"
+    },
+    "curso-de-decoracion-con-globos": {
+      "id": "M47265375C",
+      "producto": "curso-globoflexia",
+      "nota": "El producto insignia del sitio de globos; es el que rankea por 'decoración con globos'."
+    },
+    "curso-de-diseno-de-cejas-con-hilo-y-henna": {
+      "id": "J61897319S",
+      "producto": "diseno-cejas-con-hilo-y-henna"
+    },
+    "curso-de-extensiones-de-cabello": {
+      "id": "G60509134A",
+      "producto": "experta-extensiones-cabello"
+    },
+    "curso-de-extensiones-de-pestanas": {
+      "id": "G75458369D",
+      "producto": "experta-extension-pestanas"
+    },
+    "curso-de-limpieza-facial": {
+      "id": "U66774408M",
+      "producto": "pasos-para-limpieza-facial"
+    },
+    "curso-de-maderoterapia": {
+      "id": "O65507269I",
+      "producto": "spa-con-maderoterapia"
+    },
+    "curso-de-manicure-y-pedicure": {
+      "id": "A60343346C",
+      "producto": "manicure-y-pedicure-a-domicilio"
+    },
+    "curso-de-maquillaje-permanente": {
+      "id": "J44578783I",
+      "producto": "maquillaje-permanente"
+    },
+    "curso-de-maquillaje-profesional-de-novias": {
+      "id": "C57590016O",
+      "producto": "estilismo-master-para-novias"
+    },
+    "curso-de-masajes-terapeuticos-y-relajantes": {
+      "id": "A43483573K",
+      "producto": "masajista-express-relajante"
+    },
+    "curso-de-microblading": {
+      "id": "Y45079346E",
+      "producto": "cejas-perfectas-microblading"
+    },
+    "curso-de-pestanas-volumen-ruso": {
+      "id": "B72428881X",
+      "producto": "pestanas-pelo-a-pelo-volumen-ruso"
+    },
+    "curso-de-trenzas-y-peinados": {
+      "id": "V48797673L",
+      "producto": "experta-trenzas-y-peinados"
+    },
+    "curso-de-unas-acrilicas": {
+      "id": "C55918118T",
+      "producto": "master-unas-acrilicas"
+    },
+    "curso-de-unas": {
+      "id": "C55918118T",
+      "producto": "master-unas-acrilicas",
+      "nota": "Mismo producto que uñas acrílicas: son dos puertas de entrada por keyword distinta al curso más completo del catálogo."
+    }
+  },
+  "por_crear": {
+    "curso-de-peluqueria": {
+      "id": "B28818422Q",
+      "producto": "peluqueria-basica-y-avanzada",
+      "volumen": 7780,
+      "prioridad": 1
+    },
+    "curso-de-maquillaje": {
+      "id": "N41531652U",
+      "producto": "maquillaje-social",
+      "volumen": 6090,
+      "prioridad": 2
+    },
+    "curso-de-masajes": {
+      "id": "K63104274A",
+      "producto": "masajista-master-cero",
+      "volumen": 5270,
+      "prioridad": 3
+    },
+    "curso-de-automaquillaje": {
+      "id": "S42624359I",
+      "producto": "automaquillaje",
+      "volumen": 2410,
+      "prioridad": 4
+    },
+    "curso-de-cejas-y-pestanas": {
+      "id": "A42487377P",
+      "producto": "cejas-y-pestanas",
+      "volumen": 1050,
+      "prioridad": 5
+    },
+    "curso-de-globoflexia": {
+      "id": "M47265375C",
+      "producto": "curso-globoflexia",
+      "volumen": 0,
+      "prioridad": 6
+    },
+    "curso-de-depilacion": {
+      "id": "V66724421L",
+      "producto": "experta-en-depilacion",
+      "volumen": 1230,
+      "prioridad": 7
+    },
+    "curso-de-peinados": {
+      "id": "Y66385340K",
+      "producto": "negocio-de-los-peinados",
+      "volumen": 820,
+      "prioridad": 8
+    },
+    "curso-de-masaje-reductor": {
+      "id": "Q56744994D",
+      "producto": "masaje-reductor",
+      "volumen": 360,
+      "prioridad": 9
+    },
+    "curso-de-masaje-descontracturante": {
+      "id": "C59922402Y",
+      "producto": "masaje-descontracturante",
+      "volumen": 0,
+      "prioridad": 10
+    },
+    "curso-de-flores-con-globos": {
+      "id": "U68605508W",
+      "producto": "curso-flores-con-globos",
+      "volumen": 0,
+      "prioridad": 11
+    },
+    "curso-de-bouquets-con-globos": {
+      "id": "G56852236M",
+      "producto": "curso-bouquet-globos",
+      "volumen": 0,
+      "prioridad": 12
+    },
+    "curso-de-globos-burbuja": {
+      "id": "F62444331S",
+      "producto": "curso-globo-burbuja",
+      "volumen": 0,
+      "prioridad": 13
+    },
+    "curso-de-maquillaje-de-fantasia": {
+      "id": "Y60358345H",
+      "producto": "maquillaje-fantasia-como-negocio",
+      "volumen": 0,
+      "prioridad": 14
+    },
+    "curso-de-barberia-infantil": {
+      "id": "W69842801W",
+      "producto": "silla-magica-barber-kids",
+      "volumen": 0,
+      "prioridad": 16
+    },
+    "curso-de-barberia-como-negocio": {
+      "id": "C63857704B",
+      "producto": "como-montar-tu-propia-barberia",
+      "volumen": 0,
+      "prioridad": 15,
+      "nota": "El guard de namespace de [country]/[item] exige prefijo curso-de-, así que el slug no puede ser curso-para-montar-una-barberia."
+    }
+  },
+  "sin_asignar": {
+    "P63130893D": {
+      "producto": "barberia-monta-negocio",
+      "motivo": "Duplica el tema de C63857704B (montar una barbería). Crear dos páginas casi idénticas sería thin content y competirían entre sí por la misma keyword. Queda disponible como upsell dentro de curso-para-montar-una-barberia."
+    }
+  }
+}

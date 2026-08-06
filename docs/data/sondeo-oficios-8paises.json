@@ -1,0 +1,614 @@
+{
+  "curso de barberia": {
+    "CO": {
+      "volume": 1300,
+      "competition": "LOW"
+    },
+    "MX": {
+      "volume": 3600,
+      "competition": "LOW"
+    },
+    "PE": {
+      "volume": 390,
+      "competition": "LOW"
+    },
+    "EC": {
+      "volume": 210,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 2400,
+      "competition": "MEDIUM"
+    },
+    "AR": {
+      "volume": 2900,
+      "competition": "MEDIUM"
+    },
+    "ES": {
+      "volume": 880,
+      "competition": "MEDIUM"
+    },
+    "US": {
+      "volume": 720,
+      "competition": "MEDIUM"
+    }
+  },
+  "curso de panaderia": {
+    "CO": {
+      "volume": 480,
+      "competition": "MEDIUM"
+    },
+    "MX": {
+      "volume": 880,
+      "competition": "MEDIUM"
+    },
+    "PE": {
+      "volume": 210,
+      "competition": "MEDIUM"
+    },
+    "EC": {
+      "volume": 110,
+      "competition": "MEDIUM"
+    },
+    "CL": {
+      "volume": 390,
+      "competition": "MEDIUM"
+    },
+    "AR": {
+      "volume": 880,
+      "competition": "HIGH"
+    },
+    "ES": {
+      "volume": 320,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 110,
+      "competition": "LOW"
+    }
+  },
+  "curso de reposteria": {
+    "CO": {
+      "volume": 880,
+      "competition": "MEDIUM"
+    },
+    "MX": {
+      "volume": 2900,
+      "competition": "MEDIUM"
+    },
+    "PE": {
+      "volume": 480,
+      "competition": "MEDIUM"
+    },
+    "EC": {
+      "volume": 170,
+      "competition": "MEDIUM"
+    },
+    "CL": {
+      "volume": 1300,
+      "competition": "MEDIUM"
+    },
+    "AR": {
+      "volume": 880,
+      "competition": "HIGH"
+    },
+    "ES": {
+      "volume": 880,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 390,
+      "competition": "MEDIUM"
+    }
+  },
+  "curso de cocina": {
+    "CO": {
+      "volume": 1600,
+      "competition": "MEDIUM"
+    },
+    "MX": {
+      "volume": 1600,
+      "competition": "MEDIUM"
+    },
+    "PE": {
+      "volume": 480,
+      "competition": "MEDIUM"
+    },
+    "EC": {
+      "volume": 260,
+      "competition": "MEDIUM"
+    },
+    "CL": {
+      "volume": 1600,
+      "competition": "MEDIUM"
+    },
+    "AR": {
+      "volume": 2400,
+      "competition": "HIGH"
+    },
+    "ES": {
+      "volume": 2900,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 390,
+      "competition": "LOW"
+    }
+  },
+  "curso de electricista": {
+    "CO": {
+      "volume": 880,
+      "competition": "LOW"
+    },
+    "MX": {
+      "volume": 2900,
+      "competition": "MEDIUM"
+    },
+    "PE": {
+      "volume": 880,
+      "competition": "MEDIUM"
+    },
+    "EC": {
+      "volume": 260,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 1300,
+      "competition": "HIGH"
+    },
+    "AR": {
+      "volume": 5400,
+      "competition": "MEDIUM"
+    },
+    "ES": {
+      "volume": 2900,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 1300,
+      "competition": "MEDIUM"
+    }
+  },
+  "curso de soldadura": {
+    "CO": {
+      "volume": 880,
+      "competition": "LOW"
+    },
+    "MX": {
+      "volume": 1600,
+      "competition": "LOW"
+    },
+    "PE": {
+      "volume": 480,
+      "competition": "LOW"
+    },
+    "EC": {
+      "volume": 260,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 2900,
+      "competition": "LOW"
+    },
+    "AR": {
+      "volume": 1900,
+      "competition": "LOW"
+    },
+    "ES": {
+      "volume": 2400,
+      "competition": "MEDIUM"
+    },
+    "US": {
+      "volume": 390,
+      "competition": "LOW"
+    }
+  },
+  "curso de carpinteria": {
+    "CO": {
+      "volume": 480,
+      "competition": "LOW"
+    },
+    "MX": {
+      "volume": 1900,
+      "competition": "LOW"
+    },
+    "PE": {
+      "volume": 210,
+      "competition": "LOW"
+    },
+    "EC": {
+      "volume": 70,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 590,
+      "competition": "LOW"
+    },
+    "AR": {
+      "volume": 1600,
+      "competition": "MEDIUM"
+    },
+    "ES": {
+      "volume": 590,
+      "competition": "MEDIUM"
+    },
+    "US": {
+      "volume": 260,
+      "competition": "LOW"
+    }
+  },
+  "curso de mecanica de motos": {
+    "CO": {
+      "volume": 1000,
+      "competition": "LOW"
+    },
+    "MX": {
+      "volume": 1300,
+      "competition": "LOW"
+    },
+    "PE": {
+      "volume": 170,
+      "competition": "LOW"
+    },
+    "EC": {
+      "volume": 110,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 320,
+      "competition": "LOW"
+    },
+    "AR": {
+      "volume": 1900,
+      "competition": "MEDIUM"
+    },
+    "ES": {
+      "volume": 590,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 70,
+      "competition": "LOW"
+    }
+  },
+  "curso de tatuaje": {
+    "CO": {
+      "volume": 390,
+      "competition": "LOW"
+    },
+    "MX": {
+      "volume": 1600,
+      "competition": "LOW"
+    },
+    "PE": {
+      "volume": 90,
+      "competition": "LOW"
+    },
+    "EC": {
+      "volume": 70,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 590,
+      "competition": "MEDIUM"
+    },
+    "AR": {
+      "volume": 1600,
+      "competition": "MEDIUM"
+    },
+    "ES": {
+      "volume": 1000,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 140,
+      "competition": "LOW"
+    }
+  },
+  "curso de barista": {
+    "CO": {
+      "volume": 320,
+      "competition": "LOW"
+    },
+    "MX": {
+      "volume": 1300,
+      "competition": "MEDIUM"
+    },
+    "PE": {
+      "volume": 210,
+      "competition": "LOW"
+    },
+    "EC": {
+      "volume": 70,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 1300,
+      "competition": "LOW"
+    },
+    "AR": {
+      "volume": 2900,
+      "competition": "HIGH"
+    },
+    "ES": {
+      "volume": 590,
+      "competition": "MEDIUM"
+    },
+    "US": {
+      "volume": 210,
+      "competition": "LOW"
+    }
+  },
+  "curso de bartender": {
+    "CO": {
+      "volume": 390,
+      "competition": "MEDIUM"
+    },
+    "MX": {
+      "volume": 320,
+      "competition": "MEDIUM"
+    },
+    "PE": {
+      "volume": 260,
+      "competition": "MEDIUM"
+    },
+    "EC": {
+      "volume": 70,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 720,
+      "competition": "MEDIUM"
+    },
+    "AR": {
+      "volume": 1300,
+      "competition": "HIGH"
+    },
+    "ES": {
+      "volume": 140,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 260,
+      "competition": "MEDIUM"
+    }
+  },
+  "curso de costura": {
+    "CO": {
+      "volume": 480,
+      "competition": "MEDIUM"
+    },
+    "MX": {
+      "volume": 880,
+      "competition": "LOW"
+    },
+    "PE": {
+      "volume": 210,
+      "competition": "MEDIUM"
+    },
+    "EC": {
+      "volume": 140,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 1000,
+      "competition": "MEDIUM"
+    },
+    "AR": {
+      "volume": 1300,
+      "competition": "MEDIUM"
+    },
+    "ES": {
+      "volume": 880,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 210,
+      "competition": "LOW"
+    }
+  },
+  "curso de corte y confeccion": {
+    "CO": {
+      "volume": 90,
+      "competition": "MEDIUM"
+    },
+    "MX": {
+      "volume": 1000,
+      "competition": "LOW"
+    },
+    "PE": {
+      "volume": 90,
+      "competition": "MEDIUM"
+    },
+    "EC": {
+      "volume": 90,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 210,
+      "competition": "MEDIUM"
+    },
+    "AR": {
+      "volume": 720,
+      "competition": "MEDIUM"
+    },
+    "ES": {
+      "volume": 390,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 50,
+      "competition": "LOW"
+    }
+  },
+  "curso de decoracion con globos": {
+    "CO": {
+      "volume": 260,
+      "competition": "LOW"
+    },
+    "MX": {
+      "volume": 590,
+      "competition": "LOW"
+    },
+    "PE": {
+      "volume": 110,
+      "competition": "LOW"
+    },
+    "EC": {
+      "volume": 30,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 50,
+      "competition": "LOW"
+    },
+    "AR": {
+      "volume": 110,
+      "competition": "MEDIUM"
+    },
+    "ES": {
+      "volume": 90,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 110,
+      "competition": "LOW"
+    }
+  },
+  "curso de fotografia": {
+    "CO": {
+      "volume": 880,
+      "competition": "MEDIUM"
+    },
+    "MX": {
+      "volume": 1600,
+      "competition": "MEDIUM"
+    },
+    "PE": {
+      "volume": 480,
+      "competition": "MEDIUM"
+    },
+    "EC": {
+      "volume": 140,
+      "competition": "MEDIUM"
+    },
+    "CL": {
+      "volume": 880,
+      "competition": "MEDIUM"
+    },
+    "AR": {
+      "volume": 1900,
+      "competition": "HIGH"
+    },
+    "ES": {
+      "volume": 1300,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 390,
+      "competition": "MEDIUM"
+    }
+  },
+  "curso de reparacion de celulares": {
+    "CO": {
+      "volume": 590,
+      "competition": "LOW"
+    },
+    "MX": {
+      "volume": 1900,
+      "competition": "LOW"
+    },
+    "PE": {
+      "volume": 720,
+      "competition": "LOW"
+    },
+    "EC": {
+      "volume": 140,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 320,
+      "competition": "LOW"
+    },
+    "AR": {
+      "volume": 4400,
+      "competition": "MEDIUM"
+    },
+    "ES": {
+      "volume": 40,
+      "competition": "MEDIUM"
+    },
+    "US": {
+      "volume": 140,
+      "competition": "LOW"
+    }
+  },
+  "curso de primeros auxilios": {
+    "CO": {
+      "volume": 1600,
+      "competition": "MEDIUM"
+    },
+    "MX": {
+      "volume": 2900,
+      "competition": "MEDIUM"
+    },
+    "PE": {
+      "volume": 720,
+      "competition": "LOW"
+    },
+    "EC": {
+      "volume": 210,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 1000,
+      "competition": "MEDIUM"
+    },
+    "AR": {
+      "volume": 720,
+      "competition": "MEDIUM"
+    },
+    "ES": {
+      "volume": 1300,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 210,
+      "competition": "LOW"
+    }
+  },
+  "curso de refrigeracion": {
+    "CO": {
+      "volume": 320,
+      "competition": "LOW"
+    },
+    "MX": {
+      "volume": 720,
+      "competition": "LOW"
+    },
+    "PE": {
+      "volume": 140,
+      "competition": "LOW"
+    },
+    "EC": {
+      "volume": 70,
+      "competition": "LOW"
+    },
+    "CL": {
+      "volume": 210,
+      "competition": "MEDIUM"
+    },
+    "AR": {
+      "volume": 1600,
+      "competition": "MEDIUM"
+    },
+    "ES": {
+      "volume": 50,
+      "competition": "HIGH"
+    },
+    "US": {
+      "volume": 170,
+      "competition": "MEDIUM"
+    }
+  }
+}

@@ -1,0 +1,1374 @@
+{
+  "cursos": {
+    "curso-de-barberia": [
+      "curso de barberia",
+      "curso de barberia online"
+    ],
+    "curso-de-unas-acrilicas": [
+      "curso de uñas acrilicas",
+      "curso de uñas"
+    ],
+    "curso-de-unas-semipermanente": [
+      "curso de uñas semipermanentes",
+      "curso de esmaltado semipermanente"
+    ],
+    "curso-decoracion-de-unas": [
+      "curso de decoracion de uñas",
+      "curso de nail art"
+    ],
+    "curso-de-manicure-y-pedicure": [
+      "curso de manicure y pedicure",
+      "curso de pedicure"
+    ],
+    "curso-de-maquillaje": [
+      "curso de maquillaje",
+      "curso de maquillaje profesional"
+    ],
+    "curso-de-automaquillaje": [
+      "curso de automaquillaje"
+    ],
+    "curso-de-peluqueria": [
+      "curso de peluqueria",
+      "curso de corte de cabello"
+    ],
+    "curso-de-peinados": [
+      "curso de peinados"
+    ],
+    "curso-de-trenzas": [
+      "curso de trenzas"
+    ],
+    "curso-cejas-y-pestanas": [
+      "curso de cejas",
+      "curso de diseño de cejas",
+      "curso de laminado de cejas"
+    ],
+    "curso-pestanas-pelo-a-pelo": [
+      "curso de pestañas",
+      "curso de extensiones de pestañas",
+      "curso de lifting de pestañas"
+    ],
+    "curso-de-limpieza-facial": [
+      "curso de limpieza facial",
+      "curso de cosmetologia"
+    ],
+    "curso-depilacion-con-cera": [
+      "curso de depilacion",
+      "curso de depilacion con cera"
+    ],
+    "curso-de-masajes": [
+      "curso de masajes",
+      "curso de masoterapia"
+    ],
+    "curso-de-masajes-relajantes": [
+      "curso de masajes relajantes"
+    ],
+    "curso-de-masaje-reductor": [
+      "curso de masaje reductor",
+      "curso de masajes reductores"
+    ]
+  },
+  "metricas": {
+    "curso de automaquillaje": {
+      "CO": {
+        "volume": 320,
+        "competition": "MEDIUM",
+        "cpc_high": 2962.12
+      },
+      "MX": {
+        "volume": 720,
+        "competition": "LOW",
+        "cpc_high": 1376.62
+      },
+      "PE": {
+        "volume": 40,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 1574.8
+      },
+      "CL": {
+        "volume": 210,
+        "competition": "LOW",
+        "cpc_high": 1208.58
+      },
+      "AR": {
+        "volume": 590,
+        "competition": "HIGH",
+        "cpc_high": 767.0
+      },
+      "ES": {
+        "volume": 390,
+        "competition": "HIGH",
+        "cpc_high": 5853.09
+      },
+      "US": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 15984.79
+      }
+    },
+    "curso de barberia": {
+      "CO": {
+        "volume": 1300,
+        "competition": "LOW",
+        "cpc_high": 695.04
+      },
+      "MX": {
+        "volume": 3600,
+        "competition": "LOW",
+        "cpc_high": 647.15
+      },
+      "PE": {
+        "volume": 390,
+        "competition": "LOW",
+        "cpc_high": 8021.3
+      },
+      "EC": {
+        "volume": 210,
+        "competition": "LOW",
+        "cpc_high": 901.7
+      },
+      "CL": {
+        "volume": 2400,
+        "competition": "MEDIUM",
+        "cpc_high": 1725.92
+      },
+      "AR": {
+        "volume": 2900,
+        "competition": "MEDIUM",
+        "cpc_high": 819.38
+      },
+      "ES": {
+        "volume": 880,
+        "competition": "MEDIUM",
+        "cpc_high": 18457.15
+      },
+      "US": {
+        "volume": 720,
+        "competition": "MEDIUM",
+        "cpc_high": 16745.36
+      }
+    },
+    "curso de barberia online": {
+      "CO": {
+        "volume": 20,
+        "competition": "MEDIUM",
+        "cpc_high": 721.95
+      },
+      "MX": {
+        "volume": 40,
+        "competition": "LOW",
+        "cpc_high": 677.48
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 1231.62
+      },
+      "AR": {
+        "volume": 140,
+        "competition": "MEDIUM",
+        "cpc_high": 451.35
+      },
+      "ES": {
+        "volume": 50,
+        "competition": "MEDIUM",
+        "cpc_high": 12007.58
+      },
+      "US": {
+        "volume": 40,
+        "competition": "MEDIUM",
+        "cpc_high": 16257.22
+      }
+    },
+    "curso de cejas": {
+      "CO": {
+        "volume": 170,
+        "competition": "LOW",
+        "cpc_high": 1054.49
+      },
+      "MX": {
+        "volume": 260,
+        "competition": "LOW",
+        "cpc_high": 2355.62
+      },
+      "PE": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 1955.81
+      },
+      "AR": {
+        "volume": 260,
+        "competition": "MEDIUM",
+        "cpc_high": 1035.4
+      },
+      "ES": {
+        "volume": 110,
+        "competition": "HIGH",
+        "cpc_high": 9756.52
+      },
+      "US": {
+        "volume": 90,
+        "competition": "MEDIUM",
+        "cpc_high": 17536.56
+      }
+    },
+    "curso de corte de cabello": {
+      "CO": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 1031.95
+      },
+      "MX": {
+        "volume": 1000,
+        "competition": "LOW",
+        "cpc_high": 1123.4
+      },
+      "PE": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 40,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 50,
+        "competition": "MEDIUM",
+        "cpc_high": 832.31
+      },
+      "AR": {
+        "volume": 20,
+        "competition": "MEDIUM",
+        "cpc_high": 1080.54
+      },
+      "ES": {
+        "volume": 50,
+        "competition": "MEDIUM",
+        "cpc_high": 9021.56
+      },
+      "US": {
+        "volume": 110,
+        "competition": "MEDIUM",
+        "cpc_high": 19332.95
+      }
+    },
+    "curso de cosmetologia": {
+      "CO": {
+        "volume": 480,
+        "competition": "MEDIUM",
+        "cpc_high": 1519.61
+      },
+      "MX": {
+        "volume": 1300,
+        "competition": "LOW",
+        "cpc_high": 1839.09
+      },
+      "PE": {
+        "volume": 210,
+        "competition": "LOW",
+        "cpc_high": 6354.43
+      },
+      "EC": {
+        "volume": 210,
+        "competition": "LOW",
+        "cpc_high": 1464.43
+      },
+      "CL": {
+        "volume": 590,
+        "competition": "MEDIUM",
+        "cpc_high": 2080.62
+      },
+      "AR": {
+        "volume": 1600,
+        "competition": "HIGH",
+        "cpc_high": 1044.2
+      },
+      "ES": {
+        "volume": 170,
+        "competition": "HIGH",
+        "cpc_high": 17392.52
+      },
+      "US": {
+        "volume": 390,
+        "competition": "MEDIUM",
+        "cpc_high": 29826.39
+      }
+    },
+    "curso de decoracion de uñas": {
+      "CO": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 1467.8
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 30,
+        "competition": "HIGH",
+        "cpc_high": 6473.35
+      },
+      "US": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de depilacion": {
+      "CO": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 1767.87
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 170,
+        "competition": "LOW",
+        "cpc_high": 636.57
+      },
+      "AR": {
+        "volume": 140,
+        "competition": "MEDIUM",
+        "cpc_high": 664.35
+      },
+      "ES": {
+        "volume": 20,
+        "competition": "HIGH",
+        "cpc_high": 3984.64
+      },
+      "US": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de depilacion con cera": {
+      "CO": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 972.98
+      },
+      "MX": {
+        "volume": 170,
+        "competition": "LOW",
+        "cpc_high": 1273.16
+      },
+      "PE": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 6012.61
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 390,
+        "competition": "LOW",
+        "cpc_high": 986.56
+      },
+      "AR": {
+        "volume": 210,
+        "competition": "MEDIUM",
+        "cpc_high": 565.1
+      },
+      "ES": {
+        "volume": 50,
+        "competition": "MEDIUM",
+        "cpc_high": 3292.21
+      },
+      "US": {
+        "volume": 50,
+        "competition": "MEDIUM",
+        "cpc_high": 20455.37
+      }
+    },
+    "curso de diseño de cejas": {
+      "CO": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 1924.97
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 20,
+        "competition": "HIGH",
+        "cpc_high": 688.82
+      },
+      "ES": {
+        "volume": 70,
+        "competition": "HIGH",
+        "cpc_high": 6123.91
+      },
+      "US": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 27313.17
+      }
+    },
+    "curso de esmaltado semipermanente": {
+      "CO": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 40,
+        "competition": "MEDIUM",
+        "cpc_high": 886.13
+      },
+      "ES": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 3760.98
+      },
+      "US": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de extensiones de pestañas": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 879.29
+      },
+      "MX": {
+        "volume": 210,
+        "competition": "LOW",
+        "cpc_high": 1386.98
+      },
+      "PE": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 40,
+        "competition": "MEDIUM",
+        "cpc_high": 9500.5
+      },
+      "AR": {
+        "volume": 140,
+        "competition": "MEDIUM",
+        "cpc_high": 826.22
+      },
+      "ES": {
+        "volume": 110,
+        "competition": "HIGH",
+        "cpc_high": 7064.08
+      },
+      "US": {
+        "volume": 50,
+        "competition": "MEDIUM",
+        "cpc_high": 22622.88
+      }
+    },
+    "curso de laminado de cejas": {
+      "CO": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 70,
+        "competition": "LOW",
+        "cpc_high": 2224.05
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 1268.24
+      },
+      "AR": {
+        "volume": 40,
+        "competition": "HIGH",
+        "cpc_high": 972.74
+      },
+      "ES": {
+        "volume": 30,
+        "competition": "HIGH",
+        "cpc_high": 8503.45
+      },
+      "US": {
+        "volume": 20,
+        "competition": "MEDIUM",
+        "cpc_high": 20394.08
+      }
+    },
+    "curso de lifting de pestañas": {
+      "CO": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 802.69
+      },
+      "MX": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 1237.24
+      },
+      "PE": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 480,
+        "competition": "LOW",
+        "cpc_high": 1297.99
+      },
+      "AR": {
+        "volume": 480,
+        "competition": "MEDIUM",
+        "cpc_high": 693.0
+      },
+      "ES": {
+        "volume": 170,
+        "competition": "HIGH",
+        "cpc_high": 4683.96
+      },
+      "US": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 14646.77
+      }
+    },
+    "curso de limpieza facial": {
+      "CO": {
+        "volume": 110,
+        "competition": "MEDIUM",
+        "cpc_high": 1271.3
+      },
+      "MX": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 2397.04
+      },
+      "PE": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 6897.89
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 889.34
+      },
+      "CL": {
+        "volume": 210,
+        "competition": "MEDIUM",
+        "cpc_high": 1191.76
+      },
+      "AR": {
+        "volume": 260,
+        "competition": "HIGH",
+        "cpc_high": 1057.05
+      },
+      "ES": {
+        "volume": 90,
+        "competition": "HIGH",
+        "cpc_high": 9905.62
+      },
+      "US": {
+        "volume": 30,
+        "competition": "HIGH",
+        "cpc_high": 25609.75
+      }
+    },
+    "curso de manicure y pedicure": {
+      "CO": {
+        "volume": 480,
+        "competition": "LOW",
+        "cpc_high": 1300.18
+      },
+      "MX": {
+        "volume": 170,
+        "competition": "LOW",
+        "cpc_high": 1867.17
+      },
+      "PE": {
+        "volume": 70,
+        "competition": "LOW",
+        "cpc_high": 4292.3
+      },
+      "EC": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 40,
+        "competition": "MEDIUM",
+        "cpc_high": 1289.7
+      },
+      "AR": {
+        "volume": 70,
+        "competition": "HIGH",
+        "cpc_high": 1240.13
+      },
+      "ES": {
+        "volume": 480,
+        "competition": "HIGH",
+        "cpc_high": 11200.89
+      },
+      "US": {
+        "volume": 140,
+        "competition": "MEDIUM",
+        "cpc_high": 21489.99
+      }
+    },
+    "curso de maquillaje": {
+      "CO": {
+        "volume": 1000,
+        "competition": "MEDIUM",
+        "cpc_high": 1889.43
+      },
+      "MX": {
+        "volume": 1600,
+        "competition": "LOW",
+        "cpc_high": 1560.43
+      },
+      "PE": {
+        "volume": 260,
+        "competition": "LOW",
+        "cpc_high": 4135.28
+      },
+      "EC": {
+        "volume": 210,
+        "competition": "LOW",
+        "cpc_high": 1631.4
+      },
+      "CL": {
+        "volume": 880,
+        "competition": "MEDIUM",
+        "cpc_high": 1164.94
+      },
+      "AR": {
+        "volume": 880,
+        "competition": "MEDIUM",
+        "cpc_high": 1014.16
+      },
+      "ES": {
+        "volume": 1000,
+        "competition": "HIGH",
+        "cpc_high": 11021.47
+      },
+      "US": {
+        "volume": 260,
+        "competition": "MEDIUM",
+        "cpc_high": 28002.31
+      }
+    },
+    "curso de maquillaje profesional": {
+      "CO": {
+        "volume": 260,
+        "competition": "MEDIUM",
+        "cpc_high": 1847.31
+      },
+      "MX": {
+        "volume": 1000,
+        "competition": "LOW",
+        "cpc_high": 1621.1
+      },
+      "PE": {
+        "volume": 140,
+        "competition": "LOW",
+        "cpc_high": 3684.79
+      },
+      "EC": {
+        "volume": 70,
+        "competition": "LOW",
+        "cpc_high": 1868.58
+      },
+      "CL": {
+        "volume": 320,
+        "competition": "MEDIUM",
+        "cpc_high": 1050.64
+      },
+      "AR": {
+        "volume": 1300,
+        "competition": "HIGH",
+        "cpc_high": 964.04
+      },
+      "ES": {
+        "volume": 480,
+        "competition": "HIGH",
+        "cpc_high": 12323.13
+      },
+      "US": {
+        "volume": 260,
+        "competition": "MEDIUM",
+        "cpc_high": 24236.94
+      }
+    },
+    "curso de pestañas": {
+      "CO": {
+        "volume": 390,
+        "competition": "LOW",
+        "cpc_high": 1013.72
+      },
+      "MX": {
+        "volume": 1900,
+        "competition": "LOW",
+        "cpc_high": 1123.4
+      },
+      "PE": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 5110.55
+      },
+      "EC": {
+        "volume": 40,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 720,
+        "competition": "LOW",
+        "cpc_high": 1838.12
+      },
+      "AR": {
+        "volume": 1600,
+        "competition": "MEDIUM",
+        "cpc_high": 886.07
+      },
+      "ES": {
+        "volume": 320,
+        "competition": "HIGH",
+        "cpc_high": 6699.87
+      },
+      "US": {
+        "volume": 320,
+        "competition": "MEDIUM",
+        "cpc_high": 24656.75
+      }
+    },
+    "curso de pedicure": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 210,
+        "competition": "LOW",
+        "cpc_high": 1816.07
+      },
+      "PE": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 110,
+        "competition": "MEDIUM",
+        "cpc_high": 1236.06
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 952.78
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 30,
+        "competition": "MEDIUM",
+        "cpc_high": 15615.11
+      }
+    },
+    "curso de masaje reductor": {
+      "CO": {
+        "volume": 70,
+        "competition": "LOW",
+        "cpc_high": 2349.03
+      },
+      "MX": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 3147.73
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 5670.21
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 110,
+        "competition": "MEDIUM",
+        "cpc_high": 574.04
+      },
+      "AR": {
+        "volume": 20,
+        "competition": "HIGH",
+        "cpc_high": 417.98
+      },
+      "ES": {
+        "volume": 20,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de masajes": {
+      "CO": {
+        "volume": 390,
+        "competition": "LOW",
+        "cpc_high": 2450.85
+      },
+      "MX": {
+        "volume": 880,
+        "competition": "LOW",
+        "cpc_high": 2554.39
+      },
+      "PE": {
+        "volume": 170,
+        "competition": "MEDIUM",
+        "cpc_high": 4793.85
+      },
+      "EC": {
+        "volume": 70,
+        "competition": "LOW",
+        "cpc_high": 1619.8
+      },
+      "CL": {
+        "volume": 720,
+        "competition": "MEDIUM",
+        "cpc_high": 558.62
+      },
+      "AR": {
+        "volume": 1900,
+        "competition": "MEDIUM",
+        "cpc_high": 806.73
+      },
+      "ES": {
+        "volume": 880,
+        "competition": "HIGH",
+        "cpc_high": 13783.13
+      },
+      "US": {
+        "volume": 260,
+        "competition": "LOW",
+        "cpc_high": 20813.46
+      }
+    },
+    "curso de masajes relajantes": {
+      "CO": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 1552.41
+      },
+      "MX": {
+        "volume": 320,
+        "competition": "LOW",
+        "cpc_high": 2042.61
+      },
+      "PE": {
+        "volume": 40,
+        "competition": "LOW",
+        "cpc_high": 5247.59
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 463.6
+      },
+      "AR": {
+        "volume": 30,
+        "competition": "MEDIUM",
+        "cpc_high": 741.31
+      },
+      "ES": {
+        "volume": 170,
+        "competition": "HIGH",
+        "cpc_high": 12986.52
+      },
+      "US": {
+        "volume": 20,
+        "competition": "MEDIUM",
+        "cpc_high": 16072.36
+      }
+    },
+    "curso de masoterapia": {
+      "CO": {
+        "volume": 70,
+        "competition": "LOW",
+        "cpc_high": 2813.87
+      },
+      "MX": {
+        "volume": 140,
+        "competition": "LOW",
+        "cpc_high": 2356.47
+      },
+      "PE": {
+        "volume": 70,
+        "competition": "MEDIUM",
+        "cpc_high": 4069.58
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 1569.42
+      },
+      "CL": {
+        "volume": 480,
+        "competition": "MEDIUM",
+        "cpc_high": 1212.59
+      },
+      "AR": {
+        "volume": 260,
+        "competition": "MEDIUM",
+        "cpc_high": 788.25
+      },
+      "ES": {
+        "volume": 40,
+        "competition": "HIGH",
+        "cpc_high": 12736.86
+      },
+      "US": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 12614.27
+      }
+    },
+    "curso de nail art": {
+      "CO": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 1133.35
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 1757.68
+      },
+      "AR": {
+        "volume": 50,
+        "competition": "HIGH",
+        "cpc_high": 1175.1
+      },
+      "ES": {
+        "volume": 20,
+        "competition": "HIGH",
+        "cpc_high": 9890.16
+      },
+      "US": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de peinados": {
+      "CO": {
+        "volume": 170,
+        "competition": "LOW",
+        "cpc_high": 848.94
+      },
+      "MX": {
+        "volume": 210,
+        "competition": "LOW",
+        "cpc_high": 1003.01
+      },
+      "PE": {
+        "volume": 40,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 70,
+        "competition": "LOW",
+        "cpc_high": 1260.49
+      },
+      "AR": {
+        "volume": 260,
+        "competition": "MEDIUM",
+        "cpc_high": 801.8
+      },
+      "ES": {
+        "volume": 30,
+        "competition": "MEDIUM",
+        "cpc_high": 4967.98
+      },
+      "US": {
+        "volume": 20,
+        "competition": "MEDIUM",
+        "cpc_high": 17150.13
+      }
+    },
+    "curso de peluqueria": {
+      "CO": {
+        "volume": 480,
+        "competition": "LOW",
+        "cpc_high": 759.33
+      },
+      "MX": {
+        "volume": 210,
+        "competition": "LOW",
+        "cpc_high": 935.7
+      },
+      "PE": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 3989.04
+      },
+      "EC": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 1600,
+        "competition": "LOW",
+        "cpc_high": 912.36
+      },
+      "AR": {
+        "volume": 2900,
+        "competition": "MEDIUM",
+        "cpc_high": 1152.81
+      },
+      "ES": {
+        "volume": 1300,
+        "competition": "HIGH",
+        "cpc_high": 6585.35
+      },
+      "US": {
+        "volume": 320,
+        "competition": "LOW",
+        "cpc_high": 20444.37
+      }
+    },
+    "curso de trenzas": {
+      "CO": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 1450.82
+      },
+      "MX": {
+        "volume": 140,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 782.0
+      },
+      "AR": {
+        "volume": 320,
+        "competition": "LOW",
+        "cpc_high": 710.19
+      },
+      "ES": {
+        "volume": 40,
+        "competition": "LOW",
+        "cpc_high": 4239.51
+      },
+      "US": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 26349.62
+      }
+    },
+    "curso de uñas": {
+      "CO": {
+        "volume": 1300,
+        "competition": "LOW",
+        "cpc_high": 1537.89
+      },
+      "MX": {
+        "volume": 4400,
+        "competition": "LOW",
+        "cpc_high": 1406.22
+      },
+      "PE": {
+        "volume": 390,
+        "competition": "LOW",
+        "cpc_high": 4273.33
+      },
+      "EC": {
+        "volume": 260,
+        "competition": "LOW",
+        "cpc_high": 1016.3
+      },
+      "CL": {
+        "volume": 1000,
+        "competition": "MEDIUM",
+        "cpc_high": 1061.05
+      },
+      "AR": {
+        "volume": 2900,
+        "competition": "MEDIUM",
+        "cpc_high": 1098.76
+      },
+      "ES": {
+        "volume": 1300,
+        "competition": "HIGH",
+        "cpc_high": 9310.73
+      },
+      "US": {
+        "volume": 720,
+        "competition": "MEDIUM",
+        "cpc_high": 24699.02
+      }
+    },
+    "curso de uñas acrilicas": {
+      "CO": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 1173.17
+      },
+      "MX": {
+        "volume": 390,
+        "competition": "LOW",
+        "cpc_high": 1796.11
+      },
+      "PE": {
+        "volume": 170,
+        "competition": "LOW",
+        "cpc_high": 4490.35
+      },
+      "EC": {
+        "volume": 70,
+        "competition": "LOW",
+        "cpc_high": 1034.24
+      },
+      "CL": {
+        "volume": 140,
+        "competition": "MEDIUM",
+        "cpc_high": 1222.94
+      },
+      "AR": {
+        "volume": 40,
+        "competition": "HIGH",
+        "cpc_high": 1192.9
+      },
+      "ES": {
+        "volume": 260,
+        "competition": "HIGH",
+        "cpc_high": 14900.77
+      },
+      "US": {
+        "volume": 260,
+        "competition": "MEDIUM",
+        "cpc_high": 24151.02
+      }
+    },
+    "curso de uñas semipermanentes": {
+      "CO": {
+        "volume": 40,
+        "competition": "LOW",
+        "cpc_high": 1444.03
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 50,
+        "competition": "MEDIUM",
+        "cpc_high": 1042.22
+      },
+      "ES": {
+        "volume": 50,
+        "competition": "HIGH",
+        "cpc_high": 9297.2
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    }
+  }
+}

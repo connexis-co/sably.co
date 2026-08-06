@@ -19,3 +19,7 @@ pnpm-debug.log*
 
 # IDE
 .idea/
+
+# Python
+__pycache__/
+*.pyc
