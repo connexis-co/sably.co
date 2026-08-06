@@ -22,7 +22,7 @@
     },
     {
       "q": "¿Cómo aplico el descuento del 40% en mi compra?",
-      "a": "En la pantalla de pago, introduce el código **SABLY40** en el campo destinado a cupones de descuento. El sistema recalculará automáticamente el monto total restando el 40% al precio base de USD 39."
+      "a": "En la pantalla de pago, introduce el código SABLY40 en el campo destinado a cupones de descuento. El sistema recalculará automáticamente el monto total restando el 40% al precio base de USD 39."
     },
     {
       "q": "¿Por cuánto tiempo tengo acceso a las 19 lecciones?",
