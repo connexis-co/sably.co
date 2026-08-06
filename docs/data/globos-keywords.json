@@ -1,0 +1,3017 @@
+{
+  "intencion": {
+    "curso de decoracion con globos": "transaccional",
+    "curso de decoracion con globos online": "transaccional",
+    "curso de arcos de globos": "transaccional",
+    "curso de arcos organicos de globos": "transaccional",
+    "curso de globoflexia": "transaccional",
+    "curso de globoflexia profesional": "transaccional",
+    "curso de globos para fiestas": "transaccional",
+    "curso de columnas de globos": "transaccional",
+    "curso de bouquets de globos": "transaccional",
+    "curso de figuras con globos": "transaccional",
+    "curso de lettering con globos": "transaccional",
+    "curso de centros de mesa con globos": "transaccional",
+    "aprender a decorar con globos": "transaccional",
+    "clases de decoracion con globos": "transaccional",
+    "taller de decoracion con globos online": "transaccional",
+    "curso de globos burbuja": "transaccional",
+    "curso de flores con globos": "transaccional",
+    "comprar curso de decoracion con globos": "transaccional",
+    "precio curso de decoracion con globos": "transaccional",
+    "curso de globos con certificado": "transaccional",
+    "como hacer arco de globos": "informacional",
+    "como hacer arco de globos paso a paso": "informacional",
+    "como hacer arco organico de globos": "informacional",
+    "como hacer columna de globos": "informacional",
+    "como inflar globos con helio": "informacional",
+    "tipos de globos para decorar": "informacional",
+    "como hacer figuras con globos": "informacional",
+    "ideas decoracion con globos": "informacional",
+    "decoracion con globos para cumpleanos": "informacional",
+    "decoracion con globos para baby shower": "informacional",
+    "decoracion con globos para boda": "informacional",
+    "decoracion con globos sencilla": "informacional",
+    "decoracion con globos economica": "informacional",
+    "como hacer flores con globos": "informacional",
+    "globoflexia paso a paso": "informacional",
+    "decoracion con bombas": "informacional",
+    "curso de organizacion de eventos": "eventos",
+    "curso de decoracion de fiestas infantiles": "eventos",
+    "curso de decoracion para bodas": "eventos",
+    "curso de decoracion para baby shower": "eventos",
+    "curso de decoracion para 15 anos": "eventos",
+    "curso de decoracion para gender reveal": "eventos",
+    "curso de mesa de dulces": "eventos",
+    "curso de candy bar": "eventos",
+    "curso de decoracion de eventos": "eventos",
+    "curso de ambientacion con globos": "eventos",
+    "cuanto gana un decorador de eventos": "negocio",
+    "cuanto cobrar por un arco de globos": "negocio",
+    "como montar negocio de decoracion con globos": "negocio",
+    "como empezar negocio de globos": "negocio",
+    "materiales para decoracion con globos": "negocio",
+    "proveedores de globos al por mayor": "negocio",
+    "precio arco de globos": "negocio",
+    "negocio de globos rentable": "negocio",
+    "como cobrar decoracion con globos": "negocio",
+    "mejor curso de decoracion con globos": "comparativa",
+    "mejor curso de globos online": "comparativa",
+    "opiniones curso de decoracion con globos": "comparativa",
+    "curso de globos hotmart": "comparativa",
+    "vale la pena curso de globos": "comparativa",
+    "curso de globos gratis": "comparativa",
+    "curso de globos en bogota": "geo",
+    "curso de decoracion con globos en medellin": "geo",
+    "curso de globos en cdmx": "geo",
+    "curso de decoracion en guadalajara": "geo",
+    "curso de globos en lima": "geo",
+    "curso de decoracion en santiago": "geo",
+    "curso de globos en buenos aires": "geo",
+    "curso de globos en madrid": "geo",
+    "curso de globos en colombia": "geo",
+    "curso de decoracion con globos en mexico": "geo"
+  },
+  "metricas": {
+    "curso de decoracion con globos": {
+      "CO": {
+        "volume": 260,
+        "competition": "LOW",
+        "cpc_high": 627.02
+      },
+      "MX": {
+        "volume": 590,
+        "competition": "LOW",
+        "cpc_high": 1169.02
+      },
+      "PE": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 1109.68
+      },
+      "EC": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 1764.66
+      },
+      "AR": {
+        "volume": 110,
+        "competition": "MEDIUM",
+        "cpc_high": 657.12
+      },
+      "ES": {
+        "volume": 90,
+        "competition": "HIGH",
+        "cpc_high": 4904.38
+      },
+      "US": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 9485.36
+      }
+    },
+    "curso de arcos de globos": {
+      "CO": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globoflexia": {
+      "CO": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 1424.66
+      },
+      "MX": {
+        "volume": 590,
+        "competition": "LOW",
+        "cpc_high": 1127.89
+      },
+      "PE": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 30,
+        "competition": "MEDIUM",
+        "cpc_high": 4518.34
+      },
+      "ES": {
+        "volume": 40,
+        "competition": "LOW",
+        "cpc_high": 2444.25
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globos para fiestas": {
+      "CO": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 1281.42
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de figuras con globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "aprender a decorar con globos": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "clases de decoracion con globos": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globos burbuja": {
+      "CO": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 1492.36
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de decoracion con globos online": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de arcos organicos de globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globoflexia profesional": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de columnas de globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de bouquets de globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de lettering con globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de centros de mesa con globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "taller de decoracion con globos online": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de flores con globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "comprar curso de decoracion con globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "como hacer arco de globos": {
+      "CO": {
+        "volume": 1000,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 2400,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 720,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 260,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 720,
+        "competition": "HIGH",
+        "cpc_high": 3149.96
+      },
+      "AR": {
+        "volume": 1000,
+        "competition": "LOW",
+        "cpc_high": 237.28
+      },
+      "ES": {
+        "volume": 720,
+        "competition": "HIGH",
+        "cpc_high": 4792.83
+      },
+      "US": {
+        "volume": 720,
+        "competition": "HIGH",
+        "cpc_high": 2092.06
+      }
+    },
+    "como hacer arco de globos paso a paso": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      }
+    },
+    "como hacer arco organico de globos": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "como hacer columna de globos": {
+      "CO": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 110,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 30,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      }
+    },
+    "como inflar globos con helio": {
+      "CO": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 210,
+        "competition": "MEDIUM",
+        "cpc_high": 1651.49
+      },
+      "PE": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 140,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 170,
+        "competition": "LOW",
+        "cpc_high": 716.34
+      },
+      "ES": {
+        "volume": 140,
+        "competition": "HIGH",
+        "cpc_high": 635.02
+      },
+      "US": {
+        "volume": 110,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      }
+    },
+    "tipos de globos para decorar": {
+      "CO": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 50,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      }
+    },
+    "como hacer figuras con globos": {
+      "CO": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 320,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 40,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 140,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 140,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "ideas decoracion con globos": {
+      "CO": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 30,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      }
+    },
+    "decoracion con globos para cumpleanos": {
+      "CO": {
+        "volume": 320,
+        "competition": "MEDIUM",
+        "cpc_high": 2559.33
+      },
+      "MX": {
+        "volume": 1300,
+        "competition": "HIGH",
+        "cpc_high": 1536.68
+      },
+      "PE": {
+        "volume": 480,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 90,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 170,
+        "competition": "HIGH",
+        "cpc_high": 764.44
+      },
+      "AR": {
+        "volume": 480,
+        "competition": "HIGH",
+        "cpc_high": 936.05
+      },
+      "ES": {
+        "volume": 210,
+        "competition": "HIGH",
+        "cpc_high": 2049.15
+      },
+      "US": {
+        "volume": 140,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      }
+    },
+    "decoracion con globos para boda": {
+      "CO": {
+        "volume": 140,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 1000,
+        "competition": "MEDIUM",
+        "cpc_high": 1611.23
+      },
+      "PE": {
+        "volume": 70,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 50,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 20,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 70,
+        "competition": "MEDIUM",
+        "cpc_high": 1027.37
+      },
+      "ES": {
+        "volume": 50,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 110,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      }
+    },
+    "decoracion con globos sencilla": {
+      "CO": {
+        "volume": 90,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 210,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 40,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 20,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      }
+    },
+    "como hacer flores con globos": {
+      "CO": {
+        "volume": 170,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 590,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 90,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 140,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 170,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 170,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "globoflexia paso a paso": {
+      "CO": {
+        "volume": 70,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 140,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 70,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "decoracion con bombas": {
+      "CO": {
+        "volume": 1000,
+        "competition": "MEDIUM",
+        "cpc_high": 1016.3
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 20,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      }
+    },
+    "precio curso de decoracion con globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globos con certificado": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "decoracion con globos economica": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de organizacion de eventos": {
+      "CO": {
+        "volume": 90,
+        "competition": "MEDIUM",
+        "cpc_high": 5358.2
+      },
+      "MX": {
+        "volume": 390,
+        "competition": "HIGH",
+        "cpc_high": 4796.67
+      },
+      "PE": {
+        "volume": 170,
+        "competition": "MEDIUM",
+        "cpc_high": 7072.09
+      },
+      "EC": {
+        "volume": 40,
+        "competition": "MEDIUM",
+        "cpc_high": 3423.79
+      },
+      "CL": {
+        "volume": 50,
+        "competition": "HIGH",
+        "cpc_high": 2896.18
+      },
+      "AR": {
+        "volume": 1000,
+        "competition": "HIGH",
+        "cpc_high": 4629.59
+      },
+      "ES": {
+        "volume": 880,
+        "competition": "HIGH",
+        "cpc_high": 23321.19
+      },
+      "US": {
+        "volume": 50,
+        "competition": "MEDIUM",
+        "cpc_high": 23626.02
+      }
+    },
+    "curso de decoracion de fiestas infantiles": {
+      "CO": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de decoracion para bodas": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de mesa de dulces": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 70,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de candy bar": {
+      "CO": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 1058.67
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de decoracion de eventos": {
+      "CO": {
+        "volume": 140,
+        "competition": "LOW",
+        "cpc_high": 2255.6
+      },
+      "MX": {
+        "volume": 140,
+        "competition": "MEDIUM",
+        "cpc_high": 2632.27
+      },
+      "PE": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 6355.78
+      },
+      "EC": {
+        "volume": 40,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 50,
+        "competition": "LOW",
+        "cpc_high": 1251.98
+      },
+      "AR": {
+        "volume": 880,
+        "competition": "HIGH",
+        "cpc_high": 4599.86
+      },
+      "ES": {
+        "volume": 260,
+        "competition": "HIGH",
+        "cpc_high": 12768.8
+      },
+      "US": {
+        "volume": 110,
+        "competition": "LOW",
+        "cpc_high": 12171.22
+      }
+    },
+    "cuanto gana un decorador de eventos": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "cuanto cobrar por un arco de globos": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "materiales para decoracion con globos": {
+      "CO": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 30,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "proveedores de globos al por mayor": {
+      "CO": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 30,
+        "competition": "HIGH",
+        "cpc_high": 3017.15
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      }
+    },
+    "precio arco de globos": {
+      "CO": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 110,
+        "competition": "HIGH",
+        "cpc_high": 1201.08
+      },
+      "PE": {
+        "volume": 30,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 40,
+        "competition": "HIGH",
+        "cpc_high": 489.72
+      },
+      "ES": {
+        "volume": 30,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "HIGH",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de decoracion para baby shower": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de decoracion para 15 anos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de decoracion para gender reveal": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de ambientacion con globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "como montar negocio de decoracion con globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "como empezar negocio de globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "negocio de globos rentable": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "como cobrar decoracion con globos": {
+      "CO": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globos gratis": {
+      "CO": {
+        "volume": 30,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 40,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globos en bogota": {
+      "CO": {
+        "volume": 20,
+        "competition": "LOW",
+        "cpc_high": 2032.4
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globos en lima": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globos en madrid": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "MEDIUM",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de decoracion con globos en mexico": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 10,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "mejor curso de decoracion con globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "mejor curso de globos online": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "opiniones curso de decoracion con globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globos hotmart": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "vale la pena curso de globos": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de decoracion con globos en medellin": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globos en cdmx": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de decoracion en guadalajara": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de decoracion en santiago": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globos en buenos aires": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    },
+    "curso de globos en colombia": {
+      "CO": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "MX": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "PE": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "EC": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "AR": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "ES": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      },
+      "US": {
+        "volume": 0,
+        "competition": "UNKNOWN",
+        "cpc_high": 0.0
+      }
+    }
+  }
+}

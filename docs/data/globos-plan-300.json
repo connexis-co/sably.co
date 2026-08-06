@@ -1,0 +1,4360 @@
+{
+  "plan": [
+    {
+      "keyword": "decoracion con globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 14800,
+      "competition": "MEDIUM",
+      "cpc": 2469.91,
+      "intencion": "informacional",
+      "score": 317.8
+    },
+    {
+      "keyword": "curso de decoracion con globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 590,
+      "competition": "LOW",
+      "cpc": 1169.02,
+      "intencion": "transaccional",
+      "score": 179.3
+    },
+    {
+      "keyword": "curso de globoflexia",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 590,
+      "competition": "LOW",
+      "cpc": 1127.89,
+      "intencion": "transaccional",
+      "score": 179.3
+    },
+    {
+      "keyword": "cursos de decoracion con globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 590,
+      "competition": "LOW",
+      "cpc": 1169.02,
+      "intencion": "transaccional",
+      "score": 179.3
+    },
+    {
+      "keyword": "curso decoracion de globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 590,
+      "competition": "LOW",
+      "cpc": 1169.02,
+      "intencion": "transaccional",
+      "score": 179.3
+    },
+    {
+      "keyword": "arcos de globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 9900,
+      "competition": "HIGH",
+      "cpc": 1360.85,
+      "intencion": "informacional",
+      "score": 174.8
+    },
+    {
+      "keyword": "globoflexia",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 2900,
+      "competition": "LOW",
+      "cpc": 1568.58,
+      "intencion": "informacional",
+      "score": 155.4
+    },
+    {
+      "keyword": "decorador de cumpleaños",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 4400,
+      "competition": "MEDIUM",
+      "cpc": 1266.63,
+      "intencion": "informacional",
+      "score": 153.5
+    },
+    {
+      "keyword": "curso de globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 390,
+      "competition": "LOW",
+      "cpc": 1173.63,
+      "intencion": "transaccional",
+      "score": 139.9
+    },
+    {
+      "keyword": "curso de organizacion de eventos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 1000,
+      "competition": "HIGH",
+      "cpc": 4629.59,
+      "intencion": "transaccional",
+      "score": 132.5
+    },
+    {
+      "keyword": "curso de organizacion de eventos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 880,
+      "competition": "HIGH",
+      "cpc": 23321.19,
+      "intencion": "transaccional",
+      "score": 122.7
+    },
+    {
+      "keyword": "curso de decoracion de eventos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 880,
+      "competition": "HIGH",
+      "cpc": 4599.86,
+      "intencion": "transaccional",
+      "score": 122.7
+    },
+    {
+      "keyword": "decorador de cumpleaños",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 5400,
+      "competition": "HIGH",
+      "cpc": 1708.0,
+      "intencion": "informacional",
+      "score": 121.5
+    },
+    {
+      "keyword": "curso de decoracion con globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 260,
+      "competition": "LOW",
+      "cpc": 627.02,
+      "intencion": "transaccional",
+      "score": 109.7
+    },
+    {
+      "keyword": "cursos de decoracion con globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 260,
+      "competition": "LOW",
+      "cpc": 627.02,
+      "intencion": "transaccional",
+      "score": 109.7
+    },
+    {
+      "keyword": "curso decoracion de globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 260,
+      "competition": "LOW",
+      "cpc": 627.02,
+      "intencion": "transaccional",
+      "score": 109.7
+    },
+    {
+      "keyword": "arcos de globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 4400,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 107.4
+    },
+    {
+      "keyword": "como hacer arco de globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 2400,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 106.7
+    },
+    {
+      "keyword": "decoracion con globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 2400,
+      "competition": "MEDIUM",
+      "cpc": 954.18,
+      "intencion": "informacional",
+      "score": 106.7
+    },
+    {
+      "keyword": "decoracion para fiestas",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 2400,
+      "competition": "HIGH",
+      "cpc": 2081.62,
+      "intencion": "eventos",
+      "score": 104.6
+    },
+    {
+      "keyword": "decoracion con globos para la virgen de guadalupe",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 1300,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 96.0
+    },
+    {
+      "keyword": "decoracion con globos navideños",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 1900,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 92.7
+    },
+    {
+      "keyword": "decoracion con globos para boda",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 1000,
+      "competition": "MEDIUM",
+      "cpc": 1611.23,
+      "intencion": "eventos",
+      "score": 88.3
+    },
+    {
+      "keyword": "decoracion con globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 2900,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 83.7
+    },
+    {
+      "keyword": "arcos de globos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 2900,
+      "competition": "HIGH",
+      "cpc": 777.99,
+      "intencion": "informacional",
+      "score": 83.7
+    },
+    {
+      "keyword": "arcos de globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 2900,
+      "competition": "HIGH",
+      "cpc": 718.54,
+      "intencion": "informacional",
+      "score": 83.7
+    },
+    {
+      "keyword": "decorador de cumpleaños",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 1600,
+      "competition": "MEDIUM",
+      "cpc": 1432.95,
+      "intencion": "informacional",
+      "score": 83.7
+    },
+    {
+      "keyword": "decorador de cumpleaños",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 2900,
+      "competition": "HIGH",
+      "cpc": 5653.19,
+      "intencion": "informacional",
+      "score": 83.7
+    },
+    {
+      "keyword": "como hacer arco de globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 1000,
+      "competition": "LOW",
+      "cpc": 237.28,
+      "intencion": "informacional",
+      "score": 82.0
+    },
+    {
+      "keyword": "decoracion con globos azul rey y dorado",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 1000,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 82.0
+    },
+    {
+      "keyword": "globoflexia",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 1000,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 82.0
+    },
+    {
+      "keyword": "globoflexia",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 1000,
+      "competition": "LOW",
+      "cpc": 2432.83,
+      "intencion": "informacional",
+      "score": 82.0
+    },
+    {
+      "keyword": "curso de decoracion de eventos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 140,
+      "competition": "LOW",
+      "cpc": 2255.6,
+      "intencion": "transaccional",
+      "score": 75.6
+    },
+    {
+      "keyword": "curso de organizacion de eventos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 390,
+      "competition": "HIGH",
+      "cpc": 4796.67,
+      "intencion": "transaccional",
+      "score": 75.3
+    },
+    {
+      "keyword": "decoracion con globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 2400,
+      "competition": "HIGH",
+      "cpc": 1185.23,
+      "intencion": "informacional",
+      "score": 74.7
+    },
+    {
+      "keyword": "globoflexia",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 1300,
+      "competition": "MEDIUM",
+      "cpc": 3866.07,
+      "intencion": "informacional",
+      "score": 73.9
+    },
+    {
+      "keyword": "como hacer arco de globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 720,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 67.4
+    },
+    {
+      "keyword": "bouquet de globos sencillos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 720,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 67.4
+    },
+    {
+      "keyword": "curso de decoracion con globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 1109.68,
+      "intencion": "transaccional",
+      "score": 65.4
+    },
+    {
+      "keyword": "curso de decoracion con globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 9485.36,
+      "intencion": "transaccional",
+      "score": 65.4
+    },
+    {
+      "keyword": "curso de organizacion de eventos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 170,
+      "competition": "MEDIUM",
+      "cpc": 7072.09,
+      "intencion": "transaccional",
+      "score": 65.4
+    },
+    {
+      "keyword": "curso de decoracion de eventos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 6355.78,
+      "intencion": "transaccional",
+      "score": 65.4
+    },
+    {
+      "keyword": "curso de decoracion de eventos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 12171.22,
+      "intencion": "transaccional",
+      "score": 65.4
+    },
+    {
+      "keyword": "cursos de decoracion con globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 1109.68,
+      "intencion": "transaccional",
+      "score": 65.4
+    },
+    {
+      "keyword": "cursos de decoracion con globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 9485.36,
+      "intencion": "transaccional",
+      "score": 65.4
+    },
+    {
+      "keyword": "curso de globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 1079.69,
+      "intencion": "transaccional",
+      "score": 65.4
+    },
+    {
+      "keyword": "curso decoracion de globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 1109.68,
+      "intencion": "transaccional",
+      "score": 65.4
+    },
+    {
+      "keyword": "curso decoracion de globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 9485.36,
+      "intencion": "transaccional",
+      "score": 65.4
+    },
+    {
+      "keyword": "arcos de globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 1900,
+      "competition": "HIGH",
+      "cpc": 650.94,
+      "intencion": "informacional",
+      "score": 64.9
+    },
+    {
+      "keyword": "arcos de globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 1900,
+      "competition": "HIGH",
+      "cpc": 1872.92,
+      "intencion": "informacional",
+      "score": 64.9
+    },
+    {
+      "keyword": "arreglos con globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 1900,
+      "competition": "HIGH",
+      "cpc": 1880.61,
+      "intencion": "informacional",
+      "score": 64.9
+    },
+    {
+      "keyword": "arreglos de globos para cumpleaños",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 1900,
+      "competition": "HIGH",
+      "cpc": 1710.6,
+      "intencion": "informacional",
+      "score": 64.9
+    },
+    {
+      "keyword": "flores con globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 1900,
+      "competition": "HIGH",
+      "cpc": 1554.27,
+      "intencion": "informacional",
+      "score": 64.9
+    },
+    {
+      "keyword": "decoracion de aniversarios",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 590,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 64.4
+    },
+    {
+      "keyword": "como hacer arco de globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 1000,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 63.1
+    },
+    {
+      "keyword": "decoracion con bombas",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 1000,
+      "competition": "MEDIUM",
+      "cpc": 1016.3,
+      "intencion": "informacional",
+      "score": 63.1
+    },
+    {
+      "keyword": "decoracion bombas",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 1000,
+      "competition": "MEDIUM",
+      "cpc": 1016.3,
+      "intencion": "informacional",
+      "score": 63.1
+    },
+    {
+      "keyword": "como hacer flores con globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 590,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 59.8
+    },
+    {
+      "keyword": "curso de decoracion de eventos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 260,
+      "competition": "HIGH",
+      "cpc": 12768.8,
+      "intencion": "transaccional",
+      "score": 59.0
+    },
+    {
+      "keyword": "arcos de globos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 1600,
+      "competition": "HIGH",
+      "cpc": 1261.48,
+      "intencion": "informacional",
+      "score": 58.6
+    },
+    {
+      "keyword": "decoracion con globos rosa y dorado",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 880,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 58.4
+    },
+    {
+      "keyword": "decoracion con globos para hombres",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 880,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 58.4
+    },
+    {
+      "keyword": "decoracion con globos para mujer",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 880,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 58.4
+    },
+    {
+      "keyword": "bouquet de globos sencillos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 880,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 58.4
+    },
+    {
+      "keyword": "curso de decoracion de eventos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 140,
+      "competition": "MEDIUM",
+      "cpc": 2632.27,
+      "intencion": "transaccional",
+      "score": 58.2
+    },
+    {
+      "keyword": "curso de globoflexia",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 90,
+      "competition": "LOW",
+      "cpc": 1424.66,
+      "intencion": "transaccional",
+      "score": 58.0
+    },
+    {
+      "keyword": "curso de globos burbuja",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 90,
+      "competition": "LOW",
+      "cpc": 1492.36,
+      "intencion": "transaccional",
+      "score": 58.0
+    },
+    {
+      "keyword": "decoracion con globos para bautizo",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 480,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 56.9
+    },
+    {
+      "keyword": "decoracion con globos para graduacion",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 480,
+      "competition": "MEDIUM",
+      "cpc": 1475.85,
+      "intencion": "eventos",
+      "score": 56.9
+    },
+    {
+      "keyword": "decoracion con globos rosa y dorado",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 480,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 52.8
+    },
+    {
+      "keyword": "decoracion con globos en casa",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 480,
+      "competition": "LOW",
+      "cpc": 747.87,
+      "intencion": "informacional",
+      "score": 52.8
+    },
+    {
+      "keyword": "que es globoflexia",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 480,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 52.8
+    },
+    {
+      "keyword": "bouquets de globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 480,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 52.8
+    },
+    {
+      "keyword": "globoflexia",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 480,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 52.8
+    },
+    {
+      "keyword": "decoracion con globos de halloween",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 720,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 51.8
+    },
+    {
+      "keyword": "flores con globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 720,
+      "competition": "MEDIUM",
+      "cpc": 957.09,
+      "intencion": "informacional",
+      "score": 51.8
+    },
+    {
+      "keyword": "decoracion con globos para cumpleanos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 1300,
+      "competition": "HIGH",
+      "cpc": 1536.68,
+      "intencion": "informacional",
+      "score": 51.7
+    },
+    {
+      "keyword": "decoracion con globos transparentes",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 1300,
+      "competition": "HIGH",
+      "cpc": 920.96,
+      "intencion": "informacional",
+      "score": 51.7
+    },
+    {
+      "keyword": "arcos de globos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 1300,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 51.7
+    },
+    {
+      "keyword": "decoracion para fiestas",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 720,
+      "competition": "HIGH",
+      "cpc": 1216.14,
+      "intencion": "eventos",
+      "score": 50.8
+    },
+    {
+      "keyword": "curso de decoracion con globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 110,
+      "competition": "MEDIUM",
+      "cpc": 657.12,
+      "intencion": "transaccional",
+      "score": 50.3
+    },
+    {
+      "keyword": "cursos de decoracion con globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 110,
+      "competition": "MEDIUM",
+      "cpc": 657.12,
+      "intencion": "transaccional",
+      "score": 50.3
+    },
+    {
+      "keyword": "curso decoracion de globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 110,
+      "competition": "MEDIUM",
+      "cpc": 657.12,
+      "intencion": "transaccional",
+      "score": 50.3
+    },
+    {
+      "keyword": "decoracion con globos para primera comunion",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 390,
+      "competition": "MEDIUM",
+      "cpc": 898.66,
+      "intencion": "eventos",
+      "score": 50.2
+    },
+    {
+      "keyword": "curso de mesa de dulces",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 70,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "transaccional",
+      "score": 49.9
+    },
+    {
+      "keyword": "curso de globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 70,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "transaccional",
+      "score": 49.9
+    },
+    {
+      "keyword": "cursos de decoracion de fiestas",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 70,
+      "competition": "LOW",
+      "cpc": 1575.84,
+      "intencion": "transaccional",
+      "score": 49.9
+    },
+    {
+      "keyword": "decoracion con globos azul rey y dorado",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 390,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 46.6
+    },
+    {
+      "keyword": "decoracion con globos y telas",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 390,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 46.6
+    },
+    {
+      "keyword": "decoracion con globos techo",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 390,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 46.6
+    },
+    {
+      "keyword": "curso de organizacion de eventos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 90,
+      "competition": "MEDIUM",
+      "cpc": 5358.2,
+      "intencion": "transaccional",
+      "score": 44.6
+    },
+    {
+      "keyword": "decoracion con globos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 1000,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 44.2
+    },
+    {
+      "keyword": "decoracion con globos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 1000,
+      "competition": "HIGH",
+      "cpc": 3288.27,
+      "intencion": "informacional",
+      "score": 44.2
+    },
+    {
+      "keyword": "globos para cumpleaños",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 1000,
+      "competition": "HIGH",
+      "cpc": 1147.19,
+      "intencion": "informacional",
+      "score": 44.2
+    },
+    {
+      "keyword": "columnas de globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 1000,
+      "competition": "HIGH",
+      "cpc": 1547.14,
+      "intencion": "informacional",
+      "score": 44.2
+    },
+    {
+      "keyword": "decorador de cumpleaños",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 1000,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 44.2
+    },
+    {
+      "keyword": "como hacer figuras con globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 320,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 41.4
+    },
+    {
+      "keyword": "decoracion con globos navideños",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 320,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 41.4
+    },
+    {
+      "keyword": "decoracion con globos de halloween",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 320,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 41.4
+    },
+    {
+      "keyword": "decoracion con globos aerostaticos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 880,
+      "competition": "HIGH",
+      "cpc": 1326.87,
+      "intencion": "informacional",
+      "score": 40.9
+    },
+    {
+      "keyword": "decoracion con globos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 880,
+      "competition": "HIGH",
+      "cpc": 943.93,
+      "intencion": "informacional",
+      "score": 40.9
+    },
+    {
+      "keyword": "decoracion con globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 880,
+      "competition": "HIGH",
+      "cpc": 7437.56,
+      "intencion": "informacional",
+      "score": 40.9
+    },
+    {
+      "keyword": "globos decoracion",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 880,
+      "competition": "HIGH",
+      "cpc": 1901.52,
+      "intencion": "informacional",
+      "score": 40.9
+    },
+    {
+      "keyword": "decorador de cumpleaños",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 880,
+      "competition": "HIGH",
+      "cpc": 4422.58,
+      "intencion": "informacional",
+      "score": 40.9
+    },
+    {
+      "keyword": "decorador de cumpleaños",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 880,
+      "competition": "HIGH",
+      "cpc": 1247.4,
+      "intencion": "informacional",
+      "score": 40.9
+    },
+    {
+      "keyword": "curso de decoracion con globos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 50,
+      "competition": "LOW",
+      "cpc": 1764.66,
+      "intencion": "transaccional",
+      "score": 40.8
+    },
+    {
+      "keyword": "clases de decoracion con globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 50,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "transaccional",
+      "score": 40.8
+    },
+    {
+      "keyword": "curso de candy bar",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 50,
+      "competition": "LOW",
+      "cpc": 1058.67,
+      "intencion": "transaccional",
+      "score": 40.8
+    },
+    {
+      "keyword": "curso de decoracion de eventos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 50,
+      "competition": "LOW",
+      "cpc": 1251.98,
+      "intencion": "transaccional",
+      "score": 40.8
+    },
+    {
+      "keyword": "cursos de decoracion con globos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 50,
+      "competition": "LOW",
+      "cpc": 1764.66,
+      "intencion": "transaccional",
+      "score": 40.8
+    },
+    {
+      "keyword": "curso decoracion de globos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 50,
+      "competition": "LOW",
+      "cpc": 1764.66,
+      "intencion": "transaccional",
+      "score": 40.8
+    },
+    {
+      "keyword": "como hacer arco de globos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 260,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 36.6
+    },
+    {
+      "keyword": "decoracion con globos navideños",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 260,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 36.6
+    },
+    {
+      "keyword": "decoracion con globos en casa",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 260,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 36.6
+    },
+    {
+      "keyword": "decoracion con globos techo",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 260,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 36.6
+    },
+    {
+      "keyword": "globoflexia",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 260,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 36.6
+    },
+    {
+      "keyword": "globoflexia",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 260,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 36.6
+    },
+    {
+      "keyword": "como hacer arco de globos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 720,
+      "competition": "HIGH",
+      "cpc": 3149.96,
+      "intencion": "informacional",
+      "score": 36.3
+    },
+    {
+      "keyword": "como hacer arco de globos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 720,
+      "competition": "HIGH",
+      "cpc": 4792.83,
+      "intencion": "informacional",
+      "score": 36.3
+    },
+    {
+      "keyword": "como hacer arco de globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 720,
+      "competition": "HIGH",
+      "cpc": 2092.06,
+      "intencion": "informacional",
+      "score": 36.3
+    },
+    {
+      "keyword": "arreglos de globos para cumpleaños",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 720,
+      "competition": "HIGH",
+      "cpc": 8070.99,
+      "intencion": "informacional",
+      "score": 36.3
+    },
+    {
+      "keyword": "flores con globos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 720,
+      "competition": "HIGH",
+      "cpc": 1844.96,
+      "intencion": "informacional",
+      "score": 36.3
+    },
+    {
+      "keyword": "decorador de cumpleaños",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 720,
+      "competition": "HIGH",
+      "cpc": 3369.15,
+      "intencion": "informacional",
+      "score": 36.3
+    },
+    {
+      "keyword": "decoracion con globos para mujer",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 390,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 35.9
+    },
+    {
+      "keyword": "decoracion con globos y flores",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 390,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 35.9
+    },
+    {
+      "keyword": "decoracion en globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 390,
+      "competition": "MEDIUM",
+      "cpc": 1064.41,
+      "intencion": "informacional",
+      "score": 35.9
+    },
+    {
+      "keyword": "flores con globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 390,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 35.9
+    },
+    {
+      "keyword": "curso de globoflexia",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 40,
+      "competition": "LOW",
+      "cpc": 2444.25,
+      "intencion": "transaccional",
+      "score": 35.7
+    },
+    {
+      "keyword": "curso de decoracion de eventos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 40,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "transaccional",
+      "score": 35.7
+    },
+    {
+      "keyword": "decoracion para fiestas",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 390,
+      "competition": "HIGH",
+      "cpc": 3865.98,
+      "intencion": "eventos",
+      "score": 35.1
+    },
+    {
+      "keyword": "decoracion de aniversarios",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 390,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 35.1
+    },
+    {
+      "keyword": "decoracion de aniversarios",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 390,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 35.1
+    },
+    {
+      "keyword": "decoracion con globos sencilla",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 210,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 32.2
+    },
+    {
+      "keyword": "decoracion con globos navideños",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 590,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 32.2
+    },
+    {
+      "keyword": "decoracion con globos rosa y dorado",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 210,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 32.2
+    },
+    {
+      "keyword": "decoracion con globos para mujer",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 590,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 32.2
+    },
+    {
+      "keyword": "decoracion con globos de halloween",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 210,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 32.2
+    },
+    {
+      "keyword": "decoracion con globos y telas",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 210,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 32.2
+    },
+    {
+      "keyword": "decoracion con globos techo",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 210,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 32.2
+    },
+    {
+      "keyword": "globos para cumpleaños",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 590,
+      "competition": "HIGH",
+      "cpc": 5963.28,
+      "intencion": "informacional",
+      "score": 32.2
+    },
+    {
+      "keyword": "que es globoflexia",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 210,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 32.2
+    },
+    {
+      "keyword": "decoracion con globos sencillo",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 210,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 32.2
+    },
+    {
+      "keyword": "globoflexia",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 210,
+      "competition": "LOW",
+      "cpc": 606.23,
+      "intencion": "informacional",
+      "score": 32.2
+    },
+    {
+      "keyword": "decoracion con globos para cumpleanos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 320,
+      "competition": "MEDIUM",
+      "cpc": 2559.33,
+      "intencion": "informacional",
+      "score": 31.8
+    },
+    {
+      "keyword": "decoracion con globos para hombres",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 320,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 31.8
+    },
+    {
+      "keyword": "curso de organizacion de eventos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 50,
+      "competition": "MEDIUM",
+      "cpc": 23626.02,
+      "intencion": "transaccional",
+      "score": 31.4
+    },
+    {
+      "keyword": "curso de decoracion con globos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc": 4904.38,
+      "intencion": "transaccional",
+      "score": 31.2
+    },
+    {
+      "keyword": "cursos de decoracion con globos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc": 4904.38,
+      "intencion": "transaccional",
+      "score": 31.2
+    },
+    {
+      "keyword": "decoracion para fiestas",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc": 2688.11,
+      "intencion": "eventos",
+      "score": 31.2
+    },
+    {
+      "keyword": "curso decoracion de globos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc": 4904.38,
+      "intencion": "transaccional",
+      "score": 31.2
+    },
+    {
+      "keyword": "decoracion de aniversarios",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 30.5
+    },
+    {
+      "keyword": "curso de decoracion con globos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 30,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "transaccional",
+      "score": 30.0
+    },
+    {
+      "keyword": "curso de globoflexia",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 30,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "transaccional",
+      "score": 30.0
+    },
+    {
+      "keyword": "curso de globos para fiestas",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 30,
+      "competition": "LOW",
+      "cpc": 1281.42,
+      "intencion": "transaccional",
+      "score": 30.0
+    },
+    {
+      "keyword": "clases de decoracion con globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 30,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "transaccional",
+      "score": 30.0
+    },
+    {
+      "keyword": "cursos de decoracion con globos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 30,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "transaccional",
+      "score": 30.0
+    },
+    {
+      "keyword": "curso de globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 30,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "transaccional",
+      "score": 30.0
+    },
+    {
+      "keyword": "curso de globos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 30,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "transaccional",
+      "score": 30.0
+    },
+    {
+      "keyword": "curso de globos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 30,
+      "competition": "LOW",
+      "cpc": 1784.85,
+      "intencion": "transaccional",
+      "score": 30.0
+    },
+    {
+      "keyword": "cursos para decoracion con globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 30,
+      "competition": "LOW",
+      "cpc": 1269.32,
+      "intencion": "transaccional",
+      "score": 30.0
+    },
+    {
+      "keyword": "curso decoracion de globos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 30,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "transaccional",
+      "score": 30.0
+    },
+    {
+      "keyword": "curso para decoracion con globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 30,
+      "competition": "LOW",
+      "cpc": 1269.32,
+      "intencion": "transaccional",
+      "score": 30.0
+    },
+    {
+      "keyword": "curso de globos gratis",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 40,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "comparativa",
+      "score": 29.7
+    },
+    {
+      "keyword": "curso de globos en el sena",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 701.69,
+      "intencion": "geo",
+      "score": 28.4
+    },
+    {
+      "keyword": "decoracion con globos para cumpleanos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 480,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 28.4
+    },
+    {
+      "keyword": "decoracion con globos para cumpleanos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 480,
+      "competition": "HIGH",
+      "cpc": 936.05,
+      "intencion": "informacional",
+      "score": 28.4
+    },
+    {
+      "keyword": "globos para cumpleaños",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 480,
+      "competition": "HIGH",
+      "cpc": 1201.75,
+      "intencion": "informacional",
+      "score": 28.4
+    },
+    {
+      "keyword": "arreglos de globos para cumpleaños",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 480,
+      "competition": "HIGH",
+      "cpc": 901.66,
+      "intencion": "informacional",
+      "score": 28.4
+    },
+    {
+      "keyword": "arreglos de globos para cumpleaños",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 480,
+      "competition": "HIGH",
+      "cpc": 2159.79,
+      "intencion": "informacional",
+      "score": 28.4
+    },
+    {
+      "keyword": "flores con globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 480,
+      "competition": "HIGH",
+      "cpc": 880.41,
+      "intencion": "informacional",
+      "score": 28.4
+    },
+    {
+      "keyword": "globos decoracion",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 480,
+      "competition": "HIGH",
+      "cpc": 2016.87,
+      "intencion": "informacional",
+      "score": 28.4
+    },
+    {
+      "keyword": "como inflar globos con helio",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 170,
+      "competition": "LOW",
+      "cpc": 716.34,
+      "intencion": "informacional",
+      "score": 28.3
+    },
+    {
+      "keyword": "como hacer flores con globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 170,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 28.3
+    },
+    {
+      "keyword": "como hacer flores con globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 170,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 28.3
+    },
+    {
+      "keyword": "como hacer flores con globos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 170,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 28.3
+    },
+    {
+      "keyword": "decoracion con globos colgantes",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 170,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 28.3
+    },
+    {
+      "keyword": "flores con globos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 170,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 28.3
+    },
+    {
+      "keyword": "decoracion con globos de frozen",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 260,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 28.1
+    },
+    {
+      "keyword": "columnas de globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 260,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 28.1
+    },
+    {
+      "keyword": "columnas de globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 260,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 28.1
+    },
+    {
+      "keyword": "decoraciones globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 260,
+      "competition": "MEDIUM",
+      "cpc": 3043.64,
+      "intencion": "informacional",
+      "score": 28.1
+    },
+    {
+      "keyword": "decoracion con globos burbuja",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 260,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 28.1
+    },
+    {
+      "keyword": "bouquets de globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 260,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 28.1
+    },
+    {
+      "keyword": "curso de organizacion de eventos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 40,
+      "competition": "MEDIUM",
+      "cpc": 3423.79,
+      "intencion": "transaccional",
+      "score": 27.4
+    },
+    {
+      "keyword": "curso de globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 40,
+      "competition": "MEDIUM",
+      "cpc": 998.03,
+      "intencion": "transaccional",
+      "score": 27.4
+    },
+    {
+      "keyword": "decoracion con globos para boda",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 140,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 27.2
+    },
+    {
+      "keyword": "como hacer figuras con globos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 140,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 25.2
+    },
+    {
+      "keyword": "como hacer figuras con globos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 140,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 25.2
+    },
+    {
+      "keyword": "como hacer flores con globos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 140,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 25.2
+    },
+    {
+      "keyword": "globoflexia paso a paso",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 140,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 25.2
+    },
+    {
+      "keyword": "decoracion con globos azul rey y dorado",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 140,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 25.2
+    },
+    {
+      "keyword": "decoracion con globos y flores",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 140,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 25.2
+    },
+    {
+      "keyword": "decoracion con globos colgantes",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 140,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 25.2
+    },
+    {
+      "keyword": "decoracion con globos aerostaticos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 390,
+      "competition": "HIGH",
+      "cpc": 1182.04,
+      "intencion": "informacional",
+      "score": 25.1
+    },
+    {
+      "keyword": "arreglos con globos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 390,
+      "competition": "HIGH",
+      "cpc": 1716.0,
+      "intencion": "informacional",
+      "score": 25.1
+    },
+    {
+      "keyword": "columnas de globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 390,
+      "competition": "HIGH",
+      "cpc": 695.51,
+      "intencion": "informacional",
+      "score": 25.1
+    },
+    {
+      "keyword": "curso de globos gratis",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 30,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "comparativa",
+      "score": 25.0
+    },
+    {
+      "keyword": "como inflar globos con helio",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 210,
+      "competition": "MEDIUM",
+      "cpc": 1651.49,
+      "intencion": "informacional",
+      "score": 24.7
+    },
+    {
+      "keyword": "decoracion con globos morados",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 210,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 24.7
+    },
+    {
+      "keyword": "decoraciones con bombas",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 210,
+      "competition": "MEDIUM",
+      "cpc": 1071.52,
+      "intencion": "informacional",
+      "score": 24.7
+    },
+    {
+      "keyword": "decoracion para fiestas",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 210,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 24.2
+    },
+    {
+      "keyword": "decoracion para fiestas",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 210,
+      "competition": "HIGH",
+      "cpc": 2292.7,
+      "intencion": "eventos",
+      "score": 24.2
+    },
+    {
+      "keyword": "decoracion de aniversarios",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 210,
+      "competition": "HIGH",
+      "cpc": 1008.81,
+      "intencion": "eventos",
+      "score": 24.2
+    },
+    {
+      "keyword": "curso de globoflexia",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 30,
+      "competition": "MEDIUM",
+      "cpc": 4518.34,
+      "intencion": "transaccional",
+      "score": 23.1
+    },
+    {
+      "keyword": "curso de globos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 30,
+      "competition": "MEDIUM",
+      "cpc": 3584.36,
+      "intencion": "transaccional",
+      "score": 23.1
+    },
+    {
+      "keyword": "curso de globos y decoracion",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 30,
+      "competition": "MEDIUM",
+      "cpc": 5430.24,
+      "intencion": "transaccional",
+      "score": 23.1
+    },
+    {
+      "keyword": "cursos de decoracion de fiestas",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 30,
+      "competition": "MEDIUM",
+      "cpc": 2380.22,
+      "intencion": "transaccional",
+      "score": 23.1
+    },
+    {
+      "keyword": "decoracion con globos rosa y dorado",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 22.3
+    },
+    {
+      "keyword": "decoracion con globos para hombres",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 22.3
+    },
+    {
+      "keyword": "globos para cumpleaños",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc": 1637.23,
+      "intencion": "informacional",
+      "score": 22.3
+    },
+    {
+      "keyword": "arreglos con globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 22.3
+    },
+    {
+      "keyword": "columnas de globos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc": 1974.62,
+      "intencion": "informacional",
+      "score": 22.3
+    },
+    {
+      "keyword": "flores con globos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc": 2860.88,
+      "intencion": "informacional",
+      "score": 22.3
+    },
+    {
+      "keyword": "globos decoracion",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc": 1037.77,
+      "intencion": "informacional",
+      "score": 22.3
+    },
+    {
+      "keyword": "globos decoracion",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc": 3104.43,
+      "intencion": "informacional",
+      "score": 22.3
+    },
+    {
+      "keyword": "curso de organizacion de eventos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 50,
+      "competition": "HIGH",
+      "cpc": 2896.18,
+      "intencion": "transaccional",
+      "score": 22.0
+    },
+    {
+      "keyword": "como hacer columna de globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 21.8
+    },
+    {
+      "keyword": "como hacer figuras con globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 21.8
+    },
+    {
+      "keyword": "como hacer flores con globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 21.8
+    },
+    {
+      "keyword": "globoflexia paso a paso",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 21.8
+    },
+    {
+      "keyword": "decoracion con globos azul rey y dorado",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 110,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 21.8
+    },
+    {
+      "keyword": "decoracion con globos para mujer",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 170,
+      "competition": "MEDIUM",
+      "cpc": 467.05,
+      "intencion": "informacional",
+      "score": 21.8
+    },
+    {
+      "keyword": "decoracion con globos y telas",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 170,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 21.8
+    },
+    {
+      "keyword": "curso de globos cerca de mi",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 70,
+      "competition": "LOW",
+      "cpc": 982.26,
+      "intencion": "geo",
+      "score": 21.6
+    },
+    {
+      "keyword": "curso de globos cerca de mi",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 70,
+      "competition": "LOW",
+      "cpc": 13189.89,
+      "intencion": "geo",
+      "score": 21.6
+    },
+    {
+      "keyword": "decoracion con globos para matrimonio",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 21.4
+    },
+    {
+      "keyword": "globos para cumpleaños",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 260,
+      "competition": "HIGH",
+      "cpc": 693.28,
+      "intencion": "informacional",
+      "score": 19.7
+    },
+    {
+      "keyword": "columnas de globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 260,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 19.7
+    },
+    {
+      "keyword": "arreglos de globos para cumpleaños",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 260,
+      "competition": "HIGH",
+      "cpc": 1086.37,
+      "intencion": "informacional",
+      "score": 19.7
+    },
+    {
+      "keyword": "globos decoracion",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 260,
+      "competition": "HIGH",
+      "cpc": 888.61,
+      "intencion": "informacional",
+      "score": 19.7
+    },
+    {
+      "keyword": "decoracion con globos rojos y dorados",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 140,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 19.4
+    },
+    {
+      "keyword": "arreglos con bombas",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 140,
+      "competition": "MEDIUM",
+      "cpc": 1016.3,
+      "intencion": "informacional",
+      "score": 19.4
+    },
+    {
+      "keyword": "como hacer columna de globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 90,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 19.3
+    },
+    {
+      "keyword": "como hacer figuras con globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 90,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 19.3
+    },
+    {
+      "keyword": "como hacer flores con globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 90,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 19.3
+    },
+    {
+      "keyword": "decoracion con globos de halloween",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 90,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 19.3
+    },
+    {
+      "keyword": "decoracion con globos de halloween",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 90,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 19.3
+    },
+    {
+      "keyword": "decoracion con globos y flores",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 90,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 19.3
+    },
+    {
+      "keyword": "decoracion para fiestas",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 140,
+      "competition": "HIGH",
+      "cpc": 2191.35,
+      "intencion": "eventos",
+      "score": 19.0
+    },
+    {
+      "keyword": "precio arco de globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 110,
+      "competition": "HIGH",
+      "cpc": 1201.08,
+      "intencion": "negocio",
+      "score": 18.8
+    },
+    {
+      "keyword": "decoracion con globos para boda",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 70,
+      "competition": "MEDIUM",
+      "cpc": 1027.37,
+      "intencion": "eventos",
+      "score": 17.9
+    },
+    {
+      "keyword": "decoracion con globos para matrimonio",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 70,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 17.9
+    },
+    {
+      "keyword": "decorador de fiestas",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 70,
+      "competition": "MEDIUM",
+      "cpc": 2384.83,
+      "intencion": "eventos",
+      "score": 17.9
+    },
+    {
+      "keyword": "decoracion con globos para cumpleanos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 210,
+      "competition": "HIGH",
+      "cpc": 2049.15,
+      "intencion": "informacional",
+      "score": 17.3
+    },
+    {
+      "keyword": "decoracion con globos transparentes",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 210,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 17.3
+    },
+    {
+      "keyword": "decoracion con globos azul rey y dorado",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 210,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 17.3
+    },
+    {
+      "keyword": "decoracion con globos techo",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 210,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 17.3
+    },
+    {
+      "keyword": "arreglos de globos para cumpleaños",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 210,
+      "competition": "HIGH",
+      "cpc": 801.32,
+      "intencion": "informacional",
+      "score": 17.3
+    },
+    {
+      "keyword": "flores con globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 210,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 17.3
+    },
+    {
+      "keyword": "decoracion con globos de halloween",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 110,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 16.8
+    },
+    {
+      "keyword": "decoracion con globos en casa",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 110,
+      "competition": "MEDIUM",
+      "cpc": 621.43,
+      "intencion": "informacional",
+      "score": 16.8
+    },
+    {
+      "keyword": "columnas de globos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 110,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 16.8
+    },
+    {
+      "keyword": "globoflexia paso a paso",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 70,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 16.6
+    },
+    {
+      "keyword": "globoflexia paso a paso",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 70,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 16.6
+    },
+    {
+      "keyword": "decoracion con globos de frozen",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 70,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 16.6
+    },
+    {
+      "keyword": "decoracion con globos morados",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 70,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 16.6
+    },
+    {
+      "keyword": "decoracion con globos para oficina",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 70,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 16.6
+    },
+    {
+      "keyword": "que es globoflexia",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 70,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 16.6
+    },
+    {
+      "keyword": "decoracion con globos para boda",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 110,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 16.4
+    },
+    {
+      "keyword": "decoracion de aniversarios",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 110,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 16.4
+    },
+    {
+      "keyword": "decoracion con globos para cumpleanos",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc": 764.44,
+      "intencion": "informacional",
+      "score": 15.3
+    },
+    {
+      "keyword": "decoracion con globos aerostaticos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc": 641.29,
+      "intencion": "informacional",
+      "score": 15.3
+    },
+    {
+      "keyword": "globos para cumpleaños",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 15.3
+    },
+    {
+      "keyword": "arreglos con globos",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc": 775.09,
+      "intencion": "informacional",
+      "score": 15.3
+    },
+    {
+      "keyword": "arreglos con globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc": 1291.03,
+      "intencion": "informacional",
+      "score": 15.3
+    },
+    {
+      "keyword": "arreglos con globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 15.3
+    },
+    {
+      "keyword": "arreglos de globos para cumpleaños",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc": 3287.31,
+      "intencion": "informacional",
+      "score": 15.3
+    },
+    {
+      "keyword": "globos decoracion",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc": 1144.12,
+      "intencion": "informacional",
+      "score": 15.3
+    },
+    {
+      "keyword": "decoracion con globos sencilla",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 90,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 14.9
+    },
+    {
+      "keyword": "decoracion con globos techo",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 90,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 14.9
+    },
+    {
+      "keyword": "decoracion con globos sencillo",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 90,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 14.9
+    },
+    {
+      "keyword": "decoraciones globos",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 90,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 14.9
+    },
+    {
+      "keyword": "bouquet de globos sencillos",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 90,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 14.9
+    },
+    {
+      "keyword": "bouquet de globos sencillos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 90,
+      "competition": "MEDIUM",
+      "cpc": 483.79,
+      "intencion": "informacional",
+      "score": 14.9
+    },
+    {
+      "keyword": "decoracion con globos para primera comunion",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 50,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 14.6
+    },
+    {
+      "keyword": "decoracion para fiestas",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc": 1962.81,
+      "intencion": "eventos",
+      "score": 14.6
+    },
+    {
+      "keyword": "decoracion de aniversarios",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 14.6
+    },
+    {
+      "keyword": "como inflar globos con helio",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 50,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 13.6
+    },
+    {
+      "keyword": "como inflar globos con helio",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 50,
+      "competition": "LOW",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 13.6
+    },
+    {
+      "keyword": "como inflar globos con helio",
+      "pais": "CL",
+      "loc_id": 2152,
+      "volume": 140,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "informacional",
+      "score": 13.6
+    },
+    {
+      "keyword": "como inflar globos con helio",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 140,
+      "competition": "HIGH",
+      "cpc": 635.02,
+      "intencion": "informacional",
+      "score": 13.6
+    },
+    {
+      "keyword": "decoracion con globos para boda",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 70,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 12.5
+    },
+    {
+      "keyword": "decoracion con globos para bautizo",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 70,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 12.5
+    },
+    {
+      "keyword": "decoracion con globos para matrimonio",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 70,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 12.5
+    },
+    {
+      "keyword": "decoracion de aniversarios",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 70,
+      "competition": "HIGH",
+      "cpc": 3099.02,
+      "intencion": "eventos",
+      "score": 12.5
+    },
+    {
+      "keyword": "precio arco de globos",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 30,
+      "competition": "MEDIUM",
+      "cpc": 0.0,
+      "intencion": "negocio",
+      "score": 12.3
+    },
+    {
+      "keyword": "decoracion con globos para boda",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 50,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 10.2
+    },
+    {
+      "keyword": "decoracion con globos para boda",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 50,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 10.2
+    },
+    {
+      "keyword": "precio arco de globos",
+      "pais": "AR",
+      "loc_id": 2032,
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc": 489.72,
+      "intencion": "negocio",
+      "score": 10.2
+    },
+    {
+      "keyword": "decoracion con globos para bautizo",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 9.0
+    },
+    {
+      "keyword": "decoracion con globos para bautizo",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 9.0
+    },
+    {
+      "keyword": "decoracion con globos para bautizo",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 9.0
+    },
+    {
+      "keyword": "decoracion con globos para graduacion",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 9.0
+    },
+    {
+      "keyword": "materiales para decoracion con globos",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "negocio",
+      "score": 8.6
+    },
+    {
+      "keyword": "proveedores de globos al por mayor",
+      "pais": "MX",
+      "loc_id": 2484,
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc": 3017.15,
+      "intencion": "negocio",
+      "score": 8.6
+    },
+    {
+      "keyword": "precio arco de globos",
+      "pais": "ES",
+      "loc_id": 2724,
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "negocio",
+      "score": 8.6
+    },
+    {
+      "keyword": "decoracion con globos para graduacion",
+      "pais": "PE",
+      "loc_id": 2604,
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 7.5
+    },
+    {
+      "keyword": "decoracion con globos para graduacion",
+      "pais": "US",
+      "loc_id": 2840,
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 7.5
+    },
+    {
+      "keyword": "decoracion con globos para matrimonio",
+      "pais": "EC",
+      "loc_id": 2218,
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc": 0.0,
+      "intencion": "eventos",
+      "score": 7.5
+    },
+    {
+      "keyword": "decorador de fiestas",
+      "pais": "CO",
+      "loc_id": 2170,
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc": 1091.07,
+      "intencion": "eventos",
+      "score": 7.5
+    }
+  ],
+  "keywords_map": {
+    "decoracion con globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      }
+    ],
+    "curso de decoracion con globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      }
+    ],
+    "curso de globoflexia": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      }
+    ],
+    "cursos de decoracion con globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      }
+    ],
+    "curso decoracion de globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      }
+    ],
+    "arcos de globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      }
+    ],
+    "globoflexia": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      }
+    ],
+    "decorador de cumpleaños": [
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      }
+    ],
+    "curso de globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      }
+    ],
+    "curso de organizacion de eventos": [
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      }
+    ],
+    "curso de decoracion de eventos": [
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      }
+    ],
+    "como hacer arco de globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      }
+    ],
+    "decoracion para fiestas": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      }
+    ],
+    "decoracion con globos para la virgen de guadalupe": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ],
+    "decoracion con globos navideños": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      }
+    ],
+    "decoracion con globos para boda": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      }
+    ],
+    "decoracion con globos azul rey y dorado": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      }
+    ],
+    "bouquet de globos sencillos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      }
+    ],
+    "arreglos con globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      }
+    ],
+    "arreglos de globos para cumpleaños": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      }
+    ],
+    "flores con globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      }
+    ],
+    "decoracion de aniversarios": [
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      }
+    ],
+    "decoracion con bombas": [
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "decoracion bombas": [
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "como hacer flores con globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      }
+    ],
+    "decoracion con globos rosa y dorado": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      }
+    ],
+    "decoracion con globos para hombres": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      }
+    ],
+    "decoracion con globos para mujer": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      }
+    ],
+    "curso de globos burbuja": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ],
+    "decoracion con globos para bautizo": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      }
+    ],
+    "decoracion con globos para graduacion": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      }
+    ],
+    "decoracion con globos en casa": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      }
+    ],
+    "que es globoflexia": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      }
+    ],
+    "bouquets de globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "decoracion con globos de halloween": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      }
+    ],
+    "decoracion con globos para cumpleanos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      }
+    ],
+    "decoracion con globos transparentes": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "decoracion con globos para primera comunion": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "curso de mesa de dulces": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ],
+    "cursos de decoracion de fiestas": [
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ],
+    "decoracion con globos y telas": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      }
+    ],
+    "decoracion con globos techo": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      }
+    ],
+    "globos para cumpleaños": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "columnas de globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      }
+    ],
+    "como hacer figuras con globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      }
+    ],
+    "decoracion con globos aerostaticos": [
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      }
+    ],
+    "globos decoracion": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      }
+    ],
+    "clases de decoracion con globos": [
+      {
+        "lang": "es",
+        "loc_id": 2840
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      }
+    ],
+    "curso de candy bar": [
+      {
+        "lang": "es",
+        "loc_id": 2032
+      }
+    ],
+    "decoracion con globos y flores": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      }
+    ],
+    "decoracion en globos": [
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "decoracion con globos sencilla": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "decoracion con globos sencillo": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "curso de globos para fiestas": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ],
+    "cursos para decoracion con globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ],
+    "curso para decoracion con globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ],
+    "curso de globos gratis": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "curso de globos en el sena": [
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "como inflar globos con helio": [
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      }
+    ],
+    "decoracion con globos colgantes": [
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ],
+    "decoracion con globos de frozen": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "decoraciones globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      }
+    ],
+    "decoracion con globos burbuja": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ],
+    "globoflexia paso a paso": [
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      }
+    ],
+    "decoracion con globos morados": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "decoraciones con bombas": [
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "curso de globos y decoracion": [
+      {
+        "lang": "es",
+        "loc_id": 2724
+      }
+    ],
+    "como hacer columna de globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      }
+    ],
+    "curso de globos cerca de mi": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2840
+      }
+    ],
+    "decoracion con globos para matrimonio": [
+      {
+        "lang": "es",
+        "loc_id": 2170
+      },
+      {
+        "lang": "es",
+        "loc_id": 2152
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2218
+      }
+    ],
+    "decoracion con globos rojos y dorados": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ],
+    "arreglos con bombas": [
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "precio arco de globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2604
+      },
+      {
+        "lang": "es",
+        "loc_id": 2032
+      },
+      {
+        "lang": "es",
+        "loc_id": 2724
+      }
+    ],
+    "decorador de fiestas": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      },
+      {
+        "lang": "es",
+        "loc_id": 2170
+      }
+    ],
+    "decoracion con globos para oficina": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ],
+    "materiales para decoracion con globos": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ],
+    "proveedores de globos al por mayor": [
+      {
+        "lang": "es",
+        "loc_id": 2484
+      }
+    ]
+  }
+}
