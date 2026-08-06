@@ -3,6 +3,7 @@ import { CATEGORIES } from '@/lib/categories';
 import { COUNTRIES, type Country } from '@/lib/countries';
 import { SITE } from '@/lib/site';
 import Logo from './Logo.astro';
+import SocialIcon from './SocialIcon.astro';
 
 interface Props {
   country: Country;
@@ -10,79 +11,122 @@ interface Props {
 const { country } = Astro.props;
 const base = `/${country.code}`;
 const year = new Date().getFullYear();
+
+const REDES = [
+  { network: 'instagram', url: SITE.social.instagram, label: 'Instagram' },
+  { network: 'tiktok', url: SITE.social.tiktok, label: 'TikTok' },
+  { network: 'facebook', url: SITE.social.facebook, label: 'Facebook' },
+  { network: 'youtube', url: SITE.social.youtube, label: 'YouTube' },
+] as const;
+
+const SABLY_LINKS = [
+  { href: '/nosotros/', label: 'Sobre nosotros' },
+  { href: '/homologaciones/', label: 'Homologaciones' },
+  { href: '/blog/', label: 'Blog' },
+  { href: '/sitemap/', label: 'Mapa del sitio' },
+  { href: '/legal/terminos/', label: 'Términos y condiciones' },
+  { href: '/legal/privacidad/', label: 'Política de privacidad' },
+];
 ---
 
 <footer class="bg-primary text-white">
-  <div class="container-site grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
-    <div>
-      <Logo href={`${base}/`} inverted />
-      <p class="mt-4 max-w-xs text-sm text-white/70">{SITE.tagline}</p>
-      <p class="mt-4 text-sm text-white/70">
-        Parte del ecosistema Sably:
-        {
-          SITE.filiales.map((f) => (
-            <a href={f.url} target="_blank" rel="noopener" class="block mt-1 font-semibold text-white hover:text-accent">
-              {f.name} →
-            </a>
-          ))
-        }
-      </p>
-    </div>
+  <div class="container-site py-12 sm:py-14">
+    <!-- Marca: full width en móvil, columna propia desde lg -->
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))] lg:gap-8">
+      <div>
+        <Logo href={`${base}/`} inverted />
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-white/70">{SITE.tagline}</p>
 
-    <nav aria-label="Categorías">
-      <h2 class="mb-4 font-display text-sm font-bold tracking-wide text-white uppercase">Categorías</h2>
-      <ul class="space-y-2" role="list">
-        {
-          CATEGORIES.map((cat) => (
-            <li>
+        <p class="mt-5 text-xs font-bold tracking-wide text-white/50 uppercase">Ecosistema Sably</p>
+        <ul class="mt-2 space-y-1.5" role="list">
+          {
+            SITE.filiales.map((f) => (
+              <li>
+                <a
+                  href={f.url}
+                  target="_blank"
+                  rel="noopener"
+                  class="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition hover:text-accent"
+                >
+                  {f.name}
+                  <span aria-hidden="true">→</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="mt-6 flex gap-2.5">
+          {
+            REDES.map((r) => (
               <a
-                href={cat.externalUrl ?? `${base}/cursos/${cat.slug}/`}
-                class="text-sm text-white/70 hover:text-white"
-                {...(cat.externalUrl ? { target: '_blank', rel: 'noopener' } : {})}
+                href={r.url}
+                target="_blank"
+                rel="noopener"
+                aria-label={r.label}
+                class="flex size-10 items-center justify-center rounded-full bg-white/10 text-white/80 transition hover:bg-accent hover:text-white"
               >
-                {cat.name}
+                <SocialIcon network={r.network} class="size-[18px]" />
               </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-
-    <nav aria-label="Países">
-      <h2 class="mb-4 font-display text-sm font-bold tracking-wide text-white uppercase">Cursos por país</h2>
-      <ul class="space-y-2" role="list">
-        {
-          COUNTRIES.map((c) => (
-            <li>
-              <a href={`/${c.code}/`} class="text-sm text-white/70 hover:text-white">
-                {c.flag} Cursos online en {c.name}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-
-    <div>
-      <h2 class="mb-4 font-display text-sm font-bold tracking-wide text-white uppercase">Sably</h2>
-      <ul class="space-y-2" role="list">
-        <li><a href="/nosotros/" class="text-sm text-white/70 hover:text-white">Sobre nosotros</a></li>
-        <li><a href="/homologaciones/" class="text-sm text-white/70 hover:text-white">Homologaciones</a></li>
-        <li><a href="/blog/" class="text-sm text-white/70 hover:text-white">Blog</a></li>
-        <li><a href="/legal/terminos/" class="text-sm text-white/70 hover:text-white">Términos y condiciones</a></li>
-        <li><a href="/legal/privacidad/" class="text-sm text-white/70 hover:text-white">Política de privacidad</a></li>
-        <li><a href="/sitemap/" class="text-sm text-white/70 hover:text-white">Mapa del sitio</a></li>
-      </ul>
-      <div class="mt-5 flex gap-3">
-        <a href={SITE.social.instagram} target="_blank" rel="noopener" class="text-white/70 hover:text-white" aria-label="Instagram">IG</a>
-        <a href={SITE.social.tiktok} target="_blank" rel="noopener" class="text-white/70 hover:text-white" aria-label="TikTok">TT</a>
-        <a href={SITE.social.facebook} target="_blank" rel="noopener" class="text-white/70 hover:text-white" aria-label="Facebook">FB</a>
-        <a href={SITE.social.youtube} target="_blank" rel="noopener" class="text-white/70 hover:text-white" aria-label="YouTube">YT</a>
+            ))
+          }
+        </div>
       </div>
+
+      <!-- En móvil las 3 listas van en 2 columnas para no hacer un footer kilométrico -->
+      <nav aria-label="Categorías" class="min-w-0">
+        <h2 class="font-display text-sm font-bold tracking-wide text-white uppercase">Categorías</h2>
+        <ul class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 lg:grid-cols-1" role="list">
+          {
+            CATEGORIES.map((cat) => (
+              <li>
+                <a
+                  href={cat.externalUrl ?? `${base}/cursos/${cat.slug}/`}
+                  class="text-sm text-white/70 transition hover:text-white"
+                  {...(cat.externalUrl ? { target: '_blank', rel: 'noopener' } : {})}
+                >
+                  {cat.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label="Países" class="min-w-0">
+        <h2 class="font-display text-sm font-bold tracking-wide text-white uppercase">Por país</h2>
+        <ul class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 lg:grid-cols-1" role="list">
+          {
+            COUNTRIES.map((c) => (
+              <li>
+                <a href={`/${c.code}/`} class="text-sm text-white/70 transition hover:text-white">
+                  <span aria-hidden="true">{c.flag}</span> {c.name}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <nav aria-label="Sably" class="min-w-0">
+        <h2 class="font-display text-sm font-bold tracking-wide text-white uppercase">Sably</h2>
+        <ul class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 lg:grid-cols-1" role="list">
+          {
+            SABLY_LINKS.map((l) => (
+              <li>
+                <a href={l.href} class="text-sm text-white/70 transition hover:text-white">
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
     </div>
   </div>
+
   <div class="border-t border-white/10">
-    <div class="container-site flex flex-col items-center justify-between gap-2 py-5 text-xs text-white/50 sm:flex-row">
+    <div class="container-site flex flex-col items-center gap-2 py-5 text-center text-xs text-white/50 sm:flex-row sm:justify-between sm:text-left">
       <p>© {year} Sably — Todos los derechos reservados.</p>
       <p>Los cursos se imparten a través de Hotmart. Certificado incluido.</p>
     </div>
