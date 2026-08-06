@@ -11,6 +11,7 @@ import { COUNTRIES, getCountry } from '@/lib/countries';
 import { CATEGORIES } from '@/lib/categories';
 import { countryAlternates, faqSchema } from '@/lib/seo';
 import { SITE, CDN_URL } from '@/lib/site';
+import { HERO_ASSETS } from '@/lib/hero-assets';
 
 export function getStaticPaths() {
   return COUNTRIES.map((c) => ({ params: { country: c.code } }));
@@ -110,7 +111,7 @@ const description = `Aprende panadería, costura, electricidad, gastronomía y m
       <div class="relative -mx-4 mt-2 sm:mx-0 lg:mt-0">
         <div class="absolute inset-x-4 inset-y-0 -z-10 rounded-full bg-accent/15 blur-3xl" aria-hidden="true"></div>
         <img
-          src={`${CDN_URL}/heroes/${country.code}.webp`}
+          src={`${CDN_URL}/heroes/${HERO_ASSETS[country.code]}`}
           alt={`Profesionales de distintos oficios que estudian en Sably desde ${country.name}`}
           width="900"
           height="491"

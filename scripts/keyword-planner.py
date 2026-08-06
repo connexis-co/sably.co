@@ -25,12 +25,12 @@ from pathlib import Path
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import padding
 
-API_VERSION = 'v21'
+API_VERSION = 'v24'
 
 # Criterios de geo-targeting de Google Ads por país
 GEO_TARGETS = {
     'CO': '2170', 'MX': '2484', 'PE': '2604', 'EC': '2218',
-    'CL': '2152', 'AR': '2032', 'US': '2840',
+    'CL': '2152', 'AR': '2032', 'US': '2840', 'ES': '2724',
 }
 LANG_ES = '1003'
 

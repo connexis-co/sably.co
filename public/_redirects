@@ -5,4 +5,24 @@
 /:country/curso/:slug/ /:country/:slug/ 301
 /:country/:city/curso/:slug/ /:country/:city/:slug/ 301
 
+# Consolidación de head terms: los slugs largos diluían la keyword principal.
+/:country/curso-de-cocina-desde-cero-a-profesional/ /:country/curso-de-cocina/ 301
+/:country/:city/curso-de-cocina-desde-cero-a-profesional/ /:country/:city/curso-de-cocina/ 301
+/:country/curso-de-soldadura-mig-tig-y-arco-electrico/ /:country/curso-de-soldadura/ 301
+/:country/:city/curso-de-soldadura-mig-tig-y-arco-electrico/ /:country/:city/curso-de-soldadura/ 301
+/:country/curso-de-marketing-digital-para-emprendedores/ /:country/curso-de-marketing-digital/ 301
+/:country/:city/curso-de-marketing-digital-para-emprendedores/ /:country/:city/curso-de-marketing-digital/ 301
+/:country/curso-de-reposteria-fina-y-postres-gourmet/ /:country/curso-de-reposteria/ 301
+/:country/:city/curso-de-reposteria-fina-y-postres-gourmet/ /:country/:city/curso-de-reposteria/ 301
+/:country/curso-de-mecanica-de-motos-desde-cero/ /:country/curso-de-mecanica-de-motos/ 301
+/:country/:city/curso-de-mecanica-de-motos-desde-cero/ /:country/:city/curso-de-mecanica-de-motos/ 301
+/:country/curso-de-aire-acondicionado-y-refrigeracion/ /:country/curso-de-aire-acondicionado/ 301
+/:country/:city/curso-de-aire-acondicionado-y-refrigeracion/ /:country/:city/curso-de-aire-acondicionado/ 301
+/:country/curso-de-resina-epoxica-paso-a-paso/ /:country/curso-de-resina-epoxica/ 301
+/:country/:city/curso-de-resina-epoxica-paso-a-paso/ /:country/:city/curso-de-resina-epoxica/ 301
+/:country/curso-de-panaderia-artesanal-y-masa-madre/ /:country/curso-de-panaderia/ 301
+/:country/:city/curso-de-panaderia-artesanal-y-masa-madre/ /:country/:city/curso-de-panaderia/ 301
+/:country/curso-de-corte-y-confeccion-desde-cero/ /:country/curso-de-corte-y-confeccion/ 301
+/:country/:city/curso-de-corte-y-confeccion-desde-cero/ /:country/:city/curso-de-corte-y-confeccion/ 301
+
 / /co/ 302

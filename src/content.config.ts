@@ -10,6 +10,12 @@ const courses = defineCollection({
     title: z.string(),
     metaTitle: z.string().optional(),
     category: z.enum(categorySlugs),
+    /**
+     * Slug del curso general del que este es una especialización. Marca al curso
+     * como satélite: el pilar es el único que apunta al head term y el satélite
+     * enlaza hacia él para sumar señal en vez de competir por la misma keyword.
+     */
+    pillar: z.string().optional(),
     subcategory: z.string(),
     shortDescription: z.string().max(180),
     level: z.enum(['Principiante', 'Intermedio', 'Avanzado', 'Todos los niveles']),

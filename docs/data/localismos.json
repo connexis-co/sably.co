@@ -1,0 +1,1542 @@
+{
+  "familias": {
+    "plomería": [
+      "curso de plomeria",
+      "curso de gasfiteria",
+      "curso de fontaneria",
+      "curso de plomero",
+      "curso de gasfiter"
+    ],
+    "peluquería": [
+      "curso de peluqueria",
+      "curso de estilismo",
+      "curso de estilista",
+      "curso de corte de cabello",
+      "curso de corte de pelo"
+    ],
+    "uñas": [
+      "curso de uñas",
+      "curso de manicura",
+      "curso de manicure",
+      "curso de manicuria",
+      "curso de uñas esculpidas",
+      "curso de uñas acrilicas",
+      "curso de uñas de gel"
+    ],
+    "repostería": [
+      "curso de reposteria",
+      "curso de pasteleria",
+      "curso de panaderia"
+    ],
+    "costura": [
+      "curso de costura",
+      "curso de corte y confeccion",
+      "curso de modisteria",
+      "curso de patronaje",
+      "curso de confeccion"
+    ],
+    "celulares": [
+      "curso de reparacion de celulares",
+      "curso de reparacion de moviles",
+      "curso de reparacion de telefonos"
+    ],
+    "mecánica": [
+      "curso de mecanica automotriz",
+      "curso de mecanica de autos",
+      "curso de mecanica de carros",
+      "curso de mecanica de coches",
+      "curso de mecanica de motos",
+      "curso de mecanica de motocicletas"
+    ],
+    "masajes": [
+      "curso de masajes",
+      "curso de masoterapia",
+      "curso de quiromasaje",
+      "curso de masajista"
+    ],
+    "electricidad": [
+      "curso de electricista",
+      "curso de electricidad",
+      "curso de instalaciones electricas"
+    ],
+    "estética": [
+      "curso de cosmetologia",
+      "curso de estetica",
+      "curso de esteticista",
+      "curso de cosmiatria"
+    ],
+    "depilación": [
+      "curso de depilacion",
+      "curso de depilacion con cera",
+      "curso de depilacion laser"
+    ],
+    "barbería": [
+      "curso de barberia",
+      "curso de barbero"
+    ]
+  },
+  "metricas": {
+    "curso de barberia": {
+      "CO": {
+        "volume": 1300,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 3600,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 390,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 210,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 2400,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 2900,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 880,
+        "competition": "MEDIUM"
+      },
+      "US": {
+        "volume": 720,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de confeccion": {
+      "CO": {
+        "volume": 210,
+        "competition": "MEDIUM"
+      },
+      "MX": {
+        "volume": 40,
+        "competition": "MEDIUM"
+      },
+      "PE": {
+        "volume": 20,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "CL": {
+        "volume": 20,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 20,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 30,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de corte de cabello": {
+      "CO": {
+        "volume": 110,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 1000,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 90,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 40,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 50,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 20,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 50,
+        "competition": "MEDIUM"
+      },
+      "US": {
+        "volume": 110,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de corte de pelo": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 70,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 90,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 70,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 20,
+        "competition": "MEDIUM"
+      },
+      "US": {
+        "volume": 20,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de corte y confeccion": {
+      "CO": {
+        "volume": 90,
+        "competition": "MEDIUM"
+      },
+      "MX": {
+        "volume": 1000,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 90,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 90,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 210,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 720,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 390,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 50,
+        "competition": "LOW"
+      }
+    },
+    "curso de cosmetologia": {
+      "CO": {
+        "volume": 480,
+        "competition": "MEDIUM"
+      },
+      "MX": {
+        "volume": 1300,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 210,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 210,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 590,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 1600,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 170,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 390,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de cosmiatria": {
+      "CO": {
+        "volume": 20,
+        "competition": "MEDIUM"
+      },
+      "MX": {
+        "volume": 110,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 140,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 30,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 320,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW"
+      }
+    },
+    "curso de costura": {
+      "CO": {
+        "volume": 480,
+        "competition": "MEDIUM"
+      },
+      "MX": {
+        "volume": 880,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 210,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 140,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 1000,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 1300,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 880,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 210,
+        "competition": "LOW"
+      }
+    },
+    "curso de depilacion": {
+      "CO": {
+        "volume": 20,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 50,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 170,
+        "competition": "LOW"
+      },
+      "AR": {
+        "volume": 140,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 20,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 20,
+        "competition": "LOW"
+      }
+    },
+    "curso de depilacion con cera": {
+      "CO": {
+        "volume": 90,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 170,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 20,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 390,
+        "competition": "LOW"
+      },
+      "AR": {
+        "volume": 210,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 50,
+        "competition": "MEDIUM"
+      },
+      "US": {
+        "volume": 50,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de depilacion laser": {
+      "CO": {
+        "volume": 70,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 210,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 20,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 140,
+        "competition": "LOW"
+      },
+      "AR": {
+        "volume": 210,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 210,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 90,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de electricidad": {
+      "CO": {
+        "volume": 880,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 2900,
+        "competition": "MEDIUM"
+      },
+      "PE": {
+        "volume": 880,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 260,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 1300,
+        "competition": "HIGH"
+      },
+      "AR": {
+        "volume": 5400,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 2900,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 1300,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de estetica": {
+      "CO": {
+        "volume": 210,
+        "competition": "MEDIUM"
+      },
+      "MX": {
+        "volume": 90,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 40,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 20,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 260,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 480,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 1000,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 170,
+        "competition": "LOW"
+      }
+    },
+    "curso de estilismo": {
+      "CO": {
+        "volume": 90,
+        "competition": "MEDIUM"
+      },
+      "MX": {
+        "volume": 720,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 50,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 20,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 210,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 140,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 90,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 50,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de patronaje": {
+      "CO": {
+        "volume": 110,
+        "competition": "MEDIUM"
+      },
+      "MX": {
+        "volume": 70,
+        "competition": "MEDIUM"
+      },
+      "PE": {
+        "volume": 70,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "CL": {
+        "volume": 40,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 30,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 170,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW"
+      }
+    },
+    "curso de instalaciones electricas": {
+      "CO": {
+        "volume": 20,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 210,
+        "competition": "MEDIUM"
+      },
+      "PE": {
+        "volume": 170,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 30,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 50,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 50,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW"
+      }
+    },
+    "curso de modisteria": {
+      "CO": {
+        "volume": 260,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "HIGH"
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de fontaneria": {
+      "CO": {
+        "volume": 40,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 90,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 20,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 20,
+        "competition": "LOW"
+      },
+      "ES": {
+        "volume": 1600,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 20,
+        "competition": "LOW"
+      }
+    },
+    "curso de gasfiter": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "PE": {
+        "volume": 170,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 1300,
+        "competition": "LOW"
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW"
+      }
+    },
+    "curso de manicura": {
+      "CO": {
+        "volume": 390,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 210,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 170,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 50,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 1000,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 1300,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 590,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 140,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de manicure": {
+      "CO": {
+        "volume": 390,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 210,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 170,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 50,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 1000,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 1300,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 590,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 140,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de masajes": {
+      "CO": {
+        "volume": 390,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 880,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 170,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 70,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 720,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 1900,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 880,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 260,
+        "competition": "LOW"
+      }
+    },
+    "curso de masoterapia": {
+      "CO": {
+        "volume": 70,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 140,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 70,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 480,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 260,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 40,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de mecanica automotriz": {
+      "CO": {
+        "volume": 880,
+        "competition": "MEDIUM"
+      },
+      "MX": {
+        "volume": 2900,
+        "competition": "MEDIUM"
+      },
+      "PE": {
+        "volume": 480,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 320,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 1000,
+        "competition": "HIGH"
+      },
+      "AR": {
+        "volume": 2900,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 260,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 1000,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de mecanica de autos": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 110,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "HIGH"
+      }
+    },
+    "curso de mecanica de carros": {
+      "CO": {
+        "volume": 20,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "HIGH"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "CL": {
+        "volume": 0,
+        "competition": "UNKNOWN"
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de mecanica de coches": {
+      "CO": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "HIGH"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "ES": {
+        "volume": 880,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 20,
+        "competition": "UNKNOWN"
+      }
+    },
+    "curso de mecanica de motocicletas": {
+      "CO": {
+        "volume": 1000,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 1300,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 170,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 110,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 320,
+        "competition": "LOW"
+      },
+      "AR": {
+        "volume": 1900,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 590,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 70,
+        "competition": "LOW"
+      }
+    },
+    "curso de mecanica de motos": {
+      "CO": {
+        "volume": 1000,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 1300,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 170,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 110,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 320,
+        "competition": "LOW"
+      },
+      "AR": {
+        "volume": 1900,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 590,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 70,
+        "competition": "LOW"
+      }
+    },
+    "curso de panaderia": {
+      "CO": {
+        "volume": 480,
+        "competition": "MEDIUM"
+      },
+      "MX": {
+        "volume": 880,
+        "competition": "MEDIUM"
+      },
+      "PE": {
+        "volume": 210,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 110,
+        "competition": "MEDIUM"
+      },
+      "CL": {
+        "volume": 390,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 880,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 320,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 110,
+        "competition": "LOW"
+      }
+    },
+    "curso de quiromasaje": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "HIGH"
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 390,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 20,
+        "competition": "LOW"
+      }
+    },
+    "curso de electricista": {
+      "CO": {
+        "volume": 880,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 2900,
+        "competition": "MEDIUM"
+      },
+      "PE": {
+        "volume": 880,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 260,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 1300,
+        "competition": "HIGH"
+      },
+      "AR": {
+        "volume": 5400,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 2900,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 1300,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de pasteleria": {
+      "CO": {
+        "volume": 320,
+        "competition": "MEDIUM"
+      },
+      "MX": {
+        "volume": 390,
+        "competition": "MEDIUM"
+      },
+      "PE": {
+        "volume": 320,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 90,
+        "competition": "MEDIUM"
+      },
+      "CL": {
+        "volume": 480,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 1900,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 390,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 140,
+        "competition": "HIGH"
+      }
+    },
+    "curso de peluqueria": {
+      "CO": {
+        "volume": 480,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 210,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 50,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 90,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 1600,
+        "competition": "LOW"
+      },
+      "AR": {
+        "volume": 2900,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 1300,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 320,
+        "competition": "LOW"
+      }
+    },
+    "curso de plomeria": {
+      "CO": {
+        "volume": 110,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 720,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 20,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 20,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 50,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 1900,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 40,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 320,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de reparacion de celulares": {
+      "CO": {
+        "volume": 590,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 1900,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 720,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 140,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 320,
+        "competition": "LOW"
+      },
+      "AR": {
+        "volume": 4400,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 40,
+        "competition": "MEDIUM"
+      },
+      "US": {
+        "volume": 140,
+        "competition": "LOW"
+      }
+    },
+    "curso de reparacion de moviles": {
+      "CO": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "ES": {
+        "volume": 260,
+        "competition": "MEDIUM"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW"
+      }
+    },
+    "curso de reparacion de telefonos": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 20,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW"
+      }
+    },
+    "curso de reposteria": {
+      "CO": {
+        "volume": 880,
+        "competition": "MEDIUM"
+      },
+      "MX": {
+        "volume": 2900,
+        "competition": "MEDIUM"
+      },
+      "PE": {
+        "volume": 480,
+        "competition": "MEDIUM"
+      },
+      "EC": {
+        "volume": 170,
+        "competition": "MEDIUM"
+      },
+      "CL": {
+        "volume": 1300,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 880,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 880,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 390,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de uñas": {
+      "CO": {
+        "volume": 1300,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 4400,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 390,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 260,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 1000,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 2900,
+        "competition": "MEDIUM"
+      },
+      "ES": {
+        "volume": 1300,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 720,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de uñas acrilicas": {
+      "CO": {
+        "volume": 110,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 390,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 170,
+        "competition": "LOW"
+      },
+      "EC": {
+        "volume": 70,
+        "competition": "LOW"
+      },
+      "CL": {
+        "volume": 140,
+        "competition": "MEDIUM"
+      },
+      "AR": {
+        "volume": 40,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 260,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 260,
+        "competition": "MEDIUM"
+      }
+    },
+    "curso de uñas de gel": {
+      "CO": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "HIGH"
+      },
+      "AR": {
+        "volume": 10,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 30,
+        "competition": "HIGH"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW"
+      }
+    },
+    "curso de uñas esculpidas": {
+      "CO": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "MX": {
+        "volume": 10,
+        "competition": "LOW"
+      },
+      "PE": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "EC": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "CL": {
+        "volume": 10,
+        "competition": "UNKNOWN"
+      },
+      "AR": {
+        "volume": 210,
+        "competition": "HIGH"
+      },
+      "ES": {
+        "volume": 10,
+        "competition": "MEDIUM"
+      },
+      "US": {
+        "volume": 10,
+        "competition": "LOW"
+      }
+    }
+  }
+}
