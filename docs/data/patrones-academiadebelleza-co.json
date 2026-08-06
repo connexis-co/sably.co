@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "-",
+    "keyword": "clases de unas",
+    "volume": 390,
+    "competition": "LOW",
+    "cpc_low": 707.75,
+    "cpc_high": 1973.08,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "cursos cerca de mi",
+    "volume": 260,
+    "competition": "MEDIUM",
+    "cpc_low": 1058.19,
+    "cpc_high": 3941.37,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de barberia cerca de mi",
+    "volume": 90,
+    "competition": "LOW",
+    "cpc_low": 83.16,
+    "cpc_high": 448.61,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "clases de barberia",
+    "volume": 70,
+    "competition": "LOW",
+    "cpc_low": 83.12,
+    "cpc_high": 1264.93,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de barberia virtual",
+    "volume": 20,
+    "competition": "LOW",
+    "cpc_low": 80.34,
+    "cpc_high": 596.94,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "aprender barberia desde cero",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de barberia gratis con certificado",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "diplomado en barberia",
+    "volume": 10,
+    "competition": "LOW",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de unas cerca de mi",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  },
+  {
+    "slug": "-",
+    "keyword": "estudiar barberia online",
+    "volume": 0,
+    "competition": "UNKNOWN",
+    "cpc_low": 0.0,
+    "cpc_high": 0.0,
+    "verdict": "LONG-TAIL"
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "-",
+    "keyword": "curso de ingles",
+    "volume": 5400,
+    "competition": "HIGH",
+    "cpc_low": 4998.13,
+    "cpc_high": 18421.75,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de cocina",
+    "volume": 2900,
+    "competition": "HIGH",
+    "cpc_low": 2102.68,
+    "cpc_high": 7764.37,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de excel",
+    "volume": 1900,
+    "competition": "HIGH",
+    "cpc_low": 2532.1,
+    "cpc_high": 12830.64,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de fontaneria",
+    "volume": 1600,
+    "competition": "HIGH",
+    "cpc_low": 2657.25,
+    "cpc_high": 13570.77,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de peluqueria",
+    "volume": 1300,
+    "competition": "HIGH",
+    "cpc_low": 2475.58,
+    "cpc_high": 6585.35,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de maquillaje",
+    "volume": 1000,
+    "competition": "HIGH",
+    "cpc_low": 2791.94,
+    "cpc_high": 11021.47,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de barberia",
+    "volume": 880,
+    "competition": "MEDIUM",
+    "cpc_low": 1982.88,
+    "cpc_high": 18457.15,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de carpinteria",
+    "volume": 590,
+    "competition": "MEDIUM",
+    "cpc_low": 867.69,
+    "cpc_high": 3205.41,
+    "verdict": "MANTENER"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de panaderia",
+    "volume": 320,
+    "competition": "HIGH",
+    "cpc_low": 2275.42,
+    "cpc_high": 9068.73,
+    "verdict": "OPTIMIZAR"
+  },
+  {
+    "slug": "-",
+    "keyword": "curso de unas",
+    "volume": 20,
+    "competition": "HIGH",
+    "cpc_low": 4537.02,
+    "cpc_high": 20387.41,
+    "verdict": "LONG-TAIL"
+  }
+]
