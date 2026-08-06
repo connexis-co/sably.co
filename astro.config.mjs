@@ -15,6 +15,12 @@ export default defineConfig({
   redirects: {
     '/': '/co/',
   },
+  server: {
+    // Astro se queda en 4321 y salta al siguiente libre si está ocupado, lo que
+    // deja al que lanzó el servidor sin saber en qué puerto quedó. Respetar PORT
+    // hace que el puerto asignado sea el que de verdad escucha.
+    port: Number(process.env.PORT) || 4321,
+  },
   vite: {
     plugins: [tailwindcss()],
   },
