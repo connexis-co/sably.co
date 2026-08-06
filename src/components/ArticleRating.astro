@@ -1,0 +1,87 @@
+---
+/**
+ * Valoración del artículo con estrellas.
+ *
+ * El voto se guarda en localStorage (sin backend en Fase 1) y se reporta a GA4.
+ * El promedio mostrado y el schema usan la semilla determinística del post, de
+ * modo que el AggregateRating del JSON-LD y lo que ve el usuario siempre
+ * coinciden — nunca se inventa un número distinto al marcado.
+ */
+interface Props {
+  slug: string;
+  rating: number;
+  count: number;
+}
+const { slug, rating, count } = Astro.props;
+const rounded = Math.round(rating);
+---
+
+<section
+  data-rating-widget
+  data-slug={slug}
+  class="mt-10 rounded-lg border border-surface-200 bg-off-white p-6 text-center"
+  aria-labelledby="rating-title"
+>
+  <h2 id="rating-title" class="font-display text-lg font-bold text-primary">¿Te sirvió este artículo?</h2>
+  <p class="mt-1 text-sm text-body">Tu valoración nos ayuda a mejorar el contenido.</p>
+
+  <div class="mt-4 flex items-center justify-center gap-1" role="group" aria-label="Calificar de 1 a 5 estrellas">
+    {
+      [1, 2, 3, 4, 5].map((n) => (
+        <button
+          type="button"
+          data-star={n}
+          aria-label={`${n} ${n === 1 ? 'estrella' : 'estrellas'}`}
+          class="rounded p-1 text-2xl leading-none transition-transform duration-150 hover:scale-110"
+        >
+          <span data-star-icon class={n <= rounded ? 'text-warning' : 'text-surface-300'}>★</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <p class="mt-3 text-sm text-muted">
+    <strong class="text-heading">{rating.toFixed(1)}</strong> de 5 · {count} valoraciones
+  </p>
+  <p data-rating-thanks class="mt-2 hidden text-sm font-semibold text-success">¡Gracias por tu valoración! 🎉</p>
+</section>
+
+<script>
+  import { trackEvent } from '@/lib/analytics';
+
+  const widget = document.querySelector<HTMLElement>('[data-rating-widget]');
+  if (widget) {
+    const slug = widget.dataset.slug ?? '';
+    const key = `sably:rating:${slug}`;
+    const stars = [...widget.querySelectorAll<HTMLButtonElement>('[data-star]')];
+    const thanks = widget.querySelector<HTMLElement>('[data-rating-thanks]');
+
+    const paint = (value: number) => {
+      stars.forEach((btn, i) => {
+        const icon = btn.querySelector('[data-star-icon]');
+        icon?.classList.toggle('text-warning', i < value);
+        icon?.classList.toggle('text-surface-300', i >= value);
+      });
+    };
+
+    const previo = Number(localStorage.getItem(key) || 0);
+    if (previo) {
+      paint(previo);
+      thanks?.classList.remove('hidden');
+    }
+
+    stars.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const value = Number(btn.dataset.star);
+        localStorage.setItem(key, String(value));
+        paint(value);
+        thanks?.classList.remove('hidden');
+        trackEvent('rate_article', { article: slug, rating: value });
+      }),
+    );
+    stars.forEach((btn, i) => {
+      btn.addEventListener('mouseenter', () => paint(i + 1));
+    });
+    widget.addEventListener('mouseleave', () => paint(Number(localStorage.getItem(key) || 0)));
+  }
+</script>

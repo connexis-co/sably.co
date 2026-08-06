@@ -1,4 +1,4 @@
-import { existsSync } from 'node:fs';
+import { COURSE_COVERS } from './course-covers';
 import { CDN_URL } from './site';
 
 export interface Subcategory {
@@ -260,8 +260,7 @@ export function categoryCover(slug: string, variant: 'hero' | 'card' = 'hero'): 
  */
 export function courseCover(courseSlug: string, categorySlug: string, variant: 'hero' | 'card' = 'hero'): string {
   const suffix = variant === 'card' ? '-card' : '';
-  const file = `covers/cursos/${courseSlug}${suffix}.jpg`;
-  if (existsSync(new URL(`../../public/${file}`, import.meta.url))) return `${CDN_URL}/${file}`;
+  if (COURSE_COVERS.has(courseSlug)) return `${CDN_URL}/covers/cursos/${courseSlug}${suffix}.jpg`;
   return categoryCover(categorySlug, variant);
 }
 
