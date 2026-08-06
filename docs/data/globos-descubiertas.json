@@ -1,0 +1,1346 @@
+{
+  "decoracion con globos navideños": {
+    "CO": {
+      "volume": 260,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 1900,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 590,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 320,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 50,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 110,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 70,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 70,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos transparentes": {
+    "CO": {
+      "volume": 210,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 1300,
+      "competition": "HIGH",
+      "cpc_high": 920.96
+    },
+    "PE": {
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 10,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos para la virgen de guadalupe": {
+    "CO": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 1300,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 0,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 70,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos rojos y dorados": {
+    "CO": {
+      "volume": 70,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 140,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 20,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 20,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos azul rey y dorado": {
+    "CO": {
+      "volume": 390,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 1000,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 210,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 140,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 40,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 110,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos rosa y dorado": {
+    "CO": {
+      "volume": 480,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 880,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 140,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 50,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 210,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 50,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos para hombres": {
+    "CO": {
+      "volume": 320,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 880,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 70,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 40,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 140,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos para mujer": {
+    "CO": {
+      "volume": 390,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 880,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 590,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 110,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 50,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 170,
+      "competition": "MEDIUM",
+      "cpc_high": 467.05
+    },
+    "ES": {
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos de halloween": {
+    "CO": {
+      "volume": 320,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 720,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 210,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 90,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 50,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 90,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 50,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 110,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos para bautizo": {
+    "CO": {
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 480,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 70,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 20,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos para graduacion": {
+    "CO": {
+      "volume": 20,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 480,
+      "competition": "MEDIUM",
+      "cpc_high": 1475.85
+    },
+    "PE": {
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 20,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos y flores": {
+    "CO": {
+      "volume": 140,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 390,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 70,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 90,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 110,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos en casa": {
+    "CO": {
+      "volume": 260,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 480,
+      "competition": "LOW",
+      "cpc_high": 747.87
+    },
+    "PE": {
+      "volume": 110,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 50,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 110,
+      "competition": "MEDIUM",
+      "cpc_high": 621.43
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 70,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos y telas": {
+    "CO": {
+      "volume": 50,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 390,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 170,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 40,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 210,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos para primera comunion": {
+    "CO": {
+      "volume": 50,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 390,
+      "competition": "MEDIUM",
+      "cpc_high": 898.66
+    },
+    "PE": {
+      "volume": 20,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos aerostaticos": {
+    "CO": {
+      "volume": 70,
+      "competition": "HIGH",
+      "cpc_high": 1175.1
+    },
+    "MX": {
+      "volume": 390,
+      "competition": "HIGH",
+      "cpc_high": 1182.04
+    },
+    "PE": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc_high": 850.04
+    },
+    "AR": {
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc_high": 641.29
+    },
+    "ES": {
+      "volume": 880,
+      "competition": "HIGH",
+      "cpc_high": 1326.87
+    },
+    "US": {
+      "volume": 50,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos techo": {
+    "CO": {
+      "volume": 260,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 390,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 210,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 50,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 90,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 210,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 70,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos colgantes": {
+    "CO": {
+      "volume": 170,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 140,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 110,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 20,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 30,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "cursos de decoracion con globos": {
+    "CO": {
+      "volume": 260,
+      "competition": "LOW",
+      "cpc_high": 627.02
+    },
+    "MX": {
+      "volume": 590,
+      "competition": "LOW",
+      "cpc_high": 1169.02
+    },
+    "PE": {
+      "volume": 110,
+      "competition": "LOW",
+      "cpc_high": 1109.68
+    },
+    "EC": {
+      "volume": 30,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 50,
+      "competition": "LOW",
+      "cpc_high": 1764.66
+    },
+    "AR": {
+      "volume": 110,
+      "competition": "MEDIUM",
+      "cpc_high": 657.12
+    },
+    "ES": {
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc_high": 4904.38
+    },
+    "US": {
+      "volume": 110,
+      "competition": "LOW",
+      "cpc_high": 9485.36
+    }
+  },
+  "curso de globos en el sena": {
+    "CO": {
+      "volume": 110,
+      "competition": "LOW",
+      "cpc_high": 701.69
+    },
+    "MX": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 0,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos": {
+    "CO": {
+      "volume": 2400,
+      "competition": "MEDIUM",
+      "cpc_high": 954.18
+    },
+    "MX": {
+      "volume": 14800,
+      "competition": "MEDIUM",
+      "cpc_high": 2469.91
+    },
+    "PE": {
+      "volume": 2900,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 1000,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 880,
+      "competition": "HIGH",
+      "cpc_high": 943.93
+    },
+    "AR": {
+      "volume": 2400,
+      "competition": "HIGH",
+      "cpc_high": 1185.23
+    },
+    "ES": {
+      "volume": 1000,
+      "competition": "HIGH",
+      "cpc_high": 3288.27
+    },
+    "US": {
+      "volume": 880,
+      "competition": "HIGH",
+      "cpc_high": 7437.56
+    }
+  },
+  "curso de globos": {
+    "CO": {
+      "volume": 110,
+      "competition": "LOW",
+      "cpc_high": 1079.69
+    },
+    "MX": {
+      "volume": 390,
+      "competition": "LOW",
+      "cpc_high": 1173.63
+    },
+    "PE": {
+      "volume": 30,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 30,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 30,
+      "competition": "LOW",
+      "cpc_high": 1784.85
+    },
+    "AR": {
+      "volume": 40,
+      "competition": "MEDIUM",
+      "cpc_high": 998.03
+    },
+    "ES": {
+      "volume": 30,
+      "competition": "MEDIUM",
+      "cpc_high": 3584.36
+    },
+    "US": {
+      "volume": 70,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    }
+  },
+  "arcos de globos": {
+    "CO": {
+      "volume": 1900,
+      "competition": "HIGH",
+      "cpc_high": 650.94
+    },
+    "MX": {
+      "volume": 9900,
+      "competition": "HIGH",
+      "cpc_high": 1360.85
+    },
+    "PE": {
+      "volume": 4400,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 1300,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 2900,
+      "competition": "HIGH",
+      "cpc_high": 777.99
+    },
+    "AR": {
+      "volume": 2900,
+      "competition": "HIGH",
+      "cpc_high": 718.54
+    },
+    "ES": {
+      "volume": 1600,
+      "competition": "HIGH",
+      "cpc_high": 1261.48
+    },
+    "US": {
+      "volume": 1900,
+      "competition": "HIGH",
+      "cpc_high": 1872.92
+    }
+  },
+  "arco organico de globos": {
+    "CO": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 30,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos de frozen": {
+    "CO": {
+      "volume": 70,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 260,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 50,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 20,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 10,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 40,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos para matrimonio": {
+    "CO": {
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 70,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 30,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 70,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos morados": {
+    "CO": {
+      "volume": 70,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 210,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 20,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos metalizados": {
+    "CO": {
+      "volume": 20,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 10,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    }
+  },
+  "decoracion con globos para oficina": {
+    "CO": {
+      "volume": 30,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 70,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "PE": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 10,
+      "competition": "LOW",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "ES": {
+      "volume": 10,
+      "competition": "UNKNOWN",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 10,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    }
+  },
+  "globos para cumpleaños": {
+    "CO": {
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 1000,
+      "competition": "HIGH",
+      "cpc_high": 1147.19
+    },
+    "PE": {
+      "volume": 480,
+      "competition": "HIGH",
+      "cpc_high": 1201.75
+    },
+    "EC": {
+      "volume": 90,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 140,
+      "competition": "HIGH",
+      "cpc_high": 826.14
+    },
+    "AR": {
+      "volume": 260,
+      "competition": "HIGH",
+      "cpc_high": 693.28
+    },
+    "ES": {
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc_high": 1637.23
+    },
+    "US": {
+      "volume": 590,
+      "competition": "HIGH",
+      "cpc_high": 5963.28
+    }
+  },
+  "arreglos con globos": {
+    "CO": {
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc_high": 775.09
+    },
+    "MX": {
+      "volume": 1900,
+      "competition": "HIGH",
+      "cpc_high": 1880.61
+    },
+    "PE": {
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 390,
+      "competition": "HIGH",
+      "cpc_high": 1716.0
+    },
+    "CL": {
+      "volume": 140,
+      "competition": "HIGH",
+      "cpc_high": 785.68
+    },
+    "AR": {
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc_high": 1291.03
+    },
+    "ES": {
+      "volume": 40,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "US": {
+      "volume": 170,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  },
+  "columnas de globos": {
+    "CO": {
+      "volume": 260,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "MX": {
+      "volume": 1000,
+      "competition": "HIGH",
+      "cpc_high": 1547.14
+    },
+    "PE": {
+      "volume": 260,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "EC": {
+      "volume": 110,
+      "competition": "MEDIUM",
+      "cpc_high": 0.0
+    },
+    "CL": {
+      "volume": 70,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    },
+    "AR": {
+      "volume": 390,
+      "competition": "HIGH",
+      "cpc_high": 695.51
+    },
+    "ES": {
+      "volume": 320,
+      "competition": "HIGH",
+      "cpc_high": 1974.62
+    },
+    "US": {
+      "volume": 260,
+      "competition": "HIGH",
+      "cpc_high": 0.0
+    }
+  }
+}
