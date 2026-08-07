@@ -26,3 +26,6 @@
 /:country/:city/curso-de-corte-y-confeccion-desde-cero/ /:country/:city/curso-de-corte-y-confeccion/ 301
 
 / /co/ 302
+
+# El panel no se indexa ni se rastrea: lo protege Cloudflare Access y además
+# se le pone noindex en el propio layout.

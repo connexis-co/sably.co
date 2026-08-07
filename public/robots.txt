@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /admin/
 Allow: /
 
 Sitemap: https://sably.co/sitemap-index.xml
