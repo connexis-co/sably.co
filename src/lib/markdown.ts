@@ -82,7 +82,9 @@ export function renderMarkdown(md: string): string {
   };
 
   for (let i = 0; i < lineas.length; i++) {
-    const linea = lineas[i].trim();
+    // El acceso por índice puede ser undefined con noUncheckedIndexedAccess,
+    // y aquí se salta de posición al consumir una tabla.
+    const linea = (lineas[i] ?? '').trim();
     if (!linea) {
       cerrar();
       continue;
@@ -94,8 +96,8 @@ export function renderMarkdown(md: string): string {
       const head = celdas(linea).map((c) => `<th>${inline(c)}</th>`).join('');
       const filas: string[] = [];
       i += 2;
-      while (i < lineas.length && lineas[i].trim().startsWith('|')) {
-        filas.push(`<tr>${celdas(lineas[i].trim()).map((c) => `<td>${inline(c)}</td>`).join('')}</tr>`);
+      for (let fila = (lineas[i] ?? '').trim(); fila.startsWith('|'); fila = (lineas[i] ?? '').trim()) {
+        filas.push(`<tr>${celdas(fila).map((c) => `<td>${inline(c)}</td>`).join('')}</tr>`);
         i++;
       }
       i--;
