@@ -54,6 +54,23 @@ PAISES = {
     'us': {'nombre': 'Estados Unidos', 'moneda': 'USD', 'pagos': 'tarjeta o PayPal'},
 }
 
+# El contexto decía "trato de tú" para todos los países, así que las variantes
+# argentinas no voseaban ni una vez. El registro va explícito y por país.
+REGISTRO = {
+    'co': 'Tuteo colombiano neutro (tú puedes, tú tienes).',
+    'mx': 'Tuteo mexicano (tú puedes, tú tienes). Léxico de México.',
+    'pe': 'Tuteo peruano neutro.',
+    'ec': 'Tuteo ecuatoriano neutro.',
+    'cl': 'Tuteo chileno, sin modismos muy marcados.',
+    'ar': ('VOSEO ARGENTINO EN TODO EL TEXTO, sin una sola forma de tú. '
+           'Escribe podés, tenés, querés, sabés, recibís, armá, cobrá, buscás, '
+           'hacé, mirá. Nunca puedes, tienes, quieres, recibes, arma, cobra.'),
+    'es': ('Español peninsular: tuteo de España, "vosotros" si hace falta plural, '
+           'y léxico de allí (coste, vídeo, ordenador, importe, darse de alta). '
+           'Nada de léxico latinoamericano.'),
+    'us': 'Tuteo neutro para hispanohablantes en Estados Unidos.',
+}
+
 # Frases-firma de texto generado; si aparecen, la página no pasa.
 FRASES_IA = [
     'en el mundo de hoy', 'desbloquea tu potencial', 'lleva al siguiente nivel',
@@ -77,7 +94,38 @@ REGLAS ESTRICTAS:
 - Los encabezados deben ser específicos de ESTE curso y ESTE país. Nada de
   títulos intercambiables tipo "¿Qué aprenderás?" o "Beneficios del curso".
 - El h1 tiene que contener la keyword principal tal cual se te indica.
-- En texto plano (h1, subtítulo, FAQs, listas) no uses markdown: se pinta literal."""
+- En texto plano (h1, subtítulo, FAQs, listas) no uses markdown: se pinta literal.
+
+CÓMO ESCRIBIR (de un duelo a ciegas entre dos redactores; esto es lo que separó
+al que ganó los tres pares del que los perdió):
+- Abre por el problema concreto del comprador, no por el estado del sector.
+  "Si te equivocas cortando en casa, se nota tres semanas" gana a "el sector de
+  la barbería vive un momento de expansión".
+- Nombra el punto donde la gente se atora y qué hacer: por qué el degradado sale
+  sucio, por qué se revientan los globos los primeros veinte minutos. Eso es lo
+  que distingue a quien conoce el oficio de quien describe un temario.
+- Alterna frase corta de golpe con párrafo largo. El ritmo plano delata.
+- Los beneficios son verbos ejecutables ("Difuminar sin que queden escalones"),
+  no resultados vagos ("Dominarás las técnicas profesionales").
+- Responde de frente las preguntas incómodas: que el precio ya lleva el
+  descuento, que el certificado no habilita para ejercer, que hay que practicar
+  en maniquí antes que en personas. Esquivarlas se nota y no vende.
+- Pon techo a las expectativas al menos una vez. Una anti-promesa explícita
+  ("no te va a convertir en dueño de un salón en seis meses") da más confianza
+  que otra promesa.
+- Adopta el registro real del país de forma sostenida: voseo completo en
+  Argentina (podés, tenés, armá), peninsular en España (importe, echar cuentas).
+  A medias queda peor que no hacerlo.
+
+QUÉ NO INVENTAR NUNCA (el redactor que mejor escribía perdió puntos justo aquí):
+- Biografía, trayectoria o años de experiencia del instructor: solo tienes su
+  nombre. No añadas nada más sobre él.
+- Cuál es el módulo más largo, cuántos alumnos hay, qué opinan.
+- Precios de mercado, tarifas por servicio o cifras del sector, salvo que estén
+  en el contexto que se te pasa.
+- Plazos de retorno de la inversión o garantías de ingresos.
+Si el dato no está en el contexto, la frase se omite. Un texto algo más plano
+cuesta menos que un dato falso publicado."""
 
 ESQUEMA_CREATIVO = {
     'type': 'OBJECT',
@@ -157,7 +205,8 @@ def costo(modelo: str, usage: dict) -> float:
             + usage.get('candidatesTokenCount', 0) * p['out']) / 1_000_000
 
 
-def validar(contenido: dict, keyword: str, cuerpo_existente: str) -> list[str]:
+def validar(contenido: dict, keyword: str, cuerpo_existente: str,
+            pais: str = '') -> list[str]:
     fallos = []
     desc_cruda = contenido['descripcion']
     # El modelo devuelve el markdown de dos formas incompatibles: con saltos
@@ -196,6 +245,15 @@ def validar(contenido: dict, keyword: str, cuerpo_existente: str) -> list[str]:
             fallos.append(f'frase de IA: "{frase}"')
     if len(contenido.get('faqs', [])) < 6:
         fallos.append(f"solo {len(contenido.get('faqs', []))} FAQs (mínimo 6)")
+    if pais == 'ar':
+        # El voseo se pedía en el prompt pero el modelo lo abandonaba a media
+        # página: 7 de cada 11 variantes argentinas salían tuteadas.
+        todo = desc + ' ' + ' '.join(q['q'] + ' ' + q['a'] for q in contenido.get('faqs', []))
+        vos = len(re.findall(r'\b(pod[ée]s|ten[ée]s|quer[ée]s|sab[ée]s|recib[ií]s|deb[ée]s|necesit[áa]s)\b', todo, re.I))
+        tu = len(re.findall(r'\b(puedes|tienes|quieres|sabes|recibes|debes|necesitas)\b', todo, re.I))
+        if tu > vos:
+            fallos.append(f'Argentina sin vosear: {tu} formas de tú contra {vos} de vos')
+
     sim = difflib.SequenceMatcher(None, desc, cuerpo_existente).ratio()
     if sim > 0.30:
         fallos.append(f'duplica el contenido existente: {sim * 100:.0f}%')
@@ -233,8 +291,8 @@ def main() -> None:
         f"MERCADO: {lugar}. Moneda {pais['moneda']}. Pagos: {pais['pagos']}.\n"
         f"KEYWORD PRINCIPAL: \"{keyword}\""
         + (f' + variante local "curso de {tema.lower()} en {args.ciudad}"' if args.ciudad else '')
-        + f'\nÁNGULO NARRATIVO: {args.angulo}. Trato de tú'
-        + (' (usar el "tú" peninsular y euros).' if args.pais == 'es' else '.')
+        + f'\nÁNGULO NARRATIVO: {args.angulo}.'
+        + f'\nREGISTRO: {REGISTRO[args.pais]}'
     )
 
     total, resultado = 0.0, {}

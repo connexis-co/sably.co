@@ -37,7 +37,7 @@ _spec.loader.exec_module(gc)
 SALIDA = Path('src/content/course-locales')
 LEDGER = Path('docs/data/generacion-ledger.jsonl')
 ANGULOS = ['emprendimiento', 'hobby', 'carrera']
-ABORTA_USD = 25.0
+ABORTA_USD = 32.0
 WORKERS = 8
 
 _lock = threading.Lock()
@@ -92,8 +92,8 @@ def generar_variante(slug: str, pais: str) -> dict:
         f"no hay descuento adicional).\n"
         f"MERCADO: {lugar}. Moneda {p['moneda']}. Pagos: {p['pagos']}.\n"
         f'KEYWORD PRINCIPAL: "{keyword}"\n'
-        f'ÁNGULO NARRATIVO: {ang}. Trato de tú'
-        + (' (usar el "tú" peninsular y euros).' if pais == 'es' else '.')
+        f'ÁNGULO NARRATIVO: {ang}.\n'
+        f'REGISTRO: {gc.REGISTRO[pais]}'
     )
 
     total, resultado = 0.0, {}
@@ -103,8 +103,9 @@ def generar_variante(slug: str, pais: str) -> dict:
                                  prompt_creativo(contexto, lugar, feedback), gc.ESQUEMA_CREATIVO)
         total += gc.costo(gc.MODELOS['creativo'], u1)
         candidato = dict(creativo)
-        fallos = gc.validar(candidato, keyword, fm['body'])
-        graves = [f for f in fallos if 'corta' in f or 'keyword ausente' in f or 'frase de IA' in f]
+        fallos = gc.validar(candidato, keyword, fm['body'], pais)
+        graves = [f for f in fallos if 'corta' in f or 'keyword ausente' in f
+                  or 'frase de IA' in f or 'sin vosear' in f]
         if not graves:
             resultado = candidato
             break
@@ -113,7 +114,7 @@ def generar_variante(slug: str, pais: str) -> dict:
             resultado = candidato
         feedback = ' · '.join(graves)
     else:
-        fallos = gc.validar(resultado, keyword, fm['body'])
+        fallos = gc.validar(resultado, keyword, fm['body'], pais)
 
     template, u2 = gc.llamar(gc.MODELOS['template'],
                              f'{contexto}\n\nEscribe: 6 beneficios concretos del curso, 4 líneas '
@@ -123,7 +124,7 @@ def generar_variante(slug: str, pais: str) -> dict:
     total += gc.costo(gc.MODELOS['template'], u2)
     resultado.update(template)
 
-    fallos_finales = gc.validar(resultado, keyword, fm['body'])
+    fallos_finales = gc.validar(resultado, keyword, fm['body'], pais)
     return {'contenido': resultado, 'usd': round(total, 5),
             'angulo': ang, 'fallos': fallos_finales}
 
