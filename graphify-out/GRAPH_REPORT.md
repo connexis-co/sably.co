@@ -1,16 +1,16 @@
 # Graph Report - sably-online-courses-64463a  (2026-08-06)
 
 ## Corpus Check
-- 253 files · ~941,682 words
+- 1237 files · ~2,045,198 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 907 nodes · 1110 edges · 174 communities (47 shown, 127 thin omitted)
-- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 17 edges (avg confidence: 0.9)
+- 984 nodes · 1200 edges · 183 communities (56 shown, 127 thin omitted)
+- Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 18 edges (avg confidence: 0.88)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `7e827c1e`
+- Built from commit: `3c7be96d`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -119,7 +119,7 @@
 - curso-de-sublimacion.mdx
 - curso-de-sushi.mdx
 - curso-de-tatuaje.mdx
-- CourseLanding.astro
+- [country]/index.astro
 - Arquitectura de URLs — Ecosistema Sably
 - curso-de-pestanas-volumen-ruso.mdx
 - sitemap.ts
@@ -188,6 +188,15 @@
 - curso-de-masaje-descontracturante.mdx
 - curso-de-masaje-reductor.mdx
 - curso-de-peinados.mdx
+- Gestionar 5.918 URLs desde Filament sin que Google lo penalice
+- CourseLanding.astro
+- Costo real de generar el contenido SEO con Gemini API
+- generar-catalogo.py
+- generar-contenido.py
+- configurar-gtm.py
+- globos-asignar-300.py
+- globos-keywords.py
+- markdown.ts
 
 ## God Nodes (most connected - your core abstractions)
 1. `SITE` - 20 edges
@@ -216,11 +225,11 @@
 ## Import Cycles
 - None detected.
 
-## Communities (174 total, 127 thin omitted)
+## Communities (183 total, 127 thin omitted)
 
 ### Community 0 - "content.config.ts"
-Cohesion: 0.33
-Nodes (5): blog, categorySlugs, collections, courses, testimonials
+Cohesion: 0.29
+Nodes (6): blog, categorySlugs, collections, courseLocales, courses, testimonials
 
 ### Community 1 - "Plan Fase 1: Frontend SSG sably.co (2026-08-05)"
 Cohesion: 0.15
@@ -280,15 +289,15 @@ Nodes (3): 2026-08-05 — Expansión catálogo + GEO hiperlocal (fase 2 del día
 
 ### Community 27 - "categories.ts"
 Cohesion: 0.12
-Nodes (17): Category, categoryCover(), courseCover(), getCategory(), INTERNAL_CATEGORIES, Subcategory, COURSE_COVERS, SITE (+9 more)
+Nodes (17): cat, Category, courseCover(), getCategory(), INTERNAL_CATEGORIES, Subcategory, COURSE_COVERS, SITE (+9 more)
 
 ### Community 31 - "site.ts"
-Cohesion: 0.18
-Nodes (11): items, BreadcrumbItem, courseSchema(), CourseSchemaInput, FaqEntry, HreflangAlternate, organizationSchema(), GA4_ID (+3 more)
+Cohesion: 0.27
+Nodes (9): BreadcrumbItem, courseSchema(), CourseSchemaInput, FaqEntry, HreflangAlternate, organizationSchema(), GA4_ID, GTM_ID (+1 more)
 
 ### Community 32 - "[item]/cursos/[category]/index.astro"
-Cohesion: 0.14
-Nodes (15): COUNTRIES, getCity(), getStaticPaths(), category, city, country, courses, faqs (+7 more)
+Cohesion: 0.13
+Nodes (17): COUNTRIES, getCity(), getStaticPaths(), category, city, country, courses, faqs (+9 more)
 
 ### Community 40 - "dedupe-content.mjs"
 Cohesion: 0.25
@@ -299,24 +308,24 @@ Cohesion: 0.60
 Nodes (4): access_token(), keyword_ideas(), main(), Keyword Planner (Google Ads API) — volúmenes y CPC reales por país. Uso:…
 
 ### Community 44 - "[programa]/index.astro"
-Cohesion: 0.21
-Nodes (10): url, getPrograma(), ProgramaHomologacion, PROGRAMAS, SEDES, buildHotmartUrl(), buildWhatsAppUrl(), HotmartUrlParams (+2 more)
+Cohesion: 0.32
+Nodes (7): getPrograma(), ProgramaHomologacion, PROGRAMAS, SEDES, buildWhatsAppUrl(), breadcrumbSchema(), faqSchema()
 
-### Community 105 - "CourseLanding.astro"
-Cohesion: 0.13
-Nodes (12): cat, rounded, sentinel, Country, formatPrice(), localPrice(), HERO_ASSETS, countryAlternates() (+4 more)
+### Community 105 - "[country]/index.astro"
+Cohesion: 0.15
+Nodes (7): items, HERO_ASSETS, countryAlternates(), CDN_URL, byCategory, country, schemas
 
 ### Community 106 - "Arquitectura de URLs — Ecosistema Sably"
 Cohesion: 0.07
 Nodes (26): 10. Checklist para agregar contenido nuevo, 1. Los tres principios, 2. Mapa completo de URLs, 3. Ejemplos por país, 4.1 Por qué cobertura total y no filtrada, 4.2 Volumen del grid, 4.3 Lo que sí nos protege: diferenciación obligatoria, 4.4 Priorización — los datos deciden esfuerzo, no existencia (+18 more)
 
 ### Community 108 - "sitemap.ts"
-Cohesion: 0.28
+Cohesion: 0.33
 Nodes (9): blogUrls(), categoriasUrls(), cursosUrls(), pagesUrls(), renderUrlset(), SITEMAP_NAMES, u(), UrlEntry (+1 more)
 
 ### Community 109 - "countries.ts"
-Cohesion: 0.21
-Nodes (7): DEFAULT_COUNTRY, getCountry(), country, byCategory, country, $city, $country
+Cohesion: 0.25
+Nodes (5): DEFAULT_COUNTRY, getCountry(), country, $city, $country
 
 ### Community 110 - "sably_co_analisis_seo_d1a026eb.md"
 Cohesion: 0.15
@@ -324,7 +333,7 @@ Nodes (12): Sheet: Auditoria_CO, Sheet: Competencia, Sheet: Geo_Bogota, Sheet: G
 
 ### Community 111 - "blog/[slug]/index.astro"
 Cohesion: 0.10
-Nodes (19): rounded, article, renderResults(), EventParams, META_MAP, trackEvent(), Window, articleRating() (+11 more)
+Nodes (20): rounded, article, renderResults(), EventParams, META_MAP, trackEvent(), Window, articleRating() (+12 more)
 
 ### Community 112 - "Estrategia SEO Multi-Dominio y Geo-Posicionamiento — Fase 1 (Investigación)"
 Cohesion: 0.18
@@ -363,8 +372,8 @@ Cohesion: 0.39
 Nodes (7): checkout_url(), main(), norm(), products(), Sincroniza las URLs reales de checkout Hotmart en el frontmatter de los cursos.…, URL de checkout limpia. Prioriza la oferta por defecto del producto., token()
 
 ### Community 136 - "CityLanding.astro"
-Cohesion: 0.25
-Nodes (7): cityTestimonials, countryTestimonials, faqs, popular, schemas, testimonials, City
+Cohesion: 0.18
+Nodes (8): cityTestimonials, countryTestimonials, faqs, popular, schemas, testimonials, City, Country
 
 ### Community 137 - "feather-heroes.py"
 Cohesion: 0.43
@@ -402,12 +411,48 @@ Nodes (4): existe(), main(), Publica los heroes en R2 con el hash del contenido 
 Cohesion: 0.50
 Nodes (4): main(), norm(), Sondeo multi-país del catálogo de academiadebelleza.edu.co. La filial lleva…, Colapsa tildes para casar semilla y respuesta. La ñ NO se colapsa: "curso de…
 
+### Community 174 - "Gestionar 5.918 URLs desde Filament sin que Google lo penalice"
+Cohesion: 0.08
+Nodes (25): 0. El punto de partida, medido, 1. ¿Es penalizable? Respuesta honesta, 2. La regla que debe gobernar el backend, 3. Modelo de datos en Laravel, 4.1 Editar una URL concreta, 4.2 Modificaciones masivas, 4.3 Generar un curso nuevo, en una ciudad o en varias, 4.4 Un widget que vigile el problema (+17 more)
+
+### Community 175 - "CourseLanding.astro"
+Cohesion: 0.17
+Nodes (8): rounded, sentinel, url, formatPrice(), localPrice(), buildHotmartUrl(), HotmartUrlParams, LEADS_ENDPOINT
+
+### Community 176 - "Costo real de generar el contenido SEO con Gemini API"
+Cohesion: 0.14
+Nodes (13): 1. Precios verificados (2026-08-06), 2. Lo que midió el piloto, 3. Escenarios con el inventario real, 4. Ajustes al plan original (importantes), 5. Cómo se ejecuta, Calidad medida, no supuesta, Comparativa, Costo real de generar el contenido SEO con Gemini API (+5 more)
+
+### Community 177 - "generar-catalogo.py"
+Cohesion: 0.43
+Nodes (7): angulo_de(), generar_variante(), main(), procesar(), prompt_creativo(), Genera las 968 variantes país del catálogo (121 cursos × 8 países). Corre sobre…, registrar()
+
+### Community 178 - "generar-contenido.py"
+Cohesion: 0.48
+Nodes (6): costo(), frontmatter(), llamar(), main(), Genera contenido SEO por curso × país (× ciudad) con Gemini y mide su costo. Es…, validar()
+
+### Community 179 - "configurar-gtm.py"
+Cohesion: 0.67
+Nodes (5): call(), existentes(), main(), Configura el contenedor GTM de Sably.co contra GA4 y lo publica. Crea variables…, workspace()
+
+### Community 180 - "globos-asignar-300.py"
+Cohesion: 0.47
+Nodes (5): cargar(), intencion(), main(), Reparte los 300 slots del proyecto de Ubersuggest de cursodeglobosonline.com.…, Une las tres fuentes medidas; ante duplicado gana el volumen mayor.
+
+### Community 181 - "globos-keywords.py"
+Cohesion: 0.50
+Nodes (4): main(), norm(), Mide las keywords semilla de cursodeglobosonline.com en los 8 mercados. El…, Colapsa tildes pero NO la ñ: 'cumpleanos' y 'cumpleaños' son distintas.
+
+### Community 182 - "markdown.ts"
+Cohesion: 0.83
+Nodes (3): escape(), inline(), renderMarkdown()
+
 ## Ambiguous Edges - Review These
 - `Marcela Quintero (masajista terapéutica, instructora)` → `Marcela Quintero (estilista canina, instructora)`  [AMBIGUOUS]
   src/content/courses/curso-de-peluqueria-canina-profesional.mdx · relation: semantically_similar_to
 
 ## Knowledge Gaps
-- **480 isolated node(s):** `@commitlint/config-conventional`, `never`, `name`, `type`, `version` (+475 more)
+- **509 isolated node(s):** `@commitlint/config-conventional`, `never`, `name`, `type`, `version` (+504 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **127 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -418,13 +463,13 @@ _Questions this graph is uniquely positioned to answer:_
   _Edge tagged AMBIGUOUS (relation: semantically_similar_to) - confidence is low._
 - **Why does `dependencies` connect `dependencies` to `overrides`?**
   _High betweenness centrality (0.003) - this node is a cross-community bridge._
-- **Why does `COUNTRIES` connect `[item]/cursos/[category]/index.astro` to `CourseLanding.astro`, `sitemap.ts`, `countries.ts`, `categories.ts`, `site.ts`?**
+- **Why does `COUNTRIES` connect `[item]/cursos/[category]/index.astro` to `CityLanding.astro`, `[country]/index.astro`, `sitemap.ts`, `countries.ts`, `categories.ts`, `site.ts`?**
+  _High betweenness centrality (0.002) - this node is a cross-community bridge._
+- **Why does `SITE` connect `categories.ts` to `[item]/cursos/[category]/index.astro`, `CityLanding.astro`, `[country]/index.astro`, `sitemap.ts`, `[programa]/index.astro`, `countries.ts`, `blog/[slug]/index.astro`, `CourseLanding.astro`, `site.ts`?**
   _High betweenness centrality (0.002) - this node is a cross-community bridge._
 - **What connects `@commitlint/config-conventional`, `never`, `name` to the rest of the system?**
-  _480 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _509 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Plan Fase 1: Frontend SSG sably.co (2026-08-05)` be split into smaller, more focused modules?**
   _Cohesion score 0.1471861471861472 - nodes in this community are weakly interconnected._
 - **Should `dependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected._
-- **Should `El ranking` be split into smaller, more focused modules?**
-  _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._

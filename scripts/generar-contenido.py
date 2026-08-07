@@ -54,6 +54,23 @@ PAISES = {
     'us': {'nombre': 'Estados Unidos', 'moneda': 'USD', 'pagos': 'tarjeta o PayPal'},
 }
 
+# El contexto decía "trato de tú" para todos los países, así que las variantes
+# argentinas no voseaban ni una vez. El registro va explícito y por país.
+REGISTRO = {
+    'co': 'Tuteo colombiano neutro (tú puedes, tú tienes).',
+    'mx': 'Tuteo mexicano (tú puedes, tú tienes). Léxico de México.',
+    'pe': 'Tuteo peruano neutro.',
+    'ec': 'Tuteo ecuatoriano neutro.',
+    'cl': 'Tuteo chileno, sin modismos muy marcados.',
+    'ar': ('VOSEO ARGENTINO EN TODO EL TEXTO, sin una sola forma de tú. '
+           'Escribe podés, tenés, querés, sabés, recibís, armá, cobrá, buscás, '
+           'hacé, mirá. Nunca puedes, tienes, quieres, recibes, arma, cobra.'),
+    'es': ('Español peninsular: tuteo de España, "vosotros" si hace falta plural, '
+           'y léxico de allí (coste, vídeo, ordenador, importe, darse de alta). '
+           'Nada de léxico latinoamericano.'),
+    'us': 'Tuteo neutro para hispanohablantes en Estados Unidos.',
+}
+
 # Frases-firma de texto generado; si aparecen, la página no pasa.
 FRASES_IA = [
     'en el mundo de hoy', 'desbloquea tu potencial', 'lleva al siguiente nivel',
@@ -69,7 +86,46 @@ REGLAS ESTRICTAS:
 - La keyword principal aparece en el primer párrafo y máximo 3 veces por cada 500 palabras.
 - Datos concretos cuando el contexto los traiga; si no hay dato, no lo inventes — omite la afirmación.
 - Varía la estructura entre secciones: no siempre párrafo-lista-párrafo.
-- El ángulo narrativo indicado gobierna el enfoque de toda la página."""
+- El ángulo narrativo indicado gobierna el enfoque de toda la página.
+- La página YA muestra, fuera de tu texto, el temario módulo a módulo, la ficha
+  del instructor, el precio con su descuento y el bloque de certificado y
+  garantía. NO los repitas: ni listes los módulos, ni abras una sección de
+  precio, cupón, instructor o certificado. Escribe lo que esas cajas no dicen.
+- Los encabezados deben ser específicos de ESTE curso y ESTE país. Nada de
+  títulos intercambiables tipo "¿Qué aprenderás?" o "Beneficios del curso".
+- El h1 tiene que contener la keyword principal tal cual se te indica.
+- En texto plano (h1, subtítulo, FAQs, listas) no uses markdown: se pinta literal.
+
+CÓMO ESCRIBIR (de un duelo a ciegas entre dos redactores; esto es lo que separó
+al que ganó los tres pares del que los perdió):
+- Abre por el problema concreto del comprador, no por el estado del sector.
+  "Si te equivocas cortando en casa, se nota tres semanas" gana a "el sector de
+  la barbería vive un momento de expansión".
+- Nombra el punto donde la gente se atora y qué hacer: por qué el degradado sale
+  sucio, por qué se revientan los globos los primeros veinte minutos. Eso es lo
+  que distingue a quien conoce el oficio de quien describe un temario.
+- Alterna frase corta de golpe con párrafo largo. El ritmo plano delata.
+- Los beneficios son verbos ejecutables ("Difuminar sin que queden escalones"),
+  no resultados vagos ("Dominarás las técnicas profesionales").
+- Responde de frente las preguntas incómodas: que el precio ya lleva el
+  descuento, que el certificado no habilita para ejercer, que hay que practicar
+  en maniquí antes que en personas. Esquivarlas se nota y no vende.
+- Pon techo a las expectativas al menos una vez. Una anti-promesa explícita
+  ("no te va a convertir en dueño de un salón en seis meses") da más confianza
+  que otra promesa.
+- Adopta el registro real del país de forma sostenida: voseo completo en
+  Argentina (podés, tenés, armá), peninsular en España (importe, echar cuentas).
+  A medias queda peor que no hacerlo.
+
+QUÉ NO INVENTAR NUNCA (el redactor que mejor escribía perdió puntos justo aquí):
+- Biografía, trayectoria o años de experiencia del instructor: solo tienes su
+  nombre. No añadas nada más sobre él.
+- Cuál es el módulo más largo, cuántos alumnos hay, qué opinan.
+- Precios de mercado, tarifas por servicio o cifras del sector, salvo que estén
+  en el contexto que se te pasa.
+- Plazos de retorno de la inversión o garantías de ingresos.
+Si el dato no está en el contexto, la frase se omite. Un texto algo más plano
+cuesta menos que un dato falso publicado."""
 
 ESQUEMA_CREATIVO = {
     'type': 'OBJECT',
@@ -112,7 +168,8 @@ def frontmatter(slug: str) -> dict:
     txt = (Path('src/content/courses') / f'{slug}.mdx').read_text()
     fm = txt.split('---')[1]
     out = {'body': txt.split('---', 2)[2].strip()}
-    for campo in ('title', 'category', 'durationHours', 'lessonsCount', 'priceUSD'):
+    for campo in ('title', 'category', 'durationHours', 'lessonsCount', 'priceUSD',
+                  'originalPriceUSD'):
         m = re.search(rf'^{campo}: (.+)$', fm, re.M)
         if m:
             out[campo] = m.group(1).strip().strip('"')
@@ -148,8 +205,23 @@ def costo(modelo: str, usage: dict) -> float:
             + usage.get('candidatesTokenCount', 0) * p['out']) / 1_000_000
 
 
-def validar(contenido: dict, keyword: str, cuerpo_existente: str) -> list[str]:
+def validar(contenido: dict, keyword: str, cuerpo_existente: str,
+            pais: str = '') -> list[str]:
     fallos = []
+    desc_cruda = contenido['descripcion']
+    # El modelo devuelve el markdown de dos formas incompatibles: con saltos
+    # reales o con la secuencia barra-n escapada como texto. La segunda pinta
+    # la landing entera como un párrafo con los ### a la vista — pasó en
+    # producción, así que se valida en origen y no solo al renderizar.
+    if '\\n' in desc_cruda or '\\r' in desc_cruda:
+        fallos.append('saltos de línea escapados como texto')
+    if '\n' not in desc_cruda:
+        fallos.append('descripción sin saltos de línea: saldría como un solo párrafo')
+    if re.search(r'</?(strong|em|p|br|ul|li|h[123])\b', desc_cruda, re.I):
+        fallos.append('HTML literal en vez de markdown')
+    for campo in ('h1', 'subtitulo', 'meta_title', 'meta_description'):
+        if '**' in str(contenido.get(campo, '')) or '#' in str(contenido.get(campo, '')):
+            fallos.append(f'markdown en {campo}, que se pinta como texto plano')
     t, d = contenido['meta_title'], contenido['meta_description']
     if not 45 <= len(t) <= 65:
         fallos.append(f'meta_title {len(t)} chars (objetivo 50-60)')
@@ -173,6 +245,15 @@ def validar(contenido: dict, keyword: str, cuerpo_existente: str) -> list[str]:
             fallos.append(f'frase de IA: "{frase}"')
     if len(contenido.get('faqs', [])) < 6:
         fallos.append(f"solo {len(contenido.get('faqs', []))} FAQs (mínimo 6)")
+    if pais == 'ar':
+        # El voseo se pedía en el prompt pero el modelo lo abandonaba a media
+        # página: 7 de cada 11 variantes argentinas salían tuteadas.
+        todo = desc + ' ' + ' '.join(q['q'] + ' ' + q['a'] for q in contenido.get('faqs', []))
+        vos = len(re.findall(r'\b(pod[ée]s|ten[ée]s|quer[ée]s|sab[ée]s|recib[ií]s|deb[ée]s|necesit[áa]s)\b', todo, re.I))
+        tu = len(re.findall(r'\b(puedes|tienes|quieres|sabes|recibes|debes|necesitas)\b', todo, re.I))
+        if tu > vos:
+            fallos.append(f'Argentina sin vosear: {tu} formas de tú contra {vos} de vos')
+
     sim = difflib.SequenceMatcher(None, desc, cuerpo_existente).ratio()
     if sim > 0.30:
         fallos.append(f'duplica el contenido existente: {sim * 100:.0f}%')
@@ -190,19 +271,28 @@ def main() -> None:
 
     fm = frontmatter(args.curso)
     pais = PAISES[args.pais]
-    tema = re.sub(r'^Curso de ', '', fm['title'], flags=re.I)
+    # 'Curso del Negocio de...' no empieza por 'Curso de ', así que la
+    # keyword salía como "curso de curso del negocio de..." y se publicó
+    # en los 8 países. Se recortan también del/de la/de los/en.
+    tema = re.sub(r'^(Curso|Diplomado|Taller)\s+(de\s+l[ao]s?\s+|del\s+|de\s+|en\s+)?', '',
+                  fm['title'], flags=re.I)
     keyword = f'curso de {tema.lower()}'
     lugar = f"{args.ciudad.title()}, {pais['nombre']}" if args.ciudad else pais['nombre']
 
     contexto = (
         f"CURSO: {fm['title']} · {fm['modulos']} módulos, {fm.get('lessonsCount', '?')} lecciones, "
         f"{fm.get('durationHours', '?')} horas · imparte {fm['instructor']} · "
-        f"precio base USD {fm.get('priceUSD', '?')} con 40% OFF cupón SABLY40.\n"
+        # priceUSD YA es el precio con el 40% aplicado; originalPriceUSD es el
+        # tachado. Decir "precio base X con 40% OFF" hacía que el texto
+        # prometiera un descuento adicional sobre lo que la caja ya cobra.
+        f"precio final USD {fm.get('priceUSD', '?')} (antes USD "
+        f"{fm.get('originalPriceUSD', '?')}; el 40% del cupón SABLY40 ya está aplicado, "
+        f"no hay descuento adicional).\n"
         f"MERCADO: {lugar}. Moneda {pais['moneda']}. Pagos: {pais['pagos']}.\n"
         f"KEYWORD PRINCIPAL: \"{keyword}\""
         + (f' + variante local "curso de {tema.lower()} en {args.ciudad}"' if args.ciudad else '')
-        + f'\nÁNGULO NARRATIVO: {args.angulo}. Trato de tú'
-        + (' (usar el "tú" peninsular y euros).' if args.pais == 'es' else '.')
+        + f'\nÁNGULO NARRATIVO: {args.angulo}.'
+        + f'\nREGISTRO: {REGISTRO[args.pais]}'
     )
 
     total, resultado = 0.0, {}

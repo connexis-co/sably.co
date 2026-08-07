@@ -37,7 +37,7 @@ _spec.loader.exec_module(gc)
 SALIDA = Path('src/content/course-locales')
 LEDGER = Path('docs/data/generacion-ledger.jsonl')
 ANGULOS = ['emprendimiento', 'hobby', 'carrera']
-ABORTA_USD = 25.0
+ABORTA_USD = 32.0
 WORKERS = 8
 
 _lock = threading.Lock()
@@ -72,7 +72,11 @@ def prompt_creativo(contexto: str, lugar: str, feedback: str = '') -> str:
 def generar_variante(slug: str, pais: str) -> dict:
     fm = gc.frontmatter(slug)
     p = gc.PAISES[pais]
-    tema = re.sub(r'^Curso de ', '', fm['title'], flags=re.I)
+    # 'Curso del Negocio de...' no empieza por 'Curso de ', así que la
+    # keyword salía como "curso de curso del negocio de..." y se publicó
+    # en los 8 países. Se recortan también del/de la/de los/en.
+    tema = re.sub(r'^(Curso|Diplomado|Taller)\s+(de\s+l[ao]s?\s+|del\s+|de\s+|en\s+)?', '',
+                  fm['title'], flags=re.I)
     keyword = f'curso de {tema.lower()}'
     lugar = p['nombre']
     ang = angulo_de(slug, pais)
@@ -80,11 +84,16 @@ def generar_variante(slug: str, pais: str) -> dict:
     contexto = (
         f"CURSO: {fm['title']} · {fm['modulos']} módulos, {fm.get('lessonsCount', '?')} lecciones, "
         f"{fm.get('durationHours', '?')} horas · imparte {fm['instructor']} · "
-        f"precio base USD {fm.get('priceUSD', '?')} con 40% OFF cupón SABLY40.\n"
+        # priceUSD YA es el precio con el 40% aplicado; originalPriceUSD es el
+        # tachado. Decir "precio base X con 40% OFF" hacía que el texto
+        # prometiera un descuento adicional sobre lo que la caja ya cobra.
+        f"precio final USD {fm.get('priceUSD', '?')} (antes USD "
+        f"{fm.get('originalPriceUSD', '?')}; el 40% del cupón SABLY40 ya está aplicado, "
+        f"no hay descuento adicional).\n"
         f"MERCADO: {lugar}. Moneda {p['moneda']}. Pagos: {p['pagos']}.\n"
         f'KEYWORD PRINCIPAL: "{keyword}"\n'
-        f'ÁNGULO NARRATIVO: {ang}. Trato de tú'
-        + (' (usar el "tú" peninsular y euros).' if pais == 'es' else '.')
+        f'ÁNGULO NARRATIVO: {ang}.\n'
+        f'REGISTRO: {gc.REGISTRO[pais]}'
     )
 
     total, resultado = 0.0, {}
@@ -94,8 +103,13 @@ def generar_variante(slug: str, pais: str) -> dict:
                                  prompt_creativo(contexto, lugar, feedback), gc.ESQUEMA_CREATIVO)
         total += gc.costo(gc.MODELOS['creativo'], u1)
         candidato = dict(creativo)
-        fallos = gc.validar(candidato, keyword, fm['body'])
-        graves = [f for f in fallos if 'corta' in f or 'keyword ausente' in f or 'frase de IA' in f]
+        fallos = gc.validar(candidato, keyword, fm['body'], pais)
+        # Los fallos de formato también fuerzan reintento: una descripción sin
+        # saltos de línea sale como un párrafo único de miles de caracteres, y
+        # eso llegó a producción una vez.
+        graves = [f for f in fallos if 'corta' in f or 'keyword ausente' in f
+                  or 'frase de IA' in f or 'sin vosear' in f
+                  or 'saltos de línea' in f or 'HTML literal' in f]
         if not graves:
             resultado = candidato
             break
@@ -104,7 +118,7 @@ def generar_variante(slug: str, pais: str) -> dict:
             resultado = candidato
         feedback = ' · '.join(graves)
     else:
-        fallos = gc.validar(resultado, keyword, fm['body'])
+        fallos = gc.validar(resultado, keyword, fm['body'], pais)
 
     template, u2 = gc.llamar(gc.MODELOS['template'],
                              f'{contexto}\n\nEscribe: 6 beneficios concretos del curso, 4 líneas '
@@ -114,7 +128,7 @@ def generar_variante(slug: str, pais: str) -> dict:
     total += gc.costo(gc.MODELOS['template'], u2)
     resultado.update(template)
 
-    fallos_finales = gc.validar(resultado, keyword, fm['body'])
+    fallos_finales = gc.validar(resultado, keyword, fm['body'], pais)
     return {'contenido': resultado, 'usd': round(total, 5),
             'angulo': ang, 'fallos': fallos_finales}
 

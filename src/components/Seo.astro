@@ -13,6 +13,22 @@ interface Props {
 
 const { title, description, alternates = [], schemas = [], noindex = false, ogType = 'website' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, SITE.url).href;
+
+/**
+ * JSON-LD seguro para incrustar en un `<script>`.
+ *
+ * `JSON.stringify` no escapa `<`, así que un `</script>` dentro de cualquier
+ * cadena cierra la etiqueta antes de tiempo y lo que siga se interpreta como
+ * HTML. Los schemas llevan FAQs y descripciones generadas por un modelo, o sea
+ * texto que no controlamos. Los escapes \u00xx son válidos dentro de una
+ * cadena JSON y se parsean igual, así que Google lee el mismo schema.
+ */
+function jsonLd(schema: object): string {
+  return JSON.stringify(schema)
+    .replaceAll('<', '\\u003c')
+    .replaceAll('>', '\\u003e')
+    .replaceAll('&', '\\u0026');
+}
 ---
 
 <title>{title}</title>
@@ -31,4 +47,4 @@ const canonical = new URL(Astro.url.pathname, SITE.url).href;
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 
-{schemas.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+{schemas.map((schema) => <script type="application/ld+json" set:html={jsonLd(schema)} />)}
