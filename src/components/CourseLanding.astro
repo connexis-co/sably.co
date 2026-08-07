@@ -10,7 +10,7 @@ import TestimonialCard from '@/components/TestimonialCard.astro';
 import StickyCta from '@/components/StickyCta.astro';
 import ExitIntent from '@/components/ExitIntent.astro';
 import LeadModal from '@/components/LeadModal.astro';
-import { formatPrice, localPrice, type Country, type City } from '@/lib/countries';
+import { COUNTRIES, formatPrice, localPrice, type Country, type City } from '@/lib/countries';
 import { getCategory, courseCover } from '@/lib/categories';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema } from '@/lib/seo';
@@ -40,6 +40,17 @@ const locale = (await getEntry('courseLocales', `${course.id}--${country.code}`)
 const localeHtml = locale ? renderMarkdown(locale.data.descripcion) : null;
 const learnings = locale?.data.beneficios ?? course.data.learnings;
 const audience = locale?.data.para_quien ?? course.data.audience;
+
+/* El título de país colisiona por dos vías: sin variante todos los países
+   comparten el metaTitle del MDX, y con variante el modelo a veces repite el
+   mismo título en varios mercados. Se añade el país solo cuando hay colisión
+   real: la mediana ya está en 55 caracteres y añadirlo siempre pasaría de 60. */
+const localesDelCurso = (await getCollection('courseLocales')).filter(
+  (l) => l.data.course === course.id,
+);
+const tituloColisiona = locale
+  ? localesDelCurso.filter((l) => l.data.meta_title === locale.data.meta_title).length > 1
+  : localesDelCurso.length < COUNTRIES.length - 1;
 
 const ctaUrl = buildHotmartUrl({
   baseUrl: course.data.hotmartUrl,
@@ -126,14 +137,24 @@ const faqs = city
 
 const pageUrl = `${SITE.url}${coursePath}`;
 const h1 = city ? `${course.data.title} en ${city.name}` : (locale?.data.h1 ?? course.data.title);
+const tituloPais =
+  locale?.data.meta_title ??
+  course.data.metaTitle ??
+  `${course.data.title} | Curso Online con Certificado | Sably`;
 const title = city
   ? `${course.data.title} en ${city.name}, ${country.name} | Online + Certificado | Sably`
-  : (locale?.data.meta_title ??
-    course.data.metaTitle ??
-    `${course.data.title} | Curso Online con Certificado | Sably`);
+  : tituloColisiona
+    ? `${tituloPais.replace(/\s*\|\s*Sably\s*$/, '')} | ${country.name}`
+    : tituloPais;
+const descPais = locale?.data.meta_description ?? course.data.shortDescription;
+const descColisiona = locale
+  ? localesDelCurso.filter((l) => l.data.meta_description === locale.data.meta_description).length > 1
+  : localesDelCurso.length < COUNTRIES.length - 1;
 const description = city
   ? `Estudia desde ${city.name}: ${course.data.shortDescription}`.slice(0, 158)
-  : (locale?.data.meta_description ?? course.data.shortDescription);
+  : descColisiona
+    ? `Desde ${country.name}: ${descPais}`.slice(0, 158)
+    : descPais;
 
 const breadcrumb = city
   ? [

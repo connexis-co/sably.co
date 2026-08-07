@@ -112,7 +112,8 @@ def frontmatter(slug: str) -> dict:
     txt = (Path('src/content/courses') / f'{slug}.mdx').read_text()
     fm = txt.split('---')[1]
     out = {'body': txt.split('---', 2)[2].strip()}
-    for campo in ('title', 'category', 'durationHours', 'lessonsCount', 'priceUSD'):
+    for campo in ('title', 'category', 'durationHours', 'lessonsCount', 'priceUSD',
+                  'originalPriceUSD'):
         m = re.search(rf'^{campo}: (.+)$', fm, re.M)
         if m:
             out[campo] = m.group(1).strip().strip('"')
@@ -204,14 +205,23 @@ def main() -> None:
 
     fm = frontmatter(args.curso)
     pais = PAISES[args.pais]
-    tema = re.sub(r'^Curso de ', '', fm['title'], flags=re.I)
+    # 'Curso del Negocio de...' no empieza por 'Curso de ', así que la
+    # keyword salía como "curso de curso del negocio de..." y se publicó
+    # en los 8 países. Se recortan también del/de la/de los/en.
+    tema = re.sub(r'^(Curso|Diplomado|Taller)\s+(de\s+l[ao]s?\s+|del\s+|de\s+|en\s+)?', '',
+                  fm['title'], flags=re.I)
     keyword = f'curso de {tema.lower()}'
     lugar = f"{args.ciudad.title()}, {pais['nombre']}" if args.ciudad else pais['nombre']
 
     contexto = (
         f"CURSO: {fm['title']} · {fm['modulos']} módulos, {fm.get('lessonsCount', '?')} lecciones, "
         f"{fm.get('durationHours', '?')} horas · imparte {fm['instructor']} · "
-        f"precio base USD {fm.get('priceUSD', '?')} con 40% OFF cupón SABLY40.\n"
+        # priceUSD YA es el precio con el 40% aplicado; originalPriceUSD es el
+        # tachado. Decir "precio base X con 40% OFF" hacía que el texto
+        # prometiera un descuento adicional sobre lo que la caja ya cobra.
+        f"precio final USD {fm.get('priceUSD', '?')} (antes USD "
+        f"{fm.get('originalPriceUSD', '?')}; el 40% del cupón SABLY40 ya está aplicado, "
+        f"no hay descuento adicional).\n"
         f"MERCADO: {lugar}. Moneda {pais['moneda']}. Pagos: {pais['pagos']}.\n"
         f"KEYWORD PRINCIPAL: \"{keyword}\""
         + (f' + variante local "curso de {tema.lower()} en {args.ciudad}"' if args.ciudad else '')

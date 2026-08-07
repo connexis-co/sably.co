@@ -72,7 +72,11 @@ def prompt_creativo(contexto: str, lugar: str, feedback: str = '') -> str:
 def generar_variante(slug: str, pais: str) -> dict:
     fm = gc.frontmatter(slug)
     p = gc.PAISES[pais]
-    tema = re.sub(r'^Curso de ', '', fm['title'], flags=re.I)
+    # 'Curso del Negocio de...' no empieza por 'Curso de ', así que la
+    # keyword salía como "curso de curso del negocio de..." y se publicó
+    # en los 8 países. Se recortan también del/de la/de los/en.
+    tema = re.sub(r'^(Curso|Diplomado|Taller)\s+(de\s+l[ao]s?\s+|del\s+|de\s+|en\s+)?', '',
+                  fm['title'], flags=re.I)
     keyword = f'curso de {tema.lower()}'
     lugar = p['nombre']
     ang = angulo_de(slug, pais)
@@ -80,7 +84,12 @@ def generar_variante(slug: str, pais: str) -> dict:
     contexto = (
         f"CURSO: {fm['title']} · {fm['modulos']} módulos, {fm.get('lessonsCount', '?')} lecciones, "
         f"{fm.get('durationHours', '?')} horas · imparte {fm['instructor']} · "
-        f"precio base USD {fm.get('priceUSD', '?')} con 40% OFF cupón SABLY40.\n"
+        # priceUSD YA es el precio con el 40% aplicado; originalPriceUSD es el
+        # tachado. Decir "precio base X con 40% OFF" hacía que el texto
+        # prometiera un descuento adicional sobre lo que la caja ya cobra.
+        f"precio final USD {fm.get('priceUSD', '?')} (antes USD "
+        f"{fm.get('originalPriceUSD', '?')}; el 40% del cupón SABLY40 ya está aplicado, "
+        f"no hay descuento adicional).\n"
         f"MERCADO: {lugar}. Moneda {p['moneda']}. Pagos: {p['pagos']}.\n"
         f'KEYWORD PRINCIPAL: "{keyword}"\n'
         f'ÁNGULO NARRATIVO: {ang}. Trato de tú'
