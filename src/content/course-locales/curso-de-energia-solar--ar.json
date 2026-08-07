@@ -1,0 +1,71 @@
+{
+  "course": "curso-de-energia-solar",
+  "country": "ar",
+  "angulo": "hobby",
+  "meta_title": "Curso de instalación de paneles solares: armá tu sistema",
+  "meta_description": "Aprendé a calcular y montar tu propio sistema fotovoltaico para tu casa, taller o quincho. Inscribite al curso de instalación de paneles solares ahora.",
+  "h1": "Curso de instalación de paneles solares para proyectos propios",
+  "subtitulo": "Aprendé a dimensionar, conectar y poner a punto tu kit fotovoltaico sin complicarte con teoría de más.",
+  "descripcion": "Si querés energizar el quincho, el taller o tener luz de emergencia en casa cuando se corta la fase, el problema casi nunca es comprar los equipos. El problema es quemar el regulador de carga por conectar los paneles antes que la batería, o comprar un inversor de onda modificada que te arruina el motor de la heladera. Hacer un proyecto solar por tu cuenta requiere entender qué pasa con la corriente continua antes de ajustar la primera morsa. Con este **curso de instalación de paneles solares**, vas a aprender la lógica práctica para armar sistemas aislados u off-grid sin tirar plata en componentes mal elegidos.\n\n## Dejar de adivinar con los voltios y los amperios\n\nCuando empezás en la energía solar como proyecto personal, la tentación de comprar un kit armado en internet es grande. El inconveniente es que esos kits raras veces se adaptan a lo que consumís. Para alimentar tres focos LED y cargar el celular no necesitás la misma estructura que para mantener prendida una heladera de pozo o una bomba de agua.\n\nEn lugar de adivinar, necesitás calcular. Sabés cuántas horas de sol promedio tenés en tu zona, sumás los consumos pico de tus aparatos y recién ahí elegís el calibre del cable. Un cable fino levanta temperatura y pierde energía en forma de calor; un fusible mal ubicado te deja indefenso ante un cortocircuito.\n\n### Lo que tenés que resolver en la práctica:\n\n- Dimensionar el banco de baterías sin liquidar su vida útil por descargas profundas.\n- Configurar reguladores PWM o MPPT según la potencia total de tu arreglo de paneles.\n- Orientar e inclinar la estructura sobre chapa o losa para aprovechar el recorrido del sol en invierno y verano.\n- Conectar las llaves térmicas y protecciones en corriente continua para trabajar seguro.\n\n## Un techo real a lo que vas a lograr\n\nAclarémoslo de entrada: hacer este curso no te transforma en un profesional habilitado para firmar planos de parques fotovoltaicos ni para vender energía a la red pública. Es una capacitación enfocada en el autoconsumo, los sistemas aislados e instalaciones residenciales pequeñas donde querés autonomía energética.\n\nTampoco vas a resolver la instalación en una tarde de lectura. Vas a tener que tomar el multímetro, medir tensiones, pelar cables gruesos y hacer pruebas reales en tu mesa de trabajo antes de subir al techo.\n\n## Ricardo Salazar y la estructura del aprendizaje\n\nEl curso está dictado por Ricardo Salazar y se despliega a lo largo de 14 horas de contenido audiovisual, organizadas en 5 módulos y 18 lecciones en video. No hay explicaciones abstractas de física cuántica: cada módulo muestra qué herramientas necesitás, qué conector MC4 usar y cómo probar que la instalación funciona sin fallas ni arcos eléctricos. Si buscás independizar la luz del jardín o armar un sistema de respaldo para tu casa, tenés todo lo necesario para empezar con pie firme.",
+  "faqs": [
+    {
+      "q": "¿Cómo pago el curso desde Argentina?",
+      "a": "Podés pagar directamente en pesos argentinos usando Mercado Pago o tarjeta de crédito y débito."
+    },
+    {
+      "q": "¿El precio de 42 USD ya tiene el descuento aplicado?",
+      "a": "Sí, el valor final de 42 USD contempla el 40% de descuento del cupón SABLY40. No hay costos ocultos ni adicionales al momento del pago."
+    },
+    {
+      "q": "¿El certificado me habilita a firmar instalaciones eléctricas en Argentina?",
+      "a": "No, el certificado acredita que completaste las 14 horas del curso, pero no reemplaza una matrícula profesional ni te habilita para firmar planos eléctricos ante entes reguladores."
+    },
+    {
+      "q": "¿Necesito conocimientos previos de electricidad para hacer el curso?",
+      "a": "No hace falta que seas electricista, pero sí que tengas nociones básicas de manejo de herramientas e interés por aprender a medir voltaje y corriente con un multímetro."
+    },
+    {
+      "q": "¿Tengo que comprar equipos solares costosos para poder estudiar?",
+      "a": "No es necesario comprar paneles o baterías de entrada. Podés mirar todas las lecciones, tomar notas y hacer tus propios cálculos antes de gastar en materiales."
+    },
+    {
+      "q": "¿Cuánto tiempo tengo para completar las 18 lecciones?",
+      "a": "El acceso al material es ilimitado. Manejás tus propios tiempos y podés revisar los videos las veces que quieras desde tu computadora o celular."
+    },
+    {
+      "q": "¿Puedo hacer este curso si vivo en un departamento?",
+      "a": "Sí, podés aprovechar el contenido para diseñar sistemas portátiles, energizar un balcón o preparar un proyecto para una casa de fin de semana o taller."
+    },
+    {
+      "q": "¿Cómo accedo a las lecciones una vez realizado el pago?",
+      "a": "Apenas se acredita tu pago por Mercado Pago o tarjeta, recibís un correo automático con los datos de acceso a la plataforma para empezar de inmediato."
+    }
+  ],
+  "beneficios": [
+    "Identificás las diferencias entre sistemas conectados a la red y aislados para no comprar equipos innecesarios.",
+    "Calculás el ángulo exacto de inclinación según tu ubicación geográfica para maximizar la captación de energía.",
+    "Montás las estructuras de soporte evitando filtraciones en los techos de chapa o losa.",
+    "Realizás el cableado bajo normas de seguridad eléctrica para prevenir cortocircuitos en el inversor.",
+    "Configurás los parámetros del regulador de carga para extender la vida útil de tus baterías.",
+    "Medís el rendimiento real de cada panel con un multímetro para diagnosticar fallas de fábrica."
+  ],
+  "para_quien": [
+    "Si querés reducir el consumo eléctrico de tu casa con tus propias manos.",
+    "Si tenés una quinta o casa de fin de semana donde no llega la red eléctrica.",
+    "Si te gusta meter mano en proyectos de ingeniería hogareña durante el tiempo libre.",
+    "Si buscás entender cómo funciona la energía renovable antes de gastar en contratistas."
+  ],
+  "requisitos": [
+    "Contar con herramientas básicas de mano como destornilladores, pinzas y un multímetro.",
+    "Tener acceso a un espacio físico para realizar prácticas de montaje sobre superficies seguras.",
+    "Disponer de una conexión a internet para ver las 18 lecciones en video."
+  ],
+  "certificado": "Al finalizar el curso de instalación de paneles solares recibís un certificado de participación que valida tu formación técnica. Tené en cuenta que este documento es un comprobante de horas cursadas y no te habilita para firmar instalaciones eléctricas de manera legal ni para realizar obras públicas.",
+  "garantia": "Tenés 7 días corridos a partir de la compra para probar el material. Si sentís que el curso de instalación de paneles solares no es para vos, solicitás la devolución del dinero a través de la plataforma Hotmart y recibís el reintegro total, sin preguntas.",
+  "_meta": {
+    "usd": 0.02495,
+    "modelo": "gemini-3.6-flash",
+    "fallos": null,
+    "fecha": "2026-08-06"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "course": "curso-de-mecanica-de-motos",
+  "country": "ar",
+  "angulo": "hobby",
+  "meta_title": "Curso de mecánica de motos desde cero | Mantené tu moto",
+  "meta_description": "Aprendé a reparar, mantener y afinar tu propia moto en casa sin depender del taller. Sumate al curso de mecánica de motos desde cero y empezá hoy.",
+  "h1": "Curso de mecánica de motos desde cero para entender y reparar tu propia moto",
+  "subtitulo": "Dejá de regalarle plata al taller: aprendé a diagnosticar, limpiar el carburador, ajustar frenos y resolver fallas eléctricas en tu garaje.",
+  "descripcion": "Te compraste la moto para sentir libertad, no para renegar cada vez que no arranca a la mañana o empieza a tironear en segunda. Lo peor es llevarla al mecánico, dejarla parada tres días y que te cobre una fortuna por un ajuste de embrague o un cambio de bujía que podías resolver vos en veinte minutos. Si no entendés qué pasa debajo del tanque, quedás a merced de lo que te digan.\n\nInscribirte en este curso de mecánica de motos desde cero es la decisión ideal si querés meter mano en tu garaje, entender el funcionamiento de tu motor y solucionar fallas cotidianas sin depender de nadie.\n\n## Qué vas a lograr cuando entiendas la mecánica de tu moto\n\nLa diferencia entre barrer una rosca por apretar a ciegas y dejar el motor regulando parejito está en la técnica y en conocer las herramientas. Cuando comprendés la lógica del sistema carburado y del circuito eléctrico, el mantenimiento deja de ser un misterio estresante y se transforma en un pasatiempo gratificante.\n\n### Mantenimiento preventivo sin regalar la plata\n\n* Regulá válvulas con la luz correspondiente para evitar pérdidas de potencia o ruidos molestos.\n* Desarmá, limpiá y carburá para que la moto responda al instante en los semáforos.\n* Cambiá aceite, filtros y tensá la cadena con la alineación adecuada.\n\n### Diagnóstico certero cuando algo no funciona\n\n* Identificá si la falla es de chispa, compresión o nafta antes de meter mano a ciegas.\n* Revisá el sistema de carga, la batería y el regulador usando el tester correctamente.\n* Purgá y ajustá los frenos para circular con absoluta tranquilidad por la ciudad o la ruta.\n\n## Sin falsas promesas: la realidad de aprender en casa\n\nAclaremos las cosas de entrada: esta capacitación no te va a transformar en dueño de un taller de competición en un par de semanas. Diagnosticar una falla compleja en el cigüeñal requiere años de rodaje. Lo que sí te da es la autonomía real para encarar el 80% de los mantenimientos y roturas habituales de tu propia moto, ahorrando plata en cada service y disfrutando el proceso de mantener tu máquina a punto con tus propias manos.\n\n## Tu garaje preparado con herramientas fundamentales\n\nNo necesitás una fosa profesional ni herramientas neumáticas costosas para arrancar. Ricardo Peña te muestra cómo organizar tu lugar de trabajo con un juego de llaves básico, un multímetro y sondas de calibración. Aprendés a manipular piezas de aluminio sin arruinarlas y a mantener la limpieza necesaria para que no entre basura al cilindro.",
+  "faqs": [
+    {
+      "q": "¿Necesito conocimientos previos de mecánica para hacer el curso?",
+      "a": "No, arrancás completamente desde cero. Ricardo Peña explica la lógica del motor y las piezas paso a paso para que entiendas el funcionamiento sin rodeos ni modismos técnicos raros."
+    },
+    {
+      "q": "¿Qué herramientas necesito para empezar a practicar en mi moto?",
+      "a": "Podés arrancar con un juego de llaves básico (fijas o combinadas), destornilladores, un multímetro económico y sondas para medir luces de válvulas. No hace falta equipar un taller profesional de entrada."
+    },
+    {
+      "q": "¿Cómo puedo pagar desde Argentina?",
+      "a": "Podés abonar directamente en pesos argentinos a través de Mercado Pago (usando dinero en cuenta, tarjeta de débito o crédito) o con tarjetas de crédito internacionales de forma simple al momento de la compra."
+    },
+    {
+      "q": "¿El certificado tiene validez oficial o laboral en Argentina?",
+      "a": "Es un certificado privado de aprobación que acredita que completaste la capacitación. En Argentina sirve para validar tus conocimientos en un currículum o presentación personal, pero no otorga matriculación técnica ni habilitación estatal."
+    },
+    {
+      "q": "¿Puedo ver las lecciones a mi propio ritmo?",
+      "a": "Sí, tenés acceso continuo al contenido. Lo mirás cuando querés, a la hora que podés y repetís las explicaciones todas las veces que haga falta desde tu compu, tablet o celular."
+    },
+    {
+      "q": "¿Sirve para motos con inyección electrónica o solo carburadas?",
+      "a": "El curso se enfoca principalmente en la mecánica general y en motores carburados, que representan la base fundamental y la gran mayoría de las motos urbanas del mercado argentino."
+    },
+    {
+      "q": "¿Qué pasa si me surge alguna duda durante la cursada?",
+      "a": "Tenés disponible la sección de alumnos dentro de la plataforma para dejar tus preguntas concretas sobre las clases y recibir soporte de las lecciones."
+    },
+    {
+      "q": "¿El precio final tiene algún cargo extra o cuota mensual?",
+      "a": "No, el importe de USD 29 es un pago único con el 40% de descuento del cupón SABLY40 ya aplicado. No existen cuotas de mantenimiento ni suscripciones periódicas."
+    }
+  ],
+  "beneficios": [
+    "Identificar ruidos extraños en el motor antes de que se rompa una pieza interna.",
+    "Realizar el cambio de aceite y filtro sin barrer ninguna rosca del cárter.",
+    "Ajustar la tensión de la cadena de forma precisa para evitar desgaste prematuro.",
+    "Limpiar el carburador sin perder los chicleres ni descalibrar la mezcla.",
+    "Diagnosticar fallas eléctricas comunes por cables cortados o contactos sulfatados.",
+    "Desarmar piezas clave sin marcar los tornillos con herramientas inadecuadas."
+  ],
+  "para_quien": [
+    "Si buscás dejar de depender del mecánico cada vez que tu moto falla.",
+    "Para quienes quieren meter mano en su propio vehículo durante el fin de semana.",
+    "Ideal si tenés curiosidad por entender cómo funciona cada parte de tu motor.",
+    "Si querés realizar el mantenimiento preventivo básico con tus propias manos."
+  ],
+  "requisitos": [
+    "Tener una moto propia o acceso a una para practicar los ajustes.",
+    "Contar con un juego básico de llaves fijas, combinadas y destornilladores.",
+    "Disponer de un espacio iluminado y limpio donde puedas trabajar cómodo."
+  ],
+  "certificado": "Al finalizar las 14 horas de contenido recibís un certificado de terminación. Tené en cuenta que este documento avala tu paso por el curso de mecánica de motos desde cero, pero no te habilita legalmente para trabajar como mecánico profesional en talleres oficiales.",
+  "garantia": "Tenés 7 días para evaluar el material. Si al empezar ves que el contenido no es lo que buscabas, pedís la devolución total a través de Hotmart y recibís tu dinero sin preguntas.",
+  "_meta": {
+    "usd": 0.02347,
+    "modelo": "gemini-3.6-flash",
+    "fallos": [
+      "descripción corta: 424 palabras"
+    ],
+    "fecha": "2026-08-06"
+  }
+}

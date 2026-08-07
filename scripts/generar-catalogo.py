@@ -104,8 +104,12 @@ def generar_variante(slug: str, pais: str) -> dict:
         total += gc.costo(gc.MODELOS['creativo'], u1)
         candidato = dict(creativo)
         fallos = gc.validar(candidato, keyword, fm['body'], pais)
+        # Los fallos de formato también fuerzan reintento: una descripción sin
+        # saltos de línea sale como un párrafo único de miles de caracteres, y
+        # eso llegó a producción una vez.
         graves = [f for f in fallos if 'corta' in f or 'keyword ausente' in f
-                  or 'frase de IA' in f or 'sin vosear' in f]
+                  or 'frase de IA' in f or 'sin vosear' in f
+                  or 'saltos de línea' in f or 'HTML literal' in f]
         if not graves:
             resultado = candidato
             break

@@ -1120,3 +1120,839 @@
 {"slug": "curso-de-barberia", "pais": "co", "usd": 0.01243, "fallos": 0}
 {"slug": "curso-de-balayage", "pais": "ar", "usd": 0.0235, "fallos": 1}
 {"slug": "curso-de-balayage", "pais": "cl", "usd": 0.02454, "fallos": 1}
+{"slug": "curso-de-barberia", "pais": "mx", "usd": 0.01387, "fallos": 0}
+{"slug": "curso-de-barberia", "pais": "ec", "usd": 0.01393, "fallos": 0}
+{"slug": "curso-de-barberia", "pais": "es", "usd": 0.01267, "fallos": 1}
+{"slug": "curso-de-balayage", "pais": "us", "usd": 0.02443, "fallos": 0}
+{"slug": "curso-de-barberia", "pais": "pe", "usd": 0.02352, "fallos": 1}
+{"slug": "curso-de-barberia", "pais": "cl", "usd": 0.01324, "fallos": 0}
+{"slug": "curso-de-barberia", "pais": "us", "usd": 0.01231, "fallos": 0}
+{"slug": "curso-de-barberia-artistica", "pais": "co", "usd": 0.01432, "fallos": 0}
+{"slug": "curso-de-barberia-artistica", "pais": "mx", "usd": 0.01437, "fallos": 0}
+{"slug": "curso-de-barberia", "pais": "ar", "usd": 0.02437, "fallos": 0}
+{"slug": "curso-de-barberia-artistica", "pais": "ar", "usd": 0.01319, "fallos": 0}
+{"slug": "curso-de-barberia-artistica", "pais": "ec", "usd": 0.01319, "fallos": 0}
+{"slug": "curso-de-barberia-artistica", "pais": "us", "usd": 0.01256, "fallos": 0}
+{"slug": "curso-de-barberia-artistica", "pais": "pe", "usd": 0.01469, "fallos": 0}
+{"slug": "curso-de-barberia-como-negocio", "pais": "co", "usd": 0.01308, "fallos": 0}
+{"slug": "curso-de-barberia-como-negocio", "pais": "pe", "usd": 0.01317, "fallos": 1}
+{"slug": "curso-de-barberia-como-negocio", "pais": "mx", "usd": 0.01425, "fallos": 0}
+{"slug": "curso-de-barberia-como-negocio", "pais": "ec", "usd": 0.01368, "fallos": 0}
+{"slug": "curso-de-barberia-como-negocio", "pais": "es", "usd": 0.01162, "fallos": 1}
+{"slug": "curso-de-adiestramiento-canino-en-positivo", "pais": "pe", "usd": 0.01296, "fallos": 0}
+{"slug": "curso-de-barberia-infantil", "pais": "pe", "usd": 0.01312, "fallos": 0}
+{"slug": "curso-de-barberia-infantil", "pais": "co", "usd": 0.01355, "fallos": 0}
+{"slug": "curso-de-barberia-como-negocio", "pais": "cl", "usd": 0.02546, "fallos": 2}
+{"slug": "curso-de-barberia-infantil", "pais": "mx", "usd": 0.01251, "fallos": 0}
+{"slug": "curso-de-barberia-como-negocio", "pais": "ar", "usd": 0.02587, "fallos": 0}
+{"slug": "curso-de-barberia-como-negocio", "pais": "us", "usd": 0.02349, "fallos": 1}
+{"slug": "curso-de-barberia-infantil", "pais": "ec", "usd": 0.01289, "fallos": 0}
+{"slug": "curso-de-barberia-infantil", "pais": "es", "usd": 0.01266, "fallos": 0}
+{"slug": "curso-de-barberia-infantil", "pais": "cl", "usd": 0.01285, "fallos": 0}
+{"slug": "curso-de-barberia-infantil", "pais": "us", "usd": 0.01297, "fallos": 0}
+{"slug": "curso-de-barberia-infantil", "pais": "ar", "usd": 0.01527, "fallos": 0}
+{"slug": "curso-de-barismo-y-cafe-de-especialidad", "pais": "mx", "usd": 0.01333, "fallos": 1}
+{"slug": "curso-de-barismo-y-cafe-de-especialidad", "pais": "cl", "usd": 0.01286, "fallos": 0}
+{"slug": "curso-de-barismo-y-cafe-de-especialidad", "pais": "co", "usd": 0.02367, "fallos": 0}
+{"slug": "curso-de-barismo-y-cafe-de-especialidad", "pais": "es", "usd": 0.01258, "fallos": 0}
+{"slug": "curso-de-barista", "pais": "mx", "usd": 0.01285, "fallos": 0}
+{"slug": "curso-de-barista", "pais": "co", "usd": 0.01234, "fallos": 0}
+{"slug": "curso-de-barismo-y-cafe-de-especialidad", "pais": "ar", "usd": 0.01442, "fallos": 0}
+{"slug": "curso-de-barista", "pais": "pe", "usd": 0.01373, "fallos": 0}
+{"slug": "curso-de-barista", "pais": "cl", "usd": 0.0124, "fallos": 1}
+{"slug": "curso-de-barista", "pais": "ec", "usd": 0.01288, "fallos": 0}
+{"slug": "curso-de-barista", "pais": "es", "usd": 0.01297, "fallos": 0}
+{"slug": "curso-de-barista", "pais": "ar", "usd": 0.0135, "fallos": 0}
+{"slug": "curso-de-barista", "pais": "us", "usd": 0.01265, "fallos": 0}
+{"slug": "curso-de-bartender", "pais": "mx", "usd": 0.01358, "fallos": 0}
+{"slug": "curso-de-bartender", "pais": "pe", "usd": 0.0139, "fallos": 0}
+{"slug": "curso-de-bartender", "pais": "cl", "usd": 0.01348, "fallos": 0}
+{"slug": "curso-de-bartender", "pais": "co", "usd": 0.02406, "fallos": 0}
+{"slug": "curso-de-bartender", "pais": "ec", "usd": 0.01357, "fallos": 0}
+{"slug": "curso-de-bartender", "pais": "ar", "usd": 0.01313, "fallos": 0}
+{"slug": "curso-de-bartending-y-cocteleria-profesional", "pais": "mx", "usd": 0.01473, "fallos": 0}
+{"slug": "curso-de-bartender", "pais": "us", "usd": 0.01325, "fallos": 0}
+{"slug": "curso-de-bartending-y-cocteleria-profesional", "pais": "ec", "usd": 0.01398, "fallos": 0}
+{"slug": "curso-de-bartender", "pais": "es", "usd": 0.01423, "fallos": 0}
+{"slug": "curso-de-bartending-y-cocteleria-profesional", "pais": "cl", "usd": 0.0138, "fallos": 0}
+{"slug": "curso-de-bartending-y-cocteleria-profesional", "pais": "ar", "usd": 0.01261, "fallos": 1}
+{"slug": "curso-de-bartending-y-cocteleria-profesional", "pais": "es", "usd": 0.01342, "fallos": 1}
+{"slug": "curso-de-bouquets-con-globos", "pais": "co", "usd": 0.013, "fallos": 0}
+{"slug": "curso-de-bartending-y-cocteleria-profesional", "pais": "pe", "usd": 0.02496, "fallos": 0}
+{"slug": "curso-de-bartending-y-cocteleria-profesional", "pais": "us", "usd": 0.01453, "fallos": 0}
+{"slug": "curso-de-bouquets-con-globos", "pais": "ec", "usd": 0.01354, "fallos": 0}
+{"slug": "curso-de-bouquets-con-globos", "pais": "cl", "usd": 0.0135, "fallos": 0}
+{"slug": "curso-de-bouquets-con-globos", "pais": "pe", "usd": 0.01247, "fallos": 0}
+{"slug": "curso-de-bouquets-con-globos", "pais": "es", "usd": 0.01345, "fallos": 0}
+{"slug": "curso-de-bouquets-con-globos", "pais": "us", "usd": 0.01265, "fallos": 1}
+{"slug": "curso-de-canto", "pais": "mx", "usd": 0.01436, "fallos": 1}
+{"slug": "curso-de-canto", "pais": "co", "usd": 0.01376, "fallos": 0}
+{"slug": "curso-de-bouquets-con-globos", "pais": "mx", "usd": 0.02516, "fallos": 0}
+{"slug": "curso-de-canto", "pais": "cl", "usd": 0.0126, "fallos": 0}
+{"slug": "curso-de-canto", "pais": "pe", "usd": 0.01365, "fallos": 1}
+{"slug": "curso-de-canto", "pais": "us", "usd": 0.01291, "fallos": 0}
+{"slug": "curso-de-canto", "pais": "ar", "usd": 0.01399, "fallos": 0}
+{"slug": "curso-de-canto", "pais": "ec", "usd": 0.02373, "fallos": 1}
+{"slug": "curso-de-canto", "pais": "es", "usd": 0.01345, "fallos": 0}
+{"slug": "curso-de-carpinteria-y-muebles", "pais": "co", "usd": 0.01427, "fallos": 0}
+{"slug": "curso-de-carpinteria-y-muebles", "pais": "ec", "usd": 0.0136, "fallos": 0}
+{"slug": "curso-de-carpinteria-y-muebles", "pais": "pe", "usd": 0.01436, "fallos": 0}
+{"slug": "curso-de-carpinteria-y-muebles", "pais": "cl", "usd": 0.01298, "fallos": 0}
+{"slug": "curso-de-carpinteria-y-muebles", "pais": "es", "usd": 0.01277, "fallos": 0}
+{"slug": "curso-de-carpinteria-y-muebles", "pais": "us", "usd": 0.01331, "fallos": 0}
+{"slug": "curso-de-carpinteria-y-muebles", "pais": "ar", "usd": 0.01251, "fallos": 1}
+{"slug": "curso-de-cejas-y-pestanas", "pais": "co", "usd": 0.01346, "fallos": 0}
+{"slug": "curso-de-cejas-y-pestanas", "pais": "mx", "usd": 0.01337, "fallos": 1}
+{"slug": "curso-de-cejas-y-pestanas", "pais": "ec", "usd": 0.01227, "fallos": 0}
+{"slug": "curso-de-cejas-y-pestanas", "pais": "cl", "usd": 0.01342, "fallos": 0}
+{"slug": "curso-de-cejas-y-pestanas", "pais": "us", "usd": 0.01335, "fallos": 0}
+{"slug": "curso-de-cejas-y-pestanas", "pais": "pe", "usd": 0.025, "fallos": 0}
+{"slug": "curso-de-cerveza-artesanal", "pais": "pe", "usd": 0.01306, "fallos": 0}
+{"slug": "curso-de-cerveza-artesanal", "pais": "mx", "usd": 0.01402, "fallos": 0}
+{"slug": "curso-de-cerveza-artesanal", "pais": "ec", "usd": 0.01322, "fallos": 0}
+{"slug": "curso-de-cejas-y-pestanas", "pais": "ar", "usd": 0.02401, "fallos": 0}
+{"slug": "curso-de-cerveza-artesanal", "pais": "co", "usd": 0.0237, "fallos": 1}
+{"slug": "curso-de-cejas-y-pestanas", "pais": "es", "usd": 0.02342, "fallos": 0}
+{"slug": "curso-de-cerveza-artesanal", "pais": "cl", "usd": 0.01383, "fallos": 1}
+{"slug": "curso-de-cerveza-artesanal", "pais": "es", "usd": 0.01362, "fallos": 0}
+{"slug": "curso-de-cerveza-artesanal", "pais": "ar", "usd": 0.01302, "fallos": 0}
+{"slug": "curso-de-cerveza-artesanal", "pais": "us", "usd": 0.0135, "fallos": 0}
+{"slug": "curso-de-ceviche-peruano", "pais": "mx", "usd": 0.01333, "fallos": 1}
+{"slug": "curso-de-ceviche-peruano", "pais": "co", "usd": 0.01398, "fallos": 0}
+{"slug": "curso-de-ceviche-peruano", "pais": "ec", "usd": 0.01262, "fallos": 0}
+{"slug": "curso-de-ceviche-peruano", "pais": "pe", "usd": 0.01359, "fallos": 0}
+{"slug": "curso-de-chocolateria", "pais": "mx", "usd": 0.01317, "fallos": 0}
+{"slug": "curso-de-chocolateria", "pais": "pe", "usd": 0.01348, "fallos": 0}
+{"slug": "curso-de-chocolateria", "pais": "cl", "usd": 0.01449, "fallos": 0}
+{"slug": "curso-de-ceviche-peruano", "pais": "ar", "usd": 0.02466, "fallos": 1}
+{"slug": "curso-de-chocolateria", "pais": "ar", "usd": 0.01403, "fallos": 0}
+{"slug": "curso-de-chocolateria", "pais": "co", "usd": 0.02271, "fallos": 1}
+{"slug": "curso-de-ceviche-peruano", "pais": "us", "usd": 0.02344, "fallos": 1}
+{"slug": "curso-de-chocolateria", "pais": "es", "usd": 0.01422, "fallos": 0}
+{"slug": "curso-de-chocolateria", "pais": "ec", "usd": 0.02506, "fallos": 0}
+{"slug": "curso-de-cocina", "pais": "mx", "usd": 0.0136, "fallos": 0}
+{"slug": "curso-de-cocina", "pais": "pe", "usd": 0.01308, "fallos": 0}
+{"slug": "curso-de-cocina", "pais": "ec", "usd": 0.01322, "fallos": 2}
+{"slug": "curso-de-chocolateria", "pais": "us", "usd": 0.02518, "fallos": 0}
+{"slug": "curso-de-cocina", "pais": "ar", "usd": 0.01238, "fallos": 2}
+{"slug": "curso-de-cocina", "pais": "us", "usd": 0.01374, "fallos": 0}
+{"slug": "curso-de-cocina", "pais": "cl", "usd": 0.01226, "fallos": 0}
+{"slug": "curso-de-colorimetria", "pais": "pe", "usd": 0.01278, "fallos": 0}
+{"slug": "curso-de-colorimetria", "pais": "co", "usd": 0.01164, "fallos": 1}
+{"slug": "curso-de-cocina", "pais": "co", "usd": 0.02434, "fallos": 0}
+{"slug": "curso-de-colorimetria", "pais": "cl", "usd": 0.01367, "fallos": 0}
+{"slug": "curso-de-colorimetria", "pais": "es", "usd": 0.013, "fallos": 1}
+{"slug": "curso-de-colorimetria", "pais": "ar", "usd": 0.01271, "fallos": 0}
+{"slug": "curso-de-colorimetria", "pais": "us", "usd": 0.0139, "fallos": 0}
+{"slug": "curso-de-colorimetria", "pais": "ec", "usd": 0.0136, "fallos": 0}
+{"slug": "curso-de-comidas-rapidas", "pais": "co", "usd": 0.01354, "fallos": 0}
+{"slug": "curso-de-comidas-rapidas", "pais": "mx", "usd": 0.01313, "fallos": 0}
+{"slug": "curso-de-comidas-rapidas", "pais": "ar", "usd": 0.01239, "fallos": 0}
+{"slug": "curso-de-comidas-rapidas", "pais": "ec", "usd": 0.01237, "fallos": 0}
+{"slug": "curso-de-comidas-rapidas", "pais": "cl", "usd": 0.01426, "fallos": 0}
+{"slug": "curso-de-comidas-rapidas", "pais": "es", "usd": 0.01348, "fallos": 0}
+{"slug": "curso-de-comidas-rapidas", "pais": "us", "usd": 0.01338, "fallos": 0}
+{"slug": "curso-de-comidas-rapidas", "pais": "pe", "usd": 0.02463, "fallos": 0}
+{"slug": "curso-de-community-manager", "pais": "co", "usd": 0.01268, "fallos": 1}
+{"slug": "curso-de-community-manager", "pais": "ec", "usd": 0.012, "fallos": 0}
+{"slug": "curso-de-community-manager", "pais": "mx", "usd": 0.01246, "fallos": 0}
+{"slug": "curso-de-community-manager", "pais": "pe", "usd": 0.01222, "fallos": 0}
+{"slug": "curso-de-community-manager", "pais": "ar", "usd": 0.01296, "fallos": 0}
+{"slug": "curso-de-community-manager", "pais": "cl", "usd": 0.01234, "fallos": 0}
+{"slug": "curso-de-community-manager", "pais": "us", "usd": 0.01308, "fallos": 0}
+{"slug": "curso-de-confeccion-de-ropa-interior", "pais": "mx", "usd": 0.01461, "fallos": 0}
+{"slug": "curso-de-community-manager", "pais": "es", "usd": 0.02462, "fallos": 0}
+{"slug": "curso-de-confeccion-de-ropa-interior", "pais": "ar", "usd": 0.01311, "fallos": 0}
+{"slug": "curso-de-confeccion-de-ropa-interior", "pais": "us", "usd": 0.01309, "fallos": 0}
+{"slug": "curso-de-confeccion-de-ropa-interior", "pais": "cl", "usd": 0.0239, "fallos": 1}
+{"slug": "curso-de-confeccion-de-ropa-interior", "pais": "ec", "usd": 0.02468, "fallos": 0}
+{"slug": "curso-de-confeccion-de-ropa-interior", "pais": "co", "usd": 0.02607, "fallos": 0}
+{"slug": "curso-de-confeccion-de-trajes-de-bano", "pais": "co", "usd": 0.01304, "fallos": 0}
+{"slug": "curso-de-confeccion-de-ropa-interior", "pais": "es", "usd": 0.02395, "fallos": 1}
+{"slug": "curso-de-confeccion-de-trajes-de-bano", "pais": "mx", "usd": 0.01459, "fallos": 0}
+{"slug": "curso-de-confeccion-de-trajes-de-bano", "pais": "pe", "usd": 0.01332, "fallos": 0}
+{"slug": "curso-de-confeccion-de-trajes-de-bano", "pais": "ec", "usd": 0.01318, "fallos": 0}
+{"slug": "curso-de-contabilidad-basica", "pais": "pe", "usd": 0.01226, "fallos": 0}
+{"slug": "curso-de-contabilidad-basica", "pais": "co", "usd": 0.01402, "fallos": 0}
+{"slug": "curso-de-confeccion-de-trajes-de-bano", "pais": "us", "usd": 0.01434, "fallos": 0}
+{"slug": "curso-de-contabilidad-basica", "pais": "cl", "usd": 0.01232, "fallos": 0}
+{"slug": "curso-de-confeccion-de-trajes-de-bano", "pais": "ar", "usd": 0.02362, "fallos": 0}
+{"slug": "curso-de-confeccion-de-trajes-de-bano", "pais": "cl", "usd": 0.02428, "fallos": 2}
+{"slug": "curso-de-contabilidad-basica", "pais": "mx", "usd": 0.02294, "fallos": 0}
+{"slug": "curso-de-contabilidad-basica", "pais": "ec", "usd": 0.02223, "fallos": 1}
+{"slug": "curso-de-contabilidad-basica", "pais": "us", "usd": 0.0121, "fallos": 0}
+{"slug": "curso-de-coreano", "pais": "co", "usd": 0.01194, "fallos": 0}
+{"slug": "curso-de-coreano", "pais": "pe", "usd": 0.01132, "fallos": 1}
+{"slug": "curso-de-contabilidad-basica", "pais": "ar", "usd": 0.02312, "fallos": 1}
+{"slug": "curso-de-contabilidad-basica", "pais": "es", "usd": 0.02283, "fallos": 0}
+{"slug": "curso-de-coreano", "pais": "mx", "usd": 0.01358, "fallos": 0}
+{"slug": "curso-de-coreano", "pais": "ar", "usd": 0.01356, "fallos": 0}
+{"slug": "curso-de-coreano", "pais": "es", "usd": 0.01285, "fallos": 0}
+{"slug": "curso-de-coreano", "pais": "cl", "usd": 0.02541, "fallos": 0}
+{"slug": "curso-de-coreano", "pais": "us", "usd": 0.01301, "fallos": 0}
+{"slug": "curso-de-corte-y-confeccion", "pais": "mx", "usd": 0.01403, "fallos": 0}
+{"slug": "curso-de-corte-y-confeccion", "pais": "co", "usd": 0.01462, "fallos": 0}
+{"slug": "curso-de-corte-y-confeccion", "pais": "cl", "usd": 0.01299, "fallos": 2}
+{"slug": "curso-de-corte-y-confeccion", "pais": "ec", "usd": 0.01276, "fallos": 0}
+{"slug": "curso-de-corte-y-confeccion", "pais": "es", "usd": 0.01369, "fallos": 0}
+{"slug": "curso-de-corte-y-confeccion", "pais": "us", "usd": 0.01363, "fallos": 0}
+{"slug": "curso-de-corte-y-confeccion", "pais": "pe", "usd": 0.02482, "fallos": 1}
+{"slug": "curso-de-costura-industrial", "pais": "co", "usd": 0.01381, "fallos": 1}
+{"slug": "curso-de-costura-industrial", "pais": "ec", "usd": 0.01222, "fallos": 0}
+{"slug": "curso-de-corte-y-confeccion", "pais": "ar", "usd": 0.02604, "fallos": 0}
+{"slug": "curso-de-costura-industrial", "pais": "cl", "usd": 0.01381, "fallos": 0}
+{"slug": "curso-de-costura-industrial", "pais": "pe", "usd": 0.01362, "fallos": 0}
+{"slug": "curso-de-costura-industrial", "pais": "ar", "usd": 0.01388, "fallos": 0}
+{"slug": "curso-de-costura-industrial", "pais": "us", "usd": 0.01411, "fallos": 0}
+{"slug": "curso-de-costura-industrial", "pais": "mx", "usd": 0.02497, "fallos": 0}
+{"slug": "curso-de-crochet", "pais": "mx", "usd": 0.01259, "fallos": 1}
+{"slug": "curso-de-crochet", "pais": "ec", "usd": 0.01239, "fallos": 0}
+{"slug": "curso-de-costura-industrial", "pais": "es", "usd": 0.02341, "fallos": 0}
+{"slug": "curso-de-crochet", "pais": "co", "usd": 0.02388, "fallos": 2}
+{"slug": "curso-de-crochet", "pais": "cl", "usd": 0.01372, "fallos": 0}
+{"slug": "curso-de-crochet", "pais": "pe", "usd": 0.02288, "fallos": 2}
+{"slug": "curso-de-crochet", "pais": "es", "usd": 0.01329, "fallos": 0}
+{"slug": "curso-de-cupcakes", "pais": "co", "usd": 0.01381, "fallos": 1}
+{"slug": "curso-de-crochet", "pais": "us", "usd": 0.01296, "fallos": 0}
+{"slug": "curso-de-cupcakes", "pais": "pe", "usd": 0.01319, "fallos": 0}
+{"slug": "curso-de-cupcakes", "pais": "mx", "usd": 0.0138, "fallos": 0}
+{"slug": "curso-de-crochet", "pais": "ar", "usd": 0.0244, "fallos": 0}
+{"slug": "curso-de-cupcakes", "pais": "ec", "usd": 0.01323, "fallos": 0}
+{"slug": "curso-de-cupcakes", "pais": "ar", "usd": 0.01307, "fallos": 1}
+{"slug": "curso-de-cupcakes", "pais": "cl", "usd": 0.01226, "fallos": 0}
+{"slug": "curso-de-cupcakes", "pais": "es", "usd": 0.01338, "fallos": 0}
+{"slug": "curso-de-decoracion-con-globos", "pais": "co", "usd": 0.01402, "fallos": 2}
+{"slug": "curso-de-decoracion-con-globos", "pais": "pe", "usd": 0.01319, "fallos": 0}
+{"slug": "curso-de-decoracion-con-globos", "pais": "ec", "usd": 0.01229, "fallos": 0}
+{"slug": "curso-de-decoracion-con-globos", "pais": "ar", "usd": 0.01293, "fallos": 0}
+{"slug": "curso-de-cupcakes", "pais": "us", "usd": 0.02254, "fallos": 0}
+{"slug": "curso-de-decoracion-de-unas", "pais": "co", "usd": 0.01185, "fallos": 0}
+{"slug": "curso-de-decoracion-con-globos", "pais": "mx", "usd": 0.02491, "fallos": 0}
+{"slug": "curso-de-decoracion-de-unas", "pais": "pe", "usd": 0.01458, "fallos": 1}
+{"slug": "curso-de-decoracion-con-globos", "pais": "cl", "usd": 0.02444, "fallos": 0}
+{"slug": "curso-de-decoracion-con-globos", "pais": "us", "usd": 0.02398, "fallos": 0}
+{"slug": "curso-de-decoracion-de-unas", "pais": "cl", "usd": 0.01258, "fallos": 0}
+{"slug": "curso-de-decoracion-de-unas", "pais": "es", "usd": 0.01424, "fallos": 0}
+{"slug": "curso-de-defensa-personal-para-mujeres", "pais": "co", "usd": 0.01362, "fallos": 0}
+{"slug": "curso-de-defensa-personal-para-mujeres", "pais": "pe", "usd": 0.01347, "fallos": 2}
+{"slug": "curso-de-defensa-personal-para-mujeres", "pais": "ec", "usd": 0.01318, "fallos": 0}
+{"slug": "curso-de-decoracion-de-unas", "pais": "ec", "usd": 0.02181, "fallos": 1}
+{"slug": "curso-de-defensa-personal-para-mujeres", "pais": "ar", "usd": 0.01233, "fallos": 1}
+{"slug": "curso-de-defensa-personal-para-mujeres", "pais": "cl", "usd": 0.02325, "fallos": 0}
+{"slug": "curso-de-defensa-personal-para-mujeres", "pais": "us", "usd": 0.01271, "fallos": 0}
+{"slug": "curso-de-defensa-personal-para-mujeres", "pais": "mx", "usd": 0.02443, "fallos": 0}
+{"slug": "curso-de-depilacion", "pais": "pe", "usd": 0.01329, "fallos": 0}
+{"slug": "curso-de-defensa-personal-para-mujeres", "pais": "es", "usd": 0.02618, "fallos": 0}
+{"slug": "curso-de-depilacion", "pais": "ec", "usd": 0.0137, "fallos": 1}
+{"slug": "curso-de-depilacion", "pais": "us", "usd": 0.01255, "fallos": 0}
+{"slug": "curso-de-depilacion", "pais": "ar", "usd": 0.01249, "fallos": 0}
+{"slug": "curso-de-depilacion", "pais": "cl", "usd": 0.01281, "fallos": 0}
+{"slug": "curso-de-depilacion", "pais": "co", "usd": 0.02508, "fallos": 2}
+{"slug": "curso-de-depilacion", "pais": "mx", "usd": 0.02536, "fallos": 0}
+{"slug": "curso-de-desayunos-sorpresa", "pais": "pe", "usd": 0.01337, "fallos": 0}
+{"slug": "curso-de-desayunos-sorpresa", "pais": "es", "usd": 0.01453, "fallos": 0}
+{"slug": "curso-de-diseno-de-cejas-con-hilo-y-henna", "pais": "pe", "usd": 0.013, "fallos": 0}
+{"slug": "curso-de-desayunos-sorpresa", "pais": "us", "usd": 0.01261, "fallos": 0}
+{"slug": "curso-de-diseno-de-cejas-con-hilo-y-henna", "pais": "mx", "usd": 0.01367, "fallos": 0}
+{"slug": "curso-de-desayunos-sorpresa", "pais": "ec", "usd": 0.02386, "fallos": 1}
+{"slug": "curso-de-diseno-de-cejas-con-hilo-y-henna", "pais": "cl", "usd": 0.01349, "fallos": 1}
+{"slug": "curso-de-diseno-de-cejas-con-hilo-y-henna", "pais": "ec", "usd": 0.012, "fallos": 0}
+{"slug": "curso-de-diseno-de-cejas-con-hilo-y-henna", "pais": "es", "usd": 0.01401, "fallos": 0}
+{"slug": "curso-de-dj", "pais": "co", "usd": 0.01333, "fallos": 0}
+{"slug": "curso-de-diseno-de-cejas-con-hilo-y-henna", "pais": "us", "usd": 0.01524, "fallos": 0}
+{"slug": "curso-de-dj", "pais": "ec", "usd": 0.01239, "fallos": 0}
+{"slug": "curso-de-dj", "pais": "pe", "usd": 0.01337, "fallos": 0}
+{"slug": "curso-de-dj", "pais": "cl", "usd": 0.01322, "fallos": 0}
+{"slug": "curso-de-diseno-de-cejas-con-hilo-y-henna", "pais": "ar", "usd": 0.02543, "fallos": 0}
+{"slug": "curso-de-dj", "pais": "ar", "usd": 0.01328, "fallos": 1}
+{"slug": "curso-de-dj", "pais": "mx", "usd": 0.02498, "fallos": 0}
+{"slug": "curso-de-dj", "pais": "us", "usd": 0.0125, "fallos": 1}
+{"slug": "curso-de-drenaje-linfatico", "pais": "co", "usd": 0.01231, "fallos": 1}
+{"slug": "curso-de-dj", "pais": "es", "usd": 0.02493, "fallos": 0}
+{"slug": "curso-de-drenaje-linfatico", "pais": "mx", "usd": 0.01428, "fallos": 0}
+{"slug": "curso-de-drenaje-linfatico", "pais": "ec", "usd": 0.01338, "fallos": 0}
+{"slug": "curso-de-drenaje-linfatico", "pais": "pe", "usd": 0.01253, "fallos": 0}
+{"slug": "curso-de-drenaje-linfatico", "pais": "es", "usd": 0.01422, "fallos": 0}
+{"slug": "curso-de-drenaje-linfatico", "pais": "cl", "usd": 0.0237, "fallos": 1}
+{"slug": "curso-de-electricidad-residencial-certificado", "pais": "pe", "usd": 0.0135, "fallos": 0}
+{"slug": "curso-de-electricidad-residencial-certificado", "pais": "mx", "usd": 0.01367, "fallos": 0}
+{"slug": "curso-de-electricidad-residencial-certificado", "pais": "co", "usd": 0.01361, "fallos": 0}
+{"slug": "curso-de-drenaje-linfatico", "pais": "us", "usd": 0.02495, "fallos": 0}
+{"slug": "curso-de-drenaje-linfatico", "pais": "ar", "usd": 0.0245, "fallos": 0}
+{"slug": "curso-de-electricidad-residencial-certificado", "pais": "cl", "usd": 0.01334, "fallos": 0}
+{"slug": "curso-de-electricidad-residencial-certificado", "pais": "es", "usd": 0.01437, "fallos": 0}
+{"slug": "curso-de-electricidad-residencial-certificado", "pais": "ar", "usd": 0.01416, "fallos": 0}
+{"slug": "curso-de-electricista", "pais": "co", "usd": 0.01214, "fallos": 0}
+{"slug": "curso-de-electricista", "pais": "pe", "usd": 0.01118, "fallos": 2}
+{"slug": "curso-de-electricidad-residencial-certificado", "pais": "ec", "usd": 0.024, "fallos": 0}
+{"slug": "curso-de-electricista", "pais": "mx", "usd": 0.01356, "fallos": 0}
+{"slug": "curso-de-electricista", "pais": "cl", "usd": 0.01425, "fallos": 0}
+{"slug": "curso-de-electricista", "pais": "ar", "usd": 0.01269, "fallos": 1}
+{"slug": "curso-de-energia-solar", "pais": "mx", "usd": 0.01354, "fallos": 0}
+{"slug": "curso-de-electricista", "pais": "es", "usd": 0.01398, "fallos": 0}
+{"slug": "curso-de-energia-solar", "pais": "co", "usd": 0.01278, "fallos": 0}
+{"slug": "curso-de-energia-solar", "pais": "pe", "usd": 0.01362, "fallos": 0}
+{"slug": "curso-de-energia-solar", "pais": "cl", "usd": 0.01295, "fallos": 2}
+{"slug": "curso-de-energia-solar", "pais": "us", "usd": 0.01237, "fallos": 0}
+{"slug": "curso-de-estetica-canina", "pais": "co", "usd": 0.01331, "fallos": 0}
+{"slug": "curso-de-electricista", "pais": "us", "usd": 0.0227, "fallos": 0}
+{"slug": "curso-de-energia-solar", "pais": "ec", "usd": 0.02412, "fallos": 0}
+{"slug": "curso-de-estetica-canina", "pais": "ec", "usd": 0.01191, "fallos": 0}
+{"slug": "curso-de-energia-solar", "pais": "ar", "usd": 0.02495, "fallos": 0}
+{"slug": "curso-de-estetica-canina", "pais": "cl", "usd": 0.01323, "fallos": 0}
+{"slug": "curso-de-estetica-canina", "pais": "pe", "usd": 0.02433, "fallos": 0}
+{"slug": "curso-de-estetica-canina", "pais": "mx", "usd": 0.02448, "fallos": 0}
+{"slug": "curso-de-estetica-canina", "pais": "ar", "usd": 0.01541, "fallos": 0}
+{"slug": "curso-de-excel", "pais": "mx", "usd": 0.01408, "fallos": 1}
+{"slug": "curso-de-excel", "pais": "cl", "usd": 0.01294, "fallos": 0}
+{"slug": "curso-de-excel", "pais": "co", "usd": 0.02541, "fallos": 0}
+{"slug": "curso-de-excel", "pais": "ar", "usd": 0.01269, "fallos": 0}
+{"slug": "curso-de-estetica-canina", "pais": "us", "usd": 0.02379, "fallos": 1}
+{"slug": "curso-de-excel", "pais": "es", "usd": 0.0127, "fallos": 0}
+{"slug": "curso-de-excel", "pais": "pe", "usd": 0.02309, "fallos": 1}
+{"slug": "curso-de-excel", "pais": "ec", "usd": 0.02249, "fallos": 1}
+{"slug": "curso-de-extensiones-de-cabello", "pais": "co", "usd": 0.01409, "fallos": 0}
+{"slug": "curso-de-excel", "pais": "us", "usd": 0.02211, "fallos": 1}
+{"slug": "curso-de-extensiones-de-cabello", "pais": "cl", "usd": 0.01359, "fallos": 0}
+{"slug": "curso-de-extensiones-de-cabello", "pais": "mx", "usd": 0.01358, "fallos": 0}
+{"slug": "curso-de-extensiones-de-cabello", "pais": "ec", "usd": 0.01351, "fallos": 0}
+{"slug": "curso-de-extensiones-de-cabello", "pais": "ar", "usd": 0.0143, "fallos": 0}
+{"slug": "curso-de-extensiones-de-pestanas", "pais": "co", "usd": 0.01352, "fallos": 0}
+{"slug": "curso-de-extensiones-de-pestanas", "pais": "mx", "usd": 0.01323, "fallos": 0}
+{"slug": "curso-de-extensiones-de-cabello", "pais": "pe", "usd": 0.02696, "fallos": 1}
+{"slug": "curso-de-extensiones-de-cabello", "pais": "us", "usd": 0.02325, "fallos": 1}
+{"slug": "curso-de-extensiones-de-pestanas", "pais": "pe", "usd": 0.0145, "fallos": 0}
+{"slug": "curso-de-extensiones-de-pestanas", "pais": "ar", "usd": 0.01387, "fallos": 0}
+{"slug": "curso-de-extensiones-de-pestanas", "pais": "es", "usd": 0.01308, "fallos": 0}
+{"slug": "curso-de-extensiones-de-pestanas", "pais": "us", "usd": 0.01297, "fallos": 1}
+{"slug": "curso-de-extensiones-de-pestanas", "pais": "cl", "usd": 0.02598, "fallos": 0}
+{"slug": "curso-de-finanzas-para-tu-negocio", "pais": "mx", "usd": 0.01215, "fallos": 0}
+{"slug": "curso-de-extensiones-de-pestanas", "pais": "ec", "usd": 0.02399, "fallos": 1}
+{"slug": "curso-de-finanzas-para-tu-negocio", "pais": "ec", "usd": 0.01325, "fallos": 0}
+{"slug": "curso-de-finanzas-para-tu-negocio", "pais": "co", "usd": 0.02365, "fallos": 1}
+{"slug": "curso-de-finanzas-para-tu-negocio", "pais": "cl", "usd": 0.01408, "fallos": 0}
+{"slug": "curso-de-finanzas-para-tu-negocio", "pais": "es", "usd": 0.01319, "fallos": 0}
+{"slug": "curso-de-finanzas-para-tu-negocio", "pais": "us", "usd": 0.013, "fallos": 0}
+{"slug": "curso-de-finanzas-para-tu-negocio", "pais": "ar", "usd": 0.01195, "fallos": 2}
+{"slug": "curso-de-finanzas-para-tu-negocio", "pais": "pe", "usd": 0.02488, "fallos": 0}
+{"slug": "curso-de-flores-con-globos", "pais": "mx", "usd": 0.01265, "fallos": 0}
+{"slug": "curso-de-flores-con-globos", "pais": "cl", "usd": 0.0128, "fallos": 0}
+{"slug": "curso-de-flores-con-globos", "pais": "es", "usd": 0.01421, "fallos": 0}
+{"slug": "curso-de-flores-con-globos", "pais": "co", "usd": 0.02498, "fallos": 1}
+{"slug": "curso-de-flores-con-globos", "pais": "ec", "usd": 0.02309, "fallos": 2}
+{"slug": "curso-de-fondant", "pais": "co", "usd": 0.01279, "fallos": 0}
+{"slug": "curso-de-flores-con-globos", "pais": "pe", "usd": 0.02414, "fallos": 0}
+{"slug": "curso-de-fondant", "pais": "mx", "usd": 0.01297, "fallos": 0}
+{"slug": "curso-de-flores-con-globos", "pais": "ar", "usd": 0.02381, "fallos": 0}
+{"slug": "curso-de-flores-con-globos", "pais": "us", "usd": 0.02432, "fallos": 0}
+{"slug": "curso-de-fondant", "pais": "ec", "usd": 0.01285, "fallos": 0}
+{"slug": "curso-de-fondant", "pais": "es", "usd": 0.01312, "fallos": 0}
+{"slug": "curso-de-fondant", "pais": "pe", "usd": 0.02413, "fallos": 0}
+{"slug": "curso-de-fondant", "pais": "us", "usd": 0.01428, "fallos": 0}
+{"slug": "curso-de-fotografia", "pais": "co", "usd": 0.01263, "fallos": 0}
+{"slug": "curso-de-fotografia", "pais": "es", "usd": 0.01286, "fallos": 0}
+{"slug": "curso-de-fotografia", "pais": "cl", "usd": 0.01353, "fallos": 0}
+{"slug": "curso-de-fotografia", "pais": "ar", "usd": 0.0132, "fallos": 0}
+{"slug": "curso-de-fondant", "pais": "cl", "usd": 0.01359, "fallos": 0}
+{"slug": "curso-de-fondant", "pais": "ar", "usd": 0.013, "fallos": 1}
+{"slug": "curso-de-fotografia", "pais": "ec", "usd": 0.0137, "fallos": 0}
+{"slug": "curso-de-fotografia", "pais": "mx", "usd": 0.01183, "fallos": 1}
+{"slug": "curso-de-fotografia", "pais": "us", "usd": 0.01247, "fallos": 0}
+{"slug": "curso-de-fotografia", "pais": "pe", "usd": 0.02345, "fallos": 1}
+{"slug": "curso-de-fotografia-con-celular", "pais": "mx", "usd": 0.01284, "fallos": 0}
+{"slug": "curso-de-fotografia-con-celular", "pais": "pe", "usd": 0.013, "fallos": 0}
+{"slug": "curso-de-fotografia-con-celular", "pais": "cl", "usd": 0.01347, "fallos": 0}
+{"slug": "curso-de-fotografia-con-celular", "pais": "co", "usd": 0.02454, "fallos": 1}
+{"slug": "curso-de-frances", "pais": "mx", "usd": 0.01431, "fallos": 0}
+{"slug": "curso-de-fotografia-con-celular", "pais": "ar", "usd": 0.02525, "fallos": 0}
+{"slug": "curso-de-fotografia-con-celular", "pais": "es", "usd": 0.02574, "fallos": 0}
+{"slug": "curso-de-frances", "pais": "cl", "usd": 0.01374, "fallos": 1}
+{"slug": "curso-de-frances", "pais": "co", "usd": 0.02271, "fallos": 0}
+{"slug": "curso-de-frances", "pais": "pe", "usd": 0.02531, "fallos": 0}
+{"slug": "curso-de-frances", "pais": "us", "usd": 0.01238, "fallos": 0}
+{"slug": "curso-de-galletas-decoradas", "pais": "co", "usd": 0.01386, "fallos": 0}
+{"slug": "curso-de-frances", "pais": "ar", "usd": 0.02274, "fallos": 1}
+{"slug": "curso-de-galletas-decoradas", "pais": "ec", "usd": 0.01239, "fallos": 0}
+{"slug": "curso-de-galletas-decoradas", "pais": "mx", "usd": 0.01488, "fallos": 0}
+{"slug": "curso-de-galletas-decoradas", "pais": "pe", "usd": 0.01331, "fallos": 0}
+{"slug": "curso-de-frances", "pais": "es", "usd": 0.02367, "fallos": 1}
+{"slug": "curso-de-galletas-decoradas", "pais": "cl", "usd": 0.01189, "fallos": 0}
+{"slug": "curso-de-galletas-decoradas", "pais": "es", "usd": 0.01537, "fallos": 0}
+{"slug": "curso-de-galletas-decoradas", "pais": "ar", "usd": 0.01338, "fallos": 0}
+{"slug": "curso-de-galletas-decoradas", "pais": "us", "usd": 0.01411, "fallos": 1}
+{"slug": "curso-de-globoflexia", "pais": "co", "usd": 0.01166, "fallos": 1}
+{"slug": "curso-de-globoflexia", "pais": "ec", "usd": 0.01269, "fallos": 0}
+{"slug": "curso-de-globoflexia", "pais": "cl", "usd": 0.01343, "fallos": 1}
+{"slug": "curso-de-globoflexia", "pais": "pe", "usd": 0.01463, "fallos": 0}
+{"slug": "curso-de-globoflexia", "pais": "us", "usd": 0.01381, "fallos": 0}
+{"slug": "curso-de-globos-burbuja", "pais": "mx", "usd": 0.01289, "fallos": 0}
+{"slug": "curso-de-globos-burbuja", "pais": "pe", "usd": 0.01219, "fallos": 0}
+{"slug": "curso-de-globos-burbuja", "pais": "ec", "usd": 0.01305, "fallos": 0}
+{"slug": "curso-de-globoflexia", "pais": "mx", "usd": 0.02517, "fallos": 0}
+{"slug": "curso-de-globos-burbuja", "pais": "ar", "usd": 0.0142, "fallos": 0}
+{"slug": "curso-de-guitarra", "pais": "co", "usd": 0.01386, "fallos": 0}
+{"slug": "curso-de-globos-burbuja", "pais": "es", "usd": 0.01264, "fallos": 0}
+{"slug": "curso-de-guitarra", "pais": "mx", "usd": 0.01376, "fallos": 0}
+{"slug": "curso-de-guitarra", "pais": "cl", "usd": 0.01373, "fallos": 0}
+{"slug": "curso-de-globos-burbuja", "pais": "co", "usd": 0.02485, "fallos": 0}
+{"slug": "curso-de-globos-burbuja", "pais": "cl", "usd": 0.02469, "fallos": 1}
+{"slug": "curso-de-guitarra", "pais": "ar", "usd": 0.01198, "fallos": 1}
+{"slug": "curso-de-guitarra", "pais": "ec", "usd": 0.02375, "fallos": 2}
+{"slug": "curso-de-guitarra", "pais": "es", "usd": 0.01258, "fallos": 0}
+{"slug": "curso-de-guitarra", "pais": "us", "usd": 0.01303, "fallos": 0}
+{"slug": "curso-de-hamburguesas-gourmet", "pais": "co", "usd": 0.01358, "fallos": 0}
+{"slug": "curso-de-hamburguesas-gourmet", "pais": "pe", "usd": 0.01371, "fallos": 0}
+{"slug": "curso-de-hamburguesas-gourmet", "pais": "ec", "usd": 0.0138, "fallos": 0}
+{"slug": "curso-de-hamburguesas-gourmet", "pais": "cl", "usd": 0.01238, "fallos": 0}
+{"slug": "curso-de-ingles", "pais": "co", "usd": 0.01186, "fallos": 2}
+{"slug": "curso-de-hamburguesas-gourmet", "pais": "es", "usd": 0.01369, "fallos": 0}
+{"slug": "curso-de-hamburguesas-gourmet", "pais": "us", "usd": 0.01174, "fallos": 1}
+{"slug": "curso-de-hamburguesas-gourmet", "pais": "mx", "usd": 0.02386, "fallos": 0}
+{"slug": "curso-de-hamburguesas-gourmet", "pais": "ar", "usd": 0.02561, "fallos": 1}
+{"slug": "curso-de-ingles", "pais": "cl", "usd": 0.01291, "fallos": 0}
+{"slug": "curso-de-ingles", "pais": "mx", "usd": 0.02236, "fallos": 1}
+{"slug": "curso-de-ingles-para-ninos", "pais": "mx", "usd": 0.01238, "fallos": 0}
+{"slug": "curso-de-ingles", "pais": "pe", "usd": 0.02174, "fallos": 1}
+{"slug": "curso-de-ingles", "pais": "us", "usd": 0.01267, "fallos": 0}
+{"slug": "curso-de-ingles", "pais": "ec", "usd": 0.02252, "fallos": 1}
+{"slug": "curso-de-ingles-para-ninos", "pais": "pe", "usd": 0.01286, "fallos": 0}
+{"slug": "curso-de-ingles-para-ninos", "pais": "cl", "usd": 0.01313, "fallos": 0}
+{"slug": "curso-de-ingles", "pais": "ar", "usd": 0.02605, "fallos": 0}
+{"slug": "curso-de-ingles-para-ninos", "pais": "ar", "usd": 0.0129, "fallos": 1}
+{"slug": "curso-de-ingles-para-ninos", "pais": "es", "usd": 0.01252, "fallos": 0}
+{"slug": "curso-de-instalacion-de-camaras-de-seguridad", "pais": "co", "usd": 0.01283, "fallos": 0}
+{"slug": "curso-de-instalacion-de-camaras-de-seguridad", "pais": "pe", "usd": 0.01394, "fallos": 0}
+{"slug": "curso-de-ingles-para-ninos", "pais": "ec", "usd": 0.02314, "fallos": 0}
+{"slug": "curso-de-instalacion-de-camaras-de-seguridad", "pais": "ar", "usd": 0.01273, "fallos": 0}
+{"slug": "curso-de-instalacion-de-camaras-de-seguridad", "pais": "cl", "usd": 0.01569, "fallos": 0}
+{"slug": "curso-de-instalacion-de-camaras-de-seguridad", "pais": "us", "usd": 0.01347, "fallos": 0}
+{"slug": "curso-de-instructor-de-yoga-desde-cero", "pais": "ec", "usd": 0.01221, "fallos": 0}
+{"slug": "curso-de-instructor-de-yoga-desde-cero", "pais": "ar", "usd": 0.01317, "fallos": 0}
+{"slug": "curso-de-instructor-de-yoga-desde-cero", "pais": "us", "usd": 0.0123, "fallos": 1}
+{"slug": "curso-de-instructor-de-yoga-desde-cero", "pais": "es", "usd": 0.01277, "fallos": 0}
+{"slug": "curso-de-instructor-de-yoga-desde-cero", "pais": "co", "usd": 0.02434, "fallos": 0}
+{"slug": "curso-de-jabones-artesanales-para-vender", "pais": "co", "usd": 0.01268, "fallos": 0}
+{"slug": "curso-de-jabones-artesanales-para-vender", "pais": "pe", "usd": 0.01369, "fallos": 0}
+{"slug": "curso-de-jabones-artesanales-para-vender", "pais": "mx", "usd": 0.01403, "fallos": 0}
+{"slug": "curso-de-instructor-de-yoga-desde-cero", "pais": "cl", "usd": 0.02277, "fallos": 0}
+{"slug": "curso-de-jabones-artesanales-para-vender", "pais": "ec", "usd": 0.01209, "fallos": 0}
+{"slug": "curso-de-jabones-artesanales-para-vender", "pais": "cl", "usd": 0.01273, "fallos": 1}
+{"slug": "curso-de-jabones-artesanales-para-vender", "pais": "ar", "usd": 0.01311, "fallos": 0}
+{"slug": "curso-de-jabones-artesanales-para-vender", "pais": "es", "usd": 0.01417, "fallos": 0}
+{"slug": "curso-de-jabones-artesanales-para-vender", "pais": "us", "usd": 0.01377, "fallos": 0}
+{"slug": "curso-de-japones", "pais": "ec", "usd": 0.01352, "fallos": 0}
+{"slug": "curso-de-japones", "pais": "mx", "usd": 0.0127, "fallos": 1}
+{"slug": "curso-de-japones", "pais": "ar", "usd": 0.01303, "fallos": 0}
+{"slug": "curso-de-japones", "pais": "co", "usd": 0.02535, "fallos": 0}
+{"slug": "curso-de-japones", "pais": "es", "usd": 0.01329, "fallos": 0}
+{"slug": "curso-de-japones", "pais": "pe", "usd": 0.0252, "fallos": 1}
+{"slug": "curso-de-japones", "pais": "cl", "usd": 0.02283, "fallos": 0}
+{"slug": "curso-de-japones", "pais": "us", "usd": 0.01251, "fallos": 0}
+{"slug": "curso-de-joyeria-artesanal", "pais": "co", "usd": 0.01376, "fallos": 1}
+{"slug": "curso-de-joyeria-artesanal", "pais": "mx", "usd": 0.01249, "fallos": 0}
+{"slug": "curso-de-joyeria-artesanal", "pais": "pe", "usd": 0.01452, "fallos": 0}
+{"slug": "curso-de-joyeria-artesanal", "pais": "us", "usd": 0.01245, "fallos": 0}
+{"slug": "curso-de-joyeria-artesanal", "pais": "ar", "usd": 0.01261, "fallos": 0}
+{"slug": "curso-de-joyeria-artesanal", "pais": "cl", "usd": 0.01305, "fallos": 0}
+{"slug": "curso-de-lenceria-y-ropa-interior-a-medida", "pais": "co", "usd": 0.01319, "fallos": 0}
+{"slug": "curso-de-ingles-para-ninos", "pais": "us", "usd": 0.01335, "fallos": 1}
+{"slug": "curso-de-joyeria-artesanal", "pais": "ec", "usd": 0.02524, "fallos": 0}
+{"slug": "curso-de-lenceria-y-ropa-interior-a-medida", "pais": "pe", "usd": 0.01288, "fallos": 0}
+{"slug": "curso-de-lenceria-y-ropa-interior-a-medida", "pais": "mx", "usd": 0.01378, "fallos": 0}
+{"slug": "curso-de-lenceria-y-ropa-interior-a-medida", "pais": "cl", "usd": 0.01333, "fallos": 1}
+{"slug": "curso-de-lenceria-y-ropa-interior-a-medida", "pais": "ec", "usd": 0.0147, "fallos": 0}
+{"slug": "curso-de-lenceria-y-ropa-interior-a-medida", "pais": "es", "usd": 0.01407, "fallos": 0}
+{"slug": "curso-de-lenceria-y-ropa-interior-a-medida", "pais": "us", "usd": 0.01263, "fallos": 0}
+{"slug": "curso-de-limpieza-facial", "pais": "mx", "usd": 0.01355, "fallos": 0}
+{"slug": "curso-de-lenceria-y-ropa-interior-a-medida", "pais": "ar", "usd": 0.02427, "fallos": 0}
+{"slug": "curso-de-limpieza-facial", "pais": "co", "usd": 0.02533, "fallos": 0}
+{"slug": "curso-de-limpieza-facial", "pais": "es", "usd": 0.01418, "fallos": 0}
+{"slug": "curso-de-limpieza-facial", "pais": "ar", "usd": 0.01285, "fallos": 0}
+{"slug": "curso-de-limpieza-facial", "pais": "ec", "usd": 0.02354, "fallos": 0}
+{"slug": "curso-de-limpieza-facial", "pais": "pe", "usd": 0.02541, "fallos": 0}
+{"slug": "curso-de-limpieza-facial", "pais": "cl", "usd": 0.02478, "fallos": 0}
+{"slug": "curso-de-macrame", "pais": "mx", "usd": 0.01327, "fallos": 0}
+{"slug": "curso-de-macrame", "pais": "co", "usd": 0.01285, "fallos": 0}
+{"slug": "curso-de-limpieza-facial", "pais": "us", "usd": 0.02551, "fallos": 0}
+{"slug": "curso-de-macrame", "pais": "cl", "usd": 0.01292, "fallos": 0}
+{"slug": "curso-de-macrame", "pais": "pe", "usd": 0.0122, "fallos": 0}
+{"slug": "curso-de-macrame", "pais": "ec", "usd": 0.01269, "fallos": 0}
+{"slug": "curso-de-macrame", "pais": "es", "usd": 0.01238, "fallos": 0}
+{"slug": "curso-de-maderoterapia", "pais": "co", "usd": 0.01378, "fallos": 0}
+{"slug": "curso-de-maderoterapia", "pais": "mx", "usd": 0.01259, "fallos": 0}
+{"slug": "curso-de-maderoterapia", "pais": "pe", "usd": 0.01345, "fallos": 0}
+{"slug": "curso-de-macrame", "pais": "us", "usd": 0.023, "fallos": 0}
+{"slug": "curso-de-macrame", "pais": "ar", "usd": 0.02639, "fallos": 1}
+{"slug": "curso-de-maderoterapia", "pais": "cl", "usd": 0.01263, "fallos": 0}
+{"slug": "curso-de-maderoterapia", "pais": "ar", "usd": 0.01343, "fallos": 0}
+{"slug": "curso-de-maderoterapia", "pais": "es", "usd": 0.01306, "fallos": 0}
+{"slug": "curso-de-maderoterapia", "pais": "us", "usd": 0.01307, "fallos": 0}
+{"slug": "curso-de-maderoterapia", "pais": "ec", "usd": 0.02236, "fallos": 1}
+{"slug": "curso-de-manicure-y-pedicure", "pais": "mx", "usd": 0.01304, "fallos": 0}
+{"slug": "curso-de-manicure-y-pedicure", "pais": "pe", "usd": 0.01288, "fallos": 0}
+{"slug": "curso-de-manicure-y-pedicure", "pais": "co", "usd": 0.02343, "fallos": 0}
+{"slug": "curso-de-manicure-y-pedicure", "pais": "ar", "usd": 0.01302, "fallos": 0}
+{"slug": "curso-de-maquillaje", "pais": "co", "usd": 0.01411, "fallos": 0}
+{"slug": "curso-de-manicure-y-pedicure", "pais": "es", "usd": 0.02389, "fallos": 0}
+{"slug": "curso-de-maquillaje", "pais": "ec", "usd": 0.01366, "fallos": 0}
+{"slug": "curso-de-manicure-y-pedicure", "pais": "us", "usd": 0.02277, "fallos": 1}
+{"slug": "curso-de-maquillaje", "pais": "pe", "usd": 0.01323, "fallos": 1}
+{"slug": "curso-de-maquillaje", "pais": "us", "usd": 0.01311, "fallos": 0}
+{"slug": "curso-de-maquillaje", "pais": "ar", "usd": 0.01392, "fallos": 0}
+{"slug": "curso-de-maquillaje", "pais": "cl", "usd": 0.01197, "fallos": 0}
+{"slug": "curso-de-maquillaje", "pais": "mx", "usd": 0.02561, "fallos": 0}
+{"slug": "curso-de-maquillaje-de-fantasia", "pais": "pe", "usd": 0.01402, "fallos": 0}
+{"slug": "curso-de-maquillaje-de-fantasia", "pais": "co", "usd": 0.01435, "fallos": 0}
+{"slug": "curso-de-maquillaje-de-fantasia", "pais": "mx", "usd": 0.01376, "fallos": 0}
+{"slug": "curso-de-maquillaje-de-fantasia", "pais": "ec", "usd": 0.01406, "fallos": 0}
+{"slug": "curso-de-maquillaje-de-fantasia", "pais": "cl", "usd": 0.01361, "fallos": 0}
+{"slug": "curso-de-maquillaje-de-fantasia", "pais": "es", "usd": 0.01507, "fallos": 0}
+{"slug": "curso-de-maquillaje-de-fantasia", "pais": "ar", "usd": 0.01465, "fallos": 0}
+{"slug": "curso-de-maquillaje-de-fantasia", "pais": "us", "usd": 0.01435, "fallos": 0}
+{"slug": "curso-de-maquillaje-permanente", "pais": "mx", "usd": 0.01306, "fallos": 0}
+{"slug": "curso-de-maquillaje-permanente", "pais": "ec", "usd": 0.0129, "fallos": 0}
+{"slug": "curso-de-maquillaje-permanente", "pais": "pe", "usd": 0.0153, "fallos": 0}
+{"slug": "curso-de-maquillaje-permanente", "pais": "cl", "usd": 0.01237, "fallos": 0}
+{"slug": "curso-de-maquillaje-permanente", "pais": "ar", "usd": 0.01453, "fallos": 0}
+{"slug": "curso-de-maquillaje-permanente", "pais": "co", "usd": 0.02361, "fallos": 1}
+{"slug": "curso-de-maquillaje-permanente", "pais": "us", "usd": 0.01343, "fallos": 0}
+{"slug": "curso-de-maquillaje-profesional-de-novias", "pais": "mx", "usd": 0.01415, "fallos": 0}
+{"slug": "curso-de-maquillaje-profesional-de-novias", "pais": "co", "usd": 0.01418, "fallos": 0}
+{"slug": "curso-de-maquillaje-profesional-de-novias", "pais": "pe", "usd": 0.01354, "fallos": 0}
+{"slug": "curso-de-maquillaje-profesional-de-novias", "pais": "ec", "usd": 0.01331, "fallos": 1}
+{"slug": "curso-de-maquillaje-permanente", "pais": "es", "usd": 0.02496, "fallos": 0}
+{"slug": "curso-de-maquillaje-profesional-de-novias", "pais": "cl", "usd": 0.01364, "fallos": 0}
+{"slug": "curso-de-maquillaje-profesional-de-novias", "pais": "es", "usd": 0.01314, "fallos": 0}
+{"slug": "curso-de-marketing-digital", "pais": "co", "usd": 0.01323, "fallos": 0}
+{"slug": "curso-de-marketing-digital", "pais": "ec", "usd": 0.01202, "fallos": 0}
+{"slug": "curso-de-marketing-digital", "pais": "pe", "usd": 0.01256, "fallos": 0}
+{"slug": "curso-de-marketing-digital", "pais": "mx", "usd": 0.01299, "fallos": 0}
+{"slug": "curso-de-marketing-digital", "pais": "cl", "usd": 0.01363, "fallos": 0}
+{"slug": "curso-de-masaje-descontracturante", "pais": "mx", "usd": 0.01286, "fallos": 0}
+{"slug": "curso-de-marketing-digital", "pais": "ar", "usd": 0.01306, "fallos": 0}
+{"slug": "curso-de-masaje-descontracturante", "pais": "co", "usd": 0.01424, "fallos": 1}
+{"slug": "curso-de-masaje-descontracturante", "pais": "pe", "usd": 0.01241, "fallos": 0}
+{"slug": "curso-de-marketing-digital", "pais": "us", "usd": 0.02317, "fallos": 1}
+{"slug": "curso-de-masaje-descontracturante", "pais": "cl", "usd": 0.0147, "fallos": 1}
+{"slug": "curso-de-masaje-descontracturante", "pais": "es", "usd": 0.01214, "fallos": 0}
+{"slug": "curso-de-masaje-descontracturante", "pais": "ar", "usd": 0.01259, "fallos": 0}
+{"slug": "curso-de-masaje-descontracturante", "pais": "ec", "usd": 0.02571, "fallos": 0}
+{"slug": "curso-de-masaje-reductor", "pais": "mx", "usd": 0.01453, "fallos": 0}
+{"slug": "curso-de-masaje-reductor", "pais": "co", "usd": 0.02444, "fallos": 0}
+{"slug": "curso-de-masaje-reductor", "pais": "cl", "usd": 0.01445, "fallos": 0}
+{"slug": "curso-de-masaje-descontracturante", "pais": "us", "usd": 0.02409, "fallos": 0}
+{"slug": "curso-de-masaje-reductor", "pais": "pe", "usd": 0.02422, "fallos": 0}
+{"slug": "curso-de-masaje-reductor", "pais": "ec", "usd": 0.02397, "fallos": 0}
+{"slug": "curso-de-masaje-reductor", "pais": "es", "usd": 0.01309, "fallos": 0}
+{"slug": "curso-de-masaje-reductor", "pais": "ar", "usd": 0.02215, "fallos": 1}
+{"slug": "curso-de-masaje-reductor", "pais": "us", "usd": 0.01413, "fallos": 0}
+{"slug": "curso-de-masajes", "pais": "mx", "usd": 0.01302, "fallos": 0}
+{"slug": "curso-de-masajes", "pais": "co", "usd": 0.0145, "fallos": 0}
+{"slug": "curso-de-masajes", "pais": "ec", "usd": 0.01355, "fallos": 1}
+{"slug": "curso-de-masajes", "pais": "es", "usd": 0.01308, "fallos": 0}
+{"slug": "curso-de-masajes", "pais": "cl", "usd": 0.01418, "fallos": 0}
+{"slug": "curso-de-masajes", "pais": "pe", "usd": 0.02368, "fallos": 0}
+{"slug": "curso-de-masajes-terapeuticos-y-relajantes", "pais": "mx", "usd": 0.01319, "fallos": 0}
+{"slug": "curso-de-masajes", "pais": "us", "usd": 0.01338, "fallos": 0}
+{"slug": "curso-de-masajes-terapeuticos-y-relajantes", "pais": "co", "usd": 0.01335, "fallos": 0}
+{"slug": "curso-de-masajes", "pais": "ar", "usd": 0.01328, "fallos": 0}
+{"slug": "curso-de-masajes-terapeuticos-y-relajantes", "pais": "ec", "usd": 0.01262, "fallos": 1}
+{"slug": "curso-de-masajes-terapeuticos-y-relajantes", "pais": "ar", "usd": 0.01426, "fallos": 0}
+{"slug": "curso-de-mecanica-de-bicicletas", "pais": "mx", "usd": 0.01327, "fallos": 1}
+{"slug": "curso-de-masajes-terapeuticos-y-relajantes", "pais": "cl", "usd": 0.01327, "fallos": 1}
+{"slug": "curso-de-mecanica-de-bicicletas", "pais": "co", "usd": 0.01262, "fallos": 0}
+{"slug": "curso-de-mecanica-de-bicicletas", "pais": "cl", "usd": 0.01263, "fallos": 1}
+{"slug": "curso-de-mecanica-de-bicicletas", "pais": "pe", "usd": 0.01437, "fallos": 0}
+{"slug": "curso-de-mecanica-de-bicicletas", "pais": "ar", "usd": 0.01236, "fallos": 1}
+{"slug": "curso-de-mecanica-de-bicicletas", "pais": "ec", "usd": 0.0234, "fallos": 0}
+{"slug": "curso-de-mecanica-de-bicicletas", "pais": "us", "usd": 0.01212, "fallos": 0}
+{"slug": "curso-de-mecanica-de-bicicletas", "pais": "es", "usd": 0.01405, "fallos": 0}
+{"slug": "curso-de-mecanica-de-motos", "pais": "co", "usd": 0.01457, "fallos": 0}
+{"slug": "curso-de-mecanica-de-motos", "pais": "pe", "usd": 0.01231, "fallos": 0}
+{"slug": "curso-de-mecanica-de-motos", "pais": "mx", "usd": 0.01336, "fallos": 0}
+{"slug": "curso-de-mecanica-de-motos", "pais": "ec", "usd": 0.0121, "fallos": 0}
+{"slug": "curso-de-mecanica-de-motos", "pais": "cl", "usd": 0.01247, "fallos": 0}
+{"slug": "curso-de-mecanica-de-motos", "pais": "es", "usd": 0.01216, "fallos": 0}
+{"slug": "curso-de-mecanica-de-motos", "pais": "us", "usd": 0.01271, "fallos": 0}
+{"slug": "curso-de-microblading", "pais": "co", "usd": 0.0151, "fallos": 0}
+{"slug": "curso-de-microblading", "pais": "mx", "usd": 0.01454, "fallos": 0}
+{"slug": "curso-de-microblading", "pais": "pe", "usd": 0.01406, "fallos": 0}
+{"slug": "curso-de-mecanica-de-motos", "pais": "ar", "usd": 0.02347, "fallos": 1}
+{"slug": "curso-de-microblading", "pais": "ec", "usd": 0.01335, "fallos": 0}
+{"slug": "curso-de-microblading", "pais": "cl", "usd": 0.01451, "fallos": 0}
+{"slug": "curso-de-microblading", "pais": "ar", "usd": 0.01242, "fallos": 0}
+{"slug": "curso-de-microblading", "pais": "es", "usd": 0.01389, "fallos": 0}
+{"slug": "curso-de-modisteria", "pais": "co", "usd": 0.01267, "fallos": 0}
+{"slug": "curso-de-modisteria", "pais": "mx", "usd": 0.01389, "fallos": 1}
+{"slug": "curso-de-modisteria", "pais": "ar", "usd": 0.01392, "fallos": 0}
+{"slug": "curso-de-microblading", "pais": "us", "usd": 0.02448, "fallos": 1}
+{"slug": "curso-de-modisteria", "pais": "ec", "usd": 0.02386, "fallos": 1}
+{"slug": "curso-de-modisteria", "pais": "pe", "usd": 0.02407, "fallos": 1}
+{"slug": "curso-de-modisteria", "pais": "cl", "usd": 0.02344, "fallos": 0}
+{"slug": "curso-de-molderia-y-confeccion", "pais": "mx", "usd": 0.01333, "fallos": 1}
+{"slug": "curso-de-modisteria", "pais": "us", "usd": 0.02285, "fallos": 1}
+{"slug": "curso-de-modisteria", "pais": "es", "usd": 0.02426, "fallos": 0}
+{"slug": "curso-de-molderia-y-confeccion", "pais": "ec", "usd": 0.01263, "fallos": 0}
+{"slug": "curso-de-molderia-y-confeccion", "pais": "cl", "usd": 0.01332, "fallos": 0}
+{"slug": "curso-de-molderia-y-confeccion", "pais": "ar", "usd": 0.01288, "fallos": 0}
+{"slug": "curso-de-molderia-y-confeccion", "pais": "es", "usd": 0.01373, "fallos": 0}
+{"slug": "curso-de-molderia-y-confeccion", "pais": "pe", "usd": 0.02335, "fallos": 0}
+{"slug": "curso-de-molderia-y-confeccion", "pais": "co", "usd": 0.02582, "fallos": 0}
+{"slug": "curso-de-nutricion-practica-para-la-familia", "pais": "co", "usd": 0.01329, "fallos": 0}
+{"slug": "curso-de-nutricion-practica-para-la-familia", "pais": "mx", "usd": 0.0124, "fallos": 0}
+{"slug": "curso-de-molderia-y-confeccion", "pais": "us", "usd": 0.0125, "fallos": 0}
+{"slug": "curso-de-nutricion-practica-para-la-familia", "pais": "ec", "usd": 0.01215, "fallos": 0}
+{"slug": "curso-de-nutricion-practica-para-la-familia", "pais": "cl", "usd": 0.0121, "fallos": 0}
+{"slug": "curso-de-panaderia", "pais": "co", "usd": 0.01323, "fallos": 1}
+{"slug": "curso-de-nutricion-practica-para-la-familia", "pais": "us", "usd": 0.01313, "fallos": 0}
+{"slug": "curso-de-nutricion-practica-para-la-familia", "pais": "pe", "usd": 0.02593, "fallos": 0}
+{"slug": "curso-de-panaderia", "pais": "mx", "usd": 0.01344, "fallos": 0}
+{"slug": "curso-de-nutricion-practica-para-la-familia", "pais": "ar", "usd": 0.02277, "fallos": 1}
+{"slug": "curso-de-panaderia", "pais": "cl", "usd": 0.01353, "fallos": 1}
+{"slug": "curso-de-parrilla-y-asados-como-un-maestro", "pais": "mx", "usd": 0.01292, "fallos": 0}
+{"slug": "curso-de-panaderia", "pais": "us", "usd": 0.01305, "fallos": 0}
+{"slug": "curso-de-panaderia", "pais": "pe", "usd": 0.02529, "fallos": 0}
+{"slug": "curso-de-panaderia", "pais": "ar", "usd": 0.01588, "fallos": 0}
+{"slug": "curso-de-parrilla-y-asados-como-un-maestro", "pais": "co", "usd": 0.01372, "fallos": 0}
+{"slug": "curso-de-parrilla-y-asados-como-un-maestro", "pais": "ec", "usd": 0.01316, "fallos": 0}
+{"slug": "curso-de-parrilla-y-asados-como-un-maestro", "pais": "pe", "usd": 0.02605, "fallos": 1}
+{"slug": "curso-de-pasteleria", "pais": "co", "usd": 0.01351, "fallos": 0}
+{"slug": "curso-de-parrilla-y-asados-como-un-maestro", "pais": "es", "usd": 0.0126, "fallos": 2}
+{"slug": "curso-de-parrilla-y-asados-como-un-maestro", "pais": "us", "usd": 0.01323, "fallos": 1}
+{"slug": "curso-de-masajes-terapeuticos-y-relajantes", "pais": "pe", "usd": 0.01473, "fallos": 1}
+{"slug": "curso-de-pasteleria", "pais": "mx", "usd": 0.01287, "fallos": 0}
+{"slug": "curso-de-parrilla-y-asados-como-un-maestro", "pais": "ar", "usd": 0.02394, "fallos": 0}
+{"slug": "curso-de-parrilla-y-asados-como-un-maestro", "pais": "cl", "usd": 0.02378, "fallos": 0}
+{"slug": "curso-de-pasteleria", "pais": "ar", "usd": 0.01237, "fallos": 0}
+{"slug": "curso-de-pasteleria", "pais": "cl", "usd": 0.01387, "fallos": 1}
+{"slug": "curso-de-pasteleria", "pais": "us", "usd": 0.01252, "fallos": 0}
+{"slug": "curso-de-pasteleria", "pais": "es", "usd": 0.01315, "fallos": 0}
+{"slug": "curso-de-patronaje-profesional-de-ropa", "pais": "mx", "usd": 0.01427, "fallos": 0}
+{"slug": "curso-de-pasteleria", "pais": "pe", "usd": 0.02477, "fallos": 0}
+{"slug": "curso-de-patronaje-profesional-de-ropa", "pais": "pe", "usd": 0.01535, "fallos": 0}
+{"slug": "curso-de-patronaje-profesional-de-ropa", "pais": "ec", "usd": 0.01349, "fallos": 0}
+{"slug": "curso-de-patronaje-profesional-de-ropa", "pais": "es", "usd": 0.01357, "fallos": 0}
+{"slug": "curso-de-peinados", "pais": "co", "usd": 0.01267, "fallos": 1}
+{"slug": "curso-de-patronaje-profesional-de-ropa", "pais": "us", "usd": 0.01554, "fallos": 0}
+{"slug": "curso-de-peinados", "pais": "mx", "usd": 0.01338, "fallos": 0}
+{"slug": "curso-de-patronaje-profesional-de-ropa", "pais": "ar", "usd": 0.02448, "fallos": 0}
+{"slug": "curso-de-peinados", "pais": "pe", "usd": 0.01377, "fallos": 0}
+{"slug": "curso-de-patronaje-profesional-de-ropa", "pais": "cl", "usd": 0.02496, "fallos": 0}
+{"slug": "curso-de-peinados", "pais": "ec", "usd": 0.01311, "fallos": 0}
+{"slug": "curso-de-peinados", "pais": "es", "usd": 0.01427, "fallos": 0}
+{"slug": "curso-de-peinados", "pais": "us", "usd": 0.01488, "fallos": 0}
+{"slug": "curso-de-peluqueria", "pais": "co", "usd": 0.01454, "fallos": 0}
+{"slug": "curso-de-peinados", "pais": "cl", "usd": 0.02429, "fallos": 0}
+{"slug": "curso-de-peinados", "pais": "ar", "usd": 0.02477, "fallos": 0}
+{"slug": "curso-de-peluqueria", "pais": "ec", "usd": 0.01327, "fallos": 0}
+{"slug": "curso-de-peluqueria", "pais": "mx", "usd": 0.01451, "fallos": 0}
+{"slug": "curso-de-peluqueria", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-peluqueria-canina-profesional", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-peluqueria-canina-profesional", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-peluqueria-canina-profesional", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-peluqueria-canina-profesional", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pestanas-volumen-ruso", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pestanas-volumen-ruso", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pestanas-volumen-ruso", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-peluqueria", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-peluqueria", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pestanas-volumen-ruso", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pestanas-volumen-ruso", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pestanas-volumen-ruso", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pestanas-volumen-ruso", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-peluqueria-canina-profesional", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-piano", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-piano", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-piano", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-piano", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-piano", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-piano", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-peluqueria", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-peluqueria-canina-profesional", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-piano", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-piano", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pizza-artesanal", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pizza-artesanal", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pizza-artesanal", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pizza-artesanal", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pizza-artesanal", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pizza-artesanal", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pizza-artesanal", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pollo-broaster", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pizza-artesanal", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pollo-broaster", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-peluqueria-canina-profesional", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pollo-broaster", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pollo-broaster", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pollo-broaster", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pollo-broaster", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pollo-broaster", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-porcelana-fria", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-porcelana-fria", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-pollo-broaster", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-porcelana-fria", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-porcelana-fria", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-porcelana-fria", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-porcelana-fria", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-portugues", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-porcelana-fria", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-portugues", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-portugues", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-portugues", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-portugues", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-portugues", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-portugues", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-portugues", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios-para-mascotas", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios-para-mascotas", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios-para-mascotas", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios-para-mascotas", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios-para-mascotas", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios-para-mascotas", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-primeros-auxilios-para-mascotas", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-remodelacion-de-banos-y-cocinas", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-remodelacion-de-banos-y-cocinas", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-remodelacion-de-banos-y-cocinas", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-remodelacion-de-banos-y-cocinas", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-remodelacion-de-banos-y-cocinas", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-remodelacion-de-banos-y-cocinas", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-remodelacion-de-banos-y-cocinas", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-remodelacion-de-banos-y-cocinas", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-celulares", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-celulares", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-celulares", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-celulares", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-celulares", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-celulares", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-celulares", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-computadoras", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-celulares", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-computadoras", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-computadoras", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-computadoras", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-computadoras", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-computadoras", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-computadoras", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-lavadoras", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-lavadoras", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-lavadoras", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-lavadoras", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-lavadoras", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-lavadoras", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-lavadoras", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reparacion-de-lavadoras", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria-para-mascotas", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria-para-mascotas", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria-para-mascotas", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria-para-mascotas", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria-para-mascotas", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria-para-mascotas", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria-para-mascotas", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-resina-epoxica", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-reposteria-para-mascotas", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-resina-epoxica", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-resina-epoxica", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-resina-epoxica", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-resina-epoxica", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-resina-epoxica", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-resina-epoxica", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-resina-epoxica", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-serigrafia", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-serigrafia", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-serigrafia", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-serigrafia", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-serigrafia", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-serigrafia", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-serigrafia", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-soldadura", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-serigrafia", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-soldadura", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-soldadura", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-soldadura", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-soldadura", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sublimacion", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sublimacion", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sublimacion", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sublimacion", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sublimacion", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sublimacion", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sublimacion", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sublimacion", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sushi", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sushi", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sushi", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sushi", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sushi", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sushi", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sushi", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-sushi", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tatuaje", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tatuaje", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tatuaje", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tatuaje", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tatuaje", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tatuaje", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tatuaje", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tatuaje", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tortas-decoradas-desde-cero", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tortas-decoradas-desde-cero", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tortas-decoradas-desde-cero", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tortas-decoradas-desde-cero", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tortas-decoradas-desde-cero", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tortas-decoradas-desde-cero", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-trenzas-y-peinados", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-tortas-decoradas-desde-cero", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-trenzas-y-peinados", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-trenzas-y-peinados", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-trenzas-y-peinados", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-trenzas-y-peinados", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-trenzas-y-peinados", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-unas", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-trenzas-y-peinados", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-unas", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-unas", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-unas", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-unas", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-unas", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-unas", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-unas-acrilicas", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-unas-acrilicas", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-unas-acrilicas", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-velas-artesanales-y-aromaticas", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-unas-acrilicas", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-velas-artesanales-y-aromaticas", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-velas-artesanales-y-aromaticas", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-velas-artesanales-y-aromaticas", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-velas-artesanales-y-aromaticas", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-velas-artesanales-y-aromaticas", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-velas-artesanales-y-aromaticas", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-ventas-por-whatsapp-y-redes", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-ventas-por-whatsapp-y-redes", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-ventas-por-whatsapp-y-redes", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-ventas-por-whatsapp-y-redes", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-ventas-por-whatsapp-y-redes", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-ventas-por-whatsapp-y-redes", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-ventas-por-whatsapp-y-redes", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-ventas-por-whatsapp-y-redes", "pais": "us", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-wedding-planner-y-eventos", "pais": "co", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-wedding-planner-y-eventos", "pais": "pe", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-wedding-planner-y-eventos", "pais": "mx", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-wedding-planner-y-eventos", "pais": "ec", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-wedding-planner-y-eventos", "pais": "es", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-wedding-planner-y-eventos", "pais": "cl", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}
+{"slug": "curso-de-wedding-planner-y-eventos", "pais": "ar", "usd": 0.0, "error": "HTTP Error 429: Too Many Requests"}

@@ -1,0 +1,71 @@
+{
+  "course": "curso-de-instalacion-de-camaras-de-seguridad",
+  "country": "pe",
+  "angulo": "carrera",
+  "meta_title": "Curso de Instalación de Cámaras de Seguridad en Perú",
+  "meta_description": "Aprende a montar sistemas CCTV e IP paso a paso. Inicia tu carrera en seguridad electrónica en Perú. Inscríbete hoy con Yape, Plin o tarjeta.",
+  "h1": "Curso de Instalación de Cámaras de Seguridad: Inicia tu Carrera Técnica",
+  "subtitulo": "Aprende la profesión técnica detrás del CCTV y las redes IP para prestar servicios independientes o trabajar en empresas del sector en Perú.",
+  "descripcion": "Cuando un cliente en Lima o provincias busca proteger su negocio o su vivienda, no busca a alguien que improvisa con un tutorial de internet. Busca a un técnico que entienda por qué la imagen se llena de interferencia por la noche o por qué la aplicación móvil se desconecta cuando cambia la IP del router. Este curso de instalación de cámaras de seguridad está diseñado para que transformes la curiosidad técnica en una carrera rentable dentro del mercado peruano de la seguridad electrónica, abordando la instalación desde el diseño hasta la puesta en marcha final.\n\nEl sector demanda profesionales que resuelvan problemas reales de infraestructura. Muchos intentan entrar a esta industria comprando un kit básico en zonas comerciales como Paruro o Malvinas para montarlo a tientas. Sin embargo, cuando se enfrentan a un DVR que no reconoce el disco duro, a caídas de voltaje en tiradas de cable mayores a 30 metros o a la imposibilidad de configurar el acceso remoto en un router de proveedores locales como Movistar o Claro, el trabajo se detiene. Este programa aborda cada uno de estos puntos críticos para que puedas ejecutar un trabajo profesional desde el primer día.\n\n## Errores de instalación que separan al aficionado del técnico profesional\n\nEn el trabajo de campo, la diferencia entre una instalación duradera y una llamada de garantía que te hace perder dinero está en las decisiones técnicas previas.\n\n### Ponchado de cableado y balance de energía sin pérdidas\nEl error más común es no calcular la caída de tensión cuando colocas cámaras analógicas o HD a cierta distancia de la fuente centralizada. Aprenderás a seleccionar el calibre de cable UTP adecuado, a realizar el ponchado correcto de conectores RJ45 y transceptores pasivos (baluns), y a dimensionar el amperaje necesario para que la visión nocturna por infrarrojos no apague el sistema.\n\n### Redes IP, asignación de puertos y visualización remota\nInstalar una cámara IP requiere entender cómo se comunican los dispositivos en una red local. Verás cómo asignar direcciones IP estáticas dentro del segmento correcto, configurar grabadores NVR, realizar el redireccionamiento de puertos y vincular las aplicaciones de monitoreo móvil de forma estable, sin depender exclusivamente de servidores P2P que suelen fallar por saturación de red.\n\n## Habilidades ejecutables para el mercado laboral técnico\n\nAl completar las 20 lecciones estructuradas por Diego Cárdenas, habrás desarrollado competencias directas para ofrecer tus servicios de manera independiente o postular a contratistas de seguridad:\n\n- Montar y canalizar cableado estructurado según normas técnicas básicas para interiores y exteriores.\n- Fijar, orientar y ajustar el ángulo de visión focal de cámaras domo, bullet y PTZ.\n- Configurar parámetros de grabación por detección de movimiento para optimizar el almacenamiento en disco duro.\n- Diagnosticar fallas típicas como ruido en la señal de video, pérdida de paquetes en redes IP y sobrecalentamiento de fuentes.\n- Elaborar presupuestos de materiales e insumos ajustados a los requerimientos de casas, locales comerciales y oficinas.\n\n## Expectativas reales sobre tu avance profesional\n\nHay que ser claros: este curso no te convierte de la noche a la mañana en dueño de una gran empresa de seguridad ni te otorga una certificación de fabricante como Hikvision o Dahua, la cual requiere exámenes presenciales de marca. Lo que logras en estas 14 horas de formación es la base práctica y conceptual sólida para operar con autonomía, hacer trabajos limpios sin arruinar equipos y responder técnicamente ante las exigencias de tus primeros clientes.",
+  "faqs": [
+    {
+      "q": "¿Puedo pagar el curso con Yape o Plin en Perú?",
+      "a": "Sí. Al momento de realizar la compra en la plataforma, puedes seleccionar el método de pago local para abonar directamente mediante Yape, Plin o tarjetas de débito y crédito."
+    },
+    {
+      "q": "¿El precio de USD 36 incluye algún cobro adicional o mensualidad?",
+      "a": "No. El monto de USD 36 es un pago único que otorga acceso completo a las 20 lecciones del curso. Ya tiene aplicado el 40% de descuento del cupón SABLY40 y no existen cuotas posteriores."
+    },
+    {
+      "q": "¿El certificado del curso me habilita legalmente para firmar proyectos de seguridad en Perú?",
+      "a": "No. El certificado acredita que completaste las 14 horas de capacitación técnica con Diego Cárdenas, lo cual respalda tu currículum o portafolio comercial, pero no reemplaza una colegiatura ni licencias estatales de ingeniería."
+    },
+    {
+      "q": "¿Necesito herramientas o cámaras físicas antes de empezar el curso?",
+      "a": "No es indispensable para iniciar. Puedes revisar las explicaciones teóricas y demostraciones paso a paso primero, y luego adquirir tus herramientas básicas (multímetro, crimpadora y probador) para realizar tus prácticas."
+    },
+    {
+      "q": "¿Qué hago si tengo dudas sobre la configuración de un DVR o router durante las clases?",
+      "a": "Podrás formular tus preguntas en la sección de consultas dentro de la plataforma educativa para resolver dudas puntuales sobre los procedimientos mostrados en el contenido."
+    },
+    {
+      "q": "¿El contenido enseña a configurar marcas comerciales como Hikvision o Dahua?",
+      "a": "Las lecciones cubren los estándares universales de tecnología analógica HD (TVI, CVI, AHD) e IP (protocolo ONVIF), por lo que los conceptos se aplican directamente a las marcas más comercializadas en Perú."
+    },
+    {
+      "q": "¿Cómo accedo al material de las 14 horas de clase una vez realizado el pago?",
+      "a": "Inmediatamente después de confirmar tu pago con Yape, Plin o tarjeta, recibirás un correo electrónico automático con las credenciales para ingresar a la plataforma y ver las lecciones a tu propio ritmo."
+    },
+    {
+      "q": "¿Es necesario tener conocimientos previos de electricidad o computación?",
+      "a": "No se requieren conocimientos avanzados. El curso parte desde los conceptos básicos de voltaje, conexionado y redes para que puedas seguir el proceso técnico paso a paso."
+    }
+  ],
+  "beneficios": [
+    "Configurar el acceso remoto desde celulares para que el cliente supervise su negocio desde cualquier lugar.",
+    "Realizar el cableado estructurado sin que los cables queden expuestos o mal organizados.",
+    "Instalar discos duros en los DVR y NVR evitando errores de grabación por mala conexión.",
+    "Calcular los amperajes correctos de las fuentes de poder para prevenir cortocircuitos en las cámaras.",
+    "Orientar los ángulos de visión de forma estratégica para eliminar puntos ciegos en perímetros complejos.",
+    "Gestionar la configuración IP en redes domésticas para que el sistema no se desconecte constantemente."
+  ],
+  "para_quien": [
+    "Personas que buscan iniciarse como técnicos independientes en el rubro de seguridad electrónica.",
+    "Trabajadores de mantenimiento general que quieren sumar un servicio técnico especializado a su oferta.",
+    "Dueños de pequeños negocios que prefieren instalar su propio sistema de vigilancia sin depender de terceros.",
+    "Estudiantes de carreras técnicas que necesitan validar conocimientos prácticos sobre sistemas de videovigilancia."
+  ],
+  "requisitos": [
+    "Disponer de un kit básico de herramientas como taladro, pelacables y destornilladores.",
+    "Contar con una laptop o PC para realizar las pruebas de configuración de red.",
+    "Acceso a una conexión a internet estable para visualizar las lecciones en video."
+  ],
+  "certificado": "Al finalizar las 14 horas de contenido, recibirás un diploma digital que acredita tu formación en el curso de instalación de cámaras de seguridad. Ten en cuenta que este documento es un aval de tus conocimientos técnicos y no constituye una licencia profesional o título oficial para ejercer funciones de seguridad privada reguladas por el Estado.",
+  "garantia": "Si al revisar el material consideras que no cumple con tus expectativas, cuentas con una garantía de 7 días. Durante este periodo, puedes solicitar la devolución total de tu dinero directamente a través de la plataforma Hotmart, sin explicaciones ni preguntas adicionales.",
+  "_meta": {
+    "usd": 0.01394,
+    "modelo": "gemini-3.6-flash",
+    "fallos": null,
+    "fecha": "2026-08-06"
+  }
+}
