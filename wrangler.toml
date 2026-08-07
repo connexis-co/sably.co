@@ -1,0 +1,10 @@
+# Cloudflare Pages: enlaza la base D1 con las Pages Functions de functions/.
+# El binding se llama DB y es lo que reciben los endpoints como env.DB.
+name = "sably"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-08-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sably-pulso"
+database_id = "0a173a39-b9cb-4d50-a865-b8465af5bad6"

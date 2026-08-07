@@ -20,6 +20,7 @@
     "@nanostores/react": "^1.1.0",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.1.6",
+    "jose": "^6.2.8",
     "lucide-react": "^0.545.0",
     "nanostores": "^1.4.2",
     "react": "^19.2.8",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
+    "@cloudflare/workers-types": "^4.20260702.1",
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
     "@types/react": "^19.2.0",
