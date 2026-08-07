@@ -5,7 +5,7 @@ import ReadingProgress from '@/components/ReadingProgress.astro';
 import ArticleRating from '@/components/ArticleRating.astro';
 import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
 import { breadcrumbSchema } from '@/lib/seo';
-import { blogCover, readingTime, articleRating } from '@/lib/blog';
+import { blogCover, readingTime } from '@/lib/blog';
 import { SITE } from '@/lib/site';
 
 export async function getStaticPaths() {
@@ -26,7 +26,6 @@ const related = (await getCollection('blog'))
   .slice(0, 3);
 
 const minutes = readingTime(post.body ?? '');
-const { rating, count } = articleRating(post.id);
 const pageUrl = `${SITE.url}/blog/${post.id}/`;
 
 const schemas = [
@@ -55,15 +54,10 @@ const schemas = [
       url: SITE.url,
       logo: { '@type': 'ImageObject', url: `${SITE.url}/favicon.svg` },
     },
-    /* Las estrellas que ve el usuario y este marcado salen de la misma
-       función determinística, así que nunca se contradicen. */
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: rating,
-      ratingCount: count,
-      bestRating: 5,
-      worstRating: 1,
-    },
+    /* Sin aggregateRating: Search Console lo rechazaba ("el tipo de objeto del
+       campo parent_node no es válido") porque Article no es un tipo válido
+       para fragmentos de reseña. Y el número que declaraba salía de un hash
+       del slug, o sea reseñas que no existen. */
   },
 ];
 ---
@@ -102,8 +96,6 @@ const schemas = [
         <span>{post.data.publishedAt.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
         <span aria-hidden="true">·</span>
         <span>{minutes} min de lectura</span>
-        <span aria-hidden="true">·</span>
-        <span class="text-warning">★ {rating.toFixed(1)}</span>
       </p>
     </div>
   </section>
@@ -138,7 +130,7 @@ const schemas = [
         <Content />
       </div>
 
-      <ArticleRating slug={post.id} {rating} {count} />
+      <ArticleRating slug={post.id} />
 
       <!-- CTA -->
       <aside class="mt-10 rounded-lg bg-primary p-8 text-center">
