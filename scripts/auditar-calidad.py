@@ -35,11 +35,12 @@ RIESGOS = {
         r'\d[\d.,]*\s*(pesos|d[óo]lares|euros|soles)[^.]{0,30}(por (corte|servicio|hora|evento)|el corte)',
     'plazo de retorno prometido':
         r'recuper\w+[^.]{0,45}(inversi[óo]n|en pocas semanas|en \d+ meses)',
-    # El "no/ni" delante es la anti-promesa que sí se pide ("ni te garantiza
-    # ingresos fijos"), así que solo cuenta la afirmación sin negar.
+    # Solo cuando la PÁGINA promete el ingreso. Aconsejar al alumno cómo
+    # asegurarse ingresos con su propio negocio no es una promesa del curso,
+    # y las frases negadas ya se filtran antes de llegar aquí.
     'garantía de ingresos':
-        r'(?<!no )(?<!ni )(?<!no te )(?<!ni te )(asegur|garantiz)\w*[^.]{0,45}'
-        r'(ingres|ganancia|clientela|trabajo fijo)',
+        r'(este curso|el curso|el programa|la formaci[óo]n|te)\s+'
+        r'(asegur|garantiz)\w*[^.]{0,45}(ingres|ganancia|clientela|trabajo fijo)',
     'descuento adicional inexistente':
         r'(aplica|ingresa|introduce)\w*[^.]{0,45}cup[óo]n[^.]{0,45}(para|y)\s+(obtener|conseguir|acceder)',
     'certificado con validez oficial':
@@ -53,12 +54,29 @@ TUTEO = re.compile(r'\b(puedes|tienes|quieres|sabes|recibes|debes|necesitas)\b',
 VOSEO = re.compile(r'\b(pod[ée]s|ten[ée]s|quer[ée]s|sab[ée]s|recib[ií]s|deb[ée]s|necesit[áa]s)\b', re.I)
 
 
-def texto_de(d: dict) -> str:
-    return ' '.join([
-        d.get('descripcion', ''), d.get('subtitulo', ''), d.get('h1', ''),
-        *(f"{q['q']} {q['a']}" for q in d.get('faqs', [])),
-        *d.get('beneficios', []), *d.get('para_quien', []), *d.get('requisitos', []),
-    ])
+NIEGA = re.compile(r'\b(no|ni|nunca|jam[áa]s|sin)\b', re.I)
+
+
+def afirmaciones(d: dict) -> list[str]:
+    """Frases donde la página AFIRMA algo, listas para contrastar.
+
+    Auditar el JSON crudo como un solo bloque producía falsos positivos: una
+    pregunta de FAQ ("¿me garantiza ingresos?") respondida con "No" salía
+    marcada como promesa. Aquí las preguntas se descartan, las respuestas
+    negativas también, y cada frase se evalúa suelta para que la negación de
+    una no tape la afirmación de la siguiente.
+    """
+    piezas = [d.get('descripcion', ''), d.get('subtitulo', ''), d.get('h1', ''),
+              *d.get('beneficios', []), *d.get('para_quien', []), *d.get('requisitos', [])]
+    for q in d.get('faqs', []):
+        # La pregunta no afirma nada, y si la respuesta arranca negando, la
+        # página está poniendo techo a las expectativas, que es lo que se pide.
+        if not re.match(r'\s*(no\b|nunca\b|jam[áa]s\b)', q.get('a', ''), re.I):
+            piezas.append(q.get('a', ''))
+    frases = []
+    for p in piezas:
+        frases += [f.strip() for f in re.split(r'(?<=[.!?])\s+|\n', p) if f.strip()]
+    return [f for f in frases if not NIEGA.search(f)]
 
 
 def main() -> None:
@@ -76,15 +94,18 @@ def main() -> None:
 
     for f in archivos:
         d = json.loads(f.read_text())
-        t = texto_de(d)
+        frases = afirmaciones(d)
         inst = re.escape(instructores.get(d.get('course', ''), '\x00'))
         for nombre, patron in RIESGOS.items():
-            m = re.search(patron.replace('{instructor}', inst), t, re.I | re.M)
-            if m:
+            pat = re.compile(patron.replace('{instructor}', inst), re.I | re.M)
+            hit = next((pat.search(fr) for fr in frases if pat.search(fr)), None)
+            if hit:
                 total[nombre] += 1
-                ejemplos.setdefault(nombre, []).append((f.stem, m.group()[:110]))
+                ejemplos.setdefault(nombre, []).append((f.stem, hit.group()[:110]))
         if d.get('country') == 'ar':
-            tu, vos = len(TUTEO.findall(t)), len(VOSEO.findall(t))
+            todo = ' '.join([d.get('descripcion', ''),
+                             *(q['q'] + ' ' + q['a'] for q in d.get('faqs', []))])
+            tu, vos = len(TUTEO.findall(todo)), len(VOSEO.findall(todo))
             if tu > vos:
                 total['Argentina sin vosear'] += 1
                 ejemplos.setdefault('Argentina sin vosear', []).append((f.stem, f'tuteo {tu} vs voseo {vos}'))
