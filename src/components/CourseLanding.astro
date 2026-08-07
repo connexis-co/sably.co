@@ -10,7 +10,7 @@ import TestimonialCard from '@/components/TestimonialCard.astro';
 import StickyCta from '@/components/StickyCta.astro';
 import ExitIntent from '@/components/ExitIntent.astro';
 import LeadModal from '@/components/LeadModal.astro';
-import { formatPrice, localPrice, type Country, type City } from '@/lib/countries';
+import { COUNTRIES, formatPrice, localPrice, type Country, type City } from '@/lib/countries';
 import { getCategory, courseCover } from '@/lib/categories';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema } from '@/lib/seo';
@@ -37,9 +37,24 @@ const { Content } = await render(course);
    contenido genérico del MDX. Opcional por diseño: el build nunca depende
    del lote completo. */
 const locale = (await getEntry('courseLocales', `${course.id}--${country.code}`)) ?? null;
+/* renderMarkdown baja los encabezados un nivel para que cuelguen del h2 de la
+   sección, de ahí que el tamaño de prosa se defina sobre h3 y h4. Las listas
+   numeradas llevan su propio marcador porque el list-disc de los elementos
+   alcanzaba también a los de las listas ordenadas. */
 const localeHtml = locale ? renderMarkdown(locale.data.descripcion) : null;
 const learnings = locale?.data.beneficios ?? course.data.learnings;
 const audience = locale?.data.para_quien ?? course.data.audience;
+
+/* El título de país colisiona por dos vías: sin variante todos los países
+   comparten el metaTitle del MDX, y con variante el modelo a veces repite el
+   mismo título en varios mercados. Se añade el país solo cuando hay colisión
+   real: la mediana ya está en 55 caracteres y añadirlo siempre pasaría de 60. */
+const localesDelCurso = (await getCollection('courseLocales')).filter(
+  (l) => l.data.course === course.id,
+);
+const tituloColisiona = locale
+  ? localesDelCurso.filter((l) => l.data.meta_title === locale.data.meta_title).length > 1
+  : localesDelCurso.length < COUNTRIES.length - 1;
 
 const ctaUrl = buildHotmartUrl({
   baseUrl: course.data.hotmartUrl,
@@ -126,14 +141,24 @@ const faqs = city
 
 const pageUrl = `${SITE.url}${coursePath}`;
 const h1 = city ? `${course.data.title} en ${city.name}` : (locale?.data.h1 ?? course.data.title);
+const tituloPais =
+  locale?.data.meta_title ??
+  course.data.metaTitle ??
+  `${course.data.title} | Curso Online con Certificado | Sably`;
 const title = city
   ? `${course.data.title} en ${city.name}, ${country.name} | Online + Certificado | Sably`
-  : (locale?.data.meta_title ??
-    course.data.metaTitle ??
-    `${course.data.title} | Curso Online con Certificado | Sably`);
+  : tituloColisiona
+    ? `${tituloPais.replace(/\s*\|\s*Sably\s*$/, '')} | ${country.name}`
+    : tituloPais;
+const descPais = locale?.data.meta_description ?? course.data.shortDescription;
+const descColisiona = locale
+  ? localesDelCurso.filter((l) => l.data.meta_description === locale.data.meta_description).length > 1
+  : localesDelCurso.length < COUNTRIES.length - 1;
 const description = city
   ? `Estudia desde ${city.name}: ${course.data.shortDescription}`.slice(0, 158)
-  : (locale?.data.meta_description ?? course.data.shortDescription);
+  : descColisiona
+    ? `Desde ${country.name}: ${descPais}`.slice(0, 158)
+    : descPais;
 
 const breadcrumb = city
   ? [
@@ -360,7 +385,7 @@ const schemas = [
       <!-- Sobre el curso: variante país generada, o el MDX genérico si no hay -->
       <section aria-label="Sobre este curso">
         <h2 class="text-2xl font-bold">Sobre este curso</h2>
-        <div class="mt-4 space-y-4 text-[15px] leading-relaxed text-body [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-primary [&_h3]:mt-6 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-primary [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-heading [&_ul]:space-y-1.5">
+        <div class="mt-4 space-y-4 text-[15px] leading-relaxed text-body [&_h3]:mt-8 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-primary [&_h4]:mt-6 [&_h4]:text-lg [&_h4]:font-bold [&_h4]:text-primary [&_li]:ml-5 [&_ol>li]:list-decimal [&_ol]:space-y-1.5 [&_strong]:text-heading [&_ul>li]:list-disc [&_ul]:space-y-1.5">
           {localeHtml ? <Fragment set:html={localeHtml} /> : <Content />}
         </div>
       </section>

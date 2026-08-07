@@ -104,7 +104,7 @@
   "102": "curso-de-sublimacion.mdx",
   "103": "curso-de-sushi.mdx",
   "104": "curso-de-tatuaje.mdx",
-  "105": "CourseLanding.astro",
+  "105": "[country]/index.astro",
   "106": "Arquitectura de URLs — Ecosistema Sably",
   "107": "curso-de-pestanas-volumen-ruso.mdx",
   "108": "sitemap.ts",
@@ -172,5 +172,14 @@
   "170": "curso-de-maquillaje-de-fantasia.mdx",
   "171": "curso-de-masaje-descontracturante.mdx",
   "172": "curso-de-masaje-reductor.mdx",
-  "173": "curso-de-peinados.mdx"
+  "173": "curso-de-peinados.mdx",
+  "174": "Gestionar 5.918 URLs desde Filament sin que Google lo penalice",
+  "175": "CourseLanding.astro",
+  "176": "Costo real de generar el contenido SEO con Gemini API",
+  "177": "generar-catalogo.py",
+  "178": "generar-contenido.py",
+  "179": "configurar-gtm.py",
+  "180": "globos-asignar-300.py",
+  "181": "globos-keywords.py",
+  "182": "markdown.ts"
 }

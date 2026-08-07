@@ -1,17 +1,17 @@
 {
   "astro.config.mjs": {
-    "mtime": 1785925926.5668962,
+    "mtime": 1785930217.4257703,
     "ast_hash": "4601f17ab233d88528bc86e2874ee883",
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1785913384.5355005,
-    "ast_hash": "7a56cd89f9505ab01c1ec7ed2a21c4bd",
-    "semantic_hash": "7a56cd89f9505ab01c1ec7ed2a21c4bd"
+    "mtime": 1785988244.8870435,
+    "ast_hash": "eafbcc91d3f5d61eed3f33a54990505b",
+    "semantic_hash": ""
   },
   "src/components/CourseCard.astro": {
-    "mtime": 1785925803.4393508,
-    "ast_hash": "2fec9841fe52394638f471de87a2c38a",
+    "mtime": 1785930217.4614391,
+    "ast_hash": "aa69d0881cb577e078b9c2d51ca25485",
     "semantic_hash": ""
   },
   "src/components/ExitIntent.astro": {
@@ -25,8 +25,8 @@
     "semantic_hash": "29ee68eda97c9ade8ed0c45a0d6de513"
   },
   "src/components/Footer.astro": {
-    "mtime": 1785925926.5674791,
-    "ast_hash": "f3d89d97a2215b7b1bc4fd532bc7027b",
+    "mtime": 1785985150.9748013,
+    "ast_hash": "eb22e98a2460e0493bfa0bfc090ecb14",
     "semantic_hash": ""
   },
   "src/components/GeoDialog.astro": {
@@ -35,8 +35,8 @@
     "semantic_hash": "bc36abb8338ae106b162b2bd07a94d31"
   },
   "src/components/Header.astro": {
-    "mtime": 1785925803.44031,
-    "ast_hash": "49f227aabe18d17add65a3a3b3df7eda",
+    "mtime": 1785985184.8218822,
+    "ast_hash": "cd69fa40ba096609c63de41613602b78",
     "semantic_hash": ""
   },
   "src/components/LeadModal.astro": {
@@ -90,9 +90,9 @@
     "semantic_hash": ""
   },
   "src/content.config.ts": {
-    "mtime": 1785911781.9373124,
-    "ast_hash": "816c16349f6c9173226e6371fc565cf9",
-    "semantic_hash": "816c16349f6c9173226e6371fc565cf9"
+    "mtime": 1785995881.9380453,
+    "ast_hash": "549ca348f73d49d34b339438385a419f",
+    "semantic_hash": ""
   },
   "src/content/testimonials.json": {
     "mtime": 1785913043.2512758,
@@ -100,38 +100,38 @@
     "semantic_hash": "9e30500d6632fbbe387ca8c91d8be20e"
   },
   "src/layouts/BaseLayout.astro": {
-    "mtime": 1785912019.6196148,
-    "ast_hash": "5ecb33bed84fc5dc75adf64a723adb34",
-    "semantic_hash": "5ecb33bed84fc5dc75adf64a723adb34"
+    "mtime": 1785930217.471184,
+    "ast_hash": "74ce9819a885a7e43ad909ef4f28f1f4",
+    "semantic_hash": ""
   },
   "src/lib/analytics.ts": {
-    "mtime": 1785911658.0435371,
-    "ast_hash": "b9bc948a68af0c7d3cff929ee04b90c9",
-    "semantic_hash": "b9bc948a68af0c7d3cff929ee04b90c9"
+    "mtime": 1785930217.4714324,
+    "ast_hash": "bc29693b8806c8b327fa3e18c43d8cc7",
+    "semantic_hash": ""
   },
   "src/lib/categories.ts": {
-    "mtime": 1785925930.2638073,
-    "ast_hash": "e26221d00172d6308d43c3108e990263",
+    "mtime": 1785984508.4205575,
+    "ast_hash": "1da0f3f87f69956046bc123dff623d24",
     "semantic_hash": ""
   },
   "src/lib/countries.ts": {
-    "mtime": 1785915429.7324193,
-    "ast_hash": "cbcdf37930c4760afb4e2f7277c7339f",
+    "mtime": 1785984508.4209955,
+    "ast_hash": "4560027b69bba0ced8ce96436df54f84",
     "semantic_hash": ""
   },
   "src/lib/hotmart.ts": {
-    "mtime": 1785911627.5301247,
-    "ast_hash": "8053b5a12fc859a9c6997f53a6eb1c4d",
-    "semantic_hash": "8053b5a12fc859a9c6997f53a6eb1c4d"
+    "mtime": 1785931705.2231321,
+    "ast_hash": "84acd951a720bc0a31edbc1aecd46d2a",
+    "semantic_hash": ""
   },
   "src/lib/seo.ts": {
-    "mtime": 1785911655.5299063,
-    "ast_hash": "d805b531c4761ae73bbd15941e0ef026",
-    "semantic_hash": "d805b531c4761ae73bbd15941e0ef026"
+    "mtime": 1785930217.4723177,
+    "ast_hash": "b3b5c7f409d6fdb5467c34bc9c4eb0dc",
+    "semantic_hash": ""
   },
   "src/lib/site.ts": {
-    "mtime": 1785926248.2797284,
-    "ast_hash": "74b08664430e7a466942c4fae7c3ae29",
+    "mtime": 1785985087.0603757,
+    "ast_hash": "0dbb06633e99bb28135639216894e06e",
     "semantic_hash": ""
   },
   "src/pages/404.astro": {
@@ -150,18 +150,18 @@
     "semantic_hash": ""
   },
   "src/pages/[country]/index.astro": {
-    "mtime": 1785913669.800187,
-    "ast_hash": "72bd87dee659c97f50456487de990cef",
+    "mtime": 1785996922.0983112,
+    "ast_hash": "dd89326b159d1e03fc3131a235ab4a13",
     "semantic_hash": ""
   },
   "src/pages/blog/[slug]/index.astro": {
-    "mtime": 1785916739.9911938,
-    "ast_hash": "8a450befafe13fdb0c20f47ba6edce12",
+    "mtime": 1785985341.5184786,
+    "ast_hash": "1462c23aa192e16991654f1446a38895",
     "semantic_hash": ""
   },
   "src/pages/blog/index.astro": {
-    "mtime": 1785916722.0758452,
-    "ast_hash": "5ff2869ee87ec34e58864777627d447d",
+    "mtime": 1785985300.4390154,
+    "ast_hash": "8b160bb3eed5014504df1252a63effce",
     "semantic_hash": ""
   },
   "src/pages/legal/privacidad/index.astro": {
@@ -200,48 +200,23 @@
     "semantic_hash": "109324096391a895ee5bfc85c126d57c"
   },
   "public/robots.txt": {
-    "mtime": 1785911785.518734,
-    "ast_hash": "2af73637e7345ecfc9aab1af9f152ca3",
-    "semantic_hash": "2af73637e7345ecfc9aab1af9f152ca3"
-  },
-  "src/content/courses/curso-de-cocina-desde-cero-a-profesional.mdx": {
-    "mtime": 1785926248.2009723,
-    "ast_hash": "bdfd9db3ec9537a1c355cbdf19179515",
-    "semantic_hash": "bdfd9db3ec9537a1c355cbdf19179515"
-  },
-  "src/content/courses/curso-de-corte-y-confeccion-desde-cero.mdx": {
-    "mtime": 1785926248.2029843,
-    "ast_hash": "b5a57e977a1759de1b3bba036964856b",
-    "semantic_hash": "b5a57e977a1759de1b3bba036964856b"
-  },
-  "src/content/courses/curso-de-marketing-digital-para-emprendedores.mdx": {
-    "mtime": 1785926248.2127345,
-    "ast_hash": "6e4ecfdc13fa91b043b0ac1b13bd3a30",
-    "semantic_hash": "6e4ecfdc13fa91b043b0ac1b13bd3a30"
-  },
-  "src/content/courses/curso-de-masajes-terapeuticos-y-relajantes.mdx": {
-    "mtime": 1785926248.2131572,
-    "ast_hash": "0405d9ae94519ed59c3e913c62191c2f",
+    "mtime": 1785930217.457277,
+    "ast_hash": "3b01a6309cba8de85a6b855b3134e121",
     "semantic_hash": ""
   },
-  "src/content/courses/curso-de-panaderia-artesanal-y-masa-madre.mdx": {
-    "mtime": 1785926248.2155433,
-    "ast_hash": "a8e7fc41b9b06e8cc363d80bd1503ee4",
-    "semantic_hash": "a8e7fc41b9b06e8cc363d80bd1503ee4"
+  "src/content/courses/curso-de-masajes-terapeuticos-y-relajantes.mdx": {
+    "mtime": 1785995874.607953,
+    "ast_hash": "e7fd114a5cdd5e5d20b9cd931ca3d989",
+    "semantic_hash": ""
   },
   "src/content/courses/curso-de-peluqueria-canina-profesional.mdx": {
     "mtime": 1785926248.2171152,
     "ast_hash": "cdbd84d26679800c9c10db165a849c5a",
     "semantic_hash": ""
   },
-  "src/content/courses/curso-de-reposteria-fina-y-postres-gourmet.mdx": {
-    "mtime": 1785926248.2198663,
-    "ast_hash": "ba80a6b7eb5bf74c6fe77a1252413cbc",
-    "semantic_hash": "ba80a6b7eb5bf74c6fe77a1252413cbc"
-  },
   "src/content/courses/curso-de-tortas-decoradas-desde-cero.mdx": {
-    "mtime": 1785926248.22223,
-    "ast_hash": "45496af571b95e5b3a43760d38e30ad3",
+    "mtime": 1785995874.6175106,
+    "ast_hash": "87fe6a4a0f5a9ac205cdee0f7e6bea95",
     "semantic_hash": ""
   },
   "public/favicon.svg": {
@@ -285,8 +260,8 @@
     "semantic_hash": ""
   },
   "src/components/CourseLanding.astro": {
-    "mtime": 1785926009.247352,
-    "ast_hash": "653a6f987ace694ca55a56218621e791",
+    "mtime": 1785995922.0296068,
+    "ast_hash": "bfc4320deeb1af9caec3a097ab031355",
     "semantic_hash": ""
   },
   ".github/ISSUE_TEMPLATE/bug_report.yml": {
@@ -315,13 +290,13 @@
     "semantic_hash": ""
   },
   ".github/workflows/deploy-production.yml": {
-    "mtime": 1785913303.6385272,
-    "ast_hash": "96f73537252158ba8c6a4e8523180550",
+    "mtime": 1785931017.9944544,
+    "ast_hash": "e529c94132769dd6ca40a0539752b48c",
     "semantic_hash": ""
   },
   ".github/workflows/deploy-staging.yml": {
-    "mtime": 1785913300.3345175,
-    "ast_hash": "9dd1544d35d01d870b98666c743feef9",
+    "mtime": 1785931017.9942787,
+    "ast_hash": "55bcbb924f5b1e962d0d930879affbe0",
     "semantic_hash": ""
   },
   ".github/workflows/release-please.yml": {
@@ -355,17 +330,17 @@
     "semantic_hash": ""
   },
   "src/content/blog/como-emprender-con-un-oficio-en-2026.mdx": {
-    "mtime": 1785925803.441631,
+    "mtime": 1785930217.463131,
     "ast_hash": "f37585ed9fdbe235be98c0d36e41ddc1",
     "semantic_hash": ""
   },
   "src/content/blog/cuanto-cuesta-aprender-un-oficio-online.mdx": {
-    "mtime": 1785925803.4412947,
+    "mtime": 1785930217.463312,
     "ast_hash": "58605a30b6232c431f36c1ddbcb4cf3a",
     "semantic_hash": ""
   },
   "src/content/blog/mejores-oficios-para-aprender-online.mdx": {
-    "mtime": 1785925803.4409842,
+    "mtime": 1785930217.4634697,
     "ast_hash": "e1727d616b8fab382dfa4b25090546ec",
     "semantic_hash": ""
   },
@@ -405,17 +380,12 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-lenceria-y-ropa-interior-a-medida.mdx": {
-    "mtime": 1785926248.2116528,
-    "ast_hash": "b6bf0425519c9c351fa85fc7a5d3e64f",
-    "semantic_hash": ""
-  },
-  "src/content/courses/curso-de-mecanica-de-motos-desde-cero.mdx": {
-    "mtime": 1785926248.2139719,
-    "ast_hash": "b7488dc554dd6ef2186a92ef49a55a46",
+    "mtime": 1785996471.3585021,
+    "ast_hash": "007ce107631c8fe33a2e5eaa8bacbf72",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-nutricion-practica-para-la-familia.mdx": {
-    "mtime": 1785926248.215317,
+    "mtime": 1785930217.4677732,
     "ast_hash": "4de49038eb09bc80e1af075663828f07",
     "semantic_hash": ""
   },
@@ -425,22 +395,12 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-patronaje-profesional-de-ropa.mdx": {
-    "mtime": 1785926248.2165225,
-    "ast_hash": "ffdcbc6eb8b1ff53dfa30e88445d7795",
-    "semantic_hash": ""
-  },
-  "src/content/courses/curso-de-resina-epoxica-paso-a-paso.mdx": {
-    "mtime": 1785926248.220693,
-    "ast_hash": "75c4b7b5e82c2cebb81d4aa1f59f1f0c",
-    "semantic_hash": ""
-  },
-  "src/content/courses/curso-de-soldadura-mig-tig-y-arco-electrico.mdx": {
-    "mtime": 1785926248.2212472,
-    "ast_hash": "2cceef3d713f42dbe6ee82fb6b79817c",
+    "mtime": 1785996471.3591235,
+    "ast_hash": "ccd66222183266727bc157d54b05a8d9",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-velas-artesanales-y-aromaticas.mdx": {
-    "mtime": 1785926248.2232137,
+    "mtime": 1785930217.4708612,
     "ast_hash": "0204748c90f1c54dfb24a50957548e76",
     "semantic_hash": ""
   },
@@ -595,13 +555,13 @@
     "semantic_hash": ""
   },
   "scripts/keyword-planner.py": {
-    "mtime": 1785919523.0429263,
-    "ast_hash": "e21b78ee8923956d03eda27a0c5bca7e",
+    "mtime": 1785993209.063194,
+    "ast_hash": "558e6317fde23a2b355be9955ae3c2e6",
     "semantic_hash": ""
   },
   "src/lib/blog.ts": {
-    "mtime": 1785916707.5807164,
-    "ast_hash": "231aff95700078b1ad78e2b04b2daf33",
+    "mtime": 1785985265.4478445,
+    "ast_hash": "1bbf67818dfa6f98e1d496e5aab0fecf",
     "semantic_hash": ""
   },
   "src/lib/homologaciones.ts": {
@@ -627,11 +587,6 @@
   "src/content/courses/curso-de-airbnb.mdx": {
     "mtime": 1785926248.1958869,
     "ast_hash": "16d08c116be1ff43f84ceeee393c7b1f",
-    "semantic_hash": ""
-  },
-  "src/content/courses/curso-de-aire-acondicionado-y-refrigeracion.mdx": {
-    "mtime": 1785926248.196234,
-    "ast_hash": "2620864d5c98736f4edac99289d18771",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-amigurumi.mdx": {
@@ -685,13 +640,13 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-confeccion-de-ropa-interior.mdx": {
-    "mtime": 1785926248.2019444,
-    "ast_hash": "bcb734f627be178b69110f0292a08ad1",
+    "mtime": 1785996471.3575454,
+    "ast_hash": "15ea7248ff0e63dc7265c436da094932",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-confeccion-de-trajes-de-bano.mdx": {
-    "mtime": 1785926248.2022288,
-    "ast_hash": "516e6db1767988604229e16f00b6ac12",
+    "mtime": 1785996471.3579876,
+    "ast_hash": "6b574a9abe63bd61d7ff83ce4d93515f",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-contabilidad-basica.mdx": {
@@ -705,8 +660,8 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-costura-industrial.mdx": {
-    "mtime": 1785926248.2031946,
-    "ast_hash": "83fea8cd2e1b2bda6e11e4ab208dce42",
+    "mtime": 1785996471.358229,
+    "ast_hash": "65aae1c83214f4e51cfa0d9489b6a6c9",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-crochet.mdx": {
@@ -720,8 +675,8 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-decoracion-con-globos.mdx": {
-    "mtime": 1785926248.2044096,
-    "ast_hash": "b9a13bcf2764a4e90e45ee0e43679ebc",
+    "mtime": 1785995874.6195211,
+    "ast_hash": "c3e4df3b5a98b8ef36f8a5b66f6456f8",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-defensa-personal-para-mujeres.mdx": {
@@ -755,7 +710,7 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-estetica-canina.mdx": {
-    "mtime": 1785926248.2066765,
+    "mtime": 1785930217.4646475,
     "ast_hash": "75504bd1ac7c10a80de8931fe459b291",
     "semantic_hash": ""
   },
@@ -765,13 +720,13 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-fondant.mdx": {
-    "mtime": 1785926248.2078865,
+    "mtime": 1785930217.4654276,
     "ast_hash": "ce9a03b564cef5b15825e3489bd16637",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-fotografia-con-celular.mdx": {
-    "mtime": 1785926248.2080429,
-    "ast_hash": "07ffe9e2072ea18a18442196b090b8de",
+    "mtime": 1785995874.618185,
+    "ast_hash": "2360b4d3e7d0dfa33ef19b20cffe81d9",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-fotografia.mdx": {
@@ -795,13 +750,13 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-hamburguesas-gourmet.mdx": {
-    "mtime": 1785926248.2093298,
+    "mtime": 1785930217.4658587,
     "ast_hash": "848107e780fc98c56df38c95eefb945b",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-ingles-para-ninos.mdx": {
-    "mtime": 1785926248.2095175,
-    "ast_hash": "20d38b331aa05c5442eed3d543275a00",
+    "mtime": 1785996471.3594553,
+    "ast_hash": "b5bd518ee160a0a77818b010ee7f80a2",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-ingles.mdx": {
@@ -810,7 +765,7 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-instalacion-de-camaras-de-seguridad.mdx": {
-    "mtime": 1785926248.210378,
+    "mtime": 1785930217.4662118,
     "ast_hash": "b9802256852b4c4e68be54a12c9942e1",
     "semantic_hash": ""
   },
@@ -820,7 +775,7 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-joyeria-artesanal.mdx": {
-    "mtime": 1785926248.2114027,
+    "mtime": 1785930217.4664392,
     "ast_hash": "9b2a0121d90ec7599f1b9f02988c931f",
     "semantic_hash": ""
   },
@@ -830,12 +785,12 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-maderoterapia.mdx": {
-    "mtime": 1785926248.212152,
-    "ast_hash": "9fc362241f9d8a1930f958e03cbb8a2a",
+    "mtime": 1785994688.0312958,
+    "ast_hash": "5606647252e98c59931f8e301ed81645",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-mecanica-de-bicicletas.mdx": {
-    "mtime": 1785926248.21341,
+    "mtime": 1785930217.4675221,
     "ast_hash": "3c1cc09d10dc6f911accbcd12c935187",
     "semantic_hash": ""
   },
@@ -845,17 +800,17 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-molderia-y-confeccion.mdx": {
-    "mtime": 1785926248.2148004,
-    "ast_hash": "a2d31dac6aca1ca683b8f08c77974d52",
+    "mtime": 1785996471.358881,
+    "ast_hash": "1bcac0e0042061f329b9953a658cfbd7",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-pasteleria.mdx": {
-    "mtime": 1785926248.215974,
-    "ast_hash": "630545a53fe6847863e7c0eab1e7a22d",
+    "mtime": 1785995874.6159098,
+    "ast_hash": "ac9007d783e41dfe5d4b0b2e1c28e00e",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-piano.mdx": {
-    "mtime": 1785926248.217724,
+    "mtime": 1785930217.4683547,
     "ast_hash": "3e19d986690728583295458bc940c2a4",
     "semantic_hash": ""
   },
@@ -865,7 +820,7 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-pollo-broaster.mdx": {
-    "mtime": 1785926248.2181737,
+    "mtime": 1785930217.4685276,
     "ast_hash": "2c8e530a6c46ae00a32cbcb236025f23",
     "semantic_hash": ""
   },
@@ -880,8 +835,8 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-primeros-auxilios-para-mascotas.mdx": {
-    "mtime": 1785926248.2187457,
-    "ast_hash": "616bd4d1bcebe5b3232f5150bb48769e",
+    "mtime": 1785996471.359695,
+    "ast_hash": "5d557534634bb95938b42083da8b02ce",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-primeros-auxilios.mdx": {
@@ -895,22 +850,22 @@
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-reparacion-de-celulares.mdx": {
-    "mtime": 1785926248.2193027,
+    "mtime": 1785930217.4688349,
     "ast_hash": "0d5d480b719251523d42725938e68c67",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-reparacion-de-computadoras.mdx": {
-    "mtime": 1785926248.2194762,
+    "mtime": 1785930217.4689977,
     "ast_hash": "34342056d952494244ecc5e6cdc12fc3",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-reparacion-de-lavadoras.mdx": {
-    "mtime": 1785926248.2196453,
+    "mtime": 1785930217.4691374,
     "ast_hash": "26d7d588dbd000c632fc889b8ac5d3f1",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-reposteria-para-mascotas.mdx": {
-    "mtime": 1785926248.2202897,
+    "mtime": 1785930217.4693866,
     "ast_hash": "c5614264a39afc95c61a0a804a2fc41e",
     "semantic_hash": ""
   },
@@ -935,223 +890,1813 @@
     "semantic_hash": ""
   },
   "docs/data/auditoria-cursos-co.json": {
-    "mtime": 1785920394.7625616,
+    "mtime": 1785930217.4262083,
     "ast_hash": "e1fac970e88828ea985f95a3e3d2952d",
     "semantic_hash": ""
   },
   "docs/data/candidatos-expansion-co.json": {
-    "mtime": 1785920701.688451,
+    "mtime": 1785930217.426461,
     "ast_hash": "d751713988987e9331980363e24189ce",
     "semantic_hash": ""
   },
   "docs/data/cursos-belleza-sably.json": {
-    "mtime": 1785925682.0644639,
+    "mtime": 1785930217.4269438,
     "ast_hash": "75679f37b483abacef687add6509d4ab",
     "semantic_hash": ""
   },
   "docs/data/expansion-nuevas-categorias-co.json": {
-    "mtime": 1785920732.225445,
+    "mtime": 1785930217.427237,
     "ast_hash": "ef0062431714e8dd3c136c9c1124127f",
     "semantic_hash": ""
   },
   "docs/data/filiales-CO.json": {
-    "mtime": 1785920574.18514,
+    "mtime": 1785930217.4274333,
     "ast_hash": "141770157b37e90b94fa5c4ed1128e50",
     "semantic_hash": ""
   },
   "docs/data/filiales-ES.json": {
-    "mtime": 1785920613.86211,
+    "mtime": 1785930217.4279962,
     "ast_hash": "3e5a24130a13089850cbb2f2e5e7bde4",
     "semantic_hash": ""
   },
   "docs/data/filiales-MX.json": {
-    "mtime": 1785920593.984223,
+    "mtime": 1785930217.4282463,
     "ast_hash": "ad82ec8be23655a9e2e4544c1f537b5d",
     "semantic_hash": ""
   },
   "docs/data/geo-ciudades2-co.json": {
-    "mtime": 1785922977.4594815,
+    "mtime": 1785930217.42877,
     "ast_hash": "e9b7587cc4fd6fc7fb06ce1bf19536d4",
     "semantic_hash": ""
   },
   "docs/data/keywords-co.json": {
-    "mtime": 1785925682.0406692,
-    "ast_hash": "3268e8234b654bc23f28317e6d2f6af7",
+    "mtime": 1785930217.4301424,
+    "ast_hash": "979de6071985718d7b1e1ec15bde9e42",
     "semantic_hash": ""
   },
   "docs/data/keywords-mx.json": {
-    "mtime": 1785922938.5788724,
+    "mtime": 1785930217.431021,
     "ast_hash": "50b6989a62904439a0605175f86ad66b",
     "semantic_hash": ""
   },
   "docs/data/mercado-es.json": {
-    "mtime": 1785920682.9758344,
+    "mtime": 1785930217.431269,
     "ast_hash": "89d21dfccc060f432ea0df619a6f49cd",
     "semantic_hash": ""
   },
   "scripts/rewrite-gemini.py": {
-    "mtime": 1785926024.1084793,
+    "mtime": 1785930217.4593008,
     "ast_hash": "2a9b75551dab0d43fa4ab1fd7d7d6946",
     "semantic_hash": ""
   },
   "scripts/seo-audit.py": {
-    "mtime": 1785920516.0952284,
+    "mtime": 1785930217.460145,
     "ast_hash": "00f639afdb0b7011b10877a3bc16e1db",
     "semantic_hash": ""
   },
   "src/components/CityLanding.astro": {
-    "mtime": 1785925754.402954,
-    "ast_hash": "2328c3b3d95558cf4ceb00e8670df3ac",
+    "mtime": 1785931380.690648,
+    "ast_hash": "5b443e108777993030b0033699a6252e",
     "semantic_hash": ""
   },
   "src/lib/sitemap.ts": {
-    "mtime": 1785925888.9907153,
+    "mtime": 1785930217.4726703,
     "ast_hash": "413e67ed53829dea80ba0cbde76e6762",
     "semantic_hash": ""
   },
   "src/pages/[country]/[item]/[slug]/index.astro": {
-    "mtime": 1785925783.3518846,
+    "mtime": 1785930217.4728518,
     "ast_hash": "75027212f5bbe7a1628f9e0336908419",
     "semantic_hash": ""
   },
   "src/pages/[country]/[item]/cursos/[category]/index.astro": {
-    "mtime": 1785925803.439016,
-    "ast_hash": "ea49319242f1f4d8816a5d282f03e259",
+    "mtime": 1785931380.6912985,
+    "ast_hash": "3b4fbc762a2ae818f63613f82a7e8e98",
     "semantic_hash": ""
   },
   "src/pages/[country]/[item]/index.astro": {
-    "mtime": 1785925780.3840141,
-    "ast_hash": "45c59945c77b2130883cb79caa5b9219",
+    "mtime": 1785932220.3427646,
+    "ast_hash": "a4031d45150793d4cc8d89829ba8293d",
     "semantic_hash": ""
   },
   "src/pages/sitemap-index.xml.ts": {
-    "mtime": 1785925891.7868505,
+    "mtime": 1785930217.474483,
     "ast_hash": "1f0464e6f76d71cf82ebce3ba74b6469",
     "semantic_hash": ""
   },
   "src/pages/sitemap/index.astro": {
-    "mtime": 1785925919.2756963,
+    "mtime": 1785930217.4749284,
     "ast_hash": "591b346ddc1615e1ed4e1104daddc363",
     "semantic_hash": ""
   },
   "src/pages/sitemaps/[name].xml.ts": {
-    "mtime": 1785925895.382517,
-    "ast_hash": "16a31cfc0bd7b0c713e60106b174bf21",
+    "mtime": 1785932150.4179015,
+    "ast_hash": "67bae8459eb99a42bb4771cad9688061",
     "semantic_hash": ""
   },
   "docs/ARQUITECTURA_URLS.md": {
-    "mtime": 1785925976.8678913,
+    "mtime": 1785930217.4258757,
     "ast_hash": "d19d81860aadd0d41d822867b77cacf8",
     "semantic_hash": ""
   },
   "docs/plans/2026-08-05_estrategia-seo-multidominio.md": {
-    "mtime": 1785920798.3967438,
+    "mtime": 1785930217.4339771,
     "ast_hash": "57d5ba996d139236ed35483ee13be551",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-alisados-y-keratina.mdx": {
-    "mtime": 1785926248.1963904,
-    "ast_hash": "50208f4ae4c45fc60738ea0b778b53b5",
+    "mtime": 1785995874.612412,
+    "ast_hash": "f3fd4460e6b44432cc80c1f4b57979a2",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-balayage.mdx": {
-    "mtime": 1785926248.1968439,
-    "ast_hash": "77701dcf219eeea961b5230e6bdb4ca9",
+    "mtime": 1785995874.6129959,
+    "ast_hash": "cf8bbd0a24191828ca0642ec44d97d89",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-barberia-artistica.mdx": {
-    "mtime": 1785926248.1969514,
-    "ast_hash": "da03fda31bf74cbfdc62625605507ad5",
+    "mtime": 1785995874.6029074,
+    "ast_hash": "37dfbf0bd9e392df57bdefc9e41576b2",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-barberia.mdx": {
-    "mtime": 1785926248.1971078,
-    "ast_hash": "d70dcf1bb8686eeb97f958122ec3060e",
+    "mtime": 1785994688.0288627,
+    "ast_hash": "4d548655fb9efec628006f18f4a6135a",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-diseno-de-cejas-con-hilo-y-henna.mdx": {
-    "mtime": 1785926271.9354131,
-    "ast_hash": "173221545cc3ac588fd2c4663330a0fc",
+    "mtime": 1785995874.6186957,
+    "ast_hash": "82dbc631b1d89a8a35c748b0e24e327e",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-extensiones-de-cabello.mdx": {
-    "mtime": 1785926248.2070312,
-    "ast_hash": "060feee5fb0f4fce01c00583c233ba54",
+    "mtime": 1785995874.6121647,
+    "ast_hash": "805b4fb53af6e21f60e54080334af62f",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-extensiones-de-pestanas.mdx": {
-    "mtime": 1785926248.2071471,
-    "ast_hash": "67e977bb83fba88c543c50b603b3edc1",
+    "mtime": 1785995874.6184573,
+    "ast_hash": "e24cd3f3d2180370659b76af2ea94b75",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-limpieza-facial.mdx": {
-    "mtime": 1785926248.2117906,
-    "ast_hash": "c36d4988091e07d2792765d068c89d86",
+    "mtime": 1785994688.0309582,
+    "ast_hash": "ffe7d7294fadec5a25400c45e00083c1",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-manicure-y-pedicure.mdx": {
-    "mtime": 1785926248.2122524,
-    "ast_hash": "7cbf6edfe0108bc3b10834c1ddc5f75b",
+    "mtime": 1785994688.031433,
+    "ast_hash": "03f44131a175f29510c687e744aaaec9",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-maquillaje-permanente.mdx": {
-    "mtime": 1785926248.2123716,
-    "ast_hash": "18fd2868db34cc83471759b8ac897e84",
+    "mtime": 1785995874.6062214,
+    "ast_hash": "6f4d0378829c0b5ffabf94f379d04294",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-maquillaje-profesional-de-novias.mdx": {
-    "mtime": 1785926248.2124643,
-    "ast_hash": "0dd0083908c2212bedd943b8f13753e8",
+    "mtime": 1785995874.6065178,
+    "ast_hash": "097de5492839b25326c62f78fa26c2ce",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-microblading.mdx": {
-    "mtime": 1785926248.214115,
-    "ast_hash": "15dc01d04f3f60cfda295c993a54d4ba",
+    "mtime": 1785995874.6183414,
+    "ast_hash": "ae1aa1a010adee4aba6d17144e249fe7",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-trenzas-y-peinados.mdx": {
-    "mtime": 1785926248.222499,
-    "ast_hash": "4d2b9a0175e405d54bb597d4bc8214ea",
+    "mtime": 1785995874.611792,
+    "ast_hash": "e99bfa8c23633d530449188a6e0186ab",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-unas-acrilicas.mdx": {
-    "mtime": 1785926248.2227306,
-    "ast_hash": "1b450c64d91fedfd0e3906863b6cae2e",
+    "mtime": 1785995874.6088986,
+    "ast_hash": "1bac896f8dbb03f8bc7d893f521ef5c3",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-unas.mdx": {
-    "mtime": 1785926248.2229218,
-    "ast_hash": "c4ea6900f43b8d985688b27cdf4778ee",
+    "mtime": 1785994688.0326946,
+    "ast_hash": "7494f3630d37b9c14983a7db42c9d1d2",
     "semantic_hash": ""
   },
   "public/certificado-sably.jpg": {
-    "mtime": 1785925871.4751139,
+    "mtime": 1785930217.4556684,
     "ast_hash": "1f4791b3af69a5a6042a5f576eebaf23",
     "semantic_hash": ""
   },
   "public/covers/belleza-online-card.jpg": {
-    "mtime": 1785925976.8419456,
+    "mtime": 1785930217.4561846,
     "ast_hash": "420fc1ec8336e0f0ef96b80e1ee03fa3",
     "semantic_hash": ""
   },
   "public/covers/belleza-online.jpg": {
-    "mtime": 1785925976.8382173,
+    "mtime": 1785930217.4567704,
     "ast_hash": "9aa3c9d5fc47aaf1111ad834ff725a98",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-colorimetria.mdx": {
-    "mtime": 1785926248.2011096,
-    "ast_hash": "dfaa027228043efc2aae2e76e9e8c01f",
+    "mtime": 1785995874.6127386,
+    "ast_hash": "afa6c25e29eb2e40bc96e83e1ca52773",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-decoracion-de-unas.mdx": {
-    "mtime": 1785926353.121687,
-    "ast_hash": "752c93bb792813a8f8ba7b1f9f0b0d8f",
+    "mtime": 1785995874.6096554,
+    "ast_hash": "e6d93b483325550e7368191ededf88ab",
     "semantic_hash": ""
   },
   "src/content/courses/curso-de-pestanas-volumen-ruso.mdx": {
-    "mtime": 1785926248.217396,
-    "ast_hash": "de2b766b4c525a3369abc03515eed680",
+    "mtime": 1785995874.6185923,
+    "ast_hash": "686e6df378f12de0eb172e599501651a",
+    "semantic_hash": ""
+  },
+  "docs/data/competencia-ubersuggest.json": {
+    "mtime": 1785930217.4268148,
+    "ast_hash": "faf63c64bf5c449a58c780ef69588529",
+    "semantic_hash": ""
+  },
+  "docs/data/contenido-fuente.json": {
+    "mtime": 1785994781.9859045,
+    "ast_hash": "8f606ed853bbc4871810e3cd4972d1ce",
+    "semantic_hash": ""
+  },
+  "docs/data/estado-seo-medicion.json": {
+    "mtime": 1785931791.6847408,
+    "ast_hash": "d5bcaed3436da048632ca8a871a4aa2b",
+    "semantic_hash": ""
+  },
+  "docs/data/ga4-sably.json": {
+    "mtime": 1785930217.4285302,
+    "ast_hash": "afbd331c6c52f822769d7f00366968ed",
+    "semantic_hash": ""
+  },
+  "docs/data/head-terms-restantes.json": {
+    "mtime": 1785995761.2610261,
+    "ast_hash": "ead55c178eb930518c6ed258db1cabf4",
+    "semantic_hash": ""
+  },
+  "docs/data/hotmart-map.json": {
+    "mtime": 1785995224.247535,
+    "ast_hash": "99f7a4c01fa10fa0927756ca06f00682",
+    "semantic_hash": ""
+  },
+  "docs/data/indexnow.json": {
+    "mtime": 1785930217.4293501,
+    "ast_hash": "4b3b47afaf3cacc21b235a338927d441",
+    "semantic_hash": ""
+  },
+  "docs/data/keywords-geo-bogota.json": {
+    "mtime": 1785930217.4307487,
+    "ast_hash": "3268e8234b654bc23f28317e6d2f6af7",
+    "semantic_hash": ""
+  },
+  "docs/data/localismos.json": {
+    "mtime": 1785993795.8811278,
+    "ast_hash": "78c1c4e3fff58a8c488d2b1b6a6a245e",
+    "semantic_hash": ""
+  },
+  "docs/data/mercado-es-ampliado.json": {
+    "mtime": 1785984508.4197083,
+    "ast_hash": "7a83bdb84a7ed1b7ed4d53e3047ab60a",
+    "semantic_hash": ""
+  },
+  "docs/data/patrones-academiadebelleza-co.json": {
+    "mtime": 1785984508.4199243,
+    "ast_hash": "deeaca5189ba0f3160512767e2f7a355",
+    "semantic_hash": ""
+  },
+  "docs/data/sondeo-belleza.json": {
+    "mtime": 1785993724.2682025,
+    "ast_hash": "d15d44855ee412f173b00b8515a9dc88",
+    "semantic_hash": ""
+  },
+  "docs/data/sondeo-oficios-8paises.json": {
+    "mtime": 1785993345.928302,
+    "ast_hash": "e95faf954de96bae40fa66ee0dfb2b68",
+    "semantic_hash": ""
+  },
+  "scripts/aplicar-hotmart.py": {
+    "mtime": 1785994675.9291978,
+    "ast_hash": "9c1f4e74e701121964d1d7a3a1303cb4",
+    "semantic_hash": ""
+  },
+  "scripts/build-cover-manifest.mjs": {
+    "mtime": 1785984508.4201593,
+    "ast_hash": "351844eb202ff96f87628d341c398a2e",
+    "semantic_hash": ""
+  },
+  "scripts/build-entregables-xlsx.py": {
+    "mtime": 1785930217.4575639,
+    "ast_hash": "d02e6b55a53edc980b00b4beba343078",
+    "semantic_hash": ""
+  },
+  "scripts/consolidar-catalogo.py": {
+    "mtime": 1785996465.1073718,
+    "ast_hash": "fb775e6d723db5c2aa43db8eec16adc3",
+    "semantic_hash": ""
+  },
+  "scripts/feather-heroes.py": {
+    "mtime": 1785991867.2841475,
+    "ast_hash": "873f4b4d20e6f109ea2af332dac1ea18",
+    "semantic_hash": ""
+  },
+  "scripts/generate-course-covers.py": {
+    "mtime": 1785930217.4588745,
+    "ast_hash": "e6b06207af8b1ecc7b45495577a372f8",
+    "semantic_hash": ""
+  },
+  "scripts/generate-hero-images.py": {
+    "mtime": 1785987074.043333,
+    "ast_hash": "21c3ba97b5b63bb2f6e80be3153d41d8",
+    "semantic_hash": ""
+  },
+  "scripts/localismos.py": {
+    "mtime": 1785993677.5728,
+    "ast_hash": "22ab34d84abcecbe38c095cafe34d9c7",
+    "semantic_hash": ""
+  },
+  "scripts/publicar-heroes.py": {
+    "mtime": 1785996890.7759824,
+    "ast_hash": "6b60b939021328c2bcf5cd58686bd134",
+    "semantic_hash": ""
+  },
+  "scripts/sondeo-belleza.py": {
+    "mtime": 1785993666.0078015,
+    "ast_hash": "c9a6d2318b76f1d91092d1ee7ddd0a4c",
+    "semantic_hash": ""
+  },
+  "scripts/sync-hotmart-urls.py": {
+    "mtime": 1785931679.7989662,
+    "ast_hash": "f5011400305d91a31fca0303b8b7cdf6",
+    "semantic_hash": ""
+  },
+  "scripts/sync-r2.sh": {
+    "mtime": 1785996640.007208,
+    "ast_hash": "cff79a65b56b36aa6b63f01ea23de914",
+    "semantic_hash": ""
+  },
+  "src/components/ArticleRating.astro": {
+    "mtime": 1785985247.2850964,
+    "ast_hash": "23d8e3c51b0f1ee9b2cb006c2b4cc202",
+    "semantic_hash": ""
+  },
+  "src/components/ReadingProgress.astro": {
+    "mtime": 1785985233.0599384,
+    "ast_hash": "4d7d736e57af29baba91b083e0aaa66e",
+    "semantic_hash": ""
+  },
+  "src/components/SearchModal.astro": {
+    "mtime": 1785932150.4184887,
+    "ast_hash": "baad1849fe9168b927385f244b450fff",
+    "semantic_hash": ""
+  },
+  "src/components/SocialIcon.astro": {
+    "mtime": 1785985124.8914096,
+    "ast_hash": "23953bd862a044c2780e8d56b1e041f4",
+    "semantic_hash": ""
+  },
+  "src/lib/course-covers.ts": {
+    "mtime": 1785996261.085943,
+    "ast_hash": "630dc8adf0158af9b2ae6caac537511f",
+    "semantic_hash": ""
+  },
+  "src/lib/hero-assets.ts": {
+    "mtime": 1785996910.8026726,
+    "ast_hash": "6102da960f08b0bfb911af99e704da06",
+    "semantic_hash": ""
+  },
+  "src/pages/llms-full.txt.ts": {
+    "mtime": 1785930217.47384,
+    "ast_hash": "4f710925a77c48653ded1d29ff4d2a32",
+    "semantic_hash": ""
+  },
+  "src/pages/llms.txt.ts": {
+    "mtime": 1785930217.4740584,
+    "ast_hash": "76924e2ef4d5fcbcbdf198d86fdae71c",
+    "semantic_hash": ""
+  },
+  "src/pages/search-index.json.ts": {
+    "mtime": 1785932150.4187603,
+    "ast_hash": "c8b057b3c7787804f03050811900e1b4",
+    "semantic_hash": ""
+  },
+  "src/pages/sitemap.xml.ts": {
+    "mtime": 1785930217.4747648,
+    "ast_hash": "accd37c98311291d6c6a1a3892e2b6dc",
+    "semantic_hash": ""
+  },
+  "docs/TOP10_CURSOS_VENDIBLES.md": {
+    "mtime": 1785993867.2921617,
+    "ast_hash": "54960e24c43a4cbeb7bc555f42c14bd9",
+    "semantic_hash": ""
+  },
+  "docs/UBERSUGGEST_PROYECTO.md": {
+    "mtime": 1785984508.419425,
+    "ast_hash": "fd01137a4e77038b165c0394429df3b2",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/academiadebelleza_analisis_seo_a1b50e55.md": {
+    "mtime": 1785997098.7946775,
+    "ast_hash": "bf70cfb5c1c52ddeca728327662208cb",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/benchmarking_competencia_190ef1d6.md": {
+    "mtime": 1785997098.7986228,
+    "ast_hash": "e8cbbece5f48648cf79ba741eb52a0b6",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/cursodeglobosonline_analisis_seo_24daf6c6.md": {
+    "mtime": 1785997098.8014808,
+    "ast_hash": "5106574b6116b7bacee0966e5ab6c0b8",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/sably_co_analisis_seo_d1a026eb.md": {
+    "mtime": 1785997098.881758,
+    "ast_hash": "2c5111ea29797d13d9f8a605723123f7",
+    "semantic_hash": ""
+  },
+  "graphify-out/converted/terapiadpareja_analisis_seo_1fd2e4e1.md": {
+    "mtime": 1785997098.8864021,
+    "ast_hash": "1182b6cac5a72d178c715a959053ff06",
+    "semantic_hash": ""
+  },
+  "public/60efb6327213c3f264d445b5357cb63d.txt": {
+    "mtime": 1785930217.4552438,
+    "ast_hash": "e05eb6e550bfab2db05db95a5bd788be",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-aire-acondicionado.mdx": {
+    "mtime": 1785995874.6010292,
+    "ast_hash": "6b2d51ad25fbcff1ad7099336159d7c1",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-automaquillaje.mdx": {
+    "mtime": 1785994928.4956965,
+    "ast_hash": "2ae765c5add1a61e1b1e12973c5ae833",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-barberia-como-negocio.mdx": {
+    "mtime": 1785995874.6032338,
+    "ast_hash": "a5af8c211d0c078fb5082c7170d89203",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-barberia-infantil.mdx": {
+    "mtime": 1785995874.6044967,
+    "ast_hash": "3dea0fc11411ec233589abae2ed79d44",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-bouquets-con-globos.mdx": {
+    "mtime": 1785995874.6191933,
+    "ast_hash": "17c2f7dbea4a51e3632f802b0a84e910",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-cejas-y-pestanas.mdx": {
+    "mtime": 1785995025.0888004,
+    "ast_hash": "4662658f42f8cc0c18730cc10cf633e7",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-cocina.mdx": {
+    "mtime": 1785995874.5981297,
+    "ast_hash": "44223aafa4b3dac4d48a6aeccabe0cfc",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-corte-y-confeccion.mdx": {
+    "mtime": 1785996471.360027,
+    "ast_hash": "026b1e60e2c0af392e9ff667e5bb6073",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-depilacion.mdx": {
+    "mtime": 1785995025.0889318,
+    "ast_hash": "d3a3236c62bb8d17c1a8fa3934cf63a6",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-flores-con-globos.mdx": {
+    "mtime": 1785995874.618923,
+    "ast_hash": "cb2076415101e11db2fb468cab3b1402",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-globoflexia.mdx": {
+    "mtime": 1785995109.6188996,
+    "ast_hash": "827a06c921a3cbabc13d3fab15d69025",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-globos-burbuja.mdx": {
+    "mtime": 1785995874.6193082,
+    "ast_hash": "bb4ad17a14445b7509d9c19165fe820c",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-maquillaje-de-fantasia.mdx": {
+    "mtime": 1785995874.605002,
+    "ast_hash": "c2633fcfef67e99b93b9a395e646854e",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-maquillaje.mdx": {
+    "mtime": 1785994928.495427,
+    "ast_hash": "ed794ff388b48878b8d35a75b849bd56",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-marketing-digital.mdx": {
+    "mtime": 1785995874.5997894,
+    "ast_hash": "afebc97eacd5dfae47d924a2df0ee565",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-masaje-descontracturante.mdx": {
+    "mtime": 1785995874.6074786,
+    "ast_hash": "75165ee652ee5792e869e659c68e1196",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-masaje-reductor.mdx": {
+    "mtime": 1785995874.6067014,
+    "ast_hash": "2dfec78a2c3adb9cec3986452c1cf91d",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-masajes.mdx": {
+    "mtime": 1785994928.4955354,
+    "ast_hash": "aa07cf138fe9b4e6dd19547b5527f8a6",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-mecanica-de-motos.mdx": {
+    "mtime": 1785995874.6006157,
+    "ast_hash": "3418baa220a1e0062386f134ef757c70",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-panaderia.mdx": {
+    "mtime": 1785995874.6018255,
+    "ast_hash": "efc19ebc4b218affc1c9ceb46cc5d263",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-peinados.mdx": {
+    "mtime": 1785995874.6098244,
+    "ast_hash": "db13eacc3d2c1a0b5948dc314426de85",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-peluqueria.mdx": {
+    "mtime": 1785994928.4952564,
+    "ast_hash": "a11da4e88045c4eafe3cb1a8613d21c0",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-reposteria.mdx": {
+    "mtime": 1785995874.6001377,
+    "ast_hash": "d5ca27380c186388613e12a7308daad0",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-resina-epoxica.mdx": {
+    "mtime": 1785995874.6014888,
+    "ast_hash": "5d9a9561d3671f9e7402e256fd055a03",
+    "semantic_hash": ""
+  },
+  "src/content/courses/curso-de-soldadura.mdx": {
+    "mtime": 1785995874.5990474,
+    "ast_hash": "75126dd087e14c414b72d9496dcf5767",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-adiestramiento-canino-en-positivo-card.jpg": {
+    "mtime": 1785930257.9939985,
+    "ast_hash": "abdd95cb3396d99955f445c2aa89778c",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-adiestramiento-canino-en-positivo.jpg": {
+    "mtime": 1785930257.994688,
+    "ast_hash": "ea096f07a10e591ebf6d40031e035f06",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-airbnb-card.jpg": {
+    "mtime": 1785930257.9951727,
+    "ast_hash": "06fde14d92cdc4acff3c371ea2fdbce6",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-airbnb.jpg": {
+    "mtime": 1785930257.9959216,
+    "ast_hash": "632d8bdd508ac25f2898d84a9c7e363d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-aire-acondicionado-card.jpg": {
+    "mtime": 1785930257.9964218,
+    "ast_hash": "14a9f7e2b4623af44696bac983750558",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-aire-acondicionado.jpg": {
+    "mtime": 1785930257.9971037,
+    "ast_hash": "795d79408f60de8ce43688b4e9dc674c",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-alisados-y-keratina-card.jpg": {
+    "mtime": 1785930257.9975672,
+    "ast_hash": "1e790cc1a027c00eb17ead0bb9fab622",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-alisados-y-keratina.jpg": {
+    "mtime": 1785930257.9983046,
+    "ast_hash": "73ff75e78a5a53c0ed1cc0a2432da725",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-amigurumi-card.jpg": {
+    "mtime": 1785930257.9986768,
+    "ast_hash": "816afa5f5b042ecb5ff8e9526cb50019",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-amigurumi.jpg": {
+    "mtime": 1785930257.9992926,
+    "ast_hash": "f4cf844f7553cceb0b8ecc177fa7e041",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-automaquillaje-card.jpg": {
+    "mtime": 1785995664.5710256,
+    "ast_hash": "314db62836039c8f329e31164d5a9da6",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-automaquillaje.jpg": {
+    "mtime": 1785995664.5152032,
+    "ast_hash": "78601b7c074bf11ff66214146c7e84c5",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-balayage-card.jpg": {
+    "mtime": 1785930258.0003192,
+    "ast_hash": "6281bc500f1f53ef91f6dd87d71f6c8e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-balayage.jpg": {
+    "mtime": 1785930258.000995,
+    "ast_hash": "98a7081be1f322078782673928822670",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-barberia-artistica-card.jpg": {
+    "mtime": 1785930258.0014274,
+    "ast_hash": "c8d3ef1550c74b0c0960057aa70e909f",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-barberia-artistica.jpg": {
+    "mtime": 1785930258.002009,
+    "ast_hash": "b23e4567725b88d48755bb368308dd58",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-barberia-card.jpg": {
+    "mtime": 1785930258.0023923,
+    "ast_hash": "45b37130aee41dbb5cadb1536dc9cba1",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-barberia-como-negocio-card.jpg": {
+    "mtime": 1785995685.8152704,
+    "ast_hash": "b7b31cbaeae8fdb8789438c2c5bd86fd",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-barberia-como-negocio.jpg": {
+    "mtime": 1785995685.7377915,
+    "ast_hash": "c7e02c447ecb2fb4381418a0478dc71a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-barberia-infantil-card.jpg": {
+    "mtime": 1785995706.02023,
+    "ast_hash": "018a48099e7271b58073ba68faf49726",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-barberia-infantil.jpg": {
+    "mtime": 1785995705.9416518,
+    "ast_hash": "51971353b31928df1a7615d03cc1e6ca",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-barberia.jpg": {
+    "mtime": 1785930258.0029652,
+    "ast_hash": "fb7046831ba06850df54fe83da2da4d3",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-barismo-y-cafe-de-especialidad-card.jpg": {
+    "mtime": 1785930258.0033588,
+    "ast_hash": "0a4e5d990f270f206abbc80d4b06b189",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-barismo-y-cafe-de-especialidad.jpg": {
+    "mtime": 1785930258.0039818,
+    "ast_hash": "0901c32441f4d9b71dbc5c64f80dca4c",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-barista-card.jpg": {
+    "mtime": 1785930258.0043635,
+    "ast_hash": "f9fbb83c92598f62ed1781f94be0a2fb",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-barista.jpg": {
+    "mtime": 1785930258.0050094,
+    "ast_hash": "d8d3b72344019ad139cce0967999902d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-bartender-card.jpg": {
+    "mtime": 1785930258.0054042,
+    "ast_hash": "790eed306943faf59e181066aa2b3bd6",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-bartender.jpg": {
+    "mtime": 1785930258.0060809,
+    "ast_hash": "2f1b09d26cbeb008246768907316c635",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-bartending-y-cocteleria-profesional-card.jpg": {
+    "mtime": 1785930258.0065055,
+    "ast_hash": "17a71ec2096f870ce2bb30a7c4dabb9e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-bartending-y-cocteleria-profesional.jpg": {
+    "mtime": 1785930258.0072157,
+    "ast_hash": "79b88fc311f2cae60d2a79ea3553bcb3",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-bouquets-con-globos-card.jpg": {
+    "mtime": 1785995724.1706684,
+    "ast_hash": "0d408c8b235b360facb403330643ba6c",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-bouquets-con-globos.jpg": {
+    "mtime": 1785995724.1019902,
+    "ast_hash": "448ba5d6403428a695c439a554179a87",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-canto-card.jpg": {
+    "mtime": 1785930258.0076883,
+    "ast_hash": "db7195fd32c020179bb5cee0cac3a798",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-canto.jpg": {
+    "mtime": 1785930258.008326,
+    "ast_hash": "601d2539f82488d5361734da02a0019a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-carpinteria-y-muebles-card.jpg": {
+    "mtime": 1785930258.0087671,
+    "ast_hash": "b81c9792da6deb6fb8e0ae6b5c218dff",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-carpinteria-y-muebles.jpg": {
+    "mtime": 1785930258.0094318,
+    "ast_hash": "a60f334287c0c730744bc6d4bf353634",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-cejas-y-pestanas-card.jpg": {
+    "mtime": 1785995743.1020586,
+    "ast_hash": "ac895ace02eb2f9242e157f5ec212109",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-cejas-y-pestanas.jpg": {
+    "mtime": 1785995743.0372937,
+    "ast_hash": "8816f58501594ef01c16a3976eb5f8c8",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-cerveza-artesanal-card.jpg": {
+    "mtime": 1785930258.010302,
+    "ast_hash": "d987ed3e49d17ff75e7b8edf93992a92",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-cerveza-artesanal.jpg": {
+    "mtime": 1785930258.0110302,
+    "ast_hash": "b6d1ad0d7dc4968026f132bfd9d640ea",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-ceviche-peruano-card.jpg": {
+    "mtime": 1785930258.0114627,
+    "ast_hash": "8f42d6a87de714a29efeed84b662f96d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-ceviche-peruano.jpg": {
+    "mtime": 1785930258.012121,
+    "ast_hash": "bd14f6c6ebd58b9b07a9929b43b55b3b",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-chocolateria-card.jpg": {
+    "mtime": 1785930258.0125551,
+    "ast_hash": "eb824cc9afafe65e8df27c2cb49f1f3e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-chocolateria.jpg": {
+    "mtime": 1785930258.0142803,
+    "ast_hash": "6b1244234bd427325beefa6b9d41499c",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-cocina-card.jpg": {
+    "mtime": 1785930258.0146587,
+    "ast_hash": "27424e2a398087e2d1d615e8b4c1bf23",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-cocina.jpg": {
+    "mtime": 1785930258.015344,
+    "ast_hash": "97c862d6c448b10888f5639202531a0d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-colorimetria-card.jpg": {
+    "mtime": 1785930258.0157423,
+    "ast_hash": "ac0f1ed9f4af084db7424e5733a22952",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-colorimetria.jpg": {
+    "mtime": 1785930258.0163383,
+    "ast_hash": "428de7808c0730bbdb9c0d55741c2e11",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-comidas-rapidas-card.jpg": {
+    "mtime": 1785930258.0167496,
+    "ast_hash": "56957e275d018d27fe59f3835216db75",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-comidas-rapidas.jpg": {
+    "mtime": 1785930258.0173206,
+    "ast_hash": "1004d2987f16c754fce2d3bbd32ecf79",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-community-manager-card.jpg": {
+    "mtime": 1785930258.0177736,
+    "ast_hash": "26b93ce14bd5da6995f2ab08fe9ee741",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-community-manager.jpg": {
+    "mtime": 1785930258.0183666,
+    "ast_hash": "d19510db0fac9df1fb2958c7f08032d4",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-confeccion-de-ropa-interior-card.jpg": {
+    "mtime": 1785930258.0187638,
+    "ast_hash": "37ab62d1ca7e330ccf8b78379a3aaf44",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-confeccion-de-ropa-interior.jpg": {
+    "mtime": 1785930258.0193522,
+    "ast_hash": "d4ebaa8a5717a83b23bb7565702a8981",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-confeccion-de-trajes-de-bano-card.jpg": {
+    "mtime": 1785930258.0199666,
+    "ast_hash": "98e2247fc5128464e5c61f0ad4865989",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-confeccion-de-trajes-de-bano.jpg": {
+    "mtime": 1785930258.0209157,
+    "ast_hash": "0acc05152bc769ef1c5c118470adb153",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-contabilidad-basica-card.jpg": {
+    "mtime": 1785930258.0213597,
+    "ast_hash": "df40fb66d158dff4dc73d42c3ce1de55",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-contabilidad-basica.jpg": {
+    "mtime": 1785930258.0220106,
+    "ast_hash": "cdb1833bc4e2a899871b2626168af13d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-coreano-card.jpg": {
+    "mtime": 1785930258.0224533,
+    "ast_hash": "c05dee33138ff5c14f2905a70f4fa711",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-coreano.jpg": {
+    "mtime": 1785930258.0230832,
+    "ast_hash": "312304893f32afdde958e937b63afceb",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-corte-y-confeccion-card.jpg": {
+    "mtime": 1785930258.0235047,
+    "ast_hash": "7b96b2bd70390a8729dc133580c5368b",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-corte-y-confeccion.jpg": {
+    "mtime": 1785930258.0241115,
+    "ast_hash": "cb47f6c2b5ef0da60555d43a553e50ee",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-costura-industrial-card.jpg": {
+    "mtime": 1785930258.0245032,
+    "ast_hash": "63ef704c0c2f3f7725b3dc8041c78ce6",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-costura-industrial.jpg": {
+    "mtime": 1785930258.0250957,
+    "ast_hash": "376ac6db45f0fec38341a17a09639ddc",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-crochet-card.jpg": {
+    "mtime": 1785930258.0266602,
+    "ast_hash": "bb558dbac94e15d7cee092fab94bc278",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-crochet.jpg": {
+    "mtime": 1785930258.0273108,
+    "ast_hash": "46a02d47f46a18133621b985ea12d020",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-cupcakes-card.jpg": {
+    "mtime": 1785930258.0277488,
+    "ast_hash": "6da2b65b9cc148892972265ba230eb3d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-cupcakes.jpg": {
+    "mtime": 1785930258.0283432,
+    "ast_hash": "ed107ee0074dd14e482703086f95d3b8",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-decoracion-con-globos-card.jpg": {
+    "mtime": 1785930258.0288055,
+    "ast_hash": "c65028c1f7efe54cff195b4812d31f1d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-decoracion-con-globos.jpg": {
+    "mtime": 1785930258.029519,
+    "ast_hash": "5e0b4410f43e25b7d783eba85712f264",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-decoracion-de-unas-card.jpg": {
+    "mtime": 1785930258.030297,
+    "ast_hash": "14056350daa58defcb01610410ecb476",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-decoracion-de-unas.jpg": {
+    "mtime": 1785930258.0309174,
+    "ast_hash": "611c76608000ff489c625b0b4570e783",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-defensa-personal-para-mujeres-card.jpg": {
+    "mtime": 1785930258.0314054,
+    "ast_hash": "0fa1338609dd89cc03238c977bd4e0be",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-defensa-personal-para-mujeres.jpg": {
+    "mtime": 1785930258.0320039,
+    "ast_hash": "33dae0bee0d73924062577e791fec312",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-depilacion-card.jpg": {
+    "mtime": 1785995762.2115586,
+    "ast_hash": "9ecf25691ff37723e091fe17ddb00bb7",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-depilacion.jpg": {
+    "mtime": 1785995762.152209,
+    "ast_hash": "86915d8cf5543b5bb3e291d0e62b3e3b",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-desayunos-sorpresa-card.jpg": {
+    "mtime": 1785930258.0324197,
+    "ast_hash": "0e4cb84f0282b9dee0c05d7643124cd9",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-desayunos-sorpresa.jpg": {
+    "mtime": 1785930258.0330548,
+    "ast_hash": "ff5ed42e560c408414e53bee26bc1b7a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-diseno-de-cejas-con-hilo-y-henna-card.jpg": {
+    "mtime": 1785930258.033433,
+    "ast_hash": "a7c3156f5af8740bbfe6112c18f6876e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-diseno-de-cejas-con-hilo-y-henna.jpg": {
+    "mtime": 1785930258.034001,
+    "ast_hash": "bdcebb0c4bab6da95581abf24dd87098",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-dj-card.jpg": {
+    "mtime": 1785930258.0344346,
+    "ast_hash": "0446058e751cf15e7e70eef098f00f45",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-dj.jpg": {
+    "mtime": 1785930258.035028,
+    "ast_hash": "47cc310378e59d39fabf494866d8e627",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-drenaje-linfatico-card.jpg": {
+    "mtime": 1785930258.0354655,
+    "ast_hash": "11c9e7c1448eb76736dacba8c9576b4a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-drenaje-linfatico.jpg": {
+    "mtime": 1785930258.0361304,
+    "ast_hash": "b8929de5f10fae7032796c9222ea64ce",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-electricidad-residencial-certificado-card.jpg": {
+    "mtime": 1785930258.0365725,
+    "ast_hash": "21e53d6e954dc52af3351f5a8d61dfeb",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-electricidad-residencial-certificado.jpg": {
+    "mtime": 1785930258.0371828,
+    "ast_hash": "2019b2d5b0cafa62f91626bfdc7983fd",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-electricista-card.jpg": {
+    "mtime": 1785930258.037578,
+    "ast_hash": "00f6515e5232773a62b9637c1668d004",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-electricista.jpg": {
+    "mtime": 1785930258.0381565,
+    "ast_hash": "f206fff19412317049244b282c834810",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-energia-solar-card.jpg": {
+    "mtime": 1785930258.040091,
+    "ast_hash": "0f85552c9293178561fcd06e6b17c1e5",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-energia-solar.jpg": {
+    "mtime": 1785930258.0409555,
+    "ast_hash": "bf8bc3447987125fece54c251c8dc7fb",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-estetica-canina-card.jpg": {
+    "mtime": 1785930258.0414042,
+    "ast_hash": "919e474fbc0bd70b817cd5c1ae13182b",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-estetica-canina.jpg": {
+    "mtime": 1785930258.042011,
+    "ast_hash": "f32bb709346e6bb3b59787535af6436e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-excel-card.jpg": {
+    "mtime": 1785930258.042417,
+    "ast_hash": "1293d3c358644e16d20e14c19515b805",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-excel.jpg": {
+    "mtime": 1785930258.0430586,
+    "ast_hash": "2053d6d2f28127dc85bde5326d2523c7",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-extensiones-de-cabello-card.jpg": {
+    "mtime": 1785930258.0434577,
+    "ast_hash": "ccdf53753dec25844799d808a8ab516b",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-extensiones-de-cabello.jpg": {
+    "mtime": 1785930258.044034,
+    "ast_hash": "3f0b2774a956148d45c59f6785691b51",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-extensiones-de-pestanas-card.jpg": {
+    "mtime": 1785930258.0443456,
+    "ast_hash": "af91d8954c0040f0f8fd8ae5e4764193",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-extensiones-de-pestanas.jpg": {
+    "mtime": 1785930258.0448356,
+    "ast_hash": "a085c3efc03f2d5519a5a2467803e8ad",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-finanzas-para-tu-negocio-card.jpg": {
+    "mtime": 1785930258.045248,
+    "ast_hash": "e08282405b28f9d111ac682d7037b9b1",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-finanzas-para-tu-negocio.jpg": {
+    "mtime": 1785930258.0458243,
+    "ast_hash": "cd56db000ff8f25b6bd2134beef47031",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-flores-con-globos-card.jpg": {
+    "mtime": 1785995781.9256384,
+    "ast_hash": "9f63fe24c395b8990122a801b365b2cc",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-flores-con-globos.jpg": {
+    "mtime": 1785995781.8719459,
+    "ast_hash": "be07661613dbbdd02f4f47eacbbb971e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-fondant-card.jpg": {
+    "mtime": 1785930258.0462112,
+    "ast_hash": "643983b8fdbcd0cbc6f0785076a8392c",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-fondant.jpg": {
+    "mtime": 1785930258.0468376,
+    "ast_hash": "28fb134fd62d1948e4b8db23feb38297",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-fotografia-card.jpg": {
+    "mtime": 1785995802.538851,
+    "ast_hash": "ba28e12fe5cae65f68ba35ff83441f46",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-fotografia-con-celular-card.jpg": {
+    "mtime": 1785930258.0473502,
+    "ast_hash": "e88a5a88e4d6bc717a66202686eacf1a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-fotografia-con-celular.jpg": {
+    "mtime": 1785930258.0479984,
+    "ast_hash": "febdd305db68fcb6688f8595cbb653d7",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-fotografia.jpg": {
+    "mtime": 1785995802.4620678,
+    "ast_hash": "fe628a4ea89de9eeb2d625d39ccb91b2",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-frances-card.jpg": {
+    "mtime": 1785930261.663253,
+    "ast_hash": "c12196ea047b823cdbd5866d17ec9d44",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-frances.jpg": {
+    "mtime": 1785930261.6088622,
+    "ast_hash": "a2bce8b6370b854619e61d1c8c6a67e5",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-galletas-decoradas-card.jpg": {
+    "mtime": 1785930281.643834,
+    "ast_hash": "8c138661f9f596986b5f8746c757fea6",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-galletas-decoradas.jpg": {
+    "mtime": 1785930281.5806417,
+    "ast_hash": "a34f09c7075259ec64355508b4bf47ee",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-globoflexia-card.jpg": {
+    "mtime": 1785995821.3482206,
+    "ast_hash": "7bdd808f0876124a8ddbe82fdfd4a64d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-globoflexia.jpg": {
+    "mtime": 1785995821.2839038,
+    "ast_hash": "9a7ef7beaa289b0c65a7ddc18cc05ab4",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-globos-burbuja-card.jpg": {
+    "mtime": 1785995842.5726118,
+    "ast_hash": "a4d31682876218538d6c021a0983c66a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-globos-burbuja.jpg": {
+    "mtime": 1785995842.4991832,
+    "ast_hash": "a67f10a569497349eb3df26d1fa5d2d9",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-guitarra-card.jpg": {
+    "mtime": 1785930301.9912577,
+    "ast_hash": "02b8de9c50b1f9ad045516018d39a70d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-guitarra.jpg": {
+    "mtime": 1785930301.9329581,
+    "ast_hash": "4849fe4a2d4391a78a1587a8dfdd8c44",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-hamburguesas-gourmet-card.jpg": {
+    "mtime": 1785930322.0429661,
+    "ast_hash": "d38f05f3d6ff2196c508adcd669695c8",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-hamburguesas-gourmet.jpg": {
+    "mtime": 1785930321.993144,
+    "ast_hash": "99dd42bbdf355da42146aef652234a73",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-ingles-card.jpg": {
+    "mtime": 1785930379.5241427,
+    "ast_hash": "ee22b97ed29eb9acc8d16e4908be0cc3",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-ingles-para-ninos-card.jpg": {
+    "mtime": 1785930344.0458672,
+    "ast_hash": "514ae027cbdb3549aa4761750e9bb27d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-ingles-para-ninos.jpg": {
+    "mtime": 1785930343.9906175,
+    "ast_hash": "bf354fc025d8f8afdeeb30f8b65ff9a9",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-ingles.jpg": {
+    "mtime": 1785930379.4274678,
+    "ast_hash": "c2850918531d5afb14a5bfee2cead629",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-instalacion-de-camaras-de-seguridad-card.jpg": {
+    "mtime": 1785930400.8347483,
+    "ast_hash": "5455b568d48bd7be54c45400058ebcf0",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-instalacion-de-camaras-de-seguridad.jpg": {
+    "mtime": 1785930400.718193,
+    "ast_hash": "db5bdde5b9c3f6de4f96aa3aaae5103a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-instructor-de-yoga-desde-cero-card.jpg": {
+    "mtime": 1785930421.1099856,
+    "ast_hash": "dabbe7ba94f3a6584ee4a98ba87ab497",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-instructor-de-yoga-desde-cero.jpg": {
+    "mtime": 1785930421.056769,
+    "ast_hash": "1b396bc06e20db05311bbf07ff422cb5",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-jabones-artesanales-para-vender-card.jpg": {
+    "mtime": 1785930439.871849,
+    "ast_hash": "3d0bd1e30a3808a236b638a4e2b4a463",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-jabones-artesanales-para-vender.jpg": {
+    "mtime": 1785930439.8191833,
+    "ast_hash": "07944c21946650f8fe7a49c6fe52e36f",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-japones-card.jpg": {
+    "mtime": 1785930458.8322065,
+    "ast_hash": "9fff0f578a19225a0649f845b3b28b3f",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-japones.jpg": {
+    "mtime": 1785930458.7789004,
+    "ast_hash": "aebcfa1942e8680d3891ad31570ad607",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-joyeria-artesanal-card.jpg": {
+    "mtime": 1785930476.6684167,
+    "ast_hash": "b2ae114c1dceb7cc9de2313a42e55f1e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-joyeria-artesanal.jpg": {
+    "mtime": 1785930476.6125646,
+    "ast_hash": "6c2bf4b13327514930fdc26b46192114",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-lenceria-y-ropa-interior-a-medida-card.jpg": {
+    "mtime": 1785930519.6043386,
+    "ast_hash": "7ee6499066b47cd7fffcbe0357c39330",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-lenceria-y-ropa-interior-a-medida.jpg": {
+    "mtime": 1785930519.5313394,
+    "ast_hash": "5d8bae7b6d568bc478614a362d9d23b5",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-limpieza-facial-card.jpg": {
+    "mtime": 1785930544.1920807,
+    "ast_hash": "a4d52a84fcfe1d4ef2557bd5f9518ebb",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-limpieza-facial.jpg": {
+    "mtime": 1785930544.1299574,
+    "ast_hash": "8b8478cac985d6c11e8e9a85fe77a1e0",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-macrame-card.jpg": {
+    "mtime": 1785930563.3259656,
+    "ast_hash": "4ed014168fe1ca0e72b0eeb535f22bbb",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-macrame.jpg": {
+    "mtime": 1785930563.26552,
+    "ast_hash": "5363a100c9c863866dc5863f8648f033",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-maderoterapia-card.jpg": {
+    "mtime": 1785930586.0645895,
+    "ast_hash": "c3898c143ca830a1bbf337bcdb1be8ce",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-maderoterapia.jpg": {
+    "mtime": 1785930585.9993606,
+    "ast_hash": "1fd1ccd0b799219f7dc8b8a3296e2c52",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-manicure-y-pedicure-card.jpg": {
+    "mtime": 1785930606.412179,
+    "ast_hash": "719c0dadb9f7882ab45c2eaaa2f920a7",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-manicure-y-pedicure.jpg": {
+    "mtime": 1785930606.3555605,
+    "ast_hash": "c7116a71dca0f8a04e0e8c8d326ab7fa",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-maquillaje-card.jpg": {
+    "mtime": 1785995879.8692045,
+    "ast_hash": "a47ac1f83eee8b1479a3d6ee199981e6",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-maquillaje-de-fantasia-card.jpg": {
+    "mtime": 1785995862.1299262,
+    "ast_hash": "f14309fd6a7f7743c924b25a6007314e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-maquillaje-de-fantasia.jpg": {
+    "mtime": 1785995862.0452511,
+    "ast_hash": "c431fc4c7f175bc715faf01d456d2820",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-maquillaje-permanente-card.jpg": {
+    "mtime": 1785930627.0419614,
+    "ast_hash": "f5c076fd01cdd2e24b4914a343fcaef9",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-maquillaje-permanente.jpg": {
+    "mtime": 1785930626.9798105,
+    "ast_hash": "50dfedea06909b03e0907d634a49d07f",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-maquillaje-profesional-de-novias-card.jpg": {
+    "mtime": 1785930649.781607,
+    "ast_hash": "f992df7217769d3a1b4a2018842b50c0",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-maquillaje-profesional-de-novias.jpg": {
+    "mtime": 1785930649.6918871,
+    "ast_hash": "f9e1648ccd9941d7337cbf3198de9701",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-maquillaje.jpg": {
+    "mtime": 1785995879.7955093,
+    "ast_hash": "9d816926d7f4bc916c8a937a22ca818c",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-marketing-digital-card.jpg": {
+    "mtime": 1785930667.9243653,
+    "ast_hash": "90183bb9b9515480e07cc04484da4c94",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-marketing-digital.jpg": {
+    "mtime": 1785930667.862161,
+    "ast_hash": "2a2d4b50f33591a749f08af2971bc1b6",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-masaje-descontracturante-card.jpg": {
+    "mtime": 1785995900.7033095,
+    "ast_hash": "5d25ee9c567d79568cf043f0edd51716",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-masaje-descontracturante.jpg": {
+    "mtime": 1785995900.6155598,
+    "ast_hash": "7b212c444f87ecefc027a6231c58c95e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-masaje-reductor-card.jpg": {
+    "mtime": 1785995920.157637,
+    "ast_hash": "deef4de2faa8117b0612a732f86115b0",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-masaje-reductor.jpg": {
+    "mtime": 1785995920.0773852,
+    "ast_hash": "dfddfe248bf297c7fac85fb074a6e9cf",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-masajes-card.jpg": {
+    "mtime": 1785995939.124894,
+    "ast_hash": "8a59476d00cf3d0711ac9519bdb77ad3",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-masajes-terapeuticos-y-relajantes-card.jpg": {
+    "mtime": 1785930686.8881824,
+    "ast_hash": "1dc73cd21caec13f728b1eec91507ae4",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-masajes-terapeuticos-y-relajantes.jpg": {
+    "mtime": 1785930686.8227642,
+    "ast_hash": "5680ac201db57c2a07ec51cc91991173",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-masajes.jpg": {
+    "mtime": 1785995939.0312214,
+    "ast_hash": "aef371c195b24f0565a24dabd795723c",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-mecanica-de-bicicletas-card.jpg": {
+    "mtime": 1785930709.5605004,
+    "ast_hash": "b023035fb88dee81bc205078b653fa3c",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-mecanica-de-bicicletas.jpg": {
+    "mtime": 1785930709.5006542,
+    "ast_hash": "c947bc8687ef2fea2c72a825fec4160e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-mecanica-de-motos-card.jpg": {
+    "mtime": 1785930729.21555,
+    "ast_hash": "8d6c7cbe6995f8ead8614d126e25d702",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-mecanica-de-motos.jpg": {
+    "mtime": 1785930729.159948,
+    "ast_hash": "94014f5a6c313fc8dd73a50e8901583d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-microblading-card.jpg": {
+    "mtime": 1785930749.0749943,
+    "ast_hash": "677889a6112ccac6e443f0ae8c84293b",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-microblading.jpg": {
+    "mtime": 1785930749.0134778,
+    "ast_hash": "b8a962e989a245314cd9019bdeb137af",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-modisteria-card.jpg": {
+    "mtime": 1785930769.1741023,
+    "ast_hash": "f38ac275df54b787509904a6c946f381",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-modisteria.jpg": {
+    "mtime": 1785930769.1117003,
+    "ast_hash": "be9eea6ab7f28e39481e35180f8d70e6",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-molderia-y-confeccion-card.jpg": {
+    "mtime": 1785930800.3559086,
+    "ast_hash": "b4853531d6309a710148e3817d9090c5",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-molderia-y-confeccion.jpg": {
+    "mtime": 1785930800.2831385,
+    "ast_hash": "38916a9a6d1fa733d3a3fd5df839eee0",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-nutricion-practica-para-la-familia-card.jpg": {
+    "mtime": 1785930821.063729,
+    "ast_hash": "1422616c61cb2c69ef4318443847254a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-nutricion-practica-para-la-familia.jpg": {
+    "mtime": 1785930821.006556,
+    "ast_hash": "1bff6f3ecf27214ad77100fe85897c13",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-panaderia-card.jpg": {
+    "mtime": 1785930839.7713606,
+    "ast_hash": "db553e8f78770b8d53ece10641c148e5",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-panaderia.jpg": {
+    "mtime": 1785930839.7189596,
+    "ast_hash": "bd31c5b7ee6064c3e9fcdd1b78696b93",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-parrilla-y-asados-como-un-maestro-card.jpg": {
+    "mtime": 1785930879.3471444,
+    "ast_hash": "f3afb59211b022f3ef3e91e8d2af37e6",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-parrilla-y-asados-como-un-maestro.jpg": {
+    "mtime": 1785930879.2902818,
+    "ast_hash": "5b8d91eaeaa760e6446b842dacdebccd",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-pasteleria-card.jpg": {
+    "mtime": 1785930899.3938956,
+    "ast_hash": "cb9695ad1d7ee879cd05cf10f3384448",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-pasteleria.jpg": {
+    "mtime": 1785930899.339132,
+    "ast_hash": "339e175c64eaa88c0428f0c0784bb1d5",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-patronaje-profesional-de-ropa-card.jpg": {
+    "mtime": 1785930924.5689495,
+    "ast_hash": "b510b3f909f22daddb63477ce5824551",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-patronaje-profesional-de-ropa.jpg": {
+    "mtime": 1785930924.510887,
+    "ast_hash": "a092d29541cb1e825f78d3ab15f0c15f",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-peinados-card.jpg": {
+    "mtime": 1785995957.9028525,
+    "ast_hash": "599e7e07ae63d0d79640f92832abc2a9",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-peinados.jpg": {
+    "mtime": 1785995957.7960768,
+    "ast_hash": "e9724a8ed86a626d521e3c034f302d95",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-peluqueria-canina-profesional-card.jpg": {
+    "mtime": 1785930943.2123086,
+    "ast_hash": "b87ad3ce6b7a32be072ec22704601810",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-peluqueria-canina-profesional.jpg": {
+    "mtime": 1785930943.103787,
+    "ast_hash": "59ddd9235c11e99e985fb2c8777fee3b",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-peluqueria-card.jpg": {
+    "mtime": 1785995977.8312998,
+    "ast_hash": "1a38619f48aa9756313e139f5c827431",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-peluqueria.jpg": {
+    "mtime": 1785995977.7682288,
+    "ast_hash": "49a4ee49a7b724349ae27d5507f7289e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-pestanas-volumen-ruso-card.jpg": {
+    "mtime": 1785930976.2493606,
+    "ast_hash": "4f7d57f6e3ed9fb564facec1df31390d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-pestanas-volumen-ruso.jpg": {
+    "mtime": 1785930976.1855388,
+    "ast_hash": "c10d2a19811884f850c4bb85f37cc7f7",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-piano-card.jpg": {
+    "mtime": 1785930997.172939,
+    "ast_hash": "458837e2b893ad5a60a9f822c7949328",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-piano.jpg": {
+    "mtime": 1785930997.1158605,
+    "ast_hash": "e58764df9af4e2ae6d431e6afb304957",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-pizza-artesanal-card.jpg": {
+    "mtime": 1785931015.5233214,
+    "ast_hash": "5aa5ff6cdc47afb45ae4aef4c7e73efa",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-pizza-artesanal.jpg": {
+    "mtime": 1785931015.4223852,
+    "ast_hash": "ccb88d1c05d95fb7e6329cfaffdc4148",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-pollo-broaster-card.jpg": {
+    "mtime": 1785931037.9976141,
+    "ast_hash": "a9d973c314a4633bb6bb6581f7d5370d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-pollo-broaster.jpg": {
+    "mtime": 1785931037.9415066,
+    "ast_hash": "b8d9895a0d8c69ce14890fb978a34495",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-porcelana-fria-card.jpg": {
+    "mtime": 1785931058.5031397,
+    "ast_hash": "09a9fc0038dfdfb7c58f927d0769eb6b",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-porcelana-fria.jpg": {
+    "mtime": 1785931058.4516325,
+    "ast_hash": "12ba3223375cb5a18f4e3a1c0822b9d3",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-portugues-card.jpg": {
+    "mtime": 1785931078.3300102,
+    "ast_hash": "6b450a1df914f062cd654a793d69ed0f",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-portugues.jpg": {
+    "mtime": 1785931078.2688599,
+    "ast_hash": "75e80c2ebf5ed58f7814a55e2aa64d2a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-primeros-auxilios-card.jpg": {
+    "mtime": 1785931116.412369,
+    "ast_hash": "e36bf3be315f918e049dfc819318c3d0",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-primeros-auxilios-para-mascotas-card.jpg": {
+    "mtime": 1785931097.4683824,
+    "ast_hash": "e04d1e821be77100c9f8412b6b6cc83f",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-primeros-auxilios-para-mascotas.jpg": {
+    "mtime": 1785931097.412659,
+    "ast_hash": "b3338aa6b04c09489d28bc465cb2c6fd",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-primeros-auxilios.jpg": {
+    "mtime": 1785931116.3502293,
+    "ast_hash": "87dfc7ee5126417e762c84f8b84577f9",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-remodelacion-de-banos-y-cocinas-card.jpg": {
+    "mtime": 1785931134.828079,
+    "ast_hash": "4d04e3c2c193097a5a720b0ec49f5e63",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-remodelacion-de-banos-y-cocinas.jpg": {
+    "mtime": 1785931134.7711914,
+    "ast_hash": "6a430b3598ca236846580d889e17cb45",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-reparacion-de-celulares-card.jpg": {
+    "mtime": 1785931155.324889,
+    "ast_hash": "a16088936c93846168e4d19eb173572f",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-reparacion-de-celulares.jpg": {
+    "mtime": 1785931155.256679,
+    "ast_hash": "4b5b8c0d8820531994587c7fc5f6398e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-reparacion-de-computadoras-card.jpg": {
+    "mtime": 1785931173.5314224,
+    "ast_hash": "bebc8394b67df52d3875ebae546363e0",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-reparacion-de-computadoras.jpg": {
+    "mtime": 1785931173.466956,
+    "ast_hash": "12806297aecd3e40a01c59bc4ab4d462",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-reparacion-de-lavadoras-card.jpg": {
+    "mtime": 1785931193.0158353,
+    "ast_hash": "3548666fad878849c1666e6a35ba626d",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-reparacion-de-lavadoras.jpg": {
+    "mtime": 1785931192.9630141,
+    "ast_hash": "5b5e7c3d1a1ae083af35defcf46c8678",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-reposteria-card.jpg": {
+    "mtime": 1785931212.3030348,
+    "ast_hash": "7605d5fc0ac3c8ac11aa9a8e553a16f4",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-reposteria-para-mascotas-card.jpg": {
+    "mtime": 1785931236.623175,
+    "ast_hash": "75cfd301542eae4ca10e0b139e454735",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-reposteria-para-mascotas.jpg": {
+    "mtime": 1785931236.5728037,
+    "ast_hash": "f8eaefe10392efcd08eeba2299c3a40a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-reposteria.jpg": {
+    "mtime": 1785931212.245338,
+    "ast_hash": "496c5e6573e3a062bdc5f834a677d4aa",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-resina-epoxica-card.jpg": {
+    "mtime": 1785931253.9324877,
+    "ast_hash": "44161a2825c5eccf40d5186b531fbcae",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-resina-epoxica.jpg": {
+    "mtime": 1785931253.8747368,
+    "ast_hash": "ec424722f9541e4ba18759a72fe56987",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-serigrafia-card.jpg": {
+    "mtime": 1785931272.052371,
+    "ast_hash": "b69ff0457baba7b7bb97b04582e9aab8",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-serigrafia.jpg": {
+    "mtime": 1785931272.00182,
+    "ast_hash": "d961d7d60235c66483f95b91a6bb9d2a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-soldadura-card.jpg": {
+    "mtime": 1785931293.5457072,
+    "ast_hash": "253ee37b7380d288ca4e4bbabd7cb31f",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-soldadura.jpg": {
+    "mtime": 1785931293.4962976,
+    "ast_hash": "7c9d3d51cbb4118bf2db722a76357685",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-sublimacion-card.jpg": {
+    "mtime": 1785931311.2624736,
+    "ast_hash": "3a7e398582e95bb23447acce9f8e43c8",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-sublimacion.jpg": {
+    "mtime": 1785931311.2095437,
+    "ast_hash": "46a76280b800332223df7833c838924a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-sushi-card.jpg": {
+    "mtime": 1785931330.392891,
+    "ast_hash": "2662e5575a3f06a9899211e1b2925b56",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-sushi.jpg": {
+    "mtime": 1785931330.339287,
+    "ast_hash": "a9cd1461c0dfd7dabdd5a92d35699253",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-tatuaje-card.jpg": {
+    "mtime": 1785931350.4444575,
+    "ast_hash": "d4c8f42e22ed5e4eb9ddd1eae7d37877",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-tatuaje.jpg": {
+    "mtime": 1785931350.3970368,
+    "ast_hash": "b1a205d2dd6e991d0725441925f02f5f",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-tortas-decoradas-desde-cero-card.jpg": {
+    "mtime": 1785931369.73427,
+    "ast_hash": "190ec039d8e3611c54336146402a6784",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-tortas-decoradas-desde-cero.jpg": {
+    "mtime": 1785931369.6794837,
+    "ast_hash": "fc8b96b3299008d732ea53bbb9ce4240",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-trenzas-y-peinados-card.jpg": {
+    "mtime": 1785931390.3565187,
+    "ast_hash": "fad9c9e398784a9752d6319bc13a9b87",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-trenzas-y-peinados.jpg": {
+    "mtime": 1785931390.2994668,
+    "ast_hash": "e0fbc353498b6806af4a3976b776e27a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-unas-acrilicas-card.jpg": {
+    "mtime": 1785931408.3034887,
+    "ast_hash": "260fa3da8ae1fc5c0e26f8727ab0c1ab",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-unas-acrilicas.jpg": {
+    "mtime": 1785931408.2494764,
+    "ast_hash": "040907861357ec9855fe101132fa7ab6",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-unas-card.jpg": {
+    "mtime": 1785931427.510057,
+    "ast_hash": "a8ffa3876a4d56e97df9488419fcc31f",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-unas.jpg": {
+    "mtime": 1785931427.451457,
+    "ast_hash": "6e241190c90e358d1edf0869f9894d32",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-velas-artesanales-y-aromaticas-card.jpg": {
+    "mtime": 1785931444.6532626,
+    "ast_hash": "14d27d51a95d26bb8a4d12be93a6d772",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-velas-artesanales-y-aromaticas.jpg": {
+    "mtime": 1785931444.5984426,
+    "ast_hash": "f40eb5e4e03abcb1b99ecf998fb9ea0e",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-ventas-por-whatsapp-y-redes-card.jpg": {
+    "mtime": 1785931463.3856173,
+    "ast_hash": "527b18e00314b358000a0e9cada0167f",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-ventas-por-whatsapp-y-redes.jpg": {
+    "mtime": 1785931463.3283348,
+    "ast_hash": "d076ee11c5e7a07bdce51af4de59023a",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-wedding-planner-y-eventos-card.jpg": {
+    "mtime": 1785931481.316468,
+    "ast_hash": "8192d9f3b3bd5f8fe2924b20187fcc75",
+    "semantic_hash": ""
+  },
+  "public/covers/cursos/curso-de-wedding-planner-y-eventos.jpg": {
+    "mtime": 1785931481.2574222,
+    "ast_hash": "fb80c0438bba601c4453fb8dee1d3c5d",
+    "semantic_hash": ""
+  },
+  "public/heroes/ar.webp": {
+    "mtime": 1785987310.142435,
+    "ast_hash": "24500c49c02bf3cc89fac77ae8bd14bf",
+    "semantic_hash": ""
+  },
+  "public/heroes/cl.webp": {
+    "mtime": 1785991883.2233157,
+    "ast_hash": "63f06cb04847e2aa32141e4cd4cc3e4a",
+    "semantic_hash": ""
+  },
+  "public/heroes/co.webp": {
+    "mtime": 1785991885.0567505,
+    "ast_hash": "efdf745ce858b05a86e7c4f12d846fd9",
+    "semantic_hash": ""
+  },
+  "public/heroes/ec.webp": {
+    "mtime": 1785987316.093026,
+    "ast_hash": "65ee6ca3fac9d9a2537b8fca3729c55d",
+    "semantic_hash": ""
+  },
+  "public/heroes/es.webp": {
+    "mtime": 1785991886.7527192,
+    "ast_hash": "38bbd20327abe7b3152376ef717c0fa6",
+    "semantic_hash": ""
+  },
+  "public/heroes/mx.webp": {
+    "mtime": 1785991888.8849456,
+    "ast_hash": "3e5a9327e7099cde1f40f919855eb4f1",
+    "semantic_hash": ""
+  },
+  "public/heroes/pe.webp": {
+    "mtime": 1785991891.3773437,
+    "ast_hash": "d04d0f2e04190678a065ff81b6849780",
+    "semantic_hash": ""
+  },
+  "public/heroes/us.webp": {
+    "mtime": 1785991893.0956287,
+    "ast_hash": "9cb4676fb1492b448ae5ecc58a63a543",
     "semantic_hash": ""
   }
 }
