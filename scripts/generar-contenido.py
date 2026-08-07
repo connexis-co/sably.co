@@ -69,7 +69,15 @@ REGLAS ESTRICTAS:
 - La keyword principal aparece en el primer párrafo y máximo 3 veces por cada 500 palabras.
 - Datos concretos cuando el contexto los traiga; si no hay dato, no lo inventes — omite la afirmación.
 - Varía la estructura entre secciones: no siempre párrafo-lista-párrafo.
-- El ángulo narrativo indicado gobierna el enfoque de toda la página."""
+- El ángulo narrativo indicado gobierna el enfoque de toda la página.
+- La página YA muestra, fuera de tu texto, el temario módulo a módulo, la ficha
+  del instructor, el precio con su descuento y el bloque de certificado y
+  garantía. NO los repitas: ni listes los módulos, ni abras una sección de
+  precio, cupón, instructor o certificado. Escribe lo que esas cajas no dicen.
+- Los encabezados deben ser específicos de ESTE curso y ESTE país. Nada de
+  títulos intercambiables tipo "¿Qué aprenderás?" o "Beneficios del curso".
+- El h1 tiene que contener la keyword principal tal cual se te indica.
+- En texto plano (h1, subtítulo, FAQs, listas) no uses markdown: se pinta literal."""
 
 ESQUEMA_CREATIVO = {
     'type': 'OBJECT',

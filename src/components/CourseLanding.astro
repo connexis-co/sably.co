@@ -37,6 +37,10 @@ const { Content } = await render(course);
    contenido genérico del MDX. Opcional por diseño: el build nunca depende
    del lote completo. */
 const locale = (await getEntry('courseLocales', `${course.id}--${country.code}`)) ?? null;
+/* renderMarkdown baja los encabezados un nivel para que cuelguen del h2 de la
+   sección, de ahí que el tamaño de prosa se defina sobre h3 y h4. Las listas
+   numeradas llevan su propio marcador porque el list-disc de los elementos
+   alcanzaba también a los de las listas ordenadas. */
 const localeHtml = locale ? renderMarkdown(locale.data.descripcion) : null;
 const learnings = locale?.data.beneficios ?? course.data.learnings;
 const audience = locale?.data.para_quien ?? course.data.audience;
@@ -381,7 +385,7 @@ const schemas = [
       <!-- Sobre el curso: variante país generada, o el MDX genérico si no hay -->
       <section aria-label="Sobre este curso">
         <h2 class="text-2xl font-bold">Sobre este curso</h2>
-        <div class="mt-4 space-y-4 text-[15px] leading-relaxed text-body [&_h2]:mt-8 [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-primary [&_h3]:mt-6 [&_h3]:text-lg [&_h3]:font-bold [&_h3]:text-primary [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-heading [&_ul]:space-y-1.5">
+        <div class="mt-4 space-y-4 text-[15px] leading-relaxed text-body [&_h3]:mt-8 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-primary [&_h4]:mt-6 [&_h4]:text-lg [&_h4]:font-bold [&_h4]:text-primary [&_li]:ml-5 [&_ol>li]:list-decimal [&_ol]:space-y-1.5 [&_strong]:text-heading [&_ul>li]:list-disc [&_ul]:space-y-1.5">
           {localeHtml ? <Fragment set:html={localeHtml} /> : <Content />}
         </div>
       </section>

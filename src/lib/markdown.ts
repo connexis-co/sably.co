@@ -103,16 +103,19 @@ export function renderMarkdown(md: string): string {
       continue;
     }
 
+    // Los encabezados bajan un nivel: este HTML se inyecta dentro de una
+    // sección cuyo propio título ya es un <h2>, así que un ## del markdown
+    // salía como hermano y no como hijo, dejando la sección vacía de
+    // jerarquía. El h1 lo pone la página, de ahí que # también baje.
     if (linea.startsWith('### ')) {
       cerrar();
-      out.push(`<h3>${inline(linea.slice(4))}</h3>`);
+      out.push(`<h4>${inline(linea.slice(4))}</h4>`);
     } else if (linea.startsWith('## ')) {
       cerrar();
-      out.push(`<h2>${inline(linea.slice(3))}</h2>`);
+      out.push(`<h3>${inline(linea.slice(3))}</h3>`);
     } else if (linea.startsWith('# ')) {
-      // El H1 lo pone la página; degradar en vez de duplicarlo.
       cerrar();
-      out.push(`<h2>${inline(linea.slice(2))}</h2>`);
+      out.push(`<h3>${inline(linea.slice(2))}</h3>`);
     } else if (/^[-*] /.test(linea)) {
       if (numerada.length) cerrar();
       vinetas.push(inline(linea.slice(2)));
