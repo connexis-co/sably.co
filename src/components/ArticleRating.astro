@@ -3,17 +3,16 @@
  * Valoración del artículo con estrellas.
  *
  * El voto se guarda en localStorage (sin backend en Fase 1) y se reporta a GA4.
- * El promedio mostrado y el schema usan la semilla determinística del post, de
- * modo que el AggregateRating del JSON-LD y lo que ve el usuario siempre
- * coinciden — nunca se inventa un número distinto al marcado.
+ *
+ * No se muestra promedio: el que había salía de un hash del slug, o sea votos
+ * que nadie emitió, y alimentaba un AggregateRating en el JSON-LD que Search
+ * Console rechazaba. Cuando el backend agregue los votos de verdad, aquí
+ * vuelve el promedio real.
  */
 interface Props {
   slug: string;
-  rating: number;
-  count: number;
 }
-const { slug, rating, count } = Astro.props;
-const rounded = Math.round(rating);
+const { slug } = Astro.props;
 ---
 
 <section
@@ -34,15 +33,12 @@ const rounded = Math.round(rating);
           aria-label={`${n} ${n === 1 ? 'estrella' : 'estrellas'}`}
           class="rounded p-1 text-2xl leading-none transition-transform duration-150 hover:scale-110"
         >
-          <span data-star-icon class={n <= rounded ? 'text-warning' : 'text-surface-300'}>★</span>
+          <span data-star-icon class="text-surface-300">★</span>
         </button>
       ))
     }
   </div>
 
-  <p class="mt-3 text-sm text-muted">
-    <strong class="text-heading">{rating.toFixed(1)}</strong> de 5 · {count} valoraciones
-  </p>
   <p data-rating-thanks class="mt-2 hidden text-sm font-semibold text-success">¡Gracias por tu valoración! 🎉</p>
 </section>
 

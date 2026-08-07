@@ -22,16 +22,6 @@ export interface TocItem {
   slug: string;
 }
 
-/** Valoración determinística por post: el mismo número en la UI y en el JSON-LD. */
-export function articleRating(slug: string): { rating: number; count: number } {
-  let h = 0;
-  for (const ch of slug) h = (h * 31 + ch.charCodeAt(0)) % 100_000;
-  return {
-    rating: Math.round((4.4 + (h % 6) / 10) * 10) / 10,
-    count: 18 + (h % 120),
-  };
-}
-
 /** Categorías editoriales presentes en el blog, con su conteo. */
 export function blogFacets(posts: { data: { category?: string } }[]): { name: string; count: number }[] {
   const map = new Map<string, number>();
