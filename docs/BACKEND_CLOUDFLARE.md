@@ -1,32 +1,34 @@
 # Backend de datos dinámicos sobre Cloudflare
 
-> Estado a 2026-08-07. Base D1 `sably-pulso` creada y con esquema aplicado,
-> API en Pages Functions escrita. Falta desplegar y cablear el frontend.
+> Estado a 2026-08-07. **Desplegado y probado en producción.** Base D1
+> `sably-pulso`, API en `/api/v1`, panel en `/admin`. Falta crear la aplicación
+> de Cloudflare Access y cablear el frontend.
 
 ---
 
-## Antes que nada: **no hay login, y es a propósito**
+## El panel: `sably.co/admin`
 
-Pediste saber "cómo loguearme". La respuesta honesta es que **este backend no
-tiene pantalla de acceso**, y conviene explicar por qué antes de que te lo
-encuentres.
+Hay panel con cinco secciones —resumen, moderación, leads, contenido y
+despliegue— y se entra con **Cloudflare Access**, no con una contraseña propia.
 
-Un login implica usuarios, contraseñas, sesiones, recuperación de cuenta y
-segundo factor. Todo eso es superficie que hay que mantener y que se puede
-comprometer, y aquí sobra: el sistema solo lo usa una persona (tú) para una
-única acción (aprobar o rechazar). Para eso hay dos mecanismos sin contraseña:
+La diferencia importa: Access ya resuelve identidad, caducidad de sesión y
+revocación, es gratis hasta 50 usuarios y admite Google, GitHub o un código de
+un solo uso por correo. Montar usuarios, contraseñas, recuperación y segundo
+factor sería superficie que mantener y que se puede comprometer, para un
+sistema que usa una persona.
 
-| Qué necesitas hacer | Cómo entras |
-|---|---|
-| Aprobar o rechazar un comentario | Enlace firmado que llega a tu correo |
-| Ver la cola de moderación | El mismo enlace, o la consola de D1 |
-| Consultar leads | Consola de Cloudflare → D1 → Console |
-| Ejecutar SQL puntual | `wrangler d1 execute sably-pulso --remote --command "…"` |
+Al origen llega un JWT firmado en la cabecera `Cf-Access-Jwt-Assertion` con el
+correo de quien entró, y eso es lo que se guarda en `moderation_log`: **la
+auditoría sale sin escribir una línea de código de sesiones**.
 
-**El enlace firmado** lleva un HMAC con caducidad. Quien no tenga la clave no
-puede fabricarlo, y si el correo se filtra el enlace caduca. Es el mismo patrón
-de "magic link" que usan Notion o Slack para invitar, sin la parte de crear
-cuenta.
+La firma se verifica contra el JWKS del equipo. No es opcional: la cabecera es
+texto que cualquiera puede enviar si llega al origen saltándose Access, así que
+sin verificarla el panel estaría abierto a quien conozca la URL.
+
+### Sin subdominio
+
+Access protege una ruta igual de bien que un host, y `/admin` evita otro
+proyecto de Pages, otro certificado y otra entrada de DNS.
 
 > ⚠️ Un detalle que el diseño marcó como trampa: **el enlace del correo abre una
 > página de confirmación, no ejecuta el cambio**. Los clientes de correo hacen
@@ -159,18 +161,57 @@ cumplimiento no depende de que alguien se acuerde.
 | Paso | Estado |
 |---|---|
 | Base D1 creada y migrada | ✅ hecho |
-| Endpoints escritos | ✅ hecho |
-| Binding D1 en `wrangler.toml` | ✅ hecho |
-| Secretos en Cloudflare (`TURNSTILE_SECRET`, `SNAPSHOT_TOKEN`, `IP_SALT`) | ⏳ **te toca** |
-| Clave de sitio de Turnstile | ⏳ **te toca**, se crea en el panel |
-| Cablear `ArticleRating` y `LeadModal` a la API | ⏳ pendiente |
+| 7 endpoints de API | ✅ desplegados y probados en producción |
+| Panel de 5 secciones | ✅ desplegado, rechaza sin autenticar |
+| Binding D1 en el proyecto de Pages | ✅ producción y preview |
+| `IP_SALT` y `CF_ACCESS_TEAM_DOMAIN` | ✅ configuradas |
+| Deploy hook para el botón de reconstruir | ✅ creado |
+| **Aplicación de Cloudflare Access** | ⏳ **te toca**: el token no tiene ese permiso |
+| `CF_ACCESS_AUD` (sale al crear la app) | ⏳ **te toca** |
+| `TURNSTILE_SECRET` y clave de sitio | ⏳ **te toca** |
+| `DEPLOY_HOOK_URL` con la URL del hook | ⏳ **te toca** |
+| Cablear `ArticleRating` y `LeadModal` | ⏳ pendiente |
 | Formulario de comentarios | ⏳ pendiente |
 | Snapshot y horneado en el build | ⏳ pendiente |
 | Webhook de Hotmart y reseñas | ⏳ pendiente de verificar el webhook |
 
+### Lo que se verificó en producción
+
+```
+POST /api/v1/votos    → {"ok":true,"votes":1,"avg":5}     el voto entra en D1
+GET  /api/v1/pulso    → {"votes":1,"avg":5,...}           se lee de vuelta
+POST con slug falso   → FOREIGN KEY constraint failed     la lista blanca funciona
+POST con dwell 400ms  → {"error":"voto demasiado rápido"} el CHECK funciona
+GET  /admin           → 401 No autorizado                 rechaza sin Access
+GET  /api/v1/snapshot → 401 no autorizado                 rechaza sin token
+```
+
+### Para terminar la configuración
+
+1. **Zero Trust → Access → Applications → Add**: aplicación *self-hosted*,
+   dominio `sably.co`, ruta `/admin`. Política *Allow* con tu correo.
+   El equipo ya existe: `cafeteriaweb-pages.cloudflareaccess.com`.
+2. Copia el **Application Audience (AUD)** que aparece al crearla.
+3. En **Pages → sably → Settings → Variables**, añade `CF_ACCESS_AUD` con ese
+   valor y `DEPLOY_HOOK_URL` con la URL del deploy hook.
+4. **Turnstile → Add site** para `sably.co`, y guarda el secreto como
+   `TURNSTILE_SECRET`.
+
+### Dos hallazgos del despliegue
+
+**El adaptador de Astro no sirve hoy.** Se probó: `@astrojs/cloudflare` 14.2.0
+importa `beginContentEntryCollection`, que Astro 7.1.6 ya no exporta, y 14.1.7
+no genera salida. El panel va en Pages Functions, que además no tocan el build
+estático de las 5.918 páginas.
+
+**`trailingSlash: 'always'` interceptaba la API.** El handler estático
+respondía con el `404.html` a `/api/v1/pulso` antes de que la Function lo
+viera; solo funcionaba con la barra final. Se resuelve con `public/_routes.json`
+mandando `/api/*` y `/admin*` a las Functions.
+
 ### Lo que se decidió NO construir ahora
 
-- **Login y panel de administración**: lo cubre Filament en la Fase 2.
+- **Gestión de usuarios**: Access la resuelve, y Filament la cubrirá en Fase 2.
 - **Respuestas anidadas de más de un nivel**: complica la moderación sin aportar.
 - **Notificaciones por comentario nuevo**: el correo de moderación ya avisa.
 - **Búsqueda dentro de comentarios**: con este volumen no hace falta.
