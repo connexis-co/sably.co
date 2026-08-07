@@ -150,6 +150,20 @@ def costo(modelo: str, usage: dict) -> float:
 
 def validar(contenido: dict, keyword: str, cuerpo_existente: str) -> list[str]:
     fallos = []
+    desc_cruda = contenido['descripcion']
+    # El modelo devuelve el markdown de dos formas incompatibles: con saltos
+    # reales o con la secuencia barra-n escapada como texto. La segunda pinta
+    # la landing entera como un párrafo con los ### a la vista — pasó en
+    # producción, así que se valida en origen y no solo al renderizar.
+    if '\\n' in desc_cruda or '\\r' in desc_cruda:
+        fallos.append('saltos de línea escapados como texto')
+    if '\n' not in desc_cruda:
+        fallos.append('descripción sin saltos de línea: saldría como un solo párrafo')
+    if re.search(r'</?(strong|em|p|br|ul|li|h[123])\b', desc_cruda, re.I):
+        fallos.append('HTML literal en vez de markdown')
+    for campo in ('h1', 'subtitulo', 'meta_title', 'meta_description'):
+        if '**' in str(contenido.get(campo, '')) or '#' in str(contenido.get(campo, '')):
+            fallos.append(f'markdown en {campo}, que se pinta como texto plano')
     t, d = contenido['meta_title'], contenido['meta_description']
     if not 45 <= len(t) <= 65:
         fallos.append(f'meta_title {len(t)} chars (objetivo 50-60)')
