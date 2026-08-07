@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
-import { blogCover, readingTime, blogFacets, articleRating } from '@/lib/blog';
+import { blogCover, readingTime, blogFacets } from '@/lib/blog';
 
 const country = getCountry(DEFAULT_COUNTRY);
 const posts = (await getCollection('blog')).sort(
@@ -99,7 +99,7 @@ const description =
                 <p class="mt-3 line-clamp-3 text-body">{featured.data.description}</p>
                 <p class="mt-4 text-sm text-muted">
                   {featured.data.publishedAt.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}
-                  · {readingTime(featured.body ?? '')} min de lectura · ⭐ {articleRating(featured.id).rating.toFixed(1)}
+                  · {readingTime(featured.body ?? '')} min de lectura
                 </p>
               </div>
             </a>
@@ -132,7 +132,7 @@ const description =
                   <p class="mt-2 line-clamp-3 text-sm text-body">{post.data.description}</p>
                   <p class="mt-auto pt-4 text-xs text-muted">
                     {post.data.publishedAt.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', year: 'numeric' })}
-                    · {readingTime(post.body ?? '')} min · ⭐ {articleRating(post.id).rating.toFixed(1)}
+                    · {readingTime(post.body ?? '')} min
                   </p>
                 </div>
               </a>
