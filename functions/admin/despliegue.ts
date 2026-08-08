@@ -1,12 +1,31 @@
 /** GET/POST /admin/despliegue — reconstruye el sitio bajo demanda. */
 import { type Env, fecha, irA, moderadorDe, noAutorizado, pagina, e } from './_ui';
 
+/**
+ * Dispara el workflow de GitHub Actions, no un deploy hook de Pages.
+ *
+ * El proyecto de Pages no tiene integración con Git —despliega con wrangler
+ * desde Actions—, así que un deploy hook no tiene nada que construir y
+ * responde 500. Además el build necesita los secretos y los scripts que viven
+ * en el repositorio, o sea que Actions es donde tiene que ocurrir.
+ */
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const mod = await moderadorDe(request, env);
   if (!mod) return noAutorizado();
-  if (!env.DEPLOY_HOOK_URL) return irA('/admin/despliegue?r=sin-hook');
+  if (!env.GITHUB_TOKEN) return irA('/admin/despliegue?r=sin-hook');
 
-  const r = await fetch(env.DEPLOY_HOOK_URL, { method: 'POST' });
+  const r = await fetch(
+    'https://api.github.com/repos/connexis-co/sably.co/actions/workflows/deploy-production.yml/dispatches',
+    {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${env.GITHUB_TOKEN}`,
+        accept: 'application/vnd.github+json',
+        'user-agent': 'sably-admin',
+      },
+      body: JSON.stringify({ ref: 'main' }),
+    },
+  );
   if (r.ok) {
     await env.DB.prepare(
       `INSERT INTO moderation_log (id,entity,entity_id,to_status,moderator,reason)
@@ -22,9 +41,9 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
 
   const r = new URL(request.url).searchParams.get('r');
   const avisos: Record<string, string> = {
-    ok: 'Despliegue lanzado. Reconstruir las 5.918 páginas tarda unos minutos.',
-    fallo: 'El hook respondió con error. Revisa la URL en las variables del proyecto.',
-    'sin-hook': 'No hay DEPLOY_HOOK_URL configurado, así que no se lanzó nada.',
+    ok: 'Despliegue lanzado en GitHub Actions. Reconstruir las 5.918 páginas tarda unos minutos.',
+    fallo: 'GitHub rechazó la petición. Comprueba que el token siga vigente y con permiso sobre Actions.',
+    'sin-hook': 'No hay GITHUB_TOKEN configurado, así que no se lanzó nada.',
   };
 
   const { results } = await env.DB.prepare(
@@ -56,6 +75,8 @@ ${sinPublicar > 0 ? `<div class="aviso">Hay <b>${sinPublicar}</b> ${sinPublicar 
 </form>
 <h2>Despliegues lanzados desde el panel</h2>
 ${historial}
-<p class="nota">Los despliegues automáticos por <code>git push</code> a <code>main</code> no
-aparecen aquí: solo se registran los que se lanzan desde este botón.</p>`);
+<p class="nota">Se dispara el workflow <code>deploy-production.yml</code> de GitHub Actions: el
+proyecto de Pages no tiene integración con Git y el build necesita los scripts y secretos del
+repositorio. Los despliegues por <code>git push</code> no aparecen en esta lista, solo los
+lanzados desde aquí.</p>`);
 };

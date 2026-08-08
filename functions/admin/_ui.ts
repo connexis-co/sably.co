@@ -12,7 +12,7 @@ export interface Env {
   DB: D1Database;
   CF_ACCESS_TEAM_DOMAIN?: string;
   CF_ACCESS_AUD?: string;
-  DEPLOY_HOOK_URL?: string;
+  GITHUB_TOKEN?: string;
 }
 
 let jwks: ReturnType<typeof createRemoteJWKSet> | null = null;
