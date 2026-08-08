@@ -5,7 +5,7 @@ import CourseCard from '@/components/CourseCard.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import { COUNTRIES, getCountry } from '@/lib/countries';
 import { INTERNAL_CATEGORIES } from '@/lib/categories';
-import { countryAlternates, breadcrumbSchema } from '@/lib/seo';
+import { countryAlternates, breadcrumbSchema, itemListSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 
 export function getStaticPaths() {
@@ -29,6 +29,11 @@ const schemas = [
     { name: 'Inicio', url: `${SITE.url}${base}/` },
     { name: 'Cursos', url: `${SITE.url}${base}/cursos/` },
   ]),
+  // Marca la página como listado: habilita los enlaces de sitio bajo el
+  // resultado en vez de un único enlace azul.
+  itemListSchema(
+    byCategory.map((g) => ({ name: g.cat.name, url: `${SITE.url}${base}/cursos/${g.cat.slug}/` })),
+  ),
 ];
 ---
 

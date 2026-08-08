@@ -7,8 +7,9 @@ import TestimonialCard from '@/components/TestimonialCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import PromoBanner from '@/components/PromoBanner.astro';
 import type { Country, City } from '@/lib/countries';
+import { localPrice } from '@/lib/countries';
 import { INTERNAL_CATEGORIES } from '@/lib/categories';
-import { breadcrumbSchema, faqSchema } from '@/lib/seo';
+import { breadcrumbSchema, faqSchema, courseListSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 
 /** Landing de ciudad — extraída a componente para la ruta unificada [item]. */
@@ -62,6 +63,18 @@ const schemas = [
     { name: city.name, url: `${SITE.url}${base}/${city.slug}/` },
   ]),
   faqSchema(faqs),
+  // Los mismos cursos que se listan arriba, en el formato de listado que Google
+  // puede convertir en carrusel.
+  courseListSchema(
+    popular.map((c) => ({
+      name: c.data.title,
+      url: `${SITE.url}${base}/${city.slug}/${c.id}/`,
+      description: c.data.shortDescription,
+      price: localPrice(c.data.priceUSD, country),
+      priceCurrency: country.currency,
+      workloadHours: c.data.durationHours,
+    })),
+  ),
 ];
 ---
 

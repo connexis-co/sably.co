@@ -9,7 +9,7 @@ import PromoBanner from '@/components/PromoBanner.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import { COUNTRIES, getCountry } from '@/lib/countries';
 import { CATEGORIES } from '@/lib/categories';
-import { countryAlternates, faqSchema } from '@/lib/seo';
+import { countryAlternates, faqSchema, websiteSchema } from '@/lib/seo';
 import { SITE, CDN_URL } from '@/lib/site';
 import { HERO_ASSETS } from '@/lib/hero-assets';
 
@@ -66,7 +66,7 @@ const description = `Aprende panadería, costura, electricidad, gastronomía y m
   {country}
   pathAfterCountry="/"
   alternates={countryAlternates('/')}
-  schemas={[faqSchema(faqs)]}
+  schemas={[faqSchema(faqs), websiteSchema(country.code)]}
   pageType="home"
 >
   <!-- Hero -->
