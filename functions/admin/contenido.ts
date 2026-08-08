@@ -5,11 +5,11 @@
  * propias vistas, no de las content collections: una Pages Function no tiene
  * acceso al repositorio.
  */
-import { type Env, e, moderadorDe, noAutorizado, pagina } from './_ui';
+import { type Env, e, noAutorizado, sesion, pagina } from './_ui';
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
-  const mod = await moderadorDe(request, env);
-  if (!mod) return noAutorizado();
+  const { email: mod, motivo } = await sesion(request, env);
+  if (!mod) return noAutorizado(motivo);
 
   const lote = await env.DB.batch<{ n: number }>([
     env.DB.prepare("SELECT COUNT(*) AS n FROM subject WHERE kind='course' AND is_active=1"),

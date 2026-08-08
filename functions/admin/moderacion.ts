@@ -1,5 +1,5 @@
 /** GET/POST /admin/moderacion — cola y decisiones. */
-import { type Env, e, fecha, irA, moderadorDe, noAutorizado, pagina } from './_ui';
+import { type Env, e, fecha, irA, noAutorizado, sesion, pagina } from './_ui';
 
 /**
  * Cambia el estado y escribe la auditoría en el mismo batch.
@@ -29,8 +29,8 @@ async function moderar(
  * con que Gmail precargara el aviso.
  */
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  const mod = await moderadorDe(request, env);
-  if (!mod) return noAutorizado();
+  const { email: mod, motivo } = await sesion(request, env);
+  if (!mod) return noAutorizado(motivo);
   const f = await request.formData();
   const id = String(f.get('id') ?? '');
   const entidad = String(f.get('entidad') ?? '');
@@ -43,8 +43,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 };
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
-  const mod = await moderadorDe(request, env);
-  if (!mod) return noAutorizado();
+  const { email: mod, motivo } = await sesion(request, env);
+  if (!mod) return noAutorizado(motivo);
 
   const { results } = await env.DB.prepare(
     `SELECT entity,id,subject_id,author_name,body,spam_score,created_at

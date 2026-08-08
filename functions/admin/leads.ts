@@ -1,9 +1,9 @@
 /** GET /admin/leads — listado, filtro por país y exportación CSV. */
-import { type Env, e, fecha, moderadorDe, noAutorizado, pagina } from './_ui';
+import { type Env, e, fecha, noAutorizado, sesion, pagina } from './_ui';
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
-  const mod = await moderadorDe(request, env);
-  if (!mod) return noAutorizado();
+  const { email: mod, motivo } = await sesion(request, env);
+  if (!mod) return noAutorizado(motivo);
 
   const url = new URL(request.url);
   const pais = url.searchParams.get('pais') ?? '';
