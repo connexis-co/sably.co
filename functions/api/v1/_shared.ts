@@ -9,6 +9,10 @@ export interface Env {
   TURNSTILE_SECRET?: string;
   SNAPSHOT_TOKEN?: string;
   IP_SALT?: string;
+  /** Aviso por correo de los leads. Sin estas tres, el lead se guarda igual. */
+  RESEND_API_KEY?: string;
+  NOTIFY_EMAIL?: string;
+  NOTIFY_FROM?: string;
 }
 
 export const json = (data: unknown, status = 200): Response =>
@@ -45,16 +49,20 @@ export function ulid(): string {
 }
 
 /**
- * Verifica el token de Turnstile. Si no hay secreto configurado devuelve
- * false en lugar de true: un despliegue sin configurar debe rechazar envíos,
- * no aceptarlos todos.
+ * Verifica el token de Turnstile contra Cloudflare.
+ *
+ * Devuelve null cuando no hay secreto configurado, que es distinto de false:
+ * `false` es «lo comprobé y no pasó», `null` es «no había con qué comprobar».
+ * Quien llama decide, y así un despliegue a medias no queda ni abierto de par
+ * en par ni rechazando a todo el mundo en silencio.
  */
 export async function verificarTurnstile(
   token: string | undefined,
   secret: string | undefined,
   ip: string,
-): Promise<boolean> {
-  if (!secret || !token) return false;
+): Promise<boolean | null> {
+  if (!secret) return null;
+  if (!token) return false;
   const body = new FormData();
   body.append('secret', secret);
   body.append('response', token);
@@ -67,10 +75,71 @@ export async function verificarTurnstile(
   return d.success === true;
 }
 
-/** Límite por IP y ventana, contando sobre la propia tabla destino. */
+export interface Antiabuso {
+  /** Si es true, hay que rechazar con 403. */
+  rechazar: boolean;
+  /** Sospecha de 0 a 1, que se suma a la puntuación de spam del moderador. */
+  sospecha: number;
+  /** Qué se comprobó, para que el panel no tenga que adivinarlo. */
+  turnstile: 'pass' | 'fail';
+  motivo: string;
+}
+
+/**
+ * Defensa que no depende de Turnstile.
+ *
+ * Turnstile es la barrera buena, pero mientras no esté configurado el sitio no
+ * puede quedarse sin formularios. Estas dos señales cuestan cero y filtran el
+ * relleno automático de formularios, que es el grueso del abuso:
+ *
+ *   · **trampa**: un campo que una persona no ve y no puede rellenar. No se
+ *     llama «empresa» ni «teléfono» a propósito — el autocompletado de Chrome
+ *     y Safari rellena esos aunque lleven autocomplete="off", y entonces la
+ *     trampa se cierra sobre gente real.
+ *   · **abierto_ms**: cuánto tardó en enviarse desde que se pintó el
+ *     formulario. Un guion tarda milisegundos; una persona, segundos.
+ *
+ * Ninguna de las dos DESCARTA el envío por su cuenta: suben la sospecha y el
+ * comentario nace igualmente en la cola de moderación. Descartar en silencio
+ * un mensaje de una persona real es peor que revisar uno de más.
+ */
+export async function evaluarAbuso(
+  opciones: {
+    turnstileToken?: string;
+    trampa?: string;
+    abiertoMs?: number;
+  },
+  secret: string | undefined,
+  ip: string,
+): Promise<Antiabuso> {
+  const veredicto = await verificarTurnstile(opciones.turnstileToken, secret, ip);
+  if (veredicto === true) return { rechazar: false, sospecha: 0, turnstile: 'pass', motivo: '' };
+  if (veredicto === false) {
+    return { rechazar: true, sospecha: 1, turnstile: 'fail', motivo: 'turnstile no superado' };
+  }
+
+  // Sin Turnstile configurado: se cae a las señales baratas.
+  if (opciones.trampa) {
+    return { rechazar: true, sospecha: 1, turnstile: 'fail', motivo: 'campo trampa relleno' };
+  }
+  const ms = opciones.abiertoMs ?? 0;
+  if (ms > 0 && ms < 2500) {
+    return { rechazar: true, sospecha: 1, turnstile: 'fail', motivo: 'formulario enviado demasiado rápido' };
+  }
+  // Que no venga el dato no es motivo de rechazo (un navegador viejo, una
+  // extensión), pero sí de mirarlo con más atención en la cola.
+  return { rechazar: false, sospecha: ms === 0 ? 0.3 : 0.15, turnstile: 'fail', motivo: '' };
+}
+
+/**
+ * Límite por IP y ventana, contando sobre la propia tabla destino.
+ *
+ * El nombre de la tabla se interpola en la SQL, así que la unión literal del
+ * tipo es lo único que impide una inyección por ahí. No aceptar `string`.
+ */
 export async function superaLimite(
   db: D1Database,
-  tabla: 'comment' | 'lead' | 'vote',
+  tabla: 'comment' | 'comment_vote' | 'lead' | 'vote',
   ipHash: string,
   maximo: number,
   ventanaSeg = 3600,
