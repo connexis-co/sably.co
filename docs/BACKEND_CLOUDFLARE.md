@@ -186,16 +186,46 @@ GET  /admin           → 401 No autorizado                 rechaza sin Access
 GET  /api/v1/snapshot → 401 no autorizado                 rechaza sin token
 ```
 
-### Para terminar la configuración
+### Cómo entrar
 
-1. **Zero Trust → Access → Applications → Add**: aplicación *self-hosted*,
-   dominio `sably.co`, ruta `/admin`. Política *Allow* con tu correo.
-   El equipo ya existe: `cafeteriaweb-pages.cloudflareaccess.com`.
-2. Copia el **Application Audience (AUD)** que aparece al crearla.
-3. En **Pages → sably → Settings → Variables**, añade `CF_ACCESS_AUD` con ese
-   valor y `DEPLOY_HOOK_URL` con la URL del deploy hook.
-4. **Turnstile → Add site** para `sably.co`, y guarda el secreto como
-   `TURNSTILE_SECRET`.
+1. Abre `https://sably.co/admin`. Cloudflare Access te manda a la pantalla de
+   login del **team domain de la cuenta**, hoy
+   `connexis-pages.cloudflareaccess.com`.
+2. Elige **PIN de un solo uso**, escribe tu correo y pega el código que llega
+   por email. Los correos autorizados están en la política *Administradores de
+   Connexis* de la aplicación **Panel Sably**.
+3. Access te devuelve a `/admin` con la cookie `CF_Authorization`, y la Function
+   verifica su firma antes de mostrarte nada.
+
+#### El team domain es de la cuenta, no del proyecto
+
+Cloudflare da **un solo** team domain por cuenta y lo comparten todas las
+aplicaciones de Access. El de Connexis se llamó primero `cafeteriaweb-pages` y
+hoy es `connexis-pages`: por eso la pantalla de login puede mostrar un nombre
+que no es el del sitio que estás abriendo. No es un despliegue en el proyecto
+equivocado.
+
+Si se renombra, **hay que actualizar `CF_ACCESS_TEAM_DOMAIN` y redesplegar**: el
+valor alimenta a la vez la URL del JWKS y el `iss` que se espera en el token.
+Con el valor viejo, el JWKS responde 404 y el panel rechaza a todo el mundo.
+
+#### Las variables de Pages solo se enlazan en un despliegue nuevo
+
+Editarlas en el dashboard **no** afecta al despliegue que ya está sirviendo.
+Después de tocarlas siempre:
+
+```bash
+gh workflow run deploy-production.yml --ref main
+```
+
+Y usa `npx wrangler pages secret put <NOMBRE> --project-name sably` en vez del
+`PATCH` de la API: el `PATCH` **reemplaza** el mapa `env_vars` entero, y ya se
+llevó por delante todas las variables dos veces.
+
+#### Pendiente
+
+**Turnstile → Add site** para `sably.co`, y guardar el secreto como
+`TURNSTILE_SECRET`. Sin él, los envíos de comentarios y leads se rechazan.
 
 ### Dos hallazgos del despliegue
 

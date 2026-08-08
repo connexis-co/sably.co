@@ -1,5 +1,5 @@
 /** GET/POST /admin/despliegue — reconstruye el sitio bajo demanda. */
-import { type Env, fecha, irA, moderadorDe, noAutorizado, pagina, e } from './_ui';
+import { type Env, fecha, irA, noAutorizado, sesion, pagina, e } from './_ui';
 
 /**
  * Dispara el workflow de GitHub Actions, no un deploy hook de Pages.
@@ -10,8 +10,8 @@ import { type Env, fecha, irA, moderadorDe, noAutorizado, pagina, e } from './_u
  * en el repositorio, o sea que Actions es donde tiene que ocurrir.
  */
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
-  const mod = await moderadorDe(request, env);
-  if (!mod) return noAutorizado();
+  const { email: mod, motivo } = await sesion(request, env);
+  if (!mod) return noAutorizado(motivo);
   if (!env.GITHUB_TOKEN) return irA('/admin/despliegue?r=sin-hook');
 
   const r = await fetch(
@@ -36,8 +36,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 };
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
-  const mod = await moderadorDe(request, env);
-  if (!mod) return noAutorizado();
+  const { email: mod, motivo } = await sesion(request, env);
+  if (!mod) return noAutorizado(motivo);
 
   const r = new URL(request.url).searchParams.get('r');
   const avisos: Record<string, string> = {

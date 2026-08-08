@@ -16,28 +16,81 @@ export interface Env {
 }
 
 let jwks: ReturnType<typeof createRemoteJWKSet> | null = null;
+/** El JWKS se cachea por isolate; si cambia el team domain hay que soltarlo. */
+let jwksDe = '';
+
+export interface Sesion {
+  email: string | null;
+  /** Por qué se rechazó. Vacío si entró. */
+  motivo: string;
+}
 
 /**
- * Correo del moderador, o null.
+ * Correo del moderador, o el motivo del rechazo.
  *
  * Verificar la firma es imprescindible: la cabecera es texto que cualquiera
  * puede enviar si llega al origen saltándose Access. Sin verificarla el panel
  * quedaría abierto a quien conozca la URL.
+ *
+ * El motivo se devuelve porque un rechazo mudo es indistinguible de «Access no
+ * me deja entrar», y las dos causas reales —variables ausentes y team domain
+ * renombrado— se arreglan en sitios distintos.
  */
-export async function moderadorDe(request: Request, env: Env): Promise<string | null> {
+export async function sesion(request: Request, env: Env): Promise<Sesion> {
+  const faltan = (['CF_ACCESS_TEAM_DOMAIN', 'CF_ACCESS_AUD'] as const).filter((k) => !env[k]);
+  if (faltan.length) {
+    return { email: null, motivo: `Faltan variables en el proyecto de Pages: ${faltan.join(' y ')}.` };
+  }
+
   const token =
     request.headers.get('cf-access-jwt-assertion') ??
     (request.headers.get('cookie') ?? '').match(/CF_Authorization=([^;]+)/)?.[1];
-  if (!token || !env.CF_ACCESS_TEAM_DOMAIN || !env.CF_ACCESS_AUD) return null;
-  jwks ??= createRemoteJWKSet(new URL(`${env.CF_ACCESS_TEAM_DOMAIN}/cdn-cgi/access/certs`));
+  if (!token) {
+    return {
+      email: null,
+      motivo: 'La petición llegó sin token de Access: ni cabecera cf-access-jwt-assertion ni cookie CF_Authorization.',
+    };
+  }
+
+  // El mismo valor alimenta dos usos incompatibles con otro formato: la URL del
+  // JWKS y el claim `iss` que Access emite como https://<team>.cloudflareaccess.com.
+  // Normalizarlo hace que una barra final o un valor sin esquema no rompan nada.
+  const bruto = env.CF_ACCESS_TEAM_DOMAIN!.trim().replace(/\/+$/, '');
+  const dominio = /^https?:\/\//.test(bruto) ? bruto : `https://${bruto}`;
+
   try {
-    const { payload } = await jwtVerify(token, jwks, {
-      issuer: env.CF_ACCESS_TEAM_DOMAIN,
+    // Dentro del try a propósito: `new URL` lanza con un valor malformado, y
+    // fuera de aquí eso sería un 500 opaco en vez de este mensaje.
+    if (jwksDe !== dominio) {
+      jwks = createRemoteJWKSet(new URL(`${dominio}/cdn-cgi/access/certs`));
+      jwksDe = dominio;
+    }
+    const { payload } = await jwtVerify(token, jwks!, {
+      issuer: dominio,
       audience: env.CF_ACCESS_AUD,
     });
-    return (payload.email as string) ?? null;
-  } catch {
-    return null;
+    const email = (payload.email as string) ?? null;
+    return email
+      ? { email, motivo: '' }
+      : { email: null, motivo: 'El token es válido pero no trae el campo email.' };
+  } catch (err) {
+    // Un JWKS que falló queda cacheado apuntando a un dominio muerto; soltarlo
+    // permite que el siguiente despliegue con la variable corregida funcione.
+    jwks = null;
+    jwksDe = '';
+    const e = err as { code?: string; claim?: string; message?: string };
+    console.error('Access JWT rechazado:', e.code ?? '?', e.claim ?? '', e.message ?? '');
+    const detalle =
+      e.code === 'ERR_JWT_EXPIRED'
+        ? 'El token caducó. Vuelve a entrar.'
+        : e.code === 'ERR_JWT_CLAIM_VALIDATION_FAILED' && e.claim === 'iss'
+          ? 'El emisor del token no coincide: el team domain de Zero Trust cambió y hay que actualizar CF_ACCESS_TEAM_DOMAIN en el proyecto de Pages, y redesplegar.'
+          : e.code === 'ERR_JWT_CLAIM_VALIDATION_FAILED' && e.claim === 'aud'
+            ? 'El destinatario del token no coincide: el identificador de la aplicación de Access cambió y hay que actualizar CF_ACCESS_AUD, y redesplegar.'
+            : e.code === 'ERR_JWKS_NO_MATCHING_KEY' || e.code === 'ERR_JWKS_TIMEOUT'
+              ? 'No se pudieron descargar las claves públicas de Access. Suele significar que CF_ACCESS_TEAM_DOMAIN apunta a un team domain que ya no existe.'
+              : `No se pudo verificar la firma (${e.code ?? 'error desconocido'}).`;
+    return { email: null, motivo: detalle };
   }
 }
 
@@ -116,15 +169,25 @@ export function pagina(titulo: string, moderador: string, activo: string, cuerpo
   );
 }
 
-export const noAutorizado = (): Response =>
+/**
+ * Rechazo explicado.
+ *
+ * Quien llega aquí ya pasó Cloudflare Access, así que decirle por qué se le
+ * rechaza no filtra nada a un desconocido y le ahorra adivinar entre cuatro
+ * causas que antes pintaban la misma pantalla.
+ */
+export const noAutorizado = (motivo = ''): Response =>
   new Response(
     `<!doctype html><meta charset="utf-8"><title>No autorizado</title>
-<body style="font:16px system-ui;padding:3rem;max-width:52ch;margin:0 auto">
+<body style="font:16px/1.6 system-ui;padding:3rem;max-width:56ch;margin:0 auto;color:#1b1033">
 <h1>No autorizado</h1>
-<p>Este panel está detrás de Cloudflare Access. Si acabas de configurarlo, comprueba que existan
-las variables <code>CF_ACCESS_TEAM_DOMAIN</code> y <code>CF_ACCESS_AUD</code> en el proyecto de
-Pages, y que tu correo esté en la política de acceso.</p>`,
-    { status: 401, headers: { 'content-type': 'text/html; charset=utf-8' } },
+${motivo ? `<p style="background:#fff6e5;border:1px solid #f0d9a8;border-radius:8px;padding:.9rem 1.1rem">${esc(motivo)}</p>` : ''}
+<p>Este panel está detrás de Cloudflare Access. Comprueba que tu correo esté en la política
+de acceso de la aplicación <b>Panel Sably</b>, y que existan las variables
+<code>CF_ACCESS_TEAM_DOMAIN</code> y <code>CF_ACCESS_AUD</code> en el proyecto de Pages.</p>
+<p style="color:#6b6480;font-size:.9rem">Recuerda que en Pages las variables solo se enlazan
+en un despliegue <i>nuevo</i>: si acabas de cambiarlas, hay que volver a desplegar.</p>`,
+    { status: 401, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } },
   );
 
 export const irA = (ruta: string): Response =>

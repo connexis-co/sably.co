@@ -1,9 +1,9 @@
 /** GET /admin — resumen. */
-import { type Env, moderadorDe, noAutorizado, pagina } from './_ui';
+import { type Env, noAutorizado, sesion, pagina } from './_ui';
 
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
-  const mod = await moderadorDe(request, env);
-  if (!mod) return noAutorizado();
+  const { email: mod, motivo } = await sesion(request, env);
+  if (!mod) return noAutorizado(motivo);
 
   const semana = Math.floor(Date.now() / 1000) - 7 * 24 * 3600;
   const lote = await env.DB.batch<{ n: number }>([
