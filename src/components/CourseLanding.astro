@@ -179,13 +179,19 @@ const schemas = [
     title: course.data.title,
     description: course.data.shortDescription,
     url: pageUrl,
+    image: new URL(courseCover(course.id, category.slug), SITE.url).href,
     price: localPrice(course.data.priceUSD, country),
     priceCurrency: country.currency,
-    rating: course.data.rating,
-    ratingCount: course.data.ratingCount,
     instructorName: course.data.instructor.name,
     category: category.name,
     workloadHours: course.data.durationHours,
+    teaches: course.data.learnings,
+    level: course.data.level,
+    syllabus: course.data.modules.map((m) => m.title),
+    datePublished: course.data.publishedAt.toISOString(),
+    // `rating` se omite a propósito: la nota del frontmatter es de catálogo,
+    // no de compradores. Se conectará al agregado real de D1 (vista
+    // v_course_rating) cuando haya reseñas verificadas por compra.
   }),
   faqSchema(faqs),
 ];
