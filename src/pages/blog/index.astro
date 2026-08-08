@@ -3,6 +3,8 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
 import { blogCover, readingTime, blogFacets } from '@/lib/blog';
+import { breadcrumbSchema } from '@/lib/seo';
+import { SITE } from '@/lib/site';
 
 const country = getCountry(DEFAULT_COUNTRY);
 const posts = (await getCollection('blog')).sort(
@@ -14,9 +16,38 @@ const [featured, ...rest] = posts;
 const title = 'Blog de Sably | Guías para aprender oficios y emprender';
 const description =
   'Guías prácticas, tendencias y consejos para aprender un oficio rentable y emprender en Latinoamérica.';
+
+const schemas = [
+  breadcrumbSchema([
+    { name: 'Inicio', url: `${SITE.url}/co/` },
+    { name: 'Blog', url: `${SITE.url}/blog/` },
+  ]),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    '@id': `${SITE.url}/blog/#blog`,
+    name: title,
+    description,
+    url: `${SITE.url}/blog/`,
+    inLanguage: 'es',
+    publisher: { '@id': `${SITE.url}/#organization` },
+    // Los artículos van como referencias, no como copias del Article completo:
+    // la ficha entera vive en cada post y duplicarla aquí solo crea dos
+    // entidades para la misma URL.
+    blogPost: posts.map((post) => ({
+      '@type': 'BlogPosting',
+      headline: post.data.title,
+      description: post.data.description,
+      url: `${SITE.url}/blog/${post.id}/`,
+      datePublished: post.data.publishedAt.toISOString(),
+      image: `${SITE.url}${blogCover(post.data.category, 'card')}`,
+      author: { '@id': `${SITE.url}/#organization` },
+    })),
+  },
+];
 ---
 
-<BaseLayout {title} {description} {country} pathAfterCountry="/" pageType="blog">
+<BaseLayout {title} {description} {country} pathAfterCountry="/" {schemas} pageType="blog">
   <section class="bg-primary py-12 sm:py-14">
     <div class="container-site">
       <h1 class="text-3xl font-extrabold text-white sm:text-4xl">Blog de Sably</h1>

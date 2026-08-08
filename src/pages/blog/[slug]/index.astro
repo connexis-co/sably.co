@@ -47,13 +47,9 @@ const schemas = [
     timeRequired: `PT${minutes}M`,
     keywords: (post.data.keywords ?? []).join(', '),
     mainEntityOfPage: { '@type': 'WebPage', '@id': pageUrl },
-    author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
-    publisher: {
-      '@type': 'Organization',
-      name: SITE.name,
-      url: SITE.url,
-      logo: { '@type': 'ImageObject', url: `${SITE.url}/favicon.svg` },
-    },
+    author: { '@id': `${SITE.url}/#organization` },
+    publisher: { '@id': `${SITE.url}/#organization` },
+    isPartOf: { '@id': `${SITE.url}/blog/#blog` },
     /* Sin aggregateRating: Search Console lo rechazaba ("el tipo de objeto del
        campo parent_node no es válido") porque Article no es un tipo válido
        para fragmentos de reseña. Y el número que declaraba salía de un hash

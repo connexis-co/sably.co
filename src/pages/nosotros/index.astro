@@ -17,6 +17,17 @@ const schemas = [
     { name: 'Inicio', url: `${SITE.url}/co/` },
     { name: 'Sobre nosotros', url: `${SITE.url}/nosotros/` },
   ]),
+  // Es la página que Google usa para resolver la entidad de marca; declararla
+  // como AboutPage de la organización ayuda al panel de conocimiento.
+  {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: title,
+    description,
+    url: `${SITE.url}/nosotros/`,
+    inLanguage: 'es',
+    mainEntity: { '@id': `${SITE.url}/#organization` },
+  },
 ];
 ---
 
