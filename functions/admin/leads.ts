@@ -17,7 +17,16 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
       `SELECT name,email,phone,course_interest,country,source,created_at
          FROM lead ${filtro} ORDER BY created_at DESC LIMIT 5000`,
     ).bind(...args).all<Record<string, unknown>>();
-    const q = (v: unknown) => `"${String(v ?? '').replaceAll('"', '""')}"`;
+    // Excel y Sheets evalúan como fórmula toda celda que empiece por = + - @
+    // o por tabulador, aunque venga entrecomillada. Desde que `source` lleva el
+    // mensaje del formulario de contacto, eso es texto de un desconocido
+    // ejecutándose en la hoja de cálculo de JP. Un apóstrofo delante lo
+    // neutraliza y lo deja legible.
+    const q = (v: unknown) => {
+      const s = String(v ?? '');
+      const seguro = /^[=+\-@\t\r]/.test(s) ? `'${s}` : s;
+      return `"${seguro.replaceAll('"', '""')}"`;
+    };
     const csv = ['nombre,correo,telefono,curso,pais,origen,fecha',
       ...(results ?? []).map((r) => [r.name, r.email, r.phone, r.course_interest,
         r.country, r.source, new Date(Number(r.created_at) * 1000).toISOString()]

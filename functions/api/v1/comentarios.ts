@@ -6,8 +6,8 @@
  * es el único camino por el que un comentario se vuelve visible.
  */
 import {
-  type Env, error, hashIp, ipDe, json, paisDe,
-  registrarConsentimiento, superaLimite, ulid, verificarTurnstile,
+  type Env, error, evaluarAbuso, hashIp, ipDe, json, paisDe,
+  registrarConsentimiento, superaLimite, ulid,
 } from './_shared';
 
 interface Cuerpo {
@@ -18,6 +18,10 @@ interface Cuerpo {
   parent_id?: string;
   turnstile_token?: string;
   consent_text?: string;
+  /** Campo trampa: una persona no lo ve, así que solo lo rellena un guion. */
+  trampa?: string;
+  /** Milisegundos entre que se pintó el formulario y se envió. */
+  abierto_ms?: number;
 }
 
 /** Señales baratas de spam. No decide, solo prioriza la cola de moderación. */
@@ -50,7 +54,13 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const ip = ipDe(request);
   const ipHash = await hashIp(ip, env.IP_SALT);
 
-  if (!(await verificarTurnstile(b.turnstile_token, env.TURNSTILE_SECRET, ip))) {
+  const abuso = await evaluarAbuso(
+    { turnstileToken: b.turnstile_token, trampa: b.trampa, abiertoMs: b.abierto_ms },
+    env.TURNSTILE_SECRET,
+    ip,
+  );
+  if (abuso.rechazar) {
+    console.error('comentario rechazado:', abuso.motivo);
     return error('no se pudo verificar que eres una persona', 403);
   }
   if (await superaLimite(env.DB, 'comment', ipHash, 5)) {
@@ -69,27 +79,71 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
       `INSERT INTO comment
          (id, subject_id, parent_id, author_name, author_email, body,
           spam_score, turnstile, consent_id, visitor_id, ip_hash, country, purge_after)
-       VALUES (?, ?, ?, ?, ?, ?, ?, 'pass', ?, ?, ?, ?, ?)`,
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
       .bind(id, b.subject, b.parent_id ?? null, nombre, b.author_email ?? null, texto,
-            puntuarSpam(texto, nombre), consentId, null, ipHash, pais, purga)
+            Math.min(puntuarSpam(texto, nombre) + abuso.sospecha, 1),
+            abuso.turnstile, consentId, null, ipHash, pais, purga)
       .run();
   } catch (e) {
-    return error(`no se pudo guardar el comentario: ${(e as Error).message}`, 422);
+    const msg = (e as Error).message;
+    console.error('comentario:', msg);
+    // El mensaje crudo de SQLite lleva nombres de índices y de columnas.
+    return error(
+      /un nivel|raiz/.test(msg)
+        ? 'solo se puede responder a un comentario principal de este mismo artículo'
+        : 'no se pudo guardar el comentario',
+      422,
+    );
   }
 
   return json({ ok: true, estado: 'pendiente_de_moderacion' }, 201);
 };
 
-/** GET /api/v1/comentarios?subject=… — solo los aprobados, sin el correo. */
+/**
+ * GET /api/v1/comentarios?subject=… — el hilo aprobado, sin el correo.
+ *
+ * Devuelve el árbol ya montado para que el cliente no tenga que agruparlo:
+ * raíces de más nueva a más antigua, y dentro de cada una sus respuestas en
+ * orden cronológico, que es como se lee una conversación.
+ */
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const subject = new URL(request.url).searchParams.get('subject');
   if (!subject) return error('falta el parámetro subject');
+
   const { results } = await env.DB.prepare(
-    `SELECT id, parent_id, author_name, body, country, created_at
-       FROM v_comment_publico WHERE subject_id = ? LIMIT 200`,
+    `SELECT id, parent_id, author_name, body, country, created_at, utiles
+       FROM v_comment_hilo WHERE subject_id = ? LIMIT 500`,
   )
     .bind(subject)
-    .all();
-  return json({ comentarios: results ?? [] });
+    .all<Fila>();
+
+  const filas = results ?? [];
+  const respuestas = new Map<string, Fila[]>();
+  for (const f of filas) {
+    if (!f.parent_id) continue;
+    const lista = respuestas.get(f.parent_id);
+    if (lista) lista.push(f);
+    else respuestas.set(f.parent_id, [f]);
+  }
+
+  const hilo = filas
+    .filter((f) => !f.parent_id)
+    .sort((a, b) => b.created_at - a.created_at)
+    .map((raiz) => ({
+      ...raiz,
+      respuestas: (respuestas.get(raiz.id) ?? []).sort((a, b) => a.created_at - b.created_at),
+    }));
+
+  return json({ comentarios: hilo, total: filas.length });
 };
+
+interface Fila {
+  id: string;
+  parent_id: string | null;
+  author_name: string;
+  body: string;
+  country: string | null;
+  created_at: number;
+  utiles: number;
+}

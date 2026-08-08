@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import ReadingProgress from '@/components/ReadingProgress.astro';
 import ArticleRating from '@/components/ArticleRating.astro';
+import Comentarios from '@/components/Comentarios.astro';
 import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
 import { breadcrumbSchema } from '@/lib/seo';
 import { blogCover, readingTime } from '@/lib/blog';
@@ -141,6 +142,8 @@ const schemas = [
           Explorar cursos
         </a>
       </aside>
+
+      <Comentarios subject={`blog:${post.id}`} />
     </article>
 
     <!-- TOC sticky en desktop -->
