@@ -54,6 +54,13 @@ const { ctaUrl } = Astro.props;
     };
     document.addEventListener('mouseout', onLeave);
     dialog.querySelector('[data-exit-close]')?.addEventListener('click', () => dialog.close());
+    // Clic en el fondo. El <dialog> recibe el evento cuando se pulsa el backdrop,
+    // así que basta comprobar que el objetivo es el propio diálogo y no su
+    // contenido. Sin esto la única salida era el botón, y quien quería cerrar
+    // se quedaba atrapado.
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close();
+    });
     dialog.querySelector('[data-cta-hotmart]')?.addEventListener('click', () => {
       trackEvent('exit_intent_converted', { page_type: document.body.dataset.pageType ?? 'unknown' });
     });

@@ -1,10 +1,18 @@
 ---
 import { COUNTRIES, type Country } from '@/lib/countries';
-import { LEADS_ENDPOINT } from '@/lib/site';
+import { CONSENTIMIENTO, POLITICA_URL } from '@/lib/consentimiento';
 
 /**
- * CTA secundario: captura de lead. POST al backend (Fase 2) si hay endpoint;
- * fallback: continúa la conversación por WhatsApp con los datos pre-llenados.
+ * Captura de lead.
+ *
+ * El dato se guarda SIEMPRE en D1 antes de cualquier bifurcación: perderlo por
+ * abrir WhatsApp sería perder justo lo que se quería capturar. Solo después se
+ * ramifica según el dispositivo — en un escritorio, mandar a WhatsApp obliga a
+ * escanear un QR o a instalar la aplicación, así que ahí se confirma por
+ * correo y se acabó.
+ *
+ * El texto de confirmación lo elige el servidor, que es el único que sabe si
+ * de verdad salió un correo.
  */
 interface Props {
   country: Country;
@@ -21,7 +29,6 @@ const { country, courseTitle = '', courseSlug = '' } = Astro.props;
   <form
     method="dialog"
     data-lead-form
-    data-endpoint={LEADS_ENDPOINT}
     data-whatsapp={country.whatsapp}
     data-course={courseSlug}
     class="p-6"
@@ -34,6 +41,10 @@ const { country, courseTitle = '', courseSlug = '' } = Astro.props;
         </p>
       </div>
       <button type="button" data-lead-close class="rounded-full p-2 text-muted hover:bg-surface-100" aria-label="Cerrar">✕</button>
+    </div>
+
+    <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden">
+      <label>Deja este campo vacío <input type="text" name="trampa" tabindex="-1" autocomplete="off" /></label>
     </div>
 
     <div class="mt-5 space-y-3">
@@ -63,12 +74,15 @@ const { country, courseTitle = '', courseSlug = '' } = Astro.props;
     >
       Quiero recibir información
     </button>
-    <p class="mt-3 text-center text-[11px] text-muted">
-      Al enviar aceptas nuestra <a href="/legal/privacidad/" class="underline">política de privacidad</a>.
-    </p>
-    <p data-lead-success class="mt-3 hidden rounded-md bg-success/10 p-3 text-center text-sm font-semibold text-success">
-      ¡Listo! Te contactaremos muy pronto 🎉
-    </p>
+    <label class="mt-3 flex items-start gap-2 text-[11px] text-muted">
+      <input type="checkbox" name="consent" required class="mt-0.5 shrink-0" />
+      <span>
+        <span data-consent-text>{CONSENTIMIENTO.lead}</span>{' '}
+        <a href={POLITICA_URL} class="underline">Leer la política de privacidad</a>.
+      </span>
+    </label>
+    <p data-lead-success class="mt-3 hidden rounded-md bg-success/10 p-3 text-center text-sm font-semibold text-success"></p>
+    <p data-lead-error class="mt-3 hidden rounded-md bg-error/10 p-3 text-center text-sm font-semibold text-error"></p>
   </form>
 </dialog>
 
@@ -79,9 +93,28 @@ const { country, courseTitle = '', courseSlug = '' } = Astro.props;
   const modal = document.getElementById('lead-modal') as HTMLDialogElement | null;
   const form = modal?.querySelector<HTMLFormElement>('[data-lead-form]');
 
+  /**
+   * Decide si continuar por WhatsApp.
+   *
+   * `pointer: coarse` sin `pointer: fine` es un dispositivo que solo se maneja
+   * con el dedo: móvil o tableta, donde el enlace `wa.me` abre la aplicación.
+   * Un portátil táctil declara ambos y cae del lado del escritorio, que es lo
+   * correcto: ahí WhatsApp Web pide escanear un QR.
+   */
+  const esTactil = (): boolean =>
+    matchMedia('(pointer: coarse)').matches && !matchMedia('(pointer: fine)').matches;
+
   if (modal && form) {
+    const abiertoEn = { t: Date.now() };
+    const exito = form.querySelector<HTMLElement>('[data-lead-success]');
+    const fallo = form.querySelector<HTMLElement>('[data-lead-error]');
+    const enviar = form.querySelector<HTMLButtonElement>('[type="submit"]');
+
     document.querySelectorAll('[data-lead-open]').forEach((btn) =>
-      btn.addEventListener('click', () => modal.showModal()),
+      btn.addEventListener('click', () => {
+        abiertoEn.t = Date.now();
+        modal.showModal();
+      }),
     );
     form.querySelector('[data-lead-close]')?.addEventListener('click', () => modal.close());
     modal.addEventListener('click', (e) => {
@@ -90,36 +123,87 @@ const { country, courseTitle = '', courseSlug = '' } = Astro.props;
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const payload: Record<string, string> = {
-        ...(Object.fromEntries(new FormData(form).entries()) as Record<string, string>),
-        course_interest: form.dataset.course ?? '',
-        source: location.pathname,
-      };
+      exito?.classList.add('hidden');
+      fallo?.classList.add('hidden');
+
+      const datos = new FormData(form);
+      if (!datos.get('consent')) {
+        if (fallo) {
+          fallo.textContent = 'Necesitamos tu autorización para poder contactarte.';
+          fallo.classList.remove('hidden');
+        }
+        return;
+      }
+
+      const nombre = String(datos.get('name') ?? '').trim();
+      const correo = String(datos.get('email') ?? '').trim();
+      const curso = form.dataset.course ?? '';
+      const movil = esTactil();
+
+      if (enviar) enviar.disabled = true;
+
+      type Respuesta = { mensaje?: string; correo?: boolean };
+      let respuesta: Respuesta | null = null;
+      let guardado = false;
+      try {
+        const r = await fetch('/api/v1/leads', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({
+            name: nombre,
+            email: correo,
+            phone: String(datos.get('whatsapp') ?? '') || undefined,
+            course_interest: curso || undefined,
+            source: `${location.pathname} · ${movil ? 'whatsapp' : 'correo'}`,
+            consent_text: form.querySelector('[data-consent-text]')?.textContent?.trim(),
+            trampa: String(datos.get('trampa') ?? ''),
+            abierto_ms: Date.now() - abiertoEn.t,
+          }),
+          signal: AbortSignal.timeout(10000),
+        });
+        respuesta = (await r.json().catch(() => null)) as Respuesta | null;
+        guardado = r.ok;
+      } catch {
+        /* se resuelve abajo: en móvil la conversación sigue igual */
+      } finally {
+        if (enviar) enviar.disabled = false;
+      }
+
       trackEvent('submit_lead_form', {
-        course_interest: payload.course_interest,
-        country: payload.country,
-        source: payload.source,
+        course_interest: curso,
+        country: String(datos.get('country') ?? ''),
+        source: location.pathname,
+        canal: movil ? 'whatsapp' : 'correo',
       });
 
-      const endpoint = form.dataset.endpoint;
-      if (endpoint) {
-        try {
-          await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
-        } catch {
-          /* el lead igual sigue por WhatsApp */
-        }
-      }
-      form.querySelector('[data-lead-success]')?.classList.remove('hidden');
       const wa = form.dataset.whatsapp;
-      if (wa && !endpoint) {
-        const msg = `Hola Sably 👋 Soy ${payload.name ?? ''}. Quiero información${payload.course_interest ? ` sobre "${payload.course_interest}"` : ' sobre sus cursos'}. Mi email: ${payload.email ?? ''}`;
+      if (movil && wa) {
+        // En móvil la conversación es el objetivo, así que se abre aunque el
+        // POST haya fallado: mejor un lead solo en WhatsApp que ninguno.
+        const msg = `Hola Sably 👋 Soy ${nombre}. Quiero información${curso ? ` sobre "${curso}"` : ' sobre sus cursos'}. Mi correo: ${correo}`;
         window.open(buildWhatsAppUrl(wa, msg), '_blank', 'noopener');
+        if (exito) {
+          exito.textContent = 'Te abrimos WhatsApp para seguir por ahí.';
+          exito.classList.remove('hidden');
+        }
+        setTimeout(() => modal.close(), 1800);
+        return;
       }
-      setTimeout(() => modal.close(), 1800);
+
+      // Escritorio: nada de WhatsApp. El texto lo decide el servidor porque es
+      // el único que sabe si salió un correo de verdad.
+      if (guardado && exito) {
+        exito.textContent = respuesta?.mensaje ?? 'Recibimos tus datos. Te contactamos por correo.';
+        exito.classList.remove('hidden');
+        form.querySelectorAll('input, select').forEach((el) => {
+          if (el instanceof HTMLInputElement && el.type !== 'checkbox') el.value = '';
+        });
+        setTimeout(() => modal.close(), 3500);
+      } else if (fallo) {
+        fallo.textContent =
+          'No pudimos enviar tu solicitud. Revisa tu conexión e inténtalo otra vez.';
+        fallo.classList.remove('hidden');
+      }
     });
   }
 </script>

@@ -1,13 +1,14 @@
 ---
 /**
- * Valoración del artículo con estrellas.
+ * Valoración del artículo con estrellas, contra D1.
  *
- * El voto se guarda en localStorage (sin backend en Fase 1) y se reporta a GA4.
+ * El promedio que se enseña sale de `/api/v1/pulso` y solo cuando el backend
+ * lo declara publicable: hacen falta al menos 5 votos de 5 IPs distintas. Por
+ * debajo de eso no se enseña número — un «5,0 de 1 voto» es ruido que parece
+ * dato, y ya se retiró de este sitio un agregado inventado por ese motivo.
  *
- * No se muestra promedio: el que había salía de un hash del slug, o sea votos
- * que nadie emitió, y alimentaba un AggregateRating en el JSON-LD que Search
- * Console rechazaba. Cuando el backend agregue los votos de verdad, aquí
- * vuelve el promedio real.
+ * El voto no alimenta ningún Schema.org: lo que lee Google se hornea en el
+ * build desde el snapshot, para que sea auditable en dist/.
  */
 interface Props {
   slug: string;
@@ -40,17 +41,23 @@ const { slug } = Astro.props;
   </div>
 
   <p data-rating-thanks class="mt-2 hidden text-sm font-semibold text-success">¡Gracias por tu valoración! 🎉</p>
+  <p data-rating-error class="mt-2 hidden text-sm font-semibold text-error"></p>
+  <p data-rating-avg class="mt-2 hidden text-sm text-muted"></p>
 </section>
 
 <script>
   import { trackEvent } from '@/lib/analytics';
+  import { visitanteId, permanencia } from '@/lib/visitante';
 
   const widget = document.querySelector<HTMLElement>('[data-rating-widget]');
   if (widget) {
     const slug = widget.dataset.slug ?? '';
+    const subject = `blog:${slug}`;
     const key = `sably:rating:${slug}`;
     const stars = [...widget.querySelectorAll<HTMLButtonElement>('[data-star]')];
     const thanks = widget.querySelector<HTMLElement>('[data-rating-thanks]');
+    const fallo = widget.querySelector<HTMLElement>('[data-rating-error]');
+    const media = widget.querySelector<HTMLElement>('[data-rating-avg]');
 
     const paint = (value: number) => {
       stars.forEach((btn, i) => {
@@ -60,19 +67,80 @@ const { slug } = Astro.props;
       });
     };
 
+    /** Solo se enseña el promedio cuando el backend dice que es publicable. */
+    type Pulso = { votes: number; avg: number | null; publicable: boolean };
+    const pintarMedia = (d: Pulso) => {
+      if (!media) return;
+      if (!d.publicable || d.avg === null) {
+        media.classList.add('hidden');
+        return;
+      }
+      media.textContent = `${d.avg.toFixed(1)} de 5 · ${d.votes} valoraciones`;
+      media.classList.remove('hidden');
+    };
+
     const previo = Number(localStorage.getItem(key) || 0);
     if (previo) {
       paint(previo);
       thanks?.classList.remove('hidden');
     }
 
+    // El promedio se pide una vez al cargar, sin bloquear nada.
+    void fetch(`/api/v1/pulso?subject=${encodeURIComponent(subject)}`, {
+      signal: AbortSignal.timeout(6000),
+    })
+      .then((r) => (r.ok ? (r.json() as Promise<Pulso>) : null))
+      .then((d) => d && pintarMedia(d))
+      .catch(() => {
+        /* sin promedio no pasa nada: el widget sigue sirviendo para votar */
+      });
+
     stars.forEach((btn) =>
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         const value = Number(btn.dataset.star);
-        localStorage.setItem(key, String(value));
         paint(value);
-        thanks?.classList.remove('hidden');
-        trackEvent('rate_article', { article: slug, rating: value });
+        fallo?.classList.add('hidden');
+
+        try {
+          const r = await fetch('/api/v1/votos', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+              subject,
+              value,
+              visitor_id: visitanteId(),
+              // La base exige un mínimo de permanencia con un CHECK: votar a
+              // los 400 ms no se puede insertar ni aunque el cliente insista.
+              dwell_ms: permanencia(),
+            }),
+            signal: AbortSignal.timeout(8000),
+          });
+          const d = (await r.json().catch(() => ({}))) as {
+            error?: string; votes?: number; avg?: number | null;
+          };
+          if (!r.ok) throw new Error(d.error || 'no se pudo guardar');
+
+          localStorage.setItem(key, String(value));
+          thanks?.classList.remove('hidden');
+          trackEvent('rate_article', { article: slug, rating: value });
+          // El POST devuelve el agregado, pero el umbral lo decide /pulso.
+          void fetch(`/api/v1/pulso?subject=${encodeURIComponent(subject)}`)
+            .then((x) => (x.ok ? (x.json() as Promise<Pulso>) : null))
+            .then((x) => x && pintarMedia(x))
+            .catch(() => {});
+        } catch (e) {
+          // Se revierte al voto anterior: dejar la estrella encendida diría que
+          // se guardó algo que no se guardó.
+          paint(Number(localStorage.getItem(key) || 0));
+          thanks?.classList.add('hidden');
+          if (fallo) {
+            const msg = (e as Error).message;
+            fallo.textContent = /demasiado rápido/.test(msg)
+              ? 'Lee un poco el artículo antes de valorarlo.'
+              : 'No pudimos guardar tu valoración. Inténtalo de nuevo.';
+            fallo.classList.remove('hidden');
+          }
+        }
       }),
     );
     stars.forEach((btn, i) => {
