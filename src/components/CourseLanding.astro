@@ -67,6 +67,13 @@ const ctaUrl = buildHotmartUrl({
   citySlug: city?.slug,
 });
 
+/* Sin producto Hotmart asignado, `hotmartUrl` es el placeholder PENDIENTE y el
+   checkout responde `pay.hotmart.com/error?errorMessage=008`. Mandar ahí al
+   usuario quema la visita, así que el CTA captura el lead en su lugar. Esto
+   aplica igual a las variantes de país y ciudad, que comparten este componente. */
+const hayCheckout = !course.data.hotmartUrl.includes('PENDIENTE');
+const ctaHref = hayCheckout ? ctaUrl : '#lead-modal';
+
 const allCourses = await getCollection('courses');
 
 /* Jerarquía pilar/satélite: el pilar es el único que apunta al head term.
@@ -212,7 +219,7 @@ const schemas = [
   pageType={city ? 'course_city' : 'course'}
   whatsappContext={city ? `${course.data.title} (${city.name})` : course.data.title}
 >
-  <StickyCta title={course.data.title} priceUSD={course.data.priceUSD} {country} {ctaUrl} />
+  <StickyCta title={course.data.title} priceUSD={course.data.priceUSD} {country} ctaUrl={ctaHref} />
 
   <!-- Hero -->
   <section class="bg-primary">
@@ -280,10 +287,10 @@ const schemas = [
           🔥 <span data-promo-nota-texto></span> — se aplica automáticamente al pagar
         </p>
         <a
-          href={ctaUrl}
-          target="_blank"
+          href={ctaHref}
+          target={hayCheckout ? '_blank' : undefined}
           rel="noopener nofollow sponsored"
-          data-cta-hotmart
+          {...(hayCheckout ? { 'data-cta-hotmart': true } : { 'data-lead-open': true })}
           data-cta-position="hero"
           class="animate-pulse-soft mt-5 block rounded-md bg-accent px-6 py-4 text-center font-bold text-white transition hover:bg-accent-hover"
         >
@@ -581,10 +588,10 @@ const schemas = [
         Únete a {course.data.students.toLocaleString('es-CO')} estudiantes que ya están aprendiendo con este curso.
       </p>
       <a
-        href={ctaUrl}
-        target="_blank"
+        href={ctaHref}
+        target={hayCheckout ? '_blank' : undefined}
         rel="noopener nofollow sponsored"
-        data-cta-hotmart
+        {...(hayCheckout ? { 'data-cta-hotmart': true } : { 'data-lead-open': true })}
         data-cta-position="footer"
         class="animate-pulse-soft mt-7 inline-block rounded-md bg-accent px-8 py-4 font-bold text-white transition hover:bg-accent-hover"
       >
@@ -595,7 +602,7 @@ const schemas = [
   </section>
 
   <LeadModal {country} courseTitle={course.data.title} courseSlug={course.id} />
-  <ExitIntent {ctaUrl} />
+  <ExitIntent ctaUrl={ctaHref} />
 </BaseLayout>
 
 <script>
