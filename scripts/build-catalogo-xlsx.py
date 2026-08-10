@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
-"""Genera docs/data/catalogo-seminarios.xlsx: el catálogo completo del club.
+"""Genera docs/data/catalogo-seminarios.xlsx: el catálogo del club de Seminarios Online.
 
-Es un inventario, no un plan de trabajo: lista TODO lo que Mauricio Duque tiene
-publicado en Seminarios Online con su enlace de afiliación, sin afiliarse a nada.
-El XLSX de acortadores (build-acortadores-xlsx.py) es el que sí lleva el estado.
+Es un inventario, no un plan de trabajo: lista lo que Mauricio Duque tiene publicado
+con su enlace de afiliación, sin afiliarse a nada. El XLSX de acortadores
+(build-acortadores-xlsx.py) es el que lleva el estado de la ejecución.
 
-La hoja CRUCE marca qué contenidos corresponden a un curso ya publicado en sably,
-que es lo que permite decidir a qué afiliarse primero.
+Entradas:
+  docs/data/catalogo-modulos.tsv     índice -> nombre del módulo
+  docs/data/catalogo-seminarios.tsv  modIdx|hash|codigo|nombre
+  docs/data/seleccion-cursos.json    para marcar qué ya está publicado en sably
 
-Entrada: docs/data/catalogo-seminarios.json (lo produce scripts/hotmart-catalogo.mjs)
+El enlace de afiliación se arma con el código:
+  https://app-vlc.hotmart.com/affiliate-recruiting/view/<codigo>
+Y la lección se abre en:
+  https://hotmart.com/es/club/virtualeducation/products/209718/content/<hash>
 """
 
 from __future__ import annotations
@@ -24,51 +29,65 @@ from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-ENTRADA = ROOT / "docs/data/catalogo-seminarios.json"
+CLUB = "https://hotmart.com/es/club/virtualeducation/products/209718"
+AFIL = "https://app-vlc.hotmart.com/affiliate-recruiting/view"
 
 COLUMNS = [
     ("modulo", 44),
-    ("nombre_curso", 60),
-    ("link_afiliacion", 62),
+    ("nombre_curso", 62),
+    ("link_afiliacion", 64),
     ("codigo_afiliacion", 20),
+    ("url_contenido", 76),
     ("hash", 14),
-    ("url_contenido", 74),
-    ("curso_sably", 40),
-    ("ya_publicado_en_sably", 22),
+    ("curso_sably", 42),
+    ("ya_en_sably", 14),
 ]
 
 
 def norm(s: str) -> str:
-    """Normaliza para comparar: sin emojis, tildes ni signos."""
     s = unicodedata.normalize("NFKD", str(s)).encode("ascii", "ignore").decode()
     return re.sub(r"[^a-z0-9]+", " ", s.lower()).strip()
 
 
 def main() -> None:
-    if not ENTRADA.exists():
-        raise SystemExit(f"Falta {ENTRADA.relative_to(ROOT)}. Ejecuta antes scripts/hotmart-catalogo.mjs")
+    modulos = {}
+    for linea in (ROOT / "docs/data/catalogo-modulos.tsv").read_text("utf-8").splitlines():
+        if not linea.strip():
+            continue
+        i, nombre = linea.split("\t", 1)
+        modulos[i] = nombre
 
-    catalogo = json.loads(ENTRADA.read_text("utf-8"))
     seleccion = json.loads((ROOT / "docs/data/seleccion-cursos.json").read_text("utf-8"))
-
-    # El archiveSlug es el nombre del producto en MasterClasses.LA, así que
-    # normalizado coincide con el título del contenido en el club.
-    por_archive = {norm(c["archiveSlug"].replace("-", " ")): c for c in seleccion}
+    # El archiveSlug es el nombre del producto en MasterClasses.LA; normalizado
+    # coincide con el título del contenido en el club.
+    por_archive = {norm(c["archiveSlug"].replace("-", " ")): c["sablySlug"] for c in seleccion}
 
     filas = []
-    for item in catalogo:
-        clave = norm(item["nombre"])
-        sel = por_archive.get(clave)
+    for linea in (ROOT / "docs/data/catalogo-seminarios.tsv").read_text("utf-8").splitlines():
+        if not linea.strip() or linea.startswith("#"):
+            continue
+        partes = linea.split("|")
+        if len(partes) < 4:
+            continue
+        mod_idx, hash_, codigo, nombre = partes[0], partes[1], partes[2], "|".join(partes[3:])
+        clave = norm(nombre)
+        sably = por_archive.get(clave, "")
+        if not sably:
+            # Segundo intento: por inclusión, porque el club a veces añade sufijos.
+            for k, v in por_archive.items():
+                if k and (k in clave or clave in k):
+                    sably = v
+                    break
         filas.append(
             {
-                "modulo": item["modulo"],
-                "nombre_curso": item["nombre"],
-                "link_afiliacion": item.get("linkAfiliacion") or "",
-                "codigo_afiliacion": item.get("codigoAfiliacion") or "",
-                "hash": item["hash"],
-                "url_contenido": item["urlContenido"],
-                "curso_sably": sel["sablySlug"] if sel else "",
-                "ya_publicado_en_sably": "SI" if sel else "NO",
+                "modulo": modulos.get(mod_idx, mod_idx),
+                "nombre_curso": nombre,
+                "link_afiliacion": f"{AFIL}/{codigo}" if codigo else "",
+                "codigo_afiliacion": codigo,
+                "url_contenido": f"{CLUB}/content/{hash_}",
+                "hash": hash_,
+                "curso_sably": sably,
+                "ya_en_sably": "SI" if sably else "NO",
             }
         )
 
@@ -77,13 +96,14 @@ def main() -> None:
 
     cabecera = Font(bold=True, color="FFFFFF")
     relleno = PatternFill("solid", fgColor="1F2937")
-    # Resaltado: contenidos que ya tienen curso publicado en sably. Son los que
-    # hay que afiliar primero, porque ya tienen tráfico esperando.
+    # Amarillo = ya tiene curso publicado en sably: son los primeros a afiliar,
+    # porque ya hay tráfico esperando ese enlace.
     destaca = PatternFill("solid", fgColor="FFF2CC")
     sin_link = PatternFill("solid", fgColor="FFC7CE")
 
     def hoja(nombre: str, datos: list[dict]) -> None:
-        ws = wb.create_sheet(re.sub(r"[\\/*?:\[\]]", "", nombre)[:31] or "sin-nombre")
+        limpio = re.sub(r"[\\/*?:\[\]]", "", nombre)[:31] or "sin-nombre"
+        ws = wb.create_sheet(limpio)
         ws.append([c for c, _ in COLUMNS])
         for celda in ws[1]:
             celda.font = cabecera
@@ -94,7 +114,7 @@ def main() -> None:
             if not fila["link_afiliacion"]:
                 for celda in ws[ws.max_row]:
                     celda.fill = sin_link
-            elif fila["ya_publicado_en_sably"] == "SI":
+            elif fila["ya_en_sably"] == "SI":
                 for celda in ws[ws.max_row]:
                     celda.fill = destaca
         for i, (_, ancho) in enumerate(COLUMNS, start=1):
@@ -102,26 +122,24 @@ def main() -> None:
         ws.freeze_panes = "A2"
         ws.auto_filter.ref = ws.dimensions
 
-    hoja("TODOS", filas)
-    hoja("EN SABLY", [f for f in filas if f["ya_publicado_en_sably"] == "SI"])
+    hoja("TODOS", sorted(filas, key=lambda f: (f["modulo"], f["nombre_curso"])))
+    hoja("EN SABLY", [f for f in filas if f["ya_en_sably"] == "SI"])
 
     por_modulo: dict[str, list[dict]] = defaultdict(list)
     for fila in filas:
-        # El nombre del módulo trae emojis y puntos suspensivos que Excel no admite.
+        # Los nombres de módulo traen emojis y puntos suspensivos que Excel rechaza.
         limpio = re.sub(r"[^\w\s-]", "", fila["modulo"], flags=re.UNICODE).strip() or "otros"
         por_modulo[limpio].append(fila)
     for modulo in sorted(por_modulo):
-        hoja(modulo, por_modulo[modulo])
+        hoja(modulo, sorted(por_modulo[modulo], key=lambda f: f["nombre_curso"]))
 
     destino = ROOT / "docs/data/catalogo-seminarios.xlsx"
     wb.save(destino)
 
-    con_link = sum(1 for f in filas if f["link_afiliacion"])
-    en_sably = sum(1 for f in filas if f["ya_publicado_en_sably"] == "SI")
+    en_sably = sum(1 for f in filas if f["ya_en_sably"] == "SI")
     print(f"{destino.relative_to(ROOT)}")
-    print(f"  {len(filas)} contenidos · {len(por_modulo)} módulos")
-    print(f"  {con_link} con enlace de afiliación · {len(filas) - con_link} sin enlace (en rojo)")
-    print(f"  {en_sably} ya publicados en sably (en amarillo)")
+    print(f"  {len(filas)} cursos · {len(por_modulo)} módulos")
+    print(f"  {en_sably} ya publicados en sably (resaltados en amarillo)")
 
 
 if __name__ == "__main__":
