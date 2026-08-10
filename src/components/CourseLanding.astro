@@ -277,10 +277,21 @@ const schemas = [
             class="h-full w-full object-cover"
           />
         </div>
-        <div class="mt-5 flex items-baseline gap-3">
-          <span class="text-3xl font-extrabold text-primary">{formatPrice(course.data.priceUSD, country)}</span>
-          <span class="text-lg text-muted line-through">{formatPrice(course.data.originalPriceUSD, country)}</span>
-          <span class="rounded-full bg-accent px-2.5 py-1 text-xs font-bold text-white">-{discountPct}%</span>
+        {/* `whitespace-nowrap` en cada importe: sin él, monedas largas como
+            "$100.000 COP" parten el valor y la moneda en dos renglones. El wrap
+            se permite entre elementos, no dentro de un precio. */}
+        <div class="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <span class="text-3xl font-extrabold whitespace-nowrap text-primary"
+            >{formatPrice(course.data.priceUSD, country)}</span
+          >
+          <span class="text-lg whitespace-nowrap text-muted line-through"
+            >{formatPrice(course.data.originalPriceUSD, country)}</span
+          >
+          <span
+            data-promo-badge
+            class="rounded-full bg-accent px-2.5 py-1 text-xs font-bold whitespace-nowrap text-white"
+            >-{discountPct}%</span
+          >
         </div>
         {/* Oculto por defecto: solo se muestra si hay campaña vigente (ver promo.ts). */}
         <p data-promo-nota hidden data-country={country.code} class="mt-1 text-xs font-semibold text-error">
@@ -654,6 +665,12 @@ const schemas = [
       nota.hidden = false;
       nota.querySelector('[data-promo-nota-texto]')!.textContent =
         `${promo.label}: ${promo.discountPct}% de descuento`;
+
+      /* El badge mostraba el descuento de catálogo (precio vs precio de lista).
+         Con campaña activa manda el de la campaña: si no, la ficha enseñaba
+         "-40%" justo encima de "50% de descuento" y se contradecía sola. */
+      const badge = document.querySelector<HTMLElement>('[data-promo-badge]');
+      if (badge) badge.textContent = `-${promo.discountPct}%`;
 
       document.querySelectorAll<HTMLAnchorElement>('a[data-cta-hotmart]').forEach((a) => {
         try {
