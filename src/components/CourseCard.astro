@@ -41,7 +41,7 @@ const url = citySlug
         {cat.emoji} {cat.name}
       </span>
       <span class="absolute top-3 right-3 rounded-full bg-accent px-2.5 py-1 text-[11px] font-bold text-white">
-        -{SITE.couponDiscountPct}%
+        -{Math.round((1 - course.data.priceUSD / course.data.originalPriceUSD) * 100)}%
       </span>
     </div>
     <div class="flex flex-1 flex-col p-4">

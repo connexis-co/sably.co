@@ -32,7 +32,7 @@ const faqs = [
   },
   {
     q: `¿Cuánto cuesta un curso de ${category.name.toLowerCase()} en ${city.name}?`,
-    a: `Mucho menos que una academia presencial: los precios están en ${country.currency} e incluyen el ${SITE.couponDiscountPct}% OFF con el cupón ${SITE.defaultCoupon} aplicado automáticamente.`,
+    a: `Mucho menos que una academia presencial: los precios están en ${country.currency} y, cuando hay campaña activa, el descuento se aplica automáticamente.`,
   },
   {
     q: '¿Incluye certificado?',
@@ -45,7 +45,7 @@ const faqs = [
 ];
 
 const title = `Cursos de ${category.name} en ${city.name}, ${country.name} | Online + Certificado | Sably`;
-const description = `Aprende ${category.name.toLowerCase()} online desde ${city.name}. ${category.description} Precios en ${country.currency} con ${SITE.couponDiscountPct}% OFF.`;
+const description = `Aprende ${category.name.toLowerCase()} online desde ${city.name}. ${category.description} Precios en ${country.currency}.`;
 
 const schemas = [
   breadcrumbSchema([

@@ -18,7 +18,7 @@
     },
     {
       "q": "¿El precio tiene algún cobro adicional posterior?",
-      "a": "No. El valor final es de 31 USD (convertido a COP al pagar). Ya incluye el 40% de descuento del cupón SABLY40 y te da acceso completo sin mensualidades."
+      "a": "No. El valor final es de 31 USD (convertido a COP al pagar). Ya incluye el 40% de descuento de lanzamiento y te da acceso completo sin mensualidades."
     },
     {
       "q": "¿El certificado me sirve para homologar el idioma en embajadas o universidades?",
@@ -61,7 +61,7 @@
     "Cuaderno y bolígrafo para tomar apuntes durante los 16 módulos de contenido."
   ],
   "certificado": "Al finalizar el curso de francés desde cero recibes un certificado de participación que acredita las 16 horas de formación. Ten en cuenta que este documento es un reconocimiento a tu dedicación académica y no te habilita profesionalmente para ejercer como traductor oficial ni profesor de lenguas.",
-  "garantia": "Tienes 7 días de garantía incondicional respaldada por Hotmart. Si el contenido no cumple lo que buscas, solicitas la devolución total de tu dinero directamente en la plataforma sin dar explicaciones. El precio de 31 dólares ya tiene el cupón SABLY40 aplicado y es el valor final que pagarás mediante PSE, Nequi, Daviplata o tarjeta.",
+  "garantia": "Tienes 7 días de garantía incondicional respaldada por Hotmart. Si el contenido no cumple lo que buscas, solicitas la devolución total de tu dinero directamente en la plataforma sin dar explicaciones. El precio de 31 dólares ya tiene el descuento de lanzamiento aplicado y es el valor final que pagarás mediante PSE, Nequi, Daviplata o tarjeta.",
   "_meta": {
     "usd": 0.02271,
     "modelo": "gemini-3.6-flash",

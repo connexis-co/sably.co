@@ -18,7 +18,7 @@
     },
     {
       "q": "¿Necesito aplicar algún código promocional para obtener el precio de 29 USD?",
-      "a": "No, el cupón del 40% de descuento (SABLY40) ya viene aplicado de forma automática en el enlace de pago. El precio final a pagar es de 29 USD (o su equivalente en pesos mexicanos según el tipo de cambio del día de tu banco o método de pago)."
+      "a": "No, el cupón del 40% de descuento (de lanzamiento) ya viene aplicado de forma automática en el enlace de pago. El precio final a pagar es de 29 USD (o su equivalente en pesos mexicanos según el tipo de cambio del día de tu banco o método de pago)."
     },
     {
       "q": "¿Es obligatorio contar con una máquina de espresso profesional para tomar el curso?",

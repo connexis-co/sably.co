@@ -1,0 +1,81 @@
+---
+/**
+ * Barra de promoción con countdown.
+ *
+ * Se renderiza OCULTA y sin prometer nada. Un script en cliente resuelve si hay
+ * campaña vigente (`resolvePromo`) contra la hora real del visitante y solo
+ * entonces la muestra. Así el sitio SSG no puede quedarse con una oferta
+ * horneada del día del build, que es justo lo que hace increíbles a las
+ * promociones perpetuas.
+ *
+ * El script además reescribe los CTA de Hotmart de la página añadiendo
+ * `?offDiscount=<código>`, de modo que lo que se promete y lo que cobra el
+ * checkout siempre coinciden.
+ */
+import { CAMPAIGNS } from '@/lib/promo';
+
+interface Props {
+  countryCode: string;
+}
+
+const { countryCode } = Astro.props;
+---
+
+<div
+  data-promo-bar
+  data-country={countryCode}
+  data-campaigns={JSON.stringify(CAMPAIGNS)}
+  hidden
+  class="bg-accent px-4 py-2 text-center text-sm font-semibold text-white"
+>
+  <span data-promo-label></span>
+  <span class="mx-1">·</span>
+  <span data-promo-pct></span>
+  <span class="mx-1">termina en</span>
+  <time data-promo-countdown class="font-mono tabular-nums"></time>
+</div>
+
+<script>
+  import { resolvePromo, msRestantes, formatCountdown } from '@/lib/promo';
+
+  const bar = document.querySelector<HTMLElement>('[data-promo-bar]');
+  if (bar) {
+    const campaigns = JSON.parse(bar.dataset.campaigns ?? '[]');
+    const countryCode = bar.dataset.country ?? 'co';
+    const urlKey = new URLSearchParams(location.search).get('promo');
+
+    const promo = resolvePromo({ countryCode, now: new Date(), urlKey });
+
+    if (promo) {
+      bar.hidden = false;
+      bar.querySelector('[data-promo-label]')!.textContent = promo.label;
+      bar.querySelector('[data-promo-pct]')!.textContent = `${promo.discountPct}% OFF`;
+
+      const salida = bar.querySelector<HTMLTimeElement>('[data-promo-countdown]')!;
+      const tick = (): void => {
+        const ms = msRestantes(promo, new Date());
+        if (ms <= 0) {
+          // La campaña venció mientras la pestaña estaba abierta: se retira sola.
+          bar.hidden = true;
+          clearInterval(id);
+          return;
+        }
+        const { d, h, m, s } = formatCountdown(ms);
+        salida.textContent = `${d}d ${h}:${m}:${s}`;
+      };
+      tick();
+      const id = setInterval(tick, 1000);
+
+      // El descuento prometido tiene que llegar al checkout.
+      document.querySelectorAll<HTMLAnchorElement>('a[data-cta-hotmart]').forEach((a) => {
+        try {
+          const url = new URL(a.href);
+          url.searchParams.set('offDiscount', promo.couponCode);
+          a.href = url.toString();
+        } catch {
+          /* href no parseable: se deja intacto antes que romper el enlace de pago. */
+        }
+      });
+    }
+  }
+</script>

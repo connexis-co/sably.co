@@ -56,8 +56,12 @@ const tituloColisiona = locale
   ? localesDelCurso.filter((l) => l.data.meta_title === locale.data.meta_title).length > 1
   : localesDelCurso.length < COUNTRIES.length - 1;
 
+/* El `ref` es lo que acredita la comisión: sin él la venta se le atribuye al
+   productor. El descuento NO se añade aquí (sería una promesa horneada en el
+   HTML estático): lo inyecta el script de promo si hay campaña vigente. */
 const ctaUrl = buildHotmartUrl({
   baseUrl: course.data.hotmartUrl,
+  ref: course.data.hotmartRef,
   courseSlug: course.id,
   countryCode: country.code,
   citySlug: city?.slug,
@@ -271,8 +275,9 @@ const schemas = [
           <span class="text-lg text-muted line-through">{formatPrice(course.data.originalPriceUSD, country)}</span>
           <span class="rounded-full bg-accent px-2.5 py-1 text-xs font-bold text-white">-{discountPct}%</span>
         </div>
-        <p class="mt-1 text-xs font-semibold text-error">
-          🔥 Oferta con cupón {SITE.defaultCoupon} — se aplica automáticamente
+        {/* Oculto por defecto: solo se muestra si hay campaña vigente (ver promo.ts). */}
+        <p data-promo-nota hidden data-country={country.code} class="mt-1 text-xs font-semibold text-error">
+          🔥 <span data-promo-nota-texto></span> — se aplica automáticamente al pagar
         </p>
         <a
           href={ctaUrl}
@@ -282,7 +287,7 @@ const schemas = [
           data-cta-position="hero"
           class="animate-pulse-soft mt-5 block rounded-md bg-accent px-6 py-4 text-center font-bold text-white transition hover:bg-accent-hover"
         >
-          🔥 Inscribirme con {SITE.couponDiscountPct}% OFF
+          🔥 Inscribirme ahora
         </a>
         <button
           type="button"
@@ -583,7 +588,7 @@ const schemas = [
         data-cta-position="footer"
         class="animate-pulse-soft mt-7 inline-block rounded-md bg-accent px-8 py-4 font-bold text-white transition hover:bg-accent-hover"
       >
-        🔥 Inscribirme con {SITE.couponDiscountPct}% OFF
+        🔥 Inscribirme ahora
       </a>
       <p class="mt-4 text-sm text-white/60">Garantía de 7 días · Acceso de por vida · Certificado incluido</p>
     </div>
@@ -622,4 +627,36 @@ const schemas = [
     },
     { passive: true },
   );
+</script>
+
+<script>
+  /* Promoción: nada se promete en el HTML estático. Si hay campaña vigente para
+     el país del visitante, se muestra la nota y se añade el cupón a los CTA de
+     Hotmart, de modo que la promesa y el checkout coincidan. */
+  import { resolvePromo } from '@/lib/promo';
+
+  const nota = document.querySelector<HTMLElement>('[data-promo-nota]');
+  if (nota) {
+    const promo = resolvePromo({
+      countryCode: nota.dataset.country ?? 'co',
+      now: new Date(),
+      urlKey: new URLSearchParams(location.search).get('promo'),
+    });
+
+    if (promo) {
+      nota.hidden = false;
+      nota.querySelector('[data-promo-nota-texto]')!.textContent =
+        `${promo.label}: ${promo.discountPct}% de descuento`;
+
+      document.querySelectorAll<HTMLAnchorElement>('a[data-cta-hotmart]').forEach((a) => {
+        try {
+          const url = new URL(a.href);
+          url.searchParams.set('offDiscount', promo.couponCode);
+          a.href = url.toString();
+        } catch {
+          /* href no parseable: mejor dejar el enlace de pago intacto. */
+        }
+      });
+    }
+  }
 </script>

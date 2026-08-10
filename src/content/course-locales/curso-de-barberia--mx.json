@@ -13,8 +13,8 @@
       "a": "Al momento de dar clic en comprar, selecciona OXXO o SPEI como tu método de pago. La plataforma generará una ficha con código de barras para pagar en caja en cualquier OXXO, o una clave CLABE para hacer la transferencia desde la app de tu banco. El sistema convierte los $39 USD a pesos mexicanos de forma automática."
     },
     {
-      "q": "¿El precio de $39 USD ya tiene aplicado el cupón SABLY40?",
-      "a": "Sí, el costo original es de $65 USD y el precio final que ves de $39 USD ya incluye el 40% de descuento del cupón SABLY40. No necesitas ingresar ningún código adicional al pagar."
+      "q": "¿El precio de $39 USD ya tiene aplicado el descuento de lanzamiento?",
+      "a": "Sí, el costo original es de $65 USD y el precio final que ves de $39 USD ya incluye el 40% de descuento de lanzamiento. No necesitas ingresar ningún código adicional al pagar."
     },
     {
       "q": "¿El certificado me sirve para abrir un negocio formal en México?",

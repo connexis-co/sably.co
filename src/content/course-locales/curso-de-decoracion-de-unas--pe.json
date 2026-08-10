@@ -26,7 +26,7 @@
     },
     {
       "q": "¿El precio de USD 25 ya tiene el descuento aplicado?",
-      "a": "Sí, el costo final es de USD 25 e incluye el 40% de descuento del cupón SABLY40 previamente aplicado. No existen cobros adicionales ni suscripciones mensuales."
+      "a": "Sí, el costo final es de USD 25 e incluye el 40% de descuento de lanzamiento previamente aplicado. No existen cobros adicionales ni suscripciones mensuales."
     },
     {
       "q": "¿En qué moneda se efectúa el cobro en mi cuenta bancaria?",

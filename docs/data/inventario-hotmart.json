@@ -1,0 +1,1110 @@
+{
+  "total_cursos": 121,
+  "ya_con_url": [
+    {
+      "slug": "curso-de-automaquillaje",
+      "hotmartUrl": "https://pay.hotmart.com/S42624359I"
+    },
+    {
+      "slug": "curso-de-barberia-como-negocio",
+      "hotmartUrl": "https://pay.hotmart.com/C63857704B"
+    },
+    {
+      "slug": "curso-de-barberia-infantil",
+      "hotmartUrl": "https://pay.hotmart.com/W69842801W"
+    },
+    {
+      "slug": "curso-de-barberia",
+      "hotmartUrl": "https://pay.hotmart.com/H43635981L"
+    },
+    {
+      "slug": "curso-de-bouquets-con-globos",
+      "hotmartUrl": "https://pay.hotmart.com/G56852236M"
+    },
+    {
+      "slug": "curso-de-cejas-y-pestanas",
+      "hotmartUrl": "https://pay.hotmart.com/A42487377P"
+    },
+    {
+      "slug": "curso-de-decoracion-con-globos",
+      "hotmartUrl": "https://pay.hotmart.com/M47265375C"
+    },
+    {
+      "slug": "curso-de-decoracion-de-unas",
+      "hotmartUrl": "https://pay.hotmart.com/P58716037X"
+    },
+    {
+      "slug": "curso-de-depilacion",
+      "hotmartUrl": "https://pay.hotmart.com/V66724421L"
+    },
+    {
+      "slug": "curso-de-diseno-de-cejas-con-hilo-y-henna",
+      "hotmartUrl": "https://pay.hotmart.com/J61897319S"
+    },
+    {
+      "slug": "curso-de-extensiones-de-cabello",
+      "hotmartUrl": "https://pay.hotmart.com/G60509134A"
+    },
+    {
+      "slug": "curso-de-extensiones-de-pestanas",
+      "hotmartUrl": "https://pay.hotmart.com/G75458369D"
+    },
+    {
+      "slug": "curso-de-flores-con-globos",
+      "hotmartUrl": "https://pay.hotmart.com/U68605508W"
+    },
+    {
+      "slug": "curso-de-globoflexia",
+      "hotmartUrl": "https://pay.hotmart.com/M47265375C"
+    },
+    {
+      "slug": "curso-de-globos-burbuja",
+      "hotmartUrl": "https://pay.hotmart.com/F62444331S"
+    },
+    {
+      "slug": "curso-de-limpieza-facial",
+      "hotmartUrl": "https://pay.hotmart.com/U66774408M"
+    },
+    {
+      "slug": "curso-de-maderoterapia",
+      "hotmartUrl": "https://pay.hotmart.com/O65507269I"
+    },
+    {
+      "slug": "curso-de-manicure-y-pedicure",
+      "hotmartUrl": "https://pay.hotmart.com/A60343346C"
+    },
+    {
+      "slug": "curso-de-maquillaje-de-fantasia",
+      "hotmartUrl": "https://pay.hotmart.com/Y60358345H"
+    },
+    {
+      "slug": "curso-de-maquillaje-permanente",
+      "hotmartUrl": "https://pay.hotmart.com/J44578783I"
+    },
+    {
+      "slug": "curso-de-maquillaje-profesional-de-novias",
+      "hotmartUrl": "https://pay.hotmart.com/C57590016O"
+    },
+    {
+      "slug": "curso-de-maquillaje",
+      "hotmartUrl": "https://pay.hotmart.com/N41531652U"
+    },
+    {
+      "slug": "curso-de-masaje-descontracturante",
+      "hotmartUrl": "https://pay.hotmart.com/C59922402Y"
+    },
+    {
+      "slug": "curso-de-masaje-reductor",
+      "hotmartUrl": "https://pay.hotmart.com/Q56744994D"
+    },
+    {
+      "slug": "curso-de-masajes-terapeuticos-y-relajantes",
+      "hotmartUrl": "https://pay.hotmart.com/A43483573K"
+    },
+    {
+      "slug": "curso-de-masajes",
+      "hotmartUrl": "https://pay.hotmart.com/K63104274A"
+    },
+    {
+      "slug": "curso-de-microblading",
+      "hotmartUrl": "https://pay.hotmart.com/Y45079346E"
+    },
+    {
+      "slug": "curso-de-peinados",
+      "hotmartUrl": "https://pay.hotmart.com/Y66385340K"
+    },
+    {
+      "slug": "curso-de-peluqueria",
+      "hotmartUrl": "https://pay.hotmart.com/B28818422Q"
+    },
+    {
+      "slug": "curso-de-pestanas-volumen-ruso",
+      "hotmartUrl": "https://pay.hotmart.com/B72428881X"
+    },
+    {
+      "slug": "curso-de-trenzas-y-peinados",
+      "hotmartUrl": "https://pay.hotmart.com/V48797673L"
+    },
+    {
+      "slug": "curso-de-unas-acrilicas",
+      "hotmartUrl": "https://pay.hotmart.com/C55918118T"
+    },
+    {
+      "slug": "curso-de-unas",
+      "hotmartUrl": "https://pay.hotmart.com/C55918118T"
+    }
+  ],
+  "pendientes": 88,
+  "pendientes_con_producto_en_mapa": 0,
+  "pendientes_sin_producto": 88,
+  "detalle_pendientes": [
+    {
+      "slug": "curso-de-adiestramiento-canino-en-positivo",
+      "titulo": "Curso de Adiestramiento Canino en Positivo",
+      "categoria": "cuidado-animal",
+      "subcategoria": "adiestramiento",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-airbnb",
+      "titulo": "Curso de Airbnb como Negocio",
+      "categoria": "hospitalidad",
+      "subcategoria": "alojamiento",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "38",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-aire-acondicionado",
+      "titulo": "Curso de Mantenimiento de Aires Acondicionados",
+      "categoria": "oficios",
+      "subcategoria": "refrigeracion",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "38",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-alisados-y-keratina",
+      "titulo": "Curso de Alisados y Keratina",
+      "categoria": "belleza-online",
+      "subcategoria": "cabello",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-amigurumi",
+      "titulo": "Curso de Amigurumi",
+      "categoria": "manualidades",
+      "subcategoria": "tejido",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "27",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-balayage",
+      "titulo": "Curso de Balayage y Rubios Platinados",
+      "categoria": "belleza-online",
+      "subcategoria": "cabello",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "39",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-barberia-artistica",
+      "titulo": "Curso de Barbería Artística",
+      "categoria": "belleza-online",
+      "subcategoria": "barberia",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-barismo-y-cafe-de-especialidad",
+      "titulo": "Curso de Barismo y Café de Especialidad",
+      "categoria": "gastronomia",
+      "subcategoria": "barismo",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-barista",
+      "titulo": "Curso de Barismo y Café de Especialidad",
+      "categoria": "hospitalidad",
+      "subcategoria": "cafe",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "32",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-bartender",
+      "titulo": "Curso de Bartender Internacional",
+      "categoria": "hospitalidad",
+      "subcategoria": "cocteleria",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-bartending-y-cocteleria-profesional",
+      "titulo": "Curso de Bartending y Coctelería Profesional",
+      "categoria": "hospitalidad",
+      "subcategoria": "bartending",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "32",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-canto",
+      "titulo": "Curso de Canto",
+      "categoria": "musica",
+      "subcategoria": "canto",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "28",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-carpinteria-y-muebles",
+      "titulo": "Curso de Carpintería y Elaboración de Muebles",
+      "categoria": "oficios",
+      "subcategoria": "carpinteria",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "38",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-cerveza-artesanal",
+      "titulo": "Curso de Cerveza Artesanal",
+      "categoria": "gastronomia",
+      "subcategoria": "bebidas",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "38",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-ceviche-peruano",
+      "titulo": "Curso de Ceviche Peruano",
+      "categoria": "gastronomia",
+      "subcategoria": "cocina-internacional",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "32",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-chocolateria",
+      "titulo": "Curso de Chocolatería",
+      "categoria": "panaderia-y-pasteleria",
+      "subcategoria": "chocolateria",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-cocina",
+      "titulo": "Curso de Cocina: de Cero a Profesional",
+      "categoria": "gastronomia",
+      "subcategoria": "cocina-internacional",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-colorimetria",
+      "titulo": "Curso de Colorimetría para Estilistas",
+      "categoria": "belleza-online",
+      "subcategoria": "cabello",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "32",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-comidas-rapidas",
+      "titulo": "Curso del Negocio de las Comidas Rápidas",
+      "categoria": "gastronomia",
+      "subcategoria": "comida-rapida",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-community-manager",
+      "titulo": "Curso de Community Manager",
+      "categoria": "emprendimiento",
+      "subcategoria": "marketing",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "32",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-confeccion-de-ropa-interior",
+      "titulo": "Curso de Confección de Ropa Interior",
+      "categoria": "moda-y-confeccion",
+      "subcategoria": "confeccion",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "33",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-confeccion-de-trajes-de-bano",
+      "titulo": "Curso de Confección de Trajes de Baño",
+      "categoria": "moda-y-confeccion",
+      "subcategoria": "confeccion",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "33",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-contabilidad-basica",
+      "titulo": "Curso de Contabilidad para No Expertos",
+      "categoria": "emprendimiento",
+      "subcategoria": "finanzas",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "30",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-coreano",
+      "titulo": "Curso de Coreano Fácil",
+      "categoria": "idiomas",
+      "subcategoria": "coreano",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "27",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-corte-y-confeccion",
+      "titulo": "Curso de Corte y Confección desde Cero",
+      "categoria": "moda-y-confeccion",
+      "subcategoria": "costura",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "27",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-costura-industrial",
+      "titulo": "Curso de Costura Industrial",
+      "categoria": "moda-y-confeccion",
+      "subcategoria": "confeccion",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "31",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-crochet",
+      "titulo": "Curso de Crochet como Negocio",
+      "categoria": "manualidades",
+      "subcategoria": "tejido",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-cupcakes",
+      "titulo": "Curso de Cupcakes para Principiantes",
+      "categoria": "panaderia-y-pasteleria",
+      "subcategoria": "reposteria",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "27",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-defensa-personal-para-mujeres",
+      "titulo": "Curso de Defensa Personal para Mujeres",
+      "categoria": "bienestar",
+      "subcategoria": "defensa-personal",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-desayunos-sorpresa",
+      "titulo": "Curso de Desayunos Sorpresa como Negocio",
+      "categoria": "emprendimiento",
+      "subcategoria": "negocios-caseros",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "28",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-dj",
+      "titulo": "Curso de DJ desde Cero",
+      "categoria": "musica",
+      "subcategoria": "dj",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "38",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-drenaje-linfatico",
+      "titulo": "Curso de Drenaje Linfático",
+      "categoria": "bienestar",
+      "subcategoria": "estetica-corporal",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "37",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-electricidad-residencial-certificado",
+      "titulo": "Curso de Electricidad Residencial con Certificado",
+      "categoria": "oficios",
+      "subcategoria": "electricidad",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-electricista",
+      "titulo": "Curso de Electricista como Negocio",
+      "categoria": "oficios",
+      "subcategoria": "electricidad",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "40",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-energia-solar",
+      "titulo": "Curso de Instalación de Paneles Solares",
+      "categoria": "oficios",
+      "subcategoria": "energia-solar",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "42",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-estetica-canina",
+      "titulo": "Curso de Estética Canina",
+      "categoria": "cuidado-animal",
+      "subcategoria": "grooming",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "34",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-excel",
+      "titulo": "Curso de Excel para Principiantes",
+      "categoria": "emprendimiento",
+      "subcategoria": "herramientas",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "27",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-finanzas-para-tu-negocio",
+      "titulo": "Curso de Finanzas para tu Negocio",
+      "categoria": "emprendimiento",
+      "subcategoria": "finanzas-personales",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "27",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-fondant",
+      "titulo": "Curso de Fondant y Pastelería Artística",
+      "categoria": "panaderia-y-pasteleria",
+      "subcategoria": "tortas",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-fotografia-con-celular",
+      "titulo": "Curso de Fotografía con Celular",
+      "categoria": "emprendimiento",
+      "subcategoria": "fotografia",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "25",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-fotografia",
+      "titulo": "Curso de Fotografía de Novato a Profesional",
+      "categoria": "emprendimiento",
+      "subcategoria": "fotografia",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-frances",
+      "titulo": "Curso de Francés desde Cero",
+      "categoria": "idiomas",
+      "subcategoria": "frances",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "31",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-galletas-decoradas",
+      "titulo": "Curso de Galletas Artesanales para Negocio",
+      "categoria": "panaderia-y-pasteleria",
+      "subcategoria": "reposteria",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "28",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-guitarra",
+      "titulo": "Curso de Guitarra Acústica desde Cero",
+      "categoria": "musica",
+      "subcategoria": "guitarra",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "32",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-hamburguesas-gourmet",
+      "titulo": "Curso de Hamburguesas Gourmet",
+      "categoria": "gastronomia",
+      "subcategoria": "comida-rapida",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "26",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-ingles-para-ninos",
+      "titulo": "Curso de Inglés para Niños",
+      "categoria": "idiomas",
+      "subcategoria": "ingles",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-ingles",
+      "titulo": "Curso de Inglés para Principiantes",
+      "categoria": "idiomas",
+      "subcategoria": "ingles",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-instalacion-de-camaras-de-seguridad",
+      "titulo": "Curso de Instalación de Cámaras de Seguridad",
+      "categoria": "oficios",
+      "subcategoria": "seguridad",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "36",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-instructor-de-yoga-desde-cero",
+      "titulo": "Curso de Instructor de Yoga desde Cero",
+      "categoria": "bienestar",
+      "subcategoria": "yoga",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "42",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-jabones-artesanales-para-vender",
+      "titulo": "Curso de Jabones Artesanales para Vender",
+      "categoria": "manualidades",
+      "subcategoria": "jabones",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "27",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-japones",
+      "titulo": "Curso de Japonés desde Cero",
+      "categoria": "idiomas",
+      "subcategoria": "japones",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "33",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-joyeria-artesanal",
+      "titulo": "Curso de Joyería Artesanal",
+      "categoria": "manualidades",
+      "subcategoria": "joyeria",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "32",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-lenceria-y-ropa-interior-a-medida",
+      "titulo": "Curso de Lencería y Ropa Interior a Medida",
+      "categoria": "moda-y-confeccion",
+      "subcategoria": "lenceria",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-macrame",
+      "titulo": "Curso de Macramé como Negocio",
+      "categoria": "manualidades",
+      "subcategoria": "tejido",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "25",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-marketing-digital",
+      "titulo": "Curso de Marketing Digital para Emprendedores",
+      "categoria": "emprendimiento",
+      "subcategoria": "marketing-digital",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-mecanica-de-bicicletas",
+      "titulo": "Curso de Mecánica de Bicicletas",
+      "categoria": "oficios",
+      "subcategoria": "mecanica",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "27",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-mecanica-de-motos",
+      "titulo": "Curso de Mecánica de Motos desde Cero",
+      "categoria": "oficios",
+      "subcategoria": "mecanica-de-motos",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-modisteria",
+      "titulo": "Curso de Modistería en Casa",
+      "categoria": "moda-y-confeccion",
+      "subcategoria": "confeccion",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "28",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-molderia-y-confeccion",
+      "titulo": "Curso de Moldería y Confección",
+      "categoria": "moda-y-confeccion",
+      "subcategoria": "patronaje",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-nutricion-practica-para-la-familia",
+      "titulo": "Curso de Nutrición Práctica para la Familia",
+      "categoria": "bienestar",
+      "subcategoria": "nutricion",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "27",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-panaderia",
+      "titulo": "Curso de Panadería Artesanal y Masa Madre",
+      "categoria": "panaderia-y-pasteleria",
+      "subcategoria": "masa-madre",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "30",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-parrilla-y-asados-como-un-maestro",
+      "titulo": "Curso de Parrilla y Asados como un Maestro",
+      "categoria": "gastronomia",
+      "subcategoria": "parrillas-y-asados",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "32",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-pasteleria",
+      "titulo": "Curso de Pastelería desde Cero",
+      "categoria": "panaderia-y-pasteleria",
+      "subcategoria": "pasteleria",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "32",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-patronaje-profesional-de-ropa",
+      "titulo": "Curso de Patronaje Profesional de Ropa",
+      "categoria": "moda-y-confeccion",
+      "subcategoria": "patronaje",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "33",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-peluqueria-canina-profesional",
+      "titulo": "Curso de Peluquería Canina Profesional",
+      "categoria": "cuidado-animal",
+      "subcategoria": "peluqueria-canina",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-piano",
+      "titulo": "Curso de Piano para Principiantes",
+      "categoria": "musica",
+      "subcategoria": "piano",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-pizza-artesanal",
+      "titulo": "Curso de Pizza Artesanal",
+      "categoria": "gastronomia",
+      "subcategoria": "comida-rapida",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "33",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-pollo-broaster",
+      "titulo": "Curso de Pollo Broaster como Negocio",
+      "categoria": "gastronomia",
+      "subcategoria": "comida-rapida",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-porcelana-fria",
+      "titulo": "Curso de Porcelana Fría",
+      "categoria": "manualidades",
+      "subcategoria": "artesanias",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "27",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-portugues",
+      "titulo": "Curso de Portugués para Principiantes",
+      "categoria": "idiomas",
+      "subcategoria": "portugues",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "27",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-primeros-auxilios-para-mascotas",
+      "titulo": "Curso de Primeros Auxilios para Mascotas",
+      "categoria": "cuidado-animal",
+      "subcategoria": "salud-mascotas",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "27",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-primeros-auxilios",
+      "titulo": "Curso de Primeros Auxilios",
+      "categoria": "bienestar",
+      "subcategoria": "primeros-auxilios",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-remodelacion-de-banos-y-cocinas",
+      "titulo": "Curso de Remodelación de Baños y Cocinas",
+      "categoria": "oficios",
+      "subcategoria": "construccion",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "40",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-reparacion-de-celulares",
+      "titulo": "Curso de Reparación de Celulares",
+      "categoria": "oficios",
+      "subcategoria": "electronica",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-reparacion-de-computadoras",
+      "titulo": "Curso de Reparación de Laptops y Computadoras",
+      "categoria": "oficios",
+      "subcategoria": "electronica",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "34",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-reparacion-de-lavadoras",
+      "titulo": "Curso de Reparación de Lavadoras",
+      "categoria": "oficios",
+      "subcategoria": "electrodomesticos",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "32",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-reposteria-para-mascotas",
+      "titulo": "Curso de Repostería para Mascotas",
+      "categoria": "cuidado-animal",
+      "subcategoria": "reposteria-mascotas",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "26",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-reposteria",
+      "titulo": "Curso de Repostería Fina y Postres Gourmet",
+      "categoria": "panaderia-y-pasteleria",
+      "subcategoria": "reposteria-fina",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "38",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-resina-epoxica",
+      "titulo": "Curso de Resina Epóxica Paso a Paso",
+      "categoria": "manualidades",
+      "subcategoria": "resina-epoxica",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "35",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-serigrafia",
+      "titulo": "Curso de Serigrafía y Estampados",
+      "categoria": "manualidades",
+      "subcategoria": "personalizados",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-soldadura",
+      "titulo": "Curso de Soldadura MIG, TIG y Arco Eléctrico",
+      "categoria": "oficios",
+      "subcategoria": "soldadura",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "39",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-sublimacion",
+      "titulo": "Curso de Sublimación de Tazas y Termos",
+      "categoria": "manualidades",
+      "subcategoria": "personalizados",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "34",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-sushi",
+      "titulo": "Curso de Sushi en Casa",
+      "categoria": "gastronomia",
+      "subcategoria": "cocina-internacional",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "32",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-tatuaje",
+      "titulo": "Curso de Tatuaje de Cero a Experto",
+      "categoria": "oficios",
+      "subcategoria": "tatuaje",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "42",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-tortas-decoradas-desde-cero",
+      "titulo": "Curso de Tortas Decoradas desde Cero",
+      "categoria": "panaderia-y-pasteleria",
+      "subcategoria": "tortas-decoradas",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "32",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-velas-artesanales-y-aromaticas",
+      "titulo": "Curso de Velas Artesanales y Aromáticas",
+      "categoria": "manualidades",
+      "subcategoria": "velas-artesanales",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-ventas-por-whatsapp-y-redes",
+      "titulo": "Curso de Ventas por WhatsApp y Redes Sociales",
+      "categoria": "emprendimiento",
+      "subcategoria": "ventas",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "29",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    },
+    {
+      "slug": "curso-de-wedding-planner-y-eventos",
+      "titulo": "Curso de Wedding Planner y Organización de Eventos",
+      "categoria": "hospitalidad",
+      "subcategoria": "wedding-planning",
+      "hotmartUrl": "https://pay.hotmart.com/PENDIENTE",
+      "priceUSD": "38",
+      "id_producto": "",
+      "slug_producto": "",
+      "origen_mapa": "SIN_MAPEAR"
+    }
+  ]
+}
