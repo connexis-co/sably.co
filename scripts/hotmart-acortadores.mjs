@@ -62,6 +62,81 @@ async function clicPorTexto(page, patron, tags = 'button,a') {
   );
 }
 
+/** Club de Seminarios Online: es el catálogo donde vive el link de afiliación. */
+const CLUB = 'https://hotmart.com/es/club/virtualeducation/products/209718';
+
+/**
+ * Afilia la cuenta al producto, que es el paso previo a todo lo demás: sin
+ * afiliación aprobada no existe hotlink y por tanto no hay nada que acortar.
+ *
+ * El camino es el del club, no el del mercado: el mercado busca por texto libre
+ * sobre todo Hotmart y devuelve productos de otros productores con nombres
+ * parecidos. Dentro del club cada curso trae su propio enlace
+ * "CLICK AQUÍ PARA AFILIARTE AL PRODUCTO", que apunta al producto correcto.
+ *
+ * Devuelve 'ya' | 'afiliado' | 'no-encontrado' | 'sin-enlace'.
+ */
+async function afiliar(page, nombreCurso) {
+  await page.goto(CLUB, { waitUntil: 'networkidle2' });
+  await dormir(2000);
+
+  // Buscador del club.
+  const buscó = await page.evaluate((q) => {
+    const inp = [...document.querySelectorAll('input')].find((i) =>
+      /buscar/i.test(`${i.placeholder} ${i.getAttribute('aria-label') ?? ''}`),
+    );
+    if (!inp) return false;
+    const set = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+    set.call(inp, q);
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+    inp.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, keyCode: 13 }));
+    return true;
+  }, nombreCurso);
+  if (!buscó) return 'no-encontrado';
+  await dormir(2500);
+
+  // Primer resultado cuyo título coincide de verdad, no el primero a secas:
+  // "Aprende Piano" y "Piano para Niños" son productos distintos.
+  const abrió = await page.evaluate((q) => {
+    const norm = (s) =>
+      s
+        .normalize('NFKD')
+        .replace(/[̀-ͯ]/g, '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, ' ')
+        .trim();
+    const objetivo = norm(q);
+    const cand = [...document.querySelectorAll('a,div,li')].filter((e) =>
+      norm(e.textContent || '').includes(objetivo),
+    );
+    const el = cand.sort((a, b) => (a.textContent || '').length - (b.textContent || '').length)[0];
+    if (!el) return false;
+    (el.closest('a') ?? el).click();
+    return true;
+  }, nombreCurso);
+  if (!abrió) return 'no-encontrado';
+  await dormir(3000);
+
+  // El enlace de afiliación vive en la pestaña "Descripción" del contenido.
+  const url = await page.evaluate(() => {
+    const a = [...document.querySelectorAll('a')].find((x) =>
+      /afiliarte al producto|afiliarte/i.test(x.textContent || ''),
+    );
+    return a?.href ?? null;
+  });
+  if (!url) return 'sin-enlace';
+
+  await page.goto(url, { waitUntil: 'networkidle2' });
+  await dormir(2500);
+
+  const t = await texto(page);
+  if (/ya eres afiliado/i.test(t)) return 'ya';
+
+  await clicPorTexto(page, 'ingresa para afiliarte|afiliarme|afiliarte ahora');
+  await dormir(3000);
+  return /ya eres afiliado/i.test(await texto(page)) ? 'afiliado' : 'sin-enlace';
+}
+
 /**
  * Localiza el producto en "Soy Afiliado(a)" y devuelve su id.
  * Devuelve null si no aparece: eso marca la fila en rojo en el XLSX.
@@ -206,10 +281,25 @@ async function main() {
     const fila = { ...item, idProducto: null, crashing: null, ventaSO: null, estado: 'pendiente', nota: '' };
 
     try {
+      // Paso 0: afiliarse. Sin esto no hay hotlink y no habría nada que acortar.
+      const af = await afiliar(page, item.nombreProducto);
+      fila.afiliacion = af;
+      if (af === 'no-encontrado' || af === 'sin-enlace') {
+        fila.estado = 'SIN_PRODUCTO';
+        fila.nota =
+          af === 'no-encontrado'
+            ? 'No aparece en el club de Seminarios Online: buscar sustituto en el mercado con comisión > 20%.'
+            : 'Aparece en el club pero sin enlace de afiliación utilizable.';
+        resultados.push(fila);
+        console.log(`✗ ${item.slugSably}: ${fila.nota}`);
+        continue;
+      }
+      console.log(`  ${item.slugSably}: afiliación ${af}`);
+
       const id = await buscarProducto(page, item.nombreProducto);
       if (!id) {
         fila.estado = 'SIN_PRODUCTO';
-        fila.nota = 'No aparece en Soy Afiliado(a). Requiere buscar alternativa en el mercado.';
+        fila.nota = 'Afiliado pero no aparece en Soy Afiliado(a); puede estar pendiente de aprobación.';
         resultados.push(fila);
         console.log(`✗ ${item.slugSably}: sin producto afiliado`);
         continue;
