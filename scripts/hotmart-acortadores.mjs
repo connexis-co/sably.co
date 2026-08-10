@@ -163,71 +163,90 @@ async function buscarProducto(page, nombre) {
 }
 
 /**
- * Abre los HotLinks del producto y devuelve las URLs `go.hotmart.com` de los dos
- * bloques que nos interesan. Los rótulos son los del panel en español.
+ * Lee los HotLinks del producto.
+ *
+ * La página es `app.hotmart.com/hotlinks/<idProducto>` y lista siempre cuatro
+ * enlaces del mismo hotlink, en este orden (verificado el 2026-08-10 con el
+ * producto 1259120, "Sushi en Casa"):
+ *
+ *   1. Página de Ventas            → go.hotmart.com/<H>          → universidad.online/...
+ *   2. Página de Producto          → go.hotmart.com/<H>?dp=1
+ *   3. checkout limpio "crashing"  → go.hotmart.com/<H>?ap=XXXX  → pay.hotmart.com/<P>?ref=<H>
+ *   4. checkout de Seminarios      → go.hotmart.com/<H>?ap=YYYY  → ...&checkoutMode=10
+ *
+ * El sufijo `ap` cambia por producto, así que se identifican por su rótulo y se
+ * usa el orden solo como respaldo.
  */
 async function leerHotlinks(page, idProducto) {
-  await page.goto(`https://app.hotmart.com/market/product/${idProducto}`, { waitUntil: 'networkidle2' });
-  await dormir(1500);
-  await clicPorTexto(page, 'links de divulgaci|divulgaci');
-  await dormir(2500);
+  await page.goto(`https://app.hotmart.com/hotlinks/${idProducto}`, { waitUntil: 'networkidle2' });
+  await dormir(2000);
 
   return page.evaluate(() => {
-    const bloques = [...document.querySelectorAll('div')].filter((d) => {
-      const txt = (d.textContent || '').trim();
-      return d.querySelector('input') && txt.length < 600;
-    });
-    const salida = { crashing: null, ventaSO: null, ventas: null };
-    for (const b of bloques) {
-      const txt = (b.textContent || '').toLowerCase();
-      const val = b.querySelector('input')?.value ?? '';
-      if (!/go\.hotmart\.com/.test(val)) continue;
-      if (/crashing/.test(txt)) salida.crashing ??= val;
-      else if (/seminarios online/.test(txt)) salida.ventaSO ??= val;
-      else if (/p[áa]gina de ventas/.test(txt)) salida.ventas ??= val;
-    }
-    return salida;
+    const urls = [...document.querySelectorAll('input')]
+      .map((i) => i.value)
+      .filter((v) => /go\.hotmart\.com/.test(v));
+    const lineas = (document.body.innerText || '').split('\n').map((s) => s.trim());
+    const iCrash = lineas.findIndex((l) => /checkout limpio para crashing/i.test(l));
+    const iSO = lineas.findIndex((l) => /checkout creado por seminarios/i.test(l));
+
+    // Con rótulos presentes el orden de los inputs coincide con el de los bloques.
+    const porOrden = { crashing: urls[2] ?? null, ventaSO: urls[3] ?? null };
+    return {
+      crashing: iCrash >= 0 ? porOrden.crashing : (urls.find((u) => /\?ap=/.test(u)) ?? null),
+      ventaSO: iSO >= 0 ? porOrden.ventaSO : (urls.filter((u) => /\?ap=/.test(u))[1] ?? null),
+      todos: urls,
+    };
   });
 }
 
-/** Ejecuta el asistente de acortado. Devuelve la URL corta o lanza. */
+/**
+ * Ejecuta el asistente de acortado y devuelve la URL corta.
+ *
+ * Se entra directo por `shortener/form?link=<hotlink>`, que deja el paso 1 con el
+ * enlace ya puesto; así no hay que navegar el panel hasta el botón "Acortar link".
+ * El paso 2 llega con un slug aleatorio que hay que sustituir por el nuestro.
+ */
 async function acortar(page, hotlink, titulo, slug) {
-  await page.goto('https://app.hotmart.com/tools/shortener/new', { waitUntil: 'networkidle2' }).catch(() => {});
-  await dormir(1200);
+  const url = `https://app.hotmart.com/shortener/form?link=${encodeURIComponent(hotlink)}`;
+  await page.goto(url, { waitUntil: 'networkidle2' });
+  await dormir(1800);
 
-  // Paso 1: hotlink + título.
-  const ok1 = await page.evaluate(
-    (h, ti) => {
-      const set = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-      const inputs = [...document.querySelectorAll('input[type="text"],input:not([type])')];
-      if (inputs.length < 2) return false;
-      set.call(inputs[0], h);
-      inputs[0].dispatchEvent(new Event('input', { bubbles: true }));
-      set.call(inputs[1], ti);
-      inputs[1].dispatchEvent(new Event('input', { bubbles: true }));
-      return true;
-    },
-    hotlink,
-    titulo,
-  );
-  if (!ok1) throw new Error('no encontré los campos del paso 1');
+  // Paso 1: el enlace ya viene del query param; solo falta el título, que es el
+  // campo con placeholder "Title of shortened link".
+  const ok1 = await page.evaluate((ti) => {
+    const set = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+    const inp = [...document.querySelectorAll('input')].find((i) => /title/i.test(i.placeholder || ''));
+    if (!inp) return false;
+    inp.focus();
+    set.call(inp, ti);
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+    inp.dispatchEvent(new Event('change', { bubbles: true }));
+    return true;
+  }, titulo);
+  if (!ok1) throw new Error('no encontré el campo de título (paso 1)');
   await clicPorTexto(page, '^next$|siguiente');
-  await dormir(2000);
+  await dormir(2500);
 
-  // Paso 2: el slug del acortador.
+  // Paso 2: Hotmart precarga un slug aleatorio (p. ej. "G6mfpUf"); se sustituye
+  // por el de la convención. Es el input que vive junto al prefijo "hotm.io/".
   const ok2 = await page.evaluate((s) => {
     const set = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-    const inp = [...document.querySelectorAll('input')].find(
-      (i) => /hotm\.io|slug/i.test(i.placeholder || '') || i.closest('div')?.textContent?.includes('hotm.io'),
-    );
+    const inp = [...document.querySelectorAll('input')].find((i) => {
+      const cerca = i.parentElement?.textContent ?? '';
+      return /hotm\.io/.test(cerca) || /hotm\.io/.test(i.previousElementSibling?.textContent ?? '');
+    });
     if (!inp) return false;
+    inp.focus();
+    set.call(inp, '');
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
     set.call(inp, s);
     inp.dispatchEvent(new Event('input', { bubbles: true }));
-    return true;
+    inp.dispatchEvent(new Event('change', { bubbles: true }));
+    return inp.value === s;
   }, slug);
-  if (!ok2) throw new Error('no encontré el campo del slug (paso 2)');
+  if (!ok2) throw new Error('no pude fijar el slug (paso 2)');
   await clicPorTexto(page, '^next$|siguiente');
-  await dormir(2000);
+  await dormir(2500);
 
   // Resumen: confirmar.
   await clicPorTexto(page, '^end$|finalizar|concluir');
