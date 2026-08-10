@@ -101,7 +101,7 @@
     "crashing": null,
     "ventaSO": null,
     "estado": "ERROR",
-    "nota": "Hotmart rechaza el slug: 'The customized link address must have a minimum of 3 characters and a maximum of 50 characters.' slugCrashing y slugVentaSO miden 57 caracteres."
+    "nota": "Hotmart rechaza el slug: 'The customized link address must have a minimum of 3 characters and a maximum of 50 characters.' slugCrashing y slugVentaSO miden 57 caracteres. Producto localizado y con ambos hotlinks disponibles; solo falla la longitud del slug."
   },
   {
     "slugSably": "curso-de-comidas-rapidas",
@@ -227,9 +227,9 @@
     "slugSably": "curso-de-energia-solar",
     "idProducto": "2409458",
     "crashing": "https://hotm.io/kits-solares-como-negocio-curso-crashing",
-    "ventaSO": null,
-    "estado": "PENDIENTE",
-    "nota": "crashing verificado: https://pay.hotmart.com/M76021437N?ref=B93143016I"
+    "ventaSO": "https://hotm.io/kits-solares-como-negocio-curso-venta-SO",
+    "estado": "OK",
+    "nota": "https://pay.hotmart.com/M76021437N?ref=B93143016I | venta SO: https://pay.hotmart.com/M76021437N?checkoutMode=10&ref=B93143016I"
   },
   {
     "slugSably": "curso-de-estetica-canina",
@@ -274,10 +274,10 @@
   {
     "slugSably": "curso-de-frances",
     "idProducto": "956399",
-    "crashing": null,
-    "ventaSO": null,
-    "estado": "PENDIENTE",
-    "nota": "No aparece en Afiliaciones confirmadas de la cuenta rodrigomisat@gmail.com (224 productos revisados, cruce por nombre normalizado sin acentos)."
+    "crashing": "https://hotm.io/aprende-frances-desde-cero-curso-crashing",
+    "ventaSO": "https://hotm.io/aprende-frances-desde-cero-curso-venta-SO",
+    "estado": "OK",
+    "nota": "https://pay.hotmart.com/V38780626K?ref=X85009939J | venta SO: https://pay.hotmart.com/V38780626K?checkoutMode=10&ref=X85009939J"
   },
   {
     "slugSably": "curso-de-galletas-decoradas",
@@ -290,10 +290,10 @@
   {
     "slugSably": "curso-de-guitarra",
     "idProducto": "1519008",
-    "crashing": null,
-    "ventaSO": null,
-    "estado": "PENDIENTE",
-    "nota": "No aparece en Afiliaciones confirmadas de la cuenta rodrigomisat@gmail.com (224 productos revisados, cruce por nombre normalizado sin acentos)."
+    "crashing": "https://hotm.io/guitarra-acustica-desde-cero-curso-crashing",
+    "ventaSO": "https://hotm.io/guitarra-acustica-desde-cero-curso-venta-SO",
+    "estado": "OK",
+    "nota": "https://pay.hotmart.com/K55290164R?ref=H107094048F | venta SO: https://pay.hotmart.com/K55290164R?checkoutMode=10&ref=H107094048F"
   },
   {
     "slugSably": "curso-de-hamburguesas-gourmet",
@@ -413,7 +413,7 @@
     "crashing": "https://hotm.io/aprende-piano-curso-crashing",
     "ventaSO": "https://hotm.io/aprende-piano-curso-venta-SO",
     "estado": "OK",
-    "nota": "https://pay.hotmart.com/O44743118Q?checkoutMode=10&ref=X107094071K (el crashing ya existia de antes y resuelve a https://pay.hotmart.com/O44743118Q?ref=X107094071K)"
+    "nota": "https://pay.hotmart.com/O44743118Q?ref=X107094071K | venta SO: https://pay.hotmart.com/O44743118Q?checkoutMode=10&ref=X107094071K | el acortador crashing ya existia de antes, no se toco; solo se creo el de venta SO"
   },
   {
     "slugSably": "curso-de-pizza-artesanal",
@@ -453,7 +453,7 @@
     "crashing": null,
     "ventaSO": null,
     "estado": "SIN_PRODUCTO",
-    "nota": "No aparece en Afiliaciones confirmadas de la cuenta rodrigomisat@gmail.com (224 productos revisados, cruce por nombre normalizado sin acentos)."
+    "nota": "No existe 'Primeros Auxilios Para Perros Y Gatos'. En la cuenta hay 'Primeros Auxilios para Perros' (ID 1689185), sin 'y Gatos'; no se uso por indicacion tuya de no sustituir por parecidos."
   },
   {
     "slugSably": "curso-de-primeros-auxilios",
@@ -498,10 +498,10 @@
   {
     "slugSably": "curso-de-reposteria-para-mascotas",
     "idProducto": "969838",
-    "crashing": null,
-    "ventaSO": null,
-    "estado": "PENDIENTE",
-    "nota": "No aparece en Afiliaciones confirmadas de la cuenta rodrigomisat@gmail.com (224 productos revisados, cruce por nombre normalizado sin acentos)."
+    "crashing": "https://hotm.io/pasteleria-canina-y-felina-curso-crashing",
+    "ventaSO": "https://hotm.io/pasteleria-canina-y-felina-curso-venta-SO",
+    "estado": "OK",
+    "nota": "https://pay.hotmart.com/L39108716M?ref=K100467636C | venta SO: https://pay.hotmart.com/L39108716M?checkoutMode=10&ref=K100467636C"
   },
   {
     "slugSably": "curso-de-reposteria",
@@ -509,7 +509,7 @@
     "crashing": null,
     "ventaSO": null,
     "estado": "ERROR",
-    "nota": "Hotmart rechaza el slug: 'The customized link address must have a minimum of 3 characters and a maximum of 50 characters.' slugCrashing y slugVentaSO miden 51 caracteres."
+    "nota": "Hotmart rechaza el slug: 'The customized link address must have a minimum of 3 characters and a maximum of 50 characters.' slugCrashing y slugVentaSO miden 51 caracteres (uno de mas). Producto localizado y con ambos hotlinks disponibles."
   },
   {
     "slugSably": "curso-de-resina-epoxica",

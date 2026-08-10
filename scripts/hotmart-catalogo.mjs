@@ -80,22 +80,53 @@ async function main() {
   }
   console.log(`Catálogo: ${arbol.length} contenidos en ${new Set(arbol.map((f) => f.modulo)).size} módulos.`);
 
+  /* El gateway de lecciones exige el token que la web inyecta en sus peticiones.
+     Un `fetch` a pelo recibe 401 con WWW-Authenticate y Chrome abre un diálogo de
+     usuario/contraseña — que además NO hay que rellenar. Por eso aquí se reutiliza
+     el cliente HTTP de la propia app, que ya va autenticado. */
+  page.on('dialog', async (d) => {
+    await d.dismiss().catch(() => {});
+  });
+  await page.authenticate(null).catch(() => {});
+
   const objetivo = arbol.slice(0, LIMITE === Infinity ? arbol.length : LIMITE);
   const salida = [];
   const TANDA = 12;
 
   for (let i = 0; i < objetivo.length; i += TANDA) {
     const tanda = objetivo.slice(i, i + TANDA);
-    // Las peticiones salen del contexto de la página, que ya lleva la sesión.
     const res = await page.evaluate(
       async (hashes, base) => {
+        const H = window.__SHARED_HOT_CLUB_HTTP_GLOBAL_HEADERS__ ?? {};
+        const inst = window.__SHARED_HOT_CLUB_HTTP_INSTANCES__ ?? {};
+        // La instancia del gateway de consumo es la que sirve /v2/web/lessons.
+        const cliente = Object.entries(inst).find(([k]) => /CONSUMPTION_GATEWAY/i.test(k))?.[1];
+
+        const sacarLink = (texto) => {
+          const m = String(texto).match(
+            /app-vlc\.hotmart\.com\\?\/affiliate-recruiting\\?\/view\\?\/[A-Za-z0-9]+/,
+          );
+          return m ? 'https://' + m[0].replace(/\\/g, '') : null;
+        };
+
+        /* El gateway exige `x-product-id` además del Authorization; sin él responde
+           400 "Required header 'x-product-id' is not present". 209718 es el id del
+           producto del club de Seminarios Online. */
+        const extra = { 'x-product-id': '209718' };
+
         const out = [];
         for (const h of hashes) {
           try {
-            const r = await fetch(`${base}/${h}`, { credentials: 'include' });
-            const t = await r.text();
-            const m = t.match(/app-vlc\.hotmart\.com\\?\/affiliate-recruiting\\?\/view\\?\/[A-Za-z0-9]+/);
-            out.push({ hash: h, ok: r.ok, link: m ? 'https://' + m[0].replace(/\\/g, '') : null });
+            if (cliente?.get) {
+              const r = await cliente.get(`/v2/web/lessons/${h}`, { headers: extra });
+              out.push({ hash: h, ok: true, link: sacarLink(JSON.stringify(r?.data ?? '')) });
+            } else {
+              const r = await fetch(`${base}/${h}`, {
+                credentials: 'include',
+                headers: { ...H, ...extra },
+              });
+              out.push({ hash: h, ok: r.ok, link: r.ok ? sacarLink(await r.text()) : null });
+            }
           } catch (e) {
             out.push({ hash: h, ok: false, link: null, err: String(e).slice(0, 80) });
           }
@@ -105,6 +136,15 @@ async function main() {
       tanda.map((f) => f.hash),
       LECCIONES,
     );
+
+    if (i === 0 && res.every((r) => !r.ok && !r.link)) {
+      console.error(
+        '\nNinguna lección respondió. Suele ser que la sesión del club no está activa\n' +
+          'en ese Chrome: abre https://hotmart.com/es/club/virtualeducation/products/209718,\n' +
+          'comprueba que carga el listado, y vuelve a lanzar el script.',
+      );
+      break;
+    }
 
     for (const r of res) {
       const fila = objetivo.find((f) => f.hash === r.hash);

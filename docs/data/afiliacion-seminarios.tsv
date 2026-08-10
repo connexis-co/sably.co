@@ -1,0 +1,105 @@
+# slug_sably	codigo_afiliacion	nombre_en_el_club
+# Extraído del club de Seminarios Online el 2026-08-10 con el gateway de lecciones.
+# El enlace completo es https://app-vlc.hotmart.com/affiliate-recruiting/view/<codigo_afiliacion>
+# Las filas sin código son cursos cuyo título en el club no coincide literalmente
+# con el archiveSlug; hay que emparejarlos a mano (muchos SÍ existen, solo cambia el nombre).
+curso-de-barberia	7954A63130914	⚫ Aprende Barbería y Monta tu Negocio
+curso-de-unas		NO_EXISTE_EN_CATALOGO: buscar otro productor con comisión > 20%
+curso-de-unas-acrilicas	3772E64481327	⚫ El Arte de las Uñas Acrílicas
+curso-de-microblading	2011C45079367	⚫ Cejas Perfectas con Microblading
+curso-de-extensiones-de-pestanas	1955E75458390	⚫ Experta en Extensiones de Pestañas
+curso-de-manicure-y-pedicure	1824M60343367	⚫ Manicure y Pedicure como Negocio a Domicilio
+curso-de-diseno-de-cejas-con-hilo-y-henna	6802D61897340	⚫ Diseño de Cejas con Hilo y Henna, como Negocio en Casa o a Domicilio
+curso-de-maquillaje-profesional-de-novias	6433M63186602	⚫ Maquillaje Profesional para Novias
+curso-de-maquillaje-permanente	4730M44578804	⚫ Maquillaje Permanente
+curso-de-colorimetria	4461C48026778	⚫ Colorimetría Para Estilistas Principiantes
+curso-de-pestanas-volumen-ruso	8323P72428902	⚫ Pestañas Pelo A Pelo Volumen Ruso.
+curso-de-decoracion-de-unas	1836D58716058	⚫ Decoración de Uñas como Negocio
+curso-de-barberia-artistica	7186B63192909	⚫ Barbería Artística Paso a Paso
+curso-de-balayage	4911E62294192	⚫ Experta en Balayage Rubio Platinado
+curso-de-alisados-y-keratina	0928I79889300	⚫ Inicia tu Negocio de Alisados y Keratina
+curso-de-extensiones-de-cabello	7997E57846659	⚫ Extensiones de Cabello como Negocio
+curso-de-trenzas-y-peinados	9903E48797694	⚫ Experta en Trenzas y Peinados
+curso-de-limpieza-facial	0808L65394438	⚫ Limpieza Facial Profunda
+curso-de-electricidad-residencial		NO_EXISTE_EN_CATALOGO: buscar otro productor con comisión > 20%
+curso-de-soldadura		NO_EXISTE_EN_CATALOGO: buscar otro productor con comisión > 20%
+curso-de-mecanica-de-motos	0806M41229108	⚫ Mecánica para Motos
+curso-de-reparacion-de-celulares	9810R56098120	⚫ Reparación de Celulares Xpert
+curso-de-electricista	5455E61163500	⚫ Electricista como Negocio
+curso-de-aire-acondicionado-y-refrigeracion	9333M71462481	⚫ Mantenimientos Rentables de Aires Acondicionados
+curso-de-tatuaje		NO_EXISTE_EN_CATALOGO: buscar otro productor con comisión > 20%
+curso-de-reparacion-de-computadoras	1932E38540909	⚫ Ensamble de Computadores
+curso-de-reparacion-de-lavadoras	9581L46201393	⚫ Lavadoras Xpert
+curso-de-instalacion-de-camaras-de-seguridad	6339C66396380	⚫ Cámaras de Seguridad, Instalación y Negocio
+curso-de-carpinteria-y-muebles	1425E65021756	⚫ Elaboración de Muebles como Negocio
+curso-de-mecanica-de-bicicletas	5541M42783952	⚫ Mecánica de Bicicletas
+curso-de-energia-solar	0539K76021458	⚫ Kits Solares como Negocio
+curso-de-remodelacion-de-banos-y-cocinas	6970R59859074	⚫ Remodelación de Baños y Cocinas como Negocio
+curso-de-panaderia	1685P57693922	⚫ Panadería desde Casa
+curso-de-pasteleria	4929P61635708	⚫ Pastelería Desde Cero Para Emprender Desde Casa
+curso-de-reposteria	3698P60359441	⚫ Pastelería y Repostería como Negocio
+curso-de-pan-artesanal-y-masa-madre	6001P53138137	⚫ Panadería Artesanal Ítalo Argentina
+curso-de-postres-gourmet		VARIOS_CANDIDATOS: 4862P62001167 Postres Fit | 0673P46607108 Postres Irresistibles | 6549P55083922 Postres Lucrativos
+curso-de-tortas-decoradas		NO_EXISTE_EN_CATALOGO: buscar otro productor con comisión > 20%
+curso-de-chocolateria	5763C49486252	⚫ Chocolatería Master - ChocoArt Academy
+curso-de-fondant	1463F43938883	⚫ Fondant / Pastillaje: Pastelería Artística
+curso-de-galletas-decoradas	9843G81864550	⚫ Galletas Artesanales para Negocio desde 0
+curso-de-cupcakes	7448C47597974	⚫ Cupcakes para Principiantes
+curso-de-cocina	4702C54359951	⚫ Cocina Casera desde Cero
+curso-de-sushi	5180S46888712	⚫ Sushi en Casa
+curso-de-pollo-broaster		NO_EXISTE_EN_CATALOGO: buscar otro productor con comisión > 20%
+curso-de-pizza-artesanal	3397P55969532	⚫ Pizza Artesanal
+curso-de-comidas-rapidas	0320E63819754	⚫ El Rentable Negocio de la Comida Rápida
+curso-de-parrilla-y-asados		VARIOS_CANDIDATOS: 7103A43206936 Amantes del Asado | 7356A49404781 Asado Argentino | 1107A48193729 Asado Master
+curso-de-cerveza-artesanal	9610C57439972	⚫ Cervecería Artesanal Casera
+curso-de-hamburguesas-gourmet	0015H50417324	⚫ Hamburguesas Master
+curso-de-ceviche-peruano	8746C50503840	⚫ Ceviche Peruano
+curso-de-crochet	0965C61328857	⚫ Crochet como Negocio
+curso-de-amigurumi	5460L82692705	⚫ Llaveros Amigurumis, Negocio Novedoso
+curso-de-decoracion-con-globos	2202D42873400	⚫ Diseño y Decoración con Globos
+curso-de-sublimacion	2961S65342960	⚫ Sublimación de Tazas y Termos como Negocio
+curso-de-velas-artesanales	5269V54364787	⚫ Velas Artesanales como Negocio
+curso-de-jabones-artesanales		VARIOS_CANDIDATOS: 7874E55805979 El Negocio de los Jabones Artesanales | 2879J65789086 Jabones Artesanales Naturales
+curso-de-macrame	5459E55503356	⚫ El Negocio del Macramé
+curso-de-porcelana-fria	8399E60819283	⚫ El Negocio de La Porcelana Fría
+curso-de-joyeria-artesanal	4246T56618961	⚫ Tu Marca de Joyería, Bisutería y Accesorios
+curso-de-resina-epoxica		VARIOS_CANDIDATOS: 0931C52923971 Cuadros con Resina Epóxica | 2725A48637685 Aprende Mesas con Resina | 0443A76094931 Accesorios en Resina
+curso-de-serigrafia	4854E66027562	⚫ El Negocio de los Estampados con Serigrafía
+curso-de-corte-y-confeccion		VARIOS_CANDIDATOS: 5973C29604596 Costura Premium | 6577E44213624 El Negocio de la Alta Costura
+curso-de-molderia-y-confeccion	1673A43660552	⚫ Aprende Molderia y Confección
+curso-de-patronaje		VARIOS_CANDIDATOS: 1931P60646401 Patronaje Digital desde Cero | 6586P46827022 Patronaje de Ropa Interior
+curso-de-modisteria	1992M59313765	⚫ Modistería en Casa
+curso-de-costura-industrial	3186C43304370	⚫ Costura Industrial
+curso-de-confeccion-de-trajes-de-bano		NO_EXISTE_EN_CATALOGO: buscar otro productor con comisión > 20%
+curso-de-confeccion-de-ropa-interior	8102C75288486	⚫ Costura de Ropa Intima de Cero a Experto
+curso-de-peluqueria-canina	9923P42352506	⚫ Peluqueria para Perros
+curso-de-adiestramiento-canino		NO_EXISTE_EN_CATALOGO: buscar otro productor con comisión > 20%
+curso-de-estetica-canina	6975E42089805	⚫ Estética Canina
+curso-de-primeros-auxilios-para-mascotas	9313P58086820	⚫ Primeros Auxilios para Perros y Gatos
+curso-de-reposteria-para-mascotas	3915P39108737	⚫ Pasteleria Canina y Felina
+curso-de-masajes	2518M63104295	⚫ Masajista Master desde Cero
+curso-de-drenaje-linfatico		NO_EXISTE_EN_CATALOGO: buscar otro productor con comisión > 20%
+curso-de-primeros-auxilios	7129A47211595	⚫ Aprende Primeros Auxilios
+curso-de-maderoterapia	4496M54499847	⚫ Maderoterapia Xpert
+curso-de-defensa-personal-para-mujeres	1685D42582874	⚫ Defensa Personal para Mujeres
+curso-de-excel	2040E42316089	⚫ Excel para Principiantes
+curso-de-fotografia	3664F77656742	⚫ Fotógrafo, de Novato a Profesional
+curso-de-community-manager	8780C61536450	⚫ Community Manager para tu Agencia de Servicios
+curso-de-fotografia-con-celular	7033F68979578	⚫ Fotografía Profesional con Smartphones
+curso-de-marketing-digital		VARIOS_CANDIDATOS: 6271E78671833 Entendiendo el Marketing Digital | 9781M41539314 Marketing Digital para Restaurantes
+curso-de-contabilidad-basica	6873C58499060	⚫ Contabilidad para No Expertos
+curso-de-desayunos-sorpresa	7476D49406377	⚫ Desayuno Sorpresa como Negocio
+curso-de-bartender	8904B69226950	⚫ Bartender Internacional de Principiante a Avanzado
+curso-de-wedding-planner	5419W55291445	⚫ Wedding Planner Master (Organización de Bodas)
+curso-de-barista	6946T87708079	💥 Trabaja como Barista
+curso-de-airbnb	3691A39174634	⚫ Airbnb Como Oportunidad de Negocio
+curso-de-ingles	1946I42584758	⚫ Ingles para Principiantes
+curso-de-frances	4266A38780647	⚫ Aprende Francés desde Cero
+curso-de-portugues	4120P61562599	⚫ Portugués para Principiantes
+curso-de-japones	9371A43699707	⚫ Aprende Japonés desde cero
+curso-de-ingles-para-ninos	0325I49771115	⚫ Ingles para Niños
+curso-de-coreano	9863A52558744	⚫ Aprende Coreano Fácil
+curso-de-guitarra	5261G55290185	⚫ Guitarra Acústica desde Cero
+curso-de-piano	5883A44743139	⚫ Aprende Piano
+curso-de-canto	9344A25188148	⚫ Aprende a Cantar
+curso-de-dj	1178D42523180	⚫ Dj Urbano
