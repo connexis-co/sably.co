@@ -102,11 +102,57 @@ def main() -> None:
             }
         )
 
+    # Plan de trabajo para scripts/hotmart-acortadores.mjs. El nombre del producto
+    # se reconstruye del archiveSlug porque es como aparece en "Soy Afiliado(a)".
+    plan = [
+        {
+            "slugSably": f["slug_sably"],
+            "titulo": f["titulo_curso"],
+            "nombreProducto": f["archive_slug"].replace("-", " ").title(),
+            "slugCrashing": f"{f['archive_slug']}-curso-crashing",
+            "slugVentaSO": f"{f['archive_slug']}-curso-venta-SO",
+        }
+        for f in filas
+        if f["archive_slug"] and not f["url_final_publicada"]
+    ]
+    (ROOT / "docs/data/acortadores-plan.json").write_text(
+        json.dumps(plan, ensure_ascii=False, indent=2), "utf-8"
+    )
+
+    # Resultado real de la corrida del script, si ya existe: manda sobre lo previsto.
+    resultado_path = ROOT / "docs/data/acortadores-resultado.json"
+    por_slug: dict[str, dict] = {}
+    if resultado_path.exists():
+        for r in json.loads(resultado_path.read_text("utf-8")):
+            por_slug[r["slugSably"]] = r
+
+    for fila in filas:
+        r = por_slug.get(fila["slug_sably"])
+        if not r:
+            continue
+        fila["id_producto_hotmart"] = r.get("idProducto") or fila["id_producto_hotmart"]
+        fila["url_crashing"] = r.get("crashing") or fila["url_crashing"]
+        fila["url_final_publicada"] = r.get("crashing") or fila["url_final_publicada"]
+        fila["estado_afiliacion"] = r.get("estado", fila["estado_afiliacion"])
+        fila["verificado_http"] = "SI" if r.get("estado") == "OK" else "NO"
+        fila["atribucion_ok"] = "SI" if r.get("estado") == "OK" else "NO"
+        if r.get("nota"):
+            fila["notas"] = (fila["notas"] + " · " if fila["notas"] else "") + r["nota"]
+
     wb = Workbook()
     wb.remove(wb.active)
 
     cabecera = Font(bold=True, color="FFFFFF")
     relleno = PatternFill("solid", fgColor="1F2937")
+    # Rojo = no se pudo crear el acortador o no quedó verificado. Es la lista de
+    # cursos que hay que resolver a mano o sustituyendo el producto.
+    rojo = PatternFill("solid", fgColor="FFC7CE")
+    rojo_txt = Font(color="9C0006")
+    verde = PatternFill("solid", fgColor="C6EFCE")
+    verde_txt = Font(color="006100")
+
+    def problematica(f: dict) -> bool:
+        return f["verificado_http"] != "SI" or f["atribucion_ok"] != "SI"
 
     def hoja(nombre: str, datos: list[dict]) -> None:
         ws = wb.create_sheet(nombre[:31])
@@ -117,6 +163,10 @@ def main() -> None:
             celda.alignment = Alignment(vertical="center")
         for fila in datos:
             ws.append([fila[c] for c, _ in COLUMNS])
+            pinta, fuente = (rojo, rojo_txt) if problematica(fila) else (verde, verde_txt)
+            for celda in ws[ws.max_row]:
+                celda.fill = pinta
+                celda.font = fuente
         for i, (_, ancho) in enumerate(COLUMNS, start=1):
             ws.column_dimensions[get_column_letter(i)].width = ancho
         ws.freeze_panes = "A2"
