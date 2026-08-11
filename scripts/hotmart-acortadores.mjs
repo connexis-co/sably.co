@@ -86,26 +86,55 @@ function plan() {
   return filas;
 }
 
+/**
+ * Busca el id interno del producto en "Soy Afiliado(a)".
+ *
+ * Hace falta para los productos que YA estaban afiliados: la página de
+ * reclutamiento se limita a decir «Ya eres Afiliado(a)» y no ofrece ningún
+ * enlace a sus hotlinks, así que el id hay que sacarlo del listado.
+ *
+ * `nombreClub` es la tercera columna del TSV, tal cual aparece en el club.
+ */
+async function idPorNombre(page, nombreClub) {
+  const limpio = nombreClub.replace(/^[^A-Za-zÁÉÍÓÚÑáéíóúñ0-9]+/, '').trim();
+  if (!limpio) return null;
+
+  await page.goto('https://app.hotmart.com/products/affiliations', { waitUntil: 'networkidle2' });
+  await dormir(2000);
+
+  await page.evaluate((q) => {
+    const inp = document.querySelector('input[type="text"],input[type="search"]');
+    if (!inp) return;
+    const set = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+    inp.focus();
+    set.call(inp, q);
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+    inp.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, keyCode: 13 }));
+  }, limpio);
+  await dormir(3000);
+
+  return page.evaluate(() => {
+    const m = (document.body.innerText || '').match(/ID\s+(\d+)/);
+    return m ? m[1] : null;
+  });
+}
+
 /** Afilia si hace falta. Devuelve el id de producto o null. */
-async function afiliar(page, codigo) {
+async function afiliar(page, codigo, nombreClub) {
   await page.goto(`${RECLUTA}/${codigo}`, { waitUntil: 'networkidle2' });
   await dormir(2500);
 
-  if (!/ya eres afiliado/i.test(await texto(page))) {
-    if (!(await clicPorTexto(page, 'afiliarse ahora|ingresa para afiliarte'))) return null;
-    // La afiliación navega a /hotlinks/<id>; no es XHR, así que se espera la URL.
-    for (let i = 0; i < 15 && !/\/hotlinks\/\d+/.test(page.url()); i++) await dormir(1000);
+  if (/ya eres afiliado/i.test(await texto(page))) {
+    // Ya afiliado: el id solo se puede recuperar desde el listado.
+    return idPorNombre(page, nombreClub);
   }
 
-  const m = page.url().match(/\/hotlinks\/(\d+)/);
-  if (m) return m[1];
+  if (!(await clicPorTexto(page, 'afiliarse ahora|ingresa para afiliarte'))) return null;
+  // La afiliación navega a /hotlinks/<id>; no es XHR, así que se espera la URL.
+  for (let i = 0; i < 20 && !/\/hotlinks\/\d+/.test(page.url()); i++) await dormir(1000);
 
-  // Ya afiliado: el enlace a sus hotlinks está en la propia página.
-  const href = await page.evaluate(() => {
-    const a = [...document.querySelectorAll('a')].find((x) => /hotlinks\/\d+/.test(x.href));
-    return a?.href ?? null;
-  });
-  return href ? href.match(/\/hotlinks\/(\d+)/)?.[1] ?? null : null;
+  const m = page.url().match(/\/hotlinks\/(\d+)/);
+  return m ? m[1] : idPorNombre(page, nombreClub);
 }
 
 /** Devuelve {crashing, ventaSO} leyendo la página de hotlinks. */
@@ -196,8 +225,8 @@ async function main() {
   for (const item of filas) {
     const fila = { ...item, idProducto: null, crashing: null, ventaSO: null, estado: '', nota: '' };
     try {
-      const id = await afiliar(page, item.codigo);
-      if (!id) throw new Error('no pude afiliarme ni localizar los hotlinks');
+      const id = await afiliar(page, item.codigo, item.producto);
+      if (!id) throw new Error('no localicé el id del producto (¿ya afiliado y no aparece en Soy Afiliado?)');
       fila.idProducto = id;
 
       const links = await leerHotlinks(page, id);
