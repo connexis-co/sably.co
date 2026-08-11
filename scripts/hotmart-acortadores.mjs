@@ -207,36 +207,56 @@ async function mapaAfiliaciones(page, { usarCache = true } = {}) {
 
   process.stdout.write('Cargando el listado de afiliaciones confirmadas… ');
   await page.goto(AFILIACIONES, { waitUntil: 'networkidle2' });
-  await dormir(3000);
 
-  for (let i = 0; i < 60; i++) {
-    const quedan = await page.evaluate(() => {
-      const b = [...document.querySelectorAll('button')].find((x) => /Mostrar\s+m[áa]s/i.test(x.innerText || ''));
-      if (!b) return false;
-      b.scrollIntoView({ block: 'center' });
-      b.click();
-      return true;
+  /* La lista no tiene botón "Mostrar más": está virtualizada y solo mantiene
+     ~12 tarjetas en el DOM, reciclándolas al hacer scroll. Por eso se recorre
+     la página de arriba abajo acumulando lo que aparece, en vez de leerla de
+     una vez. Y se espera a que haya alguna tarjeta antes de empezar: con un
+     sleep fijo se leía el DOM vacío y se cacheaban 0 productos durante 6 h. */
+  await page
+    .waitForFunction(() => /ID\s+\d+/.test(document.body.innerText || ''), { timeout: 45000, polling: 500 })
+    .catch(() => {});
+
+  const acumulado = new Map();
+  const cosechar = async () => {
+    const pares = await page.evaluate(() => {
+      const out = [];
+      const re = /ID\s+(\d+)\s*\n+\s*([^\n]+)/g;
+      const t = document.body.innerText;
+      let m;
+      while ((m = re.exec(t)) !== null) out.push([m[2].trim(), m[1]]);
+      return out;
     });
-    if (!quedan) break;
-    await dormir(1400);
+    for (const [nombre, id] of pares) if (!acumulado.has(norm(nombre))) acumulado.set(norm(nombre), id);
+  };
+
+  await cosechar();
+  let sinNovedad = 0;
+  for (let y = 0; sinNovedad < 6 && y < 400; y++) {
+    const antes = acumulado.size;
+    await page.evaluate(() => window.scrollBy(0, Math.round(window.innerHeight * 0.8)));
+    await dormir(450);
+    await cosechar();
+    const alFinal = await page.evaluate(
+      () => window.innerHeight + window.scrollY >= document.body.scrollHeight - 40,
+    );
+    sinNovedad = acumulado.size === antes ? sinNovedad + 1 : 0;
+    if (alFinal && sinNovedad >= 3) break;
   }
 
-  const pares = await page.evaluate(() => {
-    const out = [];
-    const re = /ID\s+(\d+)\s*\n+([^\n]+)/g;
-    const t = document.body.innerText;
-    let m;
-    while ((m = re.exec(t)) !== null) out.push([m[2].trim(), m[1]]);
-    return out;
-  });
+  if (acumulado.size === 0) {
+    console.log('0 productos.');
+    throw new Error(
+      'el listado de afiliaciones salió vacío; sin él no se puede distinguir ' +
+        'lo ya afiliado y todo daría ERROR. Revisa la sesión y vuelve a lanzarlo.',
+    );
+  }
 
-  const mapa = new Map();
-  for (const [nombre, id] of pares) if (!mapa.has(norm(nombre))) mapa.set(norm(nombre), id);
-
+  // Solo se cachea un listado con contenido: una caché vacía envenenaba 6 horas.
   fs.mkdirSync(path.dirname(CACHE_IDS), { recursive: true });
-  fs.writeFileSync(CACHE_IDS, JSON.stringify({ ts: Date.now(), pares: [...mapa] }, null, 2), 'utf8');
-  console.log(`${mapa.size} productos.`);
-  return mapa;
+  fs.writeFileSync(CACHE_IDS, JSON.stringify({ ts: Date.now(), pares: [...acumulado] }, null, 2), 'utf8');
+  console.log(`${acumulado.size} productos.`);
+  return acumulado;
 }
 
 // ---------------------------------------------------------------------------
@@ -244,13 +264,69 @@ async function mapaAfiliaciones(page, { usarCache = true } = {}) {
 // ---------------------------------------------------------------------------
 
 /**
- * Devuelve { id, afiliadoAhora }. Si ya estaba afiliado el id sale del mapa;
- * si no, se pulsa "Afiliarse Ahora" y el id sale de la URL /hotlinks/<id> a la
- * que Hotmart redirige.
+ * Busca un producto por nombre en "Soy Afiliado(a)" y devuelve su id, o null.
+ *
+ * El listado solo mantiene ~12 tarjetas en el DOM y no carga más al hacer
+ * scroll, así que para el resto hay que pasar por el buscador. El peligro es
+ * que, cuando la búsqueda no encuentra nada, la página NO se queda vacía:
+ * vuelve a pintar el listado completo. Quedarse con el primer `ID \d+` de ahí
+ * devuelve un producto cualquiera — así salió el "Ceviche Peruano → 1009417",
+ * que en realidad es Manicurista Profesional. Por eso se exige que el nombre
+ * del resultado coincida, y si no, se devuelve null.
+ */
+async function idPorBusqueda(page, nombreClub) {
+  const limpio = nombreClub.replace(/^[^A-Za-z0-9ÁÉÍÓÚÑáéíóúñ]+/, '').trim();
+  if (!limpio) return null;
+
+  if (!/\/products\/affiliations/.test(page.url())) {
+    await page.goto(AFILIACIONES, { waitUntil: 'networkidle2' });
+    await dormir(2500);
+  }
+
+  const escrito = await page.evaluate((q) => {
+    const inp = document.querySelector('input[type="text"],input[type="search"]');
+    if (!inp) return false;
+    const set = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+    inp.focus();
+    set.call(inp, '');
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+    set.call(inp, q);
+    inp.dispatchEvent(new Event('input', { bubbles: true }));
+    inp.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, keyCode: 13 }));
+    return true;
+  }, limpio);
+  if (!escrito) return null;
+  await dormir(3500);
+
+  const pares = await page.evaluate(() => {
+    const out = [];
+    const re = /ID\s+(\d+)\s*\n+\s*([^\n]+)/g;
+    const t = document.body.innerText;
+    let m;
+    while ((m = re.exec(t)) !== null) out.push([m[1], m[2].trim()]);
+    return out;
+  });
+
+  const objetivo = norm(limpio);
+  const exacto = pares.find(([, n]) => norm(n) === objetivo);
+  return exacto ? exacto[0] : null;
+}
+
+/**
+ * Devuelve { id, afiliadoAhora }. Si ya estaba afiliado el id sale del mapa
+ * (o del buscador); si no, se pulsa "Afiliarse Ahora" y el id sale de la URL
+ * /hotlinks/<id> a la que Hotmart redirige.
  */
 async function resolverProducto(page, fila, mapa) {
   const id = mapa.get(norm(fila.nombreClub));
   if (id) return { id, afiliadoAhora: false };
+
+  // El listado solo trae ~12 de las ~300 afiliaciones: el resto, por buscador.
+  const buscado = await idPorBusqueda(page, fila.nombreClub);
+  if (buscado) {
+    mapa.set(norm(fila.nombreClub), buscado); // no repetir la búsqueda
+    return { id: buscado, afiliadoAhora: false };
+  }
 
   await page.goto(`${RECLUTA}/${fila.codigo}`, { waitUntil: 'networkidle2' });
   await dormir(2500);
@@ -324,10 +400,18 @@ async function leerHotlinks(page, id) {
 
   const { rotulos, urls } = await bloques.jsonValue();
 
-  const iCrash = rotulos.findIndex((t) => /crashing/i.test(t));
-  const iSO = rotulos.findIndex((t) => /seminarios/i.test(t));
-  if (iCrash < 0) throw new Error(`no hay bloque "crashing". Rótulos: ${rotulos.join(' | ')}`);
+  /* El rótulo del checkout limpio no siempre dice "crashing": hay productos que
+     lo llaman "checkout de compra limpio. (Usuarios avanzados)". Se acepta
+     cualquiera de las dos formas, pero SIEMPRE excluyendo el de Seminarios, que
+     también contiene la palabra "checkout" y es el otro enlace que buscamos. */
+  const esSeminarios = (t) => /seminarios/i.test(t);
+  const iSO = rotulos.findIndex(esSeminarios);
+  const iCrash = rotulos.findIndex(
+    (t) => !esSeminarios(t) && (/crashing/i.test(t) || /checkout.*limpi/i.test(t)),
+  );
+  if (iCrash < 0) throw new Error(`no hay bloque de checkout limpio. Rótulos: ${rotulos.join(' | ')}`);
   if (iSO < 0) throw new Error(`no hay bloque de Seminarios. Rótulos: ${rotulos.join(' | ')}`);
+  if (iCrash === iSO) throw new Error(`ambos rótulos apuntan al mismo bloque: ${rotulos[iCrash]}`);
 
   const crashing = urls[iCrash];
   const ventaSO = urls[iSO];
@@ -456,22 +540,38 @@ async function pulsar(page, re) {
  * es el hotlink de ESTE producto. Sin `ref` la venta se le acredita al
  * productor; con el `ref` de otro producto, el enlace lleva al sitio que no es.
  */
-async function verificar(slug, codigoHotlink) {
+async function verificar(slug, codigoHotlink, intentos = 3) {
   const url = `https://hotm.io/${slug}`;
-  try {
-    const r = await fetch(url, { redirect: 'follow' });
-    const destino = r.url;
-    const esCheckout = /^https:\/\/pay\.hotmart\.com\//.test(destino);
-    const ref = (destino.match(/[?&]ref=([^&]+)/) || [])[1] ?? null;
-    return {
-      existe: !/static\.hotmart\.com\/shortener/.test(destino) && r.status < 400,
-      ok: esCheckout && !!ref && (!codigoHotlink || ref === codigoHotlink),
-      destino,
-      ref,
-    };
-  } catch (e) {
-    return { existe: false, ok: false, destino: null, ref: null, error: String(e).slice(0, 120) };
+  let ultimo = { existe: false, ok: false, destino: null, ref: null };
+
+  /* hotm.io responde de forma inestable: para un mismo slug inexistente puede
+     devolver su página de fallback o, de vez en cuando, un destino ajeno
+     (se vio "coljuegos.gov.co" en un slug libre). Tomar ese destino por bueno
+     marcaba el acortador como "ya existía" y NO se creaba, dejando el curso sin
+     enlace. Por eso solo cuenta como existente si acaba en pay.hotmart.com, y
+     un destino raro se reintenta antes de darlo por bueno. */
+  for (let i = 0; i < intentos; i++) {
+    try {
+      const r = await fetch(url, { redirect: 'follow' });
+      const destino = r.url;
+      const esCheckout = /^https:\/\/pay\.hotmart\.com\//.test(destino);
+      const esFallback = /static\.hotmart\.com\/shortener/.test(destino);
+      const ref = (destino.match(/[?&]ref=([^&]+)/) || [])[1] ?? null;
+
+      ultimo = {
+        existe: esCheckout,
+        ok: esCheckout && !!ref && (!codigoHotlink || ref === codigoHotlink),
+        destino,
+        ref,
+      };
+      // Respuesta concluyente: es nuestro checkout, o el fallback de "no existe".
+      if (esCheckout || esFallback) return ultimo;
+    } catch (e) {
+      ultimo = { existe: false, ok: false, destino: null, ref: null, error: String(e).slice(0, 120) };
+    }
+    await dormir(800);
   }
+  return ultimo;
 }
 
 // ---------------------------------------------------------------------------
