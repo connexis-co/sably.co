@@ -2,37 +2,841 @@
   {
     "slugSably": "curso-de-barberia",
     "codigo": "7954A63130914",
-    "producto": "⚫ Aprende Barbería y Monta tu Negocio",
-    "slugCrashing": "aprende-barberia-y-monta-tu-negocio-curso-crashing",
-    "slugVentaSO": "aprende-barberia-y-monta-tu-negocio-curso-venta-SO",
-    "idProducto": null,
-    "crashing": null,
-    "ventaSO": null,
-    "estado": "ERROR",
-    "nota": "no pude afiliarme ni localizar los hotlinks"
+    "idProducto": "1802099",
+    "crashing": "https://hotm.io/aprende-barberia-y-monta-tu-negocio-curso-crashing",
+    "ventaSO": "https://hotm.io/aprende-barberia-y-monta-tu-negocio-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/P63130893D?ref=T71423159U",
+    "estado": "OK",
+    "nota": "El crashing ya existia (Hotmart: 'Customized link address is not available'), no se toco; se creo el de venta SO. Ambos verificados con ref."
   },
   {
     "slugSably": "curso-de-unas-acrilicas",
     "codigo": "3772E64481327",
-    "producto": "⚫ El Arte de las Uñas Acrílicas",
-    "slugCrashing": "master-en-unas-acrilicas-curso-crashing",
-    "slugVentaSO": "master-en-unas-acrilicas-curso-venta-SO",
-    "idProducto": null,
-    "crashing": null,
-    "ventaSO": null,
-    "estado": "ERROR",
-    "nota": "no pude afiliarme ni localizar los hotlinks"
+    "idProducto": "1850277",
+    "crashing": "https://hotm.io/el-arte-de-las-unas-acrilicas-curso-crashing",
+    "ventaSO": "https://hotm.io/el-arte-de-las-unas-acrilicas-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/U64481306Q?ref=Q76206177K",
+    "estado": "OK",
+    "nota": "Ambos verificados con ref."
   },
   {
     "slugSably": "curso-de-microblading",
     "codigo": "2011C45079367",
-    "producto": "⚫ Cejas Perfectas con Microblading",
-    "slugCrashing": "cejas-perfectas-con-microblading-curso-crashing",
-    "slugVentaSO": "cejas-perfectas-con-microblading-curso-venta-SO",
+    "idProducto": "1198643",
+    "crashing": "https://hotm.io/cejas-perfectas-con-microblading-curso-crashing",
+    "ventaSO": "https://hotm.io/cejas-perfectas-con-microblading-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/Y45079346E?ref=I76205611U",
+    "estado": "OK",
+    "nota": "crashing ya existia; venta SO creado. Ambos verificados con ref."
+  },
+  {
+    "slugSably": "curso-de-extensiones-de-pestanas",
+    "codigo": "1955E75458390",
+    "idProducto": "2370504",
+    "crashing": "https://hotm.io/experta-en-extensiones-de-pestanas-curso-crashing",
+    "ventaSO": "https://hotm.io/experta-en-extensiones-de-pestanas-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/G75458369D?ref=P77654571U",
+    "estado": "OK",
+    "nota": "Los dos creados y verificados con ref."
+  },
+  {
+    "slugSably": "curso-de-manicure-y-pedicure",
+    "codigo": "1824M60343367",
+    "idProducto": "1700402",
+    "crashing": "https://hotm.io/manicure-y-pedicure-a-domicilio-curso-crashing",
+    "ventaSO": "https://hotm.io/manicure-y-pedicure-a-domicilio-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/A60343346C?ref=D76206117I",
+    "estado": "OK",
+    "nota": "Ambos ya existian con el slug recortado previsto y verifican con ref."
+  },
+  {
+    "slugSably": "curso-de-diseno-de-cejas-con-hilo-y-henna",
+    "codigo": "6802D61897340",
+    "idProducto": "1756380",
+    "crashing": "https://hotm.io/diseno-de-cejas-hilo-y-henna-curso-crashing",
+    "ventaSO": "https://hotm.io/diseno-de-cejas-hilo-y-henna-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/J61897319S?ref=H77654354C",
+    "estado": "OK",
+    "nota": "Los dos creados con el slug recortado y verificados con ref."
+  },
+  {
+    "slugSably": "curso-de-maquillaje-profesional-de-novias",
+    "codigo": "6433M63186602",
+    "idProducto": "1803923",
+    "crashing": "https://hotm.io/maquillaje-profesional-para-novias-curso-crashing",
+    "ventaSO": "https://hotm.io/maquillaje-profesional-para-novias-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/X63186581T?ref=J76206203K",
+    "estado": "OK",
+    "nota": "Ambos ya existian y verifican con ref."
+  },
+  {
+    "slugSably": "curso-de-maquillaje-permanente",
+    "codigo": "4730M44578804",
+    "idProducto": "1180972",
+    "crashing": "https://hotm.io/maquillaje-permanente-curso-crashing",
+    "ventaSO": "https://hotm.io/maquillaje-permanente-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/J44578783I?ref=V76206246N",
+    "estado": "OK",
+    "nota": "Ambos ya existian y verifican con ref."
+  },
+  {
+    "slugSably": "curso-de-colorimetria",
+    "codigo": "4461C48026778",
+    "idProducto": "1296344",
+    "crashing": "https://hotm.io/colorimetria-para-estilistas-curso-crashing",
+    "ventaSO": "https://hotm.io/colorimetria-para-estilistas-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/P48026757I?ref=N76206248G",
+    "estado": "OK",
+    "nota": "Ambos ya existian con el slug recortado y verifican con ref. Resuelve el ERROR que dejo la sesion anterior por longitud."
+  },
+  {
+    "slugSably": "curso-de-pestanas-volumen-ruso",
+    "codigo": "8323P72428902",
+    "idProducto": null,
+    "crashing": "https://hotm.io/pestanas-pelo-a-pelo-volumen-ruso-curso-crashing",
+    "ventaSO": "https://hotm.io/pestanas-pelo-a-pelo-volumen-ruso-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/B72428881X?ref=T77952918L",
+    "estado": "OK",
+    "nota": "Ambos ya existian y verifican con ref."
+  },
+  {
+    "slugSably": "curso-de-decoracion-de-unas",
+    "codigo": "1836D58716058",
+    "idProducto": "1643331",
+    "crashing": "https://hotm.io/decoracion-de-unas-como-negocio-curso-crashing",
+    "ventaSO": "https://hotm.io/decoracion-de-unas-como-negocio-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/P58716037X?ref=J76206210L",
+    "estado": "OK",
+    "nota": "Los dos creados y verificados con ref."
+  },
+  {
+    "slugSably": "curso-de-barberia-artistica",
+    "codigo": "7186B63192909",
+    "idProducto": "1804143",
+    "crashing": "https://hotm.io/barberia-artistica-paso-a-paso-curso-crashing",
+    "ventaSO": "https://hotm.io/barberia-artistica-paso-a-paso-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/S63192888Y?ref=X76206206C",
+    "estado": "OK",
+    "nota": "Ambos ya existian y verifican con ref."
+  },
+  {
+    "slugSably": "curso-de-balayage",
+    "codigo": "4911E62294192",
+    "idProducto": null,
+    "crashing": "https://hotm.io/experta-en-balayage-rubio-platinado-curso-crashing",
+    "ventaSO": "https://hotm.io/experta-en-balayage-rubio-platinado-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/X62294171S?ref=C107109322E",
+    "estado": "OK",
+    "nota": "Afiliacion creada en esta sesion (ID 1772369). Los dos acortadores creados y verificados con ref."
+  },
+  {
+    "slugSably": "curso-de-alisados-y-keratina",
+    "codigo": "0928I79889300",
     "idProducto": null,
     "crashing": null,
     "ventaSO": null,
-    "estado": "ERROR",
-    "nota": "no pude afiliarme ni localizar los hotlinks"
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-extensiones-de-cabello",
+    "codigo": "7997E57846659",
+    "idProducto": "1611608",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-trenzas-y-peinados",
+    "codigo": "9903E48797694",
+    "idProducto": "1319780",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-limpieza-facial",
+    "codigo": "0808L65394438",
+    "idProducto": "1882007",
+    "crashing": "https://hotm.io/limpieza-facial-profunda-curso-crashing",
+    "ventaSO": "https://hotm.io/limpieza-facial-profunda-curso-venta-SO",
+    "checkoutFinal": "https://pay.hotmart.com/B65394417K?ref=S76206187Q",
+    "estado": "OK",
+    "nota": "Ambos ya existian y verifican con ref."
+  },
+  {
+    "slugSably": "curso-de-mecanica-de-motos",
+    "codigo": "0806M41229108",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-reparacion-de-celulares",
+    "codigo": "9810R56098120",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-electricista",
+    "codigo": "5455E61163500",
+    "idProducto": "1730133",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-aire-acondicionado-y-refrigeracion",
+    "codigo": "9333M71462481",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-reparacion-de-computadoras",
+    "codigo": "1932E38540909",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-reparacion-de-lavadoras",
+    "codigo": "9581L46201393",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-instalacion-de-camaras-de-seguridad",
+    "codigo": "6339C66396380",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-carpinteria-y-muebles",
+    "codigo": "1425E65021756",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-mecanica-de-bicicletas",
+    "codigo": "5541M42783952",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-energia-solar",
+    "codigo": "0539K76021458",
+    "idProducto": "2409458",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "YA_EXISTIA",
+    "nota": "Creado y verificado en la sesion del 2026-08-10; no se toca."
+  },
+  {
+    "slugSably": "curso-de-remodelacion-de-banos-y-cocinas",
+    "codigo": "6970R59859074",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-panaderia",
+    "codigo": "1685P57693922",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "FALTAN_LOS_DOS",
+    "nota": "No existe ninguno"
+  },
+  {
+    "slugSably": "curso-de-pasteleria",
+    "codigo": "4929P61635708",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-reposteria",
+    "codigo": "3698P60359441",
+    "idProducto": "1701075",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-pan-artesanal-y-masa-madre",
+    "codigo": "6001P53138137",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-chocolateria",
+    "codigo": "5763C49486252",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-fondant",
+    "codigo": "1463F43938883",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-galletas-decoradas",
+    "codigo": "9843G81864550",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-cupcakes",
+    "codigo": "7448C47597974",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-cocina",
+    "codigo": "4702C54359951",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-sushi",
+    "codigo": "5180S46888712",
+    "idProducto": "1259120",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-pizza-artesanal",
+    "codigo": "3397P55969532",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-comidas-rapidas",
+    "codigo": "0320E63819754",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-cerveza-artesanal",
+    "codigo": "9610C57439972",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-hamburguesas-gourmet",
+    "codigo": "0015H50417324",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-ceviche-peruano",
+    "codigo": "8746C50503840",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-crochet",
+    "codigo": "0965C61328857",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-amigurumi",
+    "codigo": "5460L82692705",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-decoracion-con-globos",
+    "codigo": "2202D42873400",
+    "idProducto": "1120190",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-sublimacion",
+    "codigo": "2961S65342960",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-velas-artesanales",
+    "codigo": "5269V54364787",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-macrame",
+    "codigo": "5459E55503356",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-porcelana-fria",
+    "codigo": "8399E60819283",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-joyeria-artesanal",
+    "codigo": "4246T56618961",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-serigrafia",
+    "codigo": "4854E66027562",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-molderia-y-confeccion",
+    "codigo": "1673A43660552",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-modisteria",
+    "codigo": "1992M59313765",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-costura-industrial",
+    "codigo": "3186C43304370",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-confeccion-de-ropa-interior",
+    "codigo": "8102C75288486",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-peluqueria-canina",
+    "codigo": "9923P42352506",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-estetica-canina",
+    "codigo": "6975E42089805",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-primeros-auxilios-para-mascotas",
+    "codigo": "9313P58086820",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-reposteria-para-mascotas",
+    "codigo": "3915P39108737",
+    "idProducto": "969838",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "YA_EXISTIA",
+    "nota": "Creado y verificado en la sesion del 2026-08-10; no se toca."
+  },
+  {
+    "slugSably": "curso-de-masajes",
+    "codigo": "2518M63104295",
+    "idProducto": "1801205",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-primeros-auxilios",
+    "codigo": "7129A47211595",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-maderoterapia",
+    "codigo": "4496M54499847",
+    "idProducto": "1491449",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-defensa-personal-para-mujeres",
+    "codigo": "1685D42582874",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-excel",
+    "codigo": "2040E42316089",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-fotografia",
+    "codigo": "3664F77656742",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-community-manager",
+    "codigo": "8780C61536450",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-fotografia-con-celular",
+    "codigo": "7033F68979578",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-contabilidad-basica",
+    "codigo": "6873C58499060",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-desayunos-sorpresa",
+    "codigo": "7476D49406377",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-bartender",
+    "codigo": "8904B69226950",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-wedding-planner",
+    "codigo": "5419W55291445",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-barista",
+    "codigo": "6946T87708079",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-airbnb",
+    "codigo": "3691A39174634",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-ingles",
+    "codigo": "1946I42584758",
+    "idProducto": "1109732",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-frances",
+    "codigo": "4266A38780647",
+    "idProducto": "956399",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "YA_EXISTIA",
+    "nota": "Creado y verificado en la sesion del 2026-08-10; no se toca."
+  },
+  {
+    "slugSably": "curso-de-portugues",
+    "codigo": "4120P61562599",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-japones",
+    "codigo": "9371A43699707",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-ingles-para-ninos",
+    "codigo": "0325I49771115",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-coreano",
+    "codigo": "9863A52558744",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-guitarra",
+    "codigo": "5261G55290185",
+    "idProducto": "1519008",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "YA_EXISTIA",
+    "nota": "Creado y verificado en la sesion del 2026-08-10; no se toca."
+  },
+  {
+    "slugSably": "curso-de-piano",
+    "codigo": "5883A44743139",
+    "idProducto": "1186548",
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "YA_EXISTIA",
+    "nota": "Creado y verificado en la sesion del 2026-08-10; no se toca."
+  },
+  {
+    "slugSably": "curso-de-canto",
+    "codigo": "9344A25188148",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
+  },
+  {
+    "slugSably": "curso-de-dj",
+    "codigo": "1178D42523180",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "checkoutFinal": null,
+    "estado": "PENDIENTE",
+    "nota": ""
   }
 ]
