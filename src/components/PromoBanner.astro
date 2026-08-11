@@ -204,6 +204,20 @@ const UNIDADES = [
     poner('[data-promo-pct]', `−${promo.discountPct}%`);
     poner('[data-promo-codigo]', promo.couponCode);
 
+    // El cupón se añade a TODOS los CTA de pago de la página, no solo a los de
+    // la ficha de curso: este componente vive en BaseLayout, así que también
+    // cubre las páginas de homologaciones, que no llevan CourseLanding y por
+    // tanto se quedaban sin cupón mientras el banner lo anunciaba.
+    document.querySelectorAll<HTMLAnchorElement>('a[data-cta-hotmart]').forEach((a) => {
+      try {
+        const url = new URL(a.href);
+        url.searchParams.set('offDiscount', promo.couponCode);
+        a.href = url.toString();
+      } catch {
+        /* href no parseable: mejor dejar el enlace de pago intacto. */
+      }
+    });
+
     const cta = el.querySelector<HTMLAnchorElement>('[data-promo-cta]');
     if (cta) cta.href = `/${document.documentElement.lang?.split('-')[1]?.toLowerCase() ?? 'co'}/cursos/`;
 

@@ -294,7 +294,13 @@ const schemas = [
           >
         </div>
         {/* Oculto por defecto: solo se muestra si hay campaña vigente (ver promo.ts). */}
-        <p data-promo-nota hidden data-country={country.code} class="mt-1 text-xs font-semibold text-error">
+        <p
+          data-promo-nota
+          hidden
+          data-country={country.code}
+          data-slug={course.id}
+          class="mt-1 text-xs font-semibold text-error"
+        >
           🔥 <span data-promo-nota-texto></span> — se aplica automáticamente al pagar
         </p>
         <a
@@ -665,19 +671,24 @@ const schemas = [
 
 <script>
   /* Promoción: nada se promete en el HTML estático. Si hay campaña vigente para
-     el país del visitante, se muestra la nota y se añade el cupón a los CTA de
-     Hotmart, de modo que la promesa y el checkout coincidan. */
-  import { resolvePromo } from '@/lib/promo';
+     el país del visitante, se muestran la nota y el badge de la ficha.
+
+     Del cupón en los enlaces de pago se encarga PromoBanner, que vive en
+     BaseLayout y por tanto cubre también las páginas sin ficha de curso. Aquí
+     solo va lo propio de la ficha.
+
+     Las dos fuentes son las mismas que las del banner y en el mismo orden: el
+     override manual de `/admin/promociones` gana al calendario horneado. */
+  import { campaignDeOverride, leerOverride, resolvePromo, type PromoCampaign } from '@/lib/promo';
+
+  type Aplicable = Pick<PromoCampaign, 'label' | 'discountPct'>;
 
   const nota = document.querySelector<HTMLElement>('[data-promo-nota]');
   if (nota) {
-    const promo = resolvePromo({
-      countryCode: nota.dataset.country ?? 'co',
-      now: new Date(),
-      urlKey: new URLSearchParams(location.search).get('promo'),
-    });
+    const pais = nota.dataset.country ?? 'co';
+    const slug = nota.dataset.slug;
 
-    if (promo) {
+    const aplicar = (promo: Aplicable): void => {
       nota.hidden = false;
       nota.querySelector('[data-promo-nota-texto]')!.textContent =
         `${promo.label}: ${promo.discountPct}% de descuento`;
@@ -687,16 +698,19 @@ const schemas = [
          "-40%" justo encima de "50% de descuento" y se contradecía sola. */
       const badge = document.querySelector<HTMLElement>('[data-promo-badge]');
       if (badge) badge.textContent = `-${promo.discountPct}%`;
+    };
 
-      document.querySelectorAll<HTMLAnchorElement>('a[data-cta-hotmart]').forEach((a) => {
-        try {
-          const url = new URL(a.href);
-          url.searchParams.set('offDiscount', promo.couponCode);
-          a.href = url.toString();
-        } catch {
-          /* href no parseable: mejor dejar el enlace de pago intacto. */
-        }
-      });
-    }
+    // El calendario se aplica ya, sin esperar a la red.
+    const delCalendario = resolvePromo({
+      countryCode: pais,
+      now: new Date(),
+      urlKey: new URLSearchParams(location.search).get('promo'),
+    });
+    if (delCalendario) aplicar(delCalendario);
+
+    leerOverride().then((o) => {
+      const manual = o && campaignDeOverride(o, { countryCode: pais, courseSlug: slug });
+      if (manual) aplicar(manual);
+    });
   }
 </script>
