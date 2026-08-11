@@ -305,8 +305,18 @@ const schemas = [
           data-cta-position="hero"
           class="animate-pulse-soft mt-5 block rounded-md bg-accent px-6 py-4 text-center font-bold text-white transition hover:bg-accent-hover"
         >
-          🔥 Inscribirme ahora
+          {hayCheckout ? '🔥 Inscribirme ahora' : '📩 Avísame cuando abra'}
         </a>
+        {
+          /* Sin cupo abierto el CTA no puede prometer inscripción. Se avisa en corto
+             y el botón pasa a captar el lead, que es lo único accionable ahora. */
+          !hayCheckout && (
+            <p class="mt-2 text-center text-xs text-muted">
+              Las inscripciones a este curso están cerradas por el momento. Déjanos tus datos y te
+              avisamos apenas se abran.
+            </p>
+          )
+        }
         <button
           type="button"
           data-lead-open
@@ -606,9 +616,15 @@ const schemas = [
         data-cta-position="footer"
         class="animate-pulse-soft mt-7 inline-block rounded-md bg-accent px-8 py-4 font-bold text-white transition hover:bg-accent-hover"
       >
-        🔥 Inscribirme ahora
+        {hayCheckout ? '🔥 Inscribirme ahora' : '📩 Avísame cuando abra'}
       </a>
-      <p class="mt-4 text-sm text-white/60">Garantía de 7 días · Acceso de por vida · Certificado incluido</p>
+      <p class="mt-4 text-sm text-white/60">
+        {
+          hayCheckout
+            ? 'Garantía de 7 días · Acceso de por vida · Certificado incluido'
+            : 'Te escribimos en cuanto haya cupos, sin compromiso.'
+        }
+      </p>
     </div>
   </section>
 
