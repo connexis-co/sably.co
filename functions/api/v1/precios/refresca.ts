@@ -50,16 +50,18 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   try {
     const filas = await env.DB.prepare(
       'SELECT moneda, monto, capturado FROM hotmart_precio WHERE slug = ?',
-    ).all<{ moneda: string; monto: number; capturado: number }>();
+    )
+      .bind(slug)
+      .all<{ moneda: string; monto: number; capturado: number }>();
     for (const f of filas.results ?? []) precios[f.moneda] = f.monto;
 
     const masReciente = Math.max(0, ...(filas.results ?? []).map((f) => f.capturado));
     const ahora = Math.floor(Date.now() / 1000);
     if (ahora - masReciente < 1800) return json({ slug, precios, refrescado: false });
 
-    const prod = await env.DB.prepare(
-      'SELECT pay_url FROM hotmart_producto WHERE slug = ?',
-    ).first<{ pay_url: string }>();
+    const prod = await env.DB.prepare('SELECT pay_url FROM hotmart_producto WHERE slug = ?')
+      .bind(slug)
+      .first<{ pay_url: string }>();
     if (!prod) return error('Curso sin producto registrado.', 404);
 
     const r = await fetch(prod.pay_url, {
