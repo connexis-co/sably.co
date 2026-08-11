@@ -35,8 +35,13 @@ CREATE TABLE IF NOT EXISTS promo_override (
   actualizado  INTEGER NOT NULL DEFAULT (unixepoch()),
   por          TEXT,
 
-  -- Una ventana sin fecha de fin no tiene cuenta atrás que mostrar.
-  CHECK (modo = 'perpetua' OR hasta IS NOT NULL)
+  -- Una ventana ACTIVA sin fecha de fin no tiene cuenta atrás que mostrar.
+  --
+  -- El `activa = 0` de delante no sobra: sin él, la fila inicial (inactiva,
+  -- modo 'ventana', sin fecha) viola el CHECK, el INSERT OR IGNORE de abajo se
+  -- traga el rechazo sin decir nada y la tabla queda vacía. El panel arrancaría
+  -- sin fila que actualizar y el UPDATE no afectaría a nada, en silencio.
+  CHECK (activa = 0 OR modo = 'perpetua' OR hasta IS NOT NULL)
 );
 
 INSERT OR IGNORE INTO promo_override (id, activa) VALUES (1, 0);

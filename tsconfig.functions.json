@@ -1,0 +1,18 @@
+{
+  // Las Pages Functions viven fuera del proyecto de Astro, así que `astro check`
+  // no las mira: hasta ahora functions/ no tenía comprobación de tipos ninguna.
+  // Este tsconfig existe para que `npm run check:functions` sí las cubra, con los
+  // tipos del runtime de Workers (D1Database, PagesFunction) que Astro no conoce.
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "types": ["@cloudflare/workers-types"],
+    "lib": ["ES2022"]
+  },
+  "include": ["functions/**/*.ts"]
+}
