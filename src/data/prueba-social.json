@@ -1,0 +1,277 @@
+{
+  "_fuente": "Histórico real de la API de Hotmart (payments/api/v1/sales/history). No incluye datos del comprador: la API no los expone, así que los avisos no llevan nombre ni hora. Cada aviso corresponde a una compra que existe en el histórico; ninguno está inventado.",
+  "_generado": "2026-08-11",
+  "totalCompras": 256,
+  "paises": [
+    {
+      "pais": "Colombia",
+      "n": 170
+    },
+    {
+      "pais": "Estados Unidos y otros",
+      "n": 48
+    },
+    {
+      "pais": "otros países",
+      "n": 15
+    },
+    {
+      "pais": "España",
+      "n": 15
+    },
+    {
+      "pais": "México",
+      "n": 6
+    },
+    {
+      "pais": "Chile",
+      "n": 1
+    },
+    {
+      "pais": "Perú",
+      "n": 1
+    }
+  ],
+  "avisos": [
+    {
+      "slug": "curso-de-barberia",
+      "titulo": "Curso de Barbería desde Cero",
+      "pais": ""
+    },
+    {
+      "slug": "curso-de-barberia",
+      "titulo": "Curso de Barbería desde Cero",
+      "pais": "Colombia"
+    },
+    {
+      "slug": "curso-de-barberia",
+      "titulo": "Curso de Barbería desde Cero",
+      "pais": "México"
+    },
+    {
+      "slug": "curso-de-colorimetria",
+      "titulo": "Curso de Colorimetría para Estilistas",
+      "pais": "Colombia"
+    },
+    {
+      "slug": "curso-de-decoracion-de-unas",
+      "titulo": "Curso de Decoración de Uñas",
+      "pais": ""
+    },
+    {
+      "slug": "curso-de-decoracion-de-unas",
+      "titulo": "Curso de Decoración de Uñas",
+      "pais": "Colombia"
+    },
+    {
+      "slug": "curso-de-extensiones-de-pestanas",
+      "titulo": "Curso de Extensiones de Pestañas",
+      "pais": ""
+    },
+    {
+      "slug": "curso-de-limpieza-facial",
+      "titulo": "Curso de Limpieza Facial Profesional",
+      "pais": ""
+    },
+    {
+      "slug": "curso-de-limpieza-facial",
+      "titulo": "Curso de Limpieza Facial Profesional",
+      "pais": "Colombia"
+    },
+    {
+      "slug": "curso-de-manicure-y-pedicure",
+      "titulo": "Curso de Manicure y Pedicure a Domicilio",
+      "pais": ""
+    },
+    {
+      "slug": "curso-de-manicure-y-pedicure",
+      "titulo": "Curso de Manicure y Pedicure a Domicilio",
+      "pais": "Colombia"
+    },
+    {
+      "slug": "curso-de-maquillaje-profesional-de-novias",
+      "titulo": "Curso de Maquillaje Profesional para Novias",
+      "pais": "Colombia"
+    },
+    {
+      "slug": "curso-de-masajes",
+      "titulo": "Curso de Masajes",
+      "pais": ""
+    },
+    {
+      "slug": "curso-de-masajes",
+      "titulo": "Curso de Masajes",
+      "pais": "Colombia"
+    },
+    {
+      "slug": "curso-de-masajes",
+      "titulo": "Curso de Masajes",
+      "pais": "México"
+    },
+    {
+      "slug": "curso-de-reposteria-para-mascotas",
+      "titulo": "Curso de Repostería para Mascotas",
+      "pais": "Colombia"
+    },
+    {
+      "slug": "curso-de-trenzas-y-peinados",
+      "titulo": "Curso de Trenzas y Peinados",
+      "pais": ""
+    },
+    {
+      "slug": "curso-de-trenzas-y-peinados",
+      "titulo": "Curso de Trenzas y Peinados",
+      "pais": "Colombia"
+    }
+  ],
+  "cursos": {
+    "curso-de-masajes": {
+      "compras": 45,
+      "paises": [
+        {
+          "pais": "Colombia",
+          "n": 38
+        },
+        {
+          "pais": "España",
+          "n": 3
+        },
+        {
+          "pais": "Estados Unidos y otros",
+          "n": 3
+        }
+      ],
+      "ultimaCompra": 1764721008000
+    },
+    "curso-de-barberia": {
+      "compras": 13,
+      "paises": [
+        {
+          "pais": "Colombia",
+          "n": 6
+        },
+        {
+          "pais": "Estados Unidos y otros",
+          "n": 3
+        },
+        {
+          "pais": "México",
+          "n": 2
+        }
+      ],
+      "ultimaCompra": 1760139450000
+    },
+    "curso-de-decoracion-de-unas": {
+      "compras": 5,
+      "paises": [
+        {
+          "pais": "Colombia",
+          "n": 3
+        },
+        {
+          "pais": "otros países",
+          "n": 1
+        },
+        {
+          "pais": "España",
+          "n": 1
+        }
+      ],
+      "ultimaCompra": 1750863017000
+    },
+    "curso-de-manicure-y-pedicure": {
+      "compras": 14,
+      "paises": [
+        {
+          "pais": "Colombia",
+          "n": 11
+        },
+        {
+          "pais": "otros países",
+          "n": 2
+        },
+        {
+          "pais": "España",
+          "n": 1
+        }
+      ],
+      "ultimaCompra": 1765909893000
+    },
+    "curso-de-trenzas-y-peinados": {
+      "compras": 11,
+      "paises": [
+        {
+          "pais": "Estados Unidos y otros",
+          "n": 5
+        },
+        {
+          "pais": "Colombia",
+          "n": 5
+        },
+        {
+          "pais": "España",
+          "n": 1
+        }
+      ],
+      "ultimaCompra": 1761244456000
+    },
+    "curso-de-extensiones-de-pestanas": {
+      "compras": 1,
+      "paises": [
+        {
+          "pais": "otros países",
+          "n": 1
+        }
+      ],
+      "ultimaCompra": 1708098088000
+    },
+    "curso-de-maquillaje-profesional-de-novias": {
+      "compras": 1,
+      "paises": [
+        {
+          "pais": "Colombia",
+          "n": 1
+        }
+      ],
+      "ultimaCompra": 1710271107000
+    },
+    "curso-de-limpieza-facial": {
+      "compras": 5,
+      "paises": [
+        {
+          "pais": "Colombia",
+          "n": 3
+        },
+        {
+          "pais": "Estados Unidos y otros",
+          "n": 1
+        },
+        {
+          "pais": "otros países",
+          "n": 1
+        }
+      ],
+      "ultimaCompra": 1774221798000
+    },
+    "curso-de-colorimetria": {
+      "compras": 1,
+      "paises": [
+        {
+          "pais": "Colombia",
+          "n": 1
+        }
+      ],
+      "ultimaCompra": 1750381950000
+    },
+    "curso-de-reposteria-para-mascotas": {
+      "compras": 1,
+      "paises": [
+        {
+          "pais": "Colombia",
+          "n": 1
+        }
+      ],
+      "ultimaCompra": 1750781460000
+    }
+  }
+}
