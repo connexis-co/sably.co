@@ -2,25 +2,24 @@
 /**
  * Avisos de prueba social, al estilo de los que muestra Hotmart.
  *
- * Todos los datos salen del histórico REAL de ventas de la API de Hotmart
- * (`scripts/build-prueba-social.py`). Es la diferencia con los widgets que se
- * ven por ahí: aquí no hay nombres ni "hace 3 minutos" inventados.
+ * Dos fuentes, ambas reales y comprobables:
  *
- * Dos decisiones sobre qué se dice y qué no:
+ * 1. **Reseñas públicas de Hotmart** (hotmart-live.json): nombre que su autor
+ *    publicó en la página del producto, su nota y una frase de su reseña.
+ *    «Deisy valoró Curso de Uñas con ★★★★★» es un hecho verificable en la
+ *    página pública del producto — no un "Juan compró hace 5 minutos"
+ *    fabricado, que es lo que hacen los widgets de por ahí.
+ * 2. **Pares (curso, país) del histórico de ventas** de la API de Hotmart
+ *    (`scripts/build-prueba-social.py`): compras que constan, sin nombre
+ *    porque la API de afiliado no lo da.
  *
- * - **Sin cifras totales.** Un contador bajo argumenta en contra: mejor no
- *   apoyarse en él. Omitirlo no engaña; inflarlo sí.
- * - **Sin nombre y sin hora.** La API no identifica al comprador ni permite
- *   decir "hace 5 minutos", así que el aviso se queda en lo que sí consta:
- *   ese curso se vendió, y desde ese país. Si alguien lo contrasta, aguanta.
+ * Sin contadores bajos (omitir no engaña; inflar sí) y sin horas inventadas.
  *
- * La rotación va por pares (curso, país) reales, así que se ve movimiento
- * constante sin inventar a nadie.
- *
- * Aparece abajo a la izquierda en escritorio y abajo centrado en móvil, sin
- * tapar el CTA fijo. Se puede cerrar y no vuelve en toda la sesión.
+ * Aparece abajo a la izquierda, elevándose sobre la barra fija de compra en
+ * móvil. Se puede cerrar y no vuelve en toda la sesión.
  */
 import datos from '@/data/prueba-social.json';
+import { resenasDelCatalogo, resenasReales, tituloDe } from '@/lib/hotmartLive';
 
 interface Props {
   /** Slug del curso, para usar sus cifras si las tiene. */
@@ -28,7 +27,12 @@ interface Props {
   /** Título del curso, para nombrarlo en el aviso. */
   courseTitle?: string;
 }
-const { courseSlug, courseTitle } = Astro.props;
+/* El componente vive en BaseLayout, sin contexto: el slug sale de la ruta
+   (/<pais>/[ciudad/]curso-…/), que en SSG se conoce en build. */
+const { courseSlug: slugProp, courseTitle: tituloProp } = Astro.props;
+const courseSlug =
+  slugProp ?? Astro.url.pathname.split('/').find((t) => t.startsWith('curso-'));
+const courseTitle = tituloProp ?? (courseSlug ? (tituloDe(courseSlug) ?? undefined) : undefined);
 
 const delCurso = courseSlug ? (datos.cursos as Record<string, any>)[courseSlug] : null;
 
@@ -53,12 +57,36 @@ const semilla = [...Astro.url.pathname].reduce((n, c) => n + c.charCodeAt(0), 0)
 const desfase = ajenos.length ? semilla % ajenos.length : 0;
 const rotados = [...ajenos.slice(desfase), ...ajenos.slice(0, desfase)];
 
-const mensajes: { texto: string; detalle: string }[] = [
-  ...[...propios, ...rotados].slice(0, 12).map((a) => ({
-    texto: a.pais ? `Alguien de ${a.pais} se inscribió` : 'Alguien se inscribió',
-    detalle: a.titulo,
-  })),
-];
+const estrellas = (n: number): string => '★'.repeat(Math.max(1, Math.min(5, Math.round(n))));
+
+/* Reseñas con nombre: primero las del curso que se está viendo. */
+const resenasPropias = (courseSlug ? resenasReales(courseSlug) : []).slice(0, 2).map((r) => ({
+  texto: `${r.nombre} lo valoró con ${estrellas(r.rating)}`,
+  detalle: r.texto ? `«${r.texto}…»` : (courseTitle ?? 'Reseña pública en Hotmart'),
+}));
+
+const resenasAjenas = resenasDelCatalogo()
+  .filter((x) => x.slug !== courseSlug && tituloDe(x.slug))
+  .map(({ slug, resena }) => ({
+    texto: `${resena.nombre} valoró ${tituloDe(slug)} con ${estrellas(resena.rating)}`,
+    detalle: resena.texto ? `«${resena.texto}…»` : 'Reseña pública en Hotmart',
+  }));
+const desfaseResenas = resenasAjenas.length ? semilla % resenasAjenas.length : 0;
+const resenasRotadas = [...resenasAjenas.slice(desfaseResenas), ...resenasAjenas.slice(0, desfaseResenas)];
+
+/* Intercalado: reseña con nombre, compra por país, reseña… El nombre real es
+   lo que más convence, así que abre la rotación. */
+const compras = [...propios, ...rotados].map((a) => ({
+  texto: a.pais ? `Alguien de ${a.pais} se inscribió` : 'Alguien se inscribió',
+  detalle: a.titulo,
+}));
+const intercalados: { texto: string; detalle: string }[] = [];
+for (let i = 0; intercalados.length < 14 && (i < resenasRotadas.length || i < compras.length); i++) {
+  if (i < resenasRotadas.length) intercalados.push(resenasRotadas[i]!);
+  if (i < compras.length) intercalados.push(compras[i]!);
+}
+
+const mensajes: { texto: string; detalle: string }[] = [...resenasPropias, ...intercalados];
 
 // El curso propio, si se vende en varios países, aporta un aviso más fuerte que
 // una compra suelta: dice alcance sin apoyarse en un número bajo.
@@ -75,11 +103,15 @@ mensajes.push({
 });
 ---
 
+{/* En móvil va anclado a la izquierda con ancho acotado: centrado a ancho casi
+    completo se montaba sobre el precio de la tarjeta y sobre el botón de
+    WhatsApp. El carril inferior (var --ps-carril) lo eleva sobre la barra fija
+    de compra cuando la página la lleva. */}
 <div
   data-prueba-social
   data-mensajes={JSON.stringify(mensajes)}
   hidden
-  class="fixed bottom-20 left-1/2 z-30 w-[min(92vw,20rem)] -translate-x-1/2 sm:bottom-6 sm:left-6 sm:translate-x-0"
+  class="ps-toast fixed left-3 z-30 w-[min(72vw,20rem)] sm:left-6 sm:w-[20rem]"
   role="status"
   aria-live="polite"
 >
@@ -105,6 +137,23 @@ mensajes.push({
     </button>
   </div>
 </div>
+
+<style>
+  .ps-toast {
+    --ps-carril: 0px;
+    bottom: calc(1rem + var(--ps-carril) + env(safe-area-inset-bottom, 0px));
+  }
+  @media (max-width: 639px) {
+    :global(body[data-has-sticky]) .ps-toast {
+      --ps-carril: 60px;
+    }
+  }
+  @media (min-width: 640px) {
+    .ps-toast {
+      bottom: 1.5rem;
+    }
+  }
+</style>
 
 <script>
   import { trackEvent } from '@/lib/analytics';

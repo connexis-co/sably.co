@@ -1,0 +1,52 @@
+# Refresco diario de precios y valoraciones reales de Hotmart.
+#
+# Flujo: funde lo que D1 tenga más fresco (las monedas locales las capturan los
+# propios visitantes vía /api/v1/precios/refresca, cada uno desde su colo) +
+# recaptura desde el runner (que aporta el precio base USD y las valoraciones),
+# y si algo cambió lo commitea a main — ese push dispara el deploy de
+# producción, así que el HTML rastreable siempre lleva el último precio.
+#
+# Se hornea en vez de pintarse por JS porque Google exige que el precio del
+# JSON-LD coincida con el visible, y ambos deben estar en el HTML estático.
+name: Precios y valoraciones Hotmart
+
+on:
+  schedule:
+    # 10:00 UTC = 05:00 Bogotá, antes de la mañana comercial.
+    - cron: '0 10 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hotmart-live
+  cancel-in-progress: false
+
+jobs:
+  refrescar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Capturar precios y valoraciones
+        run: node scripts/hotmart-precios.mjs --merge-api
+
+      - name: Commitear si cambió
+        run: |
+          if git diff --quiet src/data/hotmart-live.json; then
+            echo "Sin cambios de precio ni valoración: no se despliega."
+            exit 0
+          fi
+          git config user.name "sably-bot"
+          git config user.email "bot@sably.co"
+          git add src/data/hotmart-live.json
+          git commit -m "chore(datos): refresco diario de precios y valoraciones de Hotmart"
+          git push origin main

@@ -11,6 +11,7 @@ import { localPrice } from '@/lib/countries';
 import { INTERNAL_CATEGORIES } from '@/lib/categories';
 import { breadcrumbSchema, faqSchema, courseListSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
+import { valoracionReal } from '@/lib/hotmartLive';
 
 /** Landing de ciudad — extraída a componente para la ruta unificada [item]. */
 interface Props {
@@ -22,7 +23,10 @@ const { country, city } = Astro.props;
 const base = `/${country.code}`;
 
 const courses = await getCollection('courses');
-const popular = [...courses].sort((a, b) => b.data.students - a.data.students).slice(0, 8);
+/* Popularidad real: total de valoraciones públicas en Hotmart. El campo
+   `students` del frontmatter era inventado y ya no ordena nada. */
+const popularidad = (slug: string): number => valoracionReal(slug)?.total ?? 0;
+const popular = [...courses].sort((a, b) => popularidad(b.id) - popularidad(a.id)).slice(0, 8);
 
 const allTestimonials = await getCollection('testimonials');
 const cityTestimonials = allTestimonials.filter(
@@ -30,9 +34,6 @@ const cityTestimonials = allTestimonials.filter(
 );
 const countryTestimonials = allTestimonials.filter((t) => t.data.countryCode === country.code);
 const testimonials = (cityTestimonials.length >= 2 ? cityTestimonials : countryTestimonials).slice(0, 3);
-
-/* Social proof local determinístico (hasta tener datos reales de Hotmart en Fase 2). */
-const cityStudents = 150 + ((city.slug.length * 37 + country.code.charCodeAt(0)) % 280);
 
 const faqs = [
   {
@@ -104,9 +105,9 @@ const schemas = [
         sin salir de tu ciudad.
       </p>
       <div class="mt-6 flex flex-wrap gap-6 text-sm text-white/80">
-        <p><strong class="text-white">{cityStudents}</strong> estudiantes en {city.name}</p>
         <p><strong class="text-white">{popular.length}</strong> cursos populares</p>
-        <p>⭐ <strong class="text-white">{SITE.stats.rating}</strong> calificación promedio</p>
+        <p>⭐ <strong class="text-white">{SITE.stats.rating}</strong> de media en valoraciones reales</p>
+        <p>📜 Certificado digital incluido</p>
       </div>
     </div>
   </section>

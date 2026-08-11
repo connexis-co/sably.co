@@ -25,6 +25,8 @@ interface Props {
   pageType?: string;
   whatsappContext?: string;
   noindex?: boolean;
+  /** Imagen social de la página (og:image). */
+  image?: string;
 }
 
 const {
@@ -38,6 +40,7 @@ const {
   pageType = 'page',
   whatsappContext,
   noindex = false,
+  image,
 } = Astro.props;
 
 const allSchemas = [organizationSchema(), ...schemas];
@@ -50,7 +53,7 @@ const allSchemas = [organizationSchema(), ...schemas];
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <Seo {title} {description} {alternates} schemas={allSchemas} {noindex} />
+    <Seo {title} {description} {alternates} schemas={allSchemas} {noindex} {image} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     {
       GTM_ID && (

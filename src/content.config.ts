@@ -31,9 +31,15 @@ const courses = defineCollection({
       .min(3),
     priceUSD: z.number().positive(),
     originalPriceUSD: z.number().positive(),
-    rating: z.number().min(3.5).max(5),
-    ratingCount: z.number().int().positive(),
-    students: z.number().int().positive(),
+    /**
+     * Legado: cifras de catálogo que NADIE muestra ya. Las estrellas y el
+     * total visibles salen de la valoración pública real de Hotmart
+     * (src/data/hotmart-live.json); estas quedan opcionales para que los
+     * cursos nuevos no tengan que inventarlas.
+     */
+    rating: z.number().min(3.5).max(5).optional(),
+    ratingCount: z.number().int().positive().optional(),
+    students: z.number().int().positive().optional(),
     instructor: z.object({
       name: z.string(),
       title: z.string(),

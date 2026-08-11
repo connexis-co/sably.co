@@ -2,7 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { getCategory, courseCover } from '@/lib/categories';
 import { formatPrice, type Country } from '@/lib/countries';
-import { SITE } from '@/lib/site';
+import { formatMonto, precioReal, valoracionReal } from '@/lib/hotmartLive';
 import Rating from './Rating.astro';
 
 interface Props {
@@ -15,6 +15,11 @@ interface Props {
 }
 const { course, country, citySlug } = Astro.props;
 const cat = getCategory(course.data.category);
+
+/* Precio y valoración reales de Hotmart; sin dato real no se inventa nada:
+   precio de catálogo como respaldo, sin estrellas y sin badge de descuento. */
+const real = precioReal(course.id, country);
+const valoracion = valoracionReal(course.id);
 const url = citySlug
   ? `/${country.code}/${citySlug}/${course.id}/`
   : `/${country.code}/${course.id}/`;
@@ -40,24 +45,24 @@ const url = citySlug
       <span class="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-heading">
         {cat.emoji} {cat.name}
       </span>
-      <span class="absolute top-3 right-3 rounded-full bg-accent px-2.5 py-1 text-[11px] font-bold text-white">
-        -{Math.round((1 - course.data.priceUSD / course.data.originalPriceUSD) * 100)}%
-      </span>
     </div>
     <div class="flex flex-1 flex-col p-4">
       <h3 class="line-clamp-2 font-display text-base font-bold text-primary group-hover:text-accent">
         {course.data.title}
       </h3>
       <p class="mt-1.5 line-clamp-2 text-sm text-body">{course.data.shortDescription}</p>
-      <div class="mt-2">
-        <Rating rating={course.data.rating} count={course.data.ratingCount} />
-      </div>
-      <p class="mt-1 text-xs text-muted">
-        {course.data.students.toLocaleString('es-CO')} estudiantes · {course.data.durationHours} h · {course.data.level}
-      </p>
+      {
+        valoracion && (
+          <div class="mt-2">
+            <Rating rating={valoracion.rating} count={valoracion.total} />
+          </div>
+        )
+      }
+      <p class="mt-1 text-xs text-muted">{course.data.durationHours} h · {course.data.level}</p>
       <div class="mt-auto flex items-baseline gap-2 pt-3">
-        <span class="text-lg font-extrabold text-primary">{formatPrice(course.data.priceUSD, country)}</span>
-        <span class="text-sm text-muted line-through">{formatPrice(course.data.originalPriceUSD, country)}</span>
+        <span class="text-lg font-extrabold whitespace-nowrap text-primary">
+          {real ? formatMonto(real.monto, real.moneda) : formatPrice(course.data.priceUSD, country)}
+        </span>
       </div>
     </div>
   </a>
