@@ -1,3 +1,5 @@
+import { valoracionMediaCatalogo, valoracionesTotalesCatalogo } from './hotmartLive';
+
 export const SITE = {
   name: 'Sably',
   url: 'https://sably.co',
@@ -23,10 +25,17 @@ export const SITE = {
       description: 'Nuestra academia especializada en belleza y estética',
     },
   ],
+  /**
+   * Cifras REALES, no de marketing. `rating` y `reviews` se calculan de las
+   * valoraciones públicas de los productos en Hotmart (hotmart-live.json, lo
+   * refresca el job diario): al recapturar, estas cifras se actualizan solas.
+   * Antes decía «15.000+ estudiantes» y «4.8»: números inventados que ninguna
+   * fuente respaldaba.
+   */
   stats: {
-    students: '15.000+',
-    rating: 4.8,
-    courses: 105,
+    rating: valoracionMediaCatalogo()?.rating ?? null,
+    reviews: valoracionesTotalesCatalogo(),
+    courses: 121,
     countries: 8,
   },
 } as const;

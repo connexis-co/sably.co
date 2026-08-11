@@ -1,28 +1,35 @@
 ---
-import type { Country } from '@/lib/countries';
-import { formatPrice } from '@/lib/countries';
-
 /**
- * Barra CTA fija que aparece al hacer scroll past hero en la página de curso.
+ * Barra CTA fija que aparece al pasar el hero en la página de curso.
  * Requiere un elemento #hero-sentinel al final del hero.
+ *
+ * En escritorio baja desde arriba, como siempre. En móvil sube desde ABAJO:
+ * arriba chocaba con el banner de promoción (le tapaba la cuenta atrás) y es
+ * donde el pulgar no llega. El resto de flotantes (WhatsApp, prueba social) se
+ * elevan sobre este carril leyendo `body[data-has-sticky]`.
+ *
+ * Recibe el precio ya formateado: la ficha decide si es el real de Hotmart o
+ * el de catálogo, y así barra y tarjeta nunca enseñan números distintos.
  */
 interface Props {
   title: string;
-  priceUSD: number;
-  country: Country;
+  precio: string;
   ctaUrl: string;
 }
-const { title, priceUSD, country, ctaUrl } = Astro.props;
+const { title, precio, ctaUrl } = Astro.props;
 ---
 
 <div
   data-sticky-cta
-  class="fixed inset-x-0 top-0 z-40 -translate-y-full border-b border-surface-200 bg-white shadow-md transition-transform duration-300"
+  data-oculta
+  class="fixed inset-x-0 z-40 border-surface-200 bg-white shadow-md"
 >
   <div class="container-site flex h-14 items-center justify-between gap-4">
     <p class="hidden truncate text-sm font-bold text-primary sm:block">{title}</p>
-    <div class="flex flex-1 items-center justify-end gap-3 sm:flex-none">
-      <span class="text-sm font-extrabold text-primary">{formatPrice(priceUSD, country)}</span>
+    <div class="flex flex-1 items-center justify-between gap-3 sm:flex-none sm:justify-end">
+      <span data-precio-real class="text-sm font-extrabold whitespace-nowrap text-primary"
+        >{precio}</span
+      >
       <a
         href={ctaUrl}
         target="_blank"
@@ -37,13 +44,43 @@ const { title, priceUSD, country, ctaUrl } = Astro.props;
   </div>
 </div>
 
+<style>
+  [data-sticky-cta] {
+    top: 0;
+    border-bottom-width: 1px;
+    transition: transform 0.3s ease;
+  }
+  [data-sticky-cta][data-oculta] {
+    transform: translateY(-100%);
+  }
+  @media (max-width: 639px) {
+    [data-sticky-cta] {
+      top: auto;
+      bottom: 0;
+      border-bottom-width: 0;
+      border-top-width: 1px;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+    }
+    [data-sticky-cta][data-oculta] {
+      transform: translateY(100%);
+    }
+    /* La barra ocupa el borde inferior: que no entierre el final del footer. */
+    :global(body[data-has-sticky] footer) {
+      padding-bottom: 4.5rem;
+    }
+  }
+</style>
+
 <script>
   const bar = document.querySelector<HTMLElement>('[data-sticky-cta]');
   const sentinel = document.getElementById('hero-sentinel');
   if (bar && sentinel) {
+    // Señal para que WhatsApp y la prueba social se eleven sobre este carril.
+    document.body.dataset.hasSticky = '1';
     new IntersectionObserver(
       ([entry]) => {
-        bar.classList.toggle('-translate-y-full', entry?.isIntersecting ?? true);
+        bar.toggleAttribute('data-oculta', entry?.isIntersecting ?? true);
       },
       { rootMargin: '-64px 0px 0px 0px' },
     ).observe(sentinel);

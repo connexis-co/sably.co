@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { valoracionReal } from '@/lib/hotmartLive';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import TrustBar from '@/components/TrustBar.astro';
 import CourseCard from '@/components/CourseCard.astro';
@@ -22,7 +23,7 @@ const base = `/${country.code}`;
 
 const allCourses = await getCollection('courses');
 const featured = [...allCourses]
-  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || b.data.students - a.data.students)
+  .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || (valoracionReal(b.id)?.total ?? 0) - (valoracionReal(a.id)?.total ?? 0))
   .slice(0, 8);
 
 const allTestimonials = await getCollection('testimonials');
@@ -101,7 +102,7 @@ const description = `Aprende panadería, costura, electricidad, gastronomía y m
           </a>
         </div>
         <p class="mt-6 text-sm text-white/60">
-          ⭐ {SITE.stats.rating}/5 · {SITE.stats.students} estudiantes en {SITE.stats.countries} países
+          ⭐ {SITE.stats.rating}/5 en valoraciones reales · estudiantes en {SITE.stats.countries} países
         </p>
       </div>
 

@@ -6,6 +6,15 @@ import { buildWhatsAppUrl } from '@/lib/hotmart';
  * Botón flotante de WhatsApp estilo "whatsbuilder" (plugin de JP usado en
  * academiadebelleza.edu.co): círculo verde oficial con ondas expansivas y
  * mensaje pre-llenado contextual por página/curso.
+ *
+ * Número y posición se pueden cambiar desde /admin/widgets sin desplegar: el
+ * HTML hornea los valores por defecto y un fetch a /api/v1/config aplica lo
+ * guardado en D1. Si la llamada falla, el botón se queda como está — la
+ * personalización es opcional, el botón no.
+ *
+ * En móvil, cuando la página lleva la barra fija de compra abajo, el botón se
+ * eleva por encima de ella (`--wa-carril`): tres flotantes sin coordinar era
+ * justo lo que tenía rota la vista móvil.
  */
 interface Props {
   country: Country;
@@ -24,6 +33,8 @@ const url = buildWhatsAppUrl(country.whatsapp, message);
   target="_blank"
   rel="noopener nofollow"
   data-wa-float
+  data-numero-pais={country.whatsapp}
+  data-mensaje={message}
   class="wa-float"
   aria-label={`Escríbenos por WhatsApp (${country.name})`}
 >
@@ -41,13 +52,23 @@ const url = buildWhatsAppUrl(country.whatsapp, message);
 
 <style>
   .wa-float {
+    /* Los offsets viven en variables para que /admin/widgets pueda moverlos. */
+    --wa-x: 21px;
+    --wa-y: 58px;
+    --wa-carril: 0px;
     position: fixed;
-    right: 21px;
-    bottom: 58px;
-    z-index: 40;
+    right: var(--wa-x);
+    bottom: calc(var(--wa-y) + var(--wa-carril) + env(safe-area-inset-bottom, 0px));
+    z-index: 50;
     display: inline-block;
     width: 56px;
     height: 56px;
+  }
+  /* Con la barra fija de compra visible en móvil, el botón sube su carril. */
+  @media (max-width: 639px) {
+    :global(body[data-has-sticky]) .wa-float {
+      --wa-carril: 56px;
+    }
   }
   .wa-circle {
     position: relative;
@@ -96,7 +117,33 @@ const url = buildWhatsAppUrl(country.whatsapp, message);
 <script>
   import { trackEvent } from '@/lib/analytics';
 
-  document.querySelector('[data-wa-float]')?.addEventListener('click', () => {
+  const boton = document.querySelector<HTMLAnchorElement>('[data-wa-float]');
+
+  boton?.addEventListener('click', () => {
     trackEvent('click_whatsapp', { page_type: document.body.dataset.pageType ?? 'unknown' });
   });
+
+  /* Configuración del panel: número global y posición. Falla en silencio. */
+  if (boton) {
+    interface Config {
+      whatsapp?: { activo: boolean; numero: string; x: number; y: number };
+    }
+    fetch('/api/v1/config')
+      .then((r): Promise<Config | null> => (r.ok ? (r.json() as Promise<Config>) : Promise.resolve(null)))
+      .then((cfg) => {
+        const wa = cfg?.whatsapp;
+        if (!wa) return;
+        if (!wa.activo) {
+          boton.remove();
+          return;
+        }
+        if (Number.isFinite(wa.x)) boton.style.setProperty('--wa-x', `${wa.x}px`);
+        if (Number.isFinite(wa.y)) boton.style.setProperty('--wa-y', `${wa.y}px`);
+        // Número global del panel: reescribe el enlace conservando el mensaje.
+        if (wa.numero && wa.numero !== boton.dataset.numeroPais) {
+          boton.href = `https://wa.me/${wa.numero}?text=${encodeURIComponent(boton.dataset.mensaje ?? '')}`;
+        }
+      })
+      .catch(() => {});
+  }
 </script>

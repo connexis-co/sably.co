@@ -113,6 +113,7 @@ const MENU: [string, string, string][] = [
   ['/admin/moderacion', 'Moderación', 'moderacion'],
   ['/admin/leads', 'Leads', 'leads'],
   ['/admin/promociones', 'Promociones', 'promociones'],
+  ['/admin/widgets', 'Widgets', 'widgets'],
   ['/admin/contenido', 'Contenido', 'contenido'],
   ['/admin/despliegue', 'Despliegue', 'despliegue'],
 ];
