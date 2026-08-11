@@ -1,5 +1,13 @@
 ---
-import { SITE } from '@/lib/site';
+/**
+ * Banner de oferta con countdown.
+ *
+ * Se renderiza oculto y sin cifras. Solo aparece si `resolvePromo()` encuentra una
+ * campaña vigente para el país del visitante en su hora local. Antes este banner
+ * anunciaba un cupón fijo con una fecha fin fija (`SITE.offerEndsAt`), lo que en un
+ * sitio SSG significaba una "oferta por tiempo limitado" que no terminaba nunca.
+ */
+import { CAMPAIGNS } from '@/lib/promo';
 import type { Country } from '@/lib/countries';
 
 interface Props {
@@ -8,23 +16,24 @@ interface Props {
 const { country } = Astro.props;
 ---
 
-<section class="bg-primary" aria-label="Oferta por tiempo limitado">
+<section
+  data-promo-banner
+  data-country={country.code}
+  data-campaigns={JSON.stringify(CAMPAIGNS)}
+  hidden
+  class="bg-primary"
+  aria-label="Oferta por tiempo limitado"
+>
   <div class="container-site flex flex-col items-center gap-6 py-12 text-center lg:flex-row lg:justify-between lg:text-left">
     <div>
-      <p class="text-sm font-bold tracking-wide text-accent uppercase">Oferta por tiempo limitado</p>
+      <p class="text-sm font-bold tracking-wide text-accent uppercase" data-promo-label></p>
       <h2 class="mt-2 text-2xl font-bold text-white sm:text-3xl">
-        {SITE.couponDiscountPct}% de descuento con el cupón
-        <span class="rounded-md bg-accent px-2 py-0.5 font-mono">{SITE.defaultCoupon}</span>
+        <span data-promo-pct></span> de descuento
       </h2>
-      <p class="mt-2 text-white/70">El cupón se aplica automáticamente al inscribirte desde Sably.</p>
+      <p class="mt-2 text-white/70">El descuento se aplica automáticamente al inscribirte desde Sably.</p>
     </div>
     <div class="flex flex-col items-center gap-4">
-      <div
-        data-countdown={SITE.offerEndsAt}
-        class="flex gap-3 font-display text-white"
-        role="timer"
-        aria-label="Tiempo restante de la oferta"
-      >
+      <div class="flex gap-3 font-display text-white" role="timer" aria-label="Tiempo restante de la oferta">
         {
           ['Días', 'Horas', 'Min', 'Seg'].map((label) => (
             <div class="flex w-16 flex-col items-center rounded-md bg-white/10 py-2">
@@ -47,21 +56,37 @@ const { country } = Astro.props;
 </section>
 
 <script>
-  const el = document.querySelector<HTMLElement>('[data-countdown]');
+  import { resolvePromo, msRestantes, formatCountdown } from '@/lib/promo';
+
+  const el = document.querySelector<HTMLElement>('[data-promo-banner]');
   if (el) {
-    const target = new Date(el.dataset.countdown!).getTime();
-    const units = el.querySelectorAll<HTMLElement>('[data-countdown-unit]');
-    const pad = (n: number) => String(Math.max(0, n)).padStart(2, '0');
-    const tick = () => {
-      const diff = Math.max(0, target - Date.now());
-      const d = Math.floor(diff / 86_400_000);
-      const h = Math.floor((diff % 86_400_000) / 3_600_000);
-      const m = Math.floor((diff % 3_600_000) / 60_000);
-      const s = Math.floor((diff % 60_000) / 1000);
-      const values = [d, h, m, s];
-      units.forEach((u, i) => (u.textContent = pad(values[i] ?? 0)));
-    };
-    tick();
-    setInterval(tick, 1000);
+    const urlKey = new URLSearchParams(location.search).get('promo');
+    const promo = resolvePromo({
+      countryCode: el.dataset.country ?? 'co',
+      now: new Date(),
+      urlKey,
+    });
+
+    if (promo) {
+      el.hidden = false;
+      el.querySelector('[data-promo-label]')!.textContent = `${promo.label} · por tiempo limitado`;
+      el.querySelector('[data-promo-pct]')!.textContent = `${promo.discountPct}%`;
+
+      const units = el.querySelectorAll<HTMLElement>('[data-countdown-unit]');
+      const tick = (): void => {
+        const ms = msRestantes(promo, new Date());
+        if (ms <= 0) {
+          el.hidden = true;
+          clearInterval(id);
+          return;
+        }
+        const { d, h, m, s } = formatCountdown(ms);
+        [d, h, m, s].forEach((v, i) => {
+          if (units[i]) units[i].textContent = v;
+        });
+      };
+      tick();
+      const id = setInterval(tick, 1000);
+    }
   }
 </script>

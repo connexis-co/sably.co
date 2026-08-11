@@ -17,8 +17,8 @@
       "a": "El precio de referencia es de USD 32. Al momento de pagar con Webpay o tu tarjeta chilena, la plataforma o tu banco realiza la conversión automática a CLP según el tipo de cambio del día."
     },
     {
-      "q": "¿Debo ingresar el código de descuento SABLY40 al comprar?",
-      "a": "No es necesario. El precio final de USD 32 ya tiene aplicado el 40% de descuento correspondiente al cupón SABLY40. No hay costos ocultos ni descuentos adicionales."
+      "q": "¿Debo ingresar el código de descuento de lanzamiento al comprar?",
+      "a": "No es necesario. El precio final de USD 32 ya tiene aplicado el 40% de descuento de lanzamiento. No hay costos ocultos ni descuentos adicionales."
     },
     {
       "q": "¿Qué validez tiene el certificado en Chile?",

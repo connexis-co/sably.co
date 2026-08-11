@@ -13,8 +13,8 @@
       "a": "Al momento de procesar la compra, la plataforma realiza la conversión automática a pesos chilenos (CLP). Puedes pagar directamente usando tarjetas de crédito o débito nacionales mediante Webpay o las opciones locales habilitadas."
     },
     {
-      "q": "¿El valor de USD 32 ya incluye el descuento del cupón SABLY40?",
-      "a": "Sí, el precio publicado de USD 32 es el monto final a pagar. Tiene aplicado el 40% de rebaja correspondiente al cupón SABLY40, por lo que no debes ingresar ningún código adicional."
+      "q": "¿El valor de USD 32 ya incluye el descuento de lanzamiento?",
+      "a": "Sí, el precio publicado de USD 32 es el monto final a pagar. Tiene aplicado el 40% de rebaja de lanzamiento, por lo que no debes ingresar ningún código adicional."
     },
     {
       "q": "¿El certificado del curso tiene validez legal para trabajar en salones de Chile?",

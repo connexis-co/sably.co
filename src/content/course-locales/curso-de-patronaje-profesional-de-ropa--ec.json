@@ -14,7 +14,7 @@
     },
     {
       "q": "¿El precio de USD 33 es final o debo sumar impuestos?",
-      "a": "Es el precio final a pagar. Ya tiene aplicado el 40% de descuento mediante el cupón SABLY40 sobre la tarifa original de USD 55, por lo que no hay cargos adicionales."
+      "a": "Es el precio final a pagar. Ya tiene aplicado el 40% de descuento mediante el descuento de lanzamiento sobre la tarifa original de USD 55, por lo que no hay cargos adicionales."
     },
     {
       "q": "¿El certificado tiene validez oficial en Ecuador?",

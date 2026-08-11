@@ -13,8 +13,8 @@
       "a": "Al momento de procesar tu compra, selecciona la opción de pago en efectivo o transferencia. El sistema te generará una ficha con código de barras para pagar en cualquier tienda OXXO, o una clabe interbancaria para hacer tu transferencia por SPEI desde la aplicación de tu banco."
     },
     {
-      "q": "¿El precio de 28 USD ya tiene aplicado el descuento del cupón SABLY40?",
-      "a": "Sí, el precio final que pagas es de 28 USD (o su equivalente en pesos mexicanos al tipo de cambio del día). El 40% de descuento del cupón SABLY40 ya está ingresado en el sistema, por lo que no requiere ningún código adicional ni hay promociones acumulables."
+      "q": "¿El precio de 28 USD ya tiene aplicado el descuento de lanzamiento?",
+      "a": "Sí, el precio final que pagas es de 28 USD (o su equivalente en pesos mexicanos al tipo de cambio del día). El 40% de descuento de lanzamiento ya está ingresado en el sistema, por lo que no requiere ningún código adicional ni hay promociones acumulables."
     },
     {
       "q": "¿El certificado tiene validez oficial ante la SEP en México?",

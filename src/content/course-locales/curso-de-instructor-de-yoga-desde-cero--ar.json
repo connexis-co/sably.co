@@ -14,7 +14,7 @@
     },
     {
       "q": "¿El precio de USD 42 requiere ingresar algún cupón de descuento?",
-      "a": "No, el precio final de USD 42 ya tiene aplicado el 40% de descuento correspondiente al cupón SABLY40 sobre el valor original de USD 70. No necesitás ingresar ningún código adicional."
+      "a": "No, el precio final de USD 42 ya tiene aplicado el 40% de descuento de lanzamiento sobre el valor original de USD 70. No necesitás ingresar ningún código adicional."
     },
     {
       "q": "¿El certificado tiene validez oficial para dar clases en Argentina?",

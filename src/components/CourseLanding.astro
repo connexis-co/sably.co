@@ -56,12 +56,23 @@ const tituloColisiona = locale
   ? localesDelCurso.filter((l) => l.data.meta_title === locale.data.meta_title).length > 1
   : localesDelCurso.length < COUNTRIES.length - 1;
 
+/* El `ref` es lo que acredita la comisión: sin él la venta se le atribuye al
+   productor. El descuento NO se añade aquí (sería una promesa horneada en el
+   HTML estático): lo inyecta el script de promo si hay campaña vigente. */
 const ctaUrl = buildHotmartUrl({
   baseUrl: course.data.hotmartUrl,
+  ref: course.data.hotmartRef,
   courseSlug: course.id,
   countryCode: country.code,
   citySlug: city?.slug,
 });
+
+/* Sin producto Hotmart asignado, `hotmartUrl` es el placeholder PENDIENTE y el
+   checkout responde `pay.hotmart.com/error?errorMessage=008`. Mandar ahí al
+   usuario quema la visita, así que el CTA captura el lead en su lugar. Esto
+   aplica igual a las variantes de país y ciudad, que comparten este componente. */
+const hayCheckout = !course.data.hotmartUrl.includes('PENDIENTE');
+const ctaHref = hayCheckout ? ctaUrl : '#lead-modal';
 
 const allCourses = await getCollection('courses');
 
@@ -208,7 +219,7 @@ const schemas = [
   pageType={city ? 'course_city' : 'course'}
   whatsappContext={city ? `${course.data.title} (${city.name})` : course.data.title}
 >
-  <StickyCta title={course.data.title} priceUSD={course.data.priceUSD} {country} {ctaUrl} />
+  <StickyCta title={course.data.title} priceUSD={course.data.priceUSD} {country} ctaUrl={ctaHref} />
 
   <!-- Hero -->
   <section class="bg-primary">
@@ -266,24 +277,46 @@ const schemas = [
             class="h-full w-full object-cover"
           />
         </div>
-        <div class="mt-5 flex items-baseline gap-3">
-          <span class="text-3xl font-extrabold text-primary">{formatPrice(course.data.priceUSD, country)}</span>
-          <span class="text-lg text-muted line-through">{formatPrice(course.data.originalPriceUSD, country)}</span>
-          <span class="rounded-full bg-accent px-2.5 py-1 text-xs font-bold text-white">-{discountPct}%</span>
+        {/* `whitespace-nowrap` en cada importe: sin él, monedas largas como
+            "$100.000 COP" parten el valor y la moneda en dos renglones. El wrap
+            se permite entre elementos, no dentro de un precio. */}
+        <div class="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+          <span class="text-3xl font-extrabold whitespace-nowrap text-primary"
+            >{formatPrice(course.data.priceUSD, country)}</span
+          >
+          <span class="text-lg whitespace-nowrap text-muted line-through"
+            >{formatPrice(course.data.originalPriceUSD, country)}</span
+          >
+          <span
+            data-promo-badge
+            class="rounded-full bg-accent px-2.5 py-1 text-xs font-bold whitespace-nowrap text-white"
+            >-{discountPct}%</span
+          >
         </div>
-        <p class="mt-1 text-xs font-semibold text-error">
-          🔥 Oferta con cupón {SITE.defaultCoupon} — se aplica automáticamente
+        {/* Oculto por defecto: solo se muestra si hay campaña vigente (ver promo.ts). */}
+        <p data-promo-nota hidden data-country={country.code} class="mt-1 text-xs font-semibold text-error">
+          🔥 <span data-promo-nota-texto></span> — se aplica automáticamente al pagar
         </p>
         <a
-          href={ctaUrl}
-          target="_blank"
+          href={ctaHref}
+          target={hayCheckout ? '_blank' : undefined}
           rel="noopener nofollow sponsored"
-          data-cta-hotmart
+          {...(hayCheckout ? { 'data-cta-hotmart': true } : { 'data-lead-open': true })}
           data-cta-position="hero"
           class="animate-pulse-soft mt-5 block rounded-md bg-accent px-6 py-4 text-center font-bold text-white transition hover:bg-accent-hover"
         >
-          🔥 Inscribirme con {SITE.couponDiscountPct}% OFF
+          {hayCheckout ? '🔥 Inscribirme ahora' : '📩 Avísame cuando abra'}
         </a>
+        {
+          /* Sin cupo abierto el CTA no puede prometer inscripción. Se avisa en corto
+             y el botón pasa a captar el lead, que es lo único accionable ahora. */
+          !hayCheckout && (
+            <p class="mt-2 text-center text-xs text-muted">
+              Las inscripciones a este curso están cerradas por el momento. Déjanos tus datos y te
+              avisamos apenas se abran.
+            </p>
+          )
+        }
         <button
           type="button"
           data-lead-open
@@ -576,21 +609,27 @@ const schemas = [
         Únete a {course.data.students.toLocaleString('es-CO')} estudiantes que ya están aprendiendo con este curso.
       </p>
       <a
-        href={ctaUrl}
-        target="_blank"
+        href={ctaHref}
+        target={hayCheckout ? '_blank' : undefined}
         rel="noopener nofollow sponsored"
-        data-cta-hotmart
+        {...(hayCheckout ? { 'data-cta-hotmart': true } : { 'data-lead-open': true })}
         data-cta-position="footer"
         class="animate-pulse-soft mt-7 inline-block rounded-md bg-accent px-8 py-4 font-bold text-white transition hover:bg-accent-hover"
       >
-        🔥 Inscribirme con {SITE.couponDiscountPct}% OFF
+        {hayCheckout ? '🔥 Inscribirme ahora' : '📩 Avísame cuando abra'}
       </a>
-      <p class="mt-4 text-sm text-white/60">Garantía de 7 días · Acceso de por vida · Certificado incluido</p>
+      <p class="mt-4 text-sm text-white/60">
+        {
+          hayCheckout
+            ? 'Garantía de 7 días · Acceso de por vida · Certificado incluido'
+            : 'Te escribimos en cuanto haya cupos, sin compromiso.'
+        }
+      </p>
     </div>
   </section>
 
   <LeadModal {country} courseTitle={course.data.title} courseSlug={course.id} />
-  <ExitIntent {ctaUrl} />
+  <ExitIntent ctaUrl={ctaHref} />
 </BaseLayout>
 
 <script>
@@ -622,4 +661,42 @@ const schemas = [
     },
     { passive: true },
   );
+</script>
+
+<script>
+  /* Promoción: nada se promete en el HTML estático. Si hay campaña vigente para
+     el país del visitante, se muestra la nota y se añade el cupón a los CTA de
+     Hotmart, de modo que la promesa y el checkout coincidan. */
+  import { resolvePromo } from '@/lib/promo';
+
+  const nota = document.querySelector<HTMLElement>('[data-promo-nota]');
+  if (nota) {
+    const promo = resolvePromo({
+      countryCode: nota.dataset.country ?? 'co',
+      now: new Date(),
+      urlKey: new URLSearchParams(location.search).get('promo'),
+    });
+
+    if (promo) {
+      nota.hidden = false;
+      nota.querySelector('[data-promo-nota-texto]')!.textContent =
+        `${promo.label}: ${promo.discountPct}% de descuento`;
+
+      /* El badge mostraba el descuento de catálogo (precio vs precio de lista).
+         Con campaña activa manda el de la campaña: si no, la ficha enseñaba
+         "-40%" justo encima de "50% de descuento" y se contradecía sola. */
+      const badge = document.querySelector<HTMLElement>('[data-promo-badge]');
+      if (badge) badge.textContent = `-${promo.discountPct}%`;
+
+      document.querySelectorAll<HTMLAnchorElement>('a[data-cta-hotmart]').forEach((a) => {
+        try {
+          const url = new URL(a.href);
+          url.searchParams.set('offDiscount', promo.couponCode);
+          a.href = url.toString();
+        } catch {
+          /* href no parseable: mejor dejar el enlace de pago intacto. */
+        }
+      });
+    }
+  }
 </script>

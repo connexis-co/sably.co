@@ -4,11 +4,15 @@
     {
       "name": "dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": [
-        "run",
-        "dev"
-      ],
+      "runtimeArgs": ["run", "dev"],
       "port": 4321,
+      "autoPort": true
+    },
+    {
+      "name": "pages",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["wrangler", "pages", "dev", "dist", "--port", "8788"],
+      "port": 8788,
       "autoPort": true
     }
   ]

@@ -13,7 +13,7 @@
       "a": "En la pasarela de pago seleccionas Perú como tu país. Se desplegarán automáticamente las opciones para pagar mediante código QR con Yape o Plin, además de la opción habitual de tarjeta de débito o crédito. El cobro se procesa en soles al cambio del día según la entidad emisora."
     },
     {
-      "q": "¿Debo ingresar el cupón SABLY40 manualmente al pagar?",
+      "q": "¿Debo ingresar el descuento de lanzamiento manualmente al pagar?",
       "a": "No es necesario. El precio final de USD 33 ya incluye el 40% de descuento aplicado sobre la tarifa regular de USD 55. Al ingresar a la pantalla de pago verás el monto rebajado reflejado automáticamente."
     },
     {

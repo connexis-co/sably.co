@@ -13,8 +13,8 @@
       "a": "Al momento de pasar a la pantalla de pago, seleccionas Colombia como tu país. El sistema desplegará automáticamente las opciones locales como PSE, Nequi, Daviplata o tarjeta de crédito, convirtiendo los 29 USD a pesos colombianos (COP) según la tasa oficial del día."
     },
     {
-      "q": "¿El precio de USD 29 ya incluye el descuento del cupón SABLY40?",
-      "a": "Sí, el precio regular del programa es de USD 48. Al ingresar desde esta página, el 40% de descuento correspondiente al cupón SABLY40 ya se encuentra aplicado sobre la tarifa, dejando el cobro final en USD 29."
+      "q": "¿El precio de USD 29 ya incluye el descuento de lanzamiento?",
+      "a": "Sí, el precio regular del programa es de USD 48. Al ingresar desde esta página, el 40% de descuento de lanzamiento ya se encuentra aplicado sobre la tarifa, dejando el cobro final en USD 29."
     },
     {
       "q": "¿El certificado otorgado tiene validez oficial para trabajar en Colombia?",

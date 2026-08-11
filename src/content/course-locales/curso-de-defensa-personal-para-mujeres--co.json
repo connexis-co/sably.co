@@ -13,8 +13,8 @@
       "a": "Al momento de ingresar al checkout, la plataforma liquida el valor de 29 USD a pesos colombianos (COP) según la tasa representativa del mercado. Eliges PSE para pagar con débito desde tu cuenta bancaria, Nequi o Daviplata, o bien tarjeta de crédito, y confirmas la transacción en línea."
     },
     {
-      "q": "¿El precio de 29 USD requiere ingresar el cupón SABLY40?",
-      "a": "No. El descuento del 40% correspondiente al cupón SABLY40 ya está aplicado directamente sobre la tarifa original de 48 USD. El precio final a pagar es de 29 USD sin necesidad de escribir códigos adicionales."
+      "q": "¿El precio de 29 USD requiere ingresar el descuento de lanzamiento?",
+      "a": "No. El descuento del 40% de lanzamiento ya está aplicado directamente sobre la tarifa original de 48 USD. El precio final a pagar es de 29 USD sin necesidad de escribir códigos adicionales."
     },
     {
       "q": "¿El certificado me habilita legalmente como escolta o instructora oficial de seguridad en Colombia?",

@@ -13,8 +13,8 @@
       "a": "Al seleccionar el pago en efectivo o transferencia al momento de pagar, el sistema genera una ficha con código de barras para depositar en tiendas OXXO o una CLABE interbancaria para transferir por SPEI de forma inmediata."
     },
     {
-      "q": "¿El precio de 27 USD ya incluye el descuento del cupón SABLY40?",
-      "a": "Sí, el precio final de 27 USD ya tiene aplicado el 40% de descuento correspondiente al cupón SABLY40 sobre el costo original de 45 USD. No necesitas ingresar ningún código adicional."
+      "q": "¿El precio de 27 USD ya incluye el descuento de lanzamiento?",
+      "a": "Sí, el precio final de 27 USD ya tiene aplicado el 40% de descuento de lanzamiento sobre el costo original de 45 USD. No necesitas ingresar ningún código adicional."
     },
     {
       "q": "¿El certificado digital tiene validez oficial en México?",

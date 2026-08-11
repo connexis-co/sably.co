@@ -47,6 +47,12 @@ const courses = defineCollection({
       .max(7),
     /** TODO(JP): URL real de checkout Hotmart por curso. */
     hotmartUrl: z.string().url().default('https://pay.hotmart.com/PENDIENTE'),
+    /**
+     * Código `ref` del afiliado para este producto. Es lo que acredita la comisión:
+     * sin él, la venta se acredita al productor. Lo emite Hotmart por producto y se
+     * lee del acortador (`hotm.art/<slug>-curso-crashing` → `?ref=XXXX`).
+     */
+    hotmartRef: z.string().optional(),
     featured: z.boolean().default(false),
     keywords: z.array(z.string()).min(3),
     publishedAt: z.coerce.date(),

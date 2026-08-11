@@ -10,7 +10,7 @@
   "faqs": [
     {
       "q": "¿Cómo pago el curso en Argentina y en qué moneda me cobran?",
-      "a": "Podés abonar directamente en pesos argentinos usando Mercado Pago (tarjeta de débito, crédito o saldo disponible) o con tarjeta internacional. El valor reflejado ya tiene aplicado el cupón del 40% de descuento (SABLY40) sobre el precio original de USD 82, dejando el total definitivo en USD 49 (convertido a ARS según el tipo de cambio oficial de la plataforma al pagar)."
+      "a": "Podés abonar directamente en pesos argentinos usando Mercado Pago (tarjeta de débito, crédito o saldo disponible) o con tarjeta internacional. El valor reflejado ya tiene aplicado el cupón del 40% de descuento (de lanzamiento) sobre el precio original de USD 82, dejando el total definitivo en USD 49 (convertido a ARS según el tipo de cambio oficial de la plataforma al pagar)."
     },
     {
       "q": "¿El certificado que entregan me habilita legalmente para trabajar?",
@@ -34,7 +34,7 @@
     },
     {
       "q": "¿Existe algún descuento extra sobre los USD 49?",
-      "a": "No. El valor de USD 49 es el precio final promocional, ya que incluye el 40% de rebaja del código SABLY40 respecto del precio lista de USD 82. No hay cupones adicionales acumuldables."
+      "a": "No. El valor de USD 49 es el precio final promocional, ya que incluye el 40% de rebaja del código de lanzamiento respecto del precio lista de USD 82. No hay cupones adicionales acumuldables."
     },
     {
       "q": "¿Cómo accedo al curso una vez realizado el pago?",

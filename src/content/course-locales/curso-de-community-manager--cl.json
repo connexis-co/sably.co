@@ -14,7 +14,7 @@
     },
     {
       "q": "¿El precio de USD 32 incluye el descuento promocional?",
-      "a": "Sí, el costo regular es de USD 53, pero al procesar la compra se aplica automáticamente el 40% del cupón SABLY40, dejando el valor final fijado en USD 32 (convertido a CLP al pagar)."
+      "a": "Sí, el costo regular es de USD 53, pero al procesar la compra se aplica automáticamente el 40% de lanzamiento, dejando el valor final fijado en USD 32 (convertido a CLP al pagar)."
     },
     {
       "q": "¿El certificado tiene validez oficial para trabajar en Chile?",

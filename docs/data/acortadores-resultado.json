@@ -1,0 +1,38 @@
+[
+  {
+    "slugSably": "curso-de-barberia",
+    "codigo": "7954A63130914",
+    "producto": "⚫ Aprende Barbería y Monta tu Negocio",
+    "slugCrashing": "aprende-barberia-y-monta-tu-negocio-curso-crashing",
+    "slugVentaSO": "aprende-barberia-y-monta-tu-negocio-curso-venta-SO",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "estado": "ERROR",
+    "nota": "no pude afiliarme ni localizar los hotlinks"
+  },
+  {
+    "slugSably": "curso-de-unas-acrilicas",
+    "codigo": "3772E64481327",
+    "producto": "⚫ El Arte de las Uñas Acrílicas",
+    "slugCrashing": "master-en-unas-acrilicas-curso-crashing",
+    "slugVentaSO": "master-en-unas-acrilicas-curso-venta-SO",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "estado": "ERROR",
+    "nota": "no pude afiliarme ni localizar los hotlinks"
+  },
+  {
+    "slugSably": "curso-de-microblading",
+    "codigo": "2011C45079367",
+    "producto": "⚫ Cejas Perfectas con Microblading",
+    "slugCrashing": "cejas-perfectas-con-microblading-curso-crashing",
+    "slugVentaSO": "cejas-perfectas-con-microblading-curso-venta-SO",
+    "idProducto": null,
+    "crashing": null,
+    "ventaSO": null,
+    "estado": "ERROR",
+    "nota": "no pude afiliarme ni localizar los hotlinks"
+  }
+]
