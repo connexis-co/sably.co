@@ -845,7 +845,7 @@
     "ventaSO": null,
     "checkoutFinal": null,
     "estado": "ERROR",
-    "nota": "Afiliacion completada el 2026-08-11 (producto 3451430, comision USD$137,65), pero app.hotmart.com/hotlinks/3451430 no sirve ningun hotlink: la seccion carga sin enlaces ni boton \"Acortar link\". No figura en \"Solicitadas\", asi que no es una aprobacion pendiente. Reintentado 3 veces. Revisar a mano en el panel."
+    "nota": "Waiting failed: 45000ms exceeded"
   },
   {
     "slugSably": "curso-de-airbnb",
