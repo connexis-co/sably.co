@@ -13,8 +13,8 @@
       "a": "Al momento de procesar tu compra en la plataforma, selecciona Colombia como tu país. El sistema desplegará automáticamente las opciones de pago locales: PSE para transferencia bancaria directa, Nequi, Daviplata o tarjetas de crédito y débito."
     },
     {
-      "q": "¿El precio de USD 32 requiere ingresar el cupón SABLY40?",
-      "a": "No, el descuento del 40% asociado al cupón SABLY40 ya se encuentra aplicado sobre el precio original de USD 53. El valor final de USD 32 es el que pagas al momento del registro, convertido a pesos colombianos según la tasa de cambio de tu medio de pago."
+      "q": "¿El precio de USD 32 requiere ingresar el descuento de lanzamiento?",
+      "a": "No, el descuento del 40% asociado al descuento de lanzamiento ya se encuentra aplicado sobre el precio original de USD 53. El valor final de USD 32 es el que pagas al momento del registro, convertido a pesos colombianos según la tasa de cambio de tu medio de pago."
     },
     {
       "q": "¿El certificado otorgado me habilita legalmente para vender comida en Colombia?",

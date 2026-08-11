@@ -18,7 +18,7 @@
     },
     {
       "q": "¿El precio en dólares incluye algún cobro extra en mi tarjeta?",
-      "a": "El valor cobrado corresponde a 35 USD, ya que el 40% de descuento del cupón SABLY40 viene aplicado sobre los 58 USD originales. Al pagar con tarjeta chilena o Webpay, el sistema realiza la conversión a pesos chilenos según el tipo de cambio del día de tu banco."
+      "a": "El valor cobrado corresponde a 35 USD, ya que el 40% de descuento de lanzamiento viene aplicado sobre los 58 USD originales. Al pagar con tarjeta chilena o Webpay, el sistema realiza la conversión a pesos chilenos según el tipo de cambio del día de tu banco."
     },
     {
       "q": "¿El certificado tiene validez oficial o laboral en Chile?",
@@ -37,7 +37,7 @@
       "a": "Sí, el contenido está pensado para partir desde los fundamentos más básicos, como el agarre correcto del cuchillo, e ir subiendo gradualmente de nivel hacia técnicas más completas."
     },
     {
-      "q": "¿Debo ingresar el cupón SABLY40 antes de finalizar la compra?",
+      "q": "¿Debo ingresar el descuento de lanzamiento antes de finalizar la compra?",
       "a": "No es necesario ingresar ningún código adicional. El descuento del 40% ya está aplicado directamente en el precio final de 35 USD."
     }
   ],

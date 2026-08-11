@@ -13,8 +13,8 @@
       "a": "Puedes pagar con tarjeta de crédito o débito, Bizum o transferencia bancaria. Aunque el coste de referencia figure en USD, el cargo se procesa automáticamente en euros al tipo de cambio de tu entidad bancaria sin comisiones extra por nuestra parte."
     },
     {
-      "q": "¿El importe de 32 USD ya incluye el descuento del cupón SABLY40?",
-      "a": "Sí, el importe final de 32 USD ya tiene aplicado el 40% de descuento correspondiente al código SABLY40 sobre la tarifa base de 53 USD. No es necesario introducir ningún código adicional en el proceso de compra."
+      "q": "¿El importe de 32 USD ya incluye el descuento de lanzamiento?",
+      "a": "Sí, el importe final de 32 USD ya tiene aplicado el 40% de descuento correspondiente al código de lanzamiento sobre la tarifa base de 53 USD. No es necesario introducir ningún código adicional en el proceso de compra."
     },
     {
       "q": "¿El certificado emitido habilita para darse de alta como autónomo o trabajar en agencias en España?",

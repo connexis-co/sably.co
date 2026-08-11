@@ -13,8 +13,8 @@
       "a": "El pago se realiza en pesos chilenos (CLP) al tipo de cambio del día a través de la plataforma. Puedes pagar con tarjeta de crédito, débito o mediante Webpay de forma segura."
     },
     {
-      "q": "¿El precio de USD 32 ya incluye el descuento del cupón SABLY40?",
-      "a": "Sí, el precio final de USD 32 (o su equivalente en CLP) ya tiene aplicado el 40% de descuento correspondiente al cupón SABLY40 sobre el precio original de USD 53. No necesitas ingresar ningún código adicional."
+      "q": "¿El precio de USD 32 ya incluye el descuento de lanzamiento?",
+      "a": "Sí, el precio final de USD 32 (o su equivalente en CLP) ya tiene aplicado el 40% de descuento de lanzamiento sobre el precio original de USD 53. No necesitas ingresar ningún código adicional."
     },
     {
       "q": "¿El certificado tiene validez académica o laboral en Chile?",

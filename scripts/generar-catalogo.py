@@ -88,7 +88,7 @@ def generar_variante(slug: str, pais: str) -> dict:
         # tachado. Decir "precio base X con 40% OFF" hacía que el texto
         # prometiera un descuento adicional sobre lo que la caja ya cobra.
         f"precio final USD {fm.get('priceUSD', '?')} (antes USD "
-        f"{fm.get('originalPriceUSD', '?')}; el 40% del cupón SABLY40 ya está aplicado, "
+        f"{fm.get('originalPriceUSD', '?')}; el descuento de lanzamiento ya está aplicado, "
         f"no hay descuento adicional).\n"
         f"MERCADO: {lugar}. Moneda {p['moneda']}. Pagos: {p['pagos']}.\n"
         f'KEYWORD PRINCIPAL: "{keyword}"\n'

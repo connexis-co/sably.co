@@ -18,7 +18,7 @@
     },
     {
       "q": "¿El precio de USD 41 ya incluye el descuento o debo ingresar algún código?",
-      "a": "El valor de USD 41 ya tiene aplicado el 40% de descuento correspondiente al cupón SABLY40. Es el precio final a pagar y no existen cupones adicionales."
+      "a": "El valor de USD 41 ya tiene aplicado el 40% de descuento de lanzamiento. Es el precio final a pagar y no existen cupones adicionales."
     },
     {
       "q": "¿Cómo se calcula el pago en pesos colombianos si el precio de referencia es USD 41?",

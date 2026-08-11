@@ -4,10 +4,12 @@ export const SITE = {
   tagline: 'Aprende un oficio real. Emprende tu futuro.',
   description:
     'Cursos online de oficios prácticos y habilidades anti-IA para Latinoamérica: panadería, costura, electricidad, barbería, gastronomía y más. Certificado incluido.',
-  defaultCoupon: 'SABLY40',
-  couponDiscountPct: 40,
-  /** TODO(JP): actualizar cada vez que rote la campaña. Fase 2: vendrá de la Hotmart Coupons API. */
-  offerEndsAt: '2026-08-31T23:59:59-05:00',
+  /**
+   * Las promociones NO viven aquí: están en `src/lib/promo.ts`, con ventana de
+   * fechas, países y activación por URL. Antes había un `defaultCoupon: 'SABLY40'`
+   * inventado que el checkout de Hotmart ignoraba, y un `offerEndsAt` fijo que
+   * convertía la oferta en perpetua. Ver la cabecera de promo.ts.
+   */
   social: {
     instagram: 'https://instagram.com/sably.co',
     tiktok: 'https://tiktok.com/@sably.co',

@@ -13,8 +13,8 @@
       "a": "Puedes pagar directamente con tarjetas de crédito o débito chilenas a través de Webpay o pasarela internacional. El sistema procesa el cobro equivalente a USD 45 según el tipo de cambio de tu tarjeta en pesos chilenos (CLP)."
     },
     {
-      "q": "¿El valor de USD 45 ya incluye el descuento del cupón SABLY40?",
-      "a": "Sí, el precio final a pagar es de USD 45 porque el 40% de descuento del cupón SABLY40 ya viene aplicado de forma automática en el checkout."
+      "q": "¿El valor de USD 45 ya incluye el descuento de lanzamiento?",
+      "a": "Sí, el precio final a pagar es de USD 45 porque el 40% de descuento de lanzamiento ya viene aplicado de forma automática en el checkout."
     },
     {
       "q": "¿El certificado digital me sirve para trabajar en Chile?",

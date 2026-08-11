@@ -14,7 +14,7 @@
     },
     {
       "q": "¿El precio de USD 32 incluye impuestos o hay cobros adicionales?",
-      "a": "El valor de USD 32 es el precio final con el 40% de descuento aplicado mediante el código SABLY40. Al pagar, la plataforma convierte la cifra automáticamente a COP según la tasa oficial del día, sin cobros extra."
+      "a": "El valor de USD 32 es el precio final con el 40% de descuento aplicado mediante el código de lanzamiento. Al pagar, la plataforma convierte la cifra automáticamente a COP según la tasa oficial del día, sin cobros extra."
     },
     {
       "q": "¿Necesito comprar una máquina espresso costosa para tomar el curso?",
@@ -33,7 +33,7 @@
       "a": "No, las lecciones están grabadas para que avances a tu propio ritmo, a la hora que te convenga y desde cualquier dispositivo con conexión a internet."
     },
     {
-      "q": "¿Cómo aplico el cupón de descuento SABLY40?",
+      "q": "¿Cómo aplico el cupón de descuento de lanzamiento?",
       "a": "El descuento ya está aplicado en el precio final de USD 32 que ves en pantalla, por lo que no necesitas ingresar ningún código extra al momento de pagar."
     },
     {

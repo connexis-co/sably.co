@@ -13,8 +13,8 @@
       "a": "Al momento de realizar tu compra en la plataforma de pago, selecciona Colombia como tu país. Se desplegarán automáticamente las opciones de pago en moneda local (COP), incluyendo PSE para débito bancario directo, Nequi, Daviplata o tarjetas de crédito locales."
     },
     {
-      "q": "¿El precio de USD 29 ya tiene aplicado el descuento del cupón SABLY40?",
-      "a": "Sí, el valor final de USD 29 (o su equivalente aproximado en pesos colombianos al cambio del día) ya refleja el 40% de descuento correspondiente al cupón SABLY40. No necesitas ingresar ningún código adicional en la pantalla de pago."
+      "q": "¿El precio de USD 29 ya tiene aplicado el descuento de lanzamiento?",
+      "a": "Sí, el valor final de USD 29 (o su equivalente aproximado en pesos colombianos al cambio del día) ya refleja el 40% de descuento de lanzamiento. No necesitas ingresar ningún código adicional en la pantalla de pago."
     },
     {
       "q": "¿El certificado otorgado al finalizar tiene validez oficial en Colombia?",

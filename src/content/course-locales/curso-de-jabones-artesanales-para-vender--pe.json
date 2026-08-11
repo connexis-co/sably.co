@@ -13,8 +13,8 @@
       "a": "Al momento de hacer clic en el botón de compra, selecciona Perú como tu país. El sistema te desplegará automáticamente las opciones de pago en moneda nacional (PEN), donde podrás elegir Yape, Plin, pago en efectivo o tarjeta de crédito/débito."
     },
     {
-      "q": "¿El precio de USD 27 ya incluye el descuento o debo ingresar el cupón SABLY40?",
-      "a": "El precio de USD 27 (o su equivalente exacto en soles al cambio del día) ya tiene aplicado el 40% de descuento correspondiente al cupón SABLY40. No necesitas ingresar ningún código adicional."
+      "q": "¿El precio de USD 27 ya incluye el descuento o debo ingresar el descuento de lanzamiento?",
+      "a": "El precio de USD 27 (o su equivalente exacto en soles al cambio del día) ya tiene aplicado el 40% de descuento de lanzamiento. No necesitas ingresar ningún código adicional."
     },
     {
       "q": "¿El certificado tiene validez oficial ante instituciones de salud o DIGEMID en Perú?",

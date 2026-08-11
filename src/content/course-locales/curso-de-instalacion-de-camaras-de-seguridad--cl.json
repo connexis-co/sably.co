@@ -13,8 +13,8 @@
       "a": "Puedes pagar directamente en la plataforma usando Webpay con tu tarjeta de débito (CuentaRUT o tarjeta bancaria) o tarjeta de crédito. El valor de referencia es USD 36, y tu banco o Webpay realiza la conversión a pesos chilenos (CLP) al momento del pago."
     },
     {
-      "q": "¿El precio de USD 36 incluye el descuento del cupón SABLY40?",
-      "a": "Sí, el valor de USD 36 ya tiene aplicado el 40% de descuento sobre el precio original de USD 60 mediante el cupón SABLY40. Es un pago único sin costos ocultos ni mensualidades."
+      "q": "¿El precio de USD 36 incluye el descuento de lanzamiento?",
+      "a": "Sí, el valor de USD 36 ya tiene aplicado el 40% de descuento sobre el precio original de USD 60 mediante el descuento de lanzamiento. Es un pago único sin costos ocultos ni mensualidades."
     },
     {
       "q": "¿El certificado digital me sirve para trabajar de forma oficial en Chile?",

@@ -13,8 +13,8 @@
       "a": "Sí. La plataforma procesa pagos locales a través de PSE, Nequi, Daviplata y tarjetas de crédito o débito emitidas por bancos colombianos. El cobro se realiza al equivalente en pesos colombianos según la tasa de cambio del día."
     },
     {
-      "q": "¿El precio de USD 35 ya incluye el descuento del cupón SABLY40?",
-      "a": "Sí. El valor original de USD 58 ya tiene aplicado el 40% de descuento correspondiente al cupón SABLY40. El precio final a pagar es USD 35 (o su equivalente en COP) y no hay cobros adicionales ni descuentos acumulables."
+      "q": "¿El precio de USD 35 ya incluye el descuento de lanzamiento?",
+      "a": "Sí. El valor original de USD 58 ya tiene aplicado el 40% de descuento de lanzamiento. El precio final a pagar es USD 35 (o su equivalente en COP) y no hay cobros adicionales ni descuentos acumulables."
     },
     {
       "q": "¿El certificado tiene validez oficial ante el Ministerio de Educación de Colombia?",
