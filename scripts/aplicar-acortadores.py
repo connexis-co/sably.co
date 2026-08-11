@@ -39,6 +39,31 @@ def resolver(url: str) -> tuple[str, str] | None:
     return (m.group(1), m.group(2)) if m else None
 
 
+def aplicar_acortador(slug: str, acortador: str) -> bool:
+    """Publica el acortador `hotm.io/<slug>-curso-crashing` como enlace del curso.
+
+    Se publica el acortador y no su destino final por dos razones de negocio:
+    el Link Manager de Hotmart cuenta los clics de cada acortador, y permite
+    cambiar a dónde apunta sin volver a tocar el sitio ni desplegar.
+
+    No se escribe `hotmartRef`: el acortador ya lleva la atribución embebida, y
+    añadir un segundo `ref` en la query duplicaría el parámetro.
+    """
+    path = CURSOS / f"{slug}.mdx"
+    if not path.exists():
+        print(f"    no existe {path.name}")
+        return False
+    texto = path.read_text("utf-8")
+    nuevo = re.sub(r"^hotmartUrl:.*$", f"hotmartUrl: {acortador}", texto, count=1, flags=re.M)
+    # El ref viaja dentro del acortador; dejarlo aquí lo duplicaría en la URL.
+    nuevo = re.sub(r"^hotmartRef:.*\n", "", nuevo, count=1, flags=re.M)
+    if nuevo == texto:
+        return False
+    if not DRY:
+        path.write_text(nuevo, encoding="utf-8")
+    return True
+
+
 def aplicar(slug: str, checkout: str, ref: str) -> bool:
     path = CURSOS / f"{slug}.mdx"
     if not path.exists():
@@ -67,13 +92,17 @@ def main() -> None:
 
     aplicados = 0
     for f in listos:
+        # Se comprueba el acortador antes de publicarlo: tiene que llevar a un
+        # checkout y conservar el `ref`. Si no, no se toca el curso.
         r = resolver(f["crashing"])
         if not r:
+            print(f"    {f['slugSably']}: el acortador no resuelve a un checkout con ref; no lo publico")
             continue
         checkout, ref = r
-        if aplicar(f["slugSably"], checkout, ref):
+        if aplicar_acortador(f["slugSably"], f["crashing"]):
             aplicados += 1
-            print(f"  ✓ {f['slugSably']:44s} {checkout}?ref={ref}")
+            print(f"  ✓ {f['slugSably']:44s} {f['crashing']}")
+            print(f"      → {checkout}?ref={ref}")
 
     print(f"\n{aplicados} cursos actualizados.")
     pendientes = [f for f in filas if f.get("estado") not in ("OK",)]

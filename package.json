@@ -8,6 +8,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
+    "check:functions": "tsc -p tsconfig.functions.json",
     "prepare": "husky"
   },
   "dependencies": {

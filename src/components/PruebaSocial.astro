@@ -1,0 +1,159 @@
+---
+/**
+ * Avisos de prueba social, al estilo de los que muestra Hotmart.
+ *
+ * Todos los datos salen del histórico REAL de ventas de la API de Hotmart
+ * (`scripts/build-prueba-social.py`). Es la diferencia con los widgets que se
+ * ven por ahí: aquí no hay nombres ni "hace 3 minutos" inventados.
+ *
+ * Dos decisiones sobre qué se dice y qué no:
+ *
+ * - **Sin cifras totales.** Un contador bajo argumenta en contra: mejor no
+ *   apoyarse en él. Omitirlo no engaña; inflarlo sí.
+ * - **Sin nombre y sin hora.** La API no identifica al comprador ni permite
+ *   decir "hace 5 minutos", así que el aviso se queda en lo que sí consta:
+ *   ese curso se vendió, y desde ese país. Si alguien lo contrasta, aguanta.
+ *
+ * La rotación va por pares (curso, país) reales, así que se ve movimiento
+ * constante sin inventar a nadie.
+ *
+ * Aparece abajo a la izquierda en escritorio y abajo centrado en móvil, sin
+ * tapar el CTA fijo. Se puede cerrar y no vuelve en toda la sesión.
+ */
+import datos from '@/data/prueba-social.json';
+
+interface Props {
+  /** Slug del curso, para usar sus cifras si las tiene. */
+  courseSlug?: string;
+  /** Título del curso, para nombrarlo en el aviso. */
+  courseTitle?: string;
+}
+const { courseSlug, courseTitle } = Astro.props;
+
+const delCurso = courseSlug ? (datos.cursos as Record<string, any>)[courseSlug] : null;
+
+interface Aviso {
+  slug: string;
+  titulo: string;
+  pais: string;
+}
+
+/**
+ * Los avisos del curso que se está viendo van primero: pesan más que los de un
+ * curso cualquiera. Detrás, el resto del catálogo.
+ *
+ * El desfase sale de la ruta para que dos páginas no arranquen por el mismo
+ * aviso; si todas empezaran igual, quien navega por varios cursos vería siempre
+ * la misma secuencia y el efecto se cae.
+ */
+const todos = datos.avisos as Aviso[];
+const propios = courseSlug ? todos.filter((a) => a.slug === courseSlug) : [];
+const ajenos = todos.filter((a) => a.slug !== courseSlug);
+const semilla = [...Astro.url.pathname].reduce((n, c) => n + c.charCodeAt(0), 0);
+const desfase = ajenos.length ? semilla % ajenos.length : 0;
+const rotados = [...ajenos.slice(desfase), ...ajenos.slice(0, desfase)];
+
+const mensajes: { texto: string; detalle: string }[] = [
+  ...[...propios, ...rotados].slice(0, 12).map((a) => ({
+    texto: a.pais ? `Alguien de ${a.pais} se inscribió` : 'Alguien se inscribió',
+    detalle: a.titulo,
+  })),
+];
+
+// El curso propio, si se vende en varios países, aporta un aviso más fuerte que
+// una compra suelta: dice alcance sin apoyarse en un número bajo.
+if (delCurso?.paises?.length > 1) {
+  mensajes.unshift({
+    texto: `${courseTitle ?? 'Este curso'} tiene estudiantes en varios países`,
+    detalle: delCurso.paises.map((p: any) => p.pais).join(' · '),
+  });
+}
+
+mensajes.push({
+  texto: 'Acceso de por vida y certificado incluido',
+  detalle: 'Garantía de 7 días: si no te sirve, te devuelven el dinero',
+});
+---
+
+<div
+  data-prueba-social
+  data-mensajes={JSON.stringify(mensajes)}
+  hidden
+  class="fixed bottom-20 left-1/2 z-30 w-[min(92vw,20rem)] -translate-x-1/2 sm:bottom-6 sm:left-6 sm:translate-x-0"
+  role="status"
+  aria-live="polite"
+>
+  <div
+    class="flex items-start gap-3 rounded-xl border border-surface-200 bg-white p-3 shadow-lg ring-1 ring-black/5 transition-all duration-300"
+    data-caja
+  >
+    <span class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-success/10 text-base">
+      🎓
+    </span>
+    <div class="min-w-0 flex-1">
+      <p data-ps-texto class="text-[13px] leading-snug font-bold text-heading"></p>
+      <p data-ps-detalle class="mt-0.5 text-[11px] leading-snug text-muted"></p>
+      <p class="mt-1 text-[10px] text-muted/70">Datos reales de ventas verificadas</p>
+    </div>
+    <button
+      type="button"
+      data-ps-cerrar
+      class="-mt-1 -mr-1 shrink-0 rounded-full p-1.5 text-muted transition hover:bg-surface-100"
+      aria-label="Cerrar aviso"
+    >
+      ✕
+    </button>
+  </div>
+</div>
+
+<script>
+  import { trackEvent } from '@/lib/analytics';
+
+  const el = document.querySelector<HTMLElement>('[data-prueba-social]');
+  const CERRADO = 'sably:ps-cerrado';
+
+  if (el && !sessionStorage.getItem(CERRADO)) {
+    const mensajes: { texto: string; detalle: string }[] = JSON.parse(el.dataset.mensajes ?? '[]');
+    const caja = el.querySelector<HTMLElement>('[data-caja]')!;
+    const txt = el.querySelector<HTMLElement>('[data-ps-texto]')!;
+    const det = el.querySelector<HTMLElement>('[data-ps-detalle]')!;
+    let i = 0;
+    let timer: ReturnType<typeof setTimeout>;
+
+    const ocultar = () => {
+      caja.style.opacity = '0';
+      caja.style.transform = 'translateY(8px)';
+      setTimeout(() => (el.hidden = true), 300);
+    };
+
+    const mostrar = () => {
+      if (!mensajes.length) return;
+      const m = mensajes[i % mensajes.length]!;
+      txt.textContent = m.texto;
+      det.textContent = m.detalle;
+      el.hidden = false;
+      requestAnimationFrame(() => {
+        caja.style.opacity = '1';
+        caja.style.transform = 'translateY(0)';
+      });
+      trackEvent('prueba_social_vista', { mensaje: m.texto.slice(0, 60) });
+      i++;
+      // Visible 6 s, oculto 14 s: presente sin volverse molesto.
+      timer = setTimeout(() => {
+        ocultar();
+        timer = setTimeout(mostrar, 14000);
+      }, 6000);
+    };
+
+    el.querySelector('[data-ps-cerrar]')?.addEventListener('click', () => {
+      clearTimeout(timer);
+      sessionStorage.setItem(CERRADO, '1');
+      ocultar();
+    });
+
+    caja.style.opacity = '0';
+    caja.style.transform = 'translateY(8px)';
+    // Arranca a los 8 s: primero que el visitante lea la página.
+    timer = setTimeout(mostrar, 8000);
+  }
+</script>
