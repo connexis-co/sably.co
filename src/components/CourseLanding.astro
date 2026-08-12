@@ -762,11 +762,12 @@ const schemas = [
           `${promo.label}: ${promo.discountPct}% de descuento`;
       }
     }
-    const badge = document.querySelector<HTMLElement>('[data-promo-badge]');
-    if (badge) {
+    // Badge y tachado existen por duplicado (tarjeta y barra fija): se pintan
+    // TODOS para que los dos sitios cuenten siempre el mismo estado.
+    document.querySelectorAll<HTMLElement>('[data-promo-badge]').forEach((badge) => {
       badge.textContent = promo ? `-${promo.discountPct}%` : '';
       badge.hidden = !promo;
-    }
+    });
     if (!nodo || !base || !moneda) return;
 
     const final = promo ? precioConDescuento(base, moneda, promo.discountPct) : base;
@@ -774,13 +775,13 @@ const schemas = [
     document.querySelectorAll<HTMLElement>('[data-precio-real]').forEach((el) => {
       if (el.textContent !== textoFinal) el.textContent = textoFinal;
     });
-    const tachado = document.querySelector<HTMLElement>('[data-precio-tachado]');
-    if (tachado) {
-      // Sin el código de moneda: el precio grande ya lo dice, y esos ~28 px son
-      // los que deciden si todo cabe en una línea a 360 px.
-      tachado.textContent = formatMonto(base, moneda).replace(/ [A-Z]{3}$/, '');
+    // Sin el código de moneda: el precio grande ya lo dice, y esos ~28 px son
+    // los que deciden si todo cabe en una línea a 360 px.
+    const textoBase = formatMonto(base, moneda).replace(/ [A-Z]{3}$/, '');
+    document.querySelectorAll<HTMLElement>('[data-precio-tachado]').forEach((tachado) => {
+      tachado.textContent = textoBase;
       tachado.hidden = !promo;
-    }
+    });
   }
 
   // El calendario pinta ya, sin esperar a la red; el override llega y manda.

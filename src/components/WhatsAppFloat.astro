@@ -67,7 +67,7 @@ const url = buildWhatsAppUrl(country.whatsapp, message);
   /* Con la barra fija de compra visible en móvil, el botón sube su carril. */
   @media (max-width: 639px) {
     :global(body[data-has-sticky]) .wa-float {
-      --wa-carril: 56px;
+      --wa-carril: 66px;
     }
   }
   .wa-circle {
@@ -126,14 +126,42 @@ const url = buildWhatsAppUrl(country.whatsapp, message);
   /* Configuración del panel: número global y posición. Falla en silencio. */
   if (boton) {
     interface Config {
-      whatsapp?: { activo: boolean; numero: string; x: number; y: number };
+      whatsapp?: {
+        activo: boolean;
+        numero: string;
+        x: number;
+        y: number;
+        paginasOcultas?: string[];
+      };
     }
+
+    /* Coincidencia de ruta para ocultar por página: exacta (con o sin barra
+       final) o con comodín `*`. Se configura en /admin/widgets. */
+    const rutaOculta = (patrones: string[]): boolean => {
+      const ruta = location.pathname;
+      return patrones.some((patron) => {
+        if (!patron) return false;
+        if (patron.includes('*')) {
+          const rx = new RegExp(
+            '^' +
+              patron
+                .split('*')
+                .map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))
+                .join('.*') +
+              '$',
+          );
+          return rx.test(ruta);
+        }
+        return ruta === patron || ruta === `${patron}/` || `${ruta}/` === patron;
+      });
+    };
     fetch('/api/v1/config')
       .then((r): Promise<Config | null> => (r.ok ? (r.json() as Promise<Config>) : Promise.resolve(null)))
       .then((cfg) => {
         const wa = cfg?.whatsapp;
         if (!wa) return;
-        if (!wa.activo) {
+        // Apagado global (activo) o por página (lista de rutas del panel).
+        if (!wa.activo || rutaOculta(wa.paginasOcultas ?? [])) {
           boton.remove();
           return;
         }
