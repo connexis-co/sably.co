@@ -19,24 +19,38 @@ interface Props {
 const { title, precio, ctaUrl } = Astro.props;
 ---
 
-<div
-  data-sticky-cta
-  data-oculta
-  class="fixed inset-x-0 z-40 border-surface-200 bg-white shadow-md"
->
-  <div class="container-site flex h-14 items-center justify-between gap-4">
+<div data-sticky-cta data-oculta class="fixed inset-x-0 z-40 border-surface-200 bg-white shadow-md">
+  {/* En móvil son dos renglones: el título da el contexto que faltaba (la
+      barra sola con un precio no decía DE QUÉ era), y debajo el precio con su
+      tachado y badge cuando hay campaña — el mismo estado que la tarjeta,
+      pintado por el mismo controlador. En escritorio, todo en un renglón. */}
+  <div
+    class="container-site flex flex-col gap-y-0.5 py-2 sm:h-14 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-0"
+  >
+    <p class="truncate text-[11px] leading-tight font-semibold text-muted sm:hidden">{title}</p>
     <p class="hidden truncate text-sm font-bold text-primary sm:block">{title}</p>
-    <div class="flex flex-1 items-center justify-between gap-3 sm:flex-none sm:justify-end">
-      <span data-precio-real class="text-sm font-extrabold whitespace-nowrap text-primary"
-        >{precio}</span
-      >
+    <div class="flex items-center justify-between gap-3 sm:justify-end">
+      <span class="flex items-baseline gap-x-1.5 overflow-hidden whitespace-nowrap">
+        <span data-precio-real class="text-sm font-extrabold whitespace-nowrap text-primary"
+          >{precio}</span
+        >
+        <span
+          data-precio-tachado
+          hidden
+          class="text-[11px] whitespace-nowrap text-muted line-through"></span>
+        <span
+          data-promo-badge
+          hidden
+          class="rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap text-white"
+        ></span>
+      </span>
       <a
         href={ctaUrl}
         target="_blank"
         rel="noopener nofollow sponsored"
         data-cta-hotmart
         data-cta-position="sticky"
-        class="rounded-md bg-accent px-4 py-2 text-sm font-bold text-white transition hover:bg-accent-hover"
+        class="shrink-0 rounded-md bg-accent px-4 py-2 text-sm font-bold text-white transition hover:bg-accent-hover"
       >
         Inscribirme
       </a>
@@ -67,7 +81,7 @@ const { title, precio, ctaUrl } = Astro.props;
     }
     /* La barra ocupa el borde inferior: que no entierre el final del footer. */
     :global(body[data-has-sticky] footer) {
-      padding-bottom: 4.5rem;
+      padding-bottom: 5rem;
     }
   }
 </style>
@@ -80,7 +94,15 @@ const { title, precio, ctaUrl } = Astro.props;
     document.body.dataset.hasSticky = '1';
     new IntersectionObserver(
       ([entry]) => {
-        bar.toggleAttribute('data-oculta', entry?.isIntersecting ?? true);
+        if (!entry) return;
+        // «No intersecta» ocurre por arriba Y por abajo: en móvil el hero mide
+        // más que la pantalla y el sentinel nace bajo el pliegue, así que la
+        // barra salía visible ya en el primer scroll. Solo cuenta haberlo
+        // PASADO. El límite sale de rootBounds y no de 0: con el rootMargin de
+        // −64 px, el sentinel cruza por arriba quedando en top ≈ +64.
+        const limite = entry.rootBounds ? entry.rootBounds.top : 0;
+        const pasado = !entry.isIntersecting && entry.boundingClientRect.top <= limite;
+        bar.toggleAttribute('data-oculta', !pasado);
       },
       { rootMargin: '-64px 0px 0px 0px' },
     ).observe(sentinel);

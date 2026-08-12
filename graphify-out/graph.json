@@ -5398,7 +5398,7 @@
       "_origin": "ast",
       "id": "src_components_footer",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "footer.astro"
     },
     {
@@ -5408,7 +5408,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_components_geodialog",
-      "community": 109,
+      "community": 31,
       "community_name": "countries.ts",
       "norm_label": "geodialog.astro"
     },
@@ -5420,7 +5420,7 @@
       "_origin": "ast",
       "id": "src_components_header",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "header.astro"
     },
     {
@@ -5442,7 +5442,7 @@
       "_origin": "ast",
       "id": "src_components_logo",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "logo.astro"
     },
     {
@@ -5654,7 +5654,7 @@
       "_origin": "ast",
       "id": "src_components_searchmodal",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "searchmodal.astro"
     },
     {
@@ -5666,7 +5666,7 @@
       "_origin": "ast",
       "id": "src_components_searchmodal_open",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "open()"
     },
     {
@@ -5700,7 +5700,7 @@
       "_origin": "ast",
       "id": "src_components_seo",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "seo.astro"
     },
     {
@@ -5711,7 +5711,7 @@
       "_origin": "ast",
       "id": "src_components_socialicon",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "socialicon.astro"
     },
     {
@@ -5887,7 +5887,7 @@
       "_origin": "ast",
       "id": "src_layouts_baselayout",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "baselayout.astro"
     },
     {
@@ -6325,7 +6325,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_lib_countries",
-      "community": 109,
+      "community": 31,
       "community_name": "countries.ts",
       "norm_label": "countries.ts"
     },
@@ -6339,7 +6339,7 @@
       "_origin": "ast",
       "id": "src_lib_countries_city",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "city"
     },
     {
@@ -6352,7 +6352,7 @@
       "_origin": "ast",
       "id": "src_lib_countries_country",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "country"
     },
     {
@@ -6373,7 +6373,7 @@
       "source_location": "L176",
       "_origin": "ast",
       "id": "src_lib_countries_default_country",
-      "community": 109,
+      "community": 31,
       "community_name": "countries.ts",
       "norm_label": "default_country"
     },
@@ -6385,7 +6385,7 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_countries_getcountry",
-      "community": 109,
+      "community": 31,
       "community_name": "countries.ts",
       "norm_label": "getcountry()"
     },
@@ -6702,8 +6702,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_hotmartlive_valoracionestotalescatalogo",
-      "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community": 175,
+      "community_name": "CourseLanding.astro",
       "norm_label": "valoracionestotalescatalogo()"
     },
     {
@@ -6715,8 +6715,8 @@
       "_callable_class": true,
       "_origin": "ast",
       "id": "src_lib_hotmartlive_autor",
-      "community": 175,
-      "community_name": "CourseLanding.astro",
+      "community": 109,
+      "community_name": "[autor]/index.astro",
       "norm_label": "autor"
     },
     {
@@ -6761,8 +6761,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_hotmartlive_creadores",
-      "community": 175,
-      "community_name": "CourseLanding.astro",
+      "community": 109,
+      "community_name": "[autor]/index.astro",
       "norm_label": "creadores()"
     },
     {
@@ -6785,8 +6785,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_hotmartlive_resenasreales",
-      "community": 175,
-      "community_name": "CourseLanding.astro",
+      "community": 184,
+      "community_name": "PruebaSocial.astro",
       "norm_label": "resenasreales()"
     },
     {
@@ -6800,18 +6800,6 @@
       "community": 184,
       "community_name": "PruebaSocial.astro",
       "norm_label": "resenasdelcatalogo()"
-    },
-    {
-      "label": "formatMonto()",
-      "file_type": "code",
-      "source_file": "src/lib/hotmartLive.ts",
-      "source_location": "L121",
-      "_callable": true,
-      "_origin": "ast",
-      "id": "src_lib_hotmartlive_formatmonto",
-      "community": 175,
-      "community_name": "CourseLanding.astro",
-      "norm_label": "formatmonto()"
     },
     {
       "label": "markdown.ts",
@@ -6883,6 +6871,41 @@
       "community": 182,
       "community_name": "markdown.ts",
       "norm_label": "rendermarkdown()"
+    },
+    {
+      "label": "moneda.ts",
+      "file_type": "code",
+      "source_file": "src/lib/moneda.ts",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_lib_moneda",
+      "community": 175,
+      "community_name": "CourseLanding.astro",
+      "norm_label": "moneda.ts"
+    },
+    {
+      "label": "formatMonto()",
+      "file_type": "code",
+      "source_file": "src/lib/moneda.ts",
+      "source_location": "L12",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "src_lib_moneda_formatmonto",
+      "community": 175,
+      "community_name": "CourseLanding.astro",
+      "norm_label": "formatmonto()"
+    },
+    {
+      "label": "precioConDescuento()",
+      "file_type": "code",
+      "source_file": "src/lib/moneda.ts",
+      "source_location": "L27",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "src_lib_moneda_preciocondescuento",
+      "community": 175,
+      "community_name": "CourseLanding.astro",
+      "norm_label": "preciocondescuento()"
     },
     {
       "label": "lib/promo.ts",
@@ -7099,7 +7122,7 @@
       "_origin": "ast",
       "id": "src_lib_seo_hreflangalternate",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "hreflangalternate"
     },
     {
@@ -7135,8 +7158,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_seo_breadcrumbschema",
-      "community": 32,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 44,
+      "community_name": "[programa]/index.astro",
       "norm_label": "breadcrumbschema()"
     },
     {
@@ -7147,8 +7170,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_lib_seo_organizationschema",
-      "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community": 192,
+      "community_name": "seo.ts",
       "norm_label": "organizationschema()"
     },
     {
@@ -7282,7 +7305,7 @@
       "_origin": "ast",
       "id": "src_lib_site",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "site.ts"
     },
     {
@@ -7304,7 +7327,7 @@
       "_origin": "ast",
       "id": "src_lib_site_leads_endpoint",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "leads_endpoint"
     },
     {
@@ -7326,7 +7349,7 @@
       "_origin": "ast",
       "id": "src_lib_site_gtm_id",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "gtm_id"
     },
     {
@@ -7337,7 +7360,7 @@
       "_origin": "ast",
       "id": "src_lib_site_ga4_id",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "ga4_id"
     },
     {
@@ -7348,7 +7371,7 @@
       "_origin": "ast",
       "id": "src_lib_site_meta_pixel_id",
       "community": 31,
-      "community_name": "BaseLayout.astro",
+      "community_name": "countries.ts",
       "norm_label": "meta_pixel_id"
     },
     {
@@ -7512,7 +7535,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_pages_404",
-      "community": 109,
+      "community": 31,
       "community_name": "countries.ts",
       "norm_label": "404.astro"
     },
@@ -7523,7 +7546,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "src_pages_404_country",
-      "community": 109,
+      "community": 31,
       "community_name": "countries.ts",
       "norm_label": "country"
     },
@@ -7763,6 +7786,73 @@
       "norm_label": "country"
     },
     {
+      "label": "[autor]/index.astro",
+      "file_type": "code",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L1",
+      "_origin": "ast",
+      "id": "src_pages_country_creadores_autor_index",
+      "community": 109,
+      "community_name": "[autor]/index.astro",
+      "norm_label": "[autor]/index.astro"
+    },
+    {
+      "label": "getStaticPaths()",
+      "file_type": "code",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L18",
+      "_callable": true,
+      "_origin": "ast",
+      "id": "src_pages_country_creadores_autor_index_getstaticpaths",
+      "community": 109,
+      "community_name": "[autor]/index.astro",
+      "norm_label": "getstaticpaths()"
+    },
+    {
+      "label": "valoraciones",
+      "file_type": "code",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L41",
+      "_origin": "ast",
+      "id": "src_pages_country_creadores_autor_index_valoraciones",
+      "community": 109,
+      "community_name": "[autor]/index.astro",
+      "norm_label": "valoraciones"
+    },
+    {
+      "label": "totalValoraciones",
+      "file_type": "code",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L47",
+      "_origin": "ast",
+      "id": "src_pages_country_creadores_autor_index_totalvaloraciones",
+      "community": 109,
+      "community_name": "[autor]/index.astro",
+      "norm_label": "totalvaloraciones"
+    },
+    {
+      "label": "description",
+      "file_type": "code",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L50",
+      "_origin": "ast",
+      "id": "src_pages_country_creadores_autor_index_description",
+      "community": 109,
+      "community_name": "[autor]/index.astro",
+      "norm_label": "description"
+    },
+    {
+      "label": "schemas",
+      "file_type": "code",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L52",
+      "_origin": "ast",
+      "id": "src_pages_country_creadores_autor_index_schemas",
+      "community": 109,
+      "community_name": "[autor]/index.astro",
+      "norm_label": "schemas"
+    },
+    {
       "label": "[country]/cursos/[category]/index.astro",
       "file_type": "code",
       "source_file": "src/pages/[country]/cursos/[category]/index.astro",
@@ -7781,8 +7871,8 @@
       "_callable": true,
       "_origin": "ast",
       "id": "src_pages_country_cursos_category_index_getstaticpaths",
-      "community": 27,
-      "community_name": "categories.ts",
+      "community": 32,
+      "community_name": "[item]/cursos/[category]/index.astro",
       "norm_label": "getstaticpaths()"
     },
     {
@@ -8082,7 +8172,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_pages_contacto_index",
-      "community": 109,
+      "community": 31,
       "community_name": "countries.ts",
       "norm_label": "contacto/index.astro"
     },
@@ -8127,7 +8217,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_pages_legal_privacidad_index",
-      "community": 109,
+      "community": 31,
       "community_name": "countries.ts",
       "norm_label": "privacidad/index.astro"
     },
@@ -8138,7 +8228,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_pages_legal_terminos_index",
-      "community": 109,
+      "community": 31,
       "community_name": "countries.ts",
       "norm_label": "terminos/index.astro"
     },
@@ -8195,8 +8285,8 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_pages_nosotros_index",
-      "community": 32,
-      "community_name": "[item]/cursos/[category]/index.astro",
+      "community": 31,
+      "community_name": "countries.ts",
       "norm_label": "nosotros/index.astro"
     },
     {
@@ -8343,7 +8433,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "src_stores_geo",
-      "community": 109,
+      "community": 31,
       "community_name": "countries.ts",
       "norm_label": "geo.ts"
     },
@@ -8354,7 +8444,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "src_stores_geo_country",
-      "community": 109,
+      "community": 31,
       "community_name": "countries.ts",
       "norm_label": "$country"
     },
@@ -8365,7 +8455,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "src_stores_geo_city",
-      "community": 109,
+      "community": 31,
       "community_name": "countries.ts",
       "norm_label": "$city"
     },
@@ -25233,6 +25323,15 @@
     {
       "relation": "imports_from",
       "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "astro_content",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
       "source_file": "src/pages/[country]/cursos/[category]/index.astro",
       "_origin": "ast",
       "source": "src_pages_country_cursos_category_index",
@@ -25497,18 +25596,6 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_coursecard",
-      "target": "src_lib_hotmartlive_formatmonto",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/components/CourseCard.astro",
-      "source_location": "L5",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_components_coursecard",
       "target": "src_lib_hotmartlive_precioreal",
       "confidence_score": 1.0
     },
@@ -25525,6 +25612,18 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/CourseCard.astro",
+      "source_location": "L5",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_coursecard",
+      "target": "src_lib_moneda_formatmonto",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -25533,6 +25632,18 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_courselanding",
+      "target": "src_components_coursecard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
       "target": "src_components_coursecard",
       "confidence_score": 1.0
     },
@@ -25854,18 +25965,6 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_components_courselanding",
-      "target": "src_lib_hotmartlive_formatmonto",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "imports",
-      "context": "import",
-      "confidence": "EXTRACTED",
-      "source_file": "src/components/CourseLanding.astro",
-      "source_location": "L15",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_components_courselanding",
       "target": "src_lib_hotmartlive_precioreal",
       "confidence_score": 1.0
     },
@@ -25915,6 +26014,27 @@
       "_origin": "ast",
       "source": "src_components_courselanding",
       "target": "src_lib_markdown_rendermarkdown",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/CourseLanding.astro",
+      "_origin": "ast",
+      "source": "src_components_courselanding",
+      "target": "src_lib_moneda",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/CourseLanding.astro",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_components_courselanding",
+      "target": "src_lib_moneda_formatmonto",
       "confidence_score": 1.0
     },
     {
@@ -27279,6 +27399,18 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L11",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_layouts_baselayout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/pages/[country]/cursos/[category]/index.astro",
       "source_location": "L3",
       "weight": 1.0,
@@ -28636,6 +28768,18 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_lib_countries",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/pages/[country]/cursos/[category]/index.astro",
       "source_location": "L6",
       "weight": 1.0,
@@ -28825,6 +28969,18 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_lib_countries_country",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "references",
       "context": "call",
       "confidence": "EXTRACTED",
@@ -28883,6 +29039,30 @@
       "source": "src_pages_contacto_index",
       "target": "src_lib_countries_countries",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L13",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_lib_countries_countries",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "references",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index_getstaticpaths",
+      "target": "src_lib_countries_countries"
     },
     {
       "relation": "imports",
@@ -29906,17 +30086,6 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "src/lib/hotmartLive.ts",
-      "source_location": "L121",
-      "weight": 1.0,
-      "_origin": "ast",
-      "source": "src_lib_hotmartlive",
-      "target": "src_lib_hotmartlive_formatmonto",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "src/lib/hotmartLive.ts",
       "source_location": "L37",
       "weight": 1.0,
       "_origin": "ast",
@@ -30057,6 +30226,42 @@
       "confidence_score": 1.0
     },
     {
+      "relation": "re_exports",
+      "context": "export",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/hotmartLive.ts",
+      "source_location": "L118",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_hotmartlive",
+      "target": "src_lib_moneda",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/hotmartLive.ts",
+      "source_location": "L118",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_hotmartlive",
+      "target": "src_lib_moneda_formatmonto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "re_exports",
+      "context": "re-export",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/hotmartLive.ts",
+      "source_location": "L118",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_hotmartlive",
+      "target": "src_lib_moneda_preciocondescuento",
+      "confidence_score": 1.0
+    },
+    {
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
@@ -30072,12 +30277,36 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_lib_hotmartlive",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/pages/[country]/index.astro",
       "source_location": "L3",
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_country_index",
       "target": "src_lib_hotmartlive",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_lib_hotmartlive_valoracionreal",
       "confidence_score": 1.0
     },
     {
@@ -30115,6 +30344,42 @@
       "source": "src_lib_site",
       "target": "src_lib_hotmartlive_valoracionestotalescatalogo",
       "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_lib_hotmartlive_autor",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L14",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_lib_hotmartlive_creadores",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index_getstaticpaths",
+      "target": "src_lib_hotmartlive_creadores"
     },
     {
       "relation": "contains",
@@ -30217,6 +30482,28 @@
       "_origin": "ast",
       "source": "src_lib_markdown_rendermarkdown",
       "target": "src_lib_markdown_celdas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/moneda.ts",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_moneda",
+      "target": "src_lib_moneda_formatmonto",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/moneda.ts",
+      "source_location": "L27",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_lib_moneda",
+      "target": "src_lib_moneda_preciocondescuento",
       "confidence_score": 1.0
     },
     {
@@ -30646,6 +30933,18 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_lib_seo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/pages/[country]/cursos/[category]/index.astro",
       "source_location": "L8",
       "weight": 1.0,
@@ -30742,6 +31041,18 @@
       "relation": "imports",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_lib_seo_countryalternates",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/pages/[country]/cursos/[category]/index.astro",
       "source_location": "L8",
       "weight": 1.0,
@@ -30807,6 +31118,18 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_contacto_index",
+      "target": "src_lib_seo_breadcrumbschema",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L15",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
       "target": "src_lib_seo_breadcrumbschema",
       "confidence_score": 1.0
     },
@@ -31132,6 +31455,18 @@
       "relation": "imports_from",
       "context": "import",
       "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_lib_site",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
       "source_file": "src/pages/[country]/cursos/[category]/index.astro",
       "source_location": "L9",
       "weight": 1.0,
@@ -31317,6 +31652,18 @@
       "weight": 1.0,
       "_origin": "ast",
       "source": "src_pages_contacto_index",
+      "target": "src_lib_site_site",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L16",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
       "target": "src_lib_site_site",
       "confidence_score": 1.0
     },
@@ -32057,6 +32404,61 @@
       "_origin": "ast",
       "source": "src_pages_country_item_index",
       "target": "src_pages_country_item_index_getstaticpaths",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L50",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_pages_country_creadores_autor_index_description",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L18",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_pages_country_creadores_autor_index_getstaticpaths",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L52",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_pages_country_creadores_autor_index_schemas",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L47",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_pages_country_creadores_autor_index_totalvaloraciones",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/[country]/creadores/[autor]/index.astro",
+      "source_location": "L41",
+      "weight": 1.0,
+      "_origin": "ast",
+      "source": "src_pages_country_creadores_autor_index",
+      "target": "src_pages_country_creadores_autor_index_valoraciones",
       "confidence_score": 1.0
     },
     {
@@ -38768,5 +39170,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "36b2589b06138889d16487972ea7cb9a7fd70d6e"
+  "built_at_commit": "5d0be3ddacddba4ec961c6aca0876327b4f9e2a5"
 }

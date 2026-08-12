@@ -762,6 +762,7 @@ const schemas = [
           `${promo.label}: ${promo.discountPct}% de descuento`;
       }
     }
+<<<<<<< HEAD
     const badge = document.querySelector<HTMLElement>('[data-promo-badge]');
     if (badge) {
       badge.textContent = promo ? `-${promo.discountPct}%` : '';
@@ -780,7 +781,67 @@ const schemas = [
       // los que deciden si todo cabe en una línea a 360 px.
       tachado.textContent = formatMonto(base, moneda).replace(/ [A-Z]{3}$/, '');
       tachado.hidden = !promo;
+=======
+    // Badge y tachado existen por duplicado (tarjeta y barra fija): se pintan
+    // TODOS para que los dos sitios cuenten siempre el mismo estado.
+    document.querySelectorAll<HTMLElement>('[data-promo-badge]').forEach((badge) => {
+      badge.textContent = promo ? `-${promo.discountPct}%` : '';
+      badge.hidden = !promo;
+    });
+    if (!nodo || !base || !moneda) return;
+
+    const final = promo ? precioConDescuento(base, moneda, promo.discountPct) : base;
+    const textoFinal = formatMonto(final, moneda);
+    document.querySelectorAll<HTMLElement>('[data-precio-real]').forEach((el) => {
+      if (el.textContent !== textoFinal) el.textContent = textoFinal;
+    });
+    // Sin el código de moneda: el precio grande ya lo dice, y esos ~28 px son
+    // los que deciden si todo cabe en una línea a 360 px.
+    const textoBase = formatMonto(base, moneda).replace(/ [A-Z]{3}$/, '');
+    document.querySelectorAll<HTMLElement>('[data-precio-tachado]').forEach((tachado) => {
+      tachado.textContent = textoBase;
+      tachado.hidden = !promo;
+    });
+  }
+
+  // El calendario pinta ya, sin esperar a la red; el override llega y manda.
+  promo = resolvePromo({
+    countryCode: pais,
+    now: new Date(),
+    urlKey: new URLSearchParams(location.search).get('promo'),
+  });
+  pintarPrecios();
+  leerOverride().then((o) => {
+    const manual = o && campaignDeOverride(o, { countryCode: pais, courseSlug: slug });
+    if (manual) {
+      promo = manual;
+      pintarPrecios();
+>>>>>>> origin/main
     }
+  });
+
+  /* Refresco del precio base desde la colo del visitante: si Hotmart movió el
+     precio desde el último build, la ficha se corrige al vuelo, y de paso cada
+     país mantiene fresca SU moneda en D1 (Hotmart la fija por IP). El repintado
+     pasa por el mismo camino, así que el cupón se re-aplica sobre la base nueva. */
+  if (nodo && slug && moneda && !sessionStorage.getItem(`sably:precio:${slug}`)) {
+    sessionStorage.setItem(`sably:precio:${slug}`, '1');
+    fetch('/api/v1/precios/refresca', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ slug }),
+    })
+      .then((r): Promise<{ precios?: Record<string, number> } | null> =>
+        r.ok ? (r.json() as Promise<{ precios?: Record<string, number> }>) : Promise.resolve(null),
+      )
+      .then((d) => {
+        const monto = d?.precios?.[moneda];
+        if (monto && monto > 0 && monto !== base) {
+          base = monto;
+          pintarPrecios();
+        }
+      })
+      .catch(() => {});
   }
 
   // El calendario pinta ya, sin esperar a la red; el override llega y manda.
