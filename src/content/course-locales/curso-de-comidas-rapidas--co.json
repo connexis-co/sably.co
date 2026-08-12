@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-comidas-rapidas",
-  "country": "co",
-  "angulo": "hobby",
-  "meta_title": "Curso de negocio de las comidas rápidas en Colombia",
-  "meta_description": "Aprende a preparar hamburguesas, perros y salsas con técnica profesional desde casa. Inscríbete al curso de negocio de las comidas rápidas con Nequi o PSE.",
-  "h1": "Aprende a cocinar como los grandes con el curso de negocio de las comidas rápidas",
-  "subtitulo": "Domina el arte de las hamburguesas artesanales, perros calientes y salsas caseras para impresionar en tus reuniones sin desperdiciar ingredientes.",
-  "descripcion": "Preparar comida rápida en casa parece sencillo hasta que la carne queda seca, el pan se deshace con el calor o las salsas terminan aguadas. Te apasiona cocinar para tus amigos el fin de semana, pero terminar sirviendo hamburguesas frías o papas blandas frustra a cualquiera. Si estás buscando un **curso de negocio de las comidas rápidas** para llevar tus preparaciones al nivel de un sitio especializado, necesitas entender la temperatura de la plancha, el ensamblaje correcto y el balance de grasa en los aderezos.\n\n## Del antojo del fin de semana a una cocina de precisión\n\nCuando preparas comida rápida por afición, la gran diferencia entre un plato casero del montón y una experiencia memorable está en los detalles técnicos. No basta con comprar una buena carne; tienes que saber molerla o darle forma sin apelmazarla, controlar el punto exacto de cocción para conservar los jugos y dorar la parte interna del pan para que cree una barrera protectora contra la humedad de los vegetales.\n\nEn este proceso vas a aprender a ejecutar acciones concretas dentro de tu propia cocina:\n\n- Equilibrar acidez, dulzor y picante en tus salsas base para que no tapen el sabor de la proteína.\n- Sellar el pan con mantequilla en la plancha tibia para evitar que el jugo del tomate lo ablande por completo.\n- Controlar el gramaje de cada porción para que tres o cuatro hamburguesas se cocinen al mismo tiempo de manera pareja.\n- Organizar la secuencia de montaje para que el queso se funda exactamente cuando la carne sale del fuego y todo llegue caliente a la mesa.\n\n## Disfruta el proceso sin cometer los errores típicos de aficionado\n\nEl mayor problema cuando cocinas para varios invitados no es la sazón, sino el caos en la cocina. Terminas agotado, lavando montañas de vajilla y comiendo al final cuando todo está frío. Aprender la metodología de las comidas rápidas te permite trabajar con una línea de ensamblaje limpia, organizando los ingredientes picados, las salsas dosificadas y los panes listos antes de encender la primera hornilla.\n\nIncluso si tu objetivo es consentir a tu familia o ser el anfitrión estrella de las reuniones, entender la estandarización te ahorra dinero. Saber cuánto ingrediente compras exactamente y cómo aprovechar los sobrantes para no botar comida a la basura cambia por completo la experiencia.\n\nVamos a poner un techo realista a las expectativas: este programa no te va a convertir en dueño de un restaurante masivo en un par de semanas, ni reemplaza las horas de práctica que necesitas frente al fuego para dominar el volteo de las carnes. Lo que sí hace es entregarte una guía directa para que, siguiendo las demostraciones de Paola Gutiérrez, pases de improvisar en la estufa a cocinar con la soltura y limpieza de un profesional.\n\n## Sabores locales y técnica impecable en tu cocina\n\nEn Colombia nos gustan las comidas rápidas abundantes, llenas de textura y con salsas que tengan carácter. Sin embargo, amontonar tocineta, queso costeño, maíz tierno y papitas fósforo sin un orden térmico y estructural solo produce un desastre desmoronado en el plato.\n\nAprenderás a estructurar capas para que cada bocado mantenga su firmeza, permitiendo que disfrutes de la cocina como un pasatiempo gratificante. Podrás preparar desde hamburguesas artesanales y perros calientes gourmet hasta desgranados, sabiendo exactamente qué ingrediente va abajo, cuál retiene la salsa y cómo servir todo a la temperatura justa.",
-  "faqs": [
-    {
-      "q": "¿Qué métodos de pago puedo usar en Colombia?",
-      "a": "Puedes pagar en pesos colombianos utilizando PSE, Nequi, Daviplata o cualquier tarjeta de crédito o débito nacional."
-    },
-    {
-      "q": "¿El precio de USD 35 incluye ya el descuento?",
-      "a": "Sí, el valor de USD 35 ya tiene aplicado el 40% de descuento de lanzamiento sobre el precio base de USD 58. En la pantalla de pago verás la conversión automática a pesos colombianos."
-    },
-    {
-      "q": "¿El certificado tiene validez oficial en Colombia?",
-      "a": "El certificado avala las 10 horas de formación y los contenidos completados. No constituye un título técnico ni profesional regulado por el Ministerio de Educación de Colombia, sino una constancia privada de capacitación."
-    },
-    {
-      "q": "¿Necesito comprar equipos industriales para hacer el curso como hobby?",
-      "a": "No. Las técnicas explicadas se pueden practicar perfectamente en la cocina de tu casa utilizando sartenes de hierro, planchas caseras o la estufa tradicional."
-    },
-    {
-      "q": "¿Tengo un horario fijo para ver las clases?",
-      "a": "No, el acceso al contenido es 100% en línea y a tu propio ritmo. Puedes ver las 19 lecciones en el horario que mejor se adapte a tu tiempo libre."
-    },
-    {
-      "q": "¿Cómo está estructurado el contenido del curso?",
-      "a": "El programa se compone de 5 módulos con un total de 19 lecciones en video que suman 10 horas de instrucción guiadas por Paola Gutiérrez."
-    },
-    {
-      "q": "¿Necesito experiencia previa en cocina?",
-      "a": "No es necesario. El curso parte desde los conceptos básicos de preparación, sazón y control de temperatura, por lo que puedes seguir las explicaciones aunque solo cocines ocasionalmente."
-    },
-    {
-      "q": "¿Puedo usar lo aprendido si más adelante decido vender desde mi casa?",
-      "a": "Sí. Aunque realices el curso por pasatiempo, los métodos de cálculo de ingredientes, higiene y ensamblaje te servirán si en el futuro decides comercializar tus preparaciones."
-    }
-  ],
-  "beneficios": [
-    "Estructurar tu carta para que los platos tengan un margen de ganancia real y no trabajes a pérdida.",
-    "Controlar el desperdicio de insumos en la cocina para que el inventario no se convierta en basura.",
-    "Calcular los costos exactos por unidad para fijar precios competitivos en tu zona.",
-    "Optimizar los tiempos de preparación para entregar pedidos en minutos, no en horas.",
-    "Gestionar la higiene de tus utensilios y alimentos para evitar problemas legales con el INVIMA.",
-    "Seleccionar los proveedores locales que mejor relación costo-calidad te ofrezcan."
-  ],
-  "para_quien": [
-    "Personas que quieren vender platos desde su casa y no saben cómo empezar sin perder dinero.",
-    "Quienes ya preparan comida para amigos o familia y buscan formalizar su pequeño emprendimiento.",
-    "Cualquier apasionado de la cocina que desea que su hobby financie sus propios gastos.",
-    "Emprendedores con poco presupuesto que necesitan un sistema sencillo para gestionar su negocio."
-  ],
-  "requisitos": [
-    "Disponer de una cocina funcional, aunque sea pequeña.",
-    "Tener acceso a un computador o celular para ver las lecciones.",
-    "Ganas de llevar un registro escrito de cada gasto y venta que realices."
-  ],
-  "certificado": "Al finalizar las lecciones, recibirás un certificado de participación que acredita el cumplimiento de las horas del curso. Ten presente que este documento es un aval de tu formación privada y no sustituye los permisos sanitarios obligatorios que exige la ley colombiana para manipular alimentos en un establecimiento comercial.",
-  "garantia": "Tienes 7 días de garantía incondicional respaldada por Hotmart. Si sientes que el contenido no se ajusta a lo que buscabas para tu emprendimiento, solicitas la devolución a través de la plataforma y recibirás el reembolso total de tu dinero sin preguntas.",
-  "_meta": {
-    "usd": 0.01354,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-comidas-rapidas",
+ "country": "co",
+ "angulo": "hobby",
+ "meta_title": "Curso de negocio de las comidas rápidas en Colombia",
+ "meta_description": "Aprende a preparar hamburguesas, perros y salsas con técnica profesional desde casa. Inscríbete al curso de negocio de las comidas rápidas con Nequi o PSE.",
+ "h1": "Aprende a cocinar como los grandes con el curso de negocio de las comidas rápidas",
+ "subtitulo": "Domina el arte de las hamburguesas artesanales, perros calientes y salsas caseras para impresionar en tus reuniones sin desperdiciar ingredientes.",
+ "descripcion": "Preparar comida rápida en casa parece sencillo hasta que la carne queda seca, el pan se deshace con el calor o las salsas terminan aguadas. Te apasiona cocinar para tus amigos el fin de semana, pero terminar sirviendo hamburguesas frías o papas blandas frustra a cualquiera. Si estás buscando un **curso de negocio de las comidas rápidas** para llevar tus preparaciones al nivel de un sitio especializado, necesitas entender la temperatura de la plancha, el ensamblaje correcto y el balance de grasa en los aderezos.\n\n## Del antojo del fin de semana a una cocina de precisión\n\nCuando preparas comida rápida por afición, la gran diferencia entre un plato casero del montón y una experiencia memorable está en los detalles técnicos. No basta con comprar una buena carne; tienes que saber molerla o darle forma sin apelmazarla, controlar el punto exacto de cocción para conservar los jugos y dorar la parte interna del pan para que cree una barrera protectora contra la humedad de los vegetales.\n\nEn este proceso vas a aprender a ejecutar acciones concretas dentro de tu propia cocina:\n\n- Equilibrar acidez, dulzor y picante en tus salsas base para que no tapen el sabor de la proteína.\n- Sellar el pan con mantequilla en la plancha tibia para evitar que el jugo del tomate lo ablande por completo.\n- Controlar el gramaje de cada porción para que tres o cuatro hamburguesas se cocinen al mismo tiempo de manera pareja.\n- Organizar la secuencia de montaje para que el queso se funda exactamente cuando la carne sale del fuego y todo llegue caliente a la mesa.\n\n## Disfruta el proceso sin cometer los errores típicos de aficionado\n\nEl mayor problema cuando cocinas para varios invitados no es la sazón, sino el caos en la cocina. Terminas agotado, lavando montañas de vajilla y comiendo al final cuando todo está frío. Aprender la metodología de las comidas rápidas te permite trabajar con una línea de ensamblaje limpia, organizando los ingredientes picados, las salsas dosificadas y los panes listos antes de encender la primera hornilla.\n\nIncluso si tu objetivo es consentir a tu familia o ser el anfitrión estrella de las reuniones, entender la estandarización te ahorra dinero. Saber cuánto ingrediente compras exactamente y cómo aprovechar los sobrantes para no botar comida a la basura cambia por completo la experiencia.\n\nVamos a poner un techo realista a las expectativas: este programa no te va a convertir en dueño de un restaurante masivo en un par de semanas, ni reemplaza las horas de práctica que necesitas frente al fuego para dominar el volteo de las carnes. Lo que sí hace es entregarte una guía directa para que, siguiendo las demostraciones de Paola Gutiérrez, pases de improvisar en la estufa a cocinar con la soltura y limpieza de un profesional.\n\n## Sabores locales y técnica impecable en tu cocina\n\nEn Colombia nos gustan las comidas rápidas abundantes, llenas de textura y con salsas que tengan carácter. Sin embargo, amontonar tocineta, queso costeño, maíz tierno y papitas fósforo sin un orden térmico y estructural solo produce un desastre desmoronado en el plato.\n\nAprenderás a estructurar capas para que cada bocado mantenga su firmeza, permitiendo que disfrutes de la cocina como un pasatiempo gratificante. Podrás preparar desde hamburguesas artesanales y perros calientes gourmet hasta desgranados, sabiendo exactamente qué ingrediente va abajo, cuál retiene la salsa y cómo servir todo a la temperatura justa.",
+ "faqs": [
+ {
+ "q": "¿Qué métodos de pago puedo usar en Colombia?",
+ "a": "Puedes pagar en pesos colombianos utilizando PSE, Nequi, Daviplata o cualquier tarjeta de crédito o débito nacional."
+ },
+ {
+ "q": "¿El precio publicado incluye ya el descuento?",
+ "a": "El precio que ves en la página es el precio final del checkout de Hotmart. En la pantalla de pago verás la conversión automática a pesos colombianos."
+ },
+ {
+ "q": "¿El certificado tiene validez oficial en Colombia?",
+ "a": "El certificado avala las 10 horas de formación y los contenidos completados. No constituye un título técnico ni profesional regulado por el Ministerio de Educación de Colombia, sino una constancia privada de capacitación."
+ },
+ {
+ "q": "¿Necesito comprar equipos industriales para hacer el curso como hobby?",
+ "a": "No. Las técnicas explicadas se pueden practicar perfectamente en la cocina de tu casa utilizando sartenes de hierro, planchas caseras o la estufa tradicional."
+ },
+ {
+ "q": "¿Tengo un horario fijo para ver las clases?",
+ "a": "No, el acceso al contenido es 100% en línea y a tu propio ritmo. Puedes ver las 19 lecciones en el horario que mejor se adapte a tu tiempo libre."
+ },
+ {
+ "q": "¿Cómo está estructurado el contenido del curso?",
+ "a": "El programa se compone de 5 módulos con un total de 19 lecciones en video que suman 10 horas de instrucción guiadas por Paola Gutiérrez."
+ },
+ {
+ "q": "¿Necesito experiencia previa en cocina?",
+ "a": "No es necesario. El curso parte desde los conceptos básicos de preparación, sazón y control de temperatura, por lo que puedes seguir las explicaciones aunque solo cocines ocasionalmente."
+ },
+ {
+ "q": "¿Puedo usar lo aprendido si más adelante decido vender desde mi casa?",
+ "a": "Sí. Aunque realices el curso por pasatiempo, los métodos de cálculo de ingredientes, higiene y ensamblaje te servirán si en el futuro decides comercializar tus preparaciones."
+ }
+ ],
+ "beneficios": [
+ "Estructurar tu carta para que los platos tengan un margen de ganancia real y no trabajes a pérdida.",
+ "Controlar el desperdicio de insumos en la cocina para que el inventario no se convierta en basura.",
+ "Calcular los costos exactos por unidad para fijar precios competitivos en tu zona.",
+ "Optimizar los tiempos de preparación para entregar pedidos en minutos, no en horas.",
+ "Gestionar la higiene de tus utensilios y alimentos para evitar problemas legales con el INVIMA.",
+ "Seleccionar los proveedores locales que mejor relación costo-calidad te ofrezcan."
+ ],
+ "para_quien": [
+ "Personas que quieren vender platos desde su casa y no saben cómo empezar sin perder dinero.",
+ "Quienes ya preparan comida para amigos o familia y buscan formalizar su pequeño emprendimiento.",
+ "Cualquier apasionado de la cocina que desea que su hobby financie sus propios gastos.",
+ "Emprendedores con poco presupuesto que necesitan un sistema sencillo para gestionar su negocio."
+ ],
+ "requisitos": [
+ "Disponer de una cocina funcional, aunque sea pequeña.",
+ "Tener acceso a un computador o celular para ver las lecciones.",
+ "Ganas de llevar un registro escrito de cada gasto y venta que realices."
+ ],
+ "certificado": "Al finalizar las lecciones, recibirás un certificado de participación que acredita el cumplimiento de las horas del curso. Ten presente que este documento es un aval de tu formación privada y no sustituye los permisos sanitarios obligatorios que exige la ley colombiana para manipular alimentos en un establecimiento comercial.",
+ "garantia": "Tienes 7 días de garantía incondicional respaldada por Hotmart. Si sientes que el contenido no se ajusta a lo que buscabas para tu emprendimiento, solicitas la devolución a través de la plataforma y recibirás el reembolso total de tu dinero sin preguntas.",
+ "_meta": {
+ "usd": 0.01354,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

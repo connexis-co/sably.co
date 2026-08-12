@@ -1,0 +1,90 @@
+---
+/**
+ * Estrellas del hero del curso: muestran la valoración REAL de compradores
+ * (Hotmart) en amarillo y permiten al visitante dejar la suya con un toque.
+ *
+ * Las dos notas no se mezclan: la visible y la del JSON-LD siguen siendo la de
+ * compradores; el voto del visitante va a `visitor_rating` en D1 (una por
+ * visitante y curso, hash de IP). Señal de interés, no calidad verificada.
+ */
+interface Props {
+  slug: string;
+  /** Valoración de compradores en Hotmart, o null si el producto no tiene. */
+  rating: number | null;
+  count: number | null;
+}
+const { slug, rating, count } = Astro.props;
+const llenas = rating ? Math.round(rating) : 0;
+---
+
+<div data-valorar data-slug={slug} class="flex flex-wrap items-center gap-x-2 gap-y-1">
+  <span class="flex" role="group" aria-label="Valora este curso de 1 a 5 estrellas">
+    {
+      [1, 2, 3, 4, 5].map((n) => (
+        <button
+          type="button"
+          data-estrella={n}
+          class={`px-0.5 text-xl leading-none transition-transform hover:scale-125 focus-visible:scale-125 ${
+            n <= llenas ? 'text-warning' : 'text-white/30'
+          }`}
+          aria-label={`Valorar con ${n} estrella${n > 1 ? 's' : ''}`}
+          title={`Valorar con ${n}`}
+        >
+          ★
+        </button>
+      ))
+    }
+  </span>
+  {
+    rating ? (
+      <span class="text-sm">
+        <strong class="font-semibold text-white">{rating.toFixed(1).replace('.', ',')}</strong>
+        <span class="text-white/70"> ({count} valoraciones de compradores)</span>
+      </span>
+    ) : (
+      <span class="text-sm text-white/70">Sé quien lo valore primero</span>
+    )
+  }
+  <span data-valorar-gracias hidden class="text-sm font-semibold text-warning"></span>
+</div>
+
+<script>
+  const caja = document.querySelector<HTMLElement>('[data-valorar]');
+  if (caja) {
+    const slug = caja.dataset.slug!;
+    const marca = `sably:voto:${slug}`;
+    const gracias = caja.querySelector<HTMLElement>('[data-valorar-gracias]')!;
+    const estrellas = [...caja.querySelectorAll<HTMLButtonElement>('[data-estrella]')];
+
+    const pintar = (n: number, clase = 'text-warning') =>
+      estrellas.forEach((e) => {
+        e.classList.toggle(clase, Number(e.dataset.estrella) <= n);
+        e.classList.toggle('text-white/30', Number(e.dataset.estrella) > n);
+      });
+
+    const votado = Number(sessionStorage.getItem(marca));
+    if (votado) {
+      gracias.textContent = `Tu valoración: ${votado}★`;
+      gracias.hidden = false;
+    }
+
+    for (const e of estrellas) {
+      e.addEventListener('click', async () => {
+        const n = Number(e.dataset.estrella);
+        pintar(n);
+        sessionStorage.setItem(marca, String(n));
+        gracias.textContent = '¡Gracias por valorar!';
+        gracias.hidden = false;
+        try {
+          await fetch('/api/v1/valorar', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ slug, rating: n }),
+          });
+        } catch {
+          /* El «gracias» ya salió; el voto se reintenta en la próxima visita. */
+        }
+      });
+    }
+  }
+</script>

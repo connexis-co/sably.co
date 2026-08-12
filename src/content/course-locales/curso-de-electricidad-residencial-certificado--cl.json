@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-electricidad-residencial-certificado",
-  "country": "cl",
-  "angulo": "emprendimiento",
-  "meta_title": "Curso de electricidad residencial con certificado en Chile",
-  "meta_description": "Aprende a realizar instalaciones domiciliarias y crea tu propio negocio técnico. Inscríbete hoy al curso de electricidad residencial con certificado.",
-  "h1": "Curso de electricidad residencial con certificado: Emprende en servicios domiciliarios",
-  "subtitulo": "Capacítate en instalaciones, diagnóstico de fallas y armado de tableros para prestar servicios independientes de forma segura en Chile.",
-  "descripcion": "Tomar la decisión de trabajar de forma independiente en el área de las reparaciones domiciliarias exige conocimientos precisos. Si estás buscando un curso de electricidad residencial con certificado para ofrecer tus primeros servicios en Chile, el paso fundamental es aprender a diagnosticar sin poner en riesgo las instalaciones ni tu seguridad. Cuando en una vivienda salta un interruptor termomagnético de forma recurrente, el cliente busca una solución rápida y definitiva. Detectar si el fallo proviene de una sobrecarga en un circuito específico o de un cortocircuito en un empalme mal aislado es la habilidad técnica que te permite cobrar con propiedad por tu trabajo.\n\n## Del diagnóstico básico a la ejecución de proyectos en viviendas\n\nMuchos emprendedores en este oficio pierden tiempo y dinero intentando adivinar dónde está la falla. Cambiar componentes al azar genera desconfianza en el propietario y desgasta la rentabilidad de cualquier visita técnica. En este programa guiado por Jorge Cárdenas, aprenderás la lógica detrás del tendido de cables, el cálculo de cargas para no saturar los conductores y el armado ordenado de un tablero de distribución.\n\nEntender cómo fluye la energía en una red monofásica no se trata solo de conectar cables de fase, neutro y tierra. Se trata de calcular con exactitud el calibre del conductor según el consumo del aparato que va a alimentar. Poner un cable delgado en un circuito de gran demanda provoca calentamiento; colocar una protección sobredimensionada impide que el sistema corte a tiempo. Dominar esta matemática práctica es lo que diferencia a un instalador responsable.\n\n## Cómo estructurar tus primeros servicios de forma independiente\n\nIniciar un emprendimiento de servicios eléctricos no requiere una inversión gigantesca en maquinaria, pero sí una caja de herramientas bien seleccionada y un método claro para cotizar.\n\n- Inspección y medición: Aprende a utilizar el multímetro digital para comprobar tensiones, continuidad y fugas de corriente a tierra sin perder tiempo.\n- Armado y cableado: Ejecuta canalizaciones en tuberías, montaje de cajas de paso, enchufes simples y dobles, e interruptores de combinación de manera pulcra.\n- Protección de circuitos: Instala correctamente interruptores diferenciales y termomagnéticos para garantizar que la vivienda funcione bajo esquemas seguros.\n\n### Cotización justa y claridad con el cliente\n\nSaber cuánto cobrar por un punto de luz, un cambio de tablero o la reestructuración completa de una red domiciliaria determina el éxito de tu negocio. Cuando le explicas al cliente exactamente qué materiales se necesitan, qué criterio de seguridad estás aplicando y por qué el trabajo requiere cierta cantidad de horas, la negociación deja de ser una discusión de precios.\n\n## Expectativas reales sobre el ejercicio del oficio en Chile\n\nEste programa te entrega la base conceptual y técnica para realizar trabajos domiciliarios de forma particular y resolver problemas cotidianos en casas o departamentos. Sin embargo, debes considerar un límite claro: obtener el diploma de finalización de esta formación no equivale a poseer una licencia SEC (Superintendencia de Electricidad y Combustibles) en Chile. La acreditación oficial exige rendir evaluaciones específicas ante las autoridades correspondientes. Esta capacitación funciona como el escalón técnico previo para comprender el oficio a fondo, practicar en entornos controlados y preparar con bases sólidas tu futuro laboral independiente.",
-  "faqs": [
-    {
-      "q": "¿Puedo pagar el curso en pesos chilenos a través de Webpay?",
-      "a": "Sí. Al momento de realizar la compra, la plataforma convierte el monto de USD 35 a pesos chilenos (CLP) según la tasa del día y te permite procesar el pago directamente con tarjetas de débito o crédito locales mediante Webpay."
-    },
-    {
-      "q": "¿El certificado otorgado me sirve para obtener la licencia SEC en Chile?",
-      "a": "No. El certificado acredita que completaste las 16 horas y 20 lecciones del curso digital. Para obtener la licencia de instalador autorizado por la SEC en Chile debes cumplir los trámites y exámenes formales que exige dicha institución. Este curso te brinda la preparación técnica básica para ese camino."
-    },
-    {
-      "q": "¿El precio de USD 35 incluye algún costo adicional por el cupón?",
-      "a": "No hay cobros extra. El valor de USD 35 ya tiene aplicado el 40% de descuento de lanzamiento sobre el precio original de USD 58. Es un pago único."
-    },
-    {
-      "q": "¿Necesito experiencia previa en electricidad para tomar las lecciones?",
-      "a": "No se requiere experiencia previa. El contenido está estructurado para avanzar desde los conceptos físicos fundamentales y el uso de herramientas de medición hasta el montaje de circuitos completos."
-    },
-    {
-      "q": "¿Qué herramientas necesito para realizar las prácticas en mi casa?",
-      "a": "Para comenzar a practicar se recomienda contar con herramientas aisladas básicas: un multímetro digital, alicates de corte y punta, pelacables, destornilladores de prueba de fase y cinta aislante."
-    },
-    {
-      "q": "¿Puedo trabajar de forma independiente apenas termine la formación?",
-      "a": "Estarás capacitado para diagnosticar y ejecutar arreglos domiciliarios menores, montajes de enchufes y tableros básicos en viviendas. Se recomienda siempre realizar prácticas previas en maquetas o tableros de ensayo antes de tomar encargos complejos."
-    },
-    {
-      "q": "¿Existe un horario fijo para asistir a las clases?",
-      "a": "No. Las 20 lecciones repartidas en los 5 módulos están grabadas en la plataforma. Puedes acceder a las 16 horas de contenido en el horario que mejor se adapte a tu rutina."
-    },
-    {
-      "q": "¿Cómo resuelvo las dudas que me surjan durante el curso?",
-      "a": "Dentro del aula virtual dispones de un espacio de consultas asignado a cada lección, donde puedes dejar tus preguntas operativas o teóricas para recibir orientación dentro de la plataforma."
-    }
-  ],
-  "beneficios": [
-    "Instalar circuitos de iluminación y enchufes cumpliendo con la normativa vigente en Chile.",
-    "Interpretar planos eléctricos para ejecutar instalaciones en viviendas nuevas sin errores.",
-    "Detectar fallas comunes como cortocircuitos o fugas de corriente de manera sistemática.",
-    "Dimensionar correctamente cables y protecciones termomagnéticas según el consumo real.",
-    "Realizar el mantenimiento preventivo de tableros eléctricos para evitar sobrecargas.",
-    "Organizar tu presupuesto de materiales para presentar cotizaciones precisas a tus clientes."
-  ],
-  "para_quien": [
-    "Si buscas iniciar tu propio negocio de reparaciones domiciliarias de forma independiente.",
-    "Si ya realizas trabajos de construcción y quieres sumar el servicio eléctrico a tu oferta.",
-    "Si necesitas profesionalizar tus conocimientos para dejar de depender de terceros en tus proyectos.",
-    "Si te interesa emprender en el sector de servicios técnicos residenciales con una base sólida."
-  ],
-  "requisitos": [
-    "Acceso a un computador o tablet con conexión a internet para ver las lecciones.",
-    "Disponer de un multímetro básico y herramientas manuales de mano para las pruebas prácticas.",
-    "Compromiso para realizar las prácticas de conexión en un panel de prueba antes de trabajar con tensión real."
-  ],
-  "certificado": "Al finalizar las lecciones, recibirás un certificado de participación que acredita las 16 horas de formación técnica. Ten en cuenta que este documento sirve para respaldar tu capacitación privada, pero no equivale a una licencia de instalador autorizado por la SEC.",
-  "garantia": "Tienes 7 días para evaluar el contenido a través de la plataforma Hotmart. Si el curso no cumple lo que esperas, puedes solicitar la devolución total de tu dinero directamente en la plataforma, sin dar explicaciones.",
-  "_meta": {
-    "usd": 0.01334,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-electricidad-residencial-certificado",
+ "country": "cl",
+ "angulo": "emprendimiento",
+ "meta_title": "Curso de electricidad residencial con certificado en Chile",
+ "meta_description": "Aprende a realizar instalaciones domiciliarias y crea tu propio negocio técnico. Inscríbete hoy al curso de electricidad residencial con certificado.",
+ "h1": "Curso de electricidad residencial con certificado: Emprende en servicios domiciliarios",
+ "subtitulo": "Capacítate en instalaciones, diagnóstico de fallas y armado de tableros para prestar servicios independientes de forma segura en Chile.",
+ "descripcion": "Tomar la decisión de trabajar de forma independiente en el área de las reparaciones domiciliarias exige conocimientos precisos. Si estás buscando un curso de electricidad residencial con certificado para ofrecer tus primeros servicios en Chile, el paso fundamental es aprender a diagnosticar sin poner en riesgo las instalaciones ni tu seguridad. Cuando en una vivienda salta un interruptor termomagnético de forma recurrente, el cliente busca una solución rápida y definitiva. Detectar si el fallo proviene de una sobrecarga en un circuito específico o de un cortocircuito en un empalme mal aislado es la habilidad técnica que te permite cobrar con propiedad por tu trabajo.\n\n## Del diagnóstico básico a la ejecución de proyectos en viviendas\n\nMuchos emprendedores en este oficio pierden tiempo y dinero intentando adivinar dónde está la falla. Cambiar componentes al azar genera desconfianza en el propietario y desgasta la rentabilidad de cualquier visita técnica. En este programa guiado por Jorge Cárdenas, aprenderás la lógica detrás del tendido de cables, el cálculo de cargas para no saturar los conductores y el armado ordenado de un tablero de distribución.\n\nEntender cómo fluye la energía en una red monofásica no se trata solo de conectar cables de fase, neutro y tierra. Se trata de calcular con exactitud el calibre del conductor según el consumo del aparato que va a alimentar. Poner un cable delgado en un circuito de gran demanda provoca calentamiento; colocar una protección sobredimensionada impide que el sistema corte a tiempo. Dominar esta matemática práctica es lo que diferencia a un instalador responsable.\n\n## Cómo estructurar tus primeros servicios de forma independiente\n\nIniciar un emprendimiento de servicios eléctricos no requiere una inversión gigantesca en maquinaria, pero sí una caja de herramientas bien seleccionada y un método claro para cotizar.\n\n- Inspección y medición: Aprende a utilizar el multímetro digital para comprobar tensiones, continuidad y fugas de corriente a tierra sin perder tiempo.\n- Armado y cableado: Ejecuta canalizaciones en tuberías, montaje de cajas de paso, enchufes simples y dobles, e interruptores de combinación de manera pulcra.\n- Protección de circuitos: Instala correctamente interruptores diferenciales y termomagnéticos para garantizar que la vivienda funcione bajo esquemas seguros.\n\n### Cotización justa y claridad con el cliente\n\nSaber cuánto cobrar por un punto de luz, un cambio de tablero o la reestructuración completa de una red domiciliaria determina el éxito de tu negocio. Cuando le explicas al cliente exactamente qué materiales se necesitan, qué criterio de seguridad estás aplicando y por qué el trabajo requiere cierta cantidad de horas, la negociación deja de ser una discusión de precios.\n\n## Expectativas reales sobre el ejercicio del oficio en Chile\n\nEste programa te entrega la base conceptual y técnica para realizar trabajos domiciliarios de forma particular y resolver problemas cotidianos en casas o departamentos. Sin embargo, debes considerar un límite claro: obtener el diploma de finalización de esta formación no equivale a poseer una licencia SEC (Superintendencia de Electricidad y Combustibles) en Chile. La acreditación oficial exige rendir evaluaciones específicas ante las autoridades correspondientes. Esta capacitación funciona como el escalón técnico previo para comprender el oficio a fondo, practicar en entornos controlados y preparar con bases sólidas tu futuro laboral independiente.",
+ "faqs": [
+ {
+ "q": "¿Puedo pagar el curso en pesos chilenos a través de Webpay?",
+ "a": "Sí. Al momento de realizar la compra, la plataforma convierte el precio publicado a pesos chilenos (CLP) según la tasa del día y te permite procesar el pago directamente con tarjetas de débito o crédito locales mediante Webpay."
+ },
+ {
+ "q": "¿El certificado otorgado me sirve para obtener la licencia SEC en Chile?",
+ "a": "No. El certificado acredita que completaste las 16 horas y 20 lecciones del curso digital. Para obtener la licencia de instalador autorizado por la SEC en Chile debes cumplir los trámites y exámenes formales que exige dicha institución. Este curso te brinda la preparación técnica básica para ese camino."
+ },
+ {
+ "q": "¿El precio publicado incluye algún costo adicional por el cupón?",
+ "a": "No hay cobros extra. El precio publicado ya es el precio final. Es un pago único."
+ },
+ {
+ "q": "¿Necesito experiencia previa en electricidad para tomar las lecciones?",
+ "a": "No se requiere experiencia previa. El contenido está estructurado para avanzar desde los conceptos físicos fundamentales y el uso de herramientas de medición hasta el montaje de circuitos completos."
+ },
+ {
+ "q": "¿Qué herramientas necesito para realizar las prácticas en mi casa?",
+ "a": "Para comenzar a practicar se recomienda contar con herramientas aisladas básicas: un multímetro digital, alicates de corte y punta, pelacables, destornilladores de prueba de fase y cinta aislante."
+ },
+ {
+ "q": "¿Puedo trabajar de forma independiente apenas termine la formación?",
+ "a": "Estarás capacitado para diagnosticar y ejecutar arreglos domiciliarios menores, montajes de enchufes y tableros básicos en viviendas. Se recomienda siempre realizar prácticas previas en maquetas o tableros de ensayo antes de tomar encargos complejos."
+ },
+ {
+ "q": "¿Existe un horario fijo para asistir a las clases?",
+ "a": "No. Las 20 lecciones repartidas en los 5 módulos están grabadas en la plataforma. Puedes acceder a las 16 horas de contenido en el horario que mejor se adapte a tu rutina."
+ },
+ {
+ "q": "¿Cómo resuelvo las dudas que me surjan durante el curso?",
+ "a": "Dentro del aula virtual dispones de un espacio de consultas asignado a cada lección, donde puedes dejar tus preguntas operativas o teóricas para recibir orientación dentro de la plataforma."
+ }
+ ],
+ "beneficios": [
+ "Instalar circuitos de iluminación y enchufes cumpliendo con la normativa vigente en Chile.",
+ "Interpretar planos eléctricos para ejecutar instalaciones en viviendas nuevas sin errores.",
+ "Detectar fallas comunes como cortocircuitos o fugas de corriente de manera sistemática.",
+ "Dimensionar correctamente cables y protecciones termomagnéticas según el consumo real.",
+ "Realizar el mantenimiento preventivo de tableros eléctricos para evitar sobrecargas.",
+ "Organizar tu presupuesto de materiales para presentar cotizaciones precisas a tus clientes."
+ ],
+ "para_quien": [
+ "Si buscas iniciar tu propio negocio de reparaciones domiciliarias de forma independiente.",
+ "Si ya realizas trabajos de construcción y quieres sumar el servicio eléctrico a tu oferta.",
+ "Si necesitas profesionalizar tus conocimientos para dejar de depender de terceros en tus proyectos.",
+ "Si te interesa emprender en el sector de servicios técnicos residenciales con una base sólida."
+ ],
+ "requisitos": [
+ "Acceso a un computador o tablet con conexión a internet para ver las lecciones.",
+ "Disponer de un multímetro básico y herramientas manuales de mano para las pruebas prácticas.",
+ "Compromiso para realizar las prácticas de conexión en un panel de prueba antes de trabajar con tensión real."
+ ],
+ "certificado": "Al finalizar las lecciones, recibirás un certificado de participación que acredita las 16 horas de formación técnica. Ten en cuenta que este documento sirve para respaldar tu capacitación privada, pero no equivale a una licencia de instalador autorizado por la SEC.",
+ "garantia": "Tienes 7 días para evaluar el contenido a través de la plataforma Hotmart. Si el curso no cumple lo que esperas, puedes solicitar la devolución total de tu dinero directamente en la plataforma, sin dar explicaciones.",
+ "_meta": {
+ "usd": 0.01334,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-electricidad-residencial-certificado",
-  "country": "mx",
-  "angulo": "hobby",
-  "meta_title": "Curso de electricidad residencial con certificado en México",
-  "meta_description": "Aprende a reparar y cambiar la instalación eléctrica de tu hogar con seguridad. Inscríbete al curso de electricidad residencial con certificado hoy.",
-  "h1": "Curso de electricidad residencial con certificado: arregla la instalación de tu casa sin miedo",
-  "subtitulo": "Aprende a diagnosticar fallas, cambiar pastillas termomagnéticas y tirar cableado de forma segura sin depender de un técnico.",
-  "descripcion": "Quieres cambiar una lámpara en el techo o poner un contacto nuevo cerca del escritorio, pero te frena el miedo a recibir una descarga o a causar un cortocircuito que bote la pastilla principal del tablero. Es normal. La mayoría de los proyectos de mejora en el hogar se quedan a medias porque la corriente impone respeto si no entiendes cómo fluye. Con el **curso de electricidad residencial con certificado**, vas a perderle el temor a la mufa y al centro de carga, aprendiendo a trabajar con método, herramientas aisladas y protocolos de seguridad que te mantendrán a salvo en todo momento.\n\nAquí no vas a memorizar fórmulas teóricas abstractas de física. El enfoque de este curso dictado por Jorge Cárdenas está pensado para quien disfruta hacer las cosas con sus propias manos los fines de semana y quiere que los arreglos de la casa queden bien hechos desde el primer intento.\n\n## Diagnóstico y conexiones paso a paso en el hogar\n\nCuando una clavija se calienta al conectar la freidora de aire o la luz parpadea al prender la lavadora, el problema rara vez está a la vista. El error más común de los aficionados es cambiar apagadores y contactos a ciegas esperando acertar por suerte. En este entrenamiento aprenderás la secuencia lógica para rastrear fallas reales:\n\n- Usar el multímetro digital y el probador de tensión tipo pluma para verificar la ausencia de voltaje antes de meter las manos a cualquier registro.\n- Identificar fase, neutro y tierra física en código de colores o en instalaciones antiguas donde todo el cableado es del mismo color.\n- Balancear los circuitos dentro del centro de carga para evitar que un solo interruptor termomagnético cargue todo el consumo de la cocina.\n- Seleccionar el calibre de cable adecuado según el consumo en amperios de tus electrodomésticos para evitar sobrecalentamientos peligrosos.\n- Conectar apagadores sencillos, de tres vías para escaleras y contactos dobles aterrizados respetando la polaridad correcta.\n\n### Herramientas básicas y manejo limpio del cableado\n\nUnir dos cables apretando cinta aislar sobre un amarre flojo no es un trabajo seguro. Te enseñaremos a ejecutar empalmes mecánicamente firmes, colocar conectores de resorte y utilizar las pinzas pelacables sin degollar los hilos de cobre. También entenderás por qué la tierra física no es un adorno opcional, sino la protección directa para tus aparatos ante descargas e interrupciones del servicio.\n\n## Un límite claro: lo que lograrás y lo que no\n\nHablemos con la verdad desde el principio. Aprender electricidad por afición es sumamente gratificante y te ahorrará miles de pesos en visitas técnicas para tareas cotidianas. Sin embargo, tener este **curso de electricidad residencial con certificado** no te convierte de la noche a la mañana en un perito acreditado ni en un contratista autorizado ante la CFE para firmar proyectos de alta tensión u obras comerciales grandes.\n\nLo que sí ganas es total independencia para remodelar la iluminación de tus habitaciones, montar circuitos independientes para aire acondicionado, dar mantenimiento preventivo a tus tableros y saber con precisión cuándo un trabajo sí requiere material más pesado o una intervención directa en la acometida.\n\n## La satisfacción de realizar tus propias mejoras\n\nNo hay nada como accionar un apagador que tú mismo cableaste o abrir el centro de carga y ver cada pastilla etiquetada y ordenada. Si te apasiona el bricolaje y quieres llevar tus proyectos de fin de semana al siguiente nivel de seguridad técnica, aquí tienes la guía práctica para lograrlo.",
-  "faqs": [
-    {
-      "q": "¿Cómo puedo pagar el curso desde México?",
-      "a": "Puedes pagar en efectivo en cualquier tienda OXXO, realizar una transferencia bancaria inmediata mediante SPEI o utilizar tarjetas de crédito y débito Visa, Mastercard y American Express."
-    },
-    {
-      "q": "¿El certificado me me acredita como perito ante la CFE o la SEP?",
-      "a": "No. El certificado respalda que completaste y aprobaste las 16 horas de formación técnica del curso, pero no constituye una cédula profesional ni una certificación oficial ante la CFE o SEP para firmar planos o dictámenes eléctricos."
-    },
-    {
-      "q": "¿Necesito conocimientos previos o herramientas profesionales costosas?",
-      "a": "No requiere experiencia previa. Para seguir las explicaciones te bastará con herramientas básicas como desarmadores aislados, pinzas de corte o pelacables y un multímetro digital básico."
-    },
-    {
-      "q": "¿El precio de 35 USD es pago único o hay cobros mensuales?",
-      "a": "Es un pago único final. Ya tiene aplicado el 40% de descuento de lanzamiento. No hay suscripciones ni cobros adicionales posteriores."
-    },
-    {
-      "q": "¿Tengo que hacer las prácticas directamente en la instalación de mi casa?",
-      "a": "No se recomienda empezar en muros reales. La mejor forma de aprender es armar un pequeño tablero de pruebas sobre una tabla de madera para conectar circuitos de forma 100% segura antes de tocar la red eléctrica de tu vivienda."
-    },
-    {
-      "q": "¿Cómo se calcula el pago si estoy en México y la tarifa figura en USD?",
-      "a": "Al momento de seleccionar tu método de pago local (OXXO, SPEI o tarjeta), el sistema convierte automáticamente los 35 USD a pesos mexicanos (MXN) según el tipo de cambio oficial del día."
-    },
-    {
-      "q": "¿Cuánto tiempo tengo para ver las lecciones del curso?",
-      "a": "El acceso es de por vida. Puedes avanzar a tu propio ritmo, repitiendo las lecciones los fines de semana o en tus ratos libres según tu disponibilidad."
-    },
-    {
-      "q": "¿Qué pasa si tengo dudas sobre la conexión de un diagrama específico?",
-      "a": "Dentro de la plataforma del curso dispones de un área de consultas donde puedes dejar tus preguntas para resolver dudas sobre los diagramas y mediciones antes de armar tus circuitos."
-    }
-  ],
-  "beneficios": [
-    "Instalar apagadores de escalera sin que la luz parpadee por cables mal conectados.",
-    "Cambiar centros de carga viejos por interruptores termomagnéticos actuales.",
-    "Identificar qué cable es fase, neutro y tierra en instalaciones viejas sin sufrir cortos.",
-    "Calcular el calibre correcto del cable para evitar que se calienten las pastillas.",
-    "Reparar contactos quemados siguiendo la normativa mexicana vigente.",
-    "Entender el diagrama de un medidor para detectar fugas de corriente en tu casa."
-  ],
-  "para_quien": [
-    "Si te gusta arreglar tus propias cosas los fines de semana y quieres dejar de improvisar.",
-    "Para quienes prefieren hacer reparaciones eléctricas básicas sin esperar a que llegue el técnico.",
-    "Si disfrutas entender cómo funciona la energía de tu casa mientras ahorras en servicios.",
-    "Para cualquier persona con curiosidad técnica que busca seguridad en sus proyectos domésticos."
-  ],
-  "requisitos": [
-    "Tener herramientas básicas como pinzas de electricista, pelacables y un multímetro.",
-    "Disponer de un espacio o tablero de pruebas para practicar sin riesgos.",
-    "Respetar las normas de seguridad: trabajar siempre con la energía desconectada."
-  ],
-  "certificado": "Al concluir las lecciones, obtendrás un documento digital que acredita la finalización del curso de electricidad residencial con certificado. Ten claro que este papel sirve para demostrar tus conocimientos adquiridos, pero no te habilita legalmente para firmar planos o instalaciones de alta responsabilidad ante las autoridades.",
-  "garantia": "Tienes 7 días para revisar el contenido dentro de la plataforma Hotmart. Si sientes que la forma de enseñar de Jorge Cárdenas no es lo que esperabas, puedes solicitar la devolución de tu dinero sin explicaciones adicionales. El precio final de 35 dólares ya incluye el descuento, así que no busques otros cupones, este es el costo total.",
-  "_meta": {
-    "usd": 0.01367,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-electricidad-residencial-certificado",
+ "country": "mx",
+ "angulo": "hobby",
+ "meta_title": "Curso de electricidad residencial con certificado en México",
+ "meta_description": "Aprende a reparar y cambiar la instalación eléctrica de tu hogar con seguridad. Inscríbete al curso de electricidad residencial con certificado hoy.",
+ "h1": "Curso de electricidad residencial con certificado: arregla la instalación de tu casa sin miedo",
+ "subtitulo": "Aprende a diagnosticar fallas, cambiar pastillas termomagnéticas y tirar cableado de forma segura sin depender de un técnico.",
+ "descripcion": "Quieres cambiar una lámpara en el techo o poner un contacto nuevo cerca del escritorio, pero te frena el miedo a recibir una descarga o a causar un cortocircuito que bote la pastilla principal del tablero. Es normal. La mayoría de los proyectos de mejora en el hogar se quedan a medias porque la corriente impone respeto si no entiendes cómo fluye. Con el **curso de electricidad residencial con certificado**, vas a perderle el temor a la mufa y al centro de carga, aprendiendo a trabajar con método, herramientas aisladas y protocolos de seguridad que te mantendrán a salvo en todo momento.\n\nAquí no vas a memorizar fórmulas teóricas abstractas de física. El enfoque de este curso dictado por Jorge Cárdenas está pensado para quien disfruta hacer las cosas con sus propias manos los fines de semana y quiere que los arreglos de la casa queden bien hechos desde el primer intento.\n\n## Diagnóstico y conexiones paso a paso en el hogar\n\nCuando una clavija se calienta al conectar la freidora de aire o la luz parpadea al prender la lavadora, el problema rara vez está a la vista. El error más común de los aficionados es cambiar apagadores y contactos a ciegas esperando acertar por suerte. En este entrenamiento aprenderás la secuencia lógica para rastrear fallas reales:\n\n- Usar el multímetro digital y el probador de tensión tipo pluma para verificar la ausencia de voltaje antes de meter las manos a cualquier registro.\n- Identificar fase, neutro y tierra física en código de colores o en instalaciones antiguas donde todo el cableado es del mismo color.\n- Balancear los circuitos dentro del centro de carga para evitar que un solo interruptor termomagnético cargue todo el consumo de la cocina.\n- Seleccionar el calibre de cable adecuado según el consumo en amperios de tus electrodomésticos para evitar sobrecalentamientos peligrosos.\n- Conectar apagadores sencillos, de tres vías para escaleras y contactos dobles aterrizados respetando la polaridad correcta.\n\n### Herramientas básicas y manejo limpio del cableado\n\nUnir dos cables apretando cinta aislar sobre un amarre flojo no es un trabajo seguro. Te enseñaremos a ejecutar empalmes mecánicamente firmes, colocar conectores de resorte y utilizar las pinzas pelacables sin degollar los hilos de cobre. También entenderás por qué la tierra física no es un adorno opcional, sino la protección directa para tus aparatos ante descargas e interrupciones del servicio.\n\n## Un límite claro: lo que lograrás y lo que no\n\nHablemos con la verdad desde el principio. Aprender electricidad por afición es sumamente gratificante y te ahorrará miles de pesos en visitas técnicas para tareas cotidianas. Sin embargo, tener este **curso de electricidad residencial con certificado** no te convierte de la noche a la mañana en un perito acreditado ni en un contratista autorizado ante la CFE para firmar proyectos de alta tensión u obras comerciales grandes.\n\nLo que sí ganas es total independencia para remodelar la iluminación de tus habitaciones, montar circuitos independientes para aire acondicionado, dar mantenimiento preventivo a tus tableros y saber con precisión cuándo un trabajo sí requiere material más pesado o una intervención directa en la acometida.\n\n## La satisfacción de realizar tus propias mejoras\n\nNo hay nada como accionar un apagador que tú mismo cableaste o abrir el centro de carga y ver cada pastilla etiquetada y ordenada. Si te apasiona el bricolaje y quieres llevar tus proyectos de fin de semana al siguiente nivel de seguridad técnica, aquí tienes la guía práctica para lograrlo.",
+ "faqs": [
+ {
+ "q": "¿Cómo puedo pagar el curso desde México?",
+ "a": "Puedes pagar en efectivo en cualquier tienda OXXO, realizar una transferencia bancaria inmediata mediante SPEI o utilizar tarjetas de crédito y débito Visa, Mastercard y American Express."
+ },
+ {
+ "q": "¿El certificado me me acredita como perito ante la CFE o la SEP?",
+ "a": "No. El certificado respalda que completaste y aprobaste las 16 horas de formación técnica del curso, pero no constituye una cédula profesional ni una certificación oficial ante la CFE o SEP para firmar planos o dictámenes eléctricos."
+ },
+ {
+ "q": "¿Necesito conocimientos previos o herramientas profesionales costosas?",
+ "a": "No requiere experiencia previa. Para seguir las explicaciones te bastará con herramientas básicas como desarmadores aislados, pinzas de corte o pelacables y un multímetro digital básico."
+ },
+ {
+ "q": "¿El precio de 35 USD es pago único o hay cobros mensuales?",
+ "a": "Es un pago único final. Ya tiene aplicado el 40% de descuento de lanzamiento. No hay suscripciones ni cobros adicionales posteriores."
+ },
+ {
+ "q": "¿Tengo que hacer las prácticas directamente en la instalación de mi casa?",
+ "a": "No se recomienda empezar en muros reales. La mejor forma de aprender es armar un pequeño tablero de pruebas sobre una tabla de madera para conectar circuitos de forma 100% segura antes de tocar la red eléctrica de tu vivienda."
+ },
+ {
+ "q": "¿Cómo se calcula el pago si estoy en México y la tarifa figura en USD?",
+ "a": "Al momento de seleccionar tu método de pago local (OXXO, SPEI o tarjeta), el sistema convierte automáticamente los 35 USD a pesos mexicanos (MXN) según el tipo de cambio oficial del día."
+ },
+ {
+ "q": "¿Cuánto tiempo tengo para ver las lecciones del curso?",
+ "a": "El acceso es de por vida. Puedes avanzar a tu propio ritmo, repitiendo las lecciones los fines de semana o en tus ratos libres según tu disponibilidad."
+ },
+ {
+ "q": "¿Qué pasa si tengo dudas sobre la conexión de un diagrama específico?",
+ "a": "Dentro de la plataforma del curso dispones de un área de consultas donde puedes dejar tus preguntas para resolver dudas sobre los diagramas y mediciones antes de armar tus circuitos."
+ }
+ ],
+ "beneficios": [
+ "Instalar apagadores de escalera sin que la luz parpadee por cables mal conectados.",
+ "Cambiar centros de carga viejos por interruptores termomagnéticos actuales.",
+ "Identificar qué cable es fase, neutro y tierra en instalaciones viejas sin sufrir cortos.",
+ "Calcular el calibre correcto del cable para evitar que se calienten las pastillas.",
+ "Reparar contactos quemados siguiendo la normativa mexicana vigente.",
+ "Entender el diagrama de un medidor para detectar fugas de corriente en tu casa."
+ ],
+ "para_quien": [
+ "Si te gusta arreglar tus propias cosas los fines de semana y quieres dejar de improvisar.",
+ "Para quienes prefieren hacer reparaciones eléctricas básicas sin esperar a que llegue el técnico.",
+ "Si disfrutas entender cómo funciona la energía de tu casa mientras ahorras en servicios.",
+ "Para cualquier persona con curiosidad técnica que busca seguridad en sus proyectos domésticos."
+ ],
+ "requisitos": [
+ "Tener herramientas básicas como pinzas de electricista, pelacables y un multímetro.",
+ "Disponer de un espacio o tablero de pruebas para practicar sin riesgos.",
+ "Respetar las normas de seguridad: trabajar siempre con la energía desconectada."
+ ],
+ "certificado": "Al concluir las lecciones, obtendrás un documento digital que acredita la finalización del curso de electricidad residencial con certificado. Ten claro que este papel sirve para demostrar tus conocimientos adquiridos, pero no te habilita legalmente para firmar planos o instalaciones de alta responsabilidad ante las autoridades.",
+ "garantia": "Tienes 7 días para revisar el contenido dentro de la plataforma Hotmart. Si sientes que la forma de enseñar de Jorge Cárdenas no es lo que esperabas, puedes solicitar la devolución de tu dinero sin explicaciones adicionales. El precio final de 35 dólares ya incluye el descuento, así que no busques otros cupones, este es el costo total.",
+ "_meta": {
+ "usd": 0.01367,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

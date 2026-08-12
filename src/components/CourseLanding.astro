@@ -6,12 +6,13 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import Rating from '@/components/Rating.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import TestimonialCard from '@/components/TestimonialCard.astro';
+import ResenasCurso from '@/components/ResenasCurso.astro';
+import RatingInteractivo from '@/components/RatingInteractivo.astro';
 import StickyCta from '@/components/StickyCta.astro';
 import ExitIntent from '@/components/ExitIntent.astro';
 import LeadModal from '@/components/LeadModal.astro';
 import { COUNTRIES, formatPrice, localPrice, type Country, type City } from '@/lib/countries';
-import { formatMonto, precioReal, valoracionReal } from '@/lib/hotmartLive';
+import { autorDe, formatMonto, precioReal, resenasReales, valoracionReal } from '@/lib/hotmartLive';
 import { getCategory, courseCover } from '@/lib/categories';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema } from '@/lib/seo';
@@ -95,18 +96,6 @@ const related = allCourses
   )
   .slice(0, 4);
 
-const allTestimonials = (await getCollection('testimonials')).filter(
-  (t) => t.data.courseSlug === course.id || t.data.category === course.data.category,
-);
-const cityFirst = city
-  ? [...allTestimonials].sort(
-      (a, b) =>
-        Number(b.data.citySlug === city.slug && b.data.countryCode === country.code) -
-        Number(a.data.citySlug === city.slug && a.data.countryCode === country.code),
-    )
-  : allTestimonials;
-const testimonials = cityFirst.slice(0, 3);
-
 /**
  * Precio y valoración REALES de Hotmart (src/data/hotmart-live.json).
  *
@@ -117,6 +106,10 @@ const testimonials = cityFirst.slice(0, 3);
  */
 const real = precioReal(course.id, country);
 const valoracion = valoracionReal(course.id);
+/* El productor REAL publicado en Hotmart. El `instructor` del frontmatter era
+   una persona inventada con biografía inventada; si no hay autor capturado,
+   mejor no mostrar a nadie que mostrar a alguien que no existe. */
+const autor = autorDe(course.id);
 const precioTexto = real
   ? formatMonto(real.monto, real.moneda)
   : formatPrice(course.data.priceUSD, country);
@@ -202,7 +195,7 @@ const schemas = [
     // El precio marcado es el mismo que se enseña: Google exige que coincidan.
     price: real ? real.monto : localPrice(course.data.priceUSD, country),
     priceCurrency: real ? real.moneda : country.currency,
-    instructorName: course.data.instructor.name,
+    instructorName: autor?.nombre ?? SITE.name,
     category: category.name,
     workloadHours: course.data.durationHours,
     teaches: course.data.learnings,
@@ -262,9 +255,11 @@ const schemas = [
             existen. El «N estudiantes» del frontmatter y el «N lo están
             tomando en tu ciudad» eran números inventados y se retiraron. */}
         <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/80">
-          {valoracion && (
-            <Rating rating={valoracion.rating} count={valoracion.total} class="[&_*]:!text-white/90" />
-          )}
+          <RatingInteractivo
+            slug={course.id}
+            rating={valoracion?.rating ?? null}
+            count={valoracion?.total ?? null}
+          />
           <span>🕐 {course.data.durationHours} horas</span>
           <span>📚 {course.data.lessonsCount} lecciones</span>
           <span>📈 {course.data.level}</span>
@@ -294,16 +289,30 @@ const schemas = [
             checkout jamás cobró. El badge existe oculto y lo enseña el script
             de promo cuando hay campaña vigente — descuento anunciado solo si
             el cupón lo aplica de verdad. */}
-        <div class="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+        {/* Tamaños calibrados para que precio + tachado + badge quepan en UNA
+            línea hasta en 360 px; el wrap queda solo como red de seguridad
+            para anchos exóticos — mejor que recortar el badge con overflow. */}
+        <div class="mt-5 flex flex-wrap items-center gap-x-2.5 gap-y-1">
           <span
             data-precio-real
             data-slug={course.id}
             data-moneda={real?.moneda}
-            class="text-3xl font-extrabold whitespace-nowrap text-primary">{precioTexto}</span
+            data-base={real?.monto}
+            class="text-2xl font-extrabold whitespace-nowrap text-primary sm:text-3xl"
+            >{precioTexto}</span
           >
+          {/* Tachado del precio SIN cupón: lo enseña el script cuando hay
+              campaña vigente, con el precio real de base — no un "antes"
+              de catálogo que el checkout jamás cobró. */}
           {
-            !real && (
-              <span class="text-lg whitespace-nowrap text-muted line-through">
+            real ? (
+              <span
+                data-precio-tachado
+                hidden
+                class="text-xs whitespace-nowrap text-muted line-through sm:text-base"
+              />
+            ) : (
+              <span class="text-xs whitespace-nowrap text-muted line-through sm:text-base">
                 {formatPrice(course.data.originalPriceUSD, country)}
               </span>
             )
@@ -311,7 +320,7 @@ const schemas = [
           <span
             data-promo-badge
             hidden
-            class="rounded-full bg-accent px-2.5 py-1 text-xs font-bold whitespace-nowrap text-white"
+            class="rounded-full bg-accent px-2 py-0.5 text-xs font-bold whitespace-nowrap text-white"
           ></span>
         </div>
         {
@@ -478,27 +487,8 @@ const schemas = [
         </ul>
       </section>
 
-      <!-- Testimonios -->
-      {
-        testimonials.length > 0 && (
-          <section aria-labelledby="testimonials-title">
-            <h2 id="testimonials-title" class="text-2xl font-bold">
-              Lo que dicen los estudiantes
-            </h2>
-            <div class="mt-5 grid gap-5 md:grid-cols-3">
-              {testimonials.map((t) => (
-                <TestimonialCard
-                  name={t.data.name}
-                  citySlug={t.data.citySlug}
-                  countryCode={t.data.countryCode}
-                  text={t.data.text}
-                  rating={t.data.rating}
-                />
-              ))}
-            </div>
-          </section>
-        )
-      }
+      <!-- Reseñas reales de compradores (deslizables en móvil) -->
+      <ResenasCurso slug={course.id} relacionados={related.map((c) => c.id)} />
 
       <!-- FAQ -->
       <section aria-labelledby="faq-title">
@@ -542,19 +532,47 @@ const schemas = [
 
     <!-- Sidebar instructor + garantía -->
     <aside class="space-y-6 lg:sticky lg:top-24 lg:h-fit">
-      <div class="rounded-lg border border-surface-200 p-6">
-        <h2 class="text-sm font-bold tracking-wide text-muted uppercase">Tu instructor</h2>
-        <div class="mt-4 flex items-center gap-4">
-          <span class="flex size-14 items-center justify-center rounded-full bg-primary font-display text-xl font-bold text-white" aria-hidden="true">
-            {course.data.instructor.name.charAt(0)}
-          </span>
-          <div>
-            <p class="font-bold text-primary">{course.data.instructor.name}</p>
-            <p class="text-sm text-muted">{course.data.instructor.title}</p>
+      {
+        autor && (
+          <div class="rounded-lg border border-surface-200 p-6">
+            <h2 class="text-sm font-bold tracking-wide text-muted uppercase">Creado por</h2>
+            <div class="mt-4 flex items-center gap-4">
+              {autor.foto ? (
+                <img
+                  src={autor.foto}
+                  alt={autor.nombre}
+                  width="56"
+                  height="56"
+                  loading="lazy"
+                  class="size-14 rounded-full border border-surface-200 object-cover"
+                />
+              ) : (
+                <span
+                  class="flex size-14 items-center justify-center rounded-full bg-primary font-display text-xl font-bold text-white"
+                  aria-hidden="true"
+                >
+                  {autor.nombre.charAt(0)}
+                </span>
+              )}
+              <div class="min-w-0">
+                <p class="font-bold text-primary">{autor.nombre}</p>
+                <p class="text-xs text-muted">
+                  {autor.verificado && '✔ Perfil verificado'}
+                  {autor.bestSeller && ' · Best seller'}
+                  {autor.desde ? ` · En Hotmart desde ${autor.desde}` : ''}
+                </p>
+              </div>
+            </div>
+            {autor.bio && <p class="mt-4 text-sm leading-relaxed text-body">{autor.bio}</p>}
+            <a
+              href={`${base}/creadores/${autor.slug}/`}
+              class="mt-4 inline-block text-sm font-semibold text-accent hover:underline"
+            >
+              Ver todos sus cursos →
+            </a>
           </div>
-        </div>
-        <p class="mt-4 text-sm leading-relaxed text-body">{course.data.instructor.bio}</p>
-      </div>
+        )
+      }
       <div class="rounded-lg border border-surface-200 p-6">
         <h2 class="text-sm font-bold tracking-wide text-muted uppercase">Requisitos previos</h2>
         <ul class="mt-3 space-y-2 text-sm text-body" role="list">
@@ -702,86 +720,105 @@ const schemas = [
 </script>
 
 <script>
-  /* Promoción: nada se promete en el HTML estático. Si hay campaña vigente para
-     el país del visitante, se muestran la nota y el badge de la ficha.
+  /* ── Controlador único de precio de la ficha ─────────────────────────────
+     Un solo estado —precio base real × cupón vigente— y una sola función que
+     pinta. Antes el cupón solo cambiaba el badge y una nota: el visitante veía
+     $165.450 aquí y $82.725 al llegar al carrito, que es exactamente la
+     sorpresa que no debe haber.
 
-     Del cupón en los enlaces de pago se encarga PromoBanner, que vive en
-     BaseLayout y por tanto cubre también las páginas sin ficha de curso. Aquí
-     solo va lo propio de la ficha.
+     precio final = precioConDescuento(base, moneda, pct)   ← misma aritmética
+     y el MISMO redondeo del checkout (verificado empíricamente), así que lo
+     que se pinta aquí es lo que Hotmart cobra.
 
-     Las dos fuentes son las mismas que las del banner y en el mismo orden: el
-     override manual de `/admin/promociones` gana al calendario horneado. */
+     Fuentes, en orden (idéntico al banner):
+       1. Override de /admin/promociones (D1, /api/v1/promo) — manda.
+       2. Calendario horneado (src/lib/promo.ts) y campañas ?promo= de ads.
+     Sin campaña → precio base, sin tachado y sin badge. Quitar el cupón en el
+     panel deja la ficha sin descuento en el siguiente load (≤60 s de caché).
+
+     Del cupón en los enlaces de pago se encarga PromoBanner (BaseLayout). Este
+     bloque es la costura con el backend: cuando el panel Laravel exista,
+     alimentará las mismas dos APIs y nada de esto cambia. */
   import { campaignDeOverride, leerOverride, resolvePromo, type PromoCampaign } from '@/lib/promo';
+  import { formatMonto, precioConDescuento } from '@/lib/moneda';
 
   type Aplicable = Pick<PromoCampaign, 'label' | 'discountPct'>;
 
+  const nodo = document.querySelector<HTMLElement>('[data-precio-real][data-slug]');
   const nota = document.querySelector<HTMLElement>('[data-promo-nota]');
-  if (nota) {
-    const pais = nota.dataset.country ?? 'co';
-    const slug = nota.dataset.slug;
+  const pais = nota?.dataset.country ?? 'co';
+  const slug = nodo?.dataset.slug ?? nota?.dataset.slug;
+  const moneda = nodo?.dataset.moneda ?? '';
+  let base = Number(nodo?.dataset.base) || 0;
+  let promo: Aplicable | null = null;
 
-    const aplicar = (promo: Aplicable): void => {
-      nota.hidden = false;
-      nota.querySelector('[data-promo-nota-texto]')!.textContent =
-        `${promo.label}: ${promo.discountPct}% de descuento`;
-
-      /* El badge nace oculto y solo lo enseña una campaña vigente: un "-50%"
-         fijo junto al precio real sería otro descuento perpetuo de mentira. */
-      const badge = document.querySelector<HTMLElement>('[data-promo-badge]');
-      if (badge) {
-        badge.textContent = `-${promo.discountPct}%`;
-        badge.hidden = false;
+  function pintarPrecios(): void {
+    // Sin precio real capturado no hay aritmética que hacer: la nota y el
+    // badge siguen anunciando la campaña, pero el número no se toca.
+    if (nota) {
+      nota.hidden = !promo;
+      if (promo) {
+        nota.querySelector('[data-promo-nota-texto]')!.textContent =
+          `${promo.label}: ${promo.discountPct}% de descuento`;
       }
-    };
+    }
+    const badge = document.querySelector<HTMLElement>('[data-promo-badge]');
+    if (badge) {
+      badge.textContent = promo ? `-${promo.discountPct}%` : '';
+      badge.hidden = !promo;
+    }
+    if (!nodo || !base || !moneda) return;
 
-    // El calendario se aplica ya, sin esperar a la red.
-    const delCalendario = resolvePromo({
-      countryCode: pais,
-      now: new Date(),
-      urlKey: new URLSearchParams(location.search).get('promo'),
+    const final = promo ? precioConDescuento(base, moneda, promo.discountPct) : base;
+    const textoFinal = formatMonto(final, moneda);
+    document.querySelectorAll<HTMLElement>('[data-precio-real]').forEach((el) => {
+      if (el.textContent !== textoFinal) el.textContent = textoFinal;
     });
-    if (delCalendario) aplicar(delCalendario);
-
-    leerOverride().then((o) => {
-      const manual = o && campaignDeOverride(o, { countryCode: pais, courseSlug: slug });
-      if (manual) aplicar(manual);
-    });
+    const tachado = document.querySelector<HTMLElement>('[data-precio-tachado]');
+    if (tachado) {
+      // Sin el código de moneda: el precio grande ya lo dice, y esos ~28 px son
+      // los que deciden si todo cabe en una línea a 360 px.
+      tachado.textContent = formatMonto(base, moneda).replace(/ [A-Z]{3}$/, '');
+      tachado.hidden = !promo;
+    }
   }
 
-  /* Refresco del precio desde la colo del visitante. Dos efectos en uno: si
-     Hotmart movió el precio desde el último build, la ficha lo corrige al
-     vuelo; y la consulta se hace desde la colo más cercana al visitante, así
-     que cada país mantiene fresca SU moneda en D1 (Hotmart la fija por IP).
-     Throttle por sesión: una vez por curso basta. */
-  {
-    const nodo = document.querySelector<HTMLElement>('[data-precio-real][data-slug]');
-    const slug = nodo?.dataset.slug;
-    const moneda = nodo?.dataset.moneda;
-    const marca = `sably:precio:${slug}`;
-    if (nodo && slug && moneda && !sessionStorage.getItem(marca)) {
-      sessionStorage.setItem(marca, '1');
-      fetch('/api/v1/precios/refresca', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ slug }),
-      })
-        .then((r): Promise<{ precios?: Record<string, number> } | null> =>
-          r.ok ? (r.json() as Promise<{ precios?: Record<string, number> }>) : Promise.resolve(null),
-        )
-        .then((d) => {
-          const monto = d?.precios?.[moneda];
-          if (!monto || monto <= 0) return;
-          const dec = Number.isInteger(monto) ? 0 : 2;
-          const n = new Intl.NumberFormat('es-CO', {
-            minimumFractionDigits: dec,
-            maximumFractionDigits: dec,
-          }).format(monto);
-          const texto = moneda === 'USD' ? `US$${n}` : `$${n} ${moneda}`;
-          document.querySelectorAll<HTMLElement>('[data-precio-real]').forEach((el) => {
-            if (el.textContent !== texto) el.textContent = texto;
-          });
-        })
-        .catch(() => {});
+  // El calendario pinta ya, sin esperar a la red; el override llega y manda.
+  promo = resolvePromo({
+    countryCode: pais,
+    now: new Date(),
+    urlKey: new URLSearchParams(location.search).get('promo'),
+  });
+  pintarPrecios();
+  leerOverride().then((o) => {
+    const manual = o && campaignDeOverride(o, { countryCode: pais, courseSlug: slug });
+    if (manual) {
+      promo = manual;
+      pintarPrecios();
     }
+  });
+
+  /* Refresco del precio base desde la colo del visitante: si Hotmart movió el
+     precio desde el último build, la ficha se corrige al vuelo, y de paso cada
+     país mantiene fresca SU moneda en D1 (Hotmart la fija por IP). El repintado
+     pasa por el mismo camino, así que el cupón se re-aplica sobre la base nueva. */
+  if (nodo && slug && moneda && !sessionStorage.getItem(`sably:precio:${slug}`)) {
+    sessionStorage.setItem(`sably:precio:${slug}`, '1');
+    fetch('/api/v1/precios/refresca', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ slug }),
+    })
+      .then((r): Promise<{ precios?: Record<string, number> } | null> =>
+        r.ok ? (r.json() as Promise<{ precios?: Record<string, number> }>) : Promise.resolve(null),
+      )
+      .then((d) => {
+        const monto = d?.precios?.[moneda];
+        if (monto && monto > 0 && monto !== base) {
+          base = monto;
+          pintarPrecios();
+        }
+      })
+      .catch(() => {});
   }
 </script>

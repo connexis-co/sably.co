@@ -1,73 +1,73 @@
 {
-  "course": "curso-de-excel",
-  "country": "ec",
-  "angulo": "hobby",
-  "meta_title": "Curso de excel para principiantes: organiza tus proyectos",
-  "meta_description": "Domina tus finanzas personales y proyectos en Ecuador con este curso de excel para principiantes. Inscríbete hoy por USD 27 y ordena tus números.",
-  "h1": "Aprende desde cero con el curso de excel para principiantes",
-  "subtitulo": "Pon orden a tus gastos familiares, colecciones o proyectos personales sin enredarte con fórmulas complejas.",
-  "descripcion": "Anotar los gastos del mes en un cuaderno o acumular listas sueltas en la aplicación de notas termina en caos. Empiezas con entusiasmo a registrar lo que gastas en tus pasatiempos, las compras de la casa o el presupuesto para un viaje por la Sierra, pero al tercer mes ya no sabes dónde quedó cada dato. Si buscas un curso de excel para principiantes, la meta no tiene por qué ser convertirte en un analista financiero corporativo, sino recuperar el control sobre tu tiempo y tus proyectos personales sin pasar horas adivinando qué casilla sumar.\n\n## Del papel arrugado a tablas claras que funcionan\n\nEl problema típico cuando abres una hoja de cálculo por tu cuenta es la frustración al primer error. Quieres calcular cuánto gastaste en tus materiales de manualidades o en las actividades de la semana, sumas celda por celda y de pronto aparece ese molesto error #¡VALOR!. Te trancas ahí porque nadie te explicó la diferencia entre un texto y un número dentro del programa.\n\nEn este espacio vas a entender la lógica básica para construir plantillas útiles. Aprenderás a mover datos sin dañar el formato, a fijar celdas con el signo de dólar para que las fórmulas no se muevan al arrastrarlas y a usar colores condicionales para detectar de un vistazo si te estás saliendo del presupuesto mensual.\n\n## Controla tus aficiones sin perder la tarde\n\nSi te apasiona la cocina, el entrenamiento físico, la lectura o la jardinería, llevar un registro ordenado cambia la experiencia por completo. No se trata solo de ver números en una pantalla; se trata de saber exactamente cuántas semanas llevas con tu rutina, qué materiales necesitas reponer o cuánto dinero te queda para tu próximo proyecto.\n\nCon la guía de Felipe Zambrano, vas a transformar hojas en blanco en tableros visuales sencillos. Vas a dominar cómo buscar valores, hacer listas desplegables para no escribir lo mismo diez veces y generar gráficos limpios para entender tu avance diario.\n\n## Una expectativa real sobre lo que vas a lograr\n\nHay que ser claros: este contenido no te va a transformar en un programador de software ni en consultor empresarial en un par de días. Quien te prometa eso te está engañando. Lo que sí vas a lograr es perderle el miedo a la interfaz, dejar de usar la calculadora del celular para sumar columnas enteras y armar tus propias herramientas digitales a tu ritmo. Es el paso inicial práctico para dejar de ver a las hojas de cálculo como un problema y empezar a usarlas como un aliado en tu vida cotidiana.",
-  "faqs": [
-    {
-      "q": "¿Cómo pago el curso desde Ecuador?",
-      "a": "Puedes pagar directamente en dólares americanos (USD) mediante tarjeta de crédito, tarjeta de débito o transferencia bancaria local. El acceso a la plataforma es inmediato tras confirmar la transacción."
-    },
-    {
-      "q": "¿Tengo que aplicar algún código de descuento adicional?",
-      "a": "No. El precio de USD 27 ya incluye el 40% de descuento de lanzamiento sobre el costo original de USD 45. No necesitas ingresar ninguna clave adicional."
-    },
-    {
-      "q": "¿El certificado tiene validez oficial en Ecuador?",
-      "a": "El certificado valida que completaste las 14 horas de formación. Es un certificado de capacitación privada que sirve como respaldo de tus habilidades prácticas en tu hoja de vida, pero no equivale a un título universitario ni habilita para profesiones reguladas."
-    },
-    {
-      "q": "¿Necesito conocimientos previos para tomar la formación?",
-      "a": "No requiere experiencia previa. El contenido empieza desde cero, explicando desde cómo abrir la hoja de trabajo hasta cómo estructurar tus propias tablas."
-    },
-    {
-      "q": "¿Qué versión de Excel necesito tener en mi computadora?",
-      "a": "Puedes practicar con cualquier versión de Excel para Windows o Mac a partir de la edición 2016, o incluso utilizando la versión gratuita de Excel en la web."
-    },
-    {
-      "q": "¿Hay horarios fijos para ver las clases?",
-      "a": "No hay clases en vivo ni horarios obligatorios. Las 20 lecciones están grabadas para que las estudies a tu propio ritmo en tus momentos libres."
-    },
-    {
-      "q": "¿Puedo hacer los ejercicios con mis propios datos personales?",
-      "a": "Sí, de hecho es lo más aconsejable. Aplicar los pasos directamente en tu presupuesto real o en la lista de tu pasatiempo te ayudará a fijar el conocimiento más rápido."
-    },
-    {
-      "q": "¿Qué hago si me equivoco al ingresar una fórmula?",
-      "a": "Puedes pausar el video, revisar el paso exacto en la lección y corregir la celda. Al avanzar a tu ritmo, puedes repetir los ejercicios cuantas veces sea necesario."
-    }
-  ],
-  "beneficios": [
-    "Organizar tus finanzas personales o gastos de casa sin errores de cálculo.",
-    "Crear listas de inventario para tus colecciones o insumos de tus hobbies.",
-    "Automatizar sumas y promedios para dejar de usar la calculadora manual.",
-    "Diseñar calendarios personalizados para planificar tus tiempos de ocio.",
-    "Aplicar formatos condicionales que resaltan datos importantes de un vistazo.",
-    "Generar gráficos sencillos para visualizar tu progreso en cualquier proyecto personal."
-  ],
-  "para_quien": [
-    "Si te sientes perdido al abrir una hoja de cálculo en blanco.",
-    "Si buscas ordenar tu vida personal con herramientas digitales básicas.",
-    "Si quieres dejar de pedir ayuda para cosas simples de formato y tablas.",
-    "Si prefieres aprender a tu ritmo sin la presión de un entorno laboral."
-  ],
-  "requisitos": [
-    "Tener una computadora con Microsoft Excel instalado.",
-    "Ganas de practicar con archivos propios desde la primera lección.",
-    "Conexión a internet estable para acceder al contenido del curso de excel para principiantes."
-  ],
-  "certificado": "Al finalizar, recibes un certificado digital que acredita tu participación en el curso. Ten en cuenta que este documento es un reconocimiento a tu aprendizaje personal y no te habilita profesionalmente para ejercer como analista de datos ni contable.",
-  "garantia": "Tienes 7 días para evaluar el contenido. Si sientes que este curso de excel para principiantes no es lo que esperabas, puedes solicitar la devolución del 100% de tu dinero directamente a través de la plataforma Hotmart sin dar explicaciones.",
-  "_meta": {
-    "usd": 0.02249,
-    "modelo": "gemini-3.6-flash",
-    "fallos": [
-      "descripción corta: 431 palabras"
-    ],
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-excel",
+ "country": "ec",
+ "angulo": "hobby",
+ "meta_title": "Curso de excel para principiantes: organiza tus proyectos",
+ "meta_description": "Domina tus finanzas personales y proyectos en Ecuador con este curso de excel para principiantes. Inscríbete hoy y ordena tus números.",
+ "h1": "Aprende desde cero con el curso de excel para principiantes",
+ "subtitulo": "Pon orden a tus gastos familiares, colecciones o proyectos personales sin enredarte con fórmulas complejas.",
+ "descripcion": "Anotar los gastos del mes en un cuaderno o acumular listas sueltas en la aplicación de notas termina en caos. Empiezas con entusiasmo a registrar lo que gastas en tus pasatiempos, las compras de la casa o el presupuesto para un viaje por la Sierra, pero al tercer mes ya no sabes dónde quedó cada dato. Si buscas un curso de excel para principiantes, la meta no tiene por qué ser convertirte en un analista financiero corporativo, sino recuperar el control sobre tu tiempo y tus proyectos personales sin pasar horas adivinando qué casilla sumar.\n\n## Del papel arrugado a tablas claras que funcionan\n\nEl problema típico cuando abres una hoja de cálculo por tu cuenta es la frustración al primer error. Quieres calcular cuánto gastaste en tus materiales de manualidades o en las actividades de la semana, sumas celda por celda y de pronto aparece ese molesto error #¡VALOR!. Te trancas ahí porque nadie te explicó la diferencia entre un texto y un número dentro del programa.\n\nEn este espacio vas a entender la lógica básica para construir plantillas útiles. Aprenderás a mover datos sin dañar el formato, a fijar celdas con el signo de dólar para que las fórmulas no se muevan al arrastrarlas y a usar colores condicionales para detectar de un vistazo si te estás saliendo del presupuesto mensual.\n\n## Controla tus aficiones sin perder la tarde\n\nSi te apasiona la cocina, el entrenamiento físico, la lectura o la jardinería, llevar un registro ordenado cambia la experiencia por completo. No se trata solo de ver números en una pantalla; se trata de saber exactamente cuántas semanas llevas con tu rutina, qué materiales necesitas reponer o cuánto dinero te queda para tu próximo proyecto.\n\nCon la guía de Felipe Zambrano, vas a transformar hojas en blanco en tableros visuales sencillos. Vas a dominar cómo buscar valores, hacer listas desplegables para no escribir lo mismo diez veces y generar gráficos limpios para entender tu avance diario.\n\n## Una expectativa real sobre lo que vas a lograr\n\nHay que ser claros: este contenido no te va a transformar en un programador de software ni en consultor empresarial en un par de días. Quien te prometa eso te está engañando. Lo que sí vas a lograr es perderle el miedo a la interfaz, dejar de usar la calculadora del celular para sumar columnas enteras y armar tus propias herramientas digitales a tu ritmo. Es el paso inicial práctico para dejar de ver a las hojas de cálculo como un problema y empezar a usarlas como un aliado en tu vida cotidiana.",
+ "faqs": [
+ {
+ "q": "¿Cómo pago el curso desde Ecuador?",
+ "a": "Puedes pagar directamente en dólares americanos (USD) mediante tarjeta de crédito, tarjeta de débito o transferencia bancaria local. El acceso a la plataforma es inmediato tras confirmar la transacción."
+ },
+ {
+ "q": "¿Tengo que aplicar algún código de descuento adicional?",
+ "a": "El precio que ves en la página es el precio final del checkout de Hotmart. No necesitas ingresar ninguna clave adicional."
+ },
+ {
+ "q": "¿El certificado tiene validez oficial en Ecuador?",
+ "a": "El certificado valida que completaste las 14 horas de formación. Es un certificado de capacitación privada que sirve como respaldo de tus habilidades prácticas en tu hoja de vida, pero no equivale a un título universitario ni habilita para profesiones reguladas."
+ },
+ {
+ "q": "¿Necesito conocimientos previos para tomar la formación?",
+ "a": "No requiere experiencia previa. El contenido empieza desde cero, explicando desde cómo abrir la hoja de trabajo hasta cómo estructurar tus propias tablas."
+ },
+ {
+ "q": "¿Qué versión de Excel necesito tener en mi computadora?",
+ "a": "Puedes practicar con cualquier versión de Excel para Windows o Mac a partir de la edición 2016, o incluso utilizando la versión gratuita de Excel en la web."
+ },
+ {
+ "q": "¿Hay horarios fijos para ver las clases?",
+ "a": "No hay clases en vivo ni horarios obligatorios. Las 20 lecciones están grabadas para que las estudies a tu propio ritmo en tus momentos libres."
+ },
+ {
+ "q": "¿Puedo hacer los ejercicios con mis propios datos personales?",
+ "a": "Sí, de hecho es lo más aconsejable. Aplicar los pasos directamente en tu presupuesto real o en la lista de tu pasatiempo te ayudará a fijar el conocimiento más rápido."
+ },
+ {
+ "q": "¿Qué hago si me equivoco al ingresar una fórmula?",
+ "a": "Puedes pausar el video, revisar el paso exacto en la lección y corregir la celda. Al avanzar a tu ritmo, puedes repetir los ejercicios cuantas veces sea necesario."
+ }
+ ],
+ "beneficios": [
+ "Organizar tus finanzas personales o gastos de casa sin errores de cálculo.",
+ "Crear listas de inventario para tus colecciones o insumos de tus hobbies.",
+ "Automatizar sumas y promedios para dejar de usar la calculadora manual.",
+ "Diseñar calendarios personalizados para planificar tus tiempos de ocio.",
+ "Aplicar formatos condicionales que resaltan datos importantes de un vistazo.",
+ "Generar gráficos sencillos para visualizar tu progreso en cualquier proyecto personal."
+ ],
+ "para_quien": [
+ "Si te sientes perdido al abrir una hoja de cálculo en blanco.",
+ "Si buscas ordenar tu vida personal con herramientas digitales básicas.",
+ "Si quieres dejar de pedir ayuda para cosas simples de formato y tablas.",
+ "Si prefieres aprender a tu ritmo sin la presión de un entorno laboral."
+ ],
+ "requisitos": [
+ "Tener una computadora con Microsoft Excel instalado.",
+ "Ganas de practicar con archivos propios desde la primera lección.",
+ "Conexión a internet estable para acceder al contenido del curso de excel para principiantes."
+ ],
+ "certificado": "Al finalizar, recibes un certificado digital que acredita tu participación en el curso. Ten en cuenta que este documento es un reconocimiento a tu aprendizaje personal y no te habilita profesionalmente para ejercer como analista de datos ni contable.",
+ "garantia": "Tienes 7 días para evaluar el contenido. Si sientes que este curso de excel para principiantes no es lo que esperabas, puedes solicitar la devolución del 100% de tu dinero directamente a través de la plataforma Hotmart sin dar explicaciones.",
+ "_meta": {
+ "usd": 0.02249,
+ "modelo": "gemini-3.6-flash",
+ "fallos": [
+ "descripción corta: 431 palabras"
+ ],
+ "fecha": "2026-08-06"
+ }
 }

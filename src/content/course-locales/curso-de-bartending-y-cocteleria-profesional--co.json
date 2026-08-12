@@ -1,73 +1,73 @@
 {
-  "course": "curso-de-bartending-y-cocteleria-profesional",
-  "country": "co",
-  "angulo": "emprendimiento",
-  "meta_title": "Curso de bartending y coctelería profesional en Colombia",
-  "meta_description": "Monta tu propia barra móvil o servicio de coctelería en Colombia. Domina costes, cartas rentables y técnicas avanzadas. ¡Inscríbete hoy mismo!",
-  "h1": "Aprende con el curso de bartending y coctelería profesional y crea tu negocio de barras en Colombia",
-  "subtitulo": "Diseña cartas rentables, calcula costos al gramo y presta un servicio de coctelería para eventos privados en cualquier ciudad del país.",
-  "descripcion": "El sector de eventos y entretenimiento en Colombia exige propuestas eficientes y rentables. Si quieres lanzar tu propia barra móvil para bodas en Medellín, banquetes en Bogotá o eventos corporativos en Cali, el **curso de bartending y coctelería profesional** te otorga el método operativo y comercial para estructurar una empresa sólida sin necesidad de alquilar un local comercial.\n\n## Del concepto al cliente: cómo estructurar una barra móvil en Colombia\n\nEl negocio de las barras itinerantes requiere precisión matemática antes de servir la primera bebida. Para garantizar la rentabilidad de cada servicio, debes dominar la logística de insumos, el cálculo de cristalería según el aforo y la gestión de residuos en campo. Aprenderás a diseñar montajes funcionales que optimicen los tiempos de preparación cuando enfrentes picos de demanda de más de cien invitados por hora.\n\n### Costos, mermas y fijación de precios para eventos\n\nUno de los errores más comunes al emprender en coctelería es calcular el precio por copa sin considerar el hielo, los cítricos o la merma de producción. Revisarás cómo estructurar fichas técnicas exactas para cada cóctel de tu carta. Con esta metodología sabrás exactamente cuánto cuesta cada ml vertido en el jigger y cuál debe ser tu margen de ganancia neto al cotizar paquetes para eventos privados.\n\n## Recetas de autor e integración de insumos locales\n\nDominar las bases internacionales es indispensable, pero el diferencial de un emprendimiento en el mercado colombiano radica en la innovación. Entenderás las familias de cócteles clásicos —mule, sour, tiki, highball— y los balances entre acidez, dulzor y carga alcohólica. A partir de esa estructura, aprenderás a incorporar destilados premium e ingredientes locales como maracuyá, uchuva o macerados botánicos para construir una propuesta de autor que llame la atención de organizadores de eventos y clientes particulares.\n\n## Logística y estandarización del servicio\n\nServir con velocidad no sirve de nada si la calidad varía entre copa y copa. Analizarás los procesos de preparación previa (*mise en place*), la elaboración de siropes artesanos y la conservación de jugos frescos para evitar desperdicios durante el evento. Al aplicar un protocolo estándar de servicio, tu equipo mantendrá la consistencia en el sabor, la presentación y la atención al cliente, factores clave para asegurar recomendaciones boca a boca y contrataciones recurrentes.",
-  "faqs": [
-    {
-      "q": "¿Puedo pagar el curso con Nequi, Daviplata o PSE en Colombia?",
-      "a": "Sí, la plataforma procesa pagos locales en Colombia a través de PSE, Nequi, Daviplata y tarjetas de crédito o débito, convirtiendo la tarifa automáticamente a pesos colombianos sin recargos bancarios ocultos."
-    },
-    {
-      "q": "¿Qué validez tiene el certificado en el mercado colombiano?",
-      "a": "El certificado acredita las horas prácticas y teóricas cursadas. Te sirve como respaldo de formación técnica para presentar ante empresas de eventos, hoteles, restaurantes o para respaldar el perfil profesional de tu propio emprendimiento ante clientes privados."
-    },
-    {
-      "q": "¿Necesito experiencia previa en coctelería para iniciar este emprendimiento?",
-      "a": "No requerirás conocimientos previos. La capacitación inicia desde los fundamentos de cristalería, herramientas y técnicas de mezclado, hasta escalar hacia la formulación de recetas propias y gestión de costos."
-    },
-    {
-      "q": "¿Qué herramientas básicas necesito para practicar en casa?",
-      "a": "Para iniciar basta con una coctelera (estilo Boston o Cobbler), un jigger o medidor, una cuchara bailarina y un colador de oruga. No necesitas equipos industriales para completar los ejercicios prácticos."
-    },
-    {
-      "q": "¿Cómo me ayuda el curso a cotizar servicios para bodas o eventos?",
-      "a": "Aprenderás a construir fichas técnicas de rendimiento. Con ellas sabrás calcular el consumo estimado de licor, insumos y hielo por número de asistentes, permitiéndote enviar presupuestos precisos con margen de ganancia garantizado."
-    },
-    {
-      "q": "¿El acceso a las lecciones tiene un límite de tiempo?",
-      "a": "Tendrás acceso ilimitado y de por vida al contenido. Podrás revisar las lecciones, guías de formulación y material de apoyo cada vez que necesites preparar un nuevo menú o capacitar al personal de tu negocio."
-    },
-    {
-      "q": "¿Puedo adaptar las recetas aprendidas a frutas e insumos colombianos?",
-      "a": "Sí, la enseñanza se centra en la estructura química y de balance de los cócteles. Una vez dominas las proporciones de acidez y dulzor, puedes sustituir o combinar ingredientes con pulpas y botánicos locales."
-    },
-    {
-      "q": "¿El contenido incluye la parte administrativa para abrir un negocio de barras?",
-      "a": "Sí, además de las técnicas de barra, el enfoque contempla la estructura de costos, control de mermas, optimización de compras y estandarización del servicio para operar como proveedor independiente."
-    }
-  ],
-  "beneficios": [
-    "Dominas el control de costos y mermas para maximizar las ganancias en tu barra.",
-    "Aprendes a diseñar una carta de cocteles rentable y atractiva para clientes locales.",
-    "Obtienes herramientas de gestión para operar tu propio negocio o servicio de catering.",
-    "Perfeccionas técnicas de servicio rápido para aumentar el flujo de ventas durante el turno.",
-    "Conoces la selección exacta de cristalería y herramientas básicas que realmente necesitas comprar.",
-    "Desarrollas criterios para combinar insumos nacionales y reducir gastos operativos."
-  ],
-  "para_quien": [
-    "Si buscas iniciar tu negocio independiente de coctelería a domicilio en Colombia.",
-    "Si ya trabajas en bares y quieres escalar posiciones con conocimiento técnico real.",
-    "Si eres dueño de un establecimiento y quieres mejorar la calidad y rentabilidad de tu barra.",
-    "Si necesitas una fuente de ingresos extra gestionando eventos privados de coctelería."
-  ],
-  "requisitos": [
-    "Disposición para practicar las técnicas en casa con utensilios básicos.",
-    "Acceso a conexión a internet para visualizar las 14 horas de contenido.",
-    "Ganas de aprender el manejo de insumos y licores disponibles en el mercado local."
-  ],
-  "certificado": "Al finalizar las 21 lecciones, el sistema genera automáticamente tu certificado de culminación. Este documento avala que completaste la formación práctica y técnica necesaria para desempeñarte como profesional en el sector de la coctelería.",
-  "garantia": "Tienes 7 días de garantía para evaluar el curso de bartending y coctelería profesional. Si el contenido no cumple tus expectativas, solicitas el reembolso total a través de la plataforma Hotmart y recibes la devolución de tu dinero sin preguntas.",
-  "_meta": {
-    "usd": 0.02133,
-    "modelo": "gemini-3.6-flash",
-    "fallos": [
-      "descripción corta: 375 palabras"
-    ],
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-bartending-y-cocteleria-profesional",
+ "country": "co",
+ "angulo": "emprendimiento",
+ "meta_title": "Curso de bartending y coctelería profesional en Colombia",
+ "meta_description": "Monta tu propia barra móvil o servicio de coctelería en Colombia. Domina costes, cartas rentables y técnicas avanzadas. ¡Inscríbete hoy mismo!",
+ "h1": "Aprende con el curso de bartending y coctelería profesional y crea tu negocio de barras en Colombia",
+ "subtitulo": "Diseña cartas rentables, calcula costos al gramo y presta un servicio de coctelería para eventos privados en cualquier ciudad del país.",
+ "descripcion": "El sector de eventos y entretenimiento en Colombia exige propuestas eficientes y rentables. Si quieres lanzar tu propia barra móvil para bodas en Medellín, banquetes en Bogotá o eventos corporativos en Cali, el **curso de bartending y coctelería profesional** te otorga el método operativo y comercial para estructurar una empresa sólida sin necesidad de alquilar un local comercial.\n\n## Del concepto al cliente: cómo estructurar una barra móvil en Colombia\n\nEl negocio de las barras itinerantes requiere precisión matemática antes de servir la primera bebida. Para garantizar la rentabilidad de cada servicio, debes dominar la logística de insumos, el cálculo de cristalería según el aforo y la gestión de residuos en campo. Aprenderás a diseñar montajes funcionales que optimicen los tiempos de preparación cuando enfrentes picos de demanda de más de cien invitados por hora.\n\n### Costos, mermas y fijación de precios para eventos\n\nUno de los errores más comunes al emprender en coctelería es calcular el precio por copa sin considerar el hielo, los cítricos o la merma de producción. Revisarás cómo estructurar fichas técnicas exactas para cada cóctel de tu carta. Con esta metodología sabrás exactamente cuánto cuesta cada ml vertido en el jigger y cuál debe ser tu margen de ganancia neto al cotizar paquetes para eventos privados.\n\n## Recetas de autor e integración de insumos locales\n\nDominar las bases internacionales es indispensable, pero el diferencial de un emprendimiento en el mercado colombiano radica en la innovación. Entenderás las familias de cócteles clásicos —mule, sour, tiki, highball— y los balances entre acidez, dulzor y carga alcohólica. A partir de esa estructura, aprenderás a incorporar destilados premium e ingredientes locales como maracuyá, uchuva o macerados botánicos para construir una propuesta de autor que llame la atención de organizadores de eventos y clientes particulares.\n\n## Logística y estandarización del servicio\n\nServir con velocidad no sirve de nada si la calidad varía entre copa y copa. Analizarás los procesos de preparación previa (*mise en place*), la elaboración de siropes artesanos y la conservación de jugos frescos para evitar desperdicios durante el evento. Al aplicar un protocolo estándar de servicio, tu equipo mantendrá la consistencia en el sabor, la presentación y la atención al cliente, factores clave para asegurar recomendaciones boca a boca y contrataciones recurrentes.",
+ "faqs": [
+ {
+ "q": "¿Puedo pagar el curso con Nequi, Daviplata o PSE en Colombia?",
+ "a": "Sí, la plataforma procesa pagos locales en Colombia a través de PSE, Nequi, Daviplata y tarjetas de crédito o débito, convirtiendo la tarifa automáticamente a pesos colombianos sin recargos bancarios ocultos."
+ },
+ {
+ "q": "¿Qué validez tiene el certificado en el mercado colombiano?",
+ "a": "El certificado acredita las horas prácticas y teóricas cursadas. Te sirve como respaldo de formación técnica para presentar ante empresas de eventos, hoteles, restaurantes o para respaldar el perfil profesional de tu propio emprendimiento ante clientes privados."
+ },
+ {
+ "q": "¿Necesito experiencia previa en coctelería para iniciar este emprendimiento?",
+ "a": "No requerirás conocimientos previos. La capacitación inicia desde los fundamentos de cristalería, herramientas y técnicas de mezclado, hasta escalar hacia la formulación de recetas propias y gestión de costos."
+ },
+ {
+ "q": "¿Qué herramientas básicas necesito para practicar en casa?",
+ "a": "Para iniciar basta con una coctelera (estilo Boston o Cobbler), un jigger o medidor, una cuchara bailarina y un colador de oruga. No necesitas equipos industriales para completar los ejercicios prácticos."
+ },
+ {
+ "q": "¿Cómo me ayuda el curso a cotizar servicios para bodas o eventos?",
+ "a": "Aprenderás a construir fichas técnicas de rendimiento. Con ellas sabrás calcular el consumo estimado de licor, insumos y hielo por número de asistentes, permitiéndote enviar presupuestos precisos con margen de ganancia garantizado."
+ },
+ {
+ "q": "¿El acceso a las lecciones tiene un límite de tiempo?",
+ "a": "Tendrás acceso ilimitado y de por vida al contenido. Podrás revisar las lecciones, guías de formulación y material de apoyo cada vez que necesites preparar un nuevo menú o capacitar al personal de tu negocio."
+ },
+ {
+ "q": "¿Puedo adaptar las recetas aprendidas a frutas e insumos colombianos?",
+ "a": "Sí, la enseñanza se centra en la estructura química y de balance de los cócteles. Una vez dominas las proporciones de acidez y dulzor, puedes sustituir o combinar ingredientes con pulpas y botánicos locales."
+ },
+ {
+ "q": "¿El contenido incluye la parte administrativa para abrir un negocio de barras?",
+ "a": "Sí, además de las técnicas de barra, el enfoque contempla la estructura de costos, control de mermas, optimización de compras y estandarización del servicio para operar como proveedor independiente."
+ }
+ ],
+ "beneficios": [
+ "Dominas el control de costos y mermas para maximizar las ganancias en tu barra.",
+ "Aprendes a diseñar una carta de cocteles rentable y atractiva para clientes locales.",
+ "Obtienes herramientas de gestión para operar tu propio negocio o servicio de catering.",
+ "Perfeccionas técnicas de servicio rápido para aumentar el flujo de ventas durante el turno.",
+ "Conoces la selección exacta de cristalería y herramientas básicas que realmente necesitas comprar.",
+ "Desarrollas criterios para combinar insumos nacionales y reducir gastos operativos."
+ ],
+ "para_quien": [
+ "Si buscas iniciar tu negocio independiente de coctelería a domicilio en Colombia.",
+ "Si ya trabajas en bares y quieres escalar posiciones con conocimiento técnico real.",
+ "Si eres dueño de un establecimiento y quieres mejorar la calidad y rentabilidad de tu barra.",
+ "Si necesitas una fuente de ingresos extra gestionando eventos privados de coctelería."
+ ],
+ "requisitos": [
+ "Disposición para practicar las técnicas en casa con utensilios básicos.",
+ "Acceso a conexión a internet para visualizar las 14 horas de contenido.",
+ "Ganas de aprender el manejo de insumos y licores disponibles en el mercado local."
+ ],
+ "certificado": "Al finalizar las 21 lecciones, el sistema genera automáticamente tu certificado de culminación. Este documento avala que completaste la formación práctica y técnica necesaria para desempeñarte como profesional en el sector de la coctelería.",
+ "garantia": "Tienes 7 días de garantía para evaluar el curso de bartending y coctelería profesional. Si el contenido no cumple tus expectativas, solicitas el reembolso total a través de la plataforma Hotmart y recibes la devolución de tu dinero sin preguntas.",
+ "_meta": {
+ "usd": 0.02133,
+ "modelo": "gemini-3.6-flash",
+ "fallos": [
+ "descripción corta: 375 palabras"
+ ],
+ "fecha": "2026-08-06"
+ }
 }

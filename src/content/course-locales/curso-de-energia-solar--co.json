@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-energia-solar",
-  "country": "co",
-  "angulo": "hobby",
-  "meta_title": "Curso de instalación de paneles solares en Colombia",
-  "meta_description": "Aprende a montar tu propio sistema solar en tu casa o finca en Colombia. Inscríbete al curso de instalación de paneles solares hoy con PSE o Nequi.",
-  "h1": "Aprende a montar tu propio sistema fotovoltaico con este curso de instalación de paneles solares",
-  "subtitulo": "Diseña, conecta y pon a punto paneles, baterías e inversores para energizar tu casa, cabaña o proyecto personal sin depender de la red.",
-  "descripcion": "## El reto de energizar tus propios espacios sin arruinar tus equipos\n\nSi alguna vez has querido llevar luz a una finca en Melgar, alimentar una bomba de agua en el campo o simplemente reducir el consumo de tu casa instalando tus propios equipos, te habrás dado cuenta de que la teoría en internet suele ser confusa. Un mal cálculo en el calibre del cableado funde un regulador de carga en tres segundos, y conectar las baterías en la secuencia equivocada destruye el banco de almacenamiento antes de encender el primer bombillo. Este **curso de instalación de paneles solares** está pensado para que dejes de adivinar y aprendas la lógica eléctrica real detrás de un sistema fotovoltaico autónomo.\n\n## De la teoría del panel al armado real en tu casa o finca\n\n### Dimensionamiento correcto sin desperdiciar presupuesto\nEl error más común de quien empieza por afición es comprar un panel solar de 100 vatios pensando que alimentará una nevera durante todo el día. En esta capacitación aprenderás a calcular los consumos reales en vatios-hora de tus electrodomésticos, la radiación solar promedio según la zona geográfica de Colombia donde te encuentres y la cantidad exacta de paneles y baterías que necesitas. Así evitas gastar dinero de más en equipos que no vas a aprovechar o quedarte a oscuras a medianoche.\n\n### Cableado, protecciones y ensamblaje seguro\nConectar un panel no es cruzar dos cables. Aprenderás a elegir las protecciones magnetotérmicas, los fusibles adecuados para corriente continua y la sección de cable que evita caídas de tensión peligrosas. Entenderás la diferencia entre inversores de onda senoidal pura y de onda modificada para que no quemes los motores de tus herramientas ni los circuitos sensibles de tu televisor.\n\n## Lo que vas a lograr y los límites reales del aprendizaje\n\nEl programa impartido por Ricardo Salazar te da las herramientas prácticas para diseñar, instalar y mantener sistemas solares aislados de la red (off-grid) o pequeños sistemas de autoconsumo residencial. Vas a poder iluminar tu finca, montar un sistema de respaldo para tu casa frente a los cortes de energía o construir estaciones solares portátiles para proyectos personales.\n\nQueremos poner un techo claro a las expectativas: esta formación no te otorga una matrícula profesional de técnico electricista (como la tarjeta CONTE en Colombia) ni te habilita para firmar diseños industriales de megavatios ante las comercializadoras de energía. Su propósito es darte la autonomía técnica, la seguridad eléctrica y la habilidad práctica para realizar tus propios proyectos de autoconsumo con criterios de ingeniería reales.\n\n## Un formato práctico para ejecutar paso a paso\n\nA través de 14 horas de formación repartidas en 5 módulos y 18 lecciones, puedes revisar cada procedimiento técnico cuantas veces necesites antes de manipular un solo componente. Desde la inclinación adecuada del panel según la latitud hasta las pruebas de polaridad y voltaje con el multímetro, el recorrido audiovisual te guía para que ejecutes cada conexión de forma segura y sin improvisar.",
-  "faqs": [
-    {
-      "q": "¿Cómo puedo pagar el curso desde Colombia?",
-      "a": "Puedes pagar directamente en pesos colombianos utilizando PSE, Nequi, Daviplata o tarjeta de crédito. La plataforma realiza la conversión automática al momento del pago."
-    },
-    {
-      "q": "¿El precio de USD 42 ya tiene el descuento aplicado?",
-      "a": "Sí, la tarifa de USD 42 ya incluye el 40% de descuento de lanzamiento. No necesitas ingresar ningún código adicional durante la compra."
-    },
-    {
-      "q": "¿El certificado me sirve para firmar proyectos eléctricos en Colombia?",
-      "a": "No. El certificado acredita la finalización y aprobación de esta capacitación de educación informal. No reemplaza la tarjeta profesional del CONTE ni la matrícula de ingeniería requerida para tramitar conexiones legales ante operadores de red como Enel, EPM o Celsia."
-    },
-    {
-      "q": "¿Necesito conocimientos previos de electricidad para tomar las lecciones?",
-      "a": "No es indispensable. El contenido parte desde los conceptos básicos de voltaje, corriente y potencia, explicando el uso del multímetro y las normas de seguridad antes de pasar a las conexiones complejas."
-    },
-    {
-      "q": "¿Tengo que comprar herramientas solares antes de iniciar?",
-      "a": "No. Te recomendamos ver primero las 18 lecciones para entender qué herramientas básicas (como ponchadora de conectores MC4, multímetro y pelacables) realmente vas a necesitar para tu proyecto personal."
-    },
-    {
-      "q": "¿Este curso sirve para armar un sistema solar en una finca sin red eléctrica?",
-      "a": "Sí, está totalmente enfocado en explicar cómo funcionan los sistemas aislados (off-grid), los cuales utilizan bancos de baterías para almacenar energía en zonas sin cobertura de la red eléctrica tradicional."
-    },
-    {
-      "q": "¿Cuánto tiempo tengo para completar las 14 horas de contenido?",
-      "a": "El acceso a las 18 lecciones distribuidas en los 5 módulos es permanente. Puedes estudiar a tu propio ritmo, repetir las clases cuantas veces quieras y consultar el material cuando estés ejecutando tu instalación."
-    },
-    {
-      "q": "¿Qué hago si tengo dudas sobre el cálculo de mis paneles?",
-      "a": "Dentro del aula virtual puedes dejar tus preguntas específicas sobre el dimensionamiento o las conexiones de tu proyecto para recibir orientación técnica directamente dentro de la plataforma."
-    }
-  ],
-  "beneficios": [
-    "Montar estructuras sobre techos planos e inclinados sin dañar la impermeabilización.",
-    "Conectar paneles en serie y paralelo siguiendo esquemas reales de voltaje.",
-    "Configurar inversores híbridos y de red para optimizar el consumo eléctrico.",
-    "Calcular la inclinación exacta según la ubicación geográfica en Colombia.",
-    "Realizar el cableado bajo normativa técnica para evitar cortocircuitos.",
-    "Integrar bancos de baterías para sistemas aislados de la red pública."
-  ],
-  "para_quien": [
-    "Ideal si quieres instalar tu propio sistema de energía en casa para reducir la factura de luz.",
-    "Perfecto para quienes disfrutan de los proyectos técnicos y quieren aprender un nuevo oficio práctico.",
-    "Diseñado para aficionados que buscan entender cómo funciona la energía renovable sin tecnicismos innecesarios.",
-    "Útil si buscas un pasatiempo productivo que mejore la autonomía energética de tu vivienda."
-  ],
-  "requisitos": [
-    "Tener herramientas manuales básicas como taladro, llaves fijas y multímetro.",
-    "Disponer de un espacio de práctica, aunque sea un panel pequeño para pruebas iniciales.",
-    "Contar con conexión a internet para ver las lecciones desde cualquier dispositivo."
-  ],
-  "certificado": "Al finalizar las 18 lecciones obtendrás un certificado de asistencia. Ten presente que este documento acredita tu participación en el curso de instalación de paneles solares, pero no te habilita para firmar instalaciones técnicas o proyectos eléctricos que requieran matrícula profesional ante las autoridades competentes en Colombia.",
-  "garantia": "Si sientes que el contenido no cumple tus expectativas, tienes 7 días de garantía desde el momento de tu compra a través de Hotmart para solicitar la devolución total de tu dinero, sin preguntas adicionales.",
-  "_meta": {
-    "usd": 0.01278,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-energia-solar",
+ "country": "co",
+ "angulo": "hobby",
+ "meta_title": "Curso de instalación de paneles solares en Colombia",
+ "meta_description": "Aprende a montar tu propio sistema solar en tu casa o finca en Colombia. Inscríbete al curso de instalación de paneles solares hoy con PSE o Nequi.",
+ "h1": "Aprende a montar tu propio sistema fotovoltaico con este curso de instalación de paneles solares",
+ "subtitulo": "Diseña, conecta y pon a punto paneles, baterías e inversores para energizar tu casa, cabaña o proyecto personal sin depender de la red.",
+ "descripcion": "## El reto de energizar tus propios espacios sin arruinar tus equipos\n\nSi alguna vez has querido llevar luz a una finca en Melgar, alimentar una bomba de agua en el campo o simplemente reducir el consumo de tu casa instalando tus propios equipos, te habrás dado cuenta de que la teoría en internet suele ser confusa. Un mal cálculo en el calibre del cableado funde un regulador de carga en tres segundos, y conectar las baterías en la secuencia equivocada destruye el banco de almacenamiento antes de encender el primer bombillo. Este **curso de instalación de paneles solares** está pensado para que dejes de adivinar y aprendas la lógica eléctrica real detrás de un sistema fotovoltaico autónomo.\n\n## De la teoría del panel al armado real en tu casa o finca\n\n### Dimensionamiento correcto sin desperdiciar presupuesto\nEl error más común de quien empieza por afición es comprar un panel solar de 100 vatios pensando que alimentará una nevera durante todo el día. En esta capacitación aprenderás a calcular los consumos reales en vatios-hora de tus electrodomésticos, la radiación solar promedio según la zona geográfica de Colombia donde te encuentres y la cantidad exacta de paneles y baterías que necesitas. Así evitas gastar dinero de más en equipos que no vas a aprovechar o quedarte a oscuras a medianoche.\n\n### Cableado, protecciones y ensamblaje seguro\nConectar un panel no es cruzar dos cables. Aprenderás a elegir las protecciones magnetotérmicas, los fusibles adecuados para corriente continua y la sección de cable que evita caídas de tensión peligrosas. Entenderás la diferencia entre inversores de onda senoidal pura y de onda modificada para que no quemes los motores de tus herramientas ni los circuitos sensibles de tu televisor.\n\n## Lo que vas a lograr y los límites reales del aprendizaje\n\nEl programa impartido por Ricardo Salazar te da las herramientas prácticas para diseñar, instalar y mantener sistemas solares aislados de la red (off-grid) o pequeños sistemas de autoconsumo residencial. Vas a poder iluminar tu finca, montar un sistema de respaldo para tu casa frente a los cortes de energía o construir estaciones solares portátiles para proyectos personales.\n\nQueremos poner un techo claro a las expectativas: esta formación no te otorga una matrícula profesional de técnico electricista (como la tarjeta CONTE en Colombia) ni te habilita para firmar diseños industriales de megavatios ante las comercializadoras de energía. Su propósito es darte la autonomía técnica, la seguridad eléctrica y la habilidad práctica para realizar tus propios proyectos de autoconsumo con criterios de ingeniería reales.\n\n## Un formato práctico para ejecutar paso a paso\n\nA través de 14 horas de formación repartidas en 5 módulos y 18 lecciones, puedes revisar cada procedimiento técnico cuantas veces necesites antes de manipular un solo componente. Desde la inclinación adecuada del panel según la latitud hasta las pruebas de polaridad y voltaje con el multímetro, el recorrido audiovisual te guía para que ejecutes cada conexión de forma segura y sin improvisar.",
+ "faqs": [
+ {
+ "q": "¿Cómo puedo pagar el curso desde Colombia?",
+ "a": "Puedes pagar directamente en pesos colombianos utilizando PSE, Nequi, Daviplata o tarjeta de crédito. La plataforma realiza la conversión automática al momento del pago."
+ },
+ {
+ "q": "¿El precio publicado ya tiene el descuento aplicado?",
+ "a": "Sí, el precio publicado ya es el precio final. No necesitas ingresar ningún código adicional durante la compra."
+ },
+ {
+ "q": "¿El certificado me sirve para firmar proyectos eléctricos en Colombia?",
+ "a": "No. El certificado acredita la finalización y aprobación de esta capacitación de educación informal. No reemplaza la tarjeta profesional del CONTE ni la matrícula de ingeniería requerida para tramitar conexiones legales ante operadores de red como Enel, EPM o Celsia."
+ },
+ {
+ "q": "¿Necesito conocimientos previos de electricidad para tomar las lecciones?",
+ "a": "No es indispensable. El contenido parte desde los conceptos básicos de voltaje, corriente y potencia, explicando el uso del multímetro y las normas de seguridad antes de pasar a las conexiones complejas."
+ },
+ {
+ "q": "¿Tengo que comprar herramientas solares antes de iniciar?",
+ "a": "No. Te recomendamos ver primero las 18 lecciones para entender qué herramientas básicas (como ponchadora de conectores MC4, multímetro y pelacables) realmente vas a necesitar para tu proyecto personal."
+ },
+ {
+ "q": "¿Este curso sirve para armar un sistema solar en una finca sin red eléctrica?",
+ "a": "Sí, está totalmente enfocado en explicar cómo funcionan los sistemas aislados (off-grid), los cuales utilizan bancos de baterías para almacenar energía en zonas sin cobertura de la red eléctrica tradicional."
+ },
+ {
+ "q": "¿Cuánto tiempo tengo para completar las 14 horas de contenido?",
+ "a": "El acceso a las 18 lecciones distribuidas en los 5 módulos es permanente. Puedes estudiar a tu propio ritmo, repetir las clases cuantas veces quieras y consultar el material cuando estés ejecutando tu instalación."
+ },
+ {
+ "q": "¿Qué hago si tengo dudas sobre el cálculo de mis paneles?",
+ "a": "Dentro del aula virtual puedes dejar tus preguntas específicas sobre el dimensionamiento o las conexiones de tu proyecto para recibir orientación técnica directamente dentro de la plataforma."
+ }
+ ],
+ "beneficios": [
+ "Montar estructuras sobre techos planos e inclinados sin dañar la impermeabilización.",
+ "Conectar paneles en serie y paralelo siguiendo esquemas reales de voltaje.",
+ "Configurar inversores híbridos y de red para optimizar el consumo eléctrico.",
+ "Calcular la inclinación exacta según la ubicación geográfica en Colombia.",
+ "Realizar el cableado bajo normativa técnica para evitar cortocircuitos.",
+ "Integrar bancos de baterías para sistemas aislados de la red pública."
+ ],
+ "para_quien": [
+ "Ideal si quieres instalar tu propio sistema de energía en casa para reducir la factura de luz.",
+ "Perfecto para quienes disfrutan de los proyectos técnicos y quieren aprender un nuevo oficio práctico.",
+ "Diseñado para aficionados que buscan entender cómo funciona la energía renovable sin tecnicismos innecesarios.",
+ "Útil si buscas un pasatiempo productivo que mejore la autonomía energética de tu vivienda."
+ ],
+ "requisitos": [
+ "Tener herramientas manuales básicas como taladro, llaves fijas y multímetro.",
+ "Disponer de un espacio de práctica, aunque sea un panel pequeño para pruebas iniciales.",
+ "Contar con conexión a internet para ver las lecciones desde cualquier dispositivo."
+ ],
+ "certificado": "Al finalizar las 18 lecciones obtendrás un certificado de asistencia. Ten presente que este documento acredita tu participación en el curso de instalación de paneles solares, pero no te habilita para firmar instalaciones técnicas o proyectos eléctricos que requieran matrícula profesional ante las autoridades competentes en Colombia.",
+ "garantia": "Si sientes que el contenido no cumple tus expectativas, tienes 7 días de garantía desde el momento de tu compra a través de Hotmart para solicitar la devolución total de tu dinero, sin preguntas adicionales.",
+ "_meta": {
+ "usd": 0.01278,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }
