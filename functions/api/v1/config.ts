@@ -16,9 +16,19 @@ interface FilaWhatsApp {
   numero: string;
   offset_x: number;
   offset_y: number;
+  paginas_ocultas: string;
 }
 
-const DEFECTO = { activo: true, numero: '', x: 21, y: 58 };
+const DEFECTO = { activo: true, numero: '', x: 21, y: 58, paginasOcultas: [] as string[] };
+
+const listaJson = (s: string): string[] => {
+  try {
+    const v = JSON.parse(s);
+    return Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string') : [];
+  } catch {
+    return [];
+  }
+};
 
 const cacheado = (data: unknown, segundos: number): Response =>
   new Response(JSON.stringify(data), {
@@ -32,7 +42,7 @@ const cacheado = (data: unknown, segundos: number): Response =>
 export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
   try {
     const f = await env.DB.prepare(
-      'SELECT activo, numero, offset_x, offset_y FROM widget_whatsapp WHERE id = 1',
+      'SELECT activo, numero, offset_x, offset_y, paginas_ocultas FROM widget_whatsapp WHERE id = 1',
     ).first<FilaWhatsApp>();
     if (!f) return cacheado({ whatsapp: DEFECTO }, 60);
     return cacheado(
@@ -43,6 +53,7 @@ export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
           numero: (f.numero ?? '').replace(/\D/g, ''),
           x: f.offset_x,
           y: f.offset_y,
+          paginasOcultas: listaJson(f.paginas_ocultas ?? '[]'),
         },
       },
       60,
