@@ -59,7 +59,8 @@ export function organizationSchema() {
       url: `${SITE.url}/favicon.svg`,
       caption: SITE.name,
     },
-    sameAs: Object.values(SITE.social),
+    // Solo perfiles que existen: un sameAs a un 404 es peor que no declararlo.
+    sameAs: Object.values(SITE.social).filter(Boolean),
     // El área servida sale de los países que el sitio realmente publica, no de
     // una lista aspiracional.
     areaServed: COUNTRIES.map((c) => ({ '@type': 'Country', name: c.name })),
