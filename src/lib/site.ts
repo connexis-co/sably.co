@@ -12,11 +12,20 @@ export const SITE = {
    * inventado que el checkout de Hotmart ignoraba, y un `offerEndsAt` fijo que
    * convertía la oferta en perpetua. Ver la cabecera de promo.ts.
    */
+  /**
+   * Perfiles REALES de la marca (verificados el 2026-08-12: los tres primeros
+   * responden 200). El handle es `sably.cursos` en todas las redes — antes
+   * apuntaban a `sably.co`, que no es la cuenta.
+   *
+   * `youtube` va vacío a propósito: el canal @sably.cursos aún no existe
+   * (404). Footer y el `sameAs` del schema filtran los vacíos; cuando JP cree
+   * el canal, basta con poner aquí la URL.
+   */
   social: {
-    instagram: 'https://instagram.com/sably.co',
-    tiktok: 'https://tiktok.com/@sably.co',
-    facebook: 'https://facebook.com/sably.co',
-    youtube: 'https://youtube.com/@sably-co',
+    instagram: 'https://www.instagram.com/sably.cursos',
+    tiktok: 'https://www.tiktok.com/@sably.cursos',
+    facebook: 'https://www.facebook.com/sably.cursos',
+    youtube: '',
   },
   filiales: [
     {
