@@ -1,23 +1,27 @@
 /**
- * Webhook de Hotmart → Meta CAPI + GA4 Measurement Protocol (macro conversión server-side).
+ * Webhook de Hotmart → D1 (base de compradores) + Meta CAPI + GA4 (macro conversión).
  *
- * v2 — mejoras tras la prueba de configuración del 2026-08-12:
- *  - Filtra los payloads de PRUEBA del panel (email @example.com / testeComprador).
- *  - Usa purchase.origin.sck para atribución real: el decorador de GTM adjunta
- *    fbp/fbc (Meta), client_id de GA4 y gclid al clic hacia Hotmart, y aquí se
- *    recuperan → matching determinista en Meta y sesión/fuente real en GA4.
- *  - checkout_country → user_data.country (hasheado) para mejor matching.
- *  - PURCHASE_REFUNDED / CHARGEBACK → evento `refund` en GA4 (ajusta ingresos).
+ * v3 — persistencia: cada evento con datos de compra (aprobada, completa, reembolso,
+ * chargeback, cancelada, abandono de carrito…) se guarda en D1 ANTES de reenviar,
+ * con el nombre, correo, teléfono, país, producto, valor y la atribución sck
+ * (fbp/fbc/cid/gclid) que adjunta el decorador de GTM. Los reintentos de Hotmart
+ * no duplican (UNIQUE transaction+event). Los tests del panel no se guardan.
  *
- * URL: https://sably.co/api/hotmart-webhook  ·  Registro: Hotmart → Herramientas → Webhook (2.0).
- * Vars en Pages: META_CAPI_TOKEN, GA4_API_SECRET (+ META_CAPI_PIXEL_ID, GA4_MEASUREMENT_ID,
- * HOTMART_HOTTOK, META_TEST_EVENT_CODE opcionales).
+ * Panel: /admin/ventas?key=<SNAPSHOT_TOKEN> · API: /api/v1/ventas?key=…
+ * Vars en Pages: META_CAPI_TOKEN, GA4_API_SECRET (+ META_CAPI_PIXEL_ID,
+ * GA4_MEASUREMENT_ID, HOTMART_HOTTOK, META_TEST_EVENT_CODE opcionales).
  */
 
 const sha256 = async (text) => {
   const data = new TextEncoder().encode(text);
   const hash = await crypto.subtle.digest('SHA-256', data);
   return [...new Uint8Array(hash)].map((b) => b.toString(16).padStart(2, '0')).join('');
+};
+
+const ulid = () => {
+  const t = Date.now().toString(36).padStart(9, '0');
+  const r = crypto.getRandomValues(new Uint8Array(10));
+  return (t + [...r].map((b) => b.toString(36).padStart(2, '0')).join('')).toUpperCase();
 };
 
 /** El decorador de GTM arma: "fbp~..." | "fbc~..." | "cid~123.456" | "gcl~..." */
@@ -52,51 +56,73 @@ export async function onRequestPost({ request, env }) {
   const clientId = /^\d+\.\d+$/.test(sck.cid ?? '') ? sck.cid : `hotmart.${transaction}`;
   const mid = env.GA4_MEASUREMENT_ID || 'G-G7HV230BFJ';
 
-  // Tests del panel de Hotmart: nunca reenviar a Meta/GA4.
-  const buyerEmail = String(data?.buyer?.email ?? '');
-  const buyerName = String(data?.buyer?.name ?? '');
+  const buyerEmail = String(data?.buyer?.email ?? '').trim().toLowerCase();
+  const buyerName = String(data?.buyer?.name ?? '').trim();
+  const buyerPhone = String(data?.buyer?.checkout_phone ?? data?.buyer?.phone ?? '').replace(/\D/g, '');
+  const value = Number(purchase?.price?.value ?? purchase?.full_price?.value ?? 0);
+  const currency = purchase?.price?.currency_value ?? purchase?.price?.currency_code ?? '';
+  const productName = data?.product?.name ?? '';
+  const productId = String(data?.product?.id ?? '');
+  const countryIso = String(purchase?.checkout_country?.iso ?? '').toUpperCase();
+  const countryName = String(purchase?.checkout_country?.name ?? '');
+
+  // Tests del panel de Hotmart: ni base de datos ni reenvío.
   if (buyerEmail.endsWith('@example.com') || /^testeComprador/i.test(buyerName)) {
     return Response.json({ ok: true, skipped: 'hotmart-test-payload' });
   }
 
-  // Reembolsos y contracargos → refund en GA4 (misma transacción) y fin.
+  const results = { db: null, capi: null, ga4: null, attribution: Object.keys(sck).join(',') || 'none' };
+
+  // ── D1: base de compradores/eventos (todo evento con datos útiles) ──
+  if (env.DB && (buyerEmail || transaction.startsWith('hm-') === false)) {
+    try {
+      await env.DB.prepare(
+        `INSERT OR IGNORE INTO hotmart_eventos
+         (id, transaction_code, event, status, product_id, product_name, buyer_name, buyer_email,
+          buyer_phone, country_iso, country_name, value, currency, sck_fbp, sck_fbc, sck_cid,
+          sck_gclid, approved_date)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      ).bind(
+        ulid(), transaction, event || status || 'UNKNOWN', status || null,
+        productId || null, productName || null, buyerName || null, buyerEmail || null,
+        buyerPhone || null, countryIso || null, countryName || null,
+        Number.isFinite(value) && value > 0 ? value : null, currency || null,
+        sck.fbp ?? null, sck.fbc ?? null, sck.cid ?? null, sck.gcl ?? null,
+        Number(purchase?.approved_date) || null,
+      ).run();
+      results.db = 'ok';
+    } catch (e) {
+      results.db = `error:${String(e.message).slice(0, 120)}`;
+    }
+  } else {
+    results.db = 'skipped';
+  }
+
+  // ── Reembolsos y contracargos → refund en GA4 y fin ────────
   if (['PURCHASE_REFUNDED', 'PURCHASE_CHARGEBACK'].includes(event) || ['REFUNDED', 'CHARGEBACK'].includes(status)) {
-    let ga4 = 'skipped:no-secret';
     if (env.GA4_API_SECRET) {
       const r = await fetch(`https://www.google-analytics.com/mp/collect?measurement_id=${mid}&api_secret=${env.GA4_API_SECRET}`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          client_id: clientId,
-          events: [{ name: 'refund', params: { transaction_id: transaction } }],
-        }),
+        body: JSON.stringify({ client_id: clientId, events: [{ name: 'refund', params: { transaction_id: transaction } }] }),
       });
-      ga4 = r.status < 300 ? 'ok' : `error:${r.status}`;
+      results.ga4 = r.status < 300 ? 'ok:refund' : `error:${r.status}`;
     }
-    return Response.json({ ok: true, refund: transaction, ga4 });
+    return Response.json({ ok: true, refund: transaction, results });
   }
 
+  // Solo las compras aprobadas/completas se reenvían como conversión.
   if (event !== 'PURCHASE_APPROVED' && status !== 'APPROVED' && status !== 'COMPLETE') {
-    return Response.json({ ok: true, skipped: `${event}/${status}` });
+    return Response.json({ ok: true, stored: results.db, skipped: `${event}/${status}` });
   }
-
-  const value = Number(purchase?.price?.value ?? purchase?.full_price?.value ?? 0);
-  const currency = purchase?.price?.currency_value ?? purchase?.price?.currency_code ?? 'COP';
-  const productName = data?.product?.name ?? 'curso';
-  const productId = String(data?.product?.id ?? '');
-  const email = buyerEmail.trim().toLowerCase();
-  const phone = String(data?.buyer?.checkout_phone ?? data?.buyer?.phone ?? '').replace(/\D/g, '');
-  const countryIso = String(data?.purchase?.checkout_country?.iso ?? '').trim().toLowerCase();
-
-  const results = { capi: null, ga4: null, attribution: Object.keys(sck).join(',') || 'none' };
 
   // ── Meta CAPI ──────────────────────────────────────────────
   if (env.META_CAPI_TOKEN) {
     const pixel = env.META_CAPI_PIXEL_ID || '1711030209407213';
     const userData = {};
-    if (email) userData.em = [await sha256(email)];
-    if (phone) userData.ph = [await sha256(phone)];
-    if (countryIso) userData.country = [await sha256(countryIso)];
+    if (buyerEmail) userData.em = [await sha256(buyerEmail)];
+    if (buyerPhone) userData.ph = [await sha256(buyerPhone)];
+    if (countryIso) userData.country = [await sha256(countryIso.toLowerCase())];
     if (sck.fbp) userData.fbp = sck.fbp;
     if (sck.fbc) userData.fbc = sck.fbc;
     const body = {
@@ -109,8 +135,8 @@ export async function onRequestPost({ request, env }) {
         user_data: userData,
         custom_data: {
           value,
-          currency,
-          content_name: productName,
+          currency: currency || 'COP',
+          content_name: productName || 'curso',
           content_ids: productId ? [productId] : undefined,
           content_type: 'product',
           order_id: transaction,
@@ -139,18 +165,14 @@ export async function onRequestPost({ request, env }) {
       const params = {
         transaction_id: transaction,
         value,
-        currency,
-        items: [{ item_id: productId || undefined, item_name: productName, quantity: 1, price: value }],
+        currency: currency || 'COP',
+        items: [{ item_id: productId || undefined, item_name: productName || 'curso', quantity: 1, price: value }],
       };
       if (sck.gcl) params.gclid = sck.gcl;
       const r = await fetch(`https://www.google-analytics.com/mp/collect?measurement_id=${mid}&api_secret=${env.GA4_API_SECRET}`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({
-          client_id: clientId,
-          non_personalized_ads: false,
-          events: [{ name: 'purchase', params }],
-        }),
+        body: JSON.stringify({ client_id: clientId, non_personalized_ads: false, events: [{ name: 'purchase', params }] }),
       });
       results.ga4 = r.status < 300 ? 'ok' : `error:${r.status}`;
     } catch (e) {
@@ -160,10 +182,10 @@ export async function onRequestPost({ request, env }) {
     results.ga4 = 'skipped:no-secret';
   }
 
-  const anyOk = String(results.capi).startsWith('ok') || String(results.ga4).startsWith('ok');
+  const anyOk = String(results.capi).startsWith('ok') || String(results.ga4).startsWith('ok') || results.db === 'ok';
   return Response.json({ ok: anyOk, transaction, results }, { status: anyOk ? 200 : 502 });
 }
 
 export async function onRequestGet() {
-  return Response.json({ service: 'hotmart-webhook', status: 'alive', version: 2 });
+  return Response.json({ service: 'hotmart-webhook', status: 'alive', version: 3 });
 }
