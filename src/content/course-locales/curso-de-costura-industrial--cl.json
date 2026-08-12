@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-costura-industrial",
-  "country": "cl",
-  "angulo": "emprendimiento",
-  "meta_title": "Curso de costura industrial: Emprende tu taller en Chile",
-  "meta_description": "Aprende confección técnica con el curso de costura industrial y arma tu taller en Chile. Domina recta y remalle. Paga en CLP con Webpay e inicia hoy.",
-  "h1": "Curso de costura industrial para emprender tu propio taller de confección",
-  "subtitulo": "Pasa de la confección casera a la producción en serie dominando el enhebrado, la tensión de hilo y el remalle profesional.",
-  "descripcion": "Coser prendas a nivel comercial exige una precisión que la maquinaria casera no soporta. Cuando intentas fabricar una tanda de ropa para vender, los problemas típicos aparecen de inmediato: puntadas sueltas, arrugas en las costuras laterales, agujas despuntadas al pasar por sobrecosturas gruesas y la frustración de perder horas ajustando el prensatelas. Un **curso de costura industrial** te entrega los fundamentos para operar equipos de alta velocidad sin arruinar géneros ni perder material en el proceso.\n\n## Ajustes de precisión para evitar fallas en la confección\n\nEl error más común al pasar a la maquinaria de alta velocidad es tratarla como si fuera una máquina de mesa. La diferencia radica en la aceleración y la tensión constante de los hilos. Si la tensión del garfio inferior en una remalladora queda floja, la prenda se abrirá al primer tirón de uso. Si el arrastre de la máquina recta no está calibrado para el grosor del textil, el género se estira y queda ondulado.\n\nEn la capacitación guiada por Héctor Villamizar, repasas cómo corregir cada uno de estos fallos antes de iniciar una tirada de producción. Aprenderás a calibrar la presión de la barra prensatelas según el gramaje del textil, a realizar el enhebrado correcto en maquinaria overlock de 3 y 4 hilos, y a solucionar el clásico encallamiento de hilo que frena jornadas enteras de trabajo.\n\n### Manejo de textiles de alta demanda comercial\n\nNo todas las telas se comportan igual bajo el diente del impelente. Durante la formación se aborda cómo trabajar materiales pesados como gabardina o denim, junto con tejidos de punto como algodón franela o lycra. Ajustar el paso de aguja correcto según el insumo evita el picado de la fibra y garantiza costuras elásticas que no se revientan con el movimiento.\n\n## De la pieza individual a la producción en serie\n\nPara rentabilizar un taller de confección en Chile, la rapidez de armado es tan importante como la pulcritud del remate. Trabajar una sola prenda de principio a fin consume el doble de tiempo que organizar una línea por procesos.\n\n- Organizar el armado en cadena: unir hombros, pegar cuellos y cerrar costados por bloques de prendas.\n- Controlar el margen de costura exacto sin depender de marcas dibujadas en la tela.\n- Rematar esquinas y curvas sin disminuir de forma drástica la velocidad de la pedalera.\n- Aplicar elastizados y pretinas con tracción uniforme para evitar deformaciones en la prenda final.\n\n## Expectativas reales para tu proyecto de vestuario\n\nConviene dejar un punto claro: esta capacitación no te convertirá en dueño de una fábrica textil industrial de cien empleados en tres meses ni garantiza ingresos automáticos. La velocidad en la pedalera y la habilidad para detectar una puntada defectuosa a simple vista se construyen acumulando horas de práctica sobre retales antes de cortar géneros definitivos.\n\nLo que obtendrás es la autonomía técnica para resolver atascos mecánicos sin depender de un técnico por fallas menores de tensión, además de la capacidad de entregar terminaciones limpias que resistan el lavado y el uso continuo. Si estás preparando tu marca propia de ropa o quieres prestar servicios de confección para terceros, dominar estas 15 horas de entrenamiento es el paso inicial para sostener un negocio viable en el rubro.",
-  "faqs": [
-    {
-      "q": "¿Cómo puedo pagar el curso desde Chile?",
-      "a": "Puedes pagar directamente con tarjetas de crédito o débito a través de Webpay y otras pasarelas integradas en la plataforma. La conversión de dólares USD a pesos chilenos (CLP) la realiza automáticamente tu banco al momento del pago."
-    },
-    {
-      "q": "¿Existe algún cobro extra o el descuento ya está aplicado?",
-      "a": "El precio final de USD 31 ya incluye el 40% de descuento de lanzamiento sobre el costo original de USD 52. No hay cobros adicionales ni suscripciones mensuales."
-    },
-    {
-      "q": "¿El certificado de participación me habilita para abrir una empresa en Chile?",
-      "a": "El certificado acredita que completaste las 15 horas y 16 lecciones del curso. Es un respaldo de tus conocimientos técnicos para presentar ante clientes o empleadores, pero no sustituye las patentes comerciales ni trámites tributarios requeridos por el SII para la creación de una empresa."
-    },
-    {
-      "q": "¿Necesito tener una máquina industrial en casa para realizar la formación?",
-      "a": "No es obligatorio tenerla el primer día para ver las clases, pero para aprovechar la enseñanza y desarrollar destreza en los pedales necesitarás acceso a una máquina recta o remalladora industrial donde practicar."
-    },
-    {
-      "q": "¿Quién dicta las clases de este programa?",
-      "a": "El curso es impartido por el instructor Héctor Villamizar, enfocado en la técnica operativa y el ajuste de maquinaria de confección."
-    },
-    {
-      "q": "¿Tengo un plazo límite para ver las 16 lecciones?",
-      "a": "No. Una vez realizado el pago tienes acceso continuo a las 15 horas de contenido guardado en la plataforma, para que estudies a tu ritmo y revises las lecciones cuando lo necesites."
-    },
-    {
-      "q": "¿Cuánto tiempo me tomará recuperar la inversión del curso?",
-      "a": "Depende de la velocidad con la que pongas en práctica la técnica, la estructura de costos de tus prendas y tu capacidad para comercializar los productos. El curso entrega la técnica, pero los resultados económicos varían según la gestión de cada taller."
-    },
-    {
-      "q": "¿Qué hago si se me dificulta graduar la tensión de los hilos?",
-      "a": "En los módulos de calibración se explica el paso a paso visual para diagnosticar qué hilo está fallando. La recomendación es guardar muestras de costura con distintas tensiones anotadas para usar como referencia de ajuste rápido."
-    }
-  ],
-  "beneficios": [
-    "Ajustar la tensión del hilo para evitar costuras que se sueltan al primer uso.",
-    "Operar máquinas rectas y remalladoras sin que la tela se frunza o se desplace.",
-    "Calcular con precisión el consumo de tela para reducir el desperdicio en tus producciones.",
-    "Dominar el enhebrado rápido de maquinaria pesada para no perder tiempo en el taller.",
-    "Ejecutar terminaciones internas que aguantan lavados constantes sin deshilacharse.",
-    "Interpretar moldes técnicos para pasar del diseño al producto terminado sin errores de escala."
-  ],
-  "para_quien": [
-    "Personas que quieren montar un taller textil propio en casa y necesitan profesionalizar sus acabados.",
-    "Emprendedores de moda que buscan dejar de tercerizar la confección para mejorar sus márgenes.",
-    "Quienes ya saben coser a nivel doméstico pero se traban al usar maquinaria industrial.",
-    "Aficionados que necesitan entender el funcionamiento mecánico de las máquinas para reparar fallas simples."
-  ],
-  "requisitos": [
-    "Disponer de acceso a una máquina de coser industrial o tener la posibilidad de alquilar una para practicar.",
-    "Tener nociones básicas sobre manejo de telas y uso de herramientas de medición.",
-    "Contar con una conexión a internet estable para visualizar las lecciones en video."
-  ],
-  "certificado": "Al finalizar el curso recibes un documento digital que acredita la conclusión de las 15 horas de formación. Este certificado avala tu capacidad técnica para manejar maquinaria y ejecutar procesos de costura, aunque no reemplaza una titulación técnica oficial ni te habilita legalmente para ejercer funciones que requieran licencia profesional.",
-  "garantia": "Tienes 7 días desde el momento de la compra para revisar el material en la plataforma Hotmart. Si el curso no cumple con tus expectativas o no era lo que buscabas, puedes solicitar la devolución total de tu dinero directamente en la plataforma, sin preguntas ni trabas de nuestra parte.",
-  "_meta": {
-    "usd": 0.01381,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-costura-industrial",
+ "country": "cl",
+ "angulo": "emprendimiento",
+ "meta_title": "Curso de costura industrial: Emprende tu taller en Chile",
+ "meta_description": "Aprende confección técnica con el curso de costura industrial y arma tu taller en Chile. Domina recta y remalle. Paga en CLP con Webpay e inicia hoy.",
+ "h1": "Curso de costura industrial para emprender tu propio taller de confección",
+ "subtitulo": "Pasa de la confección casera a la producción en serie dominando el enhebrado, la tensión de hilo y el remalle profesional.",
+ "descripcion": "Coser prendas a nivel comercial exige una precisión que la maquinaria casera no soporta. Cuando intentas fabricar una tanda de ropa para vender, los problemas típicos aparecen de inmediato: puntadas sueltas, arrugas en las costuras laterales, agujas despuntadas al pasar por sobrecosturas gruesas y la frustración de perder horas ajustando el prensatelas. Un **curso de costura industrial** te entrega los fundamentos para operar equipos de alta velocidad sin arruinar géneros ni perder material en el proceso.\n\n## Ajustes de precisión para evitar fallas en la confección\n\nEl error más común al pasar a la maquinaria de alta velocidad es tratarla como si fuera una máquina de mesa. La diferencia radica en la aceleración y la tensión constante de los hilos. Si la tensión del garfio inferior en una remalladora queda floja, la prenda se abrirá al primer tirón de uso. Si el arrastre de la máquina recta no está calibrado para el grosor del textil, el género se estira y queda ondulado.\n\nEn la capacitación guiada por Héctor Villamizar, repasas cómo corregir cada uno de estos fallos antes de iniciar una tirada de producción. Aprenderás a calibrar la presión de la barra prensatelas según el gramaje del textil, a realizar el enhebrado correcto en maquinaria overlock de 3 y 4 hilos, y a solucionar el clásico encallamiento de hilo que frena jornadas enteras de trabajo.\n\n### Manejo de textiles de alta demanda comercial\n\nNo todas las telas se comportan igual bajo el diente del impelente. Durante la formación se aborda cómo trabajar materiales pesados como gabardina o denim, junto con tejidos de punto como algodón franela o lycra. Ajustar el paso de aguja correcto según el insumo evita el picado de la fibra y garantiza costuras elásticas que no se revientan con el movimiento.\n\n## De la pieza individual a la producción en serie\n\nPara rentabilizar un taller de confección en Chile, la rapidez de armado es tan importante como la pulcritud del remate. Trabajar una sola prenda de principio a fin consume el doble de tiempo que organizar una línea por procesos.\n\n- Organizar el armado en cadena: unir hombros, pegar cuellos y cerrar costados por bloques de prendas.\n- Controlar el margen de costura exacto sin depender de marcas dibujadas en la tela.\n- Rematar esquinas y curvas sin disminuir de forma drástica la velocidad de la pedalera.\n- Aplicar elastizados y pretinas con tracción uniforme para evitar deformaciones en la prenda final.\n\n## Expectativas reales para tu proyecto de vestuario\n\nConviene dejar un punto claro: esta capacitación no te convertirá en dueño de una fábrica textil industrial de cien empleados en tres meses ni garantiza ingresos automáticos. La velocidad en la pedalera y la habilidad para detectar una puntada defectuosa a simple vista se construyen acumulando horas de práctica sobre retales antes de cortar géneros definitivos.\n\nLo que obtendrás es la autonomía técnica para resolver atascos mecánicos sin depender de un técnico por fallas menores de tensión, además de la capacidad de entregar terminaciones limpias que resistan el lavado y el uso continuo. Si estás preparando tu marca propia de ropa o quieres prestar servicios de confección para terceros, dominar estas 15 horas de entrenamiento es el paso inicial para sostener un negocio viable en el rubro.",
+ "faqs": [
+ {
+ "q": "¿Cómo puedo pagar el curso desde Chile?",
+ "a": "Puedes pagar directamente con tarjetas de crédito o débito a través de Webpay y otras pasarelas integradas en la plataforma. La conversión de dólares USD a pesos chilenos (CLP) la realiza automáticamente tu banco al momento del pago."
+ },
+ {
+ "q": "¿Existe algún cobro extra o el descuento ya está aplicado?",
+ "a": "El precio publicado ya es el precio final. No hay cobros adicionales ni suscripciones mensuales."
+ },
+ {
+ "q": "¿El certificado de participación me habilita para abrir una empresa en Chile?",
+ "a": "El certificado acredita que completaste las 15 horas y 16 lecciones del curso. Es un respaldo de tus conocimientos técnicos para presentar ante clientes o empleadores, pero no sustituye las patentes comerciales ni trámites tributarios requeridos por el SII para la creación de una empresa."
+ },
+ {
+ "q": "¿Necesito tener una máquina industrial en casa para realizar la formación?",
+ "a": "No es obligatorio tenerla el primer día para ver las clases, pero para aprovechar la enseñanza y desarrollar destreza en los pedales necesitarás acceso a una máquina recta o remalladora industrial donde practicar."
+ },
+ {
+ "q": "¿Quién dicta las clases de este programa?",
+ "a": "El curso es impartido por el instructor Héctor Villamizar, enfocado en la técnica operativa y el ajuste de maquinaria de confección."
+ },
+ {
+ "q": "¿Tengo un plazo límite para ver las 16 lecciones?",
+ "a": "No. Una vez realizado el pago tienes acceso continuo a las 15 horas de contenido guardado en la plataforma, para que estudies a tu ritmo y revises las lecciones cuando lo necesites."
+ },
+ {
+ "q": "¿Cuánto tiempo me tomará recuperar la inversión del curso?",
+ "a": "Depende de la velocidad con la que pongas en práctica la técnica, la estructura de costos de tus prendas y tu capacidad para comercializar los productos. El curso entrega la técnica, pero los resultados económicos varían según la gestión de cada taller."
+ },
+ {
+ "q": "¿Qué hago si se me dificulta graduar la tensión de los hilos?",
+ "a": "En los módulos de calibración se explica el paso a paso visual para diagnosticar qué hilo está fallando. La recomendación es guardar muestras de costura con distintas tensiones anotadas para usar como referencia de ajuste rápido."
+ }
+ ],
+ "beneficios": [
+ "Ajustar la tensión del hilo para evitar costuras que se sueltan al primer uso.",
+ "Operar máquinas rectas y remalladoras sin que la tela se frunza o se desplace.",
+ "Calcular con precisión el consumo de tela para reducir el desperdicio en tus producciones.",
+ "Dominar el enhebrado rápido de maquinaria pesada para no perder tiempo en el taller.",
+ "Ejecutar terminaciones internas que aguantan lavados constantes sin deshilacharse.",
+ "Interpretar moldes técnicos para pasar del diseño al producto terminado sin errores de escala."
+ ],
+ "para_quien": [
+ "Personas que quieren montar un taller textil propio en casa y necesitan profesionalizar sus acabados.",
+ "Emprendedores de moda que buscan dejar de tercerizar la confección para mejorar sus márgenes.",
+ "Quienes ya saben coser a nivel doméstico pero se traban al usar maquinaria industrial.",
+ "Aficionados que necesitan entender el funcionamiento mecánico de las máquinas para reparar fallas simples."
+ ],
+ "requisitos": [
+ "Disponer de acceso a una máquina de coser industrial o tener la posibilidad de alquilar una para practicar.",
+ "Tener nociones básicas sobre manejo de telas y uso de herramientas de medición.",
+ "Contar con una conexión a internet estable para visualizar las lecciones en video."
+ ],
+ "certificado": "Al finalizar el curso recibes un documento digital que acredita la conclusión de las 15 horas de formación. Este certificado avala tu capacidad técnica para manejar maquinaria y ejecutar procesos de costura, aunque no reemplaza una titulación técnica oficial ni te habilita legalmente para ejercer funciones que requieran licencia profesional.",
+ "garantia": "Tienes 7 días desde el momento de la compra para revisar el material en la plataforma Hotmart. Si el curso no cumple con tus expectativas o no era lo que buscabas, puedes solicitar la devolución total de tu dinero directamente en la plataforma, sin preguntas ni trabas de nuestra parte.",
+ "_meta": {
+ "usd": 0.01381,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

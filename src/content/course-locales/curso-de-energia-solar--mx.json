@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-energia-solar",
-  "country": "mx",
-  "angulo": "emprendimiento",
-  "meta_title": "Curso de Instalación de Paneles Solares en México",
-  "meta_description": "Aprende a dimensionar e instalar sistemas fotovoltaicos en México. Arranca tu propio negocio solar, cotiza proyectos y conéctate a CFE. ¡Inscríbete hoy!",
-  "h1": "Curso de instalación de paneles solares: arma tu negocio de energía fotovoltaica",
-  "subtitulo": "Aprende a calcular, dimensionar y montar sistemas residenciales y comerciales en México sin depender de intermediarios.",
-  "descripcion": "El recibo de luz de la CFE no perdona a nadie, y cada vez más hogares y negocios en México buscan independizarse de la tarifa DAC o bajar sus costos fijos. Si quieres aprovechar esta oportunidad con un **curso de instalación de paneles solares**, necesitas saber algo antes de empezar: colgar un módulo sobre un techo es la parte fácil; lo verdaderamente crítico es dimensionar los consumos sin meter la pata en los cálculos de corriente y voltaje. Un mal cálculo en las sombras o en el calibre del cableado arruina el rendimiento de todo el sistema y te hace perder clientes antes del primer año.\n\n## Del cálculo de cargas a la puesta en marcha sin errores\nPara montar una empresa de servicios solares no basta con comprar herramientas. Tienes que saber leer el recibo de la CFE, interpretar el historial de kilowatt-hora (kWh) y determinar si el cliente necesita un sistema interconectado a la red o una solución aislada con baterías.\n\nAquí es donde se atoran la mayoría de los instaladores principiantes:\n* Confundir la potencia pico instalada con la generación real en horas solar pico (HSP) según la región del país.\n* Seleccionar microinversores o inversores centrales sin considerar las sombras térmicas ni la orientación real de las azoteas.\n* Errores en la protección eléctrica: no colocar fusibles de corriente directa o utilizar pastillas termomagnéticas de corriente alterna en el lado solar.\n\nAprenderás a armar propuestas técnicas sólidas, elegir la estructura de soporte según si es losa de concreto o lámina, y hacer el cableado de corriente directa sin riesgos de arcos eléctricos.\n\n## Cómo estructurar tu oferta comercial y cotizar proyectos\nEl verdadero reto del emprendedor fotovoltaico no es solo apretar tornillos, sino saber cobrar. Vender energía solar requiere transmitir confianza técnica. Tienes que explicarle al cliente en cuánto tiempo recuperará su inversión sin prometerle números irreales.\n\nEn estas 14 horas de formación divididas en 18 lecciones y 5 módulos, el instructor Ricardo Salazar te guía por el proceso técnico completo para que dejes de adivinar y empieces a cotizar mano de obra y materiales con un margen de ganancia real.\n\n### Lo que necesitas antes de aceptar tu primer cliente\n* **Herramientas básicas**: Multímetro TRMS, pinza ponchadora para conectores MC4, taladro rotomartillo y equipo de seguridad para trabajos en altura.\n* **Práctica en entorno controlado**: Antes de subirte al techo de un cliente, debes realizar pruebas de continuidad, polaridad y voltaje en circuito abierto (Voc) en tu propio espacio de prueba.\n* **Trámites de interconexión**: Entender la documentación técnica que exige CFE para la firma del contrato de interconexión.\n\n## Lo que este curso NO va a hacer por ti\nHay que poner techo a las expectativas: este programa no te convertirá en dueño de una multinacional solar de la noche a la mañana ni te va a mandar clientes a la puerta. Si no practicas la ponchada de cables MC4, si no mides con multímetro y no sales a cotizar con carpetas técnicas en mano, el conocimiento se queda en la pantalla. Tu éxito comercial depende directamente de tu capacidad para salir a vender y ejecutar con precisión técnica en campo.",
-  "faqs": [
-    {
-      "q": "¿En qué moneda se cobra el curso y cómo puedo pagar desde México con OXXO o SPEI?",
-      "a": "El precio está fijado en USD 42. Al momento de pagar, la plataforma convierte la cifra automáticamente a pesos mexicanos (MXN). Puedes seleccionar pago en efectivo mediante ficha para OXXO, transferencia bancaria por SPEI o tarjetas de débito y crédito."
-    },
-    {
-      "q": "¿Tiene validez oficial el certificado en México?",
-      "a": "El certificado emitido valida la culminación de las 14 horas lectivas y el dominio de los contenidos del programa. Es un comprobante privado de capacitación técnica para respaldar tu currículum, tu portafolio comercial ante clientes particulares o para tu propia empresa. No equivale a un título profesional ni a una certificación de competencia laboral del CONOCER."
-    },
-    {
-      "q": "¿Cómo aplico el descuento de lanzamiento?",
-      "a": "El precio final de USD 42 ya tiene aplicado el 40% de descuento sobre el costo original de USD 70 gracias al descuento de lanzamiento. No necesitas ingresar ningún código adicional en la pantalla de pago."
-    },
-    {
-      "q": "¿Necesito conocimientos previos de electricidad para tomar este curso?",
-      "a": "Es ideal tener nociones básicas de corriente y voltaje, pero no es obligatorio. El contenido aborda los fundamentos eléctricos desde cero enfocados directamente en la aplicación solar fotovoltaica."
-    },
-    {
-      "q": "¿Aprenderé a realizar los trámites ante la CFE?",
-      "a": "Sí, conocerás los requisitos técnicos y la documentación necesaria que exige la CFE para solicitar la interconexión de un sistema residencial o comercial a la red eléctrica."
-    },
-    {
-      "q": "¿Por cuánto tiempo tengo acceso a los 5 módulos del curso?",
-      "a": "Tendrás acceso ilimitado a las 18 lecciones para que puedas revisar los videos y repasar las explicaciones al ritmo que necesites, cuantas veces quieras."
-    },
-    {
-      "q": "¿Qué pasa si me surgen dudas técnicas sobre las lecciones de Ricardo Salazar?",
-      "a": "Dentro de la plataforma del curso cuentas con un área de soporte por lección donde puedes dejar tus preguntas escritas para recibir respuesta directa sobre el tema abordado."
-    },
-    {
-      "q": "¿Tengo que comprar herramientas solares antes de empezar a estudiar?",
-      "a": "No es necesario comprar equipo por adelantado. Te recomendamos revisar primero las 14 horas de clase para conocer exactamente qué herramientas vas a necesitar en campo y adquirirlas según tu presupuesto."
-    }
-  ],
-  "beneficios": [
-    "Calcular la capacidad necesaria de un sistema fotovoltaico para reducir el recibo de CFE.",
-    "Montar estructuras de soporte en techos planos e inclinados sin causar filtraciones de agua.",
-    "Realizar el cableado bajo la normativa oficial para evitar riesgos de corto circuito.",
-    "Configurar inversores de red con precisión para maximizar la eficiencia energética.",
-    "Gestionar la conexión de los equipos con el medidor bidireccional sin errores técnicos.",
-    "Diagnosticar fallas comunes en las celdas después de tormentas o periodos de uso intenso."
-  ],
-  "para_quien": [
-    "Si buscas emprender por tu cuenta instalando sistemas fotovoltaicos en casas de tu colonia.",
-    "Si eres contratista y quieres ampliar tu catálogo de servicios técnicos hacia la energía solar.",
-    "Si ya trabajas en mantenimiento eléctrico y quieres formalizar tus conocimientos en paneles.",
-    "Si prefieres aprender un oficio con alta demanda de clientes residenciales en México."
-  ],
-  "requisitos": [
-    "Conocimientos básicos sobre manejo de herramientas manuales como taladros y multímetros.",
-    "Habilidad para realizar mediciones precisas en espacios de trabajo elevados.",
-    "Disposición para practicar el montaje de las estructuras antes de trabajar en una instalación real."
-  ],
-  "certificado": "Al terminar las 18 lecciones recibirás un comprobante de finalización. Ten presente que este documento acredita tu participación en el curso de instalación de paneles solares, pero no funciona como cédula profesional ni te habilita legalmente para firmar planos ante autoridades energéticas.",
-  "garantia": "Tienes 7 días naturales desde tu compra para revisar el contenido. Si consideras que la información no es lo que esperabas, puedes solicitar la devolución de tu dinero a través de la plataforma Hotmart sin dar explicaciones.",
-  "_meta": {
-    "usd": 0.01354,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-energia-solar",
+ "country": "mx",
+ "angulo": "emprendimiento",
+ "meta_title": "Curso de Instalación de Paneles Solares en México",
+ "meta_description": "Aprende a dimensionar e instalar sistemas fotovoltaicos en México. Arranca tu propio negocio solar, cotiza proyectos y conéctate a CFE. ¡Inscríbete hoy!",
+ "h1": "Curso de instalación de paneles solares: arma tu negocio de energía fotovoltaica",
+ "subtitulo": "Aprende a calcular, dimensionar y montar sistemas residenciales y comerciales en México sin depender de intermediarios.",
+ "descripcion": "El recibo de luz de la CFE no perdona a nadie, y cada vez más hogares y negocios en México buscan independizarse de la tarifa DAC o bajar sus costos fijos. Si quieres aprovechar esta oportunidad con un **curso de instalación de paneles solares**, necesitas saber algo antes de empezar: colgar un módulo sobre un techo es la parte fácil; lo verdaderamente crítico es dimensionar los consumos sin meter la pata en los cálculos de corriente y voltaje. Un mal cálculo en las sombras o en el calibre del cableado arruina el rendimiento de todo el sistema y te hace perder clientes antes del primer año.\n\n## Del cálculo de cargas a la puesta en marcha sin errores\nPara montar una empresa de servicios solares no basta con comprar herramientas. Tienes que saber leer el recibo de la CFE, interpretar el historial de kilowatt-hora (kWh) y determinar si el cliente necesita un sistema interconectado a la red o una solución aislada con baterías.\n\nAquí es donde se atoran la mayoría de los instaladores principiantes:\n* Confundir la potencia pico instalada con la generación real en horas solar pico (HSP) según la región del país.\n* Seleccionar microinversores o inversores centrales sin considerar las sombras térmicas ni la orientación real de las azoteas.\n* Errores en la protección eléctrica: no colocar fusibles de corriente directa o utilizar pastillas termomagnéticas de corriente alterna en el lado solar.\n\nAprenderás a armar propuestas técnicas sólidas, elegir la estructura de soporte según si es losa de concreto o lámina, y hacer el cableado de corriente directa sin riesgos de arcos eléctricos.\n\n## Cómo estructurar tu oferta comercial y cotizar proyectos\nEl verdadero reto del emprendedor fotovoltaico no es solo apretar tornillos, sino saber cobrar. Vender energía solar requiere transmitir confianza técnica. Tienes que explicarle al cliente en cuánto tiempo recuperará su inversión sin prometerle números irreales.\n\nEn estas 14 horas de formación divididas en 18 lecciones y 5 módulos, el instructor Ricardo Salazar te guía por el proceso técnico completo para que dejes de adivinar y empieces a cotizar mano de obra y materiales con un margen de ganancia real.\n\n### Lo que necesitas antes de aceptar tu primer cliente\n* **Herramientas básicas**: Multímetro TRMS, pinza ponchadora para conectores MC4, taladro rotomartillo y equipo de seguridad para trabajos en altura.\n* **Práctica en entorno controlado**: Antes de subirte al techo de un cliente, debes realizar pruebas de continuidad, polaridad y voltaje en circuito abierto (Voc) en tu propio espacio de prueba.\n* **Trámites de interconexión**: Entender la documentación técnica que exige CFE para la firma del contrato de interconexión.\n\n## Lo que este curso NO va a hacer por ti\nHay que poner techo a las expectativas: este programa no te convertirá en dueño de una multinacional solar de la noche a la mañana ni te va a mandar clientes a la puerta. Si no practicas la ponchada de cables MC4, si no mides con multímetro y no sales a cotizar con carpetas técnicas en mano, el conocimiento se queda en la pantalla. Tu éxito comercial depende directamente de tu capacidad para salir a vender y ejecutar con precisión técnica en campo.",
+ "faqs": [
+ {
+ "q": "¿En qué moneda se cobra el curso y cómo puedo pagar desde México con OXXO o SPEI?",
+ "a": "El precio está fijado en el precio publicado. Al momento de pagar, la plataforma convierte la cifra automáticamente a pesos mexicanos (MXN). Puedes seleccionar pago en efectivo mediante ficha para OXXO, transferencia bancaria por SPEI o tarjetas de débito y crédito."
+ },
+ {
+ "q": "¿Tiene validez oficial el certificado en México?",
+ "a": "El certificado emitido valida la culminación de las 14 horas lectivas y el dominio de los contenidos del programa. Es un comprobante privado de capacitación técnica para respaldar tu currículum, tu portafolio comercial ante clientes particulares o para tu propia empresa. No equivale a un título profesional ni a una certificación de competencia laboral del CONOCER."
+ },
+ {
+ "q": "¿Cómo aplico el descuento de lanzamiento?",
+ "a": "El precio publicado ya es el precio final gracias al descuento de lanzamiento. No necesitas ingresar ningún código adicional en la pantalla de pago."
+ },
+ {
+ "q": "¿Necesito conocimientos previos de electricidad para tomar este curso?",
+ "a": "Es ideal tener nociones básicas de corriente y voltaje, pero no es obligatorio. El contenido aborda los fundamentos eléctricos desde cero enfocados directamente en la aplicación solar fotovoltaica."
+ },
+ {
+ "q": "¿Aprenderé a realizar los trámites ante la CFE?",
+ "a": "Sí, conocerás los requisitos técnicos y la documentación necesaria que exige la CFE para solicitar la interconexión de un sistema residencial o comercial a la red eléctrica."
+ },
+ {
+ "q": "¿Por cuánto tiempo tengo acceso a los 5 módulos del curso?",
+ "a": "Tendrás acceso ilimitado a las 18 lecciones para que puedas revisar los videos y repasar las explicaciones al ritmo que necesites, cuantas veces quieras."
+ },
+ {
+ "q": "¿Qué pasa si me surgen dudas técnicas sobre las lecciones de Ricardo Salazar?",
+ "a": "Dentro de la plataforma del curso cuentas con un área de soporte por lección donde puedes dejar tus preguntas escritas para recibir respuesta directa sobre el tema abordado."
+ },
+ {
+ "q": "¿Tengo que comprar herramientas solares antes de empezar a estudiar?",
+ "a": "No es necesario comprar equipo por adelantado. Te recomendamos revisar primero las 14 horas de clase para conocer exactamente qué herramientas vas a necesitar en campo y adquirirlas según tu presupuesto."
+ }
+ ],
+ "beneficios": [
+ "Calcular la capacidad necesaria de un sistema fotovoltaico para reducir el recibo de CFE.",
+ "Montar estructuras de soporte en techos planos e inclinados sin causar filtraciones de agua.",
+ "Realizar el cableado bajo la normativa oficial para evitar riesgos de corto circuito.",
+ "Configurar inversores de red con precisión para maximizar la eficiencia energética.",
+ "Gestionar la conexión de los equipos con el medidor bidireccional sin errores técnicos.",
+ "Diagnosticar fallas comunes en las celdas después de tormentas o periodos de uso intenso."
+ ],
+ "para_quien": [
+ "Si buscas emprender por tu cuenta instalando sistemas fotovoltaicos en casas de tu colonia.",
+ "Si eres contratista y quieres ampliar tu catálogo de servicios técnicos hacia la energía solar.",
+ "Si ya trabajas en mantenimiento eléctrico y quieres formalizar tus conocimientos en paneles.",
+ "Si prefieres aprender un oficio con alta demanda de clientes residenciales en México."
+ ],
+ "requisitos": [
+ "Conocimientos básicos sobre manejo de herramientas manuales como taladros y multímetros.",
+ "Habilidad para realizar mediciones precisas en espacios de trabajo elevados.",
+ "Disposición para practicar el montaje de las estructuras antes de trabajar en una instalación real."
+ ],
+ "certificado": "Al terminar las 18 lecciones recibirás un comprobante de finalización. Ten presente que este documento acredita tu participación en el curso de instalación de paneles solares, pero no funciona como cédula profesional ni te habilita legalmente para firmar planos ante autoridades energéticas.",
+ "garantia": "Tienes 7 días naturales desde tu compra para revisar el contenido. Si consideras que la información no es lo que esperabas, puedes solicitar la devolución de tu dinero a través de la plataforma Hotmart sin dar explicaciones.",
+ "_meta": {
+ "usd": 0.01354,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

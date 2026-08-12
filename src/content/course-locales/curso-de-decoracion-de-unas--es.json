@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-decoracion-de-unas",
-  "country": "es",
-  "angulo": "emprendimiento",
-  "meta_title": "Curso de decoración de uñas online | Emprende en España",
-  "meta_description": "Aprende manicura artística desde casa y crea tu propio negocio. Reserva tu plaza en este curso de decoración de uñas y empieza a facturar hoy.",
-  "h1": "Curso de decoración de uñas para montar tu propio negocio de manicura",
-  "subtitulo": "Domina el trazo a mano alzada, los efectos de tendencia y la estructura de costes para cobrar lo que realmente vale tu trabajo.",
-  "descripcion": "Te tiras dos horas para completar una manicura con diseño, se te tuerce el pincel al trazar una línea fina y la clienta mira el reloj mientras tú sufres por el resultado. Al terminar, le cobras 15 euros porque te da apuro pedir más. Empezar a cobrar por servicios de estética impone si tus acabados se ven caseros o si no sabes calibrar el coste del producto. Con este **curso de decoración de uñas** vas a adquirir la soltura técnica necesaria para transformar tu afición en una actividad rentable, ya sea trabajando a domicilio, reservando un espacio en tu vivienda o colaborando con salones.\n\n## Del trazo tembloroso a diseños pulidos que atraen clientas\n\nEl error habitual al decorar es lanzarse a pintar sin conocer el comportamiento del producto. Un pincel sobrecargado deja pegotes; un gel con poca pigmentación transparenta y obliga a dar tres capas, engrosando la uña innecesariamente. Aquí aprenderás la presión exacta y la carga de producto requerida para que cada trazo salga limpio al primer pase.\n\nTrabajarás sobre muestrarios de plástico antes de tocar la mano de una clienta real. Esa dinámica evita bloqueos, reduce los nervios y permite mecanizar la posición de los dedos para ganar velocidad en el servicio diario.\n\n### Pincelería, encapsulados y efectos de alta demanda\n\n- **Control de pincel fino:** Ajuste de la postura de la mano para trazar líneas rectilíneas y curvas continuas sin vibraciones.\n- **Efectos degradados y baby boomer:** Transiciones suaves de color sin que se noten los cortes de tono ni queden escalones de material.\n- **Encapsulado de decoración:** Fijación de colas de sirena, glitters y elementos 3D asegurando que la superficie quede nivelada y no se enganche en la ropa.\n- **Manejo de foils y pigmentos:** Adherencia total sobre la capa de dispersión para evitar descascarillados a los pocos días.\n\n## Cómo estructurar tus precios y captar los primeros servicios\n\nSaber decorar no sirve de nada si no sabes vender el servicio. En el sector de la manicura en España, regalar el trabajo por falta de confianza es el camino directo al agotamiento. Para dar el salto profesional necesitas calcular el coste de cada gota de gel, el desgaste de las fresas, la electricidad y, sobre todo, el valor de tu hora de trabajo.\n\nUna advertencia honesta: este programa no te va a convertir en dueña de un centro de estética de éxito en un mes ni te garantiza ingresos automáticos. Aprender el oficio requiere practicar decenas de puestas en muestrarios, equivocar la mezcla de colores hasta dar con el tono adecuado y pulir los tiempos de ejecución mediante repetición constante.\n\n## Optimización del tiempo en mesa de trabajo\n\nUn diseño elaborado no puede eternizarse tres horas si pretendes que sea rentable. Durante el aprendizaje descubrirás cómo distribuir el trabajo por tandas: mientras una mano cataliza en la lámpara, la otra se decora. Esa sincronización acorta la cita sin mermar la calidad de la manicura.\n\nAl dominar la técnica de decoración, pasas de ofrecer un esmaltado básico a vender un servicio creativo con mayor margen de beneficio, marcando la diferencia respecto a la competencia de tu zona.",
-  "faqs": [
-    {
-      "q": "¿Puedo abonar el importe mediante Bizum, tarjeta o transferencia desde España?",
-      "a": "Sí. La plataforma de pago admite tarjetas de débito o crédito habituales, pago mediante Bizum y transferencia bancaria directa. El sistema realiza la conversión automática de divisa para que pagues cómodamente en euros sin comisiones ocultas."
-    },
-    {
-      "q": "¿El certificado de finalización me habilita para abrir un salón oficial en España?",
-      "a": "El certificado acredita que has superado las 7 horas y las lecciones del curso práctico privado. No equivale a un título de Formación Profesional (FP) reglado por el Ministerio de Educación. Sirve como aval de formación continua y portafolio para demostrar tus competencias ante clientes o para darte de alta como autónoma si cumples los requisitos legales de la actividad."
-    },
-    {
-      "q": "¿Tengo que comprar un kit de productos muy caro antes de empezar?",
-      "a": "No es necesario. Puedes comenzar la formación visualizando las lecciones y practicando con los materiales básicos que tengas en casa o adquiriendo un kit inicial económico con pinceles de detalle, muestrarios de plástico y geles de decoración básicos."
-    },
-    {
-      "q": "¿El precio de 25 USD ya incluye la rebaja o debo añadir el código de lanzamiento?",
-      "a": "El importe de 25 USD (reducido desde el coste original de 42 USD) ya lleva aplicado el 40% de descuento correspondiente al código de lanzamiento. No necesitas introducir ningún cupón adicional durante el proceso de compra."
-    },
-    {
-      "q": "¿Cómo accedo al contenido del curso una vez realizado el pago?",
-      "a": "El acceso es inmediato. Tras confirmarse la transacción, recibirás un correo electrónico con tus claves para entrar en la plataforma y ver las lecciones en vídeo desde tu ordenador, tableta o teléfono móvil."
-    },
-    {
-      "q": "¿Hay un plazo máximo para terminar las lecciones o caduca el acceso?",
-      "a": "No hay ningún límite de tiempo. El acceso al material es ilimitado y permanente, por lo que puedes organizar tu aprendizaje al ritmo que mejor te convenga y revisar los vídeos siempre que lo necesites."
-    },
-    {
-      "q": "¿Es imprescindible practicar sobre personas reales desde el primer momento?",
-      "a": "Se recomienda encarecidamente empezar practicando sobre muestrarios de uñas de plástico (tips). De este modo adquieres soltura con la pincelería y los tiempos de secado sin la presión ni el riesgo de cometer fallos sobre la uña natural de una clienta."
-    },
-    {
-      "q": "¿El curso enseña a calcular cuánto cobrar por cada diseño de uña?",
-      "a": "Sí, el enfoque incluye pautas prácticas para analizar los costes de material gastado en cada servicio y el tiempo empleado en mesa, ayudándote a fijar tarifas justas para tus servicios."
-    }
-  ],
-  "beneficios": [
-    "Diferenciar entre los tipos de pinceles para trazos finos y carga de pintura sin desperdiciar material.",
-    "Corregir el grosor de las líneas en diseños geométricos para que no se vean toscos.",
-    "Aprender a sellar los encapsulados para que la purpurina no se levante a los dos días.",
-    "Controlar la viscosidad de los esmaltes para evitar que se desborden hacia la cutícula.",
-    "Ejecutar diseños a mano alzada que se mantienen intactos hasta el próximo mantenimiento.",
-    "Gestionar el tiempo de cada servicio para que el cliente no pierda horas en el salón."
-  ],
-  "para_quien": [
-    "Si ya trabajas haciendo uñas y quieres dejar de copiar diseños de Pinterest para empezar a crear los tuyos.",
-    "Para quienes buscan una fuente de ingresos extra trabajando por cuenta propia desde casa.",
-    "Si quieres especializarte en nail art para cobrar un plus en tus servicios actuales.",
-    "Para personas que han intentado formarse con tutoriales gratuitos y terminan con un acabado desprolijo."
-  ],
-  "requisitos": [
-    "Disponer de un kit básico de esmaltes, lámpara UV y pinceles de detalle.",
-    "Tener acceso a un ordenador o dispositivo móvil para visualizar los vídeos.",
-    "Muchas ganas de practicar sobre tip o maniquí antes de tocar la mano de un cliente."
-  ],
-  "certificado": "Al finalizar el curso de decoración de uñas, recibirás un certificado digital que acredita tu formación. Ten en cuenta que este documento no te habilita legalmente para ejercer como profesional en España ni sustituye los títulos oficiales requeridos por la normativa de salud y seguridad laboral vigente.",
-  "garantia": "Tienes 7 días desde el momento de la compra para revisar el contenido. Si consideras que el material no responde a lo que necesitabas para tu emprendimiento, puedes solicitar la devolución del importe íntegro a través de la plataforma Hotmart sin dar explicaciones.",
-  "_meta": {
-    "usd": 0.01424,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-decoracion-de-unas",
+ "country": "es",
+ "angulo": "emprendimiento",
+ "meta_title": "Curso de decoración de uñas online | Emprende en España",
+ "meta_description": "Aprende manicura artística desde casa y crea tu propio negocio. Reserva tu plaza en este curso de decoración de uñas y empieza a facturar hoy.",
+ "h1": "Curso de decoración de uñas para montar tu propio negocio de manicura",
+ "subtitulo": "Domina el trazo a mano alzada, los efectos de tendencia y la estructura de costes para cobrar lo que realmente vale tu trabajo.",
+ "descripcion": "Te tiras dos horas para completar una manicura con diseño, se te tuerce el pincel al trazar una línea fina y la clienta mira el reloj mientras tú sufres por el resultado. Al terminar, le cobras 15 euros porque te da apuro pedir más. Empezar a cobrar por servicios de estética impone si tus acabados se ven caseros o si no sabes calibrar el coste del producto. Con este **curso de decoración de uñas** vas a adquirir la soltura técnica necesaria para transformar tu afición en una actividad rentable, ya sea trabajando a domicilio, reservando un espacio en tu vivienda o colaborando con salones.\n\n## Del trazo tembloroso a diseños pulidos que atraen clientas\n\nEl error habitual al decorar es lanzarse a pintar sin conocer el comportamiento del producto. Un pincel sobrecargado deja pegotes; un gel con poca pigmentación transparenta y obliga a dar tres capas, engrosando la uña innecesariamente. Aquí aprenderás la presión exacta y la carga de producto requerida para que cada trazo salga limpio al primer pase.\n\nTrabajarás sobre muestrarios de plástico antes de tocar la mano de una clienta real. Esa dinámica evita bloqueos, reduce los nervios y permite mecanizar la posición de los dedos para ganar velocidad en el servicio diario.\n\n### Pincelería, encapsulados y efectos de alta demanda\n\n- **Control de pincel fino:** Ajuste de la postura de la mano para trazar líneas rectilíneas y curvas continuas sin vibraciones.\n- **Efectos degradados y baby boomer:** Transiciones suaves de color sin que se noten los cortes de tono ni queden escalones de material.\n- **Encapsulado de decoración:** Fijación de colas de sirena, glitters y elementos 3D asegurando que la superficie quede nivelada y no se enganche en la ropa.\n- **Manejo de foils y pigmentos:** Adherencia total sobre la capa de dispersión para evitar descascarillados a los pocos días.\n\n## Cómo estructurar tus precios y captar los primeros servicios\n\nSaber decorar no sirve de nada si no sabes vender el servicio. En el sector de la manicura en España, regalar el trabajo por falta de confianza es el camino directo al agotamiento. Para dar el salto profesional necesitas calcular el coste de cada gota de gel, el desgaste de las fresas, la electricidad y, sobre todo, el valor de tu hora de trabajo.\n\nUna advertencia honesta: este programa no te va a convertir en dueña de un centro de estética de éxito en un mes ni te garantiza ingresos automáticos. Aprender el oficio requiere practicar decenas de puestas en muestrarios, equivocar la mezcla de colores hasta dar con el tono adecuado y pulir los tiempos de ejecución mediante repetición constante.\n\n## Optimización del tiempo en mesa de trabajo\n\nUn diseño elaborado no puede eternizarse tres horas si pretendes que sea rentable. Durante el aprendizaje descubrirás cómo distribuir el trabajo por tandas: mientras una mano cataliza en la lámpara, la otra se decora. Esa sincronización acorta la cita sin mermar la calidad de la manicura.\n\nAl dominar la técnica de decoración, pasas de ofrecer un esmaltado básico a vender un servicio creativo con mayor margen de beneficio, marcando la diferencia respecto a la competencia de tu zona.",
+ "faqs": [
+ {
+ "q": "¿Puedo abonar el importe mediante Bizum, tarjeta o transferencia desde España?",
+ "a": "Sí. La plataforma de pago admite tarjetas de débito o crédito habituales, pago mediante Bizum y transferencia bancaria directa. El sistema realiza la conversión automática de divisa para que pagues cómodamente en euros sin comisiones ocultas."
+ },
+ {
+ "q": "¿El certificado de finalización me habilita para abrir un salón oficial en España?",
+ "a": "El certificado acredita que has superado las 7 horas y las lecciones del curso práctico privado. No equivale a un título de Formación Profesional (FP) reglado por el Ministerio de Educación. Sirve como aval de formación continua y portafolio para demostrar tus competencias ante clientes o para darte de alta como autónoma si cumples los requisitos legales de la actividad."
+ },
+ {
+ "q": "¿Tengo que comprar un kit de productos muy caro antes de empezar?",
+ "a": "No es necesario. Puedes comenzar la formación visualizando las lecciones y practicando con los materiales básicos que tengas en casa o adquiriendo un kit inicial económico con pinceles de detalle, muestrarios de plástico y geles de decoración básicos."
+ },
+ {
+ "q": "¿El precio de 25 USD ya incluye la rebaja o debo añadir el código de lanzamiento?",
+ "a": "El importe de 25 USD (reducido desde el coste original de 42 USD) ya lleva aplicado el 40% de descuento correspondiente al código de lanzamiento. No necesitas introducir ningún cupón adicional durante el proceso de compra."
+ },
+ {
+ "q": "¿Cómo accedo al contenido del curso una vez realizado el pago?",
+ "a": "El acceso es inmediato. Tras confirmarse la transacción, recibirás un correo electrónico con tus claves para entrar en la plataforma y ver las lecciones en vídeo desde tu ordenador, tableta o teléfono móvil."
+ },
+ {
+ "q": "¿Hay un plazo máximo para terminar las lecciones o caduca el acceso?",
+ "a": "No hay ningún límite de tiempo. El acceso al material es ilimitado y permanente, por lo que puedes organizar tu aprendizaje al ritmo que mejor te convenga y revisar los vídeos siempre que lo necesites."
+ },
+ {
+ "q": "¿Es imprescindible practicar sobre personas reales desde el primer momento?",
+ "a": "Se recomienda encarecidamente empezar practicando sobre muestrarios de uñas de plástico (tips). De este modo adquieres soltura con la pincelería y los tiempos de secado sin la presión ni el riesgo de cometer fallos sobre la uña natural de una clienta."
+ },
+ {
+ "q": "¿El curso enseña a calcular cuánto cobrar por cada diseño de uña?",
+ "a": "Sí, el enfoque incluye pautas prácticas para analizar los costes de material gastado en cada servicio y el tiempo empleado en mesa, ayudándote a fijar tarifas justas para tus servicios."
+ }
+ ],
+ "beneficios": [
+ "Diferenciar entre los tipos de pinceles para trazos finos y carga de pintura sin desperdiciar material.",
+ "Corregir el grosor de las líneas en diseños geométricos para que no se vean toscos.",
+ "Aprender a sellar los encapsulados para que la purpurina no se levante a los dos días.",
+ "Controlar la viscosidad de los esmaltes para evitar que se desborden hacia la cutícula.",
+ "Ejecutar diseños a mano alzada que se mantienen intactos hasta el próximo mantenimiento.",
+ "Gestionar el tiempo de cada servicio para que el cliente no pierda horas en el salón."
+ ],
+ "para_quien": [
+ "Si ya trabajas haciendo uñas y quieres dejar de copiar diseños de Pinterest para empezar a crear los tuyos.",
+ "Para quienes buscan una fuente de ingresos extra trabajando por cuenta propia desde casa.",
+ "Si quieres especializarte en nail art para cobrar un plus en tus servicios actuales.",
+ "Para personas que han intentado formarse con tutoriales gratuitos y terminan con un acabado desprolijo."
+ ],
+ "requisitos": [
+ "Disponer de un kit básico de esmaltes, lámpara UV y pinceles de detalle.",
+ "Tener acceso a un ordenador o dispositivo móvil para visualizar los vídeos.",
+ "Muchas ganas de practicar sobre tip o maniquí antes de tocar la mano de un cliente."
+ ],
+ "certificado": "Al finalizar el curso de decoración de uñas, recibirás un certificado digital que acredita tu formación. Ten en cuenta que este documento no te habilita legalmente para ejercer como profesional en España ni sustituye los títulos oficiales requeridos por la normativa de salud y seguridad laboral vigente.",
+ "garantia": "Tienes 7 días desde el momento de la compra para revisar el contenido. Si consideras que el material no responde a lo que necesitabas para tu emprendimiento, puedes solicitar la devolución del importe íntegro a través de la plataforma Hotmart sin dar explicaciones.",
+ "_meta": {
+ "usd": 0.01424,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

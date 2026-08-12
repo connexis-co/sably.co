@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-bartender",
-  "country": "cl",
-  "angulo": "hobby",
-  "meta_title": "Curso de Bartender Internacional: Prepara Cócteles en Casa",
-  "meta_description": "Aprende coctelería clásica y autor desde tu barra en casa. Controla balance, hielo y cristalería. Inscríbete hoy en el curso con Webpay o tarjeta.",
-  "h1": "Aprende coctelería clásica y de autor con este curso de bartender internacional",
-  "subtitulo": "Domina el uso de la coctelera, ajusta dulzor y acidez sin adivinar y transforma cualquier junta en una experiencia memorable.",
-  "descripcion": "Cuando preparas tragos en casa para tus amigos, el resultado casi siempre depende de la suerte. O el pisco sour queda demasiado ácido, o el negroni se diluye tanto en el vaso que pierde todo el carácter a los cinco minutos. El problema no es la calidad de la botella que compraste en el supermercado, sino la falta de técnica al mezclar. Con este curso de bartender internacional, vas a entender exactamente cómo balancear acidez, dulzor y graduación alcohólica para que cada preparación quede en su punto justo, directo en tu barra personal.\n\nAprender coctelería como afición tiene un atractivo enorme, pero intentar copiar videos rápidos de internet suele terminar en bebidas aguadas y frascos de jarabe botados a la basura. En este espacio, impartido por Andrés Caballero, trabajas paso a paso las bases reales de la coctelería sin necesidad de montar un bar comercial en tu cocina.\n\n## Por qué tus tragos no salen como en un bar especializado\n\nServir una buena copa requiere controlar variables que casi nadie considera en el hogar. La mayoría de las personas llena el vaso con un par de cubos de hielo de refrigerador, agrega destilado al ojo y completa con alguna bebida gaseosa. El resultado es una mezcla descompensada.\n\nPara lograr una bebida de calidad profesional en tus reuniones, hay tres detalles críticos que marcan la diferencia:\n\n- La calidad y forma del hielo: El hielo pequeño de cubetera común tiene mucha agua superficial. Al agitarlo, se rompe y diluye el cóctel antes de lograr la temperatura adecuada.\n- La precisión en las medidas: Diferencias de solo cinco mililitros en el jugo de limón o en el almíbar transforman un trago refrescante en una bebida difícil de tomar.\n- La técnica de enfriado: No todo se agita en coctelera. Los cócteles compuestos solo por destilados se refrescan en vaso mezclador para no incorporar burbujas de aire ni alterar la textura.\n\n## Técnica, balance y cristalería para tu barra casera\n\n### La física de la dilución y la temperatura\n\nAgitar una coctelera no es solo mover líquido de un lado a otro. Se trata de transferir frío de manera rápida mientras incorporas la cantidad exacta de agua disuelta. Aprenderás a identificar el punto exacto donde la coctelera se escarcha por fuera, señal clara de que la bebida alcanzó la temperatura idónea sin aguarse.\n\n### Creación de insumos propios y balance de sabor\n\nOlvídate de comprar jarabes industriales llenos de conservantes. Descubrirás cómo elaborar tus propios almíbares simples y saborizados, ajustando la densidad de azúcar para equilibrar la acidez natural de las frutas cítricas. Sabrás cómo corregir un trago si te quedó excesivamente dulce o amargo sin tener que botar la preparación.\n\n## Una afición práctica para compartir con amigos\n\nEste programa no promete convertirte en dueño de un local ni en un mixólogo de competencia en pocas semanas. Su objetivo es entregarte el dominio técnico necesario para disfrutar el proceso de servir bien. Son 14 horas de contenido repartidas en 20 lecciones y 5 módulos donde avanzas a tu propio ritmo, desde la ergonomía con la herramienta hasta la presentación final.\n\nSi disfrutas recibir gente en casa o quieres llevar tu pasión por los sabores a un formato metódico, dominar este curso de bartender internacional te permite ofrecer experiencias únicas a tus invitados, sabiendo exactamente qué ocurre dentro de la coctelera.",
-  "faqs": [
-    {
-      "q": "¿Cómo puedo pagar el curso desde Chile?",
-      "a": "Puedes pagar directamente en pesos chilenos utilizando tarjetas de débito o crédito locales a través de Webpay, así como tarjetas de crédito internacionales."
-    },
-    {
-      "q": "¿El precio de USD 35 incluye algún descuento adicional?",
-      "a": "No, el valor de USD 35 es el precio final a pagar. El 40% de descuento de lanzamiento ya se encuentra aplicado sobre la tarifa original de USD 58."
-    },
-    {
-      "q": "¿El certificado del curso tiene validez legal para trabajar en Chile?",
-      "a": "El certificado acredita la realización y aprobación de las 14 horas lectivas del programa. En Chile, la labor de bartender no exige una acreditación estatal obligatoria, por lo que este documento sirve como respaldo curricular de tus competencias técnicas."
-    },
-    {
-      "q": "¿Necesito comprar herramientas profesionales de coctelería antes de empezar?",
-      "a": "No es necesario hacer compras anticipadas. Puedes iniciar las clases utilizando implementos básicos del hogar, como frascos de vidrio con tapa para agitar. En el curso aprenderás qué utensilios conviene adquirir para armar tu barra según tus gustos."
-    },
-    {
-      "q": "¿Cuántas lecciones y módulos contempla el programa?",
-      "a": "El curso está estructurado en 5 módulos con un total de 20 lecciones que suman 14 horas de formación."
-    },
-    {
-      "q": "¿Existe un horario fijo para conectarse a las clases?",
-      "a": "No hay horarios fijos. El acceso al material es continuo las 24 horas del día, lo que te permite avanzar según tus propios tiempos libres."
-    },
-    {
-      "q": "¿Se enseña a preparar insumos caseros como jarabes o almíbares?",
-      "a": "Sí, el contenido incluye la elaboración de jarabes bases para que aprendas a controlar los niveles de dulzor y sabor de tus bebidas con ingredientes naturales."
-    },
-    {
-      "q": "¿Se requieren conocimientos previos para tomar el curso?",
-      "a": "No se requiere experiencia previa. El contenido parte desde los conceptos más elementales de medición y uso de utensilios hasta técnicas de balance y montaje de recetas."
-    }
-  ],
-  "beneficios": [
-    "Preparar cócteles clásicos con las medidas exactas desde el primer intento.",
-    "Manejar la coctelera con la técnica correcta para evitar derrames y enfriar la mezcla a tiempo.",
-    "Equilibrar los sabores cítricos y dulces sin que el azúcar opaque el destilado.",
-    "Armar una estación de trabajo eficiente que te permita preparar varias bebidas sin cruzar los brazos.",
-    "Identificar qué cristalería usar para potenciar el aroma y la temperatura de cada trago.",
-    "Seleccionar los ingredientes adecuados para que tus preparaciones en casa luzcan como en un bar."
-  ],
-  "para_quien": [
-    "Para quienes disfrutan de ser el anfitrión en sus reuniones y quieren servir algo más que cerveza.",
-    "Si te interesa entender la lógica detrás de los tragos que pides habitualmente.",
-    "Para personas que buscan un pasatiempo práctico y entretenido para los fines de semana.",
-    "Ideal si quieres mejorar tus habilidades manuales preparando bebidas con estilo."
-  ],
-  "requisitos": [
-    "Tener disposición para comprar los insumos básicos y practicar en casa.",
-    "Contar con una coctelera, un medidor y vasos de uso común.",
-    "Disponibilidad horaria para repetir las lecciones hasta dominar el movimiento."
-  ],
-  "certificado": "Al finalizar las 14 horas de contenido, recibirás un certificado de participación que valida tu paso por el curso de bartender internacional. Ten presente que este documento es un reconocimiento académico privado y no te habilita formalmente para trabajar en establecimientos comerciales o de venta de alcohol.",
-  "garantia": "Si al probar el curso sientes que no es lo que esperabas, tienes 7 días de garantía incondicional a través de Hotmart. Solo debes solicitar la devolución dentro de ese plazo y recibirás el reembolso total de tu pago sin preguntas.",
-  "_meta": {
-    "usd": 0.01348,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-bartender",
+ "country": "cl",
+ "angulo": "hobby",
+ "meta_title": "Curso de Bartender Internacional: Prepara Cócteles en Casa",
+ "meta_description": "Aprende coctelería clásica y autor desde tu barra en casa. Controla balance, hielo y cristalería. Inscríbete hoy en el curso con Webpay o tarjeta.",
+ "h1": "Aprende coctelería clásica y de autor con este curso de bartender internacional",
+ "subtitulo": "Domina el uso de la coctelera, ajusta dulzor y acidez sin adivinar y transforma cualquier junta en una experiencia memorable.",
+ "descripcion": "Cuando preparas tragos en casa para tus amigos, el resultado casi siempre depende de la suerte. O el pisco sour queda demasiado ácido, o el negroni se diluye tanto en el vaso que pierde todo el carácter a los cinco minutos. El problema no es la calidad de la botella que compraste en el supermercado, sino la falta de técnica al mezclar. Con este curso de bartender internacional, vas a entender exactamente cómo balancear acidez, dulzor y graduación alcohólica para que cada preparación quede en su punto justo, directo en tu barra personal.\n\nAprender coctelería como afición tiene un atractivo enorme, pero intentar copiar videos rápidos de internet suele terminar en bebidas aguadas y frascos de jarabe botados a la basura. En este espacio, impartido por Andrés Caballero, trabajas paso a paso las bases reales de la coctelería sin necesidad de montar un bar comercial en tu cocina.\n\n## Por qué tus tragos no salen como en un bar especializado\n\nServir una buena copa requiere controlar variables que casi nadie considera en el hogar. La mayoría de las personas llena el vaso con un par de cubos de hielo de refrigerador, agrega destilado al ojo y completa con alguna bebida gaseosa. El resultado es una mezcla descompensada.\n\nPara lograr una bebida de calidad profesional en tus reuniones, hay tres detalles críticos que marcan la diferencia:\n\n- La calidad y forma del hielo: El hielo pequeño de cubetera común tiene mucha agua superficial. Al agitarlo, se rompe y diluye el cóctel antes de lograr la temperatura adecuada.\n- La precisión en las medidas: Diferencias de solo cinco mililitros en el jugo de limón o en el almíbar transforman un trago refrescante en una bebida difícil de tomar.\n- La técnica de enfriado: No todo se agita en coctelera. Los cócteles compuestos solo por destilados se refrescan en vaso mezclador para no incorporar burbujas de aire ni alterar la textura.\n\n## Técnica, balance y cristalería para tu barra casera\n\n### La física de la dilución y la temperatura\n\nAgitar una coctelera no es solo mover líquido de un lado a otro. Se trata de transferir frío de manera rápida mientras incorporas la cantidad exacta de agua disuelta. Aprenderás a identificar el punto exacto donde la coctelera se escarcha por fuera, señal clara de que la bebida alcanzó la temperatura idónea sin aguarse.\n\n### Creación de insumos propios y balance de sabor\n\nOlvídate de comprar jarabes industriales llenos de conservantes. Descubrirás cómo elaborar tus propios almíbares simples y saborizados, ajustando la densidad de azúcar para equilibrar la acidez natural de las frutas cítricas. Sabrás cómo corregir un trago si te quedó excesivamente dulce o amargo sin tener que botar la preparación.\n\n## Una afición práctica para compartir con amigos\n\nEste programa no promete convertirte en dueño de un local ni en un mixólogo de competencia en pocas semanas. Su objetivo es entregarte el dominio técnico necesario para disfrutar el proceso de servir bien. Son 14 horas de contenido repartidas en 20 lecciones y 5 módulos donde avanzas a tu propio ritmo, desde la ergonomía con la herramienta hasta la presentación final.\n\nSi disfrutas recibir gente en casa o quieres llevar tu pasión por los sabores a un formato metódico, dominar este curso de bartender internacional te permite ofrecer experiencias únicas a tus invitados, sabiendo exactamente qué ocurre dentro de la coctelera.",
+ "faqs": [
+ {
+ "q": "¿Cómo puedo pagar el curso desde Chile?",
+ "a": "Puedes pagar directamente en pesos chilenos utilizando tarjetas de débito o crédito locales a través de Webpay, así como tarjetas de crédito internacionales."
+ },
+ {
+ "q": "¿El precio publicado incluye algún descuento adicional?",
+ "a": "No, el precio publicado es el precio final a pagar. El 40% de descuento de lanzamiento ya se encuentra aplicado."
+ },
+ {
+ "q": "¿El certificado del curso tiene validez legal para trabajar en Chile?",
+ "a": "El certificado acredita la realización y aprobación de las 14 horas lectivas del programa. En Chile, la labor de bartender no exige una acreditación estatal obligatoria, por lo que este documento sirve como respaldo curricular de tus competencias técnicas."
+ },
+ {
+ "q": "¿Necesito comprar herramientas profesionales de coctelería antes de empezar?",
+ "a": "No es necesario hacer compras anticipadas. Puedes iniciar las clases utilizando implementos básicos del hogar, como frascos de vidrio con tapa para agitar. En el curso aprenderás qué utensilios conviene adquirir para armar tu barra según tus gustos."
+ },
+ {
+ "q": "¿Cuántas lecciones y módulos contempla el programa?",
+ "a": "El curso está estructurado en 5 módulos con un total de 20 lecciones que suman 14 horas de formación."
+ },
+ {
+ "q": "¿Existe un horario fijo para conectarse a las clases?",
+ "a": "No hay horarios fijos. El acceso al material es continuo las 24 horas del día, lo que te permite avanzar según tus propios tiempos libres."
+ },
+ {
+ "q": "¿Se enseña a preparar insumos caseros como jarabes o almíbares?",
+ "a": "Sí, el contenido incluye la elaboración de jarabes bases para que aprendas a controlar los niveles de dulzor y sabor de tus bebidas con ingredientes naturales."
+ },
+ {
+ "q": "¿Se requieren conocimientos previos para tomar el curso?",
+ "a": "No se requiere experiencia previa. El contenido parte desde los conceptos más elementales de medición y uso de utensilios hasta técnicas de balance y montaje de recetas."
+ }
+ ],
+ "beneficios": [
+ "Preparar cócteles clásicos con las medidas exactas desde el primer intento.",
+ "Manejar la coctelera con la técnica correcta para evitar derrames y enfriar la mezcla a tiempo.",
+ "Equilibrar los sabores cítricos y dulces sin que el azúcar opaque el destilado.",
+ "Armar una estación de trabajo eficiente que te permita preparar varias bebidas sin cruzar los brazos.",
+ "Identificar qué cristalería usar para potenciar el aroma y la temperatura de cada trago.",
+ "Seleccionar los ingredientes adecuados para que tus preparaciones en casa luzcan como en un bar."
+ ],
+ "para_quien": [
+ "Para quienes disfrutan de ser el anfitrión en sus reuniones y quieren servir algo más que cerveza.",
+ "Si te interesa entender la lógica detrás de los tragos que pides habitualmente.",
+ "Para personas que buscan un pasatiempo práctico y entretenido para los fines de semana.",
+ "Ideal si quieres mejorar tus habilidades manuales preparando bebidas con estilo."
+ ],
+ "requisitos": [
+ "Tener disposición para comprar los insumos básicos y practicar en casa.",
+ "Contar con una coctelera, un medidor y vasos de uso común.",
+ "Disponibilidad horaria para repetir las lecciones hasta dominar el movimiento."
+ ],
+ "certificado": "Al finalizar las 14 horas de contenido, recibirás un certificado de participación que valida tu paso por el curso de bartender internacional. Ten presente que este documento es un reconocimiento académico privado y no te habilita formalmente para trabajar en establecimientos comerciales o de venta de alcohol.",
+ "garantia": "Si al probar el curso sientes que no es lo que esperabas, tienes 7 días de garantía incondicional a través de Hotmart. Solo debes solicitar la devolución dentro de ese plazo y recibirás el reembolso total de tu pago sin preguntas.",
+ "_meta": {
+ "usd": 0.01348,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-energia-solar",
-  "country": "ec",
-  "angulo": "emprendimiento",
-  "meta_title": "Curso de instalación de paneles solares en Ecuador",
-  "meta_description": "Aprende a montar sistemas fotovoltaicos en Ecuador y arranca tu propio negocio técnico. 14 horas de formación práctica. Inscríbete hoy por USD 42.",
-  "h1": "Inicia tu negocio técnico con este curso de instalación de paneles solares en Ecuador",
-  "subtitulo": "Capacítate en 14 horas para dimensionar, calcular y montar sistemas fotovoltaicos autónomos y conectados a la red.",
-  "descripcion": "Cuando un cliente en Ecuador busca respaldar su vivienda frente a los cortes de energía o reducir la planilla de luz, no busca explicaciones teóricas: quiere un sistema que responda cuando se encienda un equipo inductivo. El fallo más común de quien empieza en este oficio es calcular a ojo el banco de baterías o utilizar conductores sin el calibre adecuado, lo que termina sobrecalentando la instalación. Con este curso de instalación de paneles solares, aprenderás a dimensionar, conectar y poner en marcha sistemas fotovoltaicos con criterio técnico y normas de seguridad.\n\n## De la teoría al primer proyecto fotovoltaico\nMontar un sistema solar requiere más que fijar módulos sobre una estructura metálica. Necesitas interpretar la radiación solar según la ubicación geográfica, determinar el ángulo de inclinación para aprovechar las horas pico de sol y configurar reguladores de carga sin arriesgar los equipos.\n\nEn las 14 horas de capacitación a cargo de Ricardo Salazar, el aprendizaje se enfoca en la lógica de trabajo en obra:\n* Calcular el consumo eléctrico real de una propiedad en kilovatios-hora a partir de su historial o inventario de cargas.\n* Seleccionar componentes compatibles: paneles monocristalinos, inversores de onda senoidal pura y baterías de ciclo profundo.\n* Realizar acoplamientos en serie y paralelo manteniendo el equilibrio de voltaje y corriente.\n* Instalar tableros de protección con interruptores termomagnéticos, fusibles DC y supresores de picos.\n\n## Errores técnicos que debes evitar al emprender\nEl negocio de la energía solar exige precisión. Si instalas un inversor con capacidad insuficiente para la corriente de arranque de un motor, el sistema se bloqueará constantemente. Si no utilizas conectores MC4 sellados y cableado con protección UV, las fallas por aislamiento deteriorarán la instalación en pocos meses.\n\nAprenderás a elaborar presupuestos detallados donde desgloses componentes, mano de obra y margen operativo sin regalar tu trabajo ni quedar fuera del mercado. Explicar con fundamentos por qué un cliente requiere un sistema aislado o uno híbrido es la herramienta clave para cerrar propuestas comerciales con solvencia.\n\n## Cómo estructurar tu servicio de instalación independiente\nPara arrancar no necesitas un local comercial ni grandes inventarios. La mayoría de técnicos independientes en Ecuador comienzan ofreciendo soluciones de respaldo para cargas críticas como iluminación, sistemas de seguridad e internet.\n\nSaber interpretar diagramas unifilares y medir parámetros con el multímetro te permitirá entregar trabajos limpios. Una instalación bien ejecutada es la mejor carta de presentación para conseguir recomendaciones directas.\n\n## Expectativas reales sobre el oficio solar en Ecuador\nEste curso de instalación de paneles solares no te otorga un título de ingeniería ni te faculta para firmar trámites de homologación de red ante las empresas eléctricas distribuidoras. Tampoco garantiza ingresos inmediatos sin esfuerzo de prospección comercial.\n\nLo que te aporta es la competencia práctica para diseñar e instalar sistemas residenciales, comerciales pequeños y soluciones rurales de forma independiente. Practicar en taller, verificar conexiones y entender la electricidad solar son los pasos necesarios para construir un emprendimiento sólido.",
-  "faqs": [
-    {
-      "q": "¿Cómo puedo pagar el curso desde Ecuador?",
-      "a": "El pago se realiza en dólares americanos (USD) a través de transferencia bancaria local o con tarjeta de crédito y débito directamente en la plataforma."
-    },
-    {
-      "q": "¿El precio de USD 42 requiere ingresar algún cupón?",
-      "a": "No. El valor original de USD 70 ya cuenta con el 40% de descuento aplicado mediante el descuento de lanzamiento. El monto final a pagar es USD 42."
-    },
-    {
-      "q": "¿El certificado me sirve para tramitar permisos ante la empresa eléctrica en Ecuador?",
-      "a": "No. El certificado respalda la aprobación de las 14 horas de capacitación técnica, pero no reemplaza la firma de un profesional matriculado requerida para trámites oficiales de interconexión a la red pública."
-    },
-    {
-      "q": "¿Necesito conocimientos previos de electricidad para tomar la capacitación?",
-      "a": "Es útil conocer conceptos básicos de voltaje y corriente, pero las lecciones explican progresivamente desde el cálculo de cargas hasta el ensamblaje de los circuitos."
-    },
-    {
-      "q": "¿El instructor Ricardo Salazar atiende dudas durante las clases?",
-      "a": "El curso se compone de 18 lecciones grabadas en video. Dentro del aula virtual dispones de un área de comentarios donde puedes dejar tus preguntas puntuales sobre el contenido impartido por Ricardo Salazar."
-    },
-    {
-      "q": "¿Qué herramientas mínimas necesito para realizar mis primeras prácticas?",
-      "a": "Para iniciar requieres un multímetro digital, pelacables, destornilladores con aislamiento eléctrico y alicates. No es necesario adquirir herramientas de prensado especializado desde el primer día."
-    },
-    {
-      "q": "¿En qué momento recibo el acceso a la plataforma?",
-      "a": "Una vez confirmado el pago por transferencia o tarjeta, recibes un correo electrónico automático con los datos de ingreso para comenzar la capacitación de inmediato."
-    },
-    {
-      "q": "¿Puedo ofrecer servicios a clientes al terminar las 14 horas de estudio?",
-      "a": "Sí, estarás capacitado para dimensionar e instalar sistemas fotovoltaicos aislados o de respaldo. Se recomienda realizar montajes de prueba a pequeña escala antes de ejecutar tu primer proyecto comercial."
-    }
-  ],
-  "beneficios": [
-    "Calcular la potencia necesaria para una vivienda promedio en Ecuador evitando el sobredimensionamiento.",
-    "Montar estructuras de soporte sobre cubiertas inclinadas sin generar filtraciones de agua.",
-    "Realizar el cableado bajo normativa técnica para prevenir arcos eléctricos y cortocircuitos.",
-    "Configurar inversores de red y controladores de carga según las especificaciones del fabricante.",
-    "Conectar baterías de ciclo profundo para sistemas aislados de forma segura.",
-    "Diagnosticar fallas comunes en la generación de energía tras la puesta en marcha."
-  ],
-  "para_quien": [
-    "Personas que buscan iniciar su propio negocio de soluciones energéticas a pequeña escala.",
-    "Técnicos electricistas que desean ampliar sus servicios hacia las energías renovables.",
-    "Dueños de negocios locales que quieren reducir sus costos operativos mediante autogestión.",
-    "Emprendedores que ven en la transición energética una oportunidad de mercado en Ecuador."
-  ],
-  "requisitos": [
-    "Tener conocimientos básicos de electricidad residencial.",
-    "Contar con herramientas manuales esenciales como multímetro, taladro y destornilladores.",
-    "Disponer de una computadora o tablet con conexión a internet para ver las lecciones."
-  ],
-  "certificado": "Al finalizar el curso de instalación de paneles solares recibirás un certificado de participación que acredita las horas completadas. Ten presente que este documento valida tu formación técnica, pero no te habilita para firmar proyectos de ingeniería ni realizar instalaciones que requieran licencias oficiales de distribuidoras eléctricas.",
-  "garantia": "Tienes 7 días calendario para probar el contenido tras tu compra. Si consideras que la metodología de Ricardo Salazar no se ajusta a lo que buscabas, puedes solicitar la devolución del 100% de tu dinero a través de Hotmart sin dar explicaciones.",
-  "_meta": {
-    "usd": 0.02412,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-energia-solar",
+ "country": "ec",
+ "angulo": "emprendimiento",
+ "meta_title": "Curso de instalación de paneles solares en Ecuador",
+ "meta_description": "Aprende a montar sistemas fotovoltaicos en Ecuador y arranca tu propio negocio técnico. 14 horas de formación práctica. Inscríbete hoy.",
+ "h1": "Inicia tu negocio técnico con este curso de instalación de paneles solares en Ecuador",
+ "subtitulo": "Capacítate en 14 horas para dimensionar, calcular y montar sistemas fotovoltaicos autónomos y conectados a la red.",
+ "descripcion": "Cuando un cliente en Ecuador busca respaldar su vivienda frente a los cortes de energía o reducir la planilla de luz, no busca explicaciones teóricas: quiere un sistema que responda cuando se encienda un equipo inductivo. El fallo más común de quien empieza en este oficio es calcular a ojo el banco de baterías o utilizar conductores sin el calibre adecuado, lo que termina sobrecalentando la instalación. Con este curso de instalación de paneles solares, aprenderás a dimensionar, conectar y poner en marcha sistemas fotovoltaicos con criterio técnico y normas de seguridad.\n\n## De la teoría al primer proyecto fotovoltaico\nMontar un sistema solar requiere más que fijar módulos sobre una estructura metálica. Necesitas interpretar la radiación solar según la ubicación geográfica, determinar el ángulo de inclinación para aprovechar las horas pico de sol y configurar reguladores de carga sin arriesgar los equipos.\n\nEn las 14 horas de capacitación a cargo de Ricardo Salazar, el aprendizaje se enfoca en la lógica de trabajo en obra:\n* Calcular el consumo eléctrico real de una propiedad en kilovatios-hora a partir de su historial o inventario de cargas.\n* Seleccionar componentes compatibles: paneles monocristalinos, inversores de onda senoidal pura y baterías de ciclo profundo.\n* Realizar acoplamientos en serie y paralelo manteniendo el equilibrio de voltaje y corriente.\n* Instalar tableros de protección con interruptores termomagnéticos, fusibles DC y supresores de picos.\n\n## Errores técnicos que debes evitar al emprender\nEl negocio de la energía solar exige precisión. Si instalas un inversor con capacidad insuficiente para la corriente de arranque de un motor, el sistema se bloqueará constantemente. Si no utilizas conectores MC4 sellados y cableado con protección UV, las fallas por aislamiento deteriorarán la instalación en pocos meses.\n\nAprenderás a elaborar presupuestos detallados donde desgloses componentes, mano de obra y margen operativo sin regalar tu trabajo ni quedar fuera del mercado. Explicar con fundamentos por qué un cliente requiere un sistema aislado o uno híbrido es la herramienta clave para cerrar propuestas comerciales con solvencia.\n\n## Cómo estructurar tu servicio de instalación independiente\nPara arrancar no necesitas un local comercial ni grandes inventarios. La mayoría de técnicos independientes en Ecuador comienzan ofreciendo soluciones de respaldo para cargas críticas como iluminación, sistemas de seguridad e internet.\n\nSaber interpretar diagramas unifilares y medir parámetros con el multímetro te permitirá entregar trabajos limpios. Una instalación bien ejecutada es la mejor carta de presentación para conseguir recomendaciones directas.\n\n## Expectativas reales sobre el oficio solar en Ecuador\nEste curso de instalación de paneles solares no te otorga un título de ingeniería ni te faculta para firmar trámites de homologación de red ante las empresas eléctricas distribuidoras. Tampoco garantiza ingresos inmediatos sin esfuerzo de prospección comercial.\n\nLo que te aporta es la competencia práctica para diseñar e instalar sistemas residenciales, comerciales pequeños y soluciones rurales de forma independiente. Practicar en taller, verificar conexiones y entender la electricidad solar son los pasos necesarios para construir un emprendimiento sólido.",
+ "faqs": [
+ {
+ "q": "¿Cómo puedo pagar el curso desde Ecuador?",
+ "a": "El pago se realiza en dólares americanos (USD) a través de transferencia bancaria local o con tarjeta de crédito y débito directamente en la plataforma."
+ },
+ {
+ "q": "¿El precio publicado requiere ingresar algún cupón?",
+ "a": "No. El precio publicado ya cuenta con el 40% de descuento aplicado mediante el descuento de lanzamiento. El monto final a pagar es el precio publicado."
+ },
+ {
+ "q": "¿El certificado me sirve para tramitar permisos ante la empresa eléctrica en Ecuador?",
+ "a": "No. El certificado respalda la aprobación de las 14 horas de capacitación técnica, pero no reemplaza la firma de un profesional matriculado requerida para trámites oficiales de interconexión a la red pública."
+ },
+ {
+ "q": "¿Necesito conocimientos previos de electricidad para tomar la capacitación?",
+ "a": "Es útil conocer conceptos básicos de voltaje y corriente, pero las lecciones explican progresivamente desde el cálculo de cargas hasta el ensamblaje de los circuitos."
+ },
+ {
+ "q": "¿El instructor Ricardo Salazar atiende dudas durante las clases?",
+ "a": "El curso se compone de 18 lecciones grabadas en video. Dentro del aula virtual dispones de un área de comentarios donde puedes dejar tus preguntas puntuales sobre el contenido impartido por Ricardo Salazar."
+ },
+ {
+ "q": "¿Qué herramientas mínimas necesito para realizar mis primeras prácticas?",
+ "a": "Para iniciar requieres un multímetro digital, pelacables, destornilladores con aislamiento eléctrico y alicates. No es necesario adquirir herramientas de prensado especializado desde el primer día."
+ },
+ {
+ "q": "¿En qué momento recibo el acceso a la plataforma?",
+ "a": "Una vez confirmado el pago por transferencia o tarjeta, recibes un correo electrónico automático con los datos de ingreso para comenzar la capacitación de inmediato."
+ },
+ {
+ "q": "¿Puedo ofrecer servicios a clientes al terminar las 14 horas de estudio?",
+ "a": "Sí, estarás capacitado para dimensionar e instalar sistemas fotovoltaicos aislados o de respaldo. Se recomienda realizar montajes de prueba a pequeña escala antes de ejecutar tu primer proyecto comercial."
+ }
+ ],
+ "beneficios": [
+ "Calcular la potencia necesaria para una vivienda promedio en Ecuador evitando el sobredimensionamiento.",
+ "Montar estructuras de soporte sobre cubiertas inclinadas sin generar filtraciones de agua.",
+ "Realizar el cableado bajo normativa técnica para prevenir arcos eléctricos y cortocircuitos.",
+ "Configurar inversores de red y controladores de carga según las especificaciones del fabricante.",
+ "Conectar baterías de ciclo profundo para sistemas aislados de forma segura.",
+ "Diagnosticar fallas comunes en la generación de energía tras la puesta en marcha."
+ ],
+ "para_quien": [
+ "Personas que buscan iniciar su propio negocio de soluciones energéticas a pequeña escala.",
+ "Técnicos electricistas que desean ampliar sus servicios hacia las energías renovables.",
+ "Dueños de negocios locales que quieren reducir sus costos operativos mediante autogestión.",
+ "Emprendedores que ven en la transición energética una oportunidad de mercado en Ecuador."
+ ],
+ "requisitos": [
+ "Tener conocimientos básicos de electricidad residencial.",
+ "Contar con herramientas manuales esenciales como multímetro, taladro y destornilladores.",
+ "Disponer de una computadora o tablet con conexión a internet para ver las lecciones."
+ ],
+ "certificado": "Al finalizar el curso de instalación de paneles solares recibirás un certificado de participación que acredita las horas completadas. Ten presente que este documento valida tu formación técnica, pero no te habilita para firmar proyectos de ingeniería ni realizar instalaciones que requieran licencias oficiales de distribuidoras eléctricas.",
+ "garantia": "Tienes 7 días calendario para probar el contenido tras tu compra. Si consideras que la metodología de Ricardo Salazar no se ajusta a lo que buscabas, puedes solicitar la devolución del 100% de tu dinero a través de Hotmart sin dar explicaciones.",
+ "_meta": {
+ "usd": 0.02412,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

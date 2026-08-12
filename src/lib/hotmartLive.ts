@@ -62,10 +62,39 @@ export function valoracionesTotalesCatalogo(): number {
   return Object.values(VALORACIONES).reduce((s, v) => s + v.total, 0);
 }
 
+export interface Autor {
+  nombre: string;
+  bio: string;
+  /** Ruta local del avatar descargado, o null (se pinta la inicial). */
+  foto?: string | null;
+  desde: number | null;
+  verificado: boolean;
+  bestSeller: boolean;
+}
+
 const PRODUCTOS = ((datos as Record<string, unknown>).productos ?? {}) as Record<
   string,
-  { titulo?: string }
+  { titulo?: string; autor?: string }
 >;
+const AUTORES = ((datos as Record<string, unknown>).autores ?? {}) as Record<string, Autor>;
+
+/** Autor real (el productor publicado en Hotmart) del curso, con su slug. */
+export function autorDe(slug: string): (Autor & { slug: string }) | null {
+  const s = PRODUCTOS[slug]?.autor;
+  const a = s ? AUTORES[s] : null;
+  return a ? { ...a, slug: s! } : null;
+}
+
+/** Todos los creadores, con los slugs de sus cursos. */
+export function creadores(): (Autor & { slug: string; cursos: string[] })[] {
+  return Object.entries(AUTORES).map(([slug, a]) => ({
+    ...a,
+    slug,
+    cursos: Object.entries(PRODUCTOS)
+      .filter(([, p]) => p.autor === slug)
+      .map(([c]) => c),
+  }));
+}
 
 /** Título del curso tal y como se publica, para nombrarlo en avisos. */
 export function tituloDe(slug: string): string | null {
@@ -84,16 +113,6 @@ export function resenasDelCatalogo(): { slug: string; resena: Resena }[] {
     .filter((x) => x.resena);
 }
 
-/**
- * Formatea un monto en su moneda con el estilo de la casa: `$165.450 COP`,
- * `US$49,99`. Sin conversiones: el número que se enseña es el que cobra el
- * checkout en esa moneda.
- */
-export function formatMonto(monto: number, moneda: string): string {
-  const decimales = Number.isInteger(monto) ? 0 : 2;
-  const n = new Intl.NumberFormat('es-CO', {
-    minimumFractionDigits: decimales,
-    maximumFractionDigits: decimales,
-  }).format(monto);
-  return moneda === 'USD' ? `US$${n}` : `$${n} ${moneda}`;
-}
+/* El formato y la aritmética de cupones viven en `moneda.ts` (sin datos) para
+   que los scripts de cliente los importen sin arrastrar este JSON al bundle. */
+export { formatMonto, precioConDescuento } from './moneda';

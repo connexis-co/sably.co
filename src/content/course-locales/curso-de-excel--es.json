@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-excel",
-  "country": "es",
-  "angulo": "emprendimiento",
-  "meta_title": "Curso de excel para principiantes: controla tu negocio",
-  "meta_description": "Aprende a calcular costes, presupuestos y ventas con este curso de excel para principiantes. Organiza las cuentas de tu negocio sin errores. Apúntate.",
-  "h1": "Curso de excel para principiantes para estructurar la caja de tu nuevo proyecto",
-  "subtitulo": "Deja de calcular tus costes a ojo y diseña plantillas claras para controlar gastos, clientes e importes desde tu ordenador.",
-  "descripcion": "Lanzas un proyecto con ganas, cobras los primeros trabajos y a final de mes no sabes exactamente cuánto se ha ido en costes fijos, cuánto debes reservar para impuestos o por qué el margen de beneficio no cuadra. El fallo habitual al empezar no es vender poco, sino llevar la facturación en notas dispersas o cuadernos que se pierden. Este **curso de excel para principiantes** está pensado para que dejes de adivinar si ganas dinero y montes una estructura de control clara desde la pantalla de tu ordenador.\n\nCuando gestionas tus propios servicios o productos, perder dos horas buscando una factura traspasada o rehaciendo un presupuesto porque falló una suma manual te quita tiempo de captar clientes. La hoja de cálculo no es una herramienta para matemáticos; es el archivador operativo de cualquier autónomo o pequeña empresa.\n\n## El cuello de botella de emprender a ciegas\n\nEl problema de aprender a usar hojas de cálculo con tutoriales sueltos es que terminas creando documentos frágiles. Cambias una fila, el formato de moneda se rompe y los totales dejan de reflejar la realidad del banco. En este programa abordamos los puntos exactos donde la gente suele atascarse:\n\n- Configurar celdas correctamente para que los importes y las fechas no generen errores en las fórmulas.\n- Vincular pestañas de gastos e ingresos sin duplicar datos a mano.\n- Automatizar el cálculo de márgenes para saber qué servicio te deja beneficio real y cuál te cuesta dinero.\n- Limpiar bases de datos de clientes para enviar presupuestos sin equivocarte de tarifa.\n\n## Qué vas a construir para la gestión de tu empresa\n\nEl aprendizaje se orienta a tareas ejecutables desde el primer momento. En lugar de memorizar menús sin contexto, vas a trabajar sobre necesidades reales de un proyecto:\n\n* Diseñar una plantilla de presupuesto automático que calcule impuestos y descuentos sin descuadrar la suma final.\n* Usar funciones clave como SUMA, PROMEDIO o los condicionales básicos para clasificar costes fijos y variables.\n* Filtrar cobros pendientes para saber a qué clientes hay que reclamar factura este mes.\n* Crear gráficos sencillos que te muestren la evolución de las ventas de un vistazo antes de tomar decisiones de inversión.\n\n## Un techo claro a tus expectativas\n\nConviene fijar las reglas antes de empezar. Formarte durante 14 horas te dará autonomía para llevar las cuentas de tu negocio sin miedo a romper la hoja, pero no te convertirá en director financiero de una gran corporación ni en programador de macros avanzadas. El objetivo de este contenido es darte una base sólida, eliminar la desorganización de tus ingresos y ahorrarte horas de trabajo administrativo pesado.\n\n## Orden operativo para no perder margen\n\nLlevar un negocio implica saber qué entra y qué sale cada semana. Si estructuras tus tablas desde el primer día con el método que enseña Felipe Zambrano, evitarás sorpresas cuando toque revisar la liquidez o cerrar el trimestre. Solo necesitas tu ordenador, conexión a internet y ganas de poner orden en los números de tu proyecto.",
-  "faqs": [
-    {
-      "q": "¿Cómo puedo pagar el curso desde España?",
-      "a": "Puedes realizar el pago de forma segura mediante tarjeta de crédito o débito, transferencia bancaria o utilizando Bizum según la disponibilidad de la pasarela al finalizar el pedido."
-    },
-    {
-      "q": "¿El importe de USD 27 incluye ya algún código promocional?",
-      "a": "Sí, el precio final de USD 27 refleja la aplicación directa del 40% de descuento de lanzamiento sobre la tarifa original de USD 45. No hay ningún importe adicional que descontar."
-    },
-    {
-      "q": "¿Tiene validez oficial el certificado en España?",
-      "a": "El certificado acredita la realización y aprovechamiento de las 14 horas de formación. Sirve para certificar tus competencias ante clientes o incluirlo en tu currículum, pero no equivale a una titulación universitaria ni a un certificado de profesionalidad reglado por el SEPE."
-    },
-    {
-      "q": "¿Necesito tener conocimientos previos de informática?",
-      "a": "No. Está pensado como un curso de excel para principiantes desde cero. Únicamente necesitas saber navegar por internet y manejar carpetas básicas en tu ordenador."
-    },
-    {
-      "q": "¿Qué versión de Excel debo tener instalada en mi ordenador?",
-      "a": "Puedes seguir las lecciones con versiones recientes de Microsoft Excel (2016, 2019, 2021 o Microsoft 365). Las funciones principales que se enseñan funcionan de forma idéntica en casi todas las versiones."
-    },
-    {
-      "q": "¿Tengo un plazo límite para ver los vídeos?",
-      "a": "No, el acceso al material compuesto por las 20 lecciones repartidas en 5 módulos es permanente. Puedes organizarte según tus horarios de trabajo o estudio."
-    },
-    {
-      "q": "¿Cómo practico lo que se enseña en las lecciones?",
-      "a": "Lo ideal es ver las explicaciones en pantalla e ir aplicando cada paso en tus propios archivos. Practicar directamente con los datos de tu proyecto es la mejor forma de afianzar el aprendizaje."
-    },
-    {
-      "q": "¿El curso me sirve si trabajo como autónomo o freelance?",
-      "a": "Sí, el enfoque práctico está orientado precisamente a resolver la gestión diaria de pequeñas empresas, control de facturas, clientes y costes operativos sin complicaciones."
-    }
-  ],
-  "beneficios": [
-    "Limpiar bases de datos de proveedores sin errores manuales",
-    "Automatizar el cálculo de márgenes de beneficio en vuestras facturas",
-    "Crear tablas dinámicas para visualizar qué productos dan más margen",
-    "Detectar desviaciones en el presupuesto mensual del negocio",
-    "Organizar el inventario para evitar roturas de stock",
-    "Generar informes gráficos sencillos para presentar ante bancos o socios"
-  ],
-  "para_quien": [
-    "Emprendedores que gestionan su negocio con papel o notas mentales.",
-    "Autónomos que pierden horas cuadrando cuentas cada fin de mes.",
-    "Dueños de pequeños negocios que necesitan orden sin contratar un gestor.",
-    "Cualquier persona que necesite controlar sus números antes de darse de alta."
-  ],
-  "requisitos": [
-    "Tener un ordenador con Microsoft Excel instalado.",
-    "Conexión estable a internet para visualizar los vídeos.",
-    "Disposición para practicar las fórmulas con vuestros propios datos."
-  ],
-  "certificado": "Al finalizar el visionado de las lecciones, recibirás un certificado de finalización emitido por la plataforma. Ten en cuenta que este documento acredita tu formación técnica en la herramienta, pero no tiene carácter oficial ni te habilita para ejercer profesiones contables reguladas.",
-  "garantia": "Si tras revisar el contenido compruebas que el nivel o el enfoque no encajan con lo que buscabas, tienes 7 días naturales desde la compra para solicitar la devolución total del importe a través de Hotmart. Sin preguntas y sin esperas.",
-  "_meta": {
-    "usd": 0.0127,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-excel",
+ "country": "es",
+ "angulo": "emprendimiento",
+ "meta_title": "Curso de excel para principiantes: controla tu negocio",
+ "meta_description": "Aprende a calcular costes, presupuestos y ventas con este curso de excel para principiantes. Organiza las cuentas de tu negocio sin errores. Apúntate.",
+ "h1": "Curso de excel para principiantes para estructurar la caja de tu nuevo proyecto",
+ "subtitulo": "Deja de calcular tus costes a ojo y diseña plantillas claras para controlar gastos, clientes e importes desde tu ordenador.",
+ "descripcion": "Lanzas un proyecto con ganas, cobras los primeros trabajos y a final de mes no sabes exactamente cuánto se ha ido en costes fijos, cuánto debes reservar para impuestos o por qué el margen de beneficio no cuadra. El fallo habitual al empezar no es vender poco, sino llevar la facturación en notas dispersas o cuadernos que se pierden. Este **curso de excel para principiantes** está pensado para que dejes de adivinar si ganas dinero y montes una estructura de control clara desde la pantalla de tu ordenador.\n\nCuando gestionas tus propios servicios o productos, perder dos horas buscando una factura traspasada o rehaciendo un presupuesto porque falló una suma manual te quita tiempo de captar clientes. La hoja de cálculo no es una herramienta para matemáticos; es el archivador operativo de cualquier autónomo o pequeña empresa.\n\n## El cuello de botella de emprender a ciegas\n\nEl problema de aprender a usar hojas de cálculo con tutoriales sueltos es que terminas creando documentos frágiles. Cambias una fila, el formato de moneda se rompe y los totales dejan de reflejar la realidad del banco. En este programa abordamos los puntos exactos donde la gente suele atascarse:\n\n- Configurar celdas correctamente para que los importes y las fechas no generen errores en las fórmulas.\n- Vincular pestañas de gastos e ingresos sin duplicar datos a mano.\n- Automatizar el cálculo de márgenes para saber qué servicio te deja beneficio real y cuál te cuesta dinero.\n- Limpiar bases de datos de clientes para enviar presupuestos sin equivocarte de tarifa.\n\n## Qué vas a construir para la gestión de tu empresa\n\nEl aprendizaje se orienta a tareas ejecutables desde el primer momento. En lugar de memorizar menús sin contexto, vas a trabajar sobre necesidades reales de un proyecto:\n\n* Diseñar una plantilla de presupuesto automático que calcule impuestos y descuentos sin descuadrar la suma final.\n* Usar funciones clave como SUMA, PROMEDIO o los condicionales básicos para clasificar costes fijos y variables.\n* Filtrar cobros pendientes para saber a qué clientes hay que reclamar factura este mes.\n* Crear gráficos sencillos que te muestren la evolución de las ventas de un vistazo antes de tomar decisiones de inversión.\n\n## Un techo claro a tus expectativas\n\nConviene fijar las reglas antes de empezar. Formarte durante 14 horas te dará autonomía para llevar las cuentas de tu negocio sin miedo a romper la hoja, pero no te convertirá en director financiero de una gran corporación ni en programador de macros avanzadas. El objetivo de este contenido es darte una base sólida, eliminar la desorganización de tus ingresos y ahorrarte horas de trabajo administrativo pesado.\n\n## Orden operativo para no perder margen\n\nLlevar un negocio implica saber qué entra y qué sale cada semana. Si estructuras tus tablas desde el primer día con el método que enseña Felipe Zambrano, evitarás sorpresas cuando toque revisar la liquidez o cerrar el trimestre. Solo necesitas tu ordenador, conexión a internet y ganas de poner orden en los números de tu proyecto.",
+ "faqs": [
+ {
+ "q": "¿Cómo puedo pagar el curso desde España?",
+ "a": "Puedes realizar el pago de forma segura mediante tarjeta de crédito o débito, transferencia bancaria o utilizando Bizum según la disponibilidad de la pasarela al finalizar el pedido."
+ },
+ {
+ "q": "¿El importe publicado incluye ya algún código promocional?",
+ "a": "Sí, el precio publicado refleja la aplicación directa del 40% de descuento de lanzamiento. No hay ningún importe adicional que descontar."
+ },
+ {
+ "q": "¿Tiene validez oficial el certificado en España?",
+ "a": "El certificado acredita la realización y aprovechamiento de las 14 horas de formación. Sirve para certificar tus competencias ante clientes o incluirlo en tu currículum, pero no equivale a una titulación universitaria ni a un certificado de profesionalidad reglado por el SEPE."
+ },
+ {
+ "q": "¿Necesito tener conocimientos previos de informática?",
+ "a": "No. Está pensado como un curso de excel para principiantes desde cero. Únicamente necesitas saber navegar por internet y manejar carpetas básicas en tu ordenador."
+ },
+ {
+ "q": "¿Qué versión de Excel debo tener instalada en mi ordenador?",
+ "a": "Puedes seguir las lecciones con versiones recientes de Microsoft Excel (2016, 2019, 2021 o Microsoft 365). Las funciones principales que se enseñan funcionan de forma idéntica en casi todas las versiones."
+ },
+ {
+ "q": "¿Tengo un plazo límite para ver los vídeos?",
+ "a": "No, el acceso al material compuesto por las 20 lecciones repartidas en 5 módulos es permanente. Puedes organizarte según tus horarios de trabajo o estudio."
+ },
+ {
+ "q": "¿Cómo practico lo que se enseña en las lecciones?",
+ "a": "Lo ideal es ver las explicaciones en pantalla e ir aplicando cada paso en tus propios archivos. Practicar directamente con los datos de tu proyecto es la mejor forma de afianzar el aprendizaje."
+ },
+ {
+ "q": "¿El curso me sirve si trabajo como autónomo o freelance?",
+ "a": "Sí, el enfoque práctico está orientado precisamente a resolver la gestión diaria de pequeñas empresas, control de facturas, clientes y costes operativos sin complicaciones."
+ }
+ ],
+ "beneficios": [
+ "Limpiar bases de datos de proveedores sin errores manuales",
+ "Automatizar el cálculo de márgenes de beneficio en vuestras facturas",
+ "Crear tablas dinámicas para visualizar qué productos dan más margen",
+ "Detectar desviaciones en el presupuesto mensual del negocio",
+ "Organizar el inventario para evitar roturas de stock",
+ "Generar informes gráficos sencillos para presentar ante bancos o socios"
+ ],
+ "para_quien": [
+ "Emprendedores que gestionan su negocio con papel o notas mentales.",
+ "Autónomos que pierden horas cuadrando cuentas cada fin de mes.",
+ "Dueños de pequeños negocios que necesitan orden sin contratar un gestor.",
+ "Cualquier persona que necesite controlar sus números antes de darse de alta."
+ ],
+ "requisitos": [
+ "Tener un ordenador con Microsoft Excel instalado.",
+ "Conexión estable a internet para visualizar los vídeos.",
+ "Disposición para practicar las fórmulas con vuestros propios datos."
+ ],
+ "certificado": "Al finalizar el visionado de las lecciones, recibirás un certificado de finalización emitido por la plataforma. Ten en cuenta que este documento acredita tu formación técnica en la herramienta, pero no tiene carácter oficial ni te habilita para ejercer profesiones contables reguladas.",
+ "garantia": "Si tras revisar el contenido compruebas que el nivel o el enfoque no encajan con lo que buscabas, tienes 7 días naturales desde la compra para solicitar la devolución total del importe a través de Hotmart. Sin preguntas y sin esperas.",
+ "_meta": {
+ "usd": 0.0127,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

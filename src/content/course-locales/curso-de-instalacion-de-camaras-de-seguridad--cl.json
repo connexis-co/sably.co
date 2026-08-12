@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-instalacion-de-camaras-de-seguridad",
-  "country": "cl",
-  "angulo": "hobby",
-  "meta_title": "Curso de instalación de cámaras de seguridad | Chile",
-  "meta_description": "Aprende a instalar tu propio sistema de CCTV en casa, configurar el DVR y monitorear desde tu celular. Revisa el programa en Chile y paga con Webpay.",
-  "h1": "Protege tu casa tú mismo con este curso de instalación de cámaras de seguridad",
-  "subtitulo": "Una guía práctica para armar tu sistema de vigilancia casero, tirar cableado sin romper paredes y configurar el monitoreo en tu teléfono.",
-  "descripcion": "Comprar un kit de CCTV en el comercio local y tratar de armarlo un fin de semana suele terminar en frustración. El cable queda cruzado en el techo, la imagen del patio se ve con interferencia por la cercanía a un cable eléctrico y la aplicación del teléfono muestra el mensaje de dispositivo fuera de línea cada vez que sales de la casa. Si quieres tomar el control del resguardo de tu propiedad, el **curso de instalación de cámaras de seguridad** te enseña paso a paso a dimensionar, montar y dejar operativa la red de vigilancia de tu hogar sin depender de técnicos externos ni pagar suscripciones mensuales.\n\n## Del kit en caja al monitoreo en tiempo real en tu teléfono\n\nMontar tu propio circuito cerrado de televisión es un proyecto técnico apasionante que requiere orden más que fuerza. Para que las cámaras entreguen una imagen nítida de noche y día, hay que entender cómo viaja la señal de video y cómo se distribuye la energía.\n\nEn las lecciones verás la diferencia entre sistemas análogos de alta definición con conectores BNC y baluns, y las cámaras IP que se enlazan mediante cable de red UTP o señales inalámbricas. Aprenderás a elegir la lente adecuada según el punto a vigilar: no es lo mismo cubrir un pasillo estrecho que enfocar el portón de entrada o el patio trasero de una parcela.\n\nEl aspecto crítico que detiene a la mayoría de los aficionados es la configuración de red. Aquí aprenderás a conectar el grabador (DVR o NVR) al módem de tu proveedor de internet en Chile —como VTR, Movistar o Entel— utilizando protocolos P2P y códigos QR. Esto te permite escanear el equipo con el celular y ver lo que ocurre en tu casa de forma remota, sin necesidad de contratar direcciones IP fijas ni pagar tarifas de mantenimiento.\n\n## Errores habituales que arruinan un proyecto de seguridad casero\n\nCuando se instala por cuenta propia, es fácil cometer fallos sencillos que degradan la señal o queman los equipos. Saber evitar estos puntos de atasco te ahorrará dinero en materiales y dolores de cabeza:\n\n* Alimentar varias cámaras con una fuente de poder insuficiente, lo que provoca que la visión nocturna por infrarrojos falle o se apague a medianoche.\n* Pasar el cable de video junto a las líneas de corriente alterna de 220V, generando ruido electromagnético y rayas en la pantalla.\n* Dejar las cajas de paso expuestas a la lluvia o a la humedad directa sin la aislación adecuada para conectores de exterior.\n* Colocar cámaras apuntando directamente hacia reflectores o al sol de la tarde, encegueciendo el sensor por contraluz.\n* Ponchar mal los conectores RJ45 o retorcer en exceso el cable UTP, fracturando los hilos de cobre internos.\n\n### Herramientas básicas que vas a necesitar\n\nNo hace falta montar un taller profesional para completar tu proyecto. Con un alicate de corte, un pelacables, conectores rápidos, un tester de red básico y una ponchadora para RJ45 tendrás todo lo necesario para armar los tramos de cableado a la medida exacta de tu casa.\n\nCon el avance del curso de instalación de cámaras de seguridad, notarás que la clave no está en comprar el equipo más costoso del mercado, sino en calcular bien la distancia de los cables y ubicar los ángulos ciegos. Así logras un sistema eficiente y construido totalmente por ti.\n\n## Un proyecto personal con límites claros\n\nAprender este oficio como pasatiempo o para uso personal te da independencia total sobre la seguridad de tus espacios. Sabrás exactamente dónde pasa cada cable, cómo respaldar una grabación en un disco duro o pendrive si ocurre un incidente, y cómo agregar nuevos puntos de visión cuando lo necesites.\n\nSin embargo, es importante poner un techo a las expectativas: este programa está diseñado para el ámbito residencial, pequeñas parcelas y locales comerciales de menor escala. No te convertirá automáticamente en un ingeniero de redes industriales ni te capacitará para integrar sistemas complejos de fibra óptica para grandes empresas. Es una formación práctica y directa para resolver la instalación de tu casa con criterio técnico.\n\nAl dominar estas 20 lecciones repartidas en 14 horas de contenido, dejarás de adivinar qué cable va en qué puerto. Sabrás medir el voltaje que llega a cada extremo, crimpar conectores sin margen de error y dejar tu sistema funcionando con la tranquilidad de que tú mismo lo construiste.",
-  "faqs": [
-    {
-      "q": "¿Cómo pago el curso desde Chile y en qué moneda se realiza el cobro?",
-      "a": "Puedes pagar directamente en la plataforma usando Webpay con tu tarjeta de débito (CuentaRUT o tarjeta bancaria) o tarjeta de crédito. El valor de referencia es USD 36, y tu banco o Webpay realiza la conversión a pesos chilenos (CLP) al momento del pago."
-    },
-    {
-      "q": "¿El precio de USD 36 incluye el descuento de lanzamiento?",
-      "a": "Sí, el valor de USD 36 ya tiene aplicado el 40% de descuento sobre el precio original de USD 60 mediante el descuento de lanzamiento. Es un pago único sin costos ocultos ni mensualidades."
-    },
-    {
-      "q": "¿El certificado digital me sirve para trabajar de forma oficial en Chile?",
-      "a": "El certificado acredita que completaste las 14 horas de formación y las 20 lecciones del curso. Sin embargo, para prestar servicios de seguridad privada en Chile o trabajar en empresas del rubro, no reemplaza las acreditaciones de la OS10 de Carabineros ni las certificaciones de la SEC."
-    },
-    {
-      "q": "¿Necesito conocimientos previos de electricidad o redes para tomar el curso?",
-      "a": "No. El contenido parte desde cero y explica cómo conectar los cables, utilizar conectores balun, ponchar plug RJ45 y configurar la aplicación móvil paso a paso."
-    },
-    {
-      "q": "¿Qué herramientas necesito para hacer la instalación en mi casa?",
-      "a": "Necesitarás herramientas manuales básicas como alicate de corte, destornilladores, una ponchadora para conectores RJ45, pelacables y un tester básico para verificar la continuidad de los cables."
-    },
-    {
-      "q": "¿Sirve para configurar cámaras con internet de VTR, Movistar, Entel u otros proveedores locales?",
-      "a": "Sí. En el curso se enseña a enlazar los grabadores mediante P2P y código QR, un método que funciona con los módem habituales de los proveedores de internet en Chile sin necesidad de abrir puertos complejos."
-    },
-    {
-      "q": "¿Cómo es el acceso a las lecciones impartidas por Diego Cárdenas?",
-      "a": "Es 100% online y a tu propio ritmo. Una vez confirmado el pago, accedes a la plataforma donde están alojadas las lecciones distribuidas en 5 módulos para que las veas según tu disponibilidad."
-    },
-    {
-      "q": "¿Qué pasa si practico y no logro que la cámara se vea en el teléfono?",
-      "a": "Dentro del área de alumnos del curso puedes dejar tus consultas técnicas en la sección de comentarios de cada lección para resolver las dudas sobre el paso donde te quedaste atascado."
-    }
-  ],
-  "beneficios": [
-    "Montar tu propio circuito cerrado en casa sin depender de terceros.",
-    "Configurar la visualización remota de cámaras desde tu celular.",
-    "Pasar cables de forma oculta para mantener la estética de tus espacios.",
-    "Realizar el mantenimiento preventivo y limpieza de lentes para evitar fallas.",
-    "Aprender a direccionar los ángulos de grabación para cubrir puntos ciegos.",
-    "Detectar y solucionar problemas básicos de conexión entre el DVR y el monitor."
-  ],
-  "para_quien": [
-    "Personas que disfrutan de las reparaciones domésticas por cuenta propia.",
-    "Dueños de hogar que buscan mejorar la seguridad de sus espacios personales.",
-    "Entusiastas de la tecnología que quieren entender cómo funciona un sistema de vigilancia.",
-    "Quienes prefieren resolver problemas técnicos sin pagar mano de obra externa."
-  ],
-  "requisitos": [
-    "Disponer de un kit básico de herramientas como destornilladores y alicates.",
-    "Tener acceso a una computadora o tablet para visualizar las lecciones.",
-    "Disposición para realizar pruebas prácticas en entornos controlados de tu casa."
-  ],
-  "certificado": "Al finalizar el curso de instalación de cámaras de seguridad recibirás un certificado de participación. Ten presente que este documento valida tu aprendizaje técnico, pero no te habilita legalmente como instalador profesional certificado ante organismos estatales.",
-  "garantia": "Tienes 7 días corridos a partir de la compra para revisar todo el contenido. Si consideras que el curso no cumple con lo esperado, puedes solicitar la devolución total de tu dinero directamente a través de la plataforma Hotmart sin dar explicaciones.",
-  "_meta": {
-    "usd": 0.01569,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-instalacion-de-camaras-de-seguridad",
+ "country": "cl",
+ "angulo": "hobby",
+ "meta_title": "Curso de instalación de cámaras de seguridad | Chile",
+ "meta_description": "Aprende a instalar tu propio sistema de CCTV en casa, configurar el DVR y monitorear desde tu celular. Revisa el programa en Chile y paga con Webpay.",
+ "h1": "Protege tu casa tú mismo con este curso de instalación de cámaras de seguridad",
+ "subtitulo": "Una guía práctica para armar tu sistema de vigilancia casero, tirar cableado sin romper paredes y configurar el monitoreo en tu teléfono.",
+ "descripcion": "Comprar un kit de CCTV en el comercio local y tratar de armarlo un fin de semana suele terminar en frustración. El cable queda cruzado en el techo, la imagen del patio se ve con interferencia por la cercanía a un cable eléctrico y la aplicación del teléfono muestra el mensaje de dispositivo fuera de línea cada vez que sales de la casa. Si quieres tomar el control del resguardo de tu propiedad, el **curso de instalación de cámaras de seguridad** te enseña paso a paso a dimensionar, montar y dejar operativa la red de vigilancia de tu hogar sin depender de técnicos externos ni pagar suscripciones mensuales.\n\n## Del kit en caja al monitoreo en tiempo real en tu teléfono\n\nMontar tu propio circuito cerrado de televisión es un proyecto técnico apasionante que requiere orden más que fuerza. Para que las cámaras entreguen una imagen nítida de noche y día, hay que entender cómo viaja la señal de video y cómo se distribuye la energía.\n\nEn las lecciones verás la diferencia entre sistemas análogos de alta definición con conectores BNC y baluns, y las cámaras IP que se enlazan mediante cable de red UTP o señales inalámbricas. Aprenderás a elegir la lente adecuada según el punto a vigilar: no es lo mismo cubrir un pasillo estrecho que enfocar el portón de entrada o el patio trasero de una parcela.\n\nEl aspecto crítico que detiene a la mayoría de los aficionados es la configuración de red. Aquí aprenderás a conectar el grabador (DVR o NVR) al módem de tu proveedor de internet en Chile —como VTR, Movistar o Entel— utilizando protocolos P2P y códigos QR. Esto te permite escanear el equipo con el celular y ver lo que ocurre en tu casa de forma remota, sin necesidad de contratar direcciones IP fijas ni pagar tarifas de mantenimiento.\n\n## Errores habituales que arruinan un proyecto de seguridad casero\n\nCuando se instala por cuenta propia, es fácil cometer fallos sencillos que degradan la señal o queman los equipos. Saber evitar estos puntos de atasco te ahorrará dinero en materiales y dolores de cabeza:\n\n* Alimentar varias cámaras con una fuente de poder insuficiente, lo que provoca que la visión nocturna por infrarrojos falle o se apague a medianoche.\n* Pasar el cable de video junto a las líneas de corriente alterna de 220V, generando ruido electromagnético y rayas en la pantalla.\n* Dejar las cajas de paso expuestas a la lluvia o a la humedad directa sin la aislación adecuada para conectores de exterior.\n* Colocar cámaras apuntando directamente hacia reflectores o al sol de la tarde, encegueciendo el sensor por contraluz.\n* Ponchar mal los conectores RJ45 o retorcer en exceso el cable UTP, fracturando los hilos de cobre internos.\n\n### Herramientas básicas que vas a necesitar\n\nNo hace falta montar un taller profesional para completar tu proyecto. Con un alicate de corte, un pelacables, conectores rápidos, un tester de red básico y una ponchadora para RJ45 tendrás todo lo necesario para armar los tramos de cableado a la medida exacta de tu casa.\n\nCon el avance del curso de instalación de cámaras de seguridad, notarás que la clave no está en comprar el equipo más costoso del mercado, sino en calcular bien la distancia de los cables y ubicar los ángulos ciegos. Así logras un sistema eficiente y construido totalmente por ti.\n\n## Un proyecto personal con límites claros\n\nAprender este oficio como pasatiempo o para uso personal te da independencia total sobre la seguridad de tus espacios. Sabrás exactamente dónde pasa cada cable, cómo respaldar una grabación en un disco duro o pendrive si ocurre un incidente, y cómo agregar nuevos puntos de visión cuando lo necesites.\n\nSin embargo, es importante poner un techo a las expectativas: este programa está diseñado para el ámbito residencial, pequeñas parcelas y locales comerciales de menor escala. No te convertirá automáticamente en un ingeniero de redes industriales ni te capacitará para integrar sistemas complejos de fibra óptica para grandes empresas. Es una formación práctica y directa para resolver la instalación de tu casa con criterio técnico.\n\nAl dominar estas 20 lecciones repartidas en 14 horas de contenido, dejarás de adivinar qué cable va en qué puerto. Sabrás medir el voltaje que llega a cada extremo, crimpar conectores sin margen de error y dejar tu sistema funcionando con la tranquilidad de que tú mismo lo construiste.",
+ "faqs": [
+ {
+ "q": "¿Cómo pago el curso desde Chile y en qué moneda se realiza el cobro?",
+ "a": "Puedes pagar directamente en la plataforma usando Webpay con tu tarjeta de débito (CuentaRUT o tarjeta bancaria) o tarjeta de crédito. El valor de referencia es el precio publicado, y tu banco o Webpay realiza la conversión a pesos chilenos (CLP) al momento del pago."
+ },
+ {
+ "q": "¿El precio publicado incluye el descuento de lanzamiento?",
+ "a": "El precio que ves en la página es el precio final del checkout de Hotmart mediante el descuento de lanzamiento. Es un pago único sin costos ocultos ni mensualidades."
+ },
+ {
+ "q": "¿El certificado digital me sirve para trabajar de forma oficial en Chile?",
+ "a": "El certificado acredita que completaste las 14 horas de formación y las 20 lecciones del curso. Sin embargo, para prestar servicios de seguridad privada en Chile o trabajar en empresas del rubro, no reemplaza las acreditaciones de la OS10 de Carabineros ni las certificaciones de la SEC."
+ },
+ {
+ "q": "¿Necesito conocimientos previos de electricidad o redes para tomar el curso?",
+ "a": "No. El contenido parte desde cero y explica cómo conectar los cables, utilizar conectores balun, ponchar plug RJ45 y configurar la aplicación móvil paso a paso."
+ },
+ {
+ "q": "¿Qué herramientas necesito para hacer la instalación en mi casa?",
+ "a": "Necesitarás herramientas manuales básicas como alicate de corte, destornilladores, una ponchadora para conectores RJ45, pelacables y un tester básico para verificar la continuidad de los cables."
+ },
+ {
+ "q": "¿Sirve para configurar cámaras con internet de VTR, Movistar, Entel u otros proveedores locales?",
+ "a": "Sí. En el curso se enseña a enlazar los grabadores mediante P2P y código QR, un método que funciona con los módem habituales de los proveedores de internet en Chile sin necesidad de abrir puertos complejos."
+ },
+ {
+ "q": "¿Cómo es el acceso a las lecciones impartidas por Diego Cárdenas?",
+ "a": "Es 100% online y a tu propio ritmo. Una vez confirmado el pago, accedes a la plataforma donde están alojadas las lecciones distribuidas en 5 módulos para que las veas según tu disponibilidad."
+ },
+ {
+ "q": "¿Qué pasa si practico y no logro que la cámara se vea en el teléfono?",
+ "a": "Dentro del área de alumnos del curso puedes dejar tus consultas técnicas en la sección de comentarios de cada lección para resolver las dudas sobre el paso donde te quedaste atascado."
+ }
+ ],
+ "beneficios": [
+ "Montar tu propio circuito cerrado en casa sin depender de terceros.",
+ "Configurar la visualización remota de cámaras desde tu celular.",
+ "Pasar cables de forma oculta para mantener la estética de tus espacios.",
+ "Realizar el mantenimiento preventivo y limpieza de lentes para evitar fallas.",
+ "Aprender a direccionar los ángulos de grabación para cubrir puntos ciegos.",
+ "Detectar y solucionar problemas básicos de conexión entre el DVR y el monitor."
+ ],
+ "para_quien": [
+ "Personas que disfrutan de las reparaciones domésticas por cuenta propia.",
+ "Dueños de hogar que buscan mejorar la seguridad de sus espacios personales.",
+ "Entusiastas de la tecnología que quieren entender cómo funciona un sistema de vigilancia.",
+ "Quienes prefieren resolver problemas técnicos sin pagar mano de obra externa."
+ ],
+ "requisitos": [
+ "Disponer de un kit básico de herramientas como destornilladores y alicates.",
+ "Tener acceso a una computadora o tablet para visualizar las lecciones.",
+ "Disposición para realizar pruebas prácticas en entornos controlados de tu casa."
+ ],
+ "certificado": "Al finalizar el curso de instalación de cámaras de seguridad recibirás un certificado de participación. Ten presente que este documento valida tu aprendizaje técnico, pero no te habilita legalmente como instalador profesional certificado ante organismos estatales.",
+ "garantia": "Tienes 7 días corridos a partir de la compra para revisar todo el contenido. Si consideras que el curso no cumple con lo esperado, puedes solicitar la devolución total de tu dinero directamente a través de la plataforma Hotmart sin dar explicaciones.",
+ "_meta": {
+ "usd": 0.01569,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }
