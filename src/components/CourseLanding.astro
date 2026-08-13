@@ -212,7 +212,7 @@ const schemas = [
   pageType={city ? 'course_city' : 'course'}
   whatsappContext={city ? `${course.data.title} (${city.name})` : course.data.title}
 >
-  <StickyCta title={course.data.title} priceUSD={course.data.priceUSD} {country} {ctaUrl} />
+  <StickyCta title={course.data.title} precio={formatPrice(course.data.priceUSD, country)} {ctaUrl} />
 
   <!-- Hero -->
   <section class="bg-primary">
@@ -293,7 +293,7 @@ const schemas = [
           <span class="rounded-full bg-accent px-2.5 py-1 text-xs font-bold text-white">-{discountPct}%</span>
         </div>
         <p class="mt-1 text-xs font-semibold text-error">
-          🔥 Oferta con cupón {SITE.defaultCoupon} — se aplica automáticamente
+          🔥 El precio ya incluye el {discountPct}% de descuento
         </p>
         <a
           href={ctaUrl}
@@ -303,7 +303,7 @@ const schemas = [
           data-cta-position="hero"
           class="animate-pulse-soft mt-5 block rounded-md bg-accent px-6 py-4 text-center font-bold text-white transition hover:bg-accent-hover"
         >
-          🔥 Inscribirme con {SITE.couponDiscountPct}% OFF
+          🔥 Inscribirme ahora
         </a>
         <button
           type="button"
@@ -604,7 +604,7 @@ const schemas = [
         data-cta-position="footer"
         class="animate-pulse-soft mt-7 inline-block rounded-md bg-accent px-8 py-4 font-bold text-white transition hover:bg-accent-hover"
       >
-        🔥 Inscribirme con {SITE.couponDiscountPct}% OFF
+        🔥 Inscribirme ahora
       </a>
       <p class="mt-4 text-sm text-white/60">Garantía de 7 días · Acceso de por vida · Certificado incluido</p>
     </div>

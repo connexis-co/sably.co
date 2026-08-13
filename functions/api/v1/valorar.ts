@@ -24,8 +24,14 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (!Number.isInteger(rating) || rating < 1 || rating > 5) return error('La nota va de 1 a 5.');
 
   try {
-    // Solo cursos que existen: la tabla de productos ya está sembrada.
-    const existe = await env.DB.prepare('SELECT 1 FROM hotmart_producto WHERE slug = ?')
+    // Solo cursos que existen. Se valida contra `subject`, que es el catálogo
+    // del sitio (121 cursos), y NO contra `hotmart_producto`, que es el mapeo
+    // comercial y solo cubre los que tienen id de producto en Hotmart (95).
+    // Con la comprobación anterior, 26 cursos devolvían 404 y no se podían
+    // valorar: las estrellas se encendían y el voto se perdía.
+    const existe = await env.DB.prepare(
+      "SELECT 1 FROM subject WHERE id = 'course:' || ? AND is_active = 1",
+    )
       .bind(slug)
       .first();
     if (!existe) return error('Curso desconocido.', 404);
