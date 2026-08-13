@@ -33,13 +33,49 @@ export interface PrecioReal {
   esLocal: boolean;
 }
 
+/**
+ * Tasa que Hotmart aplica entre USD y la moneda local, deducida del propio
+ * catálogo capturado: no es una conversión nuestra, es la relación que exhiben
+ * la inmensa mayoría de los productos.
+ */
+const TASA: Record<string, number> = { COP: 3310 };
+
+/** Cuánto puede desviarse un precio local de la tasa antes de no fiarse. */
+const TOLERANCIA = 0.05;
+
+/**
+ * ¿El precio local cuadra con el USD del mismo producto?
+ *
+ * Existe porque ya pasó: `curso-de-unas-acrilicas` se publicó a 331.000 COP
+ * con 49,99 USD —el doble de lo que cobra el checkout— y `curso-de-limpieza-
+ * facial` a 165.450 con 99,99, la mitad. El COP se había quedado viejo mientras
+ * el USD se recapturaba, y nadie lo vio porque cada cifra, por separado, es
+ * plausible.
+ *
+ * Anunciar menos de lo que cobra el checkout es lo peor que puede pasar aquí:
+ * el comprador llega al pago y ve otro número. Ante la duda se devuelve el USD,
+ * que es el que se captura de verdad.
+ */
+function localFiable(local: number, usd: number, moneda: string): boolean {
+  const tasa = TASA[moneda];
+  if (!tasa) return true; // sin referencia no se puede juzgar; se respeta
+  return Math.abs(local - usd * tasa) / (usd * tasa) <= TOLERANCIA;
+}
+
 /** Precio real del checkout para el país, con USD como respaldo. */
 export function precioReal(slug: string, country: Country): PrecioReal | null {
   const monedas = PRECIOS[slug];
   if (!monedas) return null;
   const local = monedas[country.currency];
-  if (local && local > 0) return { monto: local, moneda: country.currency, esLocal: true };
-  if (monedas.USD && monedas.USD > 0) return { monto: monedas.USD, moneda: 'USD', esLocal: false };
+  const usd = monedas.USD;
+  if (local && local > 0) {
+    if (!usd || usd <= 0 || localFiable(local, usd, country.currency)) {
+      return { monto: local, moneda: country.currency, esLocal: true };
+    }
+    // Incoherente: se cae al USD en vez de publicar un número que no cuadra.
+    console.warn(`[precios] ${slug}: ${local} ${country.currency} no cuadra con ${usd} USD`);
+  }
+  if (usd && usd > 0) return { monto: usd, moneda: 'USD', esLocal: false };
   return null;
 }
 
