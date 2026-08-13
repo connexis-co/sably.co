@@ -92,13 +92,23 @@ const { title, precio, precioTachado, descuentoPct, promoLabel, monto, moneda, p
 </div>
 
 <style>
+  /* En escritorio la barra NO puede ir en top:0: la cabecera es `sticky top-0`
+     con z-50 y 65 px de alto, o sea que tapaba por completo esta barra de z-40
+     y 57 px. Se renderizaba y no se veía — parecía existir solo en móvil, que
+     es donde va abajo y no hay choque.
+
+     Se cuelga justo debajo de la cabecera. El alto lo mide el script y lo
+     publica en `--cabecera-alto`; el 64px del respaldo es para el primer
+     pintado y para si el script no llega a correr. */
   [data-sticky-cta] {
-    top: 0;
+    top: var(--cabecera-alto, 64px);
     border-bottom-width: 1px;
     transition: transform 0.3s ease;
   }
+  /* Al ocultarse tiene que salvar su propio alto MÁS el hueco de la cabecera,
+     o asomaría por debajo de ella. */
   [data-sticky-cta][data-oculta] {
-    transform: translateY(-100%);
+    transform: translateY(calc(-100% - var(--cabecera-alto, 64px)));
   }
   @media (max-width: 639px) {
     [data-sticky-cta] {
@@ -122,6 +132,18 @@ const { title, precio, precioTachado, descuentoPct, promoLabel, monto, moneda, p
 <script>
   const bar = document.querySelector<HTMLElement>('[data-sticky-cta]');
   const sentinel = document.getElementById('hero-sentinel');
+
+  /* Alto real de la cabecera, para colgar la barra justo debajo en escritorio.
+     Se mide y se vuelve a medir al cambiar el tamaño, porque la cabecera cambia
+     de alto entre móvil y escritorio. */
+  const cabecera = document.querySelector<HTMLElement>('header');
+  if (cabecera) {
+    const medir = () =>
+      document.documentElement.style.setProperty('--cabecera-alto', `${cabecera.offsetHeight}px`);
+    medir();
+    addEventListener('resize', medir, { passive: true });
+  }
+
   if (bar && sentinel) {
     // Señal para que WhatsApp y la prueba social se eleven sobre este carril.
     document.body.dataset.hasSticky = '1';
