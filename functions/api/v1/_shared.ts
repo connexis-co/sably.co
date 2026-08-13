@@ -13,6 +13,8 @@ export interface Env {
   RESEND_API_KEY?: string;
   NOTIFY_EMAIL?: string;
   NOTIFY_FROM?: string;
+  /** Email marketing/transaccional. Si está, tiene prioridad sobre Resend. */
+  BREVO_API_KEY?: string;
 }
 
 export const json = (data: unknown, status = 200): Response =>
