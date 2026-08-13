@@ -280,3 +280,48 @@ export function websiteSchema(country: string) {
     publisher: { '@id': `${SITE.url}/#organization` },
   };
 }
+
+interface VideoInput {
+  /** Título del vídeo. No el del curso a secas: describe lo que se ve. */
+  name: string;
+  description: string;
+  /** Absoluta. Google rechaza las relativas. */
+  thumbnailUrl: string;
+  /** ISO 8601, la fecha real de subida. */
+  uploadDate: string;
+  /** ISO 8601 de duración: PT40S. Es la que pinta la insignia de tiempo. */
+  duration: string;
+  /** URL directa al MP4. */
+  contentUrl: string;
+  /** Página donde se reproduce. */
+  pageUrl: string;
+}
+
+/**
+ * Ficha de vídeo.
+ *
+ * Solo se emite cuando el vídeo existe de verdad en la página: Google exige que
+ * el vídeo sea el contenido principal de ese punto de la página y penaliza
+ * declarar uno que no se puede reproducir.
+ *
+ * `duration` y `uploadDate` salen del archivo real (ver course-videos.ts), no
+ * del frontmatter del curso: la fecha de publicación del curso no es cuándo se
+ * subió el vídeo, y una duración inventada rompe la insignia del resultado.
+ */
+export function videoSchema(v: VideoInput) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: v.name,
+    description: v.description,
+    thumbnailUrl: [v.thumbnailUrl],
+    uploadDate: v.uploadDate,
+    duration: v.duration,
+    contentUrl: v.contentUrl,
+    // Dónde vive el vídeo, para que Google lo asocie a esta URL y no a otra.
+    embedUrl: v.pageUrl,
+    inLanguage: 'es',
+    isFamilyFriendly: true,
+    publisher: { '@id': `${SITE.url}/#organization` },
+  };
+}

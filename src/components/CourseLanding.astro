@@ -24,7 +24,8 @@ import { getCategory, courseCover } from '@/lib/categories';
 import { formatMonto, precioReal } from '@/lib/hotmartLive';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { resolvePromo } from '@/lib/promo';
-import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema } from '@/lib/seo';
+import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema, videoSchema } from '@/lib/seo';
+import { COURSE_VIDEOS, duracionIso } from '@/lib/course-videos';
 import { SITE, CDN_URL } from '@/lib/site';
 
 /**
@@ -239,6 +240,24 @@ const schemas = [
     // v_course_rating) cuando haya reseñas verificadas por compra.
   }),
   faqSchema(faqs),
+  // VideoObject solo donde el vídeo existe y se reproduce en la propia página.
+  // La duración y la fecha salen del archivo real, no del frontmatter.
+  // Solo en la página de país, nunca en las 37 de ciudad: es el mismo archivo,
+  // y repetirlo en 45 URLs hace que Google elija una y descarte el resto. El
+  // sitemap lo declara con el mismo criterio.
+  ...(!city && videoSrc && COURSE_VIDEOS[course.id]
+    ? [
+        videoSchema({
+          name: `${course.data.title} — presentación en vídeo`,
+          description: course.data.shortDescription,
+          thumbnailUrl: new URL(courseCover(course.id, category.slug), SITE.url).href,
+          uploadDate: COURSE_VIDEOS[course.id]!.subido,
+          duration: duracionIso(COURSE_VIDEOS[course.id]!.segundos),
+          contentUrl: videoSrc,
+          pageUrl,
+        }),
+      ]
+    : []),
 ];
 ---
 
