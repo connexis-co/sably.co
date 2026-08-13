@@ -33,6 +33,11 @@ export const SITE = {
       url: 'https://academiadebelleza.edu.co',
       description: 'Nuestra academia especializada en belleza y estética',
     },
+    {
+      name: 'Curso de Globos Online',
+      url: 'https://cursodeglobosonline.com',
+      description: 'Nuestra escuela especializada en decoración con globos',
+    },
   ],
   /**
    * Cifras REALES, no de marketing. `rating` y `reviews` se calculan de las
