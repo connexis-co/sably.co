@@ -13,18 +13,26 @@ export const SITE = {
    * convertía la oferta en perpetua. Ver la cabecera de promo.ts.
    */
   /**
-   * Perfiles REALES de la marca: los cuatro responden 200 (YouTube verificado
-   * el 2026-08-13, ya existe el canal). El handle es `sably.cursos` en todas
-   * las redes — antes apuntaban a `sably.co`, que no es la cuenta.
+   * Perfiles REALES de la marca. El handle es `sably.academy` en las cuatro
+   * redes; antes decía `sably.cursos`, que no es la cuenta.
+   *
+   * Comprobado contra la Graph API, no por HTTP: pedir el perfil con curl no
+   * sirve de verificación porque Instagram devuelve 200 también para un
+   * usuario inexistente y Facebook responde 400 a los clientes que no son
+   * navegador. De hecho `sably.cursos` y `sably.academy` devuelven ambos 200
+   * en YouTube y TikTok, así que el código de estado no distingue nada.
+   *   GET /1384649245181822?fields=username  → "sably.academy"  (página FB)
+   *   GET /17841407489758729?fields=username → "sably.academy"  (Instagram)
+   * Confirmado por JP el 2026-08-13.
    *
    * Footer y el `sameAs` del schema filtran los vacíos, así que un perfil que
    * aún no exista se declara como '' en lugar de enlazar a un 404.
    */
   social: {
-    instagram: 'https://www.instagram.com/sably.cursos',
-    tiktok: 'https://www.tiktok.com/@sably.cursos',
-    facebook: 'https://www.facebook.com/sably.cursos',
-    youtube: 'https://www.youtube.com/@sably.cursos',
+    instagram: 'https://www.instagram.com/sably.academy',
+    tiktok: 'https://www.tiktok.com/@sably.academy',
+    facebook: 'https://www.facebook.com/sably.academy',
+    youtube: 'https://www.youtube.com/@sably.academy',
   },
   filiales: [
     {
