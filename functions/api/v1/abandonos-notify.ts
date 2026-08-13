@@ -49,32 +49,72 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   ).all()).results as Array<{ id: string; buyer_name: string; buyer_email: string; product_name: string }>;
 
   if (!pendientes.length) return json({ ok: true, pendientes: 0, enviados: 0 });
-  if (!env.RESEND_API_KEY || !env.NOTIFY_FROM) {
-    return json({ ok: true, pendientes: pendientes.length, enviados: 0, motivo: 'falta RESEND_API_KEY/NOTIFY_FROM' });
+
+  const proveedor = env.BREVO_API_KEY ? 'brevo' : env.RESEND_API_KEY ? 'resend' : null;
+  if (!proveedor || !env.NOTIFY_FROM) {
+    return json({ ok: true, pendientes: pendientes.length, enviados: 0, motivo: 'falta BREVO_API_KEY/RESEND_API_KEY o NOTIFY_FROM' });
   }
 
   let enviados = 0;
   const fallos: string[] = [];
   for (const p of pendientes) {
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json' },
-      body: JSON.stringify({
-        from: env.NOTIFY_FROM,
-        to: [p.buyer_email],
-        bcc: env.NOTIFY_EMAIL ? [env.NOTIFY_EMAIL] : undefined,
-        reply_to: env.NOTIFY_EMAIL || undefined,
-        subject: 'Tu cupo con 50% sigue guardado 🎓',
-        html: plantilla(p.buyer_name, p.product_name),
-      }),
+    const ok = await enviarCorreo(env, proveedor, {
+      to: p.buyer_email,
+      subject: 'Tu cupo con 50% sigue guardado 🎓',
+      html: plantilla(p.buyer_name, p.product_name),
     });
-    if (r.ok) {
+    if (ok === true) {
       enviados += 1;
       await env.DB.prepare('UPDATE hotmart_eventos SET notified_at = datetime(\'now\') WHERE id = ?')
         .bind(p.id).run();
     } else {
-      fallos.push(`${p.buyer_email}:${r.status}`);
+      fallos.push(`${p.buyer_email}:${ok}`);
     }
   }
-  return json({ ok: true, pendientes: pendientes.length, enviados, fallos: fallos.length ? fallos : undefined });
+  return json({ ok: true, proveedor, pendientes: pendientes.length, enviados, fallos: fallos.length ? fallos : undefined });
 };
+
+/**
+ * Envía un correo por el proveedor configurado. Brevo tiene prioridad sobre Resend.
+ * NOTIFY_FROM admite "Nombre <correo@dominio>" o solo "correo@dominio".
+ * Devuelve true, o el código/motivo del fallo para el log.
+ */
+async function enviarCorreo(
+  env: Env,
+  proveedor: 'brevo' | 'resend',
+  msg: { to: string; subject: string; html: string },
+): Promise<true | string> {
+  const m = (env.NOTIFY_FROM ?? '').match(/^\s*(.*?)\s*<\s*([^>]+)\s*>\s*$/);
+  const fromName = m ? m[1] : 'Sably';
+  const fromEmail = m ? m[2] : (env.NOTIFY_FROM ?? '').trim();
+
+  if (proveedor === 'brevo') {
+    const r = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: { 'api-key': env.BREVO_API_KEY as string, 'content-type': 'application/json', accept: 'application/json' },
+      body: JSON.stringify({
+        sender: { name: fromName, email: fromEmail },
+        to: [{ email: msg.to }],
+        bcc: env.NOTIFY_EMAIL ? [{ email: env.NOTIFY_EMAIL }] : undefined,
+        replyTo: env.NOTIFY_EMAIL ? { email: env.NOTIFY_EMAIL } : undefined,
+        subject: msg.subject,
+        htmlContent: msg.html,
+      }),
+    });
+    return r.ok ? true : `brevo:${r.status}`;
+  }
+
+  const r = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json' },
+    body: JSON.stringify({
+      from: env.NOTIFY_FROM,
+      to: [msg.to],
+      bcc: env.NOTIFY_EMAIL ? [env.NOTIFY_EMAIL] : undefined,
+      reply_to: env.NOTIFY_EMAIL || undefined,
+      subject: msg.subject,
+      html: msg.html,
+    }),
+  });
+  return r.ok ? true : `resend:${r.status}`;
+}
