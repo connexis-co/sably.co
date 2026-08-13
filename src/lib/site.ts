@@ -13,19 +13,18 @@ export const SITE = {
    * convertía la oferta en perpetua. Ver la cabecera de promo.ts.
    */
   /**
-   * Perfiles REALES de la marca (verificados el 2026-08-12: los tres primeros
-   * responden 200). El handle es `sably.cursos` en todas las redes — antes
-   * apuntaban a `sably.co`, que no es la cuenta.
+   * Perfiles REALES de la marca: los cuatro responden 200 (YouTube verificado
+   * el 2026-08-13, ya existe el canal). El handle es `sably.cursos` en todas
+   * las redes — antes apuntaban a `sably.co`, que no es la cuenta.
    *
-   * `youtube` va vacío a propósito: el canal @sably.cursos aún no existe
-   * (404). Footer y el `sameAs` del schema filtran los vacíos; cuando JP cree
-   * el canal, basta con poner aquí la URL.
+   * Footer y el `sameAs` del schema filtran los vacíos, así que un perfil que
+   * aún no exista se declara como '' en lugar de enlazar a un 404.
    */
   social: {
     instagram: 'https://www.instagram.com/sably.cursos',
     tiktok: 'https://www.tiktok.com/@sably.cursos',
     facebook: 'https://www.facebook.com/sably.cursos',
-    youtube: '',
+    youtube: 'https://www.youtube.com/@sably.cursos',
   },
   filiales: [
     {

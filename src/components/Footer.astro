@@ -13,7 +13,7 @@ const base = `/${country.code}`;
 const year = new Date().getFullYear();
 
 /* Solo las redes con perfil real: una URL vacía en SITE.social significa que
-   la cuenta no existe todavía (hoy, YouTube) y no se pinta un enlace muerto. */
+   la cuenta no existe todavía y no se pinta un enlace muerto. */
 const REDES = [
   { network: 'instagram', url: SITE.social.instagram, label: 'Instagram' },
   { network: 'tiktok', url: SITE.social.tiktok, label: 'TikTok' },
