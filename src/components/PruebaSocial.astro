@@ -146,11 +146,11 @@ mensajes.push({
   /* Mismo carril que el botón de WhatsApp: la barra de compra va abajo en
      todas las anchuras, no solo en móvil. */
   :global(body[data-has-sticky]) .ps-toast {
-    --ps-carril: 70px;
+    --ps-carril: calc(var(--barra-alto, 57px) + 1.25rem);
   }
   @media (min-width: 640px) {
     .ps-toast {
-      bottom: 1.5rem;
+      bottom: calc(1.5rem + var(--ps-carril) + env(safe-area-inset-bottom, 0px));
     }
   }
 </style>
@@ -190,7 +190,7 @@ mensajes.push({
       // Visible 6 s, oculto 14 s: presente sin volverse molesto.
       timer = setTimeout(() => {
         ocultar();
-        timer = setTimeout(mostrar, 14000);
+        timer = setTimeout(mostrar, intervalo);
       }, 6000);
     };
 
@@ -202,7 +202,73 @@ mensajes.push({
 
     caja.style.opacity = '0';
     caja.style.transform = 'translateY(8px)';
-    // Arranca a los 8 s: primero que el visitante lea la página.
-    timer = setTimeout(mostrar, 8000);
+
+    /**
+     * La configuración manda: posición, tiempos, rutas excluidas y apagado se
+     * gobiernan desde /admin/widgets sin redesplegar las 5.971 páginas.
+     *
+     * Se arranca con los valores horneados y solo se ajusta si el endpoint
+     * responde. Si falla, el aviso se comporta como siempre: una llamada
+     * opcional no puede dejar la página sin prueba social.
+     */
+    interface CfgPrueba {
+      activo: boolean;
+      posicion: string;
+      x: number;
+      y: number;
+      esperaSeg: number;
+      intervaloSeg: number;
+      paginasOcultas: string[];
+    }
+
+    const ESQUINAS: Record<string, { v: 'top' | 'bottom'; h: 'left' | 'right' }> = {
+      'inferior-izquierda': { v: 'bottom', h: 'left' },
+      'inferior-derecha': { v: 'bottom', h: 'right' },
+      'superior-izquierda': { v: 'top', h: 'left' },
+      'superior-derecha': { v: 'top', h: 'right' },
+    };
+
+    const oculto = (rutas: string[]) =>
+      rutas.some((r) =>
+        r.endsWith('*') ? location.pathname.startsWith(r.slice(0, -1)) : location.pathname === r,
+      );
+
+    let espera = 8000;
+    let intervalo = 14000;
+
+    const arrancar = () => {
+      timer = setTimeout(mostrar, espera);
+    };
+
+    fetch('/api/v1/config', { signal: AbortSignal.timeout(4000) })
+      .then((r) => (r.ok ? (r.json() as Promise<{ pruebaSocial?: CfgPrueba }>) : null))
+      .then((cfg) => {
+        const c = cfg?.pruebaSocial;
+        if (!c) return;
+        if (!c.activo || oculto(c.paginasOcultas ?? [])) {
+          el.hidden = true;
+          throw new Error('desactivado');
+        }
+        const esq = ESQUINAS[c.posicion] ?? ESQUINAS['inferior-izquierda']!;
+        // Se limpian las cuatro para que un cambio de esquina no deje pegada la
+        // anterior, y el carril de la barra fija solo aplica si se ancla abajo.
+        for (const lado of ['top', 'bottom', 'left', 'right'] as const) {
+          caja.style[lado] = '';
+          el.style[lado] = '';
+        }
+        el.style[esq.h] = `${c.x}px`;
+        el.style[esq.v] =
+          esq.v === 'bottom'
+            ? `calc(${c.y}px + var(--ps-carril, 0px) + env(safe-area-inset-bottom, 0px))`
+            : `${c.y}px`;
+        espera = Math.max(0, c.esperaSeg) * 1000;
+        intervalo = Math.max(5, c.intervaloSeg) * 1000;
+      })
+      .catch(() => {
+        /* sin configuración se usan los valores horneados */
+      })
+      .finally(() => {
+        if (!el.hidden) arrancar();
+      });
   }
 </script>

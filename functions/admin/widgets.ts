@@ -66,12 +66,47 @@ async function leerVideo(env: Env): Promise<{ fila: FilaVideo; falta: boolean }>
   }
 }
 
+interface FilaPrueba {
+  activo: number;
+  posicion: string;
+  offset_x: number;
+  offset_y: number;
+  espera_seg: number;
+  intervalo_seg: number;
+  paginas_ocultas: string;
+}
+
+const PRUEBA_DEFECTO: FilaPrueba = {
+  activo: 1, posicion: 'inferior-izquierda', offset_x: 16, offset_y: 16,
+  espera_seg: 8, intervalo_seg: 14, paginas_ocultas: '[]',
+};
+
+const ESQUINAS: [string, string][] = [
+  ['inferior-izquierda', 'Abajo a la izquierda'],
+  ['inferior-derecha', 'Abajo a la derecha'],
+  ['superior-izquierda', 'Arriba a la izquierda'],
+  ['superior-derecha', 'Arriba a la derecha'],
+];
+
+async function leerPrueba(env: Env): Promise<{ fila: FilaPrueba; falta: boolean }> {
+  try {
+    const f = await env.DB.prepare(
+      `SELECT activo, posicion, offset_x, offset_y, espera_seg, intervalo_seg, paginas_ocultas
+         FROM widget_prueba_social WHERE id = 1`,
+    ).first<FilaPrueba>();
+    return { fila: f ?? PRUEBA_DEFECTO, falta: !f };
+  } catch {
+    return { fila: PRUEBA_DEFECTO, falta: true };
+  }
+}
+
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const { email: mod, motivo } = await sesion(request, env);
   if (!mod) return noAutorizado(motivo);
 
   const { fila, falta } = await leer(env);
   const { fila: video, falta: faltaVideo } = await leerVideo(env);
+  const { fila: prueba, falta: faltaPrueba } = await leerPrueba(env);
   const ocultas = lista(fila.paginas_ocultas);
   const guardado = new URL(request.url).searchParams.has('ok');
 
@@ -159,7 +194,61 @@ ${video.actualizado ? `<p class="nota">Última vez: ${e(fecha(video.actualizado)
 <p class="nota">Se aplica a la ficha de los cursos que tengan video. El reproductor respeta tres
 cosas por encima de esta opción, y en los tres casos espera al play aunque esté en automático:
 que el visitante haya pedido menos animación en su sistema, que tenga activado el ahorro de
-datos, o que el navegador rechace el arranque automático.</p>`);
+datos, o que el navegador rechace el arranque automático.</p>
+<h2>Avisos de compra</h2>
+<p class="nota">El recuadro que asoma con reseñas reales de Hotmart. Desde aquí se apaga, se
+cambia de esquina y se ajusta cada cuánto aparece, sin volver a desplegar.</p>
+${faltaPrueba ? `<div class="aviso"><b>Falta la migración.</b> Ejecuta
+<code>npx wrangler d1 migrations apply sably-pulso --remote</code> para crear la tabla
+<code>widget_prueba_social</code>. Hasta entonces se usan los valores de siempre.</div>` : ''}
+<form method="post" class="caja" style="padding:1.25rem;display:grid;gap:1.1rem;max-width:560px">
+  <label style="display:flex;gap:.6rem;align-items:center">
+    <input type="checkbox" name="activo" value="1"${prueba.activo ? ' checked' : ''}>
+    <span><b>Mostrar los avisos</b><br>
+    <span class="nota">Al desmarcarlo dejan de aparecer en todo el sitio.</span></span>
+  </label>
+
+  <label>Esquina<br>
+    <select name="posicion" style="padding:.5rem;width:100%;max-width:260px">
+      ${ESQUINAS.map(([v, etiqueta]) =>
+        `<option value="${v}"${prueba.posicion === v ? ' selected' : ''}>${etiqueta}</option>`).join('')}
+    </select>
+    <span class="nota">Abajo a la izquierda es lo habitual. Si la barra de compra estorba,
+    arriba se lee mejor: el aviso se aparta solo de esa barra cuando va anclado abajo.</span>
+  </label>
+
+  <div style="display:flex;gap:1rem;flex-wrap:wrap">
+    <label>Separación horizontal (px)<br>
+      <input type="number" name="offset_x" min="0" max="400" value="${prueba.offset_x}"
+             style="padding:.5rem;width:130px"></label>
+    <label>Separación vertical (px)<br>
+      <input type="number" name="offset_y" min="0" max="400" value="${prueba.offset_y}"
+             style="padding:.5rem;width:130px"></label>
+  </div>
+
+  <div style="display:flex;gap:1rem;flex-wrap:wrap">
+    <label>Tarda en salir (s)<br>
+      <input type="number" name="espera_seg" min="0" max="600" value="${prueba.espera_seg}"
+             style="padding:.5rem;width:130px">
+      <span class="nota">Deja leer antes de interrumpir.</span></label>
+    <label>Entre aviso y aviso (s)<br>
+      <input type="number" name="intervalo_seg" min="5" max="3600" value="${prueba.intervalo_seg}"
+             style="padding:.5rem;width:130px">
+      <span class="nota">Cuanto más bajo, más insistente.</span></label>
+  </div>
+
+  <label>No mostrar en estas rutas<br>
+    <textarea name="paginas" rows="3" placeholder="/contacto/&#10;/legal*"
+              style="padding:.5rem;width:100%;font-family:ui-monospace,monospace">${
+      e((() => { try { const l = JSON.parse(prueba.paginas_ocultas); return Array.isArray(l) ? l.join('\n') : ''; } catch { return ''; } })())
+    }</textarea>
+    <span class="nota">Una por línea. Admite <code>*</code> al final para cubrir todo lo que cuelgue.</span>
+  </label>
+
+  <input type="hidden" name="seccion" value="prueba">
+  <div><button class="pri" type="submit">Guardar avisos</button></div>
+</form>
+`);
 };
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
@@ -189,22 +278,56 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return irA('/admin/widgets?ok=1');
   }
 
-  const activo = f.get('activo') === '1' ? 1 : 0;
-  const numero = String(f.get('numero') ?? '').replace(/\D/g, '').slice(0, 20);
   const acotar = (v: unknown, min: number, max: number, defecto: number): number => {
     const n = Number(v);
     return Number.isFinite(n) ? Math.min(max, Math.max(min, Math.round(n))) : defecto;
   };
+
+  /** Rutas: una por línea, solo caracteres de ruta y el comodín. */
+  const rutas = (v: unknown): string[] =>
+    String(v ?? '')
+      .split('\n')
+      .map((l) => l.trim())
+      .filter((l) => l && l.length <= 120 && /^[\w\-\/.*]+$/.test(l))
+      .slice(0, 100);
+
+  if (f.get('seccion') === 'prueba') {
+    const posicion = ESQUINAS.some(([v]) => v === f.get('posicion'))
+      ? String(f.get('posicion'))
+      : PRUEBA_DEFECTO.posicion;
+    try {
+      await env.DB.prepare(
+        `UPDATE widget_prueba_social
+            SET activo = ?, posicion = ?, offset_x = ?, offset_y = ?,
+                espera_seg = ?, intervalo_seg = ?, paginas_ocultas = ?,
+                actualizado = unixepoch(), por = ?
+          WHERE id = 1`,
+      ).bind(
+        f.get('activo') === '1' ? 1 : 0,
+        posicion,
+        acotar(f.get('offset_x'), 0, 400, 16),
+        acotar(f.get('offset_y'), 0, 400, 16),
+        acotar(f.get('espera_seg'), 0, 600, 8),
+        acotar(f.get('intervalo_seg'), 5, 3600, 14),
+        JSON.stringify(rutas(f.get('paginas'))),
+        mod,
+      ).run();
+    } catch (err) {
+      console.error('No se pudo guardar la prueba social:', err);
+      return pagina('Widgets', mod, 'widgets',
+        `<div class="aviso"><b>No se guardó.</b> Suele ser que falta la migración: ejecuta
+<code>npx wrangler d1 migrations apply sably-pulso --remote</code> y vuelve a intentarlo.</div>
+<p><a class="boton" href="/admin/widgets">Volver</a></p>`);
+    }
+    return irA('/admin/widgets?ok=1');
+  }
+
+  const activo = f.get('activo') === '1' ? 1 : 0;
+  const numero = String(f.get('numero') ?? '').replace(/\D/g, '').slice(0, 20);
   const x = acotar(f.get('offset_x'), 0, 400, 21);
   const y = acotar(f.get('offset_y'), 0, 800, 58);
 
-  // Rutas: una por línea, solo caracteres de ruta y el comodín *. Un patrón
-  // malformado se descarta en silencio antes que romper el guardado entero.
-  const paginas = String(f.get('paginas') ?? '')
-    .split('\n')
-    .map((l) => l.trim())
-    .filter((l) => l && l.length <= 120 && /^[\w\-\/.*]+$/.test(l))
-    .slice(0, 100);
+  const paginas = rutas(f.get('paginas'));
 
   try {
     await env.DB.prepare(
