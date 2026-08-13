@@ -15,7 +15,11 @@ import { execFileSync } from 'node:child_process';
 const HOME = process.env.HOME;
 const REPO = `${HOME}/Documents/JP Projects/sably.co`;
 const SC = process.env.SABLY_SCRATCH ?? '/private/tmp/claude-501/-Users-jpmisat-Documents-JP-Projects-sably-co/5f29e299-ac62-468a-a79a-d79f903ab867/scratchpad';
-const SRC = `${SC}/videos`;
+/* Fuente en máxima calidad si está descargada (1080p): de ella salen un 720p web
+   mejor y un 9:16 que reduce en vez de ampliar. Si no, la copia de 720p. */
+const SRC = existsSync(`${SC}/videos-hq`) && readdirSync(`${SC}/videos-hq`).some((f) => f.endsWith('.mp4'))
+  ? `${SC}/videos-hq`
+  : `${SC}/videos`;
 const WEB = `${SC}/videos-web`;
 const VERT = `${SC}/videos-vertical`;
 const DRY = process.argv.includes('--dry');
@@ -59,8 +63,11 @@ function transcodificar() {
 
     const web = `${WEB}/${m.curso}.mp4`;
     if (!existsSync(web)) {
-      sh('ffmpeg', ['-y', '-i', src, '-vf', 'scale=-2:720', '-c:v', 'libx264', '-crf', '26',
-        '-preset', 'medium', '-c:a', 'aac', '-b:a', '96k', '-movflags', '+faststart', web]);
+      /* 720p basta: el reproductor mide ~420px en la tarjeta de compra, así que
+         1080p solo triplicaría el peso sin ganancia visible. Con la fuente en
+         1080p el mismo 720p sale bastante más limpio. */
+      sh('ffmpeg', ['-y', '-i', src, '-vf', 'scale=-2:720', '-c:v', 'libx264', '-crf', '23',
+        '-preset', 'slow', '-c:a', 'aac', '-b:a', '128k', '-movflags', '+faststart', web]);
       console.log(`✓ web ${m.curso}.mp4 (${(statSync(web).size / 1048576).toFixed(1)} MB)`);
     }
 
