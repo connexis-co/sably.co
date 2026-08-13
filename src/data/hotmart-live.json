@@ -740,7 +740,8 @@
   "curso-de-barberia-infantil": {
    "payUrl": "https://pay.hotmart.com/W69842801W",
    "hotlink": "M77668166P",
-   "titulo": "Curso de Barbería Infantil"
+   "titulo": "Curso de Barbería Infantil",
+   "idProducto": 2055813
   },
   "curso-de-barberia": {
    "payUrl": "https://pay.hotmart.com/P63130893D",
@@ -769,7 +770,8 @@
   "curso-de-carpinteria-y-muebles": {
    "payUrl": "https://pay.hotmart.com/N65021735K",
    "hotlink": "W107109765L",
-   "titulo": "Curso de Carpintería y Elaboración de Muebles"
+   "titulo": "Curso de Carpintería y Elaboración de Muebles",
+   "idProducto": 1869321
   },
   "curso-de-cejas-y-pestanas": {
    "payUrl": "https://pay.hotmart.com/A42487377P",
@@ -798,7 +800,8 @@
   "curso-de-cocina": {
    "payUrl": "https://pay.hotmart.com/E54359930T",
    "hotlink": "C107109847Y",
-   "titulo": "Curso de Cocina: de Cero a Profesional"
+   "titulo": "Curso de Cocina: de Cero a Profesional",
+   "idProducto": 1486044
   },
   "curso-de-colorimetria": {
    "payUrl": "https://pay.hotmart.com/P48026757I",
@@ -809,12 +812,14 @@
   "curso-de-comidas-rapidas": {
    "payUrl": "https://pay.hotmart.com/Q63819733V",
    "hotlink": "Y107109866L",
-   "titulo": "Curso del Negocio de las Comidas Rápidas"
+   "titulo": "Curso del Negocio de las Comidas Rápidas",
+   "idProducto": 1826062
   },
   "curso-de-community-manager": {
    "payUrl": "https://pay.hotmart.com/D61536429N",
    "hotlink": "W107110038J",
-   "titulo": "Curso de Community Manager"
+   "titulo": "Curso de Community Manager",
+   "idProducto": 1743147
   },
   "curso-de-confeccion-de-ropa-interior": {
    "payUrl": "https://pay.hotmart.com/M75288465W",
@@ -843,7 +848,8 @@
   "curso-de-crochet": {
    "payUrl": "https://pay.hotmart.com/B61328836T",
    "hotlink": "V107109897X",
-   "titulo": "Curso de Crochet como Negocio"
+   "titulo": "Curso de Crochet como Negocio",
+   "idProducto": 1735838
   },
   "curso-de-cupcakes": {
    "payUrl": "https://pay.hotmart.com/C47597953E",
@@ -902,7 +908,8 @@
   "curso-de-energia-solar": {
    "payUrl": "https://pay.hotmart.com/M76021437N",
    "hotlink": "B93143016I",
-   "titulo": "Curso de Instalación de Paneles Solares"
+   "titulo": "Curso de Instalación de Paneles Solares",
+   "idProducto": 2409458
   },
   "curso-de-estetica-canina": {
    "payUrl": "https://pay.hotmart.com/V42089784L",
@@ -919,7 +926,8 @@
   "curso-de-extensiones-de-cabello": {
    "payUrl": "https://pay.hotmart.com/L57846638B",
    "hotlink": "X77663508E",
-   "titulo": "Curso de Extensiones de Cabello"
+   "titulo": "Curso de Extensiones de Cabello",
+   "idProducto": 1611608
   },
   "curso-de-extensiones-de-pestanas": {
    "payUrl": "https://pay.hotmart.com/G75458369D",
@@ -930,7 +938,8 @@
   "curso-de-flores-con-globos": {
    "payUrl": "https://pay.hotmart.com/U68605508W",
    "hotlink": "T76953268Y",
-   "titulo": "Curso de Flores con Globos"
+   "titulo": "Curso de Flores con Globos",
+   "idProducto": 1999831
   },
   "curso-de-fondant": {
    "payUrl": "https://pay.hotmart.com/Q43938862B",
@@ -941,7 +950,8 @@
   "curso-de-fotografia-con-celular": {
    "payUrl": "https://pay.hotmart.com/Q68979557M",
    "hotlink": "M107110044M",
-   "titulo": "Curso de Fotografía con Celular"
+   "titulo": "Curso de Fotografía con Celular",
+   "idProducto": 2013865
   },
   "curso-de-fotografia": {
    "payUrl": "https://pay.hotmart.com/B77656721C",
@@ -958,7 +968,8 @@
   "curso-de-galletas-decoradas": {
    "payUrl": "https://pay.hotmart.com/S81864529Q",
    "hotlink": "P107109832P",
-   "titulo": "Curso de Galletas Artesanales para Negocio"
+   "titulo": "Curso de Galletas Artesanales para Negocio",
+   "idProducto": 2843832
   },
   "curso-de-globoflexia": {
    "payUrl": "https://pay.hotmart.com/M47265375C",
@@ -987,7 +998,8 @@
   "curso-de-ingles-para-ninos": {
    "payUrl": "https://pay.hotmart.com/C49771094X",
    "hotlink": "G107110103K",
-   "titulo": "Curso de Inglés para Niños"
+   "titulo": "Curso de Inglés para Niños",
+   "idProducto": 1345353
   },
   "curso-de-ingles": {
    "payUrl": "https://pay.hotmart.com/R42584737Y",
@@ -1052,7 +1064,8 @@
   "curso-de-maquillaje-profesional-de-novias": {
    "payUrl": "https://pay.hotmart.com/X63186581T",
    "hotlink": "J76206203K",
-   "titulo": "Curso de Maquillaje Profesional para Novias"
+   "titulo": "Curso de Maquillaje Profesional para Novias",
+   "idProducto": 1803923
   },
   "curso-de-maquillaje": {
    "payUrl": "https://pay.hotmart.com/N41531652U",
@@ -1105,7 +1118,8 @@
   "curso-de-modisteria": {
    "payUrl": "https://pay.hotmart.com/U59313744J",
    "hotlink": "G107109969E",
-   "titulo": "Curso de Modistería en Casa"
+   "titulo": "Curso de Modistería en Casa",
+   "idProducto": 1665123
   },
   "curso-de-molderia-y-confeccion": {
    "payUrl": "https://pay.hotmart.com/P43660531G",
@@ -1151,7 +1165,8 @@
   "curso-de-pizza-artesanal": {
    "payUrl": "https://pay.hotmart.com/D55969511R",
    "hotlink": "Y107109859E",
-   "titulo": "Curso de Pizza Artesanal"
+   "titulo": "Curso de Pizza Artesanal",
+   "idProducto": 1542190
   },
   "curso-de-porcelana-fria": {
    "payUrl": "https://pay.hotmart.com/K60819262W",
@@ -1162,7 +1177,8 @@
   "curso-de-portugues": {
    "payUrl": "https://pay.hotmart.com/C61562578C",
    "hotlink": "O107110091Q",
-   "titulo": "Curso de Portugués para Principiantes"
+   "titulo": "Curso de Portugués para Principiantes",
+   "idProducto": 1743995
   },
   "curso-de-primeros-auxilios-para-mascotas": {
    "payUrl": "https://pay.hotmart.com/T58086799J",
@@ -1227,7 +1243,8 @@
   "curso-de-sushi": {
    "payUrl": "https://pay.hotmart.com/G46888691K",
    "hotlink": "N107094409E",
-   "titulo": "Curso de Sushi en Casa"
+   "titulo": "Curso de Sushi en Casa",
+   "idProducto": 1259120
   },
   "curso-de-trenzas-y-peinados": {
    "payUrl": "https://pay.hotmart.com/V48797673L",
@@ -1238,7 +1255,8 @@
   "curso-de-unas-acrilicas": {
    "payUrl": "https://pay.hotmart.com/U64481306Q",
    "hotlink": "Q76206177K",
-   "titulo": "Curso de Uñas Acrílicas"
+   "titulo": "Curso de Uñas Acrílicas",
+   "idProducto": 1850277
   }
  },
  "_capturado": "2026-08-12T11:00:09.715Z",
