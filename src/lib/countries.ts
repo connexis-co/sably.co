@@ -198,3 +198,18 @@ export function formatPrice(priceUSD: number, country: Country): string {
   const formatted = new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 }).format(value);
   return `${country.currencySymbol}${formatted} ${country.currency}`;
 }
+
+/**
+ * Igual que `formatPrice` pero sin el código de moneda: `$328.000` en vez de
+ * `$328.000 COP`.
+ *
+ * Para el precio tachado que acompaña a otro precio completo. Repetir "COP" dos
+ * veces no aporta —la moneda ya la dice la cifra principal— y en la barra fija
+ * de móvil esos caracteres de más apretaban la fila hasta cortar la píldora del
+ * descuento.
+ */
+export function formatPriceCorto(priceUSD: number, country: Country): string {
+  const value = localPrice(priceUSD, country);
+  const formatted = new Intl.NumberFormat('es-CO', { maximumFractionDigits: 0 }).format(value);
+  return `${country.currencySymbol}${formatted}`;
+}

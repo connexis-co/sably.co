@@ -14,9 +14,23 @@
 interface Props {
   title: string;
   precio: string;
+  /** Precio anterior ya formateado. Sin él no se pinta el tachado. */
+  precioTachado?: string;
+  /** Descuento vigente. Sin él no se pinta la píldora. */
+  descuentoPct?: number;
+  /** Rótulo de la campaña ("Black Friday"…) cuando el calendario tiene una activa. */
+  promoLabel?: string;
+  /** Importe base y su moneda, en crudo: el controlador de promoción recalcula
+   *  aquí mismo cuando /api/v1/promo confirma campaña, sin volver a pedir nada.
+   *  País y slug acompañan porque una campaña puede limitarse a unos u otros. */
+  monto?: number;
+  moneda?: string;
+  pais?: string;
+  slug?: string;
   ctaUrl: string;
 }
-const { title, precio, ctaUrl } = Astro.props;
+const { title, precio, precioTachado, descuentoPct, promoLabel, monto, moneda, pais, slug, ctaUrl } =
+  Astro.props;
 ---
 
 <div data-sticky-cta data-oculta class="fixed inset-x-0 z-40 border-surface-200 bg-white shadow-md">
@@ -30,19 +44,38 @@ const { title, precio, ctaUrl } = Astro.props;
     <p class="truncate text-[11px] leading-tight font-semibold text-muted sm:hidden">{title}</p>
     <p class="hidden truncate text-sm font-bold text-primary sm:block">{title}</p>
     <div class="flex items-center justify-between gap-3 sm:justify-end">
-      <span class="flex items-baseline gap-x-1.5 overflow-hidden whitespace-nowrap">
-        <span data-precio-real class="text-sm font-extrabold whitespace-nowrap text-primary"
-          >{precio}</span
+      {/* El orden de cesión importa cuando la fila no cabe: primero se recorta el
+          precio tachado (dato secundario), nunca la cifra que se paga ni la
+          píldora del descuento — de ahí el `shrink-0` en esos dos. Sin él la
+          píldora se cortaba a media palabra y se leía «−40» en vez de «−40%». */}
+      <span
+        class="flex min-w-0 items-baseline gap-x-1.5 whitespace-nowrap"
+        data-precio-caja
+        data-monto={monto}
+        data-moneda={moneda}
+        data-pais={pais}
+        data-slug={slug}
+      >
+        <span
+          data-precio-real
+          class="shrink-0 text-sm font-extrabold whitespace-nowrap text-primary">{precio}</span
         >
+        {/* Por debajo de 400 px no cabe junto al precio, la píldora y el botón:
+            se oculta entero en vez de truncarse, porque un «$331.0…» cortado no
+            informa de nada y ensucia. La píldora del descuento sí se mantiene
+            siempre — es la que comunica la promoción. */}
         <span
           data-precio-tachado
-          hidden
-          class="text-[11px] whitespace-nowrap text-muted line-through"></span>
+          hidden={!precioTachado}
+          class="text-[11px] whitespace-nowrap text-muted line-through max-[399px]:hidden"
+          >{precioTachado}</span
+        >
         <span
           data-promo-badge
-          hidden
-          class="rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap text-white"
-        ></span>
+          hidden={!descuentoPct}
+          class="shrink-0 rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap text-white"
+          >{descuentoPct ? (promoLabel ? `${promoLabel} −${descuentoPct}%` : `−${descuentoPct}%`) : ''}</span
+        >
       </span>
       <a
         href={ctaUrl}
