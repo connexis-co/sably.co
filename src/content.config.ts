@@ -31,15 +31,9 @@ const courses = defineCollection({
       .min(3),
     priceUSD: z.number().positive(),
     originalPriceUSD: z.number().positive(),
-    /**
-     * Legado: cifras de catálogo que NADIE muestra ya. Las estrellas y el
-     * total visibles salen de la valoración pública real de Hotmart
-     * (src/data/hotmart-live.json); estas quedan opcionales para que los
-     * cursos nuevos no tengan que inventarlas.
-     */
-    rating: z.number().min(3.5).max(5).optional(),
-    ratingCount: z.number().int().positive().optional(),
-    students: z.number().int().positive().optional(),
+    rating: z.number().min(3.5).max(5),
+    ratingCount: z.number().int().positive(),
+    students: z.number().int().positive(),
     instructor: z.object({
       name: z.string(),
       title: z.string(),
@@ -54,11 +48,10 @@ const courses = defineCollection({
     /** TODO(JP): URL real de checkout Hotmart por curso. */
     hotmartUrl: z.string().url().default('https://pay.hotmart.com/PENDIENTE'),
     /**
-     * Código `ref` del afiliado para este producto. Es lo que acredita la comisión:
-     * sin él, la venta se acredita al productor. Lo emite Hotmart por producto y se
-     * lee del acortador (`hotm.art/<slug>-curso-crashing` → `?ref=XXXX`).
+     * Nombre del archivo del video de presentación en R2 (bucket sably-assets,
+     * servido por cdn.sably.co). Sin él la tarjeta muestra solo la portada.
      */
-    hotmartRef: z.string().optional(),
+    videoKey: z.string().optional(),
     featured: z.boolean().default(false),
     keywords: z.array(z.string()).min(3),
     publishedAt: z.coerce.date(),
