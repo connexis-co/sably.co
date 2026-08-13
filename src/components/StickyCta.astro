@@ -127,6 +127,13 @@ const { title, precio, precioTachado, descuentoPct, promoLabel, monto, moneda, p
   if (bar && sentinel) {
     // Señal para que WhatsApp y la prueba social se eleven sobre este carril.
     document.body.dataset.hasSticky = '1';
+    /* Alto real de la barra, para que WhatsApp y el aviso de prueba social se
+       aparten lo justo. Antes era un 70px a ojo que se quedaba corto cuando la
+       barra crecía a dos renglones. Se remide al cambiar el tamaño. */
+    const medirBarra = () =>
+      document.documentElement.style.setProperty('--barra-alto', `${bar.offsetHeight}px`);
+    medirBarra();
+    addEventListener('resize', medirBarra, { passive: true });
     new IntersectionObserver(
       ([entry]) => {
         if (!entry) return;

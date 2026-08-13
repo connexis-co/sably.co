@@ -26,10 +26,38 @@ interface FilaVideo {
   bucle: number;
 }
 
+interface FilaPrueba {
+  activo: number;
+  posicion: string;
+  offset_x: number;
+  offset_y: number;
+  espera_seg: number;
+  intervalo_seg: number;
+  paginas_ocultas: string;
+}
+
 const DEFECTO = { activo: true, numero: '', x: 21, y: 58, paginasOcultas: [] as string[] };
 
 /** El reproductor espera al play salvo que el panel diga lo contrario. */
 const DEFECTO_VIDEO = { modo: 'play' as const, bucle: false };
+
+/** Los valores con los que el aviso lleva funcionando: cambiar nada por defecto. */
+const DEFECTO_PRUEBA = {
+  activo: true,
+  posicion: 'inferior-izquierda',
+  x: 16,
+  y: 16,
+  esperaSeg: 8,
+  intervaloSeg: 14,
+  paginasOcultas: [] as string[],
+};
+
+const POSICIONES = new Set([
+  'inferior-izquierda',
+  'inferior-derecha',
+  'superior-izquierda',
+  'superior-derecha',
+]);
 
 const listaJson = (s: string): string[] => {
   try {
@@ -83,7 +111,34 @@ async function leerVideo(env: Env) {
   }
 }
 
+async function leerPrueba(env: Env) {
+  try {
+    const f = await env.DB.prepare(
+      `SELECT activo, posicion, offset_x, offset_y, espera_seg, intervalo_seg, paginas_ocultas
+         FROM widget_prueba_social WHERE id = 1`,
+    ).first<FilaPrueba>();
+    if (!f) return DEFECTO_PRUEBA;
+    return {
+      activo: !!f.activo,
+      // Una posición que no se reconozca vuelve a la de siempre: el aviso no
+      // puede acabar anclado en una esquina que el CSS no sabe pintar.
+      posicion: POSICIONES.has(f.posicion) ? f.posicion : DEFECTO_PRUEBA.posicion,
+      x: f.offset_x,
+      y: f.offset_y,
+      esperaSeg: f.espera_seg,
+      intervaloSeg: f.intervalo_seg,
+      paginasOcultas: listaJson(f.paginas_ocultas ?? '[]'),
+    };
+  } catch {
+    return DEFECTO_PRUEBA;
+  }
+}
+
 export const onRequestGet: PagesFunction<Env> = async ({ env }) => {
-  const [whatsapp, video] = await Promise.all([leerWhatsApp(env), leerVideo(env)]);
-  return cacheado({ whatsapp, video }, 60);
+  const [whatsapp, video, pruebaSocial] = await Promise.all([
+    leerWhatsApp(env),
+    leerVideo(env),
+    leerPrueba(env),
+  ]);
+  return cacheado({ whatsapp, video, pruebaSocial }, 60);
 };
