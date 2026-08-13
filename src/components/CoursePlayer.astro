@@ -1,0 +1,613 @@
+---
+/**
+ * Reproductor del video de presentación del curso.
+ *
+ * Tres cosas que el `<video controls>` de antes no daba:
+ *
+ * 1. **Encuadre entero.** El video es 16:9 y vivía en una caja de 2.3:1 con
+ *    `object-cover`, así que se recortaba casi una cuarta parte del alto. Aquí
+ *    el contenedor lleva la relación de aspecto y el video entra completo.
+ * 2. **Controles propios.** Los nativos cambian de forma en cada navegador y no
+ *    se pueden pintar con la marca.
+ * 3. **Arranque configurable.** `/admin/widgets` decide si el video espera al
+ *    play o arranca solo, sin desplegar.
+ *
+ * El autoplay real es el de los navegadores, no el que uno quisiera: solo
+ * arranca silenciado, así que en ese modo se muestra un botón de sonido. Si el
+ * navegador lo rechaza igualmente, cae al botón de play sin que se note.
+ */
+interface Props {
+  src: string;
+  poster: string;
+  title: string;
+  courseId: string;
+}
+
+const { src, poster, title, courseId } = Astro.props;
+---
+
+<div class="cplayer" data-cplayer>
+  <video
+    src={src}
+    poster={poster}
+    playsinline
+    preload="none"
+    data-course-video={courseId}
+    data-cplayer-video
+    aria-label={`Video de presentación: ${title}`}
+  ></video>
+
+  {/* Capa de clic sobre todo el video: un toque alterna reproducir y pausar,
+      como en cualquier reproductor. El disco central sigue el estado — play
+      cuando está parado, pausa mientras se reproduce— y solo se desvanece
+      cuando el video corre y el puntero no está encima, para no tapar la
+      imagen. Vive por debajo de la barra de controles, así que los botones de
+      abajo reciben su propio clic sin que este los intercepte. */}
+  <button type="button" class="cplayer__tap" data-cplayer-tap aria-label={`Reproducir video: ${title}`}>
+    <span class="cplayer__halo" aria-hidden="true"></span>
+    <span class="cplayer__disc">
+      <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" data-cplayer-disco-play>
+        <path d="M8 5.14v13.72a1 1 0 0 0 1.54.84l10.3-6.86a1 1 0 0 0 0-1.68L9.54 4.3A1 1 0 0 0 8 5.14Z" fill="currentColor" />
+      </svg>
+      <svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true" data-cplayer-disco-pausa data-off>
+        <path d="M7 4h3.5v16H7zM13.5 4H17v16h-3.5z" fill="currentColor" />
+      </svg>
+    </span>
+  </button>
+
+  {/* Solo en modo automático: el video arranca mudo y esto ofrece el sonido. */}
+  <button type="button" class="cplayer__unmute" data-cplayer-unmute hidden>
+    <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+      <path
+        d="M11 5 6.5 8.5H3v7h3.5L11 19V5Z M15.5 8.5a5 5 0 0 1 0 7 M18.5 6a9 9 0 0 1 0 12"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+    Activar sonido
+  </button>
+
+  <div class="cplayer__bar" data-cplayer-bar>
+    <button type="button" class="cplayer__btn" data-cplayer-toggle aria-label="Pausar">
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" data-cplayer-icon-pause>
+        <path d="M7 4h3.5v16H7zM13.5 4H17v16h-3.5z" fill="currentColor" />
+      </svg>
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" data-cplayer-icon-play data-off>
+        <path d="M8 5.14v13.72a1 1 0 0 0 1.54.84l10.3-6.86a1 1 0 0 0 0-1.68L9.54 4.3A1 1 0 0 0 8 5.14Z" fill="currentColor" />
+      </svg>
+    </button>
+
+    <div
+      class="cplayer__track"
+      data-cplayer-track
+      role="slider"
+      tabindex="0"
+      aria-label="Avanzar en el video"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow="0"
+    >
+      <div class="cplayer__fill" data-cplayer-fill></div>
+    </div>
+
+    <span class="cplayer__time" data-cplayer-time>0:00</span>
+
+    <button type="button" class="cplayer__btn" data-cplayer-mute aria-label="Silenciar">
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" data-cplayer-icon-sound>
+        <path
+          d="M11 5 6.5 8.5H3v7h3.5L11 19V5Z M15.5 8.5a5 5 0 0 1 0 7"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" data-cplayer-icon-muted data-off>
+        <path
+          d="M11 5 6.5 8.5H3v7h3.5L11 19V5Z M16 9.5l4 5M20 9.5l-4 5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </button>
+
+    <button type="button" class="cplayer__btn" data-cplayer-full aria-label="Pantalla completa">
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">
+        <path
+          d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.9"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .cplayer {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 0.375rem;
+    background: #000;
+    isolation: isolate;
+  }
+
+  .cplayer video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* `contain` y no `cover`: el encuadre entero, aunque deje franjas si algún
+       día se sube un video que no sea 16:9. */
+    object-fit: contain;
+    background: #000;
+  }
+
+  /* Alternancia de iconos. Se hace con un data-attribute y no con el atributo
+     `hidden` porque en un <svg> TypeScript lo rechaza: `hidden` no existe en
+     SVGAttributes, y `astro check` lo marca como error. */
+  .cplayer [data-off] {
+    display: none;
+  }
+
+  /* ---------- capa de clic ---------- */
+  .cplayer__tap {
+    position: absolute;
+    inset: 0;
+    z-index: 1; /* por debajo de la barra (z-index 2): sus botones mandan */
+    display: grid;
+    place-items: center;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background: linear-gradient(180deg, rgb(0 0 0 / 0.05) 0%, rgb(0 0 0 / 0.35) 100%);
+    transition: background 0.25s ease;
+  }
+  /* Mientras reproduce, los mandos se retiran solos a los 2,5 s y vuelven con
+     cualquier señal de que hay alguien delante (mover el ratón, tocar, teclear),
+     como en YouTube. Lo decide el JS con `data-mandos`, no el `:hover`: en un
+     móvil no existe hover, y el dedo se levanta después de tocar. */
+  .cplayer[data-estado='reproduciendo'] .cplayer__tap { background: transparent; }
+  .cplayer[data-estado='reproduciendo'][data-mandos='ocultos'] .cplayer__disc {
+    opacity: 0;
+    transform: scale(0.85);
+    pointer-events: none;
+  }
+  /* Sin puntero visible tampoco hay disco: si el usuario no interactúa, la
+     imagen queda limpia del todo. */
+  .cplayer[data-estado='reproduciendo'][data-mandos='ocultos'] { cursor: none; }
+  /* El halo solo antes del primer play: llama la atención una vez, no distrae
+     cada vez que se pausa. */
+  .cplayer:not([data-estado='inicial']) .cplayer__halo { display: none; }
+
+  .cplayer__disc {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 4.25rem;
+    height: 4.25rem;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--color-accent, #e11d48);
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.45);
+    transition: transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+  /* El triángulo pesa a la izquierda: se corre un pelo para que se vea centrado.
+     Las dos barras de pausa ya son simétricas y no lo necesitan. */
+  .cplayer__disc svg[data-cplayer-disco-play] { margin-left: 0.2rem; }
+  .cplayer__disc { transition: transform 0.22s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.3s ease; }
+
+  .cplayer[data-estado='inicial'] .cplayer__tap:hover .cplayer__disc,
+  .cplayer[data-estado='pausa'] .cplayer__tap:hover .cplayer__disc { transform: scale(1.09); }
+  .cplayer__tap:active .cplayer__disc { transform: scale(0.97); }
+  .cplayer__tap:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: -3px;
+  }
+
+  .cplayer__halo {
+    position: absolute;
+    width: 4.25rem;
+    height: 4.25rem;
+    border-radius: 50%;
+    background: var(--color-accent, #e11d48);
+    opacity: 0.55;
+    animation: cplayer-halo 2.4s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
+  }
+  @keyframes cplayer-halo {
+    0% { transform: scale(1); opacity: 0.5; }
+    70% { transform: scale(1.75); opacity: 0; }
+    100% { transform: scale(1.75); opacity: 0; }
+  }
+
+  /* ---------- botón de sonido (modo automático) ---------- */
+  .cplayer__unmute {
+    position: absolute;
+    top: 0.6rem;
+    left: 0.6rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.7rem;
+    border: 0;
+    border-radius: 999px;
+    font: 600 0.75rem/1 system-ui, sans-serif;
+    color: #fff;
+    background: rgb(0 0 0 / 0.62);
+    backdrop-filter: blur(6px);
+    cursor: pointer;
+    transition: background 0.18s ease;
+  }
+  .cplayer__unmute:hover { background: rgb(0 0 0 / 0.8); }
+  .cplayer__unmute[hidden] { display: none; }
+
+  /* ---------- barra de controles ---------- */
+  .cplayer__bar {
+    position: absolute;
+    inset: auto 0 0 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1.6rem 0.65rem 0.55rem;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.78), transparent);
+    opacity: 0;
+    transform: translateY(0.4rem);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+  }
+  /* En pausa, mientras los mandos estén activos, o si alguien navega con
+     teclado. `:has(:focus-visible)` y no `:focus-within`: al hacer clic con el
+     ratón el botón se queda con el foco, y con `:focus-within` los controles ya
+     no se ocultaban nunca. `:focus-visible` solo se activa con el teclado, que
+     es justo cuando deben quedarse. */
+  .cplayer:has(:focus-visible) .cplayer__bar,
+  .cplayer[data-estado='pausa'] .cplayer__bar,
+  .cplayer[data-mandos='visibles'] .cplayer__bar {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
+  /* Antes del primer play manda la capa de arranque. */
+  .cplayer[data-estado='inicial'] .cplayer__bar { opacity: 0; pointer-events: none; }
+
+  .cplayer__btn {
+    display: grid;
+    place-items: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    flex: none;
+    border: 0;
+    border-radius: 0.3rem;
+    color: #fff;
+    background: transparent;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  .cplayer__btn:hover { background: rgb(255 255 255 / 0.18); }
+  .cplayer__btn:focus-visible { outline: 2px solid #fff; outline-offset: 1px; }
+
+  .cplayer__track {
+    position: relative; /* ancla del raíl de fondo; sin esto se posiciona contra .cplayer */
+    flex: 1;
+    height: 0.9rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    touch-action: none;
+  }
+  .cplayer__track::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    height: 0.22rem;
+    border-radius: 999px;
+    background: rgb(255 255 255 / 0.3);
+    pointer-events: none;
+  }
+  .cplayer__fill {
+    position: relative;
+    height: 0.22rem;
+    width: 0;
+    border-radius: 999px;
+    background: var(--color-accent, #e11d48);
+    pointer-events: none;
+  }
+  .cplayer__fill::after {
+    content: '';
+    position: absolute;
+    right: -0.3rem;
+    top: 50%;
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background: #fff;
+    transform: translateY(-50%) scale(0);
+    transition: transform 0.15s ease;
+  }
+  .cplayer:hover .cplayer__fill::after,
+  .cplayer__track:focus-visible .cplayer__fill::after { transform: translateY(-50%) scale(1); }
+  .cplayer__track:focus-visible { outline: 2px solid #fff; outline-offset: 2px; border-radius: 999px; }
+
+  .cplayer__time {
+    flex: none;
+    font: 500 0.68rem/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-variant-numeric: tabular-nums;
+    color: #fff;
+    opacity: 0.9;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cplayer__halo { animation: none; opacity: 0.35; }
+    .cplayer__disc,
+    .cplayer__bar,
+    .cplayer__fill::after { transition: none; }
+  }
+</style>
+
+<script>
+  type Modo = 'play' | 'auto';
+
+  /* La configuración vive en D1 y se sirve cacheada 60 s. Una sola petición por
+     página aunque hubiera varios reproductores. */
+  let ajustes: Promise<{ modo: Modo; bucle: boolean }> | null = null;
+  const leerAjustes = () => {
+    ajustes ??= fetch('/api/v1/config')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d: any) => ({
+        modo: d?.video?.modo === 'auto' ? ('auto' as Modo) : ('play' as Modo),
+        bucle: !!d?.video?.bucle,
+      }))
+      /* Si el endpoint falla, el video espera al play: nunca arranca solo por
+         un error de red. */
+      .catch(() => ({ modo: 'play' as Modo, bucle: false }));
+    return ajustes;
+  };
+
+  const reloj = (s: number): string => {
+    if (!Number.isFinite(s) || s < 0) s = 0;
+    const m = Math.floor(s / 60);
+    return `${m}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+  };
+
+  function montar(caja: HTMLElement) {
+    const video = caja.querySelector<HTMLVideoElement>('[data-cplayer-video]');
+    const arranque = caja.querySelector<HTMLButtonElement>('[data-cplayer-tap]');
+    const sonido = caja.querySelector<HTMLButtonElement>('[data-cplayer-unmute]');
+    const alternar = caja.querySelector<HTMLButtonElement>('[data-cplayer-toggle]');
+    const pista = caja.querySelector<HTMLElement>('[data-cplayer-track]');
+    const relleno = caja.querySelector<HTMLElement>('[data-cplayer-fill]');
+    const tiempo = caja.querySelector<HTMLElement>('[data-cplayer-time]');
+    const mudo = caja.querySelector<HTMLButtonElement>('[data-cplayer-mute]');
+    const completa = caja.querySelector<HTMLButtonElement>('[data-cplayer-full]');
+    if (!video || !arranque || !alternar || !pista || !relleno || !tiempo || !mudo || !completa) return;
+
+    const iconos = {
+      pausa: alternar.querySelector<SVGElement>('[data-cplayer-icon-pause]'),
+      play: alternar.querySelector<SVGElement>('[data-cplayer-icon-play]'),
+      conSonido: mudo.querySelector<SVGElement>('[data-cplayer-icon-sound]'),
+      sinSonido: mudo.querySelector<SVGElement>('[data-cplayer-icon-muted]'),
+      discoPlay: arranque.querySelector<SVGElement>('[data-cplayer-disco-play]'),
+      discoPausa: arranque.querySelector<SVGElement>('[data-cplayer-disco-pausa]'),
+    };
+
+    caja.dataset.estado = 'inicial';
+
+    const pintarPlayPausa = () => {
+      const pausado = video.paused;
+      iconos.pausa?.toggleAttribute('data-off', pausado);
+      iconos.play?.toggleAttribute('data-off', !pausado);
+      alternar.setAttribute('aria-label', pausado ? 'Reproducir' : 'Pausar');
+
+      // El disco central sigue el mismo estado: es el control principal en móvil,
+      // donde no hay hover y la barra de abajo queda pequeña para el pulgar.
+      iconos.discoPlay?.toggleAttribute('data-off', !pausado);
+      iconos.discoPausa?.toggleAttribute('data-off', pausado);
+      arranque.setAttribute('aria-label', pausado ? 'Reproducir video' : 'Pausar video');
+
+      // El estado se deduce del video, no de quién pidió el play: si arranca por
+      // otra vía —autoplay, los controles del sistema operativo, una extensión—
+      // 'inicial' se quedaba pegado y la barra no llegaba a aparecer nunca.
+      if (!pausado) caja.dataset.estado = 'reproduciendo';
+      else if (caja.dataset.estado !== 'inicial') caja.dataset.estado = 'pausa';
+    };
+
+    const pintarSonido = () => {
+      iconos.conSonido?.toggleAttribute('data-off', video.muted);
+      iconos.sinSonido?.toggleAttribute('data-off', !video.muted);
+      mudo.setAttribute('aria-label', video.muted ? 'Activar sonido' : 'Silenciar');
+    };
+
+    /* --- Mandos que se retiran solos, como en YouTube ---
+       Mientras el video corre y nadie toca nada, el disco y la barra se van a
+       los 2,5 s para dejar ver la imagen. Vuelven con cualquier señal de que hay
+       alguien delante. En pausa se quedan puestos: ahí no molestan y son la
+       forma de reanudar. */
+    const ESPERA_MANDOS = 2500;
+    let relojMandos: ReturnType<typeof setTimeout> | undefined;
+
+    const ocultarMandosLuego = () => {
+      clearTimeout(relojMandos);
+      if (video.paused) return; // en pausa no se esconden
+      relojMandos = setTimeout(() => {
+        caja.dataset.mandos = 'ocultos';
+      }, ESPERA_MANDOS);
+    };
+
+    const despertarMandos = () => {
+      caja.dataset.mandos = 'visibles';
+      ocultarMandosLuego();
+    };
+
+    for (const ev of ['pointermove', 'pointerdown', 'touchstart', 'keydown'] as const) {
+      caja.addEventListener(ev, despertarMandos, { passive: true });
+    }
+    // Al salir el puntero del reproductor se retiran ya, sin esperar.
+    caja.addEventListener('pointerleave', () => {
+      clearTimeout(relojMandos);
+      if (!video.paused) caja.dataset.mandos = 'ocultos';
+    });
+
+    /** Único punto de verdad: lo usan el tap sobre el video y el botón de la barra. */
+    const alternarReproduccion = () => {
+      if (video.paused) {
+        // La primera vez el video aún no se ha descargado (preload="none").
+        if (video.preload === 'none') video.preload = 'metadata';
+        caja.dataset.estado = 'reproduciendo';
+        void video.play().catch(() => {
+          /* El navegador puede negarse: se vuelve al estado parado en vez de
+             quedarse con la carátula y sin saber qué pasó. */
+          caja.dataset.estado = video.currentTime > 0 ? 'pausa' : 'inicial';
+          pintarPlayPausa();
+        });
+      } else {
+        video.pause();
+      }
+    };
+
+    arranque.addEventListener('click', alternarReproduccion);
+    alternar.addEventListener('click', alternarReproduccion);
+
+    // Barra espaciadora y Enter sobre el reproductor, como en cualquier player.
+    caja.addEventListener('keydown', (ev: KeyboardEvent) => {
+      if (ev.key !== ' ' && ev.key !== 'Spacebar') return;
+      const dentroDeBoton = (ev.target as HTMLElement)?.closest('button, [role="slider"]');
+      if (dentroDeBoton) return; // el botón ya gestiona su propia activación
+      ev.preventDefault();
+      alternarReproduccion();
+    });
+
+    mudo.addEventListener('click', () => {
+      video.muted = !video.muted;
+      if (!video.muted && sonido) sonido.hidden = true;
+      pintarSonido();
+    });
+
+    sonido?.addEventListener('click', () => {
+      video.muted = false;
+      sonido.hidden = true;
+      pintarSonido();
+    });
+
+    completa.addEventListener('click', () => {
+      if (document.fullscreenElement) void document.exitFullscreen();
+      else void caja.requestFullscreen?.().catch(() => {});
+    });
+
+    video.addEventListener('play', () => {
+      pintarPlayPausa();
+      despertarMandos(); // se ven un momento y se retiran solos
+    });
+    video.addEventListener('pause', () => {
+      pintarPlayPausa();
+      clearTimeout(relojMandos);
+      caja.dataset.mandos = 'visibles'; // en pausa los mandos se quedan
+    });
+    video.addEventListener('volumechange', pintarSonido);
+
+    video.addEventListener('timeupdate', () => {
+      const total = video.duration;
+      if (!Number.isFinite(total) || total <= 0) return;
+      const pct = (video.currentTime / total) * 100;
+      relleno.style.width = `${pct}%`;
+      pista.setAttribute('aria-valuenow', String(Math.round(pct)));
+      tiempo.textContent = `${reloj(video.currentTime)} / ${reloj(total)}`;
+    });
+
+    video.addEventListener('loadedmetadata', () => {
+      tiempo.textContent = `0:00 / ${reloj(video.duration)}`;
+    });
+
+    video.addEventListener('ended', () => {
+      if (video.loop) return;
+      // Vuelve al estado de partida: carátula, disco de play y barra a cero,
+      // listo para volver a verlo de un toque.
+      caja.dataset.estado = 'inicial';
+      relleno.style.width = '0%';
+      pintarPlayPausa();
+    });
+
+    /* --- barra de progreso: click, arrastre y teclado --- */
+    const saltarA = (clienteX: number) => {
+      const r = pista.getBoundingClientRect();
+      const total = video.duration;
+      if (!Number.isFinite(total) || total <= 0 || r.width === 0) return;
+      const p = Math.min(1, Math.max(0, (clienteX - r.left) / r.width));
+      video.currentTime = p * total;
+    };
+
+    pista.addEventListener('pointerdown', (ev: PointerEvent) => {
+      pista.setPointerCapture(ev.pointerId);
+      saltarA(ev.clientX);
+      const mover = (e: PointerEvent) => saltarA(e.clientX);
+      const soltar = () => {
+        pista.removeEventListener('pointermove', mover);
+        pista.releasePointerCapture(ev.pointerId);
+      };
+      pista.addEventListener('pointermove', mover);
+      pista.addEventListener('pointerup', soltar, { once: true });
+      pista.addEventListener('pointercancel', soltar, { once: true });
+    });
+
+    pista.addEventListener('keydown', (ev: KeyboardEvent) => {
+      const paso = ev.key === 'ArrowRight' ? 5 : ev.key === 'ArrowLeft' ? -5 : 0;
+      if (!paso) return;
+      ev.preventDefault();
+      video.currentTime = Math.min(video.duration || 0, Math.max(0, video.currentTime + paso));
+    });
+
+    pintarPlayPausa();
+    pintarSonido();
+
+    /* --- arranque automático, si el panel lo pide --- */
+    void leerAjustes().then(({ modo, bucle }) => {
+      video.loop = bucle;
+      if (modo !== 'auto') return;
+
+      /* Tres razones para no arrancar solo, todas del lado de quien mira:
+         que haya pedido menos animación, que esté ahorrando datos, o que el
+         video ni siquiera esté en pantalla todavía. */
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if ((navigator as any).connection?.saveData) return;
+
+      const lanzar = () => {
+        video.muted = true; // sin esto ningún navegador deja arrancar solo
+        pintarSonido();
+        video.preload = 'auto';
+        void video
+          .play()
+          .then(() => {
+            caja.dataset.estado = 'reproduciendo';
+            if (sonido) sonido.hidden = false;
+            pintarPlayPausa();
+          })
+          .catch(() => {
+            /* Rechazado: se queda el disco de play, que es el comportamiento
+               correcto de reserva. */
+          });
+      };
+
+      if (!('IntersectionObserver' in window)) return lanzar();
+      const vigia = new IntersectionObserver(
+        (entradas) => {
+          for (const e of entradas) {
+            if (!e.isIntersecting) continue;
+            vigia.disconnect();
+            lanzar();
+          }
+        },
+        { threshold: 0.5 },
+      );
+      vigia.observe(caja);
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-cplayer]').forEach(montar);
+</script>

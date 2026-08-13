@@ -4,15 +4,26 @@ import { getCollection, getEntry, render } from 'astro:content';
 import { renderMarkdown } from '@/lib/markdown';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Rating from '@/components/Rating.astro';
+import RatingInteractivo from '@/components/RatingInteractivo.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import TestimonialCard from '@/components/TestimonialCard.astro';
 import StickyCta from '@/components/StickyCta.astro';
+import CoursePlayer from '@/components/CoursePlayer.astro';
 import ExitIntent from '@/components/ExitIntent.astro';
 import LeadModal from '@/components/LeadModal.astro';
-import { COUNTRIES, formatPrice, localPrice, type Country, type City } from '@/lib/countries';
+import {
+  COUNTRIES,
+  formatPrice,
+  formatPriceCorto,
+  localPrice,
+  type Country,
+  type City,
+} from '@/lib/countries';
 import { getCategory, courseCover } from '@/lib/categories';
+import { formatMonto, precioReal } from '@/lib/hotmartLive';
 import { buildHotmartUrl } from '@/lib/hotmart';
+import { resolvePromo } from '@/lib/promo';
 import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema } from '@/lib/seo';
 import { SITE, CDN_URL } from '@/lib/site';
 
@@ -102,6 +113,32 @@ const cityStudents = city
 
 const discountPct = Math.round((1 - course.data.priceUSD / course.data.originalPriceUSD) * 100);
 
+/* Precio real de Hotmart, igual que en CourseCard. Hasta ahora la ficha usaba
+   el de catálogo mientras las tarjetas de cursos relacionados ya usaban el real:
+   en la misma página podían convivir dos importes distintos para el mismo curso.
+   Se resuelve una vez aquí y de aquí beben la tarjeta de compra y la barra fija. */
+const real = precioReal(course.id, country);
+const precioTexto = real
+  ? formatMonto(real.monto, real.moneda)
+  : formatPrice(course.data.priceUSD, country);
+
+/* Importe base sobre el que se aplica el cupón. Va al DOM en crudo para que el
+   controlador de promoción pueda recalcular en cliente sin volver a pedirlo. */
+const montoBase = real ? real.monto : localPrice(course.data.priceUSD, country);
+const monedaBase = real ? real.moneda : country.currency;
+
+/* El precio que se enseña es el que cobra el checkout. La campaña vive en D1 y
+   cambia sin desplegar, así que el build pinta el precio de tabla y el script
+   de abajo aplica el cupón vigente en cuanto responde /api/v1/promo. El tachado
+   y la píldora nacen ocultos: sin campaña confirmada no se anuncia descuento. */
+const precioTachadoTexto = undefined;
+const descuentoVisible = undefined;
+
+/* Campaña del calendario vigente en el build. Solo se usa para rotular la
+   píldora de la barra fija ("Black Friday −40%" en vez de un "−40%" pelado).
+   `null` es el caso normal la mayor parte del año. */
+const promoVigente = resolvePromo({ countryCode: country.code, now: new Date() });
+
 /* Video de presentación: vive en R2 (cdn.sably.co). Sin CDN configurado no se
    pinta el reproductor, así el entorno local no queda con un <video> roto. */
 const videoSrc = course.data.videoKey && CDN_URL ? `${CDN_URL}/videos/${course.data.videoKey}` : null;
@@ -184,8 +221,12 @@ const schemas = [
     description: course.data.shortDescription,
     url: pageUrl,
     image: new URL(courseCover(course.id, category.slug), SITE.url).href,
-    price: localPrice(course.data.priceUSD, country),
-    priceCurrency: country.currency,
+    /* El mismo importe que ve el visitante. Si el schema declarase el precio de
+       catálogo mientras la página enseña el real de Hotmart, el snippet de
+       Google anunciaría una cifra que no se cobra. Número crudo, nunca el texto
+       ya formateado. */
+    price: real ? real.monto : localPrice(course.data.priceUSD, country),
+    priceCurrency: real ? real.moneda : country.currency,
     instructorName: course.data.instructor.name,
     category: category.name,
     workloadHours: course.data.durationHours,
@@ -212,7 +253,83 @@ const schemas = [
   pageType={city ? 'course_city' : 'course'}
   whatsappContext={city ? `${course.data.title} (${city.name})` : course.data.title}
 >
-  <StickyCta title={course.data.title} precio={formatPrice(course.data.priceUSD, country)} {ctaUrl} />
+  <StickyCta
+    title={course.data.title}
+    precio={precioTexto}
+    precioTachado={precioTachadoTexto}
+    descuentoPct={descuentoVisible}
+    promoLabel={promoVigente?.label}
+    monto={montoBase}
+    moneda={monedaBase}
+    pais={country.code}
+    slug={course.id}
+    {ctaUrl}
+  />
+
+  {/* Precio con el cupón vigente aplicado, en la tarjeta y en la barra a la vez.
+      Vive aquí y no en cada componente porque el importe debe ser el mismo en
+      los dos sitios: una sola petición, un solo cálculo, dos pintados. */}
+  <script>
+    import { formatMonto, precioConDescuento } from '@/lib/moneda';
+
+    interface Promo {
+      activa?: boolean;
+      pct?: number;
+      cupon?: string;
+      titular?: string;
+      paises?: string[];
+      slugs?: string[];
+      alcance?: string;
+    }
+
+    const cajas = document.querySelectorAll<HTMLElement>('[data-precio-caja]');
+
+    if (cajas.length) {
+      fetch('/api/v1/promo')
+        .then((r) => (r.ok ? (r.json() as Promise<Promo>) : null))
+        .then((p) => {
+          if (!p?.activa || !p.pct) return;
+
+          for (const caja of cajas) {
+            const monto = Number(caja.dataset.monto);
+            const moneda = caja.dataset.moneda;
+            const pais = caja.dataset.pais ?? '';
+            const slug = caja.dataset.slug ?? '';
+            if (!Number.isFinite(monto) || monto <= 0 || !moneda) continue;
+
+            // Solo si la campaña cubre este país y este curso. Anunciar en la
+            // ficha un descuento que no aplica lleva a un checkout más caro que
+            // lo prometido, que es la peor forma de perder una venta.
+            if (Array.isArray(p.paises) && p.paises.length && !p.paises.includes(pais)) continue;
+            if (p.alcance === 'slugs' && Array.isArray(p.slugs) && !p.slugs.includes(slug)) continue;
+
+            const real = caja.querySelector<HTMLElement>('[data-precio-real]');
+            const tachado = caja.querySelector<HTMLElement>('[data-precio-tachado]');
+            const badge = caja.querySelector<HTMLElement>('[data-promo-badge]');
+            if (!real) continue;
+
+            const final = precioConDescuento(monto, moneda, p.pct);
+            if (final >= monto) continue; // descuento nulo: no se toca nada
+
+            real.textContent = formatMonto(final, moneda);
+            if (tachado) {
+              // Sin el código de moneda: ya lo dice la cifra principal y en
+              // móvil esos caracteres de más cortaban la píldora.
+              tachado.textContent = formatMonto(monto, moneda).replace(/\s[A-Z]{3}$/, '');
+              tachado.hidden = false;
+            }
+            if (badge) {
+              badge.textContent = `−${p.pct}%`;
+              badge.hidden = false;
+            }
+          }
+        })
+        .catch(() => {
+          /* Sin respuesta se queda el precio de tabla: nunca se anuncia un
+             descuento que no se ha podido confirmar. */
+        });
+    }
+  </script>
 
   <!-- Hero -->
   <section class="bg-primary">
@@ -240,7 +357,15 @@ const schemas = [
         <h1 class="mt-4 text-3xl leading-tight font-extrabold text-white sm:text-4xl">{h1}</h1>
         <p class="mt-4 max-w-xl text-lg text-white/80">{locale?.data.subtitulo ?? course.data.shortDescription}</p>
         <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/80">
-          <Rating rating={course.data.rating} count={course.data.ratingCount} class="[&_*]:!text-white/90" />
+          {/* Interactivo en el hero: las estrellas muestran la nota de compradores
+              y además se pueden pulsar para dejar la propia. El componente ya
+              existía desde el PR #67 pero no estaba montado en ninguna página,
+              así que la ficha seguía con las estrellas de solo lectura. */}
+          <RatingInteractivo
+            slug={course.id}
+            rating={course.data.rating}
+            count={course.data.ratingCount}
+          />
           <span>👥 {course.data.students.toLocaleString('es-CO')} estudiantes</span>
           <span>🕐 {course.data.durationHours} horas</span>
           <span>📚 {course.data.lessonsCount} lecciones</span>
@@ -257,44 +382,65 @@ const schemas = [
 
       <!-- Card de compra -->
       <div class="h-fit rounded-lg bg-white p-6 shadow-2xl">
-        <div
-          class="relative h-40 overflow-hidden rounded-md"
-          style={`background-image: linear-gradient(135deg, ${category.gradient[0]}, ${category.gradient[1]})`}
-        >
-          {
-            videoSrc ? (
-              /* El video pesa más que la portada, así que solo carga metadatos: la
-                 portada se pinta igual de rápido y el vídeo baja al pulsar play. */
-              <video
-                src={videoSrc}
-                poster={courseCover(course.id, category.slug)}
-                controls
-                playsinline
-                preload="none"
-                data-course-video={course.id}
-                class="h-full w-full bg-black object-cover"
-                aria-label={`Video de presentación: ${course.data.title}`}
-              />
-            ) : (
+        {
+          videoSrc ? (
+            <CoursePlayer
+              src={videoSrc}
+              poster={courseCover(course.id, category.slug)}
+              title={course.data.title}
+              courseId={course.id}
+            />
+          ) : (
+            /* Sin video, la portada manda la misma relación de aspecto que el
+               reproductor, así la tarjeta no cambia de alto entre cursos. */
+            <div
+              class="relative aspect-video overflow-hidden rounded-md"
+              style={`background-image: linear-gradient(135deg, ${category.gradient[0]}, ${category.gradient[1]})`}
+            >
               <img
                 src={courseCover(course.id, category.slug)}
                 alt={`${category.name}: ${course.data.title}`}
                 width="800"
-                height="533"
+                height="450"
                 fetchpriority="high"
                 class="h-full w-full object-cover"
               />
-            )
-          }
+            </div>
+          )
+        }
+        {/* Jerarquía de precio: la cifra que se paga manda y el precio anterior la
+            acompaña en la misma línea a un cuerpo mucho menor. Antes el tachado
+            iba a `text-lg` con una píldora al lado: sumaban 410 px en una columna
+            de 372 y el conjunto saltaba de línea partiendo "$196.000 COP" por el
+            espacio previo a la moneda. `whitespace-nowrap` impide ese corte. */}
+        <div
+          class="mt-5 flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5"
+          data-precio-caja
+          data-monto={montoBase}
+          data-moneda={monedaBase}
+          data-pais={country.code}
+          data-slug={course.id}
+        >
+          <span data-precio-real class="text-3xl font-extrabold whitespace-nowrap text-primary"
+            >{precioTexto}</span
+          >
+          <span
+            data-precio-tachado
+            hidden
+            class="text-sm whitespace-nowrap text-muted line-through"></span>
+          <span
+            data-promo-badge
+            hidden
+            class="rounded-full bg-accent px-2 py-0.5 text-[11px] font-bold whitespace-nowrap text-white"
+          ></span>
         </div>
-        <div class="mt-5 flex items-baseline gap-3">
-          <span class="text-3xl font-extrabold text-primary">{formatPrice(course.data.priceUSD, country)}</span>
-          <span class="text-lg text-muted line-through">{formatPrice(course.data.originalPriceUSD, country)}</span>
-          <span class="rounded-full bg-accent px-2.5 py-1 text-xs font-bold text-white">-{discountPct}%</span>
-        </div>
-        <p class="mt-1 text-xs font-semibold text-error">
-          🔥 El precio ya incluye el {discountPct}% de descuento
-        </p>
+        {
+          descuentoVisible ? (
+            <p class="mt-1 text-xs font-semibold text-error">
+              🔥 El precio ya incluye el {descuentoVisible}% de descuento
+            </p>
+          ) : null
+        }
         <a
           href={ctaUrl}
           target="_blank"
