@@ -56,7 +56,8 @@ export function organizationSchema() {
     slogan: SITE.tagline,
     logo: {
       '@type': 'ImageObject',
-      url: `${SITE.url}/favicon.svg`,
+      // PNG 512px: Google exige ≥112x112 y prefiere raster sobre el SVG del favicon.
+      url: `${SITE.url}/icon-512.png`,
       caption: SITE.name,
     },
     // Solo perfiles que existen: un sameAs a un 404 es peor que no declararlo.
