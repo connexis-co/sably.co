@@ -64,11 +64,10 @@ const url = buildWhatsAppUrl(country.whatsapp, message);
     width: 56px;
     height: 56px;
   }
-  /* Con la barra fija de compra visible en móvil, el botón sube su carril. */
-  @media (max-width: 639px) {
-    :global(body[data-has-sticky]) .wa-float {
-      --wa-carril: 66px;
-    }
+  /* La barra fija de compra ocupa el borde inferior en todas las anchuras,
+     así que el botón sube su carril siempre, no solo en móvil. */
+  :global(body[data-has-sticky]) .wa-float {
+    --wa-carril: 66px;
   }
   .wa-circle {
     position: relative;
