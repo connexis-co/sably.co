@@ -14,11 +14,13 @@ const year = new Date().getFullYear();
 
 /* Solo las redes con perfil real: una URL vacía en SITE.social significa que
    la cuenta no existe todavía y no se pinta un enlace muerto. */
+// `as const` en cada red: sin él, el literal ensancha `network` a `string` y
+// SocialIcon —que solo acepta las cuatro— deja de compilar.
 const REDES = [
-  { network: 'instagram', url: SITE.social.instagram, label: 'Instagram' },
-  { network: 'tiktok', url: SITE.social.tiktok, label: 'TikTok' },
-  { network: 'facebook', url: SITE.social.facebook, label: 'Facebook' },
-  { network: 'youtube', url: SITE.social.youtube, label: 'YouTube' },
+  { network: 'instagram' as const, url: SITE.social.instagram, label: 'Instagram' },
+  { network: 'tiktok' as const, url: SITE.social.tiktok, label: 'TikTok' },
+  { network: 'facebook' as const, url: SITE.social.facebook, label: 'Facebook' },
+  { network: 'youtube' as const, url: SITE.social.youtube, label: 'YouTube' },
 ].filter((r) => r.url);
 
 const SABLY_LINKS = [
