@@ -143,10 +143,10 @@ mensajes.push({
     --ps-carril: 0px;
     bottom: calc(1rem + var(--ps-carril) + env(safe-area-inset-bottom, 0px));
   }
-  @media (max-width: 639px) {
-    :global(body[data-has-sticky]) .ps-toast {
-      --ps-carril: 70px;
-    }
+  /* Mismo carril que el botón de WhatsApp: la barra de compra va abajo en
+     todas las anchuras, no solo en móvil. */
+  :global(body[data-has-sticky]) .ps-toast {
+    --ps-carril: 70px;
   }
   @media (min-width: 640px) {
     .ps-toast {

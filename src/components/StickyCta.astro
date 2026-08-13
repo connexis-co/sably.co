@@ -92,57 +92,37 @@ const { title, precio, precioTachado, descuentoPct, promoLabel, monto, moneda, p
 </div>
 
 <style>
-  /* En escritorio la barra NO puede ir en top:0: la cabecera es `sticky top-0`
-     con z-50 y 65 px de alto, o sea que tapaba por completo esta barra de z-40
-     y 57 px. Se renderizaba y no se veía — parecía existir solo en móvil, que
-     es donde va abajo y no hay choque.
+  /* Anclada abajo en TODAS las anchuras.
 
-     Se cuelga justo debajo de la cabecera. El alto lo mide el script y lo
-     publica en `--cabecera-alto`; el 64px del respaldo es para el primer
-     pintado y para si el script no llega a correr. */
+     Estuvo arriba en escritorio y no funcionaba: la cabecera es `sticky top-0`
+     con z-50 y 65 px, así que primero la tapaba entera, y al bajarla por debajo
+     quedaban dos barras apiladas ocupando 122 px de cromo — la web perdía
+     respiración justo donde se decide la compra.
+
+     Abajo no compite con nada, es donde el pulgar llega en móvil, y en
+     escritorio queda fuera del recorrido de lectura. */
   [data-sticky-cta] {
-    top: var(--cabecera-alto, 64px);
-    border-bottom-width: 1px;
+    top: auto;
+    bottom: 0;
+    border-top-width: 1px;
+    border-bottom-width: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    /* Sombra hacia arriba: la barra está debajo del contenido, no encima. */
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease;
   }
-  /* Al ocultarse tiene que salvar su propio alto MÁS el hueco de la cabecera,
-     o asomaría por debajo de ella. */
   [data-sticky-cta][data-oculta] {
-    transform: translateY(calc(-100% - var(--cabecera-alto, 64px)));
+    transform: translateY(100%);
   }
-  @media (max-width: 639px) {
-    [data-sticky-cta] {
-      top: auto;
-      bottom: 0;
-      border-bottom-width: 0;
-      border-top-width: 1px;
-      padding-bottom: env(safe-area-inset-bottom, 0px);
-      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
-    }
-    [data-sticky-cta][data-oculta] {
-      transform: translateY(100%);
-    }
-    /* La barra ocupa el borde inferior: que no entierre el final del footer. */
-    :global(body[data-has-sticky] footer) {
-      padding-bottom: 5rem;
-    }
+  /* La barra ocupa el borde inferior: que no entierre el final del footer. */
+  :global(body[data-has-sticky] footer) {
+    padding-bottom: 5rem;
   }
 </style>
 
 <script>
   const bar = document.querySelector<HTMLElement>('[data-sticky-cta]');
   const sentinel = document.getElementById('hero-sentinel');
-
-  /* Alto real de la cabecera, para colgar la barra justo debajo en escritorio.
-     Se mide y se vuelve a medir al cambiar el tamaño, porque la cabecera cambia
-     de alto entre móvil y escritorio. */
-  const cabecera = document.querySelector<HTMLElement>('header');
-  if (cabecera) {
-    const medir = () =>
-      document.documentElement.style.setProperty('--cabecera-alto', `${cabecera.offsetHeight}px`);
-    medir();
-    addEventListener('resize', medir, { passive: true });
-  }
 
   if (bar && sentinel) {
     // Señal para que WhatsApp y la prueba social se eleven sobre este carril.
