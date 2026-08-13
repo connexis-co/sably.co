@@ -227,7 +227,7 @@
   },
   "curso-de-limpieza-facial": {
    "COP": 165450,
-   "USD": 49.99
+   "USD": 99.99
   },
   "curso-de-macrame": {
    "COP": 231650,
@@ -379,7 +379,7 @@
   },
   "curso-de-unas-acrilicas": {
    "COP": 331000,
-   "USD": 99.99
+   "USD": 49.99
   }
  },
  "valoraciones": {
@@ -715,9 +715,8 @@
   },
   "curso-de-automaquillaje": {
    "payUrl": "https://pay.hotmart.com/S42624359I",
-   "hotlink": "S76206366L",
-   "titulo": "Curso de Automaquillaje",
-   "idProducto": 1111134
+   "hotlink": "",
+   "titulo": "Curso de Automaquillaje"
   },
   "curso-de-balayage": {
    "payUrl": "https://pay.hotmart.com/X62294171S",
@@ -740,14 +739,12 @@
   "curso-de-barberia-infantil": {
    "payUrl": "https://pay.hotmart.com/W69842801W",
    "hotlink": "M77668166P",
-   "titulo": "Curso de Barbería Infantil",
-   "idProducto": 2055813
+   "titulo": "Curso de Barbería Infantil"
   },
   "curso-de-barberia": {
-   "payUrl": "https://pay.hotmart.com/P63130893D",
-   "hotlink": "T71423159U",
-   "titulo": "Curso de Barbería desde Cero",
-   "idProducto": 1802099
+   "payUrl": "https://pay.hotmart.com/H43635981L",
+   "hotlink": "",
+   "titulo": "Curso de Barbería desde Cero"
   },
   "curso-de-bartender": {
    "payUrl": "https://pay.hotmart.com/F69226929Q",
@@ -770,14 +767,12 @@
   "curso-de-carpinteria-y-muebles": {
    "payUrl": "https://pay.hotmart.com/N65021735K",
    "hotlink": "W107109765L",
-   "titulo": "Curso de Carpintería y Elaboración de Muebles",
-   "idProducto": 1869321
+   "titulo": "Curso de Carpintería y Elaboración de Muebles"
   },
   "curso-de-cejas-y-pestanas": {
    "payUrl": "https://pay.hotmart.com/A42487377P",
-   "hotlink": "G76205732L",
-   "titulo": "Curso de Cejas y Pestañas",
-   "idProducto": 1105889
+   "hotlink": "",
+   "titulo": "Curso de Cejas y Pestañas"
   },
   "curso-de-cerveza-artesanal": {
    "payUrl": "https://pay.hotmart.com/G57439951T",
@@ -800,8 +795,7 @@
   "curso-de-cocina": {
    "payUrl": "https://pay.hotmart.com/E54359930T",
    "hotlink": "C107109847Y",
-   "titulo": "Curso de Cocina: de Cero a Profesional",
-   "idProducto": 1486044
+   "titulo": "Curso de Cocina: de Cero a Profesional"
   },
   "curso-de-colorimetria": {
    "payUrl": "https://pay.hotmart.com/P48026757I",
@@ -812,14 +806,12 @@
   "curso-de-comidas-rapidas": {
    "payUrl": "https://pay.hotmart.com/Q63819733V",
    "hotlink": "Y107109866L",
-   "titulo": "Curso del Negocio de las Comidas Rápidas",
-   "idProducto": 1826062
+   "titulo": "Curso del Negocio de las Comidas Rápidas"
   },
   "curso-de-community-manager": {
    "payUrl": "https://pay.hotmart.com/D61536429N",
    "hotlink": "W107110038J",
-   "titulo": "Curso de Community Manager",
-   "idProducto": 1743147
+   "titulo": "Curso de Community Manager"
   },
   "curso-de-confeccion-de-ropa-interior": {
    "payUrl": "https://pay.hotmart.com/M75288465W",
@@ -848,8 +840,7 @@
   "curso-de-crochet": {
    "payUrl": "https://pay.hotmart.com/B61328836T",
    "hotlink": "V107109897X",
-   "titulo": "Curso de Crochet como Negocio",
-   "idProducto": 1735838
+   "titulo": "Curso de Crochet como Negocio"
   },
   "curso-de-cupcakes": {
    "payUrl": "https://pay.hotmart.com/C47597953E",
@@ -865,9 +856,8 @@
   },
   "curso-de-decoracion-de-unas": {
    "payUrl": "https://pay.hotmart.com/P58716037X",
-   "hotlink": "J76206210L",
-   "titulo": "Curso de Decoración de Uñas",
-   "idProducto": 1643331
+   "hotlink": "",
+   "titulo": "Curso de Decoración de Uñas"
   },
   "curso-de-defensa-personal-para-mujeres": {
    "payUrl": "https://pay.hotmart.com/T42582853E",
@@ -877,9 +867,8 @@
   },
   "curso-de-depilacion": {
    "payUrl": "https://pay.hotmart.com/V66724421L",
-   "hotlink": "R76206186X",
-   "titulo": "Curso de Depilación",
-   "idProducto": 1931221
+   "hotlink": "",
+   "titulo": "Curso de Depilación"
   },
   "curso-de-desayunos-sorpresa": {
    "payUrl": "https://pay.hotmart.com/G49406356L",
@@ -908,8 +897,7 @@
   "curso-de-energia-solar": {
    "payUrl": "https://pay.hotmart.com/M76021437N",
    "hotlink": "B93143016I",
-   "titulo": "Curso de Instalación de Paneles Solares",
-   "idProducto": 2409458
+   "titulo": "Curso de Instalación de Paneles Solares"
   },
   "curso-de-estetica-canina": {
    "payUrl": "https://pay.hotmart.com/V42089784L",
@@ -926,20 +914,17 @@
   "curso-de-extensiones-de-cabello": {
    "payUrl": "https://pay.hotmart.com/L57846638B",
    "hotlink": "X77663508E",
-   "titulo": "Curso de Extensiones de Cabello",
-   "idProducto": 1611608
+   "titulo": "Curso de Extensiones de Cabello"
   },
   "curso-de-extensiones-de-pestanas": {
    "payUrl": "https://pay.hotmart.com/G75458369D",
-   "hotlink": "P77654571U",
-   "titulo": "Curso de Extensiones de Pestañas",
-   "idProducto": 2370504
+   "hotlink": "",
+   "titulo": "Curso de Extensiones de Pestañas"
   },
   "curso-de-flores-con-globos": {
    "payUrl": "https://pay.hotmart.com/U68605508W",
    "hotlink": "T76953268Y",
-   "titulo": "Curso de Flores con Globos",
-   "idProducto": 1999831
+   "titulo": "Curso de Flores con Globos"
   },
   "curso-de-fondant": {
    "payUrl": "https://pay.hotmart.com/Q43938862B",
@@ -950,8 +935,7 @@
   "curso-de-fotografia-con-celular": {
    "payUrl": "https://pay.hotmart.com/Q68979557M",
    "hotlink": "M107110044M",
-   "titulo": "Curso de Fotografía con Celular",
-   "idProducto": 2013865
+   "titulo": "Curso de Fotografía con Celular"
   },
   "curso-de-fotografia": {
    "payUrl": "https://pay.hotmart.com/B77656721C",
@@ -968,8 +952,7 @@
   "curso-de-galletas-decoradas": {
    "payUrl": "https://pay.hotmart.com/S81864529Q",
    "hotlink": "P107109832P",
-   "titulo": "Curso de Galletas Artesanales para Negocio",
-   "idProducto": 2843832
+   "titulo": "Curso de Galletas Artesanales para Negocio"
   },
   "curso-de-globoflexia": {
    "payUrl": "https://pay.hotmart.com/M47265375C",
@@ -998,8 +981,7 @@
   "curso-de-ingles-para-ninos": {
    "payUrl": "https://pay.hotmart.com/C49771094X",
    "hotlink": "G107110103K",
-   "titulo": "Curso de Inglés para Niños",
-   "idProducto": 1345353
+   "titulo": "Curso de Inglés para Niños"
   },
   "curso-de-ingles": {
    "payUrl": "https://pay.hotmart.com/R42584737Y",
@@ -1026,10 +1008,9 @@
    "idProducto": 1566902
   },
   "curso-de-limpieza-facial": {
-   "payUrl": "https://pay.hotmart.com/B65394417K",
-   "hotlink": "S76206187Q",
-   "titulo": "Curso de Limpieza Facial Profesional",
-   "idProducto": 1882007
+   "payUrl": "https://pay.hotmart.com/U66774408M",
+   "hotlink": "",
+   "titulo": "Curso de Limpieza Facial Profesional"
   },
   "curso-de-macrame": {
    "payUrl": "https://pay.hotmart.com/T55503335K",
@@ -1045,9 +1026,8 @@
   },
   "curso-de-manicure-y-pedicure": {
    "payUrl": "https://pay.hotmart.com/A60343346C",
-   "hotlink": "D76206117I",
-   "titulo": "Curso de Manicure y Pedicure a Domicilio",
-   "idProducto": 1700402
+   "hotlink": "",
+   "titulo": "Curso de Manicure y Pedicure a Domicilio"
   },
   "curso-de-maquillaje-de-fantasia": {
    "payUrl": "https://pay.hotmart.com/Y60358345H",
@@ -1064,14 +1044,12 @@
   "curso-de-maquillaje-profesional-de-novias": {
    "payUrl": "https://pay.hotmart.com/X63186581T",
    "hotlink": "J76206203K",
-   "titulo": "Curso de Maquillaje Profesional para Novias",
-   "idProducto": 1803923
+   "titulo": "Curso de Maquillaje Profesional para Novias"
   },
   "curso-de-maquillaje": {
    "payUrl": "https://pay.hotmart.com/N41531652U",
-   "hotlink": "O76206371T",
-   "titulo": "Curso de Maquillaje",
-   "idProducto": 1066380
+   "hotlink": "",
+   "titulo": "Curso de Maquillaje"
   },
   "curso-de-masaje-descontracturante": {
    "payUrl": "https://pay.hotmart.com/C59922402Y",
@@ -1081,21 +1059,18 @@
   },
   "curso-de-masaje-reductor": {
    "payUrl": "https://pay.hotmart.com/Q56744994D",
-   "hotlink": "E77558301G",
-   "titulo": "Curso de Masaje Reductor",
-   "idProducto": 1570762
+   "hotlink": "",
+   "titulo": "Curso de Masaje Reductor"
   },
   "curso-de-masajes-terapeuticos-y-relajantes": {
    "payUrl": "https://pay.hotmart.com/A43483573K",
-   "hotlink": "W77640399F",
-   "titulo": "Curso de Masajes Terapéuticos y Relajantes",
-   "idProducto": 1142339
+   "hotlink": "",
+   "titulo": "Curso de Masajes Terapéuticos y Relajantes"
   },
   "curso-de-masajes": {
    "payUrl": "https://pay.hotmart.com/K63104274A",
-   "hotlink": "W77640286L",
-   "titulo": "Curso de Masajes",
-   "idProducto": 1801205
+   "hotlink": "",
+   "titulo": "Curso de Masajes"
   },
   "curso-de-mecanica-de-bicicletas": {
    "payUrl": "https://pay.hotmart.com/E42783931E",
@@ -1118,8 +1093,7 @@
   "curso-de-modisteria": {
    "payUrl": "https://pay.hotmart.com/U59313744J",
    "hotlink": "G107109969E",
-   "titulo": "Curso de Modistería en Casa",
-   "idProducto": 1665123
+   "titulo": "Curso de Modistería en Casa"
   },
   "curso-de-molderia-y-confeccion": {
    "payUrl": "https://pay.hotmart.com/P43660531G",
@@ -1141,9 +1115,8 @@
   },
   "curso-de-peinados": {
    "payUrl": "https://pay.hotmart.com/Y66385340K",
-   "hotlink": "F85675229G",
-   "titulo": "Curso de Peinados",
-   "idProducto": 1917918
+   "hotlink": "",
+   "titulo": "Curso de Peinados"
   },
   "curso-de-peluqueria": {
    "payUrl": "https://pay.hotmart.com/B28818422Q",
@@ -1165,8 +1138,7 @@
   "curso-de-pizza-artesanal": {
    "payUrl": "https://pay.hotmart.com/D55969511R",
    "hotlink": "Y107109859E",
-   "titulo": "Curso de Pizza Artesanal",
-   "idProducto": 1542190
+   "titulo": "Curso de Pizza Artesanal"
   },
   "curso-de-porcelana-fria": {
    "payUrl": "https://pay.hotmart.com/K60819262W",
@@ -1177,8 +1149,7 @@
   "curso-de-portugues": {
    "payUrl": "https://pay.hotmart.com/C61562578C",
    "hotlink": "O107110091Q",
-   "titulo": "Curso de Portugués para Principiantes",
-   "idProducto": 1743995
+   "titulo": "Curso de Portugués para Principiantes"
   },
   "curso-de-primeros-auxilios-para-mascotas": {
    "payUrl": "https://pay.hotmart.com/T58086799J",
@@ -1243,23 +1214,20 @@
   "curso-de-sushi": {
    "payUrl": "https://pay.hotmart.com/G46888691K",
    "hotlink": "N107094409E",
-   "titulo": "Curso de Sushi en Casa",
-   "idProducto": 1259120
+   "titulo": "Curso de Sushi en Casa"
   },
   "curso-de-trenzas-y-peinados": {
    "payUrl": "https://pay.hotmart.com/V48797673L",
-   "hotlink": "F76206250B",
-   "titulo": "Curso de Trenzas y Peinados",
-   "idProducto": 1319780
+   "hotlink": "",
+   "titulo": "Curso de Trenzas y Peinados"
   },
   "curso-de-unas-acrilicas": {
-   "payUrl": "https://pay.hotmart.com/U64481306Q",
-   "hotlink": "Q76206177K",
-   "titulo": "Curso de Uñas Acrílicas",
-   "idProducto": 1850277
+   "payUrl": "https://pay.hotmart.com/C55918118T",
+   "hotlink": "",
+   "titulo": "Curso de Uñas Acrílicas"
   }
  },
- "_capturado": "2026-08-12T11:00:09.715Z",
+ "_capturado": "2026-08-13T10:59:30.704Z",
  "resenas": {
   "curso-de-unas": [
    {
