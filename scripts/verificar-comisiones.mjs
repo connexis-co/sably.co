@@ -97,6 +97,33 @@ const noCheckout = por('NO_LLEGA_A_CHECKOUT');
 const errores = por('ERROR');
 const sinEnlace = por('SIN_ENLACE');
 
+/*
+ * Baseline de refs verificados en el checkout en vivo (scripts/refs-conocidos.json).
+ *
+ * El guardián de arriba garantiza que HAY un ref; no que el ref sea el de JP.
+ * Esa titularidad solo se confirma en el panel de Hotmart, pero sí se puede
+ * detectar un cambio: si un curso que antes acreditaba a un ref pasa a otro
+ * —una edición de frontmatter que mete el enlace de otro afiliado— aquí se
+ * canta. No bloquea (un curso recién enlazado trae un ref nuevo legítimo);
+ * avisa para que se confirme antes de darlo por bueno.
+ *
+ * Para regenerar el baseline tras confirmar refs nuevos: correr este script en
+ * --json y volcar {slug: ref} de `ok` a scripts/refs-conocidos.json.
+ */
+let baseline = {};
+try {
+  baseline = JSON.parse(readFileSync(join(RAIZ, 'scripts/refs-conocidos.json'), 'utf8'));
+} catch {
+  /* sin baseline: se omite la comprobación, no es un error */
+}
+const refsCambiados = [];
+const refsNuevos = [];
+for (const r of por('OK')) {
+  const conocido = baseline[r.slug];
+  if (conocido === undefined) refsNuevos.push(r);
+  else if (conocido !== r.ref) refsCambiados.push({ ...r, anterior: conocido });
+}
+
 if (JSON_OUT) {
   console.log(JSON.stringify({
     ok: por('OK').map((r) => ({ slug: r.slug, ref: r.ref, producto: r.producto })),
@@ -104,6 +131,8 @@ if (JSON_OUT) {
     sin_enlace: sinEnlace.map((r) => r.slug),
     no_checkout: noCheckout.map((r) => ({ slug: r.slug, final: r.final })),
     errores: errores.map((r) => ({ slug: r.slug, detalle: r.detalle })),
+    refs_cambiados: refsCambiados.map((r) => ({ slug: r.slug, anterior: r.anterior, ahora: r.ref })),
+    refs_nuevos: refsNuevos.map((r) => ({ slug: r.slug, ref: r.ref })),
   }, null, 2));
 } else {
   log(`✅ Con comisión:      ${por('OK').length}`);
@@ -114,6 +143,19 @@ if (JSON_OUT) {
   for (const r of sinRef) log(`\n  🔴 ${r.slug}\n     publica ${r.url}\n     llega a pay.hotmart.com/${r.producto} SIN ref → la venta la cobra el productor`);
   for (const r of noCheckout) log(`\n  ⚠️  ${r.slug} → ${r.final?.slice(0, 90)}`);
   for (const r of errores) log(`\n  ⚠️  ${r.slug}: ${r.detalle}`);
+
+  if (refsCambiados.length) {
+    log(`\n🔎 ${refsCambiados.length} curso(s) con el ref CAMBIADO respecto al baseline verificado:`);
+    for (const r of refsCambiados) {
+      log(`   ${r.slug}: ${r.anterior} → ${r.ref}`);
+      log(`     Confirma en tu panel de Hotmart que el nuevo ref es tuyo antes de publicitar.`);
+    }
+  }
+  if (refsNuevos.length) {
+    log(`\n🆕 ${refsNuevos.length} curso(s) con ref sin baseline (enlace nuevo, aún no confirmado):`);
+    log(`   ${refsNuevos.map((r) => r.slug).join(', ')}`);
+    log(`   Cuando confirmes que acreditan a tu cuenta, regenera scripts/refs-conocidos.json.`);
+  }
 }
 
 /* Solo los que ya tienen enlace bloquean: un curso sin publicar todavía no es un
