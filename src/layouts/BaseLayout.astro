@@ -30,6 +30,13 @@ interface Props {
    * olvidarse de uno significa prometer un descuento que el checkout no aplica.
    */
   sinCupon?: boolean;
+  /**
+   * Id del proveedor del curso (ver src/lib/proveedores.ts). Va en el <body>
+   * para que el banner y el repintado de precio sepan a qué proveedor pertenece
+   * la página y apliquen solo las promociones que lo tienen como objetivo. En
+   * páginas que no son de curso queda vacío y no se usa.
+   */
+  proveedor?: string;
   whatsappContext?: string;
   noindex?: boolean;
   /** Imagen social de la página (og:image). */
@@ -46,6 +53,7 @@ const {
   schemas = [],
   pageType = 'page',
   sinCupon = false,
+  proveedor,
   whatsappContext,
   noindex = false,
   image,
@@ -89,7 +97,11 @@ const allSchemas = [organizationSchema(), ...schemas];
         toda la red Sably. Aquí se disparaba PUBLIC_META_PIXEL_ID (1711030209407213), un píxel
         distinto al que optimizan las campañas, así que Meta no veía estas conversiones. */}
   </head>
-  <body data-page-type={pageType} data-sin-cupon={sinCupon ? '' : undefined}>
+  <body
+    data-page-type={pageType}
+    data-sin-cupon={sinCupon ? '' : undefined}
+    data-proveedor={proveedor || undefined}
+  >
     {
       GTM_ID && (
         <noscript>

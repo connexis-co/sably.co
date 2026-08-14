@@ -390,75 +390,114 @@ export function resolvePromo({ countryCode, now, urlKey }: ResolveInput): PromoC
 }
 
 /* ------------------------------------------------------------------------- *
- * Promoción manual desde el panel
+ * Promociones en vivo desde el panel (multi-instancia)
  * ------------------------------------------------------------------------- */
 
 /**
- * Lo que devuelve `GET /api/v1/promo`.
+ * Una promoción viva, tal como la sirve `GET /api/v1/promo` dentro de `promos`.
  *
  * El calendario de arriba se hornea en las 5.955 páginas estáticas, así que no
- * puede reaccionar a una decisión de esta tarde. Este override sí: el banner lo
- * pide al cargar y, si está activo, manda sobre el calendario.
+ * puede reaccionar a una decisión de esta tarde. Estas sí: el banner las pide
+ * al cargar y aplica la que corresponda a este curso, país y proveedor.
+ *
+ * A diferencia del viejo override de una sola fila, ahora conviven varias:
+ * puede haber un 50 % para los cursos de un proveedor y un 25 % para los de
+ * otro, cada uno con su ventana de fechas y sus exclusiones.
  */
-export interface PromoOverride {
-  activa: boolean;
+export interface Promocion {
+  id: string;
+  /** Nombre interno del panel; no se muestra al visitante. */
+  nombre: string;
   pct: number;
   cupon: string;
   titular: string;
-  alcance: 'todos' | 'algunos';
-  slugs: string[];
-  modo: 'ventana' | 'perpetua';
-  /** Fin en milisegundos, o `null` en modo perpetuo. */
-  hasta: number | null;
+  /** Ids de proveedores objetivo. Vacío = todos. */
+  proveedores: string[];
+  /** Slugs que entran aunque su proveedor no esté en la lista. */
+  incluir: string[];
+  /** Slugs que nunca entran, aunque su proveedor sí. Gana sobre todo lo demás. */
+  excluir: string[];
+  /** Códigos de país. Vacío = todos. */
   paises: string[];
+  /** Fin en milisegundos, o `null` si es perpetua (sin cuenta atrás). */
+  hasta: number | null;
+  /** Mayor gana cuando dos promociones cubren el mismo curso. */
+  prioridad: number;
+}
+
+export interface PromoCtx {
+  countryCode: string;
+  /** Id del proveedor del curso, ya resuelto (ver proveedores.ts). */
+  proveedor: string;
+  courseSlug?: string;
+}
+
+/** ¿Esta promoción cubre este curso, país y proveedor? */
+function promoAplica(p: Promocion, ctx: PromoCtx): boolean {
+  const cc = ctx.countryCode.toLowerCase();
+  if (p.paises.length > 0 && !p.paises.includes(cc)) return false;
+
+  const slug = ctx.courseSlug;
+  // Excluir gana sobre cualquier otra regla: es el «este curso no, en particular».
+  if (slug && p.excluir.includes(slug)) return false;
+
+  // Entra por proveedor (o promo global) o por inclusión explícita del slug.
+  const porProveedor = p.proveedores.length === 0 || p.proveedores.includes(ctx.proveedor);
+  const porSlug = slug ? p.incluir.includes(slug) : false;
+  return porProveedor || porSlug;
 }
 
 /**
- * Convierte el override en una campaña, para que el banner tenga un único tipo
- * que pintar. Devuelve `null` si no aplica a este país o a este curso.
+ * La promoción de mayor prioridad que cubre este curso, o `null`.
  *
- * En modo perpetuo `endsAt` queda vacío: sin fin no hay cuenta atrás que pintar,
- * y eso es deliberado. El descuento perpetuo es real y se aplica igual; lo que
- * no se hace es acompañarlo de un reloj que se reinicia solo, porque en cuanto
- * el visitante lo nota deja de creerse también las campañas que sí terminan.
+ * `null` es el caso normal: la mayor parte del tiempo no hay promoción viva que
+ * afecte a un curso dado.
  */
-export function campaignDeOverride(
-  o: PromoOverride,
-  ctx: { countryCode: string; courseSlug?: string },
-): (Omit<PromoCampaign, 'endsAt'> & { endsAt: string | null }) | null {
-  if (!o.activa) return null;
+export function mejorPromocion(promos: Promocion[], ctx: PromoCtx): Promocion | null {
+  const aplican = promos.filter((p) => promoAplica(p, ctx));
+  if (aplican.length === 0) return null;
+  return aplican.reduce((a, b) => (b.prioridad > a.prioridad ? b : a));
+}
 
-  const cc = ctx.countryCode.toLowerCase();
-  if (o.paises.length > 0 && !o.paises.includes(cc)) return null;
-  if (o.alcance === 'algunos' && ctx.courseSlug && !o.slugs.includes(ctx.courseSlug)) return null;
-
-  if (o.modo === 'ventana' && (!o.hasta || o.hasta <= Date.now())) return null;
-
+/**
+ * Convierte una promoción en la campaña que pinta el banner, para que este
+ * tenga un único tipo que dibujar.
+ *
+ * En perpetua (`hasta` nulo) `endsAt` queda vacío: sin fin no hay cuenta atrás,
+ * y es deliberado. El descuento perpetuo es real y se aplica igual; lo que no
+ * se hace es acompañarlo de un reloj que se reinicia solo, porque en cuanto el
+ * visitante lo nota deja de creerse también las campañas que sí terminan.
+ */
+export function campaignDePromocion(
+  p: Promocion,
+): Omit<PromoCampaign, 'endsAt'> & { endsAt: string | null } {
   return {
-    id: 'manual',
+    id: `promo-${p.id}`,
     label: 'Oferta',
-    titular: o.titular,
-    theme: o.pct >= 50 ? TEMA.maximo : TEMA.medio,
-    couponCode: o.cupon,
-    discountPct: o.pct,
+    titular: p.titular,
+    theme: p.pct >= 50 ? TEMA.maximo : TEMA.medio,
+    couponCode: p.cupon,
+    discountPct: p.pct,
     startsAt: new Date(0).toISOString(),
-    endsAt: o.hasta ? new Date(o.hasta).toISOString() : null,
+    endsAt: p.hasta ? new Date(p.hasta).toISOString() : null,
     countries: null,
-    priority: 1000,
+    // Por encima de cualquier campaña del calendario, y entre ellas manda su
+    // propia prioridad.
+    priority: 1000 + p.prioridad,
   };
 }
 
-/** Pide la promoción manual al panel. Devuelve `null` ante cualquier fallo. */
-export async function leerOverride(signal?: AbortSignal): Promise<PromoOverride | null> {
+/** Pide las promociones vivas al panel. Devuelve `[]` ante cualquier fallo. */
+export async function leerPromos(signal?: AbortSignal): Promise<Promocion[]> {
   try {
     const r = await fetch('/api/v1/promo', { signal });
-    if (!r.ok) return null;
-    const d = (await r.json()) as PromoOverride;
-    return d?.activa ? d : null;
+    if (!r.ok) return [];
+    const d = (await r.json()) as { promos?: Promocion[] };
+    return Array.isArray(d?.promos) ? d.promos : [];
   } catch {
     // Sin red o sin endpoint el sitio se queda con su calendario. Que el banner
     // dependa de una llamada opcional no puede romper la página.
-    return null;
+    return [];
   }
 }
 
