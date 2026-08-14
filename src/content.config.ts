@@ -31,14 +31,35 @@ const courses = defineCollection({
       .min(3),
     priceUSD: z.number().positive(),
     originalPriceUSD: z.number().positive(),
-    rating: z.number().min(3.5).max(5),
-    ratingCount: z.number().int().positive(),
-    students: z.number().int().positive(),
-    instructor: z.object({
-      name: z.string(),
-      title: z.string(),
-      bio: z.string(),
-    }),
+    /**
+     * Prueba social. OPCIONALES a propósito, y `rating` sin suelo.
+     *
+     * Antes eran obligatorios y `rating` exigía un mínimo de 3.5, así que no se
+     * podía publicar una ficha sin ponerle una nota, un número de valoraciones,
+     * unos alumnos y un instructor —existiera o no el producto—. Inventar no era
+     * un descuido: era el único modo de pasar el esquema. El resultado fueron 23
+     * cursos sin checkout publicando 7.581 valoraciones y 47.265 estudiantes que
+     * nunca existieron, y un instructor con nombre y biografía que Google llegó a
+     * indexar como persona real.
+     *
+     * Siendo opcionales, la ficha que no tiene el dato simplemente no lo muestra.
+     * Y sin el suelo de 3.5 se puede escribir la nota verdadera cuando es más
+     * baja (velas es 3,1 real) en lugar de redondearla hacia arriba.
+     *
+     * Cuando existan, salen de Hotmart y no del criterio de quien redacta:
+     * `api-ask.hotmart.com/api/v1/survey/product/<idProducto>/rating` da `average`
+     * y `totalAnswers`; el `totalUsers` de la ficha de marketplace da los alumnos.
+     */
+    rating: z.number().min(0).max(5).optional(),
+    ratingCount: z.number().int().positive().optional(),
+    students: z.number().int().positive().optional(),
+    instructor: z
+      .object({
+        name: z.string(),
+        title: z.string(),
+        bio: z.string(),
+      })
+      .optional(),
     learnings: z.array(z.string()).min(5).max(8),
     audience: z.array(z.string()).min(3).max(5),
     faqs: z

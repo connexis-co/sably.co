@@ -30,7 +30,19 @@ export const COUNTRIES: Country[] = [
     hreflang: 'es-CO',
     currency: 'COP',
     currencySymbol: '$',
-    usdRate: 4000,
+    /**
+     * 3310, no 4000. Es la tasa que Hotmart cobra de verdad, medida en el
+     * checkout: "Aprende el Negocio de las Uñas" sale a 148.387 COP con 45,00
+     * USD y a 296.774 con 89,99 — 3.297 y 3.298. Con 4000 la ficha anunciaba
+     * un 21% de más que el cobro real (200.000 frente a ~165.000), y ademas
+     * contradecia a `hotmartLive`, que ya usaba 3310.
+     *
+     * Solo afecta a los cursos sin precio capturado en vivo: los que estan en
+     * hotmart-live.json usan su valor real y no pasan por aqui.
+     *
+     * Las tasas del resto de paises siguen sin verificar contra checkout.
+     */
+    usdRate: 3310,
     priceRound: 1000,
     whatsapp: '573114574788',
     phoneDisplay: '+57 311 457 4788',
