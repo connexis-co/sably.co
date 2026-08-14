@@ -25,7 +25,7 @@ jobs:
           PUBLIC_CDN_URL: ${{ vars.PUBLIC_CDN_URL }}
 
       - name: Deploy to Cloudflare Pages (Staging)
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@v4
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
