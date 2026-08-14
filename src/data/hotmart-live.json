@@ -1,2027 +1,2077 @@
 {
-  "_fuente": "Precios del checkout real de Hotmart (payload SSR) y valoraciones públicas del marketplace. Nada de este fichero es inventado; si un curso no aparece, no se muestra el dato.",
-  "precios": {
-    "curso-de-unas": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-airbnb": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-alisados-y-keratina": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-amigurumi": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-automaquillaje": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-balayage": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-barberia-artistica": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-barberia-como-negocio": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-barberia-infantil": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-barberia": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-bartender": {
-      "COP": 198550,
-      "USD": 59.99
-    },
-    "curso-de-bouquets-con-globos": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-canto": {
-      "COP": 99250,
-      "USD": 29.99
-    },
-    "curso-de-carpinteria-y-muebles": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-cejas-y-pestanas": {
-      "COP": 198550,
-      "USD": 59.99
-    },
-    "curso-de-cerveza-artesanal": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-ceviche-peruano": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-chocolateria": {
-      "COP": 264750,
-      "USD": 79.99
-    },
-    "curso-de-cocina": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-colorimetria": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-comidas-rapidas": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-community-manager": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-confeccion-de-ropa-interior": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-contabilidad-basica": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-coreano": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-costura-industrial": {
-      "COP": 331000,
-      "USD": 99.99
-    },
-    "curso-de-crochet": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-cupcakes": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-decoracion-con-globos": {
-      "COP": 198550,
-      "USD": 59.99
-    },
-    "curso-de-decoracion-de-unas": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-defensa-personal-para-mujeres": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-depilacion": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-desayunos-sorpresa": {
-      "COP": 198550,
-      "USD": 59.99
-    },
-    "curso-de-diseno-de-cejas-con-hilo-y-henna": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-dj": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-electricista": {
-      "COP": 198550,
-      "USD": 59.99
-    },
-    "curso-de-energia-solar": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-estetica-canina": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-excel": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-extensiones-de-cabello": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-extensiones-de-pestanas": {
-      "COP": 231650,
-      "USD": 69.99
-    },
-    "curso-de-flores-con-globos": {
-      "COP": 264750,
-      "USD": 79.99
-    },
-    "curso-de-fondant": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-fotografia-con-celular": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-fotografia": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-frances": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-galletas-decoradas": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-globoflexia": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-globos-burbuja": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-guitarra": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-hamburguesas-gourmet": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-ingles-para-ninos": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-ingles": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-instalacion-de-camaras-de-seguridad": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-japones": {
-      "COP": 198550,
-      "USD": 59.99
-    },
-    "curso-de-joyeria-artesanal": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-limpieza-facial": {
-      "COP": 330950,
-      "USD": 99.99
-    },
-    "curso-de-macrame": {
-      "COP": 231650,
-      "USD": 69.99
-    },
-    "curso-de-maderoterapia": {
-      "COP": 297850,
-      "USD": 89.99
-    },
-    "curso-de-manicure-y-pedicure": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-maquillaje-de-fantasia": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-maquillaje-permanente": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-maquillaje-profesional-de-novias": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-maquillaje": {
-      "COP": 331000,
-      "USD": 99.99
-    },
-    "curso-de-masaje-descontracturante": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-masaje-reductor": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-masajes-terapeuticos-y-relajantes": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-masajes": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-mecanica-de-bicicletas": {
-      "COP": 198550,
-      "USD": 59.99
-    },
-    "curso-de-mecanica-de-motos": {
-      "COP": 397200,
-      "USD": 119.99
-    },
-    "curso-de-microblading": {
-      "COP": 331000,
-      "USD": 99.99
-    },
-    "curso-de-modisteria": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-molderia-y-confeccion": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-panaderia": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-pasteleria": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-peinados": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-peluqueria": {
-      "COP": 1102300,
-      "USD": 333
-    },
-    "curso-de-pestanas-volumen-ruso": {
-      "COP": 292250,
-      "USD": 89.99
-    },
-    "curso-de-piano": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-pizza-artesanal": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-porcelana-fria": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-portugues": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-primeros-auxilios-para-mascotas": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-primeros-auxilios": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-remodelacion-de-banos-y-cocinas": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-reparacion-de-celulares": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-reparacion-de-computadoras": {
-      "COP": 231650,
-      "USD": 69.99
-    },
-    "curso-de-reparacion-de-lavadoras": {
-      "COP": 331000,
-      "USD": 99.99
-    },
-    "curso-de-reposteria-para-mascotas": {
-      "COP": 231650,
-      "USD": 69.99
-    },
-    "curso-de-reposteria": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-serigrafia": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-sublimacion": {
-      "COP": 231650,
-      "USD": 69.99
-    },
-    "curso-de-sushi": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-trenzas-y-peinados": {
-      "COP": 165450,
-      "USD": 49.99
-    },
-    "curso-de-unas-acrilicas": {
-      "COP": 165450,
-      "USD": 49.99
-    }
+ "_fuente": "Precios del checkout real de Hotmart (payload SSR) y valoraciones públicas del marketplace. Nada de este fichero es inventado; si un curso no aparece, no se muestra el dato.",
+ "precios": {
+  "curso-de-unas": {
+   "COP": 165450,
+   "USD": 49.99
   },
-  "valoraciones": {
-    "curso-de-unas": {
-      "rating": 4.4,
-      "total": 93
-    },
-    "curso-de-airbnb": {
-      "rating": 3.3,
-      "total": 3
-    },
-    "curso-de-alisados-y-keratina": {
-      "rating": 5,
-      "total": 3
-    },
-    "curso-de-amigurumi": {
-      "rating": 1,
-      "total": 1
-    },
-    "curso-de-automaquillaje": {
-      "rating": 4.5,
-      "total": 13
-    },
-    "curso-de-balayage": {
-      "rating": 4.8,
-      "total": 12
-    },
-    "curso-de-barberia-artistica": {
-      "rating": 4.3,
-      "total": 17
-    },
-    "curso-de-barberia-como-negocio": {
-      "rating": 5,
-      "total": 2
-    },
-    "curso-de-barberia": {
-      "rating": 4.3,
-      "total": 47
-    },
-    "curso-de-bartender": {
-      "rating": 3.5,
-      "total": 2
-    },
-    "curso-de-bouquets-con-globos": {
-      "rating": 4.4,
-      "total": 5
-    },
-    "curso-de-canto": {
-      "rating": 3.4,
-      "total": 76
-    },
-    "curso-de-cejas-y-pestanas": {
-      "rating": 4.5,
-      "total": 318
-    },
-    "curso-de-cerveza-artesanal": {
-      "rating": 3.7,
-      "total": 7
-    },
-    "curso-de-ceviche-peruano": {
-      "rating": 4,
-      "total": 3
-    },
-    "curso-de-chocolateria": {
-      "rating": 4.1,
-      "total": 25
-    },
-    "curso-de-colorimetria": {
-      "rating": 2.8,
-      "total": 9
-    },
-    "curso-de-confeccion-de-ropa-interior": {
-      "rating": 5,
-      "total": 2
-    },
-    "curso-de-contabilidad-basica": {
-      "rating": 4.3,
-      "total": 10
-    },
-    "curso-de-coreano": {
-      "rating": 5,
-      "total": 3
-    },
-    "curso-de-costura-industrial": {
-      "rating": 5,
-      "total": 5
-    },
-    "curso-de-cupcakes": {
-      "rating": 4.1,
-      "total": 7
-    },
-    "curso-de-decoracion-con-globos": {
-      "rating": 4.7,
-      "total": 177
-    },
-    "curso-de-decoracion-de-unas": {
-      "rating": 4.5,
-      "total": 11
-    },
-    "curso-de-defensa-personal-para-mujeres": {
-      "rating": 3.5,
-      "total": 4
-    },
-    "curso-de-depilacion": {
-      "rating": 3.5,
-      "total": 4
-    },
-    "curso-de-desayunos-sorpresa": {
-      "rating": 4.8,
-      "total": 71
-    },
-    "curso-de-diseno-de-cejas-con-hilo-y-henna": {
-      "rating": 4,
-      "total": 2
-    },
-    "curso-de-dj": {
-      "rating": 2,
-      "total": 2
-    },
-    "curso-de-electricista": {
-      "rating": 4.3,
-      "total": 34
-    },
-    "curso-de-estetica-canina": {
-      "rating": 4,
-      "total": 7
-    },
-    "curso-de-excel": {
-      "rating": 5,
-      "total": 2
-    },
-    "curso-de-extensiones-de-pestanas": {
-      "rating": 5,
-      "total": 7
-    },
-    "curso-de-fondant": {
-      "rating": 3.8,
-      "total": 99
-    },
-    "curso-de-fotografia": {
-      "rating": 5,
-      "total": 5
-    },
-    "curso-de-frances": {
-      "rating": 4.2,
-      "total": 29
-    },
-    "curso-de-globoflexia": {
-      "rating": 5,
-      "total": 1
-    },
-    "curso-de-globos-burbuja": {
-      "rating": 4,
-      "total": 20
-    },
-    "curso-de-guitarra": {
-      "rating": 5,
-      "total": 1
-    },
-    "curso-de-hamburguesas-gourmet": {
-      "rating": 3.1,
-      "total": 16
-    },
-    "curso-de-ingles": {
-      "rating": 4.3,
-      "total": 3
-    },
-    "curso-de-instalacion-de-camaras-de-seguridad": {
-      "rating": 1,
-      "total": 1
-    },
-    "curso-de-japones": {
-      "rating": 3.2,
-      "total": 13
-    },
-    "curso-de-joyeria-artesanal": {
-      "rating": 4.5,
-      "total": 10
-    },
-    "curso-de-limpieza-facial": {
-      "rating": 4,
-      "total": 147
-    },
-    "curso-de-macrame": {
-      "rating": 4.9,
-      "total": 129
-    },
-    "curso-de-maderoterapia": {
-      "rating": 4.9,
-      "total": 92
-    },
-    "curso-de-manicure-y-pedicure": {
-      "rating": 3,
-      "total": 3
-    },
-    "curso-de-maquillaje-de-fantasia": {
-      "rating": 5,
-      "total": 1
-    },
-    "curso-de-maquillaje-permanente": {
-      "rating": 3.6,
-      "total": 150
-    },
-    "curso-de-maquillaje": {
-      "rating": 4.4,
-      "total": 27
-    },
-    "curso-de-masaje-descontracturante": {
-      "rating": 4.4,
-      "total": 10
-    },
-    "curso-de-masaje-reductor": {
-      "rating": 4.8,
-      "total": 31
-    },
-    "curso-de-masajes-terapeuticos-y-relajantes": {
-      "rating": 4.7,
-      "total": 72
-    },
-    "curso-de-masajes": {
-      "rating": 4.3,
-      "total": 10
-    },
-    "curso-de-mecanica-de-bicicletas": {
-      "rating": 4.5,
-      "total": 87
-    },
-    "curso-de-mecanica-de-motos": {
-      "rating": 4.4,
-      "total": 105
-    },
-    "curso-de-microblading": {
-      "rating": 4.4,
-      "total": 16
-    },
-    "curso-de-molderia-y-confeccion": {
-      "rating": 3,
-      "total": 4
-    },
-    "curso-de-panaderia": {
-      "rating": 5,
-      "total": 1
-    },
-    "curso-de-pasteleria": {
-      "rating": 4.5,
-      "total": 19
-    },
-    "curso-de-peinados": {
-      "rating": 1.5,
-      "total": 2
-    },
-    "curso-de-pestanas-volumen-ruso": {
-      "rating": 4.3,
-      "total": 6
-    },
-    "curso-de-piano": {
-      "rating": 5,
-      "total": 2
-    },
-    "curso-de-porcelana-fria": {
-      "rating": 4.6,
-      "total": 17
-    },
-    "curso-de-primeros-auxilios-para-mascotas": {
-      "rating": 4.7,
-      "total": 6
-    },
-    "curso-de-primeros-auxilios": {
-      "rating": 4.9,
-      "total": 57
-    },
-    "curso-de-remodelacion-de-banos-y-cocinas": {
-      "rating": 5,
-      "total": 1
-    },
-    "curso-de-reparacion-de-celulares": {
-      "rating": 4,
-      "total": 6
-    },
-    "curso-de-reparacion-de-computadoras": {
-      "rating": 4.7,
-      "total": 9
-    },
-    "curso-de-reparacion-de-lavadoras": {
-      "rating": 4.8,
-      "total": 13
-    },
-    "curso-de-reposteria-para-mascotas": {
-      "rating": 4.8,
-      "total": 661
-    },
-    "curso-de-reposteria": {
-      "rating": 4,
-      "total": 3
-    },
-    "curso-de-serigrafia": {
-      "rating": 4.5,
-      "total": 13
-    },
-    "curso-de-sublimacion": {
-      "rating": 4.6,
-      "total": 24
-    },
-    "curso-de-trenzas-y-peinados": {
-      "rating": 4,
-      "total": 4
-    },
-    "curso-de-unas-acrilicas": {
-      "rating": 4.4,
-      "total": 93
-    }
+  "curso-de-airbnb": {
+   "COP": 165450,
+   "USD": 49.99
   },
-  "productos": {
-    "curso-de-unas": {
-      "payUrl": "https://pay.hotmart.com/C55918118T",
-      "hotlink": "W76206229K",
-      "titulo": "Curso de Uñas: Aprende el Negocio",
-      "idProducto": 1540395
-    },
-    "curso-de-airbnb": {
-      "payUrl": "https://pay.hotmart.com/S39174613C",
-      "hotlink": "P107110079U",
-      "titulo": "Curso de Airbnb como Negocio",
-      "idProducto": 972295
-    },
-    "curso-de-alisados-y-keratina": {
-      "payUrl": "https://pay.hotmart.com/U79889279I",
-      "hotlink": "Q107109703W",
-      "titulo": "Curso de Alisados y Keratina",
-      "idProducto": 2683886
-    },
-    "curso-de-amigurumi": {
-      "payUrl": "https://pay.hotmart.com/F82692684R",
-      "hotlink": "X107109903P",
-      "titulo": "Curso de Amigurumi",
-      "idProducto": 2916567
-    },
-    "curso-de-automaquillaje": {
-      "payUrl": "https://pay.hotmart.com/S42624359I",
-      "hotlink": "",
-      "titulo": "Curso de Automaquillaje"
-    },
-    "curso-de-balayage": {
-      "payUrl": "https://pay.hotmart.com/X62294171S",
-      "hotlink": "C107109322E",
-      "titulo": "Curso de Balayage y Rubios Platinados",
-      "idProducto": 1772369
-    },
-    "curso-de-barberia-artistica": {
-      "payUrl": "https://pay.hotmart.com/S63192888Y",
-      "hotlink": "X76206206C",
-      "titulo": "Curso de Barbería Artística",
-      "idProducto": 1804143
-    },
-    "curso-de-barberia-como-negocio": {
-      "payUrl": "https://pay.hotmart.com/C63857704B",
-      "hotlink": "B77667834U",
-      "titulo": "Curso de Barbería como Negocio",
-      "idProducto": 1827458
-    },
-    "curso-de-barberia-infantil": {
-      "payUrl": "https://pay.hotmart.com/W69842801W",
-      "hotlink": "M77668166P",
-      "titulo": "Curso de Barbería Infantil"
-    },
-    "curso-de-barberia": {
-      "payUrl": "https://pay.hotmart.com/H43635981L",
-      "hotlink": "",
-      "titulo": "Curso de Barbería desde Cero"
-    },
-    "curso-de-bartender": {
-      "payUrl": "https://pay.hotmart.com/F69226929Q",
-      "hotlink": "X107110060Y",
-      "titulo": "Curso de Bartender Internacional",
-      "idProducto": 2025018
-    },
-    "curso-de-bouquets-con-globos": {
-      "payUrl": "https://pay.hotmart.com/G56852236M",
-      "hotlink": "Y76953276W",
-      "titulo": "Curso de Bouquets con Globos",
-      "idProducto": 1574989
-    },
-    "curso-de-canto": {
-      "payUrl": "https://pay.hotmart.com/P25188127R",
-      "hotlink": "V107110119Q",
-      "titulo": "Curso de Canto",
-      "idProducto": 674908
-    },
-    "curso-de-carpinteria-y-muebles": {
-      "payUrl": "https://pay.hotmart.com/N65021735K",
-      "hotlink": "W107109765L",
-      "titulo": "Curso de Carpintería y Elaboración de Muebles"
-    },
-    "curso-de-cejas-y-pestanas": {
-      "payUrl": "https://pay.hotmart.com/A42487377P",
-      "hotlink": "",
-      "titulo": "Curso de Cejas y Pestañas"
-    },
-    "curso-de-cerveza-artesanal": {
-      "payUrl": "https://pay.hotmart.com/G57439951T",
-      "hotlink": "J107109873V",
-      "titulo": "Curso de Cerveza Artesanal",
-      "idProducto": 1595986
-    },
-    "curso-de-ceviche-peruano": {
-      "payUrl": "https://pay.hotmart.com/I50503819I",
-      "hotlink": "G107109892J",
-      "titulo": "Curso de Ceviche Peruano",
-      "idProducto": 1365663
-    },
-    "curso-de-chocolateria": {
-      "payUrl": "https://pay.hotmart.com/O49486231K",
-      "hotlink": "J107109817O",
-      "titulo": "Curso de Chocolatería",
-      "idProducto": 1338038
-    },
-    "curso-de-cocina": {
-      "payUrl": "https://pay.hotmart.com/E54359930T",
-      "hotlink": "C107109847Y",
-      "titulo": "Curso de Cocina: de Cero a Profesional"
-    },
-    "curso-de-colorimetria": {
-      "payUrl": "https://pay.hotmart.com/P48026757I",
-      "hotlink": "N76206248G",
-      "titulo": "Curso de Colorimetría para Estilistas",
-      "idProducto": 1296344
-    },
-    "curso-de-comidas-rapidas": {
-      "payUrl": "https://pay.hotmart.com/Q63819733V",
-      "hotlink": "Y107109866L",
-      "titulo": "Curso del Negocio de las Comidas Rápidas"
-    },
-    "curso-de-community-manager": {
-      "payUrl": "https://pay.hotmart.com/D61536429N",
-      "hotlink": "W107110038J",
-      "titulo": "Curso de Community Manager"
-    },
-    "curso-de-confeccion-de-ropa-interior": {
-      "payUrl": "https://pay.hotmart.com/M75288465W",
-      "hotlink": "R107109982U",
-      "titulo": "Curso de Confección de Ropa Interior",
-      "idProducto": 2358713
-    },
-    "curso-de-contabilidad-basica": {
-      "payUrl": "https://pay.hotmart.com/M58499039I",
-      "hotlink": "Y107110047E",
-      "titulo": "Curso de Contabilidad para No Expertos",
-      "idProducto": 1635329
-    },
-    "curso-de-coreano": {
-      "payUrl": "https://pay.hotmart.com/W52558723K",
-      "hotlink": "D107110108X",
-      "titulo": "Curso de Coreano Fácil",
-      "idProducto": 1424984
-    },
-    "curso-de-costura-industrial": {
-      "payUrl": "https://pay.hotmart.com/I43304349R",
-      "hotlink": "C107109975N",
-      "titulo": "Curso de Costura Industrial",
-      "idProducto": 1135289
-    },
-    "curso-de-crochet": {
-      "payUrl": "https://pay.hotmart.com/B61328836T",
-      "hotlink": "V107109897X",
-      "titulo": "Curso de Crochet como Negocio"
-    },
-    "curso-de-cupcakes": {
-      "payUrl": "https://pay.hotmart.com/C47597953E",
-      "hotlink": "D107109838U",
-      "titulo": "Curso de Cupcakes para Principiantes",
-      "idProducto": 1282850
-    },
-    "curso-de-decoracion-con-globos": {
-      "payUrl": "https://pay.hotmart.com/J42873379B",
-      "hotlink": "N76953277L",
-      "titulo": "Curso de Decoración con Globos",
-      "idProducto": 1120190
-    },
-    "curso-de-decoracion-de-unas": {
-      "payUrl": "https://pay.hotmart.com/P58716037X",
-      "hotlink": "",
-      "titulo": "Curso de Decoración de Uñas"
-    },
-    "curso-de-defensa-personal-para-mujeres": {
-      "payUrl": "https://pay.hotmart.com/T42582853E",
-      "hotlink": "V107110019L",
-      "titulo": "Curso de Defensa Personal para Mujeres",
-      "idProducto": 1109655
-    },
-    "curso-de-depilacion": {
-      "payUrl": "https://pay.hotmart.com/V66724421L",
-      "hotlink": "",
-      "titulo": "Curso de Depilación"
-    },
-    "curso-de-desayunos-sorpresa": {
-      "payUrl": "https://pay.hotmart.com/G49406356L",
-      "hotlink": "S107110051U",
-      "titulo": "Curso de Desayunos Sorpresa como Negocio",
-      "idProducto": 1336038
-    },
-    "curso-de-diseno-de-cejas-con-hilo-y-henna": {
-      "payUrl": "https://pay.hotmart.com/J61897319S",
-      "hotlink": "H77654354C",
-      "titulo": "Curso de Diseño de Cejas con Hilo y Henna",
-      "idProducto": 1756380
-    },
-    "curso-de-dj": {
-      "payUrl": "https://pay.hotmart.com/C42523159O",
-      "hotlink": "N107110123E",
-      "titulo": "Curso de DJ desde Cero",
-      "idProducto": 1107176
-    },
-    "curso-de-electricista": {
-      "payUrl": "https://pay.hotmart.com/N61163479L",
-      "hotlink": "J107094720O",
-      "titulo": "Curso de Electricista como Negocio",
-      "idProducto": 1730133
-    },
-    "curso-de-energia-solar": {
-      "payUrl": "https://pay.hotmart.com/M76021437N",
-      "hotlink": "B93143016I",
-      "titulo": "Curso de Instalación de Paneles Solares"
-    },
-    "curso-de-estetica-canina": {
-      "payUrl": "https://pay.hotmart.com/V42089784L",
-      "hotlink": "N107109993F",
-      "titulo": "Curso de Estética Canina",
-      "idProducto": 1090646
-    },
-    "curso-de-excel": {
-      "payUrl": "https://pay.hotmart.com/Y42316068A",
-      "hotlink": "K107110026L",
-      "titulo": "Curso de Excel para Principiantes",
-      "idProducto": 1099437
-    },
-    "curso-de-extensiones-de-cabello": {
-      "payUrl": "https://pay.hotmart.com/L57846638B",
-      "hotlink": "X77663508E",
-      "titulo": "Curso de Extensiones de Cabello"
-    },
-    "curso-de-extensiones-de-pestanas": {
-      "payUrl": "https://pay.hotmart.com/G75458369D",
-      "hotlink": "",
-      "titulo": "Curso de Extensiones de Pestañas"
-    },
-    "curso-de-flores-con-globos": {
-      "payUrl": "https://pay.hotmart.com/U68605508W",
-      "hotlink": "T76953268Y",
-      "titulo": "Curso de Flores con Globos"
-    },
-    "curso-de-fondant": {
-      "payUrl": "https://pay.hotmart.com/Q43938862B",
-      "hotlink": "B107109823W",
-      "titulo": "Curso de Fondant y Pastelería Artística",
-      "idProducto": 1159604
-    },
-    "curso-de-fotografia-con-celular": {
-      "payUrl": "https://pay.hotmart.com/Q68979557M",
-      "hotlink": "M107110044M",
-      "titulo": "Curso de Fotografía con Celular"
-    },
-    "curso-de-fotografia": {
-      "payUrl": "https://pay.hotmart.com/B77656721C",
-      "hotlink": "Q107110034F",
-      "titulo": "Curso de Fotografía de Novato a Profesional",
-      "idProducto": 2526119
-    },
-    "curso-de-frances": {
-      "payUrl": "https://pay.hotmart.com/V38780626K",
-      "hotlink": "X85009939J",
-      "titulo": "Curso de Francés desde Cero",
-      "idProducto": 956399
-    },
-    "curso-de-galletas-decoradas": {
-      "payUrl": "https://pay.hotmart.com/S81864529Q",
-      "hotlink": "P107109832P",
-      "titulo": "Curso de Galletas Artesanales para Negocio"
-    },
-    "curso-de-globoflexia": {
-      "payUrl": "https://pay.hotmart.com/M47265375C",
-      "hotlink": "X76953266Q",
-      "titulo": "Curso de Globoflexia",
-      "idProducto": 1272003
-    },
-    "curso-de-globos-burbuja": {
-      "payUrl": "https://pay.hotmart.com/F62444331S",
-      "hotlink": "D76953272A",
-      "titulo": "Curso de Globos Burbuja",
-      "idProducto": 1778060
-    },
-    "curso-de-guitarra": {
-      "payUrl": "https://pay.hotmart.com/K55290164R",
-      "hotlink": "H107094048F",
-      "titulo": "Curso de Guitarra Acústica desde Cero",
-      "idProducto": 1519008
-    },
-    "curso-de-hamburguesas-gourmet": {
-      "payUrl": "https://pay.hotmart.com/P50417303E",
-      "hotlink": "D107109882S",
-      "titulo": "Curso de Hamburguesas Gourmet",
-      "idProducto": 1363293
-    },
-    "curso-de-ingles-para-ninos": {
-      "payUrl": "https://pay.hotmart.com/C49771094X",
-      "hotlink": "G107110103K",
-      "titulo": "Curso de Inglés para Niños"
-    },
-    "curso-de-ingles": {
-      "payUrl": "https://pay.hotmart.com/R42584737Y",
-      "hotlink": "C107108222Q",
-      "titulo": "Curso de Inglés para Principiantes",
-      "idProducto": 1109732
-    },
-    "curso-de-instalacion-de-camaras-de-seguridad": {
-      "payUrl": "https://pay.hotmart.com/N66396359F",
-      "hotlink": "I107109759Y",
-      "titulo": "Curso de Instalación de Cámaras de Seguridad",
-      "idProducto": 1918450
-    },
-    "curso-de-japones": {
-      "payUrl": "https://pay.hotmart.com/I43699686Y",
-      "hotlink": "N107110098E",
-      "titulo": "Curso de Japonés desde Cero",
-      "idProducto": 1150666
-    },
-    "curso-de-joyeria-artesanal": {
-      "payUrl": "https://pay.hotmart.com/C56618940A",
-      "hotlink": "D107109949K",
-      "titulo": "Curso de Joyería Artesanal",
-      "idProducto": 1566902
-    },
-    "curso-de-limpieza-facial": {
-      "payUrl": "https://pay.hotmart.com/U66774408M",
-      "hotlink": "",
-      "titulo": "Curso de Limpieza Facial Profesional"
-    },
-    "curso-de-macrame": {
-      "payUrl": "https://pay.hotmart.com/T55503335K",
-      "hotlink": "Y107109931N",
-      "titulo": "Curso de Macramé como Negocio",
-      "idProducto": 1526336
-    },
-    "curso-de-maderoterapia": {
-      "payUrl": "https://pay.hotmart.com/K54499826M",
-      "hotlink": "R85923912B",
-      "titulo": "Curso de Maderoterapia Profesional",
-      "idProducto": 1491449
-    },
-    "curso-de-manicure-y-pedicure": {
-      "payUrl": "https://pay.hotmart.com/A60343346C",
-      "hotlink": "",
-      "titulo": "Curso de Manicure y Pedicure a Domicilio"
-    },
-    "curso-de-maquillaje-de-fantasia": {
-      "payUrl": "https://pay.hotmart.com/Y60358345H",
-      "hotlink": "S76206208N",
-      "titulo": "Curso de Maquillaje de Fantasía",
-      "idProducto": 1701027
-    },
-    "curso-de-maquillaje-permanente": {
-      "payUrl": "https://pay.hotmart.com/J44578783I",
-      "hotlink": "V76206246N",
-      "titulo": "Curso de Maquillaje Permanente",
-      "idProducto": 1180972
-    },
-    "curso-de-maquillaje-profesional-de-novias": {
-      "payUrl": "https://pay.hotmart.com/X63186581T",
-      "hotlink": "J76206203K",
-      "titulo": "Curso de Maquillaje Profesional para Novias"
-    },
-    "curso-de-maquillaje": {
-      "payUrl": "https://pay.hotmart.com/N41531652U",
-      "hotlink": "",
-      "titulo": "Curso de Maquillaje"
-    },
-    "curso-de-masaje-descontracturante": {
-      "payUrl": "https://pay.hotmart.com/C59922402Y",
-      "hotlink": "S77639843T",
-      "titulo": "Curso de Masaje Descontracturante",
-      "idProducto": 1686490
-    },
-    "curso-de-masaje-reductor": {
-      "payUrl": "https://pay.hotmart.com/Q56744994D",
-      "hotlink": "",
-      "titulo": "Curso de Masaje Reductor"
-    },
-    "curso-de-masajes-terapeuticos-y-relajantes": {
-      "payUrl": "https://pay.hotmart.com/A43483573K",
-      "hotlink": "",
-      "titulo": "Curso de Masajes Terapéuticos y Relajantes"
-    },
-    "curso-de-masajes": {
-      "payUrl": "https://pay.hotmart.com/K63104274A",
-      "hotlink": "",
-      "titulo": "Curso de Masajes"
-    },
-    "curso-de-mecanica-de-bicicletas": {
-      "payUrl": "https://pay.hotmart.com/E42783931E",
-      "hotlink": "L107109770O",
-      "titulo": "Curso de Mecánica de Bicicletas",
-      "idProducto": 1116804
-    },
-    "curso-de-mecanica-de-motos": {
-      "payUrl": "https://pay.hotmart.com/M41229087I",
-      "hotlink": "M107109712L",
-      "titulo": "Curso de Mecánica de Motos desde Cero",
-      "idProducto": 1051641
-    },
-    "curso-de-microblading": {
-      "payUrl": "https://pay.hotmart.com/Y45079346E",
-      "hotlink": "I76205611U",
-      "titulo": "Curso de Microblading de Cejas",
-      "idProducto": 1198643
-    },
-    "curso-de-modisteria": {
-      "payUrl": "https://pay.hotmart.com/U59313744J",
-      "hotlink": "G107109969E",
-      "titulo": "Curso de Modistería en Casa"
-    },
-    "curso-de-molderia-y-confeccion": {
-      "payUrl": "https://pay.hotmart.com/P43660531G",
-      "hotlink": "Y107109962O",
-      "titulo": "Curso de Moldería y Confección",
-      "idProducto": 1149166
-    },
-    "curso-de-panaderia": {
-      "payUrl": "https://pay.hotmart.com/H57693901U",
-      "hotlink": "T107109788P",
-      "titulo": "Curso de Panadería Artesanal y Masa Madre",
-      "idProducto": 1605803
-    },
-    "curso-de-pasteleria": {
-      "payUrl": "https://pay.hotmart.com/N61635687U",
-      "hotlink": "Y107109797O",
-      "titulo": "Curso de Pastelería desde Cero",
-      "idProducto": 1746848
-    },
-    "curso-de-peinados": {
-      "payUrl": "https://pay.hotmart.com/Y66385340K",
-      "hotlink": "",
-      "titulo": "Curso de Peinados"
-    },
-    "curso-de-peluqueria": {
-      "payUrl": "https://pay.hotmart.com/B28818422Q",
-      "hotlink": "M71441399M",
-      "titulo": "Curso de Peluquería"
-    },
-    "curso-de-pestanas-volumen-ruso": {
-      "payUrl": "https://pay.hotmart.com/B72428881X",
-      "hotlink": "T77952918L",
-      "titulo": "Curso de Pestañas Pelo a Pelo y Volumen Ruso",
-      "idProducto": 2191098
-    },
-    "curso-de-piano": {
-      "payUrl": "https://pay.hotmart.com/O44743118Q",
-      "hotlink": "X107094071K",
-      "titulo": "Curso de Piano para Principiantes",
-      "idProducto": 1186548
-    },
-    "curso-de-pizza-artesanal": {
-      "payUrl": "https://pay.hotmart.com/D55969511R",
-      "hotlink": "Y107109859E",
-      "titulo": "Curso de Pizza Artesanal"
-    },
-    "curso-de-porcelana-fria": {
-      "payUrl": "https://pay.hotmart.com/K60819262W",
-      "hotlink": "M107109945O",
-      "titulo": "Curso de Porcelana Fría",
-      "idProducto": 1717582
-    },
-    "curso-de-portugues": {
-      "payUrl": "https://pay.hotmart.com/C61562578C",
-      "hotlink": "O107110091Q",
-      "titulo": "Curso de Portugués para Principiantes"
-    },
-    "curso-de-primeros-auxilios-para-mascotas": {
-      "payUrl": "https://pay.hotmart.com/T58086799J",
-      "hotlink": "M107109997Q",
-      "titulo": "Curso de Primeros Auxilios para Mascotas",
-      "idProducto": 1620474
-    },
-    "curso-de-primeros-auxilios": {
-      "payUrl": "https://pay.hotmart.com/Y47211574B",
-      "hotlink": "A107110008R",
-      "titulo": "Curso de Primeros Auxilios",
-      "idProducto": 1270064
-    },
-    "curso-de-remodelacion-de-banos-y-cocinas": {
-      "payUrl": "https://pay.hotmart.com/F59859053P",
-      "hotlink": "U107109778D",
-      "titulo": "Curso de Remodelación de Baños y Cocinas",
-      "idProducto": 1684435
-    },
-    "curso-de-reparacion-de-celulares": {
-      "payUrl": "https://pay.hotmart.com/F56098099R",
-      "hotlink": "J107109717N",
-      "titulo": "Curso de Reparación de Celulares",
-      "idProducto": 1546551
-    },
-    "curso-de-reparacion-de-computadoras": {
-      "payUrl": "https://pay.hotmart.com/P38540888T",
-      "hotlink": "P107109736E",
-      "titulo": "Curso de Reparación de Laptops y Computadoras",
-      "idProducto": 947831
-    },
-    "curso-de-reparacion-de-lavadoras": {
-      "payUrl": "https://pay.hotmart.com/P46201372U",
-      "hotlink": "U107109753T",
-      "titulo": "Curso de Reparación de Lavadoras",
-      "idProducto": 1237207
-    },
-    "curso-de-reposteria-para-mascotas": {
-      "payUrl": "https://pay.hotmart.com/L39108716M",
-      "hotlink": "K100467636C",
-      "titulo": "Curso de Repostería para Mascotas",
-      "idProducto": 969838
-    },
-    "curso-de-reposteria": {
-      "payUrl": "https://pay.hotmart.com/Y60359420X",
-      "hotlink": "A107094171V",
-      "titulo": "Curso de Repostería Fina y Postres Gourmet",
-      "idProducto": 1701075
-    },
-    "curso-de-serigrafia": {
-      "payUrl": "https://pay.hotmart.com/K66027541H",
-      "hotlink": "N107109955U",
-      "titulo": "Curso de Serigrafía y Estampados",
-      "idProducto": 1904033
-    },
-    "curso-de-sublimacion": {
-      "payUrl": "https://pay.hotmart.com/O65342939Q",
-      "hotlink": "J107109916Y",
-      "titulo": "Curso de Sublimación de Tazas y Termos",
-      "idProducto": 1880243
-    },
-    "curso-de-sushi": {
-      "payUrl": "https://pay.hotmart.com/G46888691K",
-      "hotlink": "N107094409E",
-      "titulo": "Curso de Sushi en Casa"
-    },
-    "curso-de-trenzas-y-peinados": {
-      "payUrl": "https://pay.hotmart.com/V48797673L",
-      "hotlink": "",
-      "titulo": "Curso de Trenzas y Peinados"
-    },
-    "curso-de-unas-acrilicas": {
-      "payUrl": "https://pay.hotmart.com/C55918118T",
-      "hotlink": "W76206229K",
-      "titulo": "Curso de Uñas Acrílicas",
-      "idProducto": 1540395
-    }
+  "curso-de-alisados-y-keratina": {
+   "COP": 165450,
+   "USD": 49.99
   },
-  "_capturado": "2026-08-13T22:23:57.216Z",
-  "resenas": {
-    "curso-de-unas": [
-      {
-        "nombre": "Deisy",
-        "rating": 5,
-        "texto": "Estoy muy feliz, no creí que solo viendo videos iba a aprender tantas cosas, me gusta mucho la forma en la que explica l"
-      }
-    ],
-    "curso-de-airbnb": [
-      {
-        "nombre": "Jeremías",
-        "rating": 5,
-        "texto": " Es una experiencia excelente por el momento no cuento con una propiedad pero espero iniciar pronto en este negocio "
-      },
-      {
-        "nombre": "Gamaliel",
-        "rating": 4,
-        "texto": "Me ha gustado la didáctica, la facilidad en el uso del vocabulario, la calidad de los videos y los presentadores con un "
-      }
-    ],
-    "curso-de-alisados-y-keratina": [
-      {
-        "nombre": "Norma",
-        "rating": 5,
-        "texto": "Excelente!! Información/explicación/ sugerencias Todo excelente, aprendí mas que los 3 cursos presenciales que había tom"
-      },
-      {
-        "nombre": "Dicelly",
-        "rating": 5,
-        "texto": "Estoy muy contenta me gustó mucho la capacitación explica super bien excelente curso lo super recomiendo muchas gracias "
-      }
-    ],
-    "curso-de-automaquillaje": [
-      {
-        "nombre": "María",
-        "rating": 5,
-        "texto": "me gusto es practico muy claro"
-      },
-      {
-        "nombre": "Juliana",
-        "rating": 5,
-        "texto": "Muy bueno, muy completo"
-      }
-    ],
-    "curso-de-balayage": [
-      {
-        "nombre": "Denixe",
-        "rating": 5,
-        "texto": "Todo muy profesional "
-      },
-      {
-        "nombre": "Luz",
-        "rating": 5,
-        "texto": "Super curso gracias habian muchas cosas desconocidas para mi me sirvio mucho mil bendiciones para los dos "
-      }
-    ],
-    "curso-de-barberia-artistica": [
-      {
-        "nombre": "Johan",
-        "rating": 5,
-        "texto": "Me encanta los diseños complejos que presenta, de esta manera se ven faciles los diseños de otros barberos, pero me enca"
-      },
-      {
-        "nombre": "Melquisedec",
-        "rating": 5,
-        "texto": "Em producto es muy bueno lo horrendo que no puedo entrar con la App ya que al abrirla me sale que se actualizo y debo ac"
-      }
-    ],
-    "curso-de-barberia-como-negocio": [
-      {
-        "nombre": "Johan",
-        "rating": 5,
-        "texto": "Me gusta mucho como explica el curso, sin apresurarse y muy bien detallado, abordando todos los aspectos."
-      }
-    ],
-    "curso-de-barberia": [
-      {
-        "nombre": "Edyt",
-        "rating": 5,
-        "texto": "Cuándo empecé con el curso de barbería lo tenía muy complicado y con mucho miedo, el curso la verdad me ha ayudado a pod"
-      },
-      {
-        "nombre": "Dulce",
-        "rating": 5,
-        "texto": "Muy productivo en realidad ayuda bastante "
-      }
-    ],
-    "curso-de-bartender": [
-      {
-        "nombre": "CARLOS",
-        "rating": 5,
-        "texto": "Ha sido un curso muy práctico e interesante. "
-      }
-    ],
-    "curso-de-bouquets-con-globos": [
-      {
-        "nombre": "Ana",
-        "rating": 5,
-        "texto": "A Sido muy bonita experiencia ya que te explican paso a paso todos los detalles para realizar un adorno ,me gustó mucho "
-      },
-      {
-        "nombre": "Jemima",
-        "rating": 4,
-        "texto": "Me gusta lo claro al momento de hablar, al dar la explicación, Muestra claramente como hacer el trabajo y como ir ensamb"
-      }
-    ],
-    "curso-de-canto": [
-      {
-        "nombre": "Ivan",
-        "rating": 4,
-        "texto": "me encanto el producto la parte teorica,pero m parece falto haber mas ejercicios,"
-      },
-      {
-        "nombre": "Rossy",
-        "rating": 5,
-        "texto": "Muy buena y fácil "
-      }
-    ],
-    "curso-de-cejas-y-pestanas": [
-      {
-        "nombre": "Graciela",
-        "rating": 5,
-        "texto": "Muy lindo y fácil para realizar "
-      },
-      {
-        "nombre": "Ana",
-        "rating": 4,
-        "texto": "Me esta gustando mucho, todo lo aprendido ya que yo ya tenia conocimientos y he podido ver diferente maneras de hacerlo "
-      }
-    ],
-    "curso-de-cerveza-artesanal": [
-      {
-        "nombre": "pablo",
-        "rating": 4,
-        "texto": "solo faltaria material"
-      },
-      {
-        "nombre": "Juan",
-        "rating": 5,
-        "texto": "Me gustó aprender ser cervecero quiero aprender mucho más "
-      }
-    ],
-    "curso-de-ceviche-peruano": [
-      {
-        "nombre": "Luis",
-        "rating": 5,
-        "texto": "Soy peruano, y la verdad me encantó la didáctica y enseñanza del chef, recomiendo este curso. Puedo notar a kilómetros q"
-      }
-    ],
-    "curso-de-chocolateria": [
-      {
-        "nombre": "Tania",
-        "rating": 5,
-        "texto": "muy buen contenido, pude hacer mis primeros chocolates e iniciar mi empresa sin problema, agregando creatividad resulta "
-      },
-      {
-        "nombre": "Sharon",
-        "rating": 5,
-        "texto": "Hermoso curso, me encanta!! La profesora enseña con mucho detalle y paciencia, paso a paso. Muy satisfecha con lo que vo"
-      }
-    ],
-    "curso-de-colorimetria": [
-      {
-        "nombre": "Ana",
-        "rating": 5,
-        "texto": "es un poco complicado acceder al contenido y no la puedo descargar ya que pague por ello"
-      },
-      {
-        "nombre": "Alicia",
-        "rating": 5,
-        "texto": "Estoy aprendiendo"
-      }
-    ],
-    "curso-de-confeccion-de-ropa-interior": [
-      {
-        "nombre": "José",
-        "rating": 5,
-        "texto": "son mis primeros pasos con una maquina de cocer hogareña y este curso me aclaro varios puntos importantes para empezar a"
-      },
-      {
-        "nombre": "Georgiana",
-        "rating": 5,
-        "texto": "Me gusta este curso porque no sabia como hacer ropa interior y me ha quedado claro y lo agradezco "
-      }
-    ],
-    "curso-de-contabilidad-basica": [
-      {
-        "nombre": "HAROLD",
-        "rating": 5,
-        "texto": "UN PRODUCTO MUY BUENO PARA CRECER EN CONOCIMIENTOS CONTABES"
-      },
-      {
-        "nombre": "Tomás",
-        "rating": 5,
-        "texto": "Es un excelente Curso.., muy satisfecho y volvería a comprar."
-      }
-    ],
-    "curso-de-costura-industrial": [
-      {
-        "nombre": "Teodora",
-        "rating": 5,
-        "texto": "Me ha servido de mucho es cuention de patronaje. "
-      },
-      {
-        "nombre": "Rodolfo",
-        "rating": 5,
-        "texto": "Lo felicito al Prof. Williams muy buena su enseñanza. Todo práctico el curso "
-      }
-    ],
-    "curso-de-cupcakes": [
-      {
-        "nombre": "Ivelisse",
-        "rating": 5,
-        "texto": "Muy emocionante hacer mis cupcake junto con la maestra,nada estresante pues lo explica con calma"
-      },
-      {
-        "nombre": "Zoraida",
-        "rating": 5,
-        "texto": "Me gusto mucho pero quisiera saber si dan el certificado y como lo puedo obtener gracias"
-      }
-    ],
-    "curso-de-decoracion-con-globos": [
-      {
-        "nombre": "Jenny",
-        "rating": 5,
-        "texto": "Exelente explicación,muy clara me sirve muchísimo el curso ,con encarna aprendí y me decidí a trabajar en decoración con"
-      },
-      {
-        "nombre": "Livier",
-        "rating": 5,
-        "texto": "Fácil de entrar, explicación concreta y detallada, conocimientos basados en la experiencia propia, atención inmediata a "
-      }
-    ],
-    "curso-de-decoracion-de-unas": [
-      {
-        "nombre": "Luz",
-        "rating": 4,
-        "texto": "Me gusto mucho el curso, solo que en algunos videos el audio se repite o no va de acuerdo a la imagen, de hay en mas las"
-      },
-      {
-        "nombre": "Isela",
-        "rating": 5,
-        "texto": "l like to learned new skills"
-      }
-    ],
-    "curso-de-defensa-personal-para-mujeres": [
-      {
-        "nombre": "Elena",
-        "rating": 5,
-        "texto": "Me gusto mucho, ya habia comprado otros cursos de defensa personal pero este ha sido el mejor, aprendi muchas cosas nuev"
-      }
-    ],
-    "curso-de-depilacion": [
-      {
-        "nombre": "Elena",
-        "rating": 5,
-        "texto": "Bien explicado, muy buenos videos,"
-      },
-      {
-        "nombre": "Vilma",
-        "rating": 5,
-        "texto": "Esta muy bien explicado y completo"
-      }
-    ],
-    "curso-de-desayunos-sorpresa": [
-      {
-        "nombre": "Guillermo",
-        "rating": 5,
-        "texto": "Excelente curso, 100% recomendable! aprendi mucho, gracias!"
-      },
-      {
-        "nombre": "Elisabeth",
-        "rating": 5,
-        "texto": "Súper práctico para emprendedores"
-      }
-    ],
-    "curso-de-diseno-de-cejas-con-hilo-y-henna": [
-      {
-        "nombre": "Maria",
-        "rating": 5,
-        "texto": "Me gusto mucho estos curso explica muy bien yo quede fascinada "
-      }
-    ],
-    "curso-de-electricista": [
-      {
-        "nombre": "Jaime",
-        "rating": 5,
-        "texto": "Es muy bueno bien explicado "
-      },
-      {
-        "nombre": "César",
-        "rating": 5,
-        "texto": "Dediqué tiempo poco a poco a cumplir con mi decisión de tener conocimientos de esta profesión tan importante para la hum"
-      }
-    ],
-    "curso-de-estetica-canina": [
-      {
-        "nombre": "Leslye",
-        "rating": 5,
-        "texto": "Me encantó su forma de trabajo y enseñanza ahora todo lo que aprendí lo tomaré en práctica :) "
-      },
-      {
-        "nombre": "Adriana",
-        "rating": 5,
-        "texto": "Me ha encantado como esta persona da los cursos te explica muy bien y detalladamente felicidades "
-      }
-    ],
-    "curso-de-excel": [
-      {
-        "nombre": "Dyandira",
-        "rating": 5,
-        "texto": "Muy buenavista "
-      }
-    ],
-    "curso-de-extensiones-de-pestanas": [
-      {
-        "nombre": "Kellyn",
-        "rating": 5,
-        "texto": "Me ha encantado aprender nuevas experiencias "
-      },
-      {
-        "nombre": "Hertha",
-        "rating": 5,
-        "texto": "ME GUSTO APRENDI NUEVOS TIPS "
-      }
-    ],
-    "curso-de-fondant": [
-      {
-        "nombre": "Paola",
-        "rating": 5,
-        "texto": "Excelente, porque aprendi habilidadesw nuevas"
-      },
-      {
-        "nombre": "Alba",
-        "rating": 4,
-        "texto": "Estuvo bueno el curso y la profesora utilizo muchas herramientas, dio las bases necesarias para poder crear mucho"
-      }
-    ],
-    "curso-de-fotografia": [
-      {
-        "nombre": "Edna",
-        "rating": 5,
-        "texto": "Me gusto mucho el curso muy bien explicado 10/10 ☺️"
-      },
-      {
-        "nombre": "Francisco",
-        "rating": 5,
-        "texto": "Me encantado el curso esta muy bien explicado y facil de entender"
-      }
-    ],
-    "curso-de-frances": [
-      {
-        "nombre": "Carolina",
-        "rating": 5,
-        "texto": "Me ha gustado mucho, le entiendo lo que ella habla y es muy clara para enseñar"
-      },
-      {
-        "nombre": "Marfisa",
-        "rating": 4,
-        "texto": "Muy bueno ,yo no sé el Francés ,me lo compre por curiosidad, me gusta como suena .Pero siento que me falta mucho para at"
-      }
-    ],
-    "curso-de-globoflexia": [
-      {
-        "nombre": "Gloria",
-        "rating": 5,
-        "texto": "Me encanto el metodo utilizado. No sabia nada hacerca de esta tecnica y me gusto mucho como explica paso a paso, "
-      }
-    ],
-    "curso-de-globos-burbuja": [
-      {
-        "nombre": "Gabriela",
-        "rating": 4,
-        "texto": "Aún no lo he practicado déjame hacerlo y ya veremos pero se me hace práctico solo que hago una preguntas y no son contes"
-      },
-      {
-        "nombre": "Araceli",
-        "rating": 5,
-        "texto": "me gustaría q me enviara correo cuando tengan cursos nuevos o que cursos tienen "
-      }
-    ],
-    "curso-de-guitarra": [
-      {
-        "nombre": "Franklin",
-        "rating": 5,
-        "texto": "fue muy interesante"
-      }
-    ],
-    "curso-de-hamburguesas-gourmet": [
-      {
-        "nombre": "Claudia",
-        "rating": 4,
-        "texto": "Quedaron pendientes con contenido, desde hace meses y no han cumplido con enviarla."
-      },
-      {
-        "nombre": "Victor",
-        "rating": 5,
-        "texto": "Me encanto la forma de comunicar, muy didacticos, me será de mucha ayuda para mi plan de negocio, aunque creo debe de da"
-      }
-    ],
-    "curso-de-ingles": [
-      {
-        "nombre": "Antonio",
-        "rating": 5,
-        "texto": "Very easy to use and understand"
-      },
-      {
-        "nombre": "leynis",
-        "rating": 5,
-        "texto": "Mi experiencia a sido genial"
-      }
-    ],
-    "curso-de-japones": [
-      {
-        "nombre": "Jireth",
-        "rating": 5,
-        "texto": "Fue muy dibertida y aprendi mucho y yo a mis 15 quiero ir a japon y poder entender a los demas y entender los anime por "
-      },
-      {
-        "nombre": "jenny",
-        "rating": 5,
-        "texto": "Gracias a las explicaciones detalladas, he aprendido mucho siempre que tengo una duda la comparto en los comentarios, es"
-      }
-    ],
-    "curso-de-joyeria-artesanal": [
-      {
-        "nombre": "aimara",
-        "rating": 5,
-        "texto": "me encanto en curso, todo muy bien explicado, además la profesora incentiva todo el rato a ser constantes y da tips de c"
-      },
-      {
-        "nombre": "Norma",
-        "rating": 4,
-        "texto": "Es muy amigable la plataforma para trabajarla, y contenido del curso fue bueno aunque a veces el audio no se escuchaba b"
-      }
-    ],
-    "curso-de-limpieza-facial": [
-      {
-        "nombre": "Margarita",
-        "rating": 5,
-        "texto": "SUPER INTERESANTE, EXPLICA MUY CLARAMENTE,Y SUPER FACIL DE ASIMILAR, Y MUY PROFESIONAL. LO RECOMIENDO. GRACIAS"
-      },
-      {
-        "nombre": "Erika",
-        "rating": 4,
-        "texto": "Accesible, facil comprension , muy amplio. Si se aprende."
-      }
-    ],
-    "curso-de-macrame": [
-      {
-        "nombre": "Claudia",
-        "rating": 4,
-        "texto": "Me gustó el curso y sus presentadores. Me hubiera gustado tener mas contacto ante las dudas. Por lo menos yo no sé cómo "
-      },
-      {
-        "nombre": "Graciela",
-        "rating": 5,
-        "texto": "Es muy completo, pues en otros cursos no te enseñan la parte de marketing y ventas."
-      }
-    ],
-    "curso-de-maderoterapia": [
-      {
-        "nombre": "Yaneth",
-        "rating": 5,
-        "texto": "Es bueno y muy esplicito."
-      },
-      {
-        "nombre": "Alondra",
-        "rating": 5,
-        "texto": "Me ha encantado este seminario. Ya he podido poner en práctica y hasta empezar a emprender de la misma. Muy bien explica"
-      }
-    ],
-    "curso-de-manicure-y-pedicure": [
-      {
-        "nombre": "María",
-        "rating": 5,
-        "texto": "Me ha gustado. Muchas gracias! Por esto he comprado el curso de las flores. Necesito mi certificado urgente "
-      }
-    ],
-    "curso-de-maquillaje-de-fantasia": [
-      {
-        "nombre": "Ailin",
-        "rating": 5,
-        "texto": "Muy detallado de paso a paso, y sin duda lo podemos volver a ver, los diseños increíbles "
-      }
-    ],
-    "curso-de-maquillaje-permanente": [
-      {
-        "nombre": "Yazmin",
-        "rating": 5,
-        "texto": "Muy buenas experiencias 😸"
-      },
-      {
-        "nombre": "Zinnya",
-        "rating": 5,
-        "texto": "Lo actualizan cada tiempo tiempo determinado, eso es muy positivo "
-      }
-    ],
-    "curso-de-maquillaje": [
-      {
-        "nombre": "Yenny",
-        "rating": 5,
-        "texto": "me encanto aprender con este curso hoy acabo de conseguir mi primer trabajo como maquilladora en una tienda me ayudo muc"
-      },
-      {
-        "nombre": "Evelyn",
-        "rating": 5,
-        "texto": "E utilizado el material tal cual y son muy buenas . Las técnica "
-      }
-    ],
-    "curso-de-masaje-descontracturante": [
-      {
-        "nombre": "Norma",
-        "rating": 5,
-        "texto": "Me gustó x qe es cómodo hacerlo desde casa ."
-      },
-      {
-        "nombre": "Sandoval",
-        "rating": 5,
-        "texto": "Muy bien explicado es un contenido que no aburre dans ganas de seguir estudiando "
-      }
-    ],
-    "curso-de-masaje-reductor": [
-      {
-        "nombre": "johana",
-        "rating": 4,
-        "texto": "Me encanto es genial "
-      },
-      {
-        "nombre": "Maria",
-        "rating": 5,
-        "texto": "Super nice bien explicativo y organizado"
-      }
-    ],
-    "curso-de-masajes-terapeuticos-y-relajantes": [
-      {
-        "nombre": "Miosotis",
-        "rating": 5,
-        "texto": "I WOULD LIKE TO KEEP TAKEN COURSE ."
-      },
-      {
-        "nombre": "Glazeni",
-        "rating": 5,
-        "texto": "Muy bueno el curso para alguien que está iniciando en el mundo de los masajes los ejemplos reales y te responden a todas"
-      }
-    ],
-    "curso-de-masajes": [
-      {
-        "nombre": "Edurne",
-        "rating": 4,
-        "texto": "Super interesantes los tips"
-      },
-      {
-        "nombre": "MARCOS",
-        "rating": 5,
-        "texto": "Ha sido una experiencia nueva para mí. En lo personal e aprendido mucho y me ha gustado mucho las formas diferentes de e"
-      }
-    ],
-    "curso-de-mecanica-de-bicicletas": [
-      {
-        "nombre": "Abderrahim",
-        "rating": 5,
-        "texto": "Bien aprendiendo"
-      },
-      {
-        "nombre": "Alonso",
-        "rating": 5,
-        "texto": "He recibido el curso de mecánica de bicicletas. Es muy completo, didáctico y concreto. Lo he terminado y quisiera recibi"
-      }
-    ],
-    "curso-de-mecanica-de-motos": [
-      {
-        "nombre": "Junior",
-        "rating": 5,
-        "texto": "Estuvo elegante el curso me encato"
-      },
-      {
-        "nombre": "Juan",
-        "rating": 4,
-        "texto": "Soy principiante y lo estoy estudiando no tengo como hacer la práctica experto mis propios resultados luego Si este tuvi"
-      }
-    ],
-    "curso-de-microblading": [
-      {
-        "nombre": "Lorena",
-        "rating": 4,
-        "texto": "Me encanto aprender una nueva habilidad "
-      },
-      {
-        "nombre": "Sandra",
-        "rating": 5,
-        "texto": "Excelente !!🥰✨❤️"
-      }
-    ],
-    "curso-de-pasteleria": [
-      {
-        "nombre": "Eliana",
-        "rating": 5,
-        "texto": "Fue una hermosa experiencia muy claras sus clases me encanto."
-      },
-      {
-        "nombre": "Luz-maria",
-        "rating": 5,
-        "texto": "Pensé me hiban a vender un curso del qué vi, pero me pareció excelente este contenido estoy muy contenta y agradecida co"
-      }
-    ],
-    "curso-de-pestanas-volumen-ruso": [
-      {
-        "nombre": "Elizabeth",
-        "rating": 5,
-        "texto": "He aclaro puntos en el que estaba desorientada, los ejemplos para formar abanicos lo encontré muy practico, la explicaci"
-      },
-      {
-        "nombre": "Raquel",
-        "rating": 5,
-        "texto": "I love this course every day and I still love it because it has been like a light on my path, I cannot believe it withou"
-      }
-    ],
-    "curso-de-piano": [
-      {
-        "nombre": "angel",
-        "rating": 5,
-        "texto": "muy bien el material muy dicadito"
-      }
-    ],
-    "curso-de-porcelana-fria": [
-      {
-        "nombre": "Maria",
-        "rating": 5,
-        "texto": " puedo hacer cosas que no me imaginaba que lograría. Además lo disfruto muchísimo. "
-      },
-      {
-        "nombre": "magali",
-        "rating": 5,
-        "texto": "Estoy muy conforme con el programa. Ya que es muy claro la explicación y está bien especificado todo para el buen entend"
-      }
-    ],
-    "curso-de-primeros-auxilios-para-mascotas": [
-      {
-        "nombre": "Cindy",
-        "rating": 4,
-        "texto": "De primera intención me dio la certificación , pero luego trato de buscar el certificado para imprimirlo y no aparece en"
-      },
-      {
-        "nombre": "Denise",
-        "rating": 5,
-        "texto": "Excelente curso! Información muy útil !!"
-      }
-    ],
-    "curso-de-primeros-auxilios": [
-      {
-        "nombre": "Edgar",
-        "rating": 5,
-        "texto": "Excelente experiencia, ahora a poner en práctica lo aprendido. "
-      },
-      {
-        "nombre": "Salvador",
-        "rating": 5,
-        "texto": "Genial, manera muy práctica y comprensible, excelente. "
-      }
-    ],
-    "curso-de-remodelacion-de-banos-y-cocinas": [
-      {
-        "nombre": "Ana",
-        "rating": 5,
-        "texto": "muchas gracias! me encanto! ayuda mucho tu forma de enseñar. facil de entender y mucha informacion y herramientas super "
-      }
-    ],
-    "curso-de-reparacion-de-celulares": [
-      {
-        "nombre": "Sergio",
-        "rating": 5,
-        "texto": "Muy bueno el curso"
-      },
-      {
-        "nombre": "José",
-        "rating": 5,
-        "texto": "Muy detallado me parece bien"
-      }
-    ],
-    "curso-de-reparacion-de-computadoras": [
-      {
-        "nombre": "Esteban",
-        "rating": 4,
-        "texto": "excellente la comparacion de los productos para el ensamble de una torre."
-      },
-      {
-        "nombre": "Jesús",
-        "rating": 5,
-        "texto": "Me encantó cómo se mueve para solucionar nuestros problemas y siempre muy disponible y atento "
-      }
-    ],
-    "curso-de-reparacion-de-lavadoras": [
-      {
-        "nombre": "Said",
-        "rating": 5,
-        "texto": "Explica bien y teóricamente pues también lo hace paso a paso y te da tiempo de ir viendo cómo se hace "
-      },
-      {
-        "nombre": "Luis",
-        "rating": 5,
-        "texto": "Muy bueno recomiendo a los nuevos alumnos que quieran aprender este curso "
-      }
-    ],
-    "curso-de-reposteria-para-mascotas": [
-      {
-        "nombre": "Christian",
-        "rating": 5,
-        "texto": "Voy a comenzar mi emprendimiento y ya tengo clientes "
-      },
-      {
-        "nombre": "Johanna",
-        "rating": 5,
-        "texto": "todo el contenido me parece muy interesante. y de mucha utilidad, muy bien explicado muy ameno, estoy muy conforme con l"
-      }
-    ],
-    "curso-de-reposteria": [
-      {
-        "nombre": "Catalina",
-        "rating": 4,
-        "texto": "Hola para mi fue una gran esperiencia me gustó mucho este curso. Fue muy maravilloso, muchas gracias. "
-      },
-      {
-        "nombre": "Teresita",
-        "rating": 5,
-        "texto": "Para mí ha estado una excelente experiencia haber comprado estos curso me ha Sido muy utiles"
-      }
-    ],
-    "curso-de-serigrafia": [
-      {
-        "nombre": "Valeria",
-        "rating": 4,
-        "texto": "La dinámica del señor es muy lenta y repetitiva, tanto que se empieza a volver cansona. Pero el contenido es bueno y el "
-      },
-      {
-        "nombre": "Pedro",
-        "rating": 5,
-        "texto": "Sí .ES MUY EXCELENTE EL CURSO Y DE BENDICION EN EL APRENDIZAJE"
-      }
-    ],
-    "curso-de-sublimacion": [
-      {
-        "nombre": "Betzabel",
-        "rating": 5,
-        "texto": "tenia años de no usar pc y este curso me fue muy util"
-      },
-      {
-        "nombre": "Diana",
-        "rating": 5,
-        "texto": "Simplest way to learn!"
-      }
-    ],
-    "curso-de-trenzas-y-peinados": [
-      {
-        "nombre": "Andrea",
-        "rating": 5,
-        "texto": "La estructura del curso está bien diseñada. Por otro lado no he tenido ningun problema en poder aprenderlo"
-      },
-      {
-        "nombre": "Alejandra",
-        "rating": 5,
-        "texto": "Los cursos son buenos y muy bien explicados el único problemas es que al comprar el curso te prometen algunos bonos que "
-      }
-    ],
-    "curso-de-unas-acrilicas": [
-      {
-        "nombre": "Deisy",
-        "rating": 5,
-        "texto": "Estoy muy feliz, no creí que solo viendo videos iba a aprender tantas cosas, me gusta mucho la forma en la que explica l"
-      }
-    ]
+  "curso-de-amigurumi": {
+   "COP": 165450,
+   "USD": 49.99
   },
-  "autores": {
-    "masterclasses-la": {
-      "nombre": "MasterClasses.La®",
-      "bio": "Master Classes Latinoamérica es una empresa desarrolladora de cursos virtuales en video.",
-      "avatar": "https://hotmart.s3.amazonaws.com/profile_pictures/dd0bfeb6-83e9-4ce9-9b9b-2af5c7d21b97/mclafw.png",
-      "desde": 2019,
-      "verificado": true,
-      "bestSeller": true
-    },
-    "mauricio-duque": {
-      "nombre": "Mauricio Duque Zuluaga",
-      "bio": "Trabajando en Internet desde 1996, Mauricio Duque siempre se dedicó a fortalecer el desarrollo y disminuir la brecha de la inclusión digital en América Latina a través de plataformas y productos educativos enfocados en el emprendimiento digital y el apoyo al crecimiento comercial con uso de la tecnología. Mauricio es especialista en clases en el formato Master Class, donde enseña, con intensidad y consistencia, sobre asuntos que pueden hacer la diferencia en la vida y en los negocios. Hoy en día, es el responsable de una comunidad con más de 500 mil personas que conforman el proyecto Universidad.Online®.",
-      "avatar": "https://static-media.hotmart.com/awX-Y7GLw9HnaKX1ePkD047_DlQ=/140x140/smart/filters:format(webp):background_color(white)/hotmart/product_contents/52a3766c-e05e-4c8a-9b9e-3c32a063346a/yoyo.png",
-      "desde": 2018,
-      "verificado": true,
-      "bestSeller": true,
-      "foto": "/creadores/mauricio-duque.png"
-    }
+  "curso-de-automaquillaje": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-balayage": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-barberia-artistica": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-barberia-como-negocio": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-barberia-infantil": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-barberia": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-bartender": {
+   "COP": 198550,
+   "USD": 59.99
+  },
+  "curso-de-bouquets-con-globos": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-canto": {
+   "COP": 99250,
+   "USD": 29.99
+  },
+  "curso-de-carpinteria-y-muebles": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-cejas-y-pestanas": {
+   "COP": 198550,
+   "USD": 59.99
+  },
+  "curso-de-cerveza-artesanal": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-ceviche-peruano": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-chocolateria": {
+   "COP": 264750,
+   "USD": 79.99
+  },
+  "curso-de-cocina": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-colorimetria": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-comidas-rapidas": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-community-manager": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-confeccion-de-ropa-interior": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-contabilidad-basica": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-coreano": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-costura-industrial": {
+   "COP": 331000,
+   "USD": 99.99
+  },
+  "curso-de-crochet": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-cupcakes": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-decoracion-con-globos": {
+   "COP": 198550,
+   "USD": 59.99
+  },
+  "curso-de-decoracion-de-unas": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-defensa-personal-para-mujeres": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-depilacion": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-desayunos-sorpresa": {
+   "COP": 198550,
+   "USD": 59.99
+  },
+  "curso-de-diseno-de-cejas-con-hilo-y-henna": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-dj": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-electricista": {
+   "COP": 198550,
+   "USD": 59.99
+  },
+  "curso-de-energia-solar": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-estetica-canina": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-excel": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-extensiones-de-cabello": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-extensiones-de-pestanas": {
+   "COP": 231650,
+   "USD": 69.99
+  },
+  "curso-de-flores-con-globos": {
+   "COP": 264750,
+   "USD": 79.99
+  },
+  "curso-de-fondant": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-fotografia-con-celular": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-fotografia": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-frances": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-galletas-decoradas": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-globoflexia": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-globos-burbuja": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-guitarra": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-hamburguesas-gourmet": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-ingles-para-ninos": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-ingles": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-instalacion-de-camaras-de-seguridad": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-japones": {
+   "COP": 198550,
+   "USD": 59.99
+  },
+  "curso-de-joyeria-artesanal": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-limpieza-facial": {
+   "COP": 330950,
+   "USD": 99.99
+  },
+  "curso-de-macrame": {
+   "COP": 231650,
+   "USD": 69.99
+  },
+  "curso-de-maderoterapia": {
+   "COP": 297850,
+   "USD": 89.99
+  },
+  "curso-de-manicure-y-pedicure": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-maquillaje-de-fantasia": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-maquillaje-permanente": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-maquillaje-profesional-de-novias": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-maquillaje": {
+   "COP": 331000,
+   "USD": 99.99
+  },
+  "curso-de-masaje-descontracturante": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-masaje-reductor": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-masajes-terapeuticos-y-relajantes": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-masajes": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-mecanica-de-bicicletas": {
+   "COP": 198550,
+   "USD": 59.99
+  },
+  "curso-de-mecanica-de-motos": {
+   "COP": 397200,
+   "USD": 119.99
+  },
+  "curso-de-microblading": {
+   "COP": 331000,
+   "USD": 99.99
+  },
+  "curso-de-modisteria": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-molderia-y-confeccion": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-panaderia": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-pasteleria": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-peinados": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-peluqueria": {
+   "COP": 1102300,
+   "USD": 333
+  },
+  "curso-de-pestanas-volumen-ruso": {
+   "COP": 292250,
+   "USD": 89.99
+  },
+  "curso-de-piano": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-pizza-artesanal": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-porcelana-fria": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-portugues": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-primeros-auxilios-para-mascotas": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-primeros-auxilios": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-remodelacion-de-banos-y-cocinas": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-reparacion-de-celulares": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-reparacion-de-computadoras": {
+   "COP": 231650,
+   "USD": 69.99
+  },
+  "curso-de-reparacion-de-lavadoras": {
+   "COP": 331000,
+   "USD": 99.99
+  },
+  "curso-de-reposteria-para-mascotas": {
+   "COP": 231650,
+   "USD": 69.99
+  },
+  "curso-de-reposteria": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-serigrafia": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-sublimacion": {
+   "COP": 231650,
+   "USD": 69.99
+  },
+  "curso-de-sushi": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-trenzas-y-peinados": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-unas-acrilicas": {
+   "COP": 165450,
+   "USD": 49.99
+  },
+  "curso-de-barista": {
+   "USD": 35
+  },
+  "curso-de-barismo-y-cafe-de-especialidad": {
+   "USD": 35
   }
+ },
+ "valoraciones": {
+  "curso-de-unas": {
+   "rating": 4.4,
+   "total": 93
+  },
+  "curso-de-airbnb": {
+   "rating": 3.3,
+   "total": 3
+  },
+  "curso-de-alisados-y-keratina": {
+   "rating": 5,
+   "total": 3
+  },
+  "curso-de-amigurumi": {
+   "rating": 1,
+   "total": 1
+  },
+  "curso-de-automaquillaje": {
+   "rating": 4.5,
+   "total": 13
+  },
+  "curso-de-balayage": {
+   "rating": 4.8,
+   "total": 12
+  },
+  "curso-de-barberia-artistica": {
+   "rating": 4.3,
+   "total": 17
+  },
+  "curso-de-barberia-como-negocio": {
+   "rating": 5,
+   "total": 2
+  },
+  "curso-de-barberia": {
+   "rating": 4.3,
+   "total": 47
+  },
+  "curso-de-bartender": {
+   "rating": 3.5,
+   "total": 2
+  },
+  "curso-de-bouquets-con-globos": {
+   "rating": 4.4,
+   "total": 5
+  },
+  "curso-de-canto": {
+   "rating": 3.4,
+   "total": 76
+  },
+  "curso-de-cejas-y-pestanas": {
+   "rating": 4.5,
+   "total": 318
+  },
+  "curso-de-cerveza-artesanal": {
+   "rating": 3.7,
+   "total": 7
+  },
+  "curso-de-ceviche-peruano": {
+   "rating": 4,
+   "total": 3
+  },
+  "curso-de-chocolateria": {
+   "rating": 4.1,
+   "total": 25
+  },
+  "curso-de-colorimetria": {
+   "rating": 2.8,
+   "total": 9
+  },
+  "curso-de-confeccion-de-ropa-interior": {
+   "rating": 5,
+   "total": 2
+  },
+  "curso-de-contabilidad-basica": {
+   "rating": 4.3,
+   "total": 10
+  },
+  "curso-de-coreano": {
+   "rating": 5,
+   "total": 3
+  },
+  "curso-de-costura-industrial": {
+   "rating": 5,
+   "total": 5
+  },
+  "curso-de-cupcakes": {
+   "rating": 4.1,
+   "total": 7
+  },
+  "curso-de-decoracion-con-globos": {
+   "rating": 4.7,
+   "total": 177
+  },
+  "curso-de-decoracion-de-unas": {
+   "rating": 4.5,
+   "total": 11
+  },
+  "curso-de-defensa-personal-para-mujeres": {
+   "rating": 3.5,
+   "total": 4
+  },
+  "curso-de-depilacion": {
+   "rating": 3.5,
+   "total": 4
+  },
+  "curso-de-desayunos-sorpresa": {
+   "rating": 4.8,
+   "total": 71
+  },
+  "curso-de-diseno-de-cejas-con-hilo-y-henna": {
+   "rating": 4,
+   "total": 2
+  },
+  "curso-de-dj": {
+   "rating": 2,
+   "total": 2
+  },
+  "curso-de-electricista": {
+   "rating": 4.3,
+   "total": 34
+  },
+  "curso-de-estetica-canina": {
+   "rating": 4,
+   "total": 7
+  },
+  "curso-de-excel": {
+   "rating": 5,
+   "total": 2
+  },
+  "curso-de-extensiones-de-pestanas": {
+   "rating": 5,
+   "total": 7
+  },
+  "curso-de-fondant": {
+   "rating": 3.8,
+   "total": 99
+  },
+  "curso-de-fotografia": {
+   "rating": 5,
+   "total": 5
+  },
+  "curso-de-frances": {
+   "rating": 4.2,
+   "total": 29
+  },
+  "curso-de-globoflexia": {
+   "rating": 5,
+   "total": 1
+  },
+  "curso-de-globos-burbuja": {
+   "rating": 4,
+   "total": 20
+  },
+  "curso-de-guitarra": {
+   "rating": 5,
+   "total": 1
+  },
+  "curso-de-hamburguesas-gourmet": {
+   "rating": 3.1,
+   "total": 16
+  },
+  "curso-de-ingles": {
+   "rating": 4.3,
+   "total": 3
+  },
+  "curso-de-instalacion-de-camaras-de-seguridad": {
+   "rating": 1,
+   "total": 1
+  },
+  "curso-de-japones": {
+   "rating": 3.2,
+   "total": 13
+  },
+  "curso-de-joyeria-artesanal": {
+   "rating": 4.5,
+   "total": 10
+  },
+  "curso-de-limpieza-facial": {
+   "rating": 4,
+   "total": 147
+  },
+  "curso-de-macrame": {
+   "rating": 4.9,
+   "total": 129
+  },
+  "curso-de-maderoterapia": {
+   "rating": 4.9,
+   "total": 92
+  },
+  "curso-de-manicure-y-pedicure": {
+   "rating": 3,
+   "total": 3
+  },
+  "curso-de-maquillaje-de-fantasia": {
+   "rating": 5,
+   "total": 1
+  },
+  "curso-de-maquillaje-permanente": {
+   "rating": 3.6,
+   "total": 150
+  },
+  "curso-de-maquillaje": {
+   "rating": 4.4,
+   "total": 27
+  },
+  "curso-de-masaje-descontracturante": {
+   "rating": 4.4,
+   "total": 10
+  },
+  "curso-de-masaje-reductor": {
+   "rating": 4.8,
+   "total": 31
+  },
+  "curso-de-masajes-terapeuticos-y-relajantes": {
+   "rating": 4.7,
+   "total": 72
+  },
+  "curso-de-masajes": {
+   "rating": 4.3,
+   "total": 10
+  },
+  "curso-de-mecanica-de-bicicletas": {
+   "rating": 4.5,
+   "total": 87
+  },
+  "curso-de-mecanica-de-motos": {
+   "rating": 4.4,
+   "total": 105
+  },
+  "curso-de-microblading": {
+   "rating": 4.4,
+   "total": 16
+  },
+  "curso-de-molderia-y-confeccion": {
+   "rating": 3,
+   "total": 4
+  },
+  "curso-de-panaderia": {
+   "rating": 5,
+   "total": 1
+  },
+  "curso-de-pasteleria": {
+   "rating": 4.5,
+   "total": 19
+  },
+  "curso-de-peinados": {
+   "rating": 1.5,
+   "total": 2
+  },
+  "curso-de-pestanas-volumen-ruso": {
+   "rating": 4.3,
+   "total": 6
+  },
+  "curso-de-piano": {
+   "rating": 5,
+   "total": 2
+  },
+  "curso-de-porcelana-fria": {
+   "rating": 4.6,
+   "total": 17
+  },
+  "curso-de-primeros-auxilios-para-mascotas": {
+   "rating": 4.7,
+   "total": 6
+  },
+  "curso-de-primeros-auxilios": {
+   "rating": 4.9,
+   "total": 57
+  },
+  "curso-de-remodelacion-de-banos-y-cocinas": {
+   "rating": 5,
+   "total": 1
+  },
+  "curso-de-reparacion-de-celulares": {
+   "rating": 4,
+   "total": 6
+  },
+  "curso-de-reparacion-de-computadoras": {
+   "rating": 4.7,
+   "total": 9
+  },
+  "curso-de-reparacion-de-lavadoras": {
+   "rating": 4.8,
+   "total": 13
+  },
+  "curso-de-reposteria-para-mascotas": {
+   "rating": 4.8,
+   "total": 661
+  },
+  "curso-de-reposteria": {
+   "rating": 4,
+   "total": 3
+  },
+  "curso-de-serigrafia": {
+   "rating": 4.5,
+   "total": 13
+  },
+  "curso-de-sublimacion": {
+   "rating": 4.6,
+   "total": 24
+  },
+  "curso-de-trenzas-y-peinados": {
+   "rating": 4,
+   "total": 4
+  },
+  "curso-de-unas-acrilicas": {
+   "rating": 4.4,
+   "total": 93
+  },
+  "curso-de-barista": {
+   "rating": 4.3,
+   "total": 59
+  },
+  "curso-de-barismo-y-cafe-de-especialidad": {
+   "rating": 4.3,
+   "total": 59
+  }
+ },
+ "productos": {
+  "curso-de-unas": {
+   "payUrl": "https://pay.hotmart.com/C55918118T",
+   "hotlink": "W76206229K",
+   "titulo": "Curso de Uñas: Aprende el Negocio",
+   "idProducto": 1540395
+  },
+  "curso-de-airbnb": {
+   "payUrl": "https://pay.hotmart.com/S39174613C",
+   "hotlink": "P107110079U",
+   "titulo": "Curso de Airbnb como Negocio",
+   "idProducto": 972295
+  },
+  "curso-de-alisados-y-keratina": {
+   "payUrl": "https://pay.hotmart.com/U79889279I",
+   "hotlink": "Q107109703W",
+   "titulo": "Curso de Alisados y Keratina",
+   "idProducto": 2683886
+  },
+  "curso-de-amigurumi": {
+   "payUrl": "https://pay.hotmart.com/F82692684R",
+   "hotlink": "X107109903P",
+   "titulo": "Curso de Amigurumi",
+   "idProducto": 2916567
+  },
+  "curso-de-automaquillaje": {
+   "payUrl": "https://pay.hotmart.com/S42624359I",
+   "hotlink": "",
+   "titulo": "Curso de Automaquillaje"
+  },
+  "curso-de-balayage": {
+   "payUrl": "https://pay.hotmart.com/X62294171S",
+   "hotlink": "C107109322E",
+   "titulo": "Curso de Balayage y Rubios Platinados",
+   "idProducto": 1772369
+  },
+  "curso-de-barberia-artistica": {
+   "payUrl": "https://pay.hotmart.com/S63192888Y",
+   "hotlink": "X76206206C",
+   "titulo": "Curso de Barbería Artística",
+   "idProducto": 1804143
+  },
+  "curso-de-barberia-como-negocio": {
+   "payUrl": "https://pay.hotmart.com/C63857704B",
+   "hotlink": "B77667834U",
+   "titulo": "Curso de Barbería como Negocio",
+   "idProducto": 1827458
+  },
+  "curso-de-barberia-infantil": {
+   "payUrl": "https://pay.hotmart.com/W69842801W",
+   "hotlink": "M77668166P",
+   "titulo": "Curso de Barbería Infantil"
+  },
+  "curso-de-barberia": {
+   "payUrl": "https://pay.hotmart.com/H43635981L",
+   "hotlink": "",
+   "titulo": "Curso de Barbería desde Cero"
+  },
+  "curso-de-bartender": {
+   "payUrl": "https://pay.hotmart.com/F69226929Q",
+   "hotlink": "X107110060Y",
+   "titulo": "Curso de Bartender Internacional",
+   "idProducto": 2025018
+  },
+  "curso-de-bouquets-con-globos": {
+   "payUrl": "https://pay.hotmart.com/G56852236M",
+   "hotlink": "Y76953276W",
+   "titulo": "Curso de Bouquets con Globos",
+   "idProducto": 1574989
+  },
+  "curso-de-canto": {
+   "payUrl": "https://pay.hotmart.com/P25188127R",
+   "hotlink": "V107110119Q",
+   "titulo": "Curso de Canto",
+   "idProducto": 674908
+  },
+  "curso-de-carpinteria-y-muebles": {
+   "payUrl": "https://pay.hotmart.com/N65021735K",
+   "hotlink": "W107109765L",
+   "titulo": "Curso de Carpintería y Elaboración de Muebles"
+  },
+  "curso-de-cejas-y-pestanas": {
+   "payUrl": "https://pay.hotmart.com/A42487377P",
+   "hotlink": "",
+   "titulo": "Curso de Cejas y Pestañas"
+  },
+  "curso-de-cerveza-artesanal": {
+   "payUrl": "https://pay.hotmart.com/G57439951T",
+   "hotlink": "J107109873V",
+   "titulo": "Curso de Cerveza Artesanal",
+   "idProducto": 1595986
+  },
+  "curso-de-ceviche-peruano": {
+   "payUrl": "https://pay.hotmart.com/I50503819I",
+   "hotlink": "G107109892J",
+   "titulo": "Curso de Ceviche Peruano",
+   "idProducto": 1365663
+  },
+  "curso-de-chocolateria": {
+   "payUrl": "https://pay.hotmart.com/O49486231K",
+   "hotlink": "J107109817O",
+   "titulo": "Curso de Chocolatería",
+   "idProducto": 1338038
+  },
+  "curso-de-cocina": {
+   "payUrl": "https://pay.hotmart.com/E54359930T",
+   "hotlink": "C107109847Y",
+   "titulo": "Curso de Cocina: de Cero a Profesional"
+  },
+  "curso-de-colorimetria": {
+   "payUrl": "https://pay.hotmart.com/P48026757I",
+   "hotlink": "N76206248G",
+   "titulo": "Curso de Colorimetría para Estilistas",
+   "idProducto": 1296344
+  },
+  "curso-de-comidas-rapidas": {
+   "payUrl": "https://pay.hotmart.com/Q63819733V",
+   "hotlink": "Y107109866L",
+   "titulo": "Curso del Negocio de las Comidas Rápidas"
+  },
+  "curso-de-community-manager": {
+   "payUrl": "https://pay.hotmart.com/D61536429N",
+   "hotlink": "W107110038J",
+   "titulo": "Curso de Community Manager"
+  },
+  "curso-de-confeccion-de-ropa-interior": {
+   "payUrl": "https://pay.hotmart.com/M75288465W",
+   "hotlink": "R107109982U",
+   "titulo": "Curso de Confección de Ropa Interior",
+   "idProducto": 2358713
+  },
+  "curso-de-contabilidad-basica": {
+   "payUrl": "https://pay.hotmart.com/M58499039I",
+   "hotlink": "Y107110047E",
+   "titulo": "Curso de Contabilidad para No Expertos",
+   "idProducto": 1635329
+  },
+  "curso-de-coreano": {
+   "payUrl": "https://pay.hotmart.com/W52558723K",
+   "hotlink": "D107110108X",
+   "titulo": "Curso de Coreano Fácil",
+   "idProducto": 1424984
+  },
+  "curso-de-costura-industrial": {
+   "payUrl": "https://pay.hotmart.com/I43304349R",
+   "hotlink": "C107109975N",
+   "titulo": "Curso de Costura Industrial",
+   "idProducto": 1135289
+  },
+  "curso-de-crochet": {
+   "payUrl": "https://pay.hotmart.com/B61328836T",
+   "hotlink": "V107109897X",
+   "titulo": "Curso de Crochet como Negocio"
+  },
+  "curso-de-cupcakes": {
+   "payUrl": "https://pay.hotmart.com/C47597953E",
+   "hotlink": "D107109838U",
+   "titulo": "Curso de Cupcakes para Principiantes",
+   "idProducto": 1282850
+  },
+  "curso-de-decoracion-con-globos": {
+   "payUrl": "https://pay.hotmart.com/J42873379B",
+   "hotlink": "N76953277L",
+   "titulo": "Curso de Decoración con Globos",
+   "idProducto": 1120190
+  },
+  "curso-de-decoracion-de-unas": {
+   "payUrl": "https://pay.hotmart.com/P58716037X",
+   "hotlink": "",
+   "titulo": "Curso de Decoración de Uñas"
+  },
+  "curso-de-defensa-personal-para-mujeres": {
+   "payUrl": "https://pay.hotmart.com/T42582853E",
+   "hotlink": "V107110019L",
+   "titulo": "Curso de Defensa Personal para Mujeres",
+   "idProducto": 1109655
+  },
+  "curso-de-depilacion": {
+   "payUrl": "https://pay.hotmart.com/V66724421L",
+   "hotlink": "",
+   "titulo": "Curso de Depilación"
+  },
+  "curso-de-desayunos-sorpresa": {
+   "payUrl": "https://pay.hotmart.com/G49406356L",
+   "hotlink": "S107110051U",
+   "titulo": "Curso de Desayunos Sorpresa como Negocio",
+   "idProducto": 1336038
+  },
+  "curso-de-diseno-de-cejas-con-hilo-y-henna": {
+   "payUrl": "https://pay.hotmart.com/J61897319S",
+   "hotlink": "H77654354C",
+   "titulo": "Curso de Diseño de Cejas con Hilo y Henna",
+   "idProducto": 1756380
+  },
+  "curso-de-dj": {
+   "payUrl": "https://pay.hotmart.com/C42523159O",
+   "hotlink": "N107110123E",
+   "titulo": "Curso de DJ desde Cero",
+   "idProducto": 1107176
+  },
+  "curso-de-electricista": {
+   "payUrl": "https://pay.hotmart.com/N61163479L",
+   "hotlink": "J107094720O",
+   "titulo": "Curso de Electricista como Negocio",
+   "idProducto": 1730133
+  },
+  "curso-de-energia-solar": {
+   "payUrl": "https://pay.hotmart.com/M76021437N",
+   "hotlink": "B93143016I",
+   "titulo": "Curso de Instalación de Paneles Solares"
+  },
+  "curso-de-estetica-canina": {
+   "payUrl": "https://pay.hotmart.com/V42089784L",
+   "hotlink": "N107109993F",
+   "titulo": "Curso de Estética Canina",
+   "idProducto": 1090646
+  },
+  "curso-de-excel": {
+   "payUrl": "https://pay.hotmart.com/Y42316068A",
+   "hotlink": "K107110026L",
+   "titulo": "Curso de Excel para Principiantes",
+   "idProducto": 1099437
+  },
+  "curso-de-extensiones-de-cabello": {
+   "payUrl": "https://pay.hotmart.com/L57846638B",
+   "hotlink": "X77663508E",
+   "titulo": "Curso de Extensiones de Cabello"
+  },
+  "curso-de-extensiones-de-pestanas": {
+   "payUrl": "https://pay.hotmart.com/G75458369D",
+   "hotlink": "",
+   "titulo": "Curso de Extensiones de Pestañas"
+  },
+  "curso-de-flores-con-globos": {
+   "payUrl": "https://pay.hotmart.com/U68605508W",
+   "hotlink": "T76953268Y",
+   "titulo": "Curso de Flores con Globos"
+  },
+  "curso-de-fondant": {
+   "payUrl": "https://pay.hotmart.com/Q43938862B",
+   "hotlink": "B107109823W",
+   "titulo": "Curso de Fondant y Pastelería Artística",
+   "idProducto": 1159604
+  },
+  "curso-de-fotografia-con-celular": {
+   "payUrl": "https://pay.hotmart.com/Q68979557M",
+   "hotlink": "M107110044M",
+   "titulo": "Curso de Fotografía con Celular"
+  },
+  "curso-de-fotografia": {
+   "payUrl": "https://pay.hotmart.com/B77656721C",
+   "hotlink": "Q107110034F",
+   "titulo": "Curso de Fotografía de Novato a Profesional",
+   "idProducto": 2526119
+  },
+  "curso-de-frances": {
+   "payUrl": "https://pay.hotmart.com/V38780626K",
+   "hotlink": "X85009939J",
+   "titulo": "Curso de Francés desde Cero",
+   "idProducto": 956399
+  },
+  "curso-de-galletas-decoradas": {
+   "payUrl": "https://pay.hotmart.com/S81864529Q",
+   "hotlink": "P107109832P",
+   "titulo": "Curso de Galletas Artesanales para Negocio"
+  },
+  "curso-de-globoflexia": {
+   "payUrl": "https://pay.hotmart.com/M47265375C",
+   "hotlink": "X76953266Q",
+   "titulo": "Curso de Globoflexia",
+   "idProducto": 1272003
+  },
+  "curso-de-globos-burbuja": {
+   "payUrl": "https://pay.hotmart.com/F62444331S",
+   "hotlink": "D76953272A",
+   "titulo": "Curso de Globos Burbuja",
+   "idProducto": 1778060
+  },
+  "curso-de-guitarra": {
+   "payUrl": "https://pay.hotmart.com/K55290164R",
+   "hotlink": "H107094048F",
+   "titulo": "Curso de Guitarra Acústica desde Cero",
+   "idProducto": 1519008
+  },
+  "curso-de-hamburguesas-gourmet": {
+   "payUrl": "https://pay.hotmart.com/P50417303E",
+   "hotlink": "D107109882S",
+   "titulo": "Curso de Hamburguesas Gourmet",
+   "idProducto": 1363293
+  },
+  "curso-de-ingles-para-ninos": {
+   "payUrl": "https://pay.hotmart.com/C49771094X",
+   "hotlink": "G107110103K",
+   "titulo": "Curso de Inglés para Niños"
+  },
+  "curso-de-ingles": {
+   "payUrl": "https://pay.hotmart.com/R42584737Y",
+   "hotlink": "C107108222Q",
+   "titulo": "Curso de Inglés para Principiantes",
+   "idProducto": 1109732
+  },
+  "curso-de-instalacion-de-camaras-de-seguridad": {
+   "payUrl": "https://pay.hotmart.com/N66396359F",
+   "hotlink": "I107109759Y",
+   "titulo": "Curso de Instalación de Cámaras de Seguridad",
+   "idProducto": 1918450
+  },
+  "curso-de-japones": {
+   "payUrl": "https://pay.hotmart.com/I43699686Y",
+   "hotlink": "N107110098E",
+   "titulo": "Curso de Japonés desde Cero",
+   "idProducto": 1150666
+  },
+  "curso-de-joyeria-artesanal": {
+   "payUrl": "https://pay.hotmart.com/C56618940A",
+   "hotlink": "D107109949K",
+   "titulo": "Curso de Joyería Artesanal",
+   "idProducto": 1566902
+  },
+  "curso-de-limpieza-facial": {
+   "payUrl": "https://pay.hotmart.com/U66774408M",
+   "hotlink": "",
+   "titulo": "Curso de Limpieza Facial Profesional"
+  },
+  "curso-de-macrame": {
+   "payUrl": "https://pay.hotmart.com/T55503335K",
+   "hotlink": "Y107109931N",
+   "titulo": "Curso de Macramé como Negocio",
+   "idProducto": 1526336
+  },
+  "curso-de-maderoterapia": {
+   "payUrl": "https://pay.hotmart.com/K54499826M",
+   "hotlink": "R85923912B",
+   "titulo": "Curso de Maderoterapia Profesional",
+   "idProducto": 1491449
+  },
+  "curso-de-manicure-y-pedicure": {
+   "payUrl": "https://pay.hotmart.com/A60343346C",
+   "hotlink": "",
+   "titulo": "Curso de Manicure y Pedicure a Domicilio"
+  },
+  "curso-de-maquillaje-de-fantasia": {
+   "payUrl": "https://pay.hotmart.com/Y60358345H",
+   "hotlink": "S76206208N",
+   "titulo": "Curso de Maquillaje de Fantasía",
+   "idProducto": 1701027
+  },
+  "curso-de-maquillaje-permanente": {
+   "payUrl": "https://pay.hotmart.com/J44578783I",
+   "hotlink": "V76206246N",
+   "titulo": "Curso de Maquillaje Permanente",
+   "idProducto": 1180972
+  },
+  "curso-de-maquillaje-profesional-de-novias": {
+   "payUrl": "https://pay.hotmart.com/X63186581T",
+   "hotlink": "J76206203K",
+   "titulo": "Curso de Maquillaje Profesional para Novias"
+  },
+  "curso-de-maquillaje": {
+   "payUrl": "https://pay.hotmart.com/N41531652U",
+   "hotlink": "",
+   "titulo": "Curso de Maquillaje"
+  },
+  "curso-de-masaje-descontracturante": {
+   "payUrl": "https://pay.hotmart.com/C59922402Y",
+   "hotlink": "S77639843T",
+   "titulo": "Curso de Masaje Descontracturante",
+   "idProducto": 1686490
+  },
+  "curso-de-masaje-reductor": {
+   "payUrl": "https://pay.hotmart.com/Q56744994D",
+   "hotlink": "",
+   "titulo": "Curso de Masaje Reductor"
+  },
+  "curso-de-masajes-terapeuticos-y-relajantes": {
+   "payUrl": "https://pay.hotmart.com/A43483573K",
+   "hotlink": "",
+   "titulo": "Curso de Masajes Terapéuticos y Relajantes"
+  },
+  "curso-de-masajes": {
+   "payUrl": "https://pay.hotmart.com/K63104274A",
+   "hotlink": "",
+   "titulo": "Curso de Masajes"
+  },
+  "curso-de-mecanica-de-bicicletas": {
+   "payUrl": "https://pay.hotmart.com/E42783931E",
+   "hotlink": "L107109770O",
+   "titulo": "Curso de Mecánica de Bicicletas",
+   "idProducto": 1116804
+  },
+  "curso-de-mecanica-de-motos": {
+   "payUrl": "https://pay.hotmart.com/M41229087I",
+   "hotlink": "M107109712L",
+   "titulo": "Curso de Mecánica de Motos desde Cero",
+   "idProducto": 1051641
+  },
+  "curso-de-microblading": {
+   "payUrl": "https://pay.hotmart.com/Y45079346E",
+   "hotlink": "I76205611U",
+   "titulo": "Curso de Microblading de Cejas",
+   "idProducto": 1198643
+  },
+  "curso-de-modisteria": {
+   "payUrl": "https://pay.hotmart.com/U59313744J",
+   "hotlink": "G107109969E",
+   "titulo": "Curso de Modistería en Casa"
+  },
+  "curso-de-molderia-y-confeccion": {
+   "payUrl": "https://pay.hotmart.com/P43660531G",
+   "hotlink": "Y107109962O",
+   "titulo": "Curso de Moldería y Confección",
+   "idProducto": 1149166
+  },
+  "curso-de-panaderia": {
+   "payUrl": "https://pay.hotmart.com/H57693901U",
+   "hotlink": "T107109788P",
+   "titulo": "Curso de Panadería Artesanal y Masa Madre",
+   "idProducto": 1605803
+  },
+  "curso-de-pasteleria": {
+   "payUrl": "https://pay.hotmart.com/N61635687U",
+   "hotlink": "Y107109797O",
+   "titulo": "Curso de Pastelería desde Cero",
+   "idProducto": 1746848
+  },
+  "curso-de-peinados": {
+   "payUrl": "https://pay.hotmart.com/Y66385340K",
+   "hotlink": "",
+   "titulo": "Curso de Peinados"
+  },
+  "curso-de-peluqueria": {
+   "payUrl": "https://pay.hotmart.com/B28818422Q",
+   "hotlink": "M71441399M",
+   "titulo": "Curso de Peluquería"
+  },
+  "curso-de-pestanas-volumen-ruso": {
+   "payUrl": "https://pay.hotmart.com/B72428881X",
+   "hotlink": "T77952918L",
+   "titulo": "Curso de Pestañas Pelo a Pelo y Volumen Ruso",
+   "idProducto": 2191098
+  },
+  "curso-de-piano": {
+   "payUrl": "https://pay.hotmart.com/O44743118Q",
+   "hotlink": "X107094071K",
+   "titulo": "Curso de Piano para Principiantes",
+   "idProducto": 1186548
+  },
+  "curso-de-pizza-artesanal": {
+   "payUrl": "https://pay.hotmart.com/D55969511R",
+   "hotlink": "Y107109859E",
+   "titulo": "Curso de Pizza Artesanal"
+  },
+  "curso-de-porcelana-fria": {
+   "payUrl": "https://pay.hotmart.com/K60819262W",
+   "hotlink": "M107109945O",
+   "titulo": "Curso de Porcelana Fría",
+   "idProducto": 1717582
+  },
+  "curso-de-portugues": {
+   "payUrl": "https://pay.hotmart.com/C61562578C",
+   "hotlink": "O107110091Q",
+   "titulo": "Curso de Portugués para Principiantes"
+  },
+  "curso-de-primeros-auxilios-para-mascotas": {
+   "payUrl": "https://pay.hotmart.com/T58086799J",
+   "hotlink": "M107109997Q",
+   "titulo": "Curso de Primeros Auxilios para Mascotas",
+   "idProducto": 1620474
+  },
+  "curso-de-primeros-auxilios": {
+   "payUrl": "https://pay.hotmart.com/Y47211574B",
+   "hotlink": "A107110008R",
+   "titulo": "Curso de Primeros Auxilios",
+   "idProducto": 1270064
+  },
+  "curso-de-remodelacion-de-banos-y-cocinas": {
+   "payUrl": "https://pay.hotmart.com/F59859053P",
+   "hotlink": "U107109778D",
+   "titulo": "Curso de Remodelación de Baños y Cocinas",
+   "idProducto": 1684435
+  },
+  "curso-de-reparacion-de-celulares": {
+   "payUrl": "https://pay.hotmart.com/F56098099R",
+   "hotlink": "J107109717N",
+   "titulo": "Curso de Reparación de Celulares",
+   "idProducto": 1546551
+  },
+  "curso-de-reparacion-de-computadoras": {
+   "payUrl": "https://pay.hotmart.com/P38540888T",
+   "hotlink": "P107109736E",
+   "titulo": "Curso de Reparación de Laptops y Computadoras",
+   "idProducto": 947831
+  },
+  "curso-de-reparacion-de-lavadoras": {
+   "payUrl": "https://pay.hotmart.com/P46201372U",
+   "hotlink": "U107109753T",
+   "titulo": "Curso de Reparación de Lavadoras",
+   "idProducto": 1237207
+  },
+  "curso-de-reposteria-para-mascotas": {
+   "payUrl": "https://pay.hotmart.com/L39108716M",
+   "hotlink": "K100467636C",
+   "titulo": "Curso de Repostería para Mascotas",
+   "idProducto": 969838
+  },
+  "curso-de-reposteria": {
+   "payUrl": "https://pay.hotmart.com/Y60359420X",
+   "hotlink": "A107094171V",
+   "titulo": "Curso de Repostería Fina y Postres Gourmet",
+   "idProducto": 1701075
+  },
+  "curso-de-serigrafia": {
+   "payUrl": "https://pay.hotmart.com/K66027541H",
+   "hotlink": "N107109955U",
+   "titulo": "Curso de Serigrafía y Estampados",
+   "idProducto": 1904033
+  },
+  "curso-de-sublimacion": {
+   "payUrl": "https://pay.hotmart.com/O65342939Q",
+   "hotlink": "J107109916Y",
+   "titulo": "Curso de Sublimación de Tazas y Termos",
+   "idProducto": 1880243
+  },
+  "curso-de-sushi": {
+   "payUrl": "https://pay.hotmart.com/G46888691K",
+   "hotlink": "N107094409E",
+   "titulo": "Curso de Sushi en Casa"
+  },
+  "curso-de-trenzas-y-peinados": {
+   "payUrl": "https://pay.hotmart.com/V48797673L",
+   "hotlink": "",
+   "titulo": "Curso de Trenzas y Peinados"
+  },
+  "curso-de-unas-acrilicas": {
+   "payUrl": "https://pay.hotmart.com/C55918118T",
+   "hotlink": "W76206229K",
+   "titulo": "Curso de Uñas Acrílicas",
+   "idProducto": 1540395
+  },
+  "curso-de-barista": {
+   "payUrl": "https://pay.hotmart.com/S42525676Y",
+   "hotlink": "Q71026638W",
+   "titulo": "Curso de Barista",
+   "idProducto": 1107304
+  },
+  "curso-de-barismo-y-cafe-de-especialidad": {
+   "payUrl": "https://pay.hotmart.com/S42525676Y",
+   "hotlink": "Q71026638W",
+   "titulo": "Curso de Barismo y Café de Especialidad",
+   "idProducto": 1107304
+  }
+ },
+ "_capturado": "2026-08-14T02:04:54.931Z",
+ "resenas": {
+  "curso-de-unas": [
+   {
+    "nombre": "Deisy",
+    "rating": 5,
+    "texto": "Estoy muy feliz, no creí que solo viendo videos iba a aprender tantas cosas, me gusta mucho la forma en la que explica l"
+   }
+  ],
+  "curso-de-airbnb": [
+   {
+    "nombre": "Jeremías",
+    "rating": 5,
+    "texto": " Es una experiencia excelente por el momento no cuento con una propiedad pero espero iniciar pronto en este negocio "
+   },
+   {
+    "nombre": "Gamaliel",
+    "rating": 4,
+    "texto": "Me ha gustado la didáctica, la facilidad en el uso del vocabulario, la calidad de los videos y los presentadores con un "
+   }
+  ],
+  "curso-de-alisados-y-keratina": [
+   {
+    "nombre": "Norma",
+    "rating": 5,
+    "texto": "Excelente!! Información/explicación/ sugerencias Todo excelente, aprendí mas que los 3 cursos presenciales que había tom"
+   },
+   {
+    "nombre": "Dicelly",
+    "rating": 5,
+    "texto": "Estoy muy contenta me gustó mucho la capacitación explica super bien excelente curso lo super recomiendo muchas gracias "
+   }
+  ],
+  "curso-de-automaquillaje": [
+   {
+    "nombre": "María",
+    "rating": 5,
+    "texto": "me gusto es practico muy claro"
+   },
+   {
+    "nombre": "Juliana",
+    "rating": 5,
+    "texto": "Muy bueno, muy completo"
+   }
+  ],
+  "curso-de-balayage": [
+   {
+    "nombre": "Denixe",
+    "rating": 5,
+    "texto": "Todo muy profesional "
+   },
+   {
+    "nombre": "Luz",
+    "rating": 5,
+    "texto": "Super curso gracias habian muchas cosas desconocidas para mi me sirvio mucho mil bendiciones para los dos "
+   }
+  ],
+  "curso-de-barberia-artistica": [
+   {
+    "nombre": "Johan",
+    "rating": 5,
+    "texto": "Me encanta los diseños complejos que presenta, de esta manera se ven faciles los diseños de otros barberos, pero me enca"
+   },
+   {
+    "nombre": "Melquisedec",
+    "rating": 5,
+    "texto": "Em producto es muy bueno lo horrendo que no puedo entrar con la App ya que al abrirla me sale que se actualizo y debo ac"
+   }
+  ],
+  "curso-de-barberia-como-negocio": [
+   {
+    "nombre": "Johan",
+    "rating": 5,
+    "texto": "Me gusta mucho como explica el curso, sin apresurarse y muy bien detallado, abordando todos los aspectos."
+   }
+  ],
+  "curso-de-barberia": [
+   {
+    "nombre": "Edyt",
+    "rating": 5,
+    "texto": "Cuándo empecé con el curso de barbería lo tenía muy complicado y con mucho miedo, el curso la verdad me ha ayudado a pod"
+   },
+   {
+    "nombre": "Dulce",
+    "rating": 5,
+    "texto": "Muy productivo en realidad ayuda bastante "
+   }
+  ],
+  "curso-de-bartender": [
+   {
+    "nombre": "CARLOS",
+    "rating": 5,
+    "texto": "Ha sido un curso muy práctico e interesante. "
+   }
+  ],
+  "curso-de-bouquets-con-globos": [
+   {
+    "nombre": "Ana",
+    "rating": 5,
+    "texto": "A Sido muy bonita experiencia ya que te explican paso a paso todos los detalles para realizar un adorno ,me gustó mucho "
+   },
+   {
+    "nombre": "Jemima",
+    "rating": 4,
+    "texto": "Me gusta lo claro al momento de hablar, al dar la explicación, Muestra claramente como hacer el trabajo y como ir ensamb"
+   }
+  ],
+  "curso-de-canto": [
+   {
+    "nombre": "Ivan",
+    "rating": 4,
+    "texto": "me encanto el producto la parte teorica,pero m parece falto haber mas ejercicios,"
+   },
+   {
+    "nombre": "Rossy",
+    "rating": 5,
+    "texto": "Muy buena y fácil "
+   }
+  ],
+  "curso-de-cejas-y-pestanas": [
+   {
+    "nombre": "Graciela",
+    "rating": 5,
+    "texto": "Muy lindo y fácil para realizar "
+   },
+   {
+    "nombre": "Ana",
+    "rating": 4,
+    "texto": "Me esta gustando mucho, todo lo aprendido ya que yo ya tenia conocimientos y he podido ver diferente maneras de hacerlo "
+   }
+  ],
+  "curso-de-cerveza-artesanal": [
+   {
+    "nombre": "pablo",
+    "rating": 4,
+    "texto": "solo faltaria material"
+   },
+   {
+    "nombre": "Juan",
+    "rating": 5,
+    "texto": "Me gustó aprender ser cervecero quiero aprender mucho más "
+   }
+  ],
+  "curso-de-ceviche-peruano": [
+   {
+    "nombre": "Luis",
+    "rating": 5,
+    "texto": "Soy peruano, y la verdad me encantó la didáctica y enseñanza del chef, recomiendo este curso. Puedo notar a kilómetros q"
+   }
+  ],
+  "curso-de-chocolateria": [
+   {
+    "nombre": "Tania",
+    "rating": 5,
+    "texto": "muy buen contenido, pude hacer mis primeros chocolates e iniciar mi empresa sin problema, agregando creatividad resulta "
+   },
+   {
+    "nombre": "Sharon",
+    "rating": 5,
+    "texto": "Hermoso curso, me encanta!! La profesora enseña con mucho detalle y paciencia, paso a paso. Muy satisfecha con lo que vo"
+   }
+  ],
+  "curso-de-colorimetria": [
+   {
+    "nombre": "Ana",
+    "rating": 5,
+    "texto": "es un poco complicado acceder al contenido y no la puedo descargar ya que pague por ello"
+   },
+   {
+    "nombre": "Alicia",
+    "rating": 5,
+    "texto": "Estoy aprendiendo"
+   }
+  ],
+  "curso-de-confeccion-de-ropa-interior": [
+   {
+    "nombre": "José",
+    "rating": 5,
+    "texto": "son mis primeros pasos con una maquina de cocer hogareña y este curso me aclaro varios puntos importantes para empezar a"
+   },
+   {
+    "nombre": "Georgiana",
+    "rating": 5,
+    "texto": "Me gusta este curso porque no sabia como hacer ropa interior y me ha quedado claro y lo agradezco "
+   }
+  ],
+  "curso-de-contabilidad-basica": [
+   {
+    "nombre": "HAROLD",
+    "rating": 5,
+    "texto": "UN PRODUCTO MUY BUENO PARA CRECER EN CONOCIMIENTOS CONTABES"
+   },
+   {
+    "nombre": "Tomás",
+    "rating": 5,
+    "texto": "Es un excelente Curso.., muy satisfecho y volvería a comprar."
+   }
+  ],
+  "curso-de-costura-industrial": [
+   {
+    "nombre": "Teodora",
+    "rating": 5,
+    "texto": "Me ha servido de mucho es cuention de patronaje. "
+   },
+   {
+    "nombre": "Rodolfo",
+    "rating": 5,
+    "texto": "Lo felicito al Prof. Williams muy buena su enseñanza. Todo práctico el curso "
+   }
+  ],
+  "curso-de-cupcakes": [
+   {
+    "nombre": "Ivelisse",
+    "rating": 5,
+    "texto": "Muy emocionante hacer mis cupcake junto con la maestra,nada estresante pues lo explica con calma"
+   },
+   {
+    "nombre": "Zoraida",
+    "rating": 5,
+    "texto": "Me gusto mucho pero quisiera saber si dan el certificado y como lo puedo obtener gracias"
+   }
+  ],
+  "curso-de-decoracion-con-globos": [
+   {
+    "nombre": "Jenny",
+    "rating": 5,
+    "texto": "Exelente explicación,muy clara me sirve muchísimo el curso ,con encarna aprendí y me decidí a trabajar en decoración con"
+   },
+   {
+    "nombre": "Livier",
+    "rating": 5,
+    "texto": "Fácil de entrar, explicación concreta y detallada, conocimientos basados en la experiencia propia, atención inmediata a "
+   }
+  ],
+  "curso-de-decoracion-de-unas": [
+   {
+    "nombre": "Luz",
+    "rating": 4,
+    "texto": "Me gusto mucho el curso, solo que en algunos videos el audio se repite o no va de acuerdo a la imagen, de hay en mas las"
+   },
+   {
+    "nombre": "Isela",
+    "rating": 5,
+    "texto": "l like to learned new skills"
+   }
+  ],
+  "curso-de-defensa-personal-para-mujeres": [
+   {
+    "nombre": "Elena",
+    "rating": 5,
+    "texto": "Me gusto mucho, ya habia comprado otros cursos de defensa personal pero este ha sido el mejor, aprendi muchas cosas nuev"
+   }
+  ],
+  "curso-de-depilacion": [
+   {
+    "nombre": "Elena",
+    "rating": 5,
+    "texto": "Bien explicado, muy buenos videos,"
+   },
+   {
+    "nombre": "Vilma",
+    "rating": 5,
+    "texto": "Esta muy bien explicado y completo"
+   }
+  ],
+  "curso-de-desayunos-sorpresa": [
+   {
+    "nombre": "Guillermo",
+    "rating": 5,
+    "texto": "Excelente curso, 100% recomendable! aprendi mucho, gracias!"
+   },
+   {
+    "nombre": "Elisabeth",
+    "rating": 5,
+    "texto": "Súper práctico para emprendedores"
+   }
+  ],
+  "curso-de-diseno-de-cejas-con-hilo-y-henna": [
+   {
+    "nombre": "Maria",
+    "rating": 5,
+    "texto": "Me gusto mucho estos curso explica muy bien yo quede fascinada "
+   }
+  ],
+  "curso-de-electricista": [
+   {
+    "nombre": "Jaime",
+    "rating": 5,
+    "texto": "Es muy bueno bien explicado "
+   },
+   {
+    "nombre": "César",
+    "rating": 5,
+    "texto": "Dediqué tiempo poco a poco a cumplir con mi decisión de tener conocimientos de esta profesión tan importante para la hum"
+   }
+  ],
+  "curso-de-estetica-canina": [
+   {
+    "nombre": "Leslye",
+    "rating": 5,
+    "texto": "Me encantó su forma de trabajo y enseñanza ahora todo lo que aprendí lo tomaré en práctica :) "
+   },
+   {
+    "nombre": "Adriana",
+    "rating": 5,
+    "texto": "Me ha encantado como esta persona da los cursos te explica muy bien y detalladamente felicidades "
+   }
+  ],
+  "curso-de-excel": [
+   {
+    "nombre": "Dyandira",
+    "rating": 5,
+    "texto": "Muy buenavista "
+   }
+  ],
+  "curso-de-extensiones-de-pestanas": [
+   {
+    "nombre": "Kellyn",
+    "rating": 5,
+    "texto": "Me ha encantado aprender nuevas experiencias "
+   },
+   {
+    "nombre": "Hertha",
+    "rating": 5,
+    "texto": "ME GUSTO APRENDI NUEVOS TIPS "
+   }
+  ],
+  "curso-de-fondant": [
+   {
+    "nombre": "Paola",
+    "rating": 5,
+    "texto": "Excelente, porque aprendi habilidadesw nuevas"
+   },
+   {
+    "nombre": "Alba",
+    "rating": 4,
+    "texto": "Estuvo bueno el curso y la profesora utilizo muchas herramientas, dio las bases necesarias para poder crear mucho"
+   }
+  ],
+  "curso-de-fotografia": [
+   {
+    "nombre": "Edna",
+    "rating": 5,
+    "texto": "Me gusto mucho el curso muy bien explicado 10/10 ☺️"
+   },
+   {
+    "nombre": "Francisco",
+    "rating": 5,
+    "texto": "Me encantado el curso esta muy bien explicado y facil de entender"
+   }
+  ],
+  "curso-de-frances": [
+   {
+    "nombre": "Carolina",
+    "rating": 5,
+    "texto": "Me ha gustado mucho, le entiendo lo que ella habla y es muy clara para enseñar"
+   },
+   {
+    "nombre": "Marfisa",
+    "rating": 4,
+    "texto": "Muy bueno ,yo no sé el Francés ,me lo compre por curiosidad, me gusta como suena .Pero siento que me falta mucho para at"
+   }
+  ],
+  "curso-de-globoflexia": [
+   {
+    "nombre": "Gloria",
+    "rating": 5,
+    "texto": "Me encanto el metodo utilizado. No sabia nada hacerca de esta tecnica y me gusto mucho como explica paso a paso, "
+   }
+  ],
+  "curso-de-globos-burbuja": [
+   {
+    "nombre": "Gabriela",
+    "rating": 4,
+    "texto": "Aún no lo he practicado déjame hacerlo y ya veremos pero se me hace práctico solo que hago una preguntas y no son contes"
+   },
+   {
+    "nombre": "Araceli",
+    "rating": 5,
+    "texto": "me gustaría q me enviara correo cuando tengan cursos nuevos o que cursos tienen "
+   }
+  ],
+  "curso-de-guitarra": [
+   {
+    "nombre": "Franklin",
+    "rating": 5,
+    "texto": "fue muy interesante"
+   }
+  ],
+  "curso-de-hamburguesas-gourmet": [
+   {
+    "nombre": "Claudia",
+    "rating": 4,
+    "texto": "Quedaron pendientes con contenido, desde hace meses y no han cumplido con enviarla."
+   },
+   {
+    "nombre": "Victor",
+    "rating": 5,
+    "texto": "Me encanto la forma de comunicar, muy didacticos, me será de mucha ayuda para mi plan de negocio, aunque creo debe de da"
+   }
+  ],
+  "curso-de-ingles": [
+   {
+    "nombre": "Antonio",
+    "rating": 5,
+    "texto": "Very easy to use and understand"
+   },
+   {
+    "nombre": "leynis",
+    "rating": 5,
+    "texto": "Mi experiencia a sido genial"
+   }
+  ],
+  "curso-de-japones": [
+   {
+    "nombre": "Jireth",
+    "rating": 5,
+    "texto": "Fue muy dibertida y aprendi mucho y yo a mis 15 quiero ir a japon y poder entender a los demas y entender los anime por "
+   },
+   {
+    "nombre": "jenny",
+    "rating": 5,
+    "texto": "Gracias a las explicaciones detalladas, he aprendido mucho siempre que tengo una duda la comparto en los comentarios, es"
+   }
+  ],
+  "curso-de-joyeria-artesanal": [
+   {
+    "nombre": "aimara",
+    "rating": 5,
+    "texto": "me encanto en curso, todo muy bien explicado, además la profesora incentiva todo el rato a ser constantes y da tips de c"
+   },
+   {
+    "nombre": "Norma",
+    "rating": 4,
+    "texto": "Es muy amigable la plataforma para trabajarla, y contenido del curso fue bueno aunque a veces el audio no se escuchaba b"
+   }
+  ],
+  "curso-de-limpieza-facial": [
+   {
+    "nombre": "Margarita",
+    "rating": 5,
+    "texto": "SUPER INTERESANTE, EXPLICA MUY CLARAMENTE,Y SUPER FACIL DE ASIMILAR, Y MUY PROFESIONAL. LO RECOMIENDO. GRACIAS"
+   },
+   {
+    "nombre": "Erika",
+    "rating": 4,
+    "texto": "Accesible, facil comprension , muy amplio. Si se aprende."
+   }
+  ],
+  "curso-de-macrame": [
+   {
+    "nombre": "Claudia",
+    "rating": 4,
+    "texto": "Me gustó el curso y sus presentadores. Me hubiera gustado tener mas contacto ante las dudas. Por lo menos yo no sé cómo "
+   },
+   {
+    "nombre": "Graciela",
+    "rating": 5,
+    "texto": "Es muy completo, pues en otros cursos no te enseñan la parte de marketing y ventas."
+   }
+  ],
+  "curso-de-maderoterapia": [
+   {
+    "nombre": "Yaneth",
+    "rating": 5,
+    "texto": "Es bueno y muy esplicito."
+   },
+   {
+    "nombre": "Alondra",
+    "rating": 5,
+    "texto": "Me ha encantado este seminario. Ya he podido poner en práctica y hasta empezar a emprender de la misma. Muy bien explica"
+   }
+  ],
+  "curso-de-manicure-y-pedicure": [
+   {
+    "nombre": "María",
+    "rating": 5,
+    "texto": "Me ha gustado. Muchas gracias! Por esto he comprado el curso de las flores. Necesito mi certificado urgente "
+   }
+  ],
+  "curso-de-maquillaje-de-fantasia": [
+   {
+    "nombre": "Ailin",
+    "rating": 5,
+    "texto": "Muy detallado de paso a paso, y sin duda lo podemos volver a ver, los diseños increíbles "
+   }
+  ],
+  "curso-de-maquillaje-permanente": [
+   {
+    "nombre": "Yazmin",
+    "rating": 5,
+    "texto": "Muy buenas experiencias 😸"
+   },
+   {
+    "nombre": "Zinnya",
+    "rating": 5,
+    "texto": "Lo actualizan cada tiempo tiempo determinado, eso es muy positivo "
+   }
+  ],
+  "curso-de-maquillaje": [
+   {
+    "nombre": "Yenny",
+    "rating": 5,
+    "texto": "me encanto aprender con este curso hoy acabo de conseguir mi primer trabajo como maquilladora en una tienda me ayudo muc"
+   },
+   {
+    "nombre": "Evelyn",
+    "rating": 5,
+    "texto": "E utilizado el material tal cual y son muy buenas . Las técnica "
+   }
+  ],
+  "curso-de-masaje-descontracturante": [
+   {
+    "nombre": "Norma",
+    "rating": 5,
+    "texto": "Me gustó x qe es cómodo hacerlo desde casa ."
+   },
+   {
+    "nombre": "Sandoval",
+    "rating": 5,
+    "texto": "Muy bien explicado es un contenido que no aburre dans ganas de seguir estudiando "
+   }
+  ],
+  "curso-de-masaje-reductor": [
+   {
+    "nombre": "johana",
+    "rating": 4,
+    "texto": "Me encanto es genial "
+   },
+   {
+    "nombre": "Maria",
+    "rating": 5,
+    "texto": "Super nice bien explicativo y organizado"
+   }
+  ],
+  "curso-de-masajes-terapeuticos-y-relajantes": [
+   {
+    "nombre": "Miosotis",
+    "rating": 5,
+    "texto": "I WOULD LIKE TO KEEP TAKEN COURSE ."
+   },
+   {
+    "nombre": "Glazeni",
+    "rating": 5,
+    "texto": "Muy bueno el curso para alguien que está iniciando en el mundo de los masajes los ejemplos reales y te responden a todas"
+   }
+  ],
+  "curso-de-masajes": [
+   {
+    "nombre": "Edurne",
+    "rating": 4,
+    "texto": "Super interesantes los tips"
+   },
+   {
+    "nombre": "MARCOS",
+    "rating": 5,
+    "texto": "Ha sido una experiencia nueva para mí. En lo personal e aprendido mucho y me ha gustado mucho las formas diferentes de e"
+   }
+  ],
+  "curso-de-mecanica-de-bicicletas": [
+   {
+    "nombre": "Abderrahim",
+    "rating": 5,
+    "texto": "Bien aprendiendo"
+   },
+   {
+    "nombre": "Alonso",
+    "rating": 5,
+    "texto": "He recibido el curso de mecánica de bicicletas. Es muy completo, didáctico y concreto. Lo he terminado y quisiera recibi"
+   }
+  ],
+  "curso-de-mecanica-de-motos": [
+   {
+    "nombre": "Junior",
+    "rating": 5,
+    "texto": "Estuvo elegante el curso me encato"
+   },
+   {
+    "nombre": "Juan",
+    "rating": 4,
+    "texto": "Soy principiante y lo estoy estudiando no tengo como hacer la práctica experto mis propios resultados luego Si este tuvi"
+   }
+  ],
+  "curso-de-microblading": [
+   {
+    "nombre": "Lorena",
+    "rating": 4,
+    "texto": "Me encanto aprender una nueva habilidad "
+   },
+   {
+    "nombre": "Sandra",
+    "rating": 5,
+    "texto": "Excelente !!🥰✨❤️"
+   }
+  ],
+  "curso-de-pasteleria": [
+   {
+    "nombre": "Eliana",
+    "rating": 5,
+    "texto": "Fue una hermosa experiencia muy claras sus clases me encanto."
+   },
+   {
+    "nombre": "Luz-maria",
+    "rating": 5,
+    "texto": "Pensé me hiban a vender un curso del qué vi, pero me pareció excelente este contenido estoy muy contenta y agradecida co"
+   }
+  ],
+  "curso-de-pestanas-volumen-ruso": [
+   {
+    "nombre": "Elizabeth",
+    "rating": 5,
+    "texto": "He aclaro puntos en el que estaba desorientada, los ejemplos para formar abanicos lo encontré muy practico, la explicaci"
+   },
+   {
+    "nombre": "Raquel",
+    "rating": 5,
+    "texto": "I love this course every day and I still love it because it has been like a light on my path, I cannot believe it withou"
+   }
+  ],
+  "curso-de-piano": [
+   {
+    "nombre": "angel",
+    "rating": 5,
+    "texto": "muy bien el material muy dicadito"
+   }
+  ],
+  "curso-de-porcelana-fria": [
+   {
+    "nombre": "Maria",
+    "rating": 5,
+    "texto": " puedo hacer cosas que no me imaginaba que lograría. Además lo disfruto muchísimo. "
+   },
+   {
+    "nombre": "magali",
+    "rating": 5,
+    "texto": "Estoy muy conforme con el programa. Ya que es muy claro la explicación y está bien especificado todo para el buen entend"
+   }
+  ],
+  "curso-de-primeros-auxilios-para-mascotas": [
+   {
+    "nombre": "Cindy",
+    "rating": 4,
+    "texto": "De primera intención me dio la certificación , pero luego trato de buscar el certificado para imprimirlo y no aparece en"
+   },
+   {
+    "nombre": "Denise",
+    "rating": 5,
+    "texto": "Excelente curso! Información muy útil !!"
+   }
+  ],
+  "curso-de-primeros-auxilios": [
+   {
+    "nombre": "Edgar",
+    "rating": 5,
+    "texto": "Excelente experiencia, ahora a poner en práctica lo aprendido. "
+   },
+   {
+    "nombre": "Salvador",
+    "rating": 5,
+    "texto": "Genial, manera muy práctica y comprensible, excelente. "
+   }
+  ],
+  "curso-de-remodelacion-de-banos-y-cocinas": [
+   {
+    "nombre": "Ana",
+    "rating": 5,
+    "texto": "muchas gracias! me encanto! ayuda mucho tu forma de enseñar. facil de entender y mucha informacion y herramientas super "
+   }
+  ],
+  "curso-de-reparacion-de-celulares": [
+   {
+    "nombre": "Sergio",
+    "rating": 5,
+    "texto": "Muy bueno el curso"
+   },
+   {
+    "nombre": "José",
+    "rating": 5,
+    "texto": "Muy detallado me parece bien"
+   }
+  ],
+  "curso-de-reparacion-de-computadoras": [
+   {
+    "nombre": "Esteban",
+    "rating": 4,
+    "texto": "excellente la comparacion de los productos para el ensamble de una torre."
+   },
+   {
+    "nombre": "Jesús",
+    "rating": 5,
+    "texto": "Me encantó cómo se mueve para solucionar nuestros problemas y siempre muy disponible y atento "
+   }
+  ],
+  "curso-de-reparacion-de-lavadoras": [
+   {
+    "nombre": "Said",
+    "rating": 5,
+    "texto": "Explica bien y teóricamente pues también lo hace paso a paso y te da tiempo de ir viendo cómo se hace "
+   },
+   {
+    "nombre": "Luis",
+    "rating": 5,
+    "texto": "Muy bueno recomiendo a los nuevos alumnos que quieran aprender este curso "
+   }
+  ],
+  "curso-de-reposteria-para-mascotas": [
+   {
+    "nombre": "Christian",
+    "rating": 5,
+    "texto": "Voy a comenzar mi emprendimiento y ya tengo clientes "
+   },
+   {
+    "nombre": "Johanna",
+    "rating": 5,
+    "texto": "todo el contenido me parece muy interesante. y de mucha utilidad, muy bien explicado muy ameno, estoy muy conforme con l"
+   }
+  ],
+  "curso-de-reposteria": [
+   {
+    "nombre": "Catalina",
+    "rating": 4,
+    "texto": "Hola para mi fue una gran esperiencia me gustó mucho este curso. Fue muy maravilloso, muchas gracias. "
+   },
+   {
+    "nombre": "Teresita",
+    "rating": 5,
+    "texto": "Para mí ha estado una excelente experiencia haber comprado estos curso me ha Sido muy utiles"
+   }
+  ],
+  "curso-de-serigrafia": [
+   {
+    "nombre": "Valeria",
+    "rating": 4,
+    "texto": "La dinámica del señor es muy lenta y repetitiva, tanto que se empieza a volver cansona. Pero el contenido es bueno y el "
+   },
+   {
+    "nombre": "Pedro",
+    "rating": 5,
+    "texto": "Sí .ES MUY EXCELENTE EL CURSO Y DE BENDICION EN EL APRENDIZAJE"
+   }
+  ],
+  "curso-de-sublimacion": [
+   {
+    "nombre": "Betzabel",
+    "rating": 5,
+    "texto": "tenia años de no usar pc y este curso me fue muy util"
+   },
+   {
+    "nombre": "Diana",
+    "rating": 5,
+    "texto": "Simplest way to learn!"
+   }
+  ],
+  "curso-de-trenzas-y-peinados": [
+   {
+    "nombre": "Andrea",
+    "rating": 5,
+    "texto": "La estructura del curso está bien diseñada. Por otro lado no he tenido ningun problema en poder aprenderlo"
+   },
+   {
+    "nombre": "Alejandra",
+    "rating": 5,
+    "texto": "Los cursos son buenos y muy bien explicados el único problemas es que al comprar el curso te prometen algunos bonos que "
+   }
+  ],
+  "curso-de-unas-acrilicas": [
+   {
+    "nombre": "Deisy",
+    "rating": 5,
+    "texto": "Estoy muy feliz, no creí que solo viendo videos iba a aprender tantas cosas, me gusta mucho la forma en la que explica l"
+   }
+  ],
+  "curso-de-barista": [
+   {
+    "nombre": "Bladimil",
+    "rating": 5,
+    "texto": "Hola compré el curso de barista pero al final no me dieron el certificado ,he intentado comunicarme pero nadie me da res"
+   },
+   {
+    "nombre": "Christian",
+    "rating": 5,
+    "texto": "Me parece Un Curso Online, bastante Interesante y didactico para quienes desean reforzar conocimientos en Barismo. Salud"
+   }
+  ],
+  "curso-de-barismo-y-cafe-de-especialidad": [
+   {
+    "nombre": "Bladimil",
+    "rating": 5,
+    "texto": "Hola compré el curso de barista pero al final no me dieron el certificado ,he intentado comunicarme pero nadie me da res"
+   },
+   {
+    "nombre": "Christian",
+    "rating": 5,
+    "texto": "Me parece Un Curso Online, bastante Interesante y didactico para quienes desean reforzar conocimientos en Barismo. Salud"
+   }
+  ]
+ },
+ "autores": {
+  "masterclasses-la": {
+   "nombre": "MasterClasses.La®",
+   "bio": "Master Classes Latinoamérica es una empresa desarrolladora de cursos virtuales en video.",
+   "avatar": "https://hotmart.s3.amazonaws.com/profile_pictures/dd0bfeb6-83e9-4ce9-9b9b-2af5c7d21b97/mclafw.png",
+   "desde": 2019,
+   "verificado": true,
+   "bestSeller": true
+  },
+  "mauricio-duque": {
+   "nombre": "Mauricio Duque Zuluaga",
+   "bio": "Trabajando en Internet desde 1996, Mauricio Duque siempre se dedicó a fortalecer el desarrollo y disminuir la brecha de la inclusión digital en América Latina a través de plataformas y productos educativos enfocados en el emprendimiento digital y el apoyo al crecimiento comercial con uso de la tecnología. Mauricio es especialista en clases en el formato Master Class, donde enseña, con intensidad y consistencia, sobre asuntos que pueden hacer la diferencia en la vida y en los negocios. Hoy en día, es el responsable de una comunidad con más de 500 mil personas que conforman el proyecto Universidad.Online®.",
+   "avatar": "https://static-media.hotmart.com/awX-Y7GLw9HnaKX1ePkD047_DlQ=/140x140/smart/filters:format(webp):background_color(white)/hotmart/product_contents/52a3766c-e05e-4c8a-9b9e-3c32a063346a/yoyo.png",
+   "desde": 2018,
+   "verificado": true,
+   "bestSeller": true,
+   "foto": "/creadores/mauricio-duque.png"
+  }
+ }
 }
