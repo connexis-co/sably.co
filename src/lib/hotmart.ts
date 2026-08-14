@@ -14,6 +14,12 @@ interface HotmartUrlParams {
   ref?: string;
   /** Campaña vigente, si la hay. Sin campaña no se manda ningún descuento. */
   promo?: PromoCampaign | null;
+  /**
+   * `false` si el checkout de este creador no acepta el cupón del sitio: el
+   * precio elegido ya viaja dentro de su acortador. Añadir `offDiscount` ahí
+   * no abarata nada y puede invalidar la oferta que el enlace ya trae.
+   */
+  aceptaCupon?: boolean;
   courseSlug: string;
   countryCode: string;
   citySlug?: string;
@@ -33,13 +39,14 @@ export function buildHotmartUrl({
   baseUrl,
   ref,
   promo,
+  aceptaCupon = true,
   courseSlug,
   countryCode,
   citySlug,
 }: HotmartUrlParams): string {
   const url = new URL(baseUrl);
   if (ref) url.searchParams.set('ref', ref);
-  if (promo) url.searchParams.set('offDiscount', promo.couponCode);
+  if (promo && aceptaCupon) url.searchParams.set('offDiscount', promo.couponCode);
   url.searchParams.set('src', 'sably');
   url.searchParams.set('utm_source', 'sably.co');
   url.searchParams.set('utm_medium', 'web');

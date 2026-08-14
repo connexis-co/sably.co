@@ -23,6 +23,7 @@ import {
 import { getCategory, courseCover } from '@/lib/categories';
 import { formatMonto, precioReal } from '@/lib/hotmartLive';
 import { buildHotmartUrl } from '@/lib/hotmart';
+import { aceptaCupon } from '@/lib/proveedores';
 import { resolvePromo } from '@/lib/promo';
 import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema, videoSchema } from '@/lib/seo';
 import { COURSE_VIDEOS, duracionIso } from '@/lib/course-videos';
@@ -68,8 +69,13 @@ const tituloColisiona = locale
   ? localesDelCurso.filter((l) => l.data.meta_title === locale.data.meta_title).length > 1
   : localesDelCurso.length < COUNTRIES.length - 1;
 
+/* Política del creador: hay quien no acepta el cupón del sitio porque su
+   acortador ya trae dentro la oferta elegida. Ver src/lib/proveedores.ts. */
+const conCupon = aceptaCupon(course.data.proveedor);
+
 const ctaUrl = buildHotmartUrl({
   baseUrl: course.data.hotmartUrl,
+  aceptaCupon: conCupon,
   courseSlug: course.id,
   countryCode: country.code,
   citySlug: city?.slug,
@@ -270,6 +276,7 @@ const schemas = [
   alternates={city ? [] : countryAlternates(`/${course.id}/`)}
   {schemas}
   pageType={city ? 'course_city' : 'course'}
+  sinCupon={!conCupon}
   whatsappContext={city ? `${course.data.title} (${city.name})` : course.data.title}
 >
   <StickyCta
@@ -303,7 +310,10 @@ const schemas = [
 
     const cajas = document.querySelectorAll<HTMLElement>('[data-precio-caja]');
 
-    if (cajas.length) {
+    // Sin cupón no hay porcentaje que aplicar: el precio que se muestra ya es
+    // el que cobra el checkout. Repintarlo con el pct de la campaña enseñaría
+    // la mitad y el comprador pagaría el doble.
+    if (cajas.length && !document.body.hasAttribute('data-sin-cupon')) {
       fetch('/api/v1/promo')
         .then((r) => (r.ok ? (r.json() as Promise<Promo>) : null))
         .then((p) => {
