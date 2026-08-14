@@ -113,12 +113,31 @@ const cityFirst = city
   : allTestimonials;
 const testimonials = cityFirst.slice(0, 3);
 
-/* Social proof local determinístico (Fase 2: datos reales de Hotmart). */
-const cityStudents = city
-  ? 40 + ((city.slug.length * 31 + course.id.length * 7) % 180)
-  : null;
+/* Aquí vivía `cityStudents`, que pintaba «N estudiantes lo están tomando en
+   <ciudad>» a partir de `40 + ((city.slug.length * 31 + course.id.length * 7)
+   % 180)`. Era aritmética sobre la longitud del slug presentada como alumnos
+   reales: no había fuente de datos detrás, y su propio comentario lo admitía
+   («Fase 2: datos reales de Hotmart»).
+
+   No es un dato optimista, es una afirmación de hecho falsa, y salía en las
+   landings de ciudad de TODOS los cursos, tuvieran producto o no. Se retira
+   hasta que haya matrículas reales por ciudad que contar. */
 
 const discountPct = Math.round((1 - course.data.priceUSD / course.data.originalPriceUSD) * 100);
+
+/**
+ * ¿Este curso existe como producto de verdad?
+ *
+ * Los que siguen con `PENDIENTE` no tienen checkout: nadie los ha comprado
+ * nunca. Publicar en ellos «4,9 · 183 valoraciones · 1.043 estudiantes» es
+ * inventar prueba social de un producto inexistente, y son reseñas fabricadas
+ * a ojos de la SIC en Colombia. El dato del frontmatter es de catálogo, no de
+ * compradores, así que en estas fichas no se pinta ninguno.
+ *
+ * La ficha sigue publicándose: conserva el SEO y capta el lead. Lo que se cae
+ * es la cifra que afirma algo falso.
+ */
+const sinProducto = /PENDIENTE/i.test(course.data.hotmartUrl);
 
 /* Precio real de Hotmart, igual que en CourseCard. Hasta ahora la ficha usaba
    el de catálogo mientras las tarjetas de cursos relacionados ya usaban el real:
@@ -390,23 +409,20 @@ const schemas = [
               y además se pueden pulsar para dejar la propia. El componente ya
               existía desde el PR #67 pero no estaba montado en ninguna página,
               así que la ficha seguía con las estrellas de solo lectura. */}
-          <RatingInteractivo
-            slug={course.id}
-            rating={course.data.rating}
-            count={course.data.ratingCount}
-          />
-          <span>👥 {course.data.students.toLocaleString('es-CO')} estudiantes</span>
+          {!sinProducto && (
+            <RatingInteractivo
+              slug={course.id}
+              rating={course.data.rating}
+              count={course.data.ratingCount}
+            />
+          )}
+          {!sinProducto && (
+            <span>👥 {course.data.students.toLocaleString('es-CO')} estudiantes</span>
+          )}
           <span>🕐 {course.data.durationHours} horas</span>
           <span>📚 {course.data.lessonsCount} lecciones</span>
           <span>📈 {course.data.level}</span>
         </div>
-        {
-          city && cityStudents && (
-            <p class="mt-3 inline-block rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold text-white">
-              📍 {cityStudents} estudiantes lo están tomando en {city.name}
-            </p>
-          )
-        }
       </div>
 
       <!-- Card de compra -->
@@ -769,7 +785,11 @@ const schemas = [
         {city ? `¿Listo para empezar desde ${city.name}?` : '¿Listo para empezar?'}
       </h2>
       <p class="mx-auto mt-3 max-w-xl text-white/80">
-        Únete a {course.data.students.toLocaleString('es-CO')} estudiantes que ya están aprendiendo con este curso.
+        {
+          sinProducto
+            ? 'Déjanos tus datos y te avisamos en cuanto abramos las inscripciones.'
+            : `Únete a ${course.data.students.toLocaleString('es-CO')} estudiantes que ya están aprendiendo con este curso.`
+        }
       </p>
       <a
         href={ctaUrl}
