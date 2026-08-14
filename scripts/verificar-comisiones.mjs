@@ -26,6 +26,23 @@ const filtro = process.argv.slice(2).filter((a) => !a.startsWith('--'));
 
 const log = (...a) => { if (!JSON_OUT) console.log(...a); };
 
+/**
+ * Cursos que NO bloquean aunque publiquen sin comisión, porque están esperando
+ * una decisión de negocio y no un arreglo de código.
+ *
+ * Es una lista corta y a mano a propósito: cada entrada obliga a escribir por
+ * qué. Si esto se llenara, el guardián dejaría de guardar nada.
+ *
+ * Sin la lista, un solo curso bloqueado tumbaría TODOS los PR del repo —
+ * incluido el que viniera a resolverlo.
+ */
+const EXCEPCIONES = {
+  'curso-de-maquillaje':
+    'Publica N41531652U y JP no está afiliado a ese producto. Su única ' +
+    'afiliación de maquillaje (Nayeli Style) vende otros cuatro. Decisión ' +
+    'pendiente: afiliarse al que publica, o cambiar la ficha de producto.',
+};
+
 /** El frontmatter se lee a mano para no depender del runtime de Astro. */
 function leerCursos() {
   return readdirSync(CURSOS)
@@ -95,5 +112,14 @@ if (JSON_OUT) {
   for (const r of errores) log(`\n  ⚠️  ${r.slug}: ${r.detalle}`);
 }
 
-/* Solo los que ya tienen enlace bloquean: un curso sin publicar todavía no es un fallo. */
-process.exit(sinRef.length || noCheckout.length ? 1 : 0);
+/* Solo los que ya tienen enlace bloquean: un curso sin publicar todavía no es un
+   fallo. Y los que esperan una decisión de negocio se avisan, no frenan. */
+const bloquean = sinRef.filter((r) => !EXCEPCIONES[r.slug]);
+for (const r of sinRef.filter((r) => EXCEPCIONES[r.slug])) {
+  log(`\n  🟡 ${r.slug} — sin comisión, tolerado por excepción documentada`);
+  log(`     ${EXCEPCIONES[r.slug]}`);
+}
+if (bloquean.length || noCheckout.length) {
+  log(`\n❌ ${bloquean.length + noCheckout.length} curso(s) publicables sin comisión. No se despliega así.`);
+}
+process.exit(bloquean.length || noCheckout.length ? 1 : 0);
