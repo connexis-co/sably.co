@@ -1,5 +1,5 @@
 ---
-title: Curso de Barismo y Café de Especialidad
+title: Curso de Barista
 metaTitle: Curso de Barista Online con Certificado | Café de Especialidad
 category: hospitalidad
 subcategory: cafe
@@ -36,7 +36,7 @@ modules:
       - Monta tu barra de café para eventos
       - Costeo de bebidas y carta rentable
       - El camino hacia tu propia cafetería
-priceUSD: 32
+priceUSD: 35
 originalPriceUSD: 53
 rating: 4.7
 ratingCount: 264
@@ -69,7 +69,13 @@ faqs:
     a: El acceso es de por vida. Puedes ir a tu ritmo y repasar la calibración o el arte latte las veces que necesites.
   - q: ¿Qué pasa si el curso no me gusta?
     a: Tienes 7 días de garantía. Si no es lo que esperabas, Hotmart te devuelve el 100% de tu dinero.
-hotmartUrl: https://pay.hotmart.com/PENDIENTE
+# El acortador lleva dentro la oferta (off=asygfpvk) y el ref de afiliado
+# (Q71026638W). Por eso no hay `hotmartRef` aquí: añadirlo duplicaría el
+# parámetro. Destino verificado: pay.hotmart.com/S42525676Y
+hotmartUrl: https://hotm.io/barista-training-35
+# CURSOSDECOCINA no acepta el cupón del sitio: el precio ya viaja en la oferta
+# del acortador. Ver src/lib/proveedores.ts.
+proveedor: cursosdecocina
 keywords:
   - curso de barista online con certificado
   - curso de barismo y café de especialidad
