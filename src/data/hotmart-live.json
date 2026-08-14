@@ -3,7 +3,7 @@
  "precios": {
   "curso-de-unas": {
    "COP": 165450,
-   "USD": 49.99
+   "USD": 89.99
   },
   "curso-de-airbnb": {
    "COP": 165450,
@@ -226,7 +226,7 @@
    "USD": 49.99
   },
   "curso-de-limpieza-facial": {
-   "COP": 330950,
+   "COP": 165450,
    "USD": 99.99
   },
   "curso-de-macrame": {
@@ -378,7 +378,7 @@
    "USD": 49.99
   },
   "curso-de-unas-acrilicas": {
-   "COP": 165450,
+   "COP": 331000,
    "USD": 49.99
   },
   "curso-de-barista": {
@@ -389,6 +389,18 @@
   },
   "curso-de-velas-artesanales-y-aromaticas": {
    "USD": 49.99
+  },
+  "curso-de-drenaje-linfatico": {
+   "USD": 68
+  },
+  "curso-de-jabones-artesanales-para-vender": {
+   "USD": 49.99
+  },
+  "curso-de-soldadura": {
+   "USD": 57
+  },
+  "curso-de-wedding-planner-y-eventos": {
+   "USD": 59.99
   }
  },
  "valoraciones": {
@@ -425,7 +437,7 @@
    "total": 2
   },
   "curso-de-barberia": {
-   "rating": 4.3,
+   "rating": 4.7,
    "total": 47
   },
   "curso-de-bartender": {
@@ -569,8 +581,8 @@
    "total": 10
   },
   "curso-de-limpieza-facial": {
-   "rating": 4,
-   "total": 147
+   "rating": 5,
+   "total": 2
   },
   "curso-de-macrame": {
    "rating": 4.9,
@@ -711,14 +723,25 @@
   "curso-de-velas-artesanales-y-aromaticas": {
    "rating": 3.1,
    "total": 67
+  },
+  "curso-de-drenaje-linfatico": {
+   "rating": 4.9,
+   "total": 201
+  },
+  "curso-de-jabones-artesanales-para-vender": {
+   "rating": 4.5,
+   "total": 83
+  },
+  "curso-de-wedding-planner-y-eventos": {
+   "rating": 4.4,
+   "total": 39
   }
  },
  "productos": {
   "curso-de-unas": {
-   "payUrl": "https://pay.hotmart.com/C55918118T",
-   "hotlink": "W76206229K",
-   "titulo": "Curso de Uñas: Aprende el Negocio",
-   "idProducto": 1540395
+   "payUrl": "https://pay.hotmart.com/L64043354A",
+   "hotlink": "B76206194Y",
+   "titulo": "Curso El Negocio de las Uñas y Manicura Profesional"
   },
   "curso-de-airbnb": {
    "payUrl": "https://pay.hotmart.com/S39174613C",
@@ -740,8 +763,9 @@
   },
   "curso-de-automaquillaje": {
    "payUrl": "https://pay.hotmart.com/S42624359I",
-   "hotlink": "",
-   "titulo": "Curso de Automaquillaje"
+   "hotlink": "S76206366L",
+   "titulo": "Curso de Automaquillaje",
+   "idProducto": 1111134
   },
   "curso-de-balayage": {
    "payUrl": "https://pay.hotmart.com/X62294171S",
@@ -768,8 +792,9 @@
   },
   "curso-de-barberia": {
    "payUrl": "https://pay.hotmart.com/H43635981L",
-   "hotlink": "",
-   "titulo": "Curso de Barbería desde Cero"
+   "hotlink": "G76206244I",
+   "titulo": "Curso de Barbería desde Cero",
+   "idProducto": 1148262
   },
   "curso-de-bartender": {
    "payUrl": "https://pay.hotmart.com/F69226929Q",
@@ -796,8 +821,9 @@
   },
   "curso-de-cejas-y-pestanas": {
    "payUrl": "https://pay.hotmart.com/A42487377P",
-   "hotlink": "",
-   "titulo": "Curso de Cejas y Pestañas"
+   "hotlink": "G76205732L",
+   "titulo": "Curso de Cejas y Pestañas",
+   "idProducto": 1105889
   },
   "curso-de-cerveza-artesanal": {
    "payUrl": "https://pay.hotmart.com/G57439951T",
@@ -881,8 +907,9 @@
   },
   "curso-de-decoracion-de-unas": {
    "payUrl": "https://pay.hotmart.com/P58716037X",
-   "hotlink": "",
-   "titulo": "Curso de Decoración de Uñas"
+   "hotlink": "J76206210L",
+   "titulo": "Curso de Decoración de Uñas",
+   "idProducto": 1643331
   },
   "curso-de-defensa-personal-para-mujeres": {
    "payUrl": "https://pay.hotmart.com/T42582853E",
@@ -892,8 +919,9 @@
   },
   "curso-de-depilacion": {
    "payUrl": "https://pay.hotmart.com/V66724421L",
-   "hotlink": "",
-   "titulo": "Curso de Depilación"
+   "hotlink": "R76206186X",
+   "titulo": "Curso de Depilación",
+   "idProducto": 1931221
   },
   "curso-de-desayunos-sorpresa": {
    "payUrl": "https://pay.hotmart.com/G49406356L",
@@ -943,8 +971,9 @@
   },
   "curso-de-extensiones-de-pestanas": {
    "payUrl": "https://pay.hotmart.com/G75458369D",
-   "hotlink": "",
-   "titulo": "Curso de Extensiones de Pestañas"
+   "hotlink": "P77654571U",
+   "titulo": "Curso de Extensiones de Pestañas",
+   "idProducto": 2370504
   },
   "curso-de-flores-con-globos": {
    "payUrl": "https://pay.hotmart.com/U68605508W",
@@ -1034,8 +1063,9 @@
   },
   "curso-de-limpieza-facial": {
    "payUrl": "https://pay.hotmart.com/U66774408M",
-   "hotlink": "",
-   "titulo": "Curso de Limpieza Facial Profesional"
+   "hotlink": "V77634736S",
+   "titulo": "Curso de Limpieza Facial Profesional",
+   "idProducto": 1933347
   },
   "curso-de-macrame": {
    "payUrl": "https://pay.hotmart.com/T55503335K",
@@ -1051,8 +1081,9 @@
   },
   "curso-de-manicure-y-pedicure": {
    "payUrl": "https://pay.hotmart.com/A60343346C",
-   "hotlink": "",
-   "titulo": "Curso de Manicure y Pedicure a Domicilio"
+   "hotlink": "D76206117I",
+   "titulo": "Curso de Manicure y Pedicure a Domicilio",
+   "idProducto": 1700402
   },
   "curso-de-maquillaje-de-fantasia": {
    "payUrl": "https://pay.hotmart.com/Y60358345H",
@@ -1073,8 +1104,9 @@
   },
   "curso-de-maquillaje": {
    "payUrl": "https://pay.hotmart.com/N41531652U",
-   "hotlink": "",
-   "titulo": "Curso de Maquillaje"
+   "hotlink": "O76206371T",
+   "titulo": "Curso de Maquillaje",
+   "idProducto": 1066380
   },
   "curso-de-masaje-descontracturante": {
    "payUrl": "https://pay.hotmart.com/C59922402Y",
@@ -1084,18 +1116,21 @@
   },
   "curso-de-masaje-reductor": {
    "payUrl": "https://pay.hotmart.com/Q56744994D",
-   "hotlink": "",
-   "titulo": "Curso de Masaje Reductor"
+   "hotlink": "E77558301G",
+   "titulo": "Curso de Masaje Reductor",
+   "idProducto": 1570762
   },
   "curso-de-masajes-terapeuticos-y-relajantes": {
    "payUrl": "https://pay.hotmart.com/A43483573K",
-   "hotlink": "",
-   "titulo": "Curso de Masajes Terapéuticos y Relajantes"
+   "hotlink": "W77640399F",
+   "titulo": "Curso de Masajes Terapéuticos y Relajantes",
+   "idProducto": 1142339
   },
   "curso-de-masajes": {
    "payUrl": "https://pay.hotmart.com/K63104274A",
-   "hotlink": "",
-   "titulo": "Curso de Masajes"
+   "hotlink": "W77640286L",
+   "titulo": "Curso de Masajes",
+   "idProducto": 1801205
   },
   "curso-de-mecanica-de-bicicletas": {
    "payUrl": "https://pay.hotmart.com/E42783931E",
@@ -1140,8 +1175,9 @@
   },
   "curso-de-peinados": {
    "payUrl": "https://pay.hotmart.com/Y66385340K",
-   "hotlink": "",
-   "titulo": "Curso de Peinados"
+   "hotlink": "F85675229G",
+   "titulo": "Curso de Peinados",
+   "idProducto": 1917918
   },
   "curso-de-peluqueria": {
    "payUrl": "https://pay.hotmart.com/B28818422Q",
@@ -1243,8 +1279,9 @@
   },
   "curso-de-trenzas-y-peinados": {
    "payUrl": "https://pay.hotmart.com/V48797673L",
-   "hotlink": "",
-   "titulo": "Curso de Trenzas y Peinados"
+   "hotlink": "F76206250B",
+   "titulo": "Curso de Trenzas y Peinados",
+   "idProducto": 1319780
   },
   "curso-de-unas-acrilicas": {
    "payUrl": "https://pay.hotmart.com/C55918118T",
@@ -1269,9 +1306,32 @@
    "hotlink": "O107109925N",
    "titulo": "Curso de Velas Artesanales y Aromáticas",
    "idProducto": 1486248
+  },
+  "curso-de-drenaje-linfatico": {
+   "payUrl": "https://pay.hotmart.com/B53559711P",
+   "hotlink": "P107158963M",
+   "titulo": "Curso de Drenaje Linfático Brasileño",
+   "idProducto": 1458062
+  },
+  "curso-de-jabones-artesanales-para-vender": {
+   "payUrl": "https://pay.hotmart.com/J60495428H",
+   "hotlink": "B107158999U",
+   "titulo": "Curso de Jabones Artesanales para Emprender",
+   "idProducto": 1705934
+  },
+  "curso-de-soldadura": {
+   "payUrl": "https://pay.hotmart.com/M98302199F",
+   "hotlink": "N107158943B",
+   "titulo": "Curso de Soldadura, Enderezado y Pintura Automotriz"
+  },
+  "curso-de-wedding-planner-y-eventos": {
+   "payUrl": "https://pay.hotmart.com/S55291424C",
+   "hotlink": "D107110068R",
+   "titulo": "Curso de Wedding Planner y Organización de Bodas",
+   "idProducto": 1519050
   }
  },
- "_capturado": "2026-08-14T06:20:11.593Z",
+ "_capturado": "2026-08-14T10:57:40.450Z",
  "resenas": {
   "curso-de-unas": [
    {
@@ -1349,14 +1409,14 @@
   ],
   "curso-de-barberia": [
    {
-    "nombre": "Edyt",
+    "nombre": "JUAN",
     "rating": 5,
-    "texto": "Cuándo empecé con el curso de barbería lo tenía muy complicado y con mucho miedo, el curso la verdad me ha ayudado a pod"
+    "texto": "Si me gustó mucho cada explicación de los degradados y el corte clasico había técnicas que no sabía y la tomare en cuent"
    },
    {
-    "nombre": "Dulce",
+    "nombre": "Carlos",
     "rating": 5,
-    "texto": "Muy productivo en realidad ayuda bastante "
+    "texto": "Me ha gustado el contenido del curso!! Me falta es poder descargar el certificado "
    }
   ],
   "curso-de-bartender": [
@@ -1710,14 +1770,9 @@
   ],
   "curso-de-limpieza-facial": [
    {
-    "nombre": "Margarita",
+    "nombre": "Yanet",
     "rating": 5,
-    "texto": "SUPER INTERESANTE, EXPLICA MUY CLARAMENTE,Y SUPER FACIL DE ASIMILAR, Y MUY PROFESIONAL. LO RECOMIENDO. GRACIAS"
-   },
-   {
-    "nombre": "Erika",
-    "rating": 4,
-    "texto": "Accesible, facil comprension , muy amplio. Si se aprende."
+    "texto": "me gusto mucho esta muy explisito"
    }
   ],
   "curso-de-macrame": [
@@ -2077,6 +2132,42 @@
     "nombre": "Elizabeth",
     "rating": 5,
     "texto": "Excelente curso. Motivador para emprender. "
+   }
+  ],
+  "curso-de-drenaje-linfatico": [
+   {
+    "nombre": "Sonia",
+    "rating": 5,
+    "texto": "Estoy encantada con todo lo que aprendí en el curso, son muy profesionales y prácticos a la hora de enseñar, los recomie"
+   },
+   {
+    "nombre": "Dalia",
+    "rating": 5,
+    "texto": "Me gusta aprender cada día más "
+   }
+  ],
+  "curso-de-jabones-artesanales-para-vender": [
+   {
+    "nombre": "Teresa",
+    "rating": 5,
+    "texto": "ME ENCANTO EL CURSO, MUY BIEN EXPLICADO "
+   },
+   {
+    "nombre": "Verónica",
+    "rating": 5,
+    "texto": "Un curso muy completo. "
+   }
+  ],
+  "curso-de-wedding-planner-y-eventos": [
+   {
+    "nombre": "Madelayne",
+    "rating": 5,
+    "texto": "Me encanto la estructura del curso , da herramientas muy valiosos, es un buen inicio para empezar en el mundo de la plan"
+   },
+   {
+    "nombre": "Pamela",
+    "rating": 5,
+    "texto": "me agradó mucho el curso, muy completo y explican muy bien. "
    }
   ]
  },
