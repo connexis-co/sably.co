@@ -35,13 +35,17 @@ const log = (...a) => { if (!JSON_OUT) console.log(...a); };
  *
  * Sin la lista, un solo curso bloqueado tumbaría TODOS los PR del repo —
  * incluido el que viniera a resolverlo.
+ *
+ * Ahora mismo está vacía, y ese es el estado sano: significa que ningún curso
+ * publicado se vende sin acreditar comisión.
+ *
+ * Tuvo una entrada, `curso-de-maquillaje`, con el diagnóstico equivocado de que
+ * JP no estaba afiliado a N41531652U. Sí lo estaba: lo que faltaba era un
+ * acortador que llevara el ref dentro. Con él, el mismo producto acredita
+ * comisión y el cupón sigue llegando. La lección es que «sin ref en la URL» no
+ * prueba «sin afiliación».
  */
-const EXCEPCIONES = {
-  'curso-de-maquillaje':
-    'Publica N41531652U y JP no está afiliado a ese producto. Su única ' +
-    'afiliación de maquillaje (Nayeli Style) vende otros cuatro. Decisión ' +
-    'pendiente: afiliarse al que publica, o cambiar la ficha de producto.',
-};
+const EXCEPCIONES = {};
 
 /** El frontmatter se lee a mano para no depender del runtime de Astro. */
 function leerCursos() {
