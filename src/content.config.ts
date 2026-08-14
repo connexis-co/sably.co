@@ -45,6 +45,12 @@ const courses = defineCollection({
       .array(z.object({ q: z.string(), a: z.string() }))
       .min(4)
       .max(7),
+    /**
+     * Creador del curso, cuando su política comercial se aparta de la general.
+     * Ver src/lib/proveedores.ts: hay creadores que no aceptan el cupón del
+     * sitio porque el precio elegido ya viaja dentro de su acortador.
+     */
+    proveedor: z.string().optional(),
     /** TODO(JP): URL real de checkout Hotmart por curso. */
     hotmartUrl: z.string().url().default('https://pay.hotmart.com/PENDIENTE'),
     /**

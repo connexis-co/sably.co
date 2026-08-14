@@ -23,6 +23,13 @@ interface Props {
   alternates?: HreflangAlternate[];
   schemas?: object[];
   pageType?: string;
+  /**
+   * Marca la página como «sin cupón»: su creador no acepta el descuento del
+   * sitio. Va en el <body> y no en cada enlace porque los CTA salen de cuatro
+   * componentes distintos —ficha, barra fija, popup de salida, banner— y
+   * olvidarse de uno significa prometer un descuento que el checkout no aplica.
+   */
+  sinCupon?: boolean;
   whatsappContext?: string;
   noindex?: boolean;
   /** Imagen social de la página (og:image). */
@@ -38,6 +45,7 @@ const {
   alternates = [],
   schemas = [],
   pageType = 'page',
+  sinCupon = false,
   whatsappContext,
   noindex = false,
   image,
@@ -81,7 +89,7 @@ const allSchemas = [organizationSchema(), ...schemas];
         toda la red Sably. Aquí se disparaba PUBLIC_META_PIXEL_ID (1711030209407213), un píxel
         distinto al que optimizan las campañas, así que Meta no veía estas conversiones. */}
   </head>
-  <body data-page-type={pageType}>
+  <body data-page-type={pageType} data-sin-cupon={sinCupon ? '' : undefined}>
     {
       GTM_ID && (
         <noscript>

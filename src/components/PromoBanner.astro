@@ -157,7 +157,11 @@ const UNIDADES = [
   type Pintable = Omit<PromoCampaign, 'endsAt'> & { endsAt: string | null };
 
   const nodos = document.querySelectorAll<HTMLElement>('[data-promo-barra],[data-promo-bloque]');
-  if (nodos.length) {
+  /* En una página de un creador sin cupón el banner NO se pinta.
+     No es solo que el descuento no aplique: anunciar «−50%» donde el checkout
+     cobra la tarifa entera es discrepancia entre anuncio y destino, y eso Meta
+     lo penaliza y Google puede desaprobar el anuncio. */
+  if (nodos.length && !document.body.hasAttribute('data-sin-cupon')) {
     const pais = document.documentElement.lang?.split('-')[1]?.toLowerCase() ?? 'co';
     const urlKey = new URLSearchParams(location.search).get('promo');
 
