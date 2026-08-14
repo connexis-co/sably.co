@@ -92,7 +92,22 @@ interface CourseSchemaInput {
   image?: string;
   price: number;
   priceCurrency: string;
-  instructorName: string;
+  /**
+   * Nombre del instructor. `undefined` cuando no hay uno verificado: en las
+   * fichas sin producto el del frontmatter es inventado, y declarar una
+   * `Person` con credenciales que nadie puede respaldar es peor en el marcado
+   * que en la página, porque Google lo indexa como una entidad real.
+   */
+  instructorName?: string;
+  /**
+   * `false` cuando el curso todavía no tiene checkout.
+   *
+   * Sin producto no hay nada que ofertar: emitir un `Offer` con precio y
+   * `InStock` para algo que no se puede comprar es marcado que no describe la
+   * página, y puede pintar un resultado enriquecido con un precio que no lleva
+   * a ninguna parte.
+   */
+  comprable?: boolean;
   category: string;
   workloadHours: number;
   /** `learnings` del curso → `teaches`, que Google muestra en Course Info. */
@@ -128,7 +143,7 @@ export function courseSchema(c: CourseSchemaInput) {
     url: c.url,
     ...(c.image ? { image: c.image } : {}),
     provider: { '@id': `${SITE.url}/#organization` },
-    instructor: { '@type': 'Person', name: c.instructorName },
+    ...(c.instructorName ? { instructor: { '@type': 'Person', name: c.instructorName } } : {}),
     about: c.category,
     ...(c.teaches?.length ? { teaches: c.teaches } : {}),
     ...(c.level && NIVEL[c.level] ? { educationalLevel: NIVEL[c.level] } : {}),
@@ -167,20 +182,24 @@ export function courseSchema(c: CourseSchemaInput) {
           },
         }
       : {}),
-    offers: {
-      '@type': 'Offer',
-      price: c.price,
-      priceCurrency: c.priceCurrency,
-      availability: 'https://schema.org/InStock',
-      category: 'Paid',
-      url: c.url,
-    },
+    ...(c.comprable === false
+      ? {}
+      : {
+          offers: {
+            '@type': 'Offer',
+            price: c.price,
+            priceCurrency: c.priceCurrency,
+            availability: 'https://schema.org/InStock',
+            category: 'Paid',
+            url: c.url,
+          },
+        }),
     hasCourseInstance: {
       '@type': 'CourseInstance',
       courseMode: 'Online',
       courseWorkload: `PT${c.workloadHours}H`,
       location: { '@type': 'VirtualLocation', url: c.url },
-      instructor: { '@type': 'Person', name: c.instructorName },
+      ...(c.instructorName ? { instructor: { '@type': 'Person', name: c.instructorName } } : {}),
     },
     inLanguage: 'es',
     availableLanguage: ['es'],
