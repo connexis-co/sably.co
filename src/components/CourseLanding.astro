@@ -23,7 +23,7 @@ import {
 import { getCategory, courseCover } from '@/lib/categories';
 import { formatMonto, precioReal } from '@/lib/hotmartLive';
 import { buildHotmartUrl } from '@/lib/hotmart';
-import { aceptaCupon } from '@/lib/proveedores';
+import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
 import { resolvePromo } from '@/lib/promo';
 import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema, videoSchema } from '@/lib/seo';
 import { COURSE_VIDEOS, duracionIso } from '@/lib/course-videos';
@@ -72,6 +72,10 @@ const tituloColisiona = locale
 /* Política del creador: hay quien no acepta el cupón del sitio porque su
    acortador ya trae dentro la oferta elegida. Ver src/lib/proveedores.ts. */
 const conCupon = aceptaCupon(course.data.proveedor);
+
+/* Id del proveedor (normalizado al defecto si falta). Va al <body> para que el
+   banner y el repintado de precio apliquen solo las promociones dirigidas a él. */
+const proveedor = proveedorDe(course.data.proveedor);
 
 const ctaUrl = buildHotmartUrl({
   baseUrl: course.data.hotmartUrl,
@@ -300,6 +304,7 @@ const schemas = [
   {schemas}
   pageType={city ? 'course_city' : 'course'}
   sinCupon={!conCupon}
+  {proveedor}
   whatsappContext={city ? `${course.data.title} (${city.name})` : course.data.title}
 >
   {/* La barra fija anuncia precio y lleva al checkout. Sin producto no hay ni
@@ -325,27 +330,21 @@ const schemas = [
       los dos sitios: una sola petición, un solo cálculo, dos pintados. */}
   <script>
     import { formatMonto, precioConDescuento } from '@/lib/moneda';
-
-    interface Promo {
-      activa?: boolean;
-      pct?: number;
-      cupon?: string;
-      titular?: string;
-      paises?: string[];
-      slugs?: string[];
-      alcance?: string;
-    }
+    import { leerPromos, mejorPromocion } from '@/lib/promo';
 
     const cajas = document.querySelectorAll<HTMLElement>('[data-precio-caja]');
 
     // Sin cupón no hay porcentaje que aplicar: el precio que se muestra ya es
-    // el que cobra el checkout. Repintarlo con el pct de la campaña enseñaría
-    // la mitad y el comprador pagaría el doble.
+    // el que cobra el checkout. Repintarlo con el pct de una promoción enseñaría
+    // la mitad y el comprador pagaría el doble. Esta guarda es la última línea:
+    // aunque una promoción apuntara por error a un curso sin cupón, aquí no se
+    // repinta.
     if (cajas.length && !document.body.hasAttribute('data-sin-cupon')) {
-      fetch('/api/v1/promo')
-        .then((r) => (r.ok ? (r.json() as Promise<Promo>) : null))
-        .then((p) => {
-          if (!p?.activa || !p.pct) return;
+      const proveedor = document.body.dataset.proveedor ?? 'masterclasses';
+
+      leerPromos()
+        .then((promos) => {
+          if (!promos.length) return;
 
           for (const caja of cajas) {
             const monto = Number(caja.dataset.monto);
@@ -354,18 +353,18 @@ const schemas = [
             const slug = caja.dataset.slug ?? '';
             if (!Number.isFinite(monto) || monto <= 0 || !moneda) continue;
 
-            // Solo si la campaña cubre este país y este curso. Anunciar en la
-            // ficha un descuento que no aplica lleva a un checkout más caro que
-            // lo prometido, que es la peor forma de perder una venta.
-            if (Array.isArray(p.paises) && p.paises.length && !p.paises.includes(pais)) continue;
-            if (p.alcance === 'slugs' && Array.isArray(p.slugs) && !p.slugs.includes(slug)) continue;
+            // La promoción que de verdad cubre este curso, país y proveedor. Si
+            // ninguna aplica, el precio de tabla se queda como está: nunca se
+            // anuncia un descuento que este curso no recibe en el checkout.
+            const promo = mejorPromocion(promos, { countryCode: pais, proveedor, courseSlug: slug });
+            if (!promo) continue;
 
             const real = caja.querySelector<HTMLElement>('[data-precio-real]');
             const tachado = caja.querySelector<HTMLElement>('[data-precio-tachado]');
             const badge = caja.querySelector<HTMLElement>('[data-promo-badge]');
             if (!real) continue;
 
-            const final = precioConDescuento(monto, moneda, p.pct);
+            const final = precioConDescuento(monto, moneda, promo.pct);
             if (final >= monto) continue; // descuento nulo: no se toca nada
 
             real.textContent = formatMonto(final, moneda);
@@ -376,7 +375,7 @@ const schemas = [
               tachado.hidden = false;
             }
             if (badge) {
-              badge.textContent = `−${p.pct}%`;
+              badge.textContent = `−${promo.pct}%`;
               badge.hidden = false;
             }
           }

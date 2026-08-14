@@ -146,9 +146,10 @@ const UNIDADES = [
 
 <script>
   import {
-    campaignDeOverride,
+    campaignDePromocion,
     formatCountdown,
-    leerOverride,
+    leerPromos,
+    mejorPromocion,
     msRestantes,
     resolvePromo,
     type PromoCampaign,
@@ -164,9 +165,10 @@ const UNIDADES = [
   if (nodos.length && !document.body.hasAttribute('data-sin-cupon')) {
     const pais = document.documentElement.lang?.split('-')[1]?.toLowerCase() ?? 'co';
     const urlKey = new URLSearchParams(location.search).get('promo');
+    const proveedor = document.body.dataset.proveedor ?? 'masterclasses';
 
     // El slug del curso sale de la ruta: /<pais>/[ciudad/]<slug>/. Sirve para el
-    // alcance «solo estos cursos» del panel.
+    // alcance por curso (incluir/excluir) de las promociones del panel.
     const tramos = location.pathname.split('/').filter(Boolean);
     const courseSlug = tramos.find((t) => t.startsWith('curso-'));
 
@@ -175,9 +177,11 @@ const UNIDADES = [
     let promo: Pintable | null = resolvePromo({ countryCode: pais, now: new Date(), urlKey });
     if (promo) nodos.forEach((el) => pintar(el, promo!));
 
-    // El override manda, así que si llega y difiere, se repinta.
-    leerOverride().then((o) => {
-      const manual = o && campaignDeOverride(o, { countryCode: pais, courseSlug });
+    // Las promociones del panel mandan sobre el calendario. Se elige la que
+    // cubre este curso por proveedor, país y exclusiones; si difiere, se repinta.
+    leerPromos().then((promos) => {
+      const p = mejorPromocion(promos, { countryCode: pais, proveedor, courseSlug });
+      const manual = p && campaignDePromocion(p);
       if (manual && manual.id !== promo?.id) {
         promo = manual;
         nodos.forEach((el) => pintar(el, manual));
