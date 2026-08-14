@@ -3,6 +3,12 @@ name: CI Pipeline
 on:
   pull_request:
     branches: [develop, main]
+  # También en push a main. Un job que solo corre en pull request no protege
+  # nada: hoy ya llegó a producción un botón de compra que decía «Inscribirme
+  # con % OFF» porque dos ramas verdes por separado se rompieron al fusionarse,
+  # y nadie volvió a comprobarlo.
+  push:
+    branches: [main]
 
 jobs:
   quality:
@@ -21,7 +27,18 @@ jobs:
         run: npm run check
       - name: Build
         run: npm run build
+      - name: Comisiones de afiliado
+        # Ningún curso publicable puede llegar a producción con un enlace que no
+        # acredite comisión. Sigue las redirecciones reales y exige `ref=` en el
+        # DESTINO: un acortador puede estar vivo, llevar al producto correcto y
+        # aun así no pagar. Los cursos sin enlace todavía no bloquean, y los que
+        # esperan una decisión de negocio están documentados en el propio script.
+        run: node scripts/verificar-comisiones.mjs
+
       - name: Validar commits (Conventional Commits)
+        # Solo en pull request: en un push no existe `event.pull_request` y el
+        # paso fallaría con un rango de commits vacío.
+        if: github.event_name == 'pull_request'
         run: |
           npm i -D @commitlint/cli @commitlint/config-conventional --no-save
           npx commitlint --from=${{ github.event.pull_request.base.sha }} --to=${{ github.event.pull_request.head.sha }} --verbose
