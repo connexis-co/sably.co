@@ -256,7 +256,7 @@ const schemas = [
     /* Sin producto no hay instructor verificado: el del frontmatter es de
        relleno y declararlo como `Person` mete en el índice de Google a alguien
        que no existe, con credenciales de un oficio de riesgo. */
-    instructorName: sinProducto ? undefined : course.data.instructor.name,
+    instructorName: sinProducto ? undefined : course.data.instructor?.name,
     comprable: !sinProducto,
     category: category.name,
     workloadHours: course.data.durationHours,
@@ -418,14 +418,18 @@ const schemas = [
               y además se pueden pulsar para dejar la propia. El componente ya
               existía desde el PR #67 pero no estaba montado en ninguna página,
               así que la ficha seguía con las estrellas de solo lectura. */}
-          {!sinProducto && (
+          {/* Un curso puede venderse y no tener todavia ninguna resena en
+              Hotmart. Antes estos campos eran obligatorios y por eso siempre
+              habia algo que pintar; ahora que son opcionales hay que
+              comprobarlos, o la ficha revienta el build. */}
+          {!sinProducto && course.data.rating != null && course.data.ratingCount != null && (
             <RatingInteractivo
               slug={course.id}
               rating={course.data.rating}
               count={course.data.ratingCount}
             />
           )}
-          {!sinProducto && (
+          {!sinProducto && course.data.students != null && (
             <span>👥 {course.data.students.toLocaleString('es-CO')} estudiantes</span>
           )}
           <span>🕐 {course.data.durationHours} horas</span>
@@ -733,7 +737,7 @@ const schemas = [
            de riesgo físico eso no es una exageración de marketing. Además, al
            afiliarse al producto real el instructor será otro y la ficha
            contradiría al checkout. */
-        !sinProducto && (
+        !sinProducto && course.data.instructor && (
           <div class="rounded-lg border border-surface-200 p-6">
             <h2 class="text-sm font-bold tracking-wide text-muted uppercase">Tu instructor</h2>
             <div class="mt-4 flex items-center gap-4">
@@ -837,7 +841,9 @@ const schemas = [
         {
           sinProducto
             ? 'Déjanos tus datos y te avisamos en cuanto abramos las inscripciones.'
-            : `Únete a ${course.data.students.toLocaleString('es-CO')} estudiantes que ya están aprendiendo con este curso.`
+            : course.data.students != null
+              ? `Únete a ${course.data.students.toLocaleString('es-CO')} estudiantes que ya están aprendiendo con este curso.`
+              : 'Empieza hoy y aprende a tu ritmo, con acceso de por vida.'
         }
       </p>
       {
