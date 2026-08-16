@@ -71,9 +71,9 @@ export function categoriasUrls(): UrlEntry[] {
   for (const c of COUNTRIES) {
     for (const cat of INTERNAL_CATEGORIES) {
       urls.push(u(`/${c.code}/cursos/${cat.slug}/`, 0.8));
-      for (const city of c.cities) {
-        urls.push(u(`/${c.code}/${city.slug}/cursos/${cat.slug}/`, 0.6, 'monthly'));
-      }
+      // Las páginas categoría-ciudad se canonicalizan al pilar de país
+      // (ver [category]/index.astro) → fuera del sitemap para no cebar el crawl
+      // de casi-duplicados ("Descubierta: actualmente sin indexar").
     }
   }
   return urls;
@@ -101,9 +101,8 @@ export async function cursosUrls(countryCode: string): Promise<UrlEntry[]> {
       };
     }
     urls.push(entrada);
-    for (const city of country.cities) {
-      urls.push(u(`/${country.code}/${city.slug}/${course.id}/`, 0.5, 'monthly'));
-    }
+    // Las páginas curso-ciudad se canonicalizan al pilar de país (CourseLanding)
+    // → fuera del sitemap: eran ~4.356 casi-duplicados que diluían el crawl budget.
   }
   return urls;
 }
