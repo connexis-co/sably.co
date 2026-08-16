@@ -66,6 +66,25 @@ export const PROVEEDORES: Record<string, Proveedor> = {
     // prometido. No se le conoce cupón propio; si aparece, se añade.
     cupon: false,
   },
+  soldadura: {
+    id: 'soldadura',
+    nombre: 'Soldadura, Enderezado y Pintura (productor externo)',
+    // Checkout M98302199F (ref N107158943B): 57 USD con y sin
+    // `?offDiscount=031016` —ratio 1, medido el 2026-08-15 con
+    // scripts/auditar-cupon.mjs—. Es otro productor; el cupón de MasterClasses
+    // no descuenta en su checkout. Sin él, la ficha anunciaba un −50 % que la
+    // pasarela no honra.
+    cupon: false,
+  },
+  drenaje: {
+    id: 'drenaje',
+    nombre: 'Drenaje Linfático Brasileño (productor externo)',
+    // Checkout B53559711P: 68 USD con y sin `?offDiscount=031016` —ratio 1,
+    // medido el 2026-08-15—. Su acortador ya trae la oferta propia del creador
+    // (`?off=w67n661i`), igual que Cursosdecocina; el cupón del sitio no aplica
+    // encima. Marcarlo evita repintar un descuento inexistente.
+    cupon: false,
+  },
 };
 
 /** Normaliza el `proveedor` del frontmatter al id de un proveedor conocido. */
