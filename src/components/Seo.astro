@@ -11,6 +11,8 @@ interface Props {
   ogType?: 'website' | 'article';
   /** Imagen social (ruta relativa o absoluta). Sin ella no se emite og:image. */
   image?: string;
+  /** Canonical explícito (p.ej. página de ciudad → pilar de país). Absoluto o relativo. */
+  canonical?: string;
 }
 
 const {
@@ -21,8 +23,11 @@ const {
   noindex = false,
   ogType = 'website',
   image,
+  canonical: canonicalOverride,
 } = Astro.props;
-const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const canonical = canonicalOverride
+  ? new URL(canonicalOverride, SITE.url).href
+  : new URL(Astro.url.pathname, SITE.url).href;
 /* Absoluta siempre: WhatsApp y Facebook ignoran og:image relativas. */
 const ogImage = image ? new URL(image, SITE.url).href : null;
 
@@ -46,7 +51,13 @@ function jsonLd(schema: object): string {
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
+{
+  noindex ? (
+    <meta name="robots" content="noindex, nofollow" />
+  ) : (
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  )
+}
 {alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
 
 <meta property="og:type" content={ogType} />
