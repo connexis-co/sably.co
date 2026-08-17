@@ -301,7 +301,6 @@ const schemas = [
   {city}
   pathAfterCountry={`/${course.id}/`}
   alternates={city ? [] : countryAlternates(`/${course.id}/`)}
-  canonical={city ? `${SITE.url}${base}/${course.id}/` : undefined}
   {schemas}
   pageType={city ? 'course_city' : 'course'}
   sinCupon={!conCupon}
