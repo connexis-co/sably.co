@@ -85,6 +85,17 @@ export const PROVEEDORES: Record<string, Proveedor> = {
     // encima. Marcarlo evita repintar un descuento inexistente.
     cupon: false,
   },
+  enjoydigital: {
+    id: 'enjoydigital',
+    nombre: 'Enjoy Digital · Marketing Digital 360 (productor externo)',
+    // Producto R103083504J (255 USD / 750.000 COP). Su hotlink de afiliado
+    // (go.hotmart.com/J107159036B) pasa por el embudo propio del creador en
+    // enjoydigital.co; el enlace publicado apunta directo al checkout con el
+    // ref (pay.hotmart.com/R103083504J?ref=J107159036B) para que la comisión
+    // se atribuya por URL y no dependa de cookies. El cupón 031016 es de
+    // Mauricio Duque, ajeno a este creador: no aplica.
+    cupon: false,
+  },
 };
 
 /** Normaliza el `proveedor` del frontmatter al id de un proveedor conocido. */

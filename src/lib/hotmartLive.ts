@@ -34,32 +34,35 @@ export interface PrecioReal {
 }
 
 /**
- * Tasa que Hotmart aplica entre USD y la moneda local, deducida del propio
- * catálogo capturado: no es una conversión nuestra, es la relación que exhiben
- * la inmensa mayoría de los productos.
+ * Banda de tasa USD→moneda local PLAUSIBLE por país. No es una conversión
+ * nuestra: es el rango real en que los distintos creadores fijan su precio
+ * local. Antes era un punto fijo (COP 3310 ±5 %), pero cada productor convierte
+ * a su antojo —MasterClasses 3310, Roy 3277, Enjoy Digital 2941— y la banda
+ * estrecha rechazaba precios REALES: marketing 750.000 COP / 255 USD (rate
+ * 2941) caía fuera y la ficha mostraba 255 USD en vez de los 750.000 que cobra
+ * el checkout. La banda ancha solo caza un COP absurdo frente al USD (el bug
+ * original: unas 331.000 / 49,99 = rate 6.621, fósil del producto viejo).
  */
-const TASA: Record<string, number> = { COP: 3310 };
-
-/** Cuánto puede desviarse un precio local de la tasa antes de no fiarse. */
-const TOLERANCIA = 0.05;
+const BANDA_TASA: Record<string, [number, number]> = { COP: [2400, 5200] };
 
 /**
- * ¿El precio local cuadra con el USD del mismo producto?
+ * ¿El precio local cuadra —de forma plausible— con el USD del mismo producto?
  *
- * Existe porque ya pasó: `curso-de-unas-acrilicas` se publicó a 331.000 COP
- * con 49,99 USD —el doble de lo que cobra el checkout— y `curso-de-limpieza-
- * facial` a 165.450 con 99,99, la mitad. El COP se había quedado viejo mientras
- * el USD se recapturaba, y nadie lo vio porque cada cifra, por separado, es
- * plausible.
+ * Existe porque ya pasó: `curso-de-unas-acrilicas` se publicó a 331.000 COP con
+ * 49,99 USD (rate 6.621, el doble de lo que cobra el checkout). El COP se había
+ * quedado viejo mientras el USD se recapturaba, y cada cifra por separado es
+ * plausible. Ahora COP y USD se capturan del MISMO checkout por geo, así que son
+ * coherentes por construcción; esto solo descarta un COP fósil obvio.
  *
- * Anunciar menos de lo que cobra el checkout es lo peor que puede pasar aquí:
- * el comprador llega al pago y ve otro número. Ante la duda se devuelve el USD,
- * que es el que se captura de verdad.
+ * Anunciar menos de lo que cobra el checkout es lo peor que puede pasar aquí: el
+ * comprador llega al pago y ve otro número. Ante la duda se devuelve el USD, que
+ * es el que se captura de verdad.
  */
 function localFiable(local: number, usd: number, moneda: string): boolean {
-  const tasa = TASA[moneda];
-  if (!tasa) return true; // sin referencia no se puede juzgar; se respeta
-  return Math.abs(local - usd * tasa) / (usd * tasa) <= TOLERANCIA;
+  const banda = BANDA_TASA[moneda];
+  if (!banda || !(usd > 0)) return true; // sin referencia no se puede juzgar; se respeta
+  const rate = local / usd;
+  return rate >= banda[0] && rate <= banda[1];
 }
 
 /** Precio real del checkout para el país, con USD como respaldo. */

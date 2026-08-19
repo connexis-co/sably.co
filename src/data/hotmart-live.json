@@ -510,6 +510,10 @@
    "USD": 59.99,
    "CLP": 68921.23,
    "COP": 196600
+  },
+  "curso-de-marketing-digital": {
+   "COP": 750000,
+   "USD": 255
   }
  },
  "valoraciones": {
@@ -844,6 +848,10 @@
   "curso-de-wedding-planner-y-eventos": {
    "rating": 4.4,
    "total": 39
+  },
+  "curso-de-marketing-digital": {
+   "rating": 5,
+   "total": 7
   }
  },
  "productos": {
@@ -1438,6 +1446,12 @@
    "hotlink": "D107110068R",
    "titulo": "Curso de Wedding Planner y Organización de Bodas",
    "idProducto": 1519050
+  },
+  "curso-de-marketing-digital": {
+   "payUrl": "https://pay.hotmart.com/R103083504J",
+   "hotlink": "J107159036B",
+   "titulo": "Curso de Marketing Digital 360",
+   "idProducto": 6690506
   }
  },
  "_capturado": "2026-08-19T10:26:42.882Z",
