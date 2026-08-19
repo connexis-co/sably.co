@@ -18,7 +18,7 @@
  * Hotmart.
  */
 import type { Env } from '../_shared';
-import { error, json } from '../_shared';
+import { MONEDAS_ISO, error, json } from '../_shared';
 
 /**
  * El payload del checkout (Nuxt, serializado con devalue) aplana los objetos:
@@ -26,15 +26,29 @@ import { error, json } from '../_shared';
  * Aparecen el precio localizado por IP y el base en USD; se toma la primera
  * aparición de cada moneda. Verificado contra C55918118T:
  * [165450 COP, 49.99 USD].
+ *
+ * Dos filtros aprendidos a golpes (medidos el 2026-08-18 contra M98302199F):
+ *
+ * · Solo monedas reales. El regex también atrapaba `"RUT":19` del checkout
+ *   chileno (el campo del documento, con el IVA al lado) y ese «RUT» viajó
+ *   como divisa hasta quedar horneado en los 102 cursos del JSON.
+ * · Si el checkout muestra una moneda local ADEMÁS del USD, ese USD no es el
+ *   precio base: es el equivalente que ve ESE país, IVA incluido (Chile lo
+ *   engorda un 19 %: 57 → 67,83). Guardarlo pisaba el USD real y la web llegó
+ *   a sobrecotizar soldadura a US$67,83. El USD solo se guarda cuando viene
+ *   solo, que es cuando de verdad es el precio del país-USD (EE. UU./Ecuador,
+ *   o el runner del job diario).
  */
 function extraerPrecios(html: string): { moneda: string; monto: number }[] {
   const vistos = new Map<string, number>();
   for (const m of html.matchAll(/(\d{1,9}(?:\.\d{1,2})?),"([A-Z]{3})"/g)) {
     const monto = Number(m[1]);
     const moneda = m[2]!;
+    if (!MONEDAS_ISO.has(moneda)) continue;
     if (!vistos.has(moneda) && monto > 0) vistos.set(moneda, monto);
   }
-  return [...vistos].map(([moneda, monto]) => ({ moneda, monto }));
+  const pares = [...vistos].map(([moneda, monto]) => ({ moneda, monto }));
+  return pares.length > 1 ? pares.filter((p) => p.moneda !== 'USD') : pares;
 }
 
 export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
