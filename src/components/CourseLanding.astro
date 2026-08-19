@@ -195,7 +195,22 @@ const STANDARD_FAQS = [
 
 /* Con variante país, sus 8 FAQs (que ya cubren pagos locales) sustituyen al
    banco genérico: mezclar ambos duplicaría la pregunta de pago. */
-const baseFaqs = locale ? locale.data.faqs : [...course.data.faqs, ...STANDARD_FAQS];
+const baseFaqsRaw = locale ? locale.data.faqs : [...course.data.faqs, ...STANDARD_FAQS];
+/* En cursos sin checkout (PENDIENTE) las FAQ que prometen pago, garantía o
+   acceso inmediato describen algo que todavía no existe. Se filtran y se
+   sustituyen por una honesta de disponibilidad, igual que ya se ocultan la
+   oferta y el instructor: el FAQPage no debe afirmar lo que la ficha no cumple. */
+const baseFaqs = sinProducto
+  ? [
+      ...baseFaqsRaw.filter(
+        (f) => !/(pago|hotmart|garant|reembolso|inscrib|inscríb|se procesa|confirmarse|precio)/i.test(`${f.q} ${f.a}`),
+      ),
+      {
+        q: '¿Cuándo puedo inscribirme?',
+        a: 'Estamos habilitando las inscripciones de este curso. Déjanos tus datos y te avisamos apenas esté disponible, sin compromiso.',
+      },
+    ]
+  : baseFaqsRaw;
 const faqs = city
   ? [
       {
@@ -217,18 +232,30 @@ const tituloPais =
   course.data.metaTitle ??
   `${course.data.title} | Curso Online con Certificado | Sably`;
 const title = city
-  ? `${course.data.title} en ${city.name}, ${country.name} | Online + Certificado | Sably`
+  ? `${course.data.title} en ${city.name}, ${country.name} | Online | Sably`
   : tituloColisiona
     ? `${tituloPais.replace(/\s*\|\s*Sably\s*$/, '')} | ${country.name}`
     : tituloPais;
+
+/* Recorta a un límite de palabra con elipsis. Antes se hacía `.slice(0, 158)`
+   crudo, que cortaba a media palabra («…cobra más por cad») porque el texto
+   compuesto casi siempre pasa de 158. Corta en el último espacio si el recorte
+   no deja la frase demasiado mocha. */
+const recortarDesc = (s: string, max = 158): string => {
+  if (s.length <= max) return s;
+  const corte = s.slice(0, max - 1);
+  const sp = corte.lastIndexOf(' ');
+  return `${(sp > max * 0.6 ? corte.slice(0, sp) : corte).trimEnd()}…`;
+};
+
 const descPais = locale?.data.meta_description ?? course.data.shortDescription;
 const descColisiona = locale
   ? localesDelCurso.filter((l) => l.data.meta_description === locale.data.meta_description).length > 1
   : localesDelCurso.length < COUNTRIES.length - 1;
 const description = city
-  ? `Estudia desde ${city.name}: ${course.data.shortDescription}`.slice(0, 158)
+  ? recortarDesc(`Estudia desde ${city.name}: ${course.data.shortDescription}`)
   : descColisiona
-    ? `Desde ${country.name}: ${descPais}`.slice(0, 158)
+    ? recortarDesc(`Desde ${country.name}: ${descPais}`)
     : descPais;
 
 const breadcrumb = city
