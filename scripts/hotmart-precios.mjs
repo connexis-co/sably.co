@@ -35,6 +35,24 @@ const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const UA = { 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' };
 
+// Espejo de MONEDAS_ISO en functions/api/v1/_shared.ts (este script corre en
+// el runner, fuera del bundle de Pages). El regex de abajo atrapa cualquier
+// trigrama: el checkout chileno coló `"RUT":19` como divisa y quedó horneado
+// en los 102 cursos. Si se añade una moneda allí, añadirla aquí.
+const MONEDAS_ISO = new Set([
+  'USD', 'COP', 'MXN', 'EUR', 'PEN', 'CLP', 'ARS', 'BRL',
+  'UYU', 'PYG', 'BOB', 'GTQ', 'CRC', 'DOP', 'HNL', 'NIO', 'CAD', 'GBP',
+]);
+
+/** Quita del mapa {moneda: monto} lo que no sea una divisa de la lista. */
+function soloMonedasReales(monedas) {
+  const out = {};
+  for (const [m, v] of Object.entries(monedas || {})) {
+    if (MONEDAS_ISO.has(m) && Number(v) > 0) out[m] = v;
+  }
+  return out;
+}
+
 /** Cursos publicados con URL de Hotmart (acortador o go.hotmart). */
 function catalogo() {
   const out = [];
@@ -64,8 +82,13 @@ function extraerPrecios(html) {
   const vistos = new Map();
   for (const m of html.matchAll(/(\d{1,9}(?:\.\d{1,2})?),"([A-Z]{3})"/g)) {
     const monto = Number(m[1]);
+    if (!MONEDAS_ISO.has(m[2])) continue;
     if (!vistos.has(m[2]) && monto > 0) vistos.set(m[2], monto);
   }
+  // Si hay moneda local ADEMÁS del USD, ese USD es el equivalente que ve ese
+  // país con su IVA dentro (Chile: 57 → 67,83), no el precio base. Solo vale
+  // el USD cuando viene solo — el runner de EE. UU. lo ve así siempre.
+  if (vistos.size > 1) vistos.delete('USD');
   return vistos;
 }
 
@@ -77,12 +100,18 @@ async function main() {
     ? JSON.parse(readFileSync(SALIDA, 'utf8'))
     : { _fuente: '', precios: {}, valoraciones: {}, resenas: {}, productos: {} };
 
+  // El spread de abajo arrastra hacia adelante cualquier clave vieja del JSON,
+  // así que lo heredado también se depura o el RUT de ayer vive para siempre.
+  for (const slug of Object.keys(datos.precios)) {
+    datos.precios[slug] = soloMonedasReales(datos.precios[slug]);
+  }
+
   // Lo fresco de D1 primero (monedas capturadas por visitantes de otros países)
   if (args.includes('--merge-api')) {
     try {
       const d = await (await fetch(`${API}/api/v1/precios`, { signal: AbortSignal.timeout(15000) })).json();
       for (const [slug, monedas] of Object.entries(d.precios ?? {})) {
-        datos.precios[slug] = { ...datos.precios[slug], ...monedas };
+        datos.precios[slug] = { ...datos.precios[slug], ...soloMonedasReales(monedas) };
       }
       for (const [slug, v] of Object.entries(d.valoraciones ?? {})) datos.valoraciones[slug] = v;
       console.log('fundido con D1');

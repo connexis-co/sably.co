@@ -8,7 +8,7 @@
  *        captura inicial y cualquier re-siembra manual.
  */
 import type { Env } from '../_shared';
-import { error, json } from '../_shared';
+import { MONEDAS_ISO, error, json } from '../_shared';
 
 const cacheado = (data: unknown, segundos: number): Response =>
   new Response(JSON.stringify(data), {
@@ -72,7 +72,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     );
   }
   for (const p of lote.precios ?? []) {
-    if (!p.slug || !/^[A-Z]{3}$/.test(p.moneda) || !(p.monto > 0)) continue;
+    // Allowlist y no solo forma: `RUT` cumple /^[A-Z]{3}$/ y aun así no es
+    // una moneda. Esta es la puerta de D1: lo que no entra aquí no se sirve.
+    if (!p.slug || !MONEDAS_ISO.has(p.moneda) || !(p.monto > 0)) continue;
     sentencias.push(
       env.DB.prepare(
         `INSERT INTO hotmart_precio (slug, moneda, monto, capturado)

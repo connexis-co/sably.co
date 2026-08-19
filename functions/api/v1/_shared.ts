@@ -17,6 +17,19 @@ export interface Env {
   BREVO_API_KEY?: string;
 }
 
+/**
+ * Monedas que el checkout de Hotmart puede mostrar de verdad en nuestros
+ * mercados. El payload del checkout se lee con un regex de pares
+ * `numero,"XXX"`, y CUALQUIER trigrama en mayúsculas pasaba por moneda: el
+ * checkout de Chile coló `"RUT":19` (el campo del documento chileno, con su
+ * IVA al lado) como si fuera una divisa, y acabó horneado en los 102 cursos
+ * de hotmart-live.json. Todo punto que escriba precios filtra por esta lista.
+ */
+export const MONEDAS_ISO: ReadonlySet<string> = new Set([
+  'USD', 'COP', 'MXN', 'EUR', 'PEN', 'CLP', 'ARS', 'BRL',
+  'UYU', 'PYG', 'BOB', 'GTQ', 'CRC', 'DOP', 'HNL', 'NIO', 'CAD', 'GBP',
+]);
+
 export const json = (data: unknown, status = 200): Response =>
   new Response(JSON.stringify(data), {
     status,
