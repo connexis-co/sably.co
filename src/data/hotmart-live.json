@@ -2,507 +2,514 @@
  "_fuente": "Precios del checkout real de Hotmart (payload SSR) y valoraciones públicas del marketplace. Nada de este fichero es inventado; si un curso no aparece, no se muestra el dato.",
  "precios": {
   "curso-de-unas": {
-   "COP": 165450,
+   "COP": 294950,
    "USD": 89.99,
    "CLP": 103387.2
   },
   "curso-de-airbnb": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-alisados-y-keratina": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-amigurumi": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-automaquillaje": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-balayage": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-barberia-artistica": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-barberia-como-negocio": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-barberia-infantil": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-barberia": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-bartender": {
-   "COP": 198550,
+   "COP": 196600,
    "USD": 59.99,
    "CLP": 68921.23
   },
   "curso-de-bouquets-con-globos": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-canto": {
-   "COP": 99250,
+   "COP": 98250,
    "USD": 29.99,
    "CLP": 34455.26
   },
   "curso-de-carpinteria-y-muebles": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-cejas-y-pestanas": {
-   "COP": 198550,
+   "COP": 196600,
    "USD": 59.99,
    "CLP": 68921.23
   },
   "curso-de-cerveza-artesanal": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-ceviche-peruano": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-chocolateria": {
-   "COP": 264750,
+   "COP": 262150,
    "USD": 79.99,
    "CLP": 91900.13
   },
   "curso-de-cocina": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-colorimetria": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-comidas-rapidas": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-community-manager": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-confeccion-de-ropa-interior": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-contabilidad-basica": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-coreano": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-costura-industrial": {
-   "COP": 331000,
+   "COP": 327700,
    "USD": 99.99,
    "CLP": 114875.46
   },
   "curso-de-crochet": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-cupcakes": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-decoracion-con-globos": {
-   "COP": 198550,
+   "COP": 196600,
    "USD": 59.99,
    "CLP": 68921.23
   },
   "curso-de-decoracion-de-unas": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-defensa-personal-para-mujeres": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-depilacion": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-desayunos-sorpresa": {
-   "COP": 198550,
+   "COP": 196600,
    "USD": 59.99,
    "CLP": 68921.23
   },
   "curso-de-diseno-de-cejas-con-hilo-y-henna": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-dj": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-electricista": {
-   "COP": 198550,
+   "COP": 196600,
    "USD": 59.99,
    "CLP": 68921.23
   },
   "curso-de-energia-solar": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-estetica-canina": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-excel": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-extensiones-de-cabello": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-extensiones-de-pestanas": {
-   "COP": 231650,
+   "COP": 229350,
    "USD": 69.99,
    "CLP": 80410.68
   },
   "curso-de-flores-con-globos": {
-   "COP": 264750,
+   "COP": 262150,
    "USD": 79.99,
    "CLP": 91900.13
   },
   "curso-de-fondant": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-fotografia-con-celular": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-fotografia": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-frances": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-galletas-decoradas": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-globoflexia": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-globos-burbuja": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-guitarra": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-hamburguesas-gourmet": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-ingles-para-ninos": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-ingles": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-instalacion-de-camaras-de-seguridad": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-japones": {
-   "COP": 198550,
+   "COP": 196600,
    "USD": 59.99,
    "CLP": 68921.23
   },
   "curso-de-joyeria-artesanal": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-limpieza-facial": {
-   "COP": 165450,
+   "COP": 327700,
    "USD": 99.99,
    "CLP": 114875.46
   },
   "curso-de-macrame": {
-   "COP": 231650,
+   "COP": 229350,
    "USD": 69.99,
    "CLP": 80410.68
   },
   "curso-de-maderoterapia": {
-   "COP": 297850,
+   "COP": 294950,
    "USD": 89.99,
    "CLP": 103387.2
   },
   "curso-de-manicure-y-pedicure": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-maquillaje-de-fantasia": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-maquillaje-permanente": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-maquillaje-profesional-de-novias": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-maquillaje": {
-   "COP": 331000,
+   "COP": 327700,
    "USD": 99.99,
    "CLP": 114875.46
   },
   "curso-de-masaje-descontracturante": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-masaje-reductor": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-masajes-terapeuticos-y-relajantes": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-masajes": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-mecanica-de-bicicletas": {
-   "COP": 198550,
+   "COP": 196600,
    "USD": 59.99,
    "CLP": 68921.23
   },
   "curso-de-mecanica-de-motos": {
-   "COP": 397200,
+   "COP": 393250,
    "USD": 119.99,
    "CLP": 137854.36
   },
   "curso-de-microblading": {
-   "COP": 331000,
+   "COP": 327700,
    "USD": 99.99,
    "CLP": 114875.46
   },
   "curso-de-modisteria": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-molderia-y-confeccion": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-panaderia": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-pasteleria": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-peinados": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-peluqueria": {
-   "COP": 1102300,
+   "COP": 1091400,
    "USD": 333,
    "CLP": 382573.1
   },
   "curso-de-pestanas-volumen-ruso": {
-   "COP": 292250,
+   "COP": 289350,
    "USD": 89.99,
    "CLP": 101428.46
   },
   "curso-de-piano": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-pizza-artesanal": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-porcelana-fria": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-portugues": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-primeros-auxilios-para-mascotas": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-primeros-auxilios": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-remodelacion-de-banos-y-cocinas": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-reparacion-de-celulares": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-reparacion-de-computadoras": {
-   "COP": 231650,
+   "COP": 229350,
    "USD": 69.99,
    "CLP": 80410.68
   },
   "curso-de-reparacion-de-lavadoras": {
-   "COP": 331000,
+   "COP": 327700,
    "USD": 99.99,
    "CLP": 114875.46
   },
   "curso-de-reposteria-para-mascotas": {
-   "COP": 231650,
+   "COP": 229350,
    "USD": 69.99,
    "CLP": 80410.68
   },
   "curso-de-reposteria": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-serigrafia": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-sublimacion": {
-   "COP": 231650,
+   "COP": 229350,
    "USD": 69.99,
    "CLP": 80410.68
   },
   "curso-de-sushi": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-trenzas-y-peinados": {
-   "COP": 165450,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-unas-acrilicas": {
-   "COP": 331000,
+   "COP": 163800,
    "USD": 49.99,
    "CLP": 57434.16
   },
   "curso-de-barista": {
    "USD": 35,
-   "CLP": 33792
+   "CLP": 33792,
+   "COP": 114700
   },
   "curso-de-barismo-y-cafe-de-especialidad": {
    "USD": 35,
-   "CLP": 33792
+   "CLP": 33792,
+   "COP": 114700
   },
   "curso-de-velas-artesanales-y-aromaticas": {
    "USD": 49.99,
-   "CLP": 57434.16
+   "CLP": 57434.16,
+   "COP": 163800
   },
   "curso-de-drenaje-linfatico": {
    "USD": 68,
-   "CLP": 78123.5
+   "CLP": 78123.5,
+   "COP": 222850
   },
   "curso-de-jabones-artesanales-para-vender": {
    "USD": 49.99,
-   "CLP": 57434.16
+   "CLP": 57434.16,
+   "COP": 163800
   },
   "curso-de-soldadura": {
    "USD": 57,
-   "CLP": 65485.7
+   "CLP": 65485.7,
+   "COP": 186800
   },
   "curso-de-wedding-planner-y-eventos": {
    "USD": 59.99,
-   "CLP": 68921.23
+   "CLP": 68921.23,
+   "COP": 196600
   }
  },
  "valoraciones": {
@@ -1433,7 +1440,7 @@
    "idProducto": 1519050
   }
  },
- "_capturado": "2026-08-18T10:25:22.385Z",
+ "_capturado": "2026-08-19T02:36:38.448Z",
  "resenas": {
   "curso-de-unas": [
    {
