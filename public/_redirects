@@ -25,6 +25,19 @@
 /:country/curso-de-corte-y-confeccion-desde-cero/ /:country/curso-de-corte-y-confeccion/ 301
 /:country/:city/curso-de-corte-y-confeccion-desde-cero/ /:country/:city/curso-de-corte-y-confeccion/ 301
 
+# Estructura v1: namespace /cursos/ SIN país (anterior a la migración multipaís).
+# Todo /cursos/* devuelve 404 hoy y Google aún tiene URLs de aquí indexadas y
+# rankeando. Los head terms con tráfico confirmado en Search Console van con 301
+# a la ficha exacta para preservar la keyword; el resto del namespace va a la
+# home de país, que es mejor que un 404. No se puede usar /cursos/:slug → /co/:slug/
+# porque los slugs v1 llevan sufijos (-profesional) que no existen en v2 y
+# encadenarían 301→404.
+/cursos/curso-de-maquillaje-profesional /co/curso-de-maquillaje/ 301
+/cursos/curso-de-maquillaje-profesional/ /co/curso-de-maquillaje/ 301
+/cursos/curso-de-peluqueria-profesional /co/curso-de-peluqueria/ 301
+/cursos/curso-de-peluqueria-profesional/ /co/curso-de-peluqueria/ 301
+/cursos/* /co/ 301
+
 / /co/ 302
 
 # El panel no se indexa ni se rastrea: lo protege Cloudflare Access y además

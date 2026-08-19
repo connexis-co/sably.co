@@ -23,15 +23,19 @@ const city = getCity(country, Astro.params.item!);
 const category = getCategory(Astro.params.category!);
 const base = `/${country.code}`;
 
+/* «Belleza Online» ya trae «Online»; sin limpiarlo las FAQ decían «belleza
+   online online». Ver la nota en la variante de categoría a nivel país. */
+const catName = category.name.replace(/\s+Online$/i, '');
+
 const courses = (await getCollection('courses')).filter((c) => c.data.category === category.slug);
 
 const faqs = [
   {
-    q: `¿Puedo estudiar ${category.name.toLowerCase()} online desde ${city.name}?`,
-    a: `Sí. Los cursos de ${category.name.toLowerCase()} de Sably son 100% online: estudia desde ${city.name} a tu ritmo, con acceso de por vida y acompañamiento por WhatsApp.`,
+    q: `¿Puedo estudiar ${catName.toLowerCase()} online desde ${city.name}?`,
+    a: `Sí. Los cursos de ${catName.toLowerCase()} de Sably son 100% online: estudia desde ${city.name} a tu ritmo, con acceso de por vida y acompañamiento por WhatsApp.`,
   },
   {
-    q: `¿Cuánto cuesta un curso de ${category.name.toLowerCase()} en ${city.name}?`,
+    q: `¿Cuánto cuesta un curso de ${catName.toLowerCase()} en ${city.name}?`,
     a: `Mucho menos que una academia presencial: los precios están en ${country.currency} y, cuando hay campaña activa, el descuento se aplica automáticamente.`,
   },
   {
@@ -44,8 +48,8 @@ const faqs = [
   },
 ];
 
-const title = `Cursos de ${category.name} en ${city.name}, ${country.name} | Online + Certificado | Sably`;
-const description = `Aprende ${category.name.toLowerCase()} online desde ${city.name}. ${category.description} Precios en ${country.currency}.`;
+const title = `Cursos de ${catName} Online en ${city.name}, ${country.name} | Sably`;
+const description = `Aprende ${catName.toLowerCase()} online desde ${city.name}. ${category.description} Precios en ${country.currency}.`;
 
 const schemas = [
   breadcrumbSchema([
