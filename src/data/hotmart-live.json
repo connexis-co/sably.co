@@ -1450,11 +1450,11 @@
   "curso-de-marketing-digital": {
    "payUrl": "https://pay.hotmart.com/R103083504J",
    "hotlink": "J107159036B",
-   "titulo": "Curso de Marketing Digital 360",
+   "titulo": "Curso de Marketing Digital 360: Domina el Mundo Digital con tu Negocio",
    "idProducto": 6690506
   }
  },
- "_capturado": "2026-08-19T10:26:42.882Z",
+ "_capturado": "2026-08-20T10:27:14.712Z",
  "resenas": {
   "curso-de-unas": [
    {
@@ -2291,6 +2291,18 @@
     "nombre": "Pamela",
     "rating": 5,
     "texto": "me agradó mucho el curso, muy completo y explican muy bien. "
+   }
+  ],
+  "curso-de-marketing-digital": [
+   {
+    "nombre": "Cynthia",
+    "rating": 5,
+    "texto": "Muuuuuy bueno. Lo recomiendo totalmente"
+   },
+   {
+    "nombre": "Leonardo",
+    "rating": 5,
+    "texto": "BRUTAL!! LO APLIQUE A MI COMPAÑIA CADA PASO Y EMPECE A VER RESULTADOS MUY RAPIDO."
    }
   ]
  },
