@@ -6,7 +6,8 @@ const AFFILIATE = import.meta.env.PUBLIC_HOTMART_AFFILIATE ?? '';
 interface HotmartUrlParams {
   /** URL base del checkout Hotmart del curso (frontmatter `hotmartUrl`). */
   baseUrl: string;
-  coupon?: string;
+  /** Cupón a aplicar. `null` para cursos excluidos de la promo (sin cupón). */
+  coupon?: string | null;
   courseSlug: string;
   countryCode: string;
   citySlug?: string;
@@ -25,7 +26,7 @@ export function buildHotmartUrl({
   citySlug,
 }: HotmartUrlParams): string {
   const url = new URL(baseUrl);
-  url.searchParams.set('coupon', coupon);
+  if (coupon) url.searchParams.set('coupon', coupon);
   url.searchParams.set('src', 'sably');
   url.searchParams.set('utm_source', 'sably.co');
   url.searchParams.set('utm_medium', 'web');

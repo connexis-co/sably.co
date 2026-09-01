@@ -47,6 +47,12 @@ const courses = defineCollection({
       .max(7),
     /** TODO(JP): URL real de checkout Hotmart por curso. */
     hotmartUrl: z.string().url().default('https://pay.hotmart.com/PENDIENTE'),
+    /**
+     * Curso excluido de la promo global (cupón SABLY40). Cuando es true: el
+     * checkout no lleva el cupón, la card no pinta el badge de descuento y el
+     * exit-intent usa la variante sin cupón. Su precio ya es el final.
+     */
+    excludeFromPromo: z.boolean().default(false),
     featured: z.boolean().default(false),
     keywords: z.array(z.string()).min(3),
     publishedAt: z.coerce.date(),

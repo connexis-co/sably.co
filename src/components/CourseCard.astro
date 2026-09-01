@@ -40,9 +40,13 @@ const url = citySlug
       <span class="absolute top-3 left-3 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-bold text-heading">
         {cat.emoji} {cat.name}
       </span>
-      <span class="absolute top-3 right-3 rounded-full bg-accent px-2.5 py-1 text-[11px] font-bold text-white">
-        -{SITE.couponDiscountPct}%
-      </span>
+      {
+        !course.data.excludeFromPromo && (
+          <span class="absolute top-3 right-3 rounded-full bg-accent px-2.5 py-1 text-[11px] font-bold text-white">
+            -{SITE.couponDiscountPct}%
+          </span>
+        )
+      }
     </div>
     <div class="flex flex-1 flex-col p-4">
       <h3 class="line-clamp-2 font-display text-base font-bold text-primary group-hover:text-accent">
@@ -57,7 +61,12 @@ const url = citySlug
       </p>
       <div class="mt-auto flex items-baseline gap-2 pt-3">
         <span class="text-lg font-extrabold text-primary">{formatPrice(course.data.priceUSD, country)}</span>
-        <span class="text-sm text-muted line-through">{formatPrice(course.data.originalPriceUSD, country)}</span>
+        {
+          /* Sin descuento real no hay tachado: sería el mismo precio repetido. */
+          course.data.originalPriceUSD > course.data.priceUSD && (
+            <span class="text-sm text-muted line-through">{formatPrice(course.data.originalPriceUSD, country)}</span>
+          )
+        }
       </div>
     </div>
   </a>

@@ -37,8 +37,13 @@ modules:
       - Marca, empaque y presentación que vende
       - Primeros clientes en ferias, WhatsApp e Instagram
       - Catálogo por temporada y ventas por encargo
-priceUSD: 29
-originalPriceUSD: 48
+# 49,99 es el precio REAL capturado del checkout. La ficha decía 29, o sea
+# que anunciaba 21 dólares menos de lo que se cobra: ese es el sentido
+# peligroso del error, el que enfada al comprador y tumba anuncios.
+# `originalPriceUSD` va igual porque no hay un precio anterior verificado:
+# inventar un tachado es justo lo que no hacemos.
+priceUSD: 49.99
+originalPriceUSD: 49.99
 rating: 4.8
 ratingCount: 394
 students: 2663
@@ -70,7 +75,10 @@ faqs:
     a: Sí, al completar el 100% de las lecciones recibes un certificado digital de finalización.
   - q: ¿Qué pasa si el curso no es lo que esperaba?
     a: Tienes 7 días de garantía. Si no te convence, Hotmart te devuelve el 100% de tu dinero sin preguntas.
-hotmartUrl: https://pay.hotmart.com/PENDIENTE
+# El acortador lleva el ref dentro: pay.hotmart.com/X54364766X
+# ?ref=O107109925N. Producto «Velas Artesanales como Negocio». Este creador
+# sí acepta el cupón del sitio: el offDiscount sobrevive al salto.
+hotmartUrl: https://hotm.io/sably-velas-artesanales
 featured: true
 keywords:
   - curso de velas artesanales online
