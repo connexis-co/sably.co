@@ -514,6 +514,9 @@
   "curso-de-marketing-digital": {
    "COP": 750000,
    "USD": 255
+  },
+  "curso-de-pollo-broaster": {
+   "COP": 67550
   }
  },
  "valoraciones": {
@@ -1452,9 +1455,14 @@
    "hotlink": "J107159036B",
    "titulo": "Curso de Marketing Digital 360: Domina el Mundo Digital con tu Negocio",
    "idProducto": 6690506
+  },
+  "curso-de-pollo-broaster": {
+   "payUrl": "https://pay.hotmart.com/C76397678X",
+   "hotlink": "Y107414828R",
+   "titulo": "Curso de Pollo Broaster como Negocio"
   }
  },
- "_capturado": "2026-09-21T16:12:32.885Z",
+ "_capturado": "2026-09-22T06:36:41.280Z",
  "resenas": {
   "curso-de-unas": [
    {
