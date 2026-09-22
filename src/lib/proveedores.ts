@@ -96,6 +96,14 @@ export const PROVEEDORES: Record<string, Proveedor> = {
     // Mauricio Duque, ajeno a este creador: no aplica.
     cupon: false,
   },
+  pollobroaster: {
+    id: 'pollobroaster',
+    nombre: 'Pollo Broaster como Negocio (productor externo)',
+    // Checkout C76397678X (ref Y107414828R): 20 USD / 67.550 COP con y sin
+    // `?offDiscount=031016` —ratio 1, medido el 2026-09-22 con el método de
+    // scripts/auditar-cupon.mjs—. El cupón del sitio no le descuenta nada.
+    cupon: false,
+  },
 };
 
 /** Normaliza el `proveedor` del frontmatter al id de un proveedor conocido. */
