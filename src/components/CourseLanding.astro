@@ -587,6 +587,14 @@ const schemas = [
               >
                 Recibir más información
               </button>
+              {/* Aviso de afiliado junto al primer CTA: la FTC pide que vaya
+                  cerca de la recomendación, no solo en el footer. Solo aquí,
+                  en la rama con checkout; sin producto no hay enlace que
+                  declarar. text-body/80 da 4,5:1 sobre blanco (text-muted no
+                  llega al AA a 11 px). */}
+              <p class="mt-2 text-center text-[11px] leading-snug text-body/80">
+                Enlace de afiliado: Sably recibe una comisión sin costo extra para ti.
+              </p>
             </>
           )
         }
@@ -808,8 +816,10 @@ const schemas = [
       <div class="rounded-lg bg-success/10 p-6 text-center">
         <p class="text-3xl" aria-hidden="true">🛡️</p>
         <h2 class="mt-2 font-bold text-primary">Garantía de 7 días</h2>
+        {/* El reembolso lo hace Hotmart, no Sably: «te devolvemos» prometía
+            algo que no podemos cumplir y contradecía /legal/terminos/. */}
         <p class="mt-2 text-sm text-body">
-          Si el curso no cumple tus expectativas, te devolvemos el 100% de tu dinero. Sin preguntas.
+          Si el curso no cumple tus expectativas, pides el reembolso del 100 % en Hotmart dentro de los 7 días.
         </p>
       </div>
     </aside>
@@ -914,6 +924,15 @@ const schemas = [
         !sinProducto && (
           <p class="mt-4 text-sm text-white/60">
             Garantía de 7 días · Acceso de por vida · Certificado incluido
+          </p>
+        )
+      }
+      {
+        /* El mismo aviso de afiliado del hero, junto al CTA final. text-white/50
+           es el tono atenuado del footer, que pasa el AA sobre bg-primary. */
+        !sinProducto && (
+          <p class="mt-1.5 text-[11px] leading-snug text-white/50">
+            Enlace de afiliado: Sably recibe una comisión sin costo extra para ti.
           </p>
         )
       }

@@ -14,7 +14,7 @@ const country = getCountry(DEFAULT_COUNTRY);
 >
   <article class="container-site max-w-3xl space-y-6 py-14 text-[15px] leading-relaxed text-body">
     <h1 class="text-3xl font-extrabold">Términos y Condiciones</h1>
-    <p>Última actualización: agosto de 2026.</p>
+    <p>Última actualización: septiembre de 2026.</p>
     <h2 class="text-xl font-bold text-primary">1. Sobre Sably</h2>
     <p>
       Sably (sably.co) es una plataforma de recomendación y afiliación de cursos online. Los cursos se venden y se
@@ -37,7 +37,22 @@ const country = getCountry(DEFAULT_COUNTRY);
       El contenido de cada curso pertenece a sus respectivos instructores y productores. El contenido de sably.co (textos,
       diseño, marca) pertenece a Sably / Connexis.
     </p>
-    <h2 class="text-xl font-bold text-primary">5. Contacto</h2>
+    {/* Destino del «Más información» del aviso de afiliado del footer. Nunca
+        «socio», «partner» ni «oficial de Hotmart»: los Términos de Hotmart (6.4)
+        prohíben sugerir un vínculo con la plataforma. scroll-mt-24 evita que la
+        cabecera fija tape el título al llegar por el ancla. */}
+    <h2 id="afiliacion" class="scroll-mt-24 text-xl font-bold text-primary">5. Afiliación y comisiones</h2>
+    <p>
+      Sably recomienda cursos online de distintos creadores que los venden en Hotmart, y participa en los programas de
+      afiliados que esos creadores ofrecen. Si compras a través de nuestros enlaces, recibimos una comisión sobre la
+      venta. El precio que pagas es el mismo: comprar desde Sably no te cuesta nada extra.
+    </p>
+    <p>
+      Sably no vende los cursos ni actúa en nombre de Hotmart. El pago, el acceso al curso, el certificado y la garantía
+      de reembolso de 7 días los gestiona Hotmart, según sus propias condiciones. Hotmart es una marca de su titular y se
+      menciona solo para identificar la plataforma donde se compran los cursos.
+    </p>
+    <h2 class="text-xl font-bold text-primary">6. Contacto</h2>
     <p>Para dudas sobre estos términos, escríbenos por WhatsApp desde cualquier página del sitio.</p>
   </article>
 </BaseLayout>
