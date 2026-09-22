@@ -148,9 +148,9 @@ const sinProducto = /PENDIENTE/i.test(course.data.hotmartUrl);
    en la misma página podían convivir dos importes distintos para el mismo curso.
    Se resuelve una vez aquí y de aquí beben la tarjeta de compra y la barra fija. */
 const real = precioReal(course.id, country);
-/* Valoración PÚBLICA REAL de Hotmart (o null). La misma que ve el visitante en
-   el hero y la que va al aggregateRating del schema: nunca la del frontmatter,
-   que era de catálogo/inventada. */
+/* Valoración PÚBLICA REAL de Hotmart (o null). Solo se pinta en el hero; no va
+   al aggregateRating del schema porque es de un tercero (ver courseSchema más
+   abajo). Nunca la del frontmatter, que era de catálogo/inventada. */
 const valoracion = valoracionReal(course.id);
 const precioTexto = real
   ? formatMonto(real.monto, real.moneda)
@@ -230,6 +230,11 @@ const faqs = city
   : baseFaqs;
 
 const pageUrl = `${SITE.url}${coursePath}`;
+/* La URL de la ficha de país, que es el canonical también de las de ciudad. El
+   nodo Product/Course se construye con ella en las dos variantes: si la de
+   ciudad declarase su propia URL, Google vería 37 entidades distintas para un
+   solo curso, cada una en una página que él mismo descarta por duplicada. */
+const canonicalUrl = `${SITE.url}${base}/${course.id}/`;
 const h1 = city ? `${course.data.title} en ${city.name}` : (locale?.data.h1 ?? course.data.title);
 const tituloPais =
   locale?.data.meta_title ??
@@ -280,7 +285,7 @@ const schemas = [
   courseSchema({
     title: course.data.title,
     description: course.data.shortDescription,
-    url: pageUrl,
+    url: canonicalUrl,
     image: new URL(courseCover(course.id, category.slug), SITE.url).href,
     /* El mismo importe que ve el visitante. Si el schema declarase el precio de
        catálogo mientras la página enseña el real de Hotmart, el snippet de
@@ -299,10 +304,12 @@ const schemas = [
     level: course.data.level,
     syllabus: course.data.modules.map((m) => m.title),
     datePublished: course.data.publishedAt.toISOString(),
-    // aggregateRating REAL de Hotmart (valoracionReal), la MISMA que se muestra
-    // visible en el hero. Solo se emite si el curso tiene valoración pública; si
-    // no, no se declara nada (nunca la nota inventada del frontmatter).
-    rating: valoracion ? { value: valoracion.rating, count: valoracion.total } : undefined,
+    // Sin aggregateRating: la nota de Hotmart es de otro sitio y Google prohíbe
+    // agregar valoraciones ajenas («Don't aggregate reviews or ratings from
+    // other websites»), con acción manual como sanción. Se sigue mostrando en
+    // el hero, pero no va al marcado. El campo queda para reseñas propias de
+    // compradores verificados cuando existan.
+    rating: undefined,
   }),
   faqSchema(faqs),
   // VideoObject solo donde el vídeo existe y se reproduce en la propia página.

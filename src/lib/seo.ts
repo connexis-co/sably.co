@@ -1,4 +1,6 @@
-import { COUNTRIES, DEFAULT_COUNTRY } from './countries';
+import type { CollectionEntry } from 'astro:content';
+import { COUNTRIES, DEFAULT_COUNTRY, localPrice, type Country } from './countries';
+import { precioReal } from './hotmartLive';
 import { SITE } from './site';
 
 export interface HreflangAlternate {
@@ -88,6 +90,12 @@ export function faqSchema(faqs: FaqEntry[]) {
 interface CourseSchemaInput {
   title: string;
   description: string;
+  /**
+   * URL CANÓNICA de la ficha: la del país también en la variante de ciudad.
+   * De ella salen `@id`, `offers.url` y la `location` del CourseInstance, así
+   * que el nodo sale idéntico en la ficha de país y en sus 37 de ciudad, que es
+   * lo que pide Google para páginas duplicadas que canonizan a otra.
+   */
   url: string;
   image?: string;
   price: number;
@@ -134,16 +142,30 @@ const NIVEL: Record<string, string> = {
   'Todos los niveles': 'Beginner',
 };
 
+/**
+ * Ficha del curso como Product + Course.
+ *
+ * Course solo ya no pinta precio en el resultado de Google en español; el
+ * fragmento de producto sí, y lo admite para páginas donde el producto no se
+ * compra en el propio sitio (aquí el pago va a Hotmart). No se aspira a
+ * merchant listing: por eso no hay `seller`, `shippingDetails` ni política de
+ * devoluciones, y tampoco `brand`, porque la marca del curso es su productor y
+ * no Sably. Todo lo de Course (temario, credencial, CourseInstance) se conserva
+ * para Bing y los asistentes.
+ */
 export function courseSchema(c: CourseSchemaInput) {
   return {
     '@context': 'https://schema.org',
-    '@type': 'Course',
+    '@type': ['Product', 'Course'],
+    '@id': `${c.url}#curso`,
     name: c.title,
     description: c.description,
     url: c.url,
-    ...(c.image ? { image: c.image } : {}),
+    ...(c.image ? { image: [c.image] } : {}),
     provider: { '@id': `${SITE.url}/#organization` },
-    ...(c.instructorName ? { instructor: { '@type': 'Person', name: c.instructorName } } : {}),
+    // Sin `instructor` a este nivel: schema.org solo lo admite en
+    // CourseInstance (el validador da UNKNOWN_FIELD en Course). El instructor
+    // sigue declarado en hasCourseInstance y visible en la página.
     about: c.category,
     ...(c.teaches?.length ? { teaches: c.teaches } : {}),
     ...(c.level && NIVEL[c.level] ? { educationalLevel: NIVEL[c.level] } : {}),
@@ -210,9 +232,38 @@ interface CourseListEntry {
   name: string;
   url: string;
   description: string;
-  price: number;
+  /** `null` cuando no hay nada que ofertar (curso sin checkout): sin `offers`. */
+  price: number | null;
   priceCurrency: string;
   workloadHours: number;
+}
+
+/**
+ * Entrada del listado a partir del curso, con las mismas reglas que la ficha.
+ *
+ * - Precio: el real de Hotmart (`precioReal`), el mismo que pinta CourseCard
+ *   al lado; el de catálogo solo si no hay real. Antes se usaba siempre el de
+ *   catálogo y en /co/cursos/belleza-online/ los 26 importes del listado
+ *   contradecían la tarjeta visible y la ficha.
+ * - Cursos con `hotmartUrl` PENDIENTE: sin precio, porque no hay checkout y un
+ *   Offer InStock describiría algo que no se puede comprar.
+ * - URL canónica del país, también en los listados de ciudad: las fichas de
+ *   ciudad canonizan al país y el listado no debe señalar la duplicada.
+ *
+ * Vive aquí y no en cada página para que categoría, hub de ciudad y
+ * ciudad×categoría no vuelvan a divergir.
+ */
+export function cursoParaListado(course: CollectionEntry<'courses'>, country: Country): CourseListEntry {
+  const sinProducto = /PENDIENTE/i.test(course.data.hotmartUrl);
+  const real = precioReal(course.id, country);
+  return {
+    name: course.data.title,
+    url: `${SITE.url}/${country.code}/${course.id}/`,
+    description: course.data.shortDescription,
+    price: sinProducto ? null : real ? real.monto : localPrice(course.data.priceUSD, country),
+    priceCurrency: real ? real.moneda : country.currency,
+    workloadHours: course.data.durationHours,
+  };
 }
 
 /**
@@ -234,13 +285,17 @@ export function courseListSchema(cursos: CourseListEntry[]) {
         description: c.description,
         url: c.url,
         provider: { '@id': `${SITE.url}/#organization` },
-        offers: {
-          '@type': 'Offer',
-          price: c.price,
-          priceCurrency: c.priceCurrency,
-          availability: 'https://schema.org/InStock',
-          category: 'Paid',
-        },
+        ...(c.price === null
+          ? {}
+          : {
+              offers: {
+                '@type': 'Offer',
+                price: c.price,
+                priceCurrency: c.priceCurrency,
+                availability: 'https://schema.org/InStock',
+                category: 'Paid',
+              },
+            }),
         hasCourseInstance: {
           '@type': 'CourseInstance',
           courseMode: 'Online',
