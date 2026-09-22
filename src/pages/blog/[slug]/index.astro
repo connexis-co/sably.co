@@ -4,8 +4,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import ReadingProgress from '@/components/ReadingProgress.astro';
 import ArticleRating from '@/components/ArticleRating.astro';
 import Comentarios from '@/components/Comentarios.astro';
+import FaqAccordion from '@/components/FaqAccordion.astro';
 import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
-import { breadcrumbSchema } from '@/lib/seo';
+import { breadcrumbSchema, faqSchema } from '@/lib/seo';
 import { blogCover, readingTime } from '@/lib/blog';
 import { SITE } from '@/lib/site';
 
@@ -56,6 +57,9 @@ const schemas = [
        para fragmentos de reseña. Y el número que declaraba salía de un hash
        del slug, o sea reseñas que no existen. */
   },
+  // FAQPage solo si el post declara `faq` (se renderiza visible abajo, para que
+  // schema y DOM coincidan). Es el formato que más citan Google/LLMs.
+  ...(post.data.faq?.length ? [faqSchema(post.data.faq)] : []),
 ];
 ---
 
@@ -66,6 +70,7 @@ const schemas = [
   pathAfterCountry="/"
   {schemas}
   pageType="article"
+  image={blogCover(post.data.category, 'hero')}
 >
   <ReadingProgress />
 
@@ -126,6 +131,17 @@ const schemas = [
       >
         <Content />
       </div>
+
+      {
+        post.data.faq && post.data.faq.length > 0 && (
+          <section class="mt-12">
+            <h2 class="text-2xl font-bold text-primary">Preguntas frecuentes</h2>
+            <div class="mt-5">
+              <FaqAccordion faqs={post.data.faq} />
+            </div>
+          </section>
+        )
+      }
 
       <ArticleRating slug={post.id} />
 

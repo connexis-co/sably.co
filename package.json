@@ -40,6 +40,7 @@
     "typescript": "^5.9.0"
   },
   "overrides": {
+    "vite": "8.1.5",
     "keyv": "<6.0.0",
     "flat-cache": "<6.1.24",
     "file-entry-cache": "<11.1.6",

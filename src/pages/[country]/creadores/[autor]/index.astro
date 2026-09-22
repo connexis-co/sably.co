@@ -12,7 +12,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import { COUNTRIES, type Country } from '@/lib/countries';
 import { creadores, valoracionReal, type Autor } from '@/lib/hotmartLive';
-import { countryAlternates, breadcrumbSchema } from '@/lib/seo';
+import { countryAlternates, breadcrumbSchema, itemListSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 
 export async function getStaticPaths() {
@@ -55,6 +55,23 @@ const schemas = [
     { name: 'Creadores', url: `${SITE.url}${base}/` },
     { name: autor.nombre, url: `${SITE.url}${base}/creadores/${autor.slug}/` },
   ]),
+  // ProfilePage + Person: datos REALES capturados de Hotmart (nombre, bio, foto).
+  // Da atribución de autor a los LLMs y refuerza E-E-A-T. Sin aggregateRating en
+  // la Person (Google no lo usa ahí); las notas reales viven en cada Course.
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    dateModified: new Date().toISOString(),
+    mainEntity: {
+      '@type': 'Person',
+      name: autor.nombre,
+      ...(autor.bio ? { description: autor.bio } : {}),
+      ...(autor.foto ? { image: autor.foto } : {}),
+      url: `${SITE.url}${base}/creadores/${autor.slug}/`,
+    },
+  },
+  // Sus cursos como ItemList: asocia al creador con su catálogo real.
+  itemListSchema(cursos.map((c) => ({ name: c.data.title, url: `${SITE.url}${base}/${c.id}/` }))),
 ];
 ---
 

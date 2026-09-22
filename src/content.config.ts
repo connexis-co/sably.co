@@ -134,6 +134,17 @@ const blog = defineCollection({
     category: z.string().optional(),
     keywords: z.array(z.string()).min(3),
     publishedAt: z.coerce.date(),
+    /**
+     * Preguntas frecuentes (opcional). Se renderizan VISIBLES en la ficha y se
+     * emiten como FAQPage schema: el texto debe coincidir con el DOM (Google
+     * sanciona el FAQPage cuyo contenido no está visible en la página). Formato
+     * pensado para citeabilidad por LLMs: pregunta directa + respuesta concreta.
+     */
+    faq: z
+      .array(z.object({ q: z.string(), a: z.string() }))
+      .min(2)
+      .max(8)
+      .optional(),
   }),
 });
 
