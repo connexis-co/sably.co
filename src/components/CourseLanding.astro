@@ -601,8 +601,10 @@ const schemas = [
         <ul class="mt-5 space-y-2 text-sm text-body" role="list">
           <li>✅ Acceso de por vida, 24/7</li>
           <li>✅ Certificado digital incluido</li>
-          <li>✅ Garantía de 7 días</li>
-          <li>✅ Pago seguro vía Hotmart</li>
+          {/* Garantía y pago solo existen si hay checkout: en «Próximamente»
+              prometerían algo que todavía no se puede comprar. */}
+          {!sinProducto && <li>✅ Garantía de 7 días</li>}
+          {!sinProducto && <li>✅ Pago seguro vía Hotmart</li>}
         </ul>
       </div>
     </div>
@@ -813,15 +815,21 @@ const schemas = [
           <li>✅ Ganas de aprender y practicar</li>
         </ul>
       </div>
-      <div class="rounded-lg bg-success/10 p-6 text-center">
-        <p class="text-3xl" aria-hidden="true">🛡️</p>
-        <h2 class="mt-2 font-bold text-primary">Garantía de 7 días</h2>
-        {/* El reembolso lo hace Hotmart, no Sably: «te devolvemos» prometía
-            algo que no podemos cumplir y contradecía /legal/terminos/. */}
-        <p class="mt-2 text-sm text-body">
-          Si el curso no cumple tus expectativas, pides el reembolso del 100 % en Hotmart dentro de los 7 días.
-        </p>
-      </div>
+      {
+        /* Sin checkout no hay compra que reembolsar: la caja de garantía solo
+           se pinta en cursos comprables. */
+        !sinProducto && (
+          <div class="rounded-lg bg-success/10 p-6 text-center">
+            <p class="text-3xl" aria-hidden="true">🛡️</p>
+            <h2 class="mt-2 font-bold text-primary">Garantía de 7 días</h2>
+            {/* El reembolso lo hace Hotmart, no Sably: «te devolvemos» prometía
+                algo que no podemos cumplir y contradecía /legal/terminos/. */}
+            <p class="mt-2 text-sm text-body">
+              Si el curso no cumple tus expectativas, pides el reembolso del 100 % en Hotmart dentro de los 7 días.
+            </p>
+          </div>
+        )
+      }
     </aside>
   </div>
 
