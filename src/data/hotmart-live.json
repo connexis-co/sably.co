@@ -516,7 +516,8 @@
    "USD": 255
   },
   "curso-de-pollo-broaster": {
-   "COP": 67550
+   "COP": 67550,
+   "USD": 20
   }
  },
  "valoraciones": {
@@ -1462,7 +1463,7 @@
    "titulo": "Curso de Pollo Broaster como Negocio"
   }
  },
- "_capturado": "2026-09-22T06:36:41.280Z",
+ "_capturado": "2026-09-22T14:21:12.192Z",
  "resenas": {
   "curso-de-unas": [
    {
