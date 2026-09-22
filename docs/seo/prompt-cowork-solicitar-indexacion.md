@@ -13,9 +13,18 @@ Complemento por API, sin la interfaz, que se corre una vez tras cada despliegue:
 node scripts/indexar.mjs --lista docs/seo/urls-prioritarias-indexacion.txt --indexnow --bing --sitemap-google
 ```
 
-- IndexNow envía las 284 URLs de una vez.
+- IndexNow envía las 301 URLs de una vez.
 - Bing respeta su cupo de 100/día y sigue al día siguiente donde lo dejó.
 - Google recibe el reenvío del sitemap.
+
+Además, una sola vez tras el primer despliegue, se envía a Google el sitemap temporal con
+las 504 páginas de ciudad que llevan noindex solo para Googlebot, para que las rastree
+antes y procese el noindex. No va en sitemap-index.xml, ni en robots.txt, ni por IndexNow.
+Se retira de Search Console después del 2026-11-15:
+
+```bash
+node scripts/indexar.mjs --sitemap-google --feed https://sably.co/sitemaps/sitemap-temporal-ciudades-noindex.xml
+```
 
 ---
 
@@ -61,7 +70,13 @@ node scripts/indexar.mjs --lista docs/seo/urls-prioritarias-indexacion.txt --ind
 
 ---
 
-## Lotes diarios (orden de mayor a menor potencial)
+## Lotes diarios
+
+Orden: homes de país → fichas con nota INVENTADA que además son prioritarias →
+resto de las prioritarias → resto de fichas con nota inventada. Estas últimas son
+31 fichas /co/ que Google indexó entre el 5 y el 8 de agosto con valoraciones
+falsas del catálogo; conviene que vuelva a rastrearlas para que vea el JSON-LD
+ya sin aggregateRating. Se marcan con ⚠️.
 
 Se omiten 4 fichas que Google ya volvió a rastrear después del 11-sep: /co/curso-de-masajes/,
 /us/curso-de-masajes/, /us/curso-de-maquillaje/ y /co/curso-de-unas-acrilicas/.
@@ -69,16 +84,31 @@ Se omiten 4 fichas que Google ya volvió a rastrear después del 11-sep: /co/cur
 **Día 1**
 - https://sably.co/co/
 - https://sably.co/mx/
+- https://sably.co/co/curso-de-reparacion-de-celulares/ ⚠️
+- https://sably.co/co/curso-de-limpieza-facial/ ⚠️
+- https://sably.co/co/curso-de-decoracion-con-globos/ ⚠️
+- https://sably.co/co/curso-de-barismo-y-cafe-de-especialidad/ ⚠️
+- https://sably.co/co/curso-de-cocina/ ⚠️
+- https://sably.co/co/curso-de-joyeria-artesanal/ ⚠️
+- https://sably.co/co/curso-de-fotografia/ ⚠️
+- https://sably.co/co/curso-de-bartender/ ⚠️
+
+**Día 2**
+- https://sably.co/co/curso-de-portugues/ ⚠️
+- https://sably.co/co/curso-de-serigrafia/ ⚠️
+- https://sably.co/co/curso-de-modisteria/ ⚠️
+- https://sably.co/co/curso-de-contabilidad-basica/ ⚠️
+- https://sably.co/co/curso-de-crochet/ ⚠️
+- https://sably.co/co/curso-de-molderia-y-confeccion/ ⚠️
 - https://sably.co/mx/curso-de-unas/
 - https://sably.co/co/curso-de-unas/
 - https://sably.co/mx/curso-de-reparacion-de-celulares/
 - https://sably.co/ar/curso-de-reparacion-de-celulares/
-- https://sably.co/co/curso-de-reparacion-de-celulares/
+
+**Día 3**
 - https://sably.co/co/curso-de-barberia/
 - https://sably.co/mx/curso-de-carpinteria-y-muebles/
 - https://sably.co/mx/curso-de-extensiones-de-pestanas/
-
-**Día 2**
 - https://sably.co/ar/curso-de-unas/
 - https://sably.co/co/curso-de-cejas-y-pestanas/
 - https://sably.co/mx/curso-de-mecanica-de-motos/
@@ -86,23 +116,22 @@ Se omiten 4 fichas que Google ya volvió a rastrear después del 11-sep: /co/cur
 - https://sably.co/mx/curso-de-barberia/
 - https://sably.co/co/curso-de-mecanica-de-motos/
 - https://sably.co/ar/curso-de-community-manager/
+
+**Día 4**
 - https://sably.co/mx/curso-de-cejas-y-pestanas/
 - https://sably.co/mx/curso-de-maquillaje/
 - https://sably.co/mx/curso-de-excel/
-
-**Día 3**
 - https://sably.co/mx/curso-de-unas-acrilicas/
 - https://sably.co/es/curso-de-unas/
 - https://sably.co/ar/curso-de-decoracion-con-globos/
 - https://sably.co/co/curso-de-maquillaje/
 - https://sably.co/mx/curso-de-reposteria-para-mascotas/
 - https://sably.co/ar/curso-de-barista/
-- https://sably.co/co/curso-de-limpieza-facial/
 - https://sably.co/pe/curso-de-unas/
+
+**Día 5**
 - https://sably.co/mx/curso-de-soldadura/
 - https://sably.co/mx/curso-de-reposteria/
-
-**Día 4**
 - https://sably.co/co/curso-de-soldadura/
 - https://sably.co/us/curso-de-unas/
 - https://sably.co/cl/curso-de-soldadura/
@@ -111,10 +140,10 @@ Se omiten 4 fichas que Google ya volvió a rastrear después del 11-sep: /co/cur
 - https://sably.co/ar/curso-de-soldadura/
 - https://sably.co/es/curso-de-barberia/
 - https://sably.co/cl/curso-de-barberia/
+
+**Día 6**
 - https://sably.co/co/curso-de-excel/
 - https://sably.co/ar/curso-de-maquillaje/
-
-**Día 5**
 - https://sably.co/ar/curso-de-masajes/
 - https://sably.co/ar/curso-de-barberia/
 - https://sably.co/es/curso-de-maquillaje/
@@ -123,10 +152,10 @@ Se omiten 4 fichas que Google ya volvió a rastrear después del 11-sep: /co/cur
 - https://sably.co/es/curso-de-soldadura/
 - https://sably.co/co/curso-de-marketing-digital/
 - https://sably.co/ar/curso-de-marketing-digital/
+
+**Día 7**
 - https://sably.co/cl/curso-de-reposteria-para-mascotas/
 - https://sably.co/co/curso-de-automaquillaje/
-
-**Día 6**
 - https://sably.co/mx/curso-de-pestanas-volumen-ruso/
 - https://sably.co/ar/curso-de-extensiones-de-pestanas/
 - https://sably.co/mx/curso-de-marketing-digital/
@@ -135,9 +164,31 @@ Se omiten 4 fichas que Google ya volvió a rastrear después del 11-sep: /co/cur
 - https://sably.co/ar/curso-de-mecanica-de-motos/
 - https://sably.co/ar/curso-de-carpinteria-y-muebles/
 - https://sably.co/mx/curso-de-peluqueria/
+
+**Día 8**
 - https://sably.co/mx/curso-de-primeros-auxilios/
 - https://sably.co/cl/curso-de-peluqueria/
+- https://sably.co/co/curso-de-amigurumi/ ⚠️
+- https://sably.co/co/curso-de-balayage/ ⚠️
+- https://sably.co/co/curso-de-bartending-y-cocteleria-profesional/ ⚠️
+- https://sably.co/co/curso-de-ceviche-peruano/ ⚠️
+- https://sably.co/co/curso-de-desayunos-sorpresa/ ⚠️
+- https://sably.co/co/curso-de-finanzas-para-tu-negocio/ ⚠️
+- https://sably.co/co/curso-de-flores-con-globos/ ⚠️
+- https://sably.co/co/curso-de-fondant/ ⚠️
 
-Las otras 224 URLs de `urls-prioritarias-indexacion.txt` no hace falta pedirlas a mano:
-las cubren IndexNow (Bing y demás), el sitemap y el enlazado interno. Si pasadas dos
-semanas alguna sigue en «Descubierta: actualmente sin indexar», se añade a un lote.
+**Día 9**
+- https://sably.co/co/curso-de-globos-burbuja/ ⚠️
+- https://sably.co/co/curso-de-hamburguesas-gourmet/ ⚠️
+- https://sably.co/co/curso-de-instructor-de-yoga-desde-cero/ ⚠️
+- https://sably.co/co/curso-de-japones/ ⚠️
+- https://sably.co/co/curso-de-maquillaje-permanente/ ⚠️
+- https://sably.co/co/curso-de-maquillaje-profesional-de-novias/ ⚠️
+- https://sably.co/co/curso-de-nutricion-practica-para-la-familia/ ⚠️
+- https://sably.co/co/curso-de-patronaje-profesional-de-ropa/ ⚠️
+- https://sably.co/co/curso-de-primeros-auxilios-para-mascotas/ ⚠️
+
+Total: 89 URLs en 9 días. Las demás URLs de `urls-prioritarias-indexacion.txt`
+no hace falta pedirlas a mano: las cubren IndexNow (Bing y demás), el sitemap y el enlazado
+interno. Si pasadas dos semanas alguna sigue en «Descubierta: actualmente sin indexar», se
+añade a un lote.

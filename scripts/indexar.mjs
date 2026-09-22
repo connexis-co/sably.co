@@ -20,6 +20,9 @@
  *
  * Uso:
  *   node scripts/indexar.mjs --lista urls.txt --indexnow --bing --sitemap-google
+ *   node scripts/indexar.mjs --sitemap-google --feed https://sably.co/sitemaps/sitemap-temporal-ciudades-noindex.xml
+ *     (--feed envía a Google sitemaps que NO están en sitemap-index.xml, como el
+ *      temporal de las 504 páginas con noindex para Googlebot; se puede repetir)
  *   node scripts/indexar.mjs --lista urls.txt --bing --dry     (solo muestra el plan)
  */
 
@@ -124,17 +127,28 @@ async function sitemapGoogle() {
     })
   ).json();
   const sitio = encodeURIComponent('sc-domain:sably.co');
-  const feed = encodeURIComponent(`${SITIO}/sitemap-index.xml`);
-  if (DRY) return console.log('  [dry] Google: reenvío de sitemap-index.xml');
-  const r = await fetch(`https://www.googleapis.com/webmasters/v3/sites/${sitio}/sitemaps/${feed}`, {
-    method: 'PUT',
-    headers: { authorization: `Bearer ${tok.access_token}` },
-  });
-  console.log(`  Google: reenvío de sitemap-index.xml → HTTP ${r.status}`);
+  // sitemap-index.xml siempre; los --feed extra son sitemaps fuera del índice.
+  const feeds = [`${SITIO}/sitemap-index.xml`, ...args.flatMap((a, i) => (a === '--feed' ? [args[i + 1]] : []))];
+  for (const f of feeds) {
+    if (!f?.startsWith(`${SITIO}/`)) {
+      console.warn(`  Google: se ignora el feed «${f}» (no es de ${SITIO})`);
+      continue;
+    }
+    if (DRY) {
+      console.log(`  [dry] Google: envío de ${f}`);
+      continue;
+    }
+    const r = await fetch(`https://www.googleapis.com/webmasters/v3/sites/${sitio}/sitemaps/${encodeURIComponent(f)}`, {
+      method: 'PUT',
+      headers: { authorization: `Bearer ${tok.access_token}` },
+    });
+    console.log(`  Google: envío de ${f} → HTTP ${r.status}`);
+  }
 }
 
-const urls = leerLista();
-console.log(`${urls.length} URLs en la lista${DRY ? ' (modo --dry, no se envía nada)' : ''}`);
+// La lista solo hace falta para IndexNow y Bing: enviar sitemaps a Google no la usa.
+const urls = flag('--indexnow') || flag('--bing') ? leerLista() : [];
+if (urls.length) console.log(`${urls.length} URLs en la lista${DRY ? ' (modo --dry, no se envía nada)' : ''}`);
 if (flag('--indexnow')) await indexNow(urls);
 if (flag('--bing')) await bing(urls);
 if (flag('--sitemap-google')) await sitemapGoogle();

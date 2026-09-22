@@ -285,3 +285,22 @@ https://sably.co/mx/curso-de-crochet/
 https://sably.co/mx/curso-de-piano/
 https://sably.co/co/curso-de-molderia-y-confeccion/
 https://sably.co/mx/curso-de-defensa-personal-para-mujeres/
+# Fichas /co/ que Google aún tiene indexadas con la nota INVENTADA del 5-8 de agosto
+# (sin checkout algunas): hay que re-rastrearlas para que vea el JSON-LD sin aggregateRating.
+https://sably.co/co/curso-de-amigurumi/
+https://sably.co/co/curso-de-balayage/
+https://sably.co/co/curso-de-bartending-y-cocteleria-profesional/
+https://sably.co/co/curso-de-ceviche-peruano/
+https://sably.co/co/curso-de-desayunos-sorpresa/
+https://sably.co/co/curso-de-finanzas-para-tu-negocio/
+https://sably.co/co/curso-de-flores-con-globos/
+https://sably.co/co/curso-de-fondant/
+https://sably.co/co/curso-de-globos-burbuja/
+https://sably.co/co/curso-de-hamburguesas-gourmet/
+https://sably.co/co/curso-de-instructor-de-yoga-desde-cero/
+https://sably.co/co/curso-de-japones/
+https://sably.co/co/curso-de-maquillaje-permanente/
+https://sably.co/co/curso-de-maquillaje-profesional-de-novias/
+https://sably.co/co/curso-de-nutricion-practica-para-la-familia/
+https://sably.co/co/curso-de-patronaje-profesional-de-ropa/
+https://sably.co/co/curso-de-primeros-auxilios-para-mascotas/
