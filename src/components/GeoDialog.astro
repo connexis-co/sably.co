@@ -62,15 +62,23 @@ const { pathAfterCountry } = Astro.props;
             >
               {c.flag} Todo {c.name}
             </a>
+            {/* Las ciudades son botones y no enlaces: este diálogo va en TODAS las
+                páginas, así que 36 <a> a los hubs de ciudad eran 36 enlaces internos
+                por página hacia URLs que canonizan al país y que Google no consolida
+                (en /co/bogota/ y /mx/cdmx/ se queda con la propia). Sin href ni
+                data-href con la ruta: en el HTML no queda ninguna URL que descubrir.
+                El script arma la ruta al hacer clic. Las fichas ciudad+curso siguen
+                enlazadas desde la malla geo de cada ficha de país. text-left y
+                cursor-pointer conservan el aspecto que tenía el <a>. */}
             {c.cities.map((city) => (
-              <a
-                href={`/${c.code}/${city.slug}/`}
+              <button
+                type="button"
                 data-geo-city={city.slug}
                 data-country={c.code}
-                class="rounded-md border border-surface-200 px-4 py-3 text-sm font-medium text-heading transition hover:border-accent hover:bg-accent-soft"
+                class="cursor-pointer rounded-md border border-surface-200 px-4 py-3 text-left text-sm font-medium text-heading transition hover:border-accent hover:bg-accent-soft"
               >
                 {city.name}
-              </a>
+              </button>
             ))}
           </div>
         </div>
@@ -109,17 +117,22 @@ const { pathAfterCountry } = Astro.props;
       btn.addEventListener('click', () => showStep('country')),
     );
 
-    dialog.querySelectorAll<HTMLAnchorElement>('[data-geo-city]').forEach((link) =>
-      link.addEventListener('click', () => {
-        const country = link.dataset.country ?? 'co';
+    /* «Todo {país}» es un <a> y navega por sí solo; las ciudades son <button>
+       sin URL en el HTML (ver arriba), así que la ruta se arma aquí, después de
+       guardar la preferencia y avisar a GTM, igual que antes hacía el enlace. */
+    dialog.querySelectorAll<HTMLElement>('[data-geo-city]').forEach((el) =>
+      el.addEventListener('click', () => {
+        const country = el.dataset.country ?? 'co';
+        const city = el.dataset.geoCity ?? '';
         $country.set(country);
-        $city.set(link.dataset.geoCity ?? '');
+        $city.set(city);
         window.dataLayer ??= [];
         window.dataLayer.push({
           event: 'select_country',
           country_code: country,
-          city: link.dataset.geoCity ?? 'all',
+          city: el.dataset.geoCity ?? 'all',
         });
+        if (el instanceof HTMLButtonElement && city) window.location.assign(`/${country}/${city}/`);
       }),
     );
   }
