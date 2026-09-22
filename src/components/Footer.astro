@@ -131,9 +131,22 @@ const SABLY_LINKS = [
   </div>
 
   <div class="border-t border-white/10">
-    <div class="container-site flex flex-col items-center gap-2 py-5 text-center text-xs text-white/50 sm:flex-row sm:justify-between sm:text-left">
+    <div class="container-site flex flex-col items-center gap-2 py-5 text-center text-xs text-white/50 sm:flex-row sm:flex-wrap sm:justify-between sm:text-left">
       <p>© {year} Sably — Todos los derechos reservados.</p>
       <p>Los cursos se imparten a través de Hotmart. Certificado incluido.</p>
+      {/* Aviso de afiliado en todo el sitio (FTC, SIC, LSSI y la política de
+          tergiversación de Google Ads piden declarar la comisión). Dice
+          «como afiliado» y no «afiliado de Hotmart»: los Términos de Hotmart
+          (6.4) prohíben sugerir un vínculo con Hotmart; la afiliación es a los
+          cursos de cada creador. sm:basis-full lo baja a su propia línea. */}
+      <p class="sm:basis-full">
+        Sably recomienda cursos como afiliado: si compras a través de nuestros enlaces recibimos una comisión, sin
+        costo extra para ti. Pagos y acceso gestionados por Hotmart.{' '}
+        <a
+          href="/legal/terminos/#afiliacion"
+          class="underline decoration-white/30 underline-offset-2 transition hover:text-white">Más información</a
+        >
+      </p>
     </div>
   </div>
 </footer>

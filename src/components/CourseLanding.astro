@@ -25,7 +25,7 @@ import { formatMonto, precioReal, valoracionReal } from '@/lib/hotmartLive';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
 import { resolvePromo } from '@/lib/promo';
-import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema, videoSchema } from '@/lib/seo';
+import { countryAlternates, breadcrumbSchema, conMarca, faqSchema, courseSchema, videoSchema } from '@/lib/seo';
 import { COURSE_VIDEOS, duracionIso } from '@/lib/course-videos';
 import { SITE, CDN_URL } from '@/lib/site';
 
@@ -148,9 +148,9 @@ const sinProducto = /PENDIENTE/i.test(course.data.hotmartUrl);
    en la misma página podían convivir dos importes distintos para el mismo curso.
    Se resuelve una vez aquí y de aquí beben la tarjeta de compra y la barra fija. */
 const real = precioReal(course.id, country);
-/* Valoración PÚBLICA REAL de Hotmart (o null). La misma que ve el visitante en
-   el hero y la que va al aggregateRating del schema: nunca la del frontmatter,
-   que era de catálogo/inventada. */
+/* Valoración PÚBLICA REAL de Hotmart (o null). Solo se pinta en el hero; no va
+   al aggregateRating del schema porque es de un tercero (ver courseSchema más
+   abajo). Nunca la del frontmatter, que era de catálogo/inventada. */
 const valoracion = valoracionReal(course.id);
 const precioTexto = real
   ? formatMonto(real.monto, real.moneda)
@@ -230,16 +230,29 @@ const faqs = city
   : baseFaqs;
 
 const pageUrl = `${SITE.url}${coursePath}`;
+/* La URL de la ficha de país, que es el canonical también de las de ciudad. El
+   nodo Product/Course se construye con ella en las dos variantes: si la de
+   ciudad declarase su propia URL, Google vería 37 entidades distintas para un
+   solo curso, cada una en una página que él mismo descarta por duplicada. */
+const canonicalUrl = `${SITE.url}${base}/${course.id}/`;
 const h1 = city ? `${course.data.title} en ${city.name}` : (locale?.data.h1 ?? course.data.title);
 const tituloPais =
   locale?.data.meta_title ??
   course.data.metaTitle ??
   `${course.data.title} | Curso Online con Certificado | Sably`;
+/* Ficha de país: la regla de colisión no cambia; después se asegura la marca
+   cuando cabe en 60 caracteres (ver conMarca) y la mayúscula inicial, porque
+   diez meta_title generados empiezan en minúscula («curso de barbería…»). */
+const mayusculaInicial = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
 const title = city
   ? `${course.data.title} en ${city.name}, ${country.name} | Online | Sably`
-  : tituloColisiona
-    ? `${tituloPais.replace(/\s*\|\s*Sably\s*$/, '')} | ${country.name}`
-    : tituloPais;
+  : conMarca(
+      mayusculaInicial(
+        tituloColisiona
+          ? `${tituloPais.replace(/\s*\|\s*Sably\s*$/, '')} | ${country.name}`
+          : tituloPais,
+      ),
+    );
 
 /* Recorta a un límite de palabra con elipsis. Antes se hacía `.slice(0, 158)`
    crudo, que cortaba a media palabra («…cobra más por cad») porque el texto
@@ -280,7 +293,7 @@ const schemas = [
   courseSchema({
     title: course.data.title,
     description: course.data.shortDescription,
-    url: pageUrl,
+    url: canonicalUrl,
     image: new URL(courseCover(course.id, category.slug), SITE.url).href,
     /* El mismo importe que ve el visitante. Si el schema declarase el precio de
        catálogo mientras la página enseña el real de Hotmart, el snippet de
@@ -299,10 +312,12 @@ const schemas = [
     level: course.data.level,
     syllabus: course.data.modules.map((m) => m.title),
     datePublished: course.data.publishedAt.toISOString(),
-    // aggregateRating REAL de Hotmart (valoracionReal), la MISMA que se muestra
-    // visible en el hero. Solo se emite si el curso tiene valoración pública; si
-    // no, no se declara nada (nunca la nota inventada del frontmatter).
-    rating: valoracion ? { value: valoracion.rating, count: valoracion.total } : undefined,
+    // Sin aggregateRating: la nota de Hotmart es de otro sitio y Google prohíbe
+    // agregar valoraciones ajenas («Don't aggregate reviews or ratings from
+    // other websites»), con acción manual como sanción. Se sigue mostrando en
+    // el hero, pero no va al marcado. El campo queda para reseñas propias de
+    // compradores verificados cuando existan.
+    rating: undefined,
   }),
   faqSchema(faqs),
   // VideoObject solo donde el vídeo existe y se reproduce en la propia página.
@@ -572,14 +587,24 @@ const schemas = [
               >
                 Recibir más información
               </button>
+              {/* Aviso de afiliado junto al primer CTA: la FTC pide que vaya
+                  cerca de la recomendación, no solo en el footer. Solo aquí,
+                  en la rama con checkout; sin producto no hay enlace que
+                  declarar. text-body/80 da 4,5:1 sobre blanco (text-muted no
+                  llega al AA a 11 px). */}
+              <p class="mt-2 text-center text-[11px] leading-snug text-body/80">
+                Enlace de afiliado: Sably recibe una comisión sin costo extra para ti.
+              </p>
             </>
           )
         }
         <ul class="mt-5 space-y-2 text-sm text-body" role="list">
           <li>✅ Acceso de por vida, 24/7</li>
           <li>✅ Certificado digital incluido</li>
-          <li>✅ Garantía de 7 días</li>
-          <li>✅ Pago seguro vía Hotmart</li>
+          {/* Garantía y pago solo existen si hay checkout: en «Próximamente»
+              prometerían algo que todavía no se puede comprar. */}
+          {!sinProducto && <li>✅ Garantía de 7 días</li>}
+          {!sinProducto && <li>✅ Pago seguro vía Hotmart</li>}
         </ul>
       </div>
     </div>
@@ -790,13 +815,21 @@ const schemas = [
           <li>✅ Ganas de aprender y practicar</li>
         </ul>
       </div>
-      <div class="rounded-lg bg-success/10 p-6 text-center">
-        <p class="text-3xl" aria-hidden="true">🛡️</p>
-        <h2 class="mt-2 font-bold text-primary">Garantía de 7 días</h2>
-        <p class="mt-2 text-sm text-body">
-          Si el curso no cumple tus expectativas, te devolvemos el 100% de tu dinero. Sin preguntas.
-        </p>
-      </div>
+      {
+        /* Sin checkout no hay compra que reembolsar: la caja de garantía solo
+           se pinta en cursos comprables. */
+        !sinProducto && (
+          <div class="rounded-lg bg-success/10 p-6 text-center">
+            <p class="text-3xl" aria-hidden="true">🛡️</p>
+            <h2 class="mt-2 font-bold text-primary">Garantía de 7 días</h2>
+            {/* El reembolso lo hace Hotmart, no Sably: «te devolvemos» prometía
+                algo que no podemos cumplir y contradecía /legal/terminos/. */}
+            <p class="mt-2 text-sm text-body">
+              Si el curso no cumple tus expectativas, pides el reembolso del 100 % en Hotmart dentro de los 7 días.
+            </p>
+          </div>
+        )
+      }
     </aside>
   </div>
 
@@ -899,6 +932,15 @@ const schemas = [
         !sinProducto && (
           <p class="mt-4 text-sm text-white/60">
             Garantía de 7 días · Acceso de por vida · Certificado incluido
+          </p>
+        )
+      }
+      {
+        /* El mismo aviso de afiliado del hero, junto al CTA final. text-white/50
+           es el tono atenuado del footer, que pasa el AA sobre bg-primary. */
+        !sinProducto && (
+          <p class="mt-1.5 text-[11px] leading-snug text-white/50">
+            Enlace de afiliado: Sably recibe una comisión sin costo extra para ti.
           </p>
         )
       }

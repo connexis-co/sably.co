@@ -3,9 +3,9 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import { COUNTRIES, getCountry, localPrice } from '@/lib/countries';
+import { COUNTRIES, getCountry } from '@/lib/countries';
 import { INTERNAL_CATEGORIES, getCategory, categoryCover } from '@/lib/categories';
-import { countryAlternates, breadcrumbSchema, faqSchema, courseListSchema } from '@/lib/seo';
+import { countryAlternates, breadcrumbSchema, faqSchema, courseListSchema, cursoParaListado } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 
 export function getStaticPaths() {
@@ -54,6 +54,8 @@ const faqs = [
   },
 ];
 
+/* Marca fija, sin conMarca: con ella /us/cursos/panaderia-y-pasteleria/ pasaba
+   de 60 caracteres y perdía « | Sably». */
 const title = `Cursos de ${catName} Online en ${country.name} | Sably`;
 const description = `${category.description} Cursos online con certificado para ${country.name}, con acceso de por vida.`;
 
@@ -66,16 +68,8 @@ const schemas = [
   faqSchema(faqs),
   // Carrusel de cursos: cada elemento lleva la ficha mínima (precio, duración,
   // proveedor) que Google pide para mostrar el listado como resultado rico.
-  courseListSchema(
-    courses.map((c) => ({
-      name: c.data.title,
-      url: `${SITE.url}${base}/${c.id}/`,
-      description: c.data.shortDescription,
-      price: localPrice(c.data.priceUSD, country),
-      priceCurrency: country.currency,
-      workloadHours: c.data.durationHours,
-    })),
-  ),
+  // Precio real (el de la tarjeta) y sin oferta en los cursos sin checkout.
+  courseListSchema(courses.map((c) => cursoParaListado(c, country))),
 ];
 ---
 

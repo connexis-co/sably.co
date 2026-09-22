@@ -12,8 +12,10 @@ export default defineConfig({
     react(),
     mdx(),
   ],
+  // En Cloudflare Pages manda public/_redirects (también 301); esto queda para
+  // que el HTML de reserva que genera Astro y el dev server digan lo mismo.
   redirects: {
-    '/': '/co/',
+    '/': { status: 301, destination: '/co/' },
   },
   server: {
     // Astro se queda en 4321 y salta al siguiente libre si está ocupado, lo que

@@ -15,6 +15,19 @@ interface Props {
       de ciudad lo usan para canonicar a su página de país (consolidación de la
       hiperlocalización). */
   canonical?: string;
+  /**
+   * Solo Google: excluye la página del índice de Google sin afectar a Bing ni a
+   * los bots de IA. Emite `<meta name="googlebot" content="noindex, follow">`
+   * aparte, sin tocar la meta robots ni el canonical: Google solo lee los tokens
+   * «googlebot» y aplica la regla más restrictiva, mientras Bingbot, OAI-SearchBot,
+   * PerplexityBot y Claude-SearchBot ignoran ese token y siguen viendo index,follow.
+   * Se usa en los hubs, catálogos y categorías de ciudad, donde Google rechaza el
+   * canonical al país. NUNCA en las fichas ciudad+curso: ahí aterriza la mitad del
+   * tráfico de ChatGPT y Google sí acepta su canonical.
+   */
+  noindexGoogle?: boolean;
+  /** og:locale del mercado de la página (es_MX en /mx/…). Por defecto es_CO. */
+  ogLocale?: string;
 }
 
 const {
@@ -26,6 +39,8 @@ const {
   ogType = 'website',
   image,
   canonical: canonicalProp,
+  noindexGoogle = false,
+  ogLocale = 'es_CO',
 } = Astro.props;
 const canonical = canonicalProp ?? new URL(Astro.url.pathname, SITE.url).href;
 /* Absoluta siempre: WhatsApp y Facebook ignoran og:image relativas. */
@@ -60,6 +75,8 @@ function jsonLd(schema: object): string {
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   )
 }
+{/* Con noindex general ya sobra: la meta robots excluye a todos, Google incluido. */}
+{noindexGoogle && !noindex && <meta name="googlebot" content="noindex, follow" />}
 {alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
 
 <meta property="og:type" content={ogType} />
@@ -67,7 +84,7 @@ function jsonLd(schema: object): string {
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
-<meta property="og:locale" content="es_CO" />
+<meta property="og:locale" content={ogLocale} />
 {ogImage && <meta property="og:image" content={ogImage} />}
 {ogImage && <meta property="og:image:width" content="800" />}
 {ogImage && <meta property="og:image:height" content="533" />}

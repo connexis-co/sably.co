@@ -7,9 +7,8 @@ import TestimonialCard from '@/components/TestimonialCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import PromoBanner from '@/components/PromoBanner.astro';
 import type { Country, City } from '@/lib/countries';
-import { localPrice } from '@/lib/countries';
 import { INTERNAL_CATEGORIES } from '@/lib/categories';
-import { breadcrumbSchema, faqSchema, courseListSchema } from '@/lib/seo';
+import { breadcrumbSchema, faqSchema, courseListSchema, cursoParaListado } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 import { valoracionReal } from '@/lib/hotmartLive';
 
@@ -58,24 +57,17 @@ const title = `Cursos Online en ${city.name}, ${country.name} | Certificado Incl
 const description = `Aprende panadería, costura, electricidad, barbería y más desde ${city.name}. Cursos online con certificado y precios en ${country.currency}.`;
 
 const schemas = [
+  /* Sin el paso «{país}»: apuntaba a la misma /xx/ que «Inicio» y el
+     BreadcrumbList repetía una URL. La miga visible no cambia. */
   breadcrumbSchema([
     { name: 'Inicio', url: `${SITE.url}${base}/` },
-    { name: country.name, url: `${SITE.url}${base}/` },
     { name: city.name, url: `${SITE.url}${base}/${city.slug}/` },
   ]),
   faqSchema(faqs),
   // Los mismos cursos que se listan arriba, en el formato de listado que Google
-  // puede convertir en carrusel.
-  courseListSchema(
-    popular.map((c) => ({
-      name: c.data.title,
-      url: `${SITE.url}${base}/${city.slug}/${c.id}/`,
-      description: c.data.shortDescription,
-      price: localPrice(c.data.priceUSD, country),
-      priceCurrency: country.currency,
-      workloadHours: c.data.durationHours,
-    })),
-  ),
+  // puede convertir en carrusel. Con la URL canónica del país de cada ficha y
+  // el precio real de la tarjeta.
+  courseListSchema(popular.map((c) => cursoParaListado(c, country))),
 ];
 ---
 
@@ -89,6 +81,7 @@ const schemas = [
   pageType="city"
   whatsappContext={`Cursos en ${city.name}`}
   canonical={`${SITE.url}${base}/`}
+  noindexGoogle
 >
   <section class="relative overflow-hidden bg-primary py-16">
     <div class="absolute -top-20 -right-20 size-80 rounded-full bg-accent/20 blur-3xl" aria-hidden="true"></div>
@@ -107,7 +100,7 @@ const schemas = [
       </p>
       <div class="mt-6 flex flex-wrap gap-6 text-sm text-white/80">
         <p><strong class="text-white">{popular.length}</strong> cursos populares</p>
-        <p>⭐ <strong class="text-white">{SITE.stats.rating}</strong> de media en valoraciones reales</p>
+        <p>⭐ <strong class="text-white">{SITE.stats.rating}</strong> de media en valoraciones de Hotmart</p>
         <p>📜 Certificado digital incluido</p>
       </div>
     </div>

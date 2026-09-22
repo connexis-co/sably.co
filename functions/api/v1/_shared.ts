@@ -30,6 +30,14 @@ export const MONEDAS_ISO: ReadonlySet<string> = new Set([
   'UYU', 'PYG', 'BOB', 'GTQ', 'CRC', 'DOP', 'HNL', 'NIO', 'CAD', 'GBP',
 ]);
 
+/**
+ * Fuera del índice todo JSON de la API. Googlebot ejecuta el JS de las fichas,
+ * descubre /api/v1/config, /promo o /precios y los rastrea como URLs sueltas
+ * que no responden a ninguna búsqueda. public/_headers no se aplica a las
+ * Functions, así que la cabecera la pone cada helper que construye la respuesta.
+ */
+export const SIN_INDICE = { 'x-robots-tag': 'noindex' } as const;
+
 export const json = (data: unknown, status = 200): Response =>
   new Response(JSON.stringify(data), {
     status,
@@ -37,6 +45,7 @@ export const json = (data: unknown, status = 200): Response =>
       'content-type': 'application/json; charset=utf-8',
       // Ninguna respuesta de la API se cachea: son datos por visitante.
       'cache-control': 'no-store',
+      ...SIN_INDICE,
     },
   });
 

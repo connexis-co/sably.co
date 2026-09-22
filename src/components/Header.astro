@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import { CATEGORIES, INTERNAL_CATEGORIES, categoryCover } from '@/lib/categories';
 import type { Country, City } from '@/lib/countries';
-import { formatPrice } from '@/lib/countries';
 import Logo from './Logo.astro';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 
@@ -15,9 +14,19 @@ interface Props {
 const { country, city, pathAfterCountry } = Astro.props;
 
 const allCourses = await getCollection('courses');
+/* El destacado de cada categoría sale en TODAS las páginas del sitio: nunca un
+   curso sin checkout (hotmartUrl PENDIENTE), que es una página «Próximamente»
+   sin nada que comprar. Si una categoría solo tuviera cursos PENDIENTE, sale el
+   aviso «Muy pronto».
+   Sin precio en el destacado: el de catálogo (priceUSD) no coincide con el
+   precio real de la ficha ni con su Product.offers, y el menú sale en la propia
+   ficha del curso, así que la página se contradecía a sí misma. El precio se ve
+   en la ficha, que es donde se compra. */
 const featuredByCategory = new Map(
   INTERNAL_CATEGORIES.map((cat) => {
-    const inCat = allCourses.filter((c) => c.data.category === cat.slug);
+    const inCat = allCourses.filter(
+      (c) => c.data.category === cat.slug && !/PENDIENTE/i.test(c.data.hotmartUrl),
+    );
     const pick = inCat.find((c) => c.data.featured) ?? inCat[0];
     return [cat.slug, pick] as const;
   }),
@@ -134,9 +143,6 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
                               />
                             </div>
                             <p class="mt-3 line-clamp-2 text-sm font-bold text-primary">{featured.data.title}</p>
-                            <p class="mt-1 text-sm font-semibold text-accent">
-                              {formatPrice(featured.data.priceUSD, country)}
-                            </p>
                           </div>
                           <a
                             href={`${base}/${featured.id}/`}

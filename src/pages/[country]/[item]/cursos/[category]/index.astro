@@ -3,9 +3,9 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import { COUNTRIES, getCountry, getCity, localPrice } from '@/lib/countries';
+import { COUNTRIES, getCountry, getCity } from '@/lib/countries';
 import { INTERNAL_CATEGORIES, getCategory, categoryCover } from '@/lib/categories';
-import { breadcrumbSchema, faqSchema, courseListSchema } from '@/lib/seo';
+import { breadcrumbSchema, faqSchema, courseListSchema, cursoParaListado } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 
 export function getStaticPaths() {
@@ -60,16 +60,8 @@ const schemas = [
   faqSchema(faqs),
   // Carrusel de cursos: cada elemento lleva la ficha mínima (precio, duración,
   // proveedor) que Google pide para mostrar el listado como resultado rico.
-  courseListSchema(
-    courses.map((c) => ({
-      name: c.data.title,
-      url: `${SITE.url}${base}/${city.slug}/${c.id}/`,
-      description: c.data.shortDescription,
-      price: localPrice(c.data.priceUSD, country),
-      priceCurrency: country.currency,
-      workloadHours: c.data.durationHours,
-    })),
-  ),
+  // Con la URL canónica del país, no la de ciudad: esas fichas canonizan allí.
+  courseListSchema(courses.map((c) => cursoParaListado(c, country))),
 ];
 ---
 
@@ -83,6 +75,7 @@ const schemas = [
   {schemas}
   pageType="category_city"
   whatsappContext={`Cursos de ${category.name} en ${city.name}`}
+  noindexGoogle
 >
   <section class="relative overflow-hidden py-16">
     <img

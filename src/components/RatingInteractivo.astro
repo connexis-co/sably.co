@@ -3,9 +3,13 @@
  * Estrellas del hero del curso: muestran la valoración REAL de compradores
  * (Hotmart) en amarillo y permiten al visitante dejar la suya con un toque.
  *
- * Las dos notas no se mezclan: la visible y la del JSON-LD siguen siendo la de
- * compradores; el voto del visitante va a `visitor_rating` en D1 (una por
- * visitante y curso, hash de IP). Señal de interés, no calidad verificada.
+ * Las dos notas no se mezclan: la visible es la de compradores; el voto del
+ * visitante va a `visitor_rating` en D1 (una por visitante y curso, hash de
+ * IP). Señal de interés, no calidad verificada.
+ *
+ * La nota se atribuye a Hotmart en el propio texto: es de un tercero, no de
+ * reseñas recogidas por Sably, y sin la fuente el lector (y el LLM que la cite)
+ * la tomaría por nuestra. Por eso tampoco va al aggregateRating del schema.
  */
 interface Props {
   slug: string;
@@ -15,6 +19,8 @@ interface Props {
 }
 const { slug, rating, count } = Astro.props;
 const llenas = rating ? Math.round(rating) : 0;
+// Hay cursos con una sola valoración: «1 valoraciones» delata la plantilla.
+const etiquetaConteo = count === 1 ? 'valoración' : 'valoraciones';
 ---
 
 <div data-valorar data-slug={slug} class="flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -39,7 +45,7 @@ const llenas = rating ? Math.round(rating) : 0;
     rating ? (
       <span class="text-sm">
         <strong class="font-semibold text-white">{rating.toFixed(1).replace('.', ',')}</strong>
-        <span class="text-white/70"> ({count} valoraciones de compradores)</span>
+        <span class="text-white/70"> ({count} {etiquetaConteo} en Hotmart)</span>
       </span>
     ) : (
       <span class="text-sm text-white/70">Sé quien lo valore primero</span>

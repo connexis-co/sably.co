@@ -10,7 +10,7 @@ import PromoBanner from '@/components/PromoBanner.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import { COUNTRIES, getCountry } from '@/lib/countries';
 import { CATEGORIES } from '@/lib/categories';
-import { countryAlternates, faqSchema, websiteSchema } from '@/lib/seo';
+import { LIMITE_TITULO, countryAlternates, faqSchema, websiteSchema } from '@/lib/seo';
 import { SITE, CDN_URL } from '@/lib/site';
 import { HERO_ASSETS } from '@/lib/hero-assets';
 
@@ -49,7 +49,7 @@ const faqs = [
   },
   {
     q: '¿Qué pasa si el curso no me gusta?',
-    a: 'Tienes 7 días de garantía: si el curso no cumple tus expectativas, te devolvemos el 100% de tu dinero.',
+    a: 'Tienes 7 días de garantía: si el curso no cumple tus expectativas, pides en Hotmart el reembolso del 100 % de tu dinero.',
   },
   {
     q: '¿Necesito experiencia previa?',
@@ -57,7 +57,11 @@ const faqs = [
   },
 ];
 
-const title = `Cursos Online de Oficios y Habilidades Prácticas en ${country.name} | Sably`;
+/* La marca delante: al final se truncaba (68 caracteres en /co/) y la home es
+   la página que más pesa para el nombre de sitio. Si el país no cabe en 60
+   (Estados Unidos) se cae a la variante corta sin «con certificado». */
+const tituloLargo = `Sably: cursos online de oficios con certificado en ${country.name}`;
+const title = tituloLargo.length <= LIMITE_TITULO ? tituloLargo : `Sably: cursos online de oficios en ${country.name}`;
 const description = `Aprende panadería, costura, electricidad, gastronomía y más oficios rentables desde ${country.name}. Cursos online con certificado y acceso de por vida.`;
 ---
 
@@ -67,7 +71,7 @@ const description = `Aprende panadería, costura, electricidad, gastronomía y m
   {country}
   pathAfterCountry="/"
   alternates={countryAlternates('/')}
-  schemas={[faqSchema(faqs), websiteSchema(country.code)]}
+  schemas={[faqSchema(faqs), websiteSchema()]}
   pageType="home"
 >
   <!-- Hero -->
@@ -102,7 +106,7 @@ const description = `Aprende panadería, costura, electricidad, gastronomía y m
           </a>
         </div>
         <p class="mt-6 text-sm text-white/60">
-          ⭐ {SITE.stats.rating}/5 en valoraciones reales · estudiantes en {SITE.stats.countries} países
+          ⭐ {SITE.stats.rating}/5 en valoraciones de Hotmart · estudiantes en {SITE.stats.countries} países
         </p>
       </div>
 
@@ -186,7 +190,7 @@ const description = `Aprende panadería, costura, electricidad, gastronomía y m
           { icon: '📜', title: 'Certificado incluido', text: 'Certifica tus habilidades y mejora tu hoja de vida al terminar cada curso.' },
           { icon: '⏰', title: 'A tu ritmo', text: 'Acceso de por vida, 24/7, desde el celular o computador. Sin horarios.' },
           { icon: '💬', title: 'Acompañamiento', text: 'Resuelve tus dudas por WhatsApp con nuestro equipo en tu país.' },
-          { icon: '🛡️', title: 'Garantía de 7 días', text: 'Si el curso no es para ti, te devolvemos el 100% de tu dinero.' },
+          { icon: '🛡️', title: 'Garantía de 7 días', text: 'Si el curso no es para ti, pides en Hotmart el reembolso del 100 %.' },
         ].map((item) => (
           <div class="rounded-lg border border-surface-200 p-6 text-center">
             <p class="text-3xl" aria-hidden="true">{item.icon}</p>
