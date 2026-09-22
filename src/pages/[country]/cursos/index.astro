@@ -5,7 +5,7 @@ import CourseCard from '@/components/CourseCard.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import { COUNTRIES, getCountry } from '@/lib/countries';
 import { INTERNAL_CATEGORIES } from '@/lib/categories';
-import { countryAlternates, breadcrumbSchema, itemListSchema } from '@/lib/seo';
+import { countryAlternates, breadcrumbSchema, conMarca, itemListSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 
 export function getStaticPaths() {
@@ -21,7 +21,9 @@ const byCategory = INTERNAL_CATEGORIES.map((cat) => ({
   courses: courses.filter((c) => c.data.category === cat.slug),
 })).filter((g) => g.courses.length > 0);
 
-const title = `Catálogo de Cursos Online en ${country.name} | ${courses.length}+ Cursos con Certificado | Sably`;
+/* Antes 71-81 caracteres: Google cortaba justo la marca. Se conserva el conteo
+   y la marca entra en los 8 países (≤60, ver conMarca). */
+const title = conMarca(`Catálogo de ${courses.length}+ cursos online en ${country.name}`);
 const description = `Explora todos los cursos online de Sably disponibles en ${country.name}: oficios, gastronomía, moda, emprendimiento y más. Certificado incluido.`;
 
 const schemas = [

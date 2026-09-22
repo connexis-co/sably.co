@@ -25,7 +25,7 @@ import { formatMonto, precioReal, valoracionReal } from '@/lib/hotmartLive';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
 import { resolvePromo } from '@/lib/promo';
-import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema, videoSchema } from '@/lib/seo';
+import { countryAlternates, breadcrumbSchema, conMarca, faqSchema, courseSchema, videoSchema } from '@/lib/seo';
 import { COURSE_VIDEOS, duracionIso } from '@/lib/course-videos';
 import { SITE, CDN_URL } from '@/lib/site';
 
@@ -240,11 +240,19 @@ const tituloPais =
   locale?.data.meta_title ??
   course.data.metaTitle ??
   `${course.data.title} | Curso Online con Certificado | Sably`;
+/* Ficha de país: la regla de colisión no cambia; después se asegura la marca
+   cuando cabe en 60 caracteres (ver conMarca) y la mayúscula inicial, porque
+   diez meta_title generados empiezan en minúscula («curso de barbería…»). */
+const mayusculaInicial = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
 const title = city
   ? `${course.data.title} en ${city.name}, ${country.name} | Online | Sably`
-  : tituloColisiona
-    ? `${tituloPais.replace(/\s*\|\s*Sably\s*$/, '')} | ${country.name}`
-    : tituloPais;
+  : conMarca(
+      mayusculaInicial(
+        tituloColisiona
+          ? `${tituloPais.replace(/\s*\|\s*Sably\s*$/, '')} | ${country.name}`
+          : tituloPais,
+      ),
+    );
 
 /* Recorta a un límite de palabra con elipsis. Antes se hacía `.slice(0, 158)`
    crudo, que cortaba a media palabra («…cobra más por cad») porque el texto

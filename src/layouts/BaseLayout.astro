@@ -69,6 +69,16 @@ const {
 } = Astro.props;
 
 const allSchemas = [organizationSchema(), ...schemas];
+
+/* og:locale del mercado (es_MX en /mx/…) en todo lo que cuelga de /xx/; antes
+   era es_CO fijo en los 8 países. El blog, los legales y /nosotros reciben el
+   país por defecto pero no son de ningún mercado: se quedan con es_CO.
+   <html lang> sigue en «es» a propósito: PromoBanner deduce el país de
+   `documentElement.lang` («es-MX» → mx) para elegir la promoción y el cupón de
+   los CTA, y hoy, con «es», resuelve siempre Colombia. Cambiarlo movería qué
+   promoción ve cada país, que es una decisión de negocio y no de SEO. */
+const dePais = Astro.url.pathname.startsWith(`/${country.code}/`);
+const ogLocale = dePais ? country.hreflang.replace('-', '_') : 'es_CO';
 ---
 
 <!doctype html>
@@ -82,7 +92,7 @@ const allSchemas = [organizationSchema(), ...schemas];
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#1B1B3A" />
     <meta name="generator" content={Astro.generator} />
-    <Seo {title} {description} {alternates} schemas={allSchemas} {noindex} {image} {canonical} {noindexGoogle} />
+    <Seo {title} {description} {alternates} schemas={allSchemas} {noindex} {image} {canonical} {noindexGoogle} {ogLocale} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     {
       GTM_ID && (

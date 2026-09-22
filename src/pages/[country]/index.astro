@@ -10,7 +10,7 @@ import PromoBanner from '@/components/PromoBanner.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import { COUNTRIES, getCountry } from '@/lib/countries';
 import { CATEGORIES } from '@/lib/categories';
-import { countryAlternates, faqSchema, websiteSchema } from '@/lib/seo';
+import { LIMITE_TITULO, countryAlternates, faqSchema, websiteSchema } from '@/lib/seo';
 import { SITE, CDN_URL } from '@/lib/site';
 import { HERO_ASSETS } from '@/lib/hero-assets';
 
@@ -57,7 +57,11 @@ const faqs = [
   },
 ];
 
-const title = `Cursos Online de Oficios y Habilidades Prácticas en ${country.name} | Sably`;
+/* La marca delante: al final se truncaba (68 caracteres en /co/) y la home es
+   la página que más pesa para el nombre de sitio. Si el país no cabe en 60
+   (Estados Unidos) se cae a la variante corta sin «con certificado». */
+const tituloLargo = `Sably: cursos online de oficios con certificado en ${country.name}`;
+const title = tituloLargo.length <= LIMITE_TITULO ? tituloLargo : `Sably: cursos online de oficios en ${country.name}`;
 const description = `Aprende panadería, costura, electricidad, gastronomía y más oficios rentables desde ${country.name}. Cursos online con certificado y acceso de por vida.`;
 ---
 
@@ -67,7 +71,7 @@ const description = `Aprende panadería, costura, electricidad, gastronomía y m
   {country}
   pathAfterCountry="/"
   alternates={countryAlternates('/')}
-  schemas={[faqSchema(faqs), websiteSchema(country.code)]}
+  schemas={[faqSchema(faqs), websiteSchema()]}
   pageType="home"
 >
   <!-- Hero -->

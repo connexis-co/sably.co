@@ -6,7 +6,7 @@ import ArticleRating from '@/components/ArticleRating.astro';
 import Comentarios from '@/components/Comentarios.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
-import { breadcrumbSchema, faqSchema } from '@/lib/seo';
+import { breadcrumbSchema, conMarca, faqSchema } from '@/lib/seo';
 import { blogCover, readingTime } from '@/lib/blog';
 import { SITE } from '@/lib/site';
 
@@ -28,6 +28,9 @@ const related = (await getCollection('blog'))
   .slice(0, 3);
 
 const minutes = readingTime(post.body ?? '');
+/* « | Blog Sably» dejaba los 10 títulos por encima de 60 caracteres, con la
+   marca justo en la parte que Google corta. Ahora solo va si cabe (conMarca). */
+const title = conMarca(post.data.title);
 const pageUrl = `${SITE.url}/blog/${post.id}/`;
 
 const schemas = [
@@ -67,7 +70,7 @@ const schemas = [
 ---
 
 <BaseLayout
-  title={`${post.data.title} | Blog Sably`}
+  {title}
   description={post.data.description}
   {country}
   pathAfterCountry="/"

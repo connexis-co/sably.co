@@ -44,6 +44,25 @@ export function breadcrumbSchema(items: BreadcrumbItem[]) {
   };
 }
 
+/** Largo a partir del cual Google corta el título en el resultado (~600 px). */
+export const LIMITE_TITULO = 60;
+
+/**
+ * Añade « | Sably» al <title> cuando cabe.
+ *
+ * La marca en el título es una de las fuentes que Google usa para el nombre del
+ * sitio y la que citan los LLM tal cual, pero solo 13 de 968 fichas de país la
+ * llevaban. Se añade únicamente si el título no la nombra ya y el resultado
+ * queda en ≤60 caracteres: pasado ese largo Google la corta igual, y recortar
+ * el título para hacerle sitio le quitaría keywords.
+ */
+export function conMarca(titulo: string): string {
+  const t = titulo.trim();
+  if (/sably/i.test(t)) return t;
+  const conSufijo = `${t} | ${SITE.name}`;
+  return conSufijo.length <= LIMITE_TITULO ? conSufijo : t;
+}
+
 export function organizationSchema() {
   return {
     '@context': 'https://schema.org',
@@ -53,7 +72,8 @@ export function organizationSchema() {
     '@id': `${SITE.url}/#organization`,
     name: SITE.name,
     alternateName: 'Sably Cursos Online',
-    url: SITE.url,
+    // Con barra: sin ella la URL redirige, y la entidad debe apuntar a una URL final.
+    url: `${SITE.url}/`,
     description: SITE.description,
     slogan: SITE.tagline,
     logo: {
@@ -337,18 +357,26 @@ export function itemListSchema(items: ListItem[]) {
  * Es lo que alimenta el nombre del sitio en el resultado: Google muestra
  * «Sably» en vez de «sably.co» cuando encuentra este marcado en la raíz.
  *
+ * La `url` es la raíz del dominio e IDÉNTICA en las 8 homes: Google no admite
+ * nombres de sitio a nivel de subdirectorio y pide los mismos datos en todas
+ * las variantes de la home. Antes cada una declaraba su /xx/ con el mismo @id,
+ * o sea ocho definiciones distintas de un único sitio.
+ *
+ * `alternateName` recoge cómo se nombra la marca fuera de aquí: «Sably Academy»
+ * es el canal real de YouTube (@sably.academy), que posiciona para «sably».
+ *
  * No lleva `SearchAction`: Google retiró la caja de búsqueda de resultados en
  * noviembre de 2023 y el sitio no tiene buscador, así que declararla sería
  * marcado que no describe nada.
  */
-export function websiteSchema(country: string) {
+export function websiteSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${SITE.url}/#website`,
     name: SITE.name,
-    alternateName: 'Sably Cursos Online',
-    url: `${SITE.url}/${country}/`,
+    alternateName: ['Sably Cursos Online', 'Sably Academy', 'sably.co'],
+    url: `${SITE.url}/`,
     description: SITE.description,
     inLanguage: 'es',
     publisher: { '@id': `${SITE.url}/#organization` },
