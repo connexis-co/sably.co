@@ -41,7 +41,10 @@ const schemas = [
     '@type': 'Article',
     headline: post.data.title,
     description: post.data.description,
-    image: `${SITE.url}${blogCover(post.data.category, 'hero')}`,
+    /* blogCover ya devuelve la URL absoluta del CDN: concatenarle SITE.url daba
+       «https://sably.cohttps://cdn…», una imagen imposible de rastrear. new URL
+       deja intacta la absoluta y resuelve la relativa (entorno sin CDN). */
+    image: new URL(blogCover(post.data.category, 'hero'), SITE.url).href,
     datePublished: post.data.publishedAt.toISOString(),
     dateModified: post.data.publishedAt.toISOString(),
     inLanguage: 'es',
