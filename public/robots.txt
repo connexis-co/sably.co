@@ -1,7 +1,75 @@
+# robots.txt — sably.co
+# Objetivo: máxima visibilidad en buscadores y asistentes de IA (GEO),
+# protegiendo solo /admin.
+# NOTA: cada bot obedece SOLO su grupo más específico e IGNORA "User-agent: *",
+# por eso se repite el Disallow de /admin en cada bloque nombrado.
+
 User-agent: *
+# Señal de contenido POSITIVA: permitimos explícitamente búsqueda, uso en
+# respuestas de IA (RAG/grounding) y entrenamiento. Máxima visibilidad/citación.
+Content-Signal: search=yes, ai-input=yes, ai-train=yes
 Disallow: /admin
 Disallow: /admin/
 Allow: /
+
+# ── Buscadores clásicos (SEO + alimentan a la IA). NUNCA bloquear ───────────
+User-agent: Googlebot
+Disallow: /admin
+Disallow: /admin/
+Allow: /
+
+User-agent: Bingbot
+Disallow: /admin
+Disallow: /admin/
+Allow: /
+
+# ── Búsqueda / citación de IA (así te CITAN → tráfico). PERMITIR ────────────
+User-agent: OAI-SearchBot
+User-agent: Claude-SearchBot
+User-agent: PerplexityBot
+User-agent: Applebot
+User-agent: Amazonbot
+Disallow: /admin
+Disallow: /admin/
+Allow: /
+
+# ── Fetch bajo demanda del usuario (alta intención). PERMITIR ───────────────
+User-agent: ChatGPT-User
+User-agent: Claude-User
+User-agent: Perplexity-User
+Disallow: /admin
+Disallow: /admin/
+Allow: /
+
+# ── Entrenamiento de modelos (permitido: reconocimiento de marca) ───────────
+# Para NO donar a entrenamiento, cambia "Allow: /" por "Disallow: /" en este grupo.
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: CCBot
+User-agent: meta-externalagent
+Disallow: /admin
+Disallow: /admin/
+Allow: /
+
+# ── Tokens de opt-out de entrenamiento (señales, no crawlers) ───────────────
+# Google-Extended: entrenar Gemini/Vertex. Bloquearlo NO afecta el ranking en Google.
+# Applebot-Extended: entrenar Apple Intelligence (no afecta la búsqueda de Apple).
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# ── Legacy Anthropic (deprecados; por compatibilidad) ───────────────────────
+User-agent: anthropic-ai
+User-agent: claude-web
+Disallow: /admin
+Disallow: /admin/
+Allow: /
+
+# ── Bots abusivos sin retorno. BLOQUEAR (el bloqueo real requiere regla WAF) ─
+User-agent: Bytespider
+Disallow: /
 
 Sitemap: https://sably.co/sitemap-index.xml
 

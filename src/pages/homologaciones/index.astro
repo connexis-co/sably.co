@@ -6,7 +6,7 @@ import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
 import { PROGRAMAS, SEDES } from '@/lib/homologaciones';
 import { categoryCover } from '@/lib/categories';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
-import { faqSchema, breadcrumbSchema } from '@/lib/seo';
+import { faqSchema, breadcrumbSchema, itemListSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 
 const country = getCountry(DEFAULT_COUNTRY);
@@ -48,6 +48,8 @@ const schemas = [
     { name: 'Homologaciones', url: `${SITE.url}/homologaciones/` },
   ]),
   faqSchema(faqs),
+  // Listado de programas homologables: refuerza el listado ante Google/LLMs.
+  itemListSchema(PROGRAMAS.map((p) => ({ name: p.name, url: `${SITE.url}/homologaciones/${p.slug}/` }))),
 ];
 ---
 

@@ -15,6 +15,8 @@ export interface UrlEntry {
   loc: string;
   priority: number;
   changefreq: 'weekly' | 'monthly';
+  /** ISO 8601. Señal de frescura para el re-crawl (IndexNow/Bing/Google). */
+  lastmod: string;
   /** Extensión de vídeo. Solo en las páginas donde el vídeo se reproduce. */
   video?: VideoEntry;
 }
@@ -41,10 +43,20 @@ const xml = (s: string): string =>
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&apos;');
 
-const u = (path: string, priority: number, changefreq: 'weekly' | 'monthly' = 'weekly'): UrlEntry => ({
+/** Fecha de build: fallback de lastmod para páginas sin fecha propia de
+    contenido. Se calcula una vez por build (todas comparten el mismo sello). */
+const BUILD_DATE = new Date().toISOString();
+
+const u = (
+  path: string,
+  priority: number,
+  changefreq: 'weekly' | 'monthly' = 'weekly',
+  lastmod: string = BUILD_DATE,
+): UrlEntry => ({
   loc: `${SITE.url}${path}`,
   priority,
   changefreq,
+  lastmod,
 });
 
 export function pagesUrls(): UrlEntry[] {
@@ -52,10 +64,9 @@ export function pagesUrls(): UrlEntry[] {
   for (const c of COUNTRIES) {
     urls.push(u(`/${c.code}/`, 1.0));
     urls.push(u(`/${c.code}/cursos/`, 1.0));
-    for (const city of c.cities) {
-      urls.push(u(`/${c.code}/${city.slug}/`, 0.7, 'monthly'));
-      urls.push(u(`/${c.code}/${city.slug}/cursos/`, 0.7, 'monthly'));
-    }
+    // Las landings de ciudad NO van al sitemap: canonican a su página de país
+    // (consolidación de la hiperlocalización). Siguen vivas (200) para usuarios
+    // y LLMs, pero no se pide su indexación.
   }
   urls.push(u('/nosotros/', 0.5, 'monthly'));
   urls.push(u('/homologaciones/', 0.8));
@@ -71,9 +82,7 @@ export function categoriasUrls(): UrlEntry[] {
   for (const c of COUNTRIES) {
     for (const cat of INTERNAL_CATEGORIES) {
       urls.push(u(`/${c.code}/cursos/${cat.slug}/`, 0.8));
-      for (const city of c.cities) {
-        urls.push(u(`/${c.code}/${city.slug}/cursos/${cat.slug}/`, 0.6, 'monthly'));
-      }
+      // Categorías de ciudad: fuera del sitemap (canonican a la categoría de país).
     }
   }
   return urls;
@@ -101,16 +110,19 @@ export async function cursosUrls(countryCode: string): Promise<UrlEntry[]> {
       };
     }
     urls.push(entrada);
-    for (const city of country.cities) {
-      urls.push(u(`/${country.code}/${city.slug}/${course.id}/`, 0.5, 'monthly'));
-    }
+    // Variantes ciudad+curso: fuera del sitemap (canonican al curso de país).
   }
   return urls;
 }
 
 export async function blogUrls(): Promise<UrlEntry[]> {
   const posts = await getCollection('blog');
-  return [u('/blog/', 0.7), ...posts.map((p) => u(`/blog/${p.id}/`, 0.6, 'monthly'))];
+  return [
+    u('/blog/', 0.7),
+    ...posts.map((p) =>
+      u(`/blog/${p.id}/`, 0.6, 'monthly', new Date(p.data.publishedAt).toISOString()),
+    ),
+  ];
 }
 
 export function renderUrlset(urls: UrlEntry[]): string {
@@ -128,7 +140,7 @@ export function renderUrlset(urls: UrlEntry[]): string {
           `<video:requires_subscription>no</video:requires_subscription>` +
           `</video:video>`
         : '';
-      return `<url><loc>${x.loc}</loc><changefreq>${x.changefreq}</changefreq><priority>${x.priority.toFixed(1)}</priority>${v}</url>`;
+      return `<url><loc>${x.loc}</loc><lastmod>${x.lastmod}</lastmod><changefreq>${x.changefreq}</changefreq><priority>${x.priority.toFixed(1)}</priority>${v}</url>`;
     })
     .join('');
   return (

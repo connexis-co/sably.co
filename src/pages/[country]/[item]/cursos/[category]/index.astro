@@ -79,6 +79,7 @@ const schemas = [
   {country}
   {city}
   pathAfterCountry={`/cursos/${category.slug}/`}
+  canonical={`${SITE.url}${base}/cursos/${category.slug}/`}
   {schemas}
   pageType="category_city"
   whatsappContext={`Cursos de ${category.name} en ${city.name}`}
