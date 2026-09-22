@@ -15,9 +15,16 @@ interface Props {
 const { country, city, pathAfterCountry } = Astro.props;
 
 const allCourses = await getCollection('courses');
+/* El destacado de cada categoría sale en TODAS las páginas del sitio: nunca un
+   curso sin checkout (hotmartUrl PENDIENTE), que es una página «Próximamente»
+   sin nada que comprar. Así el menú tampoco muestra un precio de un curso que no
+   se puede pagar. Si una categoría solo tuviera cursos PENDIENTE, sale el aviso
+   «Muy pronto». */
 const featuredByCategory = new Map(
   INTERNAL_CATEGORIES.map((cat) => {
-    const inCat = allCourses.filter((c) => c.data.category === cat.slug);
+    const inCat = allCourses.filter(
+      (c) => c.data.category === cat.slug && !/PENDIENTE/i.test(c.data.hotmartUrl),
+    );
     const pick = inCat.find((c) => c.data.featured) ?? inCat[0];
     return [cat.slug, pick] as const;
   }),

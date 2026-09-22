@@ -26,8 +26,8 @@ export const GET: APIRoute = async ({ params }) => {
   }
 
   let urls;
-  if (name === 'pages') urls = pagesUrls();
-  else if (name === 'categorias') urls = categoriasUrls();
+  if (name === 'pages') urls = await pagesUrls();
+  else if (name === 'categorias') urls = await categoriasUrls();
   else if (name === 'blog') urls = await blogUrls();
   else if (name === 'temporal-ciudades-noindex') urls = ciudadesNoindexUrls();
   else urls = await cursosUrls(name.replace('cursos-', ''));
