@@ -15,6 +15,17 @@ interface Props {
       de ciudad lo usan para canonicar a su página de país (consolidación de la
       hiperlocalización). */
   canonical?: string;
+  /**
+   * Solo Google: excluye la página del índice de Google sin afectar a Bing ni a
+   * los bots de IA. Emite `<meta name="googlebot" content="noindex, follow">`
+   * aparte, sin tocar la meta robots ni el canonical: Google solo lee los tokens
+   * «googlebot» y aplica la regla más restrictiva, mientras Bingbot, OAI-SearchBot,
+   * PerplexityBot y Claude-SearchBot ignoran ese token y siguen viendo index,follow.
+   * Se usa en los hubs, catálogos y categorías de ciudad, donde Google rechaza el
+   * canonical al país. NUNCA en las fichas ciudad+curso: ahí aterriza la mitad del
+   * tráfico de ChatGPT y Google sí acepta su canonical.
+   */
+  noindexGoogle?: boolean;
 }
 
 const {
@@ -26,6 +37,7 @@ const {
   ogType = 'website',
   image,
   canonical: canonicalProp,
+  noindexGoogle = false,
 } = Astro.props;
 const canonical = canonicalProp ?? new URL(Astro.url.pathname, SITE.url).href;
 /* Absoluta siempre: WhatsApp y Facebook ignoran og:image relativas. */
@@ -60,6 +72,8 @@ function jsonLd(schema: object): string {
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   )
 }
+{/* Con noindex general ya sobra: la meta robots excluye a todos, Google incluido. */}
+{noindexGoogle && !noindex && <meta name="googlebot" content="noindex, follow" />}
 {alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
 
 <meta property="og:type" content={ogType} />

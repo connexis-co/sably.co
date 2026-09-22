@@ -43,6 +43,11 @@ interface Props {
   image?: string;
   /** Canonical explícito (override). Las variantes de ciudad canonican a país. */
   canonical?: string;
+  /**
+   * Noindex solo para Googlebot (ver Seo.astro). Es explícito y no se deduce de
+   * `city`: las fichas ciudad+curso también pasan `city` y no deben llevarlo.
+   */
+  noindexGoogle?: boolean;
 }
 
 const {
@@ -60,6 +65,7 @@ const {
   noindex = false,
   image,
   canonical,
+  noindexGoogle = false,
 } = Astro.props;
 
 const allSchemas = [organizationSchema(), ...schemas];
@@ -76,7 +82,7 @@ const allSchemas = [organizationSchema(), ...schemas];
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#1B1B3A" />
     <meta name="generator" content={Astro.generator} />
-    <Seo {title} {description} {alternates} schemas={allSchemas} {noindex} {image} {canonical} />
+    <Seo {title} {description} {alternates} schemas={allSchemas} {noindex} {image} {canonical} {noindexGoogle} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     {
       GTM_ID && (

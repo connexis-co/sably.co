@@ -156,3 +156,34 @@ export const SITEMAP_NAMES = [
   'blog',
   ...COUNTRIES.map((c) => `cursos-${c.code}`),
 ];
+
+/**
+ * TEMPORAL — retirar después del 2026-11-15 (6-8 semanas tras el despliegue).
+ *
+ * Las 504 páginas de ciudad que llevan `<meta name="googlebot" content="noindex,
+ * follow">` (36 hubs, 36 catálogos y 432 ciudad×categoría; ver Seo.astro). Salieron
+ * de los sitemaps el 10-sep y Google tarda meses en volver a rastrearlas por su
+ * cuenta, así que no vería el noindex. Este sitemap existe solo para forzar ese
+ * rastreo: lastmod = fecha de build.
+ *
+ * Va APARTE de SITEMAP_NAMES a propósito: no sale en /sitemap-index.xml, ni en
+ * /sitemap.xml, ni en robots.txt, y no se manda por IndexNow. Se envía solo a
+ * Google por la API de Search Console. Mientras esté, GSC avisará de «Enviada
+ * marcada como noindex»: es lo esperado. Para retirarlo, borrarlo de GSC, quitar
+ * esta constante, ciudadesNoindexUrls() y su rama en src/pages/sitemaps/[name].xml.ts.
+ * Las fichas ciudad+curso NO van aquí: no llevan el noindex.
+ */
+export const SITEMAPS_TEMPORALES = ['temporal-ciudades-noindex'];
+
+export function ciudadesNoindexUrls(): UrlEntry[] {
+  const urls: UrlEntry[] = [];
+  for (const c of COUNTRIES) {
+    for (const city of c.cities) {
+      const raiz = `/${c.code}/${city.slug}`;
+      urls.push(u(`${raiz}/`, 0.1));
+      urls.push(u(`${raiz}/cursos/`, 0.1));
+      for (const cat of INTERNAL_CATEGORIES) urls.push(u(`${raiz}/cursos/${cat.slug}/`, 0.1));
+    }
+  }
+  return urls;
+}
