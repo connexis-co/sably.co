@@ -172,11 +172,15 @@ const NIVEL: Record<string, string> = {
  * devoluciones, y tampoco `brand`, porque la marca del curso es su productor y
  * no Sably. Todo lo de Course (temario, credencial, CourseInstance) se conserva
  * para Bing y los asistentes.
+ *
+ * Un curso sin checkout («Próximamente») se queda en Course a secas: Google
+ * exige en Product uno de offers, review o aggregateRating, y aquí no hay
+ * ninguno, así que un Product vacío sería un elemento no válido en GSC.
  */
 export function courseSchema(c: CourseSchemaInput) {
   return {
     '@context': 'https://schema.org',
-    '@type': ['Product', 'Course'],
+    '@type': c.comprable === false ? 'Course' : ['Product', 'Course'],
     '@id': `${c.url}#curso`,
     name: c.title,
     description: c.description,
