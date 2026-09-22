@@ -141,7 +141,19 @@ const SABLY_LINKS = [
           cursos de cada creador. sm:basis-full lo baja a su propia línea. */}
       <p class="sm:basis-full">
         Sably recomienda cursos como afiliado: si compras a través de nuestros enlaces recibimos una comisión, sin
-        costo extra para ti. Pagos y acceso gestionados por Hotmart.{' '}
+        costo extra para ti. Pagos y acceso gestionados por{' '}
+        {/* Logo oficial vigente de Hotmart (2025), en gris para el pie oscuro. Solo
+            identifica quién procesa el pago: sin enlace y sin palabras como
+            «aliado» u «oficial» (Términos de Hotmart 3.2, 5.2 y 6.4). */}
+        <img
+          src="/brand/hotmart-logo-mono.svg"
+          alt="Hotmart"
+          width="56"
+          height="16"
+          loading="lazy"
+          decoding="async"
+          class="inline-block h-4 w-auto align-[-3px]"
+        />.{' '}
         <a
           href="/legal/terminos/#afiliacion"
           class="underline decoration-white/30 underline-offset-2 transition hover:text-white">Más información</a
