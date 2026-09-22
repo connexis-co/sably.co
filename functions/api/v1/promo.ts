@@ -16,7 +16,7 @@
  * única promoción. Así un despliegue no apaga el descuento por una migración que
  * aún no corrió.
  */
-import type { Env } from './_shared';
+import { type Env, SIN_INDICE } from './_shared';
 
 interface FilaPromo {
   id: string;
@@ -51,6 +51,7 @@ const cacheado = (data: unknown, segundos: number): Response =>
       'content-type': 'application/json; charset=utf-8',
       'cache-control': `public, max-age=${segundos}, s-maxage=${segundos}`,
       'access-control-allow-origin': '*',
+      ...SIN_INDICE,
     },
   });
 

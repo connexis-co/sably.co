@@ -1,0 +1,7 @@
+# Cloudflare Pages — cabeceras de los estáticos. No alcanza a /api/*: esas
+# respuestas salen de Functions y ponen su propio X-Robots-Tag (_shared.ts).
+
+# Índice del buscador del sitio: lo pide el modal de búsqueda, no es una página.
+# Se rastrea como URL suelta y no tiene nada que mostrar en un resultado.
+/search-index.json
+  X-Robots-Tag: noindex

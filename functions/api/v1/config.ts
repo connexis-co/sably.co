@@ -11,7 +11,7 @@
  * se pone a arrancar solo por una llamada opcional. Cada bloque se consulta por
  * separado para que una tabla que falte no se lleve por delante a la otra.
  */
-import type { Env } from './_shared';
+import { type Env, SIN_INDICE } from './_shared';
 
 interface FilaWhatsApp {
   activo: number;
@@ -74,6 +74,7 @@ const cacheado = (data: unknown, segundos: number): Response =>
       'content-type': 'application/json; charset=utf-8',
       'cache-control': `public, max-age=${segundos}, s-maxage=${segundos}`,
       'access-control-allow-origin': '*',
+      ...SIN_INDICE,
     },
   });
 

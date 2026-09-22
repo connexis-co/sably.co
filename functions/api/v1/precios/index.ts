@@ -8,7 +8,7 @@
  *        captura inicial y cualquier re-siembra manual.
  */
 import type { Env } from '../_shared';
-import { MONEDAS_ISO, error, json } from '../_shared';
+import { MONEDAS_ISO, SIN_INDICE, error, json } from '../_shared';
 
 const cacheado = (data: unknown, segundos: number): Response =>
   new Response(JSON.stringify(data), {
@@ -16,6 +16,7 @@ const cacheado = (data: unknown, segundos: number): Response =>
       'content-type': 'application/json; charset=utf-8',
       'cache-control': `public, max-age=${segundos}, s-maxage=${segundos}`,
       'access-control-allow-origin': '*',
+      ...SIN_INDICE,
     },
   });
 

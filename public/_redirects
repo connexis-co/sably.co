@@ -38,7 +38,17 @@
 /cursos/curso-de-peluqueria-profesional/ /co/curso-de-peluqueria/ 301
 /cursos/* /co/ 301
 
-/ /co/ 302
+# /legal/cookies/ nunca existió en este repo, pero Google la tiene registrada con
+# impresiones de marca en agosto y hoy da 404. La política de privacidad es la
+# que explica las cookies, así que es su destino natural.
+/legal/cookies /legal/privacidad/ 301
+/legal/cookies/ /legal/privacidad/ 301
+
+# Portada: permanente. Con 302 Google no toma /co/ como canónica de la raíz y el
+# nombre de sitio («Sably») sale del destino de la redirección. /index.html va
+# directo a /co/: antes encadenaba 308 (/index.html → /) y luego 302 (/ → /co/).
+/index.html /co/ 301
+/ /co/ 301
 
 # El panel no se indexa ni se rastrea: lo protege Cloudflare Access y además
 # se le pone noindex en el propio layout.
