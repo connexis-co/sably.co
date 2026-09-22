@@ -6,7 +6,7 @@ import ArticleRating from '@/components/ArticleRating.astro';
 import Comentarios from '@/components/Comentarios.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
-import { breadcrumbSchema, conMarca, faqSchema } from '@/lib/seo';
+import { breadcrumbSchema, faqSchema } from '@/lib/seo';
 import { blogCover, readingTime } from '@/lib/blog';
 import { SITE } from '@/lib/site';
 
@@ -28,9 +28,10 @@ const related = (await getCollection('blog'))
   .slice(0, 3);
 
 const minutes = readingTime(post.body ?? '');
-/* « | Blog Sably» dejaba los 10 títulos por encima de 60 caracteres, con la
-   marca justo en la parte que Google corta. Ahora solo va si cabe (conMarca). */
-const title = conMarca(post.data.title);
+/* « | Sably» siempre, más corto que el antiguo « | Blog Sably». No se usa
+   conMarca (que la omite si pasa de 60 caracteres): con ella 9 de los 11 posts
+   perdían la marca, y en el blog se prefiere la marca aunque Google corte. */
+const title = `${post.data.title} | ${SITE.name}`;
 const pageUrl = `${SITE.url}/blog/${post.id}/`;
 
 const schemas = [
