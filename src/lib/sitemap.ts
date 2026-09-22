@@ -50,6 +50,22 @@ const xml = (s: string): string =>
 const BUILD_DATE = new Date().toISOString();
 
 /**
+ * Plantillas de las que sale la ficha de curso, además de su .mdx y su locale.
+ *
+ * Sin ellas el lastmod de la ficha solo se movía al editar el texto del curso:
+ * un cambio del JSON-LD (Product+Course, retirada del aggregateRating) o de los
+ * avisos legales llegaba a las ~820 fichas con un lastmod anterior al que ya
+ * anunciaba producción, y Bing (de donde bebe ChatGPT) y Google lo leen como
+ * «sin cambios» y no vuelven a rastrear. Google cuenta el cambio de datos
+ * estructurados como cambio significativo.
+ *
+ * hotmart-live.json NO va aquí a propósito: lo reescribe el refresco diario de
+ * precios y, como un solo archivo alimenta todas las fichas, el lastmod volvería
+ * a cambiar cada día en todas, que es justo lo que fechaDe() evita.
+ */
+const FUENTES_FICHA = ['src/components/CourseLanding.astro', 'src/lib/seo.ts'];
+
+/**
  * Fecha del último commit que tocó cada archivo de contenido, en milisegundos.
  *
  * Antes todas las URLs llevaban BUILD_DATE, y el refresco diario de precios
@@ -88,6 +104,8 @@ const FECHAS_GIT: ReadonlyMap<string, number> = (() => {
         'src/content',
         'src/pages',
         'src/lib/homologaciones.ts',
+        // La ficha de curso: su HTML y su JSON-LD (ver FUENTES_FICHA).
+        ...FUENTES_FICHA,
       ],
       opts,
     );
@@ -191,10 +209,11 @@ export async function cursosUrls(countryCode: string): Promise<UrlEntry[]> {
   for (const course of courses) {
     // «Próximamente»: fuera del sitemap (ver esPendiente).
     if (esPendiente(course.data.hotmartUrl)) continue;
-    // La ficha sale del .mdx del curso y de su adaptación al país.
+    // La ficha sale del .mdx del curso, de su adaptación al país y de las
+    // plantillas que pintan su HTML y su JSON-LD.
     const entrada = u(
       `/${country.code}/${course.id}/`,
-      fechaDe(mdxCurso(course.id), localeCurso(course.id, country.code)),
+      fechaDe(mdxCurso(course.id), localeCurso(course.id, country.code), ...FUENTES_FICHA),
     );
     const video = COURSE_VIDEOS[course.id];
     if (video) {
