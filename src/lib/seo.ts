@@ -72,7 +72,9 @@ export function organizationSchema() {
     '@id': `${SITE.url}/#organization`,
     name: SITE.name,
     alternateName: 'Sably Cursos Online',
-    // Con barra: sin ella la URL redirige, y la entidad debe apuntar a una URL final.
+    // La raíz del dominio, no /co/: Google solo admite nombres de sitio a nivel de
+    // dominio y la URL debe ser la misma en todas las homes. Que la raíz redirija a
+    // /co/ está previsto en su guía: el nombre de sitio sigue al destino.
     url: `${SITE.url}/`,
     description: SITE.description,
     slogan: SITE.tagline,
