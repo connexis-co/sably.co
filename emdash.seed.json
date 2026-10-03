@@ -1980,6 +1980,16 @@
           "type": "string"
         },
         {
+          "slug": "hero_label",
+          "label": "Antetítulo de cabecera",
+          "type": "string"
+        },
+        {
+          "slug": "hero_text",
+          "label": "Introducción de cabecera",
+          "type": "text"
+        },
+        {
           "slug": "path",
           "label": "Ruta pública",
           "type": "string",
@@ -2007,6 +2017,9 @@
           "type": "blocks",
           "validation": {
             "allowedTypes": [
+              "sably_story",
+              "sably_cards",
+              "sably_contact",
               "sably_rich_text",
               "sably_image",
               "sably_hero",
@@ -2156,6 +2169,246 @@
     }
   ],
   "blockTypes": [
+    {
+      "slug": "sably_story",
+      "label": "Historia con imagen",
+      "category": "Sably",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "eyebrow",
+              "label": "Antetítulo",
+              "type": "string"
+            },
+            {
+              "slug": "title",
+              "label": "Título",
+              "type": "string"
+            },
+            {
+              "slug": "content",
+              "label": "Texto",
+              "type": "portableText"
+            },
+            {
+              "slug": "image",
+              "label": "Imagen",
+              "type": "image"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sably_cards",
+      "label": "Grupo de tarjetas",
+      "category": "Sably",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "eyebrow",
+              "label": "Antetítulo",
+              "type": "string"
+            },
+            {
+              "slug": "title",
+              "label": "Título",
+              "type": "string"
+            },
+            {
+              "slug": "background",
+              "label": "Fondo",
+              "type": "select",
+              "validation": {
+                "options": [
+                  "white",
+                  "soft"
+                ]
+              }
+            },
+            {
+              "slug": "cards",
+              "label": "Tarjetas",
+              "type": "repeater",
+              "validation": {
+                "subFields": [
+                  {
+                    "slug": "icon",
+                    "label": "Icono o emoji",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "title",
+                    "label": "Título",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "text",
+                    "label": "Texto",
+                    "type": "text"
+                  },
+                  {
+                    "slug": "button_label",
+                    "label": "Texto del enlace",
+                    "type": "string"
+                  },
+                  {
+                    "slug": "button_url",
+                    "label": "Enlace",
+                    "type": "url"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "sably_contact",
+      "label": "Formulario y canales de contacto",
+      "category": "Sably",
+      "currentVersion": 1,
+      "versions": [
+        {
+          "version": 1,
+          "fields": [
+            {
+              "slug": "form_title",
+              "label": "Formulario: título",
+              "type": "string",
+              "defaultValue": "Envíanos un mensaje"
+            },
+            {
+              "slug": "name_label",
+              "label": "Campo: nombre",
+              "type": "string",
+              "defaultValue": "Nombre"
+            },
+            {
+              "slug": "email_label",
+              "label": "Campo: correo",
+              "type": "string",
+              "defaultValue": "Correo"
+            },
+            {
+              "slug": "phone_label",
+              "label": "Campo: teléfono",
+              "type": "string",
+              "defaultValue": "Teléfono (opcional)"
+            },
+            {
+              "slug": "country_label",
+              "label": "Campo: país",
+              "type": "string",
+              "defaultValue": "País"
+            },
+            {
+              "slug": "message_label",
+              "label": "Campo: mensaje",
+              "type": "string",
+              "defaultValue": "Mensaje"
+            },
+            {
+              "slug": "message_placeholder",
+              "label": "Ayuda del mensaje",
+              "type": "string",
+              "defaultValue": "Cuéntanos en qué podemos ayudarte."
+            },
+            {
+              "slug": "submit_label",
+              "label": "Botón de envío",
+              "type": "string",
+              "defaultValue": "Enviar mensaje"
+            },
+            {
+              "slug": "consent_text",
+              "label": "Autorización de datos (texto mostrado y registrado)",
+              "type": "text",
+              "defaultValue": "Autorizo a Sably a tratar mis datos de contacto con la única finalidad de responder a este mensaje, conforme a su política de privacidad."
+            },
+            {
+              "slug": "privacy_label",
+              "label": "Texto del enlace de privacidad",
+              "type": "string",
+              "defaultValue": "Leer la política de privacidad"
+            },
+            {
+              "slug": "privacy_url",
+              "label": "Enlace a privacidad",
+              "type": "url",
+              "defaultValue": "/legal/privacidad/"
+            },
+            {
+              "slug": "channels_title",
+              "label": "Título de canales",
+              "type": "string",
+              "defaultValue": "Otros canales"
+            },
+            {
+              "slug": "email",
+              "label": "Correo público",
+              "type": "string",
+              "defaultValue": "contacto@sably.co"
+            },
+            {
+              "slug": "whatsapp",
+              "label": "WhatsApp (vacío = número del país)",
+              "type": "string",
+              "defaultValue": ""
+            },
+            {
+              "slug": "whatsapp_label",
+              "label": "Botón de WhatsApp",
+              "type": "string",
+              "defaultValue": "Escribir por WhatsApp"
+            },
+            {
+              "slug": "whatsapp_description",
+              "label": "Descripción de WhatsApp",
+              "type": "text",
+              "defaultValue": "Para dudas rápidas antes de comprar."
+            },
+            {
+              "slug": "hours",
+              "label": "Horario de atención (opcional)",
+              "type": "string",
+              "defaultValue": ""
+            },
+            {
+              "slug": "help_title",
+              "label": "Título de ayuda",
+              "type": "string",
+              "defaultValue": "Antes de escribir"
+            },
+            {
+              "slug": "help_text",
+              "label": "Texto de ayuda",
+              "type": "text",
+              "defaultValue": "Muchas dudas ya están resueltas en la ficha de cada curso: qué incluye, cuántas horas son, cómo se recibe el certificado y cómo se paga."
+            },
+            {
+              "slug": "help_button_label",
+              "label": "Botón de ayuda",
+              "type": "string",
+              "defaultValue": "Ver los cursos"
+            },
+            {
+              "slug": "help_button_url",
+              "label": "Enlace de ayuda",
+              "type": "url",
+              "defaultValue": "/co/cursos/"
+            }
+          ]
+        }
+      ]
+    },
     {
       "slug": "sably_rich_text",
       "label": "Texto enriquecido",

@@ -1,0 +1,23 @@
+---
+import type { BlockValue } from 'emdash/ui';
+import {safeEditorialUrl} from '@/lib/sably-theme';
+interface Props {value:BlockValue & {eyebrow?:string;title?:string;background?:string;cards?:Array<{icon?:string;title?:string;text?:string;button_label?:string;button_url?:string}>}}
+const {value}=Astro.props;
+const cards=value.cards ?? [];
+---
+<section class="py-12 sm:py-16" class:list={{'bg-off-white':value.background==='soft'}}>
+ <div class="container-site">
+  <div class="mx-auto max-w-2xl text-center">
+   {value.eyebrow && <p class="mb-3 font-semibold text-accent">{value.eyebrow}</p>}
+   {value.title && <h2 class="text-2xl font-bold sm:text-3xl">{value.title}</h2>}
+  </div>
+  <div class="mt-8 grid gap-6 sm:grid-cols-2" class:list={{'lg:grid-cols-4':cards.length===4,'lg:grid-cols-3':cards.length===3}}>
+   {cards.map(card=><div class="rounded-lg border border-surface-200 bg-white p-6">
+    {card.icon && <p class="mb-4 text-3xl" aria-hidden="true">{card.icon}</p>}
+    <h3 class="text-lg font-bold">{card.title}</h3>
+    <p class="mt-3 whitespace-pre-line text-sm leading-relaxed">{card.text}</p>
+    {safeEditorialUrl(card.button_url) && card.button_label && <a href={safeEditorialUrl(card.button_url)!} class="mt-4 inline-flex min-h-11 items-center font-semibold text-accent underline underline-offset-4">{card.button_label}</a>}
+   </div>)}
+  </div>
+ </div>
+</section>

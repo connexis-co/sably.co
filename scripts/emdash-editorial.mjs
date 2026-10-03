@@ -4,6 +4,8 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import ts from 'typescript';
+import { contactDefaults } from '../src/lib/contact-page.mjs';
+import { structureInstitutionalPage } from './institutional-pages.mjs';
 import { parse as parseAstro } from '@astrojs/compiler';
 import { markdownToPortableText } from 'emdash/client';
 
@@ -43,6 +45,9 @@ export const editorialRelations = [
 ];
 
 export const blockTypes = [
+  { slug: 'sably_story', label: 'Historia con imagen', fields: [field('eyebrow', 'Antetítulo'), field('title', 'Título'), field('content', 'Texto', 'portableText'), media('image', 'Imagen')] },
+  { slug: 'sably_cards', label: 'Grupo de tarjetas', fields: [field('eyebrow', 'Antetítulo'), field('title', 'Título'), field('background', 'Fondo', 'select', { validation: { options: ['white', 'soft'] } }), field('cards', 'Tarjetas', 'repeater', { validation: { subFields: [field('icon', 'Icono o emoji'), field('title', 'Título'), field('text', 'Texto', 'text'), field('button_label', 'Texto del enlace'), field('button_url', 'Enlace', 'url')] } })] },
+  { slug: 'sably_contact', label: 'Formulario y canales de contacto', fields: Object.entries(contactDefaults).map(([slug, defaultValue]) => field(slug, ({form_title:'Formulario: título', name_label:'Campo: nombre', email_label:'Campo: correo', phone_label:'Campo: teléfono', country_label:'Campo: país', message_label:'Campo: mensaje', message_placeholder:'Ayuda del mensaje', submit_label:'Botón de envío', consent_text:'Autorización de datos (texto mostrado y registrado)', privacy_label:'Texto del enlace de privacidad', privacy_url:'Enlace a privacidad', channels_title:'Título de canales', email:'Correo público', whatsapp:'WhatsApp (vacío = número del país)', whatsapp_label:'Botón de WhatsApp', whatsapp_description:'Descripción de WhatsApp', hours:'Horario de atención (opcional)', help_title:'Título de ayuda', help_text:'Texto de ayuda', help_button_label:'Botón de ayuda', help_button_url:'Enlace de ayuda'})[slug], ['consent_text','help_text','whatsapp_description'].includes(slug)?'text':slug.endsWith('_url')?'url':'string', {defaultValue})) },
   { slug: 'sably_rich_text', label: 'Texto enriquecido', fields: [field('content', 'Contenido', 'portableText')] },
   { slug: 'sably_image', label: 'Imagen', fields: [media('image', 'Imagen'), field('caption', 'Leyenda', 'text')] },
   { slug: 'sably_hero', label: 'Cabecera', fields: [field('title', 'Título'), field('text', 'Texto', 'text'), media('image', 'Imagen'), field('button_label', 'Texto del botón'), field('button_url', 'Enlace del botón', 'url')] },
@@ -123,7 +128,7 @@ export function extendCollections(base) {
     ], { group: 'Catálogo', sortOrder: 7, description: 'Testimonios del archivo editorial original; no equivalen a reseñas verificadas de Hotmart ni a comentarios de visitantes.' }),
     collection('pages', 'Páginas', [
       field('title', 'Título SEO', 'string', { required: true }), field('description', 'Descripción SEO', 'text'),
-      field('hero_heading', 'Título visible'), field('path', 'Ruta pública', 'string', { required: true }), template(),
+      field('hero_heading', 'Título visible'), field('hero_label', 'Antetítulo de cabecera'), field('hero_text', 'Introducción de cabecera', 'text'), field('path', 'Ruta pública', 'string', { required: true }), template(),
       field('body', 'Contenido', 'portableText'),
       field('layout', 'Diseño de la página', 'blocks', { validation: { allowedTypes: blockTypes.map((b) => b.slug) } }),
     ], { titleField: 'title', sortOrder: 8, supports: ['drafts', 'revisions', 'seo'] }),
@@ -306,10 +311,9 @@ async function pageEntry(root, spec) {
     const anchor = anchors.get(block.children?.map((span) => span.text).join(''));
     if (anchor) block.anchor = anchor;
   }
-  return entry('pages', spec.slug, {
-    title, description, hero_heading: heading, path: spec.path, template: 'sably-classic', body,
-    layout: [{ _type: 'sably_rich_text', _version: 1, _key: `page-${spec.slug}`, content: body }],
-  }, { path: spec.file, raw }, { title, description, path: spec.path, original_template: raw });
+  const data = {title, description, hero_heading: heading, path: spec.path, template: 'sably-classic', body, layout: [{ _type: 'sably_rich_text', _version: 1, _key: `page-${spec.slug}`, content: body }]};
+  Object.assign(data, structureInstitutionalPage(spec.slug, data, mediaReference(`${CDN}/covers/oficios.jpg`, 'Estudiante de oficios trabajando con sus manos')));
+  return entry('pages', spec.slug, data, { path: spec.file, raw }, { title, description, path: spec.path, original_template: raw });
 }
 
 export async function buildEditorialContent(root, content) {

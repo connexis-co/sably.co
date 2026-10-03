@@ -86,3 +86,16 @@ test('installed EmailPipeline delivers only through the selected native provider
   await mail!.send({to:mail!.notificationEmail,subject:'Synthetic test',text:'No external delivery'});
   assert.equal(sent.length,1);assert.equal(sent[0].id,'provider-two');assert.equal(sent[0].message.to,'explicit-team@example.invalid');assert.equal(sent[0].source,'sably-operations');f.sql.close();
 });
+
+test('contact saves the selected country and the editorial consent text and policy URL',async()=>{
+ const f=database();
+ const response=await onRequestPost({env:{DB:f.db},request:new Request('https://sably.co/api/v1/leads',{method:'POST',body:JSON.stringify({name:'Synthetic contact',email:'contact@example.invalid',country:'pe',message:'Una consulta sintética',consent_text:'Texto editorial mostrado',consent_policy_url:'/legal/privacidad/'})})} as any);
+ assert.equal(response.status,201);
+ assert.equal(f.sql.prepare('SELECT country FROM lead').get()!.country,'PE');
+ const consent=f.sql.prepare('SELECT text_shown,policy_url FROM consent').get()!;
+ assert.equal(consent.text_shown,'Texto editorial mostrado');assert.equal(consent.policy_url,'https://sably.co/legal/privacidad/');
+ for(const payload of [null,{name:123},{name:'Synthetic',country:'not-country'},{name:'Synthetic',consent_policy_url:'//evil.example/privacy'}]){
+  const r=await onRequestPost({env:{DB:f.db},request:new Request('https://sably.co/api/v1/leads',{method:'POST',body:JSON.stringify(payload)})} as any);assert.equal(r.status,400);
+ }
+ assert.equal(f.sql.prepare('SELECT COUNT(*) n FROM consent').get()!.n,1);f.sql.close();
+});

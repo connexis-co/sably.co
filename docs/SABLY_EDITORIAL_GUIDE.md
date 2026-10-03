@@ -22,7 +22,13 @@ Los campos de procedencia preservan el material original para auditar la migraci
 
 Las diez secciones reutilizables de la portada se editan en **Secciones**: hero, categorías, cursos, beneficios, testimonios, ciudades, blog y preguntas. Sus títulos, párrafos y llamadas a la acción conservan el diseño; los marcadores `{pais}` y `{moneda}` adaptan el texto al mercado.
 
-Los bloques disponibles son texto enriquecido, imagen, hero, llamada a la acción y preguntas frecuentes. El orden de los bloques define el contenido de la página; sus componentes Astro definen la presentación. Los menús principal, pie, redes y ecosistema se guardan en EmDash, igual que las áreas de widgets después de la cabecera y del pie.
+Los bloques disponibles son texto enriquecido, imagen, hero, llamada a la acción, preguntas frecuentes, historia con imagen, grupo de tarjetas y formulario con canales de contacto. El orden de los bloques define el contenido de la página; sus componentes Astro definen la presentación. Los menús principal, pie, redes y ecosistema se guardan en EmDash, igual que las áreas de widgets después de la cabecera y del pie.
+
+**Contacto y Nosotros:** entra en **Sitio → Páginas**, abre la página y modifica **Título visible**, **Antetítulo de cabecera**, **Introducción de cabecera** y **Diseño de la página**. El título SEO y la descripción se editan por separado. Publica para ver el resultado.
+
+- **Nosotros:** bloques de historia (incluida su imagen de Medios), principios, ecosistema y llamada a la acción. Las tarjetas se añaden, ordenan y eliminan desde el repetidor. El contenido original queda preservado en **Contenido**, que actúa como alternativa cuando la página no tiene bloques.
+- **Contacto:** el bloque **Formulario y canales de contacto** contiene título, etiquetas de los campos, ayuda del mensaje, botón, texto de autorización, enlace de privacidad, correo público, WhatsApp, horario y tarjeta de ayuda. WhatsApp vacío usa el teléfono del país. Correo u horario vacíos ocultan ese canal. El formulario registra el país elegido y el consentimiento mostrado; las solicitudes aparecen en **Sably · operaciones → Solicitudes**. El destino de notificaciones se configura por separado en el plugin de operaciones; cambiar el correo público no redirige correos privados.
+- Los bloques pueden reutilizarse en páginas nuevas. Cambiar el slug no desactiva el formulario: su funcionamiento depende del bloque nativo. Los estados de envío y validación pertenecen a la plantilla.
 
 `src/themes/index.ts` selecciona la plantilla y `src/themes/sably-classic/manifest.ts` documenta su contrato. Para un rediseño se implementa otra plantilla que respete las colecciones, bloques, rutas y metadatos existentes; se prueba en desarrollo y se despliega. El cambio de plantilla es una entrega de código Astro, no requiere volver a importar el catálogo.
 
