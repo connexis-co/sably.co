@@ -3,10 +3,10 @@
  *
  * Toma los abandonos de las últimas 48 h sin notificar (los guarda el webhook de
  * Hotmart en `hotmart_eventos`) y envía:
- *  1. Un correo de recuperación al prospecto (vía Resend) recordándole su 50%.
- *  2. Copia de aviso a NOTIFY_EMAIL para seguimiento manual (WhatsApp, etc.).
+ *  1. Un correo de recuperación al prospecto (mediante el proveedor seleccionado en EmDash) recordándole su 50%.
+ * El destinatario del equipo se utiliza para Reply-To; no se expone en CC.
  *
- * Sin RESEND_API_KEY responde cuántos hay pendientes y no envía nada.
+ * Sin proveedor EmDash y destinatario del equipo, informa pendientes sin enviar.
  * Lo invoca el cron de GitHub Actions (.github/workflows/abandonos-cron.yml).
  */
 import { type Env, error, json } from './_shared';
@@ -22,7 +22,7 @@ const plantilla = (nombre: string, producto: string) => `<!doctype html>
   <p><b>Tu cupo con el 50% de descuento sigue guardado</b> — con certificado incluido,
   acceso de por vida y garantía de 7 días de Hotmart.</p>
   <p style="margin:28px 0">
-    <a href="https://academiadebelleza.edu.co/?utm_source=email&utm_medium=crm&utm_campaign=carrito-abandonado"
+    <a href="https://sably.co/?utm_source=email&utm_medium=crm&utm_campaign=carrito-abandonado"
        style="background:#7c3aed;color:#fff;text-decoration:none;padding:12px 22px;border-radius:8px;font-weight:700">
        Terminar mi inscripción con 50%</a>
   </p>
@@ -50,15 +50,14 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
 
   if (!pendientes.length) return json({ ok: true, pendientes: 0, enviados: 0 });
 
-  const proveedor = env.BREVO_API_KEY ? 'brevo' : env.RESEND_API_KEY ? 'resend' : null;
-  if (!proveedor || !env.NOTIFY_FROM) {
-    return json({ ok: true, pendientes: pendientes.length, enviados: 0, motivo: 'falta BREVO_API_KEY/RESEND_API_KEY o NOTIFY_FROM' });
+  if (!env.MAIL) {
+    return json({ ok: true, pendientes: pendientes.length, enviados: 0, motivo: 'Configura el proveedor de correo de EmDash y el destinatario del equipo.' });
   }
 
   let enviados = 0;
   const fallos: string[] = [];
   for (const p of pendientes) {
-    const ok = await enviarCorreo(env, proveedor, {
+    const ok = await enviarCorreo(env, {
       to: p.buyer_email,
       subject: 'Tu cupo con 50% sigue guardado 🎓',
       html: plantilla(p.buyer_name, p.product_name),
@@ -68,53 +67,18 @@ export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
       await env.DB.prepare('UPDATE hotmart_eventos SET notified_at = datetime(\'now\') WHERE id = ?')
         .bind(p.id).run();
     } else {
-      fallos.push(`${p.buyer_email}:${ok}`);
+      fallos.push(p.id);
     }
   }
-  return json({ ok: true, proveedor, pendientes: pendientes.length, enviados, fallos: fallos.length ? fallos : undefined });
+  return json({ ok: true, proveedor: 'emdash', pendientes: pendientes.length, enviados, fallos: fallos.length ? fallos : undefined });
 };
 
-/**
- * Envía un correo por el proveedor configurado. Brevo tiene prioridad sobre Resend.
- * NOTIFY_FROM admite "Nombre <correo@dominio>" o solo "correo@dominio".
- * Devuelve true, o el código/motivo del fallo para el log.
- */
-async function enviarCorreo(
-  env: Env,
-  proveedor: 'brevo' | 'resend',
-  msg: { to: string; subject: string; html: string },
-): Promise<true | string> {
-  const m = (env.NOTIFY_FROM ?? '').match(/^\s*(.*?)\s*<\s*([^>]+)\s*>\s*$/);
-  const fromName = m ? m[1] : 'Sably';
-  const fromEmail = m ? m[2] : (env.NOTIFY_FROM ?? '').trim();
-
-  if (proveedor === 'brevo') {
-    const r = await fetch('https://api.brevo.com/v3/smtp/email', {
-      method: 'POST',
-      headers: { 'api-key': env.BREVO_API_KEY as string, 'content-type': 'application/json', accept: 'application/json' },
-      body: JSON.stringify({
-        sender: { name: fromName, email: fromEmail },
-        to: [{ email: msg.to }],
-        bcc: env.NOTIFY_EMAIL ? [{ email: env.NOTIFY_EMAIL }] : undefined,
-        replyTo: env.NOTIFY_EMAIL ? { email: env.NOTIFY_EMAIL } : undefined,
-        subject: msg.subject,
-        htmlContent: msg.html,
-      }),
-    });
-    return r.ok ? true : `brevo:${r.status}`;
-  }
-
-  const r = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json' },
-    body: JSON.stringify({
-      from: env.NOTIFY_FROM,
-      to: [msg.to],
-      bcc: env.NOTIFY_EMAIL ? [env.NOTIFY_EMAIL] : undefined,
-      reply_to: env.NOTIFY_EMAIL || undefined,
-      subject: msg.subject,
-      html: msg.html,
-    }),
-  });
-  return r.ok ? true : `resend:${r.status}`;
+/** The selected EmDash provider owns sender identity and encrypted credentials. */
+async function enviarCorreo(env: Env, msg: {to:string;subject:string;html:string}): Promise<true|string> {
+  if (!env.MAIL) return 'unconfigured';
+  try {
+    await env.MAIL.send({to:msg.to,replyTo:env.MAIL.notificationEmail,subject:msg.subject,
+      text:'Tu inscripción quedó pendiente. Puedes continuar en https://sably.co/ o responder este correo para recibir ayuda.',html:msg.html});
+    return true;
+  } catch { return 'delivery_failed'; }
 }

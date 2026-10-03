@@ -1,0 +1,35 @@
+name: Redeploy EmDash development
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: sably-emdash-development-deploy
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: development
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run content:check && npm run test:migration && npm run check && npm run check:functions
+      - run: node scripts/build-environment.mjs development
+        env:
+          PUBLIC_CDN_URL: https://cdn.sably.co
+          PUBLIC_LEADS_ENDPOINT: /api/v1/leads
+      - name: Apply reviewed operational schema idempotently
+        run: node scripts/apply-operational-schema.mjs --target development --execute
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - run: node scripts/deploy-environment.mjs development
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

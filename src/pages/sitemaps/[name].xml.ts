@@ -1,6 +1,7 @@
+export const prerender = false;
 import type { APIRoute } from 'astro';
 import {
-  SITEMAP_NAMES,
+  sitemapNames,
   SITEMAPS_TEMPORALES,
   blogUrls,
   categoriasUrls,
@@ -10,14 +11,8 @@ import {
   renderUrlset,
 } from '@/lib/sitemap';
 
-/* Los temporales se generan aquí pero no entran en los índices (ver sitemap.ts). */
-const NOMBRES = [...SITEMAP_NAMES, ...SITEMAPS_TEMPORALES];
-
-export function getStaticPaths() {
-  return NOMBRES.map((name) => ({ params: { name: `sitemap-${name}` } }));
-}
-
 export const GET: APIRoute = async ({ params }) => {
+  const NOMBRES = [...await sitemapNames(), ...SITEMAPS_TEMPORALES];
   const raw = params.name ?? '';
   const name = raw.replace(/^sitemap-/, '');
   /* Un nombre no reconocido debe ser 404, no un urlset vacío. */
@@ -29,7 +24,7 @@ export const GET: APIRoute = async ({ params }) => {
   if (name === 'pages') urls = await pagesUrls();
   else if (name === 'categorias') urls = await categoriasUrls();
   else if (name === 'blog') urls = await blogUrls();
-  else if (name === 'temporal-ciudades-noindex') urls = ciudadesNoindexUrls();
+  else if (name === 'temporal-ciudades-noindex') urls = await ciudadesNoindexUrls();
   else urls = await cursosUrls(name.replace('cursos-', ''));
 
   return new Response(renderUrlset(urls), {

@@ -1,8 +1,6 @@
-import { valoracionMediaCatalogo, valoracionesTotalesCatalogo } from './hotmartLive';
-
 export const SITE = {
   name: 'Sably',
-  url: 'https://sably.co',
+  url: import.meta.env.PUBLIC_SITE_URL || 'https://dev.sably.co',
   tagline: 'Aprende un oficio real. Emprende tu futuro.',
   description:
     'Cursos online de oficios prácticos y habilidades anti-IA para Latinoamérica: panadería, costura, electricidad, barbería, gastronomía y más. Certificado incluido.',
@@ -53,12 +51,6 @@ export const SITE = {
    * Antes decía «15.000+ estudiantes» y «4.8»: números inventados que ninguna
    * fuente respaldaba.
    */
-  stats: {
-    rating: valoracionMediaCatalogo()?.rating ?? null,
-    reviews: valoracionesTotalesCatalogo(),
-    courses: 121,
-    countries: 8,
-  },
 } as const;
 
 /** Endpoint de leads: Fase 2 lo sirve el backend Laravel. */
@@ -66,6 +58,7 @@ export const LEADS_ENDPOINT = import.meta.env.PUBLIC_LEADS_ENDPOINT ?? '';
 /** CDN de assets (Cloudflare R2). Vacío en dev → sirve desde /public. */
 export const CDN_URL = import.meta.env.PUBLIC_CDN_URL ?? '';
 
-export const GTM_ID = import.meta.env.PUBLIC_GTM_ID ?? '';
-export const GA4_ID = import.meta.env.PUBLIC_GA4_ID ?? '';
-export const META_PIXEL_ID = import.meta.env.PUBLIC_META_PIXEL_ID ?? '';
+const isDevelopmentSite = import.meta.env.SITE?.replace(/\/+$/, '') !== 'https://sably.co';
+export const GTM_ID = isDevelopmentSite ? '' : import.meta.env.PUBLIC_GTM_ID ?? '';
+export const GA4_ID = isDevelopmentSite ? '' : import.meta.env.PUBLIC_GA4_ID ?? '';
+export const META_PIXEL_ID = isDevelopmentSite ? '' : import.meta.env.PUBLIC_META_PIXEL_ID ?? '';

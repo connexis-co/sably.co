@@ -1,0 +1,14 @@
+---
+import type { BlockProps } from 'astro-portabletext/types';
+type Props = BlockProps;
+const { node } = Astro.props;
+const id = (node as unknown as {sablyHeadingId?:string}).sablyHeadingId;
+const style = node.style;
+const Tag = /^h[1-6]$/.test(style ?? '') ? style as 'h1'|'h2'|'h3'|'h4'|'h5'|'h6' : style === 'blockquote' ? 'blockquote' : 'p';
+const align = (node as unknown as {textAlign?:string}).textAlign;
+const alignClass = ['left','center','right','justify'].includes(align ?? '') ? `has-text-align-${align}` : undefined;
+---
+<Tag {id} class={alignClass}><slot /></Tag>
+<style>
+.has-text-align-center{text-align:center}.has-text-align-right{text-align:right}.has-text-align-justify{text-align:justify}
+</style>

@@ -1,0 +1,14 @@
+---
+import { Blocks, type BlockValue } from 'emdash/ui';
+import RichText from './blocks/RichText.astro';
+import Picture from './blocks/Picture.astro';
+import Hero from './blocks/Hero.astro';
+import CallToAction from './blocks/CallToAction.astro';
+import Questions from './blocks/Questions.astro';
+interface Props { value?: BlockValue[] | null; }
+const components = {
+  sably_rich_text: RichText, sably_image: Picture, sably_hero: Hero,
+  sably_cta: CallToAction, sably_faq: Questions,
+};
+---
+<Blocks value={Astro.props.value} components={components} />

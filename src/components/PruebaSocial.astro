@@ -18,8 +18,19 @@
  * Aparece abajo a la izquierda, elevándose sobre la barra fija de compra en
  * móvil. Se puede cerrar y no vuelve en toda la sesión.
  */
-import datos from '@/data/prueba-social.json';
-import { resenasDelCatalogo, resenasReales, tituloDe } from '@/lib/hotmartLive';
+import { env } from 'cloudflare:workers';
+import { getCourses } from '@/lib/emdash-content';
+import { readPublicReviews, readSocialProof } from '@/plugins/sably-operations/public';
+const db = (env as unknown as {SABLY_DB:D1Database}).SABLY_DB;
+const [datos,reviews,courses] = await Promise.all([
+  readSocialProof(db).catch(()=>({avisos:[],cursos:{}})),
+  readPublicReviews(db).catch(()=>[]),
+  getCourses(),
+]);
+const titles = new Map(courses.map(c=>[c.id,c.data.title]));
+const tituloDe = (slug:string)=>titles.get(slug);
+const resenasReales = (slug:string)=>reviews.filter(r=>r.slug===slug);
+const resenasDelCatalogo = ()=>[...new Set(reviews.map(r=>r.slug))].map(slug=>({slug,resena:reviews.find(r=>r.slug===slug)!}));
 
 interface Props {
   /** Slug del curso, para usar sus cifras si las tiene. */
@@ -50,7 +61,7 @@ interface Aviso {
  * aviso; si todas empezaran igual, quien navega por varios cursos vería siempre
  * la misma secuencia y el efecto se cae.
  */
-const todos = datos.avisos as Aviso[];
+const todos:Aviso[] = datos.avisos.filter(a=>titles.has(a.slug)).map(a=>({...a,titulo:titles.get(a.slug)!}));
 const propios = courseSlug ? todos.filter((a) => a.slug === courseSlug) : [];
 const ajenos = todos.filter((a) => a.slug !== courseSlug);
 const semilla = [...Astro.url.pathname].reduce((n, c) => n + c.charCodeAt(0), 0);
@@ -125,7 +136,7 @@ mensajes.push({
     <div class="min-w-0 flex-1">
       <p data-ps-texto class="text-[13px] leading-snug font-bold text-heading"></p>
       <p data-ps-detalle class="mt-0.5 text-[11px] leading-snug text-muted"></p>
-      <p class="mt-1 text-[10px] text-muted/70">Datos reales de ventas verificadas</p>
+      <p class="mt-1 text-[10px] text-muted/70">Información del curso y reseñas publicadas</p>
     </div>
     <button
       type="button"

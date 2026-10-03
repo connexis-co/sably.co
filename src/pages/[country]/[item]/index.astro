@@ -1,67 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
-import CityLanding from '@/components/CityLanding.astro';
-import CourseLanding from '@/components/CourseLanding.astro';
-import { COUNTRIES, getCountry, getCity } from '@/lib/countries';
-
-/**
- * Ruta unificada de nivel 2: /{cc}/{item}/ donde item es una CIUDAD
- * (landing de ciudad) o un SLUG DE CURSO (curso a nivel país).
- *
- * Namespace (docs/ARQUITECTURA_URLS.md §5.1): todo slug de curso empieza por
- * `curso-de-`/`diplomado-` y ninguna ciudad puede empezar así; palabras
- * reservadas excluidas de ambos. El guard de abajo lo garantiza en build.
- */
-export async function getStaticPaths() {
-  /* Declarado aquí dentro: Astro extrae getStaticPaths a su propio chunk y no ve
-     las constantes del frontmatter del componente. */
-  const RESERVED = new Set(['cursos', 'curso', 'blog', 'homologaciones', 'nosotros', 'legal', 'sitemap']);
-  const courses = await getCollection('courses');
-
-  const citySlugs = new Set(COUNTRIES.flatMap((c) => c.cities.map((city) => city.slug)));
-
-  /* Ambos lados del namespace se validan: un slug de ciudad con prefijo de curso
-     (o una palabra reservada) haría ambigua la ruta /{cc}/{item}/. */
-  for (const slug of citySlugs) {
-    if (RESERVED.has(slug)) {
-      throw new Error(`Colisión de namespace: la ciudad "${slug}" usa una palabra reservada`);
-    }
-    if (/^(curso-de-|diplomado-)/.test(slug)) {
-      throw new Error(`Colisión de namespace: la ciudad "${slug}" no puede empezar por curso-de-/diplomado-`);
-    }
-  }
-  for (const course of courses) {
-    if (citySlugs.has(course.id) || RESERVED.has(course.id)) {
-      throw new Error(`Colisión de namespace: el slug de curso "${course.id}" choca con ciudad o palabra reservada`);
-    }
-    if (!/^(curso-de-|diplomado-)/.test(course.id)) {
-      throw new Error(`Slug de curso inválido "${course.id}": debe empezar por curso-de- o diplomado-`);
-    }
-  }
-
-  const cityPaths = COUNTRIES.flatMap((c) =>
-    c.cities.map((city) => ({
-      params: { country: c.code, item: city.slug },
-      props: { kind: 'city' as const },
-    })),
-  );
-  const coursePaths = COUNTRIES.flatMap((c) =>
-    courses.map((course) => ({
-      params: { country: c.code, item: course.id },
-      props: { kind: 'course' as const, course },
-    })),
-  );
-  return [...cityPaths, ...coursePaths];
-}
-
-const { kind } = Astro.props;
-const country = getCountry(Astro.params.country!);
+import { load } from '@/lib/page-loaders/market-item';
+import { MarketItemView } from '@/themes';
+import { loadCustomPage } from '@/lib/page-loaders/custom-page';
+import { PageTemplate } from '@/themes';
+export const prerender = false;
+const customPage = await loadCustomPage(Astro);
+const model = customPage ? null : await load(Astro);
+if (model instanceof Response) { if(model.status===404)model.headers.set('X-Robots-Tag','noindex, nofollow'); return model; }
 ---
-
-{
-  kind === 'city' ? (
-    <CityLanding {country} city={getCity(country, Astro.params.item!)} />
-  ) : (
-    <CourseLanding course={Astro.props.course!} {country} />
-  )
-}
+{customPage ? <PageTemplate {...customPage} /> : model && <MarketItemView {...model} />}

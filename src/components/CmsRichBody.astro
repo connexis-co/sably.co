@@ -1,0 +1,9 @@
+---
+import { PortableText } from 'emdash/ui';
+import CmsTextBlock from './CmsTextBlock.astro';
+import { prepareRichContent } from '@/lib/rich-content';
+import type { RichBlock } from '@/lib/emdash-content';
+interface Props { value:RichBlock[] }
+const {blocks}=prepareRichContent(Astro.props.value);
+---
+<PortableText value={blocks} components={{block:CmsTextBlock}} />

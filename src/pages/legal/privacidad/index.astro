@@ -1,39 +1,14 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
-
-const country = getCountry(DEFAULT_COUNTRY);
+import { getPage, getCountry } from '@/lib/emdash-content';
+import { normalizePagePath } from '@/lib/page-path';
+import { PageTemplate } from '@/themes';
+export const prerender = false;
+const [page,country]=await Promise.all([getPage('privacidad'),getCountry('co')]);
+if (!page || !country) return new Response('Página no encontrada',{status:404});
+const canonicalPath=normalizePagePath(page.path);
+if (!canonicalPath) return new Response('Ruta editorial inválida',{status:404});
+if (canonicalPath!==normalizePagePath(Astro.url.pathname)) return Astro.redirect(canonicalPath,301);
+Astro.locals.sablyContent=page.contentRef;
+Astro.locals.sablySeo=page.seo;
 ---
-
-<BaseLayout
-  title="Política de Privacidad | Sably"
-  description="Cómo Sably recopila, usa y protege tus datos personales."
-  {country}
-  pathAfterCountry="/"
-  pageType="legal"
->
-  <article class="container-site max-w-3xl space-y-6 py-14 text-[15px] leading-relaxed text-body">
-    <h1 class="text-3xl font-extrabold">Política de Privacidad</h1>
-    <p>Última actualización: agosto de 2026.</p>
-    <h2 class="text-xl font-bold text-primary">1. Datos que recopilamos</h2>
-    <p>
-      Cuando dejas tus datos en un formulario (nombre, email, WhatsApp, país y ciudad) los usamos únicamente para
-      enviarte información sobre los cursos que te interesan y ofertas relacionadas.
-    </p>
-    <h2 class="text-xl font-bold text-primary">2. Analítica y cookies</h2>
-    <p>
-      Usamos Google Analytics 4 y herramientas de medición para entender cómo se usa el sitio y mejorar la experiencia.
-      Puedes bloquear las cookies de analítica desde tu navegador sin afectar la navegación.
-    </p>
-    <h2 class="text-xl font-bold text-primary">3. Terceros</h2>
-    <p>
-      El proceso de compra ocurre en Hotmart, que tiene su propia política de privacidad. No almacenamos datos de pago en
-      Sably.
-    </p>
-    <h2 class="text-xl font-bold text-primary">4. Tus derechos</h2>
-    <p>
-      Puedes solicitar la actualización o eliminación de tus datos en cualquier momento escribiéndonos por WhatsApp o al
-      correo de contacto.
-    </p>
-  </article>
-</BaseLayout>
+<PageTemplate {page} {country} />

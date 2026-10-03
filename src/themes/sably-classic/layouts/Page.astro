@@ -1,0 +1,16 @@
+---
+import Base from './Base.astro';
+import Contact from './Contact.astro';
+import PageBlocks from '../components/PageBlocks.astro';
+import CmsRichBody from '@/components/CmsRichBody.astro';
+import type { CmsPage, CmsCountry } from '@/lib/emdash-content';
+import type { BlockValue } from 'emdash/ui';
+interface Props { page: CmsPage; country: CmsCountry; }
+const {page,country}=Astro.props;
+Astro.locals.sablyContent=page.contentRef;
+Astro.locals.sablySeo=page.seo;
+---
+{page.id === 'contacto' ? <Contact {page} {country} /> : <Base title={page.title} description={page.description} {country} pageType="page">
+  <section class="bg-primary py-14 text-white"><div class="container-site"><h1 class="max-w-4xl text-3xl font-extrabold sm:text-5xl" {...page.edit.hero_heading}>{page.heroHeading}</h1></div></section>
+  {page.layout.length ? <PageBlocks value={page.layout as unknown as BlockValue[]} /> : <div class="container-site py-12"><CmsRichBody value={page.richBody ?? []} /></div>}
+</Base>}

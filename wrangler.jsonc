@@ -1,0 +1,62 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sably-emdash-dev",
+  "main": "./src/worker.ts",
+  "account_id": "6e36c2fb07c21f30ed3c0d6e824884bc",
+  "compatibility_date": "2026-10-02",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "workers_dev": true,
+  "preview_urls": false,
+  "worker_loaders": [{ "binding": "LOADER" }],
+  "assets": {
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "routes": [
+    {
+      "pattern": "dev.sably.co",
+      "custom_domain": true
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "sably-emdash-dev",
+      "database_id": "d9ed655d-1885-415f-a98e-74d6cd0a6263",
+      "migrations_dir": "migrations-emdash"
+    },
+    {
+      "binding": "SABLY_DB",
+      "database_name": "sably-pulso-dev",
+      "migrations_dir": "migrations",
+      "database_id": "0dcde91f-9895-44e6-b685-0f6d857f3b70"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "sably-emdash-dev-media"
+    }
+  ],
+  "vars": {
+    "SABLY_ENVIRONMENT": "development",
+    "EMDASH_SITE_URL": "https://dev.sably.co",
+    "SABLY_CMS_READY": "true"
+  },
+  "triggers": {
+    "crons": [
+      "* * * * *"
+    ]
+  },
+  "observability": {
+    "enabled": true
+  },
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "b37487445a6e48879bec0dfefaaaa47e"
+    }
+  ]
+}

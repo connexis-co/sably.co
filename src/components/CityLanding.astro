@@ -1,5 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
+import { publicStats } from '@/lib/public-stats';
+import { getContentRepository } from '@/lib/emdash-content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
@@ -7,10 +8,11 @@ import TestimonialCard from '@/components/TestimonialCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import PromoBanner from '@/components/PromoBanner.astro';
 import type { Country, City } from '@/lib/countries';
-import { INTERNAL_CATEGORIES } from '@/lib/categories';
+
 import { breadcrumbSchema, faqSchema, courseListSchema, cursoParaListado } from '@/lib/seo';
 import { SITE } from '@/lib/site';
-import { valoracionReal } from '@/lib/hotmartLive';
+import { readOperationalRatings } from '@/plugins/sably-operations/public';
+import { env } from 'cloudflare:workers';
 
 /** Landing de ciudad — extraída a componente para la ruta unificada [item]. */
 interface Props {
@@ -19,15 +21,20 @@ interface Props {
 }
 
 const { country, city } = Astro.props;
+const stats = await publicStats(Astro.locals);
+const cms = await getContentRepository();
+const ratings = await readOperationalRatings((env as unknown as {SABLY_DB:D1Database}).SABLY_DB, Astro.locals).catch(() => ({} as Awaited<ReturnType<typeof readOperationalRatings>>));
+const valoracionReal = (slug:string) => ratings[slug] ?? null;
+const INTERNAL_CATEGORIES = (await cms.getCategories()).filter(c => !c.externalUrl);
 const base = `/${country.code}`;
 
-const courses = await getCollection('courses');
+const courses = await cms.getCourses();
 /* Popularidad real: total de valoraciones públicas en Hotmart. El campo
    `students` del frontmatter era inventado y ya no ordena nada. */
 const popularidad = (slug: string): number => valoracionReal(slug)?.total ?? 0;
 const popular = [...courses].sort((a, b) => popularidad(b.id) - popularidad(a.id)).slice(0, 8);
 
-const allTestimonials = await getCollection('testimonials');
+const allTestimonials = await cms.getTestimonials();
 const cityTestimonials = allTestimonials.filter(
   (t) => t.data.countryCode === country.code && t.data.citySlug === city.slug,
 );
@@ -67,7 +74,7 @@ const schemas = [
   // Los mismos cursos que se listan arriba, en el formato de listado que Google
   // puede convertir en carrusel. Con la URL canónica del país de cada ficha y
   // el precio real de la tarjeta.
-  courseListSchema(popular.map((c) => cursoParaListado(c, country))),
+  courseListSchema(await Promise.all(popular.map((c) => cursoParaListado(c, country)))),
 ];
 ---
 
@@ -100,7 +107,7 @@ const schemas = [
       </p>
       <div class="mt-6 flex flex-wrap gap-6 text-sm text-white/80">
         <p><strong class="text-white">{popular.length}</strong> cursos populares</p>
-        <p>⭐ <strong class="text-white">{SITE.stats.rating}</strong> de media en valoraciones de Hotmart</p>
+        {stats.rating && <p>⭐ <strong class="text-white">{stats.rating}</strong> de media en valoraciones de Hotmart</p>}
         <p>📜 Certificado digital incluido</p>
       </div>
     </div>

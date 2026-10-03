@@ -1,6 +1,9 @@
 ---
-import { CATEGORIES } from '@/lib/categories';
-import { COUNTRIES, type Country } from '@/lib/countries';
+import { getCategories, getCountries } from '@/lib/emdash-content';
+import { getMenu } from 'emdash';
+import { getLiveSiteSettings } from '@/lib/live-site-settings';
+import { safeEditorialUrl, marketMenuUrl } from '@/lib/sably-theme';
+import { type Country } from '@/lib/countries';
 import { SITE } from '@/lib/site';
 import Logo from './Logo.astro';
 import SocialIcon from './SocialIcon.astro';
@@ -12,26 +15,30 @@ const { country } = Astro.props;
 const base = `/${country.code}`;
 const year = new Date().getFullYear();
 
-/* Solo las redes con perfil real: una URL vacía en SITE.social significa que
-   la cuenta no existe todavía y no se pinta un enlace muerto. */
-// `as const` en cada red: sin él, el literal ensancha `network` a `string` y
-// SocialIcon —que solo acepta las cuatro— deja de compilar.
-const REDES = [
-  { network: 'instagram' as const, url: SITE.social.instagram, label: 'Instagram' },
-  { network: 'tiktok' as const, url: SITE.social.tiktok, label: 'TikTok' },
-  { network: 'facebook' as const, url: SITE.social.facebook, label: 'Facebook' },
-  { network: 'youtube' as const, url: SITE.social.youtube, label: 'YouTube' },
-].filter((r) => r.url);
-
-const SABLY_LINKS = [
-  { href: '/nosotros/', label: 'Sobre nosotros' },
-  { href: '/homologaciones/', label: 'Homologaciones' },
-  { href: '/blog/', label: 'Blog' },
-  { href: '/contacto/', label: 'Contacto' },
-  { href: '/sitemap/', label: 'Mapa del sitio' },
-  { href: '/legal/terminos/', label: 'Términos y condiciones' },
-  { href: '/legal/privacidad/', label: 'Política de privacidad' },
-];
+const [CATEGORIES, COUNTRIES, settings, footer, social, ecosystem] = await Promise.all([
+  getCategories(), getCountries(), getLiveSiteSettings(), getMenu('footer',{locale:'es'}), getMenu('social',{locale:'es'}), getMenu('ecosystem',{locale:'es'}),
+]);
+type Network = 'instagram'|'tiktok'|'facebook'|'youtube';
+function socialNetwork(href:string):Network|null {
+  // Editors can rename a menu label without changing the icon's identity.
+  let host:string;try{host=new URL(href).hostname.toLowerCase();}catch{return null;}
+  for(const [domain,network] of [['instagram.com','instagram'],['tiktok.com','tiktok'],['facebook.com','facebook'],['youtube.com','youtube'],['youtu.be','youtube']] as const){
+    if(host===domain||host.endsWith(`.${domain}`))return network;
+  }
+  return null;
+}
+const REDES = (social?.items ?? []).flatMap(item => {
+  const url=safeEditorialUrl(item.url);
+  return url ? [{network:socialNetwork(url),url,label:item.label}] : [];
+});
+const SABLY_LINKS = (footer?.items ?? []).flatMap(item=>{
+  const href=marketMenuUrl(item.url,country.code);
+  return href?[{href,label:item.label,target:item.target}]:[];
+});
+const ECOSYSTEM = (ecosystem?.items ?? []).flatMap(item=>{
+  const href=safeEditorialUrl(item.url);
+  return href?[{href,label:item.label,target:item.target}]:[];
+});
 ---
 
 <footer class="bg-primary text-white">
@@ -40,20 +47,20 @@ const SABLY_LINKS = [
     <div class="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))] lg:gap-8">
       <div>
         <Logo href={`${base}/`} inverted />
-        <p class="mt-4 max-w-sm text-sm leading-relaxed text-white/70">{SITE.tagline}</p>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-white/70">{settings.tagline ?? SITE.tagline}</p>
 
         <p class="mt-5 text-xs font-bold tracking-wide text-white/50 uppercase">Ecosistema Sably</p>
         <ul class="mt-2 space-y-1.5" role="list">
           {
-            SITE.filiales.map((f) => (
+            ECOSYSTEM.map((f) => (
               <li>
                 <a
-                  href={f.url}
-                  target="_blank"
-                  rel="noopener"
+                  href={f.href}
+                  target={f.target}
+                  rel={f.target==='_blank'?'noopener':undefined}
                   class="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition hover:text-accent"
                 >
-                  {f.name}
+                  {f.label}
                   <span aria-hidden="true">→</span>
                 </a>
               </li>
@@ -69,9 +76,9 @@ const SABLY_LINKS = [
                 target="_blank"
                 rel="noopener"
                 aria-label={r.label}
-                class="flex size-10 items-center justify-center rounded-full bg-white/10 text-white/80 transition hover:bg-accent hover:text-white"
+                class:list={['flex h-10 items-center justify-center bg-white/10 text-white/80 transition hover:bg-accent hover:text-white',r.network?'w-10 rounded-full':'rounded-md px-3']}
               >
-                <SocialIcon network={r.network} class="size-[18px]" />
+                {r.network?<SocialIcon network={r.network} class="size-[18px]" />:<span class="text-xs font-semibold">{r.label}</span>}
               </a>
             ))
           }
@@ -119,7 +126,7 @@ const SABLY_LINKS = [
           {
             SABLY_LINKS.map((l) => (
               <li>
-                <a href={l.href} class="text-sm text-white/70 transition hover:text-white">
+                <a href={l.href} target={l.target} rel={l.target==='_blank'?'noopener':undefined} class="text-sm text-white/70 transition hover:text-white">
                   {l.label}
                 </a>
               </li>

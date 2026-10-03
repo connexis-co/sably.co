@@ -70,15 +70,19 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   let guardado = false;
   try {
-    await env.DB.prepare(
+    const result = await env.DB.prepare(
       `INSERT INTO lead (id, name, email, phone, course_interest, country,
                          source, consent_id, turnstile, ip_hash, purge_after)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+       SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+       WHERE NOT EXISTS (
+         SELECT 1 FROM lead WHERE email=? AND COALESCE(course_interest,'')=COALESCE(?,'')
+           AND date(created_at,'unixepoch')=date('now')
+       )`,
     )
       .bind(ulid(), nombre, email, b.phone ?? null, b.course_interest ?? null,
-            pais, origen || null, consentId, abuso.turnstile, ipHash, purga)
+            pais, origen || null, consentId, abuso.turnstile, ipHash, purga,email,b.course_interest ?? null)
       .run();
-    guardado = true;
+    guardado = result.meta.changes > 0;
   } catch (e) {
     const msg = (e as Error).message;
     // El índice único (email, curso, día) hace idempotente el doble clic. No es
@@ -92,17 +96,18 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   // El texto lo decide el servidor, no el cliente: es el único que sabe si de
   // verdad se escribió la fila y si hay proveedor de correo configurado. Sin
   // proveedor NO se dice «te enviamos un correo», porque no salió ninguno.
-  const enviado = await notificar(env, { nombre, email, curso: b.course_interest, mensaje, origen });
+  const enviado = guardado && await notificar(env, { nombre, email, curso: b.course_interest, mensaje, origen });
 
   return json(
     {
       ok: true,
       guardado,
       duplicado: !guardado,
-      correo: enviado,
-      mensaje: enviado
-        ? 'Recibimos tus datos y te enviamos un correo de confirmación.'
-        : 'Recibimos tus datos. Te contactamos por correo lo antes posible.',
+      correo: false,
+      equipo_notificado: enviado,
+      mensaje: guardado
+        ? 'Recibimos tu solicitud. Nuestro equipo tiene tus datos para contactarte.'
+        : 'Tu solicitud ya estaba registrada. Nuestro equipo tiene tus datos para contactarte.',
     },
     guardado ? 201 : 200,
   );
@@ -120,7 +125,7 @@ async function notificar(
   env: Env,
   datos: { nombre: string; email: string; curso?: string; mensaje: string; origen: string },
 ): Promise<boolean> {
-  if (!env.RESEND_API_KEY || !env.NOTIFY_EMAIL || !env.NOTIFY_FROM) return false;
+  if (!env.MAIL) return false;
   // Texto plano a propósito: el nombre y el mensaje son de un desconocido, y
   // en text/plain no hay marcado que pueda inyectarse.
   const cuerpo = [
@@ -136,25 +141,10 @@ async function notificar(
     .join('\n');
 
   try {
-    const r = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${env.RESEND_API_KEY}`,
-        'content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: env.NOTIFY_FROM,
-        to: [env.NOTIFY_EMAIL],
-        reply_to: datos.email,
-        subject: `Nueva solicitud de ${datos.nombre}`,
-        text: cuerpo,
-      }),
-      signal: AbortSignal.timeout(6000),
-    });
-    if (!r.ok) console.error('resend:', r.status, await r.text());
-    return r.ok;
-  } catch (e) {
-    console.error('resend:', (e as Error).message);
+    await env.MAIL.send({to:env.MAIL.notificationEmail,replyTo:datos.email,subject:`Nueva solicitud de ${datos.nombre}`,text:cuerpo});
+    return true;
+  } catch {
+    console.error('No se pudo notificar la solicitud mediante el proveedor de correo de EmDash.');
     return false;
   }
 }

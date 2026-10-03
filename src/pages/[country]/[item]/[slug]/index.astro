@@ -1,24 +1,11 @@
 ---
-import { getCollection } from 'astro:content';
-import CourseLanding from '@/components/CourseLanding.astro';
-import { COUNTRIES, getCountry, getCity } from '@/lib/countries';
-
-/** Curso hiperlocal: /{cc}/{ciudad}/{curso-slug}/ */
-export async function getStaticPaths() {
-  const courses = await getCollection('courses');
-  return COUNTRIES.flatMap((c) =>
-    c.cities.flatMap((city) =>
-      courses.map((course) => ({
-        params: { country: c.code, item: city.slug, slug: course.id },
-        props: { course },
-      })),
-    ),
-  );
-}
-
-const { course } = Astro.props;
-const country = getCountry(Astro.params.country!);
-const city = getCity(country, Astro.params.item!);
+import { load } from '@/lib/page-loaders/city-course';
+import { CityCourseView } from '@/themes';
+import { loadCustomPage } from '@/lib/page-loaders/custom-page';
+import { PageTemplate } from '@/themes';
+export const prerender = false;
+const customPage = await loadCustomPage(Astro);
+const model = customPage ? null : await load(Astro);
+if (model instanceof Response) { if(model.status===404)model.headers.set('X-Robots-Tag','noindex, nofollow'); return model; }
 ---
-
-<CourseLanding {course} {country} {city} />
+{customPage ? <PageTemplate {...customPage} /> : model && <CityCourseView {...model} />}

@@ -7,7 +7,8 @@
  * pública del producto (hotlink con ?dp=1), que trae `"rating"` y
  * `"totalReviews"` — los de verdad, dejados por compradores.
  *
- * Salida: src/data/hotmart-live.json, que el build hornea en las 5.955 páginas.
+ * Salida: .emdash/hotmart-live.json; el sitio consulta SABLY_DB durante cada request.
+ * El catálogo publicado y sus URLs se consultan en EmDash, nunca en MDX.
  *
  * Uso:
  *   node scripts/hotmart-precios.mjs                captura todo y escribe el JSON
@@ -19,16 +20,17 @@
  *   node scripts/hotmart-precios.mjs --solo <slug>  un curso, para depurar
  */
 
-import { readFileSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { catalogApiOrigin, fetchHotmart, loadPublishedHotmartCatalog, retainPublishedCaptures } from '../src/lib/hotmart-catalog.mjs';
 
 // fileURLToPath y no .pathname: la ruta del proyecto lleva espacios y el
 // pathname crudo los deja como %20, que scandir no encuentra.
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const CURSOS = path.join(RAIZ, 'src/content/courses');
-const SALIDA = path.join(RAIZ, 'src/data/hotmart-live.json');
-const API = process.env.SABLY_API ?? 'https://sably.co';
+const SALIDA = path.join(RAIZ, '.emdash/hotmart-live.json');
+const API = catalogApiOrigin(process.env.SABLY_API ?? 'https://sably.co');
+const PREVIEW_HEADERS = process.env.SABLY_DEV_PASSWORD ? { 'X-Sably-Preview-Token': process.env.SABLY_DEV_PASSWORD } : {};
 
 const args = process.argv.slice(2);
 const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -53,26 +55,8 @@ function soloMonedasReales(monedas) {
   return out;
 }
 
-/** Cursos publicados con URL de Hotmart (acortador o go.hotmart). */
-function catalogo() {
-  const out = [];
-  for (const f of readdirSync(CURSOS).filter((x) => x.endsWith('.mdx'))) {
-    const slug = f.replace(/\.mdx$/, '');
-    if (args.includes('--solo') && args[args.indexOf('--solo') + 1] !== slug) continue;
-    const crudo = readFileSync(path.join(CURSOS, f), 'utf8');
-    const m = crudo.match(/^hotmartUrl:\s*(\S+)/m);
-    const titulo = crudo.match(/^title:\s*(.+)$/m)?.[1]?.trim().replace(/^['"]|['"]$/g, '') ?? slug;
-    if (m && !m[1].includes('PENDIENTE')) out.push({ slug, url: m[1], titulo });
-  }
-  return out;
-}
-
-/** Sigue las redirecciones del acortador hasta el checkout real. */
-async function resolver(url) {
-  const r = await fetch(url, { headers: UA, redirect: 'follow', signal: AbortSignal.timeout(25000) });
-  const html = await r.text();
-  return { final: r.url, html };
-}
+/** Every redirect remains on the explicit HTTPS Hotmart allowlist. */
+async function resolver(url, marketplace = false) { return fetchHotmart(url, { headers: UA, marketplace }); }
 
 /**
  * Pares `numero,"XXX"` del payload devalue del checkout: primer valor por
@@ -93,12 +77,16 @@ function extraerPrecios(html) {
 }
 
 async function main() {
-  const cursos = catalogo();
+  const publicados = await loadPublishedHotmartCatalog({api:API,token:process.env.SNAPSHOT_TOKEN,previewToken:process.env.SABLY_DEV_PASSWORD});
+  const cursos = args.includes('--solo') ? publicados.filter(row => row.slug === args[args.indexOf('--solo') + 1]) : publicados;
+  if (!cursos.length) throw new Error('No hay cursos publicados con Hotmart para esta captura');
+  const selected = new Set(cursos.map(row=>row.slug));
   console.log(`${cursos.length} cursos con producto`);
 
   const datos = existsSync(SALIDA)
     ? JSON.parse(readFileSync(SALIDA, 'utf8'))
     : { _fuente: '', precios: {}, valoraciones: {}, resenas: {}, productos: {} };
+  retainPublishedCaptures(datos,publicados);
 
   // El spread de abajo arrastra hacia adelante cualquier clave vieja del JSON,
   // así que lo heredado también se depura o el RUT de ayer vive para siempre.
@@ -109,11 +97,11 @@ async function main() {
   // Lo fresco de D1 primero (monedas capturadas por visitantes de otros países)
   if (args.includes('--merge-api')) {
     try {
-      const d = await (await fetch(`${API}/api/v1/precios`, { signal: AbortSignal.timeout(15000) })).json();
+      const d = await (await fetch(`${API}/api/v1/precios`, { headers:PREVIEW_HEADERS, redirect:'error', signal: AbortSignal.timeout(15000) })).json();
       for (const [slug, monedas] of Object.entries(d.precios ?? {})) {
-        datos.precios[slug] = { ...datos.precios[slug], ...soloMonedasReales(monedas) };
+        if (selected.has(slug)) datos.precios[slug] = { ...datos.precios[slug], ...soloMonedasReales(monedas) };
       }
-      for (const [slug, v] of Object.entries(d.valoraciones ?? {})) datos.valoraciones[slug] = v;
+      for (const [slug, v] of Object.entries(d.valoraciones ?? {})) if (selected.has(slug)) datos.valoraciones[slug] = v;
       console.log('fundido con D1');
     } catch (e) {
       console.log(`sin D1 (${e.message}): sigo con lo local`);
@@ -139,12 +127,12 @@ async function main() {
       // últimas reseñas CON el nombre que su autor publicó en Hotmart.
       if (hotlink) {
         try {
-          const { html: hp } = await resolver(`https://go.hotmart.com/${hotlink}?dp=1`);
+          const { html: hp } = await resolver(`https://go.hotmart.com/${hotlink}?dp=1`,true);
           const idProducto = hp.match(/"productId":(\d{5,9})/)?.[1];
           if (idProducto) {
             const r = await fetch(
               `https://api-ask.hotmart.com/api/v1/survey/product/${idProducto}/rating`,
-              { headers: UA, signal: AbortSignal.timeout(20000) },
+              { headers: UA, redirect:'error', signal: AbortSignal.timeout(20000) },
             );
             if (r.ok) {
               const d = await r.json();
@@ -199,6 +187,7 @@ async function main() {
     'Precios del checkout real de Hotmart (payload SSR) y valoraciones públicas del marketplace. ' +
     'Nada de este fichero es inventado; si un curso no aparece, no se muestra el dato.';
   datos._capturado = new Date().toISOString();
+  mkdirSync(path.dirname(SALIDA), {recursive:true});
   writeFileSync(SALIDA, JSON.stringify(datos, null, 1) + '\n');
   console.log(`\n${ok}/${cursos.length} capturados → ${path.relative(RAIZ, SALIDA)}`);
   if (fallos.length) console.log(`fallos:\n  ${fallos.join('\n  ')}`);
@@ -210,19 +199,23 @@ async function main() {
       return;
     }
     const cuerpo = {
-      productos: Object.entries(datos.productos).map(([slug, p]) => ({ slug, ...p })),
-      precios: Object.entries(datos.precios).flatMap(([slug, ms]) =>
+      sources: Object.fromEntries(cursos.map(row=>[row.slug,row.url])),
+      productos: Object.entries(datos.productos).filter(([slug])=>selected.has(slug)).map(([slug, p]) => ({ slug, ...p })),
+      precios: Object.entries(datos.precios).filter(([slug])=>selected.has(slug)).flatMap(([slug, ms]) =>
         Object.entries(ms).map(([moneda, monto]) => ({ slug, moneda, monto })),
       ),
-      valoraciones: Object.entries(datos.valoraciones).map(([slug, v]) => ({ slug, ...v })),
+      valoraciones: Object.entries(datos.valoraciones).filter(([slug])=>selected.has(slug)).map(([slug, v]) => ({ slug, ...v })),
     };
     const r = await fetch(`${API}/api/v1/precios`, {
       method: 'POST',
-      headers: { 'content-type': 'application/json', authorization: `Bearer ${token}` },
+      headers: { ...PREVIEW_HEADERS, 'content-type': 'application/json', authorization: `Bearer ${token}` },
+      redirect: 'error',
+      signal: AbortSignal.timeout(30000),
       body: JSON.stringify(cuerpo),
     });
-    console.log(`POST a D1: ${r.status} ${await r.text()}`);
+    if (!r.ok) throw new Error(`POST a D1 rechazado (${r.status}); no se confirmó la captura`);
+    console.log(`POST a D1: ${r.status}`);
   }
 }
 
-main();
+main().catch(error => { console.error(error.message); process.exitCode = 1; });

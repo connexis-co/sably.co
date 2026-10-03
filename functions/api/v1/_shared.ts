@@ -4,6 +4,8 @@
  * sin un dominio más que mantener.
  */
 
+export interface OperationalMessage { to: string; cc?: string[]; replyTo?: string; subject: string; text: string; html?: string; }
+export interface OperationalMailer { notificationEmail: string; send(message: OperationalMessage): Promise<void>; }
 export interface Env {
   DB: D1Database;
   TURNSTILE_SECRET?: string;
@@ -15,6 +17,8 @@ export interface Env {
   NOTIFY_FROM?: string;
   /** Email marketing/transaccional. Si está, tiene prioridad sobre Resend. */
   BREVO_API_KEY?: string;
+  /** Injected official EmDash email pipeline; never populated in development. */
+  MAIL?: OperationalMailer;
 }
 
 /**

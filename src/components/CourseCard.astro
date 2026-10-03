@@ -1,12 +1,16 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { getCategory, courseCover } from '@/lib/categories';
+import { env } from 'cloudflare:workers';
+import { cmsImageUrl } from '@/lib/cms-media';
+import type { Course } from '@/lib/emdash-content';
+import { courseCover } from '@/lib/categories';
+import { getCategory } from '@/lib/emdash-content';
 import { formatPrice, type Country } from '@/lib/countries';
-import { formatMonto, precioReal, valoracionReal } from '@/lib/hotmartLive';
+import { formatMonto } from '@/lib/moneda';
+import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-operations/public';
 import Rating from './Rating.astro';
 
 interface Props {
-  course: CollectionEntry<'courses'>;
+  course: Course;
   country: Country;
   /** En contexto de ciudad, la card enlaza a la landing hiperlocal del curso. */
   citySlug?: string;
@@ -14,12 +18,13 @@ interface Props {
   eager?: boolean;
 }
 const { course, country, citySlug } = Astro.props;
-const cat = getCategory(course.data.category);
+const cat = (await getCategory(course.data.category))!;
 
 /* Precio y valoración reales de Hotmart; sin dato real no se inventa nada:
    precio de catálogo como respaldo, sin estrellas y sin badge de descuento. */
-const real = precioReal(course.id, country);
-const valoracion = valoracionReal(course.id);
+const operationalDb = (env as unknown as {SABLY_DB:D1Database}).SABLY_DB;
+const real = await readOperationalPrice(operationalDb, course.id, country, Astro.locals).catch(() => null);
+const valoracion = await readOperationalRating(operationalDb, course.id, Astro.locals).catch(() => null);
 const url = citySlug
   ? `/${country.code}/${citySlug}/${course.id}/`
   : `/${country.code}/${course.id}/`;
@@ -34,7 +39,7 @@ const url = citySlug
       style={`background-image: linear-gradient(135deg, ${cat.gradient[0]}, ${cat.gradient[1]})`}
     >
       <img
-        src={courseCover(course.id, cat.slug, 'card')}
+        src={cmsImageUrl(course.cardImage) ?? cmsImageUrl(course.coverImage) ?? courseCover(course.id, cat.slug, 'card')}
         alt=""
         width="480"
         height="320"

@@ -1,12 +1,13 @@
 ---
-import { SITE } from '@/lib/site';
+import { publicStats } from '@/lib/public-stats';
+const stats = await publicStats(Astro.locals);
 
 /* Solo afirmaciones respaldadas: la media y el total salen de las
    valoraciones públicas reales de los productos en Hotmart, y el texto lo dice:
    sin la fuente, el lector (y el LLM que lo cite) la toma por nota de Sably. */
 const items = [
-  { icon: '🎓', label: `Estudiantes en ${SITE.stats.countries} países` },
-  { icon: '⭐', label: `${SITE.stats.rating} de media en ${SITE.stats.reviews.toLocaleString('es-CO')} valoraciones reales en Hotmart` },
+  { icon: '🎓', label: `Disponible en ${stats.countries} países` },
+  ...(stats.rating ? [{ icon: '⭐', label: `${stats.rating} de media en ${stats.reviews.toLocaleString('es-CO')} valoraciones reales en Hotmart` }] : []),
   { icon: '📜', label: 'Certificado incluido' },
   { icon: '🔥', label: 'Cursos vía Hotmart — acceso de por vida' },
 ];

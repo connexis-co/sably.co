@@ -1,0 +1,12 @@
+import { spawnSync } from 'node:child_process';
+import { writeFileSync } from 'node:fs';
+import { targetConfig, readTarget, validateTarget, fingerprint } from './environment-config.mjs';
+import { removeGeneratedSecrets, assertSafeArtifact } from './build-artifact.mjs';
+import { sourceIdentity } from './source-identity.mjs';
+const spec=targetConfig(process.argv[2]);
+const config=readTarget(spec.target);validateTarget(spec.target,config);
+const identity=sourceIdentity(spec.target);
+const result=spawnSync(process.execPath,['node_modules/astro/bin/astro.mjs','build'],{stdio:'inherit',env:{...process.env,SABLY_TARGET:spec.target,PUBLIC_SITE_URL:spec.siteUrl}});
+if(result.status!==0)process.exit(result.status??1);
+removeGeneratedSecrets(); assertSafeArtifact();
+writeFileSync('dist/sably-build.json',JSON.stringify({target:spec.target,...identity,worker:spec.worker,siteUrl:spec.siteUrl,configSha256:fingerprint(config)},null,2)+'\n');

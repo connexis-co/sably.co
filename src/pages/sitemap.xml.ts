@@ -1,10 +1,11 @@
 import type { APIRoute } from 'astro';
 import { SITE } from '@/lib/site';
-import { SITEMAP_NAMES } from '@/lib/sitemap';
+export const prerender = false;
+import { sitemapNames } from '@/lib/sitemap';
 
 /** Alias /sitemap.xml → mismo índice (varias herramientas lo buscan en esta ruta). */
-export const GET: APIRoute = () => {
-  const body = SITEMAP_NAMES.map(
+export const GET: APIRoute = async () => {
+  const body = (await sitemapNames()).map(
     (name) => `<sitemap><loc>${SITE.url}/sitemaps/sitemap-${name}.xml</loc></sitemap>`,
   ).join('');
   return new Response(

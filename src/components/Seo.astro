@@ -1,96 +1,17 @@
 ---
-import { SITE } from '@/lib/site';
+import { EmDashHead } from 'emdash/ui';
+import { safeJsonLdSerialize } from 'emdash/page';
+import type { PublicPageContext } from 'emdash';
 import type { HreflangAlternate } from '@/lib/seo';
-
 interface Props {
-  title: string;
-  description: string;
-  alternates?: HreflangAlternate[];
-  schemas?: object[];
-  noindex?: boolean;
-  ogType?: 'website' | 'article';
-  /** Imagen social (ruta relativa o absoluta). Sin ella no se emite og:image. */
-  image?: string;
-  /** Canonical explícito (override). Por defecto = la URL propia. Las variantes
-      de ciudad lo usan para canonicar a su página de país (consolidación de la
-      hiperlocalización). */
-  canonical?: string;
-  /**
-   * Solo Google: excluye la página del índice de Google sin afectar a Bing ni a
-   * los bots de IA. Emite `<meta name="googlebot" content="noindex, follow">`
-   * aparte, sin tocar la meta robots ni el canonical: Google solo lee los tokens
-   * «googlebot» y aplica la regla más restrictiva, mientras Bingbot, OAI-SearchBot,
-   * PerplexityBot y Claude-SearchBot ignoran ese token y siguen viendo index,follow.
-   * Se usa en los hubs, catálogos y categorías de ciudad, donde Google rechaza el
-   * canonical al país. NUNCA en las fichas ciudad+curso: ahí aterriza la mitad del
-   * tráfico de ChatGPT y Google sí acepta su canonical.
-   */
-  noindexGoogle?: boolean;
-  /** og:locale del mercado de la página (es_MX en /mx/…). Por defecto es_CO. */
-  ogLocale?: string;
+  title: string; page: PublicPageContext; alternates?: HreflangAlternate[];
+  schemas?: object[]; noindexGoogle?: boolean; ogLocale?: string;
 }
-
-const {
-  title,
-  description,
-  alternates = [],
-  schemas = [],
-  noindex = false,
-  ogType = 'website',
-  image,
-  canonical: canonicalProp,
-  noindexGoogle = false,
-  ogLocale = 'es_CO',
-} = Astro.props;
-const canonical = canonicalProp ?? new URL(Astro.url.pathname, SITE.url).href;
-/* Absoluta siempre: WhatsApp y Facebook ignoran og:image relativas. */
-const ogImage = image ? new URL(image, SITE.url).href : null;
-
-/**
- * JSON-LD seguro para incrustar en un `<script>`.
- *
- * `JSON.stringify` no escapa `<`, así que un `</script>` dentro de cualquier
- * cadena cierra la etiqueta antes de tiempo y lo que siga se interpreta como
- * HTML. Los schemas llevan FAQs y descripciones generadas por un modelo, o sea
- * texto que no controlamos. Los escapes \u00xx son válidos dentro de una
- * cadena JSON y se parsean igual, así que Google lee el mismo schema.
- */
-function jsonLd(schema: object): string {
-  return JSON.stringify(schema)
-    .replaceAll('<', '\\u003c')
-    .replaceAll('>', '\\u003e')
-    .replaceAll('&', '\\u0026');
-}
+const { title, page, alternates = [], schemas = [], noindexGoogle = false, ogLocale = 'es_CO' } = Astro.props;
 ---
-
 <title>{title}</title>
-<meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
-{
-  noindex ? (
-    <meta name="robots" content="noindex, nofollow" />
-  ) : (
-    /* max-image-preview:large habilita miniaturas grandes de Google Discover y en
-       resultados; max-snippet/max-video-preview sin límite. Clave para Discover. */
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-  )
-}
-{/* Con noindex general ya sobra: la meta robots excluye a todos, Google incluido. */}
-{noindexGoogle && !noindex && <meta name="googlebot" content="noindex, follow" />}
-{alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
-
-<meta property="og:type" content={ogType} />
-<meta property="og:site_name" content={SITE.name} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:url" content={canonical} />
+<EmDashHead {page} />
 <meta property="og:locale" content={ogLocale} />
-{ogImage && <meta property="og:image" content={ogImage} />}
-{ogImage && <meta property="og:image:width" content="800" />}
-{ogImage && <meta property="og:image:height" content="533" />}
-<meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
-{ogImage && <meta name="twitter:image" content={ogImage} />}
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
-
-{schemas.map((schema) => <script type="application/ld+json" set:html={jsonLd(schema)} />)}
+{noindexGoogle && <meta name="googlebot" content="noindex, follow" />}
+{alternates.map(alt => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+{schemas.map(schema => <script type="application/ld+json" set:html={safeJsonLdSerialize(schema)} />)}
