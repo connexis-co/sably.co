@@ -33,3 +33,15 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Upgrade institutional pages with native EmDash blocks
+        run: node --import tsx scripts/upgrade-institutional-pages.mjs --execute
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: institutional-pages-backup-${{ github.run_id }}
+          path: .emdash/institutional-pages-before-*.json
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 30

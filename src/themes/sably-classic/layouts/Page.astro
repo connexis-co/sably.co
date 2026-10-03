@@ -1,16 +1,26 @@
 ---
 import Base from './Base.astro';
-import Contact from './Contact.astro';
 import PageBlocks from '../components/PageBlocks.astro';
 import CmsRichBody from '@/components/CmsRichBody.astro';
 import type { CmsPage, CmsCountry } from '@/lib/emdash-content';
 import type { BlockValue } from 'emdash/ui';
+import {breadcrumbSchema} from '@/lib/seo';
+import {SITE} from '@/lib/site';
 interface Props { page: CmsPage; country: CmsCountry; }
 const {page,country}=Astro.props;
 Astro.locals.sablyContent=page.contentRef;
 Astro.locals.sablySeo=page.seo;
+const hasContact=page.layout.some(block=>block._type==='sably_contact');
+const kind=hasContact?'ContactPage':page.path==='/nosotros/'?'AboutPage':'WebPage';
+const schemas=[breadcrumbSchema([{name:'Inicio',url:`${SITE.url}/${country.code}/`},{name:page.heroLabel||page.heroHeading,url:new URL(page.path,SITE.url).href}]),{'@context':'https://schema.org','@type':kind,name:page.title,description:page.description,url:new URL(page.path,SITE.url).href,inLanguage:'es',about:{'@id':`${SITE.url}/#organization`}}];
 ---
-{page.id === 'contacto' ? <Contact {page} {country} /> : <Base title={page.title} description={page.description} {country} pageType="page">
-  <section class="bg-primary py-14 text-white"><div class="container-site"><h1 class="max-w-4xl text-3xl font-extrabold sm:text-5xl" {...page.edit.hero_heading}>{page.heroHeading}</h1></div></section>
-  {page.layout.length ? <PageBlocks value={page.layout as unknown as BlockValue[]} /> : <div class="container-site py-12"><CmsRichBody value={page.richBody ?? []} /></div>}
-</Base>}
+<Base title={page.title} description={page.description} {country} {schemas} pageType="page">
+  <section class="bg-primary py-14 sm:py-20">
+    <div class="container-site">
+      {page.heroLabel && <p class="mb-4 font-semibold text-white/75" {...page.edit.hero_label}>{page.heroLabel}</p>}
+      <h1 class="max-w-4xl text-3xl font-extrabold leading-tight text-white sm:text-5xl" {...page.edit.hero_heading}>{page.heroHeading}</h1>
+      {page.heroText && <p class="mt-5 max-w-2xl whitespace-pre-line text-lg leading-relaxed text-white/80" {...page.edit.hero_text}>{page.heroText}</p>}
+    </div>
+  </section>
+  {page.layout.length ? <PageBlocks value={page.layout as unknown as BlockValue[]} /> : <div class="container-site py-12"><div class="prose-sably mx-auto max-w-3xl"><CmsRichBody value={page.richBody ?? []} /></div></div>}
+</Base>

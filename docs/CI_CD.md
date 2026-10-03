@@ -79,3 +79,7 @@ Una promoción posterior al corte puede volver a una versión previamente verifi
 Conservar los registros `sably-release.json` de las promociones y los backups editoriales de las sincronizaciones. Una restauración de contenido debe usar su backup y comprobar el esquema; no importar un dump de producción con tablas de autenticación u operaciones.
 
 Las versiones no modifican por sí mismas rutas ni cron. La separación usada en estos scripts sigue la [referencia de Wrangler](https://developers.cloudflare.com/workers/wrangler/commands/workers/#triggers-deploy); el modo de subida de candidato nunca ejecuta `triggers deploy`.
+
+### Actualización de Contacto y Nosotros
+
+Después de desplegar desarrollo, `scripts/upgrade-institutional-pages.mjs --execute` registra los bloques nativos y convierte únicamente las dos páginas que aún conservan el bloque plano de la importación. Guarda una copia anterior como artefacto privado por 30 días, conserva los IDs y usa revisiones de EmDash. No reemplaza diseños ya editados y se detiene ante un borrador pendiente. Las siguientes ejecuciones no vuelven a sembrar el contenido. El script verifica el ID fijo de la base de desarrollo. Producción recibe esta estructura mediante su importación editorial revisada; este paso nunca escribe en su base.

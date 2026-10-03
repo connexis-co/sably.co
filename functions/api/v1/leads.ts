@@ -17,6 +17,8 @@ interface Cuerpo {
   source?: string;
   turnstile_token?: string;
   consent_text?: string;
+  consent_policy_url?: string;
+  country?: string;
   /** Texto libre del formulario de contacto. Nulo en el modal de curso. */
   message?: string;
   /** Campo trampa: invisible para una persona. */
@@ -35,6 +37,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return error('cuerpo JSON inválido');
   }
 
+  if (!b || typeof b !== 'object' || Array.isArray(b) || ['name','email','phone','message','source','country','consent_text','consent_policy_url','course_interest'].some(key => key in b && typeof b[key as keyof Cuerpo] !== 'string')) return error('datos de solicitud inválidos');
+  if (b.country && !/^[a-z]{2}$/i.test(b.country)) return error('país inválido');
+  const policyPath = b.consent_policy_url ?? '/legal/privacidad/';
+  if (!/^\/(?!\/)[a-z0-9/_-]+\/?$/i.test(policyPath)) return error('política de privacidad inválida');
   const nombre = (b.name ?? '').trim();
   const email = (b.email ?? '').trim().toLowerCase();
   if (nombre.length < 2 || nombre.length > 80) return error('nombre inválido');
@@ -57,8 +63,8 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return error('demasiados envíos desde esta conexión', 429);
   }
 
-  const pais = paisDe(request);
-  const consentId = await registrarConsentimiento(env.DB, 'lead', ipHash, pais, b.consent_text);
+  const pais = b.country?.toUpperCase() || paisDe(request);
+  const consentId = await registrarConsentimiento(env.DB, 'lead', ipHash, pais, b.consent_text, new URL(policyPath, 'https://sably.co').href);
   // Dos años de conservación comercial; después lo purga el cron.
   const purga = Math.floor(Date.now() / 1000) + 730 * 24 * 3600;
 
