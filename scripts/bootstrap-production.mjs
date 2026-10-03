@@ -1,0 +1,7 @@
+import assert from 'node:assert/strict';import{readFileSync}from'node:fs';import{spawnSync}from'node:child_process';
+const config=JSON.parse(readFileSync('config/wrangler.bootstrap-production.jsonc','utf8'));
+assert.equal(config.name,'sably-emdash-production');assert.equal(config.account_id,'6e36c2fb07c21f30ed3c0d6e824884bc');assert.equal(config.workers_dev,false);assert.equal(config.preview_urls,false);assert.deepEqual(config.routes,[]);
+assert.equal(config.main,'../scripts/worker-unrouted-bootstrap.mjs');for(const key of ['triggers','d1_databases','r2_buckets','kv_namespaces','assets'])assert.equal(config[key],undefined);
+assert.equal(process.argv[2],'--execute','Explicit --execute is required');assert.ok(process.env.CLOUDFLARE_API_TOKEN);
+const response=await fetch(`https://api.cloudflare.com/client/v4/accounts/${config.account_id}/workers/scripts`,{headers:{Authorization:`Bearer ${process.env.CLOUDFLARE_API_TOKEN}`},redirect:'error'});const payload=await response.json();assert.ok(response.ok&&payload.success,'Cannot verify Worker inventory');assert.ok(!payload.result.some(worker=>worker.id===config.name),'Worker already exists; bootstrap must never replace a version');
+const result=spawnSync(process.execPath,['node_modules/wrangler/bin/wrangler.js','deploy','--config','config/wrangler.bootstrap-production.jsonc'],{stdio:'inherit',env:process.env});process.exit(result.status??1);

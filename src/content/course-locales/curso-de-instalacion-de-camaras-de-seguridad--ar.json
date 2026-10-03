@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-instalacion-de-camaras-de-seguridad",
-  "country": "ar",
-  "angulo": "hobby",
-  "meta_title": "Curso de instalación de cámaras de seguridad en Argentina",
-  "meta_description": "Aprendé a montar tu propio sistema de monitoreo en casa con este curso de instalación de cámaras de seguridad. Pagá con Mercado Pago. Inscribite hoy.",
-  "h1": "Curso de instalación de cámaras de seguridad para proteger tu casa vos mismo",
-  "subtitulo": "Montá tu red de monitoreo, configurá el DVR y mirá todo desde tu celular sin depender de terceros ni pagar abonos mensuales.",
-  "descripcion": "Comprar un kit de CCTV, entusiasmarte el fin de semana y terminar dejando todo metido en una caja porque la imagen sale con lluvia o la app no conecta al DVR. Es una frustración típica de cuando querés encarar este proyecto por tu cuenta. Con este **curso de instalación de cámaras de seguridad**, vas a aprender la lógica técnica exacta para montar, cablear y configurar un sistema de videovigilancia completo en tu casa, en el taller o para darle una mano a tus conocidos.\n\n## Dejar de pagar abonos mensuales y tomar el control de tu casa\n\nInstalar tus propias cámaras no es solo un pasatiempo entretenido para los que nos gusta meter mano en las herramientas; es la libertad de no depender de empresas privadas ni cuotas mensuales eternas. Sin embargo, apretar un tornillo en la pared es la parte fácil. El verdadero desafío aparece cuando tenés que calcular la fuente de alimentación para que la cámara nocturna no se apague, o cuando intentás enlazar la grilla de monitoreo a tu teléfono y la red te rechaza la conexión.\n\nEn este entrenamiento guiado por Diego Cárdenas, vas a recorrer 14 horas de contenido estructurado en 20 lecciones prácticas. Sin rodeos teóricos innecesarios, directo a lo que funciona sobre la mesa de trabajo.\n\n## Los puntos flojos donde la mayoría se atora\n\nHay fallas clásicas que arruinan cualquier instalación domiciliaria si no sabés de antemano cómo prevenirlas:\n\n### Conexiones físicas y cables sin interferencias\nEntenderás por qué el video balun se sulfata si no aislás correctamente la caja estanca o por qué una caída de tensión por usar un cable de calibre fino deja a oscuras la cámara más lejana de la propiedad. Aprenderás a ponchar conectores RJ45 y BNC con precisión para que la señal fluya limpia.\n\n### Configuración IP y acceso remoto en el celular\nAcá es donde el 80% de los principiantes tiran la toalla. Vas a ver cómo asignar una IP fija al grabador (DVR o NVR), configurar los puertos en el router sin romper la red de tu hogar y enlazar la app móvil mediante código QR o servicios P2P para monitorear cada rincón en tiempo real, estés donde estés.\n\n## Un proyecto para disfrutar a tu ritmo (y una aclaración honesta)\n\nPonemos un techo claro a las expectativas: este curso de instalación de cámaras de seguridad no te convierte mágicamente en un contratista de infraestructura crítica de un banco en un par de días. Lo que sí te da es la autonomía técnica total para resolver la videovigilancia de tu hogar, tu comercio o la casa de tus padres con criterios profesionales, evitando los vicios típicos de quien improvisa viendo videos sueltos en internet.\n\nDisponés de 5 módulos para avanzar paso a paso, viendo cada maniobra las veces que sea necesario desde tu computadora o teléfono. Al terminar, no solo vas a tener la satisfacción de haber hecho la instalación vos mismo, sino también el criterio para diagnosticar y reparar cualquier falla en el futuro.",
-  "faqs": [
-    {
-      "q": "¿Puedo pagar en pesos argentinos mediante Mercado Pago?",
-      "a": "Sí, al momento de pagar podés elegir Mercado Pago o tarjetas locales. La plataforma realiza la conversión automática al tipo de cambio oficial correspondiente del día."
-    },
-    {
-      "q": "¿El certificado me habilita legalmente para abrir una empresa de seguridad en Argentina?",
-      "a": "No. El certificado acredita que completaste las 14 horas de formación técnica y dominás la instalación de los equipos, pero no reemplaza las habilitaciones municipales ni los registros provinciales de seguridad privada."
-    },
-    {
-      "q": "¿Hay algún cupón de descuento adicional que pueda aplicar?",
-      "a": "No, el descuento de lanzamiento ya se encuentra aplicado sobre el precio original de USD 60, dejando el valor final abonar en USD 36 sin recargos ocultos ni descuentos extra."
-    },
-    {
-      "q": "¿Necesito conocimientos previos de electrónica para aprovechar el curso?",
-      "a": "No hace falta. El contenido parte desde lo más básico como el uso de herramientas manuales e identificación de cables, hasta la configuración en red paso a paso."
-    },
-    {
-      "q": "¿Qué herramientas básicas necesito para ir practicando en mi casa?",
-      "a": "Con un juego de destornilladores, una pinza alicate, un pelacables y un téster o multímetro básico podés realizar casi todas las prácticas del curso."
-    },
-    {
-      "q": "¿Tengo un plazo límite para completar las 20 lecciones?",
-      "a": "No, las 14 horas de contenido están grabadas para que las mires a tu propio ritmo, según tus tiempos libres y sin horarios fijos."
-    },
-    {
-      "q": "¿Puedo configurar cualquier marca de cámara con lo que enseña Diego Cárdenas?",
-      "a": "Sí, las bases técnicas de cableado, conectividad BNC/IP, cálculo de fuentes y configuración P2P aplican para las marcas más comunes del mercado como Hikvision, Dahua o Gadnic."
-    },
-    {
-      "q": "¿Cómo accedo a las lecciones una vez realizado el pago?",
-      "a": "Una vez confirmado el pago con Mercado Pago o tarjeta, recibís un correo con las credenciales para ingresar a la plataforma y comenzar inmediatamente."
-    }
-  ],
-  "beneficios": [
-    "Configurá el acceso remoto desde tu celular para monitorear tu casa en tiempo real.",
-    "Aprendé a pasar cables por cañerías existentes sin romper paredes ni hacer lío.",
-    "Detectá fallas comunes en el cableado que cortan la imagen de golpe.",
-    "Armá una red propia de vigilancia sin depender de abonos mensuales.",
-    "Instalá el disco rígido adecuado para que el equipo grabe sin errores.",
-    "Ajustá los ángulos de visión de las cámaras para eliminar los puntos ciegos."
-  ],
-  "para_quien": [
-    "Ideal si sos el que siempre arregla las cosas en casa y te gusta meter mano.",
-    "Para quienes quieren dejar de depender de técnicos para tareas básicas.",
-    "Si te divierte entender cómo funcionan los sistemas de red y hardware.",
-    "Perfecto para proteger tu hogar con tus propias herramientas."
-  ],
-  "requisitos": [
-    "Tener una conexión a internet estable para ver las lecciones.",
-    "Disponer de un kit básico de herramientas como destornilladores y pinzas.",
-    "Contar con una PC para realizar las pruebas de configuración de red."
-  ],
-  "certificado": "Al finalizar el curso de instalación de cámaras de seguridad recibís un certificado de terminación emitido por la plataforma. Tené en cuenta que este documento sirve para acreditar tu capacitación, pero no te habilita legalmente como instalador matriculado ni reemplaza la necesidad de estudios técnicos específicos si buscas trabajar en proyectos industriales de gran escala.",
-  "garantia": "Tenés 7 días corridos a partir de la compra para probar el curso de instalación de cámaras de seguridad a través de Hotmart. Si sentís que el material no es lo que buscabas, pedís el reembolso total del dinero y te lo devolvemos sin hacer preguntas.",
-  "_meta": {
-    "usd": 0.01273,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-instalacion-de-camaras-de-seguridad",
+ "country": "ar",
+ "angulo": "hobby",
+ "meta_title": "Curso de instalación de cámaras de seguridad en Argentina",
+ "meta_description": "Aprendé a montar tu propio sistema de monitoreo en casa con este curso de instalación de cámaras de seguridad. Pagá con Mercado Pago. Inscribite hoy.",
+ "h1": "Curso de instalación de cámaras de seguridad para proteger tu casa vos mismo",
+ "subtitulo": "Montá tu red de monitoreo, configurá el DVR y mirá todo desde tu celular sin depender de terceros ni pagar abonos mensuales.",
+ "descripcion": "Comprar un kit de CCTV, entusiasmarte el fin de semana y terminar dejando todo metido en una caja porque la imagen sale con lluvia o la app no conecta al DVR. Es una frustración típica de cuando querés encarar este proyecto por tu cuenta. Con este **curso de instalación de cámaras de seguridad**, vas a aprender la lógica técnica exacta para montar, cablear y configurar un sistema de videovigilancia completo en tu casa, en el taller o para darle una mano a tus conocidos.\n\n## Dejar de pagar abonos mensuales y tomar el control de tu casa\n\nInstalar tus propias cámaras no es solo un pasatiempo entretenido para los que nos gusta meter mano en las herramientas; es la libertad de no depender de empresas privadas ni cuotas mensuales eternas. Sin embargo, apretar un tornillo en la pared es la parte fácil. El verdadero desafío aparece cuando tenés que calcular la fuente de alimentación para que la cámara nocturna no se apague, o cuando intentás enlazar la grilla de monitoreo a tu teléfono y la red te rechaza la conexión.\n\nEn este entrenamiento guiado por Diego Cárdenas, vas a recorrer 14 horas de contenido estructurado en 20 lecciones prácticas. Sin rodeos teóricos innecesarios, directo a lo que funciona sobre la mesa de trabajo.\n\n## Los puntos flojos donde la mayoría se atora\n\nHay fallas clásicas que arruinan cualquier instalación domiciliaria si no sabés de antemano cómo prevenirlas:\n\n### Conexiones físicas y cables sin interferencias\nEntenderás por qué el video balun se sulfata si no aislás correctamente la caja estanca o por qué una caída de tensión por usar un cable de calibre fino deja a oscuras la cámara más lejana de la propiedad. Aprenderás a ponchar conectores RJ45 y BNC con precisión para que la señal fluya limpia.\n\n### Configuración IP y acceso remoto en el celular\nAcá es donde el 80% de los principiantes tiran la toalla. Vas a ver cómo asignar una IP fija al grabador (DVR o NVR), configurar los puertos en el router sin romper la red de tu hogar y enlazar la app móvil mediante código QR o servicios P2P para monitorear cada rincón en tiempo real, estés donde estés.\n\n## Un proyecto para disfrutar a tu ritmo (y una aclaración honesta)\n\nPonemos un techo claro a las expectativas: este curso de instalación de cámaras de seguridad no te convierte mágicamente en un contratista de infraestructura crítica de un banco en un par de días. Lo que sí te da es la autonomía técnica total para resolver la videovigilancia de tu hogar, tu comercio o la casa de tus padres con criterios profesionales, evitando los vicios típicos de quien improvisa viendo videos sueltos en internet.\n\nDisponés de 5 módulos para avanzar paso a paso, viendo cada maniobra las veces que sea necesario desde tu computadora o teléfono. Al terminar, no solo vas a tener la satisfacción de haber hecho la instalación vos mismo, sino también el criterio para diagnosticar y reparar cualquier falla en el futuro.",
+ "faqs": [
+ {
+ "q": "¿Puedo pagar en pesos argentinos mediante Mercado Pago?",
+ "a": "Sí, al momento de pagar podés elegir Mercado Pago o tarjetas locales. La plataforma realiza la conversión automática al tipo de cambio oficial correspondiente del día."
+ },
+ {
+ "q": "¿El certificado me habilita legalmente para abrir una empresa de seguridad en Argentina?",
+ "a": "No. El certificado acredita que completaste las 14 horas de formación técnica y dominás la instalación de los equipos, pero no reemplaza las habilitaciones municipales ni los registros provinciales de seguridad privada."
+ },
+ {
+ "q": "¿Hay algún cupón de descuento adicional que pueda aplicar?",
+ "a": "No, el descuento de lanzamiento ya se encuentra aplicado, dejando el valor final abonar en el precio publicado sin recargos ocultos ni descuentos extra."
+ },
+ {
+ "q": "¿Necesito conocimientos previos de electrónica para aprovechar el curso?",
+ "a": "No hace falta. El contenido parte desde lo más básico como el uso de herramientas manuales e identificación de cables, hasta la configuración en red paso a paso."
+ },
+ {
+ "q": "¿Qué herramientas básicas necesito para ir practicando en mi casa?",
+ "a": "Con un juego de destornilladores, una pinza alicate, un pelacables y un téster o multímetro básico podés realizar casi todas las prácticas del curso."
+ },
+ {
+ "q": "¿Tengo un plazo límite para completar las 20 lecciones?",
+ "a": "No, las 14 horas de contenido están grabadas para que las mires a tu propio ritmo, según tus tiempos libres y sin horarios fijos."
+ },
+ {
+ "q": "¿Puedo configurar cualquier marca de cámara con lo que enseña Diego Cárdenas?",
+ "a": "Sí, las bases técnicas de cableado, conectividad BNC/IP, cálculo de fuentes y configuración P2P aplican para las marcas más comunes del mercado como Hikvision, Dahua o Gadnic."
+ },
+ {
+ "q": "¿Cómo accedo a las lecciones una vez realizado el pago?",
+ "a": "Una vez confirmado el pago con Mercado Pago o tarjeta, recibís un correo con las credenciales para ingresar a la plataforma y comenzar inmediatamente."
+ }
+ ],
+ "beneficios": [
+ "Configurá el acceso remoto desde tu celular para monitorear tu casa en tiempo real.",
+ "Aprendé a pasar cables por cañerías existentes sin romper paredes ni hacer lío.",
+ "Detectá fallas comunes en el cableado que cortan la imagen de golpe.",
+ "Armá una red propia de vigilancia sin depender de abonos mensuales.",
+ "Instalá el disco rígido adecuado para que el equipo grabe sin errores.",
+ "Ajustá los ángulos de visión de las cámaras para eliminar los puntos ciegos."
+ ],
+ "para_quien": [
+ "Ideal si sos el que siempre arregla las cosas en casa y te gusta meter mano.",
+ "Para quienes quieren dejar de depender de técnicos para tareas básicas.",
+ "Si te divierte entender cómo funcionan los sistemas de red y hardware.",
+ "Perfecto para proteger tu hogar con tus propias herramientas."
+ ],
+ "requisitos": [
+ "Tener una conexión a internet estable para ver las lecciones.",
+ "Disponer de un kit básico de herramientas como destornilladores y pinzas.",
+ "Contar con una PC para realizar las pruebas de configuración de red."
+ ],
+ "certificado": "Al finalizar el curso de instalación de cámaras de seguridad recibís un certificado de terminación emitido por la plataforma. Tené en cuenta que este documento sirve para acreditar tu capacitación, pero no te habilita legalmente como instalador matriculado ni reemplaza la necesidad de estudios técnicos específicos si buscas trabajar en proyectos industriales de gran escala.",
+ "garantia": "Tenés 7 días corridos a partir de la compra para probar el curso de instalación de cámaras de seguridad a través de Hotmart. Si sentís que el material no es lo que buscabas, pedís el reembolso total del dinero y te lo devolvemos sin hacer preguntas.",
+ "_meta": {
+ "usd": 0.01273,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

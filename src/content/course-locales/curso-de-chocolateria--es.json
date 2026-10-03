@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-chocolateria",
-  "country": "es",
-  "angulo": "hobby",
-  "meta_title": "Curso de chocolatería online: atemperado y bombones en casa",
-  "meta_description": "Aprende a crear bombones y tabletas en casa con el curso de chocolatería. Domina el atemperado paso a paso. Apúntate ya con tu descuento del 40%.",
-  "h1": "Pasa del chocolate derretido a bombones perfectos con este curso de chocolatería",
-  "subtitulo": "Olvídate de las piezas opacas o pegajosas. Descubre la técnica del atemperado manual y disfruta creando bombonería fina en tu propia cocina.",
-  "descripcion": "Si alguna vez has intentado fundir chocolate en casa para hacer bombones o figuras, seguro que te has encontrado con el mismo problema: el resultado queda blando, no se despega del molde o le aparecen vetas blanquecinas al cabo de unas pocas horas. No es un fallo de tus ingredientes ni del tipo de molde que utilizas, sino de la falta de control térmico sobre la manteca de cacao. En este curso de chocolatería vas a aprender a dominar la curva de temperatura sin necesidad de maquinaria industrial, logrando que cada pieza alcance ese brillo espejo y ese sonido crujiente tan característico al morder.\n\n## El secreto de la cristalización: por qué el chocolate pierde su brillo\n\nAtemperar no consiste simplemente en calentar y enfriar el ingrediente a ojo. Se trata de formar los cristales estables de la manteca de cacao para que la masa contraiga al enfriarse y se despegue sola de la pared del molde. Si subes la temperatura apenas dos grados por encima del límite recomendado o si entra una sola gota de agua en el cuenco durante el baño María, la mezcla se espesa, se vuelve grumosa y queda inservible.\n\n### El comportamiento según el tipo de cobertura\n\nEl chocolate negro, el chocolate con leche y el chocolate blanco no responden igual. Cada uno tiene sus propios márgenes de fundido, descenso y remontado térmico debido a la proporción de leche en polvo y grasa que contienen. En las clases verás exactamente cómo gestionar cada variedad en tu ordenador o tablet para ajustar los tiempos según la época del año o la temperatura ambiente de tu cocina.\n\n## Técnicas de moldeado y rellenos que no arruinan la pieza\n\nEl verdadero disfrute de la chocolatería como afición empieza cuando dominas las texturas. Una cobertura exterior crujiente y fina no sirve de nada si el relleno líquido la reblandece desde dentro a los dos días o si la ganache que has preparado se separa al mezclarla con el licor o la nata.\n\n### Ganaches estables y combinaciones de sabor\n\nAprenderás a formular rellenos cremosos con el punto justo de humedad para garantizar que el bombón conserve su estructura. Trabajarás con infusiones, frutos secos y pralinés utilizando utensilios cotidianos. La idea es que puedas preparar recetas vistosas con ingredientes fáciles de encontrar en el supermercado de tu barrio.\n\n### Acabado sin burbujas y desmolde impecable\n\nVerás el modo correcto de verter el chocolate en moldes de policarbonato y silicona. Aplicando la vibración adecuada sobre la mesa de trabajo lograrás expulsar las burbujas de aire atrapadas en el fondo, evitando que queden huecos feos en la superficie de tus bombones. Al finalizar, bastará con dar un ligero golpe al molde sobre la encimera para que las piezas salgan solas y limpias.\n\n## Tu propia bombonería artesanal conducida por Valeria Cardona\n\nPara aprovechar el curso de chocolatería no necesitas montar un obrador profesional en casa ni gastarte cientos de euros en equipamiento técnico. Con un termómetro básico de cocina, una espátula flexible y ganas de experimentar, vas a transformar tus tardes libres en un taller creativo. Valeria Cardona guía cada paso con explicaciones directas al grano, pensadas para que disfrutes del proceso sin frustraciones técnicas.\n\nHay que poner un techo a las expectativas: este curso no te va a convertir en dueño de una gran fábrica chocolatera en un par de semanas. Su meta es que disfrutes del oficio como afición, elaborando detalles únicos para tus amigos, regalos personalizados en fechas especiales o simplemente dándote el placer de saborear bombonería de alta calidad hecha con tus propias manos. Si buscas una actividad manual relajante y llena de sabor, aquí tienes el punto de partida perfecto.",
-  "faqs": [
-    {
-      "q": "¿Necesito comprar utensilios profesionales o maquinaria cara para hacer el curso?",
-      "a": "No, puedes empezar con el equipamiento básico de cualquier cocina doméstica: un termómetro digital de cocina, un bol resistente al calor, espátulas de silicona y los moldes que tengas a mano."
-    },
-    {
-      "q": "¿Qué métodos de pago están disponibles para comprar desde España?",
-      "a": "Puedes abonar la inscripción mediante Bizum, tarjeta de crédito o débito, y transferencia bancaria directa a través de nuestra pasarela de pago segura."
-    },
-    {
-      "q": "¿El precio de 35 USD incluye ya el descuento de lanzamiento?",
-      "a": "Sí, el importe final a pagar de 35 USD (o su equivalente exacto en euros) ya tiene aplicado el 40% de descuento correspondiente al cupón promocional de lanzamiento."
-    },
-    {
-      "q": "¿Qué validez tiene el certificado en España?",
-      "a": "Es un certificado privado acreditativo que certifica la realización y aprovechamiento de las horas lectivas del curso. Sirve para enriquecer tu currículum o portfolio personal, pero no equivale a una titulación oficial reglada de FP."
-    },
-    {
-      "q": "¿Cómo accedo a los vídeos de las clases?",
-      "a": "Una vez confirmado el pago, recibes un correo con tus claves de acceso para entrar en la plataforma online desde tu ordenador, teléfono móvil o tablet a cualquier hora."
-    },
-    {
-      "q": "¿El curso tiene una duración límite o caduca el acceso?",
-      "a": "El acceso a las 15 lecciones en vídeo es ilimitado y de por vida, de modo que puedes avanzar a tu ritmo y repasar cada técnica de atemperado tantas veces como necesites."
-    },
-    {
-      "q": "¿Qué hago si me surgen dudas durante la práctica del atemperado?",
-      "a": "Dentro del área privada de alumnos puedes dejar tus consultas en cada lección para recibir soporte técnico si el chocolate se te clava, pierde el brillo o se te resiste al desmoldar."
-    },
-    {
-      "q": "¿Es necesario tener experiencia previa en repostería?",
-      "a": "No se requiere ninguna experiencia previa. Valeria Cardona explica desde la elección de la materia prima y los conceptos térmicos más básicos hasta el ensamblado final del bombón."
-    }
-  ],
-  "beneficios": [
-    "Templar el chocolate a mano sin que te queden vetas blanquecinas en el acabado.",
-    "Desmoldar bombones rellenos sin que se rompan las bases al extraerlos.",
-    "Controlar la temperatura exacta para que el chocolate mantenga el brillo espejo tras el secado.",
-    "Elaborar ganaches estables que aguanten la temperatura ambiente sin perder textura.",
-    "Aplicar técnicas de pintado con manteca de cacao para dar color a tus creaciones.",
-    "Dosificar la cantidad de relleno para que el bombón no se salga al morderlo."
-  ],
-  "para_quien": [
-    "Si buscas un entretenimiento para desconectar los fines de semana en casa.",
-    "Si te gusta regalar detalles hechos a mano y quieres profesionalizar el acabado.",
-    "Si tienes curiosidad por la técnica del obrador pero no quieres dedicarte a ello comercialmente.",
-    "Si prefieres aprender paso a paso para evitar el desperdicio de materia prima."
-  ],
-  "requisitos": [
-    "Disponer de un termómetro digital de cocina para medir el templado.",
-    "Contar con una cocina doméstica equipada con nevera y microondas.",
-    "Tener acceso a un ordenador o tablet para visualizar los vídeos de las clases."
-  ],
-  "certificado": "Al finalizar las lecciones, recibirás un certificado digital que acredita tu formación. Ten en cuenta que este documento no tiene validez oficial académica ni te habilita legalmente para ejercer como profesional en el sector hostelero.",
-  "garantia": "Tienes 7 días para valorar si el curso encaja con lo que buscas. Si decides que no es para ti, gestionamos el reembolso total del importe a través de la plataforma Hotmart sin preguntas adicionales.",
-  "_meta": {
-    "usd": 0.01422,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-chocolateria",
+ "country": "es",
+ "angulo": "hobby",
+ "meta_title": "Curso de chocolatería online: atemperado y bombones en casa",
+ "meta_description": "Aprende a crear bombones y tabletas en casa con el curso de chocolatería. Domina el atemperado paso a paso. Apúntate ya con tu descuento del 40%.",
+ "h1": "Pasa del chocolate derretido a bombones perfectos con este curso de chocolatería",
+ "subtitulo": "Olvídate de las piezas opacas o pegajosas. Descubre la técnica del atemperado manual y disfruta creando bombonería fina en tu propia cocina.",
+ "descripcion": "Si alguna vez has intentado fundir chocolate en casa para hacer bombones o figuras, seguro que te has encontrado con el mismo problema: el resultado queda blando, no se despega del molde o le aparecen vetas blanquecinas al cabo de unas pocas horas. No es un fallo de tus ingredientes ni del tipo de molde que utilizas, sino de la falta de control térmico sobre la manteca de cacao. En este curso de chocolatería vas a aprender a dominar la curva de temperatura sin necesidad de maquinaria industrial, logrando que cada pieza alcance ese brillo espejo y ese sonido crujiente tan característico al morder.\n\n## El secreto de la cristalización: por qué el chocolate pierde su brillo\n\nAtemperar no consiste simplemente en calentar y enfriar el ingrediente a ojo. Se trata de formar los cristales estables de la manteca de cacao para que la masa contraiga al enfriarse y se despegue sola de la pared del molde. Si subes la temperatura apenas dos grados por encima del límite recomendado o si entra una sola gota de agua en el cuenco durante el baño María, la mezcla se espesa, se vuelve grumosa y queda inservible.\n\n### El comportamiento según el tipo de cobertura\n\nEl chocolate negro, el chocolate con leche y el chocolate blanco no responden igual. Cada uno tiene sus propios márgenes de fundido, descenso y remontado térmico debido a la proporción de leche en polvo y grasa que contienen. En las clases verás exactamente cómo gestionar cada variedad en tu ordenador o tablet para ajustar los tiempos según la época del año o la temperatura ambiente de tu cocina.\n\n## Técnicas de moldeado y rellenos que no arruinan la pieza\n\nEl verdadero disfrute de la chocolatería como afición empieza cuando dominas las texturas. Una cobertura exterior crujiente y fina no sirve de nada si el relleno líquido la reblandece desde dentro a los dos días o si la ganache que has preparado se separa al mezclarla con el licor o la nata.\n\n### Ganaches estables y combinaciones de sabor\n\nAprenderás a formular rellenos cremosos con el punto justo de humedad para garantizar que el bombón conserve su estructura. Trabajarás con infusiones, frutos secos y pralinés utilizando utensilios cotidianos. La idea es que puedas preparar recetas vistosas con ingredientes fáciles de encontrar en el supermercado de tu barrio.\n\n### Acabado sin burbujas y desmolde impecable\n\nVerás el modo correcto de verter el chocolate en moldes de policarbonato y silicona. Aplicando la vibración adecuada sobre la mesa de trabajo lograrás expulsar las burbujas de aire atrapadas en el fondo, evitando que queden huecos feos en la superficie de tus bombones. Al finalizar, bastará con dar un ligero golpe al molde sobre la encimera para que las piezas salgan solas y limpias.\n\n## Tu propia bombonería artesanal conducida por Valeria Cardona\n\nPara aprovechar el curso de chocolatería no necesitas montar un obrador profesional en casa ni gastarte cientos de euros en equipamiento técnico. Con un termómetro básico de cocina, una espátula flexible y ganas de experimentar, vas a transformar tus tardes libres en un taller creativo. Valeria Cardona guía cada paso con explicaciones directas al grano, pensadas para que disfrutes del proceso sin frustraciones técnicas.\n\nHay que poner un techo a las expectativas: este curso no te va a convertir en dueño de una gran fábrica chocolatera en un par de semanas. Su meta es que disfrutes del oficio como afición, elaborando detalles únicos para tus amigos, regalos personalizados en fechas especiales o simplemente dándote el placer de saborear bombonería de alta calidad hecha con tus propias manos. Si buscas una actividad manual relajante y llena de sabor, aquí tienes el punto de partida perfecto.",
+ "faqs": [
+ {
+ "q": "¿Necesito comprar utensilios profesionales o maquinaria cara para hacer el curso?",
+ "a": "No, puedes empezar con el equipamiento básico de cualquier cocina doméstica: un termómetro digital de cocina, un bol resistente al calor, espátulas de silicona y los moldes que tengas a mano."
+ },
+ {
+ "q": "¿Qué métodos de pago están disponibles para comprar desde España?",
+ "a": "Puedes abonar la inscripción mediante Bizum, tarjeta de crédito o débito, y transferencia bancaria directa a través de nuestra pasarela de pago segura."
+ },
+ {
+ "q": "¿El precio de 35 USD incluye ya el descuento de lanzamiento?",
+ "a": "Sí, el importe final a pagar de 35 USD (o su equivalente exacto en euros) ya es el precio final correspondiente al cupón promocional de lanzamiento."
+ },
+ {
+ "q": "¿Qué validez tiene el certificado en España?",
+ "a": "Es un certificado privado acreditativo que certifica la realización y aprovechamiento de las horas lectivas del curso. Sirve para enriquecer tu currículum o portfolio personal, pero no equivale a una titulación oficial reglada de FP."
+ },
+ {
+ "q": "¿Cómo accedo a los vídeos de las clases?",
+ "a": "Una vez confirmado el pago, recibes un correo con tus claves de acceso para entrar en la plataforma online desde tu ordenador, teléfono móvil o tablet a cualquier hora."
+ },
+ {
+ "q": "¿El curso tiene una duración límite o caduca el acceso?",
+ "a": "El acceso a las 15 lecciones en vídeo es ilimitado y de por vida, de modo que puedes avanzar a tu ritmo y repasar cada técnica de atemperado tantas veces como necesites."
+ },
+ {
+ "q": "¿Qué hago si me surgen dudas durante la práctica del atemperado?",
+ "a": "Dentro del área privada de alumnos puedes dejar tus consultas en cada lección para recibir soporte técnico si el chocolate se te clava, pierde el brillo o se te resiste al desmoldar."
+ },
+ {
+ "q": "¿Es necesario tener experiencia previa en repostería?",
+ "a": "No se requiere ninguna experiencia previa. Valeria Cardona explica desde la elección de la materia prima y los conceptos térmicos más básicos hasta el ensamblado final del bombón."
+ }
+ ],
+ "beneficios": [
+ "Templar el chocolate a mano sin que te queden vetas blanquecinas en el acabado.",
+ "Desmoldar bombones rellenos sin que se rompan las bases al extraerlos.",
+ "Controlar la temperatura exacta para que el chocolate mantenga el brillo espejo tras el secado.",
+ "Elaborar ganaches estables que aguanten la temperatura ambiente sin perder textura.",
+ "Aplicar técnicas de pintado con manteca de cacao para dar color a tus creaciones.",
+ "Dosificar la cantidad de relleno para que el bombón no se salga al morderlo."
+ ],
+ "para_quien": [
+ "Si buscas un entretenimiento para desconectar los fines de semana en casa.",
+ "Si te gusta regalar detalles hechos a mano y quieres profesionalizar el acabado.",
+ "Si tienes curiosidad por la técnica del obrador pero no quieres dedicarte a ello comercialmente.",
+ "Si prefieres aprender paso a paso para evitar el desperdicio de materia prima."
+ ],
+ "requisitos": [
+ "Disponer de un termómetro digital de cocina para medir el templado.",
+ "Contar con una cocina doméstica equipada con nevera y microondas.",
+ "Tener acceso a un ordenador o tablet para visualizar los vídeos de las clases."
+ ],
+ "certificado": "Al finalizar las lecciones, recibirás un certificado digital que acredita tu formación. Ten en cuenta que este documento no tiene validez oficial académica ni te habilita legalmente para ejercer como profesional en el sector hostelero.",
+ "garantia": "Tienes 7 días para valorar si el curso encaja con lo que buscas. Si decides que no es para ti, gestionamos el reembolso total del importe a través de la plataforma Hotmart sin preguntas adicionales.",
+ "_meta": {
+ "usd": 0.01422,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

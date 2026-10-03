@@ -1,0 +1,8 @@
+---
+import { safeEditorialUrl } from '@/lib/sably-theme';
+import type { BlockValue } from 'emdash/ui';
+interface Props { value: BlockValue & { title?: string; text?: string; button_label?: string; button_url?: string }; }
+const { value } = Astro.props;
+const href = safeEditorialUrl(value.button_url);
+---
+<section class="container-site py-12"><div class="rounded-xl bg-accent-soft p-8 text-center sm:p-12"><h2 class="text-2xl font-bold text-heading">{value.title}</h2><p class="mx-auto mt-3 max-w-2xl text-body">{value.text}</p>{href && value.button_label && <a href={href} class="mt-6 inline-flex rounded-md bg-accent px-6 py-3 font-bold text-white">{value.button_label}</a>}</div></section>

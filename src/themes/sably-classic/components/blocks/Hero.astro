@@ -1,0 +1,10 @@
+---
+import { Image } from 'emdash/ui';
+import type { MediaValue } from 'emdash';
+import { safeEditorialUrl } from '@/lib/sably-theme';
+import type { BlockValue } from 'emdash/ui';
+interface Props { value: BlockValue & { title?: string; text?: string; image?: MediaValue; button_label?: string; button_url?: string }; }
+const { value } = Astro.props;
+const href = safeEditorialUrl(value.button_url);
+---
+<section class="bg-primary py-16 text-white sm:py-20"><div class="container-site grid items-center gap-10 lg:grid-cols-2"><div><h2 class="text-3xl font-extrabold sm:text-5xl">{value.title}</h2><p class="mt-5 text-lg text-white/80">{value.text}</p>{href && value.button_label && <a href={href} class="mt-7 inline-flex rounded-md bg-accent px-6 py-3 font-bold text-white">{value.button_label}</a>}</div>{value.image && <Image image={value.image} class="w-full rounded-xl" />}</div></section>

@@ -1,0 +1,7 @@
+---
+import { CourseLanding } from '@/themes';
+import type { load } from '@/lib/page-loaders/city-course';
+type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
+const {country, city, content} = Astro.props;
+---
+<CourseLanding {country} {city} {content} />

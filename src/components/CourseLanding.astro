@@ -1,47 +1,71 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { getCollection, getEntry, render } from 'astro:content';
+import { cmsImageUrl } from '@/lib/cms-media';
+import { getContentRepository } from '@/lib/emdash-content';
+import ResenasCurso from '@/components/ResenasCurso.astro';
+import CmsRichBody from '@/components/CmsRichBody.astro';
 import { renderMarkdown } from '@/lib/markdown';
+import type { ResolvedCourseContent } from '@/lib/emdash-content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Rating from '@/components/Rating.astro';
+import RatingInteractivo from '@/components/RatingInteractivo.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import TestimonialCard from '@/components/TestimonialCard.astro';
 import StickyCta from '@/components/StickyCta.astro';
+import CoursePlayer from '@/components/CoursePlayer.astro';
 import ExitIntent from '@/components/ExitIntent.astro';
 import LeadModal from '@/components/LeadModal.astro';
-import { COUNTRIES, formatPrice, localPrice, type Country, type City } from '@/lib/countries';
-import { getCategory, courseCover } from '@/lib/categories';
+import {
+  formatPrice,
+  formatPriceCorto,
+  localPrice,
+  type Country,
+  type City,
+} from '@/lib/countries';
+import { courseCover } from '@/lib/categories';
+import { formatMonto } from '@/lib/moneda';
+import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-operations/public';
 import { buildHotmartUrl } from '@/lib/hotmart';
-import { countryAlternates, breadcrumbSchema, faqSchema, courseSchema } from '@/lib/seo';
-import { SITE } from '@/lib/site';
+import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
+import { mejorPromocion, campaignDePromocion } from '@/lib/promo';
+import { readActivePromos } from '@/plugins/sably-operations/public';
+import { env } from 'cloudflare:workers';
+import { countryAlternates, breadcrumbSchema, conMarca, faqSchema, courseSchema, videoSchema } from '@/lib/seo';
+import { COURSE_VIDEOS, duracionIso } from '@/lib/course-videos';
+import { SITE, CDN_URL } from '@/lib/site';
 
 /**
  * Landing de conversión de curso, hiperlocal cuando recibe `city`:
  * H1/meta/breadcrumb/FAQ/testimonios/UTM cambian según la ciudad.
  */
 interface Props {
-  course: CollectionEntry<'courses'>;
+  content: ResolvedCourseContent;
   country: Country;
   city?: City;
 }
 
-const { course, country, city } = Astro.props;
-const category = getCategory(course.data.category);
+const { country, city, content } = Astro.props;
+const cms = await getContentRepository();
+const COUNTRIES = await cms.getCountries();
+const { course, locale } = content;
+Astro.response.headers.set('X-Sably-Content-Source', content.source);
+Astro.response.headers.set('X-Sably-Locale-Source', content.localeSource);
+const category = (await cms.getCategory(course.data.category))!;
 const base = `/${country.code}`;
 const coursePath = city ? `${base}/${city.slug}/${course.id}/` : `${base}/${course.id}/`;
-const { Content } = await render(course);
+
 
 /* Variante por país generada y validada (scripts/generar-catalogo.py). Si
    existe, la página usa su meta, descripción, FAQs y listas; si no, cae al
    contenido genérico del MDX. Opcional por diseño: el build nunca depende
    del lote completo. */
-const locale = (await getEntry('courseLocales', `${course.id}--${country.code}`)) ?? null;
 /* renderMarkdown baja los encabezados un nivel para que cuelguen del h2 de la
    sección, de ahí que el tamaño de prosa se defina sobre h3 y h4. Las listas
    numeradas llevan su propio marcador porque el list-disc de los elementos
    alcanzaba también a los de las listas ordenadas. */
 const localeHtml = locale ? renderMarkdown(locale.data.descripcion) : null;
+// CMS source_body stays plain Markdown: it never enters Astro's MDX compiler.
+const courseHtml = content.sourceBody === null ? null : renderMarkdown(content.sourceBody);
 const learnings = locale?.data.beneficios ?? course.data.learnings;
 const audience = locale?.data.para_quien ?? course.data.audience;
 
@@ -49,32 +73,30 @@ const audience = locale?.data.para_quien ?? course.data.audience;
    comparten el metaTitle del MDX, y con variante el modelo a veces repite el
    mismo título en varios mercados. Se añade el país solo cuando hay colisión
    real: la mediana ya está en 55 caracteres y añadirlo siempre pasaría de 60. */
-const localesDelCurso = (await getCollection('courseLocales')).filter(
+const localesDelCurso = (await cms.getCourseLocales(course.id)).filter(
   (l) => l.data.course === course.id,
 );
 const tituloColisiona = locale
   ? localesDelCurso.filter((l) => l.data.meta_title === locale.data.meta_title).length > 1
   : localesDelCurso.length < COUNTRIES.length - 1;
 
-/* El `ref` es lo que acredita la comisión: sin él la venta se le atribuye al
-   productor. El descuento NO se añade aquí (sería una promesa horneada en el
-   HTML estático): lo inyecta el script de promo si hay campaña vigente. */
+/* Política del creador: hay quien no acepta el cupón del sitio porque su
+   acortador ya trae dentro la oferta elegida. Ver src/lib/proveedores.ts. */
+const conCupon = aceptaCupon(course.data.proveedor);
+
+/* Id del proveedor (normalizado al defecto si falta). Va al <body> para que el
+   banner y el repintado de precio apliquen solo las promociones dirigidas a él. */
+const proveedor = proveedorDe(course.data.proveedor);
+
 const ctaUrl = buildHotmartUrl({
   baseUrl: course.data.hotmartUrl,
-  ref: course.data.hotmartRef,
+  aceptaCupon: conCupon,
   courseSlug: course.id,
   countryCode: country.code,
   citySlug: city?.slug,
 });
 
-/* Sin producto Hotmart asignado, `hotmartUrl` es el placeholder PENDIENTE y el
-   checkout responde `pay.hotmart.com/error?errorMessage=008`. Mandar ahí al
-   usuario quema la visita, así que el CTA captura el lead en su lugar. Esto
-   aplica igual a las variantes de país y ciudad, que comparten este componente. */
-const hayCheckout = !course.data.hotmartUrl.includes('PENDIENTE');
-const ctaHref = hayCheckout ? ctaUrl : '#lead-modal';
-
-const allCourses = await getCollection('courses');
+const allCourses = await cms.getCourses();
 
 /* Jerarquía pilar/satélite: el pilar es el único que apunta al head term.
    El satélite enlaza hacia arriba y el pilar lista sus especializaciones, de
@@ -94,7 +116,7 @@ const related = allCourses
   )
   .slice(0, 4);
 
-const allTestimonials = (await getCollection('testimonials')).filter(
+const allTestimonials = (await cms.getTestimonials()).filter(
   (t) => t.data.courseSlug === course.id || t.data.category === course.data.category,
 );
 const cityFirst = city
@@ -106,12 +128,70 @@ const cityFirst = city
   : allTestimonials;
 const testimonials = cityFirst.slice(0, 3);
 
-/* Social proof local determinístico (Fase 2: datos reales de Hotmart). */
-const cityStudents = city
-  ? 40 + ((city.slug.length * 31 + course.id.length * 7) % 180)
-  : null;
+/* Aquí vivía `cityStudents`, que pintaba «N estudiantes lo están tomando en
+   <ciudad>» a partir de `40 + ((city.slug.length * 31 + course.id.length * 7)
+   % 180)`. Era aritmética sobre la longitud del slug presentada como alumnos
+   reales: no había fuente de datos detrás, y su propio comentario lo admitía
+   («Fase 2: datos reales de Hotmart»).
+
+   No es un dato optimista, es una afirmación de hecho falsa, y salía en las
+   landings de ciudad de TODOS los cursos, tuvieran producto o no. Se retira
+   hasta que haya matrículas reales por ciudad que contar. */
 
 const discountPct = Math.round((1 - course.data.priceUSD / course.data.originalPriceUSD) * 100);
+
+/**
+ * ¿Este curso existe como producto de verdad?
+ *
+ * Los que siguen con `PENDIENTE` no tienen checkout: nadie los ha comprado
+ * nunca. Publicar en ellos «4,9 · 183 valoraciones · 1.043 estudiantes» es
+ * inventar prueba social de un producto inexistente, y son reseñas fabricadas
+ * a ojos de la SIC en Colombia. El dato del frontmatter es de catálogo, no de
+ * compradores, así que en estas fichas no se pinta ninguno.
+ *
+ * La ficha sigue publicándose: conserva el SEO y capta el lead. Lo que se cae
+ * es la cifra que afirma algo falso.
+ */
+const sinProducto = /PENDIENTE/i.test(course.data.hotmartUrl);
+
+/* EmDash actualiza priceUSD como precio base editorial. La captura comercial
+   de Hotmart conserva prioridad mientras exista, igual que en CourseCard.
+   Precio real de Hotmart, igual que en CourseCard. Hasta ahora la ficha usaba
+   el de catálogo mientras las tarjetas de cursos relacionados ya usaban el real:
+   en la misma página podían convivir dos importes distintos para el mismo curso.
+   Se resuelve una vez aquí y de aquí beben la tarjeta de compra y la barra fija. */
+const operationalDb = (env as unknown as {SABLY_DB:D1Database}).SABLY_DB;
+const real = await readOperationalPrice(operationalDb, course.id, country, Astro.locals).catch(() => null);
+/* Valoración PÚBLICA REAL de Hotmart (o null). Solo se pinta en el hero; no va
+   al aggregateRating del schema porque es de un tercero (ver courseSchema más
+   abajo). Nunca la del frontmatter, que era de catálogo/inventada. */
+const valoracion = await readOperationalRating(operationalDb, course.id, Astro.locals).catch(() => null);
+const precioTexto = real
+  ? formatMonto(real.monto, real.moneda)
+  : formatPrice(course.data.priceUSD, country);
+
+/* Importe base sobre el que se aplica el cupón. Va al DOM en crudo para que el
+   controlador de promoción pueda recalcular en cliente sin volver a pedirlo. */
+const montoBase = real ? real.monto : localPrice(course.data.priceUSD, country);
+const monedaBase = real ? real.moneda : country.currency;
+
+/* El precio que se enseña es el que cobra el checkout. La campaña vive en D1 y
+   cambia sin desplegar, así que el build pinta el precio de tabla y el script
+   de abajo aplica el cupón vigente en cuanto responde /api/v1/promo. El tachado
+   y la píldora nacen ocultos: sin campaña confirmada no se anuncia descuento. */
+const precioTachadoTexto = undefined;
+const descuentoVisible = undefined;
+
+/* Campaña del calendario vigente en el build. Solo se usa para rotular la
+   píldora de la barra fija ("Black Friday −40%" en vez de un "−40%" pelado).
+   `null` es el caso normal la mayor parte del año. */
+const activePromos = await readActivePromos((env as unknown as {SABLY_DB:D1Database}).SABLY_DB).catch(() => []);
+const promoRow = mejorPromocion(activePromos, { countryCode: country.code, proveedor, courseSlug: course.id, urlKey: Astro.url.searchParams.get('promo') });
+const promoVigente = promoRow ? campaignDePromocion(promoRow) : null;
+
+/* Video de presentación: vive en R2 (cdn.sably.co). Sin CDN configurado no se
+   pinta el reproductor, así el entorno local no queda con un <video> roto. */
+const videoSrc = course.data.videoKey && CDN_URL ? `${CDN_URL}/videos/${course.data.videoKey}` : null;
 
 /* FAQs: las del curso + banco estándar (garantiza ≥8 por página, con FAQPage schema). */
 const STANDARD_FAQS = [
@@ -135,7 +215,22 @@ const STANDARD_FAQS = [
 
 /* Con variante país, sus 8 FAQs (que ya cubren pagos locales) sustituyen al
    banco genérico: mezclar ambos duplicaría la pregunta de pago. */
-const baseFaqs = locale ? locale.data.faqs : [...course.data.faqs, ...STANDARD_FAQS];
+const baseFaqsRaw = locale ? locale.data.faqs : [...course.data.faqs, ...STANDARD_FAQS];
+/* En cursos sin checkout (PENDIENTE) las FAQ que prometen pago, garantía o
+   acceso inmediato describen algo que todavía no existe. Se filtran y se
+   sustituyen por una honesta de disponibilidad, igual que ya se ocultan la
+   oferta y el instructor: el FAQPage no debe afirmar lo que la ficha no cumple. */
+const baseFaqs = sinProducto
+  ? [
+      ...baseFaqsRaw.filter(
+        (f) => !/(pago|hotmart|garant|reembolso|inscrib|inscríb|se procesa|confirmarse|precio)/i.test(`${f.q} ${f.a}`),
+      ),
+      {
+        q: '¿Cuándo puedo inscribirme?',
+        a: 'Estamos habilitando las inscripciones de este curso. Déjanos tus datos y te avisamos apenas esté disponible, sin compromiso.',
+      },
+    ]
+  : baseFaqsRaw;
 const faqs = city
   ? [
       {
@@ -151,24 +246,49 @@ const faqs = city
   : baseFaqs;
 
 const pageUrl = `${SITE.url}${coursePath}`;
+/* La URL de la ficha de país, que es el canonical también de las de ciudad. El
+   nodo Product/Course se construye con ella en las dos variantes: si la de
+   ciudad declarase su propia URL, Google vería 37 entidades distintas para un
+   solo curso, cada una en una página que él mismo descarta por duplicada. */
+const canonicalUrl = `${SITE.url}${base}/${course.id}/`;
 const h1 = city ? `${course.data.title} en ${city.name}` : (locale?.data.h1 ?? course.data.title);
 const tituloPais =
   locale?.data.meta_title ??
   course.data.metaTitle ??
   `${course.data.title} | Curso Online con Certificado | Sably`;
+/* Ficha de país: la regla de colisión no cambia; después se asegura la marca
+   cuando cabe en 60 caracteres (ver conMarca) y la mayúscula inicial, porque
+   diez meta_title generados empiezan en minúscula («curso de barbería…»). */
+const mayusculaInicial = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
 const title = city
-  ? `${course.data.title} en ${city.name}, ${country.name} | Online + Certificado | Sably`
-  : tituloColisiona
-    ? `${tituloPais.replace(/\s*\|\s*Sably\s*$/, '')} | ${country.name}`
-    : tituloPais;
+  ? `${course.data.title} en ${city.name}, ${country.name} | Online | Sably`
+  : conMarca(
+      mayusculaInicial(
+        tituloColisiona
+          ? `${tituloPais.replace(/\s*\|\s*Sably\s*$/, '')} | ${country.name}`
+          : tituloPais,
+      ),
+    );
+
+/* Recorta a un límite de palabra con elipsis. Antes se hacía `.slice(0, 158)`
+   crudo, que cortaba a media palabra («…cobra más por cad») porque el texto
+   compuesto casi siempre pasa de 158. Corta en el último espacio si el recorte
+   no deja la frase demasiado mocha. */
+const recortarDesc = (s: string, max = 158): string => {
+  if (s.length <= max) return s;
+  const corte = s.slice(0, max - 1);
+  const sp = corte.lastIndexOf(' ');
+  return `${(sp > max * 0.6 ? corte.slice(0, sp) : corte).trimEnd()}…`;
+};
+
 const descPais = locale?.data.meta_description ?? course.data.shortDescription;
 const descColisiona = locale
   ? localesDelCurso.filter((l) => l.data.meta_description === locale.data.meta_description).length > 1
   : localesDelCurso.length < COUNTRIES.length - 1;
 const description = city
-  ? `Estudia desde ${city.name}: ${course.data.shortDescription}`.slice(0, 158)
+  ? recortarDesc(`Estudia desde ${city.name}: ${course.data.shortDescription}`)
   : descColisiona
-    ? `Desde ${country.name}: ${descPais}`.slice(0, 158)
+    ? recortarDesc(`Desde ${country.name}: ${descPais}`)
     : descPais;
 
 const breadcrumb = city
@@ -189,22 +309,51 @@ const schemas = [
   courseSchema({
     title: course.data.title,
     description: course.data.shortDescription,
-    url: pageUrl,
-    image: new URL(courseCover(course.id, category.slug), SITE.url).href,
-    price: localPrice(course.data.priceUSD, country),
-    priceCurrency: country.currency,
-    instructorName: course.data.instructor.name,
+    url: canonicalUrl,
+    image: new URL(cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug), SITE.url).href,
+    /* El mismo importe que ve el visitante. Si el schema declarase el precio de
+       catálogo mientras la página enseña el real de Hotmart, el snippet de
+       Google anunciaría una cifra que no se cobra. Número crudo, nunca el texto
+       ya formateado. */
+    price: real ? real.monto : localPrice(course.data.priceUSD, country),
+    priceCurrency: real ? real.moneda : country.currency,
+    /* Sin producto no hay instructor verificado: el del frontmatter es de
+       relleno y declararlo como `Person` mete en el índice de Google a alguien
+       que no existe, con credenciales de un oficio de riesgo. */
+    instructorName: sinProducto ? undefined : course.data.instructor?.name,
+    comprable: !sinProducto,
     category: category.name,
     workloadHours: course.data.durationHours,
     teaches: course.data.learnings,
     level: course.data.level,
     syllabus: course.data.modules.map((m) => m.title),
     datePublished: course.data.publishedAt.toISOString(),
-    // `rating` se omite a propósito: la nota del frontmatter es de catálogo,
-    // no de compradores. Se conectará al agregado real de D1 (vista
-    // v_course_rating) cuando haya reseñas verificadas por compra.
+    // Sin aggregateRating: la nota de Hotmart es de otro sitio y Google prohíbe
+    // agregar valoraciones ajenas («Don't aggregate reviews or ratings from
+    // other websites»), con acción manual como sanción. Se sigue mostrando en
+    // el hero, pero no va al marcado. El campo queda para reseñas propias de
+    // compradores verificados cuando existan.
+    rating: undefined,
   }),
   faqSchema(faqs),
+  // VideoObject solo donde el vídeo existe y se reproduce en la propia página.
+  // La duración y la fecha salen del archivo real, no del frontmatter.
+  // Solo en la página de país, nunca en las 37 de ciudad: es el mismo archivo,
+  // y repetirlo en 45 URLs hace que Google elija una y descarte el resto. El
+  // sitemap lo declara con el mismo criterio.
+  ...(!city && videoSrc && COURSE_VIDEOS[course.id]
+    ? [
+        videoSchema({
+          name: `${course.data.title} — presentación en vídeo`,
+          description: course.data.shortDescription,
+          thumbnailUrl: new URL(cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug), SITE.url).href,
+          uploadDate: COURSE_VIDEOS[course.id]!.subido,
+          duration: duracionIso(COURSE_VIDEOS[course.id]!.segundos),
+          contentUrl: videoSrc,
+          pageUrl,
+        }),
+      ]
+    : []),
 ];
 ---
 
@@ -214,15 +363,96 @@ const schemas = [
   {country}
   {city}
   pathAfterCountry={`/${course.id}/`}
-  alternates={city ? [] : countryAlternates(`/${course.id}/`)}
+  alternates={city ? [] : await countryAlternates(`/${course.id}/`)}
   {schemas}
   pageType={city ? 'course_city' : 'course'}
+  sinCupon={!conCupon}
+  {proveedor}
   whatsappContext={city ? `${course.data.title} (${city.name})` : course.data.title}
+  canonical={city ? `${SITE.url}${base}/${course.id}/` : undefined}
 >
-  <StickyCta title={course.data.title} priceUSD={course.data.priceUSD} {country} ctaUrl={ctaHref} />
+  {/* La barra fija anuncia precio y lleva al checkout. Sin producto no hay ni
+      uno ni otro: su enlace acabaría en la página de error de Hotmart y el
+      precio sería el de catálogo, que nadie va a cobrar. */}
+  {!sinProducto && (
+    <StickyCta
+      title={course.data.title}
+      precio={precioTexto}
+      precioTachado={precioTachadoTexto}
+      descuentoPct={descuentoVisible}
+      promoLabel={promoVigente?.label}
+      monto={montoBase}
+      moneda={monedaBase}
+      pais={country.code}
+      slug={course.id}
+      {ctaUrl}
+    />
+  )}
+
+  {/* Precio con el cupón vigente aplicado, en la tarjeta y en la barra a la vez.
+      Vive aquí y no en cada componente porque el importe debe ser el mismo en
+      los dos sitios: una sola petición, un solo cálculo, dos pintados. */}
+  <script>
+    import { formatMonto, precioConDescuento } from '@/lib/moneda';
+    import { leerPromos, mejorPromocion } from '@/lib/promo';
+
+    const cajas = document.querySelectorAll<HTMLElement>('[data-precio-caja]');
+
+    // Sin cupón no hay porcentaje que aplicar: el precio que se muestra ya es
+    // el que cobra el checkout. Repintarlo con el pct de una promoción enseñaría
+    // la mitad y el comprador pagaría el doble. Esta guarda es la última línea:
+    // aunque una promoción apuntara por error a un curso sin cupón, aquí no se
+    // repinta.
+    if (cajas.length && !document.body.hasAttribute('data-sin-cupon')) {
+      const proveedor = document.body.dataset.proveedor ?? 'masterclasses';
+
+      leerPromos()
+        .then((promos) => {
+          if (!promos.length) return;
+
+          for (const caja of cajas) {
+            const monto = Number(caja.dataset.monto);
+            const moneda = caja.dataset.moneda;
+            const pais = caja.dataset.pais ?? '';
+            const slug = caja.dataset.slug ?? '';
+            if (!Number.isFinite(monto) || monto <= 0 || !moneda) continue;
+
+            // La promoción que de verdad cubre este curso, país y proveedor. Si
+            // ninguna aplica, el precio de tabla se queda como está: nunca se
+            // anuncia un descuento que este curso no recibe en el checkout.
+            const promo = mejorPromocion(promos, { countryCode: pais, proveedor, courseSlug: slug, urlKey: new URLSearchParams(location.search).get('promo') });
+            if (!promo) continue;
+
+            const real = caja.querySelector<HTMLElement>('[data-precio-real]');
+            const tachado = caja.querySelector<HTMLElement>('[data-precio-tachado]');
+            const badge = caja.querySelector<HTMLElement>('[data-promo-badge]');
+            if (!real) continue;
+
+            const final = precioConDescuento(monto, moneda, promo.pct);
+            if (final >= monto) continue; // descuento nulo: no se toca nada
+
+            real.textContent = formatMonto(final, moneda);
+            if (tachado) {
+              // Sin el código de moneda: ya lo dice la cifra principal y en
+              // móvil esos caracteres de más cortaban la píldora.
+              tachado.textContent = formatMonto(monto, moneda).replace(/\s[A-Z]{3}$/, '');
+              tachado.hidden = false;
+            }
+            if (badge) {
+              badge.textContent = `−${promo.pct}%`;
+              badge.hidden = false;
+            }
+          }
+        })
+        .catch(() => {
+          /* Sin respuesta se queda el precio de tabla: nunca se anuncia un
+             descuento que no se ha podido confirmar. */
+        });
+    }
+  </script>
 
   <!-- Hero -->
-  <section class="bg-primary">
+  <section class="bg-primary" data-content-source={content.source} data-content-locale-source={content.localeSource}>
     <div class="container-site grid gap-10 py-14 lg:grid-cols-[1fr_420px] lg:py-20">
       <div>
         <nav aria-label="Breadcrumb" class="text-sm text-white/60">
@@ -244,91 +474,153 @@ const schemas = [
           <span aria-hidden="true">›</span>
           <span class="text-white">{course.data.title}</span>
         </nav>
-        <h1 class="mt-4 text-3xl leading-tight font-extrabold text-white sm:text-4xl">{h1}</h1>
+        <h1 {...(locale?.edit.h1 ?? course.edit.title)} class="mt-4 text-3xl leading-tight font-extrabold text-white sm:text-4xl">{h1}</h1>
         <p class="mt-4 max-w-xl text-lg text-white/80">{locale?.data.subtitulo ?? course.data.shortDescription}</p>
         <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/80">
-          <Rating rating={course.data.rating} count={course.data.ratingCount} class="[&_*]:!text-white/90" />
-          <span>👥 {course.data.students.toLocaleString('es-CO')} estudiantes</span>
+          {/* Interactivo en el hero: las estrellas muestran la nota de compradores
+              y además se pueden pulsar para dejar la propia. El componente ya
+              existía desde el PR #67 pero no estaba montado en ninguna página,
+              así que la ficha seguía con las estrellas de solo lectura. */}
+          {/* Un curso puede venderse y no tener todavia ninguna resena en
+              Hotmart. Antes estos campos eran obligatorios y por eso siempre
+              habia algo que pintar; ahora que son opcionales hay que
+              comprobarlos, o la ficha revienta el build. */}
+          {!sinProducto && valoracion && (
+            <RatingInteractivo
+              slug={course.id}
+              rating={valoracion.rating}
+              count={valoracion.total}
+            />
+          )}
           <span>🕐 {course.data.durationHours} horas</span>
           <span>📚 {course.data.lessonsCount} lecciones</span>
           <span>📈 {course.data.level}</span>
         </div>
-        {
-          city && cityStudents && (
-            <p class="mt-3 inline-block rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold text-white">
-              📍 {cityStudents} estudiantes lo están tomando en {city.name}
-            </p>
-          )
-        }
       </div>
 
       <!-- Card de compra -->
       <div class="h-fit rounded-lg bg-white p-6 shadow-2xl">
-        <div
-          class="relative h-40 overflow-hidden rounded-md"
-          style={`background-image: linear-gradient(135deg, ${category.gradient[0]}, ${category.gradient[1]})`}
-        >
-          <img
-            src={courseCover(course.id, category.slug)}
-            alt={`${category.name}: ${course.data.title}`}
-            width="800"
-            height="533"
-            fetchpriority="high"
-            class="h-full w-full object-cover"
-          />
-        </div>
-        {/* `whitespace-nowrap` en cada importe: sin él, monedas largas como
-            "$100.000 COP" parten el valor y la moneda en dos renglones. El wrap
-            se permite entre elementos, no dentro de un precio. */}
-        <div class="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-          <span class="text-3xl font-extrabold whitespace-nowrap text-primary"
-            >{formatPrice(course.data.priceUSD, country)}</span
-          >
-          <span class="text-lg whitespace-nowrap text-muted line-through"
-            >{formatPrice(course.data.originalPriceUSD, country)}</span
-          >
-          <span
-            data-promo-badge
-            class="rounded-full bg-accent px-2.5 py-1 text-xs font-bold whitespace-nowrap text-white"
-            >-{discountPct}%</span
-          >
-        </div>
-        {/* Oculto por defecto: solo se muestra si hay campaña vigente (ver promo.ts). */}
-        <p data-promo-nota hidden data-country={country.code} class="mt-1 text-xs font-semibold text-error">
-          🔥 <span data-promo-nota-texto></span> — se aplica automáticamente al pagar
-        </p>
-        <a
-          href={ctaHref}
-          target={hayCheckout ? '_blank' : undefined}
-          rel="noopener nofollow sponsored"
-          {...(hayCheckout ? { 'data-cta-hotmart': true } : { 'data-lead-open': true })}
-          data-cta-position="hero"
-          class="animate-pulse-soft mt-5 block rounded-md bg-accent px-6 py-4 text-center font-bold text-white transition hover:bg-accent-hover"
-        >
-          {hayCheckout ? '🔥 Inscribirme ahora' : '📩 Avísame cuando abra'}
-        </a>
         {
-          /* Sin cupo abierto el CTA no puede prometer inscripción. Se avisa en corto
-             y el botón pasa a captar el lead, que es lo único accionable ahora. */
-          !hayCheckout && (
-            <p class="mt-2 text-center text-xs text-muted">
-              Las inscripciones a este curso están cerradas por el momento. Déjanos tus datos y te
-              avisamos apenas se abran.
-            </p>
+          videoSrc ? (
+            <CoursePlayer
+              src={videoSrc}
+              poster={cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug)}
+              title={course.data.title}
+              courseId={course.id}
+            />
+          ) : (
+            /* Sin video, la portada manda la misma relación de aspecto que el
+               reproductor, así la tarjeta no cambia de alto entre cursos. */
+            <div
+              class="relative aspect-video overflow-hidden rounded-md"
+              style={`background-image: linear-gradient(135deg, ${category.gradient[0]}, ${category.gradient[1]})`}
+            >
+              <img
+                src={cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug)}
+                alt={`${category.name}: ${course.data.title}`}
+                width="800"
+                height="450"
+                fetchpriority="high"
+                class="h-full w-full object-cover"
+              />
+            </div>
           )
         }
-        <button
-          type="button"
-          data-lead-open
-          class="mt-3 block w-full rounded-md border border-surface-300 px-6 py-3 text-center text-sm font-semibold text-heading transition hover:border-accent hover:text-accent"
-        >
-          Recibir más información
-        </button>
+        {/* Jerarquía de precio: la cifra que se paga manda y el precio anterior la
+            acompaña en la misma línea a un cuerpo mucho menor. Antes el tachado
+            iba a `text-lg` con una píldora al lado: sumaban 410 px en una columna
+            de 372 y el conjunto saltaba de línea partiendo "$196.000 COP" por el
+            espacio previo a la moneda. `whitespace-nowrap` impide ese corte. */}
+        {
+          /* Sin producto el importe sería el de catálogo, y nadie lo va a
+             cobrar porque no hay checkout. Anunciar una cifra concreta que no
+             corresponde a ninguna transacción posible es lo mismo que hacía el
+             `Offer` del marcado, solo que a la vista. */
+          sinProducto ? (
+            <p class="mt-5 text-lg font-bold text-primary">Próximamente</p>
+          ) : (
+            <div
+              class="mt-5 flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5"
+              data-precio-caja
+              data-monto={montoBase}
+              data-moneda={monedaBase}
+              data-pais={country.code}
+              data-slug={course.id}
+            >
+              <span data-precio-real class="text-3xl font-extrabold whitespace-nowrap text-primary">
+                {precioTexto}
+              </span>
+              <span
+                data-precio-tachado
+                hidden
+                class="text-sm whitespace-nowrap text-muted line-through"
+              />
+              <span
+                data-promo-badge
+                hidden
+                class="rounded-full bg-accent px-2 py-0.5 text-[11px] font-bold whitespace-nowrap text-white"
+              />
+            </div>
+          )
+        }
+        {
+          descuentoVisible ? (
+            <p class="mt-1 text-xs font-semibold text-error">
+              🔥 El precio ya incluye el {descuentoVisible}% de descuento
+            </p>
+          ) : null
+        }
+        {
+          /* Sin producto no hay checkout al que mandar a nadie: `hotmartUrl`
+             sigue siendo el marcador `PENDIENTE` y ese enlace acaba en la
+             página de error de Hotmart (errorMessage=008). Quien pulsaba
+             «Inscribirme» se estrellaba. Aquí el botón principal es el de
+             dejar los datos, que es lo que la ficha puede cumplir hoy. */
+          sinProducto ? (
+            <button
+              type="button"
+              data-lead-open
+              class="mt-5 block w-full rounded-md bg-accent px-6 py-4 text-center font-bold text-white transition hover:bg-accent-hover"
+            >
+              Avísame cuando abra
+            </button>
+          ) : (
+            <>
+              <a
+                href={ctaUrl}
+                target="_blank"
+                rel="noopener nofollow sponsored"
+                data-cta-hotmart
+                data-cta-position="hero"
+                class="animate-pulse-soft mt-5 block rounded-md bg-accent px-6 py-4 text-center font-bold text-white transition hover:bg-accent-hover"
+              >
+                🔥 Inscribirme ahora
+              </a>
+              <button
+                type="button"
+                data-lead-open
+                class="mt-3 block w-full rounded-md border border-surface-300 px-6 py-3 text-center text-sm font-semibold text-heading transition hover:border-accent hover:text-accent"
+              >
+                Recibir más información
+              </button>
+              {/* Aviso de afiliado junto al primer CTA: la FTC pide que vaya
+                  cerca de la recomendación, no solo en el footer. Solo aquí,
+                  en la rama con checkout; sin producto no hay enlace que
+                  declarar. text-body/80 da 4,5:1 sobre blanco (text-muted no
+                  llega al AA a 11 px). */}
+              <p class="mt-2 text-center text-[11px] leading-snug text-body/80">
+                Enlace de afiliado: Sably recibe una comisión sin costo extra para ti.
+              </p>
+            </>
+          )
+        }
         <ul class="mt-5 space-y-2 text-sm text-body" role="list">
           <li>✅ Acceso de por vida, 24/7</li>
           <li>✅ Certificado digital incluido</li>
-          <li>✅ Garantía de 7 días</li>
-          <li>✅ Pago seguro vía Hotmart</li>
+          {/* Garantía y pago solo existen si hay checkout: en «Próximamente»
+              prometerían algo que todavía no se puede comprar. */}
+          {!sinProducto && <li>✅ Garantía de 7 días</li>}
+          {!sinProducto && <li>✅ Pago seguro vía Hotmart</li>}
         </ul>
       </div>
     </div>
@@ -425,9 +717,13 @@ const schemas = [
       <section aria-label="Sobre este curso">
         <h2 class="text-2xl font-bold">Sobre este curso</h2>
         <div class="mt-4 space-y-4 text-[15px] leading-relaxed text-body [&_h3]:mt-8 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-primary [&_h4]:mt-6 [&_h4]:text-lg [&_h4]:font-bold [&_h4]:text-primary [&_li]:ml-5 [&_ol>li]:list-decimal [&_ol]:space-y-1.5 [&_strong]:text-heading [&_ul>li]:list-disc [&_ul]:space-y-1.5">
-          {localeHtml ? <Fragment set:html={localeHtml} /> : <Content />}
+          {content.richBody
+            ? <CmsRichBody value={content.richBody} />
+            : <Fragment set:html={localeHtml ?? courseHtml ?? ''} />}
         </div>
       </section>
+
+      <ResenasCurso slug={course.id} relacionados={related.map(c => c.id)} />
 
       <!-- Para quién es -->
       <section aria-labelledby="audience-title">
@@ -508,19 +804,29 @@ const schemas = [
 
     <!-- Sidebar instructor + garantía -->
     <aside class="space-y-6 lg:sticky lg:top-24 lg:h-fit">
-      <div class="rounded-lg border border-surface-200 p-6">
-        <h2 class="text-sm font-bold tracking-wide text-muted uppercase">Tu instructor</h2>
-        <div class="mt-4 flex items-center gap-4">
-          <span class="flex size-14 items-center justify-center rounded-full bg-primary font-display text-xl font-bold text-white" aria-hidden="true">
-            {course.data.instructor.name.charAt(0)}
-          </span>
-          <div>
-            <p class="font-bold text-primary">{course.data.instructor.name}</p>
-            <p class="text-sm text-muted">{course.data.instructor.title}</p>
+      {
+        /* Sin producto no hay instructor que presentar. El del frontmatter es
+           de relleno, y en estas fichas venía con credenciales detalladas —«20
+           años soldando en obra»— de una persona que no existe. En un oficio
+           de riesgo físico eso no es una exageración de marketing. Además, al
+           afiliarse al producto real el instructor será otro y la ficha
+           contradiría al checkout. */
+        !sinProducto && course.data.instructor && (
+          <div class="rounded-lg border border-surface-200 p-6">
+            <h2 class="text-sm font-bold tracking-wide text-muted uppercase">Tu instructor</h2>
+            <div class="mt-4 flex items-center gap-4">
+              <span class="flex size-14 items-center justify-center rounded-full bg-primary font-display text-xl font-bold text-white" aria-hidden="true">
+                {course.data.instructor.name.charAt(0)}
+              </span>
+              <div>
+                <p class="font-bold text-primary">{course.data.instructor.name}</p>
+                <p class="text-sm text-muted">{course.data.instructor.title}</p>
+              </div>
+            </div>
+            <p class="mt-4 text-sm leading-relaxed text-body">{course.data.instructor.bio}</p>
           </div>
-        </div>
-        <p class="mt-4 text-sm leading-relaxed text-body">{course.data.instructor.bio}</p>
-      </div>
+        )
+      }
       <div class="rounded-lg border border-surface-200 p-6">
         <h2 class="text-sm font-bold tracking-wide text-muted uppercase">Requisitos previos</h2>
         <ul class="mt-3 space-y-2 text-sm text-body" role="list">
@@ -529,13 +835,21 @@ const schemas = [
           <li>✅ Ganas de aprender y practicar</li>
         </ul>
       </div>
-      <div class="rounded-lg bg-success/10 p-6 text-center">
-        <p class="text-3xl" aria-hidden="true">🛡️</p>
-        <h2 class="mt-2 font-bold text-primary">Garantía de 7 días</h2>
-        <p class="mt-2 text-sm text-body">
-          Si el curso no cumple tus expectativas, te devolvemos el 100% de tu dinero. Sin preguntas.
-        </p>
-      </div>
+      {
+        /* Sin checkout no hay compra que reembolsar: la caja de garantía solo
+           se pinta en cursos comprables. */
+        !sinProducto && (
+          <div class="rounded-lg bg-success/10 p-6 text-center">
+            <p class="text-3xl" aria-hidden="true">🛡️</p>
+            <h2 class="mt-2 font-bold text-primary">Garantía de 7 días</h2>
+            {/* El reembolso lo hace Hotmart, no Sably: «te devolvemos» prometía
+                algo que no podemos cumplir y contradecía /legal/terminos/. */}
+            <p class="mt-2 text-sm text-body">
+              Si el curso no cumple tus expectativas, pides el reembolso del 100 % en Hotmart dentro de los 7 días.
+            </p>
+          </div>
+        )
+      }
     </aside>
   </div>
 
@@ -606,30 +920,57 @@ const schemas = [
         {city ? `¿Listo para empezar desde ${city.name}?` : '¿Listo para empezar?'}
       </h2>
       <p class="mx-auto mt-3 max-w-xl text-white/80">
-        Únete a {course.data.students.toLocaleString('es-CO')} estudiantes que ya están aprendiendo con este curso.
-      </p>
-      <a
-        href={ctaHref}
-        target={hayCheckout ? '_blank' : undefined}
-        rel="noopener nofollow sponsored"
-        {...(hayCheckout ? { 'data-cta-hotmart': true } : { 'data-lead-open': true })}
-        data-cta-position="footer"
-        class="animate-pulse-soft mt-7 inline-block rounded-md bg-accent px-8 py-4 font-bold text-white transition hover:bg-accent-hover"
-      >
-        {hayCheckout ? '🔥 Inscribirme ahora' : '📩 Avísame cuando abra'}
-      </a>
-      <p class="mt-4 text-sm text-white/60">
         {
-          hayCheckout
-            ? 'Garantía de 7 días · Acceso de por vida · Certificado incluido'
-            : 'Te escribimos en cuanto haya cupos, sin compromiso.'
+          sinProducto
+            ? 'Déjanos tus datos y te avisamos en cuanto abramos las inscripciones.'
+            : 'Empieza hoy y aprende a tu ritmo, con acceso de por vida.'
         }
       </p>
+      {
+        sinProducto ? (
+          <button
+            type="button"
+            data-lead-open
+            class="mt-7 inline-block rounded-md bg-accent px-8 py-4 font-bold text-white transition hover:bg-accent-hover"
+          >
+            Avísame cuando abra
+          </button>
+        ) : (
+          <a
+            href={ctaUrl}
+            target="_blank"
+            rel="noopener nofollow sponsored"
+            data-cta-hotmart
+            data-cta-position="footer"
+            class="animate-pulse-soft mt-7 inline-block rounded-md bg-accent px-8 py-4 font-bold text-white transition hover:bg-accent-hover"
+          >
+            🔥 Inscribirme ahora
+          </a>
+        )
+      }
+      {
+        !sinProducto && (
+          <p class="mt-4 text-sm text-white/60">
+            Garantía de 7 días · Acceso de por vida · Certificado incluido
+          </p>
+        )
+      }
+      {
+        /* El mismo aviso de afiliado del hero, junto al CTA final. text-white/50
+           es el tono atenuado del footer, que pasa el AA sobre bg-primary. */
+        !sinProducto && (
+          <p class="mt-1.5 text-[11px] leading-snug text-white/50">
+            Enlace de afiliado: Sably recibe una comisión sin costo extra para ti.
+          </p>
+        )
+      }
     </div>
   </section>
 
   <LeadModal {country} courseTitle={course.data.title} courseSlug={course.id} />
-  <ExitIntent ctaUrl={ctaHref} />
+  {/* El popup de salida ofrece comprar. Sin producto no hay nada que comprar y
+      su CTA acabaría en la misma página de error, así que no se monta. */}
+  {!sinProducto && <ExitIntent {ctaUrl} />}
 </BaseLayout>
 
 <script>
@@ -661,42 +1002,4 @@ const schemas = [
     },
     { passive: true },
   );
-</script>
-
-<script>
-  /* Promoción: nada se promete en el HTML estático. Si hay campaña vigente para
-     el país del visitante, se muestra la nota y se añade el cupón a los CTA de
-     Hotmart, de modo que la promesa y el checkout coincidan. */
-  import { resolvePromo } from '@/lib/promo';
-
-  const nota = document.querySelector<HTMLElement>('[data-promo-nota]');
-  if (nota) {
-    const promo = resolvePromo({
-      countryCode: nota.dataset.country ?? 'co',
-      now: new Date(),
-      urlKey: new URLSearchParams(location.search).get('promo'),
-    });
-
-    if (promo) {
-      nota.hidden = false;
-      nota.querySelector('[data-promo-nota-texto]')!.textContent =
-        `${promo.label}: ${promo.discountPct}% de descuento`;
-
-      /* El badge mostraba el descuento de catálogo (precio vs precio de lista).
-         Con campaña activa manda el de la campaña: si no, la ficha enseñaba
-         "-40%" justo encima de "50% de descuento" y se contradecía sola. */
-      const badge = document.querySelector<HTMLElement>('[data-promo-badge]');
-      if (badge) badge.textContent = `-${promo.discountPct}%`;
-
-      document.querySelectorAll<HTMLAnchorElement>('a[data-cta-hotmart]').forEach((a) => {
-        try {
-          const url = new URL(a.href);
-          url.searchParams.set('offDiscount', promo.couponCode);
-          a.href = url.toString();
-        } catch {
-          /* href no parseable: mejor dejar el enlace de pago intacto. */
-        }
-      });
-    }
-  }
 </script>

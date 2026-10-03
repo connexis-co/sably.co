@@ -4,6 +4,8 @@
  * sin un dominio más que mantener.
  */
 
+export interface OperationalMessage { to: string; cc?: string[]; replyTo?: string; subject: string; text: string; html?: string; }
+export interface OperationalMailer { notificationEmail: string; send(message: OperationalMessage): Promise<void>; }
 export interface Env {
   DB: D1Database;
   TURNSTILE_SECRET?: string;
@@ -13,7 +15,32 @@ export interface Env {
   RESEND_API_KEY?: string;
   NOTIFY_EMAIL?: string;
   NOTIFY_FROM?: string;
+  /** Email marketing/transaccional. Si está, tiene prioridad sobre Resend. */
+  BREVO_API_KEY?: string;
+  /** Injected official EmDash email pipeline; never populated in development. */
+  MAIL?: OperationalMailer;
 }
+
+/**
+ * Monedas que el checkout de Hotmart puede mostrar de verdad en nuestros
+ * mercados. El payload del checkout se lee con un regex de pares
+ * `numero,"XXX"`, y CUALQUIER trigrama en mayúsculas pasaba por moneda: el
+ * checkout de Chile coló `"RUT":19` (el campo del documento chileno, con su
+ * IVA al lado) como si fuera una divisa, y acabó horneado en los 102 cursos
+ * de hotmart-live.json. Todo punto que escriba precios filtra por esta lista.
+ */
+export const MONEDAS_ISO: ReadonlySet<string> = new Set([
+  'USD', 'COP', 'MXN', 'EUR', 'PEN', 'CLP', 'ARS', 'BRL',
+  'UYU', 'PYG', 'BOB', 'GTQ', 'CRC', 'DOP', 'HNL', 'NIO', 'CAD', 'GBP',
+]);
+
+/**
+ * Fuera del índice todo JSON de la API. Googlebot ejecuta el JS de las fichas,
+ * descubre /api/v1/config, /promo o /precios y los rastrea como URLs sueltas
+ * que no responden a ninguna búsqueda. public/_headers no se aplica a las
+ * Functions, así que la cabecera la pone cada helper que construye la respuesta.
+ */
+export const SIN_INDICE = { 'x-robots-tag': 'noindex' } as const;
 
 export const json = (data: unknown, status = 200): Response =>
   new Response(JSON.stringify(data), {
@@ -22,6 +49,7 @@ export const json = (data: unknown, status = 200): Response =>
       'content-type': 'application/json; charset=utf-8',
       // Ninguna respuesta de la API se cachea: son datos por visitante.
       'cache-control': 'no-store',
+      ...SIN_INDICE,
     },
   });
 

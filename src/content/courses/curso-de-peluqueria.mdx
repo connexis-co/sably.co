@@ -40,11 +40,12 @@ modules:
       - Monta tu puesto de trabajo con poca inversión
       - Agenda, fidelización y clientes que vuelven
       - Portafolio en redes que atrae clientes nuevos
-priceUSD: 59
-originalPriceUSD: 98
-rating: 4.8
-ratingCount: 519
-students: 3874
+# 333 es el precio REAL del checkout (B28818422Q), medido con y sin cupón. La
+# ficha decía 59: anunciaba 274 USD MENOS de lo que se cobra, el sentido
+# peligroso del error. `originalPriceUSD` va igual: no hay precio anterior
+# verificado y un tachado inventado es justo lo que este repo no hace.
+priceUSD: 333
+originalPriceUSD: 333
 instructor:
   name: Carolina Restrepo
   title: Estilista profesional y formadora de salón
@@ -72,7 +73,11 @@ faqs:
     a: De por vida. Lo ves a tu ritmo y vuelves a cualquier técnica cuando la necesites.
   - q: ¿Y si el curso no cumple lo que esperaba?
     a: Cuentas con 7 días de garantía. Hotmart te devuelve el 100% de tu dinero si no te convence.
-hotmartUrl: https://pay.hotmart.com/B28818422Q
+hotmartUrl: https://hotm.io/peluqueria-basica-y-avanzada-curso-crashing
+# Su checkout NO acepta el cupón 031016: cobra 333 USD con y sin él. Marcarlo
+# como este proveedor apaga la inyección del cupón en los tres puntos, para que
+# la ficha no anuncie un −50 % que el checkout no da. Ver src/lib/proveedores.ts.
+proveedor: peluqueria
 featured: true
 keywords:
   - curso de peluquería online

@@ -1,92 +1,272 @@
 ---
 /**
- * Banner de oferta con countdown.
+ * Barra de promoción con cuenta atrás.
  *
- * Se renderiza oculto y sin cifras. Solo aparece si `resolvePromo()` encuentra una
- * campaña vigente para el país del visitante en su hora local. Antes este banner
- * anunciaba un cupón fijo con una fecha fin fija (`SITE.offerEndsAt`), lo que en un
- * sitio SSG significaba una "oferta por tiempo limitado" que no terminaba nunca.
+ * Se renderiza OCULTA y sin cifras. Solo aparece si hay promoción vigente, y hay
+ * dos fuentes posibles, en este orden:
+ *
+ *   1. El override manual de `/admin/promociones` (D1, vía `GET /api/v1/promo`).
+ *   2. El calendario horneado de `src/lib/promo.ts`.
+ *
+ * El override gana porque es una decisión de hoy y el calendario es de la fecha
+ * del despliegue. Si el override viene en modo perpetuo NO se pinta la cuenta
+ * atrás: el descuento es real, pero un reloj sin fin sería lo único falso aquí.
+ *
+ * El aspecto lo decide la campaña (`theme`). Todas las clases posibles se emiten
+ * en el HTML para que Tailwind las conserve: compuestas en JS, el compilador las
+ * eliminaría por no encontrarlas en el código fuente.
  */
 import { CAMPAIGNS } from '@/lib/promo';
-import type { Country } from '@/lib/countries';
 
 interface Props {
-  country: Country;
+  /** `barra` va fija arriba; `bloque` es la sección ancha de la home. */
+  variante?: 'barra' | 'bloque';
 }
-const { country } = Astro.props;
+const { variante = 'barra' } = Astro.props;
+
+/* Tailwind necesita ver estas clases literales en el HTML para incluirlas. */
+const clasesUsadas = [
+  ...new Set(
+    CAMPAIGNS.flatMap((c) => [c.theme?.fondo, c.theme?.texto, c.theme?.caja, c.theme?.acento, c.theme?.filete]),
+  ),
+]
+  .filter(Boolean)
+  .join(' ');
+
+const UNIDADES = [
+  ['d', 'Días'],
+  ['h', 'Horas'],
+  ['m', 'Min'],
+  ['s', 'Seg'],
+] as const;
 ---
 
-<section
-  data-promo-banner
-  data-country={country.code}
-  data-campaigns={JSON.stringify(CAMPAIGNS)}
-  hidden
-  class="bg-primary"
-  aria-label="Oferta por tiempo limitado"
->
-  <div class="container-site flex flex-col items-center gap-6 py-12 text-center lg:flex-row lg:justify-between lg:text-left">
-    <div>
-      <p class="text-sm font-bold tracking-wide text-accent uppercase" data-promo-label></p>
-      <h2 class="mt-2 text-2xl font-bold text-white sm:text-3xl">
-        <span data-promo-pct></span> de descuento
-      </h2>
-      <p class="mt-2 text-white/70">El descuento se aplica automáticamente al inscribirte desde Sably.</p>
-    </div>
-    <div class="flex flex-col items-center gap-4">
-      <div class="flex gap-3 font-display text-white" role="timer" aria-label="Tiempo restante de la oferta">
-        {
-          ['Días', 'Horas', 'Min', 'Seg'].map((label) => (
-            <div class="flex w-16 flex-col items-center rounded-md bg-white/10 py-2">
-              <span class="text-2xl font-extrabold" data-countdown-unit={label}>
+<div data-tw-safelist class:list={clasesUsadas} hidden aria-hidden="true"></div>
+
+{
+  variante === 'barra' ? (
+    <div
+      data-promo-barra
+      data-campaigns={JSON.stringify(CAMPAIGNS)}
+      hidden
+      class="relative z-40 w-full"
+      role="region"
+      aria-label="Promoción por tiempo limitado"
+    >
+      <div data-promo-filete class="h-0.5 w-full" />
+      <div class="container-site flex flex-col items-center justify-center gap-x-5 gap-y-2 py-2.5 text-center sm:flex-row sm:py-2 sm:text-left">
+        <p class="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1">
+          <span
+            data-promo-gorro
+            class="text-[10px] font-bold tracking-[0.14em] uppercase opacity-55"
+          />
+          <span data-promo-titular class="text-sm font-semibold sm:text-[15px]" />
+          <span
+            data-promo-pct
+            class="rounded px-1.5 py-0.5 text-[13px] font-extrabold tabular-nums"
+          />
+        </p>
+
+        <div data-promo-reloj class="flex items-center gap-1.5">
+          <span class="text-[11px] tracking-wide opacity-55">Termina en</span>
+          <span class="flex items-center gap-1 font-mono text-[13px] font-semibold tabular-nums">
+            {UNIDADES.map(([u]) => (
+              <span data-u={u} class="min-w-[1.9rem] rounded px-1 py-0.5 text-center">
                 --
               </span>
-              <span class="text-[11px] text-white/60 uppercase">{label}</span>
-            </div>
-          ))
-        }
+            ))}
+          </span>
+        </div>
+
+        <button
+          type="button"
+          data-promo-cupon
+          class="group inline-flex items-center gap-1.5 rounded px-2 py-1 text-[12px] transition hover:brightness-125"
+          title="Copiar el código"
+        >
+          <span class="opacity-60">Cupón</span>
+          <span data-promo-codigo class="font-mono font-bold tracking-[0.08em]" />
+          <span data-promo-copiado class="hidden font-semibold opacity-80">copiado</span>
+        </button>
       </div>
-      <a
-        href={`/${country.code}/cursos/`}
-        class="animate-pulse-soft rounded-md bg-accent px-6 py-3 text-sm font-bold text-white transition hover:bg-accent-hover"
-      >
-        🔥 Ver cursos con descuento
-      </a>
     </div>
-  </div>
-</section>
+  ) : (
+    <section
+      data-promo-bloque
+      data-campaigns={JSON.stringify(CAMPAIGNS)}
+      hidden
+      aria-label="Promoción por tiempo limitado"
+    >
+      <div data-promo-filete class="h-0.5 w-full" />
+      <div class="container-site flex flex-col items-center gap-8 py-12 text-center lg:flex-row lg:justify-between lg:text-left">
+        <div class="max-w-xl">
+          <p
+            data-promo-gorro
+            class="text-[11px] font-bold tracking-[0.18em] uppercase opacity-55"
+          />
+          <h2 data-promo-titular class="mt-2.5 text-2xl font-bold sm:text-[32px] sm:leading-tight" />
+          <p class="mt-3.5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-[15px] lg:justify-start">
+            <span data-promo-pct class="rounded px-2 py-0.5 font-extrabold tabular-nums" />
+            <span class="opacity-75">en todos los cursos con el cupón</span>
+            <button
+              type="button"
+              data-promo-cupon
+              class="rounded px-2 py-0.5 font-mono font-bold tracking-[0.08em] transition hover:brightness-125"
+              title="Copiar el código"
+            >
+              <span data-promo-codigo />
+              <span data-promo-copiado class="hidden text-[11px] font-semibold"> copiado</span>
+            </button>
+          </p>
+        </div>
+
+        <div class="flex flex-col items-center gap-5">
+          <div data-promo-reloj class="flex gap-2" role="timer">
+            {UNIDADES.map(([u, etiqueta]) => (
+              <div class="flex w-[4.25rem] flex-col items-center rounded-lg py-2.5" data-caja>
+                <span data-u={u} class="font-display text-[26px] leading-none font-extrabold tabular-nums">
+                  --
+                </span>
+                <span class="mt-1.5 text-[10px] tracking-[0.1em] uppercase opacity-50">{etiqueta}</span>
+              </div>
+            ))}
+          </div>
+          <a
+            data-promo-cta
+            href="#"
+            class="rounded-md px-7 py-3 text-sm font-bold transition hover:brightness-110"
+          >
+            Ver cursos con descuento
+          </a>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 <script>
-  import { resolvePromo, msRestantes, formatCountdown } from '@/lib/promo';
+  import {
+    campaignDePromocion,
+    formatCountdown,
+    leerPromos,
+    mejorPromocion,
+    msRestantes,
+    type PromoCampaign,
+  } from '@/lib/promo';
 
-  const el = document.querySelector<HTMLElement>('[data-promo-banner]');
-  if (el) {
+  type Pintable = Omit<PromoCampaign, 'endsAt'> & { endsAt: string | null };
+
+  const nodos = document.querySelectorAll<HTMLElement>('[data-promo-barra],[data-promo-bloque]');
+  /* En una página de un creador sin cupón el banner NO se pinta.
+     No es solo que el descuento no aplique: anunciar «−50%» donde el checkout
+     cobra la tarifa entera es discrepancia entre anuncio y destino, y eso Meta
+     lo penaliza y Google puede desaprobar el anuncio. */
+  if (nodos.length && !document.body.hasAttribute('data-sin-cupon')) {
+    const pais = document.body.dataset.country ?? document.documentElement.lang?.split('-')[1]?.toLowerCase() ?? 'co';
     const urlKey = new URLSearchParams(location.search).get('promo');
-    const promo = resolvePromo({
-      countryCode: el.dataset.country ?? 'co',
-      now: new Date(),
-      urlKey,
+    const proveedor = document.body.dataset.proveedor ?? 'masterclasses';
+
+    // El slug del curso sale de la ruta: /<pais>/[ciudad/]<slug>/. Sirve para el
+    // alcance por curso (incluir/excluir) de las promociones del panel.
+    const tramos = location.pathname.split('/').filter(Boolean);
+    const courseSlug = tramos.find((t) => t.startsWith('curso-'));
+
+    // EmDash es la fuente del calendario. Sin promoción vigente no se anuncia descuento.
+    leerPromos().then((promos) => {
+      const p = mejorPromocion(promos, { countryCode: pais, proveedor, courseSlug, urlKey });
+      const manual = p && campaignDePromocion(p);
+      if (manual) {
+        nodos.forEach((el) => pintar(el, manual));
+      }
+    });
+  }
+
+  function pintar(el: HTMLElement, promo: Pintable): void {
+    const tema = promo.theme;
+    const poner = (sel: string, txt: string) =>
+      el.querySelectorAll<HTMLElement>(sel).forEach((n) => (n.textContent = txt));
+    const clases = (sel: string, cls?: string) =>
+      cls && el.querySelectorAll<HTMLElement>(sel).forEach((n) => n.classList.add(...cls.split(' ')));
+
+    if (tema) {
+      el.classList.add(...tema.fondo.split(' '), ...tema.texto.split(' '));
+      // El CSS base fija `color` en h1..h4, y una regla explícita gana a la
+      // herencia del contenedor: sin esto el titular sale azul marino sobre el
+      // fondo negro de Black Friday y no se lee.
+      clases('h2', tema.texto);
+      clases('[data-promo-filete]', tema.filete);
+      clases('[data-u],[data-caja],[data-promo-cupon]', tema.caja);
+      clases('[data-promo-pct],[data-promo-cta]', tema.acento);
+    }
+
+    poner('[data-promo-gorro]', promo.label);
+    poner('[data-promo-titular]', promo.titular ?? promo.label);
+    poner('[data-promo-pct]', `−${promo.discountPct}%`);
+    poner('[data-promo-codigo]', promo.couponCode);
+
+    // El cupón se añade a TODOS los CTA de pago de la página, no solo a los de
+    // la ficha de curso: este componente vive en BaseLayout, así que también
+    // cubre las páginas de homologaciones, que no llevan CourseLanding y por
+    // tanto se quedaban sin cupón mientras el banner lo anunciaba.
+    document.querySelectorAll<HTMLAnchorElement>('a[data-cta-hotmart]').forEach((a) => {
+      try {
+        const url = new URL(a.href);
+        url.searchParams.set('offDiscount', promo.couponCode);
+        a.href = url.toString();
+      } catch {
+        /* href no parseable: mejor dejar el enlace de pago intacto. */
+      }
     });
 
-    if (promo) {
-      el.hidden = false;
-      el.querySelector('[data-promo-label]')!.textContent = `${promo.label} · por tiempo limitado`;
-      el.querySelector('[data-promo-pct]')!.textContent = `${promo.discountPct}%`;
+    const cta = el.querySelector<HTMLAnchorElement>('[data-promo-cta]');
+    if (cta) cta.href = `/${document.body.dataset.country ?? document.documentElement.lang?.split('-')[1]?.toLowerCase() ?? 'co'}/cursos/`;
 
-      const units = el.querySelectorAll<HTMLElement>('[data-countdown-unit]');
-      const tick = (): void => {
-        const ms = msRestantes(promo, new Date());
-        if (ms <= 0) {
-          el.hidden = true;
-          clearInterval(id);
-          return;
+    // Copiar el cupón de un toque: en móvil, apuntarlo a mano es fricción real.
+    el.querySelectorAll('[data-promo-cupon]').forEach((b) =>
+      b.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(promo.couponCode);
+          const aviso = b.querySelector<HTMLElement>('[data-promo-copiado]');
+          aviso?.classList.remove('hidden');
+          setTimeout(() => aviso?.classList.add('hidden'), 1800);
+        } catch {
+          /* Sin permiso de portapapeles el código sigue visible para copiarlo. */
         }
-        const { d, h, m, s } = formatCountdown(ms);
-        [d, h, m, s].forEach((v, i) => {
-          if (units[i]) units[i].textContent = v;
-        });
-      };
-      tick();
-      const id = setInterval(tick, 1000);
+      }),
+    );
+
+    const reloj = el.querySelector<HTMLElement>('[data-promo-reloj]');
+    // Promoción sin fecha de fin: se enseña la oferta, no un contador inventado.
+    if (!promo.endsAt) {
+      if (reloj) reloj.hidden = true;
+      el.hidden = false;
+      return;
     }
+    if (reloj) reloj.hidden = false;
+
+    const unidades = el.querySelectorAll<HTMLElement>('[data-u]');
+    const previo = Number(el.dataset.tick);
+    if (previo) clearInterval(previo);
+
+    let id: number | undefined;
+    const tick = (): void => {
+      const ms = msRestantes(promo, new Date());
+      if (ms <= 0) {
+        // La campaña venció con la pestaña abierta: la barra se retira sola.
+        el.hidden = true;
+        if (id !== undefined) clearInterval(id);
+        return;
+      }
+      const t = formatCountdown(ms);
+      unidades.forEach((n) => {
+        const u = n.dataset.u as 'd' | 'h' | 'm' | 's';
+        n.textContent = t[u];
+      });
+    };
+    if (msRestantes(promo, new Date()) <= 0) { el.hidden = true; return; }
+    tick();
+    id = setInterval(tick, 1000) as unknown as number;
+    el.dataset.tick = String(id);
+    el.hidden = false;
   }
 </script>

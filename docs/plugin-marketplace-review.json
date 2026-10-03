@@ -1,0 +1,1154 @@
+{
+  "checkedAt": "2026-10-03T03:45:25.107Z",
+  "registry": "https://plugins.emdashcms.com/",
+  "registryCount": 37,
+  "reviewedCount": 25,
+  "host": {
+    "emdash": "1.1.0",
+    "astro": "7.3.5"
+  },
+  "method": "Official discovery metadata and publisher release records; registry/CDN package checksum and EmDash bundle/manifest validators; static code review. Resend additionally tested offline with mocked network. No live delivery or administrator-session test.",
+  "plugins": [
+    {
+      "id": "@verco.app/image-optimizer",
+      "version": "0.1.0",
+      "updated": "2026-10-02T15:42:44.820Z",
+      "indexedAt": "2026-10-02T07:37:29.369Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "media": {
+          "read": {}
+        }
+      },
+      "repo": "https://github.com/vercoapp/verco-plugins",
+      "sha256": "c58179be7f6bee37791873f2f550365e31354e28b04a689bf955dca1cf0076c5",
+      "checksum": "bciqmlalzxz7wx3rxpemhh4xvka3f4mjvjyulastitp4vlxfbz4ahnri",
+      "bytes": 8285,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@verco.app/image-optimizer",
+      "capabilities": [
+        "media:read"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "results"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@squatchpresscms.bsky.social/seo-guard",
+      "version": "0.1.0",
+      "updated": "2026-10-01T17:04:20.926Z",
+      "indexedAt": "2026-10-01T17:13:04.668Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "content": {
+          "read": {},
+          "policy": {}
+        }
+      },
+      "repo": "https://github.com/Eclipse-Digital-Inc/emdash-plugins",
+      "sha256": "6c666ea608fd50fab8eb8fd8a24d9fb877407ac1e5a40c93e92f14d49a796f93",
+      "checksum": "bciqgyztouyep2uh2xdvy7wfcjwp3q52apla6ljamspus6fgutj4w7ey",
+      "bytes": 5025,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@squatchpresscms.bsky.social/seo-guard",
+      "capabilities": [
+        "content:read",
+        "hooks.content-policy:register"
+      ],
+      "allowedHosts": [],
+      "storage": [],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@shane.bsky.shas.am/emdash-umami-analytics",
+      "version": "0.1.2",
+      "updated": "2026-10-01T06:00:33.504Z",
+      "indexedAt": "2026-10-01T06:03:12.788Z",
+      "license": "MIT",
+      "requires": {
+        "env:emdash": ">=1.0.1"
+      },
+      "hostMismatches": [],
+      "declaredAccess": {
+        "schema": {
+          "read": {}
+        },
+        "content": {
+          "read": {}
+        },
+        "network": {
+          "request": {}
+        }
+      },
+      "repo": "https://github.com/shanelord01/emdash-umami-analytics",
+      "sha256": "f5ace0912d212d23b6961ea0353b5ad31d11adcfff0cfa555215b2093180d57e",
+      "checksum": "bciqpllhasewscljdw2lb5ibvhnnnghirvxh76dh2kvjblmqjggank7q",
+      "bytes": 41292,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@shane.bsky.shas.am/emdash-umami-analytics",
+      "capabilities": [
+        "content:read",
+        "schema:read",
+        "network:request:unrestricted",
+        "network:request"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "daily",
+        "rollup",
+        "entries"
+      ],
+      "nativeSecretFields": [
+        "umamiApiKey"
+      ]
+    },
+    {
+      "id": "@jammaru.com/preflight",
+      "version": "0.1.1",
+      "updated": "2026-09-30T17:48:20.805Z",
+      "indexedAt": "2026-09-30T17:59:12.159Z",
+      "license": "MIT",
+      "requires": {
+        "env:emdash": ">=0.39.0"
+      },
+      "hostMismatches": [],
+      "declaredAccess": {
+        "media": {
+          "read": {}
+        },
+        "schema": {
+          "read": {}
+        },
+        "bylines": {
+          "read": {}
+        },
+        "content": {
+          "read": {},
+          "policy": {},
+          "revisionsRead": {}
+        },
+        "taxonomies": {
+          "read": {}
+        }
+      },
+      "repo": "https://github.com/jammaru/emdash-preflight",
+      "sha256": "eaef260508fa44b4df6a644a404fcc1841496e8767d847aa77a1e489eb05ace0",
+      "checksum": "bciqov3zgauepurfu35vgissaj7gbqqkjn2dwpwchvj32dzej5mc2zya",
+      "bytes": 56724,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@jammaru.com/preflight",
+      "capabilities": [
+        "content:read",
+        "content:revisions:read",
+        "schema:read",
+        "hooks.content-policy:register",
+        "taxonomies:read",
+        "bylines:read",
+        "media:read"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "issues"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@masonjames.com/contact-forms",
+      "version": "0.2.0",
+      "updated": "2026-09-30T15:37:23.178Z",
+      "indexedAt": "2026-09-30T13:32:33.095Z",
+      "license": "MIT",
+      "requires": {
+        "env:emdash": ">=1.0.1"
+      },
+      "hostMismatches": [],
+      "declaredAccess": {
+        "email": {
+          "send": {}
+        }
+      },
+      "repo": null,
+      "sha256": "15ebb30473a481f92b463bf804fa18d33786a56f3c59f0baf3d84a6c268455ca",
+      "checksum": "bciqbl25tarz2japzfnddx6ae7imngn4guvxtywpqxlz5qstme2cflsq",
+      "bytes": 34810,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@masonjames.com/contact-forms",
+      "capabilities": [
+        "email:send"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "forms",
+        "submissions"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@masonjames.com/emdash-smtp",
+      "version": "0.4.1",
+      "updated": "2026-09-30T03:32:36.648Z",
+      "indexedAt": "2026-09-30T03:30:46.319Z",
+      "license": "MIT",
+      "requires": {
+        "env:emdash": ">=1.0.1"
+      },
+      "hostMismatches": [],
+      "declaredAccess": {
+        "email": {
+          "transport": {}
+        },
+        "network": {
+          "request": {
+            "allowedHosts": [
+              "*.amazonaws.com",
+              "api.brevo.com",
+              "api.elasticemail.com",
+              "api.emailit.com",
+              "gmail.googleapis.com",
+              "oauth2.googleapis.com",
+              "mandrillapp.com",
+              "api.mailersend.com",
+              "api.mailgun.net",
+              "api.eu.mailgun.net",
+              "api.mailjet.com",
+              "graph.microsoft.com",
+              "login.microsoftonline.com",
+              "api.postmarkapp.com",
+              "api.resend.com",
+              "api.sendgrid.com",
+              "api.smtp2go.com",
+              "api.sparkpost.com",
+              "api.eu.sparkpost.com",
+              "mail.zoho.com",
+              "mail.zoho.eu",
+              "mail.zoho.in",
+              "mail.zoho.com.au",
+              "mail.zoho.jp",
+              "mail.zoho.sa",
+              "mail.zohocloud.ca",
+              "accounts.zoho.com"
+            ]
+          }
+        }
+      },
+      "repo": "https://github.com/masonjames/emdash-smtp",
+      "sha256": "31aec09fffa61bc8e3b2a6f3cd2c57e7018cbd2ede975206e34d279cf556db5e",
+      "checksum": "bciqddlwat772mg6i4ozkn46nfrl6oammxuxn5f2sa3ru2j446vlnwxq",
+      "bytes": 20083,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@masonjames.com/emdash-smtp",
+      "capabilities": [
+        "network:request",
+        "hooks.email-transport:register"
+      ],
+      "allowedHosts": [
+        "*.amazonaws.com",
+        "api.brevo.com",
+        "api.elasticemail.com",
+        "api.emailit.com",
+        "gmail.googleapis.com",
+        "oauth2.googleapis.com",
+        "mandrillapp.com",
+        "api.mailersend.com",
+        "api.mailgun.net",
+        "api.eu.mailgun.net",
+        "api.mailjet.com",
+        "graph.microsoft.com",
+        "login.microsoftonline.com",
+        "api.postmarkapp.com",
+        "api.resend.com",
+        "api.sendgrid.com",
+        "api.smtp2go.com",
+        "api.sparkpost.com",
+        "api.eu.sparkpost.com",
+        "mail.zoho.com",
+        "mail.zoho.eu",
+        "mail.zoho.in",
+        "mail.zoho.com.au",
+        "mail.zoho.jp",
+        "mail.zoho.sa",
+        "mail.zohocloud.ca",
+        "accounts.zoho.com"
+      ],
+      "storage": [
+        "delivery_logs"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@masonjames.com/simple-history",
+      "version": "0.2.0",
+      "updated": "2026-09-30T02:30:02.097Z",
+      "indexedAt": "2026-09-30T02:30:17.665Z",
+      "license": "MIT",
+      "requires": {
+        "env:emdash": ">=1.0.1"
+      },
+      "hostMismatches": [],
+      "declaredAccess": {
+        "content": {
+          "read": {}
+        }
+      },
+      "repo": "https://github.com/masonjames/emdash-simple-history",
+      "sha256": "5231dd30d13c9af07884c8a8722f58670803290502e5f0d87b932626726cbf02",
+      "checksum": "bciqfemo5gditzgxqpccmrkdsf5mgocadfecqfzpq3b5zgjrgojwl6aq",
+      "bytes": 26321,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@masonjames.com/simple-history",
+      "capabilities": [
+        "content:read"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "entries"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@lasymphonieagency.com/ai-alt-text",
+      "version": "0.2.0",
+      "updated": "2026-09-30T01:37:04.799Z",
+      "indexedAt": "2026-09-30T01:42:37.778Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "media": {
+          "read": {},
+          "metadataWrite": {}
+        },
+        "schema": {
+          "read": {}
+        },
+        "content": {
+          "read": {},
+          "write": {}
+        },
+        "network": {
+          "request": {
+            "allowedHosts": [
+              "api.anthropic.com"
+            ]
+          }
+        }
+      },
+      "repo": "https://github.com/DavidPivert/emdash-plugin-ai-alt-text",
+      "sha256": "edd63646e187cb2cceea8daeaeeb908edcd87d0b68ecd7c4d840042c15911dcb",
+      "checksum": "bciqo3vrwi3qypszmz3vi3lvo5oii5xgypufwr3gxytmeabbmcwir3sy",
+      "bytes": 16995,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@lasymphonieagency.com/ai-alt-text",
+      "capabilities": [
+        "content:read",
+        "content:write",
+        "schema:read",
+        "media:read",
+        "media:metadata:write",
+        "network:request"
+      ],
+      "allowedHosts": [
+        "api.anthropic.com"
+      ],
+      "storage": [
+        "alt_log"
+      ],
+      "nativeSecretFields": [
+        "apiKey"
+      ]
+    },
+    {
+      "id": "@netdollar.dev/forms",
+      "version": "0.1.0",
+      "updated": "2026-09-29T20:23:54.941Z",
+      "indexedAt": "2026-09-29T20:51:47.908Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "email": {
+          "send": {}
+        }
+      },
+      "repo": "https://github.com/charl-kruger/emdash-forms",
+      "sha256": "335803bda66dc12effdd69638f28ba0e1658d43f023c7673d17d12fea8844574",
+      "checksum": "bciqdgwadxwtg3qjo77owsy4pfc5a4fsy2q7qepdwopix2ex6vccek5a",
+      "bytes": 29656,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@netdollar.dev/forms",
+      "capabilities": [
+        "email:send"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "forms",
+        "entries",
+        "tickets"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@eisbachcode.de/analytics",
+      "version": "0.2.2",
+      "updated": "2026-09-29T17:11:08.993Z",
+      "indexedAt": "2026-09-29T10:05:25.844Z",
+      "license": "MIT",
+      "requires": {
+        "env:emdash": ">=0.39.0"
+      },
+      "hostMismatches": [],
+      "declaredAccess": {
+        "schema": {
+          "read": {}
+        },
+        "content": {
+          "read": {}
+        },
+        "network": {
+          "request": {
+            "allowedHosts": [
+              "api.cloudflare.com"
+            ]
+          }
+        }
+      },
+      "repo": "https://github.com/eisbachcode/emdash-plugins",
+      "sha256": "c41e6f674eadd0568e83144556432231125073abea0b58af3baf81c845eb2a34",
+      "checksum": "bciqmihtpm5hk3ucwr2brirkwimrdcesqoov6uc2yv4527aoiixvsuna",
+      "bytes": 38000,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@eisbachcode.de/analytics",
+      "capabilities": [
+        "content:read",
+        "schema:read",
+        "network:request"
+      ],
+      "allowedHosts": [
+        "api.cloudflare.com"
+      ],
+      "storage": [
+        "daily",
+        "rollup",
+        "entries"
+      ],
+      "nativeSecretFields": [
+        "cfApiToken"
+      ]
+    },
+    {
+      "id": "@eclipsedigi.bsky.social/seo-guard",
+      "version": "0.1.0",
+      "updated": "2026-09-29T15:13:27.012Z",
+      "indexedAt": "2026-09-29T14:26:29.428Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "content": {
+          "read": {},
+          "policy": {}
+        }
+      },
+      "repo": null,
+      "sha256": "ab59ecd139301150a293a91625e3ce3847f8486b8cc185ec4d6d6220a5f3b26d",
+      "checksum": "bciqkwwpm2e4taekqukj2sfrf4phdqr7yjbvyzqmf5rgw2yrauxz3e3i",
+      "bytes": 5014,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@eclipsedigi.bsky.social/seo-guard",
+      "capabilities": [
+        "content:read",
+        "hooks.content-policy:register"
+      ],
+      "allowedHosts": [],
+      "storage": [],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@emdashplugins.bsky.social/publish-check",
+      "version": "0.3.0",
+      "updated": "2026-09-29T13:40:07.790Z",
+      "indexedAt": "2026-10-02T16:51:01.129Z",
+      "license": "MIT",
+      "requires": {
+        "env:emdash": ">=1.0.1"
+      },
+      "hostMismatches": [],
+      "declaredAccess": {
+        "content": {
+          "policy": {}
+        }
+      },
+      "repo": "https://github.com/smrht/emdash-plugins",
+      "sha256": "d4fb98070cff1171e24fbb055c813c17cbd00c6c461a25d8fc019a3217db6434",
+      "checksum": "bciqnj64ya4gp6elr4jh3wbk4qe6bps6qbrwemgrf3d6adgrsc7nwina",
+      "bytes": 50175,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@emdashplugins.bsky.social/publish-check",
+      "capabilities": [
+        "hooks.content-policy:register"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "reports"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@lasymphonieagency.com/comment-notify",
+      "version": "0.1.0",
+      "updated": "2026-09-29T12:44:18.411Z",
+      "indexedAt": "2026-09-29T12:44:27.182Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "email": {
+          "send": {}
+        },
+        "users": {
+          "read": {}
+        },
+        "content": {
+          "read": {}
+        }
+      },
+      "repo": "https://github.com/DavidPivert/emdash-plugin-comment-notify",
+      "sha256": "d3ce86f4af93037d09fcf501fb41e77c0dc75d7fbd21f6168bd52a43f8b979b6",
+      "checksum": "bciqnhtug6sxzga35bh6pkap3ihtxydohlv732ipwc2f5kksd7c4xtnq",
+      "bytes": 12328,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@lasymphonieagency.com/comment-notify",
+      "capabilities": [
+        "content:read",
+        "email:send",
+        "users:read"
+      ],
+      "allowedHosts": [],
+      "storage": [],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@nookeshk.bsky.social/seo-suite",
+      "version": "0.2.0",
+      "updated": "2026-09-29T12:27:36.157Z",
+      "indexedAt": "2026-09-29T12:26:52.239Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "admin": {
+          "editorDraftRead": {},
+          "editorDraftPatch": {}
+        },
+        "media": {
+          "read": {}
+        },
+        "schema": {
+          "read": {}
+        },
+        "content": {
+          "read": {},
+          "write": {},
+          "policy": {}
+        },
+        "redirects": {
+          "read": {},
+          "write": {}
+        },
+        "taxonomies": {
+          "read": {}
+        }
+      },
+      "repo": "https://github.com/nookeshkarri7/emdash-seo-suite-plugin",
+      "sha256": "34ab25bdb4814a7c0c1fe2c3bc78f093da1641386e43ac5000593d8c83f33c3a",
+      "checksum": "bciqdjkzfxw2icst4bqp6fq54pdyjhwqwie4g4q5mkaafspmmqpztyoq",
+      "bytes": 10092,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@nookeshk.bsky.social/seo-suite",
+      "capabilities": [
+        "content:read",
+        "content:write",
+        "schema:read",
+        "admin.editor-draft:read",
+        "admin.editor-draft:patch",
+        "hooks.content-policy:register",
+        "taxonomies:read",
+        "redirects:read",
+        "redirects:write",
+        "media:read"
+      ],
+      "allowedHosts": [],
+      "storage": [],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@msale.com/resend",
+      "version": "0.1.1",
+      "updated": "2026-09-29T12:19:48.660Z",
+      "indexedAt": "2026-09-29T12:19:56.954Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "email": {
+          "transport": {}
+        },
+        "network": {
+          "request": {
+            "allowedHosts": [
+              "api.resend.com"
+            ]
+          }
+        }
+      },
+      "repo": "https://gitlab.com/msale-public/emdash-plugins/resend",
+      "sha256": "ccb2fc5f52a78362e4896a14da365028f281ec5e3db25f813455b01084c9019a",
+      "checksum": "bciqmzmx4l5jkpa3c4sewufg2gzicr4ub5rpd3ms7qe2flmaqqteqdgq",
+      "bytes": 7497,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@msale.com/resend",
+      "capabilities": [
+        "network:request",
+        "hooks.email-transport:register"
+      ],
+      "allowedHosts": [
+        "api.resend.com"
+      ],
+      "storage": [],
+      "nativeSecretFields": [
+        "apiKey"
+      ]
+    },
+    {
+      "id": "@meekmedia.bsky.social/crosslink",
+      "version": "0.1.0",
+      "updated": "2026-09-29T10:03:55.628Z",
+      "indexedAt": "2026-09-29T10:05:27.942Z",
+      "license": "MIT",
+      "requires": {
+        "env:emdash": ">=1.0.0"
+      },
+      "hostMismatches": [],
+      "declaredAccess": {
+        "admin": {
+          "editorDraftRead": {}
+        },
+        "schema": {
+          "read": {}
+        },
+        "content": {
+          "read": {}
+        }
+      },
+      "repo": null,
+      "sha256": "861999b4b1c2eceecc4a332ef18f64d4243b31bb37980bf29bd65384ec6589d8",
+      "checksum": "bciqimgmzwsy4f3hozrfdglxrr5snijb3gg5tpgal6kn5mu4e5rsytwa",
+      "bytes": 13924,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@meekmedia.bsky.social/crosslink",
+      "capabilities": [
+        "content:read",
+        "schema:read",
+        "admin.editor-draft:read"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "docs"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@meekmedia.bsky.social/preflight",
+      "version": "0.1.0",
+      "updated": "2026-09-29T05:23:33.791Z",
+      "indexedAt": "2026-09-29T05:23:42.415Z",
+      "license": "MIT",
+      "requires": {
+        "env:emdash": ">=1.0.0"
+      },
+      "hostMismatches": [],
+      "declaredAccess": {
+        "admin": {
+          "editorDraftRead": {}
+        },
+        "content": {
+          "read": {},
+          "policy": {}
+        }
+      },
+      "repo": null,
+      "sha256": "45b2023c262d691f3e2f612ab98171713ee5c69121f95b58c3c349fa1c336a0d",
+      "checksum": "bciqelmqchqtc22i7hyxwckvzqfyxcpxfy2isd6k3ldb4gsp2dqzwudi",
+      "bytes": 12386,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@meekmedia.bsky.social/preflight",
+      "capabilities": [
+        "content:read",
+        "admin.editor-draft:read",
+        "hooks.content-policy:register"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "results",
+        "entries"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@meekmedia.bsky.social/bulletin",
+      "version": "0.1.1",
+      "updated": "2026-09-29T04:51:40.741Z",
+      "indexedAt": "2026-09-29T04:51:48.469Z",
+      "license": "MIT",
+      "requires": {
+        "env:emdash": ">=0.42.0"
+      },
+      "hostMismatches": [],
+      "declaredAccess": {
+        "email": {
+          "send": {}
+        },
+        "content": {
+          "read": {}
+        },
+        "network": {
+          "request": {
+            "allowedHosts": [
+              "challenges.cloudflare.com"
+            ]
+          }
+        }
+      },
+      "repo": null,
+      "sha256": "543804543a1953cdb517efc2fa4393951d3c95d32fe0bdee8a34cc7bebce473b",
+      "checksum": "bciqfioaekq5bsu6nwul67qx2iojzkhj4sxjs7yf552fdjtd35pheooy",
+      "bytes": 20024,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@meekmedia.bsky.social/bulletin",
+      "capabilities": [
+        "content:read",
+        "network:request",
+        "email:send"
+      ],
+      "allowedHosts": [
+        "challenges.cloudflare.com"
+      ],
+      "storage": [
+        "subscribers",
+        "campaigns",
+        "deliveries"
+      ],
+      "nativeSecretFields": [
+        "turnstileSecret"
+      ]
+    },
+    {
+      "id": "@meekmedia.bsky.social/link-guardian",
+      "version": "0.1.0",
+      "updated": "2026-09-29T04:48:11.325Z",
+      "indexedAt": "2026-09-29T04:48:19.259Z",
+      "license": "MIT",
+      "requires": {
+        "env:emdash": ">=1.0.0"
+      },
+      "hostMismatches": [],
+      "declaredAccess": {
+        "schema": {
+          "read": {}
+        },
+        "content": {
+          "read": {}
+        },
+        "network": {
+          "request": {}
+        },
+        "redirects": {
+          "read": {},
+          "write": {}
+        }
+      },
+      "repo": null,
+      "sha256": "d87f6dfbca50b6d5353f85879e087028d114d7b9fd6bf8654c0556f570b5f666",
+      "checksum": "bciqnq73n7pffbnwvgu7ylb46bbycruiu2647227ymvgakvxvoc27mzq",
+      "bytes": 16890,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@meekmedia.bsky.social/link-guardian",
+      "capabilities": [
+        "content:read",
+        "schema:read",
+        "redirects:read",
+        "redirects:write",
+        "network:request:unrestricted",
+        "network:request"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "entries",
+        "links",
+        "events"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@plugins.emdashcms.com/webhook-notifier",
+      "version": "0.2.2",
+      "updated": "2026-09-28T15:29:42.443Z",
+      "indexedAt": "2026-09-28T15:30:12.504Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "media": {
+          "read": {}
+        },
+        "content": {
+          "read": {}
+        },
+        "network": {
+          "request": {}
+        }
+      },
+      "repo": "https://github.com/emdash-cms/emdash",
+      "sha256": "cd0080e322f069bb67057a6bc7e34475237fa88bad5fef6344655790f1d4d02c",
+      "checksum": "bciqm2aea4mrpa2n3m4cxu26h4nchki37vcf22x7pmncgkv4q6hknala",
+      "bytes": 61021,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@plugins.emdashcms.com/webhook-notifier",
+      "capabilities": [
+        "content:read",
+        "media:read",
+        "network:request:unrestricted",
+        "network:request"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "deliveries"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@plugins.emdashcms.com/audit-log",
+      "version": "0.2.2",
+      "updated": "2026-09-22T15:58:14.434Z",
+      "indexedAt": "2026-09-15T16:22:53.583Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "media": {
+          "read": {}
+        },
+        "content": {
+          "read": {},
+          "write": {}
+        }
+      },
+      "repo": null,
+      "sha256": "038621e07f928026e634126b956033292bb0cf01585d52e661bd7c4dc6027e19",
+      "checksum": "bciqahbrb4b7zfabg4y2be24vmazssk5qz4avqxks4zq327cnyybh4gi",
+      "bytes": 2112,
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@plugins.emdashcms.com/audit-log",
+      "capabilities": [
+        "content:read",
+        "content:write",
+        "media:read"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "entries"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@numoteq.com/forward-email",
+      "version": "0.1.1",
+      "updated": "2026-08-14T10:16:51.371Z",
+      "indexedAt": "2026-08-14T20:12:07.389Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "email": {
+          "transport": {}
+        },
+        "network": {
+          "request": {
+            "allowedHosts": [
+              "api.forwardemail.net"
+            ]
+          }
+        }
+      },
+      "repo": "https://github.com/numoteq/emdash-plugins",
+      "sha256": "2e75a649ce93dfa312bc3f5a540d0539aae2a6456749a0816e683cd250e040ad",
+      "checksum": "bciqc45ngjhhjhx5dck6d6wsubucttkxcuzcwosnaqfxgqpgskdqebli",
+      "bytes": 1813,
+      "artifactURL": "https://github.com/numoteq/emdash-plugins/releases/download/%40numoteq/emdash-plugin-forward-email%400.1.1/forward-email-0.1.1.tar.gz",
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@numoteq.com/forward-email",
+      "capabilities": [
+        "network:request",
+        "hooks.email-transport:register"
+      ],
+      "allowedHosts": [
+        "api.forwardemail.net"
+      ],
+      "storage": [],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@solspace.com/freeform",
+      "version": "0.1.3",
+      "updated": "2026-07-03T12:28:59.216Z",
+      "indexedAt": "2026-07-03T13:06:47.409Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "email": {
+          "send": {}
+        },
+        "network": {
+          "request": {}
+        }
+      },
+      "repo": "https://github.com/solspace/emdash-freeform",
+      "sha256": "df7c68bdca07f5d75ebbda4973ab70e0ab1c45d7089b6d96131348a4a59d6bec",
+      "checksum": "bciqn67dixxfap5oxl255usltvnyobky4ixlqrg3nsyjrgsfeuwowx3a",
+      "bytes": 37797,
+      "artifactURL": "https://cdn.jsdelivr.net/npm/@solspace/freeform-plugin-dist@0.1.3/freeform-0.1.3.tar.gz",
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@solspace.com/freeform",
+      "capabilities": [
+        "network:request:unrestricted",
+        "email:send"
+      ],
+      "allowedHosts": [],
+      "storage": [
+        "forms",
+        "submissions",
+        "templates",
+        "notification_assignments",
+        "webhooks"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@harsh-pranshtech.bsky.social/contact-form",
+      "version": "1.0.0",
+      "updated": "2026-07-01T12:15:34.896Z",
+      "indexedAt": "2026-07-01T12:41:27.103Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {},
+      "repo": null,
+      "sha256": "2d80af518d7a47cc1e63b563a9cb327caef10e2a7ba5e199b0f4302c8bba2ba4",
+      "checksum": "bciqc3afpkggxur6mdzr3ky5jzmzhzlxrbyvhxjpbtgypimbmro5cxja",
+      "bytes": 2978,
+      "artifactURL": "https://raw.githubusercontent.com/HarshModi-Pranshtech/emdash-releases/main/contact-form-1.0.0.tar.gz",
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@harsh-pranshtech.bsky.social/contact-form",
+      "capabilities": [],
+      "allowedHosts": [],
+      "storage": [
+        "submissions"
+      ],
+      "nativeSecretFields": []
+    },
+    {
+      "id": "@cfreear.bsky.social/emdash-cf-email-sending",
+      "version": "0.1.2",
+      "updated": "2026-06-26T22:15:49.117Z",
+      "indexedAt": "2026-06-27T02:02:05.262Z",
+      "license": "MIT",
+      "requires": null,
+      "hostMismatches": [],
+      "declaredAccess": {
+        "email": {
+          "events": {},
+          "transport": {}
+        },
+        "network": {
+          "request": {
+            "allowedHosts": [
+              "api.cloudflare.com"
+            ]
+          }
+        }
+      },
+      "repo": "https://github.com/cfreear/emdash-cf-email-sending",
+      "sha256": "ac7cb4c1c3c2bf041e363de3fd00e90ab539fdf886bbe9ef7680839652b3f3ad",
+      "checksum": "bciqky7fuyhb4fpyedy3d3y75aduqvnjz7x4ino7j553iba4wkkz7hli",
+      "bytes": 3795,
+      "artifactURL": "https://github.com/cfreear/emdash-cf-email-sending/releases/download/v0.1.2/emdash-cf-email-sending-0.1.2.tar.gz",
+      "bundleValidation": {
+        "success": true
+      },
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@cfreear.bsky.social/emdash-cf-email-sending",
+      "capabilities": [
+        "hooks.email-transport:register",
+        "network:request",
+        "hooks.email-events:register"
+      ],
+      "allowedHosts": [
+        "api.cloudflare.com"
+      ],
+      "storage": [],
+      "nativeSecretFields": []
+    }
+  ],
+  "otherProfiles": [
+    {
+      "id": "@peachfinthemes.com/comment-spam-protection",
+      "version": "1.0.0",
+      "name": "Comment Spam Protection",
+      "description": "Stop comment spam in EmDash with local rules: blocked words, links, language, duplicates and rate limits, with a log of why.",
+      "updated": "2026-10-02T18:04:59.181Z",
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@peachfinthemes.com/comment-spam-protection"
+    },
+    {
+      "id": "@sneaps.io/image-generator",
+      "version": "0.1.0",
+      "name": "Image Generator",
+      "description": "Generate featured images for your entries with AI, one by one or in bulk. OpenAI, OpenRouter and Cloudflare Workers AI.",
+      "updated": "2026-10-02T12:07:03.744Z",
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@sneaps.io/image-generator"
+    },
+    {
+      "id": "@vermeulen.solutions/eventual",
+      "version": "0.10.0",
+      "name": "Eventual",
+      "description": "Manage events, venues, and public feeds in EmDash with MCP tools and an Astro example offering seven visitor views.",
+      "updated": "2026-10-01T20:24:12.163Z",
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@vermeulen.solutions/eventual"
+    },
+    {
+      "id": "@peachfinthemes.com/auto-unpublish-posts",
+      "version": "1.0.0",
+      "name": "Auto Unpublish Posts",
+      "description": "Unpublish, trash or retag any EmDash post on a date. Collection defaults, email alerts and a run log; Pro adds rules and bulk.",
+      "updated": "2026-10-01T14:13:41.121Z",
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@peachfinthemes.com/auto-unpublish-posts"
+    },
+    {
+      "id": "@propcore.ai/propcore",
+      "version": "0.1.0",
+      "name": "Propcore catalog",
+      "description": "Projects, units and live availability from your Propcore workspace, for your EmDash site.",
+      "updated": "2026-09-30T14:02:04.825Z",
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@propcore.ai/propcore"
+    },
+    {
+      "id": "@raghuchinnannan.bsky.social/discord-notifier",
+      "version": "0.1.0",
+      "name": "Discord Notifier",
+      "description": "Discord alerts for publishes, comments, media and form submissions, with Pro routing and digests.",
+      "updated": "2026-09-29T16:18:56.047Z",
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@raghuchinnannan.bsky.social/discord-notifier"
+    },
+    {
+      "id": "@nookeshk.bsky.social/dynamic-qr",
+      "version": "0.2.0",
+      "name": "Dynamic QR",
+      "description": "Dynamic QR codes with scan analytics and customizable styling for EmDash.",
+      "updated": "2026-09-29T12:55:13.539Z",
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@nookeshk.bsky.social/dynamic-qr"
+    },
+    {
+      "id": "@plugins.emdashcms.com/atproto",
+      "version": "0.2.2",
+      "name": "AT Protocol Syndication",
+      "description": "Syndicates published content to the AT Protocol network via standard.site lexicons, with optional Bluesky cross-posting.",
+      "updated": "2026-09-28T15:29:21.184Z",
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@plugins.emdashcms.com/atproto"
+    },
+    {
+      "id": "@swiss.ky/linguadash",
+      "version": "0.1.0",
+      "name": "LinguaDash",
+      "description": "Translate EmDash content and SEO fields with DeepL, OpenAI or Cloudflare AI, and see which entries are missing, outdated or need review.",
+      "updated": "2026-09-28T05:31:41.043Z",
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@swiss.ky/linguadash"
+    },
+    {
+      "id": "@shahriar-robbani.bsky.social/ai-search",
+      "version": "0.5.0",
+      "name": "ai-search",
+      "description": "AI search + chat powered by Cloudflare AI Search. Indexes content with built-in storage, injects UI snippets. Sandbox build uses REST APIs.",
+      "updated": "2026-09-24T09:44:24.051Z",
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@shahriar-robbani.bsky.social/ai-search"
+    },
+    {
+      "id": "@plugins.emdashcms.com/marketplace-test",
+      "version": "0.2.1",
+      "name": "marketplace-test",
+      "description": "Maximal sandboxed plugin fixture for registry, consent, runtime, and admin testing.",
+      "updated": "2026-09-22T15:58:14.680Z",
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@plugins.emdashcms.com/marketplace-test"
+    },
+    {
+      "id": "@justy.dev/emdash-to-buffer",
+      "version": "1.1.1",
+      "name": "EmDash to Buffer",
+      "description": "Queue newly published EmDash posts to Buffer channels.",
+      "updated": "2026-08-03T18:13:18.297Z",
+      "registryUrl": "https://plugins.emdashcms.com/plugins/@justy.dev/emdash-to-buffer"
+    }
+  ]
+}

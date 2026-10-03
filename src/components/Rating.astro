@@ -2,17 +2,36 @@
 interface Props {
   rating: number;
   count?: number;
+  /**
+   * Plataforma de la que sale la nota (p. ej. «Hotmart»). Si llega, el conteo
+   * dice «93 valoraciones en Hotmart» en vez de «(93)»: la nota es de un
+   * tercero y sin la fuente parecería de reseñas recogidas por Sably.
+   */
+  fuente?: string;
   class?: string;
 }
-const { rating, count, class: className = '' } = Astro.props;
+const { rating, count, fuente, class: className = '' } = Astro.props;
 const rounded = Math.round(rating);
+const conteo = count?.toLocaleString('es-CO');
 ---
 
-<span class={`inline-flex items-center gap-1.5 text-sm ${className}`}>
+{/* flex-wrap: con la fuente el conteo es más largo que la tarjeta estrecha
+    (lg:grid-cols-4) y así baja entero a la línea siguiente en vez de partirse
+    al lado de las estrellas. */}
+<span class={`inline-flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm ${className}`}>
   <span class="text-warning" aria-hidden="true">
     {'★'.repeat(rounded)}{'☆'.repeat(5 - rounded)}
   </span>
   <span class="font-semibold text-heading">{rating.toFixed(1)}</span>
-  {count !== undefined && <span class="text-muted">({count.toLocaleString('es-CO')})</span>}
+  {
+    count !== undefined &&
+      (fuente ? (
+        <span class="text-muted">
+          ({conteo} {count === 1 ? 'valoración' : 'valoraciones'} en {fuente})
+        </span>
+      ) : (
+        <span class="text-muted">({conteo})</span>
+      ))
+  }
   <span class="sr-only">Calificación {rating.toFixed(1)} de 5</span>
 </span>

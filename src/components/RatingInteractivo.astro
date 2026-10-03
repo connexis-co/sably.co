@@ -1,0 +1,122 @@
+---
+/**
+ * Estrellas del hero del curso: muestran la valoración REAL de compradores
+ * (Hotmart) en amarillo y permiten al visitante dejar la suya con un toque.
+ *
+ * Las dos notas no se mezclan: la visible es la de compradores; el voto del
+ * visitante va a `visitor_rating` en D1 (una por visitante y curso, hash de
+ * IP). Señal de interés, no calidad verificada.
+ *
+ * La nota se atribuye a Hotmart en el propio texto: es de un tercero, no de
+ * reseñas recogidas por Sably, y sin la fuente el lector (y el LLM que la cite)
+ * la tomaría por nuestra. Por eso tampoco va al aggregateRating del schema.
+ */
+interface Props {
+  slug: string;
+  /** Valoración de compradores en Hotmart, o null si el producto no tiene. */
+  rating: number | null;
+  count: number | null;
+}
+const { slug, rating, count } = Astro.props;
+const llenas = rating ? Math.round(rating) : 0;
+// Hay cursos con una sola valoración: «1 valoraciones» delata la plantilla.
+const etiquetaConteo = count === 1 ? 'valoración' : 'valoraciones';
+---
+
+<div data-valorar data-slug={slug} class="flex flex-wrap items-center gap-x-2 gap-y-1">
+  <span class="flex" role="group" aria-label="Valora este curso de 1 a 5 estrellas">
+    {
+      [1, 2, 3, 4, 5].map((n) => (
+        <button
+          type="button"
+          data-estrella={n}
+          class={`px-0.5 text-xl leading-none transition-transform hover:scale-125 focus-visible:scale-125 ${
+            n <= llenas ? 'text-warning' : 'text-white/30'
+          }`}
+          aria-label={`Valorar con ${n} estrella${n > 1 ? 's' : ''}`}
+          title={`Valorar con ${n}`}
+        >
+          ★
+        </button>
+      ))
+    }
+  </span>
+  {
+    rating ? (
+      <span class="text-sm">
+        <strong class="font-semibold text-white">{rating.toFixed(1).replace('.', ',')}</strong>
+        <span class="text-white/70"> ({count} {etiquetaConteo} en Hotmart)</span>
+      </span>
+    ) : (
+      <span class="text-sm text-white/70">Sé quien lo valore primero</span>
+    )
+  }
+  <span data-valorar-gracias hidden class="text-sm font-semibold text-warning"></span>
+</div>
+
+<script>
+  const caja = document.querySelector<HTMLElement>('[data-valorar]');
+  if (caja) {
+    const slug = caja.dataset.slug!;
+    const marca = `sably:voto:${slug}`;
+    const gracias = caja.querySelector<HTMLElement>('[data-valorar-gracias]')!;
+    const estrellas = [...caja.querySelectorAll<HTMLButtonElement>('[data-estrella]')];
+
+    const pintar = (n: number, clase = 'text-warning') =>
+      estrellas.forEach((e) => {
+        e.classList.toggle(clase, Number(e.dataset.estrella) <= n);
+        e.classList.toggle('text-white/30', Number(e.dataset.estrella) > n);
+      });
+
+    const votado = Number(sessionStorage.getItem(marca));
+    if (votado) {
+      gracias.textContent = `Tu valoración: ${votado}★`;
+      gracias.hidden = false;
+    }
+
+    /** Lo que había pintado antes de este intento, para poder revertir. */
+    const previo = () => Number(sessionStorage.getItem(marca)) || 0;
+
+    for (const e of estrellas) {
+      e.addEventListener('click', async () => {
+        const n = Number(e.dataset.estrella);
+        const antes = previo();
+
+        // Optimista: se pinta ya, pero NO se dice «gracias» hasta que el
+        // servidor confirme. `fetch` no lanza con un 404 o un 400, así que un
+        // try/catch por sí solo daba por bueno un voto que se perdía.
+        pintar(n);
+        gracias.textContent = 'Guardando…';
+        gracias.hidden = false;
+
+        try {
+          const r = await fetch('/api/v1/valorar', {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ slug, rating: n }),
+            signal: AbortSignal.timeout(8000),
+          });
+          const d = (await r.json().catch(() => ({}))) as {
+            error?: string; votos?: number; media?: number;
+          };
+          if (!r.ok) throw new Error(d.error || 'no se pudo guardar');
+
+          sessionStorage.setItem(marca, String(n));
+          // Se enseña el acumulado que devuelve el servidor: es el dato real,
+          // no una promesa.
+          gracias.textContent = d.votos && d.media
+            ? `Tu ${n}★ · ${String(d.media).replace('.', ',')} de ${d.votos} visitantes`
+            : `Tu valoración: ${n}★`;
+        } catch (err) {
+          // Se revierte: dejar las estrellas encendidas afirmaría que se guardó
+          // algo que no se guardó.
+          pintar(antes);
+          gracias.textContent =
+            err instanceof DOMException && err.name === 'TimeoutError'
+              ? 'No hubo conexión. Inténtalo otra vez.'
+              : 'No pudimos guardar tu valoración.';
+        }
+      });
+    }
+  }
+</script>

@@ -1,0 +1,121 @@
+[
+  {
+    "slug": "curso-de-automaquillaje",
+    "id": "S42624359I",
+    "nombre": "AutoMaquillaje",
+    "precio": "165.814",
+    "idProducto": 1111134
+  },
+  {
+    "slug": "curso-de-bouquets-con-globos",
+    "id": "G56852236M",
+    "nombre": "Bouquet de Globos para Eventos y Fiestas",
+    "precio": "165.814",
+    "idProducto": 1574989
+  },
+  {
+    "slug": "curso-de-cejas-y-pestanas",
+    "id": "A42487377P",
+    "nombre": "Cejas y Pestañas Pelo a Pelo",
+    "precio": "198.984",
+    "idProducto": 1105889
+  },
+  {
+    "slug": "curso-de-depilacion",
+    "id": "V66724421L",
+    "nombre": "Experta en el Negocio de la Depilación Especializada",
+    "precio": "165.814",
+    "idProducto": 1931221
+  },
+  {
+    "slug": "curso-de-flores-con-globos",
+    "id": "U68605508W",
+    "nombre": "Flores de Globos",
+    "precio": "265.322",
+    "idProducto": 1999831
+  },
+  {
+    "slug": "curso-de-globoflexia",
+    "id": "M47265375C",
+    "nombre": "GloboFlexia Figuras con Globos",
+    "precio": "165.814",
+    "idProducto": 1272003
+  },
+  {
+    "slug": "curso-de-globos-burbuja",
+    "id": "F62444331S",
+    "nombre": "Decoración de Globos Burbuja",
+    "precio": "165.814",
+    "idProducto": 1778060
+  },
+  {
+    "slug": "curso-de-maquillaje",
+    "id": "N41531652U",
+    "nombre": "Maquillaje Social",
+    "precio": "331.660",
+    "idProducto": 1066380
+  },
+  {
+    "slug": "curso-de-masaje-descontracturante",
+    "id": "C59922402Y",
+    "nombre": "Masaje Descontracturante como Negocio",
+    "precio": "165.814",
+    "idProducto": 1686490
+  },
+  {
+    "slug": "curso-de-masaje-reductor",
+    "id": "Q56744994D",
+    "nombre": "Masaje Moldeador Pro",
+    "precio": "165.814",
+    "idProducto": 1570762
+  },
+  {
+    "slug": "curso-de-masajes-terapeuticos-y-relajantes",
+    "id": "A43483573K",
+    "nombre": "Masajista Express",
+    "precio": "165.814",
+    "idProducto": 1142339
+  },
+  {
+    "slug": "curso-de-peinados",
+    "id": "Y66385340K",
+    "nombre": "El Negocio de los Peinados A Domicilio",
+    "precio": "165.814",
+    "idProducto": 1917918
+  },
+  {
+    "slug": "curso-de-peluqueria",
+    "id": "B28818422Q",
+    "nombre": "Peluquería Básica y Avanzada",
+    "precio": "122.726",
+    "idProducto": 752264
+  },
+  {
+    "slug": "curso-de-unas",
+    "id": "C55918118T",
+    "nombre": "Master en Uñas Acrílicas",
+    "precio": "165.814",
+    "idProducto": 1540395
+  },
+  {
+    "slug": "curso-de-barberia-como-negocio",
+    "id": "C63857704B",
+    "nombre": "Barbero Empresario, Cómo Montar Tu Propia Barbería",
+    "precio": "165.814",
+    "idProducto": null
+  },
+  {
+    "slug": "curso-de-barberia-infantil",
+    "id": "W69842801W",
+    "nombre": "En la Silla Mágica Barber Kids",
+    "precio": "165.814",
+    "idProducto": null
+  },
+  {
+    "slug": "curso-de-maquillaje-de-fantasia",
+    "id": "Y60358345H",
+    "nombre": "Maquillaje de Fantasía Como Negocio para Eventos",
+    "precio": "165.814",
+    "idProducto": null
+  }
+]

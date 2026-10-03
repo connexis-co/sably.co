@@ -1,0 +1,221 @@
+#!/usr/bin/env node
+/**
+ * Captura los precios y valoraciones REALES de Hotmart para todo el catálogo.
+ *
+ * Sin navegador: el checkout es Nuxt con SSR y el precio viaja embebido en el
+ * HTML inicial (localizado por IP + base USD). La valoración sale de la página
+ * pública del producto (hotlink con ?dp=1), que trae `"rating"` y
+ * `"totalReviews"` — los de verdad, dejados por compradores.
+ *
+ * Salida: .emdash/hotmart-live.json; el sitio consulta SABLY_DB durante cada request.
+ * El catálogo publicado y sus URLs se consultan en EmDash, nunca en MDX.
+ *
+ * Uso:
+ *   node scripts/hotmart-precios.mjs                captura todo y escribe el JSON
+ *   node scripts/hotmart-precios.mjs --merge-api    antes de capturar, funde lo
+ *                                                   que D1 tenga más fresco
+ *                                                   (monedas de otros países)
+ *   node scripts/hotmart-precios.mjs --post         además, sube lo capturado a
+ *                                                   D1 (SNAPSHOT_TOKEN en env)
+ *   node scripts/hotmart-precios.mjs --solo <slug>  un curso, para depurar
+ */
+
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { catalogApiOrigin, fetchHotmart, loadPublishedHotmartCatalog, retainPublishedCaptures } from '../src/lib/hotmart-catalog.mjs';
+
+// fileURLToPath y no .pathname: la ruta del proyecto lleva espacios y el
+// pathname crudo los deja como %20, que scandir no encuentra.
+const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const SALIDA = path.join(RAIZ, '.emdash/hotmart-live.json');
+const API = catalogApiOrigin(process.env.SABLY_API ?? 'https://sably.co');
+const PREVIEW_HEADERS = process.env.SABLY_DEV_PASSWORD ? { 'X-Sably-Preview-Token': process.env.SABLY_DEV_PASSWORD } : {};
+
+const args = process.argv.slice(2);
+const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
+
+const UA = { 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' };
+
+// Espejo de MONEDAS_ISO en functions/api/v1/_shared.ts (este script corre en
+// el runner, fuera del bundle de Pages). El regex de abajo atrapa cualquier
+// trigrama: el checkout chileno coló `"RUT":19` como divisa y quedó horneado
+// en los 102 cursos. Si se añade una moneda allí, añadirla aquí.
+const MONEDAS_ISO = new Set([
+  'USD', 'COP', 'MXN', 'EUR', 'PEN', 'CLP', 'ARS', 'BRL',
+  'UYU', 'PYG', 'BOB', 'GTQ', 'CRC', 'DOP', 'HNL', 'NIO', 'CAD', 'GBP',
+]);
+
+/** Quita del mapa {moneda: monto} lo que no sea una divisa de la lista. */
+function soloMonedasReales(monedas) {
+  const out = {};
+  for (const [m, v] of Object.entries(monedas || {})) {
+    if (MONEDAS_ISO.has(m) && Number(v) > 0) out[m] = v;
+  }
+  return out;
+}
+
+/** Every redirect remains on the explicit HTTPS Hotmart allowlist. */
+async function resolver(url, marketplace = false) { return fetchHotmart(url, { headers: UA, marketplace }); }
+
+/**
+ * Pares `numero,"XXX"` del payload devalue del checkout: primer valor por
+ * moneda. Verificado: C55918118T da [165450 COP, 49.99 USD].
+ */
+function extraerPrecios(html) {
+  const vistos = new Map();
+  for (const m of html.matchAll(/(\d{1,9}(?:\.\d{1,2})?),"([A-Z]{3})"/g)) {
+    const monto = Number(m[1]);
+    if (!MONEDAS_ISO.has(m[2])) continue;
+    if (!vistos.has(m[2]) && monto > 0) vistos.set(m[2], monto);
+  }
+  // Si hay moneda local ADEMÁS del USD, ese USD es el equivalente que ve ese
+  // país con su IVA dentro (Chile: 57 → 67,83), no el precio base. Solo vale
+  // el USD cuando viene solo — el runner de EE. UU. lo ve así siempre.
+  if (vistos.size > 1) vistos.delete('USD');
+  return vistos;
+}
+
+async function main() {
+  const publicados = await loadPublishedHotmartCatalog({api:API,token:process.env.SNAPSHOT_TOKEN,previewToken:process.env.SABLY_DEV_PASSWORD});
+  const cursos = args.includes('--solo') ? publicados.filter(row => row.slug === args[args.indexOf('--solo') + 1]) : publicados;
+  if (!cursos.length) throw new Error('No hay cursos publicados con Hotmart para esta captura');
+  const selected = new Set(cursos.map(row=>row.slug));
+  console.log(`${cursos.length} cursos con producto`);
+
+  const datos = existsSync(SALIDA)
+    ? JSON.parse(readFileSync(SALIDA, 'utf8'))
+    : { _fuente: '', precios: {}, valoraciones: {}, resenas: {}, productos: {} };
+  retainPublishedCaptures(datos,publicados);
+
+  // El spread de abajo arrastra hacia adelante cualquier clave vieja del JSON,
+  // así que lo heredado también se depura o el RUT de ayer vive para siempre.
+  for (const slug of Object.keys(datos.precios)) {
+    datos.precios[slug] = soloMonedasReales(datos.precios[slug]);
+  }
+
+  // Lo fresco de D1 primero (monedas capturadas por visitantes de otros países)
+  if (args.includes('--merge-api')) {
+    try {
+      const d = await (await fetch(`${API}/api/v1/precios`, { headers:PREVIEW_HEADERS, redirect:'error', signal: AbortSignal.timeout(15000) })).json();
+      for (const [slug, monedas] of Object.entries(d.precios ?? {})) {
+        if (selected.has(slug)) datos.precios[slug] = { ...datos.precios[slug], ...soloMonedasReales(monedas) };
+      }
+      for (const [slug, v] of Object.entries(d.valoraciones ?? {})) if (selected.has(slug)) datos.valoraciones[slug] = v;
+      console.log('fundido con D1');
+    } catch (e) {
+      console.log(`sin D1 (${e.message}): sigo con lo local`);
+    }
+  }
+
+  let ok = 0;
+  const fallos = [];
+  for (const { slug, url, titulo } of cursos) {
+    try {
+      const { final, html } = await resolver(url);
+      const pay = final.match(/pay\.hotmart\.com\/[A-Z0-9]+/i)?.[0];
+      const hotlink = final.match(/[?&]ref=([A-Z0-9]+)/i)?.[1] ?? '';
+      const precios = extraerPrecios(html);
+      if (!precios.size) throw new Error('checkout sin precios en el payload');
+
+      datos.precios[slug] = { ...datos.precios[slug], ...Object.fromEntries(precios) };
+      if (pay) datos.productos[slug] = { payUrl: `https://${pay}`, hotlink, titulo };
+
+      // Valoración y reseñas públicas del producto. La página del marketplace
+      // (hotlink con ?dp=1) da el idProducto; con él, la API pública de
+      // valoraciones (api-ask.hotmart.com) devuelve la media, el total y las
+      // últimas reseñas CON el nombre que su autor publicó en Hotmart.
+      if (hotlink) {
+        try {
+          const { html: hp } = await resolver(`https://go.hotmart.com/${hotlink}?dp=1`,true);
+          const idProducto = hp.match(/"productId":(\d{5,9})/)?.[1];
+          if (idProducto) {
+            const r = await fetch(
+              `https://api-ask.hotmart.com/api/v1/survey/product/${idProducto}/rating`,
+              { headers: UA, redirect:'error', signal: AbortSignal.timeout(20000) },
+            );
+            if (r.ok) {
+              const d = await r.json();
+              const rating = Number(d.average);
+              const total = Number(d.totalAnswers);
+              if (rating >= 1 && rating <= 5 && total > 0) {
+                datos.valoraciones[slug] = { rating: Math.round(rating * 100) / 100, total };
+              }
+              // Reseñas con nombre: solo las que traen autor y nota. El texto
+              // se recorta a una frase; es un aviso, no una página de reseñas.
+              const resenas = (d.latestAnswers ?? [])
+                .map((a) => {
+                  const nota = Number(a.answers?.find((x) => x.type === 'RATING_1_5')?.answer);
+                  const texto = a.answers?.find((x) => x.type !== 'RATING_1_5' && x.answer?.length > 3)?.answer ?? '';
+                  return {
+                    nombre: String(a.userName ?? '').trim(),
+                    rating: nota,
+                    ...(texto ? { texto: texto.replace(/\s+/g, ' ').slice(0, 120) } : {}),
+                  };
+                })
+                .filter(
+                  (x) =>
+                    x.nombre &&
+                    x.nombre.length >= 2 &&
+                    x.nombre.length <= 30 &&
+                    x.rating >= 4 &&
+                    // Nombres de relleno que no son personas.
+                    !/^(curso|cursos|an[oó]nim[oa]|usuario|user|test|hotmart)$/i.test(x.nombre),
+                )
+                .slice(0, 5);
+              if (resenas.length) datos.resenas[slug] = resenas;
+              if (datos.productos[slug]) datos.productos[slug].idProducto = Number(idProducto);
+            }
+          }
+        } catch {
+          /* sin valoración no pasa nada: la ficha simplemente no pinta estrellas */
+        }
+      }
+
+      ok++;
+      const p = [...precios].map(([m, v]) => `${v} ${m}`).join(' · ');
+      const val = datos.valoraciones[slug];
+      console.log(`  ${slug.padEnd(46)} ${p}${val ? `  ★${val.rating} (${val.total})` : ''}`);
+      await dormir(400);
+    } catch (e) {
+      fallos.push(`${slug}: ${e.message}`);
+      console.log(`  ${slug.padEnd(46)} FALLO ${e.message.slice(0, 60)}`);
+    }
+  }
+
+  datos._fuente =
+    'Precios del checkout real de Hotmart (payload SSR) y valoraciones públicas del marketplace. ' +
+    'Nada de este fichero es inventado; si un curso no aparece, no se muestra el dato.';
+  datos._capturado = new Date().toISOString();
+  mkdirSync(path.dirname(SALIDA), {recursive:true});
+  writeFileSync(SALIDA, JSON.stringify(datos, null, 1) + '\n');
+  console.log(`\n${ok}/${cursos.length} capturados → ${path.relative(RAIZ, SALIDA)}`);
+  if (fallos.length) console.log(`fallos:\n  ${fallos.join('\n  ')}`);
+
+  if (args.includes('--post')) {
+    const token = process.env.SNAPSHOT_TOKEN;
+    if (!token) {
+      console.log('sin SNAPSHOT_TOKEN: no subo a D1');
+      return;
+    }
+    const cuerpo = {
+      sources: Object.fromEntries(cursos.map(row=>[row.slug,row.url])),
+      productos: Object.entries(datos.productos).filter(([slug])=>selected.has(slug)).map(([slug, p]) => ({ slug, ...p })),
+      precios: Object.entries(datos.precios).filter(([slug])=>selected.has(slug)).flatMap(([slug, ms]) =>
+        Object.entries(ms).map(([moneda, monto]) => ({ slug, moneda, monto })),
+      ),
+      valoraciones: Object.entries(datos.valoraciones).filter(([slug])=>selected.has(slug)).map(([slug, v]) => ({ slug, ...v })),
+    };
+    const r = await fetch(`${API}/api/v1/precios`, {
+      method: 'POST',
+      headers: { ...PREVIEW_HEADERS, 'content-type': 'application/json', authorization: `Bearer ${token}` },
+      redirect: 'error',
+      signal: AbortSignal.timeout(30000),
+      body: JSON.stringify(cuerpo),
+    });
+    if (!r.ok) throw new Error(`POST a D1 rechazado (${r.status}); no se confirmó la captura`);
+    console.log(`POST a D1: ${r.status}`);
+  }
+}
+
+main().catch(error => { console.error(error.message); process.exitCode = 1; });

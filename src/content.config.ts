@@ -31,28 +31,54 @@ const courses = defineCollection({
       .min(3),
     priceUSD: z.number().positive(),
     originalPriceUSD: z.number().positive(),
-    rating: z.number().min(3.5).max(5),
-    ratingCount: z.number().int().positive(),
-    students: z.number().int().positive(),
-    instructor: z.object({
-      name: z.string(),
-      title: z.string(),
-      bio: z.string(),
-    }),
+    /**
+     * Prueba social. OPCIONALES a propósito, y `rating` sin suelo.
+     *
+     * Antes eran obligatorios y `rating` exigía un mínimo de 3.5, así que no se
+     * podía publicar una ficha sin ponerle una nota, un número de valoraciones,
+     * unos alumnos y un instructor —existiera o no el producto—. Inventar no era
+     * un descuido: era el único modo de pasar el esquema. El resultado fueron 23
+     * cursos sin checkout publicando 7.581 valoraciones y 47.265 estudiantes que
+     * nunca existieron, y un instructor con nombre y biografía que Google llegó a
+     * indexar como persona real.
+     *
+     * Siendo opcionales, la ficha que no tiene el dato simplemente no lo muestra.
+     * Y sin el suelo de 3.5 se puede escribir la nota verdadera cuando es más
+     * baja (velas es 3,1 real) en lugar de redondearla hacia arriba.
+     *
+     * Cuando existan, salen de Hotmart y no del criterio de quien redacta:
+     * `api-ask.hotmart.com/api/v1/survey/product/<idProducto>/rating` da `average`
+     * y `totalAnswers`; el `totalUsers` de la ficha de marketplace da los alumnos.
+     */
+    rating: z.number().min(0).max(5).optional(),
+    ratingCount: z.number().int().positive().optional(),
+    students: z.number().int().positive().optional(),
+    instructor: z
+      .object({
+        name: z.string(),
+        title: z.string(),
+        bio: z.string(),
+      })
+      .optional(),
     learnings: z.array(z.string()).min(5).max(8),
     audience: z.array(z.string()).min(3).max(5),
     faqs: z
       .array(z.object({ q: z.string(), a: z.string() }))
       .min(4)
       .max(7),
+    /**
+     * Creador del curso, cuando su política comercial se aparta de la general.
+     * Ver src/lib/proveedores.ts: hay creadores que no aceptan el cupón del
+     * sitio porque el precio elegido ya viaja dentro de su acortador.
+     */
+    proveedor: z.string().optional(),
     /** TODO(JP): URL real de checkout Hotmart por curso. */
     hotmartUrl: z.string().url().default('https://pay.hotmart.com/PENDIENTE'),
     /**
-     * Código `ref` del afiliado para este producto. Es lo que acredita la comisión:
-     * sin él, la venta se acredita al productor. Lo emite Hotmart por producto y se
-     * lee del acortador (`hotm.art/<slug>-curso-crashing` → `?ref=XXXX`).
+     * Nombre del archivo del video de presentación en R2 (bucket sably-assets,
+     * servido por cdn.sably.co). Sin él la tarjeta muestra solo la portada.
      */
-    hotmartRef: z.string().optional(),
+    videoKey: z.string().optional(),
     featured: z.boolean().default(false),
     keywords: z.array(z.string()).min(3),
     publishedAt: z.coerce.date(),
@@ -108,6 +134,17 @@ const blog = defineCollection({
     category: z.string().optional(),
     keywords: z.array(z.string()).min(3),
     publishedAt: z.coerce.date(),
+    /**
+     * Preguntas frecuentes (opcional). Se renderizan VISIBLES en la ficha y se
+     * emiten como FAQPage schema: el texto debe coincidir con el DOM (Google
+     * sanciona el FAQPage cuyo contenido no está visible en la página). Formato
+     * pensado para citeabilidad por LLMs: pregunta directa + respuesta concreta.
+     */
+    faq: z
+      .array(z.object({ q: z.string(), a: z.string() }))
+      .min(2)
+      .max(8)
+      .optional(),
   }),
 });
 

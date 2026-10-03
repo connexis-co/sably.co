@@ -1,0 +1,199 @@
+---
+/**
+ * Galería de los temas del banner de promoción. NO se publica: el prefijo `_`
+ * hace que Astro la excluya del build. `scripts/captura-promos.mjs` la copia sin
+ * prefijo mientras dura la captura y la borra al terminar.
+ *
+ * Sirve para revisar de un vistazo cómo se ve cada campaña sin esperar a su
+ * fecha ni forzar el reloj del sistema. Los contadores muestran cifras fijas de
+ * ejemplo; en producción los mueve `formatCountdown()`.
+ */
+import { campaignDePromocion } from '@/lib/promo';
+import { readActivePromos } from '@/plugins/sably-operations/public';
+import { env } from 'cloudflare:workers';
+export const prerender = false;
+const runtime=env as unknown as {SABLY_ENVIRONMENT?:string;SABLY_DB:D1Database};
+if(runtime.SABLY_ENVIRONMENT!=='development') return new Response('Not found',{status:404});
+const CAMPAIGNS = (await readActivePromos(runtime.SABLY_DB)).map(p=>({...campaignDePromocion(p),countries:p.paises,urlKey:p.urlKey}));
+import '@/styles/global.css';
+
+const RELOJ: Record<string, [string, string, string, string]> = {
+  'bf-2026': ['02', '11', '43', '07'],
+  'navidad-2026': ['05', '03', '21', '55'],
+  'buen-fin-mx-2026': ['01', '18', '09', '32'],
+  'amor-amistad-co-2026': ['03', '07', '52', '18'],
+  'regreso-clases-2026': ['06', '14', '30', '44'],
+  'cyber-cl-pe-2026': ['00', '21', '05', '11'],
+  'ano-nuevo-2027': ['09', '02', '17', '38'],
+  'dia-madre-2027': ['04', '06', '48', '02'],
+  'hot-sale-2027': ['02', '15', '33', '27'],
+  'ads-25': ['12', '04', '19', '50'],
+  'ads-50': ['08', '22', '41', '06'],
+};
+const UNIDADES = ['Días', 'Horas', 'Min', 'Seg'] as const;
+const fmt = (d: string|null) => d ? new Date(d).toLocaleDateString('es', { day: 'numeric', month: 'short' }) : 'Sin fecha';
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Temas del banner de promoción · sably</title>
+    <meta name="robots" content="noindex" />
+  </head>
+  <body class="bg-surface-50 font-sans">
+    <div class="mx-auto max-w-5xl px-4 py-10">
+      <h1 class="font-display text-3xl font-bold text-heading">Banner de promoción · variaciones</h1>
+      <p class="mt-2 max-w-3xl text-sm text-muted">
+        {CAMPAIGNS.length} campañas. Campañas activas cargadas desde EmDash Operaciones: cada una trae su propio tema, así que
+        Black Friday no se ve como Navidad. Fuera de estas ventanas el banner no aparece.
+        Un solo tono de fondo por campaña, el color saturado reservado al botón y al porcentaje, y un
+        filete de 2 px arriba.
+      </p>
+
+      {
+        CAMPAIGNS.map((c) => {
+          const t = c.theme!;
+          const reloj = RELOJ[c.id] ?? ['00', '00', '00', '00'];
+          return (
+            <section class="mt-12">
+              <div class="mb-2.5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h2 class="font-display text-lg font-bold text-heading">{c.label}</h2>
+                <code class="rounded bg-surface-200 px-1.5 py-0.5 text-[11px] text-muted">{c.id}</code>
+                <span class="text-xs text-muted">
+                  {fmt(c.startsAt)} → {fmt(c.endsAt)} ·{' '}
+                  {c.countries ? c.countries.join(', ').toUpperCase() : 'todos los países'}
+                  {c.urlKey ? ` · solo con ?promo=${c.urlKey}` : ''}
+                </span>
+              </div>
+
+              {/* Variante barra: la fija arriba de todas las páginas. */}
+              <div class={`w-full ${t.fondo} ${t.texto}`}>
+                <div class={`h-0.5 w-full ${t.filete}`} />
+                <div class="mx-auto flex max-w-5xl flex-col items-center justify-center gap-x-5 gap-y-2 px-4 py-2.5 text-center sm:flex-row sm:py-2 sm:text-left">
+                  <p class="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1">
+                    <span class="text-[10px] font-bold tracking-[0.14em] uppercase opacity-55">
+                      {c.label}
+                    </span>
+                    <span class="text-sm font-semibold sm:text-[15px]">{c.titular ?? c.label}</span>
+                    <span class={`rounded px-1.5 py-0.5 text-[13px] font-extrabold tabular-nums ${t.acento}`}>
+                      −{c.discountPct}%
+                    </span>
+                  </p>
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-[11px] tracking-wide opacity-55">Termina en</span>
+                    <span class="flex items-center gap-1 font-mono text-[13px] font-semibold tabular-nums">
+                      {reloj.map((v) => (
+                        <span class={`min-w-[1.9rem] rounded px-1 py-0.5 text-center ${t.caja}`}>{v}</span>
+                      ))}
+                    </span>
+                  </div>
+                  <span class={`inline-flex items-center gap-1.5 rounded px-2 py-1 text-[12px] ${t.caja}`}>
+                    <span class="opacity-60">Cupón</span>
+                    <span class="font-mono font-bold tracking-[0.08em]">{c.couponCode}</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Variante bloque: la sección ancha de la home. */}
+              <div class={`mt-3 ${t.fondo} ${t.texto}`}>
+                <div class={`h-0.5 w-full ${t.filete}`} />
+                <div class="mx-auto flex max-w-5xl flex-col items-center gap-8 px-4 py-12 text-center lg:flex-row lg:justify-between lg:text-left">
+                  <div class="max-w-xl">
+                    <p class="text-[11px] font-bold tracking-[0.18em] uppercase opacity-55">{c.label}</p>
+                    <h3 class={`mt-2.5 text-2xl font-bold sm:text-[32px] sm:leading-tight ${t.texto}`}>
+                      {c.titular ?? c.label}
+                    </h3>
+                    <p class="mt-3.5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-[15px] lg:justify-start">
+                      <span class={`rounded px-2 py-0.5 font-extrabold tabular-nums ${t.acento}`}>
+                        −{c.discountPct}%
+                      </span>
+                      <span class="opacity-75">en todos los cursos con el cupón</span>
+                      <span class={`rounded px-2 py-0.5 font-mono font-bold tracking-[0.08em] ${t.caja}`}>
+                        {c.couponCode}
+                      </span>
+                    </p>
+                  </div>
+                  <div class="flex flex-col items-center gap-5">
+                    <div class="flex gap-2">
+                      {reloj.map((v, i) => (
+                        <div class={`flex w-[4.25rem] flex-col items-center rounded-lg py-2.5 ${t.caja}`}>
+                          <span class="font-display text-[26px] leading-none font-extrabold tabular-nums">
+                            {v}
+                          </span>
+                          <span class="mt-1.5 text-[10px] tracking-[0.1em] uppercase opacity-50">
+                            {UNIDADES[i]}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                    <span class={`rounded-md px-7 py-3 text-sm font-bold ${t.acento}`}>
+                      Ver cursos con descuento
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          );
+        })
+      }
+
+      <section class="mt-14">
+        <h2 class="font-display text-lg font-bold text-heading">Modo perpetuo</h2>
+        <p class="mt-1 mb-3 max-w-3xl text-xs text-muted">
+          Lo que se ve cuando en <code>/admin/promociones</code> se activa un descuento sin fecha de fin.
+          Mismo tema, sin cuenta atrás: el descuento es real y se aplica igual, pero un reloj que se
+          reinicia solo es lo único que el visitante puede pillar — y cuando lo pilla, deja de creerse
+          también las campañas que sí terminan.
+        </p>
+        <div class="bg-[#14061c] text-[#f0e6f5]">
+          <div class="h-0.5 w-full bg-accent"></div>
+          <div class="mx-auto flex max-w-5xl flex-col items-center justify-center gap-x-5 gap-y-2 px-4 py-2.5 text-center sm:flex-row sm:py-2 sm:text-left">
+            <p class="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1">
+              <span class="text-[10px] font-bold tracking-[0.14em] uppercase opacity-55">
+                Oferta especial
+              </span>
+              <span class="text-sm font-semibold sm:text-[15px]">Mitad de precio en todo el catálogo</span>
+              <span class="rounded bg-accent px-1.5 py-0.5 text-[13px] font-extrabold tabular-nums text-white">
+                −50%
+              </span>
+            </p>
+            <span
+              class="inline-flex items-center gap-1.5 rounded bg-[#220d2e] px-2 py-1 text-[12px] ring-1 ring-[#3d1a4f]"
+            >
+              <span class="opacity-60">Cupón</span>
+              <span class="font-mono font-bold tracking-[0.08em]">031016</span>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-14">
+        <h2 class="font-display text-lg font-bold text-heading">Aviso de prueba social</h2>
+        <p class="mt-1 mb-3 max-w-3xl text-xs text-muted">
+          Abajo a la izquierda en escritorio, abajo centrado en móvil. Rota por pares (curso, país) que
+          constan en el histórico de ventas de Hotmart. Sin nombre y sin hora porque la API no da ni lo
+          uno ni lo otro.
+        </p>
+        <div class="w-[20rem]">
+          <div
+            class="flex items-start gap-3 rounded-xl border border-surface-200 bg-white p-3 shadow-lg ring-1 ring-black/5"
+          >
+            <span
+              class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-success/10 text-base"
+              >🎓</span
+            >
+            <div class="min-w-0 flex-1">
+              <p class="text-[13px] leading-snug font-bold text-heading">
+                Alguien de Colombia se inscribió
+              </p>
+              <p class="mt-0.5 text-[11px] leading-snug text-muted">Curso de Barbería desde Cero</p>
+              <p class="mt-1 text-[10px] text-muted/70">Datos reales de ventas verificadas</p>
+            </div>
+            <span class="-mt-1 -mr-1 shrink-0 rounded-full p-1.5 text-muted">✕</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

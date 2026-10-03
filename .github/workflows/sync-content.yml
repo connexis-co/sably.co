@@ -1,0 +1,48 @@
+name: Copy published production content to development
+on:
+  workflow_dispatch:
+    inputs:
+      execute:
+        description: Replace development editorial edits after creating the backup (false previews only)
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: sably-emdash-development-deploy
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    environment: development
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: develop
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Test editorial transfer contracts
+        run: node --import tsx --test scripts/sync-content.test.mjs scripts/sync-media.test.mjs scripts/sync-catalog.test.mjs
+      - name: Export production and back up development before copying
+        env:
+          EXECUTE_SYNC: ${{ inputs.execute }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ "$EXECUTE_SYNC" = true ]; then
+            node --import tsx scripts/sync-content.mjs --execute
+          else
+            node --import tsx scripts/sync-content.mjs --dry-run
+          fi
+      - name: Retain editorial backup and integrity report even after failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: editorial-sync-${{ github.run_id }}
+          path: .emdash/sync/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 30

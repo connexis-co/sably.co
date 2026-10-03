@@ -1,5 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
+import { publicStats } from '@/lib/public-stats';
+import { getContentRepository } from '@/lib/emdash-content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
@@ -7,10 +8,11 @@ import TestimonialCard from '@/components/TestimonialCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import PromoBanner from '@/components/PromoBanner.astro';
 import type { Country, City } from '@/lib/countries';
-import { localPrice } from '@/lib/countries';
-import { INTERNAL_CATEGORIES } from '@/lib/categories';
-import { breadcrumbSchema, faqSchema, courseListSchema } from '@/lib/seo';
+
+import { breadcrumbSchema, faqSchema, courseListSchema, cursoParaListado } from '@/lib/seo';
 import { SITE } from '@/lib/site';
+import { readOperationalRatings } from '@/plugins/sably-operations/public';
+import { env } from 'cloudflare:workers';
 
 /** Landing de ciudad — extraída a componente para la ruta unificada [item]. */
 interface Props {
@@ -19,20 +21,25 @@ interface Props {
 }
 
 const { country, city } = Astro.props;
+const stats = await publicStats(Astro.locals);
+const cms = await getContentRepository();
+const ratings = await readOperationalRatings((env as unknown as {SABLY_DB:D1Database}).SABLY_DB, Astro.locals).catch(() => ({} as Awaited<ReturnType<typeof readOperationalRatings>>));
+const valoracionReal = (slug:string) => ratings[slug] ?? null;
+const INTERNAL_CATEGORIES = (await cms.getCategories()).filter(c => !c.externalUrl);
 const base = `/${country.code}`;
 
-const courses = await getCollection('courses');
-const popular = [...courses].sort((a, b) => b.data.students - a.data.students).slice(0, 8);
+const courses = await cms.getCourses();
+/* Popularidad real: total de valoraciones públicas en Hotmart. El campo
+   `students` del frontmatter era inventado y ya no ordena nada. */
+const popularidad = (slug: string): number => valoracionReal(slug)?.total ?? 0;
+const popular = [...courses].sort((a, b) => popularidad(b.id) - popularidad(a.id)).slice(0, 8);
 
-const allTestimonials = await getCollection('testimonials');
+const allTestimonials = await cms.getTestimonials();
 const cityTestimonials = allTestimonials.filter(
   (t) => t.data.countryCode === country.code && t.data.citySlug === city.slug,
 );
 const countryTestimonials = allTestimonials.filter((t) => t.data.countryCode === country.code);
 const testimonials = (cityTestimonials.length >= 2 ? cityTestimonials : countryTestimonials).slice(0, 3);
-
-/* Social proof local determinístico (hasta tener datos reales de Hotmart en Fase 2). */
-const cityStudents = 150 + ((city.slug.length * 37 + country.code.charCodeAt(0)) % 280);
 
 const faqs = [
   {
@@ -57,24 +64,17 @@ const title = `Cursos Online en ${city.name}, ${country.name} | Certificado Incl
 const description = `Aprende panadería, costura, electricidad, barbería y más desde ${city.name}. Cursos online con certificado y precios en ${country.currency}.`;
 
 const schemas = [
+  /* Sin el paso «{país}»: apuntaba a la misma /xx/ que «Inicio» y el
+     BreadcrumbList repetía una URL. La miga visible no cambia. */
   breadcrumbSchema([
     { name: 'Inicio', url: `${SITE.url}${base}/` },
-    { name: country.name, url: `${SITE.url}${base}/` },
     { name: city.name, url: `${SITE.url}${base}/${city.slug}/` },
   ]),
   faqSchema(faqs),
   // Los mismos cursos que se listan arriba, en el formato de listado que Google
-  // puede convertir en carrusel.
-  courseListSchema(
-    popular.map((c) => ({
-      name: c.data.title,
-      url: `${SITE.url}${base}/${city.slug}/${c.id}/`,
-      description: c.data.shortDescription,
-      price: localPrice(c.data.priceUSD, country),
-      priceCurrency: country.currency,
-      workloadHours: c.data.durationHours,
-    })),
-  ),
+  // puede convertir en carrusel. Con la URL canónica del país de cada ficha y
+  // el precio real de la tarjeta.
+  courseListSchema(await Promise.all(popular.map((c) => cursoParaListado(c, country)))),
 ];
 ---
 
@@ -87,6 +87,8 @@ const schemas = [
   {schemas}
   pageType="city"
   whatsappContext={`Cursos en ${city.name}`}
+  canonical={`${SITE.url}${base}/`}
+  noindexGoogle
 >
   <section class="relative overflow-hidden bg-primary py-16">
     <div class="absolute -top-20 -right-20 size-80 rounded-full bg-accent/20 blur-3xl" aria-hidden="true"></div>
@@ -104,9 +106,9 @@ const schemas = [
         sin salir de tu ciudad.
       </p>
       <div class="mt-6 flex flex-wrap gap-6 text-sm text-white/80">
-        <p><strong class="text-white">{cityStudents}</strong> estudiantes en {city.name}</p>
         <p><strong class="text-white">{popular.length}</strong> cursos populares</p>
-        <p>⭐ <strong class="text-white">{SITE.stats.rating}</strong> calificación promedio</p>
+        {stats.rating && <p>⭐ <strong class="text-white">{stats.rating}</strong> de media en valoraciones de Hotmart</p>}
+        <p>📜 Certificado digital incluido</p>
       </div>
     </div>
   </section>
@@ -166,7 +168,7 @@ const schemas = [
     )
   }
 
-  <PromoBanner {country} />
+  <PromoBanner variante="bloque" />
 
   <section class="container-site py-14">
     <h2 class="text-center text-2xl font-bold">Preguntas frecuentes — {city.name}</h2>

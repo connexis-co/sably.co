@@ -1,0 +1,11 @@
+---
+import { load } from '@/lib/page-loaders/creator-profile';
+import { CreatorProfileView } from '@/themes';
+import { loadCustomPage } from '@/lib/page-loaders/custom-page';
+import { PageTemplate } from '@/themes';
+export const prerender = false;
+const customPage = await loadCustomPage(Astro);
+const model = customPage ? null : await load(Astro);
+if (model instanceof Response) { if(model.status===404)model.headers.set('X-Robots-Tag','noindex, nofollow'); return model; }
+---
+{customPage ? <PageTemplate {...customPage} /> : model && <CreatorProfileView {...model} />}

@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-soldadura",
-  "country": "mx",
-  "angulo": "hobby",
-  "meta_title": "Curso de Soldadura MIG, TIG y Arco Eléctrico | México",
-  "meta_description": "Aprende soldadura MIG, TIG y arco eléctrico para tus proyectos en casa. Domina el taller desde cero. Inscríbete hoy con pago en OXXO o tarjeta.",
-  "h1": "Crea tus propios proyectos de metal con este curso de soldadura MIG, TIG y arco eléctrico",
-  "subtitulo": "Pasa de la teoría a la práctica en tu propio taller y dale forma a tus ideas de diseño, herrería y reparación.",
-  "descripcion": "Tener la capacidad de cortar, unirlos y dar forma a estructuras metálicas con tus propias manos cambia por completo la manera en que abordas las mejoras de tu hogar y tus pasatiempos. Con este **curso de soldadura mig, tig y arco eléctrico**, transformarás ese espacio libre en tu garaje o patio en un taller creativo capaz de materializar desde muebles de estilo industrial hasta modificaciones mecánicas o reparaciones domésticas sin depender de terceros.\n\n## Del plano al taller casero: cómo empezar sin complicaciones\n\nInstalar un área de trabajo segura en casa no requiere una inversión astronómica ni un espacio industrial. Para iniciarte en la herrería y la fabricación metálica, basta con entender cómo gestionar la ventilación, adaptar la toma de corriente doméstica de 110V o 220V y contar con el equipo de protección básico: careta fotosensible, guantes de carnaza y peto de cuero.\n\nEl secreto de un trabajo impecable no reside únicamente en la máquina, sino en la preparación del material. Aprenderás a biselar bordes, limpiar el óxido con la pulidora y fijar las piezas con prensas de esquina antes de tirar la primera chispa. Esta fase previa representa el 70% del éxito en cualquier unión soldada.\n\n## Tres procesos de soldadura para distintas aplicaciones creativas\n\nCada técnica de soldar responde a un tipo de proyecto y a distintos calibres de metal:\n\n* **Arco Eléctrico (SMAW):** Es el método tradicional y más resistente para trabajos exteriores. Utiliza electrodos revestidos que soportan corrientes de aire y superficies con leve suciedad. Es la técnica ideal para fabricar portones, protecciones para ventanas, estructuras pesadas o reparar maquinaria de jardín.\n* **Soldadura MIG (GMAW):** Destaca por su rapidez y facilidad de aprendizaje. Al utilizar un carrete de alambre continuo y gas de protección, permite realizar cordones limpios y continuos en láminas delgadas, bases de mesas y estanterías sin necesidad de retirar escoria tras cada pase.\n* **Soldadura TIG (GTAW):** Es el arte del detalle. Mediante un electrodo de tungsteno y aportación manual, se obtiene un control absoluto sobre el baño de fusión. Es la herramienta definitiva si buscas acabados estéticos de alta precisión, soldar acero inoxidable o crear piezas decorativas donde la cordonería queda visible.\n\n## Corrección de errores típicos al soldar en casa\n\nCuando se empieza de forma autóctona, es común enfrentarse a problemas como la perforación de perfiles delgados, la falta de penetración o los poros en la cordonería. Entender el equilibrio entre el amperaje seleccionado, la velocidad de avance y el ángulo de la antorcha o portaelectrodo es lo que diferencia un pegado frágil de una verdadera fusión estructural.\n\nA través de ejercicios orientados a resolver estas fallas, dominarás la lectura del metal líquido mientras trabajas, sabiendo exactamente cuándo ajustar la máquina antes de arruinar una pieza de trabajo.\n\n## Proyectos prácticos para soltar la mano\n\nLa mejor forma de fijar el aprendizaje es construyendo objetos funcionales. Comenzarás diseñando estructuras sencillas como bancos de trabajo, soportes para herramientas y portamaceteros, para luego avanzar hacia proyectos de mayor complejidad como portones abatibles o estructuras tubulares. Al finalizar, tendrás la autonomía técnica para interpretar planos, calcular el material necesario y ejecutar soldaduras limpias y seguras en cualquier proyecto personal que decidas emprender.",
-  "faqs": [
-    {
-      "q": "¿Necesito experiencia previa para tomar este curso?",
-      "a": "No, la enseñanza parte desde los conceptos básicos de seguridad y preparación de materiales, por lo que no requieres conocimientos previos en herrería o manejo de herramientas."
-    },
-    {
-      "q": "¿Qué tipo de equipo o herramientas necesito para practicar en casa?",
-      "a": "Para iniciar necesitas una inversora multiproceso o básica de arco, careta de soldar fotosensible, guantes de carnaza, esmeriladora angular y elementos de medición como escuadra y cinta."
-    },
-    {
-      "q": "¿Cómo puedo pagar el curso desde México?",
-      "a": "Puedes pagar en moneda local mediante depósito en efectivo en tiendas OXXO, transferencia bancaria por SPEI o con tarjetas de débito y crédito Visa, Mastercard y American Express."
-    },
-    {
-      "q": "¿El certificado tiene alguna validez o reconocimiento en México?",
-      "a": "El certificado digital acredita la finalización satisfactoria de las 18 horas de capacitación y sirve como constancia de habilidades técnicas para respaldar tu currículum o tu taller independiente."
-    },
-    {
-      "q": "¿Puedo realizar las prácticas conectando las máquinas a tomas de luz de 110V?",
-      "a": "Sí, la mayoría de los equipos inversores modernos funcionan con corriente doméstica de 110V/120V, lo cual te permite trabajar en el garaje o patio de tu casa sin instalaciones especiales."
-    },
-    {
-      "q": "¿Cuánto tiempo tengo para ver las clases y lecciones?",
-      "a": "Tienes acceso ilimitado y de por vida a todo el contenido del curso, lo que te permite avanzar a tu propio ritmo y consultar las lecciones cada vez que inicies un nuevo proyecto."
-    },
-    {
-      "q": "¿Cuál es la diferencia principal entre soldar con MIG, TIG y Arco?",
-      "a": "El Arco es resistente para exteriores y perfiles gruesos; MIG es rápido e ideal para láminas y muebles; mientras que TIG ofrece la mayor precisión estética para detalles y acero inoxidable."
-    },
-    {
-      "q": "¿El cobro en la plataforma se realiza en pesos mexicanos?",
-      "a": "Al seleccionar tu método de pago local como OXXO, SPEI o tu tarjeta mexicana, el sistema realiza la conversión automática a pesos mexicanos según el tipo de cambio vigente."
-    }
-  ],
-  "beneficios": [
-    "Aprende a ajustar el voltaje y el amperaje según el grosor del metal.",
-    "Domina la técnica para soldar láminas delgadas sin perforarlas.",
-    "Practica el encendido de arco de manera estable y continua.",
-    "Obtén piezas limpias con el uso correcto de gas y aportes en TIG.",
-    "Construye muebles y estructuras metálicas para tu casa con acabados profesionales.",
-    "Entiende cómo prevenir porosidades y grietas en tus uniones."
-  ],
-  "para_quien": [
-    "Personas que disfrutan fabricar sus propios proyectos de metal en el garaje.",
-    "Aficionados a la restauración de piezas automotrices o muebles antiguos.",
-    "Entusiastas del bricolaje que buscan herramientas para mejorar su taller personal.",
-    "Cualquier persona interesada en aprender el oficio de la soldadura desde cero."
-  ],
-  "requisitos": [
-    "Disponer de una máquina soldadora básica para practicar.",
-    "Contar con equipo de protección personal como careta, guantes de carnaza y mandil.",
-    "Acceso a conexión eléctrica adecuada para tus equipos de soldar."
-  ],
-  "certificado": "Al finalizar el curso de soldadura mig, tig y arco eléctrico recibirás un documento digital que acredita tu formación técnica en los tres procesos principales de unión metálica.",
-  "garantia": "Tienes 7 días de garantía incondicional a través de Hotmart. Si el contenido no cumple con lo que esperas, solicita la devolución de tu dinero sin preguntas.",
-  "_meta": {
-    "usd": 0.0126,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-soldadura",
+ "country": "mx",
+ "angulo": "hobby",
+ "meta_title": "Curso de Soldadura MIG, TIG y Arco Eléctrico | México",
+ "meta_description": "Aprende soldadura MIG, TIG y arco eléctrico para tus proyectos en casa. Domina el taller desde cero. Inscríbete hoy con pago en OXXO o tarjeta.",
+ "h1": "Crea tus propios proyectos de metal con este curso de soldadura MIG, TIG y arco eléctrico",
+ "subtitulo": "Pasa de la teoría a la práctica en tu propio taller y dale forma a tus ideas de diseño, herrería y reparación.",
+ "descripcion": "Tener la capacidad de cortar, unirlos y dar forma a estructuras metálicas con tus propias manos cambia por completo la manera en que abordas las mejoras de tu hogar y tus pasatiempos. Con este **curso de soldadura mig, tig y arco eléctrico**, transformarás ese espacio libre en tu garaje o patio en un taller creativo capaz de materializar desde muebles de estilo industrial hasta modificaciones mecánicas o reparaciones domésticas sin depender de terceros.\n\n## Del plano al taller casero: cómo empezar sin complicaciones\n\nInstalar un área de trabajo segura en casa no requiere una inversión astronómica ni un espacio industrial. Para iniciarte en la herrería y la fabricación metálica, basta con entender cómo gestionar la ventilación, adaptar la toma de corriente doméstica de 110V o 220V y contar con el equipo de protección básico: careta fotosensible, guantes de carnaza y peto de cuero.\n\nEl secreto de un trabajo impecable no reside únicamente en la máquina, sino en la preparación del material. Aprenderás a biselar bordes, limpiar el óxido con la pulidora y fijar las piezas con prensas de esquina antes de tirar la primera chispa. Esta fase previa representa el 70% del éxito en cualquier unión soldada.\n\n## Tres procesos de soldadura para distintas aplicaciones creativas\n\nCada técnica de soldar responde a un tipo de proyecto y a distintos calibres de metal:\n\n* **Arco Eléctrico (SMAW):** Es el método tradicional y más resistente para trabajos exteriores. Utiliza electrodos revestidos que soportan corrientes de aire y superficies con leve suciedad. Es la técnica ideal para fabricar portones, protecciones para ventanas, estructuras pesadas o reparar maquinaria de jardín.\n* **Soldadura MIG (GMAW):** Destaca por su rapidez y facilidad de aprendizaje. Al utilizar un carrete de alambre continuo y gas de protección, permite realizar cordones limpios y continuos en láminas delgadas, bases de mesas y estanterías sin necesidad de retirar escoria tras cada pase.\n* **Soldadura TIG (GTAW):** Es el arte del detalle. Mediante un electrodo de tungsteno y aportación manual, se obtiene un control absoluto sobre el baño de fusión. Es la herramienta definitiva si buscas acabados estéticos de alta precisión, soldar acero inoxidable o crear piezas decorativas donde la cordonería queda visible.\n\n## Corrección de errores típicos al soldar en casa\n\nCuando se empieza de forma autóctona, es común enfrentarse a problemas como la perforación de perfiles delgados, la falta de penetración o los poros en la cordonería. Entender el equilibrio entre el amperaje seleccionado, la velocidad de avance y el ángulo de la antorcha o portaelectrodo es lo que diferencia un pegado frágil de una verdadera fusión estructural.\n\nA través de ejercicios orientados a resolver estas fallas, dominarás la lectura del metal líquido mientras trabajas, sabiendo exactamente cuándo ajustar la máquina antes de arruinar una pieza de trabajo.\n\n## Proyectos prácticos para soltar la mano\n\nLa mejor forma de fijar el aprendizaje es construyendo objetos funcionales. Comenzarás diseñando estructuras sencillas como bancos de trabajo, soportes para herramientas y portamaceteros, para luego avanzar hacia proyectos de mayor complejidad como portones abatibles o estructuras tubulares. Al finalizar, tendrás la autonomía técnica para interpretar planos, calcular el material necesario y ejecutar soldaduras limpias y seguras en cualquier proyecto personal que decidas emprender.",
+ "faqs": [
+ {
+ "q": "¿Necesito experiencia previa para tomar este curso?",
+ "a": "No, la enseñanza parte desde los conceptos básicos de seguridad y preparación de materiales, por lo que no requieres conocimientos previos en herrería o manejo de herramientas."
+ },
+ {
+ "q": "¿Qué tipo de equipo o herramientas necesito para practicar en casa?",
+ "a": "Para iniciar necesitas una inversora multiproceso o básica de arco, careta de soldar fotosensible, guantes de carnaza, esmeriladora angular y elementos de medición como escuadra y cinta."
+ },
+ {
+ "q": "¿Cómo puedo pagar el curso desde México?",
+ "a": "Puedes pagar en moneda local mediante depósito en efectivo en tiendas OXXO, transferencia bancaria por SPEI o con tarjetas de débito y crédito Visa, Mastercard y American Express."
+ },
+ {
+ "q": "¿El certificado tiene alguna validez o reconocimiento en México?",
+ "a": "El certificado digital acredita la finalización satisfactoria de las 18 horas de capacitación y sirve como constancia de habilidades técnicas para respaldar tu currículum o tu taller independiente."
+ },
+ {
+ "q": "¿Puedo realizar las prácticas conectando las máquinas a tomas de luz de 110V?",
+ "a": "Sí, la mayoría de los equipos inversores modernos funcionan con corriente doméstica de 110V/120V, lo cual te permite trabajar en el garaje o patio de tu casa sin instalaciones especiales."
+ },
+ {
+ "q": "¿Cuánto tiempo tengo para ver las clases y lecciones?",
+ "a": "Tienes acceso ilimitado y de por vida a todo el contenido del curso, lo que te permite avanzar a tu propio ritmo y consultar las lecciones cada vez que inicies un nuevo proyecto."
+ },
+ {
+ "q": "¿Cuál es la diferencia principal entre soldar con MIG, TIG y Arco?",
+ "a": "El Arco es resistente para exteriores y perfiles gruesos; MIG es rápido e ideal para láminas y muebles; mientras que TIG ofrece la mayor precisión estética para detalles y acero inoxidable."
+ },
+ {
+ "q": "¿El cobro en la plataforma se realiza en pesos mexicanos?",
+ "a": "Al seleccionar tu método de pago local como OXXO, SPEI o tu tarjeta mexicana, el sistema realiza la conversión automática a pesos mexicanos según el tipo de cambio vigente."
+ }
+ ],
+ "beneficios": [
+ "Aprende a ajustar el voltaje y el amperaje según el grosor del metal.",
+ "Domina la técnica para soldar láminas delgadas sin perforarlas.",
+ "Practica el encendido de arco de manera estable y continua.",
+ "Obtén piezas limpias con el uso correcto de gas y aportes en TIG.",
+ "Construye muebles y estructuras metálicas para tu casa con acabados profesionales.",
+ "Entiende cómo prevenir porosidades y grietas en tus uniones."
+ ],
+ "para_quien": [
+ "Personas que disfrutan fabricar sus propios proyectos de metal en el garaje.",
+ "Aficionados a la restauración de piezas automotrices o muebles antiguos.",
+ "Entusiastas del bricolaje que buscan herramientas para mejorar su taller personal.",
+ "Cualquier persona interesada en aprender el oficio de la soldadura desde cero."
+ ],
+ "requisitos": [
+ "Disponer de una máquina soldadora básica para practicar.",
+ "Contar con equipo de protección personal como careta, guantes de carnaza y mandil.",
+ "Acceso a conexión eléctrica adecuada para tus equipos de soldar."
+ ],
+ "certificado": "Al finalizar el curso de soldadura mig, tig y arco eléctrico recibirás un documento digital que acredita tu formación técnica en los tres procesos principales de unión metálica.",
+ "garantia": "Tienes 7 días de garantía incondicional a través de Hotmart. Si el contenido no cumple con lo que esperas, solicita la devolución de tu dinero sin preguntas.",
+ "_meta": {
+ "usd": 0.0126,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

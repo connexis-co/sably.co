@@ -1,8 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-import { CATEGORIES, INTERNAL_CATEGORIES, categoryCover } from '@/lib/categories';
+import { getMenu } from 'emdash';
+import { getCourses, getCategories } from '@/lib/emdash-content';
+import { marketMenuUrl } from '@/lib/sably-theme';
+import { cmsImageUrl } from '@/lib/cms-media';
 import type { Country, City } from '@/lib/countries';
-import { formatPrice } from '@/lib/countries';
 import Logo from './Logo.astro';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 
@@ -14,10 +15,26 @@ interface Props {
 }
 const { country, city, pathAfterCountry } = Astro.props;
 
-const allCourses = await getCollection('courses');
+const [allCourses, CATEGORIES, menu] = await Promise.all([getCourses(), getCategories(), getMenu('primary', {locale:'es'})]);
+// Both navigation surfaces read the same native EmDash menu, in its saved order.
+const primaryLinks = (menu?.items ?? []).flatMap(item => {
+  const href = marketMenuUrl(item.url, country.code);
+  return href ? [{ label:item.label, href, target:item.target }] : [];
+});
+const INTERNAL_CATEGORIES = CATEGORIES.filter(c => !c.externalUrl);
+/* El destacado de cada categoría sale en TODAS las páginas del sitio: nunca un
+   curso sin checkout (hotmartUrl PENDIENTE), que es una página «Próximamente»
+   sin nada que comprar. Si una categoría solo tuviera cursos PENDIENTE, sale el
+   aviso «Muy pronto».
+   Sin precio en el destacado: el de catálogo (priceUSD) no coincide con el
+   precio real de la ficha ni con su Product.offers, y el menú sale en la propia
+   ficha del curso, así que la página se contradecía a sí misma. El precio se ve
+   en la ficha, que es donde se compra. */
 const featuredByCategory = new Map(
   INTERNAL_CATEGORIES.map((cat) => {
-    const inCat = allCourses.filter((c) => c.data.category === cat.slug);
+    const inCat = allCourses.filter(
+      (c) => c.data.category === cat.slug && !/PENDIENTE/i.test(c.data.hotmartUrl),
+    );
     const pick = inCat.find((c) => c.data.featured) ?? inCat[0];
     return [cat.slug, pick] as const;
   }),
@@ -89,6 +106,7 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
             {
               INTERNAL_CATEGORIES.map((cat, i) => {
                 const featured = featuredByCategory.get(cat.slug);
+                const categoryImage = cmsImageUrl(cat.cardImage) ?? cmsImageUrl(cat.coverImage);
                 return (
                   <div
                     data-mega-content={cat.slug}
@@ -124,19 +142,16 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
                               class="mt-3 h-24 overflow-hidden rounded-md"
                               style={`background-image: linear-gradient(135deg, ${cat.gradient[0]}, ${cat.gradient[1]})`}
                             >
-                              <img
-                                src={categoryCover(cat.slug, 'card')}
+                              {categoryImage && <img
+                                src={categoryImage}
                                 alt=""
                                 width="480"
                                 height="320"
                                 loading="lazy"
                                 class="h-full w-full object-cover"
-                              />
+                              />}
                             </div>
                             <p class="mt-3 line-clamp-2 text-sm font-bold text-primary">{featured.data.title}</p>
-                            <p class="mt-1 text-sm font-semibold text-accent">
-                              {formatPrice(featured.data.priceUSD, country)}
-                            </p>
                           </div>
                           <a
                             href={`${base}/${featured.id}/`}
@@ -157,11 +172,7 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
         </div>
       </div>
 
-      <a href={`${base}/cursos/`} class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">Cursos</a>
-      <a href="/homologaciones/" class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">Homologaciones</a>
-      <a href="/blog/" class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">Blog</a>
-      <a href="/nosotros/" class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">Nosotros</a>
-      <a href="/contacto/" class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">Contacto</a>
+      {primaryLinks.map(item => <a href={item.href} target={item.target} rel={item.target === '_blank' ? 'noopener' : undefined} class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">{item.label}</a>)}
     </nav>
 
     <div class="flex items-center gap-2">
@@ -254,21 +265,7 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
             Programas
             <span class="text-muted" aria-hidden="true">›</span>
           </button>
-          <a href={`${base}/cursos/`} class="flex items-center border-b border-surface-100 py-4 text-[15px] font-semibold text-heading transition-colors duration-150 active:bg-surface-100">
-            Todos los cursos
-          </a>
-          <a href="/homologaciones/" class="flex items-center border-b border-surface-100 py-4 text-[15px] font-semibold text-heading transition-colors duration-150 active:bg-surface-100">
-            Homologaciones
-          </a>
-          <a href="/blog/" class="flex items-center border-b border-surface-100 py-4 text-[15px] font-semibold text-heading transition-colors duration-150 active:bg-surface-100">
-            Blog
-          </a>
-          <a href="/nosotros/" class="flex items-center border-b border-surface-100 py-4 text-[15px] font-semibold text-heading transition-colors duration-150 active:bg-surface-100">
-            Sobre nosotros
-          </a>
-          <a href="/contacto/" class="flex items-center border-b border-surface-100 py-4 text-[15px] font-semibold text-heading transition-colors duration-150 active:bg-surface-100">
-            Contacto
-          </a>
+          {primaryLinks.map(item => <a href={item.href} target={item.target} rel={item.target === '_blank' ? 'noopener' : undefined} class="flex items-center border-b border-surface-100 py-4 text-[15px] font-semibold text-heading transition-colors duration-150 active:bg-surface-100">{item.label}</a>)}
         </nav>
         <a href={`${base}/cursos/`} class="mt-6 block rounded-md bg-accent px-4 py-3.5 text-center text-sm font-bold text-white">
           Ver todos los cursos

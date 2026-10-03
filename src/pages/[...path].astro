@@ -1,0 +1,8 @@
+---
+import { loadCustomPage, pageNotFound } from '@/lib/page-loaders/custom-page';
+import { PageTemplate } from '@/themes';
+export const prerender=false;
+const model=await loadCustomPage(Astro);
+if(!model)return pageNotFound();
+---
+<PageTemplate {...model} />

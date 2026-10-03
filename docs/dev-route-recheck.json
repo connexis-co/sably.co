@@ -1,0 +1,529 @@
+{
+  "checkedAt": "2026-10-03T03:37:10.265Z",
+  "origin": "https://dev.sably.co",
+  "baselineFinishedAt": "2026-10-03T03:22:02.493Z",
+  "concurrency": 4,
+  "checked": 18,
+  "passed": 18,
+  "results": [
+    {
+      "path": "/ar/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/ar/",
+      "titleCount": 1,
+      "jsonLdCount": 3,
+      "schemaTypes": [
+        "WebSite",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [],
+      "imageCount": 21
+    },
+    {
+      "path": "/blog/como-emprender-con-un-oficio-en-2026/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/blog/como-emprender-con-un-oficio-en-2026/",
+      "titleCount": 1,
+      "jsonLdCount": 3,
+      "schemaTypes": [
+        "Article",
+        "WebPage",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "BreadcrumbList",
+        "ListItem"
+      ],
+      "articleDetails": [
+        {
+          "type": "Article",
+          "authorId": "https://dev.sably.co/#organization",
+          "publisherId": "https://dev.sably.co/#organization",
+          "hasPublishedTime": true,
+          "hasModifiedTime": true,
+          "hasLanguage": true,
+          "hasWordCount": true,
+          "hasReadingTime": true,
+          "hasKeywords": true,
+          "hasBlogReference": true
+        }
+      ],
+      "imageCount": 16
+    },
+    {
+      "path": "/blog/como-hacer-sushi-en-casa-paso-a-paso/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/blog/como-hacer-sushi-en-casa-paso-a-paso/",
+      "titleCount": 1,
+      "jsonLdCount": 4,
+      "schemaTypes": [
+        "Article",
+        "WebPage",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "BreadcrumbList",
+        "ListItem",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [
+        {
+          "type": "Article",
+          "authorId": "https://dev.sably.co/#organization",
+          "publisherId": "https://dev.sably.co/#organization",
+          "hasPublishedTime": true,
+          "hasModifiedTime": true,
+          "hasLanguage": true,
+          "hasWordCount": true,
+          "hasReadingTime": true,
+          "hasKeywords": true,
+          "hasBlogReference": true
+        }
+      ],
+      "imageCount": 16
+    },
+    {
+      "path": "/blog/como-hacer-un-amigurumi-paso-a-paso/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/blog/como-hacer-un-amigurumi-paso-a-paso/",
+      "titleCount": 1,
+      "jsonLdCount": 4,
+      "schemaTypes": [
+        "Article",
+        "WebPage",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "BreadcrumbList",
+        "ListItem",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [
+        {
+          "type": "Article",
+          "authorId": "https://dev.sably.co/#organization",
+          "publisherId": "https://dev.sably.co/#organization",
+          "hasPublishedTime": true,
+          "hasModifiedTime": true,
+          "hasLanguage": true,
+          "hasWordCount": true,
+          "hasReadingTime": true,
+          "hasKeywords": true,
+          "hasBlogReference": true
+        }
+      ],
+      "imageCount": 16
+    },
+    {
+      "path": "/blog/cuanto-cuesta-aprender-un-oficio-online/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/blog/cuanto-cuesta-aprender-un-oficio-online/",
+      "titleCount": 1,
+      "jsonLdCount": 3,
+      "schemaTypes": [
+        "Article",
+        "WebPage",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "BreadcrumbList",
+        "ListItem"
+      ],
+      "articleDetails": [
+        {
+          "type": "Article",
+          "authorId": "https://dev.sably.co/#organization",
+          "publisherId": "https://dev.sably.co/#organization",
+          "hasPublishedTime": true,
+          "hasModifiedTime": true,
+          "hasLanguage": true,
+          "hasWordCount": true,
+          "hasReadingTime": true,
+          "hasKeywords": true,
+          "hasBlogReference": true
+        }
+      ],
+      "imageCount": 16
+    },
+    {
+      "path": "/blog/mejores-oficios-para-aprender-online/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/blog/mejores-oficios-para-aprender-online/",
+      "titleCount": 1,
+      "jsonLdCount": 3,
+      "schemaTypes": [
+        "Article",
+        "WebPage",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "BreadcrumbList",
+        "ListItem"
+      ],
+      "articleDetails": [
+        {
+          "type": "Article",
+          "authorId": "https://dev.sably.co/#organization",
+          "publisherId": "https://dev.sably.co/#organization",
+          "hasPublishedTime": true,
+          "hasModifiedTime": true,
+          "hasLanguage": true,
+          "hasWordCount": true,
+          "hasReadingTime": true,
+          "hasKeywords": true,
+          "hasBlogReference": true
+        }
+      ],
+      "imageCount": 16
+    },
+    {
+      "path": "/blog/que-es-el-drenaje-linfatico-para-que-sirve/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/blog/que-es-el-drenaje-linfatico-para-que-sirve/",
+      "titleCount": 1,
+      "jsonLdCount": 4,
+      "schemaTypes": [
+        "Article",
+        "WebPage",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "BreadcrumbList",
+        "ListItem",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [
+        {
+          "type": "Article",
+          "authorId": "https://dev.sably.co/#organization",
+          "publisherId": "https://dev.sably.co/#organization",
+          "hasPublishedTime": true,
+          "hasModifiedTime": true,
+          "hasLanguage": true,
+          "hasWordCount": true,
+          "hasReadingTime": true,
+          "hasKeywords": true,
+          "hasBlogReference": true
+        }
+      ],
+      "imageCount": 16
+    },
+    {
+      "path": "/blog/que-es-el-microblading-guia-completa/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/blog/que-es-el-microblading-guia-completa/",
+      "titleCount": 1,
+      "jsonLdCount": 4,
+      "schemaTypes": [
+        "Article",
+        "WebPage",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "BreadcrumbList",
+        "ListItem",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [
+        {
+          "type": "Article",
+          "authorId": "https://dev.sably.co/#organization",
+          "publisherId": "https://dev.sably.co/#organization",
+          "hasPublishedTime": true,
+          "hasModifiedTime": true,
+          "hasLanguage": true,
+          "hasWordCount": true,
+          "hasReadingTime": true,
+          "hasKeywords": true,
+          "hasBlogReference": true
+        }
+      ],
+      "imageCount": 16
+    },
+    {
+      "path": "/blog/que-es-la-colorimetria-en-el-cabello/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/blog/que-es-la-colorimetria-en-el-cabello/",
+      "titleCount": 1,
+      "jsonLdCount": 4,
+      "schemaTypes": [
+        "Article",
+        "WebPage",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "BreadcrumbList",
+        "ListItem",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [
+        {
+          "type": "Article",
+          "authorId": "https://dev.sably.co/#organization",
+          "publisherId": "https://dev.sably.co/#organization",
+          "hasPublishedTime": true,
+          "hasModifiedTime": true,
+          "hasLanguage": true,
+          "hasWordCount": true,
+          "hasReadingTime": true,
+          "hasKeywords": true,
+          "hasBlogReference": true
+        }
+      ],
+      "imageCount": 16
+    },
+    {
+      "path": "/blog/que-es-la-energia-solar-como-funciona/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/blog/que-es-la-energia-solar-como-funciona/",
+      "titleCount": 1,
+      "jsonLdCount": 4,
+      "schemaTypes": [
+        "Article",
+        "WebPage",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "BreadcrumbList",
+        "ListItem",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [
+        {
+          "type": "Article",
+          "authorId": "https://dev.sably.co/#organization",
+          "publisherId": "https://dev.sably.co/#organization",
+          "hasPublishedTime": true,
+          "hasModifiedTime": true,
+          "hasLanguage": true,
+          "hasWordCount": true,
+          "hasReadingTime": true,
+          "hasKeywords": true,
+          "hasBlogReference": true
+        }
+      ],
+      "imageCount": 16
+    },
+    {
+      "path": "/blog/tipos-de-soldadura-mig-tig-smaw/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/blog/tipos-de-soldadura-mig-tig-smaw/",
+      "titleCount": 1,
+      "jsonLdCount": 4,
+      "schemaTypes": [
+        "Article",
+        "WebPage",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "BreadcrumbList",
+        "ListItem",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [
+        {
+          "type": "Article",
+          "authorId": "https://dev.sably.co/#organization",
+          "publisherId": "https://dev.sably.co/#organization",
+          "hasPublishedTime": true,
+          "hasModifiedTime": true,
+          "hasLanguage": true,
+          "hasWordCount": true,
+          "hasReadingTime": true,
+          "hasKeywords": true,
+          "hasBlogReference": true
+        }
+      ],
+      "imageCount": 16
+    },
+    {
+      "path": "/cl/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/cl/",
+      "titleCount": 1,
+      "jsonLdCount": 3,
+      "schemaTypes": [
+        "WebSite",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [],
+      "imageCount": 21
+    },
+    {
+      "path": "/co/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/co/",
+      "titleCount": 1,
+      "jsonLdCount": 3,
+      "schemaTypes": [
+        "WebSite",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [],
+      "imageCount": 21
+    },
+    {
+      "path": "/ec/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/ec/",
+      "titleCount": 1,
+      "jsonLdCount": 3,
+      "schemaTypes": [
+        "WebSite",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [],
+      "imageCount": 21
+    },
+    {
+      "path": "/es/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/es/",
+      "titleCount": 1,
+      "jsonLdCount": 3,
+      "schemaTypes": [
+        "WebSite",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [],
+      "imageCount": 21
+    },
+    {
+      "path": "/mx/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/mx/",
+      "titleCount": 1,
+      "jsonLdCount": 3,
+      "schemaTypes": [
+        "WebSite",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [],
+      "imageCount": 21
+    },
+    {
+      "path": "/pe/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/pe/",
+      "titleCount": 1,
+      "jsonLdCount": 3,
+      "schemaTypes": [
+        "WebSite",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [],
+      "imageCount": 21
+    },
+    {
+      "path": "/us/",
+      "status": 200,
+      "issues": [],
+      "canonical": "https://dev.sably.co/us/",
+      "titleCount": 1,
+      "jsonLdCount": 3,
+      "schemaTypes": [
+        "WebSite",
+        "Organization",
+        "EducationalOrganization",
+        "ImageObject",
+        "Country",
+        "FAQPage",
+        "Question",
+        "Answer"
+      ],
+      "articleDetails": [],
+      "imageCount": 21
+    }
+  ],
+  "workerVersion": "df0f1413-607b-429a-8a6f-2f916586d125",
+  "robots": {
+    "path": "/robots.txt",
+    "status": 200,
+    "disallowsRoot": true,
+    "noindex": true,
+    "noStore": true
+  }
+}

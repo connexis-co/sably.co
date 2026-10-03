@@ -1,90 +1,115 @@
-import { getCollection } from 'astro:content';
-import { COUNTRIES } from './countries';
-import { INTERNAL_CATEGORIES } from './categories';
-import { PROGRAMAS } from './homologaciones';
-import { SITE } from './site';
+import { normalizePagePath, pagePathAvailable } from './page-path';
+import { getContentRepository, type CmsMeta } from './emdash-content';
+import { SITE, CDN_URL } from './site';
+import { COURSE_VIDEOS } from './course-videos';
+import { courseCover } from './categories';
 
-/**
- * Sitemaps segmentados (docs/ARQUITECTURA_URLS.md §4.5): un archivo por país
- * para los cursos + pages/categorias/blog. Las prioridades orientan el crawl
- * budget de un dominio joven.
- */
 export interface UrlEntry {
   loc: string;
-  priority: number;
-  changefreq: 'weekly' | 'monthly';
+  /** ISO 8601. Señal de frescura para el re-crawl (IndexNow/Bing/Google). Es
+      la fecha real del último cambio del contenido: ver fechaDe(). */
+  lastmod: string;
+  /** Extensión de vídeo. Solo en las páginas donde el vídeo se reproduce. */
+  video?: VideoEntry;
 }
 
-const u = (path: string, priority: number, changefreq: 'weekly' | 'monthly' = 'weekly'): UrlEntry => ({
-  loc: `${SITE.url}${path}`,
-  priority,
-  changefreq,
-});
-
-export function pagesUrls(): UrlEntry[] {
-  const urls: UrlEntry[] = [];
-  for (const c of COUNTRIES) {
-    urls.push(u(`/${c.code}/`, 1.0));
-    urls.push(u(`/${c.code}/cursos/`, 1.0));
-    for (const city of c.cities) {
-      urls.push(u(`/${c.code}/${city.slug}/`, 0.7, 'monthly'));
-      urls.push(u(`/${c.code}/${city.slug}/cursos/`, 0.7, 'monthly'));
-    }
-  }
-  urls.push(u('/nosotros/', 0.5, 'monthly'));
-  urls.push(u('/homologaciones/', 0.8));
-  for (const p of PROGRAMAS) urls.push(u(`/homologaciones/${p.slug}/`, 0.8));
-  urls.push(u('/legal/terminos/', 0.3, 'monthly'));
-  urls.push(u('/legal/privacidad/', 0.3, 'monthly'));
-  urls.push(u('/sitemap/', 0.3, 'monthly'));
-  return urls;
+export interface VideoEntry {
+  titulo: string;
+  descripcion: string;
+  /** Absoluta. */
+  miniatura: string;
+  /** Absoluta, al MP4. */
+  contenido: string;
+  /** Segundos. Google la rechaza si pasa de 8 horas. */
+  duracion: number;
+  /** ISO 8601. */
+  publicado: string;
 }
 
-export function categoriasUrls(): UrlEntry[] {
-  const urls: UrlEntry[] = [];
-  for (const c of COUNTRIES) {
-    for (const cat of INTERNAL_CATEGORIES) {
-      urls.push(u(`/${c.code}/cursos/${cat.slug}/`, 0.8));
-      for (const city of c.cities) {
-        urls.push(u(`/${c.code}/${city.slug}/cursos/${cat.slug}/`, 0.6, 'monthly'));
-      }
-    }
-  }
-  return urls;
-}
+/** El texto del curso va dentro del XML: sin escapar, un `&` rompe el sitemap. */
+const xml = (s: string): string =>
+  s
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;');
 
-export async function cursosUrls(countryCode: string): Promise<UrlEntry[]> {
-  const courses = await getCollection('courses');
-  const country = COUNTRIES.find((c) => c.code === countryCode);
-  if (!country) return [];
-  const urls: UrlEntry[] = [];
-  for (const course of courses) {
-    urls.push(u(`/${country.code}/${course.id}/`, 0.9));
-    for (const city of country.cities) {
-      urls.push(u(`/${country.code}/${city.slug}/${course.id}/`, 0.5, 'monthly'));
-    }
-  }
-  return urls;
-}
 
-export async function blogUrls(): Promise<UrlEntry[]> {
-  const posts = await getCollection('blog');
-  return [u('/blog/', 0.7), ...posts.map((p) => u(`/blog/${p.id}/`, 0.6, 'monthly'))];
+// Only real CMS timestamps are emitted. No build-time/git fallback can pretend
+// a content update occurred when a Worker is redeployed.
+const latest = (entries: Pick<CmsMeta,'updatedAt'>[]): string => entries.map(e=>e.updatedAt).sort().at(-1) ?? '';
+const u = (path:string,lastmod:string):UrlEntry=>({loc:`${SITE.url}${path}`,lastmod});
+const indexable = (entry:CmsMeta):boolean => !entry.seo?.noIndex;
+export async function sitemapNames():Promise<string[]> {
+ const countries=await (await getContentRepository()).getCountries();
+ return ['pages','categorias','blog',...countries.filter(indexable).map(c=>`cursos-${c.code}`)];
+}
+export async function pagesUrls():Promise<UrlEntry[]> {
+ const cms=await getContentRepository();
+ const [countries,courses,posts,pages,programs,creators]=await Promise.all([cms.getCountries(),cms.getCourses(),cms.getBlogPosts(),cms.getPages(),cms.getPrograms(),cms.getCreators()]);
+ const urls:UrlEntry[]=[];
+ for(const country of countries.filter(indexable)){
+  const lastmod=latest([country,...courses]);
+  urls.push(u(`/${country.code}/`,lastmod),u(`/${country.code}/cursos/`,lastmod));
+  for(const creator of creators.filter(indexable)) urls.push(u(`/${country.code}/creadores/${creator.slug}/`,latest([creator,...courses.filter(c=>creator.cursos.includes(c.id))])));
+ }
+ for(const page of pages.filter(indexable).filter(page=>pagePathAvailable(page.path,countries.map(country=>country.code)))) urls.push(u(normalizePagePath(page.path)!,page.updatedAt));
+ for(const program of programs.filter(indexable)) urls.push(u(`/homologaciones/${program.slug}/`,program.updatedAt));
+ if(programs.length) urls.push(u('/homologaciones/',latest(programs)));
+ urls.push(u('/sitemap/',latest([...countries,...courses,...posts,...pages,...programs])));
+ return urls;
+}
+export async function categoriasUrls():Promise<UrlEntry[]> {
+ const cms=await getContentRepository();const [countries,categories,courses]=await Promise.all([cms.getCountries(),cms.getCategories(),cms.getCourses()]);
+ return categories.filter(c=>!c.externalUrl&&indexable(c)).flatMap(category=>countries.filter(indexable).map(country=>u(`/${country.code}/cursos/${category.slug}/`,latest([category,...courses.filter(c=>c.data.category===category.slug)]))));
+}
+export async function cursosUrls(countryCode:string):Promise<UrlEntry[]> {
+ const cms=await getContentRepository();const [country,courses,locales]=await Promise.all([cms.getCountry(countryCode),cms.getCourses(),cms.getCourseLocales()]);
+ if(!country || !indexable(country)) return [];
+ return courses.filter(c=>indexable(c)&&!/PENDIENTE/i.test(c.data.hotmartUrl)).map(course=>{
+  const variant=locales.find(l=>l.data.course===course.id&&l.data.country===countryCode);
+  const entry=u(`/${countryCode}/${course.id}/`,latest([course,...(variant?[variant]:[])]));
+  const video=COURSE_VIDEOS[course.id];
+  if(video && course.data.videoKey===video.key) entry.video={titulo:`${course.data.title} — presentación en vídeo`,descripcion:course.data.shortDescription,miniatura:new URL(courseCover(course.id,course.data.category),SITE.url).href,contenido:`${CDN_URL}/videos/${video.key}`,duracion:video.segundos,publicado:video.subido};
+  return entry;
+ });
+}
+export async function blogUrls():Promise<UrlEntry[]> {
+ const posts=(await (await getContentRepository()).getBlogPosts()).filter(indexable);
+ return [...(posts.length?[u('/blog/',latest(posts))]:[]),...posts.map(post=>u(`/blog/${post.id}/`,post.updatedAt))];
+}
+// This legacy discovery endpoint remains available, excluded from the index;
+// it mirrors existing Googlebot noindex + country canonical city policy.
+export const SITEMAPS_TEMPORALES=['temporal-ciudades-noindex'];
+export async function ciudadesNoindexUrls():Promise<UrlEntry[]> {
+ const cms=await getContentRepository();const [countries,categories]=await Promise.all([cms.getCountries(),cms.getCategories()]);
+ return countries.flatMap(country=>country.cities.flatMap(city=>{
+  const root=`/${country.code}/${city.slug}`;return [u(`${root}/`,country.updatedAt),u(`${root}/cursos/`,country.updatedAt),...categories.filter(c=>!c.externalUrl).map(c=>u(`${root}/cursos/${c.slug}/`,latest([country,c])))];
+ }));
 }
 
 export function renderUrlset(urls: UrlEntry[]): string {
   const body = urls
-    .map(
-      (x) =>
-        `<url><loc>${x.loc}</loc><changefreq>${x.changefreq}</changefreq><priority>${x.priority.toFixed(1)}</priority></url>`,
-    )
+    .map((x) => {
+      const v = x.video
+        ? `<video:video>` +
+          `<video:thumbnail_loc>${xml(x.video.miniatura)}</video:thumbnail_loc>` +
+          `<video:title>${xml(x.video.titulo)}</video:title>` +
+          `<video:description>${xml(x.video.descripcion)}</video:description>` +
+          `<video:content_loc>${xml(x.video.contenido)}</video:content_loc>` +
+          `<video:duration>${x.video.duracion}</video:duration>` +
+          `<video:publication_date>${x.video.publicado}</video:publication_date>` +
+          `<video:family_friendly>yes</video:family_friendly>` +
+          `<video:requires_subscription>no</video:requires_subscription>` +
+          `</video:video>`
+        : '';
+      return `<url><loc>${xml(x.loc)}</loc>${x.lastmod ? `<lastmod>${xml(x.lastmod)}</lastmod>` : ''}${v}</url>`;
+    })
     .join('');
-  return `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${body}</urlset>`;
+  return (
+    `<?xml version="1.0" encoding="UTF-8"?>` +
+    `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ` +
+    `xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">${body}</urlset>`
+  );
 }
-
-export const SITEMAP_NAMES = [
-  'pages',
-  'categorias',
-  'blog',
-  ...COUNTRIES.map((c) => `cursos-${c.code}`),
-];

@@ -1,73 +1,73 @@
 {
-  "course": "curso-de-mecanica-de-bicicletas",
-  "country": "mx",
-  "angulo": "carrera",
-  "meta_title": "Curso de Mecánica de Bicicletas: Capacitación para Taller",
-  "meta_description": "Aprende a reparar frenos, cambios y transmisión de bicis en México. Prepárate para trabajar en un taller o emprender. Inscríbete hoy.",
-  "h1": "Curso de mecánica de bicicletas para trabajar o abrir tu propio taller",
-  "subtitulo": "Capacítate en el diagnóstico, ajuste y reparación integral de componentes para entrar a trabajar en la industria ciclista.",
-  "descripcion": "Si un cambio trasero salta dos piñones de golpe o la balata roza el disco en cada vuelta, el problema casi nunca es la pieza, sino un ajuste defectuoso. La reparación de bicicletas de montaña, ruta y uso urbano requiere técnica y precisión. Si quieres capacitarte formalmente para emplearte en un taller o prestar servicios de mantenimiento por tu cuenta, este **curso de mecánica de bicicletas** te brinda el método paso a paso para diagnosticar fallas reales sin adivinar ni barrer roscas de aluminio.\n\n## Del diagnóstico básico a la reparación técnica en el taller\n\nEl trabajo de un mecánico profesional va mucho más allá de poner parches o inflar llantas. La rentabilidad de un servicio técnico está en resolver problemas que el usuario común no sabe ni identificar.\n\nEn la capacitación aprenderás a abordar los puntos críticos de mayor demanda:\n\n*   **Transmisión y cambios:** Ajuste preciso de tornillos tope (H y L), tensión de chicotes, alineación de pata de desviador y reemplazo de cadenas con desgaste.\n*   **Sistemas de frenado:** Mantenimiento de frenos mecánicos de tracción por cable y calibración de sistemas de disco hidráulicos para eliminar ruidos y recuperar potencia.\n*   **Centrado y rodado:** Inspección de mazas, ajuste de conos y tensión de rayos para corregir desviaciones en el rin.\n*   **Caja de centro y dirección:** Identificación de juegos mecánicos, limpieza, engrasado y reemplazo de rodamientos sellados o de tazas.\n\n## Salida laboral: opciones reales para trabajar en México\n\nEl mercado ciclista en ciudades y zonas urbanas de México sigue creciendo por el uso de la bici como transporte, deporte y herramienta de trabajo en entregas. Esto genera tres vías claras de trabajo:\n\n1.  **Mecánico en talleres o tiendas especializadas:** Integrarse como técnico de mantenimiento preventivo y correctivo.\n2.  **Servicio móvil o a domicilio:** Ofrecer mantenimiento básico y afinaciones completas directamente en el domicilio del cliente llevando un kit de herramientas portátil.\n3.  **Taller propio de reparación y armado:** Comenzar a recibir mantenimientos generales e ir invirtiendo las ganancias en herramienta especializada de extracción y prensado.\n\nUna aclaración de expectativas obligatoria: mirar los videos no te convertirá en maestro mecánico automáticamente. La teoría te da la lógica del ajuste, pero la destreza requiere que consigas un juego de llaves Allen, apliques torque en piezas reales y practiques en bicicletas de prueba antes de cobrar por tus primeros servicios.\n\n## Herramientas indispensables para iniciar tus prácticas\n\nNo necesitas equipar un taller industrial para comenzar. Para ejecutar las prácticas recomendadas durante el programa requerirás un equipo básico:\n\n*   Juego de llaves Allen (de 2 a 8 mm) y llaves Torx (T25 para discos).\n*   Extractor de cassette, cortacables de ciclismo y tronchacadenas.\n*   Llave para conos y medidor de desgaste de cadena.\n*   Grasa para rodamientos, desengrasante industrial y lubricante de cadena para seco/húmedo.\n\nCon esta base técnica y práctica continua, estarás preparado para resolver fallas reales con estándar profesional.",
-  "faqs": [
-    {
-      "q": "¿Cómo realizo el pago si estoy en México?",
-      "a": "Puedes pagar en pesos mexicanos directamente en la plataforma usando tarjetas de débito o crédito, transferencia bancaria mediante SPEI o en efectivo generando una ficha de pago para liquidar en tiendas OXXO."
-    },
-    {
-      "q": "¿El certificado tiene validez oficial para trabajar en un taller en México?",
-      "a": "En México la mecánica de bicicletas es un oficio técnico no regulado por una cédula profesional obligatoria. El certificado respalda tus 10 horas de estudio estructurado y sirve para demostrar tus conocimientos teóricos al buscar empleo en tiendas o presentar tus servicios ante clientes particulares."
-    },
-    {
-      "q": "¿Cómo aplico el descuento de lanzamiento?",
-      "a": "El precio de USD 27 ya tiene aplicado el 40% de descuento sobre la tarifa original de USD 45 mediante el descuento de lanzamiento. No necesitas ingresar ningún código adicional al momento de pagar."
-    },
-    {
-      "q": "¿Necesito tener conocimientos previos de mecánica?",
-      "a": "No. El programa empieza desde los conceptos fundamentales de anatomía de la bicicleta y el uso correcto de cada herramienta básica, avanzando gradualmente hacia sistemas de transmisión y frenos."
-    },
-    {
-      "q": "¿Tengo que comprar herramientas profesionales antes de empezar?",
-      "a": "No de inmediato. Puedes ver la teoría primero para entender qué herramientas específicas vas a necesitar según el tipo de bicicleta con el que decidas trabajar y adquirirlas progresivamente."
-    },
-    {
-      "q": "¿Es necesario practicar en una bicicleta real durante el curso?",
-      "a": "Sí. Aunque las lecciones son 100% en video bajo la instrucción de Camilo Herrera, la mecánica es un oficio manual. Necesitarás una bicicleta propia o de práctica para replicar los ajustes de cambios, frenos y mantenimiento general."
-    },
-    {
-      "q": "¿En cuánto tiempo se completa el curso?",
-      "a": "Son 10 horas de contenido repartidas en 16 lecciones. Como el acceso es asincrónico, puedes avanzar a tu propio ritmo, completándolo en un fin de semana o distribuyendo las lecciones a lo largo de varias semanas."
-    },
-    {
-      "q": "¿Puedo tomar las lecciones desde mi teléfono celular?",
-      "a": "Sí. Puedes acceder a la plataforma desde cualquier navegador en celular, tableta o computadora con conexión a internet para revisar las lecciones cuantas veces lo necesites."
-    }
-  ],
-  "beneficios": [
-    "Ajustar desviadores delanteros y traseros para que los cambios entren suaves y sin ruidos.",
-    "Centrar rines con precisión usando el tensiómetro y la llave de radios.",
-    "Realizar el mantenimiento completo de frenos de disco hidráulicos sin derramar líquido.",
-    "Desarmar, limpiar y engrasar baleros de dirección y pedalier para evitar crujidos.",
-    "Sustituir cadenas y cassettes sin dañar los componentes de transmisión.",
-    "Diagnosticar el desgaste real de la cadena antes de que rompa los dientes de los platos."
-  ],
-  "para_quien": [
-    "Ciclistas que quieren dejar de depender del taller para reparaciones básicas.",
-    "Personas que buscan un ingreso extra reparando bicis de conocidos el fin de semana.",
-    "Aprendices que desean profesionalizarse en el sector de servicios para ciclistas.",
-    "Cualquiera que quiera extender la vida útil de su bicicleta con mantenimiento preventivo."
-  ],
-  "requisitos": [
-    "Tener una bicicleta propia para practicar los ajustes en tiempo real.",
-    "Contar con un juego básico de llaves Allen y desarmadores.",
-    "Disponer de un espacio limpio y bien iluminado para trabajar con las piezas."
-  ],
-  "certificado": "Al finalizar el curso de mecánica de bicicletas recibirás un diploma digital de participación. Ten en cuenta que este documento avala tu formación técnica, pero no te habilita oficialmente como mecánico certificado ante marcas o cámaras de comercio. Es una constancia de los conocimientos adquiridos bajo la instrucción de Camilo Herrera.",
-  "garantia": "Si sientes que el contenido no es lo que esperabas, tienes 7 días para pedir la devolución total de tu dinero. La plataforma Hotmart procesa el reembolso de forma directa sin preguntas ni trabas. Tu pago en OXXO, SPEI o tarjeta está protegido por este periodo de prueba.",
-  "_meta": {
-    "usd": 0.01327,
-    "modelo": "gemini-3.6-flash",
-    "fallos": [
-      "meta_description 133 chars (objetivo 150-160)"
-    ],
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-mecanica-de-bicicletas",
+ "country": "mx",
+ "angulo": "carrera",
+ "meta_title": "Curso de Mecánica de Bicicletas: Capacitación para Taller",
+ "meta_description": "Aprende a reparar frenos, cambios y transmisión de bicis en México. Prepárate para trabajar en un taller o emprender. Inscríbete hoy.",
+ "h1": "Curso de mecánica de bicicletas para trabajar o abrir tu propio taller",
+ "subtitulo": "Capacítate en el diagnóstico, ajuste y reparación integral de componentes para entrar a trabajar en la industria ciclista.",
+ "descripcion": "Si un cambio trasero salta dos piñones de golpe o la balata roza el disco en cada vuelta, el problema casi nunca es la pieza, sino un ajuste defectuoso. La reparación de bicicletas de montaña, ruta y uso urbano requiere técnica y precisión. Si quieres capacitarte formalmente para emplearte en un taller o prestar servicios de mantenimiento por tu cuenta, este **curso de mecánica de bicicletas** te brinda el método paso a paso para diagnosticar fallas reales sin adivinar ni barrer roscas de aluminio.\n\n## Del diagnóstico básico a la reparación técnica en el taller\n\nEl trabajo de un mecánico profesional va mucho más allá de poner parches o inflar llantas. La rentabilidad de un servicio técnico está en resolver problemas que el usuario común no sabe ni identificar.\n\nEn la capacitación aprenderás a abordar los puntos críticos de mayor demanda:\n\n* **Transmisión y cambios:** Ajuste preciso de tornillos tope (H y L), tensión de chicotes, alineación de pata de desviador y reemplazo de cadenas con desgaste.\n* **Sistemas de frenado:** Mantenimiento de frenos mecánicos de tracción por cable y calibración de sistemas de disco hidráulicos para eliminar ruidos y recuperar potencia.\n* **Centrado y rodado:** Inspección de mazas, ajuste de conos y tensión de rayos para corregir desviaciones en el rin.\n* **Caja de centro y dirección:** Identificación de juegos mecánicos, limpieza, engrasado y reemplazo de rodamientos sellados o de tazas.\n\n## Salida laboral: opciones reales para trabajar en México\n\nEl mercado ciclista en ciudades y zonas urbanas de México sigue creciendo por el uso de la bici como transporte, deporte y herramienta de trabajo en entregas. Esto genera tres vías claras de trabajo:\n\n1. **Mecánico en talleres o tiendas especializadas:** Integrarse como técnico de mantenimiento preventivo y correctivo.\n2. **Servicio móvil o a domicilio:** Ofrecer mantenimiento básico y afinaciones completas directamente en el domicilio del cliente llevando un kit de herramientas portátil.\n3. **Taller propio de reparación y armado:** Comenzar a recibir mantenimientos generales e ir invirtiendo las ganancias en herramienta especializada de extracción y prensado.\n\nUna aclaración de expectativas obligatoria: mirar los videos no te convertirá en maestro mecánico automáticamente. La teoría te da la lógica del ajuste, pero la destreza requiere que consigas un juego de llaves Allen, apliques torque en piezas reales y practiques en bicicletas de prueba antes de cobrar por tus primeros servicios.\n\n## Herramientas indispensables para iniciar tus prácticas\n\nNo necesitas equipar un taller industrial para comenzar. Para ejecutar las prácticas recomendadas durante el programa requerirás un equipo básico:\n\n* Juego de llaves Allen (de 2 a 8 mm) y llaves Torx (T25 para discos).\n* Extractor de cassette, cortacables de ciclismo y tronchacadenas.\n* Llave para conos y medidor de desgaste de cadena.\n* Grasa para rodamientos, desengrasante industrial y lubricante de cadena para seco/húmedo.\n\nCon esta base técnica y práctica continua, estarás preparado para resolver fallas reales con estándar profesional.",
+ "faqs": [
+ {
+ "q": "¿Cómo realizo el pago si estoy en México?",
+ "a": "Puedes pagar en pesos mexicanos directamente en la plataforma usando tarjetas de débito o crédito, transferencia bancaria mediante SPEI o en efectivo generando una ficha de pago para liquidar en tiendas OXXO."
+ },
+ {
+ "q": "¿El certificado tiene validez oficial para trabajar en un taller en México?",
+ "a": "En México la mecánica de bicicletas es un oficio técnico no regulado por una cédula profesional obligatoria. El certificado respalda tus 10 horas de estudio estructurado y sirve para demostrar tus conocimientos teóricos al buscar empleo en tiendas o presentar tus servicios ante clientes particulares."
+ },
+ {
+ "q": "¿Cómo aplico el descuento de lanzamiento?",
+ "a": "El precio publicado ya es el precio final mediante el descuento de lanzamiento. No necesitas ingresar ningún código adicional al momento de pagar."
+ },
+ {
+ "q": "¿Necesito tener conocimientos previos de mecánica?",
+ "a": "No. El programa empieza desde los conceptos fundamentales de anatomía de la bicicleta y el uso correcto de cada herramienta básica, avanzando gradualmente hacia sistemas de transmisión y frenos."
+ },
+ {
+ "q": "¿Tengo que comprar herramientas profesionales antes de empezar?",
+ "a": "No de inmediato. Puedes ver la teoría primero para entender qué herramientas específicas vas a necesitar según el tipo de bicicleta con el que decidas trabajar y adquirirlas progresivamente."
+ },
+ {
+ "q": "¿Es necesario practicar en una bicicleta real durante el curso?",
+ "a": "Sí. Aunque las lecciones son 100% en video bajo la instrucción de Camilo Herrera, la mecánica es un oficio manual. Necesitarás una bicicleta propia o de práctica para replicar los ajustes de cambios, frenos y mantenimiento general."
+ },
+ {
+ "q": "¿En cuánto tiempo se completa el curso?",
+ "a": "Son 10 horas de contenido repartidas en 16 lecciones. Como el acceso es asincrónico, puedes avanzar a tu propio ritmo, completándolo en un fin de semana o distribuyendo las lecciones a lo largo de varias semanas."
+ },
+ {
+ "q": "¿Puedo tomar las lecciones desde mi teléfono celular?",
+ "a": "Sí. Puedes acceder a la plataforma desde cualquier navegador en celular, tableta o computadora con conexión a internet para revisar las lecciones cuantas veces lo necesites."
+ }
+ ],
+ "beneficios": [
+ "Ajustar desviadores delanteros y traseros para que los cambios entren suaves y sin ruidos.",
+ "Centrar rines con precisión usando el tensiómetro y la llave de radios.",
+ "Realizar el mantenimiento completo de frenos de disco hidráulicos sin derramar líquido.",
+ "Desarmar, limpiar y engrasar baleros de dirección y pedalier para evitar crujidos.",
+ "Sustituir cadenas y cassettes sin dañar los componentes de transmisión.",
+ "Diagnosticar el desgaste real de la cadena antes de que rompa los dientes de los platos."
+ ],
+ "para_quien": [
+ "Ciclistas que quieren dejar de depender del taller para reparaciones básicas.",
+ "Personas que buscan un ingreso extra reparando bicis de conocidos el fin de semana.",
+ "Aprendices que desean profesionalizarse en el sector de servicios para ciclistas.",
+ "Cualquiera que quiera extender la vida útil de su bicicleta con mantenimiento preventivo."
+ ],
+ "requisitos": [
+ "Tener una bicicleta propia para practicar los ajustes en tiempo real.",
+ "Contar con un juego básico de llaves Allen y desarmadores.",
+ "Disponer de un espacio limpio y bien iluminado para trabajar con las piezas."
+ ],
+ "certificado": "Al finalizar el curso de mecánica de bicicletas recibirás un diploma digital de participación. Ten en cuenta que este documento avala tu formación técnica, pero no te habilita oficialmente como mecánico certificado ante marcas o cámaras de comercio. Es una constancia de los conocimientos adquiridos bajo la instrucción de Camilo Herrera.",
+ "garantia": "Si sientes que el contenido no es lo que esperabas, tienes 7 días para pedir la devolución total de tu dinero. La plataforma Hotmart procesa el reembolso de forma directa sin preguntas ni trabas. Tu pago en OXXO, SPEI o tarjeta está protegido por este periodo de prueba.",
+ "_meta": {
+ "usd": 0.01327,
+ "modelo": "gemini-3.6-flash",
+ "fallos": [
+ "meta_description 133 chars (objetivo 150-160)"
+ ],
+ "fecha": "2026-08-06"
+ }
 }

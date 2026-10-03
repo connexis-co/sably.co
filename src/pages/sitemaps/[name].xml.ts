@@ -1,29 +1,30 @@
+export const prerender = false;
 import type { APIRoute } from 'astro';
 import {
-  SITEMAP_NAMES,
+  sitemapNames,
+  SITEMAPS_TEMPORALES,
   blogUrls,
   categoriasUrls,
+  ciudadesNoindexUrls,
   cursosUrls,
   pagesUrls,
   renderUrlset,
 } from '@/lib/sitemap';
 
-export function getStaticPaths() {
-  return SITEMAP_NAMES.map((name) => ({ params: { name: `sitemap-${name}` } }));
-}
-
 export const GET: APIRoute = async ({ params }) => {
+  const NOMBRES = [...await sitemapNames(), ...SITEMAPS_TEMPORALES];
   const raw = params.name ?? '';
   const name = raw.replace(/^sitemap-/, '');
   /* Un nombre no reconocido debe ser 404, no un urlset vacío. */
-  if (!name || !SITEMAP_NAMES.includes(name)) {
+  if (!name || !NOMBRES.includes(name)) {
     return new Response('Not found', { status: 404 });
   }
 
   let urls;
-  if (name === 'pages') urls = pagesUrls();
-  else if (name === 'categorias') urls = categoriasUrls();
+  if (name === 'pages') urls = await pagesUrls();
+  else if (name === 'categorias') urls = await categoriasUrls();
   else if (name === 'blog') urls = await blogUrls();
+  else if (name === 'temporal-ciudades-noindex') urls = await ciudadesNoindexUrls();
   else urls = await cursosUrls(name.replace('cursos-', ''));
 
   return new Response(renderUrlset(urls), {

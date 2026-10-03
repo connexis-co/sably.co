@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-instalacion-de-camaras-de-seguridad",
-  "country": "us",
-  "angulo": "carrera",
-  "meta_title": "Curso de Instalación de Cámaras de Seguridad en EE. UU.",
-  "meta_description": "Inicia tu carrera técnica con este curso de instalación de cámaras de seguridad en EE. UU. Domina IP, DVR y cableado profesional. Empieza hoy por USD 36.",
-  "h1": "Curso de Instalación de Cámaras de Seguridad: Inicia tu Carrera Técnica",
-  "subtitulo": "Aprende a instalar, cablear y configurar sistemas analógicos e IP para trabajar como técnico especializado en Estados Unidos.",
-  "descripcion": "Pasar de realizar trabajos ocasionales a construir una carrera técnica estable en Estados Unidos requiere una especialización concreta en áreas de alta demanda. Muchos intentan montar equipos de videovigilancia de manera empírica, pero se atoran rápidamente al configurar la dirección IP en la red del cliente, al calcular la caída de voltaje en tiradas largas de cableado o cuando el grabador pierde señal al encender la visión nocturna. Con este curso de instalación de cámaras de seguridad adquieres el criterio técnico necesario para resolver estos fallos antes de fijar el primer soporte en la pared.\n\n## De la instalación básica al diseño de redes de videovigilancia\n\nEl trabajo de un técnico en CCTV abarca mucho más que colgar un equipo en una esquina. Cuando el cableado se ejecuta sin planificar el consumo eléctrico de la fuente de poder, el sistema falla a los pocos días de entregado. Aprenderás a diferenciar entre instalaciones analógicas de alta definición (TVI, CVI, AHD) y sistemas digitales IP. Entenderás exactamente cuándo conviene utilizar cable coaxial con conectores BNC, cuándo emplear par trenzado UTP con transceptores pasivos de video (baluns) y la forma correcta de ponchar conectores RJ45 respetando la norma T568B para evitar pérdida de datos.\n\nLa transición del formato analógico a los entornos IP representa el punto crítico donde se frenan muchos instaladores tradicionales. Comprenderás la asignación de direcciones IP estáticas, el funcionamiento de los conmutadores PoE (Power over Ethernet) para transmitir datos y energía por el mismo cable, y los pasos para integrar grabadores NVR o DVR a la red local del cliente de forma limpia.\n\n## Organiza tu trabajo y cotiza servicios con criterio técnico\n\nPara consolidar una carrera dentro de la industria de la seguridad electrónica en el mercado norteamericano, la prolijidad determina el volumen de trabajo recurrente. Aprenderás a dimensionar fuentes de alimentación centralizadas con respaldos de batería, garantizando que el sistema continúe funcionando durante un corte de energía. También dominarás la vinculación de los equipos a plataformas móviles mediante protocolos P2P, lo que permite al cliente visualizar sus cámaras en tiempo real desde su teléfono inteligente sin depender de configuraciones complejas de enrutamiento que suelen caerse con cambios de proveedor de internet.\n\nSaber evaluar el ángulo de visión de los lentes, la altura idónea de montaje y el tipo de protección ambiental (índice IP66 o IP67) te da la capacidad de presupuestar proyectos para viviendas, bodegas o locales comerciales. Aprenderás a estimar el tiempo de mano de obra y el costo de insumos como canaletas, tubería conduit y accesorios de fijación para presentar cotizaciones transparentes que aseguren tu margen de ganancia.\n\n## Expectativas reales sobre el ejercicio profesional en EE. UU.\n\nEste programa de 14 horas de formación te capacita en la parte operativa, técnica y de configuración de los equipos. Sin embargo, debes considerar que completar esta capacitación no otorga automáticamente una licencia de contratista de baja tensión (Low Voltage License) en Estados Unidos. Cada estado regula de forma independiente los requisitos para operar empresas de seguridad privada, emitir facturas comerciales o contratar seguros de responsabilidad civil (General Liability). El conocimiento adquirido te proporciona la base técnica para trabajar como instalador de CCTV, desempeñarte en empresas del ramo o iniciar tu actividad independiente cumpliendo las normativas locales correspondientes.",
-  "faqs": [
-    {
-      "q": "¿Qué métodos de pago puedo usar para inscribirme desde Estados Unidos?",
-      "a": "Puedes pagar de forma segura utilizando tarjetas de crédito o débito (Visa, Mastercard, American Express, Discover) o tu cuenta de PayPal. El cobro se procesa directamente en dólares estadounidenses (USD)."
-    },
-    {
-      "q": "¿El certificado obtenido es una licencia para trabajar legalmente en EE. UU.?",
-      "a": "No. El certificado acredita que completaste las 14 horas de formación técnica. En Estados Unidos, las licencias para trabajar como contratista de baja tensión (Low Voltage) o instalar alarmas y seguridad dependen de las regulaciones de cada estado o condado."
-    },
-    {
-      "q": "¿Se requiere experiencia previa en electricidad o redes para tomar el curso?",
-      "a": "No es necesario contar con conocimientos previos. El contenido está estructurado para enseñarte desde los conceptos básicos de voltaje y cableado hasta la configuración IP de las cámaras."
-    },
-    {
-      "q": "¿Necesito comprar herramientas o cámaras costosas para realizar el curso?",
-      "a": "No necesitas comprar equipos antes de iniciar. Puedes ver las 20 lecciones y, a medida que avance tu aprendizaje, adquirir herramientas básicas como un multímetro, ponchadora RJ45 y un kit de prueba según las recomendaciones de la capacitación."
-    },
-    {
-      "q": "¿Existe algún cobro recurrente o costo oculto después de pagar los USD 36?",
-      "a": "No. El precio de USD 36 es un pago único que incluye el 40% de descuento aplicado mediante el descuento de lanzamiento. Tienes acceso completo al material sin suscripciones ni cobros adicionales."
-    },
-    {
-      "q": "¿Cómo se imparte el curso de instalación de cámaras de seguridad y en qué horarios?",
-      "a": "El curso es totalmente en línea y grabado. Al inscribirte tienes acceso inmediato a los 5 módulos para avanzar a tu propio ritmo, en el horario que mejor se adapte a tus rutinas de trabajo."
-    },
-    {
-      "q": "¿Aprenderé a configurar la vista remota en teléfonos celulares?",
-      "a": "Sí, aprenderás el proceso para vincular grabadores y cámaras a aplicaciones móviles mediante tecnología P2P, permitiendo la visualización en vivo desde cualquier lugar."
-    },
-    {
-      "q": "¿Quién imparte la capacitación?",
-      "a": "El curso es impartido por Diego Cárdenas, quien guía cada lección explicando los procesos de cableado, montaje y configuración del sistema."
-    }
-  ],
-  "beneficios": [
-    "Configurar el protocolo IP para evitar conflictos de red en el cliente.",
-    "Realizar el cableado estructurado sin dejar el tendido expuesto o desprolijo.",
-    "Montar cámaras analógicas y digitales eliminando el ruido en la señal de video.",
-    "Calcular los ángulos de visión para cubrir puntos ciegos en perímetros complejos.",
-    "Gestionar el almacenamiento de grabaciones para optimizar el espacio en el disco duro.",
-    "Vincular el sistema de vigilancia al smartphone para el acceso remoto inmediato."
-  ],
-  "para_quien": [
-    "Personas que buscan un oficio técnico con demanda constante en el mercado estadounidense.",
-    "Quienes quieren dejar de depender de empleos inestables y empezar a facturar por cuenta propia.",
-    "Técnicos de otros rubros que necesitan ampliar su oferta de servicios de mantenimiento.",
-    "Cualquier interesado en entender la lógica detrás de los sistemas de seguridad residenciales."
-  ],
-  "requisitos": [
-    "Herramientas básicas como taladro, pelacables y destornilladores.",
-    "Disponibilidad para practicar el crimpado de cables y la configuración de routers.",
-    "Acceso a una computadora con conexión a internet para ver las lecciones."
-  ],
-  "certificado": "Al finalizar el curso de instalación de cámaras de seguridad, recibirás un certificado de culminación digital. Ten presente que este documento acredita tu formación técnica privada y no constituye una licencia oficial del estado para ejercer como contratista eléctrico o de seguridad.",
-  "garantia": "Tienes 7 días para evaluar el contenido. Si consideras que el curso no cumple con lo que necesitas, solicita el reembolso total a través de la plataforma Hotmart sin dar explicaciones. El pago de 36 USD ya incluye el descuento aplicado, por lo que no existen cupones adicionales disponibles.",
-  "_meta": {
-    "usd": 0.01347,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-instalacion-de-camaras-de-seguridad",
+ "country": "us",
+ "angulo": "carrera",
+ "meta_title": "Curso de Instalación de Cámaras de Seguridad en EE. UU.",
+ "meta_description": "Inicia tu carrera técnica con este curso de instalación de cámaras de seguridad en EE. UU. Domina IP, DVR y cableado profesional. Empieza hoy.",
+ "h1": "Curso de Instalación de Cámaras de Seguridad: Inicia tu Carrera Técnica",
+ "subtitulo": "Aprende a instalar, cablear y configurar sistemas analógicos e IP para trabajar como técnico especializado en Estados Unidos.",
+ "descripcion": "Pasar de realizar trabajos ocasionales a construir una carrera técnica estable en Estados Unidos requiere una especialización concreta en áreas de alta demanda. Muchos intentan montar equipos de videovigilancia de manera empírica, pero se atoran rápidamente al configurar la dirección IP en la red del cliente, al calcular la caída de voltaje en tiradas largas de cableado o cuando el grabador pierde señal al encender la visión nocturna. Con este curso de instalación de cámaras de seguridad adquieres el criterio técnico necesario para resolver estos fallos antes de fijar el primer soporte en la pared.\n\n## De la instalación básica al diseño de redes de videovigilancia\n\nEl trabajo de un técnico en CCTV abarca mucho más que colgar un equipo en una esquina. Cuando el cableado se ejecuta sin planificar el consumo eléctrico de la fuente de poder, el sistema falla a los pocos días de entregado. Aprenderás a diferenciar entre instalaciones analógicas de alta definición (TVI, CVI, AHD) y sistemas digitales IP. Entenderás exactamente cuándo conviene utilizar cable coaxial con conectores BNC, cuándo emplear par trenzado UTP con transceptores pasivos de video (baluns) y la forma correcta de ponchar conectores RJ45 respetando la norma T568B para evitar pérdida de datos.\n\nLa transición del formato analógico a los entornos IP representa el punto crítico donde se frenan muchos instaladores tradicionales. Comprenderás la asignación de direcciones IP estáticas, el funcionamiento de los conmutadores PoE (Power over Ethernet) para transmitir datos y energía por el mismo cable, y los pasos para integrar grabadores NVR o DVR a la red local del cliente de forma limpia.\n\n## Organiza tu trabajo y cotiza servicios con criterio técnico\n\nPara consolidar una carrera dentro de la industria de la seguridad electrónica en el mercado norteamericano, la prolijidad determina el volumen de trabajo recurrente. Aprenderás a dimensionar fuentes de alimentación centralizadas con respaldos de batería, garantizando que el sistema continúe funcionando durante un corte de energía. También dominarás la vinculación de los equipos a plataformas móviles mediante protocolos P2P, lo que permite al cliente visualizar sus cámaras en tiempo real desde su teléfono inteligente sin depender de configuraciones complejas de enrutamiento que suelen caerse con cambios de proveedor de internet.\n\nSaber evaluar el ángulo de visión de los lentes, la altura idónea de montaje y el tipo de protección ambiental (índice IP66 o IP67) te da la capacidad de presupuestar proyectos para viviendas, bodegas o locales comerciales. Aprenderás a estimar el tiempo de mano de obra y el costo de insumos como canaletas, tubería conduit y accesorios de fijación para presentar cotizaciones transparentes que aseguren tu margen de ganancia.\n\n## Expectativas reales sobre el ejercicio profesional en EE. UU.\n\nEste programa de 14 horas de formación te capacita en la parte operativa, técnica y de configuración de los equipos. Sin embargo, debes considerar que completar esta capacitación no otorga automáticamente una licencia de contratista de baja tensión (Low Voltage License) en Estados Unidos. Cada estado regula de forma independiente los requisitos para operar empresas de seguridad privada, emitir facturas comerciales o contratar seguros de responsabilidad civil (General Liability). El conocimiento adquirido te proporciona la base técnica para trabajar como instalador de CCTV, desempeñarte en empresas del ramo o iniciar tu actividad independiente cumpliendo las normativas locales correspondientes.",
+ "faqs": [
+ {
+ "q": "¿Qué métodos de pago puedo usar para inscribirme desde Estados Unidos?",
+ "a": "Puedes pagar de forma segura utilizando tarjetas de crédito o débito (Visa, Mastercard, American Express, Discover) o tu cuenta de PayPal. El cobro se procesa directamente en dólares estadounidenses (USD)."
+ },
+ {
+ "q": "¿El certificado obtenido es una licencia para trabajar legalmente en EE. UU.?",
+ "a": "No. El certificado acredita que completaste las 14 horas de formación técnica. En Estados Unidos, las licencias para trabajar como contratista de baja tensión (Low Voltage) o instalar alarmas y seguridad dependen de las regulaciones de cada estado o condado."
+ },
+ {
+ "q": "¿Se requiere experiencia previa en electricidad o redes para tomar el curso?",
+ "a": "No es necesario contar con conocimientos previos. El contenido está estructurado para enseñarte desde los conceptos básicos de voltaje y cableado hasta la configuración IP de las cámaras."
+ },
+ {
+ "q": "¿Necesito comprar herramientas o cámaras costosas para realizar el curso?",
+ "a": "No necesitas comprar equipos antes de iniciar. Puedes ver las 20 lecciones y, a medida que avance tu aprendizaje, adquirir herramientas básicas como un multímetro, ponchadora RJ45 y un kit de prueba según las recomendaciones de la capacitación."
+ },
+ {
+ "q": "¿Existe algún cobro recurrente o costo oculto después de pagar los el precio publicado?",
+ "a": "No. El precio publicado es un pago único que incluye el 40% de descuento aplicado mediante el descuento de lanzamiento. Tienes acceso completo al material sin suscripciones ni cobros adicionales."
+ },
+ {
+ "q": "¿Cómo se imparte el curso de instalación de cámaras de seguridad y en qué horarios?",
+ "a": "El curso es totalmente en línea y grabado. Al inscribirte tienes acceso inmediato a los 5 módulos para avanzar a tu propio ritmo, en el horario que mejor se adapte a tus rutinas de trabajo."
+ },
+ {
+ "q": "¿Aprenderé a configurar la vista remota en teléfonos celulares?",
+ "a": "Sí, aprenderás el proceso para vincular grabadores y cámaras a aplicaciones móviles mediante tecnología P2P, permitiendo la visualización en vivo desde cualquier lugar."
+ },
+ {
+ "q": "¿Quién imparte la capacitación?",
+ "a": "El curso es impartido por Diego Cárdenas, quien guía cada lección explicando los procesos de cableado, montaje y configuración del sistema."
+ }
+ ],
+ "beneficios": [
+ "Configurar el protocolo IP para evitar conflictos de red en el cliente.",
+ "Realizar el cableado estructurado sin dejar el tendido expuesto o desprolijo.",
+ "Montar cámaras analógicas y digitales eliminando el ruido en la señal de video.",
+ "Calcular los ángulos de visión para cubrir puntos ciegos en perímetros complejos.",
+ "Gestionar el almacenamiento de grabaciones para optimizar el espacio en el disco duro.",
+ "Vincular el sistema de vigilancia al smartphone para el acceso remoto inmediato."
+ ],
+ "para_quien": [
+ "Personas que buscan un oficio técnico con demanda constante en el mercado estadounidense.",
+ "Quienes quieren dejar de depender de empleos inestables y empezar a facturar por cuenta propia.",
+ "Técnicos de otros rubros que necesitan ampliar su oferta de servicios de mantenimiento.",
+ "Cualquier interesado en entender la lógica detrás de los sistemas de seguridad residenciales."
+ ],
+ "requisitos": [
+ "Herramientas básicas como taladro, pelacables y destornilladores.",
+ "Disponibilidad para practicar el crimpado de cables y la configuración de routers.",
+ "Acceso a una computadora con conexión a internet para ver las lecciones."
+ ],
+ "certificado": "Al finalizar el curso de instalación de cámaras de seguridad, recibirás un certificado de culminación digital. Ten presente que este documento acredita tu formación técnica privada y no constituye una licencia oficial del estado para ejercer como contratista eléctrico o de seguridad.",
+ "garantia": "Tienes 7 días para evaluar el contenido. Si consideras que el curso no cumple con lo que necesitas, solicita el reembolso total a través de la plataforma Hotmart sin dar explicaciones. El pago de 36 USD ya incluye el descuento aplicado, por lo que no existen cupones adicionales disponibles.",
+ "_meta": {
+ "usd": 0.01347,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

@@ -15,6 +15,29 @@ export interface Env {
   GITHUB_TOKEN?: string;
 }
 
+/**
+ * Identidad de la aplicación de Access.
+ *
+ * **Ninguno de los dos es un secreto.** Cualquiera que abra `/admin` sin
+ * autenticarse recibe un 302 hacia
+ * `https://connexis-pages.cloudflareaccess.com/cdn-cgi/access/login/sably.co?kid=662d7a30…`
+ * con los dos valores a la vista, y el JWKS que cuelga de ese dominio es
+ * público. Lo que protege el panel es la firma del token, no que estos dos
+ * datos sean difíciles de averiguar.
+ *
+ * Por eso viven aquí y no solo en variables de entorno: el `PATCH` de la API de
+ * Pages **reemplaza** el mapa `env_vars` entero, así que cada vez que alguien
+ * añadía una variable nueva (Brevo, HOTTOK, Meta CAPI…) estas dos se perdían y
+ * el panel quedaba inaccesible. Ya pasó tres veces.
+ *
+ * Las variables de entorno siguen ganando si están, para poder mover el panel
+ * a otra cuenta o rotar la aplicación sin tocar código.
+ */
+const ACCESS_POR_DEFECTO = {
+  teamDomain: 'https://connexis-pages.cloudflareaccess.com',
+  aud: '662d7a3035f5543f69620cee3ef7571146024bc9076d6544b2a549dbf8936689',
+} as const;
+
 let jwks: ReturnType<typeof createRemoteJWKSet> | null = null;
 /** El JWKS se cachea por isolate; si cambia el team domain hay que soltarlo. */
 let jwksDe = '';
@@ -37,10 +60,8 @@ export interface Sesion {
  * renombrado— se arreglan en sitios distintos.
  */
 export async function sesion(request: Request, env: Env): Promise<Sesion> {
-  const faltan = (['CF_ACCESS_TEAM_DOMAIN', 'CF_ACCESS_AUD'] as const).filter((k) => !env[k]);
-  if (faltan.length) {
-    return { email: null, motivo: `Faltan variables en el proyecto de Pages: ${faltan.join(' y ')}.` };
-  }
+  const teamDomain = env.CF_ACCESS_TEAM_DOMAIN || ACCESS_POR_DEFECTO.teamDomain;
+  const aud = env.CF_ACCESS_AUD || ACCESS_POR_DEFECTO.aud;
 
   const token =
     request.headers.get('cf-access-jwt-assertion') ??
@@ -55,7 +76,7 @@ export async function sesion(request: Request, env: Env): Promise<Sesion> {
   // El mismo valor alimenta dos usos incompatibles con otro formato: la URL del
   // JWKS y el claim `iss` que Access emite como https://<team>.cloudflareaccess.com.
   // Normalizarlo hace que una barra final o un valor sin esquema no rompan nada.
-  const bruto = env.CF_ACCESS_TEAM_DOMAIN!.trim().replace(/\/+$/, '');
+  const bruto = teamDomain.trim().replace(/\/+$/, '');
   const dominio = /^https?:\/\//.test(bruto) ? bruto : `https://${bruto}`;
 
   try {
@@ -67,7 +88,7 @@ export async function sesion(request: Request, env: Env): Promise<Sesion> {
     }
     const { payload } = await jwtVerify(token, jwks!, {
       issuer: dominio,
-      audience: env.CF_ACCESS_AUD,
+      audience: aud,
     });
     const email = (payload.email as string) ?? null;
     return email
@@ -84,9 +105,9 @@ export async function sesion(request: Request, env: Env): Promise<Sesion> {
       e.code === 'ERR_JWT_EXPIRED'
         ? 'El token caducó. Vuelve a entrar.'
         : e.code === 'ERR_JWT_CLAIM_VALIDATION_FAILED' && e.claim === 'iss'
-          ? 'El emisor del token no coincide: el team domain de Zero Trust cambió y hay que actualizar CF_ACCESS_TEAM_DOMAIN en el proyecto de Pages, y redesplegar.'
+          ? 'El emisor del token no coincide: el team domain de Zero Trust cambió. Actualiza ACCESS_POR_DEFECTO.teamDomain en functions/admin/_ui.ts (o la variable CF_ACCESS_TEAM_DOMAIN) y vuelve a desplegar.'
           : e.code === 'ERR_JWT_CLAIM_VALIDATION_FAILED' && e.claim === 'aud'
-            ? 'El destinatario del token no coincide: el identificador de la aplicación de Access cambió y hay que actualizar CF_ACCESS_AUD, y redesplegar.'
+            ? 'El destinatario del token no coincide: el identificador de la aplicación de Access cambió. Actualiza ACCESS_POR_DEFECTO.aud en functions/admin/_ui.ts (o la variable CF_ACCESS_AUD) y vuelve a desplegar.'
             : e.code === 'ERR_JWKS_NO_MATCHING_KEY' || e.code === 'ERR_JWKS_TIMEOUT'
               ? 'No se pudieron descargar las claves públicas de Access. Suele significar que CF_ACCESS_TEAM_DOMAIN apunta a un team domain que ya no existe.'
               : `No se pudo verificar la firma (${e.code ?? 'error desconocido'}).`;
@@ -112,6 +133,8 @@ const MENU: [string, string, string][] = [
   ['/admin/', 'Resumen', 'resumen'],
   ['/admin/moderacion', 'Moderación', 'moderacion'],
   ['/admin/leads', 'Leads', 'leads'],
+  ['/admin/promociones', 'Promociones', 'promociones'],
+  ['/admin/widgets', 'Widgets', 'widgets'],
   ['/admin/contenido', 'Contenido', 'contenido'],
   ['/admin/despliegue', 'Despliegue', 'despliegue'],
 ];
@@ -183,10 +206,11 @@ export const noAutorizado = (motivo = ''): Response =>
 <h1>No autorizado</h1>
 ${motivo ? `<p style="background:#fff6e5;border:1px solid #f0d9a8;border-radius:8px;padding:.9rem 1.1rem">${esc(motivo)}</p>` : ''}
 <p>Este panel está detrás de Cloudflare Access. Comprueba que tu correo esté en la política
-de acceso de la aplicación <b>Panel Sably</b>, y que existan las variables
-<code>CF_ACCESS_TEAM_DOMAIN</code> y <code>CF_ACCESS_AUD</code> en el proyecto de Pages.</p>
-<p style="color:#6b6480;font-size:.9rem">Recuerda que en Pages las variables solo se enlazan
-en un despliegue <i>nuevo</i>: si acabas de cambiarlas, hay que volver a desplegar.</p>`,
+de acceso de la aplicación <b>Panel Sably</b>.</p>
+<p style="color:#6b6480;font-size:.9rem">La identidad de la aplicación va en el código
+(<code>ACCESS_POR_DEFECTO</code> en <code>functions/admin/_ui.ts</code>), así que ya no
+depende de variables de entorno que se puedan perder. Si de verdad cambió el team domain
+o el identificador de la aplicación, hay que actualizarla ahí y volver a desplegar.</p>`,
     { status: 401, headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' } },
   );
 

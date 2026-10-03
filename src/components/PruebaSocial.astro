@@ -1,0 +1,285 @@
+---
+/**
+ * Avisos de prueba social, al estilo de los que muestra Hotmart.
+ *
+ * Dos fuentes, ambas reales y comprobables:
+ *
+ * 1. **Reseñas públicas de Hotmart** (hotmart-live.json): nombre que su autor
+ *    publicó en la página del producto, su nota y una frase de su reseña.
+ *    «Deisy valoró Curso de Uñas con ★★★★★» es un hecho verificable en la
+ *    página pública del producto — no un "Juan compró hace 5 minutos"
+ *    fabricado, que es lo que hacen los widgets de por ahí.
+ * 2. **Pares (curso, país) del histórico de ventas** de la API de Hotmart
+ *    (`scripts/build-prueba-social.py`): compras que constan, sin nombre
+ *    porque la API de afiliado no lo da.
+ *
+ * Sin contadores bajos (omitir no engaña; inflar sí) y sin horas inventadas.
+ *
+ * Aparece abajo a la izquierda, elevándose sobre la barra fija de compra en
+ * móvil. Se puede cerrar y no vuelve en toda la sesión.
+ */
+import { env } from 'cloudflare:workers';
+import { getCourses } from '@/lib/emdash-content';
+import { readPublicReviews, readSocialProof } from '@/plugins/sably-operations/public';
+const db = (env as unknown as {SABLY_DB:D1Database}).SABLY_DB;
+const [datos,reviews,courses] = await Promise.all([
+  readSocialProof(db).catch(()=>({avisos:[],cursos:{}})),
+  readPublicReviews(db).catch(()=>[]),
+  getCourses(),
+]);
+const titles = new Map(courses.map(c=>[c.id,c.data.title]));
+const tituloDe = (slug:string)=>titles.get(slug);
+const resenasReales = (slug:string)=>reviews.filter(r=>r.slug===slug);
+const resenasDelCatalogo = ()=>[...new Set(reviews.map(r=>r.slug))].map(slug=>({slug,resena:reviews.find(r=>r.slug===slug)!}));
+
+interface Props {
+  /** Slug del curso, para usar sus cifras si las tiene. */
+  courseSlug?: string;
+  /** Título del curso, para nombrarlo en el aviso. */
+  courseTitle?: string;
+}
+/* El componente vive en BaseLayout, sin contexto: el slug sale de la ruta
+   (/<pais>/[ciudad/]curso-…/), que en SSG se conoce en build. */
+const { courseSlug: slugProp, courseTitle: tituloProp } = Astro.props;
+const courseSlug =
+  slugProp ?? Astro.url.pathname.split('/').find((t) => t.startsWith('curso-'));
+const courseTitle = tituloProp ?? (courseSlug ? (tituloDe(courseSlug) ?? undefined) : undefined);
+
+const delCurso = courseSlug ? (datos.cursos as Record<string, any>)[courseSlug] : null;
+
+interface Aviso {
+  slug: string;
+  titulo: string;
+  pais: string;
+}
+
+/**
+ * Los avisos del curso que se está viendo van primero: pesan más que los de un
+ * curso cualquiera. Detrás, el resto del catálogo.
+ *
+ * El desfase sale de la ruta para que dos páginas no arranquen por el mismo
+ * aviso; si todas empezaran igual, quien navega por varios cursos vería siempre
+ * la misma secuencia y el efecto se cae.
+ */
+const todos:Aviso[] = datos.avisos.filter(a=>titles.has(a.slug)).map(a=>({...a,titulo:titles.get(a.slug)!}));
+const propios = courseSlug ? todos.filter((a) => a.slug === courseSlug) : [];
+const ajenos = todos.filter((a) => a.slug !== courseSlug);
+const semilla = [...Astro.url.pathname].reduce((n, c) => n + c.charCodeAt(0), 0);
+const desfase = ajenos.length ? semilla % ajenos.length : 0;
+const rotados = [...ajenos.slice(desfase), ...ajenos.slice(0, desfase)];
+
+const estrellas = (n: number): string => '★'.repeat(Math.max(1, Math.min(5, Math.round(n))));
+
+/* Reseñas con nombre: primero las del curso que se está viendo. */
+const resenasPropias = (courseSlug ? resenasReales(courseSlug) : []).slice(0, 2).map((r) => ({
+  texto: `${r.nombre} lo valoró con ${estrellas(r.rating)}`,
+  detalle: r.texto ? `«${r.texto}…»` : (courseTitle ?? 'Reseña pública en Hotmart'),
+}));
+
+const resenasAjenas = resenasDelCatalogo()
+  .filter((x) => x.slug !== courseSlug && tituloDe(x.slug))
+  .map(({ slug, resena }) => ({
+    texto: `${resena.nombre} valoró ${tituloDe(slug)} con ${estrellas(resena.rating)}`,
+    detalle: resena.texto ? `«${resena.texto}…»` : 'Reseña pública en Hotmart',
+  }));
+const desfaseResenas = resenasAjenas.length ? semilla % resenasAjenas.length : 0;
+const resenasRotadas = [...resenasAjenas.slice(desfaseResenas), ...resenasAjenas.slice(0, desfaseResenas)];
+
+/* Intercalado: reseña con nombre, compra por país, reseña… El nombre real es
+   lo que más convence, así que abre la rotación. */
+const compras = [...propios, ...rotados].map((a) => ({
+  texto: a.pais ? `Alguien de ${a.pais} se inscribió` : 'Alguien se inscribió',
+  detalle: a.titulo,
+}));
+const intercalados: { texto: string; detalle: string }[] = [];
+for (let i = 0; intercalados.length < 14 && (i < resenasRotadas.length || i < compras.length); i++) {
+  if (i < resenasRotadas.length) intercalados.push(resenasRotadas[i]!);
+  if (i < compras.length) intercalados.push(compras[i]!);
+}
+
+const mensajes: { texto: string; detalle: string }[] = [...resenasPropias, ...intercalados];
+
+// El curso propio, si se vende en varios países, aporta un aviso más fuerte que
+// una compra suelta: dice alcance sin apoyarse en un número bajo.
+if (delCurso?.paises?.length > 1) {
+  mensajes.unshift({
+    texto: `${courseTitle ?? 'Este curso'} tiene estudiantes en varios países`,
+    detalle: delCurso.paises.map((p: any) => p.pais).join(' · '),
+  });
+}
+
+mensajes.push({
+  texto: 'Acceso de por vida y certificado incluido',
+  detalle: 'Garantía de 7 días: si no te sirve, te devuelven el dinero',
+});
+---
+
+{/* En móvil va anclado a la izquierda con ancho acotado: centrado a ancho casi
+    completo se montaba sobre el precio de la tarjeta y sobre el botón de
+    WhatsApp. El carril inferior (var --ps-carril) lo eleva sobre la barra fija
+    de compra cuando la página la lleva. */}
+<div
+  data-prueba-social
+  data-mensajes={JSON.stringify(mensajes)}
+  hidden
+  class="ps-toast fixed left-3 z-30 w-[min(72vw,20rem)] sm:left-6 sm:w-[20rem]"
+  role="status"
+  aria-live="polite"
+>
+  <div
+    class="flex items-start gap-3 rounded-xl border border-surface-200 bg-white p-3 shadow-lg ring-1 ring-black/5 transition-all duration-300"
+    data-caja
+  >
+    <span class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-success/10 text-base">
+      🎓
+    </span>
+    <div class="min-w-0 flex-1">
+      <p data-ps-texto class="text-[13px] leading-snug font-bold text-heading"></p>
+      <p data-ps-detalle class="mt-0.5 text-[11px] leading-snug text-muted"></p>
+      <p class="mt-1 text-[10px] text-muted/70">Información del curso y reseñas publicadas</p>
+    </div>
+    <button
+      type="button"
+      data-ps-cerrar
+      class="-mt-1 -mr-1 shrink-0 rounded-full p-1.5 text-muted transition hover:bg-surface-100"
+      aria-label="Cerrar aviso"
+    >
+      ✕
+    </button>
+  </div>
+</div>
+
+<style>
+  .ps-toast {
+    --ps-carril: 0px;
+    bottom: calc(1rem + var(--ps-carril) + env(safe-area-inset-bottom, 0px));
+  }
+  /* Mismo carril que el botón de WhatsApp: la barra de compra va abajo en
+     todas las anchuras, no solo en móvil. */
+  :global(body[data-has-sticky]) .ps-toast {
+    --ps-carril: calc(var(--barra-alto, 57px) + 1.25rem);
+  }
+  @media (min-width: 640px) {
+    .ps-toast {
+      bottom: calc(1.5rem + var(--ps-carril) + env(safe-area-inset-bottom, 0px));
+    }
+  }
+</style>
+
+<script>
+  import { trackEvent } from '@/lib/analytics';
+
+  const el = document.querySelector<HTMLElement>('[data-prueba-social]');
+  const CERRADO = 'sably:ps-cerrado';
+
+  if (el && !sessionStorage.getItem(CERRADO)) {
+    const mensajes: { texto: string; detalle: string }[] = JSON.parse(el.dataset.mensajes ?? '[]');
+    const caja = el.querySelector<HTMLElement>('[data-caja]')!;
+    const txt = el.querySelector<HTMLElement>('[data-ps-texto]')!;
+    const det = el.querySelector<HTMLElement>('[data-ps-detalle]')!;
+    let i = 0;
+    let timer: ReturnType<typeof setTimeout>;
+
+    const ocultar = () => {
+      caja.style.opacity = '0';
+      caja.style.transform = 'translateY(8px)';
+      setTimeout(() => (el.hidden = true), 300);
+    };
+
+    const mostrar = () => {
+      if (!mensajes.length) return;
+      const m = mensajes[i % mensajes.length]!;
+      txt.textContent = m.texto;
+      det.textContent = m.detalle;
+      el.hidden = false;
+      requestAnimationFrame(() => {
+        caja.style.opacity = '1';
+        caja.style.transform = 'translateY(0)';
+      });
+      trackEvent('prueba_social_vista', { mensaje: m.texto.slice(0, 60) });
+      i++;
+      // Visible 6 s, oculto 14 s: presente sin volverse molesto.
+      timer = setTimeout(() => {
+        ocultar();
+        timer = setTimeout(mostrar, intervalo);
+      }, 6000);
+    };
+
+    el.querySelector('[data-ps-cerrar]')?.addEventListener('click', () => {
+      clearTimeout(timer);
+      sessionStorage.setItem(CERRADO, '1');
+      ocultar();
+    });
+
+    caja.style.opacity = '0';
+    caja.style.transform = 'translateY(8px)';
+
+    /**
+     * La configuración manda: posición, tiempos, rutas excluidas y apagado se
+     * gobiernan desde /admin/widgets sin redesplegar las 5.971 páginas.
+     *
+     * Se arranca con los valores horneados y solo se ajusta si el endpoint
+     * responde. Si falla, el aviso se comporta como siempre: una llamada
+     * opcional no puede dejar la página sin prueba social.
+     */
+    interface CfgPrueba {
+      activo: boolean;
+      posicion: string;
+      x: number;
+      y: number;
+      esperaSeg: number;
+      intervaloSeg: number;
+      paginasOcultas: string[];
+    }
+
+    const ESQUINAS: Record<string, { v: 'top' | 'bottom'; h: 'left' | 'right' }> = {
+      'inferior-izquierda': { v: 'bottom', h: 'left' },
+      'inferior-derecha': { v: 'bottom', h: 'right' },
+      'superior-izquierda': { v: 'top', h: 'left' },
+      'superior-derecha': { v: 'top', h: 'right' },
+    };
+
+    const oculto = (rutas: string[]) =>
+      rutas.some((r) =>
+        r.endsWith('*') ? location.pathname.startsWith(r.slice(0, -1)) : location.pathname === r,
+      );
+
+    let espera = 8000;
+    let intervalo = 14000;
+
+    const arrancar = () => {
+      timer = setTimeout(mostrar, espera);
+    };
+
+    fetch('/api/v1/config', { signal: AbortSignal.timeout(4000) })
+      .then((r) => (r.ok ? (r.json() as Promise<{ pruebaSocial?: CfgPrueba }>) : null))
+      .then((cfg) => {
+        const c = cfg?.pruebaSocial;
+        if (!c) return;
+        if (!c.activo || oculto(c.paginasOcultas ?? [])) {
+          el.hidden = true;
+          throw new Error('desactivado');
+        }
+        const esq = ESQUINAS[c.posicion] ?? ESQUINAS['inferior-izquierda']!;
+        // Se limpian las cuatro para que un cambio de esquina no deje pegada la
+        // anterior, y el carril de la barra fija solo aplica si se ancla abajo.
+        for (const lado of ['top', 'bottom', 'left', 'right'] as const) {
+          caja.style[lado] = '';
+          el.style[lado] = '';
+        }
+        el.style[esq.h] = `${c.x}px`;
+        el.style[esq.v] =
+          esq.v === 'bottom'
+            ? `calc(${c.y}px + var(--ps-carril, 0px) + env(safe-area-inset-bottom, 0px))`
+            : `${c.y}px`;
+        espera = Math.max(0, c.esperaSeg) * 1000;
+        intervalo = Math.max(5, c.intervaloSeg) * 1000;
+      })
+      .catch(() => {
+        /* sin configuración se usan los valores horneados */
+      })
+      .finally(() => {
+        if (!el.hidden) arrancar();
+      });
+  }
+</script>

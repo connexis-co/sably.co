@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-macrame",
-  "country": "co",
-  "angulo": "hobby",
-  "meta_title": "Curso de macramé como negocio: de hobby a ventas en Colombia",
-  "meta_description": "Tejes por gusto y quieres vender. Conoce el curso de macramé como negocio, calcula costos y crea tus primeras piezas rentables. ¡Inscríbete hoy!",
-  "h1": "Aprende a cobrar por tus nudos con el curso de macramé como negocio",
-  "subtitulo": "Convierte las horas que pasas tejiendo tapices y portaplantas en un emprendimiento artesanal organizado desde tu casa.",
-  "descripcion": "Tejer relaja, despeja la mente y llena tus espacios de textura. Sin embargo, regalar tus tapices a conocidos o cobrar al ojo termina convirtiendo tu pasión en un desgaste de manos y bolsillo. Cuando pasas horas combinando nudos planos, alondras y festones, la satisfacción de crear no debería pelearse con la rentabilidad. Este **curso de macramé como negocio** te muestra cómo transformar ese pasatiempo que disfrutas en una actividad estructurada que genere ingresos reales en Colombia.\n\n## El cálculo exacto de material para no perder plata en cada proyecto\n\nEl error más común al tejer macramé es desperdiciar piola por falta de técnica en la medición. Cortar a ojo suele terminar en dos escenarios desalentadores: metros de piola de algodón de 4 milímetros desperdiciados en el piso o un tapiz a medio terminar donde las cuerdas no alcanzan para el remate final.\n\nAprendes a aplicar fórmulas sencillas para calcular la cantidad de cordón según el tipo de nudo (plano, festón, plano alternado) y el grosor del hilo. Así compras exactamente lo que necesitas en las distribuidoras de insumos locales y aseguras un margen limpio en cada venta.\n\n## Fijar precios reales: más allá de multiplicar el material por tres\n\nCobrar el triple del costo del hilo es una fórmula obsoleta que descuenta tus horas de trabajo manual. Un proyecto artesanal sostenible requiere números claros desde el primer día:\n\n- Determinar la tarifa por hora de trabajo técnico según la complejidad de la pieza.\n- Sumar costos invisibles: argollas de madera, tubos, empaque, etiquetas y tiempo de despacho.\n- Establecer el costo real por metro de hilaza peinada, cordón torcido o piola trenzada.\n- Definir tu margen de ganancia para reinvertir en herramientas o inventario de materia prima.\n\n## Qué esperar realmente de esta capacitación\n\nPonemos un techo claro a las expectativas: esta capacitación no te convertirá en dueña de una gran fábrica ni te eximirá del trabajo de producción manual. Tejer macramé requiere práctica constante para lograr una tensión uniforme en las piezas y evitar que los tapices queden arqueados o flojos. Tampoco existen soluciones mágicas; comercializar exige tomar fotos nítidas con luz natural, publicar con constancia y atender clientes con paciencia. Lo que sí obtienes son las herramientas administrativas y técnicas para estructurar el oficio que ya disfrutas.\n\n## Diseñar una colección balanceada para el mercado colombiano\n\nNo todas las creaciones tienen la misma salida ni dejan el mismo margen. Para sostener un taller en casa, conviene balancear el portafolio comercial que trabajas junto a Valentina Ocampo:\n\n- Piezas de alta rotación: llaveros, individuales y portaplantas que se tejen en poco tiempo y funcionan para regalos o ferias.\n- Piezas de mediano formato: caminos de mesa y cojines decorativos para clientes que buscan renovar espacios.\n- Piezas de gran formato: tapices murales y cabeceros para proyectos sobre pedido con mayor margen de utilidad.\n\nCon esta estructura de catálogo avanzas con orden, sin saturarte de trabajo ni acumular inventario sin vender.",
-  "faqs": [
-    {
-      "q": "¿Cómo puedo pagar el curso desde Colombia?",
-      "a": "Puedes pagar en pesos colombianos (COP) utilizando PSE, Nequi, Daviplata o tarjetas de crédito y débito. La plataforma ajusta la conversión automáticamente al momento del pago."
-    },
-    {
-      "q": "¿El precio de USD 25 ya tiene el descuento aplicado?",
-      "a": "Sí, la tarifa de USD 25 refleja el 40% de descuento de lanzamiento. No necesitas ingresar ningún código adicional ni pagar cobros extra."
-    },
-    {
-      "q": "¿El certificado me sirve para trabajar o formalizar mi negocio en Colombia?",
-      "a": "El certificado acredita que completaste las 10 horas de formación. En Colombia, la venta de artesanías no requiere un título formal, pero el documento respalda tu preparación ante clientes y ferias locales."
-    },
-    {
-      "q": "¿Necesito experiencia previa en tejido para tomar el curso?",
-      "a": "No es necesario. El contenido parte desde los insumos básicos y el control de tensión en los nudos hasta la estructuración de costos y comercialización."
-    },
-    {
-      "q": "¿Tengo que comprar herramientas costosas para empezar a practicar?",
-      "a": "No. Puedes comenzar practicando con piola o hilaza básica de algodón disponible en mercerías locales y sostener tus tejidos en soportes sencillos como percheros o ramas."
-    },
-    {
-      "q": "¿Cuándo y cómo recibo el acceso a las lecciones?",
-      "a": "El acceso es inmediato tras confirmar el pago. Recibirás un correo electrónico con las credenciales para ingresar a la plataforma y ver las 15 lecciones a tu propio ritmo."
-    },
-    {
-      "q": "¿Puedo ver las clases desde mi celular?",
-      "a": "Sí, la plataforma es compatible con computadores, tabletas y celulares con conexión a internet."
-    },
-    {
-      "q": "¿El curso tiene una fecha límite para terminarlo?",
-      "a": "No hay límite de tiempo. Tienes acceso al contenido de forma permanente para consultar las lecciones cada vez que necesites calcular costos o revisar una técnica."
-    }
-  ],
-  "beneficios": [
-    "Calcular con exactitud el costo de cada metro de cuerda para no perder dinero en tus ventas.",
-    "Crear nudos base que aseguren la estructura sin que la pieza se deforme con el tiempo.",
-    "Diseñar catálogos de productos que realmente se venden en redes sociales en lugar de acumular stock innecesario.",
-    "Aplicar acabados limpios en los extremos para que tus piezas no se deshilachen tras el primer uso.",
-    "Armar presupuestos competitivos considerando el tiempo real de elaboración y los materiales.",
-    "Estructurar un flujo de trabajo para atender pedidos personalizados sin estancarte en la producción."
-  ],
-  "para_quien": [
-    "Si haces nudos en tus ratos libres pero no sabes cómo ponerles un precio real.",
-    "Si quieres que tu pasatiempo favorito cubra al menos los gastos de los materiales que compras.",
-    "Si te sientes cómoda tejiendo pero te paralizas al momento de hablar con un cliente potencial.",
-    "Si buscas una metodología para profesionalizar tu pasatiempo sin convertirlo en una carga pesada."
-  ],
-  "requisitos": [
-    "Disponer de un espacio de trabajo despejado donde puedas colgar tus soportes para tejer.",
-    "Contar con una inversión inicial básica en cuerdas de algodón y listones de madera para practicar los proyectos propuestos.",
-    "Tener acceso a una conexión a internet estable para visualizar las lecciones de este curso de macramé como negocio."
-  ],
-  "certificado": "Al finalizar las lecciones, recibirás un certificado de participación que acredita que completaste el contenido. Es un aval de tu formación técnica, pero ten en cuenta que este documento no constituye una licencia profesional ni un título habilitante para ejercer actividades que requieran regulación legal específica.",
-  "garantia": "Tienes 7 días de prueba desde el momento de tu compra. Si sientes que el enfoque de Valentina Ocampo no se ajusta a lo que buscabas, gestionas la devolución del 100% de tu dinero directamente en la plataforma Hotmart sin dar explicaciones adicionales.",
-  "_meta": {
-    "usd": 0.01285,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-macrame",
+ "country": "co",
+ "angulo": "hobby",
+ "meta_title": "Curso de macramé como negocio: de hobby a ventas en Colombia",
+ "meta_description": "Tejes por gusto y quieres vender. Conoce el curso de macramé como negocio, calcula costos y crea tus primeras piezas rentables. ¡Inscríbete hoy!",
+ "h1": "Aprende a cobrar por tus nudos con el curso de macramé como negocio",
+ "subtitulo": "Convierte las horas que pasas tejiendo tapices y portaplantas en un emprendimiento artesanal organizado desde tu casa.",
+ "descripcion": "Tejer relaja, despeja la mente y llena tus espacios de textura. Sin embargo, regalar tus tapices a conocidos o cobrar al ojo termina convirtiendo tu pasión en un desgaste de manos y bolsillo. Cuando pasas horas combinando nudos planos, alondras y festones, la satisfacción de crear no debería pelearse con la rentabilidad. Este **curso de macramé como negocio** te muestra cómo transformar ese pasatiempo que disfrutas en una actividad estructurada que genere ingresos reales en Colombia.\n\n## El cálculo exacto de material para no perder plata en cada proyecto\n\nEl error más común al tejer macramé es desperdiciar piola por falta de técnica en la medición. Cortar a ojo suele terminar en dos escenarios desalentadores: metros de piola de algodón de 4 milímetros desperdiciados en el piso o un tapiz a medio terminar donde las cuerdas no alcanzan para el remate final.\n\nAprendes a aplicar fórmulas sencillas para calcular la cantidad de cordón según el tipo de nudo (plano, festón, plano alternado) y el grosor del hilo. Así compras exactamente lo que necesitas en las distribuidoras de insumos locales y aseguras un margen limpio en cada venta.\n\n## Fijar precios reales: más allá de multiplicar el material por tres\n\nCobrar el triple del costo del hilo es una fórmula obsoleta que descuenta tus horas de trabajo manual. Un proyecto artesanal sostenible requiere números claros desde el primer día:\n\n- Determinar la tarifa por hora de trabajo técnico según la complejidad de la pieza.\n- Sumar costos invisibles: argollas de madera, tubos, empaque, etiquetas y tiempo de despacho.\n- Establecer el costo real por metro de hilaza peinada, cordón torcido o piola trenzada.\n- Definir tu margen de ganancia para reinvertir en herramientas o inventario de materia prima.\n\n## Qué esperar realmente de esta capacitación\n\nPonemos un techo claro a las expectativas: esta capacitación no te convertirá en dueña de una gran fábrica ni te eximirá del trabajo de producción manual. Tejer macramé requiere práctica constante para lograr una tensión uniforme en las piezas y evitar que los tapices queden arqueados o flojos. Tampoco existen soluciones mágicas; comercializar exige tomar fotos nítidas con luz natural, publicar con constancia y atender clientes con paciencia. Lo que sí obtienes son las herramientas administrativas y técnicas para estructurar el oficio que ya disfrutas.\n\n## Diseñar una colección balanceada para el mercado colombiano\n\nNo todas las creaciones tienen la misma salida ni dejan el mismo margen. Para sostener un taller en casa, conviene balancear el portafolio comercial que trabajas junto a Valentina Ocampo:\n\n- Piezas de alta rotación: llaveros, individuales y portaplantas que se tejen en poco tiempo y funcionan para regalos o ferias.\n- Piezas de mediano formato: caminos de mesa y cojines decorativos para clientes que buscan renovar espacios.\n- Piezas de gran formato: tapices murales y cabeceros para proyectos sobre pedido con mayor margen de utilidad.\n\nCon esta estructura de catálogo avanzas con orden, sin saturarte de trabajo ni acumular inventario sin vender.",
+ "faqs": [
+ {
+ "q": "¿Cómo puedo pagar el curso desde Colombia?",
+ "a": "Puedes pagar en pesos colombianos (COP) utilizando PSE, Nequi, Daviplata o tarjetas de crédito y débito. La plataforma ajusta la conversión automáticamente al momento del pago."
+ },
+ {
+ "q": "¿El precio publicado ya tiene el descuento aplicado?",
+ "a": "Sí, el precio publicado refleja el 40% de descuento de lanzamiento. No necesitas ingresar ningún código adicional ni pagar cobros extra."
+ },
+ {
+ "q": "¿El certificado me sirve para trabajar o formalizar mi negocio en Colombia?",
+ "a": "El certificado acredita que completaste las 10 horas de formación. En Colombia, la venta de artesanías no requiere un título formal, pero el documento respalda tu preparación ante clientes y ferias locales."
+ },
+ {
+ "q": "¿Necesito experiencia previa en tejido para tomar el curso?",
+ "a": "No es necesario. El contenido parte desde los insumos básicos y el control de tensión en los nudos hasta la estructuración de costos y comercialización."
+ },
+ {
+ "q": "¿Tengo que comprar herramientas costosas para empezar a practicar?",
+ "a": "No. Puedes comenzar practicando con piola o hilaza básica de algodón disponible en mercerías locales y sostener tus tejidos en soportes sencillos como percheros o ramas."
+ },
+ {
+ "q": "¿Cuándo y cómo recibo el acceso a las lecciones?",
+ "a": "El acceso es inmediato tras confirmar el pago. Recibirás un correo electrónico con las credenciales para ingresar a la plataforma y ver las 15 lecciones a tu propio ritmo."
+ },
+ {
+ "q": "¿Puedo ver las clases desde mi celular?",
+ "a": "Sí, la plataforma es compatible con computadores, tabletas y celulares con conexión a internet."
+ },
+ {
+ "q": "¿El curso tiene una fecha límite para terminarlo?",
+ "a": "No hay límite de tiempo. Tienes acceso al contenido de forma permanente para consultar las lecciones cada vez que necesites calcular costos o revisar una técnica."
+ }
+ ],
+ "beneficios": [
+ "Calcular con exactitud el costo de cada metro de cuerda para no perder dinero en tus ventas.",
+ "Crear nudos base que aseguren la estructura sin que la pieza se deforme con el tiempo.",
+ "Diseñar catálogos de productos que realmente se venden en redes sociales en lugar de acumular stock innecesario.",
+ "Aplicar acabados limpios en los extremos para que tus piezas no se deshilachen tras el primer uso.",
+ "Armar presupuestos competitivos considerando el tiempo real de elaboración y los materiales.",
+ "Estructurar un flujo de trabajo para atender pedidos personalizados sin estancarte en la producción."
+ ],
+ "para_quien": [
+ "Si haces nudos en tus ratos libres pero no sabes cómo ponerles un precio real.",
+ "Si quieres que tu pasatiempo favorito cubra al menos los gastos de los materiales que compras.",
+ "Si te sientes cómoda tejiendo pero te paralizas al momento de hablar con un cliente potencial.",
+ "Si buscas una metodología para profesionalizar tu pasatiempo sin convertirlo en una carga pesada."
+ ],
+ "requisitos": [
+ "Disponer de un espacio de trabajo despejado donde puedas colgar tus soportes para tejer.",
+ "Contar con una inversión inicial básica en cuerdas de algodón y listones de madera para practicar los proyectos propuestos.",
+ "Tener acceso a una conexión a internet estable para visualizar las lecciones de este curso de macramé como negocio."
+ ],
+ "certificado": "Al finalizar las lecciones, recibirás un certificado de participación que acredita que completaste el contenido. Es un aval de tu formación técnica, pero ten en cuenta que este documento no constituye una licencia profesional ni un título habilitante para ejercer actividades que requieran regulación legal específica.",
+ "garantia": "Tienes 7 días de prueba desde el momento de tu compra. Si sientes que el enfoque de Valentina Ocampo no se ajusta a lo que buscabas, gestionas la devolución del 100% de tu dinero directamente en la plataforma Hotmart sin dar explicaciones adicionales.",
+ "_meta": {
+ "usd": 0.01285,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-cerveza-artesanal",
-  "country": "ar",
-  "angulo": "carrera",
-  "meta_title": "Curso de cerveza artesanal en Argentina | Aprendé a elaborar",
-  "meta_description": "Dominá la elaboración profesional, el control de fermentación y la creación de recetas con este curso de cerveza artesanal. Inscribite con Mercado Pago.",
-  "h1": "Curso de cerveza artesanal: de la olla en tu cocina al escalado profesional",
-  "subtitulo": "Dominá el proceso técnico, corregí errores de cocción y transformá tu pasión por la birra en un proyecto productivo real.",
-  "descripcion": "Tirar un lote entero de 20 litros porque la cerveza salió ácida o astringente te hace dudar si vale la pena seguir. Si estás buscando un **curso de cerveza artesanal** para dejar de adivinar qué falló en la maduración y querés profesionalizar tu producción en Argentina, tenés que controlar la química de los procesos, no solo seguir una receta de internet. Acá no se trata de cocinar por intuición, sino de manejar parámetros exactos de maceración, lúpulo y sanitización para obtener un producto limpio y repetible en cada cocción.\n\n## Del consumo hogareño a la producción con criterio técnico\n\nPara construir una carrera en la industria cervecera local —ya sea para vender a canillas de barrio, armar tu propia microcervecería o trabajar en planta— necesitás comprender la física y química detrás del mosto. El error más común al arrancar es no medir la densidad adecuada o descuidar la temperatura de fermentación. Cuando la levadura se estresa por dos grados de más, genera ésteres y alcoholes superiores que arruinan el sabor y dejan esa resaca insoportable.\n\n### Lo que cambia cuando aplicás técnica profesional\n\n- Ajustás el perfil del agua según el estilo, balanceando sulfatos y cloruros para resaltar el amargor o la malta.\n- Calculás el rendimiento exacto del macerado para no desperdiciar insumos en cada batch.\n- Diseñás tus propias recetas controlando IBUs, SRM y densidad inicial sin copiar tablas ajenas.\n- Limpiás y sanitizás con protocolos que eliminan infecciones por bacterias lácticas o levaduras salvajes.\n\n## Cómo armar tu camino laboral en la cerveza artesanal\n\nPasar de cervecero casero a productor comercial exige pensar en escala. No necesitás arrancar con un equipo de acero inoxidable de tres cuerpos y miles de dólares. Podés estructurar un plan de crecimiento progresivo: perfeccionar tres estilos base en lotes pequeños, estandarizar los tiempos de clarificación y embotellado, y recién ahí dar el salto a recipientes de mayor volumen o barriles.\n\nLa industria en el país exige calidad constante. Un bar no te compra un barril si la IPA de esta semana no sabe igual a la del mes pasado. Al dominar el cálculo de ingredientes y la gestión de fermentación, lográs que tu cerveza mantenga la misma identidad en cada lote, abriéndote puertas en distribuidores, recargas de botellones o eventos.\n\n## Límites claros: lo que este entrenamiento no hace por vos\n\nSeamos honestos: hacer este curso de cerveza artesanal no te convierte automáticamente en dueño de una planta industrial habilitada ante la ANMAT o el RNE en seis meses. Tampoco resuelve los trámites municipales para habilitar un local comercial ni elimina el trabajo físico que requiere limpiar equipos durante horas. Lo que sí te da son las bases técnicas y metodológicas para que cada litro que produzcas sea vendible, seguro y técnicamente perfecto, ahorrándote miles de pesos en insumos arruinados por prueba y error.",
-  "faqs": [
-    {
-      "q": "¿Puedo pagar en pesos argentinos y mediante Mercado Pago?",
-      "a": "Sí, podés abonar directamente en pesos argentinos usando Mercado Pago (saldo en cuenta, tarjeta de débito o crédito) o con tarjetas de crédito y débito locales."
-    },
-    {
-      "q": "¿El precio publicado ya incluye el descuento del cupón?",
-      "a": "Sí. El importe final de USD 38 ya tiene aplicado el 40% de descuento de lanzamiento sobre el precio original de USD 63. No tenés que ingresar ningún código adicional."
-    },
-    {
-      "q": "¿El certificado me habilita legalmente para comercializar en Argentina?",
-      "a": "No. El certificado acredita la realización y aprobación de la capacitación con Tomás Riquelme. Para vender comercialmente necesitás tramitar las habilitaciones correspondientes (RNE, RNPA y registro municipal) según la normativa de tu provincia o municipio."
-    },
-    {
-      "q": "¿Necesito conocimientos previos de química para realizar la capacitación?",
-      "a": "No es necesario contar con experiencia previa ni títulos técnicos. El contenido arranca desde las bases operativas y te guía paso a paso para dominar las mediciones y cálculos necesarios."
-    },
-    {
-      "q": "¿Tengo que comprar equipos profesionales de acero inoxidable antes de empezar?",
-      "a": "No. Podés arrancar a practicar con equipamiento casero o de cocina tradicional. Dentro del contenido vas a entender qué insumos e instrumentos de medición valen la pena priorizar antes de realizar inversiones grandes."
-    },
-    {
-      "q": "¿Cómo se calcula el monto a pagar en pesos si el valor de referencia está en USD?",
-      "a": "El sistema procesa el cobro al tipo de cambio oficial o según la cotización del procesador de pagos seleccionado (Mercado Pago o tarjeta) al momento de concretar la transacción."
-    },
-    {
-      "q": "¿Puedo hacer la práctica si vivo en un departamento pequeño?",
-      "a": "Sí, las técnicas de elaboración explicadas son totalmente aplicables a lotes reducidos de 10 o 20 litros que podés cocinar en una cocina hogareña convencional."
-    },
-    {
-      "q": "¿Existe algún plazo límite para ver los videos del curso?",
-      "a": "No tenés un tiempo límite. Una vez abonado el ingreso, podés mirar las lecciones a tu propio ritmo, repasar el material cuando cocines y organizar tu tiempo según tu disponibilidad."
-    }
-  ],
-  "beneficios": [
-    "Controlar la temperatura de fermentación para evitar sabores a solvente o fruta podrida.",
-    "Ajustar la receta para que el amargor de los lúpulos sea equilibrado y no invada el paladar.",
-    "Calcular la carbonatación precisa para que tu cerveza no termine siendo un chorro de espuma al abrirla.",
-    "Dominar el proceso de sanitización de equipos para que ninguna partida se eche a perder por contaminaciones.",
-    "Estructurar los tiempos de macerado para extraer solo los azúcares fermentables que necesitás.",
-    "Armar un flujo de trabajo lógico en tu cocina para producir lotes consistentes cada vez."
-  ],
-  "para_quien": [
-    "Si buscás profesionalizar tus cocciones caseras y dejar de depender de la suerte en cada lote.",
-    "Para quienes quieren entender qué sucede realmente dentro del fermentador en lugar de seguir recetas a ciegas.",
-    "Si tenés interés en montar tu propia marca y necesitás una base técnica sólida para escalar.",
-    "Para vos, que ya hacés cerveza pero te cansaste de tirar litros por errores de procedimiento."
-  ],
-  "requisitos": [
-    "Disponer de una cocina básica con hornalla, olla y termómetro.",
-    "Tener una computadora o celular con conexión a internet para ver las lecciones.",
-    "Contar con paciencia, ya que la cerveza artesanal requiere limpieza y tiempos de espera obligatorios."
-  ],
-  "certificado": "Al finalizar las 14 horas de contenido, recibís un certificado de finalización emitido por la plataforma. Tené en cuenta que este documento acredita tu participación en el curso de cerveza artesanal, pero no te habilita legalmente para vender alcohol ni para el expendio comercial sin las habilitaciones bromatológicas correspondientes en tu municipio.",
-  "garantia": "Tenés 7 días corridos a partir de la compra para probar el material. Si sentís que el curso no cumple con lo que buscás, solicitás el reembolso total a través de Hotmart y el dinero se te devuelve sin vueltas ni preguntas.",
-  "_meta": {
-    "usd": 0.01302,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-cerveza-artesanal",
+ "country": "ar",
+ "angulo": "carrera",
+ "meta_title": "Curso de cerveza artesanal en Argentina | Aprendé a elaborar",
+ "meta_description": "Dominá la elaboración profesional, el control de fermentación y la creación de recetas con este curso de cerveza artesanal. Inscribite con Mercado Pago.",
+ "h1": "Curso de cerveza artesanal: de la olla en tu cocina al escalado profesional",
+ "subtitulo": "Dominá el proceso técnico, corregí errores de cocción y transformá tu pasión por la birra en un proyecto productivo real.",
+ "descripcion": "Tirar un lote entero de 20 litros porque la cerveza salió ácida o astringente te hace dudar si vale la pena seguir. Si estás buscando un **curso de cerveza artesanal** para dejar de adivinar qué falló en la maduración y querés profesionalizar tu producción en Argentina, tenés que controlar la química de los procesos, no solo seguir una receta de internet. Acá no se trata de cocinar por intuición, sino de manejar parámetros exactos de maceración, lúpulo y sanitización para obtener un producto limpio y repetible en cada cocción.\n\n## Del consumo hogareño a la producción con criterio técnico\n\nPara construir una carrera en la industria cervecera local —ya sea para vender a canillas de barrio, armar tu propia microcervecería o trabajar en planta— necesitás comprender la física y química detrás del mosto. El error más común al arrancar es no medir la densidad adecuada o descuidar la temperatura de fermentación. Cuando la levadura se estresa por dos grados de más, genera ésteres y alcoholes superiores que arruinan el sabor y dejan esa resaca insoportable.\n\n### Lo que cambia cuando aplicás técnica profesional\n\n- Ajustás el perfil del agua según el estilo, balanceando sulfatos y cloruros para resaltar el amargor o la malta.\n- Calculás el rendimiento exacto del macerado para no desperdiciar insumos en cada batch.\n- Diseñás tus propias recetas controlando IBUs, SRM y densidad inicial sin copiar tablas ajenas.\n- Limpiás y sanitizás con protocolos que eliminan infecciones por bacterias lácticas o levaduras salvajes.\n\n## Cómo armar tu camino laboral en la cerveza artesanal\n\nPasar de cervecero casero a productor comercial exige pensar en escala. No necesitás arrancar con un equipo de acero inoxidable de tres cuerpos y miles de dólares. Podés estructurar un plan de crecimiento progresivo: perfeccionar tres estilos base en lotes pequeños, estandarizar los tiempos de clarificación y embotellado, y recién ahí dar el salto a recipientes de mayor volumen o barriles.\n\nLa industria en el país exige calidad constante. Un bar no te compra un barril si la IPA de esta semana no sabe igual a la del mes pasado. Al dominar el cálculo de ingredientes y la gestión de fermentación, lográs que tu cerveza mantenga la misma identidad en cada lote, abriéndote puertas en distribuidores, recargas de botellones o eventos.\n\n## Límites claros: lo que este entrenamiento no hace por vos\n\nSeamos honestos: hacer este curso de cerveza artesanal no te convierte automáticamente en dueño de una planta industrial habilitada ante la ANMAT o el RNE en seis meses. Tampoco resuelve los trámites municipales para habilitar un local comercial ni elimina el trabajo físico que requiere limpiar equipos durante horas. Lo que sí te da son las bases técnicas y metodológicas para que cada litro que produzcas sea vendible, seguro y técnicamente perfecto, ahorrándote miles de pesos en insumos arruinados por prueba y error.",
+ "faqs": [
+ {
+ "q": "¿Puedo pagar en pesos argentinos y mediante Mercado Pago?",
+ "a": "Sí, podés abonar directamente en pesos argentinos usando Mercado Pago (saldo en cuenta, tarjeta de débito o crédito) o con tarjetas de crédito y débito locales."
+ },
+ {
+ "q": "¿El precio publicado ya incluye el descuento del cupón?",
+ "a": "Sí. El importe final publicado ya es el precio final. No tenés que ingresar ningún código adicional."
+ },
+ {
+ "q": "¿El certificado me habilita legalmente para comercializar en Argentina?",
+ "a": "No. El certificado acredita la realización y aprobación de la capacitación con Tomás Riquelme. Para vender comercialmente necesitás tramitar las habilitaciones correspondientes (RNE, RNPA y registro municipal) según la normativa de tu provincia o municipio."
+ },
+ {
+ "q": "¿Necesito conocimientos previos de química para realizar la capacitación?",
+ "a": "No es necesario contar con experiencia previa ni títulos técnicos. El contenido arranca desde las bases operativas y te guía paso a paso para dominar las mediciones y cálculos necesarios."
+ },
+ {
+ "q": "¿Tengo que comprar equipos profesionales de acero inoxidable antes de empezar?",
+ "a": "No. Podés arrancar a practicar con equipamiento casero o de cocina tradicional. Dentro del contenido vas a entender qué insumos e instrumentos de medición valen la pena priorizar antes de realizar inversiones grandes."
+ },
+ {
+ "q": "¿Cómo se calcula el monto a pagar en pesos si el valor de referencia está en USD?",
+ "a": "El sistema procesa el cobro al tipo de cambio oficial o según la cotización del procesador de pagos seleccionado (Mercado Pago o tarjeta) al momento de concretar la transacción."
+ },
+ {
+ "q": "¿Puedo hacer la práctica si vivo en un departamento pequeño?",
+ "a": "Sí, las técnicas de elaboración explicadas son totalmente aplicables a lotes reducidos de 10 o 20 litros que podés cocinar en una cocina hogareña convencional."
+ },
+ {
+ "q": "¿Existe algún plazo límite para ver los videos del curso?",
+ "a": "No tenés un tiempo límite. Una vez abonado el ingreso, podés mirar las lecciones a tu propio ritmo, repasar el material cuando cocines y organizar tu tiempo según tu disponibilidad."
+ }
+ ],
+ "beneficios": [
+ "Controlar la temperatura de fermentación para evitar sabores a solvente o fruta podrida.",
+ "Ajustar la receta para que el amargor de los lúpulos sea equilibrado y no invada el paladar.",
+ "Calcular la carbonatación precisa para que tu cerveza no termine siendo un chorro de espuma al abrirla.",
+ "Dominar el proceso de sanitización de equipos para que ninguna partida se eche a perder por contaminaciones.",
+ "Estructurar los tiempos de macerado para extraer solo los azúcares fermentables que necesitás.",
+ "Armar un flujo de trabajo lógico en tu cocina para producir lotes consistentes cada vez."
+ ],
+ "para_quien": [
+ "Si buscás profesionalizar tus cocciones caseras y dejar de depender de la suerte en cada lote.",
+ "Para quienes quieren entender qué sucede realmente dentro del fermentador en lugar de seguir recetas a ciegas.",
+ "Si tenés interés en montar tu propia marca y necesitás una base técnica sólida para escalar.",
+ "Para vos, que ya hacés cerveza pero te cansaste de tirar litros por errores de procedimiento."
+ ],
+ "requisitos": [
+ "Disponer de una cocina básica con hornalla, olla y termómetro.",
+ "Tener una computadora o celular con conexión a internet para ver las lecciones.",
+ "Contar con paciencia, ya que la cerveza artesanal requiere limpieza y tiempos de espera obligatorios."
+ ],
+ "certificado": "Al finalizar las 14 horas de contenido, recibís un certificado de finalización emitido por la plataforma. Tené en cuenta que este documento acredita tu participación en el curso de cerveza artesanal, pero no te habilita legalmente para vender alcohol ni para el expendio comercial sin las habilitaciones bromatológicas correspondientes en tu municipio.",
+ "garantia": "Tenés 7 días corridos a partir de la compra para probar el material. Si sentís que el curso no cumple con lo que buscás, solicitás el reembolso total a través de Hotmart y el dinero se te devuelve sin vueltas ni preguntas.",
+ "_meta": {
+ "usd": 0.01302,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

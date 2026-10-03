@@ -1,6 +1,9 @@
 ---
-import { CATEGORIES } from '@/lib/categories';
-import { COUNTRIES, type Country } from '@/lib/countries';
+import { getCategories, getCountries } from '@/lib/emdash-content';
+import { getMenu } from 'emdash';
+import { getLiveSiteSettings } from '@/lib/live-site-settings';
+import { safeEditorialUrl, marketMenuUrl } from '@/lib/sably-theme';
+import { type Country } from '@/lib/countries';
 import { SITE } from '@/lib/site';
 import Logo from './Logo.astro';
 import SocialIcon from './SocialIcon.astro';
@@ -12,22 +15,30 @@ const { country } = Astro.props;
 const base = `/${country.code}`;
 const year = new Date().getFullYear();
 
-const REDES = [
-  { network: 'instagram', url: SITE.social.instagram, label: 'Instagram' },
-  { network: 'tiktok', url: SITE.social.tiktok, label: 'TikTok' },
-  { network: 'facebook', url: SITE.social.facebook, label: 'Facebook' },
-  { network: 'youtube', url: SITE.social.youtube, label: 'YouTube' },
-] as const;
-
-const SABLY_LINKS = [
-  { href: '/nosotros/', label: 'Sobre nosotros' },
-  { href: '/homologaciones/', label: 'Homologaciones' },
-  { href: '/blog/', label: 'Blog' },
-  { href: '/contacto/', label: 'Contacto' },
-  { href: '/sitemap/', label: 'Mapa del sitio' },
-  { href: '/legal/terminos/', label: 'Términos y condiciones' },
-  { href: '/legal/privacidad/', label: 'Política de privacidad' },
-];
+const [CATEGORIES, COUNTRIES, settings, footer, social, ecosystem] = await Promise.all([
+  getCategories(), getCountries(), getLiveSiteSettings(), getMenu('footer',{locale:'es'}), getMenu('social',{locale:'es'}), getMenu('ecosystem',{locale:'es'}),
+]);
+type Network = 'instagram'|'tiktok'|'facebook'|'youtube';
+function socialNetwork(href:string):Network|null {
+  // Editors can rename a menu label without changing the icon's identity.
+  let host:string;try{host=new URL(href).hostname.toLowerCase();}catch{return null;}
+  for(const [domain,network] of [['instagram.com','instagram'],['tiktok.com','tiktok'],['facebook.com','facebook'],['youtube.com','youtube'],['youtu.be','youtube']] as const){
+    if(host===domain||host.endsWith(`.${domain}`))return network;
+  }
+  return null;
+}
+const REDES = (social?.items ?? []).flatMap(item => {
+  const url=safeEditorialUrl(item.url);
+  return url ? [{network:socialNetwork(url),url,label:item.label}] : [];
+});
+const SABLY_LINKS = (footer?.items ?? []).flatMap(item=>{
+  const href=marketMenuUrl(item.url,country.code);
+  return href?[{href,label:item.label,target:item.target}]:[];
+});
+const ECOSYSTEM = (ecosystem?.items ?? []).flatMap(item=>{
+  const href=safeEditorialUrl(item.url);
+  return href?[{href,label:item.label,target:item.target}]:[];
+});
 ---
 
 <footer class="bg-primary text-white">
@@ -36,20 +47,20 @@ const SABLY_LINKS = [
     <div class="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))] lg:gap-8">
       <div>
         <Logo href={`${base}/`} inverted />
-        <p class="mt-4 max-w-sm text-sm leading-relaxed text-white/70">{SITE.tagline}</p>
+        <p class="mt-4 max-w-sm text-sm leading-relaxed text-white/70">{settings.tagline ?? SITE.tagline}</p>
 
         <p class="mt-5 text-xs font-bold tracking-wide text-white/50 uppercase">Ecosistema Sably</p>
         <ul class="mt-2 space-y-1.5" role="list">
           {
-            SITE.filiales.map((f) => (
+            ECOSYSTEM.map((f) => (
               <li>
                 <a
-                  href={f.url}
-                  target="_blank"
-                  rel="noopener"
+                  href={f.href}
+                  target={f.target}
+                  rel={f.target==='_blank'?'noopener':undefined}
                   class="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition hover:text-accent"
                 >
-                  {f.name}
+                  {f.label}
                   <span aria-hidden="true">→</span>
                 </a>
               </li>
@@ -65,9 +76,9 @@ const SABLY_LINKS = [
                 target="_blank"
                 rel="noopener"
                 aria-label={r.label}
-                class="flex size-10 items-center justify-center rounded-full bg-white/10 text-white/80 transition hover:bg-accent hover:text-white"
+                class:list={['flex h-10 items-center justify-center bg-white/10 text-white/80 transition hover:bg-accent hover:text-white',r.network?'w-10 rounded-full':'rounded-md px-3']}
               >
-                <SocialIcon network={r.network} class="size-[18px]" />
+                {r.network?<SocialIcon network={r.network} class="size-[18px]" />:<span class="text-xs font-semibold">{r.label}</span>}
               </a>
             ))
           }
@@ -115,7 +126,7 @@ const SABLY_LINKS = [
           {
             SABLY_LINKS.map((l) => (
               <li>
-                <a href={l.href} class="text-sm text-white/70 transition hover:text-white">
+                <a href={l.href} target={l.target} rel={l.target==='_blank'?'noopener':undefined} class="text-sm text-white/70 transition hover:text-white">
                   {l.label}
                 </a>
               </li>
@@ -127,9 +138,22 @@ const SABLY_LINKS = [
   </div>
 
   <div class="border-t border-white/10">
-    <div class="container-site flex flex-col items-center gap-2 py-5 text-center text-xs text-white/50 sm:flex-row sm:justify-between sm:text-left">
+    <div class="container-site flex flex-col items-center gap-2 py-5 text-center text-xs text-white/50 sm:flex-row sm:flex-wrap sm:justify-between sm:text-left">
       <p>© {year} Sably — Todos los derechos reservados.</p>
       <p>Los cursos se imparten a través de Hotmart. Certificado incluido.</p>
+      {/* Aviso de afiliado en todo el sitio (FTC, SIC, LSSI y la política de
+          tergiversación de Google Ads piden declarar la comisión). Dice
+          «como afiliado» y no «afiliado de Hotmart»: los Términos de Hotmart
+          (6.4) prohíben sugerir un vínculo con Hotmart; la afiliación es a los
+          cursos de cada creador. sm:basis-full lo baja a su propia línea. */}
+      <p class="sm:basis-full">
+        Sably recomienda cursos como afiliado: si compras a través de nuestros enlaces recibimos una comisión, sin
+        costo extra para ti. Pagos y acceso gestionados por Hotmart.{' '}
+        <a
+          href="/legal/terminos/#afiliacion"
+          class="underline decoration-white/30 underline-offset-2 transition hover:text-white">Más información</a
+        >
+      </p>
     </div>
   </div>
 </footer>

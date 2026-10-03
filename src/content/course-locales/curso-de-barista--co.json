@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-barista",
-  "country": "co",
-  "angulo": "hobby",
-  "meta_title": "Curso de barismo y café de especialidad para casa",
-  "meta_description": "Aprende a preparar café de especialidad en casa con filtrados y emulsión perfecta. Inscríbete con PSE o Nequi y domina tu cafetería personal.",
-  "h1": "Curso de barismo y café de especialidad para amantes del buen café",
-  "subtitulo": "Deja de tomar café quemado en casa y aprende los secretos de la extracción, la molienda y la emulsión sin salir de tu cocina.",
-  "descripcion": "Comprar una bolsa de café de origen en Manizales o Pitalito y que la taza termine sabiendo a vinagre o a carbón es una frustración común. Este **curso de barismo y café de especialidad** está pensado para quienes quieren disfrutar de una bebida perfecta en su propia cocina, sin necesidad de gastar millones en equipos industriales ni adivinar por qué el filtrado quedó amargo.\n\n## Por qué tu café en casa no sabe como el de tu cafetería favorita\n\nEl problema casi nunca es el grano. Compras un paquete con notas a frutos rojos y tostión media, pero al pasarlo por la prensa francesa o la V60, la bebida pierde todo el aroma. Eso pasa porque ignoras tres variables esenciales: la temperatura exacta del agua, la proporción entre gramos de café y mililitros de agua, y el tiempo de contacto. Cuando usas agua hirviendo descontrolada, terminas quemando la molienda. Si el molido es demasiado fino para tu filtro, terminas con una taza amarga, turbia y llena de sedimentos.\n\n## De la teoría del grano a la taza perfecta en tu mesa\n\nPara extraer las notas dulces y ácidas equilibradas que promete la etiqueta, necesitas dominar la física del vertido. En este proceso vas a aplicar técnicas concretas para ajustar el grosor del grano según el método que tengas en tu cocina, controlar el vertido en espiral para lograr una saturación uniforme y aplicar la técnica de emulsión de leche con herramientas caseras.\n\n### Habilidades ejecutables que vas a desarrollar\n\n- Calcular el ratio de extracción (relación agua-café) para resaltar el dulzor natural sin añadir azúcares.\n- Calibrar la molienda manual o eléctrica identificando cuándo el agua pasa muy rápido o se estanca.\n- Texturizar leche entera en casa para lograr esa consistencia sedosa apta para practicar arte latte básico.\n- Identificar y corregir en el acto una taza subextraída (ácida y salada) o sobreextraída (amarga y seca).\n\n## Una aclaración transparente sobre las expectativas\n\nEste programa no te va a convertir en dueño de una tostaduría comercial ni te garantiza un contrato inmediato en un bar de especialidad sin haber pasado cientos de horas detrás de una máquina profesional. Su propósito es que dejes de tirar bolsas de café costosas a la basura, entiendas la química básica detrás del vertido y disfrutes de una taza impecable cada mañana. Si buscas un hobby apasionante para compartir con amigos o llevar tu ritual diario a otro estándar, aquí tienes el camino trazado.\n\n## Un ritual cotidiano elevado a experiencia\n\nNo hace falta remodelar tu cocina ni comprar equipos estrambóticos de entrada. Puedes empezar con la cafetera que tienes guardada en la alacena. A lo largo de las lecciones guiadas por Mariana Quintero, transformarás la simple rutina matutina en un espacio de precisión y disfrute. Aprende a catar, ajustar e interpretar cada grano colombiano para sacarle su máximo rendimiento.",
-  "faqs": [
-    {
-      "q": "¿Cómo puedo pagar desde Colombia?",
-      "a": "Puedes pagar directamente en pesos colombianos utilizando PSE, Nequi, Daviplata o tarjetas de crédito y débito nacionales a través de la pasarela de pago segura al finalizar la compra."
-    },
-    {
-      "q": "¿El precio de USD 32 incluye impuestos o hay cobros adicionales?",
-      "a": "El valor de USD 32 es el precio final con el 40% de descuento aplicado mediante el código de lanzamiento. Al pagar, la plataforma convierte la cifra automáticamente a COP según la tasa oficial del día, sin cobros extra."
-    },
-    {
-      "q": "¿Necesito comprar una máquina espresso costosa para tomar el curso?",
-      "a": "No. El enfoque para aficionados permite aprender con métodos manuales como V60, Aeropress, Prensa Francesa o cafetera Italiana (Moka) que ya tengas en casa."
-    },
-    {
-      "q": "¿El certificado me sirve para trabajar formalmente en un establecimiento?",
-      "a": "El certificado acredita tu participación y aprendizaje dentro de la plataforma, pero no constituye un título técnico ni una licencia oficial regulada en Colombia para ejercer profesionalmente."
-    },
-    {
-      "q": "¿Debo tener conocimientos previos de barismo?",
-      "a": "No se requiere experiencia previa. El contenido empieza desde los conceptos fundamentales de preparación hasta técnicas de vertido y emulsión de leche."
-    },
-    {
-      "q": "¿Tengo que cumplir con horarios específicos de clase?",
-      "a": "No, las lecciones están grabadas para que avances a tu propio ritmo, a la hora que te convenga y desde cualquier dispositivo con conexión a internet."
-    },
-    {
-      "q": "¿Cómo aplico el cupón de descuento de lanzamiento?",
-      "a": "El descuento ya está aplicado en el precio final de USD 32 que ves en pantalla, por lo que no necesitas ingresar ningún código extra al momento de pagar."
-    },
-    {
-      "q": "¿Cuánto tiempo tengo para revisar el contenido del curso?",
-      "a": "Tendrás acceso ilimitado a las lecciones para que repases los vídeos y guías cuantas veces quieras, sin fecha de vencimiento."
-    }
-  ],
-  "beneficios": [
-    "Calibrar el molino para que el espresso no salga ni ácido ni amargo",
-    "Preparar una extracción balanceada en métodos manuales como la Chemex o V60",
-    "Texturizar la leche a la temperatura exacta para lograr una microespuma sedosa",
-    "Identificar los defectos básicos en los granos de café de especialidad",
-    "Lograr el vertido constante para hacer figuras básicas en el latte art",
-    "Ajustar la receta de preparación según el origen y proceso del café"
-  ],
-  "para_quien": [
-    "Para quienes disfrutan preparar una taza de café perfecta en su casa cada mañana",
-    "Para aficionados que quieren entender por qué su café sabe distinto cada día",
-    "Para personas que buscan un pasatiempo práctico y sensorial",
-    "Para quienes desean sorprender a sus invitados con técnicas de cafetería profesional"
-  ],
-  "requisitos": [
-    "Tener acceso a una cafetera doméstica o un método de filtrado manual",
-    "Contar con café en grano preferiblemente fresco y de origen",
-    "Disposición para practicar la técnica de vertido varias veces al día"
-  ],
-  "certificado": "Al finalizar el curso de barismo y café de especialidad obtendrás un certificado digital de participación. Ten en cuenta que este documento acredita tu aprendizaje personal pero no te habilita profesionalmente para trabajar en establecimientos comerciales ni certifica competencias técnicas oficiales.",
-  "garantia": "Tienes 7 días de garantía incondicional a través de Hotmart. Si sientes que el contenido no cumple lo que esperabas, solicitas el reembolso total de tu dinero dentro de ese plazo sin necesidad de dar explicaciones.",
-  "_meta": {
-    "usd": 0.01234,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-barista",
+ "country": "co",
+ "angulo": "hobby",
+ "meta_title": "Curso de barismo y café de especialidad para casa",
+ "meta_description": "Aprende a preparar café de especialidad en casa con filtrados y emulsión perfecta. Inscríbete con PSE o Nequi y domina tu cafetería personal.",
+ "h1": "Curso de barismo y café de especialidad para amantes del buen café",
+ "subtitulo": "Deja de tomar café quemado en casa y aprende los secretos de la extracción, la molienda y la emulsión sin salir de tu cocina.",
+ "descripcion": "Comprar una bolsa de café de origen en Manizales o Pitalito y que la taza termine sabiendo a vinagre o a carbón es una frustración común. Este **curso de barismo y café de especialidad** está pensado para quienes quieren disfrutar de una bebida perfecta en su propia cocina, sin necesidad de gastar millones en equipos industriales ni adivinar por qué el filtrado quedó amargo.\n\n## Por qué tu café en casa no sabe como el de tu cafetería favorita\n\nEl problema casi nunca es el grano. Compras un paquete con notas a frutos rojos y tostión media, pero al pasarlo por la prensa francesa o la V60, la bebida pierde todo el aroma. Eso pasa porque ignoras tres variables esenciales: la temperatura exacta del agua, la proporción entre gramos de café y mililitros de agua, y el tiempo de contacto. Cuando usas agua hirviendo descontrolada, terminas quemando la molienda. Si el molido es demasiado fino para tu filtro, terminas con una taza amarga, turbia y llena de sedimentos.\n\n## De la teoría del grano a la taza perfecta en tu mesa\n\nPara extraer las notas dulces y ácidas equilibradas que promete la etiqueta, necesitas dominar la física del vertido. En este proceso vas a aplicar técnicas concretas para ajustar el grosor del grano según el método que tengas en tu cocina, controlar el vertido en espiral para lograr una saturación uniforme y aplicar la técnica de emulsión de leche con herramientas caseras.\n\n### Habilidades ejecutables que vas a desarrollar\n\n- Calcular el ratio de extracción (relación agua-café) para resaltar el dulzor natural sin añadir azúcares.\n- Calibrar la molienda manual o eléctrica identificando cuándo el agua pasa muy rápido o se estanca.\n- Texturizar leche entera en casa para lograr esa consistencia sedosa apta para practicar arte latte básico.\n- Identificar y corregir en el acto una taza subextraída (ácida y salada) o sobreextraída (amarga y seca).\n\n## Una aclaración transparente sobre las expectativas\n\nEste programa no te va a convertir en dueño de una tostaduría comercial ni te garantiza un contrato inmediato en un bar de especialidad sin haber pasado cientos de horas detrás de una máquina profesional. Su propósito es que dejes de tirar bolsas de café costosas a la basura, entiendas la química básica detrás del vertido y disfrutes de una taza impecable cada mañana. Si buscas un hobby apasionante para compartir con amigos o llevar tu ritual diario a otro estándar, aquí tienes el camino trazado.\n\n## Un ritual cotidiano elevado a experiencia\n\nNo hace falta remodelar tu cocina ni comprar equipos estrambóticos de entrada. Puedes empezar con la cafetera que tienes guardada en la alacena. A lo largo de las lecciones guiadas por Mariana Quintero, transformarás la simple rutina matutina en un espacio de precisión y disfrute. Aprende a catar, ajustar e interpretar cada grano colombiano para sacarle su máximo rendimiento.",
+ "faqs": [
+ {
+ "q": "¿Cómo puedo pagar desde Colombia?",
+ "a": "Puedes pagar directamente en pesos colombianos utilizando PSE, Nequi, Daviplata o tarjetas de crédito y débito nacionales a través de la pasarela de pago segura al finalizar la compra."
+ },
+ {
+ "q": "¿El precio publicado incluye impuestos o hay cobros adicionales?",
+ "a": "El precio publicado es el precio final con el 40% de descuento aplicado mediante el código de lanzamiento. Al pagar, la plataforma convierte la cifra automáticamente a COP según la tasa oficial del día, sin cobros extra."
+ },
+ {
+ "q": "¿Necesito comprar una máquina espresso costosa para tomar el curso?",
+ "a": "No. El enfoque para aficionados permite aprender con métodos manuales como V60, Aeropress, Prensa Francesa o cafetera Italiana (Moka) que ya tengas en casa."
+ },
+ {
+ "q": "¿El certificado me sirve para trabajar formalmente en un establecimiento?",
+ "a": "El certificado acredita tu participación y aprendizaje dentro de la plataforma, pero no constituye un título técnico ni una licencia oficial regulada en Colombia para ejercer profesionalmente."
+ },
+ {
+ "q": "¿Debo tener conocimientos previos de barismo?",
+ "a": "No se requiere experiencia previa. El contenido empieza desde los conceptos fundamentales de preparación hasta técnicas de vertido y emulsión de leche."
+ },
+ {
+ "q": "¿Tengo que cumplir con horarios específicos de clase?",
+ "a": "No, las lecciones están grabadas para que avances a tu propio ritmo, a la hora que te convenga y desde cualquier dispositivo con conexión a internet."
+ },
+ {
+ "q": "¿Cómo aplico el cupón de descuento de lanzamiento?",
+ "a": "El descuento ya está aplicado en el precio publicado que ves en pantalla, por lo que no necesitas ingresar ningún código extra al momento de pagar."
+ },
+ {
+ "q": "¿Cuánto tiempo tengo para revisar el contenido del curso?",
+ "a": "Tendrás acceso ilimitado a las lecciones para que repases los vídeos y guías cuantas veces quieras, sin fecha de vencimiento."
+ }
+ ],
+ "beneficios": [
+ "Calibrar el molino para que el espresso no salga ni ácido ni amargo",
+ "Preparar una extracción balanceada en métodos manuales como la Chemex o V60",
+ "Texturizar la leche a la temperatura exacta para lograr una microespuma sedosa",
+ "Identificar los defectos básicos en los granos de café de especialidad",
+ "Lograr el vertido constante para hacer figuras básicas en el latte art",
+ "Ajustar la receta de preparación según el origen y proceso del café"
+ ],
+ "para_quien": [
+ "Para quienes disfrutan preparar una taza de café perfecta en su casa cada mañana",
+ "Para aficionados que quieren entender por qué su café sabe distinto cada día",
+ "Para personas que buscan un pasatiempo práctico y sensorial",
+ "Para quienes desean sorprender a sus invitados con técnicas de cafetería profesional"
+ ],
+ "requisitos": [
+ "Tener acceso a una cafetera doméstica o un método de filtrado manual",
+ "Contar con café en grano preferiblemente fresco y de origen",
+ "Disposición para practicar la técnica de vertido varias veces al día"
+ ],
+ "certificado": "Al finalizar el curso de barismo y café de especialidad obtendrás un certificado digital de participación. Ten en cuenta que este documento acredita tu aprendizaje personal pero no te habilita profesionalmente para trabajar en establecimientos comerciales ni certifica competencias técnicas oficiales.",
+ "garantia": "Tienes 7 días de garantía incondicional a través de Hotmart. Si sientes que el contenido no cumple lo que esperabas, solicitas el reembolso total de tu dinero dentro de ese plazo sin necesidad de dar explicaciones.",
+ "_meta": {
+ "usd": 0.01234,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

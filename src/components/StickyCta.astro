@@ -1,35 +1,89 @@
 ---
-import type { Country } from '@/lib/countries';
-import { formatPrice } from '@/lib/countries';
-
 /**
- * Barra CTA fija que aparece al hacer scroll past hero en la página de curso.
+ * Barra CTA fija que aparece al pasar el hero en la página de curso.
  * Requiere un elemento #hero-sentinel al final del hero.
+ *
+ * En escritorio baja desde arriba, como siempre. En móvil sube desde ABAJO:
+ * arriba chocaba con el banner de promoción (le tapaba la cuenta atrás) y es
+ * donde el pulgar no llega. El resto de flotantes (WhatsApp, prueba social) se
+ * elevan sobre este carril leyendo `body[data-has-sticky]`.
+ *
+ * Recibe el precio ya formateado: la ficha decide si es el real de Hotmart o
+ * el de catálogo, y así barra y tarjeta nunca enseñan números distintos.
  */
 interface Props {
   title: string;
-  priceUSD: number;
-  country: Country;
+  precio: string;
+  /** Precio anterior ya formateado. Sin él no se pinta el tachado. */
+  precioTachado?: string;
+  /** Descuento vigente. Sin él no se pinta la píldora. */
+  descuentoPct?: number;
+  /** Rótulo de la campaña ("Black Friday"…) cuando el calendario tiene una activa. */
+  promoLabel?: string;
+  /** Importe base y su moneda, en crudo: el controlador de promoción recalcula
+   *  aquí mismo cuando /api/v1/promo confirma campaña, sin volver a pedir nada.
+   *  País y slug acompañan porque una campaña puede limitarse a unos u otros. */
+  monto?: number;
+  moneda?: string;
+  pais?: string;
+  slug?: string;
   ctaUrl: string;
 }
-const { title, priceUSD, country, ctaUrl } = Astro.props;
+const { title, precio, precioTachado, descuentoPct, promoLabel, monto, moneda, pais, slug, ctaUrl } =
+  Astro.props;
 ---
 
-<div
-  data-sticky-cta
-  class="fixed inset-x-0 top-0 z-40 -translate-y-full border-b border-surface-200 bg-white shadow-md transition-transform duration-300"
->
-  <div class="container-site flex h-14 items-center justify-between gap-4">
+<div data-sticky-cta data-oculta class="fixed inset-x-0 z-40 border-surface-200 bg-white shadow-md">
+  {/* En móvil son dos renglones: el título da el contexto que faltaba (la
+      barra sola con un precio no decía DE QUÉ era), y debajo el precio con su
+      tachado y badge cuando hay campaña — el mismo estado que la tarjeta,
+      pintado por el mismo controlador. En escritorio, todo en un renglón. */}
+  <div
+    class="container-site flex flex-col gap-y-0.5 py-2 sm:h-14 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:py-0"
+  >
+    <p class="truncate text-[11px] leading-tight font-semibold text-muted sm:hidden">{title}</p>
     <p class="hidden truncate text-sm font-bold text-primary sm:block">{title}</p>
-    <div class="flex flex-1 items-center justify-end gap-3 sm:flex-none">
-      <span class="text-sm font-extrabold text-primary">{formatPrice(priceUSD, country)}</span>
+    <div class="flex items-center justify-between gap-3 sm:justify-end">
+      {/* El orden de cesión importa cuando la fila no cabe: primero se recorta el
+          precio tachado (dato secundario), nunca la cifra que se paga ni la
+          píldora del descuento — de ahí el `shrink-0` en esos dos. Sin él la
+          píldora se cortaba a media palabra y se leía «−40» en vez de «−40%». */}
+      <span
+        class="flex min-w-0 items-baseline gap-x-1.5 whitespace-nowrap"
+        data-precio-caja
+        data-monto={monto}
+        data-moneda={moneda}
+        data-pais={pais}
+        data-slug={slug}
+      >
+        <span
+          data-precio-real
+          class="shrink-0 text-sm font-extrabold whitespace-nowrap text-primary">{precio}</span
+        >
+        {/* Por debajo de 400 px no cabe junto al precio, la píldora y el botón:
+            se oculta entero en vez de truncarse, porque un «$331.0…» cortado no
+            informa de nada y ensucia. La píldora del descuento sí se mantiene
+            siempre — es la que comunica la promoción. */}
+        <span
+          data-precio-tachado
+          hidden={!precioTachado}
+          class="text-[11px] whitespace-nowrap text-muted line-through max-[399px]:hidden"
+          >{precioTachado}</span
+        >
+        <span
+          data-promo-badge
+          hidden={!descuentoPct}
+          class="shrink-0 rounded-full bg-accent px-1.5 py-0.5 text-[10px] font-bold whitespace-nowrap text-white"
+          >{descuentoPct ? (promoLabel ? `${promoLabel} −${descuentoPct}%` : `−${descuentoPct}%`) : ''}</span
+        >
+      </span>
       <a
         href={ctaUrl}
         target="_blank"
         rel="noopener nofollow sponsored"
         data-cta-hotmart
         data-cta-position="sticky"
-        class="rounded-md bg-accent px-4 py-2 text-sm font-bold text-white transition hover:bg-accent-hover"
+        class="shrink-0 rounded-md bg-accent px-4 py-2 text-sm font-bold text-white transition hover:bg-accent-hover"
       >
         Inscribirme
       </a>
@@ -37,13 +91,60 @@ const { title, priceUSD, country, ctaUrl } = Astro.props;
   </div>
 </div>
 
+<style>
+  /* Anclada abajo en TODAS las anchuras.
+
+     Estuvo arriba en escritorio y no funcionaba: la cabecera es `sticky top-0`
+     con z-50 y 65 px, así que primero la tapaba entera, y al bajarla por debajo
+     quedaban dos barras apiladas ocupando 122 px de cromo — la web perdía
+     respiración justo donde se decide la compra.
+
+     Abajo no compite con nada, es donde el pulgar llega en móvil, y en
+     escritorio queda fuera del recorrido de lectura. */
+  [data-sticky-cta] {
+    top: auto;
+    bottom: 0;
+    border-top-width: 1px;
+    border-bottom-width: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    /* Sombra hacia arriba: la barra está debajo del contenido, no encima. */
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+  }
+  [data-sticky-cta][data-oculta] {
+    transform: translateY(100%);
+  }
+  /* La barra ocupa el borde inferior: que no entierre el final del footer. */
+  :global(body[data-has-sticky] footer) {
+    padding-bottom: 5rem;
+  }
+</style>
+
 <script>
   const bar = document.querySelector<HTMLElement>('[data-sticky-cta]');
   const sentinel = document.getElementById('hero-sentinel');
+
   if (bar && sentinel) {
+    // Señal para que WhatsApp y la prueba social se eleven sobre este carril.
+    document.body.dataset.hasSticky = '1';
+    /* Alto real de la barra, para que WhatsApp y el aviso de prueba social se
+       aparten lo justo. Antes era un 70px a ojo que se quedaba corto cuando la
+       barra crecía a dos renglones. Se remide al cambiar el tamaño. */
+    const medirBarra = () =>
+      document.documentElement.style.setProperty('--barra-alto', `${bar.offsetHeight}px`);
+    medirBarra();
+    addEventListener('resize', medirBarra, { passive: true });
     new IntersectionObserver(
       ([entry]) => {
-        bar.classList.toggle('-translate-y-full', entry?.isIntersecting ?? true);
+        if (!entry) return;
+        // «No intersecta» ocurre por arriba Y por abajo: en móvil el hero mide
+        // más que la pantalla y el sentinel nace bajo el pliegue, así que la
+        // barra salía visible ya en el primer scroll. Solo cuenta haberlo
+        // PASADO. El límite sale de rootBounds y no de 0: con el rootMargin de
+        // −64 px, el sentinel cruza por arriba quedando en top ≈ +64.
+        const limite = entry.rootBounds ? entry.rootBounds.top : 0;
+        const pasado = !entry.isIntersecting && entry.boundingClientRect.top <= limite;
+        bar.toggleAttribute('data-oculta', !pasado);
       },
       { rootMargin: '-64px 0px 0px 0px' },
     ).observe(sentinel);

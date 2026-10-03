@@ -1,10 +1,14 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
-import { getCategory } from '@/lib/categories';
+import { getContentRepository } from '@/lib/emdash-content';
+export const prerender = false;
+
 
 /** Índice liviano para el buscador del sitio (se carga lazy al abrir la búsqueda). */
 export const GET: APIRoute = async () => {
-  const courses = await getCollection('courses');
+  const cms = await getContentRepository();
+  const [courses, categories, COUNTRIES] = await Promise.all([cms.getCourses(), cms.getCategories(), cms.getCountries()]);
+  const INTERNAL_CATEGORIES = categories.filter(c => !c.externalUrl);
+  const getCategory = (slug:string) => categories.find(c=>c.slug===slug)!;
   const index = courses.map((c) => ({
     t: c.data.title,
     s: c.id,
@@ -12,6 +16,6 @@ export const GET: APIRoute = async () => {
     k: (c.data.keywords ?? []).join(' '),
   }));
   return new Response(JSON.stringify(index), {
-    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=3600' },
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'private, no-store' },
   });
 };

@@ -1,71 +1,71 @@
 {
-  "course": "curso-de-dj",
-  "country": "mx",
-  "angulo": "hobby",
-  "meta_title": "Curso de DJ desde Cero en México: Mezcla Tu Música",
-  "meta_description": "¿Quieres aprender a mezclar en tus reuniones? Con este curso de dj desde cero domina los beats, ecualización y transiciones sin complicaciones. ¡Inscríbete!",
-  "h1": "Aprende a Mezclar Tu Música con el Curso de DJ desde Cero",
-  "subtitulo": "Olvídate de los choques de ritmo en tus reuniones y domina las transiciones con la guía de Sebastián Aristizábal.",
-  "descripcion": "Pones música en una carne asada con tus amigos y, justo cuando el ambiente está en su punto, el cambio de canción frena la fiesta de golpe. Tratas de empatar dos temas y la transición suena como un choque de trenes. Si te ha pasado, no necesitas gastar una fortuna en equipo profesional ni aburrirte con manuales técnicos. Con este curso de dj desde cero, vas a entender cómo funcionan los beats, la ecualización y los tiempos para que tus mezclas fluyan de forma limpia y natural en cualquier reunión.\n\n## El punto donde la mayoría se atora: emparejar ritmos y estructurar la música\n\nEl error más común cuando empiezas a mezclar es soltar el siguiente track a ciegas, sin fijarte en la estructura de las canciones. Crees que basta con presionar un botón, pero si las frecuencias graves de ambos temas se cruzan al mismo volumen, el bajo se satura y la pista se escucha sucia.\n\nPara que una transición suene bien, hay que entender los bloques de 8 y 16 tiempos, conocidos como frases musicales. Cuando aprendes a identificar el momento exacto en el que entra un verso o cae la base, los cambios dejan de sentirse forzados.\n\n### Lo que vas a lograr en tus primeras prácticas\n\n- Identificar el golpe del bombo y la caja para contar tiempos sin perder el pulso.\n- Ajustar la velocidad (BPM) de dos canciones para que caminen exactamente al mismo ritmo.\n- Recortar las frecuencias graves con la perilla del ecualizador antes de abrir el fader de la nueva canción.\n- Seleccionar temas que compartan una tonalidad armónica para evitar que los vocales choquen entre sí.\n- Armar playlists con una progresión de energía pensada para mantener el ambiente durante toda la velada.\n\n## Un pasatiempo para disfrutar desde la primera semana\n\nNo hace falta que tu meta sea tocar frente a miles de personas para disfrutar este oficio. Mezclar música en casa es uno de los pasatiempos más entretenidos que existen: te desconecta del trabajo, despierta tu creatividad y te permite compartir tu gusto musical con la gente que quieres.\n\nLo mejor es que no necesitas una consola gigante de inicio. Puedes empezar practicando directamente en tu computadora con software básico y unos audífonos sencillos. Una vez que tu oído aprende a detectar las diferencias de tiempo y tono, el equipo pasa a segundo plano.\n\n## Expectativas reales: lo que sí y lo que no vas a conseguir\n\nVamos a hablar con la verdad: este curso no te va a meter al cartel de un festival masivo en seis meses ni garantiza que te vuelvas famoso en redes sociales. Tampoco sustituye las horas de práctica que requiere pulir el oído para reaccionar rápido ante cualquier imprevisto.\n\nLo que sí obtienes son bases firmes. Olvídate de adivinar qué hace cada perilla o de pasar semanas viendo videos sueltos en internet que solo te confunden más. En estas 20 lecciones avanzas con paso firme, entendiendo la lógica detrás de cada movimiento en la consola.\n\n## Practica a tu ritmo con Sebastián Aristizábal\n\nAprender un pasatiempo nuevo no debe sentirse como una obligación escolar. Con la instrucción de Sebastián Aristizábal, recorres las 13 horas de contenido repartidas en 5 módulos sin presiones de horarios. Avanzas cuando tienes tiempo libre, repasas los conceptos las veces que sea necesario y aplicas lo aprendido directamente en tus canciones favoritas.",
-  "faqs": [
-    {
-      "q": "¿Necesito comprar una consola o equipo caro para tomar el curso?",
-      "a": "No es necesario. Puedes empezar a practicar desde tu computadora descargando software gratuito de DJ y usando unos audífonos convencionales para entender las bases."
-    },
-    {
-      "q": "¿Qué métodos de pago aceptan en México?",
-      "a": "Puedes pagar en efectivo a través de tiendas OXXO, mediante transferencia bancaria SPEI o con cualquier tarjeta de crédito y débito Visa, Mastercard o American Express."
-    },
-    {
-      "q": "¿El precio mostrado ya incluye el descuento?",
-      "a": "Sí, la tarifa final de USD 38 ya refleja el 40% de descuento de lanzamiento. Al momento de pagar en México, la plataforma convierte el importe a pesos mexicanos según el tipo de cambio del día."
-    },
-    {
-      "q": "¿El certificado tiene validez oficial en México?",
-      "a": "Es una constancia digital de participación emitida al finalizar el contenido. Funciona como respaldo de tu aprendizaje personal, pero no constituye un título técnico ni cédula profesional ante la SEP."
-    },
-    {
-      "q": "¿Cómo funciona el pago en efectivo mediante OXXO?",
-      "a": "Al seleccionar este método en la pantalla de pago, el sistema genera un recibo con código de barras. Vas a cualquier tienda OXXO, realizas el pago en caja y tu acceso al curso se activa en cuanto se valida la transacción."
-    },
-    {
-      "q": "¿Necesito saber teoría musical o tocar algún instrumento?",
-      "a": "No se requieren conocimientos previos. El curso explica la métrica musical, el conteo de tiempos y la estructura de los tracks desde cero y con un enfoque 100% práctico."
-    },
-    {
-      "q": "¿Tengo un horario fijo para conectarme a las clases?",
-      "a": "No, el contenido está grabado. Tienes acceso libre las 24 horas del día para ver las lecciones según tus tiempos libres y a tu propio ritmo."
-    },
-    {
-      "q": "¿Tengo que practicar con público desde las primeras lecciones?",
-      "a": "Para nada. Lo ideal es hacer todas las pruebas iniciales en privado usando tus audífonos. Una vez que sientas seguridad en las transiciones, podrás probar tus mezclas en reuniones reales."
-    }
-  ],
-  "beneficios": [
-    "Sincronizar tracks sin que pierdas el tiempo ajustando el pitch durante toda la mezcla.",
-    "Ecualizar las frecuencias bajas para evitar que el sonido sature en los altavoces.",
-    "Organizar tu biblioteca musical en Rekordbox para que nunca te quedes sin ideas en plena sesión.",
-    "Aplicar efectos de sonido con criterio sin que se vuelvan molestos para la audiencia.",
-    "Aprender a leer la energía de la pista para decidir el momento justo de cambiar de canción.",
-    "Configurar tu controlador con la computadora a la primera sin errores de latencia."
-  ],
-  "para_quien": [
-    "Si te gusta pasar horas descubriendo música y quieres dejar de escucharla solo en tu cuarto.",
-    "Si buscas un pasatiempo que te permita animar las reuniones con tus amigos.",
-    "Si tienes curiosidad por entender cómo los DJs logran que una canción conecte perfectamente con otra.",
-    "Si quieres aprender los fundamentos técnicos sin complicaciones ni equipos profesionales costosos."
-  ],
-  "requisitos": [
-    "Tener una computadora con capacidad para instalar el software necesario.",
-    "Contar con una conexión a internet estable para seguir las lecciones en video.",
-    "Disponer de un controlador básico o, en su defecto, auriculares para practicar los ejercicios iniciales."
-  ],
-  "certificado": "Al completar todas las lecciones obtendrás un certificado digital que avala tu formación en este curso de dj desde cero. Ten en cuenta que este documento es un reconocimiento a tu avance educativo y no te habilita para trabajar en clubes o eventos profesionales por sí mismo.",
-  "garantia": "Si sientes que el curso no cumple con lo que esperabas, tienes 7 días de garantía a través de Hotmart para solicitar el reembolso total de tu dinero, sin preguntas y de forma directa.",
-  "_meta": {
-    "usd": 0.02498,
-    "modelo": "gemini-3.6-flash",
-    "fallos": null,
-    "fecha": "2026-08-06"
-  }
+ "course": "curso-de-dj",
+ "country": "mx",
+ "angulo": "hobby",
+ "meta_title": "Curso de DJ desde Cero en México: Mezcla Tu Música",
+ "meta_description": "¿Quieres aprender a mezclar en tus reuniones? Con este curso de dj desde cero domina los beats, ecualización y transiciones sin complicaciones. ¡Inscríbete!",
+ "h1": "Aprende a Mezclar Tu Música con el Curso de DJ desde Cero",
+ "subtitulo": "Olvídate de los choques de ritmo en tus reuniones y domina las transiciones con la guía de Sebastián Aristizábal.",
+ "descripcion": "Pones música en una carne asada con tus amigos y, justo cuando el ambiente está en su punto, el cambio de canción frena la fiesta de golpe. Tratas de empatar dos temas y la transición suena como un choque de trenes. Si te ha pasado, no necesitas gastar una fortuna en equipo profesional ni aburrirte con manuales técnicos. Con este curso de dj desde cero, vas a entender cómo funcionan los beats, la ecualización y los tiempos para que tus mezclas fluyan de forma limpia y natural en cualquier reunión.\n\n## El punto donde la mayoría se atora: emparejar ritmos y estructurar la música\n\nEl error más común cuando empiezas a mezclar es soltar el siguiente track a ciegas, sin fijarte en la estructura de las canciones. Crees que basta con presionar un botón, pero si las frecuencias graves de ambos temas se cruzan al mismo volumen, el bajo se satura y la pista se escucha sucia.\n\nPara que una transición suene bien, hay que entender los bloques de 8 y 16 tiempos, conocidos como frases musicales. Cuando aprendes a identificar el momento exacto en el que entra un verso o cae la base, los cambios dejan de sentirse forzados.\n\n### Lo que vas a lograr en tus primeras prácticas\n\n- Identificar el golpe del bombo y la caja para contar tiempos sin perder el pulso.\n- Ajustar la velocidad (BPM) de dos canciones para que caminen exactamente al mismo ritmo.\n- Recortar las frecuencias graves con la perilla del ecualizador antes de abrir el fader de la nueva canción.\n- Seleccionar temas que compartan una tonalidad armónica para evitar que los vocales choquen entre sí.\n- Armar playlists con una progresión de energía pensada para mantener el ambiente durante toda la velada.\n\n## Un pasatiempo para disfrutar desde la primera semana\n\nNo hace falta que tu meta sea tocar frente a miles de personas para disfrutar este oficio. Mezclar música en casa es uno de los pasatiempos más entretenidos que existen: te desconecta del trabajo, despierta tu creatividad y te permite compartir tu gusto musical con la gente que quieres.\n\nLo mejor es que no necesitas una consola gigante de inicio. Puedes empezar practicando directamente en tu computadora con software básico y unos audífonos sencillos. Una vez que tu oído aprende a detectar las diferencias de tiempo y tono, el equipo pasa a segundo plano.\n\n## Expectativas reales: lo que sí y lo que no vas a conseguir\n\nVamos a hablar con la verdad: este curso no te va a meter al cartel de un festival masivo en seis meses ni garantiza que te vuelvas famoso en redes sociales. Tampoco sustituye las horas de práctica que requiere pulir el oído para reaccionar rápido ante cualquier imprevisto.\n\nLo que sí obtienes son bases firmes. Olvídate de adivinar qué hace cada perilla o de pasar semanas viendo videos sueltos en internet que solo te confunden más. En estas 20 lecciones avanzas con paso firme, entendiendo la lógica detrás de cada movimiento en la consola.\n\n## Practica a tu ritmo con Sebastián Aristizábal\n\nAprender un pasatiempo nuevo no debe sentirse como una obligación escolar. Con la instrucción de Sebastián Aristizábal, recorres las 13 horas de contenido repartidas en 5 módulos sin presiones de horarios. Avanzas cuando tienes tiempo libre, repasas los conceptos las veces que sea necesario y aplicas lo aprendido directamente en tus canciones favoritas.",
+ "faqs": [
+ {
+ "q": "¿Necesito comprar una consola o equipo caro para tomar el curso?",
+ "a": "No es necesario. Puedes empezar a practicar desde tu computadora descargando software gratuito de DJ y usando unos audífonos convencionales para entender las bases."
+ },
+ {
+ "q": "¿Qué métodos de pago aceptan en México?",
+ "a": "Puedes pagar en efectivo a través de tiendas OXXO, mediante transferencia bancaria SPEI o con cualquier tarjeta de crédito y débito Visa, Mastercard o American Express."
+ },
+ {
+ "q": "¿El precio mostrado ya incluye el descuento?",
+ "a": "Sí, el precio publicado ya refleja el 40% de descuento de lanzamiento. Al momento de pagar en México, la plataforma convierte el importe a pesos mexicanos según el tipo de cambio del día."
+ },
+ {
+ "q": "¿El certificado tiene validez oficial en México?",
+ "a": "Es una constancia digital de participación emitida al finalizar el contenido. Funciona como respaldo de tu aprendizaje personal, pero no constituye un título técnico ni cédula profesional ante la SEP."
+ },
+ {
+ "q": "¿Cómo funciona el pago en efectivo mediante OXXO?",
+ "a": "Al seleccionar este método en la pantalla de pago, el sistema genera un recibo con código de barras. Vas a cualquier tienda OXXO, realizas el pago en caja y tu acceso al curso se activa en cuanto se valida la transacción."
+ },
+ {
+ "q": "¿Necesito saber teoría musical o tocar algún instrumento?",
+ "a": "No se requieren conocimientos previos. El curso explica la métrica musical, el conteo de tiempos y la estructura de los tracks desde cero y con un enfoque 100% práctico."
+ },
+ {
+ "q": "¿Tengo un horario fijo para conectarme a las clases?",
+ "a": "No, el contenido está grabado. Tienes acceso libre las 24 horas del día para ver las lecciones según tus tiempos libres y a tu propio ritmo."
+ },
+ {
+ "q": "¿Tengo que practicar con público desde las primeras lecciones?",
+ "a": "Para nada. Lo ideal es hacer todas las pruebas iniciales en privado usando tus audífonos. Una vez que sientas seguridad en las transiciones, podrás probar tus mezclas en reuniones reales."
+ }
+ ],
+ "beneficios": [
+ "Sincronizar tracks sin que pierdas el tiempo ajustando el pitch durante toda la mezcla.",
+ "Ecualizar las frecuencias bajas para evitar que el sonido sature en los altavoces.",
+ "Organizar tu biblioteca musical en Rekordbox para que nunca te quedes sin ideas en plena sesión.",
+ "Aplicar efectos de sonido con criterio sin que se vuelvan molestos para la audiencia.",
+ "Aprender a leer la energía de la pista para decidir el momento justo de cambiar de canción.",
+ "Configurar tu controlador con la computadora a la primera sin errores de latencia."
+ ],
+ "para_quien": [
+ "Si te gusta pasar horas descubriendo música y quieres dejar de escucharla solo en tu cuarto.",
+ "Si buscas un pasatiempo que te permita animar las reuniones con tus amigos.",
+ "Si tienes curiosidad por entender cómo los DJs logran que una canción conecte perfectamente con otra.",
+ "Si quieres aprender los fundamentos técnicos sin complicaciones ni equipos profesionales costosos."
+ ],
+ "requisitos": [
+ "Tener una computadora con capacidad para instalar el software necesario.",
+ "Contar con una conexión a internet estable para seguir las lecciones en video.",
+ "Disponer de un controlador básico o, en su defecto, auriculares para practicar los ejercicios iniciales."
+ ],
+ "certificado": "Al completar todas las lecciones obtendrás un certificado digital que avala tu formación en este curso de dj desde cero. Ten en cuenta que este documento es un reconocimiento a tu avance educativo y no te habilita para trabajar en clubes o eventos profesionales por sí mismo.",
+ "garantia": "Si sientes que el curso no cumple con lo que esperabas, tienes 7 días de garantía a través de Hotmart para solicitar el reembolso total de tu dinero, sin preguntas y de forma directa.",
+ "_meta": {
+ "usd": 0.02498,
+ "modelo": "gemini-3.6-flash",
+ "fallos": null,
+ "fecha": "2026-08-06"
+ }
 }

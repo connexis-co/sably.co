@@ -1,0 +1,32 @@
+name: Refresh operational Hotmart data
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: hotmart-operational-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Require the approved production service and its write token
+        env:
+          ACTIVATED: ${{ vars.SABLY_PRODUCTION_ACTIVATED }}
+          SNAPSHOT_TOKEN: ${{ secrets.SNAPSHOT_TOKEN }}
+        run: |
+          test "$ACTIVATED" = true || { echo 'Production cutover has not been activated'; exit 1; }
+          test -n "$SNAPSHOT_TOKEN" || { echo 'SNAPSHOT_TOKEN must be provisioned'; exit 1; }
+      - name: Refresh D1 operational facts without changing code or rebuilding the site
+        run: node scripts/hotmart-precios.mjs --merge-api --post
+        env:
+          SABLY_API: https://sably.co
+          SNAPSHOT_TOKEN: ${{ secrets.SNAPSHOT_TOKEN }}

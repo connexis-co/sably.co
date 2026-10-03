@@ -1,43 +1,14 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
-
-const country = getCountry(DEFAULT_COUNTRY);
+import { getPage, getCountry } from '@/lib/emdash-content';
+import { normalizePagePath } from '@/lib/page-path';
+import { PageTemplate } from '@/themes';
+export const prerender = false;
+const [page,country]=await Promise.all([getPage('terminos'),getCountry('co')]);
+if (!page || !country) return new Response('Página no encontrada',{status:404});
+const canonicalPath=normalizePagePath(page.path);
+if (!canonicalPath) return new Response('Ruta editorial inválida',{status:404});
+if (canonicalPath!==normalizePagePath(Astro.url.pathname)) return Astro.redirect(canonicalPath,301);
+Astro.locals.sablyContent=page.contentRef;
+Astro.locals.sablySeo=page.seo;
 ---
-
-<BaseLayout
-  title="Términos y Condiciones | Sably"
-  description="Términos y condiciones de uso de la plataforma Sably."
-  {country}
-  pathAfterCountry="/"
-  pageType="legal"
->
-  <article class="container-site max-w-3xl space-y-6 py-14 text-[15px] leading-relaxed text-body">
-    <h1 class="text-3xl font-extrabold">Términos y Condiciones</h1>
-    <p>Última actualización: agosto de 2026.</p>
-    <h2 class="text-xl font-bold text-primary">1. Sobre Sably</h2>
-    <p>
-      Sably (sably.co) es una plataforma de recomendación y afiliación de cursos online. Los cursos se venden y se
-      imparten a través de Hotmart, plataforma responsable del procesamiento de pagos, la entrega del contenido y la
-      facturación.
-    </p>
-    <h2 class="text-xl font-bold text-primary">2. Precios y descuentos</h2>
-    <p>
-      Los precios mostrados en Sably son referenciales y se convierten a moneda local con tasas aproximadas. El precio
-      final es el que muestra Hotmart en el checkout. Los cupones de descuento están sujetos a disponibilidad y fecha de
-      expiración.
-    </p>
-    <h2 class="text-xl font-bold text-primary">3. Garantía y reembolsos</h2>
-    <p>
-      Todos los cursos cuentan con la garantía de 7 días de Hotmart: puedes solicitar el reembolso del 100% dentro de ese
-      período directamente en la plataforma.
-    </p>
-    <h2 class="text-xl font-bold text-primary">4. Propiedad intelectual</h2>
-    <p>
-      El contenido de cada curso pertenece a sus respectivos instructores y productores. El contenido de sably.co (textos,
-      diseño, marca) pertenece a Sably / Connexis.
-    </p>
-    <h2 class="text-xl font-bold text-primary">5. Contacto</h2>
-    <p>Para dudas sobre estos términos, escríbenos por WhatsApp desde cualquier página del sitio.</p>
-  </article>
-</BaseLayout>
+<PageTemplate {page} {country} />

@@ -1,27 +1,80 @@
 name: CI Pipeline
-
 on:
   pull_request:
     branches: [develop, main]
-
+  push:
+    branches: [develop, main]
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   quality:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
-
+          node-version-file: .nvmrc
+          cache: npm
       - run: npm ci
-      - name: Type-check (astro check)
-        run: npm run check
-      - name: Build
-        run: npm run build
-      - name: Validar commits (Conventional Commits)
+      - name: Validate conventional commits
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: |
-          npm i -D @commitlint/cli @commitlint/config-conventional --no-save
-          npx commitlint --from=${{ github.event.pull_request.base.sha }} --to=${{ github.event.pull_request.head.sha }} --verbose
+          # Existing main history may be brought back into develop; validate
+          # only new commits instead of relinting already integrated history.
+          git rev-list "$HEAD_SHA" --not "$BASE_SHA" origin/main | while read -r commit; do
+            git show -s --format=%B "$commit" | npx --no-install commitlint --verbose
+          done
+      - name: Validate migration archive and public CMS behavior
+        run: npm run content:check && npm run test:migration
+      - name: Type check frontend and legacy backend bridge
+        run: npm run check && npm run check:functions
+      - name: Build isolated development artifact
+        run: node scripts/build-environment.mjs development
+        env:
+          PUBLIC_CDN_URL: https://cdn.sably.co
+          PUBLIC_LEADS_ENDPOINT: /api/v1/leads
+      - uses: actions/upload-artifact@v4
+        with:
+          name: development-${{ github.sha }}
+          path: dist/
+          include-hidden-files: true
+          retention-days: 7
+  development:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+    needs: quality
+    runs-on: ubuntu-latest
+    environment: development
+    concurrency:
+      group: sably-emdash-development-deploy
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: development-${{ github.sha }}
+          path: dist/
+      - name: Apply reviewed operational schema idempotently
+        run: node scripts/apply-operational-schema.mjs --target development --execute
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Deploy tested artifact to dev.sably.co
+        run: node scripts/deploy-environment.mjs development
+        env:
+          SABLY_DEPLOY_SHA: ${{ github.sha }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

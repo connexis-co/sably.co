@@ -1,50 +1,17 @@
 ---
-import { SITE } from '@/lib/site';
+import { EmDashHead } from 'emdash/ui';
+import { safeJsonLdSerialize } from 'emdash/page';
+import type { PublicPageContext } from 'emdash';
 import type { HreflangAlternate } from '@/lib/seo';
-
 interface Props {
-  title: string;
-  description: string;
-  alternates?: HreflangAlternate[];
-  schemas?: object[];
-  noindex?: boolean;
-  ogType?: 'website' | 'article';
+  title: string; page: PublicPageContext; alternates?: HreflangAlternate[];
+  schemas?: object[]; noindexGoogle?: boolean; ogLocale?: string;
 }
-
-const { title, description, alternates = [], schemas = [], noindex = false, ogType = 'website' } = Astro.props;
-const canonical = new URL(Astro.url.pathname, SITE.url).href;
-
-/**
- * JSON-LD seguro para incrustar en un `<script>`.
- *
- * `JSON.stringify` no escapa `<`, así que un `</script>` dentro de cualquier
- * cadena cierra la etiqueta antes de tiempo y lo que siga se interpreta como
- * HTML. Los schemas llevan FAQs y descripciones generadas por un modelo, o sea
- * texto que no controlamos. Los escapes \u00xx son válidos dentro de una
- * cadena JSON y se parsean igual, así que Google lee el mismo schema.
- */
-function jsonLd(schema: object): string {
-  return JSON.stringify(schema)
-    .replaceAll('<', '\\u003c')
-    .replaceAll('>', '\\u003e')
-    .replaceAll('&', '\\u0026');
-}
+const { title, page, alternates = [], schemas = [], noindexGoogle = false, ogLocale = 'es_CO' } = Astro.props;
 ---
-
 <title>{title}</title>
-<meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
-{noindex && <meta name="robots" content="noindex, nofollow" />}
-{alternates.map((alt) => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
-
-<meta property="og:type" content={ogType} />
-<meta property="og:site_name" content={SITE.name} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta property="og:url" content={canonical} />
-<meta property="og:locale" content="es_CO" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
-
-{schemas.map((schema) => <script type="application/ld+json" set:html={jsonLd(schema)} />)}
+<EmDashHead {page} />
+<meta property="og:locale" content={ogLocale} />
+{noindexGoogle && <meta name="googlebot" content="noindex, follow" />}
+{alternates.map(alt => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
+{schemas.map(schema => <script type="application/ld+json" set:html={safeJsonLdSerialize(schema)} />)}
