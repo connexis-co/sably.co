@@ -26,11 +26,14 @@ export function validateTarget(target,config,development=readTarget('development
  }
  const media=config.r2_buckets?.find(b=>b.binding==='MEDIA');assert.ok(media?.bucket_name,'MEDIA bucket is required');
  const session=config.kv_namespaces?.find(b=>b.binding==='SESSION');assert.match(session?.id??'',/^[a-f0-9]{32}$/,'Provision the target SESSION namespace');
+ const cache=config.kv_namespaces?.find(b=>b.binding==='CACHE');assert.match(cache?.id??'',/^[a-f0-9]{32}$/,'Provision the target CACHE namespace');
+ assert.notEqual(cache.id,session.id,'Content cache must not share session storage');
  if(target==='development')assert.deepEqual(config.routes,[{pattern:'dev.sably.co',custom_domain:true}]);
  else {
   assert.equal(config.workers_dev,false);assert.equal(config.preview_urls,false);
   assert.notEqual(media.bucket_name,development.r2_buckets.find(b=>b.binding==='MEDIA')?.bucket_name,'Production media must be isolated');
   assert.notEqual(session.id,development.kv_namespaces.find(b=>b.binding==='SESSION')?.id,'Sessions must be isolated');
+  assert.ok(!development.kv_namespaces.some(b=>b.id===cache.id),'Production cache must be isolated from development');
   assert.ok((config.routes??[]).every(r=>r.custom_domain===true&&['sably.co','www.sably.co'].includes(r.pattern)),'Unexpected production route');
  }
  return spec;
