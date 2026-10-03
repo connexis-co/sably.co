@@ -1,4 +1,7 @@
 ---
+import {RelatedGuides} from '@/themes';
+import {relatedGuides} from '@/lib/related-guides';
+import {courseSeo,indexableAtPath} from '@/lib/cms-indexability';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { getContentRepository } from '@/lib/emdash-content';
 import ResenasCurso from '@/components/ResenasCurso.astro';
@@ -73,6 +76,7 @@ const audience = locale?.data.para_quien ?? course.data.audience;
    comparten el metaTitle del MDX, y con variante el modelo a veces repite el
    mismo título en varios mercados. Se añade el país solo cuando hay colisión
    real: la mediana ya está en 55 caracteres y añadirlo siempre pasaría de 60. */
+const guides=relatedGuides(await cms.getBlogPosts(),course.id,SITE.url);
 const localesDelCurso = (await cms.getCourseLocales(course.id)).filter(
   (l) => l.data.course === course.id,
 );
@@ -363,7 +367,11 @@ const schemas = [
   {country}
   {city}
   pathAfterCountry={`/${course.id}/`}
-  alternates={city ? [] : await countryAlternates(`/${course.id}/`)}
+  alternates={city ? [] : (await countryAlternates(`/${course.id}/`)).filter(alt=>{
+    const code=new URL(alt.href).pathname.split('/')[1];
+    const variant=localesDelCurso.find(locale=>locale.data.country===code);
+    return indexableAtPath(courseSeo(course.seo,variant?.seo),alt.href,SITE.url);
+  })}
   {schemas}
   pageType={city ? 'course_city' : 'course'}
   sinCupon={!conCupon}
@@ -769,6 +777,8 @@ const schemas = [
           <FaqAccordion {faqs} />
         </div>
       </section>
+
+      <RelatedGuides posts={guides} />
 
       <!-- Malla geo interna -->
       <section aria-labelledby="cities-title">

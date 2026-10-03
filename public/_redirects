@@ -26,16 +26,20 @@
 /:country/:city/curso-de-corte-y-confeccion-desde-cero/ /:country/:city/curso-de-corte-y-confeccion/ 301
 
 # Estructura v1: namespace /cursos/ SIN país (anterior a la migración multipaís).
-# Todo /cursos/* devuelve 404 hoy y Google aún tiene URLs de aquí indexadas y
-# rankeando. Los head terms con tráfico confirmado en Search Console van con 301
-# a la ficha exacta para preservar la keyword; el resto del namespace va a la
-# home de país, que es mejor que un 404. No se puede usar /cursos/:slug → /co/:slug/
-# porque los slugs v1 llevan sufijos (-profesional) que no existen en v2 y
-# encadenarían 301→404.
+# Las rutas confirmadas en Search Console van a la ficha equivalente vigente.
+# El fallback heredado permanece al final; no usarlo para nuevas equivalencias:
+# un destino sin relación puede tratarse como soft 404. Algunos slugs antiguos
+# llevan sufijos (-profesional) que requieren un mapeo explícito.
 /cursos/curso-de-maquillaje-profesional /co/curso-de-maquillaje/ 301
 /cursos/curso-de-maquillaje-profesional/ /co/curso-de-maquillaje/ 301
 /cursos/curso-de-peluqueria-profesional /co/curso-de-peluqueria/ 301
 /cursos/curso-de-peluqueria-profesional/ /co/curso-de-peluqueria/ 301
+/cursos/curso-de-manicure-y-pedicure /co/curso-de-manicure-y-pedicure/ 301
+/cursos/curso-de-manicure-y-pedicure/ /co/curso-de-manicure-y-pedicure/ 301
+/cursos/curso-de-unas-acrilicas /co/curso-de-unas-acrilicas/ 301
+/cursos/curso-de-unas-acrilicas/ /co/curso-de-unas-acrilicas/ 301
+/cursos/curso-de-peinados /co/curso-de-peinados/ 301
+/cursos/curso-de-peinados/ /co/curso-de-peinados/ 301
 /cursos/* /co/ 301
 
 # /legal/cookies/ nunca existió en este repo, pero Google la tiene registrada con

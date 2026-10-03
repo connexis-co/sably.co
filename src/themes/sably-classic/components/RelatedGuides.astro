@@ -1,0 +1,15 @@
+---
+import type {BlogPost} from '@/lib/emdash-content';
+interface Props {posts:BlogPost[]}
+const {posts}=Astro.props;
+---
+{posts.length>0 && <section aria-labelledby="course-guides-heading">
+ <h2 id="course-guides-heading" class="text-2xl font-bold">Guías para seguir aprendiendo</h2>
+ <div class="mt-5 grid gap-4 sm:grid-cols-2">
+  {posts.map(post=><a href={`/blog/${post.id}/`} class="rounded-lg border border-surface-200 bg-off-white p-5 transition hover:border-accent">
+   <h3 class="text-lg font-bold">{post.data.title}</h3>
+   <p class="mt-2 text-sm leading-relaxed text-body">{post.data.description}</p>
+   <span class="mt-4 inline-block text-sm font-semibold text-accent">Leer la guía</span>
+  </a>)}
+ </div>
+</section>}
