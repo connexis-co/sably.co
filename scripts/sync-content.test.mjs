@@ -21,7 +21,8 @@ function sqliteApi(db, source) { return {
 }; }
 
 test('sync requires active, isolated production before credentials or requests', () => {
- assert.throws(() => validateSyncTargets(readTarget('production'), readTarget('development')), /Production CMS is not ready/);
+ const inactive=readTarget('production');inactive.vars.SABLY_CMS_READY='false';
+ assert.throws(() => validateSyncTargets(inactive, readTarget('development')), /Production CMS is not ready/);
  const production = structuredClone(readTarget('production')); production.vars.SABLY_CMS_READY = 'true';
  assert.doesNotThrow(() => validateSyncTargets(production, readTarget('development')));
  production.d1_databases[0].database_id = readTarget('development').d1_databases[0].database_id;

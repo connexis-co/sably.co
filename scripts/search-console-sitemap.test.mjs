@@ -3,7 +3,8 @@ import {readTarget} from './environment-config.mjs';import {verifySearchProducti
 const config=()=>{const c=readTarget('production');c.vars.SABLY_CMS_READY='true';c.vars.SABLY_PRODUCTION_ACTIVATED='true';c.routes=[{pattern:'sably.co',custom_domain:true}];return c;};
 const fetcher=async url=>url.endsWith('robots.txt')?new Response('User-agent: *\nAllow: /\n\nUser-agent: Bytespider\nDisallow: /'):url.endsWith('.xml')?new Response('<sitemapindex><sitemap><loc>https://sably.co/sitemaps/sitemap-pages.xml</loc></sitemap></sitemapindex>'):new Response('<link rel="canonical" href="https://sably.co/co/curso-de-barberia/"><meta name="robots" content="index, follow">',{headers:{'X-Sably-Content-Source':'emdash'}});
 test('Search Console submission preflight rejects inactive production without network',async()=>{
- let requests=0;await assert.rejects(verifySearchProduction(readTarget('production'),async()=>{requests++;throw new Error('unexpected');}),/not ready/);assert.equal(requests,0);
+ const inactive=readTarget('production');inactive.vars.SABLY_CMS_READY='false';
+ let requests=0;await assert.rejects(verifySearchProduction(inactive,async()=>{requests++;throw new Error('unexpected');}),/not ready/);assert.equal(requests,0);
 });
 test('production preflight reads reordered metadata and rejects duplicate canonicals',async()=>{
  const page=html=>async url=>url.endsWith('/curso-de-barberia/')?new Response(html,{headers:{'X-Sably-Content-Source':'emdash'}}):fetcher(url);
