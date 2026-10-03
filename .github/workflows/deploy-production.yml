@@ -88,6 +88,7 @@ jobs:
             node scripts/deploy-environment.mjs production
           fi
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: production-${{ needs.verify.outputs.sha }}
           path: |

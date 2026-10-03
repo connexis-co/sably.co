@@ -22,8 +22,18 @@ const result=spawnSync(process.execPath,['node_modules/wrangler/bin/wrangler.js'
 process.stdout.write(result.stdout??'');process.stderr.write(result.stderr??'');if(result.status!==0)process.exit(result.status??1);
 if(spec.target==='production'&&!dryRun){
  const versionId=(result.stdout??'').match(/Worker Version ID:\s*([a-f0-9-]{36})/i)?.[1];assert.ok(versionId,'Upload completed but version identity could not be confirmed; do not activate');
- const record={...manifest,versionId,activated:false,createdAt:new Date().toISOString()};
- if(publish){const deployed=spawnSync(process.execPath,['node_modules/wrangler/bin/wrangler.js','versions','deploy',`${versionId}@100%`,'--yes','--message',`Promote tested commit ${manifest.sha}`,'--config','dist/server/wrangler.json'],{stdio:'inherit',env:process.env});if(deployed.status!==0)process.exit(deployed.status??1);record.activated=true;}
- writeFileSync('dist/sably-release.json',JSON.stringify(record,null,2)+'\n');
+ const record={...manifest,versionId,activated:false,triggersApplied:false,createdAt:new Date().toISOString()};
+ const saveRecord=()=>writeFileSync('dist/sably-release.json',JSON.stringify(record,null,2)+'\n');
+ saveRecord();
+ if(publish){
+  const deployed=spawnSync(process.execPath,['node_modules/wrangler/bin/wrangler.js','versions','deploy',`${versionId}@100%`,'--yes','--message',`Promote tested commit ${manifest.sha}`,'--config','dist/server/wrangler.json'],{stdio:'inherit',env:process.env});
+  if(deployed.status!==0)process.exit(deployed.status??1);
+  record.activated=true;saveRecord();
+  // Version uploads do not apply routes or cron schedules. This action is
+  // gated by the same explicit production activation as traffic promotion.
+  const triggers=spawnSync(process.execPath,['node_modules/wrangler/bin/wrangler.js','triggers','deploy','--config','dist/server/wrangler.json'],{stdio:'inherit',env:process.env});
+  if(triggers.status!==0)process.exit(triggers.status??1);
+  record.triggersApplied=true;saveRecord();
+ }
  if(process.env.GITHUB_STEP_SUMMARY)appendFileSync(process.env.GITHUB_STEP_SUMMARY,`Worker: ${spec.worker}\n\nSHA: ${manifest.sha}\n\nVersion: ${versionId}\n\nTraffic activated: ${record.activated}\n`);
 }

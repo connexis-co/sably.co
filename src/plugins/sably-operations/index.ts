@@ -1,6 +1,15 @@
 import { definePlugin, PluginRouteError, type PluginRoute, type RouteContext } from 'emdash';
 import { getWidgets, listLeads, listPromos, listReviews, moderate, OperationsError, ratings, savePromo, saveWidget, summary } from './service';
 import { availableOperationalDatabase, type OperationalBindings } from '../../lib/operational-environment';
+import { reconcileCatalog } from './catalog';
+
+async function catalogChanged(event: { collection: string }) {
+  if (!['courses','blog'].includes(event.collection)) return;
+  const { env } = await import('cloudflare:workers');
+  const bindings = env as unknown as OperationalBindings & { EMDASH_SITE_URL?: string };
+  const db = availableOperationalDatabase(bindings,bindings.EMDASH_SITE_URL ?? '');
+  if (db && bindings.DB) await reconcileCatalog(bindings.DB,db,[event.collection === 'courses' ? 'course' : 'blog']);
+}
 
 type Service = (db: D1Database, user: RouteContext['user'], input: unknown) => Promise<unknown>;
 function route(permission: 'comments:moderate'|'settings:manage', method: 'GET'|'POST', service: Service): PluginRoute {
@@ -24,7 +33,14 @@ function route(permission: 'comments:moderate'|'settings:manage', method: 'GET'|
 }
 export function createPlugin() {
   return definePlugin({
-    id: 'sably-operations', version: '1.0.0', capabilities: [],
+    id: 'sably-operations', version: '1.0.0', capabilities: ['content:read'],
+    hooks: {
+      'content:afterSave': catalogChanged,
+      'content:afterPublish': catalogChanged,
+      'content:afterUnpublish': catalogChanged,
+      'content:afterDelete': catalogChanged,
+      'content:afterRestore': catalogChanged,
+    },
     admin: { pages: [{ path: '/operations', label: 'Sably · operaciones', icon: 'sliders' }] },
     routes: {
       summary: route('comments:moderate','GET',summary),

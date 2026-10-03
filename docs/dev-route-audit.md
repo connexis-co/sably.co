@@ -28,3 +28,7 @@ Detalle completo en el JSON homónimo. No contiene credenciales ni cuerpos HTML.
 ## Revisión adicional del marcado de artículos
 
 Los tipos JSON-LD capturados confirman Article y BlogPosting simultáneos en los diez artículos del blog. La revisión del código confirma dos emisores para el mismo documento. Se añadieron estas diez observaciones al JSON del barrido; se comprobarán después del despliegue correctivo junto con las ocho portadas. No hubo errores HTTP ni de carga de imágenes.
+
+## Verificación posterior de las correcciones
+
+La versión `df0f1413-607b-429a-8a6f-2f916586d125` fue comprobada en las 18 rutas señaladas: todas devolvieron HTTP200 sin observaciones. Los ocho WebSite duplicados y los diez pares Article/BlogPosting quedaron resueltos; se conservaron los campos editoriales del Article. `/robots.txt` devuelve HTTP200 con `Disallow: /` y continúa la protección de staging. Véase [revisión acotada](dev-route-recheck.md). No se repitió el barrido completo de 981 rutas ni las 244 imágenes después de esa corrección.

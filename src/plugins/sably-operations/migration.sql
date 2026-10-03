@@ -34,3 +34,12 @@ CREATE TABLE sably_public_dataset (
   source TEXT NOT NULL,
   captured_at INTEGER NOT NULL
 );
+
+-- Derived identity/URL tracking for native CMS lifecycle hooks. No personal data.
+CREATE TABLE sably_cms_catalog (
+  kind TEXT NOT NULL CHECK(kind IN ('course','blog')),
+  content_id TEXT NOT NULL,
+  slug TEXT NOT NULL,
+  source_url TEXT NOT NULL DEFAULT '',
+  PRIMARY KEY(kind,content_id)
+);
