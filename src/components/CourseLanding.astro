@@ -1,4 +1,7 @@
 ---
+import {RelatedGuides} from '@/themes';
+import {relatedGuides} from '@/lib/related-guides';
+import {courseSeo,indexableAtPath} from '@/lib/cms-indexability';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { getContentRepository } from '@/lib/emdash-content';
 import ResenasCurso from '@/components/ResenasCurso.astro';
@@ -33,6 +36,7 @@ import { env } from 'cloudflare:workers';
 import { countryAlternates, breadcrumbSchema, conMarca, faqSchema, courseSchema, videoSchema } from '@/lib/seo';
 import { COURSE_VIDEOS, duracionIso } from '@/lib/course-videos';
 import { SITE, CDN_URL } from '@/lib/site';
+import { conciseTitle } from '@/lib/seo-title';
 
 /**
  * Landing de conversión de curso, hiperlocal cuando recibe `city`:
@@ -73,6 +77,7 @@ const audience = locale?.data.para_quien ?? course.data.audience;
    comparten el metaTitle del MDX, y con variante el modelo a veces repite el
    mismo título en varios mercados. Se añade el país solo cuando hay colisión
    real: la mediana ya está en 55 caracteres y añadirlo siempre pasaría de 60. */
+const guides=relatedGuides(await cms.getBlogPosts(),course.id,SITE.url);
 const localesDelCurso = (await cms.getCourseLocales(course.id)).filter(
   (l) => l.data.course === course.id,
 );
@@ -260,7 +265,7 @@ const tituloPais =
    cuando cabe en 60 caracteres (ver conMarca) y la mayúscula inicial, porque
    diez meta_title generados empiezan en minúscula («curso de barbería…»). */
 const mayusculaInicial = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
-const title = city
+const generatedTitle = city
   ? `${course.data.title} en ${city.name}, ${country.name} | Online | Sably`
   : conMarca(
       mayusculaInicial(
@@ -269,6 +274,10 @@ const title = city
           : tituloPais,
       ),
     );
+const title = conciseTitle(generatedTitle, [
+  `${course.data.title} en ${city?.name ?? country.name}`,
+  `${course.data.title.replace(/^Curso de /i, '')} | ${city?.name ?? country.name}`,
+]);
 
 /* Recorta a un límite de palabra con elipsis. Antes se hacía `.slice(0, 158)`
    crudo, que cortaba a media palabra («…cobra más por cad») porque el texto
@@ -289,7 +298,7 @@ const description = city
   ? recortarDesc(`Estudia desde ${city.name}: ${course.data.shortDescription}`)
   : descColisiona
     ? recortarDesc(`Desde ${country.name}: ${descPais}`)
-    : descPais;
+    : recortarDesc(descPais);
 
 const breadcrumb = city
   ? [
@@ -363,9 +372,15 @@ const schemas = [
   {country}
   {city}
   pathAfterCountry={`/${course.id}/`}
-  alternates={city ? [] : await countryAlternates(`/${course.id}/`)}
+  alternates={city || sinProducto ? [] : (await countryAlternates(`/${course.id}/`)).filter(alt=>{
+    const code=new URL(alt.href).pathname.split('/')[1];
+    const variant=localesDelCurso.find(locale=>locale.data.country===code);
+    return indexableAtPath(courseSeo(course.seo,variant?.seo),alt.href,SITE.url);
+  })}
   {schemas}
   pageType={city ? 'course_city' : 'course'}
+  image={cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug)}
+  noindex={sinProducto}
   sinCupon={!conCupon}
   {proveedor}
   whatsappContext={city ? `${course.data.title} (${city.name})` : course.data.title}
@@ -769,6 +784,8 @@ const schemas = [
           <FaqAccordion {faqs} />
         </div>
       </section>
+
+      <RelatedGuides posts={guides} />
 
       <!-- Malla geo interna -->
       <section aria-labelledby="cities-title">

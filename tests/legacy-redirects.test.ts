@@ -31,6 +31,10 @@ test('specific legacy courses precede the wildcard and remaining paths use its f
   for (const [from, to] of [
     ['/cursos/curso-de-maquillaje-profesional', '/co/curso-de-maquillaje/'],
     ['/cursos/curso-de-peluqueria-profesional/', '/co/curso-de-peluqueria/'],
+    ['/cursos/curso-de-manicure-y-pedicure', '/co/curso-de-manicure-y-pedicure/'],
+    ['/cursos/curso-de-manicure-y-pedicure/', '/co/curso-de-manicure-y-pedicure/'],
+    ['/cursos/curso-de-unas-acrilicas', '/co/curso-de-unas-acrilicas/'],
+    ['/cursos/curso-de-peinados/', '/co/curso-de-peinados/'],
     ['/cursos/otra-categoria/otro-curso/', '/co/'],
     ['/legal/cookies', '/legal/privacidad/'],
     ['/index.html', '/co/'],

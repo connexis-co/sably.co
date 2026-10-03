@@ -90,3 +90,9 @@ El contenido editorial se administra en EmDash. Desplegar código no ejecuta see
 La copia de producción a desarrollo se ejecuta aparte con **Copy published production content to development** o `scripts/sync-content.mjs`. Primero `--dry-run`; `--execute` reemplaza el contenido editorial de desarrollo tras respaldarlo. Exige producción lista y recursos distintos, excluye autenticación y operaciones privadas, y comparte el bloqueo de concurrencia con el deploy de desarrollo. No ejecutarla dentro de un despliegue ni durante ediciones concurrentes. Una copia interrumpida requiere revisar su backup y reporte: no existe una transacción global ni una restauración automática.
 
 Conservar manifiestos, versiones, aprobaciones, reportes y respaldos en sus ubicaciones privadas, sin valores de credenciales. Actualizar este procedimiento con la fecha y evidencia del corte realmente completado, sin confundir preparación, validación de desarrollo y activación productiva.
+
+### Search Console después de activar EmDash
+
+Consultar [la auditoría de octubre](GSC_AUDIT_2026-10-03.md). No enviar desarrollo a Google. La cuenta de servicio se utiliza desde un archivo privado local indicado en `GOOGLE_APPLICATION_CREDENTIALS`; no subirla al repositorio ni al artefacto del sitio.
+
+`node scripts/search-console-sitemap.mjs` muestra el plan sin enviar nada. Después de activar y verificar producción, `node scripts/search-console-sitemap.mjs --execute` valida los indicadores de activación, ruta de producción, una ficha pública servida por EmDash, canonical, robots y sitemap; solo entonces envía `https://sably.co/sitemap-index.xml` a la propiedad `sc-domain:sably.co`. El comando no solicita indexación individual ni modifica las reglas de Google. Las solicitudes individuales se hacen desde la interfaz de Search Console.

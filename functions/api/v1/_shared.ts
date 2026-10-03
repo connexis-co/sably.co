@@ -187,6 +187,7 @@ export async function registrarConsentimiento(
   ipHash: string,
   country: string | null,
   textoMostrado: string,
+  policyUrl = 'https://sably.co/legal/privacidad/',
 ): Promise<string> {
   const id = ulid();
   await db
@@ -194,7 +195,7 @@ export async function registrarConsentimiento(
       `INSERT INTO consent (id, purpose, policy_version, policy_url, text_shown, ip_hash, country)
        VALUES (?, ?, ?, ?, ?, ?, ?)`,
     )
-    .bind(id, purpose, '2026-08-v1', 'https://sably.co/legal/privacidad/', textoMostrado, ipHash, country)
+    .bind(id, purpose, '2026-08-v1', policyUrl, textoMostrado, ipHash, country)
     .run();
   return id;
 }

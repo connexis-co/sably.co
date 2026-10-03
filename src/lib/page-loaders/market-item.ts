@@ -1,3 +1,4 @@
+import {courseSeo} from '../cms-indexability';
 import { getContentRepository, type CmsCity } from '@/lib/emdash-content';
 import type { PublicPageContext } from './types';
 
@@ -19,7 +20,7 @@ const subject = city ?? content!.course;
 
 Astro.locals.sablyContent = subject.contentRef;
 
-Astro.locals.sablySeo = subject.seo;
+Astro.locals.sablySeo = content ? courseSeo(content.course.seo,content.locale?.seo) : subject.seo;
 
 Astro.response.headers.set('X-Sably-Content-Source', 'emdash');
 return {cms,country,city,content,subject};

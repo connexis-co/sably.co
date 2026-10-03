@@ -1,3 +1,4 @@
+import {courseSeo} from '../cms-indexability';
 import { getContentRepository } from '@/lib/emdash-content';
 import type { PublicPageContext } from './types';
 
@@ -17,7 +18,7 @@ if (!content) return new Response('Not found', {status:404});
 
 Astro.locals.sablyContent = content.course.contentRef;
 
-Astro.locals.sablySeo = content.course.seo;
+Astro.locals.sablySeo = courseSeo(content.course.seo,content.locale?.seo);
 
 Astro.response.headers.set('X-Sably-Content-Source', 'emdash');
 return {cms,country,city,content};

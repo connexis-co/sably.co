@@ -5,6 +5,7 @@ import ts from 'typescript';
 import { buildSeed } from '../scripts/emdash-content.mjs';
 import { createContentRepository, type CmsEntry, type ContentReader } from '../src/lib/emdash-content.ts';
 import { COURSE_VIDEOS } from '../src/lib/course-videos.ts';
+import * as indexability from '../src/lib/cms-indexability.ts';
 import * as pagePath from '../src/lib/page-path.ts';
 
 const snapshot=JSON.parse(readFileSync(new URL('../docs/parity-sitemap-snapshot.json',import.meta.url),'utf8')) as {sitemaps:Array<{source:string;paths:string[]}>};
@@ -38,6 +39,7 @@ function sitemapModule(cms:ReturnType<typeof createContentRepository>) {
   const compiled=ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
   const dependencies:Record<string,unknown>={
     './page-path':pagePath,
+    './cms-indexability':indexability,
     './emdash-content':{getContentRepository:async()=>cms},
     './site':{SITE:{url:'https://dev.sably.co'},CDN_URL:'https://cdn.sably.co'},
     './course-videos':{COURSE_VIDEOS},
@@ -91,4 +93,19 @@ test('the comparison catches an unpublished production course instead of hiding 
 test('explicit noindex entries do not reappear in generated XML',async()=>{
   const {entries,cms}=fixture();const post=entries.blog![0]!;(post.data as any).seo={noIndex:true};
   const groups=await routes(cms);assert.ok(!groups.blog!.includes(`/blog/${post.id}/`));
+});
+
+
+test('regional SEO exclusions and custom canonicals agree with generated sitemap URLs',async()=>{
+ const {entries,cms}=fixture();
+ const parent=entries.courses.find(e=>e.id==='curso-de-barberia');
+ const variant=entries.course_locales.find(e=>e.id==='curso-de-barberia--co');
+ variant.data.seo={noIndex:true};
+ const page=entries.pages.find(e=>e.id==='nosotros');page.data.seo={canonical:'https://dev.sably.co/contacto/'};
+ const groups=await routes(cms);
+ assert.ok(!groups['cursos-co'].includes('/co/curso-de-barberia/'));
+ assert.ok(groups['cursos-mx'].includes('/mx/curso-de-barberia/'));
+ assert.ok(!groups.pages.includes('/nosotros/'));
+ parent.data.seo={noIndex:true};variant.data.seo={noIndex:false};
+ const excluded=await routes(cms);assert.ok(!Object.values(excluded).flat().some(path=>path.endsWith('/curso-de-barberia/')));
 });

@@ -15,7 +15,6 @@ import SearchModal from '@/components/SearchModal.astro';
 import type { Country, City } from '@/lib/countries';
 import type { HreflangAlternate } from '@/lib/seo';
 import { organizationSchema } from '@/lib/seo';
-import { GTM_ID, GA4_ID } from '@/lib/site';
 
 export interface Props {
   title: string;
@@ -90,7 +89,8 @@ const ogLocale = dePais ? country.hreflang.replace('-', '_') : 'es_CO';
 const settings = await getLiveSiteSettings();
 const seo = getSeoMeta({ data: { seo: Astro.locals.sablySeo } }, {
   siteUrl: SITE.url, defaultTitle: title, defaultDescription: description,
-  defaultOgImage: image || settings.seo?.defaultOgImage?.url, path: Astro.url.pathname,
+  defaultOgImage: new URL(image || settings.seo?.defaultOgImage?.url || '/covers/oficios.jpg', SITE.url).href,
+  path: Astro.url.pathname,
 });
 const development = import.meta.env.SITE?.replace(/\/+$/, '') !== 'https://sably.co';
 const pageContext = { ...createPublicPageContext({
@@ -100,7 +100,7 @@ const pageContext = { ...createPublicPageContext({
   canonical: seo.canonical && Astro.locals.sablySeo?.canonical ? seo.canonical : canonical ?? new URL(Astro.url.pathname, SITE.url).href,
   image: seo.ogImage, siteName: settings.title || SITE.name, siteUrl: SITE.url,
   articleMeta,
-  seo: { robots: development || noindex ? 'noindex, nofollow, noarchive' : seo.robots || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
+  seo: { robots: development ? 'noindex, nofollow, noarchive' : noindex ? 'noindex, follow' : seo.robots || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
 }), ...(articleSchema ? { sablyArticle: articleSchema } : {}) };
 ---
 
@@ -115,27 +115,6 @@ const pageContext = { ...createPublicPageContext({
     <meta name="generator" content={Astro.generator} />
     <Seo title={seo.title} page={pageContext} {alternates} schemas={allSchemas} {noindexGoogle} {ogLocale} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    {
-      GTM_ID && (
-        <script
-          is:inline
-          set:html={`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${GTM_ID}');`}
-        />
-      )
-    }
-    {GA4_ID && <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`} />}
-    {
-      GA4_ID && (
-        <script
-          is:inline
-          set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;gtag('js',new Date());gtag('config','${GA4_ID}');`}
-        />
-      )
-    }
-    {/* El píxel de Meta lo inyecta GTM (GTM-56LHZGMK → "Meta Pixel 1414716853721578 - Base"),
-        igual que en academiadebelleza.edu.co y cursodeglobosonline.com: un solo dataset para
-        toda la red Sably. Aquí se disparaba PUBLIC_META_PIXEL_ID (1711030209407213), un píxel
-        distinto al que optimizan las campañas, así que Meta no veía estas conversiones. */}
   </head>
   <body
     data-theme="sably-classic"
@@ -144,19 +123,6 @@ const pageContext = { ...createPublicPageContext({
     data-sin-cupon={sinCupon ? '' : undefined}
     data-proveedor={proveedor || undefined}
   >
-    {
-      GTM_ID && (
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
-            height="0"
-            width="0"
-            style="display:none;visibility:hidden"
-            title="Google Tag Manager"
-          />
-        </noscript>
-      )
-    }
     <EmDashBodyStart page={pageContext} />
     <a
       href="#main"

@@ -6,6 +6,7 @@ import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { faqSchema, breadcrumbSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 import type { PublicPageContext } from './types';
+import { conciseTitle } from '../seo-title';
 
 export async function load(Astro:PublicPageContext) {
 
@@ -58,7 +59,7 @@ const faqs = [
 ];
 
 
-const title = `Homologa tu Experiencia en ${programa.name} | Certificación Técnica | Sably`;
+const title = conciseTitle(`Homologación en ${programa.name}`);
 
 const description = programa.shortDescription;
 
