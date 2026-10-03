@@ -4,6 +4,7 @@ import { categoryCover } from '@/lib/categories';
 import { countryAlternates, breadcrumbSchema, faqSchema, courseListSchema, cursoParaListado } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 import type { PublicPageContext } from './types';
+import { conciseTitle } from '../seo-title';
 
 export async function load(Astro:PublicPageContext) {
 
@@ -74,9 +75,9 @@ const faqs = [
 ];
 
 
-/* Marca fija, sin conMarca: con ella /us/cursos/panaderia-y-pasteleria/ pasaba
-   de 60 caracteres y perdía « | Sably». */
-const title = `Cursos de ${catName} Online en ${country.name} | Sably`;
+const title = conciseTitle(`Cursos de ${catName} Online en ${country.name}`, [
+  `Cursos de ${catName} en ${country.name}`,
+]);
 
 const description = `${category.description} Cursos online con certificado para ${country.name}, con acceso de por vida.`;
 
