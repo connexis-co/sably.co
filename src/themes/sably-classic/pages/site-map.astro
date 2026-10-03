@@ -2,7 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import type { load } from '@/lib/page-loaders/site-map';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
-const {country, COUNTRIES, PROGRAMAS, courses, comprables, posts, byCategory, title, description} = Astro.props;
+const {country, COUNTRIES, PROGRAMAS, courses, comprables, posts, byCategory, title, description,videos} = Astro.props;
 ---
 
 <BaseLayout {title} {description} {country} pathAfterCountry="/" pageType="sitemap">
@@ -62,6 +62,7 @@ const {country, COUNTRIES, PROGRAMAS, courses, comprables, posts, byCategory, ti
       </ul>
     </section>
 
+    {videos.length>0&&<section aria-labelledby="sm-videos"><h2 id="sm-videos" class="text-xl font-bold">Presentaciones en vídeo</h2><ul class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{videos.map(video=><li><a href={video.path} class="text-sm text-accent hover:underline">{video.title}</a></li>)}</ul></section>}
     <div class="grid gap-12 lg:grid-cols-3">
       <!-- Blog -->
       <section aria-labelledby="sm-blog">

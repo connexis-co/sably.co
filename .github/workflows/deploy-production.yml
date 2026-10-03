@@ -87,6 +87,9 @@ jobs:
           else
             node scripts/deploy-environment.mjs production
           fi
+      - name: Verify public HTTPS and legacy destinations from the runner
+        if: ${{ inputs.publish }}
+        run: node scripts/verify-production-seo.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -94,4 +97,5 @@ jobs:
           path: |
             dist/sably-build.json
             dist/sably-release.json
+            dist/production-seo-probe.json
           retention-days: 90
