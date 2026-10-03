@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { URL as NodeURL } from 'node:url';
 import test from 'node:test';
-import { parseLegacyRedirects, publicCanonicalRedirect, resolveLegacyRedirect } from '../src/lib/legacy-redirects.ts';
+import { parseLegacyRedirects, publicCanonicalRedirect, resolveLegacyRedirect,productionOriginRedirect } from '../src/lib/legacy-redirects.ts';
 
 const source = await readFile(new NodeURL('../public/_redirects', import.meta.url), 'utf8');
 const rules = parseLegacyRedirects(source);
@@ -34,6 +34,7 @@ test('specific legacy courses precede the wildcard and remaining paths use its f
     ['/cursos/curso-de-manicure-y-pedicure', '/co/curso-de-manicure-y-pedicure/'],
     ['/cursos/curso-de-manicure-y-pedicure/', '/co/curso-de-manicure-y-pedicure/'],
     ['/cursos/curso-de-unas-acrilicas', '/co/curso-de-unas-acrilicas/'],
+    ['/cursos/curso-de-unas-semipermanentes', '/co/curso-de-unas/'],
     ['/cursos/curso-de-peinados/', '/co/curso-de-peinados/'],
     ['/cursos/otra-categoria/otro-curso/', '/co/'],
     ['/legal/cookies', '/legal/privacidad/'],
@@ -41,6 +42,17 @@ test('specific legacy courses precede the wildcard and remaining paths use its f
   ]) {
     assert.equal(resolveLegacyRedirect(request(from!), rules)?.headers.get('location'), `https://dev.sably.co${to}`);
   }
+});
+
+test('production origin normalizes HTTPS, hostname and legacy destinations without touching staging or write requests',()=>{
+ for(const [from,to] of [
+  ['http://sably.co/legal/terminos','https://sably.co/legal/terminos/'],
+  ['http://www.sably.co/cursos/curso-de-unas-semipermanentes?utm_source=gsc','https://sably.co/co/curso-de-unas/?utm_source=gsc'],
+  ['https://www.sably.co/?promo=test','https://sably.co/co/?promo=test'],
+ ])assert.equal(productionOriginRedirect(new Request(from!),'production',rules)?.headers.get('location'),to);
+ assert.equal(productionOriginRedirect(new Request('http://dev.sably.co/'),'development',rules),null);
+ assert.equal(productionOriginRedirect(new Request('https://sably.co/co/'),'production',rules),null);
+ assert.equal(productionOriginRedirect(new Request('http://sably.co/api/webhook',{method:'POST'}),'production',rules),null);
 });
 
 test('unmatched URLs and the Astro-owned root are left untouched', () => {

@@ -2,8 +2,7 @@ import {courseSeo,indexableAtPath} from './cms-indexability';
 import { normalizePagePath, pagePathAvailable } from './page-path';
 import { getContentRepository, type CmsMeta } from './emdash-content';
 import { SITE, CDN_URL } from './site';
-import { COURSE_VIDEOS } from './course-videos';
-import { courseCover } from './categories';
+import { courseWatch } from './course-watch';
 
 export interface UrlEntry {
   loc: string;
@@ -45,7 +44,7 @@ const indexable = (entry:CmsMeta):boolean => !entry.seo?.noIndex;
 const preferred = (entry:CmsMeta,path:string):boolean => indexableAtPath(entry.seo,path,SITE.url);
 export async function sitemapNames():Promise<string[]> {
  const countries=await (await getContentRepository()).getCountries();
- return ['pages','categorias','blog',...countries.filter(indexable).map(c=>`cursos-${c.code}`)];
+ return ['pages','categorias','blog','videos',...countries.filter(indexable).map(c=>`cursos-${c.code}`)];
 }
 export async function pagesUrls():Promise<UrlEntry[]> {
  const cms=await getContentRepository();
@@ -77,9 +76,14 @@ export async function cursosUrls(countryCode:string):Promise<UrlEntry[]> {
   const path=`/${countryCode}/${course.id}/`;
   if(!indexableAtPath(courseSeo(course.seo,variant?.seo),path,SITE.url))return [];
   const entry=u(path,latest([course,...(variant?[variant]:[])]));
-  const video=COURSE_VIDEOS[course.id];
-  if(video && course.data.videoKey===video.key) entry.video={titulo:`${course.data.title} — presentación en vídeo`,descripcion:course.data.shortDescription,miniatura:new URL(courseCover(course.id,course.data.category),SITE.url).href,contenido:`${CDN_URL}/videos/${video.key}`,duracion:video.segundos,publicado:video.subido};
   return [entry];
+ });
+}
+export async function videosUrls():Promise<UrlEntry[]> {
+ const courses=await (await getContentRepository()).getCourses();
+ return courses.flatMap(course=>{
+  const video=courseWatch(course,SITE.url,CDN_URL);
+  return video?[{...u(video.path,course.updatedAt),video:{titulo:video.title,descripcion:video.description,miniatura:video.thumbnail,contenido:video.contentUrl,duracion:video.seconds,publicado:video.uploadedAt}}]:[];
  });
 }
 export async function blogUrls():Promise<UrlEntry[]> {

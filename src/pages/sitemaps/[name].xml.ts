@@ -8,6 +8,7 @@ import {
   ciudadesNoindexUrls,
   cursosUrls,
   pagesUrls,
+  videosUrls,
   renderUrlset,
 } from '@/lib/sitemap';
 
@@ -24,6 +25,7 @@ export const GET: APIRoute = async ({ params }) => {
   if (name === 'pages') urls = await pagesUrls();
   else if (name === 'categorias') urls = await categoriasUrls();
   else if (name === 'blog') urls = await blogUrls();
+  else if (name === 'videos') urls = await videosUrls();
   else if (name === 'temporal-ciudades-noindex') urls = await ciudadesNoindexUrls();
   else urls = await cursosUrls(name.replace('cursos-', ''));
 

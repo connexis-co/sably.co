@@ -77,3 +77,14 @@ export function publicCanonicalRedirect(request: Request): Response | null {
   url.pathname += '/';
   return Response.redirect(url.href, 301);
 }
+
+/** Collapse origin, old slugs and slash normalization into one permanent hop. */
+export function productionOriginRedirect(request:Request,environment?:string,rules:readonly LegacyRedirectRule[]=[]):Response|null {
+ if(environment!=='production'||!['GET','HEAD'].includes(request.method))return null;
+ const url=new URL(request.url);
+ if(!['sably.co','www.sably.co'].includes(url.hostname)||(url.protocol==='https:'&&url.hostname==='sably.co'))return null;
+ url.protocol='https:';url.hostname='sably.co';url.port='';
+ const normalized=new Request(url,{method:request.method});
+ const legacy=resolveLegacyRedirect(normalized,rules),slash=legacy?null:publicCanonicalRedirect(normalized);
+ return Response.redirect(legacy?.headers.get('location')??slash?.headers.get('location')??(url.pathname==='/'?new URL(`/co/${url.search}`,url).href:url.href),301);
+}

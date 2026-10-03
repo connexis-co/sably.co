@@ -30,7 +30,8 @@ interface Tarjeta extends PublicReview {
 }
 
 const db = (env as unknown as {SABLY_DB:D1Database}).SABLY_DB;
-const [reviews,courses] = await Promise.all([readPublicReviews(db).catch(()=>[]),getCourses()]);
+const [allReviews,courses] = await Promise.all([readPublicReviews(db).catch(()=>[]),getCourses()]);
+const reviews=allReviews.filter(r=>r.source==='hotmart-public');
 const titles = new Map(courses.map(c=>[c.id,c.data.title]));
 const propias: Tarjeta[] = reviews.filter(r=>r.slug===slug&&r.texto).slice(0,6);
 const tarjetas: Tarjeta[] = [...propias];
@@ -63,7 +64,7 @@ const estrellas = (n: number): string => '★'.repeat(Math.max(1, Math.min(5, Ma
             <p class="text-warning" aria-label={`${Math.round(t.rating)} de 5 estrellas`}>
               {estrellas(t.rating)}
             </p>
-            <p class="mt-3 flex-1 text-sm leading-relaxed text-body">"{t.texto}…"</p>
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-body">“{t.texto}”</p>
             <footer class="mt-4 flex items-center gap-3 border-t border-surface-100 pt-3">
               <span
                 class="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 font-bold text-primary"

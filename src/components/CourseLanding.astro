@@ -1,5 +1,7 @@
 ---
-import {RelatedGuides} from '@/themes';
+import {RelatedGuides,VerifiedReviews} from '@/themes';
+import {readVerifiedCourseReviews} from '@/lib/verified-course-reviews';
+import {courseWatch} from '@/lib/course-watch';
 import {relatedGuides} from '@/lib/related-guides';
 import {courseSeo,indexableAtPath} from '@/lib/cms-indexability';
 import { cmsImageUrl } from '@/lib/cms-media';
@@ -33,8 +35,7 @@ import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
 import { mejorPromocion, campaignDePromocion } from '@/lib/promo';
 import { readActivePromos } from '@/plugins/sably-operations/public';
 import { env } from 'cloudflare:workers';
-import { countryAlternates, breadcrumbSchema, conMarca, faqSchema, courseSchema, videoSchema } from '@/lib/seo';
-import { COURSE_VIDEOS, duracionIso } from '@/lib/course-videos';
+import { countryAlternates, breadcrumbSchema, conMarca, faqSchema, courseSchema } from '@/lib/seo';
 import { SITE, CDN_URL } from '@/lib/site';
 import { conciseTitle } from '@/lib/seo-title';
 
@@ -167,6 +168,7 @@ const sinProducto = /PENDIENTE/i.test(course.data.hotmartUrl);
    en la misma página podían convivir dos importes distintos para el mismo curso.
    Se resuelve una vez aquí y de aquí beben la tarjeta de compra y la barra fija. */
 const operationalDb = (env as unknown as {SABLY_DB:D1Database}).SABLY_DB;
+const verifiedReviews = await readVerifiedCourseReviews(operationalDb,course.id).catch(()=>({reviews:[]}));
 const real = await readOperationalPrice(operationalDb, course.id, country, Astro.locals).catch(() => null);
 /* Valoración PÚBLICA REAL de Hotmart (o null). Solo se pinta en el hero; no va
    al aggregateRating del schema porque es de un tercero (ver courseSchema más
@@ -198,6 +200,7 @@ const promoVigente = promoRow ? campaignDePromocion(promoRow) : null;
 /* Video de presentación: vive en R2 (cdn.sably.co). Sin CDN configurado no se
    pinta el reproductor, así el entorno local no queda con un <video> roto. */
 const videoSrc = course.data.videoKey && CDN_URL ? `${CDN_URL}/videos/${course.data.videoKey}` : null;
+const watch = courseWatch(course,SITE.url,CDN_URL);
 
 /* FAQs: las del curso + banco estándar (garantiza ≥8 por página, con FAQPage schema). */
 const STANDARD_FAQS = [
@@ -338,32 +341,11 @@ const schemas = [
     level: course.data.level,
     syllabus: course.data.modules.map((m) => m.title),
     datePublished: course.data.publishedAt.toISOString(),
-    // Sin aggregateRating: la nota de Hotmart es de otro sitio y Google prohíbe
-    // agregar valoraciones ajenas («Don't aggregate reviews or ratings from
-    // other websites»), con acción manual como sanción. Se sigue mostrando en
-    // el hero, pero no va al marcado. El campo queda para reseñas propias de
-    // compradores verificados cuando existan.
-    rating: undefined,
+    // Same first-party data as the visible VerifiedReviews section below.
+    verifiedReviews,
   }),
   faqSchema(faqs),
-  // VideoObject solo donde el vídeo existe y se reproduce en la propia página.
-  // La duración y la fecha salen del archivo real, no del frontmatter.
-  // Solo en la página de país, nunca en las 37 de ciudad: es el mismo archivo,
-  // y repetirlo en 45 URLs hace que Google elija una y descarte el resto. El
-  // sitemap lo declara con el mismo criterio.
-  ...(!city && videoSrc && COURSE_VIDEOS[course.id]
-    ? [
-        videoSchema({
-          name: `${course.data.title} — presentación en vídeo`,
-          description: course.data.shortDescription,
-          thumbnailUrl: new URL(cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug), SITE.url).href,
-          uploadDate: COURSE_VIDEOS[course.id]!.subido,
-          duration: duracionIso(COURSE_VIDEOS[course.id]!.segundos),
-          contentUrl: videoSrc,
-          pageUrl,
-        }),
-      ]
-    : []),
+  // Video discovery belongs to the dedicated watch page, not a sales page.
 ];
 ---
 
@@ -518,12 +500,12 @@ const schemas = [
       <div class="h-fit rounded-lg bg-white p-6 shadow-2xl">
         {
           videoSrc ? (
-            <CoursePlayer
+            <Fragment><CoursePlayer
               src={videoSrc}
               poster={cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug)}
               title={course.data.title}
               courseId={course.id}
-            />
+            />{watch&&<a href={watch.path} class="mt-3 block text-sm font-semibold text-accent hover:underline">Ver la presentación en su página de vídeo →</a>}</Fragment>
           ) : (
             /* Sin video, la portada manda la misma relación de aspecto que el
                reproductor, así la tarjeta no cambia de alto entre cursos. */
@@ -739,6 +721,7 @@ const schemas = [
         </div>
       </section>
 
+      <VerifiedReviews data={verifiedReviews}/>
       <ResenasCurso slug={course.id} relacionados={related.map(c => c.id)} />
 
       <!-- Para quién es -->
@@ -791,19 +774,18 @@ const schemas = [
       <!-- Malla geo interna -->
       <section aria-labelledby="cities-title">
         <h2 id="cities-title" class="text-lg font-bold">
-          {city ? `Este curso también se estudia en otras ciudades de ${country.name}` : `Estudia este curso desde tu ciudad en ${country.name}`}
+          {`Disponible online en ${country.name}`}
         </h2>
         <div class="mt-4 flex flex-wrap gap-2">
           {
             country.cities
               .filter((c) => c.slug !== city?.slug)
               .map((c) => (
-                <a
-                  href={`${base}/${c.slug}/${course.id}/`}
-                  class="rounded-full border border-surface-200 px-4 py-2 text-sm font-medium text-heading transition hover:border-accent hover:text-accent"
+                <span
+                  class="rounded-full border border-surface-200 px-4 py-2 text-sm font-medium text-heading"
                 >
                   📍 {c.name}
-                </a>
+                </span>
               ))
           }
           {

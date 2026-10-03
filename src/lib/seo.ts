@@ -4,6 +4,7 @@ import { DEFAULT_COUNTRY, localPrice, type Country } from './countries';
 import { readOperationalPrice } from '@/plugins/sably-operations/public';
 import { SITE } from './site';
 import { getCountries } from './emdash-content';
+import {verifiedReviewMarkup,type VerifiedReviews} from './verified-course-reviews';
 
 export interface HreflangAlternate {
   hreflang: string;
@@ -150,14 +151,8 @@ interface CourseSchemaInput {
   /** Títulos de los módulos → temario. */
   syllabus?: string[];
   datePublished?: string;
-  /**
-   * Solo se emite `aggregateRating` si viene de reseñas reales verificadas
-   * contra una compra. Google exige que la nota provenga de usuarios y que
-   * esté visible en la página; una nota de catálogo es marcado spam y se
-   * sanciona con acción manual. Mientras la tabla `review` de D1 esté vacía
-   * esto queda en `undefined` y no se emite nada.
-   */
-  rating?: { value: number; count: number };
+  /** First-party reviews, also rendered visibly; never Hotmart/catalog scores. */
+  verifiedReviews?: VerifiedReviews;
 }
 
 /** Traduce el nivel del catálogo al vocabulario que entiende Google. */
@@ -223,17 +218,7 @@ export function courseSchema(c: CourseSchemaInput) {
       : {}),
     isAccessibleForFree: false,
     ...(c.datePublished ? { datePublished: c.datePublished } : {}),
-    ...(c.rating
-      ? {
-          aggregateRating: {
-            '@type': 'AggregateRating',
-            ratingValue: c.rating.value,
-            ratingCount: c.rating.count,
-            bestRating: 5,
-            worstRating: 1,
-          },
-        }
-      : {}),
+    ...(c.verifiedReviews ? verifiedReviewMarkup(c.verifiedReviews) : {}),
     ...(c.comprable === false
       ? {}
       : {
@@ -431,8 +416,9 @@ export function videoSchema(v: VideoInput) {
     uploadDate: v.uploadDate,
     duration: v.duration,
     contentUrl: v.contentUrl,
-    // Dónde vive el vídeo, para que Google lo asocie a esta URL y no a otra.
-    embedUrl: v.pageUrl,
+    '@id': `${v.pageUrl}#video`,
+    url: v.pageUrl,
+    mainEntityOfPage: {'@type':'WebPage','@id':v.pageUrl},
     inLanguage: 'es',
     isFamilyFriendly: true,
     publisher: { '@id': `${SITE.url}/#organization` },
