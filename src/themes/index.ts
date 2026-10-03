@@ -24,3 +24,4 @@ export { default as HomologacionProgramView } from './sably-classic/pages/homolo
 export { default as SiteMapView } from './sably-classic/pages/site-map.astro';
 
 export { default as Comments } from './sably-classic/components/Comments.astro';
+export {default as RelatedGuides} from './sably-classic/components/RelatedGuides.astro';

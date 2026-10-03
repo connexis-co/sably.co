@@ -58,6 +58,10 @@ Los comentarios aprobados llegan en el HTML y se actualizan desde el backend. Re
 
 El panel SEO nativo administra título, descripción, imagen social, canonical e indexación. La plantilla integra las salidas oficiales de EmDash con los datos estructurados de Sably y los hreflang por país. Los sitemaps se calculan con contenido publicado. Desarrollo añade `noindex` y requiere acceso; no debe enviarse a indexar.
 
+En **Cursos por país**, el SEO regional prevalece sobre los campos correspondientes del curso principal. Marcar el curso principal como no indexable excluye todas sus variantes; una variante puede excluir solo su mercado. Una URL con `noindex` o canonical hacia otra dirección no se incluye en el sitemap ni en los alternates de cursos. Deja el canonical vacío para usar la URL normal, salvo que exista una razón editorial para consolidar duplicados.
+
+Las fichas muestran hasta tres **Guías para seguir aprendiendo** cuando artículos publicados del blog enlazan explícitamente al curso. Para gestionar esta relación, añade o elimina el enlace en el contenido del artículo; los artículos con `noindex` o canonical diferente quedan excluidos. El bloque conserva el diseño de la plantilla.
+
 El módulo **Sably · SEO** revisa las nueve colecciones indexables, recorre todas sus entradas y enlaza cada observación con el editor. Respeta la herencia de las variantes y no bloquea la publicación por una recomendación de longitud. Véase [la evaluación del plugin](seo-plugin-decision.md).
 
 Publicar un contenido en EmDash cambia los datos de ese entorno. Promover código con CI/CD cambia la plantilla y los módulos, sin reemplazar el contenido de producción. La copia editorial de producción a desarrollo es un proceso independiente descrito en [CI_CD.md](CI_CD.md).
