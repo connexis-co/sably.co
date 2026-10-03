@@ -7,6 +7,7 @@ import { createContentRepository, type CmsEntry, type ContentReader } from '../s
 import { COURSE_VIDEOS } from '../src/lib/course-videos.ts';
 import * as indexability from '../src/lib/cms-indexability.ts';
 import * as pagePath from '../src/lib/page-path.ts';
+import {courseWatch} from '../src/lib/course-watch';
 
 const snapshot=JSON.parse(readFileSync(new URL('../docs/parity-sitemap-snapshot.json',import.meta.url),'utf8')) as {sitemaps:Array<{source:string;paths:string[]}>};
 const {seed}=await buildSeed('full');
@@ -43,6 +44,7 @@ function sitemapModule(cms:ReturnType<typeof createContentRepository>) {
     './emdash-content':{getContentRepository:async()=>cms},
     './site':{SITE:{url:'https://dev.sably.co'},CDN_URL:'https://cdn.sably.co'},
     './course-videos':{COURSE_VIDEOS},
+    './course-watch':{courseWatch},
     './categories':{courseCover:()=>'/image-placeholder.svg'},
   };
   const exports:Record<string,any>={};
@@ -55,7 +57,7 @@ function sitemapModule(cms:ReturnType<typeof createContentRepository>) {
 async function routes(cms:ReturnType<typeof createContentRepository>) {
   const sitemap=sitemapModule(cms),groups:Record<string,string[]>={};
   for(const name of await sitemap.sitemapNames()){
-    const urls=await(name==='pages'?sitemap.pagesUrls():name==='categorias'?sitemap.categoriasUrls():name==='blog'?sitemap.blogUrls():sitemap.cursosUrls(name.slice(7)));
+    const urls=await(name==='pages'?sitemap.pagesUrls():name==='categorias'?sitemap.categoriasUrls():name==='blog'?sitemap.blogUrls():name==='videos'?sitemap.videosUrls():sitemap.cursosUrls(name.slice(7)));
     groups[name]=urls.map((entry:{loc:string})=>new URL(entry.loc).pathname);
   }
   return groups;
@@ -70,7 +72,18 @@ test('all 964 captured production sitemap URLs survive the full CMS route genera
   assert.equal(groups.blog!.length,11);assert.equal(groups.categorias!.length,96);
   for(const [name,paths] of Object.entries(groups))if(name.startsWith('cursos-'))assert.equal(paths.length,104,name);
   const added=[...next].filter(path=>!previous.has(path));
-  assert.deepEqual(added,['/contacto/']);
+  assert.deepEqual(added.filter(path=>!path.startsWith('/videos/')),['/contacto/']);
+});
+
+test('video sitemap uses one watch URL and matching native thumbnail, never eight country sales pages',async()=>{
+ const {entries,cms}=fixture();
+ const course=entries.courses.find(e=>e.id==='curso-de-barberia')!;
+ (course.data as Record<string,unknown>).cover_image={url:'/_emdash/api/media/file/cover.webp'};
+ const sitemap=sitemapModule(cms);
+ const video=(await sitemap.videosUrls()).find((u:{loc:string})=>u.loc.endsWith('/curso-de-barberia/'));
+ assert.equal(video.loc,'https://dev.sably.co/videos/curso-de-barberia/');
+ assert.equal(video.video.miniatura,'https://dev.sably.co/_emdash/api/media/file/cover.webp');
+ for(const code of ['co','mx'])assert.ok((await sitemap.cursosUrls(code)).every((u:{video?:unknown})=>!u.video));
 });
 
 test('empty creators stay out of the sitemap and an editorial course reference enables their profile',async()=>{

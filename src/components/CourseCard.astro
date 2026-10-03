@@ -12,12 +12,12 @@ import Rating from './Rating.astro';
 interface Props {
   course: Course;
   country: Country;
-  /** En contexto de ciudad, la card enlaza a la landing hiperlocal del curso. */
+  /** City context is accepted for theme compatibility; links use the country canonical. */
   citySlug?: string;
   /** Prioridad de carga para cards above-the-fold. */
   eager?: boolean;
 }
-const { course, country, citySlug } = Astro.props;
+const { course, country } = Astro.props;
 const cat = (await getCategory(course.data.category))!;
 
 /* Precio y valoración reales de Hotmart; sin dato real no se inventa nada:
@@ -25,9 +25,7 @@ const cat = (await getCategory(course.data.category))!;
 const operationalDb = (env as unknown as {SABLY_DB:D1Database}).SABLY_DB;
 const real = await readOperationalPrice(operationalDb, course.id, country, Astro.locals).catch(() => null);
 const valoracion = await readOperationalRating(operationalDb, course.id, Astro.locals).catch(() => null);
-const url = citySlug
-  ? `/${country.code}/${citySlug}/${course.id}/`
-  : `/${country.code}/${course.id}/`;
+const url = `/${country.code}/${course.id}/`;
 ---
 
 <article

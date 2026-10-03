@@ -1,7 +1,7 @@
 import handler, { createScheduledHandler, PluginBridge } from '@emdash-cms/cloudflare/worker';
 import { gateEnvironment, protectEnvironmentResponse, type RuntimeEnvironment } from './lib/runtime-environment';
 import redirectSource from '../public/_redirects?raw';
-import { parseLegacyRedirects, publicCanonicalRedirect, resolveLegacyRedirect } from './lib/legacy-redirects';
+import { parseLegacyRedirects, publicCanonicalRedirect, resolveLegacyRedirect,productionOriginRedirect } from './lib/legacy-redirects';
 
 const legacyRedirects = parseLegacyRedirects(redirectSource);
 
@@ -10,6 +10,8 @@ export { PluginBridge };
 export default {
   ...handler,
   async fetch(request, env, ctx) {
+    const origin=productionOriginRedirect(request,env.SABLY_ENVIRONMENT,legacyRedirects);
+    if(origin)return origin;
     const denied = await gateEnvironment(request, env);
     if (denied) return denied;
     try {

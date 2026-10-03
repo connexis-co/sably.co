@@ -1,6 +1,8 @@
 import { getContentRepository } from '@/lib/emdash-content';
 import { DEFAULT_COUNTRY } from '@/lib/countries';
 import type { PublicPageContext } from './types';
+import {courseWatch} from '../course-watch';
+import {SITE,CDN_URL} from '../site';
 
 export async function load(Astro:PublicPageContext) {
 
@@ -46,5 +48,6 @@ const byCategory = INTERNAL_CATEGORIES.map((cat) => ({
 const title = 'Mapa del Sitio | Sably';
 
 const description = `Navega todo Sably: ${comprables.length} cursos online en ${byCategory.length} categorías, disponibles en ${COUNTRIES.length} países.`;
-return {cms,country,COUNTRIES,categories,PROGRAMAS,INTERNAL_CATEGORIES,courses,comprables,posts,byCategory,title,description};
+const videos=courses.map(c=>courseWatch(c,SITE.url,CDN_URL)).filter(v=>v!==null);
+return {cms,country,COUNTRIES,categories,PROGRAMAS,INTERNAL_CATEGORIES,courses,comprables,posts,byCategory,title,description,videos};
 }
