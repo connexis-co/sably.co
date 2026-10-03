@@ -90,7 +90,8 @@ const ogLocale = dePais ? country.hreflang.replace('-', '_') : 'es_CO';
 const settings = await getLiveSiteSettings();
 const seo = getSeoMeta({ data: { seo: Astro.locals.sablySeo } }, {
   siteUrl: SITE.url, defaultTitle: title, defaultDescription: description,
-  defaultOgImage: image || settings.seo?.defaultOgImage?.url, path: Astro.url.pathname,
+  defaultOgImage: new URL(image || settings.seo?.defaultOgImage?.url || '/covers/oficios.jpg', SITE.url).href,
+  path: Astro.url.pathname,
 });
 const development = import.meta.env.SITE?.replace(/\/+$/, '') !== 'https://sably.co';
 const pageContext = { ...createPublicPageContext({
@@ -100,7 +101,7 @@ const pageContext = { ...createPublicPageContext({
   canonical: seo.canonical && Astro.locals.sablySeo?.canonical ? seo.canonical : canonical ?? new URL(Astro.url.pathname, SITE.url).href,
   image: seo.ogImage, siteName: settings.title || SITE.name, siteUrl: SITE.url,
   articleMeta,
-  seo: { robots: development || noindex ? 'noindex, nofollow, noarchive' : seo.robots || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
+  seo: { robots: development ? 'noindex, nofollow, noarchive' : noindex ? 'noindex, follow' : seo.robots || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
 }), ...(articleSchema ? { sablyArticle: articleSchema } : {}) };
 ---
 

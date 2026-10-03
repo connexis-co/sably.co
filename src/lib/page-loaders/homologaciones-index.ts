@@ -50,10 +50,10 @@ const faqs = [
 ];
 
 
-const title = 'Homologa tu Experiencia y Certifícate | Validación de Saberes | Sably';
+const title = 'Homologación y validación de saberes | Sably';
 
 const description =
-  'Certifica tu experiencia en belleza, barbería, estética y más con instituciones de formación para el trabajo aliadas en Bogotá, Neiva, Florencia y Caldas. Te asesoramos por WhatsApp.';
+  'Valida tu experiencia en belleza, barbería y estética con instituciones aliadas en Colombia. Consulta requisitos, sedes y asesoría por WhatsApp.';
 
 
 const schemas = [

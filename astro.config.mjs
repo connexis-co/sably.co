@@ -15,7 +15,11 @@ const target = targetConfig();
 export default defineConfig({
   site: target.siteUrl,
   output: 'server',
-  adapter: cloudflare({ imageService: 'passthrough', configPath: target.configPath }),
+  adapter: cloudflare({ imageService: 'custom', configPath: target.configPath }),
+  image: {
+    service: { entrypoint: './src/lib/cms-image-service.ts' },
+    endpoint: { entrypoint: '@astrojs/cloudflare/image-passthrough-endpoint' },
+  },
   // EmDash APIs POST to slashless paths; public GET URLs are normalized in the Worker.
   trailingSlash: 'ignore',
   integrations: [
