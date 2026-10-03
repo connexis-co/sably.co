@@ -54,7 +54,7 @@ export async function pagesUrls():Promise<UrlEntry[]> {
  for(const country of countries.filter(indexable)){
   const lastmod=latest([country,...courses]);
   for(const path of [`/${country.code}/`,`/${country.code}/cursos/`])if(preferred(country,path))urls.push(u(path,lastmod));
-  for(const creator of creators.filter(c=>preferred(c,`/${country.code}/creadores/${c.slug}/`))) urls.push(u(`/${country.code}/creadores/${creator.slug}/`,latest([creator,...courses.filter(c=>creator.cursos.includes(c.id))])));
+  for(const creator of creators.filter(c=>c.cursos.length>0&&preferred(c,`/${country.code}/creadores/${c.slug}/`))) urls.push(u(`/${country.code}/creadores/${creator.slug}/`,latest([creator,...courses.filter(c=>creator.cursos.includes(c.id))])));
  }
  for(const page of pages.filter(page=>pagePathAvailable(page.path,countries.map(country=>country.code)))) {
   const path=normalizePagePath(page.path)!;
