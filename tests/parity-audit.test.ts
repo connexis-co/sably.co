@@ -70,7 +70,19 @@ test('all 964 captured production sitemap URLs survive the full CMS route genera
   assert.equal(groups.blog!.length,11);assert.equal(groups.categorias!.length,96);
   for(const [name,paths] of Object.entries(groups))if(name.startsWith('cursos-'))assert.equal(paths.length,104,name);
   const added=[...next].filter(path=>!previous.has(path));
-  assert.equal(added.length,17);assert.equal(added.filter(path=>path.includes('/creadores/')).length,16);assert.ok(added.includes('/contacto/'));
+  assert.deepEqual(added,['/contacto/']);
+});
+
+test('empty creators stay out of the sitemap and an editorial course reference enables their profile',async()=>{
+  const {entries,cms}=fixture();
+  assert.ok(!(await routes(cms)).pages.some(path=>path.includes('/creadores/')));
+  const creator=entries.creators![0]!;
+  // A fresh request observes the newly configured native relation.
+  const changed=fixture();
+  (changed.entries.courses![0]!.data as Record<string,unknown>).creator_record=(changed.entries.creators![0]!.data as Record<string,unknown>).id;
+  const profiles=(await routes(changed.cms)).pages.filter(path=>path.includes('/creadores/'));
+  assert.equal(profiles.length,8);
+  assert.ok(profiles.every(path=>path.endsWith(`/creadores/${creator.id}/`)));
 });
 
 test('courses without checkout stay outside the sitemap and blog/course slugs remain identical',async()=>{
