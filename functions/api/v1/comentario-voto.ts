@@ -27,10 +27,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return error('cuerpo JSON inválido');
   }
 
+  if (!b || typeof b !== 'object' || typeof b.comment_id !== 'string' || typeof b.visitor_id !== 'string') return error('datos de voto inválidos');
   const { comment_id: comentario, visitor_id: visitante, value } = b;
   if (!comentario || !visitante) return error('faltan comment_id o visitor_id');
   if (visitante.length < 8 || visitante.length > 64) return error('visitor_id inválido');
   if (value !== 1 && value !== -1 && value !== 0) return error('value debe ser 1, -1 o 0');
+  if (!await env.DB.prepare("SELECT c.id FROM v_comment_hilo c JOIN subject s ON s.id=c.subject_id WHERE c.id=? AND s.kind='blog' AND s.is_active=1").bind(comentario).first()) return error('ese comentario no está publicado',422);
 
   const ipHash = await hashIp(ipDe(request), env.IP_SALT);
   if (await superaLimite(env.DB, 'comment_vote', ipHash, 60)) {

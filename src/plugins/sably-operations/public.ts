@@ -28,7 +28,7 @@ export async function readPublicReviews(db:D1Database,slug?:string):Promise<Publ
 }
 export interface PublicComment {id:string;parent_id:string|null;author_name:string;body:string;country:string|null;created_at:number;utiles:number;respuestas?:PublicComment[]}
 export async function readPublicComments(db:D1Database,subject:string):Promise<PublicComment[]> {
-  const {results}=await db.prepare('SELECT id,parent_id,author_name,body,country,created_at,utiles FROM v_comment_hilo WHERE subject_id=? ORDER BY created_at DESC LIMIT 500').bind(subject).all<PublicComment>();
+  const {results}=await db.prepare("SELECT id,parent_id,author_name,body,country,created_at,utiles FROM v_comment_hilo WHERE subject_id=? AND EXISTS(SELECT 1 FROM subject s WHERE s.id=subject_id AND s.kind='blog' AND s.is_active=1) ORDER BY created_at DESC LIMIT 500").bind(subject).all<PublicComment>();
   return results.filter(r=>!r.parent_id).map(parent=>({...parent,respuestas:results.filter(r=>r.parent_id===parent.id).sort((a,b)=>a.created_at-b.created_at)}));
 }
 export interface OperationalData { prices:Record<string,Record<string,number>>; ratings:Record<string,{rating:number;total:number;capturado:number}> }

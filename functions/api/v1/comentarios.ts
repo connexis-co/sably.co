@@ -1,8 +1,8 @@
 /**
  * POST /api/v1/comentarios — deja un comentario, que nace en 'pending'.
  *
- * Sin aprobación no entra en v_comment_publico, luego no entra en el snapshot,
- * luego no llega al HTML. La moderación no es un filtro que se pueda olvidar:
+ * Sin aprobación no entra en v_comment_publico ni en el HTML del Worker.
+ * La moderación no es un filtro que se pueda olvidar:
  * es el único camino por el que un comentario se vuelve visible.
  */
 import {
@@ -43,6 +43,10 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   } catch {
     return error('cuerpo JSON inválido');
   }
+  if (!b || typeof b !== 'object' || Array.isArray(b) ||
+      ['subject','author_name','body','consent_text'].some(key => typeof (b as Record<string,unknown>)[key] !== 'string') ||
+      (b.author_email !== undefined && typeof b.author_email !== 'string') ||
+      (b.parent_id !== undefined && typeof b.parent_id !== 'string')) return error('datos de comentario inválidos');
 
   const nombre = (b.author_name ?? '').trim();
   const texto = (b.body ?? '').trim();
@@ -50,6 +54,12 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   if (nombre.length < 2 || nombre.length > 60) return error('el nombre debe tener entre 2 y 60 caracteres');
   if (texto.length < 10 || texto.length > 1200) return error('el comentario debe tener entre 10 y 1200 caracteres');
   if (!b.consent_text) return error('falta la autorización de tratamiento de datos');
+  if (b.consent_text.length > 4000 || (b.parent_id?.length ?? 0) > 80) return error('datos de comentario demasiado largos');
+  const email = b.author_email?.trim() || null;
+  if (email && (email.length > 254 || !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(email))) return error('correo inválido');
+  const article = await env.DB.prepare("SELECT id FROM subject WHERE id=? AND kind='blog' AND is_active=1").bind(b.subject).first();
+  if (!article) return error('el artículo no está disponible para comentarios',404);
+  if (b.parent_id && !await env.DB.prepare("SELECT id FROM comment WHERE id=? AND subject_id=? AND parent_id IS NULL AND status='approved'").bind(b.parent_id,b.subject).first()) return error('solo se puede responder a un comentario publicado de este artículo',422);
 
   const ip = ipDe(request);
   const ipHash = await hashIp(ip, env.IP_SALT);
@@ -81,7 +91,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
           spam_score, turnstile, consent_id, visitor_id, ip_hash, country, purge_after)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     )
-      .bind(id, b.subject, b.parent_id ?? null, nombre, b.author_email ?? null, texto,
+      .bind(id, b.subject, b.parent_id || null, nombre, email, texto,
             Math.min(puntuarSpam(texto, nombre) + abuso.sospecha, 1),
             abuso.turnstile, consentId, null, ipHash, pais, purga)
       .run();
@@ -110,6 +120,7 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 export const onRequestGet: PagesFunction<Env> = async ({ request, env }) => {
   const subject = new URL(request.url).searchParams.get('subject');
   if (!subject) return error('falta el parámetro subject');
+  if (!await env.DB.prepare("SELECT id FROM subject WHERE id=? AND kind='blog' AND is_active=1").bind(subject).first()) return error('el artículo no está disponible para comentarios',404);
 
   const { results } = await env.DB.prepare(
     `SELECT id, parent_id, author_name, body, country, created_at, utiles
