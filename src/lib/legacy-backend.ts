@@ -1,4 +1,4 @@
-import type { Env as LegacyEnv } from '../../functions/api/v1/_shared';
+import type { Env as LegacyEnv, OperationalMailer } from '../../functions/api/v1/_shared';
 import * as config from '../../functions/api/v1/config';
 import * as promo from '../plugins/sably-operations/public';
 import * as precios from '../../functions/api/v1/precios/index';
@@ -93,6 +93,7 @@ export async function dispatchLegacyApi(
   request: Request,
   bindings: LegacyBindings,
   path: string,
+  mail?: OperationalMailer,
 ): Promise<Response> {
   const head = request.method === 'HEAD';
   const environment = bindings.SABLY_ENVIRONMENT;
@@ -136,10 +137,7 @@ export async function dispatchLegacyApi(
     IP_SALT: bindings.SABLY_IP_SALT,
   };
   if (production && (routePath === 'v1/leads' || routePath === 'v1/abandonos-notify')) {
-    env.RESEND_API_KEY = bindings.SABLY_RESEND_API_KEY;
-    env.NOTIFY_EMAIL = bindings.SABLY_NOTIFY_EMAIL;
-    env.NOTIFY_FROM = bindings.SABLY_NOTIFY_FROM;
-    if (routePath === 'v1/abandonos-notify') env.BREVO_API_KEY = bindings.SABLY_BREVO_API_KEY;
+    env.MAIL = mail;
   }
   if (production && routePath === 'hotmart-webhook') {
     env.HOTMART_HOTTOK = bindings.SABLY_HOTMART_HOTTOK;

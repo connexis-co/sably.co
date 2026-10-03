@@ -10,6 +10,7 @@ import { applySeed, validateSeed } from 'emdash/seed';
 import { ContentRepository, OptionsRepository } from 'emdash';
 import { createR2Transport,exportSettingsMedia,applySettingsMedia,publicMediaIdentity } from './sync-media.mjs';
 import { readTarget, validateTarget } from './environment-config.mjs';
+import { reconcileDevelopmentCatalog } from './sync-catalog.mjs';
 import { MIGRATION_COLLECTIONS, canonicalJson, normalizedStoredValue } from '../src/lib/emdash-migration-guard.ts';
 
 const knownCollections = new Set(MIGRATION_COLLECTIONS);
@@ -370,6 +371,11 @@ export async function main(args = process.argv.slice(2)) {
     const verified = await snapshot(developmentApi, destinationModel, 'https://dev.sably.co',{mediaTransport,side:'development'});
     report.afterHash = hash(publicSnapshot(verified));
     assert.equal(report.afterHash, digest, 'Post-sync editorial integrity failure; inspect the backup and event log before retrying');
+    // Native CLI imports do not emit runtime plugin hooks. Rebuild only the
+    // public operational lookup from the verified development CMS, never prod ops.
+    events.push({ phase: 'development-catalog', started: true });
+    report.catalog = await reconcileDevelopmentCatalog(development, process.env.CLOUDFLARE_API_TOKEN);
+    events.push({ phase: 'development-catalog', ...report.catalog });
     report.verified = true;
   } finally {
     await writeFile(join(folder,'media-transfers.json'),`${JSON.stringify(mediaTransport.records,null,2)}\n`,{mode:0o600});

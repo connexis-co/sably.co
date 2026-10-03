@@ -9,6 +9,7 @@
   ],
   "workers_dev": true,
   "preview_urls": false,
+  "worker_loaders": [{ "binding": "LOADER" }],
   "assets": {
     "binding": "ASSETS",
     "run_worker_first": true

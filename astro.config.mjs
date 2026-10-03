@@ -8,6 +8,7 @@ import cloudflare from '@astrojs/cloudflare';
 import emdash from 'emdash/astro';
 import { d1, r2, sandbox } from '@emdash-cms/cloudflare';
 import { targetConfig } from './scripts/environment-config.mjs';
+import { brevoPlugin } from './src/plugins/sably-brevo/index.mjs';
 const target = targetConfig();
 
 // https://astro.build/config
@@ -25,6 +26,7 @@ export default defineConfig({
       storage: r2({ binding: 'MEDIA' }),
       siteUrl: target.siteUrl,
       sandboxRunner: sandbox(),
+      sandboxed: [brevoPlugin()],
       plugins: [
         { id: 'sably-seo', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-seo/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-seo/admin.tsx', import.meta.url)), adminPages: [{ path: '/seo', label: 'Sably · SEO', icon: 'search' }] },
         { id: 'sably-operations', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-operations/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-operations/admin.tsx', import.meta.url)), adminPages: [{ path: '/operations', label: 'Sably · operaciones', icon: 'sliders' }] },

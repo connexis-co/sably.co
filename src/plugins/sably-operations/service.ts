@@ -136,7 +136,7 @@ export async function summary(db: D1Database, actor: Actor | undefined) {
     (SELECT COUNT(*) FROM promocion WHERE activa=1 AND (desde IS NULL OR desde<=unixepoch()) AND (hasta IS NULL OR hasta>unixepoch())) AS livePromos,
     (SELECT COUNT(*) FROM visitor_rating) AS visitorVotes,
     (SELECT COUNT(*) FROM subject WHERE is_active=1) AS subjects`).first();
-  return { environment:'development', totals:result };
+  return { totals:result };
 }
 export async function listLeads(db: D1Database, actor: Actor | undefined, input: unknown) {
   authorize(actor,true);
@@ -144,10 +144,10 @@ export async function listLeads(db: D1Database, actor: Actor | undefined, input:
   if (country && !COUNTRIES.includes(country)) throw new OperationsError('País no admitido.');
   if (course && !/^[a-z0-9][a-z0-9-]*$/.test(course)) throw new OperationsError('Curso inválido.');
   const offset = integer(Number(p.offset ?? 0),'Página',0,100000);
-  const rows = await db.prepare(`SELECT l.id,l.name,l.course_interest,l.country,l.source,l.created_at,l.turnstile,
+  const rows = await db.prepare(`SELECT l.id,l.name,l.email,l.phone,l.course_interest,l.country,l.source,l.created_at,l.turnstile,
     c.policy_version,c.policy_url,c.text_shown,c.granted_at FROM lead l JOIN consent c ON c.id=l.consent_id
     WHERE (?='' OR l.country=?) AND (?='' OR l.course_interest=?) ORDER BY l.created_at DESC,l.id LIMIT 101 OFFSET ?`).bind(country,country,course,course,offset).all();
-  // Deliberately omit email, phone, IP, hashes and any delivery action.
+  // This admin-only inbox includes contact details, never IP hashes or credentials.
   return { items:rows.results.slice(0,100),hasMore:rows.results.length>100,offset };
 }
 export async function getWidgets(db: D1Database, actor: Actor | undefined) {

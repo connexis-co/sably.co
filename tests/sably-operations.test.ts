@@ -71,11 +71,12 @@ test('widget settings enforce bounds and stale-write detection',async()=>{
   await assert.rejects(()=>saveWidget(db,editor,{widget:'video',modo:'play',bucle:0,actualizado:version}),/rol/);
   assert.equal(sql.prepare('SELECT modo FROM widget_video').get()!.modo,'auto');sql.close();
 });
-test('lead list contains consent evidence but never contact fields or IP hashes',async()=>{
+test('admin contact inbox includes contact details and consent but excludes IP hashes',async()=>{
   const {db,sql}=database();
   sql.exec("INSERT INTO consent(id,purpose,policy_version,policy_url,text_shown,ip_hash) VALUES ('lead-consent','lead','v1','/privacy','Synthetic consent','private-hash'); INSERT INTO lead(id,name,email,phone,country,course_interest,consent_id,ip_hash) VALUES ('lead-test','Synthetic Person','test@example.invalid','0000000000','co','curso-test','lead-consent','private-hash');");
   const result=await listLeads(db,admin,{country:'co',course:'curso-test'});
-  assert.equal(result.items.length,1);const json=JSON.stringify(result);assert.ok(json.includes('Synthetic consent'));assert.ok(!json.includes('test@example.invalid'));assert.ok(!json.includes('private-hash'));assert.ok(!json.includes('0000000000'));
+  assert.equal(result.items.length,1);const json=JSON.stringify(result);assert.ok(json.includes('Synthetic consent'));assert.ok(json.includes('test@example.invalid'));assert.ok(!json.includes('private-hash'));assert.ok(json.includes('0000000000'));
+  await assert.rejects(()=>listLeads(db,undefined,{}),/rol/);await assert.rejects(()=>listLeads(db,editor,{}),/rol/);
   assert.equal((await listLeads(db,admin,{country:'mx'})).items.length,0);sql.close();
 });
 test('authored calendar and public baseline seed contain no personal data and retain live override priority',async()=>{

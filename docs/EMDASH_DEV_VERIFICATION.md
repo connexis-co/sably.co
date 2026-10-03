@@ -45,3 +45,7 @@ La versión `58ca1169-3ce1-4685-8e83-a2d7f303798b` pasó 28 comprobaciones HTTP 
 Se verificaron los destinos de compra del catálogo migrado: 104 checkouts conservan una referencia de afiliado, ninguno perdió su ref conocido y 17 cursos siguen sin enlace. Dos referencias no estaban en el baseline histórico: el test comprueba su presencia, no la titularidad de esa afiliación.
 
 El cierre correctivo desplegado en `df0f1413-607b-429a-8a6f-2f916586d125` pasó 18/18 comprobaciones de portadas y artículos, con metadatos únicos y completos; también robots por entorno. Véase [recheck](dev-route-recheck.md). El conjunto local posterior incorpora 130 pruebas aprobadas, Astro sin errores y Functions sin errores. La primera PR (#121) pasó CI remoto en GitHub (run 37093570285).
+
+## Cierre de integración
+
+La suite actual pasa 146 pruebas; Astro revisa 165 archivos sin errores ni warnings (130 hints heredados), Functions pasa y el build incluye el transporte sandbox Sably · Brevo. El propietario confirmó que aparecen los tres módulos de Sably en el administrador. Con el token temporal expresamente autorizado se verificaron seis APIs privadas de desarrollo (plugins, operaciones, leads, WhatsApp, SEO y estado de correo), todas con HTTP 200; los reportes privados no se versionan. El conector Brevo y su configuración se verificarán de nuevo tras el despliegue automático.

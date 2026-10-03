@@ -33,7 +33,7 @@ function route(permission: 'comments:moderate'|'settings:manage', method: 'GET'|
 }
 export function createPlugin() {
   return definePlugin({
-    id: 'sably-operations', version: '1.0.0', capabilities: ['content:read'],
+    id: 'sably-operations', version: '1.0.0', capabilities: ['content:read','email:send'],
     hooks: {
       'content:afterSave': catalogChanged,
       'content:afterPublish': catalogChanged,
@@ -41,7 +41,9 @@ export function createPlugin() {
       'content:afterDelete': catalogChanged,
       'content:afterRestore': catalogChanged,
     },
-    admin: { pages: [{ path: '/operations', label: 'Sably · operaciones', icon: 'sliders' }] },
+    admin: { pages: [{ path: '/operations', label: 'Sably · operaciones', icon: 'sliders' }], settingsSchema: {
+      notificationEmail: {type:'email',label:'Correo del equipo',description:'Destinatario de nuevas solicitudes y dirección de respuesta para recuperación. Vacío: no se envían correos operativos. El remitente y la clave se configuran en el proveedor seleccionado en Ajustes → Correo.'},
+    } },
     routes: {
       summary: route('comments:moderate','GET',summary),
       leads: route('settings:manage','GET',listLeads),

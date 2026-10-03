@@ -13,7 +13,7 @@ function database(resolve: (query: Query) => unknown = () => null) {
         bind(...values: unknown[]) { query.values = values; return this; },
         async first() { calls.push(query); return resolve(query); },
         async all() { calls.push(query); return { results: resolve(query) ?? [] }; },
-        async run() { calls.push(query); return { success: true }; },
+        async run() { calls.push(query); return { success: true, meta: {changes:1} }; },
       };
     },
     async batch() { return []; },
@@ -220,23 +220,19 @@ test('recovery HEAD probes never execute the side-effecting legacy GET', async (
   assert.equal(outbound.mock.callCount(), 0);
 });
 
-test('activated production maps scoped mail settings and preserves the native lead response', async (t) => {
-  const outbound = t.mock.method(globalThis, 'fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
-    assert.equal(input, 'https://api.resend.com/emails');
-    assert.equal(new Headers(init?.headers).get('authorization'), 'Bearer scoped-fixture');
-    const payload = JSON.parse(init?.body as string);
-    assert.deepEqual(payload.to, ['team@example.invalid']);
-    return Response.json({ id: 'test-mail' });
-  });
+test('activated production uses the injected EmDash pipeline and does not promise visitor confirmation', async (t) => {
+  const outbound = t.mock.method(globalThis, 'fetch', async () => {throw new Error('No direct provider HTTP requests');});
+  const sent:any[]=[];
   const { db } = database(() => ({ count: 0 }));
   const response = await dispatchLegacyApi(productionRequest('v1/leads', 'POST', {
     name: 'Persona de prueba', email: 'preview@example.invalid', consent_text: 'Autorización de prueba.', abierto_ms: 5000,
-  }), { ...productionBindings(db), SABLY_RESEND_API_KEY: 'scoped-fixture', SABLY_NOTIFY_EMAIL: 'team@example.invalid',
-    SABLY_NOTIFY_FROM: 'website@example.invalid',
-  }, 'v1/leads');
+  }), productionBindings(db), 'v1/leads', {notificationEmail:'team@example.invalid',send:async message=>{sent.push(message);}});
   assert.equal(response.status, 201);
-  assert.equal((await response.json() as { correo: boolean }).correo, true);
-  assert.equal(outbound.mock.callCount(), 1);
+  const payload=await response.json() as {correo:boolean;equipo_notificado:boolean;mensaje:string};
+  assert.equal(payload.correo,false);assert.equal(payload.equipo_notificado,true);
+  assert.doesNotMatch(payload.mensaje,/enviamos.*correo/);
+  assert.equal(sent[0].to,'team@example.invalid');assert.equal(sent[0].replyTo,'preview@example.invalid');
+  assert.equal(outbound.mock.callCount(),0);
 });
 
 test('production price refresh retains the registered-product gate and webhook strips provider errors', async (t) => {
@@ -298,7 +294,9 @@ test('configured production tracking uses the Sably origin and recovery links st
   assert.equal(requests[0]?.body.data[0].event_source_url, 'https://sably.co/');
   assert.equal(new URL(requests[0]!.url).pathname, '/v23.0/test-pixel/events');
   assert.equal(new URL(requests[1]!.url).searchParams.get('measurement_id'), 'G-FIXTURE');
-  assert.equal((await dispatchLegacyApi(productionRequest('v1/abandonos-notify?key=snapshot-fixture'), env, 'v1/abandonos-notify')).status, 200);
-  assert.match(requests[2]?.body.htmlContent, /href="https:\/\/sably\.co\//);
+  const emails:any[]=[];
+  assert.equal((await dispatchLegacyApi(productionRequest('v1/abandonos-notify?key=snapshot-fixture'), env, 'v1/abandonos-notify', {notificationEmail:'team@example.invalid',send:async message=>{emails.push(message);}})).status, 200);
+  assert.match(emails[0]?.html, /href="https:\/\/sably\.co\//);
+  assert.equal(emails[0]?.cc,undefined);assert.equal(requests.length,2);
   assert.doesNotMatch(JSON.stringify(requests), /academiadebelleza|1711030209407213|G-G7HV230BFJ/);
 });

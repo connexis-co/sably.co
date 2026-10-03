@@ -31,10 +31,16 @@ Los bloques disponibles son texto enriquecido, imagen, hero, llamada a la acció
 - **WhatsApp:** visibilidad, teléfono por defecto o por país, mensaje contextual, dispositivos, posición, horarios y reglas por curso, categoría, país o ruta. La regla de mayor prioridad que coincide decide el contacto. El enlace sólo abre WhatsApp cuando el visitante pulsa el botón.
 - **Promociones:** calendario, inicio/fin, prioridad, países, proveedores y cursos incluidos/excluidos. `?promo=clave` selecciona una campaña válida para ese contexto. Un cupón sólo se anuncia para los cursos cuyo checkout lo acepta.
 - **Moderación y calificaciones:** reseñas y comentarios con estados de aprobación. Los cambios publicados se reflejan al volver a cargar la ficha.
-- **Solicitudes:** filtros y exportación CSV, conservando el consentimiento. Desarrollo guarda solicitudes de prueba y no envía correos.
+- **Solicitudes:** bandeja privada con nombre, correo, teléfono, curso, país, origen y consentimiento; filtros y exportación CSV de todos los resultados. Las solicitudes repetidas del mismo día y curso no generan otra fila ni otro aviso. Desarrollo guarda solicitudes de prueba y no envía correos.
 - **Widgets:** vídeo y avisos sociales configurables desde el panel.
 
 Los plugins se administran dentro de EmDash y usan sus permisos y rutas oficiales. La base operativa `SABLY_DB` mantiene solicitudes, moderación y campañas separadas de las tablas editoriales `DB`. Ambas pertenecen a la misma aplicación y a un entorno concreto.
+
+## Correo
+
+**Sably · Brevo** integra el proveedor que ya utiliza el sitio como transporte aislado. En sus ajustes, configurar una clave de envío, el nombre y la dirección del remitente verificado en Brevo; después revisar el proveedor en **Ajustes → Correo**. La clave se guarda con el cifrado nativo de EmDash, fuera del repositorio. En los ajustes de **Sably · operaciones**, configurar **Correo del equipo** para recibir solicitudes y atender respuestas. Sin proveedor o destinatario configurado se guardan los datos, sin enviar avisos ni afirmar que se entregó un correo al visitante.
+
+Los formularios de desarrollo no envían mensajes. La recuperación de compras está reservada al entorno productivo activado y envía solo al comprador, sin copia visible del equipo. El [informe de plugins](plugin-marketplace-review.md) explica la selección y las alternativas para formularios futuros.
 
 ## SEO y publicación
 
