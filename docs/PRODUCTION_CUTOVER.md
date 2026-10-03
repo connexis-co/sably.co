@@ -23,3 +23,11 @@ Los IDs públicos de GTM y GA4 se conservan. Brevo usa `contacto@sably.co` como 
 Tras promover: comprobar HTTP de inicio, cursos, blog, Contacto/Nosotros, imágenes nativas, robots, canonical, Open Graph, sitemap y puerta inicial del administrador; comprobar que desarrollo mantiene 401/noindex. Las comprobaciones no envían correos ni conversiones reales. Revisar el delta de operaciones generado mientras se preparaba el corte antes de cerrar la migración.
 
 El proyecto Pages anterior es `sably`, dominio de origen `sably.pages.dev`, despliegue anterior `943d042e-ff98-4673-bf6b-5f5347a8ca7d`. El respaldo de DNS guarda el CNAME anterior. Para recuperar el origen anterior, retirar únicamente el custom domain `sably.co` del nuevo Worker y restaurar el CNAME proxied hacia `sably.pages.dev`. No restaurar una base antigua sobre la nueva si ya recibió solicitudes: primero conciliar el delta. Las promociones posteriores normalmente revierten solo la versión de Worker, conservando las bases.
+
+## Corte ejecutado el 3 de octubre de 2026
+
+La promoción del SHA `04ebf1536ee2523bd5453f81cfe5c533e268d673` encontró el dominio administrado por Pages (Cloudflare 100117). Se retiró exclusivamente esa vinculación y su CNAME, con respaldo y restauración automática preparada, y se registró `sably.co` en `sably-emdash-production`. No se modificaron MX, TXT, www ni desarrollo. Si se recupera Pages, además del CNAME hay que volver a añadir `sably.co` como custom domain de ese proyecto.
+
+La repetición del workflow [37110960735](https://github.com/connexis-co/sably.co/actions/runs/37110960735) terminó correctamente. Se verificaron públicamente cursos, nuevas guías, imágenes, Contacto/Nosotros y el asistente de alta (401 sin clave, 200 con la clave autorizada). Producción carga GTM y desarrollo permanece protegido, sin medición. La comparación del origen operativo antes y después del corte encontró cero solicitudes, consentimientos, comentarios o eventos nuevos pendientes de copiar.
+
+Tras la revisión editorial hay 120 cursos, 718 variantes y 13 artículos publicados: una ficha duplicada y sus ocho variantes se conservaron como borradores y se añadieron tres guías. Véase [SEO_EDITORIAL_2026-10-03.md](SEO_EDITORIAL_2026-10-03.md).
