@@ -1,7 +1,10 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { getCollection, getEntry, render } from 'astro:content';
+import { cmsImageUrl } from '@/lib/cms-media';
+import { getContentRepository } from '@/lib/emdash-content';
+import ResenasCurso from '@/components/ResenasCurso.astro';
+import CmsRichBody from '@/components/CmsRichBody.astro';
 import { renderMarkdown } from '@/lib/markdown';
+import type { ResolvedCourseContent } from '@/lib/emdash-content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Rating from '@/components/Rating.astro';
 import RatingInteractivo from '@/components/RatingInteractivo.astro';
@@ -13,18 +16,20 @@ import CoursePlayer from '@/components/CoursePlayer.astro';
 import ExitIntent from '@/components/ExitIntent.astro';
 import LeadModal from '@/components/LeadModal.astro';
 import {
-  COUNTRIES,
   formatPrice,
   formatPriceCorto,
   localPrice,
   type Country,
   type City,
 } from '@/lib/countries';
-import { getCategory, courseCover } from '@/lib/categories';
-import { formatMonto, precioReal, valoracionReal } from '@/lib/hotmartLive';
+import { courseCover } from '@/lib/categories';
+import { formatMonto } from '@/lib/moneda';
+import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-operations/public';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
-import { resolvePromo } from '@/lib/promo';
+import { mejorPromocion, campaignDePromocion } from '@/lib/promo';
+import { readActivePromos } from '@/plugins/sably-operations/public';
+import { env } from 'cloudflare:workers';
 import { countryAlternates, breadcrumbSchema, conMarca, faqSchema, courseSchema, videoSchema } from '@/lib/seo';
 import { COURSE_VIDEOS, duracionIso } from '@/lib/course-videos';
 import { SITE, CDN_URL } from '@/lib/site';
@@ -34,27 +39,33 @@ import { SITE, CDN_URL } from '@/lib/site';
  * H1/meta/breadcrumb/FAQ/testimonios/UTM cambian según la ciudad.
  */
 interface Props {
-  course: CollectionEntry<'courses'>;
+  content: ResolvedCourseContent;
   country: Country;
   city?: City;
 }
 
-const { course, country, city } = Astro.props;
-const category = getCategory(course.data.category);
+const { country, city, content } = Astro.props;
+const cms = await getContentRepository();
+const COUNTRIES = await cms.getCountries();
+const { course, locale } = content;
+Astro.response.headers.set('X-Sably-Content-Source', content.source);
+Astro.response.headers.set('X-Sably-Locale-Source', content.localeSource);
+const category = (await cms.getCategory(course.data.category))!;
 const base = `/${country.code}`;
 const coursePath = city ? `${base}/${city.slug}/${course.id}/` : `${base}/${course.id}/`;
-const { Content } = await render(course);
+
 
 /* Variante por país generada y validada (scripts/generar-catalogo.py). Si
    existe, la página usa su meta, descripción, FAQs y listas; si no, cae al
    contenido genérico del MDX. Opcional por diseño: el build nunca depende
    del lote completo. */
-const locale = (await getEntry('courseLocales', `${course.id}--${country.code}`)) ?? null;
 /* renderMarkdown baja los encabezados un nivel para que cuelguen del h2 de la
    sección, de ahí que el tamaño de prosa se defina sobre h3 y h4. Las listas
    numeradas llevan su propio marcador porque el list-disc de los elementos
    alcanzaba también a los de las listas ordenadas. */
 const localeHtml = locale ? renderMarkdown(locale.data.descripcion) : null;
+// CMS source_body stays plain Markdown: it never enters Astro's MDX compiler.
+const courseHtml = content.sourceBody === null ? null : renderMarkdown(content.sourceBody);
 const learnings = locale?.data.beneficios ?? course.data.learnings;
 const audience = locale?.data.para_quien ?? course.data.audience;
 
@@ -62,7 +73,7 @@ const audience = locale?.data.para_quien ?? course.data.audience;
    comparten el metaTitle del MDX, y con variante el modelo a veces repite el
    mismo título en varios mercados. Se añade el país solo cuando hay colisión
    real: la mediana ya está en 55 caracteres y añadirlo siempre pasaría de 60. */
-const localesDelCurso = (await getCollection('courseLocales')).filter(
+const localesDelCurso = (await cms.getCourseLocales(course.id)).filter(
   (l) => l.data.course === course.id,
 );
 const tituloColisiona = locale
@@ -85,7 +96,7 @@ const ctaUrl = buildHotmartUrl({
   citySlug: city?.slug,
 });
 
-const allCourses = await getCollection('courses');
+const allCourses = await cms.getCourses();
 
 /* Jerarquía pilar/satélite: el pilar es el único que apunta al head term.
    El satélite enlaza hacia arriba y el pilar lista sus especializaciones, de
@@ -105,7 +116,7 @@ const related = allCourses
   )
   .slice(0, 4);
 
-const allTestimonials = (await getCollection('testimonials')).filter(
+const allTestimonials = (await cms.getTestimonials()).filter(
   (t) => t.data.courseSlug === course.id || t.data.category === course.data.category,
 );
 const cityFirst = city
@@ -143,15 +154,18 @@ const discountPct = Math.round((1 - course.data.priceUSD / course.data.originalP
  */
 const sinProducto = /PENDIENTE/i.test(course.data.hotmartUrl);
 
-/* Precio real de Hotmart, igual que en CourseCard. Hasta ahora la ficha usaba
+/* EmDash actualiza priceUSD como precio base editorial. La captura comercial
+   de Hotmart conserva prioridad mientras exista, igual que en CourseCard.
+   Precio real de Hotmart, igual que en CourseCard. Hasta ahora la ficha usaba
    el de catálogo mientras las tarjetas de cursos relacionados ya usaban el real:
    en la misma página podían convivir dos importes distintos para el mismo curso.
    Se resuelve una vez aquí y de aquí beben la tarjeta de compra y la barra fija. */
-const real = precioReal(course.id, country);
+const operationalDb = (env as unknown as {SABLY_DB:D1Database}).SABLY_DB;
+const real = await readOperationalPrice(operationalDb, course.id, country, Astro.locals).catch(() => null);
 /* Valoración PÚBLICA REAL de Hotmart (o null). Solo se pinta en el hero; no va
    al aggregateRating del schema porque es de un tercero (ver courseSchema más
    abajo). Nunca la del frontmatter, que era de catálogo/inventada. */
-const valoracion = valoracionReal(course.id);
+const valoracion = await readOperationalRating(operationalDb, course.id, Astro.locals).catch(() => null);
 const precioTexto = real
   ? formatMonto(real.monto, real.moneda)
   : formatPrice(course.data.priceUSD, country);
@@ -171,7 +185,9 @@ const descuentoVisible = undefined;
 /* Campaña del calendario vigente en el build. Solo se usa para rotular la
    píldora de la barra fija ("Black Friday −40%" en vez de un "−40%" pelado).
    `null` es el caso normal la mayor parte del año. */
-const promoVigente = resolvePromo({ countryCode: country.code, now: new Date() });
+const activePromos = await readActivePromos((env as unknown as {SABLY_DB:D1Database}).SABLY_DB).catch(() => []);
+const promoRow = mejorPromocion(activePromos, { countryCode: country.code, proveedor, courseSlug: course.id, urlKey: Astro.url.searchParams.get('promo') });
+const promoVigente = promoRow ? campaignDePromocion(promoRow) : null;
 
 /* Video de presentación: vive en R2 (cdn.sably.co). Sin CDN configurado no se
    pinta el reproductor, así el entorno local no queda con un <video> roto. */
@@ -294,7 +310,7 @@ const schemas = [
     title: course.data.title,
     description: course.data.shortDescription,
     url: canonicalUrl,
-    image: new URL(courseCover(course.id, category.slug), SITE.url).href,
+    image: new URL(cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug), SITE.url).href,
     /* El mismo importe que ve el visitante. Si el schema declarase el precio de
        catálogo mientras la página enseña el real de Hotmart, el snippet de
        Google anunciaría una cifra que no se cobra. Número crudo, nunca el texto
@@ -330,7 +346,7 @@ const schemas = [
         videoSchema({
           name: `${course.data.title} — presentación en vídeo`,
           description: course.data.shortDescription,
-          thumbnailUrl: new URL(courseCover(course.id, category.slug), SITE.url).href,
+          thumbnailUrl: new URL(cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug), SITE.url).href,
           uploadDate: COURSE_VIDEOS[course.id]!.subido,
           duration: duracionIso(COURSE_VIDEOS[course.id]!.segundos),
           contentUrl: videoSrc,
@@ -347,7 +363,7 @@ const schemas = [
   {country}
   {city}
   pathAfterCountry={`/${course.id}/`}
-  alternates={city ? [] : countryAlternates(`/${course.id}/`)}
+  alternates={city ? [] : await countryAlternates(`/${course.id}/`)}
   {schemas}
   pageType={city ? 'course_city' : 'course'}
   sinCupon={!conCupon}
@@ -404,7 +420,7 @@ const schemas = [
             // La promoción que de verdad cubre este curso, país y proveedor. Si
             // ninguna aplica, el precio de tabla se queda como está: nunca se
             // anuncia un descuento que este curso no recibe en el checkout.
-            const promo = mejorPromocion(promos, { countryCode: pais, proveedor, courseSlug: slug });
+            const promo = mejorPromocion(promos, { countryCode: pais, proveedor, courseSlug: slug, urlKey: new URLSearchParams(location.search).get('promo') });
             if (!promo) continue;
 
             const real = caja.querySelector<HTMLElement>('[data-precio-real]');
@@ -436,7 +452,7 @@ const schemas = [
   </script>
 
   <!-- Hero -->
-  <section class="bg-primary">
+  <section class="bg-primary" data-content-source={content.source} data-content-locale-source={content.localeSource}>
     <div class="container-site grid gap-10 py-14 lg:grid-cols-[1fr_420px] lg:py-20">
       <div>
         <nav aria-label="Breadcrumb" class="text-sm text-white/60">
@@ -458,7 +474,7 @@ const schemas = [
           <span aria-hidden="true">›</span>
           <span class="text-white">{course.data.title}</span>
         </nav>
-        <h1 class="mt-4 text-3xl leading-tight font-extrabold text-white sm:text-4xl">{h1}</h1>
+        <h1 {...(locale?.edit.h1 ?? course.edit.title)} class="mt-4 text-3xl leading-tight font-extrabold text-white sm:text-4xl">{h1}</h1>
         <p class="mt-4 max-w-xl text-lg text-white/80">{locale?.data.subtitulo ?? course.data.shortDescription}</p>
         <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/80">
           {/* Interactivo en el hero: las estrellas muestran la nota de compradores
@@ -488,7 +504,7 @@ const schemas = [
           videoSrc ? (
             <CoursePlayer
               src={videoSrc}
-              poster={courseCover(course.id, category.slug)}
+              poster={cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug)}
               title={course.data.title}
               courseId={course.id}
             />
@@ -500,7 +516,7 @@ const schemas = [
               style={`background-image: linear-gradient(135deg, ${category.gradient[0]}, ${category.gradient[1]})`}
             >
               <img
-                src={courseCover(course.id, category.slug)}
+                src={cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug)}
                 alt={`${category.name}: ${course.data.title}`}
                 width="800"
                 height="450"
@@ -701,9 +717,13 @@ const schemas = [
       <section aria-label="Sobre este curso">
         <h2 class="text-2xl font-bold">Sobre este curso</h2>
         <div class="mt-4 space-y-4 text-[15px] leading-relaxed text-body [&_h3]:mt-8 [&_h3]:text-xl [&_h3]:font-bold [&_h3]:text-primary [&_h4]:mt-6 [&_h4]:text-lg [&_h4]:font-bold [&_h4]:text-primary [&_li]:ml-5 [&_ol>li]:list-decimal [&_ol]:space-y-1.5 [&_strong]:text-heading [&_ul>li]:list-disc [&_ul]:space-y-1.5">
-          {localeHtml ? <Fragment set:html={localeHtml} /> : <Content />}
+          {content.richBody
+            ? <CmsRichBody value={content.richBody} />
+            : <Fragment set:html={localeHtml ?? courseHtml ?? ''} />}
         </div>
       </section>
+
+      <ResenasCurso slug={course.id} relacionados={related.map(c => c.id)} />
 
       <!-- Para quién es -->
       <section aria-labelledby="audience-title">

@@ -22,7 +22,7 @@ const plantilla = (nombre: string, producto: string) => `<!doctype html>
   <p><b>Tu cupo con el 50% de descuento sigue guardado</b> — con certificado incluido,
   acceso de por vida y garantía de 7 días de Hotmart.</p>
   <p style="margin:28px 0">
-    <a href="https://academiadebelleza.edu.co/?utm_source=email&utm_medium=crm&utm_campaign=carrito-abandonado"
+    <a href="https://sably.co/?utm_source=email&utm_medium=crm&utm_campaign=carrito-abandonado"
        style="background:#7c3aed;color:#fff;text-decoration:none;padding:12px 22px;border-radius:8px;font-weight:700">
        Terminar mi inscripción con 50%</a>
   </p>

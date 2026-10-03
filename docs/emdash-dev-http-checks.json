@@ -1,0 +1,202 @@
+{
+  "checkedAt": "2026-10-03T03:16:40.361Z",
+  "origin": "https://dev.sably.co",
+  "results": [
+    {
+      "path": "/co/",
+      "authenticated": false,
+      "status": 401,
+      "expected": 401,
+      "ok": true
+    },
+    {
+      "path": "/favicon.svg",
+      "authenticated": false,
+      "status": 401,
+      "expected": 401,
+      "ok": true
+    },
+    {
+      "path": "/_emdash/admin/",
+      "authenticated": false,
+      "status": 401,
+      "expected": 401,
+      "ok": true
+    },
+    {
+      "path": "/co/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/co/curso-de-barberia/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/mx/curso-de-unas/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/co/bogota/curso-de-barberia/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/co/curso-de-panaderia/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/co/cursos/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/co/cursos/belleza-online/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/blog/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/blog/como-emprender-con-un-oficio-en-2026/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/nosotros/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/contacto/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/legal/terminos/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/legal/privacidad/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/homologaciones/",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/co/no-existe/",
+      "authenticated": true,
+      "status": 404,
+      "expected": 404,
+      "ok": true
+    },
+    {
+      "path": "/api/v1/config",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/api/v1/promo?curso=curso-de-barberia&pais=co",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/_emdash/api/plugins/sably-whatsapp/config",
+      "authenticated": true,
+      "status": 401,
+      "expected": 401,
+      "ok": true
+    },
+    {
+      "path": "/_emdash/api/plugins/sably-operations/summary",
+      "authenticated": true,
+      "status": 401,
+      "expected": 401,
+      "ok": true
+    },
+    {
+      "path": "/co/curso-de-barberia",
+      "authenticated": true,
+      "status": 301,
+      "expected": 301,
+      "ok": true
+    },
+    {
+      "path": "/api/hotmart-webhook/",
+      "authenticated": true,
+      "status": 503,
+      "expected": 503,
+      "ok": true
+    },
+    {
+      "path": "/robots.txt",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/sitemap-index.xml",
+      "authenticated": true,
+      "status": 200,
+      "expected": 200,
+      "ok": true
+    },
+    {
+      "path": "/internal/migrate-emdash",
+      "authenticated": true,
+      "status": 404,
+      "expected": 404,
+      "ok": true
+    },
+    {
+      "path": "/_emdash/api/plugins/sably-seo/audit",
+      "authenticated": true,
+      "status": 401,
+      "expected": 401,
+      "ok": true
+    }
+  ]
+}

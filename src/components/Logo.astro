@@ -5,6 +5,8 @@
  * coral de marca. Las letras usan currentColor para soportar `inverted`.
  * Fuente de los paths: brand/sably-logo.svg (generado desde el .ttf).
  */
+import { getLiveSiteSettings } from '@/lib/live-site-settings';
+const {logo,title:siteTitle}=await getLiveSiteSettings();
 interface Props {
   href?: string;
   inverted?: boolean;
@@ -16,9 +18,9 @@ const { href = '/co/', inverted = false, class: className = '' } = Astro.props;
 <a
   href={href}
   class={`inline-flex ${inverted ? 'text-white' : 'text-primary'} ${className}`}
-  aria-label="Sably — inicio"
+  aria-label={`${siteTitle || 'Sably'} — inicio`}
 >
-  <svg
+  {logo?.url ? <img src={logo.url} alt={logo.alt || siteTitle} class="h-8 w-auto" /> : <svg
     viewBox="0 0 2916.1 1221"
     class="h-8 w-auto"
     fill="none"
@@ -49,5 +51,5 @@ const { href = '/co/', inverted = false, class: className = '' } = Astro.props;
         d="M68 -80Q102 -80 128.0 -73.5Q154 -67 174.0 -52.5Q194 -38 210.5 -15.0Q227 8 241 42L266 100H171L10 480H129L278 129L427 480H546L345 7Q323 -46 296.0 -83.0Q269 -120 235.5 -144.0Q202 -168 160.5 -179.0Q119 -190 68 -190Z"
         fill="currentColor"></path>
     </g>
-  </svg>
+  </svg>}
 </a>

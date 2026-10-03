@@ -119,7 +119,7 @@ function blackFridayWindow(year: number): { startsAt: string; endsAt: string } {
  * Los tonos van en hexadecimal literal en vez de la rampa de Tailwind: `red-700`
  * y `emerald-700` son colores de utilidad, no una paleta de marca, y se notan.
  */
-const TEMA = {
+export const TEMA = {
   blackFriday: {
     fondo: 'bg-[#0c0c10]',
     texto: 'text-[#e8e4dc]',
@@ -423,6 +423,11 @@ export interface Promocion {
   hasta: number | null;
   /** Mayor gana cuando dos promociones cubren el mismo curso. */
   prioridad: number;
+  /** Campañas que requieren ?promo=<clave>. */
+  urlKey?: string | null;
+  desde?: number | null;
+  tema?: string;
+  etiqueta?: string;
 }
 
 export interface PromoCtx {
@@ -430,10 +435,16 @@ export interface PromoCtx {
   /** Id del proveedor del curso, ya resuelto (ver proveedores.ts). */
   proveedor: string;
   courseSlug?: string;
+  urlKey?: string | null;
+  now?: number;
 }
 
 /** ¿Esta promoción cubre este curso, país y proveedor? */
 function promoAplica(p: Promocion, ctx: PromoCtx): boolean {
+  const now = ctx.now ?? Date.now();
+  if (p.desde != null && p.desde > now) return false;
+  if (p.hasta != null && p.hasta <= now) return false;
+  if (p.urlKey && p.urlKey !== ctx.urlKey) return false;
   const cc = ctx.countryCode.toLowerCase();
   if (p.paises.length > 0 && !p.paises.includes(cc)) return false;
 
@@ -473,12 +484,12 @@ export function campaignDePromocion(
 ): Omit<PromoCampaign, 'endsAt'> & { endsAt: string | null } {
   return {
     id: `promo-${p.id}`,
-    label: 'Oferta',
+    label: p.etiqueta || 'Oferta',
     titular: p.titular,
-    theme: p.pct >= 50 ? TEMA.maximo : TEMA.medio,
+    theme: p.tema && Object.hasOwn(TEMA,p.tema) ? TEMA[p.tema as keyof typeof TEMA] : p.pct >= 50 ? TEMA.maximo : TEMA.medio,
     couponCode: p.cupon,
     discountPct: p.pct,
-    startsAt: new Date(0).toISOString(),
+    startsAt: new Date(p.desde ?? 0).toISOString(),
     endsAt: p.hasta ? new Date(p.hasta).toISOString() : null,
     countries: null,
     // Por encima de cualquier campaña del calendario, y entre ellas manda su

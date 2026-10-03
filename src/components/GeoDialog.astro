@@ -1,5 +1,6 @@
 ---
-import { COUNTRIES } from '@/lib/countries';
+import { getCountries } from '@/lib/emdash-content';
+const COUNTRIES = await getCountries();
 
 /**
  * Selector país → ciudad en dos pasos. Se abre desde el header.

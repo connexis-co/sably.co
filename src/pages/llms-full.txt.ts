@@ -1,11 +1,15 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
-import { getCategory } from '@/lib/categories';
+import { getContentRepository } from '@/lib/emdash-content';
+export const prerender = false;
+
 import { SITE } from '@/lib/site';
 
 /** llms-full.txt — catálogo completo para agentes/LLMs. */
 export const GET: APIRoute = async () => {
-  const courses = await getCollection('courses');
+  const cms = await getContentRepository();
+  const [courses, categories, COUNTRIES] = await Promise.all([cms.getCourses(), cms.getCategories(), cms.getCountries()]);
+  const INTERNAL_CATEGORIES = categories.filter(c => !c.externalUrl);
+  const getCategory = (slug:string) => categories.find(c=>c.slug===slug)!;
   const byCat = new Map<string, typeof courses>();
   for (const c of courses) {
     const cat = getCategory(c.data.category).name;

@@ -1,48 +1,42 @@
-# sably.co — Frontend
+# Sably · EmDash
 
-Hub del ecosistema **Sably**: marketplace de cursos online de oficios prácticos y habilidades
-anti-IA para Latinoamérica. Modelo de afiliación Hotmart con cupones inyectados.
+Catálogo de cursos con Astro 7, EmDash 1.1 y Cloudflare Workers. EmDash administra el contenido publicado y los módulos de Sably; la plantilla `sably-classic` conserva el diseño actual.
 
-## Stack
+## Entornos permanentes
 
-- **Astro 7** (SSG) + TypeScript estricto
-- **Tailwind CSS v4** (`@tailwindcss/vite`, tokens en `@theme`)
-- **Nanostores** (preferencia país/ciudad persistente)
-- Interactividad en **vanilla TS** (mega-menú, drawer, geo-selector, CRO) — presupuesto JS < 50KB
-- Contenido en **Content Collections** (MDX + zod) — Fase 2 migra a API Laravel (`sably-core`)
-- Deploy: **Cloudflare Pages** (producción `main` → sably.co, staging `develop`)
+| Entorno | Dominio | Flujo |
+| --- | --- | --- |
+| Desarrollo | https://dev.sably.co | PR → `develop` → CI → despliegue automático |
+| Producción | https://sably.co | PR → `main` → CI → promoción manual de un SHA verificado |
 
-## Desarrollo
+Cada entorno tiene sus propias bases CMS/operaciones, medios R2 y sesiones. El Worker productivo nuevo comienza sin rutas y desactivado; el sitio anterior sigue sirviendo producción hasta ejecutar el corte documentado. Publicar código no vuelve a importar contenido.
 
-```bash
-npm install
-npm run dev        # http://localhost:4321
-npm run check      # type-check (astro check)
-npm run build      # build SSG → dist/ (~600 páginas)
-npm run preview    # servir dist/ localmente
+## Trabajo local
+
+Usar Node 22.23.1, indicado en `.nvmrc`, y credenciales locales ignoradas por Git.
+
+```sh
+npm ci
+npm run dev
+npm run content:check
+npm run test:migration
+npm run check
+npm run check:functions
+npm run build:dev
 ```
 
-Copia `.env.example` a `.env` para las variables locales. Los secretos nunca se commitean.
+`npm run build` también construye desarrollo y elimina secretos del artefacto. `npm run deploy:development` verifica el Worker y sus recursos antes de desplegar. El antiguo script de Pages está cerrado para evitar publicar un artefacto incompatible.
 
-## Estructura
+## Organización
 
-```
-src/
-├── components/    # UI + CRO (Header/mega-menú, CourseCard, StickyCta, ExitIntent...)
-├── content/       # courses/*.mdx · blog/*.mdx · testimonials.json (zod en content.config.ts)
-├── layouts/       # BaseLayout (SEO, GTM, hreflang, Schema.org)
-├── lib/           # countries, categories, hotmart, seo, analytics, site
-├── pages/         # [country]/ · [country]/[city]/ · cursos/ · curso/[slug]/ · blog/
-├── stores/        # nanostores (geo)
-└── styles/        # global.css (design tokens Tailwind v4)
-```
+- `src/lib/emdash-content.ts`: lectura editorial publicada y relaciones nativas.
+- `src/themes/`: contrato y selección de la plantilla; páginas, bloques y componentes.
+- `src/plugins/`: WhatsApp, operaciones y auditoría SEO integrados con EmDash.
+- `src/pages/`: rutas estables y páginas nuevas definidas en el CMS.
+- `scripts/sync-content.mjs`: copia editorial de producción a desarrollo con respaldo.
+- `config/`, `wrangler.jsonc`, `.github/workflows/`: recursos, construcción y despliegues aislados.
+- `src/content/`, `scripts/migration-source/`: archivo de procedencia y validación de la migración; las páginas públicas leen EmDash.
 
-## Multi-país
+## Documentación
 
-7 países (`/co/ /mx/ /pe/ /ec/ /cl/ /ar/ /us/`) × 29 ciudades con landing pages SEO locales,
-precios en moneda local, WhatsApp por país y hreflang `es-*` + `x-default`.
-
-## Contribuir
-
-Ver [CONTRIBUTING.md](CONTRIBUTING.md) — Git Flow, Conventional Commits (commitlint + husky),
-CI/CD con GitHub Actions. Documentación viva en [docs/](docs/).
+[Guía editorial](docs/SABLY_EDITORIAL_GUIDE.md) · [CI/CD y sincronización](docs/CI_CD.md) · [Verificación](docs/EMDASH_DEV_VERIFICATION.md) · [Contenido migrado](docs/migration-content.md) · [Contribución](CONTRIBUTING.md)

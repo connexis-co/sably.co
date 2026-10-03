@@ -1,12 +1,16 @@
 import type { APIRoute } from 'astro';
-import { getCollection } from 'astro:content';
-import { COUNTRIES } from '@/lib/countries';
-import { INTERNAL_CATEGORIES } from '@/lib/categories';
+import { getContentRepository } from '@/lib/emdash-content';
+export const prerender = false;
+
+
 import { SITE } from '@/lib/site';
 
 /** llms.txt — descripción del sitio para agentes/LLMs (llmstxt.org). */
 export const GET: APIRoute = async () => {
-  const courses = await getCollection('courses');
+  const cms = await getContentRepository();
+  const [courses, categories, COUNTRIES] = await Promise.all([cms.getCourses(), cms.getCategories(), cms.getCountries()]);
+  const INTERNAL_CATEGORIES = categories.filter(c => !c.externalUrl);
+  const getCategory = (slug:string) => categories.find(c=>c.slug===slug)!;
   const body = `# Sably
 
 > Marketplace de cursos online en español para Latinoamérica: oficios prácticos y habilidades

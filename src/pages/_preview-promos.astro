@@ -8,7 +8,13 @@
  * fecha ni forzar el reloj del sistema. Los contadores muestran cifras fijas de
  * ejemplo; en producción los mueve `formatCountdown()`.
  */
-import { CAMPAIGNS } from '@/lib/promo';
+import { campaignDePromocion } from '@/lib/promo';
+import { readActivePromos } from '@/plugins/sably-operations/public';
+import { env } from 'cloudflare:workers';
+export const prerender = false;
+const runtime=env as unknown as {SABLY_ENVIRONMENT?:string;SABLY_DB:D1Database};
+if(runtime.SABLY_ENVIRONMENT!=='development') return new Response('Not found',{status:404});
+const CAMPAIGNS = (await readActivePromos(runtime.SABLY_DB)).map(p=>({...campaignDePromocion(p),countries:p.paises,urlKey:p.urlKey}));
 import '@/styles/global.css';
 
 const RELOJ: Record<string, [string, string, string, string]> = {
@@ -25,7 +31,7 @@ const RELOJ: Record<string, [string, string, string, string]> = {
   'ads-50': ['08', '22', '41', '06'],
 };
 const UNIDADES = ['Días', 'Horas', 'Min', 'Seg'] as const;
-const fmt = (d: string) => new Date(d).toLocaleDateString('es', { day: 'numeric', month: 'short' });
+const fmt = (d: string|null) => d ? new Date(d).toLocaleDateString('es', { day: 'numeric', month: 'short' }) : 'Sin fecha';
 ---
 
 <html lang="es">
@@ -39,7 +45,7 @@ const fmt = (d: string) => new Date(d).toLocaleDateString('es', { day: 'numeric'
     <div class="mx-auto max-w-5xl px-4 py-10">
       <h1 class="font-display text-3xl font-bold text-heading">Banner de promoción · variaciones</h1>
       <p class="mt-2 max-w-3xl text-sm text-muted">
-        {CAMPAIGNS.length} campañas. El aspecto lo decide la fecha: cada una trae su propio tema, así que
+        {CAMPAIGNS.length} campañas. Campañas activas cargadas desde EmDash Operaciones: cada una trae su propio tema, así que
         Black Friday no se ve como Navidad. Fuera de estas ventanas el banner no aparece.
         Un solo tono de fondo por campaña, el color saturado reservado al botón y al porcentaje, y un
         filete de 2 px arriba.

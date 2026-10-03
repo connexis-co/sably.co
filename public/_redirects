@@ -48,7 +48,6 @@
 # nombre de sitio («Sably») sale del destino de la redirección. /index.html va
 # directo a /co/: antes encadenaba 308 (/index.html → /) y luego 302 (/ → /co/).
 /index.html /co/ 301
-/ /co/ 301
 
 # El panel no se indexa ni se rastrea: lo protege Cloudflare Access y además
 # se le pone noindex en el propio layout.

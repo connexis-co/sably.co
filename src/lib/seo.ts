@@ -1,7 +1,9 @@
+import { getLiveSiteSettings } from './live-site-settings';
 import type { CollectionEntry } from 'astro:content';
-import { COUNTRIES, DEFAULT_COUNTRY, localPrice, type Country } from './countries';
-import { precioReal } from './hotmartLive';
+import { DEFAULT_COUNTRY, localPrice, type Country } from './countries';
+import { readOperationalPrice } from '@/plugins/sably-operations/public';
 import { SITE } from './site';
+import { getCountries } from './emdash-content';
 
 export interface HreflangAlternate {
   hreflang: string;
@@ -13,13 +15,14 @@ export interface HreflangAlternate {
  * (home país, categoría, curso). `pathAfterCountry` NO incluye el código de país.
  * Las city landings no llevan hreflang (no mapean 1:1 entre países).
  */
-export function countryAlternates(pathAfterCountry: string): HreflangAlternate[] {
+export async function countryAlternates(pathAfterCountry: string): Promise<HreflangAlternate[]> {
+  const COUNTRIES = await getCountries();
   const clean = pathAfterCountry.startsWith('/') ? pathAfterCountry : `/${pathAfterCountry}`;
   const alternates: HreflangAlternate[] = COUNTRIES.map((c) => ({
     hreflang: c.hreflang,
     href: `${SITE.url}/${c.code}${clean}`,
   }));
-  alternates.push({
+  if (COUNTRIES.some(c => c.code === DEFAULT_COUNTRY)) alternates.push({
     hreflang: 'x-default',
     href: `${SITE.url}/${DEFAULT_COUNTRY}${clean}`,
   });
@@ -63,29 +66,30 @@ export function conMarca(titulo: string): string {
   return conSufijo.length <= LIMITE_TITULO ? conSufijo : t;
 }
 
-export function organizationSchema() {
+export async function organizationSchema() {
+  const [COUNTRIES, settings] = await Promise.all([getCountries(), getLiveSiteSettings()]);
   return {
     '@context': 'https://schema.org',
     // EducationalOrganization es más específico que Organization y es lo que
     // Google espera como `provider` de un Course.
     '@type': ['Organization', 'EducationalOrganization'],
     '@id': `${SITE.url}/#organization`,
-    name: SITE.name,
+    name: settings.title || SITE.name,
     alternateName: 'Sably Cursos Online',
     // La raíz del dominio, no /co/: Google solo admite nombres de sitio a nivel de
     // dominio y la URL debe ser la misma en todas las homes. Que la raíz redirija a
     // /co/ está previsto en su guía: el nombre de sitio sigue al destino.
     url: `${SITE.url}/`,
     description: SITE.description,
-    slogan: SITE.tagline,
+    slogan: settings.tagline || SITE.tagline,
     logo: {
       '@type': 'ImageObject',
       // PNG 512px: Google exige ≥112x112 y prefiere raster sobre el SVG del favicon.
-      url: `${SITE.url}/icon-512.png`,
-      caption: SITE.name,
+      url: settings.logo?.url ? new URL(settings.logo.url, SITE.url).href : `${SITE.url}/icon-512.png`,
+      caption: settings.logo?.alt || settings.title || SITE.name,
     },
     // Solo perfiles que existen: un sameAs a un 404 es peor que no declararlo.
-    sameAs: Object.values(SITE.social).filter(Boolean),
+    sameAs: Object.values(settings.social ?? SITE.social).filter(Boolean),
     // El área servida sale de los países que el sitio realmente publica, no de
     // una lista aspiracional.
     areaServed: COUNTRIES.map((c) => ({ '@type': 'Country', name: c.name })),
@@ -279,9 +283,10 @@ interface CourseListEntry {
  * Vive aquí y no en cada página para que categoría, hub de ciudad y
  * ciudad×categoría no vuelvan a divergir.
  */
-export function cursoParaListado(course: CollectionEntry<'courses'>, country: Country): CourseListEntry {
+export async function cursoParaListado(course: CollectionEntry<'courses'>, country: Country): Promise<CourseListEntry> {
   const sinProducto = /PENDIENTE/i.test(course.data.hotmartUrl);
-  const real = precioReal(course.id, country);
+  const [{env},{getRequestContext}] = await Promise.all([import('cloudflare:workers'),import('emdash/request-context')]);
+  const real = await readOperationalPrice((env as unknown as {SABLY_DB:D1Database}).SABLY_DB, course.id, country, getRequestContext()).catch(() => null);
   return {
     name: course.data.title,
     url: `${SITE.url}/${country.code}/${course.id}/`,

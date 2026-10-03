@@ -13,7 +13,9 @@
  * una nombrando su curso: rellenar sin decirlo sería atribuirle al curso
  * opiniones que no son suyas.
  */
-import { resenasReales, tituloDe, type Resena } from '@/lib/hotmartLive';
+import { env } from 'cloudflare:workers';
+import { getCourses } from '@/lib/emdash-content';
+import { readPublicReviews, type PublicReview } from '@/plugins/sably-operations/public';
 
 interface Props {
   slug: string;
@@ -22,18 +24,21 @@ interface Props {
 }
 const { slug, relacionados = [] } = Astro.props;
 
-interface Tarjeta extends Resena {
+interface Tarjeta extends PublicReview {
   /** Título del curso al que pertenece, solo cuando NO es el de esta página. */
   deCurso?: string;
 }
 
-const propias: Tarjeta[] = resenasReales(slug).filter((r) => r.texto);
+const db = (env as unknown as {SABLY_DB:D1Database}).SABLY_DB;
+const [reviews,courses] = await Promise.all([readPublicReviews(db).catch(()=>[]),getCourses()]);
+const titles = new Map(courses.map(c=>[c.id,c.data.title]));
+const propias: Tarjeta[] = reviews.filter(r=>r.slug===slug&&r.texto).slice(0,6);
 const tarjetas: Tarjeta[] = [...propias];
 for (const rel of relacionados) {
   if (tarjetas.length >= 6) break;
-  const titulo = tituloDe(rel);
+  const titulo = titles.get(rel);
   if (!titulo) continue;
-  for (const r of resenasReales(rel).filter((x) => x.texto).slice(0, 2)) {
+  for (const r of reviews.filter((x) => x.slug===rel&&x.texto).slice(0, 2)) {
     if (tarjetas.length >= 6) break;
     tarjetas.push({ ...r, deCurso: titulo });
   }
@@ -48,7 +53,7 @@ const estrellas = (n: number): string => '★'.repeat(Math.max(1, Math.min(5, Ma
         <h2 id="resenas-title" class="text-2xl font-bold">
           Lo que dicen los compradores
         </h2>
-        <p class="text-xs text-muted">Reseñas públicas verificadas en Hotmart</p>
+        <p class="text-xs text-muted">Reseñas de compradores publicadas tras revisión</p>
       </div>
       <div
         class="scrollbar-fina -mx-4 mt-5 flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-px-4 px-4 pb-3 md:mx-0 md:grid md:snap-none md:grid-cols-3 md:overflow-visible md:px-0"
@@ -69,7 +74,7 @@ const estrellas = (n: number): string => '★'.repeat(Math.max(1, Math.min(5, Ma
               <div class="min-w-0">
                 <p class="truncate text-sm font-bold text-primary">{t.nombre}</p>
                 <p class="truncate text-xs text-muted">
-                  {t.deCurso ? `Sobre ${t.deCurso}` : 'Compra verificada · Hotmart'}
+                  {t.deCurso ? `Sobre ${t.deCurso}` : t.source==='hotmart-public' ? 'Reseña pública · Hotmart' : 'Compra verificada'}
                 </p>
               </div>
             </footer>

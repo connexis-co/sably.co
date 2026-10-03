@@ -1,0 +1,6 @@
+---
+import type { BlockValue } from 'emdash/ui';
+interface Props { value: BlockValue & { title?: string; faq_items?: Array<{ question?: string; answer?: string; q?: string; a?: string }> }; }
+const { value } = Astro.props;
+---
+<section class="container-site py-12"><div class="mx-auto max-w-4xl"><h2 class="mb-6 text-2xl font-bold text-heading">{value.title || 'Preguntas frecuentes'}</h2>{(value.faq_items ?? []).map(item => <details class="border-b border-surface-200 py-4"><summary class="cursor-pointer font-semibold text-heading">{item.question ?? item.q}</summary><p class="mt-3 whitespace-pre-line text-body">{item.answer ?? item.a}</p></details>)}</div></section>

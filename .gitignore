@@ -26,3 +26,13 @@ __pycache__/
 
 # Caché local del listado de afiliaciones de Hotmart (se regenera sola)
 docs/data/.cache-afiliaciones.json
+
+# EmDash development runtime / secrets
+.dev.vars*
+.wrangler/
+.emdash/
+data.db*
+.env.*
+!.env.example
+
+DEV_ACCESS.txt

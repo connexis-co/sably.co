@@ -1,0 +1,10 @@
+{
+  "$schema":"../node_modules/wrangler/config-schema.json",
+  "name":"sably-emdash-production",
+  "main":"../scripts/worker-unrouted-bootstrap.mjs",
+  "account_id":"6e36c2fb07c21f30ed3c0d6e824884bc",
+  "compatibility_date":"2026-10-02",
+  "workers_dev":false,
+  "preview_urls":false,
+  "routes":[]
+}

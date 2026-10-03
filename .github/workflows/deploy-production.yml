@@ -1,34 +1,96 @@
-name: Deploy Production to Cloudflare Pages
-
+name: Promote tested EmDash version
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
-
+    inputs:
+      sha:
+        description: Full commit SHA on main with a successful CI Pipeline
+        required: true
+        type: string
+      publish:
+        description: Activate only after the initial approved production cutover
+        type: boolean
+        default: false
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: sably-emdash-production-deploy
+  cancel-in-progress: false
 jobs:
-  deploy-production:
+  verify:
     runs-on: ubuntu-latest
-    environment: production
+    outputs:
+      sha: ${{ steps.verified.outputs.sha }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Verify the requested commit is on main
+        env:
+          DEPLOY_SHA: ${{ inputs.sha }}
+        run: |
+          [[ "$DEPLOY_SHA" =~ ^[a-f0-9]{40}$ ]] || { echo 'A full SHA is required'; exit 1; }
+          git merge-base --is-ancestor "$DEPLOY_SHA" origin/main
+      - name: Require successful CI for this exact main commit
+        id: verified
+        uses: actions/github-script@v7
+        env:
+          DEPLOY_SHA: ${{ inputs.sha }}
+        with:
+          script: |
+            const sha = process.env.DEPLOY_SHA;
+            const runs = await github.rest.actions.listWorkflowRuns({
+              owner: context.repo.owner, repo: context.repo.repo,
+              workflow_id: 'ci.yml', head_sha: sha, branch: 'main', status: 'success', per_page: 100
+            });
+            if (!runs.data.workflow_runs.some(run => run.head_sha === sha && run.conclusion === 'success')) {
+              throw new Error('No successful CI Pipeline exists for this exact commit on main');
+            }
+            core.setOutput('sha', sha);
+  production:
+    needs: verify
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.verify.outputs.sha }}
       - uses: actions/setup-node@v4
         with:
-          node-version-file: '.nvmrc'
-          cache: 'npm'
-
+          node-version-file: .nvmrc
+          cache: npm
       - run: npm ci
-      - run: npm run build
+      - name: Build production candidate
+        run: node scripts/build-environment.mjs production
         env:
+          PUBLIC_CDN_URL: https://cdn.sably.co
+          PUBLIC_LEADS_ENDPOINT: /api/v1/leads
           PUBLIC_GA4_ID: ${{ vars.PUBLIC_GA4_ID }}
           PUBLIC_META_PIXEL_ID: ${{ vars.PUBLIC_META_PIXEL_ID }}
           PUBLIC_GTM_ID: ${{ vars.PUBLIC_GTM_ID }}
-          PUBLIC_CDN_URL: ${{ vars.PUBLIC_CDN_URL }}
-
-      - name: Deploy to Cloudflare Pages (Production)
-        uses: cloudflare/wrangler-action@v3
+      - name: Apply reviewed operational schema idempotently
+        run: node scripts/apply-operational-schema.mjs --target production --execute
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Upload candidate or promote after approved initial cutover
+        env:
+          REQUEST_PUBLISH: ${{ inputs.publish }}
+          SABLY_DEPLOY_SHA: ${{ needs.verify.outputs.sha }}
+          SABLY_PRODUCTION_ACTIVATED: ${{ vars.SABLY_PRODUCTION_ACTIVATED }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ "$REQUEST_PUBLISH" = true ]; then
+            node scripts/deploy-environment.mjs production --publish
+          else
+            node scripts/deploy-environment.mjs production
+          fi
+      - uses: actions/upload-artifact@v4
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist --project-name=sably --branch=main
+          name: production-${{ needs.verify.outputs.sha }}
+          path: |
+            dist/sably-build.json
+            dist/sably-release.json
+          retention-days: 90

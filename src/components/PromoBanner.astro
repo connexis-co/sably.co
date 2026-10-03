@@ -151,7 +151,6 @@ const UNIDADES = [
     leerPromos,
     mejorPromocion,
     msRestantes,
-    resolvePromo,
     type PromoCampaign,
   } from '@/lib/promo';
 
@@ -163,7 +162,7 @@ const UNIDADES = [
      cobra la tarifa entera es discrepancia entre anuncio y destino, y eso Meta
      lo penaliza y Google puede desaprobar el anuncio. */
   if (nodos.length && !document.body.hasAttribute('data-sin-cupon')) {
-    const pais = document.documentElement.lang?.split('-')[1]?.toLowerCase() ?? 'co';
+    const pais = document.body.dataset.country ?? document.documentElement.lang?.split('-')[1]?.toLowerCase() ?? 'co';
     const urlKey = new URLSearchParams(location.search).get('promo');
     const proveedor = document.body.dataset.proveedor ?? 'masterclasses';
 
@@ -172,18 +171,11 @@ const UNIDADES = [
     const tramos = location.pathname.split('/').filter(Boolean);
     const courseSlug = tramos.find((t) => t.startsWith('curso-'));
 
-    // El calendario se pinta ya, sin esperar a la red: si hay campaña vigente el
-    // banner no debe parpadear por una llamada que puede tardar o fallar.
-    let promo: Pintable | null = resolvePromo({ countryCode: pais, now: new Date(), urlKey });
-    if (promo) nodos.forEach((el) => pintar(el, promo!));
-
-    // Las promociones del panel mandan sobre el calendario. Se elige la que
-    // cubre este curso por proveedor, país y exclusiones; si difiere, se repinta.
+    // EmDash es la fuente del calendario. Sin promoción vigente no se anuncia descuento.
     leerPromos().then((promos) => {
-      const p = mejorPromocion(promos, { countryCode: pais, proveedor, courseSlug });
+      const p = mejorPromocion(promos, { countryCode: pais, proveedor, courseSlug, urlKey });
       const manual = p && campaignDePromocion(p);
-      if (manual && manual.id !== promo?.id) {
-        promo = manual;
+      if (manual) {
         nodos.forEach((el) => pintar(el, manual));
       }
     });
@@ -227,7 +219,7 @@ const UNIDADES = [
     });
 
     const cta = el.querySelector<HTMLAnchorElement>('[data-promo-cta]');
-    if (cta) cta.href = `/${document.documentElement.lang?.split('-')[1]?.toLowerCase() ?? 'co'}/cursos/`;
+    if (cta) cta.href = `/${document.body.dataset.country ?? document.documentElement.lang?.split('-')[1]?.toLowerCase() ?? 'co'}/cursos/`;
 
     // Copiar el cupón de un toque: en móvil, apuntarlo a mano es fricción real.
     el.querySelectorAll('[data-promo-cupon]').forEach((b) =>
@@ -256,12 +248,13 @@ const UNIDADES = [
     const previo = Number(el.dataset.tick);
     if (previo) clearInterval(previo);
 
+    let id: number | undefined;
     const tick = (): void => {
       const ms = msRestantes(promo, new Date());
       if (ms <= 0) {
         // La campaña venció con la pestaña abierta: la barra se retira sola.
         el.hidden = true;
-        clearInterval(id);
+        if (id !== undefined) clearInterval(id);
         return;
       }
       const t = formatCountdown(ms);
@@ -270,8 +263,9 @@ const UNIDADES = [
         n.textContent = t[u];
       });
     };
+    if (msRestantes(promo, new Date()) <= 0) { el.hidden = true; return; }
     tick();
-    const id = setInterval(tick, 1000) as unknown as number;
+    id = setInterval(tick, 1000) as unknown as number;
     el.dataset.tick = String(id);
     el.hidden = false;
   }

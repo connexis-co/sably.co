@@ -9,7 +9,7 @@
  *
  * Panel: /admin/ventas?key=<SNAPSHOT_TOKEN> · API: /api/v1/ventas?key=…
  * Vars en Pages: META_CAPI_TOKEN, GA4_API_SECRET (+ META_CAPI_PIXEL_ID,
- * GA4_MEASUREMENT_ID, HOTMART_HOTTOK, META_TEST_EVENT_CODE opcionales).
+ * GA4_MEASUREMENT_ID y HOTMART_HOTTOK; META_TEST_EVENT_CODE opcional).
  */
 
 const sha256 = async (text) => {
@@ -54,7 +54,7 @@ export async function onRequestPost({ request, env }) {
   const transaction = purchase.transaction ?? `hm-${Date.now()}`;
   const sck = parseSck(purchase?.origin?.sck ?? purchase?.sck);
   const clientId = /^\d+\.\d+$/.test(sck.cid ?? '') ? sck.cid : `hotmart.${transaction}`;
-  const mid = env.GA4_MEASUREMENT_ID || 'G-G7HV230BFJ';
+  const mid = env.GA4_MEASUREMENT_ID;
 
   const buyerEmail = String(data?.buyer?.email ?? '').trim().toLowerCase();
   const buyerName = String(data?.buyer?.name ?? '').trim();
@@ -100,7 +100,7 @@ export async function onRequestPost({ request, env }) {
 
   // ── Reembolsos y contracargos → refund en GA4 y fin ────────
   if (['PURCHASE_REFUNDED', 'PURCHASE_CHARGEBACK'].includes(event) || ['REFUNDED', 'CHARGEBACK'].includes(status)) {
-    if (env.GA4_API_SECRET) {
+    if (env.GA4_API_SECRET && mid) {
       const r = await fetch(`https://www.google-analytics.com/mp/collect?measurement_id=${mid}&api_secret=${env.GA4_API_SECRET}`, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
@@ -117,8 +117,8 @@ export async function onRequestPost({ request, env }) {
   }
 
   // ── Meta CAPI ──────────────────────────────────────────────
-  if (env.META_CAPI_TOKEN) {
-    const pixel = env.META_CAPI_PIXEL_ID || '1711030209407213';
+  if (env.META_CAPI_TOKEN && env.META_CAPI_PIXEL_ID) {
+    const pixel = env.META_CAPI_PIXEL_ID;
     const userData = {};
     if (buyerEmail) userData.em = [await sha256(buyerEmail)];
     if (buyerPhone) userData.ph = [await sha256(buyerPhone)];
@@ -131,7 +131,7 @@ export async function onRequestPost({ request, env }) {
         event_time: Math.floor(Date.now() / 1000),
         event_id: `hotmart.${transaction}`,
         action_source: 'website',
-        event_source_url: 'https://academiadebelleza.edu.co/',
+        event_source_url: 'https://sably.co/',
         user_data: userData,
         custom_data: {
           value,
@@ -156,11 +156,11 @@ export async function onRequestPost({ request, env }) {
       results.capi = `error:${e.message}`;
     }
   } else {
-    results.capi = 'skipped:no-token';
+    results.capi = 'skipped:missing-token-or-pixel';
   }
 
   // ── GA4 Measurement Protocol ───────────────────────────────
-  if (env.GA4_API_SECRET) {
+  if (env.GA4_API_SECRET && mid) {
     try {
       const params = {
         transaction_id: transaction,
@@ -179,7 +179,7 @@ export async function onRequestPost({ request, env }) {
       results.ga4 = `error:${e.message}`;
     }
   } else {
-    results.ga4 = 'skipped:no-secret';
+    results.ga4 = 'skipped:missing-secret-or-measurement-id';
   }
 
   const anyOk = String(results.capi).startsWith('ok') || String(results.ga4).startsWith('ok') || results.db === 'ok';
