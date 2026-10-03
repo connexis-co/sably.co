@@ -22,3 +22,5 @@ export { default as BlogArticleView } from './sably-classic/pages/blog-article.a
 export { default as HomologacionesIndexView } from './sably-classic/pages/homologaciones-index.astro';
 export { default as HomologacionProgramView } from './sably-classic/pages/homologacion-program.astro';
 export { default as SiteMapView } from './sably-classic/pages/site-map.astro';
+
+export { default as Comments } from './sably-classic/components/Comments.astro';

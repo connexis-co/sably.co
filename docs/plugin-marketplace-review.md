@@ -90,4 +90,4 @@ La revisión puede repetirse ante una nueva necesidad o versión; no se habilita
 
 ## Estado de entrega
 
-Sably · Brevo queda integrado en el código; falta verificar carga del sandbox desplegado y configurar la clave privada. La verificación del remitente y la entrega real se registrarán por separado. No se instalaron Resend, SMTP 0.4.1 ni otros constructores de formularios. No se enviaron correos ni se copiaron credenciales productivas durante esta revisión.
+Sably · Brevo está desplegado en desarrollo y aparece activo en la API nativa de plugins, registrado como proveedor exclusivo de correo. Se guardaron `contacto@sably.co` y `Sably` como remitente, y el mismo correo como destinatario operativo. El campo secreto sigue vacío: falta configurar la clave privada y verificar remitente/entrega en Brevo. La comprobación del registro no se presenta como una prueba de entrega. No se instalaron Resend, SMTP 0.4.1 ni otros constructores de formularios. No se enviaron correos ni se copiaron credenciales productivas durante esta revisión.

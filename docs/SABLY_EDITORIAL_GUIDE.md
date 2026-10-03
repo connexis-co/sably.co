@@ -42,6 +42,12 @@ Los plugins se administran dentro de EmDash y usan sus permisos y rutas oficiale
 
 Los formularios de desarrollo no envían mensajes. La recuperación de compras está reservada al entorno productivo activado y envía solo al comprador, sin copia visible del equipo. El [informe de plugins](plugin-marketplace-review.md) explica la selección y las alternativas para formularios futuros.
 
+## Comentarios del blog
+
+Cada artículo publicado muestra su hilo y formulario. El visitante puede comentar, responder a un comentario principal aprobado y marcarlo como útil. Los envíos comienzan pendientes; **Sably · operaciones → Moderación** permite aprobarlos, rechazarlos o marcarlos como spam. El correo es opcional y nunca se muestra en el hilo público. No se envían notificaciones automáticas a comentaristas.
+
+Los comentarios aprobados llegan en el HTML y se actualizan desde el backend. Rechazar un comentario principal oculta también sus respuestas; despublicar el artículo cierra el hilo y los votos sin borrar el historial. La plantilla `sably-classic/components/Comments.astro` controla su diseño (Outfit/Inter, azul oscuro, rosado, tarjetas y formulario), mientras que el contrato de datos y la moderación permanecen en el plugin. Un futuro tema puede sustituir `Comments` desde el selector de plantilla.
+
 ## SEO y publicación
 
 El panel SEO nativo administra título, descripción, imagen social, canonical e indexación. La plantilla integra las salidas oficiales de EmDash con los datos estructurados de Sably y los hreflang por país. Los sitemaps se calculan con contenido publicado. Desarrollo añade `noindex` y requiere acceso; no debe enviarse a indexar.

@@ -49,6 +49,7 @@ function guardarVotados(v: Record<string, 1 | -1>): void {
 }
 
 export function montarComentarios(seccion: HTMLElement): void {
+  if (seccion.dataset.mounted) return;
   const subject = seccion.dataset.subject ?? '';
   const lista = seccion.querySelector<HTMLOListElement>('[data-lista]');
   const estado = seccion.querySelector<HTMLElement>('[data-estado]');
@@ -57,6 +58,7 @@ export function montarComentarios(seccion: HTMLElement): void {
   const form = seccion.querySelector<HTMLFormElement>('[data-form]');
   if (!subject || !lista || !estado || !plantilla || !form) return;
 
+  seccion.dataset.mounted = 'true';
   const abiertoEn = Date.now();
   let votados = leerVotados();
 
@@ -82,7 +84,7 @@ export function montarComentarios(seccion: HTMLElement): void {
     if (esRespuesta) {
       // Un solo nivel: el backend lo impone con un trigger, y aquí ni se ofrece.
       responder.remove();
-      li.classList.remove('rounded-lg', 'border', 'border-surface-200', 'p-4');
+      li.classList.remove('rounded-xl', 'border', 'border-surface-200', 'p-5');
       li.classList.add('pb-1');
       li.querySelector<HTMLElement>('[data-respuestas]')!.remove();
     } else {
@@ -109,6 +111,8 @@ export function montarComentarios(seccion: HTMLElement): void {
   // ----------------------------------------------------------------- votar
 
   async function votarUtil(c: Comentario, boton: HTMLButtonElement, contador: HTMLElement): Promise<void> {
+    if (boton.disabled) return;
+    boton.disabled = true;
     const activo = boton.getAttribute('aria-pressed') === 'true';
     const value = activo ? 0 : 1;
     const previo = contador.textContent;
@@ -135,7 +139,7 @@ export function montarComentarios(seccion: HTMLElement): void {
     } catch {
       boton.setAttribute('aria-pressed', String(activo));
       contador.textContent = previo;
-    }
+    } finally { boton.disabled = false; }
   }
 
   // -------------------------------------------------------------- responder
@@ -149,7 +153,7 @@ export function montarComentarios(seccion: HTMLElement): void {
     campoPadre.value = c.id;
     tituloForm.textContent = `Responder a ${c.author_name}`;
     cancelar.classList.remove('hidden');
-    form!.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    form!.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' });
     form!.querySelector<HTMLTextAreaElement>('[name="body"]')?.focus();
   }
 
@@ -169,7 +173,13 @@ export function montarComentarios(seccion: HTMLElement): void {
     if (!el) return;
     el.textContent = texto;
     el.classList.toggle('hidden', !texto);
+    form.querySelector(`[name="${campo}"]`)?.setAttribute('aria-invalid',String(Boolean(texto)));
   };
+
+  const bodyField = form.querySelector<HTMLTextAreaElement>('[name="body"]')!;
+  const counter = form.querySelector<HTMLElement>('[data-counter]');
+  const updateCounter = () => { if (counter) counter.textContent = `${bodyField.value.length} / 1200 caracteres`; };
+  bodyField.addEventListener('input',updateCounter);
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -223,6 +233,7 @@ export function montarComentarios(seccion: HTMLElement): void {
       if (!r.ok) throw new Error(d.error || 'no se pudo enviar');
 
       form.reset();
+      updateCounter();
       cancelar.click();
       // Honesto: nace en 'pending' y sin aprobación no aparece en ningún sitio.
       aviso.textContent = 'Recibido. Lo revisamos antes de publicarlo.';
@@ -239,6 +250,9 @@ export function montarComentarios(seccion: HTMLElement): void {
     }
   });
 
+  const fields = form.querySelector<HTMLFieldSetElement>('[data-fields]');
+  if (fields) fields.disabled = false;
+
   // ----------------------------------------------------------------- cargar
 
   void (async () => {
@@ -251,6 +265,7 @@ export function montarComentarios(seccion: HTMLElement): void {
       votados = leerVotados();
       pintar(d.comentarios ?? [], d.total ?? 0);
     } catch {
+      estado.hidden = false;
       estado.textContent = 'No pudimos cargar los comentarios. Recarga la página para reintentar.';
       estado.className = 'mt-4 text-sm text-error';
     }
