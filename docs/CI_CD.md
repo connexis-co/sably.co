@@ -9,7 +9,7 @@ El código se valida en `develop` y se promueve desde un SHA de `main` que haya 
 
 Cloudflare exige que el Worker exista antes de aceptar `versions upload`. `scripts/bootstrap-production.mjs --execute` crea una sola vez un Worker inerte que responde 503, sin bindings, cron, rutas, previews ni URL pública. Verifica primero el inventario y rechaza reemplazar un Worker existente. Su configuración está en `config/wrangler.bootstrap-production.jsonc`. Esta operación prepara el nombre; no conecta `sably.co`.
 
-La configuración productiva comienza sin rutas ni URL `workers.dev`. `SABLY_CMS_READY=false` identifica que el CMS productivo aún no es la fuente activa. Subir versiones no cambia el sitio existente. La primera asignación de dominio, la carga del contenido productivo y el alta del administrador son una operación de corte separada, que requiere la aprobación final del propietario.
+La configuración productiva declara `sably.co` y el CMS preparado (`SABLY_CMS_READY=true`). Subir versiones sigue sin asignar tráfico: solo una promoción manual con `publish=true` aplica el dominio y los triggers. El sitio `www` conserva la redirección existente hacia el dominio principal. Desarrollo mantiene su dominio y recursos independientes.
 
 ## Flujo de código
 
@@ -47,7 +47,7 @@ El repositorio es `connexis-co/sably.co`. Ya están configurados los entornos `d
 - Entorno `production` limitado a `main` (restricción de rama configurada), con sus secretos de Cloudflare. `SABLY_PRODUCTION_ACTIVATED` debe permanecer ausente o `false` hasta el corte aprobado. La configuración de revisores obligatorios fue rechazada por GitHub para este plan privado (HTTP 422); la promoción depende de dispatch manual, SHA verificado y la variable de activación. No se presenta como aprobación de dos personas. Si se habilita un plan compatible, añadir revisores obligatorios y prevención de autoaprobación.
 - La promoción verifica `CI Pipeline` exitoso para el SHA exacto de `main`. La protección de la rama con PR/checks obligatorios debe configurarse cuando el plan del repositorio permita esos controles; no se presupone activa.
 - `SNAPSHOT_TOKEN` en producción para el refresco operativo manual, si se habilita ese workflow. El proceso rechaza su ausencia.
-- Los secretos runtime se configuran por Worker. Desarrollo usa `SABLY_DEV_PASSWORD`; producción no comparte contraseña de staging ni sesiones. Los secretos transitorios de importación deben retirarse al terminar.
+- Los secretos runtime se configuran por Worker. Desarrollo usa `SABLY_DEV_PASSWORD`; producción no comparte sesiones. El alta inicial nativa del propietario está protegida por `SABLY_SETUP_PASSWORD`, con el usuario `sably`; después de registrar la primera passkey, EmDash controla el acceso sin esa puerta adicional. La contraseña inicial de acceso indicada por el propietario sirve únicamente para ese alta, no como contraseña de un usuario EmDash. Los secretos transitorios de importación deben retirarse al terminar.
 
 No se guardan secretos en YAML, JSON, artefactos ni manifiestos. El código del Worker decide la puerta de acceso mediante `SABLY_ENVIRONMENT`: desarrollo permanece protegido incluso si recibe otro hostname; producción conserva las directivas editoriales de SEO y no añade el bloqueo de indexación de staging.
 
