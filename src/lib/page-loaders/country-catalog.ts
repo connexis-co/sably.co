@@ -23,6 +23,7 @@ const INTERNAL_CATEGORIES = CATEGORIES.filter(c => !c.externalUrl);
 const base = `/${country.code}`;
 
 const courses = await cms.getCourses();
+const creators = (await cms.getCreators()).filter(creator => creator.cursos.length > 0);
 
 
 const byCategory = INTERNAL_CATEGORIES.map((cat) => ({
@@ -49,5 +50,5 @@ const schemas = [
     byCategory.map((g) => ({ name: g.cat.name, url: `${SITE.url}${base}/cursos/${g.cat.slug}/` })),
   ),
 ];
-return {cms,country,CATEGORIES,INTERNAL_CATEGORIES,base,courses,byCategory,title,description,schemas};
+return {cms,country,CATEGORIES,INTERNAL_CATEGORIES,base,courses,creators,byCategory,title,description,schemas};
 }

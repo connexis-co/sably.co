@@ -15,6 +15,7 @@ const {country, autor, cursos, base, valoraciones, media, totalValoraciones, tit
   alternates={await countryAlternates(`/creadores/${autor.slug}/`)}
   {schemas}
   pageType="creador"
+  noindex={cursos.length === 0}
   whatsappContext={`los cursos de ${autor.nombre}`}
 >
   <section class="bg-primary text-white">
@@ -72,6 +73,7 @@ const {country, autor, cursos, base, valoraciones, media, totalValoraciones, tit
 
   <section class="container-site py-12">
     <h2 class="text-2xl font-bold text-heading">Todos sus cursos</h2>
+    {cursos.length === 0 && <p class="mt-4 text-body">Todavía no hay cursos asociados a este perfil. <a href={`${base}/cursos/`} class="font-semibold text-accent underline">Explorar el catálogo de Sably</a></p>}
     <div class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       {cursos.map((c) => <CourseCard course={c} {country} />)}
     </div>

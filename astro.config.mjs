@@ -6,7 +6,7 @@ import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
 import cloudflare from '@astrojs/cloudflare';
 import emdash from 'emdash/astro';
-import { d1, r2, sandbox } from '@emdash-cms/cloudflare';
+import { d1, r2, sandbox, kvCache } from '@emdash-cms/cloudflare';
 import { targetConfig } from './scripts/environment-config.mjs';
 import { brevoPlugin } from './src/plugins/sably-brevo/index.mjs';
 const target = targetConfig();
@@ -27,6 +27,9 @@ export default defineConfig({
     mdx(),
     emdash({
       database: d1({ binding: 'DB' }),
+      // Native content/chrome cache; EmDash fences previews and invalidates
+      // namespaces on editorial writes. Each environment owns its namespace.
+      objectCache: kvCache({ binding: 'CACHE', defaultTtl: 300, revalidate: 1000, timeout: 1000 }),
       storage: r2({ binding: 'MEDIA' }),
       siteUrl: target.siteUrl,
       sandboxRunner: sandbox(),
