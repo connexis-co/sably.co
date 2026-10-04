@@ -1,4 +1,5 @@
 ---
+import { Image as OptimizedImage } from 'astro:assets';
 import { cmsImageUrl } from '@/lib/cms-media';
 import CmsRichBody from '@/components/CmsRichBody.astro';
 import { renderMarkdown } from '@/lib/markdown';
@@ -28,11 +29,11 @@ const {post, country, toc, related, minutes, title, schemas, articleSchema, arti
 
   <!-- Hero -->
   <section class="relative overflow-hidden py-16 sm:py-20">
-    <img
+    <OptimizedImage
       src={(cmsImageUrl(post.coverImage) ?? blogCover(post.data.category, 'hero'))}
       alt=""
-      width="800"
-      height="533"
+      width={800}
+      height={533}
       fetchpriority="high"
       class="absolute inset-0 h-full w-full object-cover"
     />
@@ -152,11 +153,11 @@ const {post, country, toc, related, minutes, title, schemas, articleSchema, arti
                 class="group flex flex-col overflow-hidden rounded-xl border border-surface-200 bg-white transition hover:-translate-y-0.5 hover:shadow-lg"
               >
                 <div class="h-36 overflow-hidden">
-                  <img
+                  <OptimizedImage
                     src={(cmsImageUrl(p.cardImage) ?? cmsImageUrl(p.coverImage) ?? blogCover(p.data.category, 'card'))}
                     alt=""
-                    width="480"
-                    height="320"
+                    width={480}
+                    height={320}
                     loading="lazy"
                     class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />

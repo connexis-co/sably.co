@@ -1,4 +1,5 @@
 ---
+import { Image as OptimizedImage } from 'astro:assets';
 import { getHomeEditorial } from '@/lib/home-editorial';
 import { cmsImageUrl } from '@/lib/cms-media';
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -69,11 +70,12 @@ const benefits = editorial.benefits.groups.map(group=>{const [icon,...title]=gro
            que se sienta inmersivo sin empujar el CTA fuera del pliegue. -->
       <div class="relative -mx-4 mt-2 sm:mx-0 lg:mt-0">
         <div class="absolute inset-x-4 inset-y-0 -z-10 rounded-full bg-accent/15 blur-3xl" aria-hidden="true"></div>
-        <img
+        <OptimizedImage
+          sizes="(min-width: 1024px) 600px, (min-width: 640px) 512px, 100vw"
           src={cmsImageUrl(country.heroImage) ?? `${CDN_URL}/heroes/${HERO_ASSETS[country.code]}`}
           alt={`Profesionales de distintos oficios que estudian en Sably desde ${country.name}`}
-          width="900"
-          height="491"
+          width={900}
+          height={491}
           fetchpriority="high"
           decoding="async"
           class="animate-fade-up mx-auto w-full max-w-md drop-shadow-2xl sm:max-w-lg lg:max-w-none"
