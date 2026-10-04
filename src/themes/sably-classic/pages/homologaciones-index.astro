@@ -1,4 +1,5 @@
 ---
+import { Image as OptimizedImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { SectionHeading } from '@/themes';
 import FaqAccordion from '@/components/FaqAccordion.astro';
@@ -75,11 +76,12 @@ const {country, PROGRAMAS, SEDES, waUrl, faqs, title, description, schemas} = As
               href={`/homologaciones/${p.slug}/`}
               class="group flex gap-5 rounded-lg border border-surface-200 bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-lg"
             >
-              <img
+              <OptimizedImage
+                sizes="128px"
                 src={categoryCover(p.coverCategory, 'card')}
                 alt=""
-                width="480"
-                height="320"
+                width={480}
+                height={320}
                 loading="lazy"
                 class="h-24 w-32 shrink-0 rounded-md object-cover"
               />

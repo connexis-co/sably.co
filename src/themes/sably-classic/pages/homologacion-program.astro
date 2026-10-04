@@ -1,4 +1,5 @@
 ---
+import { Image as OptimizedImage } from 'astro:assets';
 import { cmsImageUrl } from '@/lib/cms-media';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
@@ -11,11 +12,11 @@ const {country, PROGRAMAS, programa, SEDES, waUrl, faqs, title, description, sch
 <BaseLayout {title} {description} {country} pathAfterCountry="/" {schemas} pageType="homologacion_programa" whatsappContext={`Homologación de ${programa.name}`}>
   <!-- Hero -->
   <section class="relative overflow-hidden py-20">
-    <img
+    <OptimizedImage
       src={cmsImageUrl(programa.coverImage) ?? categoryCover(programa.coverCategory)}
       alt=""
-      width="800"
-      height="533"
+      width={800}
+      height={533}
       fetchpriority="high"
       class="absolute inset-0 h-full w-full object-cover"
     />

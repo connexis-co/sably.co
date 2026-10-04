@@ -1,4 +1,5 @@
 ---
+import { Image as OptimizedImage } from 'astro:assets';
 import {RelatedGuides,VerifiedReviews} from '@/themes';
 import {readVerifiedCourseReviews} from '@/lib/verified-course-reviews';
 import {courseWatch} from '@/lib/course-watch';
@@ -513,11 +514,12 @@ const schemas = [
               class="relative aspect-video overflow-hidden rounded-md"
               style={`background-image: linear-gradient(135deg, ${category.gradient[0]}, ${category.gradient[1]})`}
             >
-              <img
+              <OptimizedImage
                 src={cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug)}
                 alt={`${category.name}: ${course.data.title}`}
-                width="800"
-                height="450"
+                width={800}
+                height={450}
+                sizes="(min-width: 1024px) 384px, (min-width: 768px) 50vw, 100vw"
                 fetchpriority="high"
                 class="h-full w-full object-cover"
               />
@@ -700,11 +702,11 @@ const schemas = [
               <li>✅ Sin costo adicional</li>
             </ul>
           </div>
-          <img
+          <OptimizedImage
             src="/certificado-sably.jpg"
             alt="Ejemplo del certificado digital de finalización que recibirás"
-            width="800"
-            height="533"
+            width={800}
+            height={533}
             loading="lazy"
             class="w-full rounded-md border border-surface-200 object-cover shadow-md"
           />

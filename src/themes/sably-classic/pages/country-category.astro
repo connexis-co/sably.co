@@ -1,4 +1,5 @@
 ---
+import { Image as OptimizedImage } from 'astro:assets';
 import { cmsImageUrl } from '@/lib/cms-media';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { CourseCard } from '@/themes';
@@ -21,11 +22,11 @@ const {country, category, base, catName, courses, bySubcategory, uncategorized, 
   whatsappContext={`Cursos de ${category.name}`}
 >
   <section class="relative overflow-hidden py-16">
-    <img
+    <OptimizedImage
       src={cmsImageUrl(category.coverImage) ?? categoryCover(category.slug)}
       alt=""
-      width="800"
-      height="533"
+      width={800}
+      height={533}
       fetchpriority="high"
       class="absolute inset-0 h-full w-full object-cover"
     />

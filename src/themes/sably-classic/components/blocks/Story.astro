@@ -12,5 +12,5 @@ const {value}=Astro.props;
     {value.title && <h2 class="text-2xl font-bold sm:text-3xl">{value.title}</h2>}
     <div class="prose-sably mt-5"><CmsRichBody value={value.content ?? []} /></div>
   </div>
-  {value.image && <Image image={value.image} class="aspect-[3/2] w-full rounded-lg object-cover" loading="lazy" />}
+  {value.image && <Image image={value.image} sizes="(min-width: 1024px) 600px, 100vw" class="aspect-[3/2] w-full rounded-lg object-cover" loading="lazy" />}
 </section>
