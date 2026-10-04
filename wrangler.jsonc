@@ -66,5 +66,8 @@
       "binding": "CACHE",
       "id": "b884ed3ac40143a888d5b928e1ad9a59"
     }
-  ]
+  ],
+  "cache": {
+    "enabled": false
+  }
 }

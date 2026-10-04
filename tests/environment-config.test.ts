@@ -5,8 +5,14 @@ const dev=readTarget('development');
 test('development configuration names only isolated staging resources',()=>{assert.equal(validateTarget('development',dev).siteUrl,'https://dev.sably.co');});
 test('target typos never select production or development implicitly',()=>{assert.throws(()=>targetConfig('prod'));assert.throws(()=>targetConfig('staging'));});
 test('production rejects development databases, sessions and media',()=>{
- const production={...structuredClone(dev),name:'sably-emdash-production',routes:[],workers_dev:false,preview_urls:false,vars:{SABLY_ENVIRONMENT:'production',EMDASH_SITE_URL:'https://sably.co'}};
+ const production={...readTarget('production'),d1_databases:structuredClone(dev.d1_databases)};
  assert.throws(()=>validateTarget('production',production),/share a development database/);
+});
+test('development cannot skip its gate and production only bypasses compiled assets',()=>{
+ const unsafeDev=structuredClone(dev);unsafeDev.assets.run_worker_first=false;
+ assert.throws(()=>validateTarget('development',unsafeDev),/protect static assets/);
+ const unsafeProd=readTarget('production');unsafeProd.assets.run_worker_first=false;
+ assert.throws(()=>validateTarget('production',unsafeProd),/Only compiled public assets/);
 });
 test('production resource placeholders fail before any deployment',()=>{
  const production=readTarget('production');

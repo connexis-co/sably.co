@@ -17,7 +17,14 @@ export function validateTarget(target,config,development=readTarget('development
  assert.equal(config.account_id,'6e36c2fb07c21f30ed3c0d6e824884bc','Wrong Cloudflare account');
  assert.equal(config.vars?.SABLY_ENVIRONMENT,target,'Runtime environment mismatch');
  assert.equal(config.vars?.EMDASH_SITE_URL,spec.siteUrl,'Site URL mismatch');
- assert.equal(config.assets?.run_worker_first,true,'Worker must protect static assets in development');
+ if(target==='development') {
+  assert.equal(config.assets?.run_worker_first,true,'Worker must protect static assets in development');
+  assert.equal(config.cache?.enabled,false,'Development must not cache protected responses');
+ } else {
+  assert.deepEqual(config.assets?.run_worker_first,['/*','!/_astro/*'],'Only compiled public assets may bypass the production Worker');
+  assert.equal(config.cache?.enabled,true,'Production requires the reviewed native cache policy');
+  assert.equal(config.version_metadata?.binding,'CF_VERSION_METADATA','Cache must carry the deployment version');
+ }
  for(const binding of ['DB','SABLY_DB']) {
   const database=config.d1_databases?.find(d=>d.binding===binding);
   assert.match(database?.database_id??'',/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/,'Provision the target D1 databases before building/deploying');

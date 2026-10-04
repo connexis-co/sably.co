@@ -5,6 +5,7 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
 import cloudflare from '@astrojs/cloudflare';
+import { cacheCloudflare } from '@astrojs/cloudflare/cache';
 import emdash from 'emdash/astro';
 import { d1, r2, sandbox, kvCache } from '@emdash-cms/cloudflare';
 import { targetConfig } from './scripts/environment-config.mjs';
@@ -15,6 +16,7 @@ const target = targetConfig();
 export default defineConfig({
   site: target.siteUrl,
   output: 'server',
+  cache: { provider: cacheCloudflare() },
   adapter: cloudflare({ imageService: 'custom', configPath: target.configPath }),
   image: {
     service: { entrypoint: './src/lib/cms-image-service.ts' },
