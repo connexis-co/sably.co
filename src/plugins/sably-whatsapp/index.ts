@@ -31,10 +31,10 @@ export function createPlugin() {
         if (url.pathname.startsWith('/_emdash') || url.pathname.startsWith('/admin')) return null;
         const {getCountry,getCourse}=await import('@/lib/emdash-content');
         const segments=url.pathname.split('/').filter(Boolean);
-        const country=await getCountry(segments[0] ?? '') ?? await getCountry('co');
-        if (!country) return null;
         const courseSlug=courseSlugFromPage(page);
-        const course=courseSlug ? await getCourse(courseSlug) : null;
+        const [requestedCountry, course]=await Promise.all([getCountry(segments[0] ?? ''), courseSlug ? getCourse(courseSlug) : Promise.resolve(null)]);
+        const country=requestedCountry ?? await getCountry('co');
+        if (!country) return null;
         const resolved=resolveWhatsApp(config, {path:url.pathname,course:courseSlug,title:course?.data.title ?? page.pageTitle ?? page.title ?? 'los cursos de Sably',category:course?.data.category ?? '',country:country.code,countryName:country.name,countryNumber:country.whatsapp,url:url.origin+url.pathname});
         if(!resolved)return null;
         const escape=escapeHtmlAttr;

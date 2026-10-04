@@ -1,5 +1,8 @@
 ---
 import '@/styles/global.css';
+import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
+import outfitFont from '@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2?url';
+import { canCachePublicPage, PUBLIC_PAGE_TAGS, PUBLIC_PAGE_TTL } from '@/lib/public-delivery';
 import { EmDashBodyStart, EmDashBodyEnd, WidgetArea } from 'emdash/ui';
 import { createPublicPageContext } from 'emdash/page';
 import { getSeoMeta, type PublicPageContext } from 'emdash';
@@ -75,7 +78,8 @@ const {
   noindexGoogle = false,
 } = Astro.props;
 
-const allSchemas = [await organizationSchema(), ...schemas];
+const [organization, settings] = await Promise.all([organizationSchema(), getLiveSiteSettings()]);
+const allSchemas = [organization, ...schemas];
 
 /* og:locale del mercado (es_MX en /mx/…) en todo lo que cuelga de /xx/; antes
    era es_CO fijo en los 8 países. El blog, los legales y /nosotros reciben el
@@ -86,13 +90,16 @@ const allSchemas = [await organizationSchema(), ...schemas];
    promoción ve cada país, que es una decisión de negocio y no de SEO. */
 const dePais = Astro.url.pathname.startsWith(`/${country.code}/`);
 const ogLocale = dePais ? country.hreflang.replace('-', '_') : 'es_CO';
-const settings = await getLiveSiteSettings();
 const seo = getSeoMeta({ data: { seo: Astro.locals.sablySeo } }, {
   siteUrl: SITE.url, defaultTitle: title, defaultDescription: description,
   defaultOgImage: new URL(image || settings.seo?.defaultOgImage?.url || '/covers/oficios.jpg', SITE.url).href,
   path: Astro.url.pathname,
 });
 const development = import.meta.env.SITE?.replace(/\/+$/, '') !== 'https://sably.co';
+if (canCachePublicPage(Astro.request, development ? 'development' : 'production')) {
+  Astro.cache.set({ maxAge: PUBLIC_PAGE_TTL, tags: PUBLIC_PAGE_TAGS });
+} else Astro.cache.set(false);
+for (const font of [interFont, outfitFont]) Astro.response.headers.append('Link', `<${font}>; rel=preload; as=font; type="font/woff2"; crossorigin`);
 const pageContext = { ...createPublicPageContext({
   Astro, kind: Astro.locals.sablyContent ? 'content' : 'custom',
   content: Astro.locals.sablyContent, pageType, title: seo.title,
@@ -109,6 +116,8 @@ const pageContext = { ...createPublicPageContext({
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preload" href={interFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={outfitFont} as="font" type="font/woff2" crossorigin />
     {!settings.favicon?.url && <><link rel="icon" type="image/svg+xml" href="/favicon.svg" /><link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" /><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" /></>}
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#1B1B3A" />

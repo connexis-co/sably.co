@@ -12,10 +12,6 @@ export async function load(Astro:PublicPageContext) {
 
 
 const cms = await getContentRepository();
-const ratings = await readOperationalRatings((env as unknown as {SABLY_DB:D1Database}).SABLY_DB, Astro.locals).catch(() => ({} as Awaited<ReturnType<typeof readOperationalRatings>>));
-const valoracionReal = (slug:string) => ratings[slug] ?? null;
-
-const stats = await publicStats(Astro.locals);
 const country = await cms.getCountry(Astro.params.country!);
 
 if (!country) return new Response('Not found', {status:404});
@@ -24,28 +20,28 @@ Astro.locals.sablyContent = country.contentRef;
 
 Astro.locals.sablySeo = country.seo;
 
-const CATEGORIES = await cms.getCategories();
+const [ratings, stats, CATEGORIES, allCourses, allTestimonials, allPosts] = await Promise.all([
+  readOperationalRatings((env as unknown as {SABLY_DB:D1Database}).SABLY_DB, Astro.locals).catch(() => ({} as Awaited<ReturnType<typeof readOperationalRatings>>)),
+  publicStats(Astro.locals), cms.getCategories(), cms.getCourses(), cms.getTestimonials(), cms.getBlogPosts(),
+]);
+const valoracionReal = (slug:string) => ratings[slug] ?? null;
 
 const INTERNAL_CATEGORIES = CATEGORIES.filter(c => !c.externalUrl);
 
 const base = `/${country.code}`;
 
 
-const allCourses = await cms.getCourses();
-
 const featured = [...allCourses]
   .sort((a, b) => Number(b.data.featured) - Number(a.data.featured) || (valoracionReal(b.id)?.total ?? 0) - (valoracionReal(a.id)?.total ?? 0))
   .slice(0, 8);
 
-
-const allTestimonials = await cms.getTestimonials();
 
 const localTestimonials = allTestimonials.filter((t) => t.data.countryCode === country.code);
 
 const testimonials = (localTestimonials.length >= 3 ? localTestimonials : allTestimonials).slice(0, 6);
 
 
-const posts = (await cms.getBlogPosts())
+const posts = allPosts
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
   .slice(0, 3);
 
