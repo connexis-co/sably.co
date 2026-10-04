@@ -1,4 +1,5 @@
 ---
+import { Image as OptimizedImage } from 'astro:assets';
 import { env } from 'cloudflare:workers';
 import { cmsImageUrl } from '@/lib/cms-media';
 import type { Course } from '@/lib/emdash-content';
@@ -36,12 +37,13 @@ const url = `/${country.code}/${course.id}/`;
       class="relative h-40 overflow-hidden"
       style={`background-image: linear-gradient(135deg, ${cat.gradient[0]}, ${cat.gradient[1]})`}
     >
-      <img
+      <OptimizedImage
         src={cmsImageUrl(course.cardImage) ?? cmsImageUrl(course.coverImage) ?? courseCover(course.id, cat.slug, 'card')}
         alt=""
-        width="480"
-        height="320"
-        loading="lazy"
+        width={480}
+        height={320}
+        sizes="(min-width: 1280px) 300px, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+        loading={Astro.props.eager ? 'eager' : 'lazy'}
         decoding="async"
         class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
       />

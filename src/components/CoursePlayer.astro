@@ -1,4 +1,5 @@
 ---
+import { getImage } from 'astro:assets';
 /**
  * Reproductor del video de presentación del curso.
  *
@@ -24,12 +25,13 @@ interface Props {
 }
 
 const { src, poster, title, courseId } = Astro.props;
+const cover = await getImage({src:poster,width:800,height:450});
 ---
 
 <div class="cplayer" data-cplayer>
   <video
     src={src}
-    poster={poster}
+    poster={cover.src}
     playsinline
     preload="none"
     data-course-video={courseId}
