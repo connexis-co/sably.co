@@ -4,11 +4,14 @@ import {mkdir,writeFile} from 'node:fs/promises';
  * Post-deploy warm-up. Each Worker version starts with an empty Workers Cache,
  * so the first visitor of every page would pay the full EmDash render. This
  * requests every sitemap page and the two shared APIs once, anonymously, from
- * the runner: the upper cache tier then answers visitors in any country.
- * It only reads public URLs and never fails the deployment.
+ * the runner. It fills the cache tiers serving the runner's region and EmDash's
+ * KV object cache, so later renders elsewhere start warmer; colos far away
+ * still fill on their first visit. It only reads public URLs and never fails
+ * the deployment.
  */
 const ORIGIN=process.env.SABLY_WARM_ORIGIN??'https://sably.co';
-const CONCURRENCY=Number(process.env.SABLY_WARM_CONCURRENCY??6);
+// D1 runs one query at a time per database: more parallel renders only queue behind each other.
+const CONCURRENCY=Number(process.env.SABLY_WARM_CONCURRENCY??3);
 const headers={'user-agent':'SablyCacheWarmer/1.0 (+https://sably.co)',accept:'text/html,application/json'};
 
 const locs=xml=>[...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1].trim());

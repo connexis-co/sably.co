@@ -24,7 +24,9 @@ export function validateTarget(target,config,development=readTarget('development
   assert.equal(config.cache?.enabled,false,'Development must not cache protected responses');
  } else {
   assert.deepEqual(config.assets?.run_worker_first,['/*',...PRODUCTION_ASSET_BYPASS.map(path=>`!${path}`)],'Only reviewed public assets may bypass the production Worker');
-  assert.deepEqual(config.placement,{region:'aws:us-east-1'},'Production renders next to its ENAM D1 databases');
+  // Measured 2026-10-04: from MIA, D1 answers in ~10 ms unplaced, ~41 ms with aws:us-east-1. Smart keeps
+  // nearby colos local and only moves distant ones (SIN, FRA, GRU) towards the databases.
+  assert.deepEqual(config.placement,{mode:'smart'},'Production uses Smart Placement towards its D1 databases');
   assert.equal(config.cache?.enabled,true,'Production requires the reviewed native cache policy');
   assert.equal(config.version_metadata?.binding,'CF_VERSION_METADATA','Cache must carry the deployment version');
  }

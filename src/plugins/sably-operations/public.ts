@@ -12,6 +12,12 @@ export async function readActivePromos(db: D1Database, now = Math.floor(Date.now
   });
 }
 
+/** Epoch second of the next start or end of an active promotion, or null. */
+export async function readNextPromoBoundary(db: D1Database, now = Math.floor(Date.now()/1000)): Promise<number | null> {
+  const row = await db.prepare('SELECT MIN(t) AS t FROM (SELECT desde AS t FROM promocion WHERE activa=1 AND desde>? UNION ALL SELECT hasta FROM promocion WHERE activa=1 AND hasta>?)').bind(now,now).first<{t:number|null}>();
+  return row?.t ?? null;
+}
+
 const requestPromos=new WeakMap<object,Promise<Promocion[]>>();
 /** One read per render for the banner, the bar and the course card; scope is Astro.locals. */
 export function readActivePromosForRequest(db:D1Database,scope:object):Promise<Promocion[]> {
