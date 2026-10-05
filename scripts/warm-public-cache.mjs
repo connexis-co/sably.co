@@ -27,7 +27,9 @@ for(const sitemap of index){
  try{for(const url of locs(await text(sitemap)))if(url.startsWith(`${ORIGIN}/`)&&url.endsWith('/'))pages.add(url);}
  catch(error){console.error(`Skipped sitemap ${sitemap}: ${error.message}`);}
 }
-const targets=[`${ORIGIN}/api/v1/promo`,`${ORIGIN}/api/v1/config`,...pages];
+// Highest-traffic first, in case the step is cut short: country homes and catalogs, then Colombia.
+const rank=url=>{const path=new URL(url).pathname;return /^\/[a-z]{2}\/(?:cursos\/)?$/.test(path)?0:path.startsWith('/co/')?1:2;};
+const targets=[`${ORIGIN}/api/v1/promo`,`${ORIGIN}/api/v1/config`,...[...pages].sort((a,b)=>rank(a)-rank(b))];
 
 const rows=[];let next=0;
 async function worker(){
