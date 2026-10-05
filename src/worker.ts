@@ -26,9 +26,15 @@ export default {
       if (redirect) return finish(redirect, { redirect: true });
       if (!handler.fetch) throw new Error('EmDash fetch handler unavailable');
       const emdash = handler.fetch;
-      // Analytics cookies, reloads and ad click IDs get the anonymous page from
-      // the Worker's Cache API instead of rendering one page per visitor.
+      // Ad click IDs give every visit its own URL: those get the anonymous page
+      // from the Worker's Cache API instead of rendering one page per click.
       const shared = sharedPublicRequest(request, env.SABLY_ENVIRONMENT);
+      // Same URL, only cookies or reload headers: render anonymously so Workers
+      // Cache stores it under this URL for every visitor.
+      if (shared && !new URL(request.url).search) {
+        const anonymous = shared as Parameters<typeof emdash>[0];
+        return protectEnvironmentResponse(protectDeliveryResponse(shared, await emdash(anonymous, env, ctx), env.SABLY_ENVIRONMENT), env);
+      }
       if (shared) {
         const page = await serveSharedPage(shared, sharedCacheKey(shared, (env as VersionedEnvironment).CF_VERSION_METADATA?.id ?? ''), {
           cache: (caches as unknown as { default: Cache }).default,

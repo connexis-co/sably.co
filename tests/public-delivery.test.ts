@@ -16,8 +16,11 @@ test('anonymous HTML has separate cache variants from credentials, previews and 
   assert.equal(publicResponse.headers.get('Cloudflare-CDN-Cache-Control'), EDGE);
   // must-revalidate would also stop the edge from serving stale while it refreshes.
   assert.equal(publicResponse.headers.get('Cache-Control'), 'max-age=0');
+  const vary = publicResponse.headers.get('Vary')!.split(', ');
+  for (const name of ['Authorization', 'X-Sably-Preview-Token', 'Range']) assert.ok(vary.includes(name), name);
+  // Stored entries are always anonymous renders: cookies and reloads share them.
+  for (const name of ['Cookie', 'Cache-Control', 'Pragma']) assert.ok(!vary.includes(name), name);
   for (const name of ['Cookie', 'Authorization', 'X-Sably-Preview-Token', 'Range', 'Cache-Control', 'Pragma']) {
-    assert.ok(publicResponse.headers.get('Vary')!.split(', ').includes(name));
     const privateResponse = protectDeliveryResponse(request('/co/', { [name]: name === 'Cache-Control' ? 'no-cache' : 'test' }), page(), 'production');
     assert.equal(privateResponse.headers.get('Cloudflare-CDN-Cache-Control'), 'no-store', name);
   }
