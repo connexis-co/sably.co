@@ -14,6 +14,11 @@ test('IDs reject pasted snippets, credentials, unexpected keys and invalid types
 test('Tag Manager has one loader and no duplicate direct GA4 or Meta install',()=>{
   const output=JSON.stringify(trackingFragments(configured,true));
   assert.match(output,/gtm\.js/);assert.match(output,/ns\.html/);
+  // Deferred by default: GTM waits for load + idle or the first interaction.
+  assert.match(output,/requestIdleCallback/);assert.match(output,/addEventListener\('load'/);assert.match(output,/GTM-ABCDEFGH/);
+  const immediate=JSON.stringify(trackingFragments({...configured,gtmDelay:false},true));
+  assert.match(immediate,/gtm\.js/);assert.doesNotMatch(immediate,/requestIdleCallback/);
+  assert.throws(()=>validateUpdates({gtmDelay:'true'}));assert.deepEqual(validateUpdates({gtmDelay:false}),{gtmDelay:false});
   assert.doesNotMatch(output,/gtag\/js|fbevents\.js|G-ABCDEFGHIJ|FAKE_/);
   const direct=JSON.stringify(trackingFragments({...configured,browserMode:'direct'},true));
   assert.match(direct,/gtag\/js/);assert.match(direct,/fbevents\.js/);assert.doesNotMatch(direct,/gtm\.js|ns\.html/);

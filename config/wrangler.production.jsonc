@@ -33,7 +33,7 @@
     ]
   },
   "placement": {
-    "region": "aws:us-east-1"
+    "mode": "smart"
   },
   "routes": [
     {

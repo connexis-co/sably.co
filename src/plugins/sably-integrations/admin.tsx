@@ -25,7 +25,7 @@ function IntegrationsAdmin(){
   async function save(section:'tracking'|'sales'){
     setBusy(section);report('');
     try{
-      const values=section==='tracking'?{browserMode:config.browserMode,gtmId:config.gtmId,ga4Id:config.ga4Id,metaPixelId:config.metaPixelId}:{serverConversions:config.serverConversions,ga4Id:config.ga4Id,metaPixelId:config.metaPixelId,...Object.fromEntries(Object.entries(draft).filter(([,v])=>v!==undefined))};
+      const values=section==='tracking'?{browserMode:config.browserMode,gtmId:config.gtmId,gtmDelay:config.gtmDelay,ga4Id:config.ga4Id,metaPixelId:config.metaPixelId}:{serverConversions:config.serverConversions,ga4Id:config.ga4Id,metaPixelId:config.metaPixelId,...Object.fromEntries(Object.entries(draft).filter(([,v])=>v!==undefined))};
       validateUpdates(values);
       if(section==='tracking'&&config.browserMode==='gtm'&&!config.gtmId.trim())throw new Error('Ingresa el ID del contenedor de Tag Manager.');
       if(section==='tracking'&&config.browserMode==='direct'&&!config.ga4Id.trim()&&!config.metaPixelId.trim())throw new Error('Ingresa al menos un ID de GA4 o Meta.');
@@ -60,6 +60,7 @@ function IntegrationsAdmin(){
           <label>ID de Tag Manager<input value={config.gtmId} placeholder="GTM-XXXXXXXX" spellCheck={false} onChange={e=>update('gtmId',e.target.value)}/><small>Tag Manager → espacio de trabajo → ID del contenedor. Pega solo el ID.</small></label>
           <label>ID de medición de GA4<input value={config.ga4Id} placeholder="G-XXXXXXXXXX" spellCheck={false} onChange={e=>update('ga4Id',e.target.value)}/><small>Google Analytics → Administrar → Flujos de datos → Web. También identifica las compras enviadas desde el servidor.</small></label>
           <label>ID del píxel de Meta<input value={config.metaPixelId} placeholder="Solo números" inputMode="numeric" onChange={e=>update('metaPixelId',e.target.value)}/><small>Meta → Administrador de eventos → conjunto de datos. Usa el mismo ID que tengas en Tag Manager.</small></label></div>
+        {config.browserMode==='gtm'&&<label className="check"><input type="checkbox" checked={config.gtmDelay} onChange={e=>update('gtmDelay',e.target.checked)}/>Cargar Tag Manager después de la página (recomendado): la web se ve antes en móvil y los eventos previos se envían igual al cargar.</label>}
         <p className="notice">{config.browserMode==='gtm'?'GA4 y el píxel deben estar configurados dentro de Tag Manager. Los IDs de abajo se usan para las compras del servidor; Sably no vuelve a instalarlos en el navegador.':config.browserMode==='direct'?'Sably carga directamente los IDs indicados. No carga Tag Manager.':'No se cargarán etiquetas en el navegador. Las compras del servidor se controlan en la siguiente sección.'}</p>
         <button disabled={!!busy} onClick={()=>save('tracking')}>{busy==='tracking'?'Guardando…':'Guardar medición'}</button>
       </section>

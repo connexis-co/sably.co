@@ -1,11 +1,20 @@
 /**
- * HTML fresh for five minutes at the edge, then served stale for up to a day
- * while one request refreshes it in the background. Editorial writes purge the
- * native EmDash tags and Sably writes purge `sably:public`, so the window only
- * bounds data changed outside those paths (time-boxed promotions, SQL).
+ * HTML fresh for up to a day at the edge, then served stale for a week while one
+ * request refreshes it in the background. Editorial writes purge the native
+ * EmDash tags and Sably writes purge `sably:public`, so the window only bounds
+ * data changed outside those paths; the layout shortens it to the next
+ * promotion start or end (`pageMaxAge`). Low traffic means most colos see a
+ * page rarely: a short TTL turned almost every visit into a full render.
  */
-export const PUBLIC_PAGE_TTL = 300;
-export const PUBLIC_PAGE_SWR = 86_400;
+export const PUBLIC_PAGE_TTL = 86_400;
+export const PUBLIC_PAGE_SWR = 604_800;
+export const PUBLIC_PAGE_MIN_TTL = 60;
+
+/** Seconds a page may stay fresh: never past the next promotion boundary. */
+export function pageMaxAge(nextBoundary: number | null, now = Math.floor(Date.now() / 1000)): number {
+  if (nextBoundary === null || !Number.isFinite(nextBoundary)) return PUBLIC_PAGE_TTL;
+  return Math.min(PUBLIC_PAGE_TTL, Math.max(PUBLIC_PAGE_MIN_TTL, Math.ceil(nextBoundary - now)));
+}
 export const PUBLIC_PAGE_TAG = 'sably:public';
 export const PUBLIC_PAGE_TAGS = [PUBLIC_PAGE_TAG, 'emdash:settings',
   'emdash:menu:primary', 'emdash:menu:footer', 'emdash:menu:social', 'emdash:menu:ecosystem',

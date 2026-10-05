@@ -5,6 +5,7 @@ import { operationalEnvironmentEnabled } from '../../lib/operational-environment
 export const settingsSchema = {
   browserMode: { type: 'select', label: 'Medición del sitio', default: 'off', options: [{value:'off',label:'Desactivada'},{value:'gtm',label:'Google Tag Manager'},{value:'direct',label:'GA4 y Meta directamente'}] },
   gtmId: { type:'string',label:'ID del contenedor de Tag Manager',default:'' },
+  gtmDelay: { type:'boolean',label:'Cargar Tag Manager después de la página',default:true },
   ga4Id: { type:'string',label:'ID de medición de GA4',default:'' },
   metaPixelId: { type:'string',label:'ID del píxel de Meta',default:'' },
   serverConversions: { type:'boolean',label:'Enviar compras confirmadas a GA4 y Meta',default:false },
@@ -13,10 +14,10 @@ export const settingsSchema = {
   hotmartHottok: { type:'secret',label:'HOTTOK del webhook de Hotmart' },
 } satisfies Record<string, SettingField>;
 export type SettingKey = keyof typeof settingsSchema;
-export const publicKeys = ['browserMode','gtmId','ga4Id','metaPixelId','serverConversions'] as const;
+export const publicKeys = ['browserMode','gtmId','gtmDelay','ga4Id','metaPixelId','serverConversions'] as const;
 export const secretKeys = ['ga4ApiSecret','metaCapiToken','hotmartHottok'] as const;
-export interface PublicSettings { browserMode:'off'|'gtm'|'direct';gtmId:string;ga4Id:string;metaPixelId:string;serverConversions:boolean }
-export const defaults:PublicSettings = {browserMode:'off',gtmId:'',ga4Id:'',metaPixelId:'',serverConversions:false};
+export interface PublicSettings { browserMode:'off'|'gtm'|'direct';gtmId:string;gtmDelay:boolean;ga4Id:string;metaPixelId:string;serverConversions:boolean }
+export const defaults:PublicSettings = {browserMode:'off',gtmId:'',gtmDelay:true,ga4Id:'',metaPixelId:'',serverConversions:false};
 const patterns = {gtmId:/^GTM-[A-Z0-9]{4,20}$/,ga4Id:/^G-[A-Z0-9]{4,20}$/,metaPixelId:/^\d{5,30}$/};
 
 export function validateUpdates(input:unknown):Partial<Record<SettingKey,string|boolean>> {
@@ -25,8 +26,8 @@ export function validateUpdates(input:unknown):Partial<Record<SettingKey,string|
   for (const [key,value] of Object.entries(input)) {
     if (!Object.hasOwn(settingsSchema,key)) throw new Error('El campo no pertenece a estas integraciones.');
     const k=key as SettingKey;
-    if(k==='serverConversions') {
-      if(typeof value!=='boolean')throw new Error('Selecciona si deseas enviar conversiones.');
+    if(k==='serverConversions'||k==='gtmDelay') {
+      if(typeof value!=='boolean')throw new Error(k==='gtmDelay'?'Indica si Tag Manager se carga después de la página.':'Selecciona si deseas enviar conversiones.');
       result[k]=value; continue;
     }
     if(typeof value!=='string')throw new Error('El valor debe ser texto.');
@@ -56,12 +57,23 @@ export async function adminConfig(settings:Pick<SettingsAccess,'get'>) {
   return {config,secretsSet};
 }
 
+/**
+ * GTM y lo que carga (GA4 por la pasarela de Google, píxel de Meta, Clarity) son ≈600 KB de
+ * JavaScript que compiten con la foto principal y el CSS en móvil. Se cargan tras `load` y un
+ * momento libre del navegador, o con la primera interacción si llega antes. Los eventos que el
+ * sitio empuja antes quedan en dataLayer y GTM los procesa al arrancar; gclid/fbclid siguen en la
+ * URL. Mismo criterio que Sovialis.
+ */
+function deferredTagManager(id:string):string {
+  return `window.sablyTrackingMode='gtm';(function(w,d,i){var done,ev=['pointerdown','keydown','touchstart','scroll','mousemove'];function go(){if(done)return;done=1;ev.forEach(function(e){w.removeEventListener(e,go,{passive:true})});w.dataLayer=w.dataLayer||[];w.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;d.head.appendChild(j)}ev.forEach(function(e){w.addEventListener(e,go,{passive:true})});function idle(){w.requestIdleCallback?w.requestIdleCallback(go,{timeout:2500}):setTimeout(go,1200)}d.readyState==='complete'?idle():w.addEventListener('load',idle)})(window,document,'${id}');`;
+}
+
 export function trackingFragments(config:PublicSettings, production:boolean):PageFragmentContribution[] {
   if(!production||config.browserMode==='off')return [];
   const result:PageFragmentContribution[]=[];
   const inline=(key:string,code:string)=>result.push({kind:'inline-script',placement:'head',key,code});
   if(config.browserMode==='gtm'&&patterns.gtmId.test(config.gtmId)) {
-    inline('sably-tag-manager',`window.sablyTrackingMode='gtm';(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${config.gtmId}');`);
+    inline('sably-tag-manager',config.gtmDelay?deferredTagManager(config.gtmId):`window.sablyTrackingMode='gtm';(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${config.gtmId}');`);
     result.push({kind:'html',placement:'body:start',key:'sably-tag-manager-noscript',html:`<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${config.gtmId}" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>`});
   } else if(config.browserMode==='direct') {
     inline('sably-tracking-mode',"window.sablyTrackingMode='direct';");
