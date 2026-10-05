@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
-  canCachePublicPage, invalidatedTags, protectDeliveryResponse, sharedPublicRequest,
+  canCachePublicPage, invalidatedTags, pageMaxAge, protectDeliveryResponse, sharedPublicRequest,
   MEDIA_TAG, PUBLIC_DATA_EDGE, PUBLIC_PAGE_TAG,
 } from '../src/lib/public-delivery';
 
-const EDGE = 'public, max-age=300, stale-while-revalidate=86400';
+const EDGE = 'public, max-age=86400, stale-while-revalidate=604800';
 const request = (path = '/co/', headers: Record<string, string> = {}) => new Request('https://sably.co' + path, { headers });
 const page = (extra: Record<string, string> = {}, status = 200) => new Response('<main>Published content</main>', {
   status, headers: { 'content-type': 'text/html', 'Cloudflare-CDN-Cache-Control': EDGE, ...extra },
@@ -25,7 +25,7 @@ test('anonymous HTML has separate cache variants from credentials, previews and 
   // Astro gives the browser no-cache when EmDash adds Last-Modified hints;
   // its explicit CDN TTL remains independently cacheable.
   assert.equal(protectDeliveryResponse(request(), page({ 'cache-control': 'no-cache' }), 'production').headers.get('Cloudflare-CDN-Cache-Control'), EDGE);
-  for (const edge of ['public', 'public, max-age=301', 'public, max-age=300, stale-while-revalidate=86401']) {
+  for (const edge of ['public', 'public, max-age=86401', 'public, max-age=86400, stale-while-revalidate=604801']) {
     assert.equal(protectDeliveryResponse(request(), page({ 'Cloudflare-CDN-Cache-Control': edge }), 'production').headers.get('Cloudflare-CDN-Cache-Control'), 'no-store', edge);
   }
 });
@@ -157,4 +157,13 @@ test('only trusted successful writes invalidate shared pages', () => {
   for (const path of ['/api/v1/leads', '/api/v1/votos', '/api/v1/precios/refresca', '/api/v1/comentarios']) {
     assert.deepEqual(invalidatedTags(post(path), new Response('ok')), [], path);
   }
+});
+
+test('pages stay fresh a day but never past the next promotion start or end', () => {
+  const now = 1_800_000_000;
+  assert.equal(pageMaxAge(null, now), 86_400);
+  assert.equal(pageMaxAge(now + 3600, now), 3600);
+  assert.equal(pageMaxAge(now + 10, now), 60);
+  assert.equal(pageMaxAge(now + 30 * 86_400, now), 86_400);
+  assert.equal(pageMaxAge(Number.NaN, now), 86_400);
 });

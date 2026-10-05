@@ -2,7 +2,9 @@
 import '@/styles/global.css';
 import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import outfitFont from '@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2?url';
-import { canCachePublicPage, PUBLIC_PAGE_SWR, PUBLIC_PAGE_TAGS, PUBLIC_PAGE_TTL } from '@/lib/public-delivery';
+import { env } from 'cloudflare:workers';
+import { canCachePublicPage, pageMaxAge, PUBLIC_PAGE_SWR, PUBLIC_PAGE_TAGS } from '@/lib/public-delivery';
+import { readNextPromoBoundary } from '@/plugins/sably-operations/public';
 import { EmDashBodyStart, EmDashBodyEnd, WidgetArea } from 'emdash/ui';
 import { createPublicPageContext } from 'emdash/page';
 import { getSeoMeta, type PublicPageContext } from 'emdash';
@@ -97,7 +99,9 @@ const seo = getSeoMeta({ data: { seo: Astro.locals.sablySeo } }, {
 });
 const development = import.meta.env.SITE?.replace(/\/+$/, '') !== 'https://sably.co';
 if (canCachePublicPage(Astro.request, development ? 'development' : 'production')) {
-  Astro.cache.set({ maxAge: PUBLIC_PAGE_TTL, swr: PUBLIC_PAGE_SWR, tags: PUBLIC_PAGE_TAGS });
+  // La barra de promoción se pinta en el servidor: la copia no puede sobrevivir a su inicio o fin.
+  const boundary = await readNextPromoBoundary((env as unknown as { SABLY_DB: D1Database }).SABLY_DB).catch(() => null);
+  Astro.cache.set({ maxAge: pageMaxAge(boundary), swr: PUBLIC_PAGE_SWR, tags: PUBLIC_PAGE_TAGS });
 } else Astro.cache.set(false);
 for (const font of [interFont, outfitFont]) Astro.response.headers.append('Link', `<${font}>; rel=preload; as=font; type="font/woff2"; crossorigin`);
 const pageContext = { ...createPublicPageContext({
@@ -124,6 +128,26 @@ const pageContext = { ...createPublicPageContext({
     <meta name="generator" content={Astro.generator} />
     <Seo title={seo.title} page={pageContext} {alternates} schemas={allSchemas} {noindexGoogle} {ogLocale} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {/* Navegación casi instantánea: el navegador pide la página de un enlace interno al pasar el
+        cursor o empezar a tocarlo, y la respuesta sale de la caché del borde. Speed Brain de
+        Cloudflare solo precarga con el clic ya iniciado. */}
+    <script type="speculationrules" is:inline>
+      {
+        "prefetch": [
+          {
+            "source": "document",
+            "where": {
+              "and": [
+                { "href_matches": "/*" },
+                { "not": { "href_matches": ["/_emdash/*", "/admin/*", "/api/*", "/*.xml", "/*.txt"] } },
+                { "not": { "selector_matches": "[rel~=nofollow], [target=_blank], [download], [data-no-prefetch]" } }
+              ]
+            },
+            "eagerness": "moderate"
+          }
+        ]
+      }
+    </script>
   </head>
   <body
     data-theme="sably-classic"

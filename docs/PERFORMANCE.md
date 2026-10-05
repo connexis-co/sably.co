@@ -8,9 +8,9 @@ Antes de este ajuste, una página sin caché hacía entre 43 y 92 consultas D1 y
 
 ## Páginas públicas
 
-El HTML es fresco 5 minutos en el borde y después se sirve vencido hasta un día mientras una sola petición lo regenera en segundo plano (`stale-while-revalidate`). El navegador revalida en cada navegación (`max-age=0`, sin `must-revalidate`, que también impediría al borde servir la copia vencida). Las publicaciones, despublicaciones y cambios de contenido invalidan las etiquetas editoriales nativas de EmDash; las páginas incluyen las colecciones utilizadas por el catálogo y la etiqueta de ajustes del sitio. Las modificaciones correctas de los plugins Sably, las subidas, reemplazos o borrados de medios y los refrescos autenticados de precios (`POST /api/v1/precios`, `/api/v1/subjects`) invalidan además `sably:public`. Los envíos de visitantes (leads, votos, comentarios, el refresco de precio limitado por curso) nunca purgan.
+El HTML es fresco hasta un día en el borde y después se sirve vencido hasta una semana mientras una sola petición lo regenera en segundo plano (`stale-while-revalidate`). El día se acorta hasta el próximo inicio o fin de una promoción activa (`pageMaxAge` y `readNextPromoBoundary`), porque la barra de promoción se pinta en el servidor. Con poco tráfico por centro de datos, un TTL de 5 minutos dejaba casi todas las visitas en un render completo (comprobado el 4 de octubre: páginas calentadas volvían a `MISS`/`EXPIRED`). El navegador revalida en cada navegación (`max-age=0`, sin `must-revalidate`, que también impediría al borde servir la copia vencida). Las publicaciones, despublicaciones y cambios de contenido invalidan las etiquetas editoriales nativas de EmDash; las páginas incluyen las colecciones utilizadas por el catálogo y la etiqueta de ajustes del sitio. Las modificaciones correctas de los plugins Sably, las subidas, reemplazos o borrados de medios y los refrescos autenticados de precios (`POST /api/v1/precios`, `/api/v1/subjects`) invalidan además `sably:public`. Los envíos de visitantes (leads, votos, comentarios, el refresco de precio limitado por curso) nunca purgan.
 
-Cada despliegue tiene una caché independiente y la etiqueta de versión de Cloudflare. No se comparte entre versiones porque el HTML anterior apunta a recursos `/_astro/` con hash que la nueva versión ya no publica. Para que la primera visita tras desplegar no pague el render completo, el workflow de promoción ejecuta `scripts/warm-public-cache.mjs`: pide de forma anónima cada página de los sitemaps y las dos API compartidas, y deja el resumen en `dist/cache-warm.json`. No bloquea el despliegue.
+Cada despliegue tiene una caché independiente y la etiqueta de versión de Cloudflare. No se comparte entre versiones porque el HTML anterior apunta a recursos `/_astro/` con hash que la nueva versión ya no publica. Tras promover, el workflow ejecuta `scripts/warm-public-cache.mjs`: pide de forma anónima cada página de los sitemaps y las dos API compartidas (3 en paralelo; D1 atiende una consulta a la vez por base y más paralelismo solo las encola) y deja el resumen en `dist/cache-warm.json`. Llena los niveles de caché de la región del runner y la caché de objetos de EmDash; los centros de datos lejanos se llenan con su primera visita. No bloquea el despliegue.
 
 ### Variantes que no deben partir la caché
 
@@ -28,11 +28,11 @@ No se comparte nada cuando hay sesión o modo edición de EmDash (`astro-session
 
 Los originales de medios alimentan las variantes de `/cdn-cgi/image/`; antes cada variante nueva arrancaba EmDash y leía R2 (0,6–1,7 s). EmDash revalida en el navegador porque «Reemplazar original» puede sobrescribir la misma clave; por eso la caché del borde se purga con cualquier escritura en `/_emdash/api/media`.
 
-Los datos operativos y los cambios hechos directamente fuera de esas rutas quedan sujetos a los 5 minutos de frescura más una petición vencida. Si se modifica una integración por SQL, una importación externa o un script, hay que purgar `sably:public` mediante Workers Cache, o esperar ese intervalo. La caché no almacena claves, solicitudes ni datos de contactos.
+Los datos operativos y los cambios hechos directamente fuera de esas rutas quedan sujetos a la frescura de la página (hasta un día) más una petición vencida. Si se modifica una integración por SQL, una importación externa o un script, hay que purgar `sably:public` mediante Workers Cache, o esperar ese intervalo. La caché no almacena claves, solicitudes ni datos de contactos.
 
 ## Ubicación del Worker
 
-Producción usa `placement.region: aws:us-east-1`, junto a las bases D1 en ENAM. La caché se consulta antes del Worker en el centro de datos del visitante: un HIT nunca sale del borde. Solo las páginas sin caché, las API y los originales de medios se ejecutan cerca de los datos, donde cada consulta cuesta 1–3 ms en lugar de 40–220 ms. La respuesta lleva `cf-placement` para comprobarlo.
+Producción usa Smart Placement (`placement.mode: smart`). Las dos bases D1 figuran en «ENAM», pero un Worker de prueba con `SELECT 1` midió el 4 de octubre, entrando por MIA: ~10 ms sin ubicación o con `smart`, 25 ms con `gcp:us-east1` y 41 ms con `aws:us-east-1`. Es decir, la base está junto a Miami y una pista fija hacia Virginia cuadruplicaba cada consulta del tráfico de Colombia. Smart deja local a MIA y solo mueve hacia la base las colos lejanas (SIN, FRA, GRU…), donde cada consulta costaba 100–220 ms. La caché se consulta antes del Worker en el centro de datos del visitante: un HIT nunca sale del borde. La respuesta lleva `cf-placement` para comprobarlo.
 
 ## Recursos
 
@@ -40,13 +40,19 @@ En producción, `/_astro/*` y los archivos públicos de marca y fotos (`/brand/`
 
 Las fuentes Inter y Outfit se alojan en el mismo dominio, mantienen `font-display: swap` y los caracteres latinos y latinos extendidos. Se precargan las dos fuentes utilizadas en la primera pantalla; sus cabeceras `Link` son compatibles con Early Hints si la zona lo tiene habilitado. La carga inicial de datos de portada y de WhatsApp evita esperas secuenciales entre consultas independientes.
 
+## Etiquetas de terceros y navegación
+
+GTM y lo que carga (GA4 por la pasarela de Google, píxel de Meta, Clarity) suman unos 600 KB de JavaScript. Con «Cargar Tag Manager después de la página» (activado por defecto en **Sably · integraciones**) el contenedor se carga tras `load` y un momento libre del navegador, o con la primera interacción si llega antes. Los eventos empujados antes quedan en `dataLayer` y GTM los procesa al arrancar; `gclid` y `fbclid` siguen en la URL. Es el mismo criterio aplicado en Sovialis.
+
+Speculation Rules (`eagerness: moderate`) precargan la página de un enlace interno al pasar el cursor o empezar a tocarlo, salvo `/_emdash`, `/admin`, `/api`, XML/TXT, `nofollow`, `target=_blank`, descargas y `data-no-prefetch`. La respuesta sale de la caché del borde, así que la navegación es casi instantánea. Speed Brain de Cloudflare solo precarga con el clic ya iniciado.
+
 ## Estabilidad visual
 
 La barra y el bloque de promoción se pintan en el servidor con la misma regla que el navegador (`mejorPromocion`), así ocupan su sitio desde el primer pintado. Antes nacían ocultos y aparecían al responder `/api/v1/promo`, empujando la página (CLS 0,124 en la portada móvil). El script confirma la campaña al cargar porque el HTML puede venir de la caché: la mantiene, la cambia de tema o la retira, y si el endpoint falla conserva la del servidor. `/api/v1/promo` y `/api/v1/config` se piden una sola vez por página (`cargarPromos`, `leerConfig`), compartidas entre la barra, la ficha, WhatsApp, la prueba social y el reproductor.
 
 ## Verificación
 
-Comprobar un GET anónimo repetido: `CF-Cache-Status: HIT` debe aparecer después del primer llenado, y `UPDATING`/`STALE` tras los 5 minutos. Repetir con `_ga`, `?gclid=` o `Cache-Control: no-cache`: deben responder rápido con el HTML anónimo (`Cloudflare-CDN-Cache-Control` no aparece; `Cache-Control: max-age=0`). Con cookie de sesión, Authorization, `_preview` y `promo` no deben compartir el HTML. Confirmar que las páginas desconocidas mantienen 404, los recursos de desarrollo siguen protegidos, la edición conserva su barra y las publicaciones invalidan la caché. La prueba se hace sobre el dominio canónico HTTPS.
+Comprobar un GET anónimo repetido: `CF-Cache-Status: HIT` debe aparecer después del primer llenado, y `UPDATING`/`STALE` una vez vencido. Repetir con `_ga`, `?gclid=` o `Cache-Control: no-cache`: deben responder rápido con el HTML anónimo (`Cloudflare-CDN-Cache-Control` no aparece; `Cache-Control: max-age=0`). Con cookie de sesión, Authorization, `_preview` y `promo` no deben compartir el HTML. Confirmar que las páginas desconocidas mantienen 404, los recursos de desarrollo siguen protegidos, la edición conserva su barra y las publicaciones invalidan la caché. La prueba se hace sobre el dominio canónico HTTPS.
 
 HTTP/3 y compresión se comprueban en las respuestas reales. Speed Brain, Rocket Loader, Polish y otros servicios no sustituyen la caché nativa ni se activan a ciegas: algunos no aplican a rutas Workers o pueden interferir con módulos y medición. No se contratan servicios ni se modifican reglas de acceso de rastreadores. Los tiempos HTTP de una muestra no equivalen a los Core Web Vitals de usuarios reales.
 

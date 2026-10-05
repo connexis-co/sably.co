@@ -20,7 +20,9 @@ test('development cannot skip its gate and production only bypasses reviewed pub
 });
 test('production renders next to its D1 databases',()=>{
  const unplaced=readTarget('production');delete unplaced.placement;
- assert.throws(()=>validateTarget('production',unplaced),/next to its ENAM D1/);
+ assert.throws(()=>validateTarget('production',unplaced),/Smart Placement/);
+ const hinted=readTarget('production');hinted.placement={region:'aws:us-east-1'};
+ assert.throws(()=>validateTarget('production',hinted),/Smart Placement/);
  assert.equal(dev.placement,undefined,'Development keeps default placement');
 });
 test('production resource placeholders fail before any deployment',()=>{
