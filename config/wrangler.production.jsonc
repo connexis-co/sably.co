@@ -18,8 +18,22 @@
     "binding": "ASSETS",
     "run_worker_first": [
       "/*",
-      "!/_astro/*"
+      "!/_astro/*",
+      "!/brand/*",
+      "!/covers/*",
+      "!/creadores/*",
+      "!/heroes/*",
+      "!/certificado-sably.jpg",
+      "!/favicon.ico",
+      "!/favicon.svg",
+      "!/icon-192.png",
+      "!/icon-512.png",
+      "!/apple-touch-icon.png",
+      "!/site.webmanifest"
     ]
+  },
+  "placement": {
+    "region": "aws:us-east-1"
   },
   "routes": [
     {

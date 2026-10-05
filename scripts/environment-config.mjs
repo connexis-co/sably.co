@@ -10,6 +10,8 @@ export function targetConfig(target=process.env.SABLY_TARGET??'development') {
  assert.ok(Object.hasOwn(TARGETS,target),'SABLY_TARGET must be development or production');
  return {target,...TARGETS[target]};
 }
+/** Public files Workers Static Assets serves without the Worker: compiled bundles and brand/media files. */
+export const PRODUCTION_ASSET_BYPASS=['/_astro/*','/brand/*','/covers/*','/creadores/*','/heroes/*','/certificado-sably.jpg','/favicon.ico','/favicon.svg','/icon-192.png','/icon-512.png','/apple-touch-icon.png','/site.webmanifest'];
 export function readTarget(target) {return JSON.parse(readFileSync(targetConfig(target).configPath,'utf8'));}
 export function fingerprint(config) {return createHash('sha256').update(JSON.stringify(config)).digest('hex');}
 export function validateTarget(target,config,development=readTarget('development')) {
@@ -21,7 +23,8 @@ export function validateTarget(target,config,development=readTarget('development
   assert.equal(config.assets?.run_worker_first,true,'Worker must protect static assets in development');
   assert.equal(config.cache?.enabled,false,'Development must not cache protected responses');
  } else {
-  assert.deepEqual(config.assets?.run_worker_first,['/*','!/_astro/*'],'Only compiled public assets may bypass the production Worker');
+  assert.deepEqual(config.assets?.run_worker_first,['/*',...PRODUCTION_ASSET_BYPASS.map(path=>`!${path}`)],'Only reviewed public assets may bypass the production Worker');
+  assert.deepEqual(config.placement,{region:'aws:us-east-1'},'Production renders next to its ENAM D1 databases');
   assert.equal(config.cache?.enabled,true,'Production requires the reviewed native cache policy');
   assert.equal(config.version_metadata?.binding,'CF_VERSION_METADATA','Cache must carry the deployment version');
  }

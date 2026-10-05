@@ -78,6 +78,14 @@ export function publicCanonicalRedirect(request: Request): Response | null {
   return Response.redirect(url.href, 301);
 }
 
+/** `/` → `/co/`, the same hop as astro.config `redirects`, without booting EmDash. */
+export function rootCountryRedirect(request: Request): Response | null {
+  if (request.method !== 'GET' && request.method !== 'HEAD') return null;
+  const url = new URL(request.url);
+  if (url.pathname !== '/') return null;
+  return Response.redirect(new URL(`/co/${url.search}`, url).href, 301);
+}
+
 /** Collapse origin, old slugs and slash normalization into one permanent hop. */
 export function productionOriginRedirect(request:Request,environment?:string,rules:readonly LegacyRedirectRule[]=[]):Response|null {
  if(environment!=='production'||!['GET','HEAD'].includes(request.method))return null;

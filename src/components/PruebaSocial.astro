@@ -168,6 +168,7 @@ mensajes.push({
 
 <script>
   import { trackEvent } from '@/lib/analytics';
+  import { leerConfig } from '@/lib/site-config-client';
 
   const el = document.querySelector<HTMLElement>('[data-prueba-social]');
   const CERRADO = 'sably:ps-cerrado';
@@ -251,8 +252,7 @@ mensajes.push({
       timer = setTimeout(mostrar, espera);
     };
 
-    fetch('/api/v1/config', { signal: AbortSignal.timeout(4000) })
-      .then((r) => (r.ok ? (r.json() as Promise<{ pruebaSocial?: CfgPrueba }>) : null))
+    leerConfig<{ pruebaSocial?: CfgPrueba }>()
       .then((cfg) => {
         const c = cfg?.pruebaSocial;
         if (!c) return;

@@ -34,7 +34,7 @@ import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-ope
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
 import { mejorPromocion, campaignDePromocion } from '@/lib/promo';
-import { readActivePromos } from '@/plugins/sably-operations/public';
+import { readActivePromosForRequest } from '@/plugins/sably-operations/public';
 import { env } from 'cloudflare:workers';
 import { countryAlternates, breadcrumbSchema, conMarca, faqSchema, courseSchema } from '@/lib/seo';
 import { SITE, CDN_URL } from '@/lib/site';
@@ -194,7 +194,7 @@ const descuentoVisible = undefined;
 /* Campaña del calendario vigente en el build. Solo se usa para rotular la
    píldora de la barra fija ("Black Friday −40%" en vez de un "−40%" pelado).
    `null` es el caso normal la mayor parte del año. */
-const activePromos = await readActivePromos((env as unknown as {SABLY_DB:D1Database}).SABLY_DB).catch(() => []);
+const activePromos = await readActivePromosForRequest((env as unknown as {SABLY_DB:D1Database}).SABLY_DB, Astro.locals).catch(() => []);
 const promoRow = mejorPromocion(activePromos, { countryCode: country.code, proveedor, courseSlug: course.id, urlKey: Astro.url.searchParams.get('promo') });
 const promoVigente = promoRow ? campaignDePromocion(promoRow) : null;
 

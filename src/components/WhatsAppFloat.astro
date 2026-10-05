@@ -115,6 +115,7 @@ const url = buildWhatsAppUrl(country.whatsapp, message);
 
 <script>
   import { trackEvent } from '@/lib/analytics';
+  import { leerConfig } from '@/lib/site-config-client';
 
   const boton = document.querySelector<HTMLAnchorElement>('[data-wa-float]');
 
@@ -154,8 +155,7 @@ const url = buildWhatsAppUrl(country.whatsapp, message);
         return ruta === patron || ruta === `${patron}/` || `${ruta}/` === patron;
       });
     };
-    fetch('/api/v1/config')
-      .then((r): Promise<Config | null> => (r.ok ? (r.json() as Promise<Config>) : Promise.resolve(null)))
+    leerConfig<Config>()
       .then((cfg) => {
         const wa = cfg?.whatsapp;
         if (!wa) return;
