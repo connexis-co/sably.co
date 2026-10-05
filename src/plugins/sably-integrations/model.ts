@@ -62,10 +62,11 @@ export async function adminConfig(settings:Pick<SettingsAccess,'get'>) {
  * JavaScript que compiten con la foto principal y el CSS en móvil. Se cargan tras `load` y un
  * momento libre del navegador, o con la primera interacción si llega antes. Los eventos que el
  * sitio empuja antes quedan en dataLayer y GTM los procesa al arrancar; gclid/fbclid siguen en la
- * URL. Mismo criterio que Sovialis.
+ * URL. Mismo criterio que Sovialis. Si la pasarela de Google de Cloudflare ya inyectó este mismo
+ * contenedor (`google_tags_first_party`), no se carga una segunda vez.
  */
 function deferredTagManager(id:string):string {
-  return `window.sablyTrackingMode='gtm';(function(w,d,i){var done,ev=['pointerdown','keydown','touchstart','scroll','mousemove'];function go(){if(done)return;done=1;ev.forEach(function(e){w.removeEventListener(e,go,{passive:true})});w.dataLayer=w.dataLayer||[];w.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;d.head.appendChild(j)}ev.forEach(function(e){w.addEventListener(e,go,{passive:true})});function idle(){w.requestIdleCallback?w.requestIdleCallback(go,{timeout:2500}):setTimeout(go,1200)}d.readyState==='complete'?idle():w.addEventListener('load',idle)})(window,document,'${id}');`;
+  return `window.sablyTrackingMode='gtm';(function(w,d,i){var done,ev=['pointerdown','keydown','touchstart','scroll','mousemove'];function go(){if(done)return;done=1;if((w.google_tags_first_party||[]).indexOf(i)>-1)return;ev.forEach(function(e){w.removeEventListener(e,go,{passive:true})});w.dataLayer=w.dataLayer||[];w.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var j=d.createElement('script');j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;d.head.appendChild(j)}ev.forEach(function(e){w.addEventListener(e,go,{passive:true})});function idle(){w.requestIdleCallback?w.requestIdleCallback(go,{timeout:2500}):setTimeout(go,1200)}d.readyState==='complete'?idle():w.addEventListener('load',idle)})(window,document,'${id}');`;
 }
 
 export function trackingFragments(config:PublicSettings, production:boolean):PageFragmentContribution[] {
@@ -73,7 +74,7 @@ export function trackingFragments(config:PublicSettings, production:boolean):Pag
   const result:PageFragmentContribution[]=[];
   const inline=(key:string,code:string)=>result.push({kind:'inline-script',placement:'head',key,code});
   if(config.browserMode==='gtm'&&patterns.gtmId.test(config.gtmId)) {
-    inline('sably-tag-manager',config.gtmDelay?deferredTagManager(config.gtmId):`window.sablyTrackingMode='gtm';(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${config.gtmId}');`);
+    inline('sably-tag-manager',config.gtmDelay?deferredTagManager(config.gtmId):`window.sablyTrackingMode='gtm';(function(w,d,s,l,i){if((w.google_tags_first_party||[]).indexOf(i)>-1)return;w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${config.gtmId}');`);
     result.push({kind:'html',placement:'body:start',key:'sably-tag-manager-noscript',html:`<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=${config.gtmId}" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript>`});
   } else if(config.browserMode==='direct') {
     inline('sably-tracking-mode',"window.sablyTrackingMode='direct';");
