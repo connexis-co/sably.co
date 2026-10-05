@@ -107,7 +107,13 @@ function isSharedRedirect(request: Request, response: Response, environment?: st
     && new URL(location, url).origin === CANONICAL_ORIGIN;
 }
 
-/** Workers Cache runs BEFORE the Worker. Vary separates private requests even on a HIT. */
+/**
+ * Workers Cache runs BEFORE the Worker. Only anonymous renders are ever stored
+ * (`canCachePublicPage` refuses any cookie), so the entry is shared whatever
+ * cookies the visitor carries: GA/Clarity set them on the first view, and
+ * varying on them sent every later view back to the Worker. Credentials,
+ * previews and ranges still get their own variant.
+ */
 export function protectDeliveryResponse(request: Request, response: Response, environment?: string, policy: DeliveryPolicy = {}): Response {
   const headers = new Headers(response.headers);
   const html = headers.get('content-type')?.includes('text/html');
@@ -121,7 +127,7 @@ export function protectDeliveryResponse(request: Request, response: Response, en
     && !headers.get('vary')?.includes('*');
   if (cacheable) {
     const vary = new Set((headers.get('vary') ?? '').split(',').map(v => v.trim()).filter(Boolean));
-    for (const name of ['Cookie', 'Authorization', 'X-Sably-Preview-Token', 'Range', 'Cache-Control', 'Pragma']) vary.add(name);
+    for (const name of ['Authorization', 'X-Sably-Preview-Token', 'Range']) vary.add(name);
     headers.set('Vary', [...vary].join(', '));
     // Cloudflare uses Astro's edge TTL; the browser always checks for a fresh page.
     // No must-revalidate: it would also forbid the edge from serving stale.
