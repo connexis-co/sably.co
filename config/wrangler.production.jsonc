@@ -32,9 +32,6 @@
       "!/site.webmanifest"
     ]
   },
-  "placement": {
-    "mode": "smart"
-  },
   "routes": [
     {
       "pattern": "sably.co",
