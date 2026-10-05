@@ -18,11 +18,11 @@ test('development cannot skip its gate and production only bypasses reviewed pub
  // Pages, APIs, media originals and robots/sitemaps always run the Worker.
  for(const path of ['/*','/api/*','/_emdash/*','/robots.txt']) assert.ok(!PRODUCTION_ASSET_BYPASS.includes(path),path);
 });
-test('production renders next to its D1 databases',()=>{
- const unplaced=readTarget('production');delete unplaced.placement;
- assert.throws(()=>validateTarget('production',unplaced),/Smart Placement/);
- const hinted=readTarget('production');hinted.placement={region:'aws:us-east-1'};
- assert.throws(()=>validateTarget('production',hinted),/Smart Placement/);
+test('production runs unplaced, next to its D1 databases',()=>{
+ for(const placement of [{region:'aws:us-east-1'},{mode:'smart'}]){
+  const placed=readTarget('production');placed.placement=placement;
+  assert.throws(()=>validateTarget('production',placed),/runs unplaced/);
+ }
  assert.equal(dev.placement,undefined,'Development keeps default placement');
 });
 test('production resource placeholders fail before any deployment',()=>{
