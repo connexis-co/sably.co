@@ -93,7 +93,8 @@ jobs:
       - name: Warm the new version's edge cache with every sitemap page
         if: ${{ inputs.publish }}
         continue-on-error: true
-        timeout-minutes: 15
+        # ~1.000 renders at 3 in parallel (~3,5 s each) take ~20 min; 15 cut it at ~550 pages.
+        timeout-minutes: 40
         run: node scripts/warm-public-cache.mjs
       - uses: actions/upload-artifact@v4
         if: always()
