@@ -498,18 +498,36 @@ export function campaignDePromocion(
   };
 }
 
-/** Pide las promociones vivas al panel. Devuelve `[]` ante cualquier fallo. */
-export async function leerPromos(signal?: AbortSignal): Promise<Promocion[]> {
+async function pedirPromos(signal?: AbortSignal): Promise<Promocion[] | null> {
   try {
     const r = await fetch('/api/v1/promo', { signal });
-    if (!r.ok) return [];
+    if (!r.ok) return null;
     const d = (await r.json()) as { promos?: Promocion[] };
-    return Array.isArray(d?.promos) ? d.promos : [];
+    return Array.isArray(d?.promos) ? d.promos : null;
   } catch {
-    // Sin red o sin endpoint el sitio se queda con su calendario. Que el banner
-    // dependa de una llamada opcional no puede romper la página.
-    return [];
+    return null;
   }
+}
+
+/* Solo en el navegador: el banner, la barra fija y la ficha comparten una
+   petición por página. En el Worker nadie llama a esto (lee D1 directamente). */
+let promosDeLaPagina: Promise<Promocion[] | null> | undefined;
+
+/**
+ * Las promociones vivas, o `null` si el endpoint no respondió. Distingue «no
+ * hay promoción» de «no se pudo saber»: en el segundo caso el banner conserva
+ * lo que pintó el servidor en vez de retirarlo.
+ */
+export function cargarPromos(): Promise<Promocion[] | null> {
+  promosDeLaPagina ??= pedirPromos();
+  return promosDeLaPagina;
+}
+
+/** Pide las promociones vivas al panel. Devuelve `[]` ante cualquier fallo. */
+export async function leerPromos(signal?: AbortSignal): Promise<Promocion[]> {
+  // Sin red o sin endpoint el sitio se queda con su calendario. Que el banner
+  // dependa de una llamada opcional no puede romper la página.
+  return (await (signal ? pedirPromos(signal) : cargarPromos())) ?? [];
 }
 
 /** Milisegundos que faltan para que termine la campaña (0 si ya terminó). */

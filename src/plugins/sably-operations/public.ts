@@ -12,6 +12,14 @@ export async function readActivePromos(db: D1Database, now = Math.floor(Date.now
   });
 }
 
+const requestPromos=new WeakMap<object,Promise<Promocion[]>>();
+/** One read per render for the banner, the bar and the course card; scope is Astro.locals. */
+export function readActivePromosForRequest(db:D1Database,scope:object):Promise<Promocion[]> {
+  let result=requestPromos.get(scope);
+  if(!result){result=readActivePromos(db);requestPromos.set(scope,result);}
+  return result;
+}
+
 /** Preserves /api/v1/promo while making the EmDash calendar authoritative. */
 export const onRequestGet: PagesFunction<{DB: D1Database}> = async ({env}) => {
   try { return Response.json({promos:await readActivePromos(env.DB),managed:true}); }

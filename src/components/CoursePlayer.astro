@@ -355,21 +355,20 @@ const cover = await getImage({src:poster,width:800,height:450});
 </style>
 
 <script>
+  import { leerConfig } from '@/lib/site-config-client';
+
   type Modo = 'play' | 'auto';
 
-  /* La configuración vive en D1 y se sirve cacheada 60 s. Una sola petición por
-     página aunque hubiera varios reproductores. */
+  /* La configuración vive en D1 y se sirve cacheada 60 s en el borde. Una sola
+     petición por página, compartida con WhatsApp y la prueba social. */
   let ajustes: Promise<{ modo: Modo; bucle: boolean }> | null = null;
   const leerAjustes = () => {
-    ajustes ??= fetch('/api/v1/config')
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d: any) => ({
-        modo: d?.video?.modo === 'auto' ? ('auto' as Modo) : ('play' as Modo),
-        bucle: !!d?.video?.bucle,
-      }))
-      /* Si el endpoint falla, el video espera al play: nunca arranca solo por
-         un error de red. */
-      .catch(() => ({ modo: 'play' as Modo, bucle: false }));
+    /* Si el endpoint falla, el video espera al play: nunca arranca solo por
+       un error de red. */
+    ajustes ??= leerConfig<{ video?: { modo?: string; bucle?: boolean } }>().then((d) => ({
+      modo: d?.video?.modo === 'auto' ? ('auto' as Modo) : ('play' as Modo),
+      bucle: !!d?.video?.bucle,
+    }));
     return ajustes;
   };
 
