@@ -5,7 +5,6 @@ import react from '@astrojs/react';
 import mdx from '@astrojs/mdx';
 import tailwindcss from '@tailwindcss/vite';
 import cloudflare from '@astrojs/cloudflare';
-import { cacheCloudflare } from '@astrojs/cloudflare/cache';
 import emdash from 'emdash/astro';
 import { d1, r2, sandbox, kvCache } from '@emdash-cms/cloudflare';
 import { targetConfig } from './scripts/environment-config.mjs';
@@ -16,7 +15,8 @@ const target = targetConfig();
 export default defineConfig({
   site: target.siteUrl,
   output: 'server',
-  cache: { provider: cacheCloudflare() },
+  // Astro's Cloudflare provider plus the global page store generation (src/lib/page-store.ts).
+  cache: { provider: { name: 'sably-cloudflare', entrypoint: fileURLToPath(new URL('./src/lib/sably-cache-provider.ts', import.meta.url)) } },
   adapter: cloudflare({ imageService: 'custom', configPath: target.configPath }),
   image: {
     service: { entrypoint: './src/lib/cms-image-service.ts' },
@@ -31,7 +31,9 @@ export default defineConfig({
       database: d1({ binding: 'DB' }),
       // Native content/chrome cache; EmDash fences previews and invalidates
       // namespaces on editorial writes. Each environment owns its namespace.
-      objectCache: kvCache({ binding: 'CACHE', defaultTtl: 300, revalidate: 1000, timeout: 1000 }),
+      // EmDash retires entries by namespace epoch on every editorial write; defaultTtl is only the
+      // backstop. At 300 s most renders found nothing (48–79 k KV misses/day) and fell back to D1.
+      objectCache: kvCache({ binding: 'CACHE', defaultTtl: 86_400, revalidate: 1000, timeout: 1000 }),
       storage: r2({ binding: 'MEDIA' }),
       siteUrl: target.siteUrl,
       sandboxRunner: sandbox(),
