@@ -100,7 +100,7 @@ const seo = getSeoMeta({ data: { seo: Astro.locals.sablySeo } }, {
 const development = import.meta.env.SITE?.replace(/\/+$/, '') !== 'https://sably.co';
 if (canCachePublicPage(Astro.request, development ? 'development' : 'production')) {
   // La barra de promoción se pinta en el servidor: la copia no puede sobrevivir a su inicio o fin.
-  const boundary = await readNextPromoBoundary((env as unknown as { SABLY_DB: D1Database }).SABLY_DB).catch(() => null);
+  const boundary = await readNextPromoBoundary((env as unknown as { SABLY_DB: D1Database }).SABLY_DB, country.code).catch(() => null);
   Astro.cache.set({ maxAge: pageMaxAge(boundary), swr: PUBLIC_PAGE_SWR, tags: PUBLIC_PAGE_TAGS });
 } else Astro.cache.set(false);
 for (const font of [interFont, outfitFont]) Astro.response.headers.append('Link', `<${font}>; rel=preload; as=font; type="font/woff2"; crossorigin`);

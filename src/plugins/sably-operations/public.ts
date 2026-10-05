@@ -12,9 +12,11 @@ export async function readActivePromos(db: D1Database, now = Math.floor(Date.now
   });
 }
 
-/** Epoch second of the next start or end of an active promotion, or null. */
-export async function readNextPromoBoundary(db: D1Database, now = Math.floor(Date.now()/1000)): Promise<number | null> {
-  const row = await db.prepare('SELECT MIN(t) AS t FROM (SELECT desde AS t FROM promocion WHERE activa=1 AND desde>? UNION ALL SELECT hasta FROM promocion WHERE activa=1 AND hasta>?)').bind(now,now).first<{t:number|null}>();
+/** Epoch second of the next start or end of an active promotion that can reach this country, or null. */
+export async function readNextPromoBoundary(db: D1Database, country: string, now = Math.floor(Date.now()/1000)): Promise<number | null> {
+  const reaches = `activa=1 AND (paises='[]' OR instr(paises, ?)>0)`;
+  const code = JSON.stringify(country.toLowerCase());
+  const row = await db.prepare(`SELECT MIN(t) AS t FROM (SELECT desde AS t FROM promocion WHERE ${reaches} AND desde>? UNION ALL SELECT hasta FROM promocion WHERE ${reaches} AND hasta>?)`).bind(code,now,code,now).first<{t:number|null}>();
   return row?.t ?? null;
 }
 

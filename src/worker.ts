@@ -2,14 +2,14 @@ import handler, { createScheduledHandler, PluginBridge } from '@emdash-cms/cloud
 import { gateEnvironment, protectEnvironmentResponse, type RuntimeEnvironment } from './lib/runtime-environment';
 import redirectSource from '../public/_redirects?raw';
 import { parseLegacyRedirects, publicCanonicalRedirect, resolveLegacyRedirect, productionOriginRedirect, rootCountryRedirect } from './lib/legacy-redirects';
-import { protectDeliveryResponse, invalidatedTags, sharedPublicRequest, type DeliveryPolicy } from './lib/public-delivery';
-import { serveSharedPage, sharedCacheKey } from './lib/shared-page-cache';
+import { canCachePublicPage, protectDeliveryResponse, invalidatedTags, sharedPublicRequest, type DeliveryPolicy } from './lib/public-delivery';
+import { bumpPageGeneration, servePage } from './lib/page-store';
 
 const legacyRedirects = parseLegacyRedirects(redirectSource);
 
 export { PluginBridge };
 
-type VersionedEnvironment = RuntimeEnvironment & { CF_VERSION_METADATA?: { id?: string } };
+type VersionedEnvironment = RuntimeEnvironment & { CF_VERSION_METADATA?: { id?: string }; CACHE?: KVNamespace };
 
 export default {
   ...handler,
@@ -26,28 +26,26 @@ export default {
       if (redirect) return finish(redirect, { redirect: true });
       if (!handler.fetch) throw new Error('EmDash fetch handler unavailable');
       const emdash = handler.fetch;
-      // Ad click IDs give every visit its own URL: those get the anonymous page
-      // from the Worker's Cache API instead of rendering one page per click.
-      const shared = sharedPublicRequest(request, env.SABLY_ENVIRONMENT);
-      // Same URL, only cookies or reload headers: render anonymously so Workers
-      // Cache stores it under this URL for every visitor.
-      if (shared && !new URL(request.url).search) {
-        const anonymous = shared as Parameters<typeof emdash>[0];
-        return protectEnvironmentResponse(protectDeliveryResponse(shared, await emdash(anonymous, env, ctx), env.SABLY_ENVIRONMENT), env);
-      }
-      if (shared) {
-        const page = await serveSharedPage(shared, sharedCacheKey(shared, (env as VersionedEnvironment).CF_VERSION_METADATA?.id ?? ''), {
-          cache: (caches as unknown as { default: Cache }).default,
-          render: async anonymous => protectDeliveryResponse(anonymous, await emdash(anonymous as Parameters<typeof emdash>[0], env, ctx), env.SABLY_ENVIRONMENT),
+      const kv = (env as VersionedEnvironment).CACHE;
+      // Anonymous pages (also with analytics cookies, reloads or ad click IDs) come
+      // from the global page store when Workers Cache misses in this colo.
+      const anonymous = canCachePublicPage(request, env.SABLY_ENVIRONMENT) ? request : sharedPublicRequest(request, env.SABLY_ENVIRONMENT);
+      if (anonymous && kv) {
+        const page = await servePage(anonymous, {
+          kv, version: (env as VersionedEnvironment).CF_VERSION_METADATA?.id ?? '',
+          render: async r => protectDeliveryResponse(r, await emdash(r as Parameters<typeof emdash>[0], env, ctx), env.SABLY_ENVIRONMENT),
           waitUntil: promise => ctx.waitUntil(promise),
         });
+        // Same URL: Workers Cache keeps it for every visitor. Ad click IDs give each
+        // visit its own URL, so that copy is not stored under the visitor's key.
+        if (!new URL(request.url).search) return protectEnvironmentResponse(protectDeliveryResponse(anonymous, page, env.SABLY_ENVIRONMENT), env);
         return finish(page, { shared: true });
       }
       const response = await handler.fetch(request, env, ctx);
       const tags = env.SABLY_ENVIRONMENT === 'production' ? invalidatedTags(request, response) : [];
       if (tags.length) {
         ctx.waitUntil(import('cloudflare:workers').then(async ({ cache }) => {
-          const result = await cache.purge({ tags });
+          const [result] = await Promise.all([cache.purge({ tags }), kv ? bumpPageGeneration(kv) : undefined]);
           if (!result.success) throw new Error('Cache purge was not accepted');
         }).catch(() => console.error('Public cache invalidation failed; TTL will refresh pages.')));
       }

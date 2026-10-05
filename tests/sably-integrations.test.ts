@@ -18,6 +18,8 @@ test('Tag Manager has one loader and no duplicate direct GA4 or Meta install',()
   assert.match(output,/requestIdleCallback/);assert.match(output,/addEventListener\('load'/);assert.match(output,/GTM-ABCDEFGH/);
   const immediate=JSON.stringify(trackingFragments({...configured,gtmDelay:false},true));
   assert.match(immediate,/gtm\.js/);assert.doesNotMatch(immediate,/requestIdleCallback/);
+  // Cloudflare's Google tag gateway may already have injected the same container.
+  for(const snippet of [output,immediate])assert.match(snippet,/google_tags_first_party/);
   assert.throws(()=>validateUpdates({gtmDelay:'true'}));assert.deepEqual(validateUpdates({gtmDelay:false}),{gtmDelay:false});
   assert.doesNotMatch(output,/gtag\/js|fbevents\.js|G-ABCDEFGHIJ|FAKE_/);
   const direct=JSON.stringify(trackingFragments({...configured,browserMode:'direct'},true));
