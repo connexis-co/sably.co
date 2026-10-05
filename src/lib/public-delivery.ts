@@ -43,7 +43,7 @@ const PERSONAL_COOKIE = /(?:^|;\s*)(?:astro-session|emdash[-_][^=;]*|CF_Authoriz
 export interface DeliveryPolicy {
   /** A permanent redirect produced by Sably's own fast path, safe to share. */
   redirect?: boolean;
-  /** The anonymous page returned through the cached loopback for this request. */
+  /** The anonymous page served from the Worker's Cache API for this request. */
   shared?: boolean;
 }
 
