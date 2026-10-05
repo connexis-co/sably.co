@@ -15,6 +15,7 @@ import * as hotmartWebhook from '../../functions/api/hotmart-webhook.js';
 import * as abandonosNotify from '../../functions/api/v1/abandonos-notify';
 import * as preciosRefresca from '../../functions/api/v1/precios/refresca';
 import { isolatedOperationalDatabase, operationalEnvironmentEnabled, type OperationalBindings } from './operational-environment';
+import { PUBLIC_DATA_BROWSER, PUBLIC_DATA_EDGE } from './public-delivery';
 
 /** DB belongs to EmDash. Only SABLY_DB may be passed to the legacy handlers. */
 export interface LegacyBindings extends OperationalBindings {
@@ -72,10 +73,14 @@ function failure(error: string, status: number, headers?: HeadersInit): Response
   return Response.json({ error }, { status, headers });
 }
 
-function apiResponse(response: Response, environment: string, head = false): Response {
+/** Global, anonymous reads requested by every page; promotions and widget edits purge them. */
+const PUBLIC_DATA_ROUTES = new Set(['v1/config', 'v1/promo']);
+
+function apiResponse(response: Response, environment: string, head = false, shared = false): Response {
   const headers = new Headers(response.headers);
   headers.set('x-robots-tag', 'noindex, nofollow');
-  headers.set('cache-control', 'no-store');
+  headers.set('cache-control', shared ? PUBLIC_DATA_BROWSER : 'no-store');
+  if (shared) headers.set('cloudflare-cdn-cache-control', PUBLIC_DATA_EDGE);
   headers.set('x-sably-environment', environment);
   return new Response(head ? null : response.body, {
     status: response.status,
@@ -98,7 +103,7 @@ export async function dispatchLegacyApi(
   const head = request.method === 'HEAD';
   const environment = bindings.SABLY_ENVIRONMENT;
   const production = environment === 'production';
-  const respond = (response: Response) => apiResponse(response, environment ?? 'unconfigured', head);
+  const respond = (response: Response, shared = false) => apiResponse(response, environment ?? 'unconfigured', head, shared);
   if (!operationalEnvironmentEnabled(bindings, request.url)) {
     return respond(failure('La API no está habilitada para este entorno.', 503));
   }
@@ -172,7 +177,7 @@ export async function dispatchLegacyApi(
       if (typeof payload.stored === 'string' && payload.stored.startsWith('error:')) payload.stored = 'error';
       return respond(Response.json(payload, { status: response.status, headers: response.headers }));
     }
-    return respond(response);
+    return respond(response, method === 'GET' && response.status === 200 && PUBLIC_DATA_ROUTES.has(routePath));
   } catch {
     // Never return database internals, environment values or submitted PII.
     return respond(failure('No se pudo completar la solicitud.', 500));

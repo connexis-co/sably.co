@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { URL as NodeURL } from 'node:url';
 import test from 'node:test';
-import { parseLegacyRedirects, publicCanonicalRedirect, resolveLegacyRedirect,productionOriginRedirect } from '../src/lib/legacy-redirects.ts';
+import { parseLegacyRedirects, publicCanonicalRedirect, resolveLegacyRedirect,productionOriginRedirect, rootCountryRedirect } from '../src/lib/legacy-redirects.ts';
 
 const source = await readFile(new NodeURL('../public/_redirects', import.meta.url), 'utf8');
 const rules = parseLegacyRedirects(source);
@@ -124,4 +124,13 @@ test('leaves the root, canonical documents and non-read methods unchanged', () =
   for (const method of ['POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']) {
     assert.equal(publicCanonicalRedirect(new Request('https://dev.sably.co/contacto', { method })), null, method);
   }
+});
+
+test('the root goes to the default country before EmDash boots, keeping campaign parameters', () => {
+  assert.equal(rootCountryRedirect(request('/'))?.headers.get('location'), 'https://dev.sably.co/co/');
+  assert.equal(rootCountryRedirect(request('/?utm_source=x&gclid=1'))?.headers.get('location'), 'https://dev.sably.co/co/?utm_source=x&gclid=1');
+  assert.equal(rootCountryRedirect(request('/'))?.status, 301);
+  assert.equal(rootCountryRedirect(new Request('https://sably.co/', { method: 'HEAD' }))?.status, 301);
+  for (const path of ['/co/', '/x', '//']) assert.equal(rootCountryRedirect(request(path)), null, path);
+  assert.equal(rootCountryRedirect(new Request('https://sably.co/', { method: 'POST' })), null);
 });

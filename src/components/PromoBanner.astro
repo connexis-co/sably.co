@@ -2,27 +2,35 @@
 /**
  * Barra de promoción con cuenta atrás.
  *
- * Se renderiza OCULTA y sin cifras. Solo aparece si hay promoción vigente, y hay
- * dos fuentes posibles, en este orden:
+ * El servidor pinta la promoción vigente de `/admin/promociones` (D1) con la
+ * misma regla que el navegador: así la barra ya ocupa su sitio en el primer
+ * pintado y no empuja la página hacia abajo cuando llega `GET /api/v1/promo`.
+ * El script vuelve a pedirla al cargar porque el HTML puede venir de la caché
+ * del borde: la confirma, la cambia o la retira, y arranca la cuenta atrás.
+ * Si el endpoint falla se queda con lo que pintó el servidor.
  *
- *   1. El override manual de `/admin/promociones` (D1, vía `GET /api/v1/promo`).
- *   2. El calendario horneado de `src/lib/promo.ts`.
- *
- * El override gana porque es una decisión de hoy y el calendario es de la fecha
- * del despliegue. Si el override viene en modo perpetuo NO se pinta la cuenta
- * atrás: el descuento es real, pero un reloj sin fin sería lo único falso aquí.
+ * Si la promoción es perpetua NO se pinta la cuenta atrás: el descuento es
+ * real, pero un reloj sin fin sería lo único falso aquí.
  *
  * El aspecto lo decide la campaña (`theme`). Todas las clases posibles se emiten
  * en el HTML para que Tailwind las conserve: compuestas en JS, el compilador las
  * eliminaría por no encontrarlas en el código fuente.
  */
-import { CAMPAIGNS } from '@/lib/promo';
+import { env } from 'cloudflare:workers';
+import { CAMPAIGNS, campaignDePromocion, mejorPromocion } from '@/lib/promo';
+import { readActivePromosForRequest } from '@/plugins/sably-operations/public';
 
 interface Props {
   /** `barra` va fija arriba; `bloque` es la sección ancha de la home. */
   variante?: 'barra' | 'bloque';
+  /** País del mercado; por defecto, el primer tramo de la ruta. */
+  pais?: string;
+  /** Proveedor del curso; el navegador usa el mismo valor por defecto. */
+  proveedor?: string;
+  /** Creador sin cupón: no se anuncia ningún descuento. */
+  sinCupon?: boolean;
 }
-const { variante = 'barra' } = Astro.props;
+const { variante = 'barra', pais, proveedor = 'masterclasses', sinCupon = false } = Astro.props;
 
 /* Tailwind necesita ver estas clases literales en el HTML para incluirlas. */
 const clasesUsadas = [
@@ -39,6 +47,24 @@ const UNIDADES = [
   ['m', 'Min'],
   ['s', 'Seg'],
 ] as const;
+
+/* Mismo contexto que reconstruye el script: país, proveedor, slug y ?promo=. */
+const tramos = Astro.url.pathname.split('/').filter(Boolean);
+const paisPagina = (pais ?? (/^[a-z]{2}$/.test(tramos[0] ?? '') ? tramos[0]! : 'co')).toLowerCase();
+const promos = sinCupon
+  ? []
+  : await readActivePromosForRequest((env as unknown as { SABLY_DB: D1Database }).SABLY_DB, Astro.locals).catch(() => []);
+const elegida = mejorPromocion(promos, {
+  countryCode: paisPagina,
+  proveedor,
+  courseSlug: tramos.find((t) => t.startsWith('curso-')),
+  urlKey: Astro.url.searchParams.get('promo'),
+});
+const inicial = elegida ? campaignDePromocion(elegida) : null;
+const tema = inicial?.theme;
+const titular = inicial ? (inicial.titular ?? inicial.label) : '';
+const pct = inicial ? `−${inicial.discountPct}%` : '';
+const ssr = inicial ? JSON.stringify(inicial) : undefined;
 ---
 
 <div data-tw-safelist class:list={clasesUsadas} hidden aria-hidden="true"></div>
@@ -48,30 +74,31 @@ const UNIDADES = [
     <div
       data-promo-barra
       data-campaigns={JSON.stringify(CAMPAIGNS)}
-      hidden
-      class="relative z-40 w-full"
+      data-promo-ssr={ssr}
+      hidden={!inicial}
+      class:list={['relative z-40 w-full', tema?.fondo, tema?.texto]}
       role="region"
       aria-label="Promoción por tiempo limitado"
     >
-      <div data-promo-filete class="h-0.5 w-full" />
+      <div data-promo-filete class:list={['h-0.5 w-full', tema?.filete]} />
       <div class="container-site flex flex-col items-center justify-center gap-x-5 gap-y-2 py-2.5 text-center sm:flex-row sm:py-2 sm:text-left">
         <p class="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1">
           <span
             data-promo-gorro
             class="text-[10px] font-bold tracking-[0.14em] uppercase opacity-55"
-          />
-          <span data-promo-titular class="text-sm font-semibold sm:text-[15px]" />
+          >{inicial?.label}</span>
+          <span data-promo-titular class="text-sm font-semibold sm:text-[15px]">{titular}</span>
           <span
             data-promo-pct
-            class="rounded px-1.5 py-0.5 text-[13px] font-extrabold tabular-nums"
-          />
+            class:list={['rounded px-1.5 py-0.5 text-[13px] font-extrabold tabular-nums', tema?.acento]}
+          >{pct}</span>
         </p>
 
-        <div data-promo-reloj class="flex items-center gap-1.5">
+        <div data-promo-reloj class="flex items-center gap-1.5" hidden={!!inicial && !inicial.endsAt}>
           <span class="text-[11px] tracking-wide opacity-55">Termina en</span>
           <span class="flex items-center gap-1 font-mono text-[13px] font-semibold tabular-nums">
             {UNIDADES.map(([u]) => (
-              <span data-u={u} class="min-w-[1.9rem] rounded px-1 py-0.5 text-center">
+              <span data-u={u} class:list={['min-w-[1.9rem] rounded px-1 py-0.5 text-center', tema?.caja]}>
                 --
               </span>
             ))}
@@ -81,11 +108,11 @@ const UNIDADES = [
         <button
           type="button"
           data-promo-cupon
-          class="group inline-flex items-center gap-1.5 rounded px-2 py-1 text-[12px] transition hover:brightness-125"
+          class:list={['group inline-flex items-center gap-1.5 rounded px-2 py-1 text-[12px] transition hover:brightness-125', tema?.caja]}
           title="Copiar el código"
         >
           <span class="opacity-60">Cupón</span>
-          <span data-promo-codigo class="font-mono font-bold tracking-[0.08em]" />
+          <span data-promo-codigo class="font-mono font-bold tracking-[0.08em]">{inicial?.couponCode}</span>
           <span data-promo-copiado class="hidden font-semibold opacity-80">copiado</span>
         </button>
       </div>
@@ -94,37 +121,39 @@ const UNIDADES = [
     <section
       data-promo-bloque
       data-campaigns={JSON.stringify(CAMPAIGNS)}
-      hidden
+      data-promo-ssr={ssr}
+      hidden={!inicial}
+      class:list={[tema?.fondo, tema?.texto]}
       aria-label="Promoción por tiempo limitado"
     >
-      <div data-promo-filete class="h-0.5 w-full" />
+      <div data-promo-filete class:list={['h-0.5 w-full', tema?.filete]} />
       <div class="container-site flex flex-col items-center gap-8 py-12 text-center lg:flex-row lg:justify-between lg:text-left">
         <div class="max-w-xl">
           <p
             data-promo-gorro
             class="text-[11px] font-bold tracking-[0.18em] uppercase opacity-55"
-          />
-          <h2 data-promo-titular class="mt-2.5 text-2xl font-bold sm:text-[32px] sm:leading-tight" />
+          >{inicial?.label}</p>
+          <h2 data-promo-titular class:list={['mt-2.5 text-2xl font-bold sm:text-[32px] sm:leading-tight', tema?.texto]}>{titular}</h2>
           <p class="mt-3.5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-[15px] lg:justify-start">
-            <span data-promo-pct class="rounded px-2 py-0.5 font-extrabold tabular-nums" />
+            <span data-promo-pct class:list={['rounded px-2 py-0.5 font-extrabold tabular-nums', tema?.acento]}>{pct}</span>
             <span class="opacity-75">en todos los cursos con el cupón</span>
             <button
               type="button"
               data-promo-cupon
-              class="rounded px-2 py-0.5 font-mono font-bold tracking-[0.08em] transition hover:brightness-125"
+              class:list={['rounded px-2 py-0.5 font-mono font-bold tracking-[0.08em] transition hover:brightness-125', tema?.caja]}
               title="Copiar el código"
             >
-              <span data-promo-codigo />
+              <span data-promo-codigo>{inicial?.couponCode}</span>
               <span data-promo-copiado class="hidden text-[11px] font-semibold"> copiado</span>
             </button>
           </p>
         </div>
 
         <div class="flex flex-col items-center gap-5">
-          <div data-promo-reloj class="flex gap-2" role="timer">
+          <div data-promo-reloj class="flex gap-2" role="timer" hidden={!!inicial && !inicial.endsAt}>
             {UNIDADES.map(([u, etiqueta]) => (
-              <div class="flex w-[4.25rem] flex-col items-center rounded-lg py-2.5" data-caja>
-                <span data-u={u} class="font-display text-[26px] leading-none font-extrabold tabular-nums">
+              <div class:list={['flex w-[4.25rem] flex-col items-center rounded-lg py-2.5', tema?.caja]} data-caja>
+                <span data-u={u} class:list={['font-display text-[26px] leading-none font-extrabold tabular-nums', tema?.caja]}>
                   --
                 </span>
                 <span class="mt-1.5 text-[10px] tracking-[0.1em] uppercase opacity-50">{etiqueta}</span>
@@ -133,8 +162,8 @@ const UNIDADES = [
           </div>
           <a
             data-promo-cta
-            href="#"
-            class="rounded-md px-7 py-3 text-sm font-bold transition hover:brightness-110"
+            href={inicial ? `/${paisPagina}/cursos/` : '#'}
+            class:list={['rounded-md px-7 py-3 text-sm font-bold transition hover:brightness-110', tema?.acento]}
           >
             Ver cursos con descuento
           </a>
@@ -147,14 +176,39 @@ const UNIDADES = [
 <script>
   import {
     campaignDePromocion,
+    cargarPromos,
     formatCountdown,
-    leerPromos,
     mejorPromocion,
     msRestantes,
     type PromoCampaign,
+    type PromoTheme,
   } from '@/lib/promo';
 
   type Pintable = Omit<PromoCampaign, 'endsAt'> & { endsAt: string | null };
+
+  /** La campaña que dejó pintada el servidor (o un pintado anterior), si hay. */
+  const pintada = (el: HTMLElement): Pintable | null => {
+    try {
+      return el.dataset.promoSsr ? (JSON.parse(el.dataset.promoSsr) as Pintable) : null;
+    } catch {
+      return null;
+    }
+  };
+
+  /** Pone o quita las clases de un tema en los mismos nodos, en ambas variantes. */
+  function aplicarTema(el: HTMLElement, tema: PromoTheme, accion: 'add' | 'remove'): void {
+    const op = (n: Element, cls?: string) => cls && n.classList[accion](...cls.split(' '));
+    const en = (sel: string, cls?: string) => el.querySelectorAll(sel).forEach((n) => op(n, cls));
+    op(el, tema.fondo);
+    op(el, tema.texto);
+    // El CSS base fija `color` en h1..h4, y una regla explícita gana a la
+    // herencia del contenedor: sin esto el titular sale azul marino sobre el
+    // fondo negro de Black Friday y no se lee.
+    en('h2', tema.texto);
+    en('[data-promo-filete]', tema.filete);
+    en('[data-u],[data-caja],[data-promo-cupon]', tema.caja);
+    en('[data-promo-pct],[data-promo-cta]', tema.acento);
+  }
 
   const nodos = document.querySelectorAll<HTMLElement>('[data-promo-barra],[data-promo-bloque]');
   /* En una página de un creador sin cupón el banner NO se pinta.
@@ -172,12 +226,21 @@ const UNIDADES = [
     const courseSlug = tramos.find((t) => t.startsWith('curso-'));
 
     // EmDash es la fuente del calendario. Sin promoción vigente no se anuncia descuento.
-    leerPromos().then((promos) => {
+    cargarPromos().then((promos) => {
+      if (promos === null) {
+        // Sin respuesta no se sabe si cambió: se queda lo del servidor, con reloj.
+        nodos.forEach((el) => {
+          const previa = pintada(el);
+          if (previa) pintar(el, previa);
+        });
+        return;
+      }
       const p = mejorPromocion(promos, { countryCode: pais, proveedor, courseSlug, urlKey });
       const manual = p && campaignDePromocion(p);
-      if (manual) {
-        nodos.forEach((el) => pintar(el, manual));
-      }
+      nodos.forEach((el) => {
+        if (manual) pintar(el, manual);
+        else el.hidden = true;
+      });
     });
   }
 
@@ -185,19 +248,12 @@ const UNIDADES = [
     const tema = promo.theme;
     const poner = (sel: string, txt: string) =>
       el.querySelectorAll<HTMLElement>(sel).forEach((n) => (n.textContent = txt));
-    const clases = (sel: string, cls?: string) =>
-      cls && el.querySelectorAll<HTMLElement>(sel).forEach((n) => n.classList.add(...cls.split(' ')));
 
-    if (tema) {
-      el.classList.add(...tema.fondo.split(' '), ...tema.texto.split(' '));
-      // El CSS base fija `color` en h1..h4, y una regla explícita gana a la
-      // herencia del contenedor: sin esto el titular sale azul marino sobre el
-      // fondo negro de Black Friday y no se lee.
-      clases('h2', tema.texto);
-      clases('[data-promo-filete]', tema.filete);
-      clases('[data-u],[data-caja],[data-promo-cupon]', tema.caja);
-      clases('[data-promo-pct],[data-promo-cta]', tema.acento);
-    }
+    // La caché del borde puede traer otra campaña pintada: primero se retira su tema.
+    const previa = pintada(el);
+    if (previa?.theme && previa.id !== promo.id) aplicarTema(el, previa.theme, 'remove');
+    if (tema) aplicarTema(el, tema, 'add');
+    el.dataset.promoSsr = JSON.stringify(promo);
 
     poner('[data-promo-gorro]', promo.label);
     poner('[data-promo-titular]', promo.titular ?? promo.label);

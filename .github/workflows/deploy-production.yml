@@ -90,6 +90,11 @@ jobs:
       - name: Verify public HTTPS and legacy destinations from the runner
         if: ${{ inputs.publish }}
         run: node scripts/verify-production-seo.mjs
+      - name: Warm the new version's edge cache with every sitemap page
+        if: ${{ inputs.publish }}
+        continue-on-error: true
+        timeout-minutes: 15
+        run: node scripts/warm-public-cache.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -98,4 +103,5 @@ jobs:
             dist/sably-build.json
             dist/sably-release.json
             dist/production-seo-probe.json
+            dist/cache-warm.json
           retention-days: 90

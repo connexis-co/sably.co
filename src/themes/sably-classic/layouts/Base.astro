@@ -2,7 +2,7 @@
 import '@/styles/global.css';
 import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import outfitFont from '@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2?url';
-import { canCachePublicPage, PUBLIC_PAGE_TAGS, PUBLIC_PAGE_TTL } from '@/lib/public-delivery';
+import { canCachePublicPage, PUBLIC_PAGE_SWR, PUBLIC_PAGE_TAGS, PUBLIC_PAGE_TTL } from '@/lib/public-delivery';
 import { EmDashBodyStart, EmDashBodyEnd, WidgetArea } from 'emdash/ui';
 import { createPublicPageContext } from 'emdash/page';
 import { getSeoMeta, type PublicPageContext } from 'emdash';
@@ -97,7 +97,7 @@ const seo = getSeoMeta({ data: { seo: Astro.locals.sablySeo } }, {
 });
 const development = import.meta.env.SITE?.replace(/\/+$/, '') !== 'https://sably.co';
 if (canCachePublicPage(Astro.request, development ? 'development' : 'production')) {
-  Astro.cache.set({ maxAge: PUBLIC_PAGE_TTL, tags: PUBLIC_PAGE_TAGS });
+  Astro.cache.set({ maxAge: PUBLIC_PAGE_TTL, swr: PUBLIC_PAGE_SWR, tags: PUBLIC_PAGE_TAGS });
 } else Astro.cache.set(false);
 for (const font of [interFont, outfitFont]) Astro.response.headers.append('Link', `<${font}>; rel=preload; as=font; type="font/woff2"; crossorigin`);
 const pageContext = { ...createPublicPageContext({
@@ -139,7 +139,7 @@ const pageContext = { ...createPublicPageContext({
     >
       Saltar al contenido
     </a>
-    <PromoBanner variante="barra" />
+    <PromoBanner variante="barra" pais={country.code} {proveedor} {sinCupon} />
     <Header {country} {city} {pathAfterCountry} />
     <WidgetArea name="header_after" />
     <main id="main">
