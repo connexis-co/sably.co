@@ -61,6 +61,8 @@ export async function pagesUrls():Promise<UrlEntry[]> {
  }
  for(const program of programs.filter(p=>preferred(p,`/homologaciones/${p.slug}/`))) urls.push(u(`/homologaciones/${program.slug}/`,program.updatedAt));
  if(programs.length) urls.push(u('/homologaciones/',latest(programs)));
+ const watchCourses=courses.filter(course=>courseWatch(course,SITE.url,CDN_URL));
+ if(watchCourses.length) urls.push(u('/videos/',latest(watchCourses)));
  urls.push(u('/sitemap/',latest([...countries,...courses,...posts,...pages,...programs])));
  return urls;
 }
@@ -90,14 +92,15 @@ export async function blogUrls():Promise<UrlEntry[]> {
  const posts=(await (await getContentRepository()).getBlogPosts()).filter(post=>preferred(post,`/blog/${post.id}/`));
  return [...(posts.length?[u('/blog/',latest(posts))]:[]),...posts.map(post=>u(`/blog/${post.id}/`,post.updatedAt))];
 }
-// This legacy discovery endpoint remains available, excluded from the index;
-// it mirrors existing Googlebot noindex + country canonical city policy.
+// Legacy discovery endpoint, excluded from the canonical sitemap index.
+// Previously advertised noindex city hubs; it now returns their consolidated targets.
 export const SITEMAPS_TEMPORALES=['temporal-ciudades-noindex'];
 export async function ciudadesNoindexUrls():Promise<UrlEntry[]> {
  const cms=await getContentRepository();const [countries,categories]=await Promise.all([cms.getCountries(),cms.getCategories()]);
- return countries.flatMap(country=>country.cities.flatMap(city=>{
-  const root=`/${country.code}/${city.slug}`;return [u(`${root}/`,country.updatedAt),u(`${root}/cursos/`,country.updatedAt),...categories.filter(c=>!c.externalUrl).map(c=>u(`${root}/cursos/${c.slug}/`,latest([country,c])))];
- }));
+ return countries.filter(indexable).flatMap(country=>[
+  ...[`/${country.code}/`,`/${country.code}/cursos/`].filter(path=>preferred(country,path)).map(path=>u(path,country.updatedAt)),
+  ...categories.filter(category=>!category.externalUrl&&preferred(category,`/${country.code}/cursos/${category.slug}/`)).map(category=>u(`/${country.code}/cursos/${category.slug}/`,latest([country,category]))),
+ ]);
 }
 
 export function renderUrlset(urls: UrlEntry[]): string {
