@@ -219,7 +219,7 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
 <!-- Drawer mobile: FUERA del header — el backdrop-blur del header crea un
      containing block que rompería position:fixed de sus descendientes.
      Navegación multi-nivel con paneles deslizantes (patrón aprende.com). -->
-<div id="mobile-drawer" data-drawer class="pointer-events-none fixed inset-0 z-[60] lg:hidden" aria-hidden="true">
+<div id="mobile-drawer" data-drawer class="invisible pointer-events-none fixed inset-0 z-[60] lg:hidden" aria-hidden="true" inert>
   <div
     data-drawer-backdrop
     class="absolute inset-0 bg-ink/50 opacity-0 backdrop-blur-sm transition-opacity duration-[380ms] ease-out"
@@ -275,7 +275,7 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
       </div>
 
       <!-- Nivel 2: programas -->
-      <div data-mnav-panel="programas" class="absolute inset-0 translate-x-full overflow-y-auto overscroll-contain p-4 transition-transform duration-[380ms] ease-[cubic-bezier(0.32,0.72,0,1)] will-change-transform">
+      <div data-mnav-panel="programas" inert class="invisible absolute inset-0 translate-x-full overflow-y-auto overscroll-contain p-4 transition-transform duration-[380ms] ease-[cubic-bezier(0.32,0.72,0,1)]">
         <button type="button" data-mnav-back="main" class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-accent">
           ‹ Volver
         </button>
@@ -330,7 +330,8 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
         INTERNAL_CATEGORIES.map((cat) => (
           <div
             data-mnav-panel={`cat-${cat.slug}`}
-            class="absolute inset-0 translate-x-full overflow-y-auto overscroll-contain p-4 transition-transform duration-[380ms] ease-[cubic-bezier(0.32,0.72,0,1)] will-change-transform"
+            inert
+            class="invisible absolute inset-0 translate-x-full overflow-y-auto overscroll-contain p-4 transition-transform duration-[380ms] ease-[cubic-bezier(0.32,0.72,0,1)]"
           >
             <button type="button" data-mnav-back="programas" class="mb-3 flex items-center gap-1.5 text-sm font-semibold text-accent">
               ‹ Volver
@@ -426,6 +427,9 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
     const close = openBtn?.querySelector('[data-icon-close]');
 
     const toggle = (open: boolean) => {
+      const restoreFocus = !open && drawer.contains(document.activeElement);
+      drawer.inert = !open;
+      drawer.classList.toggle('invisible', !open);
       drawer.classList.toggle('pointer-events-none', !open);
       drawer.setAttribute('aria-hidden', String(!open));
       backdrop?.classList.toggle('opacity-0', !open);
@@ -438,10 +442,14 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
       if (!open) {
         drawer.querySelectorAll<HTMLElement>('[data-mnav-panel]').forEach((pn) => {
           const main = pn.dataset.mnavPanel === 'main';
+          pn.inert = !main;
+          pn.classList.toggle('invisible', !main);
           pn.classList.toggle('translate-x-full', !main);
           pn.classList.remove('-translate-x-full');
         });
       }
+      if (open) drawer.querySelector<HTMLButtonElement>('[data-drawer-close]')?.focus();
+      else if (restoreFocus) openBtn?.focus();
     };
     const isOpen = () => !drawer.classList.contains('pointer-events-none');
 
@@ -457,11 +465,14 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
     const showPanel = (id: string, direction: 'forward' | 'back') => {
       panels.forEach((pn) => {
         const isTarget = pn.dataset.mnavPanel === id;
+        pn.inert = !isTarget;
+        pn.classList.toggle('invisible', !isTarget);
         pn.classList.toggle('translate-x-full', !isTarget && direction === 'back');
         pn.classList.toggle('-translate-x-full', !isTarget && direction === 'forward');
         if (isTarget) {
           pn.classList.remove('translate-x-full', '-translate-x-full');
           pn.scrollTop = 0;
+          pn.querySelector<HTMLElement>('button, a[href]')?.focus();
         }
       });
     };
