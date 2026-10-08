@@ -31,25 +31,23 @@ const benefits = editorial.benefits.groups.map(group=>{const [icon,...title]=gro
   pageType="home"
 >
   <!-- Hero -->
-  <section class="relative overflow-hidden bg-primary">
-    <div class="absolute -top-24 -right-24 size-96 rounded-full bg-accent/20 blur-3xl" aria-hidden="true"></div>
-    <div class="absolute -bottom-32 -left-16 size-80 rounded-full bg-info/10 blur-3xl" aria-hidden="true"></div>
+  <section class="home-hero relative overflow-hidden bg-primary">
     <div class="container-site relative grid items-center gap-6 py-12 sm:py-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)] lg:gap-10 lg:py-24">
       <div class="max-w-2xl">
-        <p class="animate-fade-up text-sm font-bold tracking-wide text-accent uppercase">
+        <p class="text-sm font-bold tracking-wide text-accent-on-dark uppercase">
           {country.flag} {copy.hero.eyebrow}
         </p>
-        <h1 class="animate-fade-up mt-4 text-4xl leading-tight font-extrabold text-white sm:text-5xl">
+        <h1 class="mt-4 text-4xl leading-tight font-extrabold text-white sm:text-5xl">
           {copy.hero.title}<br />
-          <span class="text-accent">{copy.hero.accent}</span>
+          <span class="text-accent-on-dark">{copy.hero.accent}</span>
         </h1>
-        <p class="animate-fade-up mt-5 max-w-xl text-lg text-white/80" style="animation-delay: 0.1s">
+        <p class="mt-5 max-w-xl text-lg text-white/80">
           {copy.hero.description}
         </p>
-        <div class="animate-fade-up mt-8 flex flex-wrap gap-3" style="animation-delay: 0.2s">
+        <div class="mt-8 flex flex-wrap gap-3">
           <a
             href={`${base}/cursos/`}
-            class="animate-pulse-soft rounded-md bg-accent px-6 py-3.5 font-bold text-white transition hover:bg-accent-hover"
+            class="rounded-md bg-accent px-6 py-3.5 font-bold text-white transition hover:bg-accent-hover"
           >
             {copy.hero.button}
           </a>
@@ -69,7 +67,6 @@ const benefits = editorial.benefits.groups.map(group=>{const [icon,...title]=gro
            En móvil va debajo del texto y algo más ancho que el contenedor para
            que se sienta inmersivo sin empujar el CTA fuera del pliegue. -->
       <div class="relative -mx-4 mt-2 sm:mx-0 lg:mt-0">
-        <div class="absolute inset-x-4 inset-y-0 -z-10 rounded-full bg-accent/15 blur-3xl" aria-hidden="true"></div>
         <OptimizedImage
           sizes="(min-width: 1024px) 600px, (min-width: 640px) 512px, 100vw"
           src={cmsImageUrl(country.heroImage) ?? `${CDN_URL}/heroes/${HERO_ASSETS[country.code]}`}
@@ -78,7 +75,7 @@ const benefits = editorial.benefits.groups.map(group=>{const [icon,...title]=gro
           height={491}
           fetchpriority="high"
           decoding="async"
-          class="animate-fade-up mx-auto w-full max-w-md drop-shadow-2xl sm:max-w-lg lg:max-w-none"
+          class="mx-auto w-full max-w-md sm:max-w-lg lg:max-w-none lg:drop-shadow-2xl"
         />
       </div>
     </div>

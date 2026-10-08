@@ -46,7 +46,10 @@ for(const url of new Set(preferred)){
  const r=await fetch(url,{redirect:'manual',signal:AbortSignal.timeout(30000)});
  const html=await r.text();
  htmlRows.push(verifyIndexableHtml(url,r.status,r.headers,html));
- if(url==='https://sably.co/co/')assert.match(html,/href=["']\/videos\/["']/,'The home must serve the new version with its video library link');
+ if(url==='https://sably.co/co/'){
+  assert.match(html,/href=["']\/videos\/["']/,'The home must serve the new version with its video library link');
+  assert.match(html,/class="home-hero /,'The home must serve the mobile render update');
+ }
 }
 // City content stays public for AI referrals; Google consolidates through canonical alone.
 const cityRows=[];

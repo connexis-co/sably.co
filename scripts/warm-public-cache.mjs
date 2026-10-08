@@ -1,4 +1,5 @@
 import {mkdir,writeFile} from 'node:fs/promises';
+import {warmPublicTargets} from './warm-public-targets.mjs';
 
 /**
  * Post-deploy warm-up. Each Worker version starts with an empty Workers Cache,
@@ -31,35 +32,19 @@ for(const sitemap of index){
 const rank=url=>{const path=new URL(url).pathname;return /^\/[a-z]{2}\/(?:cursos\/)?$/.test(path)?0:path.startsWith('/co/')?1:2;};
 const targets=[`${ORIGIN}/api/v1/promo`,`${ORIGIN}/api/v1/config`,...[...pages].sort((a,b)=>rank(a)-rank(b))];
 
-const rows=[];let next=0;
-async function worker(){
- while(next<targets.length){
-  const url=targets[next++];const started=performance.now();
-  try{
-   // Tracking parameters bypass an existing edge entry while preserving the
-   // anonymous global key. A plain HIT alone may leave this version's KV page
-   // absent, making the first ChatGPT/referral visit pay for a complete render.
-   const globalUrl=new URL(url);
-   let store=null;
-   if(pages.has(url)){
-    globalUrl.searchParams.set('utm_source','sably-cache-warmup');
-    const globalResponse=await fetch(globalUrl,{headers,redirect:'manual',signal:AbortSignal.timeout(60000)});
-    await globalResponse.arrayBuffer();
-    if(globalResponse.status!==200)throw new Error(`Global page warm-up: ${globalResponse.status}`);
-    store=globalResponse.headers.get('x-sably-store');
-   }
-   const response=await fetch(url,{headers,redirect:'manual',signal:AbortSignal.timeout(60000)});
-   await response.arrayBuffer();
-   rows.push({url,status:response.status,store,cache:response.headers.get('cf-cache-status'),ms:Math.round(performance.now()-started)});
-  }catch(error){rows.push({url,status:0,error:error.message,ms:Math.round(performance.now()-started)});}
- }
-}
-await Promise.all(Array.from({length:Math.min(CONCURRENCY,targets.length)},worker));
+await mkdir('dist',{recursive:true});
+// Global variants bypass an existing edge HIT. Finish that phase before plain
+// requests, so a cached absent KV read does not cause an immediate second render.
+let checkpoint=Promise.resolve();
+const rows=await warmPublicTargets({targets,pageUrls:[...pages],concurrency:CONCURRENCY,headers,onProgress:progress=>{
+ console.log(JSON.stringify({phase:progress.phase,completed:progress.completed,total:progress.total}));
+ checkpoint=checkpoint.then(()=>writeFile('dist/cache-warm.json',JSON.stringify({checkedAt:new Date().toISOString(),complete:false,origin:ORIGIN,...progress},null,2)));
+ return checkpoint;
+}});
 
 const ms=rows.map(r=>r.ms).sort((a,b)=>a-b);
 const at=p=>ms[Math.min(ms.length-1,Math.floor(p*ms.length))]??0;
 const count=key=>Object.fromEntries(Object.entries(Object.groupBy(rows,r=>String(r[key]))).map(([k,v])=>[k,v.length]));
-const summary={checkedAt:new Date().toISOString(),origin:ORIGIN,requested:rows.length,status:count('status'),cache:count('cache'),p50:at(.5),p95:at(.95),failures:rows.filter(r=>r.status!==200).slice(0,50)};
-await mkdir('dist',{recursive:true});
+const summary={checkedAt:new Date().toISOString(),complete:true,origin:ORIGIN,requested:rows.length,httpRequests:targets.length+pages.size,globalPages:pages.size,status:count('status'),cache:count('cache'),store:count('store'),p50:at(.5),p95:at(.95),failures:rows.filter(r=>r.status!==200||(r.globalStatus!==undefined&&r.globalStatus!==200)).slice(0,50)};
 await writeFile('dist/cache-warm.json',JSON.stringify({...summary,rows},null,2));
 console.log(JSON.stringify(summary));
