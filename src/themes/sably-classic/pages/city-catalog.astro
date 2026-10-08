@@ -8,7 +8,7 @@ type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
 const {country, city, base, raiz, courses, byCategory, title, description, schemas} = Astro.props;
 ---
 
-<BaseLayout {title} {description} {country} pathAfterCountry={`/${city.slug}/cursos/`} canonical={`${SITE.url}${base}/cursos/`} {schemas} pageType="catalog" noindexGoogle>
+<BaseLayout {title} {description} {country} pathAfterCountry={`/${city.slug}/cursos/`} canonical={`${SITE.url}${base}/cursos/`} {schemas} pageType="catalog">
   <section class="bg-primary py-14">
     <div class="container-site">
       <nav aria-label="Breadcrumb" class="text-sm text-white/60">

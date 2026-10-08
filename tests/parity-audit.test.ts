@@ -83,7 +83,18 @@ test('video sitemap uses one watch URL and matching native thumbnail, never eigh
  const video=(await sitemap.videosUrls()).find((u:{loc:string})=>u.loc.endsWith('/curso-de-barberia/'));
  assert.equal(video.loc,'https://dev.sably.co/videos/curso-de-barberia/');
  assert.equal(video.video.miniatura,'https://dev.sably.co/_emdash/api/media/file/cover.webp');
+ assert.ok((await sitemap.pagesUrls()).some((u:{loc:string})=>u.loc==='https://dev.sably.co/videos/'),'The video library must be discoverable through the canonical sitemap');
  for(const code of ['co','mx'])assert.ok((await sitemap.cursosUrls(code)).every((u:{video?:unknown})=>!u.video));
+});
+
+test('the legacy city sitemap now advertises preferred country targets rather than excluded duplicates',async()=>{
+ const {cms}=fixture(),sitemap=sitemapModule(cms);
+ const urls=await sitemap.ciudadesNoindexUrls();
+ const paths=urls.map((u:{loc:string})=>new URL(u.loc).pathname);
+ assert.equal(paths.length,new Set(paths).size);
+ assert.equal(paths.length,112);
+ assert.ok(paths.includes('/co/')&&paths.includes('/co/cursos/')&&paths.includes('/co/cursos/bienestar/'));
+ assert.ok(paths.every((path:string)=>/^\/[a-z]{2}\/(?:cursos\/(?:[^/]+\/)?)?$/.test(path)));
 });
 
 test('empty creators stay out of the sitemap and an editorial course reference enables their profile',async()=>{

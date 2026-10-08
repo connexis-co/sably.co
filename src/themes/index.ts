@@ -27,3 +27,4 @@ export { default as Comments } from './sably-classic/components/Comments.astro';
 export {default as RelatedGuides} from './sably-classic/components/RelatedGuides.astro';
 export {default as VerifiedReviews} from './sably-classic/components/VerifiedReviews.astro';
 export {default as CourseWatchView} from './sably-classic/pages/course-watch.astro';
+export {default as VideoLibraryView} from './sably-classic/pages/video-library.astro';
