@@ -12,14 +12,15 @@
 
   --color-primary: #1b1b3a;
   --color-primary-soft: #2a2a52;
-  --color-accent: #e8456b;
-  --color-accent-hover: #d13558;
+  --color-accent: #c92c52;
+  --color-accent-hover: #b82347;
+  --color-accent-on-dark: #ff809f;
   --color-accent-soft: #fdeef2;
   --color-off-white: #f8f9fc;
   --color-surface-100: #f1f3f7;
   --color-surface-200: #e2e6ed;
   --color-surface-300: #c5cbd6;
-  --color-muted: #8d95a3;
+  --color-muted: #626b7a;
   --color-body: #4a5568;
   --color-heading: #2d3748;
   --color-ink: #0f0f1a;
@@ -34,19 +35,7 @@
 
   --container-site: 1366px;
 
-  --animate-pulse-soft: pulse-soft 3s ease-in-out infinite;
   --animate-slide-in-right: slide-in-right 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
-  --animate-fade-up: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
-
-  @keyframes pulse-soft {
-    0%,
-    100% {
-      box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-accent) 45%, transparent);
-    }
-    50% {
-      box-shadow: 0 0 0 10px transparent;
-    }
-  }
   @keyframes slide-in-right {
     from {
       opacity: 0;
@@ -57,16 +46,13 @@
       transform: translateX(0);
     }
   }
-  @keyframes fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(14px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+}
+
+/* Paint the first screen once: no opacity gate or large blurred filter layers. */
+.home-hero {
+  background-image:
+    radial-gradient(ellipse at 100% 0%, #e8456b30, transparent 55%),
+    radial-gradient(ellipse at 0% 100%, #3b82f61a, transparent 50%);
 }
 
 @layer base {

@@ -50,6 +50,12 @@ En producción, `/_astro/*` y los archivos públicos de marca y fotos (`/brand/`
 
 Las fuentes Inter y Outfit se alojan en el mismo dominio, mantienen `font-display: swap` y los caracteres latinos y latinos extendidos. Se precargan las dos fuentes utilizadas en la primera pantalla; sus cabeceras `Link` son compatibles con Early Hints si la zona lo tiene habilitado. La carga inicial de datos de portada y de WhatsApp evita esperas secuenciales entre consultas independientes.
 
+### Primer render móvil, 8 de octubre
+
+[PageSpeed móvil de partida](https://pagespeed.web.dev/analysis/https-sably-co-co/1buctadr16?form_factor=mobile), sobre la versión `a03c17d`: rendimiento 63, FCP 1,7 s, LCP 7,4 s, bloqueo total 400 ms y CLS 0 (laboratorio, Moto G Power/4G lenta; sin datos de campo suficientes). En esa ejecución el LCP fue el texto de valoraciones/disponibilidad, con demora de renderizado; el HTML transfirió 30,4 KiB y el CSS 14,7 KiB. El informe identifica 336,3 KiB de JavaScript de Google servidos por `/jsrs/`, además de Meta y Clarity.
+
+La portada entrega ahora el título, introducción, botones e imagen sin animaciones que empiezan con `opacity: 0`. Se elimina la animación continua de `box-shadow` del botón (el informe detectó pintura no compuesta) y los filtros de desenfoque grandes se sustituyen por gradientes. El menú cerrado y sus paneles inactivos llevan `inert` y quedan invisibles; los enlaces siguen en HTML y al abrir el menú se activan los controles del panel actual. Se ajusta el contraste de texto/CTA y se describe el enlace de afiliación. No se retiran páginas locales, robots, seguimiento ni parámetros de referencia. El efecto en LCP se debe medir de nuevo después de publicar; quitar una animación no garantiza por sí solo un tiempo concreto.
+
 ## Etiquetas de terceros y navegación
 
 GTM y lo que carga (GA4 por la pasarela de Google, píxel de Meta, Clarity) suman unos 600 KB de JavaScript. Con «Cargar Tag Manager después de la página» (activado por defecto en **Sably · integraciones**) el contenedor se carga tras `load` y un momento libre del navegador, o con la primera interacción si llega antes. Los eventos empujados antes quedan en `dataLayer` y GTM los procesa al arrancar; `gclid` y `fbclid` siguen en la URL. Es el mismo criterio aplicado en Sovialis.
