@@ -305,17 +305,10 @@ const description = city
     ? recortarDesc(`Desde ${country.name}: ${descPais}`)
     : recortarDesc(descPais);
 
-const breadcrumb = city
-  ? [
-      { name: 'Inicio', url: `${SITE.url}${base}/` },
-      { name: city.name, url: `${SITE.url}${base}/${city.slug}/` },
-      { name: category.name, url: `${SITE.url}${base}/${city.slug}/cursos/${category.slug}/` },
-      { name: course.data.title, url: pageUrl },
-    ]
-  : [
+const breadcrumb = [
       { name: 'Inicio', url: `${SITE.url}${base}/` },
       { name: category.name, url: `${SITE.url}${base}/cursos/${category.slug}/` },
-      { name: course.data.title, url: pageUrl },
+      { name: course.data.title, url: canonicalUrl },
     ];
 
 const schemas = [

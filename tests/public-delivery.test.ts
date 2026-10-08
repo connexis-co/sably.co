@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
+import { rootCountryRedirect } from '../src/lib/legacy-redirects';
 import {
   canCachePublicPage, invalidatedTags, pageMaxAge, protectDeliveryResponse, sharedPublicRequest,
   MEDIA_TAG, PUBLIC_DATA_EDGE, PUBLIC_PAGE_TAG,
@@ -83,6 +84,19 @@ test('editors, previews, campaigns and private paths keep their personal render'
   for (const [path, headers] of cases) assert.equal(sharedPublicRequest(request(path, headers), 'production'), null, `${path} ${JSON.stringify(headers)}`);
   assert.equal(sharedPublicRequest(request('/co/', { cookie: '_ga=1' }), 'development'), null);
   assert.equal(sharedPublicRequest(new Request('https://sably.co/co/', { method: 'POST', headers: { cookie: '_ga=1' } }), 'production'), null);
+});
+
+test('ChatGPT referrals retain attribution through the country redirect and anonymous cache', () => {
+  const query = '?utm_source=chatgpt.com&utm_medium=referral';
+  const incoming = request('/' + query);
+  const redirect = rootCountryRedirect(incoming);
+  assert.equal(redirect?.status, 301);
+  assert.equal(redirect?.headers.get('location'), 'https://sably.co/co/' + query);
+  const visitor = new Request(redirect!.headers.get('location')!);
+  const shared = sharedPublicRequest(visitor, 'production');
+  assert.equal(shared?.url, 'https://sably.co/co/');
+  assert.equal(visitor.url, 'https://sably.co/co/' + query);
+  assert.equal(incoming.url, 'https://sably.co/' + query);
 });
 
 test('the loopback answer reaches the visitor without being stored under their key', () => {

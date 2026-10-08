@@ -1,0 +1,8 @@
+---
+import { load } from '@/lib/page-loaders/video-library';
+import { VideoLibraryView } from '@/themes';
+export const prerender = false;
+const model = await load(Astro);
+if (model instanceof Response) return model;
+---
+<VideoLibraryView {...model} />
