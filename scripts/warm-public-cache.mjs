@@ -36,9 +36,21 @@ async function worker(){
  while(next<targets.length){
   const url=targets[next++];const started=performance.now();
   try{
+   // Tracking parameters bypass an existing edge entry while preserving the
+   // anonymous global key. A plain HIT alone may leave this version's KV page
+   // absent, making the first ChatGPT/referral visit pay for a complete render.
+   const globalUrl=new URL(url);
+   let store=null;
+   if(pages.has(url)){
+    globalUrl.searchParams.set('utm_source','sably-cache-warmup');
+    const globalResponse=await fetch(globalUrl,{headers,redirect:'manual',signal:AbortSignal.timeout(60000)});
+    await globalResponse.arrayBuffer();
+    if(globalResponse.status!==200)throw new Error(`Global page warm-up: ${globalResponse.status}`);
+    store=globalResponse.headers.get('x-sably-store');
+   }
    const response=await fetch(url,{headers,redirect:'manual',signal:AbortSignal.timeout(60000)});
    await response.arrayBuffer();
-   rows.push({url,status:response.status,cache:response.headers.get('cf-cache-status'),ms:Math.round(performance.now()-started)});
+   rows.push({url,status:response.status,store,cache:response.headers.get('cf-cache-status'),ms:Math.round(performance.now()-started)});
   }catch(error){rows.push({url,status:0,error:error.message,ms:Math.round(performance.now()-started)});}
  }
 }

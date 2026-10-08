@@ -28,6 +28,7 @@ export function validateTarget(target,config,development=readTarget('development
   // aws:us-east-1. Both the region hint and Smart Placement also showed ~20 s stalls on forwarded requests.
   assert.equal(config.placement,undefined,'Production runs unplaced: its D1 databases sit next to Miami');
   assert.equal(config.cache?.enabled,true,'Production requires the reviewed native cache policy');
+  assert.equal(config.cache?.cross_version_cache,false,'Production must explicitly isolate cached HTML by Worker version');
   assert.equal(config.version_metadata?.binding,'CF_VERSION_METADATA','Cache must carry the deployment version');
  }
  for(const binding of ['DB','SABLY_DB']) {
