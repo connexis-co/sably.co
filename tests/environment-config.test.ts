@@ -31,3 +31,11 @@ test('production resource placeholders fail before any deployment',()=>{
  if(production.d1_databases.some((d:{database_id:string})=>d.database_id.startsWith('__')))assert.throws(()=>validateTarget('production',production),/Provision/);
  else assert.equal(validateTarget('production',production).worker,'sably-emdash-production');
 });
+
+test('production requires explicit cache isolation so new deployments cannot reuse older HTML',()=>{
+ for(const value of [undefined,true]){
+  const production=readTarget('production');production.cache.cross_version_cache=value;
+  assert.throws(()=>validateTarget('production',production),/isolate cached HTML by Worker version/);
+ }
+ assert.equal(validateTarget('production',readTarget('production')).worker,'sably-emdash-production');
+});
