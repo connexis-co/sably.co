@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getContentRepository } from '@/lib/emdash-content';
+import { aiCatalogCourses } from '@/lib/ai-catalog';
 export const prerender = false;
 
 
@@ -8,14 +9,14 @@ import { SITE } from '@/lib/site';
 /** llms.txt — descripción del sitio para agentes/LLMs (llmstxt.org). */
 export const GET: APIRoute = async () => {
   const cms = await getContentRepository();
-  const [courses, categories, COUNTRIES] = await Promise.all([cms.getCourses(), cms.getCategories(), cms.getCountries()]);
+  const [allCourses, categories, COUNTRIES] = await Promise.all([cms.getCourses(), cms.getCategories(), cms.getCountries()]);
+  const courses = aiCatalogCourses(allCourses);
   const INTERNAL_CATEGORIES = categories.filter(c => !c.externalUrl);
-  const getCategory = (slug:string) => categories.find(c=>c.slug===slug)!;
   const body = `# Sably
 
 > Marketplace de cursos online en español para Latinoamérica: oficios prácticos y habilidades
 > que la IA no puede reemplazar (belleza, panadería, electricidad, gastronomía, idiomas y más).
-> ${courses.length} cursos con certificado, acceso de por vida y garantía de 7 días, impartidos
+> ${courses.length} cursos con inscripción disponible, certificado, acceso de por vida y garantía de 7 días, impartidos
 > vía Hotmart. Precios en moneda local de ${COUNTRIES.length} países.
 
 Los cursos existen a nivel país (/{código-país}/{slug-del-curso}/) y a nivel ciudad
@@ -29,6 +30,7 @@ ${INTERNAL_CATEGORIES.map((c) => `- [${c.name}](${SITE.url}/co/cursos/${c.slug}/
 - [Homologación de saberes](${SITE.url}/homologaciones/): certificación de experiencia con instituciones ETDH aliadas en Colombia
 - [Sobre Sably](${SITE.url}/nosotros/)
 - [Blog](${SITE.url}/blog/)
+- [Vídeos de los cursos](${SITE.url}/videos/): presentaciones de los cursos con páginas de visualización individuales
 - [Mapa del sitio](${SITE.url}/sitemap/)
 
 ## Optional
