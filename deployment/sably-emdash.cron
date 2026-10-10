@@ -1,0 +1,12 @@
+# Install as /etc/cron.d/sably-emdash (root:root, mode 0644).
+# Connexis uses a UTC cron daemon: 08:30 UTC = 03:30 America/Bogota all year.
+# Setting TZ alone changes the command's timezone, not cron's scheduling.
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+TZ=America/Bogota
+30 8 * * * root /usr/bin/python3 /opt/stacks/sably-emdash/backup.py --stack-dir /opt/stacks/sably-emdash --backup-dir /var/backups/sably-emdash --retention 14 >> /var/log/sably-emdash-backup.log 2>&1
+
+# If cron explicitly supports CRON_TZ, replace the active schedule with:
+# CRON_TZ=America/Bogota
+# 30 3 * * * root /usr/bin/python3 /opt/stacks/sably-emdash/backup.py --stack-dir /opt/stacks/sably-emdash --backup-dir /var/backups/sably-emdash --retention 14 >> /var/log/sably-emdash-backup.log 2>&1
+# Install only one schedule. Verify the host's cron timezone before enabling it.

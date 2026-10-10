@@ -1,4 +1,4 @@
-name: Promote tested EmDash version
+name: Retired Cloudflare production promotion
 on:
   workflow_dispatch:
     inputs:
@@ -7,7 +7,7 @@ on:
         required: true
         type: string
       publish:
-        description: Activate only after the initial approved production cutover
+        description: Retired after migration to Connexis; use the Node image release and Dockge
         type: boolean
         default: false
 permissions:
@@ -22,6 +22,11 @@ jobs:
     outputs:
       sha: ${{ steps.verified.outputs.sha }}
     steps:
+      - name: Refuse the retired Cloudflare production deployment
+        run: |
+          echo 'Production runs on Connexis with Docker and Dockge.'
+          echo 'Publish the Node image, then use Update in Dockge. This workflow cannot reactivate Cloudflare Workers.'
+          exit 1
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0

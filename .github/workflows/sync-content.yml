@@ -1,4 +1,4 @@
-name: Copy published production content to development
+name: Retired Cloudflare editorial sync
 on:
   workflow_dispatch:
     inputs:
@@ -17,6 +17,11 @@ jobs:
     environment: development
     timeout-minutes: 180
     steps:
+      - name: Prevent copying the retired production database
+        run: |
+          echo 'Production now runs on Connexis. D1 no longer contains current editorial changes.'
+          echo 'This legacy synchronization is disabled until a Node-backed source is implemented.'
+          exit 1
       - uses: actions/checkout@v4
         with:
           ref: develop

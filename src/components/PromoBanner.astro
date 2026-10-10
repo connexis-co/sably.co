@@ -16,7 +16,7 @@
  * en el HTML para que Tailwind las conserve: compuestas en JS, el compilador las
  * eliminaría por no encontrarlas en el código fuente.
  */
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import { CAMPAIGNS, campaignDePromocion, mejorPromocion } from '@/lib/promo';
 import { readActivePromosForRequest } from '@/plugins/sably-operations/public';
 

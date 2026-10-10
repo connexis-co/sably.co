@@ -18,7 +18,7 @@
  * Aparece abajo a la izquierda, elevándose sobre la barra fija de compra en
  * móvil. Se puede cerrar y no vuelve en toda la sesión.
  */
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import { getCourses } from '@/lib/emdash-content';
 import { readPublicReviews, readSocialProof } from '@/plugins/sably-operations/public';
 const db = (env as unknown as {SABLY_DB:D1Database}).SABLY_DB;

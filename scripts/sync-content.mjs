@@ -385,4 +385,7 @@ export async function main(args = process.argv.slice(2)) {
   console.log(JSON.stringify({ completed: report.completed, verified: report.verified, folder }, null, 2));
 }
 
-if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main().catch((error) => { console.error(error.message); process.exitCode = 1; });
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  console.error('Cloudflare editorial sync is retired: production now runs on Connexis. Refusing to copy stale D1 data into development.');
+  process.exitCode = 1;
+}
