@@ -13,7 +13,7 @@
  * una nombrando su curso: rellenar sin decirlo sería atribuirle al curso
  * opiniones que no son suyas.
  */
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import { getCourses } from '@/lib/emdash-content';
 import { readPublicReviews, type PublicReview } from '@/plugins/sably-operations/public';
 

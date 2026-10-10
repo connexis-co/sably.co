@@ -1,5 +1,5 @@
 import { definePlugin, PluginRouteError } from 'emdash';
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import type { OperationalBindings } from '../../lib/operational-environment';
 import { operationalEnvironmentEnabled } from '../../lib/operational-environment';
 import { settingsSchema, validateUpdates, adminConfig, readPublic, trackingFragments } from './model';

@@ -2,7 +2,7 @@
 import '@/styles/global.css';
 import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import outfitFont from '@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2?url';
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import { canCachePublicPage, pageMaxAge, PUBLIC_PAGE_SWR, PUBLIC_PAGE_TAGS } from '@/lib/public-delivery';
 import { readNextPromoBoundary } from '@/plugins/sably-operations/public';
 import { EmDashBodyStart, EmDashBodyEnd, WidgetArea } from 'emdash/ui';

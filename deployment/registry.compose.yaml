@@ -1,0 +1,18 @@
+# Save as /opt/stacks/sably-registry/compose.yaml. The registry is reachable
+# only through the Connexis host loopback interface, including Docker pulls
+# requested by Dockge through /var/run/docker.sock.
+services:
+  registry:
+    image: registry:3
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:5051:5000"
+    volumes:
+      - ./data:/var/lib/registry
+    environment:
+      REGISTRY_STORAGE_DELETE_ENABLED: "false"
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

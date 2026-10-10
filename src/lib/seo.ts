@@ -270,7 +270,7 @@ interface CourseListEntry {
  */
 export async function cursoParaListado(course: CollectionEntry<'courses'>, country: Country): Promise<CourseListEntry> {
   const sinProducto = /PENDIENTE/i.test(course.data.hotmartUrl);
-  const [{env},{getRequestContext}] = await Promise.all([import('cloudflare:workers'),import('emdash/request-context')]);
+  const [{env},{getRequestContext}] = await Promise.all([import('virtual:sably-runtime'),import('emdash/request-context')]);
   const real = await readOperationalPrice((env as unknown as {SABLY_DB:D1Database}).SABLY_DB, course.id, country, getRequestContext()).catch(() => null);
   return {
     name: course.data.title,

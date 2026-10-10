@@ -32,6 +32,8 @@ docs/data/.cache-afiliaciones.json
 .wrangler/
 .emdash/
 data.db*
+data/
+deployment/backups/
 .env.*
 !.env.example
 
