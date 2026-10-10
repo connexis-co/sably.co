@@ -13,7 +13,7 @@ El volumen `./data:/app/data` contiene:
 
 La migración utiliza copias completas de las dos bases D1 y de los objetos R2. Una transferencia editorial `.emdash` no reemplaza este procedimiento: excluye usuarios, credenciales y secretos. Las sesiones anteriores de Cloudflare KV pueden expirar al cambiar de servidor; los usuarios y passkeys siguen en la base y pueden iniciar sesión de nuevo en el mismo dominio.
 
-Mantener `EMDASH_ENCRYPTION_KEY` y las demás variables originales en el `.env` privado del stack. Cambiar esa clave sin conservar la anterior impide leer los ajustes secretos de plugins. Los secretos no se incorporan a la imagen.
+Mantener los mismos bytes de `EMDASH_ENCRYPTION_KEY` y las demás variables originales en el `.env` privado del stack. En esta migración se normalizó la representación de esa clave al formato canónico aceptado por EmDash, conservando los mismos bytes; esto no rota la clave ni cambia los ajustes cifrados. Sustituir sus bytes sin conservar la clave anterior impide leer los ajustes secretos de plugins. Los secretos no se incorporan a la imagen.
 
 ## Crear o reconstruir la imagen
 
@@ -93,6 +93,6 @@ El ejemplo `deployment/sably-emdash.cron` se instala como `/etc/cron.d/sably-emd
 
 Node mantiene caché de objetos y páginas en memoria con invalidación editorial. El HTML dinámico y las respuestas privadas impiden caché compartida mientras no exista un mecanismo de purga del CDN. Los bundles y archivos públicos estáticos siguen aprovechando Cloudflare. Esto evita que una publicación en EmDash deje contenido antiguo en el CDN.
 
-El entorno de desarrollo de Cloudflare sigue disponible con `npm run build:dev`. El workflow antiguo de producción de Workers contiene una salida de error explícita y no puede publicar nuevamente los dominios. La sincronización editorial antigua también está bloqueada: leía el D1 retirado, que deja de recibir las ediciones de producción. Restaurar cualquiera de esos flujos requiere revisar expresamente datos, rutas y origen.
+El entorno de desarrollo de Cloudflare sigue disponible con `npm run build:dev`. El workflow antiguo de producción de Workers y su CLI `scripts/deploy-environment.mjs production` están bloqueados explícitamente, incluso con `--publish`, y no pueden publicar nuevamente los dominios. La sincronización editorial antigua también está bloqueada: leía el D1 retirado, que deja de recibir las ediciones de producción. Restaurar cualquiera de esos flujos requiere revisar expresamente datos, rutas y origen.
 
 Referencias oficiales: [Node.js](https://docs.emdashcms.com/deployment/nodejs/), [sandbox](https://docs.emdashcms.com/deployment/plugin-sandbox/), [sesiones Astro](https://docs.astro.build/en/guides/sessions/), [Docker Compose en Dockge](https://github.com/louislam/dockge).

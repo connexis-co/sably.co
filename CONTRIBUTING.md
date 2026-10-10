@@ -7,17 +7,17 @@
 3. 🌿 Toda feature/fix requiere su propia rama y PR.
 4. 📝 Los commits siguen [Conventional Commits](https://www.conventionalcommits.org) (enforced por husky + commitlint).
 5. 👀 Code review: [Solo] self-review del diff + CI verde = merge. [Equipo] mínimo 1 review aprobada.
-6. 🔀 `develop` despliega a dev.sably.co tras CI. `main` valida el código; producción requiere promoción manual del SHA exacto, según [CI_CD.md](docs/CI_CD.md).
+6. 🔀 `develop` despliega a dev.sably.co tras CI. `main` valida el código; producción requiere publicar manualmente la imagen del SHA revisado y actualizar el stack en Dockge, según [DEPLOY_CONNEXIS.md](docs/DEPLOY_CONNEXIS.md).
 7. ✅ El pipeline de CI debe pasar antes del merge.
 8. 🧹 Las ramas se eliminan después del merge.
 9. 🏷️ Releases con SemVer estricto (release-please los automatiza).
-10. 🔒 Tokens y secretos NUNCA en el código ni en chats — GitHub Secrets exclusivamente.
+10. 🔒 Tokens y secretos NUNCA en el código ni en chats: GitHub Secrets para CI y `.env` privado del stack de Connexis para el runtime productivo.
 
 ## Branching (Git Flow)
 
 | Rama | Propósito | Deploy |
 |---|---|---|
-| `main` | Código aprobado para producción | Candidato manual; no cambia tráfico al fusionar |
+| `main` | Código aprobado para producción | Imagen Docker manual en Connexis y **Update** en Dockge; fusionar no cambia tráfico |
 | `develop` | Integración | https://dev.sably.co |
 | `feature/...` | Nueva funcionalidad (desde `develop`) | Preview por PR |
 | `bugfix/...` | Corrección no crítica (desde `develop`) | Preview por PR |

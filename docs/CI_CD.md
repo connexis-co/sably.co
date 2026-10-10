@@ -1,4 +1,14 @@
-# Desarrollo y producción permanentes
+# CI/CD vigente y referencia anterior
+
+## Vigente desde la migración a Connexis
+
+`develop` continúa desplegando automáticamente a `dev.sably.co` en Cloudflare después de CI. `main` valida el código y no cambia el tráfico productivo al fusionar.
+
+Producción utiliza Docker en Connexis, dos bases SQLite y medios locales persistentes. Desde un commit limpio, revisado y perteneciente a `origin/main`, `node scripts/publish-connexis.mjs --publish` construye y publica la imagen en el registro privado del servidor. Después, **Update** en Dockge recrea el stack con esa imagen. Consultar [DEPLOY_CONNEXIS.md](DEPLOY_CONNEXIS.md) para publicación de candidatas, variables, backups y recuperación.
+
+El workflow de promoción de Workers y `scripts/deploy-environment.mjs production` están retirados y devuelven error antes de publicar. La sincronización editorial anterior desde D1 está bloqueada porque ese D1 ya no es el origen productivo. No usar los comandos de producción o de sincronización de la referencia histórica siguiente contra el sitio migrado.
+
+## Referencia histórica: producción en Cloudflare Workers (retirada)
 
 El código se valida en `develop` y se promueve desde un SHA de `main` que haya pasado CI. El contenido se administra en EmDash y no se vuelve a sembrar al desplegar código.
 
