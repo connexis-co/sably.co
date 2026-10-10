@@ -1,6 +1,6 @@
 ---
 import { Image as OptimizedImage } from 'astro:assets';
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import { cmsImageUrl } from '@/lib/cms-media';
 import type { Course } from '@/lib/emdash-content';
 import { courseCover } from '@/lib/categories';

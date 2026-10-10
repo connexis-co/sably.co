@@ -1,6 +1,6 @@
 import { getContentRepository } from '@/lib/emdash-content';
 import { readOperationalRatings } from '@/plugins/sably-operations/public';
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import { countryAlternates, breadcrumbSchema, itemListSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 import type { PublicPageContext } from './types';

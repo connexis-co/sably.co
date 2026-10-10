@@ -5,7 +5,7 @@ import { reconcileCatalog } from './catalog';
 
 async function catalogChanged(event: { collection: string }) {
   if (!['courses','blog'].includes(event.collection)) return;
-  const { env } = await import('cloudflare:workers');
+  const { env } = await import('virtual:sably-runtime');
   const bindings = env as unknown as OperationalBindings & { EMDASH_SITE_URL?: string };
   const db = availableOperationalDatabase(bindings,bindings.EMDASH_SITE_URL ?? '');
   if (db && bindings.DB) await reconcileCatalog(bindings.DB,db,[event.collection === 'courses' ? 'course' : 'blog']);
@@ -17,7 +17,7 @@ function route(permission: 'comments:moderate'|'settings:manage', method: 'GET'|
     methods: [method], permission, public: false,
     request: { body: method === 'GET' ? 'none' as const : 'json' as const, maxBytes: 32768 },
     handler: async (ctx: RouteContext) => {
-      const { env } = await import('cloudflare:workers');
+      const { env } = await import('virtual:sably-runtime');
       const db = availableOperationalDatabase(env as unknown as OperationalBindings, ctx.request.url);
       if (!db) {
         throw new PluginRouteError('SABLY_UNAVAILABLE','Operaciones no disponibles: verifica la activación del entorno y el binding independiente SABLY_DB.',503);

@@ -1,4 +1,4 @@
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import { getContentRepository } from './emdash-content';
 import { readOperationalRatings } from '@/plugins/sably-operations/public';
 /** Only published catalog products contribute to the visible operational totals. */

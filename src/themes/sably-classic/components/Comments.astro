@@ -15,7 +15,7 @@ interface Props {
 }
 const { subject } = Astro.props;
 import { CONSENTIMIENTO, POLITICA_URL } from '@/lib/consentimiento';
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import { readPublicComments } from '@/plugins/sably-operations/public';
 const comments = await readPublicComments((env as unknown as {SABLY_DB:D1Database}).SABLY_DB,subject).catch(()=>[]);
 const commentCount = comments.reduce((n,c)=>n+1+(c.respuestas?.length??0),0);

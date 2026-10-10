@@ -1,0 +1,10 @@
+# Optional local build. Copy the project to ./app inside the Dockge stack.
+# docker compose -f compose.yaml -f compose.build.yaml build --pull
+# docker compose -f compose.yaml -f compose.build.yaml up -d
+services:
+  emdash:
+    build:
+      context: ./app
+      dockerfile: deployment/Dockerfile
+      args:
+        SOURCE_REVISION: ${SOURCE_REVISION:-unversioned}

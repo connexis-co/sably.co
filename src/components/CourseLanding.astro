@@ -35,7 +35,7 @@ import { buildHotmartUrl } from '@/lib/hotmart';
 import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
 import { mejorPromocion, campaignDePromocion } from '@/lib/promo';
 import { readActivePromosForRequest } from '@/plugins/sably-operations/public';
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import { countryAlternates, breadcrumbSchema, conMarca, faqSchema, courseSchema } from '@/lib/seo';
 import { SITE, CDN_URL } from '@/lib/site';
 import { conciseTitle } from '@/lib/seo-title';

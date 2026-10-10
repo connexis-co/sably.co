@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import { getLiveSiteSettings } from '@/lib/live-site-settings';
 import { robotsContent } from '@/lib/robots';
 export const prerender = false;

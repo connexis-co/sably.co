@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import { dispatchLegacyApi, type LegacyBindings } from '../../lib/legacy-backend';
 import { OptionsRepository } from 'emdash';
 import { integrationSettings } from '../../lib/integration-settings';

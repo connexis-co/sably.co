@@ -2,7 +2,7 @@ import { publicStats } from '@/lib/public-stats';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { getContentRepository } from '@/lib/emdash-content';
 import { readOperationalRatings } from '@/plugins/sably-operations/public';
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 import { LIMITE_TITULO, countryAlternates, faqSchema, websiteSchema } from '@/lib/seo';
 import { SITE, CDN_URL } from '@/lib/site';
 import { HERO_ASSETS } from '@/lib/hero-assets';

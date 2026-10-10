@@ -1,0 +1,16 @@
+node_modules
+dist
+.git
+.astro
+.emdash
+.wrangler
+.env
+.env.*
+.dev.vars*
+data
+data.db*
+deployment/backups
+graphify-out
+DEV_ACCESS.txt
+*.log
+.DS_Store

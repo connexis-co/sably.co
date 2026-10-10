@@ -10,7 +10,7 @@
  */
 import { campaignDePromocion } from '@/lib/promo';
 import { readActivePromos } from '@/plugins/sably-operations/public';
-import { env } from 'cloudflare:workers';
+import { env } from 'virtual:sably-runtime';
 export const prerender = false;
 const runtime=env as unknown as {SABLY_ENVIRONMENT?:string;SABLY_DB:D1Database};
 if(runtime.SABLY_ENVIRONMENT!=='development') return new Response('Not found',{status:404});
