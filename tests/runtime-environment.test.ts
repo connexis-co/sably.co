@@ -5,6 +5,18 @@ test('development stays gated even under a production hostname',async()=>{
  const result=await gateEnvironment(new Request('https://sably.co/'),{SABLY_ENVIRONMENT:'development',SABLY_DEV_PASSWORD:'test-secret'});
  assert.equal(result?.status,401);assert.match(result!.headers.get('X-Robots-Tag')!,/noindex/);
 });
+test('development lets crawlers read its disallow-all robots.txt and keeps every other path gated',async()=>{
+ const env={SABLY_ENVIRONMENT:'development',SABLY_DEV_PASSWORD:'test-secret'};
+ for(const method of ['GET','HEAD']){
+  const robots=await gateEnvironment(new Request('https://dev.sably.co/robots.txt',{method}),env);
+  assert.equal(robots?.status,200);assert.equal(robots!.headers.get('WWW-Authenticate'),null);assert.match(robots!.headers.get('X-Robots-Tag')!,/noindex/);
+  assert.equal(await robots!.text(),method==='GET'?'User-agent: *\nDisallow: /\n':'');
+ }
+ for(const request of [new Request('https://dev.sably.co/robots.txt',{method:'POST'}),new Request('https://dev.sably.co/robots.txt/'),new Request('https://dev.sably.co/co/robots.txt'),new Request('https://dev.sably.co/sitemap-index.xml')])
+  assert.equal((await gateEnvironment(request,env))?.status,401);
+ assert.equal((await gateEnvironment(new Request('https://dev.sably.co/robots.txt'),{SABLY_ENVIRONMENT:'development'}))?.status,200);
+ assert.equal(await gateEnvironment(new Request('https://sably.co/robots.txt'),{SABLY_ENVIRONMENT:'production'}),null);
+});
 test('production responses keep editorial headers and have no staging gate',async()=>{
  assert.equal(await gateEnvironment(new Request('https://sably.co/'),{SABLY_ENVIRONMENT:'production'}),null);
  const response=protectEnvironmentResponse(new Response('ok',{headers:{'Cache-Control':'public, max-age=60'}}),{SABLY_ENVIRONMENT:'production'});
