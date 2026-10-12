@@ -17,8 +17,8 @@ export async function load(Astro:PublicPageContext) {
  *   sus catálogos y categorías ya las enlazan.
  * - Sin cursos PENDIENTE: son páginas «Próximamente» sin checkout, fuera
  *   también de los sitemaps XML y del mega-menú.
- * - Sin los 36 hubs de ciudad: llevan noindex para Googlebot y canonical al
- *   país. Las fichas ciudad+curso siguen enlazadas desde cada ficha.
+ * - Sin páginas de ciudad: responden 301 a su equivalente de país
+ *   (city-redirect).
  */
 const cms = await getContentRepository();
 
