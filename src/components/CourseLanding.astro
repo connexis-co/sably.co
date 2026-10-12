@@ -16,7 +16,6 @@ import Rating from '@/components/Rating.astro';
 import RatingInteractivo from '@/components/RatingInteractivo.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import TestimonialCard from '@/components/TestimonialCard.astro';
 import StickyCta from '@/components/StickyCta.astro';
 import CoursePlayer from '@/components/CoursePlayer.astro';
 import ExitIntent from '@/components/ExitIntent.astro';
@@ -124,17 +123,11 @@ const related = allCourses
   )
   .slice(0, 4);
 
-const allTestimonials = (await cms.getTestimonials()).filter(
-  (t) => t.data.courseSlug === course.id || t.data.category === course.data.category,
-);
-const cityFirst = city
-  ? [...allTestimonials].sort(
-      (a, b) =>
-        Number(b.data.citySlug === city.slug && b.data.countryCode === country.code) -
-        Number(a.data.citySlug === city.slug && a.data.countryCode === country.code),
-    )
-  : allTestimonials;
-const testimonials = cityFirst.slice(0, 3);
+/* Aquí vivía «Lo que dicen los estudiantes» con la colección editorial de
+   testimonios: 40 personas y ciudades inventadas por un workflow multiagente
+   (docs/CHANGELOG_FRONTEND.md). El 11 de agosto (#67) se retiraron, el 13 una
+   sobrescritura de esta plantilla las devolvió y la migración las llevó a
+   EmDash. La única prueba social pública es VerifiedReviews: compras reales. */
 
 /* Aquí vivía `cityStudents`, que pintaba «N estudiantes lo están tomando en
    <ciudad>» a partir de `40 + ((city.slug.length * 31 + course.id.length * 7)
@@ -733,28 +726,6 @@ const schemas = [
           }
         </ul>
       </section>
-
-      <!-- Testimonios -->
-      {
-        testimonials.length > 0 && (
-          <section aria-labelledby="testimonials-title">
-            <h2 id="testimonials-title" class="text-2xl font-bold">
-              Lo que dicen los estudiantes
-            </h2>
-            <div class="mt-5 grid gap-5 md:grid-cols-3">
-              {testimonials.map((t) => (
-                <TestimonialCard
-                  name={t.data.name}
-                  citySlug={t.data.citySlug}
-                  countryCode={t.data.countryCode}
-                  text={t.data.text}
-                  rating={t.data.rating}
-                />
-              ))}
-            </div>
-          </section>
-        )
-      }
 
       <!-- FAQ -->
       <section aria-labelledby="faq-title">

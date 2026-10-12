@@ -1,5 +1,6 @@
 import {courseSeo} from '../cms-indexability';
-import { getContentRepository, type CmsCity } from '@/lib/emdash-content';
+import { getContentRepository } from '@/lib/emdash-content';
+import { cityRedirect } from './city-redirect';
 import type { PublicPageContext } from './types';
 
 export async function load(Astro:PublicPageContext) {
@@ -10,18 +11,17 @@ const country = await cms.getCountry(Astro.params.country ?? '');
 
 if (!country) return new Response('Not found', {status:404});
 
-const city = country.cities.find(c => c.slug === Astro.params.item) as CmsCity | undefined;
+// Hub de ciudad: consolidado en la portada del país (ver city-redirect).
+if (country.cities.some(c => c.slug === Astro.params.item)) return cityRedirect(Astro, `/${country.code}/`);
 
-const content = city ? null : await cms.resolveCourseContent(Astro.params.item ?? '', country.code);
+const content = await cms.resolveCourseContent(Astro.params.item ?? '', country.code);
 
-if (!city && !content) return new Response('Not found', {status:404});
+if (!content) return new Response('Not found', {status:404});
 
-const subject = city ?? content!.course;
+Astro.locals.sablyContent = content.course.contentRef;
 
-Astro.locals.sablyContent = subject.contentRef;
-
-Astro.locals.sablySeo = content ? courseSeo(content.course.seo,content.locale?.seo) : subject.seo;
+Astro.locals.sablySeo = courseSeo(content.course.seo,content.locale?.seo);
 
 Astro.response.headers.set('X-Sably-Content-Source', 'emdash');
-return {cms,country,city,content,subject};
+return {cms,country,content};
 }

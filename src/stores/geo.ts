@@ -7,4 +7,3 @@ import { DEFAULT_COUNTRY } from '@/lib/countries';
  * solo guían la navegación y el pre-llenado de formularios.
  */
 export const $country = persistentAtom<string>('sably:country', DEFAULT_COUNTRY);
-export const $city = persistentAtom<string>('sably:city', '');

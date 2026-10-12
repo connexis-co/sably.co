@@ -8,12 +8,12 @@ const source = await readFile(new NodeURL('../public/_redirects', import.meta.ur
 const rules = parseLegacyRedirects(source);
 const request = (path: string) => new Request(`https://dev.sably.co${path}`);
 
-test('preserves national and city redirects that now match Astro SSR routes', () => {
+test('preserves national redirects and sends legacy city slugs straight to the country page', () => {
   for (const [from, to] of [
     ['/co/curso-de-panaderia-artesanal-y-masa-madre/', '/co/curso-de-panaderia/'],
-    ['/mx/cdmx/curso-de-panaderia-artesanal-y-masa-madre/', '/mx/cdmx/curso-de-panaderia/'],
+    ['/mx/cdmx/curso-de-panaderia-artesanal-y-masa-madre/', '/mx/curso-de-panaderia/'],
     ['/pe/curso/curso-de-barberia/', '/pe/curso-de-barberia/'],
-    ['/co/bogota/curso/curso-de-barberia/', '/co/bogota/curso-de-barberia/'],
+    ['/co/bogota/curso/curso-de-barberia/', '/co/curso-de-barberia/'],
   ]) {
     const response = resolveLegacyRedirect(request(from!), rules);
     assert.equal(response?.status, 301, from);
