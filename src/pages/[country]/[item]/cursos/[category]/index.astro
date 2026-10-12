@@ -1,11 +1,10 @@
 ---
-import { load } from '@/lib/page-loaders/city-category';
-import { CityCategoryView } from '@/themes';
+import { load } from '@/lib/page-loaders/city-redirect';
 import { loadCustomPage } from '@/lib/page-loaders/custom-page';
 import { PageTemplate } from '@/themes';
 export const prerender = false;
 const customPage = await loadCustomPage(Astro);
-const model = customPage ? null : await load(Astro);
-if (model instanceof Response) { if(model.status===404)model.headers.set('X-Robots-Tag','noindex, nofollow'); return model; }
+const model = customPage ? null : await load(Astro, 'category');
+if (model) { if(model.status===404)model.headers.set('X-Robots-Tag','noindex, nofollow'); return model; }
 ---
-{customPage ? <PageTemplate {...customPage} /> : model && <CityCategoryView {...model} />}
+{customPage && <PageTemplate {...customPage} />}

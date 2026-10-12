@@ -20,9 +20,9 @@ Astro.locals.sablyContent = country.contentRef;
 
 Astro.locals.sablySeo = country.seo;
 
-const [ratings, stats, CATEGORIES, allCourses, allTestimonials, allPosts] = await Promise.all([
+const [ratings, stats, CATEGORIES, allCourses, allPosts] = await Promise.all([
   readOperationalRatings((env as unknown as {SABLY_DB:D1Database}).SABLY_DB, Astro.locals).catch(() => ({} as Awaited<ReturnType<typeof readOperationalRatings>>)),
-  publicStats(Astro.locals), cms.getCategories(), cms.getCourses(), cms.getTestimonials(), cms.getBlogPosts(),
+  publicStats(Astro.locals), cms.getCategories(), cms.getCourses(), cms.getBlogPosts(),
 ]);
 const valoracionReal = (slug:string) => ratings[slug] ?? null;
 
@@ -36,9 +36,9 @@ const featured = [...allCourses]
   .slice(0, 8);
 
 
-const localTestimonials = allTestimonials.filter((t) => t.data.countryCode === country.code);
-
-const testimonials = (localTestimonials.length >= 3 ? localTestimonials : allTestimonials).slice(0, 6);
+/* Sin testimonios editoriales: los 40 de la colección los generó un workflow
+   multiagente (docs/CHANGELOG_FRONTEND.md) con personas y ciudades inventadas.
+   La prueba social pública sale solo de compras verificadas (VerifiedReviews). */
 
 
 const posts = allPosts
@@ -78,5 +78,5 @@ const tituloLargo = `Sably: cursos online de oficios con certificado en ${countr
 const title = tituloLargo.length <= LIMITE_TITULO ? tituloLargo : `Sably: cursos online de oficios en ${country.name}`;
 
 const description = `Aprende panadería, costura, electricidad, gastronomía y más oficios rentables desde ${country.name}. Cursos online con certificado y acceso de por vida.`;
-return {stats,cms,country,CATEGORIES,INTERNAL_CATEGORIES,base,allCourses,featured,allTestimonials,localTestimonials,testimonials,posts,faqs,tituloLargo,title,description};
+return {stats,cms,country,CATEGORIES,INTERNAL_CATEGORIES,base,allCourses,featured,posts,faqs,tituloLargo,title,description};
 }

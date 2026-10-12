@@ -51,15 +51,22 @@ for(const url of new Set(preferred)){
   assert.match(html,/class="home-hero /,'The home must serve the mobile render update');
  }
 }
-// City content stays public for AI referrals; Google consolidates through canonical alone.
+// City pages are consolidated: one 301 to the country page, the same for search and AI
+// crawlers, keeping referral parameters (docs/SEO_DIAGNOSTICO_2026-10-12.md).
 const cityRows=[];
-for(const [url,canonical] of [
+const referral='?utm_source=chatgpt.com&utm_medium=referral';
+for(const [url,expected] of [
  ['https://sably.co/ar/cordoba/','https://sably.co/ar/'],
  ['https://sably.co/co/bogota/cursos/','https://sably.co/co/cursos/'],
  ['https://sably.co/us/losangeles/cursos/manualidades/','https://sably.co/us/cursos/manualidades/'],
+ [`https://sably.co/co/bogota/curso-de-unas/${referral}`,`https://sably.co/co/curso-de-unas/${referral}`],
 ])for(const bot of ['Googlebot','OAI-SearchBot','ChatGPT-User']){
  const r=await fetch(url,{redirect:'manual',headers:{'User-Agent':bot},signal:AbortSignal.timeout(30000)});
- cityRows.push({...verifyIndexableHtml(url,r.status,r.headers,await r.text(),canonical),bot});
+ await r.body?.cancel();
+ const location=r.headers.get('location');
+ assert.equal(r.status,301,`City page must be consolidated for ${bot}: ${url}`);
+ assert.equal(location&&new URL(location,url).href,expected,`City redirect destination for ${bot}: ${url}`);
+ cityRows.push({url,bot,status:r.status,location:expected});
 }
 await mkdir('dist',{recursive:true});
 await writeFile('dist/production-seo-probe.json',JSON.stringify({checkedAt:new Date().toISOString(),rows,indexable:htmlRows,cities:cityRows},null,2));
