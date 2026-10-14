@@ -1,0 +1,4 @@
+# Install as /etc/cron.d/sably-emdash-watchdog (root:root, 0644).
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+* * * * * root /bin/sh /opt/stacks/sably-emdash/watchdog.sh /opt/stacks/sably-emdash
