@@ -1,4 +1,4 @@
--- Black November 2026: el 50 % se abre ya y llega sin cortes hasta el Black Friday.
+-- Black November 2026: el 50 % se abre ya y se apaga cuando entra Black Friday.
 --
 -- Semilla versionada aparte porque calendar-seed.sql ya está registrada por su
 -- SHA-256 en _sably_operations_migrations: editarla rompería el aplicador.
@@ -7,10 +7,10 @@
 -- el único cuyo checkout honra el cupón 031016. Los productores externos de
 -- src/lib/proveedores.ts quedan fuera solos, sin listarlos uno a uno.
 --
--- Ventana: 2026-11-03 00:00 (Bogotá) → 2026-12-01 00:00 UTC, el mismo fin que
--- bf-2026. Va con prioridad 70, por debajo de El Buen Fin (85) y de Black Friday
--- (100): cuando entra cualquiera de las dos, el banner pasa a ella y el cupón es
--- el mismo. Terminar con Black Friday en vez de cortar al empezar este evita un
--- reloj que llega a cero y vuelve a arrancar con el mismo descuento: la cuenta
--- atrás de noviembre marca el fin real del 50 %.
-INSERT OR IGNORE INTO promocion (id,nombre,activa,pct,cupon,titular,proveedores,incluir,excluir,paises,desde,hasta,prioridad,url_key,tema,etiqueta,por) VALUES ('black-november-2026','Black November',1,50,'031016','El descuento más grande del año ya empezó','["masterclasses"]','[]','[]','[]',1793682000,1796083200,70,'','blackFriday','Black November','migration:calendar');
+-- Ventana: 2026-11-03 00:00 → 2026-11-25 19:00 (Bogotá). El fin es exclusivo y
+-- coincide al segundo con el inicio de bf-2026 (1795651200), que es inclusivo:
+-- a las 18:59:59 manda Black November, a las 19:00:00 ya solo Black Friday. Ni
+-- se solapan ni queda un hueco sin descuento, y la caché de páginas expira en
+-- ese mismo instante porque los dos límites son uno. Prioridad 70, por debajo
+-- de El Buen Fin (85), que se queda el banner en México del 13 al 17.
+INSERT OR IGNORE INTO promocion (id,nombre,activa,pct,cupon,titular,proveedores,incluir,excluir,paises,desde,hasta,prioridad,url_key,tema,etiqueta,por) VALUES ('black-november-2026','Black November',1,50,'031016','El descuento más grande del año ya empezó','["masterclasses"]','[]','[]','[]',1793682000,1795651200,70,'','blackFriday','Black November','migration:calendar');

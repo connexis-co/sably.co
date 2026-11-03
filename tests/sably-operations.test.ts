@@ -88,7 +88,7 @@ test('authored calendar and public baseline seed contain no personal data and re
   assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM lead').get()!.n,0);
   assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM purchase').get()!.n,0);sql.close();
 });
-test('Black November keeps the 50 % coupon live for MasterClasses only until Black Friday closes',async()=>{
+test('Black November keeps the 50 % coupon live for MasterClasses only and hands over to Black Friday at the same second',async()=>{
   const {db,sql}=database();
   for(const file of ['calendar-seed.sql','black-november-2026-seed.sql'])sql.exec(readFileSync(new URL(`../src/plugins/sably-operations/${file}`,import.meta.url),'utf8'));
   const at=(iso:string)=>Math.floor(Date.parse(iso)/1000);
@@ -103,9 +103,14 @@ test('Black November keeps the 50 % coupon live for MasterClasses only until Bla
   // It yields to El Buen Fin in Mexico and to Black Friday everywhere, and resumes in between.
   assert.equal((await winner('2026-11-14T12:00:00-06:00','mx'))?.id,'buen-fin-mx-2026');
   assert.equal((await winner('2026-11-18T12:00:00-06:00','mx'))?.id,'black-november-2026');
+  // It switches itself off exactly when Black Friday starts: no overlap, no second without the coupon.
+  const bf=(await listPromos(db,admin)).promos.find(p=>p.id==='bf-2026')!;
+  assert.equal(bn.hasta,bf.desde);
+  const iso=(s:number)=>new Date(s*1000).toISOString();
+  assert.equal((await winner(iso(bf.desde!-1),'co'))?.id,'black-november-2026');
+  assert.deepEqual((await readActivePromos(db,bf.desde!)).map(p=>p.id).filter(id=>id==='black-november-2026'),[]);
+  assert.equal((await winner(iso(bf.desde!),'co'))?.id,'bf-2026');
   assert.equal((await winner('2026-11-27T12:00:00-05:00','co'))?.id,'bf-2026');
-  // Same end as Black Friday: the countdown shows when the 50 % really ends, and nothing is left after it.
-  assert.equal(bn.hasta,(await listPromos(db,admin)).promos.find(p=>p.id==='bf-2026')!.hasta);
   assert.equal(await winner('2026-12-02T12:00:00-05:00','co'),null);
   sql.close();
 });
