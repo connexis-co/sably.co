@@ -1,0 +1,16 @@
+-- Black November 2026: el 50 % se abre ya y llega sin cortes hasta el Black Friday.
+--
+-- Semilla versionada aparte porque calendar-seed.sql ya está registrada por su
+-- SHA-256 en _sably_operations_migrations: editarla rompería el aplicador.
+--
+-- Alcance: solo proveedor masterclasses (Seminarios Online® / Mauricio Duque),
+-- el único cuyo checkout honra el cupón 031016. Los productores externos de
+-- src/lib/proveedores.ts quedan fuera solos, sin listarlos uno a uno.
+--
+-- Ventana: 2026-11-03 00:00 (Bogotá) → 2026-12-01 00:00 UTC, el mismo fin que
+-- bf-2026. Va con prioridad 70, por debajo de El Buen Fin (85) y de Black Friday
+-- (100): cuando entra cualquiera de las dos, el banner pasa a ella y el cupón es
+-- el mismo. Terminar con Black Friday en vez de cortar al empezar este evita un
+-- reloj que llega a cero y vuelve a arrancar con el mismo descuento: la cuenta
+-- atrás de noviembre marca el fin real del 50 %.
+INSERT OR IGNORE INTO promocion (id,nombre,activa,pct,cupon,titular,proveedores,incluir,excluir,paises,desde,hasta,prioridad,url_key,tema,etiqueta,por) VALUES ('black-november-2026','Black November',1,50,'031016','El descuento más grande del año ya empezó','["masterclasses"]','[]','[]','[]',1793682000,1796083200,70,'','blackFriday','Black November','migration:calendar');

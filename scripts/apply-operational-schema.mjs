@@ -12,7 +12,9 @@ import { targetConfig, validateTarget } from './environment-config.mjs';
 export const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const LEDGER = '_sably_operations_migrations';
 const PLUGIN = 'src/plugins/sably-operations';
-const SEEDS = ['calendar-seed.sql', 'public-settings-seed.sql', 'public-data-seed.sql'];
+/* Append-only: a seed already recorded in the ledger must never change, so new
+   campaigns go in a new, versioned file listed after the ones already applied. */
+const SEEDS = ['calendar-seed.sql', 'public-settings-seed.sql', 'public-data-seed.sql', 'black-november-2026-seed.sql'];
 const hash = value => createHash('sha256').update(value).digest('hex');
 const literal = value => `'${String(value).replaceAll("'", "''")}'`;
 

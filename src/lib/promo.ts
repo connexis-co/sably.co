@@ -229,6 +229,22 @@ export const CAMPAIGNS: readonly PromoCampaign[] = [
     priority: 100,
   },
   {
+    // Calienta noviembre con el mismo cupón y cede el banner a El Buen Fin (MX)
+    // y a Black Friday por prioridad. Termina con Black Friday, no al empezar
+    // este: así la cuenta atrás marca el fin real del 50 % y no llega a cero
+    // para volver a arrancar con el mismo descuento.
+    id: 'black-november-2026',
+    label: 'Black November',
+    titular: 'El descuento más grande del año ya empezó',
+    theme: TEMA.blackFriday,
+    couponCode: CUPON.MAXIMO.code,
+    discountPct: CUPON.MAXIMO.pct,
+    startsAt: '2026-11-03T00:00:00-05:00',
+    endsAt: blackFridayWindow(2026).endsAt,
+    countries: null,
+    priority: 70,
+  },
+  {
     id: 'navidad-2026',
     label: 'Navidad',
     titular: 'Regálate un oficio nuevo',

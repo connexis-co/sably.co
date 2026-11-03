@@ -65,6 +65,7 @@ test('empty DB receives complete schema and baseline, then preserves changed set
     applyOperationalSchema(options);
     assert.equal(db.prepare('SELECT mode FROM _sably_operations_migrations WHERE id=?').get('bootstrap-v1').mode, 'fresh');
     assert.equal(db.prepare('SELECT pct FROM promocion WHERE id=?').get('legacy-manual').pct, 50);
+    assert.equal(db.prepare('SELECT pct FROM promocion WHERE id=?').get('black-november-2026').pct, 50);
     assert.equal(db.prepare('SELECT COUNT(*) AS n FROM sably_public_review').get().n, 139);
     db.exec("UPDATE widget_video SET modo='auto',bucle=1; UPDATE promocion SET pct=25 WHERE id='legacy-manual'; UPDATE sably_public_review SET status='rejected';");
     const writeCount = calls.filter(args => args.includes('--file')).length;
@@ -85,6 +86,9 @@ test('manually initialized development is adopted without resetting settings or 
     db.exec("UPDATE widget_video SET modo='auto',bucle=1; UPDATE promocion SET pct=25 WHERE id='legacy-manual'; UPDATE sably_public_review SET status='rejected';");
     applyOperationalSchema({ target: 'development', execute: true, run: localRunner(db, calls), log() {} });
     assert.equal(db.prepare('SELECT mode FROM _sably_operations_migrations WHERE id=?').get('public-settings-seed.sql').mode, 'adopted');
+    // A database seeded before Black November still receives it on the next deploy.
+    assert.equal(db.prepare('SELECT mode FROM _sably_operations_migrations WHERE id=?').get('black-november-2026-seed.sql').mode, 'applied');
+    assert.equal(db.prepare('SELECT activa FROM promocion WHERE id=?').get('black-november-2026').activa, 1);
     assert.equal(db.prepare('SELECT modo FROM widget_video').get().modo, 'auto');
     assert.equal(db.prepare('SELECT pct FROM promocion WHERE id=?').get('legacy-manual').pct, 25);
     assert.equal(db.prepare("SELECT COUNT(*) AS n FROM sably_public_review WHERE status='rejected'").get().n, 139);

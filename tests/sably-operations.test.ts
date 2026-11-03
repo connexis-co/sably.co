@@ -88,6 +88,27 @@ test('authored calendar and public baseline seed contain no personal data and re
   assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM lead').get()!.n,0);
   assert.equal(sql.prepare('SELECT COUNT(*) AS n FROM purchase').get()!.n,0);sql.close();
 });
+test('Black November keeps the 50 % coupon live for MasterClasses only until Black Friday closes',async()=>{
+  const {db,sql}=database();
+  for(const file of ['calendar-seed.sql','black-november-2026-seed.sql'])sql.exec(readFileSync(new URL(`../src/plugins/sably-operations/${file}`,import.meta.url),'utf8'));
+  const at=(iso:string)=>Math.floor(Date.parse(iso)/1000);
+  const winner=async(iso:string,countryCode:string,proveedor='masterclasses')=>
+    mejorPromocion(await readActivePromos(db,at(iso)),{countryCode,proveedor,courseSlug:'curso-test',urlKey:null,now:Date.parse(iso)});
+  const bn=(await listPromos(db,admin)).promos.find(p=>p.id==='black-november-2026')!;
+  assert.equal(bn.pct,50);assert.equal(bn.cupon,'031016');assert.deepEqual(bn.proveedores,['masterclasses']);assert.deepEqual(bn.paises,[]);
+  // Active today in every market, with the same coupon Black Friday will use.
+  for(const cc of ['co','mx','es','ar','cl','pe','ec','us'])assert.equal((await winner('2026-11-03T12:00:00-05:00',cc))?.id,'black-november-2026',cc);
+  // Producers whose checkout ignores 031016 never get the banner or the price cut.
+  for(const p of ['cursosdecocina','peluqueria','soldadura','drenaje','enjoydigital','pollobroaster'])assert.equal(await winner('2026-11-10T12:00:00-05:00','co',p),null,p);
+  // It yields to El Buen Fin in Mexico and to Black Friday everywhere, and resumes in between.
+  assert.equal((await winner('2026-11-14T12:00:00-06:00','mx'))?.id,'buen-fin-mx-2026');
+  assert.equal((await winner('2026-11-18T12:00:00-06:00','mx'))?.id,'black-november-2026');
+  assert.equal((await winner('2026-11-27T12:00:00-05:00','co'))?.id,'bf-2026');
+  // Same end as Black Friday: the countdown shows when the 50 % really ends, and nothing is left after it.
+  assert.equal(bn.hasta,(await listPromos(db,admin)).promos.find(p=>p.id==='bf-2026')!.hasta);
+  assert.equal(await winner('2026-12-02T12:00:00-05:00','co'),null);
+  sql.close();
+});
 test('moderating imported public reviews changes the next SSR read and cannot be undone by reseeding',async()=>{
   const {db,sql}=database();
   const seed=readFileSync(new URL('../src/plugins/sably-operations/public-data-seed.sql',import.meta.url),'utf8');

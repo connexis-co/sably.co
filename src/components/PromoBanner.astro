@@ -136,7 +136,9 @@ const ssr = inicial ? JSON.stringify(inicial) : undefined;
           <h2 data-promo-titular class:list={['mt-2.5 text-2xl font-bold sm:text-[32px] sm:leading-tight', tema?.texto]}>{titular}</h2>
           <p class="mt-3.5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1.5 text-[15px] lg:justify-start">
             <span data-promo-pct class:list={['rounded px-2 py-0.5 font-extrabold tabular-nums', tema?.acento]}>{pct}</span>
-            <span class="opacity-75">en todos los cursos con el cupón</span>
+            {/* «Participantes» y no «todos»: los productores externos sin cupón
+                (src/lib/proveedores.ts) quedan fuera de la promoción. */}
+            <span class="opacity-75">en los cursos participantes con el cupón</span>
             <button
               type="button"
               data-promo-cupon

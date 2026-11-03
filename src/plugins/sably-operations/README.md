@@ -6,7 +6,7 @@ Plugin nativo de EmDash 1.1 para el entorno aislado de desarrollo. El CMS usa `D
 
 El descriptor en `astro.config.mjs` declara `id: sably-operations`, `version: 1.0.0`, entrada `index.ts`, entrada administrativa `admin.tsx` y la página `/operations`. Las rutas oficiales son `/_emdash/api/plugins/sably-operations/<ruta>`; la página aparece en el menú de EmDash.
 
-Después de las migraciones legacy 0001–0010, aplicar una sola vez `migration.sql` a la base de desarrollo. Después aplicar `calendar-seed.sql`, `public-settings-seed.sql` y `public-data-seed.sql` en ese orden. Los tres últimos contienen únicamente configuración editorial y datos que ya se mostraban públicamente. No trasladan solicitudes, compradores, consentimientos, contactos privados ni sesiones de producción.
+Después de las migraciones legacy 0001–0010, aplicar una sola vez `migration.sql` a la base de desarrollo. Después aplicar `calendar-seed.sql`, `public-settings-seed.sql`, `public-data-seed.sql` y `black-november-2026-seed.sql` en ese orden. Una semilla ya registrada no se edita nunca: las campañas nuevas van en un archivo versionado propio, añadido al final de `SEEDS` en `scripts/apply-operational-schema.mjs`. Estas semillas contienen únicamente configuración editorial y datos que ya se mostraban públicamente. No trasladan solicitudes, compradores, consentimientos, contactos privados ni sesiones de producción.
 
 `public-data-seed.sql` se regenera localmente con `node src/plugins/sably-operations/seed-public-data.mjs`. Su `INSERT OR IGNORE` conserva una moderación realizada después de la primera importación. Las semillas son para instalación inicial; `public-settings-seed.sql` sí restablece la configuración pública capturada y no debe ejecutarse como tarea periódica.
 
