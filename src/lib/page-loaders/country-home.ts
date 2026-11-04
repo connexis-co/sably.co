@@ -6,6 +6,8 @@ import { env } from 'virtual:sably-runtime';
 import { LIMITE_TITULO, countryAlternates, faqSchema, websiteSchema } from '@/lib/seo';
 import { SITE, CDN_URL } from '@/lib/site';
 import { HERO_ASSETS } from '@/lib/hero-assets';
+import { courseWatch } from '@/lib/course-watch';
+import { guiasDePortada } from '@/lib/related-guides';
 import type { PublicPageContext } from './types';
 
 export async function load(Astro:PublicPageContext) {
@@ -41,9 +43,15 @@ const featured = [...allCourses]
    La prueba social pública sale solo de compras verificadas (VerifiedReviews). */
 
 
-const posts = allPosts
-  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
-  .slice(0, 3);
+/* Todas las guías indexables, de la más reciente a la más antigua: la plantilla
+   pinta tres como tarjeta y el resto como lista. Antes solo salían las tres
+   últimas y el resto del blog no tenía ningún enlace desde las portadas, que
+   son las páginas que Google más rastrea; desde agosto dejó de rastrear /blog/. */
+const posts = guiasDePortada(allPosts, SITE.url);
+
+/* Cada presentación en vídeo con su propia página, con las mismas reglas que
+   /videos/ (courseWatch): solo cursos con producto, vídeo real y portada. */
+const videos = allCourses.map((course) => courseWatch(course, SITE.url, CDN_URL)).filter((video) => video !== null);
 
 
 const faqs = [
@@ -78,5 +86,5 @@ const tituloLargo = `Sably: cursos online de oficios con certificado en ${countr
 const title = tituloLargo.length <= LIMITE_TITULO ? tituloLargo : `Sably: cursos online de oficios en ${country.name}`;
 
 const description = `Aprende panadería, costura, electricidad, gastronomía y más oficios rentables desde ${country.name}. Cursos online con certificado y acceso de por vida.`;
-return {stats,cms,country,CATEGORIES,INTERNAL_CATEGORIES,base,allCourses,featured,posts,faqs,tituloLargo,title,description};
+return {stats,cms,country,CATEGORIES,INTERNAL_CATEGORIES,base,allCourses,featured,posts,videos,faqs,tituloLargo,title,description};
 }

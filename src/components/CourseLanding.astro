@@ -3,7 +3,7 @@ import { Image as OptimizedImage } from 'astro:assets';
 import {RelatedGuides,VerifiedReviews} from '@/themes';
 import {readVerifiedCourseReviews} from '@/lib/verified-course-reviews';
 import {courseWatch} from '@/lib/course-watch';
-import {relatedGuides} from '@/lib/related-guides';
+import {clusterDeCurso,relatedGuides} from '@/lib/related-guides';
 import {separadorDeLista,urlCreador} from '@/lib/creadores';
 import {courseSeo,indexableAtPath} from '@/lib/cms-indexability';
 import { cmsImageUrl } from '@/lib/cms-media';
@@ -79,7 +79,6 @@ const audience = locale?.data.para_quien ?? course.data.audience;
    comparten el metaTitle del MDX, y con variante el modelo a veces repite el
    mismo título en varios mercados. Se añade el país solo cuando hay colisión
    real: la mediana ya está en 55 caracteres y añadirlo siempre pasaría de 60. */
-const guides=relatedGuides(await cms.getBlogPosts(),course.id,SITE.url);
 const localesDelCurso = (await cms.getCourseLocales(course.id)).filter(
   (l) => l.data.course === course.id,
 );
@@ -113,6 +112,11 @@ const pillar = course.data.pillar
   ? (allCourses.find((c) => c.id === course.data.pillar) ?? null)
   : null;
 const satellites = allCourses.filter((c) => c.data.pillar === course.id);
+
+/* Guías del blog: primero las que enlazan a este curso; si no llegan a tres,
+   las que enlazan a su clúster (pilar y especializaciones), que el editor
+   definió con `pillar`. Nunca por palabra clave ni por categoría. */
+const guides = relatedGuides(await cms.getBlogPosts(), course.id, SITE.url, clusterDeCurso(course, allCourses));
 
 const related = allCourses
   .filter(
