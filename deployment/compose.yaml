@@ -4,6 +4,11 @@ services:
     image: ${SABLY_IMAGE:?Set SABLY_IMAGE in the stack .env}
     init: true
     restart: unless-stopped
+    # The host also runs dozens of PHP sites and runs out of memory under bot bursts. The kernel
+    # then kills the largest processes, Node among them, instead of the PHP workers causing it.
+    oom_score_adj: -900
+    # A protected process must not be able to exhaust the host: bound it. Normal use is 0.3-0.9 GB.
+    mem_limit: 2g
     ports:
       - "127.0.0.1:${SABLY_PORT:-4323}:4321"
     env_file:
@@ -17,6 +22,8 @@ services:
       SABLY_DATABASE_PATH: /app/data/sably.db
       EMDASH_SITE_URL: https://sably.co
       HOST: 0.0.0.0
+      # Node sizes its heap from the host's RAM (4.3 GB here); keep it under mem_limit.
+      NODE_OPTIONS: --max-old-space-size=1536
       PORT: "4321"
     volumes:
       - ./data:/app/data

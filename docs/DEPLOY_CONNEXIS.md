@@ -73,6 +73,19 @@ Conservar etiquetas inmutables para volver a la imagen anterior. Si una actualiz
 
 `compose.build.yaml` es un mecanismo opcional de compilación local desde `./app`. El botón **Update** de Dockge no compila código fuente: para este mecanismo hay que ejecutar los comandos indicados en ese archivo o publicar una imagen en el registro. No se debe presentar un stack con solo `build:` como actualización de un clic.
 
+## Memoria y recuperación automática
+
+El servidor comparte memoria con decenas de sitios PHP. Cuando una ráfaga de bots la agota, el kernel mata los procesos más grandes, que son Node y Ruby, y no los de PHP que la provocan. `compose.yaml` fija `oom_score_adj: -900` para que el contenedor no sea la víctima, y `mem_limit: 2g` con `NODE_OPTIONS=--max-old-space-size=1536` para que un proceso protegido no pueda agotar el servidor. El uso normal es de 0,3 a 0,9 GB.
+
+La política de reinicio de Docker no basta: en octubre de 2026 falló dos veces tras una muerte por memoria («failed to find host side interface», «task already exists») y el sitio estuvo caído 17–18 horas cada vez. `deployment/watchdog.sh` se ejecuta cada minuto desde cron, arranca el contenedor si está detenido y lo recrea si el arranque falla. Instalación:
+
+```sh
+install -o root -g root -m 755 deployment/watchdog.sh /opt/stacks/sably-emdash/watchdog.sh
+install -o root -g root -m 644 deployment/sably-emdash-watchdog.cron /etc/cron.d/sably-emdash-watchdog
+```
+
+Para detener el stack a propósito, por ejemplo para una copia exacta, crear antes `/opt/stacks/sably-emdash/.maintenance` y borrarlo al terminar; `docker compose down` también se respeta, porque elimina el contenedor. Cada intervención queda en `/var/log/sably-emdash-watchdog.log`, y `/run/sably-emdash-watchdog.last` marca la última pasada.
+
 ## Copias y caché
 
 Guardar copias consistentes de ambas bases SQLite (mediante su API de backup o con el contenedor detenido), el directorio de uploads y el `.env` de forma protegida. Copiar solo el `.db` mientras hay escrituras puede omitir datos del archivo WAL. No montar bases ni secretos bajo el document root de CloudPanel.
