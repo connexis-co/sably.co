@@ -4,7 +4,7 @@ import {RelatedGuides,VerifiedReviews} from '@/themes';
 import {readVerifiedCourseReviews} from '@/lib/verified-course-reviews';
 import {courseWatch} from '@/lib/course-watch';
 import {clusterDeCurso,relatedGuides} from '@/lib/related-guides';
-import {separadorDeLista,urlCreador} from '@/lib/creadores';
+import {nombresCreadores,urlCreador} from '@/lib/creadores';
 import {courseSeo,indexableAtPath} from '@/lib/cms-indexability';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { getContentRepository } from '@/lib/emdash-content';
@@ -473,11 +473,12 @@ const schemas = [
         </nav>
         <h1 {...(locale?.edit.h1 ?? course.edit.title)} class="mt-4 text-3xl leading-tight font-extrabold text-white sm:text-4xl">{h1}</h1>
         <p class="mt-4 max-w-xl text-lg text-white/80">{locale?.data.subtitulo ?? course.data.shortDescription}</p>
+        {/* Solo el nombre, sin enlace (decisión de JP, 4-nov-2026): nombrar al
+            creador es la señal de autoría; sacar al visitante de la ficha antes
+            del botón de compra no aporta nada a la venta. */}
         {creadoresVisibles.length > 0 && (
           <p data-creado-por class="mt-3 text-sm text-white/80">
-            Creado por {creadoresVisibles.map((c, i) => (
-              <>{separadorDeLista(i, creadoresVisibles.length)}<a href={`${base}/creadores/${c.slug}/`} class="font-semibold text-white underline underline-offset-4 hover:text-accent-on-dark">{c.nombre}</a></>
-            ))}
+            Creado por <span class="font-semibold text-white">{nombresCreadores(creadoresVisibles.map((c) => c.nombre))}</span>
           </p>
         )}
         <div class="mt-5 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/80">
@@ -792,8 +793,8 @@ const schemas = [
       {creadoresVisibles.map(creator => (
         <div class="rounded-lg border border-surface-200 p-6">
           <h2 class="text-sm font-bold tracking-wide text-muted uppercase">Creador del curso</h2>
-          <a href={`${base}/creadores/${creator.slug}/`} class="mt-3 block font-bold text-accent underline underline-offset-4">{creator.nombre}</a>
-          <p class="mt-2 text-sm text-body">Conoce su perfil y los cursos que ofrece en Sably.</p>
+          <p class="mt-3 font-bold text-primary">{creator.nombre}</p>
+          {creator.bio && <p class="mt-2 line-clamp-4 text-sm text-body">{creator.bio}</p>}
         </div>
       ))}
       {
