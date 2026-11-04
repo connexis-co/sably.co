@@ -22,7 +22,7 @@ Astro.locals.sablySeo = country.seo;
 
 const [ratings, stats, CATEGORIES, allCourses, allPosts] = await Promise.all([
   readOperationalRatings((env as unknown as {SABLY_DB:D1Database}).SABLY_DB, Astro.locals).catch(() => ({} as Awaited<ReturnType<typeof readOperationalRatings>>)),
-  publicStats(Astro.locals), cms.getCategories(), cms.getCourses(), cms.getBlogPosts(),
+  publicStats(), cms.getCategories(), cms.getCourses(), cms.getBlogPosts(),
 ]);
 const valoracionReal = (slug:string) => ratings[slug] ?? null;
 

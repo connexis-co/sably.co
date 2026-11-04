@@ -5,7 +5,7 @@ import { CourseCard } from '@/themes';
 import { countryAlternates } from '@/lib/seo';
 import type { load } from '@/lib/page-loaders/creator-profile';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
-const {country, autor, cursos, base, valoraciones, media, totalValoraciones, title, description, schemas} = Astro.props;
+const {country, autor, cursos, base, title, description, schemas} = Astro.props;
 ---
 
 <BaseLayout
@@ -58,15 +58,6 @@ const {country, autor, cursos, base, valoraciones, media, totalValoraciones, tit
             <span>
               <strong class="text-white">{cursos.length}</strong> cursos en el catálogo
             </span>
-            {
-              media && (
-                <span>
-                  <span class="text-warning">★</span>
-                  <strong class="text-white"> {media.toFixed(1).replace('.', ',')}</strong> de media en{' '}
-                  {totalValoraciones.toLocaleString('es-CO')} valoraciones reales
-                </span>
-              )
-            }
           </p>
         </div>
       </div>
