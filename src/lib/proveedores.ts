@@ -104,6 +104,16 @@ export const PROVEEDORES: Record<string, Proveedor> = {
     // scripts/auditar-cupon.mjs—. El cupón del sitio no le descuenta nada.
     cupon: false,
   },
+  premiumacademy: {
+    id: 'premiumacademy',
+    nombre: 'Premium Academy (creador externo)',
+    // Trajes de baño premium (checkout Y44240797J, 69,99 USD / 240.050 COP) y
+    // Lencería íntima premium (A44239855U, 79,99 USD / 274.350 COP): mismo
+    // importe con y sin `?offDiscount=031016`, medido el 2026-11-04 siguiendo
+    // sus acortadores hasta el checkout. El cupón de MasterClasses no aplica
+    // en este creador; sin esta marca la ficha pintaría −50 % y cobraría entero.
+    cupon: false,
+  },
 };
 
 /** Normaliza el `proveedor` del frontmatter al id de un proveedor conocido. */
