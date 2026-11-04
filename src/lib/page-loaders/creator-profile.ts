@@ -3,6 +3,7 @@ import { readOperationalRatings } from '@/plugins/sably-operations/public';
 import { env } from 'virtual:sably-runtime';
 import { countryAlternates, breadcrumbSchema, itemListSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
+import { creadorSchema, urlCreador } from '@/lib/creadores';
 import type { PublicPageContext } from './types';
 
 export async function load(Astro:PublicPageContext) {
@@ -39,28 +40,30 @@ const totalValoraciones = valoraciones.reduce((s, v) => s + v.total, 0);
 
 const title = `Cursos de ${autor.nombre} | Sably ${country.name}`;
 
-const description = `${autor.nombre}: ${cursos.length} cursos online con certificado en ${country.name}. ${autor.bio}`.slice(0, 158);
+const description = `${autor.nombre}: ${cursos.length} ${cursos.length === 1 ? 'curso online' : 'cursos online'} en ${country.name}. ${autor.bio}`.slice(0, 158);
+
+const url = urlCreador(SITE.url, country.code, autor.slug);
 
 
 const schemas = [
   breadcrumbSchema([
     { name: 'Inicio', url: `${SITE.url}${base}/` },
     { name: 'Creadores', url: `${SITE.url}${base}/` },
-    { name: autor.nombre, url: `${SITE.url}${base}/creadores/${autor.slug}/` },
+    { name: autor.nombre, url },
   ]),
-  // ProfilePage + Person: datos REALES capturados de Hotmart (nombre, bio, foto).
-  // Da atribución de autor a los LLMs y refuerza E-E-A-T. Sin aggregateRating en
-  // la Person (Google no lo usa ahí); las notas reales viven en cada Course.
+  // ProfilePage: datos REALES capturados de Hotmart (nombre, bio, foto). Da
+  // atribución de autor a los LLMs y refuerza E-E-A-T. La entidad es `Person` u
+  // `Organization` según lo que el creador declara (MasterClasses.La® es una
+  // empresa) y lleva el mismo @id que el `creator` de cada Course. Sin
+  // aggregateRating aquí (Google no lo usa); las notas reales viven en cada Course.
   {
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
     dateModified: autor.updatedAt,
     mainEntity: {
-      '@type': 'Person',
-      name: autor.nombre,
+      ...creadorSchema(autor, url),
       ...(autor.bio ? { description: autor.bio } : {}),
       ...(autor.foto ? { image: new URL(autor.foto,SITE.url).href } : {}),
-      url: `${SITE.url}${base}/creadores/${autor.slug}/`,
     },
   },
   // Sus cursos como ItemList: asocia al creador con su catálogo real.

@@ -72,7 +72,12 @@ test('all 964 captured production sitemap URLs survive the full CMS route genera
   assert.equal(groups.blog!.length,11);assert.equal(groups.categorias!.length,96);
   for(const [name,paths] of Object.entries(groups))if(name.startsWith('cursos-'))assert.equal(paths.length,104,name);
   const added=[...next].filter(path=>!previous.has(path));
-  assert.deepEqual(added.filter(path=>!path.startsWith('/videos/')),['/contacto/']);
+  // Creators with real courses (Hotmart author restored in hotmart-live.json) gain their profile in every market.
+  const withCourses=seed.content.creators.filter((c:{data:{course_slugs?:string[]}})=>(c.data.course_slugs??[]).length>0).map((c:{slug:string})=>c.slug);
+  assert.ok(withCourses.length>0);
+  const profiles=added.filter(path=>/^\/[a-z]{2}\/creadores\/[^/]+\/$/.test(path));
+  assert.deepEqual(new Set(profiles),new Set(withCourses.flatMap(slug=>['ar','cl','co','ec','es','mx','pe','us'].map(code=>`/${code}/creadores/${slug}/`))));
+  assert.deepEqual(added.filter(path=>!path.startsWith('/videos/')&&!profiles.includes(path)),['/contacto/']);
 });
 
 test('video sitemap uses one watch URL and matching native thumbnail, never eight country sales pages',async()=>{
@@ -97,16 +102,39 @@ test('the legacy city sitemap now advertises preferred country targets rather th
  assert.ok(paths.every((path:string)=>/^\/[a-z]{2}\/(?:cursos\/(?:[^/]+\/)?)?$/.test(path)));
 });
 
+/** Production today: every course carries an empty creator relation and creators list no courses. */
+function withoutCreatorRelations(f:ReturnType<typeof fixture>) {
+  for(const course of f.entries.courses??[]){const d=course.data as Record<string,unknown>;d.creator_record=null;delete d.creator_slug;}
+  for(const creator of f.entries.creators??[])(creator.data as Record<string,unknown>).course_slugs=[];
+  return f;
+}
+
 test('empty creators stay out of the sitemap and an editorial course reference enables their profile',async()=>{
-  const {entries,cms}=fixture();
+  const {entries,cms}=withoutCreatorRelations(fixture());
   assert.ok(!(await routes(cms)).pages.some(path=>path.includes('/creadores/')));
   const creator=entries.creators![0]!;
   // A fresh request observes the newly configured native relation.
-  const changed=fixture();
+  const changed=withoutCreatorRelations(fixture());
   (changed.entries.courses![0]!.data as Record<string,unknown>).creator_record=(changed.entries.creators![0]!.data as Record<string,unknown>).id;
   const profiles=(await routes(changed.cms)).pages.filter(path=>path.includes('/creadores/'));
   assert.equal(profiles.length,8);
   assert.ok(profiles.every(path=>path.endsWith(`/creadores/${creator.id}/`)));
+});
+
+test('with an empty CMS relation the Hotmart author links real products to existing creators only',async()=>{
+  const {entries}=withoutCreatorRelations(fixture());
+  const reader:ContentReader={
+    async entry(name,slug){return{entry:entries[name]?.find(e=>e.id===slug)??null};},
+    async collection(name,query){const all=entries[name]??[];const offset=Number(query.cursor??0),page=all.slice(offset,offset+query.limit),hasMore=offset+page.length<all.length;return{entries:page,hasMore,nextCursor:hasMore?String(offset+page.length):undefined};},
+  };
+  const known=entries.creators![0]!.id;
+  const hotmart:Record<string,string>={'curso-de-barberia':known,'curso-de-unas':'creador-que-no-esta-en-el-cms'};
+  const cms=createContentRepository(reader,{autorHotmart:slug=>hotmart[slug]});
+  const creators=await cms.getCreators();
+  assert.deepEqual(creators.find(c=>c.slug===known)?.cursos,['curso-de-barberia']);
+  assert.ok(creators.every(c=>!c.cursos.includes('curso-de-unas')),'A Hotmart author without a CMS creator has no profile to link to');
+  const profiles=(await routes(cms)).pages.filter(path=>path.includes('/creadores/'));
+  assert.deepEqual(new Set(profiles),new Set(['ar','cl','co','ec','es','mx','pe','us'].map(code=>`/${code}/creadores/${known}/`)));
 });
 
 test('courses without checkout stay outside the sitemap and blog/course slugs remain identical',async()=>{

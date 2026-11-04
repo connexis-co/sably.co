@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { DEFAULT_COUNTRY, localPrice, type Country } from './countries';
 import { readOperationalPrice } from '@/plugins/sably-operations/public';
 import { SITE } from './site';
+import { creatorDelCurso } from './creadores';
 import { getCountries } from './emdash-content';
 import {verifiedReviewMarkup,type VerifiedReviews} from './verified-course-reviews';
 
@@ -143,6 +144,12 @@ interface CourseSchemaInput {
    * a ninguna parte.
    */
   comprable?: boolean;
+  /**
+   * Creadores reales del curso (relación del CMS o autor publicado en Hotmart),
+   * cada uno con la URL de su página en el país de la ficha. Vacío o ausente
+   * cuando no consta ninguno: no se emite `creator` antes que inventarlo.
+   */
+  creators?: { slug: string; nombre: string; bio?: string; url: string }[];
   category: string;
   workloadHours: number;
   /** `learnings` del curso → `teaches`, que Google muestra en Course Info. */
@@ -188,6 +195,8 @@ export function courseSchema(c: CourseSchemaInput) {
     url: c.url,
     ...(c.image ? { image: [c.image] } : {}),
     provider: { '@id': `${SITE.url}/#organization` },
+    // Quién hizo el curso, con el mismo @id que el ProfilePage de su página.
+    ...creatorDelCurso(c.creators),
     // Sin `instructor` a este nivel: schema.org solo lo admite en
     // CourseInstance (el validador da UNKNOWN_FIELD en Course). El instructor
     // sigue declarado en hasCourseInstance y visible en la página.
