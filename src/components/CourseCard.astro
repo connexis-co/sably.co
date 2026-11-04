@@ -7,8 +7,7 @@ import { courseCover } from '@/lib/categories';
 import { getCategory } from '@/lib/emdash-content';
 import { formatPrice, type Country } from '@/lib/countries';
 import { formatMonto } from '@/lib/moneda';
-import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-operations/public';
-import Rating from './Rating.astro';
+import { readOperationalPrice } from '@/plugins/sably-operations/public';
 
 interface Props {
   course: Course;
@@ -21,11 +20,10 @@ interface Props {
 const { course, country } = Astro.props;
 const cat = (await getCategory(course.data.category))!;
 
-/* Precio y valoración reales de Hotmart; sin dato real no se inventa nada:
-   precio de catálogo como respaldo, sin estrellas y sin badge de descuento. */
+/* Precio real de Hotmart; sin dato real no se inventa nada: precio de
+   catálogo como respaldo y sin badge de descuento. */
 const operationalDb = (env as unknown as {SABLY_DB:D1Database}).SABLY_DB;
 const real = await readOperationalPrice(operationalDb, course.id, country, Astro.locals).catch(() => null);
-const valoracion = await readOperationalRating(operationalDb, course.id, Astro.locals).catch(() => null);
 const url = `/${country.code}/${course.id}/`;
 ---
 
@@ -56,13 +54,6 @@ const url = `/${country.code}/${course.id}/`;
         {course.data.title}
       </h3>
       <p class="mt-1.5 line-clamp-2 text-sm text-body">{course.data.shortDescription}</p>
-      {
-        valoracion && (
-          <div class="mt-2">
-            <Rating rating={valoracion.rating} count={valoracion.total} fuente="Hotmart" />
-          </div>
-        )
-      }
       <p class="mt-1 text-xs text-muted">{course.data.durationHours} h · {course.data.level}</p>
       <div class="mt-auto flex items-baseline gap-2 pt-3">
         <span class="text-lg font-extrabold whitespace-nowrap text-primary">
