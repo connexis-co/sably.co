@@ -30,6 +30,8 @@ import {
 import { courseCover } from '@/lib/categories';
 import { formatMonto } from '@/lib/moneda';
 import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-operations/public';
+import { faqsHonestas } from '@/lib/faq-honestas';
+import { faqPagoPais } from '@/lib/medios-de-pago';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
 import { mejorPromocion, campaignDePromocion } from '@/lib/promo';
@@ -197,11 +199,9 @@ const videoSrc = course.data.videoKey && CDN_URL ? `${CDN_URL}/videos/${course.d
 const watch = courseWatch(course,SITE.url,CDN_URL);
 
 /* FAQs: las del curso + banco estándar (garantiza ≥8 por página, con FAQPage schema). */
+const FAQ_PAGO = faqPagoPais(country);
 const STANDARD_FAQS = [
-  {
-    q: '¿Cómo se realiza el pago?',
-    a: `El pago se procesa de forma 100% segura a través de Hotmart, con tarjetas y métodos de pago locales de ${country.name}. Pagas una sola vez, en ${country.currency} o su equivalente.`,
-  },
+  FAQ_PAGO,
   {
     q: '¿Puedo estudiar desde el celular?',
     a: 'Sí. La plataforma funciona en celular, tablet y computador, con las clases disponibles 24/7 para que avances donde estés.',
@@ -233,7 +233,10 @@ const baseFaqs = sinProducto
         a: 'Estamos habilitando las inscripciones de este curso. Déjanos tus datos y te avisamos apenas esté disponible, sin compromiso.',
       },
     ]
-  : baseFaqsRaw;
+  : /* Las variantes de país traen precios, descuentos y medios de pago que no
+       coinciden con el checkout: se quitan, el precio sale de esta ficha y los
+       medios de pago de la lista verificada del país. */
+    faqsHonestas(baseFaqsRaw, { precioTexto, faqPago: FAQ_PAGO });
 const faqs = city
   ? [
       {
