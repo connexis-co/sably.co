@@ -128,13 +128,6 @@ interface CourseSchemaInput {
   price: number;
   priceCurrency: string;
   /**
-   * Nombre del instructor. `undefined` cuando no hay uno verificado: en las
-   * fichas sin producto el del frontmatter es inventado, y declarar una
-   * `Person` con credenciales que nadie puede respaldar es peor en el marcado
-   * que en la página, porque Google lo indexa como una entidad real.
-   */
-  instructorName?: string;
-  /**
    * `false` cuando el curso todavía no tiene checkout.
    *
    * Sin producto no hay nada que ofertar: emitir un `Offer` con precio y
@@ -188,9 +181,8 @@ export function courseSchema(c: CourseSchemaInput) {
     url: c.url,
     ...(c.image ? { image: [c.image] } : {}),
     provider: { '@id': `${SITE.url}/#organization` },
-    // Sin `instructor` a este nivel: schema.org solo lo admite en
-    // CourseInstance (el validador da UNKNOWN_FIELD en Course). El instructor
-    // sigue declarado en hasCourseInstance y visible en la página.
+    // Sin `instructor`: no hay un dato verificado de quién dicta cada curso.
+    // El creador real se enlaza en la ficha («Creador del curso»).
     about: c.category,
     ...(c.teaches?.length ? { teaches: c.teaches } : {}),
     ...(c.level && NIVEL[c.level] ? { educationalLevel: NIVEL[c.level] } : {}),
@@ -236,7 +228,6 @@ export function courseSchema(c: CourseSchemaInput) {
       courseMode: 'Online',
       courseWorkload: `PT${c.workloadHours}H`,
       location: { '@type': 'VirtualLocation', url: c.url },
-      ...(c.instructorName ? { instructor: { '@type': 'Person', name: c.instructorName } } : {}),
     },
     inLanguage: 'es',
     availableLanguage: ['es'],
