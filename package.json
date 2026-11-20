@@ -10,6 +10,7 @@
     "build": "node scripts/build-environment.mjs development",
     "preview": "astro preview",
     "check": "astro check",
+    "seo:test": "node scripts/seo-test.mjs",
     "check:functions": "tsc -p tsconfig.functions.json",
     "prepare": "husky",
     "deploy:dev": "node scripts/deploy-emdash-dev.mjs",
