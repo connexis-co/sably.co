@@ -8,6 +8,7 @@ import { CourseCard } from '@/themes';
 import { SectionHeading } from '@/themes';
 import PromoBanner from '@/components/PromoBanner.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
+import HotmartLogo from '@/components/HotmartLogo.astro';
 import { countryAlternates, faqSchema } from '@/lib/seo';
 import { CDN_URL } from '@/lib/site';
 import { HERO_ASSETS } from '@/lib/hero-assets';
@@ -219,7 +220,8 @@ const benefits = editorial.benefits.groups.map(group=>{const [icon,...title]=gro
           ))
         }
       </ol>
-      <p class="mt-8 text-center text-sm text-body">
+      <p class="mt-8 text-center text-sm text-body">Pago y acceso a los cursos en <HotmartLogo /></p>
+      <p class="mt-3 text-center text-sm text-body">
         Sably es un proyecto de Connexis, agencia colombiana de desarrollo web y marketing digital.{' '}
         <a href="/nosotros/" class="font-semibold text-accent underline underline-offset-4">Conoce quién está detrás</a>
       </p>

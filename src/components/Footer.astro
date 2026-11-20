@@ -6,6 +6,7 @@ import { safeEditorialUrl, marketMenuUrl } from '@/lib/sably-theme';
 import { type Country } from '@/lib/countries';
 import { SITE } from '@/lib/site';
 import Logo from './Logo.astro';
+import HotmartLogo from './HotmartLogo.astro';
 import SocialIcon from './SocialIcon.astro';
 
 interface Props {
@@ -140,7 +141,7 @@ const ECOSYSTEM = (ecosystem?.items ?? []).flatMap(item=>{
   <div class="border-t border-white/10">
     <div class="container-site flex flex-col items-center gap-2 py-5 text-center text-xs text-white/50 sm:flex-row sm:flex-wrap sm:justify-between sm:text-left">
       <p>© {year} Sably — Todos los derechos reservados.</p>
-      <p>Los cursos se imparten a través de Hotmart. Certificado incluido.</p>
+      <p>Los cursos se imparten a través de <HotmartLogo tono="claro" class="h-3.5" />. Certificado incluido.</p>
       {/* Aviso de afiliado en todo el sitio (FTC, SIC, LSSI y la política de
           tergiversación de Google Ads piden declarar la comisión). Dice
           «como afiliado» y no «afiliado de Hotmart»: los Términos de Hotmart
@@ -153,6 +154,11 @@ const ECOSYSTEM = (ecosystem?.items ?? []).flatMap(item=>{
           href="/legal/terminos/#afiliacion"
           class="underline decoration-white/30 underline-offset-2 transition hover:text-white">Condiciones de afiliación</a
         >
+      </p>
+      {/* Aviso de marca: el logo identifica dónde se paga, no un vínculo. */}
+      <p class="sm:basis-full">
+        Hotmart y su logo son marcas de su titular. Aparecen en este sitio solo para identificar la plataforma donde se
+        realizan el pago y el acceso a los cursos. Sably no actúa en nombre de Hotmart.
       </p>
     </div>
   </div>

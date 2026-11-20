@@ -33,6 +33,7 @@ import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-ope
 import { faqsHonestas } from '@/lib/faq-honestas';
 import { faqPagoPais } from '@/lib/medios-de-pago';
 import { buildHotmartUrl } from '@/lib/hotmart';
+import HotmartLogo from '@/components/HotmartLogo.astro';
 import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
 import { mejorPromocion, campaignDePromocion } from '@/lib/promo';
 import { readActivePromosForRequest } from '@/plugins/sably-operations/public';
@@ -615,7 +616,7 @@ const schemas = [
           {/* Garantía y pago solo existen si hay checkout: en «Próximamente»
               prometerían algo que todavía no se puede comprar. */}
           {!sinProducto && <li>✅ Garantía de 7 días</li>}
-          {!sinProducto && <li>✅ Pago seguro vía Hotmart</li>}
+          {!sinProducto && <li>✅ Pago seguro en <HotmartLogo /></li>}
         </ul>
       </div>
     </div>
@@ -831,6 +832,7 @@ const schemas = [
             <p class="mt-2 text-sm text-body">
               Si el curso no cumple tus expectativas, pides el reembolso del 100 % en Hotmart dentro de los 7 días.
             </p>
+            <p class="mt-3 text-xs text-body">Pago y reembolso gestionados por <HotmartLogo class="h-3.5" /></p>
           </div>
         )
       }
