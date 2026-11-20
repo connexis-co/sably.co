@@ -39,7 +39,7 @@ const url = `/${country.code}/${course.id}/`;
     >
       <OptimizedImage
         src={cmsImageUrl(course.cardImage) ?? cmsImageUrl(course.coverImage) ?? courseCover(course.id, cat.slug, 'card')}
-        alt=""
+        alt={course.data.title}
         width={480}
         height={320}
         sizes="(min-width: 1280px) 300px, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"

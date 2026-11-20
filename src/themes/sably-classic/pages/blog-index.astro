@@ -74,7 +74,7 @@ const {country, posts, facets, featured, rest, title, description, schemas} = As
               <div class="h-56 overflow-hidden sm:h-64 lg:h-auto">
                 <OptimizedImage
                   src={(cmsImageUrl(featured.coverImage) ?? blogCover(featured.data.category, 'hero'))}
-                  alt=""
+                  alt={featured.data.title}
                   width={800}
                   height={533}
                   fetchpriority="high"
@@ -109,7 +109,7 @@ const {country, posts, facets, featured, rest, title, description, schemas} = As
                 <div class="h-44 overflow-hidden">
                   <OptimizedImage
                     src={(cmsImageUrl(post.cardImage) ?? cmsImageUrl(post.coverImage) ?? blogCover(post.data.category, 'card'))}
-                    alt=""
+                    alt={post.data.title}
                     width={480}
                     height={320}
                     loading="lazy"

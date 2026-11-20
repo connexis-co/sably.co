@@ -1,0 +1,26 @@
+---
+/**
+ * Logo de Hotmart, solo junto a las frases que dicen dónde se paga y dónde se
+ * accede al curso. No acompaña a botones de compra ni a textos promocionales:
+ * identifica la plataforma, no la usa de reclamo. El aviso de marca va en el
+ * pie de todas las páginas (Footer.astro).
+ *
+ * `claro` es el mismo logo con el texto en blanco para fondos oscuros; el
+ * archivo original de Hotmart no se modifica.
+ */
+interface Props {
+  tono?: 'oscuro' | 'claro';
+  class?: string;
+}
+const { tono = 'oscuro', class: clase = 'h-4' } = Astro.props;
+---
+
+<img
+  src={tono === 'claro' ? '/brand/hotmart-claro.svg' : '/brand/hotmart.svg'}
+  alt="Hotmart"
+  width="112"
+  height="32"
+  loading="lazy"
+  decoding="async"
+  class:list={['inline-block w-auto align-[-0.18em]', clase]}
+/>
