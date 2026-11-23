@@ -1,5 +1,7 @@
 import { cmsImageUrl } from './cms-media';
 import { normalizePagePath } from './page-path';
+import { asignarCursos } from './creadores';
+import { autorDe } from './hotmartLive';
 import type { ContentSeo } from 'emdash';
 import type { CollectionEntry } from 'astro:content';
 import type { Country, City } from './countries';
@@ -207,7 +209,11 @@ function localeData(value: unknown, courseId: string, countryCode: string): Cour
 }
 
 
-export function createContentRepository(reader:ContentReader=liveReader) {
+export interface ContentRepositoryOptions {
+  /** Autor que Hotmart publica para un curso (slug del creador), de respaldo cuando el CMS no trae relación. */
+  autorHotmart?:(courseSlug:string)=>string|null|undefined;
+}
+export function createContentRepository(reader:ContentReader=liveReader,options:ContentRepositoryOptions={}) {
   // Instantiate per request to coalesce reads; this instance is never shared globally.
   const pending=new Map<string,Promise<CmsEntry[]>>();
   const rawAll=(name:string,where?:Record<string,string>)=>{const key=JSON.stringify([name,where]);if(!pending.has(key)) pending.set(key,readAllPublished(name,reader,where));return pending.get(key)!;};
@@ -276,7 +282,16 @@ export function createContentRepository(reader:ContentReader=liveReader) {
     async getBlogPosts(){return (await all('blog')).map(blog);},
     async getBlogPost(slug:string){const {entry}=await one('blog',slug);return entry?blog(entry):null;},
     async getTestimonials():Promise<(CollectionEntry<'testimonials'>&CmsMeta)[]>{return (await all('testimonials')).map(e=>{const d=record(e.data,e.id,'data');const rating=d.rating;if(typeof rating!=='number'||rating<0||rating>5) invalid(e.id,'rating');return {id:e.id,collection:'testimonials',data:{id:e.id,name:text(d.name,e.id,'name'),text:text(d.text,e.id,'text'),rating,citySlug:text(d.city_slug,e.id,'city_slug'),countryCode:text(d.country_code,e.id,'country_code'),courseSlug:optional(d.course_slug),category:optional(d.category)},...meta(e,'testimonials')};});},
-    async getCreators():Promise<CmsCreator[]>{const [entries,courses]=await Promise.all([all('creators'),api.getCourses()]);return entries.map(e=>{const d=record(e.data,e.id,'data');return {...meta(e,'creators'),slug:e.id,nombre:text(d.name,e.id,'name'),bio:text(d.bio??'',e.id,'bio',true),desde:typeof d.since==='number'?d.since:undefined,verificado:d.verified===true,bestSeller:d.best_seller===true,foto:cmsImageUrl(d.photo)??cmsImageUrl({src:d.photo_url}),badges:{verified:d.verified===true,bestSeller:d.best_seller===true},cursos:courses.filter(c=>(c.data as unknown as Data).creatorSlug===e.id || (!((c.data as unknown as Data).creatorManaged) && !((c.data as unknown as Data).creatorSlug) && Array.isArray(d.course_slugs)&&d.course_slugs.includes(c.id))).map(c=>c.id)};});},
+    async getCreators():Promise<CmsCreator[]>{
+      const [entries,courses]=await Promise.all([all('creators'),api.getCourses()]);
+      // Una sola asignación curso→creador para ficha, perfil, catálogo y sitemap (ver creadores.ts).
+      const cursosDe=asignarCursos(
+        entries.map(e=>{const d=record(e.data,e.id,'data');return {slug:e.id,courseSlugs:Array.isArray(d.course_slugs)?d.course_slugs.filter((s):s is string=>typeof s==='string'):[]};}),
+        courses.map(c=>{const d=c.data as unknown as Data;return {id:c.id,creatorSlug:typeof d.creatorSlug==='string'?d.creatorSlug:undefined,creatorManaged:d.creatorManaged===true};}),
+        options.autorHotmart,
+      );
+      return entries.map(e=>{const d=record(e.data,e.id,'data');return {...meta(e,'creators'),slug:e.id,nombre:text(d.name,e.id,'name'),bio:text(d.bio??'',e.id,'bio',true),desde:typeof d.since==='number'?d.since:undefined,verificado:d.verified===true,bestSeller:d.best_seller===true,foto:cmsImageUrl(d.photo)??cmsImageUrl({src:d.photo_url}),badges:{verified:d.verified===true,bestSeller:d.best_seller===true},cursos:cursosDe.get(e.id)??[]};});
+    },
     async getCreator(slug:string){return (await api.getCreators()).find(c=>c.slug===slug)??null;},
     async getPrograms(){return (await all('homologaciones')).map(program);},
     async getProgram(slug:string){const {entry}=await one('homologaciones',slug);return entry?program(entry):null;},
@@ -286,11 +301,12 @@ export function createContentRepository(reader:ContentReader=liveReader) {
   };
   return api;
 }
+const LIVE_OPTIONS:ContentRepositoryOptions={autorHotmart:(courseSlug)=>autorDe(courseSlug)?.slug};
 const requestRepositories=new WeakMap<object,ReturnType<typeof createContentRepository>>();
 export async function getContentRepository(){
  const {getRequestContext}=await import('emdash/request-context');const context=getRequestContext();
- if(!context) return createContentRepository();
- let repo=requestRepositories.get(context);if(!repo){repo=createContentRepository();requestRepositories.set(context,repo);}return repo;
+ if(!context) return createContentRepository(liveReader,LIVE_OPTIONS);
+ let repo=requestRepositories.get(context);if(!repo){repo=createContentRepository(liveReader,LIVE_OPTIONS);requestRepositories.set(context,repo);}return repo;
 }
 export const getCategories=async()=>(await getContentRepository()).getCategories();
 export const getCategory=async(slug:string)=>(await getContentRepository()).getCategory(slug);

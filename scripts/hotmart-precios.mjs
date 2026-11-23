@@ -22,7 +22,7 @@
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { catalogApiOrigin, fetchHotmart, loadPublishedHotmartCatalog, retainPublishedCaptures } from '../src/lib/hotmart-catalog.mjs';
 
 // fileURLToPath y no .pathname: la ruta del proyecto lleva espacios y el
@@ -76,6 +76,21 @@ function extraerPrecios(html) {
   return vistos;
 }
 
+/**
+ * Producto recién capturado sin perder su autor.
+ *
+ * Esta línea reescribía el producto entero y se llevaba por delante `autor`
+ * (lo captura scripts/hotmart-autores.mjs). Pasó el 12-ago-2026: los 95 cursos
+ * con creador quedaron sin él, la migración a EmDash heredó creadores sin
+ * cursos y las fichas dejaron de decir quién hizo cada curso. El autor se
+ * conserva solo si el checkout es el mismo: otro producto puede ser de otro
+ * creador, y entonces no se arrastra un dato que ya no es cierto.
+ */
+export function productoCapturado(previo, actual) {
+  const autor = previo?.payUrl === actual.payUrl ? previo?.autor : undefined;
+  return autor ? { ...actual, autor } : actual;
+}
+
 async function main() {
   const publicados = await loadPublishedHotmartCatalog({api:API,token:process.env.SNAPSHOT_TOKEN,previewToken:process.env.SABLY_DEV_PASSWORD});
   const cursos = args.includes('--solo') ? publicados.filter(row => row.slug === args[args.indexOf('--solo') + 1]) : publicados;
@@ -119,7 +134,7 @@ async function main() {
       if (!precios.size) throw new Error('checkout sin precios en el payload');
 
       datos.precios[slug] = { ...datos.precios[slug], ...Object.fromEntries(precios) };
-      if (pay) datos.productos[slug] = { payUrl: `https://${pay}`, hotlink, titulo };
+      if (pay) datos.productos[slug] = productoCapturado(datos.productos[slug], { payUrl: `https://${pay}`, hotlink, titulo });
 
       // Valoración y reseñas públicas del producto. La página del marketplace
       // (hotlink con ?dp=1) da el idProducto; con él, la API pública de
@@ -218,4 +233,6 @@ async function main() {
   }
 }
 
-main().catch(error => { console.error(error.message); process.exitCode = 1; });
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch(error => { console.error(error.message); process.exitCode = 1; });
+}

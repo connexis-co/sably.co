@@ -155,7 +155,7 @@ const {post, country, toc, related, minutes, title, schemas, articleSchema, arti
                 <div class="h-36 overflow-hidden">
                   <OptimizedImage
                     src={(cmsImageUrl(p.cardImage) ?? cmsImageUrl(p.coverImage) ?? blogCover(p.data.category, 'card'))}
-                    alt=""
+                    alt={p.data.title}
                     width={480}
                     height={320}
                     loading="lazy"

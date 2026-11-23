@@ -3,6 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { DEFAULT_COUNTRY, localPrice, type Country } from './countries';
 import { readOperationalPrice } from '@/plugins/sably-operations/public';
 import { SITE } from './site';
+import { creatorDelCurso } from './creadores';
 import { getCountries } from './emdash-content';
 import {verifiedReviewMarkup,type VerifiedReviews} from './verified-course-reviews';
 
@@ -128,13 +129,6 @@ interface CourseSchemaInput {
   price: number;
   priceCurrency: string;
   /**
-   * Nombre del instructor. `undefined` cuando no hay uno verificado: en las
-   * fichas sin producto el del frontmatter es inventado, y declarar una
-   * `Person` con credenciales que nadie puede respaldar es peor en el marcado
-   * que en la página, porque Google lo indexa como una entidad real.
-   */
-  instructorName?: string;
-  /**
    * `false` cuando el curso todavía no tiene checkout.
    *
    * Sin producto no hay nada que ofertar: emitir un `Offer` con precio y
@@ -143,6 +137,12 @@ interface CourseSchemaInput {
    * a ninguna parte.
    */
   comprable?: boolean;
+  /**
+   * Creadores reales del curso (relación del CMS o autor publicado en Hotmart),
+   * cada uno con la URL de su página en el país de la ficha. Vacío o ausente
+   * cuando no consta ninguno: no se emite `creator` antes que inventarlo.
+   */
+  creators?: { slug: string; nombre: string; bio?: string; url: string }[];
   category: string;
   workloadHours: number;
   /** `learnings` del curso → `teaches`, que Google muestra en Course Info. */
@@ -188,9 +188,10 @@ export function courseSchema(c: CourseSchemaInput) {
     url: c.url,
     ...(c.image ? { image: [c.image] } : {}),
     provider: { '@id': `${SITE.url}/#organization` },
-    // Sin `instructor` a este nivel: schema.org solo lo admite en
-    // CourseInstance (el validador da UNKNOWN_FIELD en Course). El instructor
-    // sigue declarado en hasCourseInstance y visible en la página.
+    // Quién hizo el curso, con el mismo @id que el ProfilePage de su página.
+    ...creatorDelCurso(c.creators),
+    // Sin `instructor`: no hay un dato verificado de quién dicta cada curso
+    // (el del contenido era de relleno). El creador real va en `creator`.
     about: c.category,
     ...(c.teaches?.length ? { teaches: c.teaches } : {}),
     ...(c.level && NIVEL[c.level] ? { educationalLevel: NIVEL[c.level] } : {}),
@@ -236,7 +237,6 @@ export function courseSchema(c: CourseSchemaInput) {
       courseMode: 'Online',
       courseWorkload: `PT${c.workloadHours}H`,
       location: { '@type': 'VirtualLocation', url: c.url },
-      ...(c.instructorName ? { instructor: { '@type': 'Person', name: c.instructorName } } : {}),
     },
     inLanguage: 'es',
     availableLanguage: ['es'],
