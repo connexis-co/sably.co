@@ -102,6 +102,33 @@ test('Cloudflare keeps shareable copies to serve while the origin is down, and n
   assert.equal(devRobots.headers.get('cloudflare-cdn-cache-control'),'no-store');
 });
 
+test('the page cache provider, which wraps the boundary, has the last word on the edge policy', async () => {
+  const previous = process.env.SABLY_ENVIRONMENT;
+  process.env.SABLY_ENVIRONMENT='production';
+  try {
+    invalidateNodePages();
+    const cache=nodeCacheProvider(undefined);
+    const context=(url:string,headers?:HeadersInit)=>({request:new Request(url,{headers}),url:new URL(url),logger:{info(){},warn(){},error(){}}});
+    const until=String(Math.floor(Date.now()/1000)+86400);
+    // What the boundary hands back for a page: no-store at the edge, then Astro adds the cache headers.
+    const page=(status=200,extra:Record<string,string>={})=>async()=>new Response('page',{status,headers:{'content-type':'text/html','Cache-Control':status===200?'max-age=0':'private, no-store','Cloudflare-CDN-Cache-Control':'no-store','CDN-Cache-Control':'max-age=86400','X-Sably-Fresh-Until':until,...extra}});
+    for (const hit of [false,true]) {
+      const response=await cache.onRequest!(context('https://sably.co/mx/'),page());
+      assert.equal(response.headers.get('cloudflare-cdn-cache-control'),'public, max-age=300, stale-if-error=604800',`hit=${hit}`);
+      assert.equal(response.headers.has('x-sably-fresh-until'),false);
+    }
+    const missing=await cache.onRequest!(context('https://sably.co/mx/no-existe/'),page(404));
+    assert.equal(missing.headers.get('cloudflare-cdn-cache-control'),'no-store');
+    const personal=await cache.onRequest!(context('https://sably.co/pe/'),page(200,{'set-cookie':'a=b'}));
+    assert.equal(personal.headers.get('cloudflare-cdn-cache-control'),'no-store');
+    const redirect=await cache.onRequest!(context('https://sably.co/co/viejo/'),async()=>new Response(null,{status:301,headers:{location:'https://sably.co/co/nuevo/','Cloudflare-CDN-Cache-Control':'public, max-age=300, stale-if-error=604800'}}));
+    assert.equal(redirect.headers.get('cloudflare-cdn-cache-control'),'public, max-age=300, stale-if-error=604800');
+  } finally {
+    if (previous===undefined) delete process.env.SABLY_ENVIRONMENT;
+    else process.env.SABLY_ENVIRONMENT=previous;
+  }
+});
+
 test('Node HTML cache bypasses credentials, previews and errors; writes retire in-flight fills', async () => {
   const previous = process.env.SABLY_ENVIRONMENT;
   process.env.SABLY_ENVIRONMENT='production';
