@@ -109,12 +109,17 @@ export function auditarOnPage(url, html, opciones = {}) {
 
   // ── Datos estructurados ──────────────────────────────────────────────────
   const tipos = [];
+  const personasSinPerfil = [];
   for (const m of documento.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try {
       const recorrer = (nodo) => {
         if (Array.isArray(nodo)) nodo.forEach(recorrer);
         else if (nodo && typeof nodo === 'object') {
           if (nodo['@type']) tipos.push(...[].concat(nodo['@type']));
+          // Una Person vale solo si es un creador real con perfil en Sably
+          // (`@id` …/creadores/<slug>/#creador); el instructor de relleno no tenía.
+          if ([].concat(nodo['@type'] ?? []).includes('Person') && !/\/creadores\/[a-z0-9-]+\/#creador$/.test(String(nodo['@id'] ?? '')))
+            personasSinPerfil.push(nodo.name ?? '(sin nombre)');
           Object.values(nodo).forEach(recorrer);
         }
       };
@@ -123,7 +128,8 @@ export function auditarOnPage(url, html, opciones = {}) {
       marcar('json-ld', 'error', 'bloque JSON-LD que no se puede leer');
     }
   }
-  if (tipos.includes('Person')) marcar('json-ld-person', 'error', 'nodo Person en el marcado (no hay persona verificada)');
+  if (personasSinPerfil.length)
+    marcar('json-ld-person', 'error', `nodo Person sin perfil de creador (${personasSinPerfil.slice(0, 2).join(', ')}): no hay persona verificada`);
   if (tipos.includes('AggregateRating')) marcar('json-ld-rating', 'error', 'AggregateRating con valoraciones de terceros');
 
   // ── Textos que no deben volver ───────────────────────────────────────────
