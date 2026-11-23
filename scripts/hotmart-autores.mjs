@@ -17,7 +17,7 @@
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const RAIZ = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const LIVE = path.join(RAIZ, 'src/data/hotmart-live.json');
@@ -25,6 +25,44 @@ const AVATARES = path.join(RAIZ, 'public/creadores');
 
 const UA = { 'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36' };
 const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * Bloque de datos del AUTOR en la página pública del producto, o ''.
+ *
+ * La página trae varios `"hotmarter":{`: los de textos de interfaz
+ * («{{count}} Años Hotmarter», uno por idioma) y el de datos. Hasta agosto el
+ * de datos arrancaba con `userId`; en noviembre de 2026 arranca con `name` y el
+ * ancla fija dejó de encontrar a nadie. Por eso se reconoce por contenido —trae
+ * `name` y `slug` reales— y no por el orden de sus claves. Ventana fija porque
+ * el objeto supera el kilobyte y un lazy-match hasta la llave de cierre se
+ * quedaba corto.
+ */
+export function bloqueAutor(html) {
+  for (const m of html.matchAll(/"hotmarter":\{/g)) {
+    const bloque = html.slice(m.index, m.index + 2500);
+    const cabeza = bloque.slice(0, 600);
+    if (!cabeza.includes('{{') && /"name":"[^"]+"/.test(cabeza) && /"slug":"[a-z0-9-]+"/.test(bloque.slice(0, 1500))) return bloque;
+  }
+  return '';
+}
+
+/** Autor publicado en Hotmart (nombre, slug, bio, avatar, badges), o null. */
+export function extraerAutor(html) {
+  const bloque = bloqueAutor(html);
+  const campo = (k) => bloque.match(new RegExp(`"${k}":"([^"]*)"`))?.[1] ?? '';
+  const nombre = campo('name');
+  if (!nombre) return null;
+  const badges = [...bloque.matchAll(/"([A-Z_]{4,})"/g)].map((m) => m[1]);
+  return {
+    slug: campo('slug') || nombre.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+    nombre,
+    bio: campo('biography').replace(/\\n/g, ' ').trim(),
+    avatar: campo('avatarFinal').replaceAll('\\u002F', '/'),
+    desde: Number(bloque.match(/"userSince":(\d{4})/)?.[1]) || null,
+    verificado: badges.includes('VERIFIED_PROFILE'),
+    bestSeller: badges.includes('BEST_SELLER'),
+  };
+}
 
 async function main() {
   const datos = JSON.parse(readFileSync(LIVE, 'utf8'));
@@ -41,28 +79,13 @@ async function main() {
         headers: UA, redirect: 'follow', signal: AbortSignal.timeout(25000),
       });
       const h = await r.text();
-      // Ancla al bloque del AUTOR: la página tiene DOS "hotmarter" — uno de
-      // textos de interfaz («{{count}} Años Hotmarter») que aparece antes, y el
-      // de datos, que arranca con userId. Ventana fija porque el objeto supera
-      // el kilobyte y un lazy-match hasta la llave de cierre se quedaba corto.
-      const inicio = h.indexOf('"hotmarter":{"userId"');
-      const bloque = inicio >= 0 ? h.slice(inicio, inicio + 2500) : '';
-      const campo = (k) => bloque.match(new RegExp(`"${k}":"([^"]*)"`))?.[1] ?? '';
-      const nombre = campo('name');
-      const slugAutor = campo('slug') || nombre.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-      if (!nombre)
+      const autor = extraerAutor(h);
+      if (!autor)
         throw new Error(`sin hotmarter (HTTP ${r.status}, ${h.length}b, ${r.url.slice(0, 70)})`);
+      const { slug: slugAutor, nombre, ...perfil } = autor;
 
       if (!datos.autores[slugAutor]) {
-        const badges = [...bloque.matchAll(/"([A-Z_]{4,})"/g)].map((m) => m[1]);
-        datos.autores[slugAutor] = {
-          nombre,
-          bio: campo('biography').replace(/\\n/g, ' ').trim(),
-          avatar: campo('avatarFinal').replaceAll('\\u002F', '/'),
-          desde: Number(bloque.match(/"userSince":(\d{4})/)?.[1]) || null,
-          verificado: badges.includes('VERIFIED_PROFILE'),
-          bestSeller: badges.includes('BEST_SELLER'),
-        };
+        datos.autores[slugAutor] = { nombre, ...perfil };
         // Avatar a /public: se sirve con el sitio (y el CDN lo recoge en CI).
         const url = datos.autores[slugAutor].avatar;
         if (url) {
@@ -92,4 +115,4 @@ async function main() {
   }
 }
 
-main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();
