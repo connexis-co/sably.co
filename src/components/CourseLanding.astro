@@ -258,6 +258,12 @@ const pageUrl = `${SITE.url}${coursePath}`;
    solo curso, cada una en una página que él mismo descarta por duplicada. */
 const canonicalUrl = `${SITE.url}${base}/${course.id}/`;
 const h1 = city ? `${course.data.title} en ${city.name}` : (locale?.data.h1 ?? course.data.title);
+/* Los H2 de plantilla («Qué aprenderás», «Programa del curso», «Preguntas
+   frecuentes») eran idénticos en todas las fichas. Con el nombre del curso
+   cada ficha describe su propio contenido. «Curso de X» pide artículo. */
+const esCurso = /^curso\b/i.test(course.data.title);
+const nombreEnFrase = esCurso ? `el ${course.data.title}` : course.data.title;
+const deNombre = esCurso ? `del ${course.data.title}` : `de ${course.data.title}`;
 const tituloPais =
   locale?.data.meta_title ??
   course.data.metaTitle ??
@@ -626,7 +632,7 @@ const schemas = [
 
       <!-- Qué aprenderás -->
       <section aria-labelledby="learnings-title">
-        <h2 id="learnings-title" class="text-2xl font-bold">Qué aprenderás</h2>
+        <h2 id="learnings-title" class="text-2xl font-bold">{`Qué aprenderás en ${nombreEnFrase}`}</h2>
         <ul class="mt-5 grid gap-3 sm:grid-cols-2" role="list">
           {
             learnings.map((item) => (
@@ -643,7 +649,7 @@ const schemas = [
 
       <!-- Programa -->
       <section aria-labelledby="program-title">
-        <h2 id="program-title" class="text-2xl font-bold">Programa del curso</h2>
+        <h2 id="program-title" class="text-2xl font-bold">{`Temario ${deNombre}`}</h2>
         <div class="mt-5 divide-y divide-surface-200 rounded-lg border border-surface-200">
           {
             course.data.modules.map((mod, i) => (
@@ -728,7 +734,7 @@ const schemas = [
 
       <!-- FAQ -->
       <section aria-labelledby="faq-title">
-        <h2 id="faq-title" class="text-2xl font-bold">Preguntas frecuentes</h2>
+        <h2 id="faq-title" class="text-2xl font-bold">{`Preguntas frecuentes sobre ${nombreEnFrase}`}</h2>
         <div class="mt-5">
           <FaqAccordion {faqs} />
         </div>
@@ -738,9 +744,11 @@ const schemas = [
 
       <!-- Malla geo interna -->
       <section aria-labelledby="cities-title">
-        <h2 id="cities-title" class="text-lg font-bold">
+        {/* Rótulo, no encabezado: la lista de ciudades no es una sección de
+            contenido del curso y como H2 repetía el país en las 896 fichas. */}
+        <p id="cities-title" class="text-lg font-bold text-heading">
           {`Disponible online en ${country.name}`}
-        </h2>
+        </p>
         <div class="mt-4 flex flex-wrap gap-2">
           {
             country.cities

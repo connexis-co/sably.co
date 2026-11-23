@@ -19,6 +19,14 @@ const {stats, country, CATEGORIES, base, featured, posts, title, description, al
 const editorial = await getHomeEditorial({ name: country.name, currency: await monedasCobradas(allCourses.map(c => c.id), country, Astro.locals) });
 const copy = Object.fromEntries(Object.entries(editorial).map(([key,value])=>[key,value.fields])) as {[K in keyof typeof editorial]: typeof editorial[K]['fields']};
 const faqs = editorial.faq.groups.map(group=>({q:group.title,a:group.body}));
+/* Quién hace qué en una inscripción. Los mismos hechos que /nosotros/ y
+   /legal/terminos/: no promete nada que el checkout no cumpla. */
+const COMO_FUNCIONA = [
+  { titulo: 'Eliges el curso', texto: 'Cada ficha muestra qué aprenderás, el temario, la duración y el precio para tu país.' },
+  { titulo: 'Te inscribes en Hotmart', texto: 'El pago se hace en Hotmart, la plataforma donde el creador publica su curso.' },
+  { titulo: 'Estudias a tu ritmo', texto: 'Recibes el acceso por correo y ves las clases en video desde el celular o el computador.' },
+  { titulo: 'Tienes 7 días de garantía', texto: 'Si no es lo que esperabas, pides el reembolso en Hotmart dentro de ese plazo.' },
+];
 const benefits = editorial.benefits.groups.map(group=>{const [icon,...title]=group.title.split(' ');return {icon,title:title.join(' '),text:group.body};});
 ---
 
@@ -187,6 +195,38 @@ const benefits = editorial.benefits.groups.map(group=>{const [icon,...title]=gro
       </section>
     )
   }
+
+  <!-- Cómo funciona Sably: quién hace qué. La portada es lo que se lee para
+       responder «¿qué es Sably?», y hasta ahora no lo decía en ningún sitio. -->
+  <section class="bg-off-white py-14" aria-labelledby="como-funciona-title">
+    <div class="container-site">
+      <div class="mx-auto max-w-2xl text-center">
+        <p class="mb-3 font-semibold text-accent">Con transparencia</p>
+        <h2 id="como-funciona-title" class="text-2xl font-bold sm:text-3xl">Cómo funciona Sably</h2>
+        <p class="mt-3 text-body">
+          Sably es un catálogo de cursos online de oficios en español. Reúne cursos de creadores independientes,
+          ordenados por oficio y por país.
+        </p>
+      </div>
+      <ol class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" role="list">
+        {
+          COMO_FUNCIONA.map((paso, i) => (
+            <li class="rounded-lg border border-surface-200 bg-white p-6">
+              <span class="inline-flex size-9 items-center justify-center rounded-full bg-accent text-sm font-bold text-white" aria-hidden="true">
+                {i + 1}
+              </span>
+              <h3 class="mt-4 font-bold text-primary">{paso.titulo}</h3>
+              <p class="mt-2 text-sm leading-relaxed text-body">{paso.texto}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="mt-8 text-center text-sm text-body">
+        Sably es un proyecto de Connexis, agencia colombiana de desarrollo web y marketing digital.{' '}
+        <a href="/nosotros/" class="font-semibold text-accent underline underline-offset-4">Conoce quién está detrás</a>
+      </p>
+    </div>
+  </section>
 
   <!-- FAQ -->
   <section class="container-site py-14">
