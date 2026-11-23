@@ -27,6 +27,55 @@ export const PUBLIC_DATA_TTL = 60;
 export const PUBLIC_DATA_EDGE = `public, max-age=${PUBLIC_DATA_TTL}, stale-while-revalidate=${PUBLIC_DATA_TTL}`;
 export const PUBLIC_DATA_BROWSER = 'public, max-age=30';
 
+/**
+ * Outage fallback for the Node origin. It shares a host that runs out of memory
+ * and stops answering for hours; with every response marked `no-store`,
+ * Cloudflare then answered 52x to everyone, Googlebot's robots.txt included, and
+ * an unreachable robots.txt makes Google pause crawling the whole site.
+ *
+ * Cloudflare keeps the last good copy of what is safe to share and serves it for
+ * up to a week only while the origin errors or is unreachable (`stale-if-error`).
+ * While the origin is healthy the copy is fresh for at most five minutes: the
+ * Node origin cannot purge Cloudflare, so this bounds editorial changes.
+ */
+export const ORIGIN_EDGE_FRESH = 300;
+export const ORIGIN_OUTAGE_STALE = 604_800;
+/** Absolute expiry (epoch seconds) of the origin's copy, so a promotion boundary is never crossed at the edge. */
+export const FRESH_UNTIL_HEADER = 'X-Sably-Fresh-Until';
+/** robots.txt, sitemaps and llms files: what crawlers fetch first and must always get. */
+const CRAWL_FILE = /^\/(?:robots\.txt|sitemap\.xml|sitemap-index\.xml|sitemaps\/sitemap-[a-z0-9-]+\.xml|llms\.txt|llms-full\.txt)$/;
+
+export function outageEdgePolicy(fresh: number): string {
+  return `public, max-age=${fresh}, stale-if-error=${ORIGIN_OUTAGE_STALE}`;
+}
+
+export function isCrawlFile(request: Request, response: Response, environment?: string): boolean {
+  const url = new URL(request.url);
+  return environment === 'production' && url.origin === CANONICAL_ORIGIN && request.method === 'GET' && !url.search
+    && CRAWL_FILE.test(url.pathname) && response.status === 200 && !response.headers.has('set-cookie')
+    && !request.headers.has('authorization');
+}
+
+/**
+ * Cloudflare policy at the Node boundary. Anything not listed stays `no-store`:
+ * APIs, errors, previews, editors and personal renders never reach the edge.
+ * `anonymousPage` is the caller's check on the rendered HTML (no cookie in the
+ * request, no Set-Cookie, nothing private); the page must also have opted into
+ * the origin cache, whose expiry already stops at the next promotion boundary.
+ */
+export function nodeEdgePolicy(request: Request, response: Response, environment: string | undefined,
+  options: { anonymousPage: boolean; redirect: boolean }, now = Date.now()): string {
+  if (options.anonymousPage) {
+    const until = Number(response.headers.get(FRESH_UNTIL_HEADER));
+    const remaining = Math.floor(until - now / 1000);
+    if (!Number.isFinite(until) || until <= 0 || remaining < 1) return 'no-store';
+    return outageEdgePolicy(Math.min(ORIGIN_EDGE_FRESH, remaining));
+  }
+  if (options.redirect && isSharedRedirect(request, response, environment)) return outageEdgePolicy(ORIGIN_EDGE_FRESH);
+  if (isCrawlFile(request, response, environment)) return outageEdgePolicy(ORIGIN_EDGE_FRESH);
+  return 'no-store';
+}
+
 /** Originals behind Cloudflare image variants; media writes purge this tag. */
 export const MEDIA_TAG = 'sably:media';
 export const MEDIA_EDGE_TTL = 2_592_000;

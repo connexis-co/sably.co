@@ -14,13 +14,14 @@ export const GET: APIRoute = async () => {
   const INTERNAL_CATEGORIES = categories.filter(c => !c.externalUrl);
   const body = `# Sably
 
-> Marketplace de cursos online en español para Latinoamérica: oficios prácticos y habilidades
+> Catálogo de cursos online en español para Latinoamérica: oficios prácticos y habilidades
 > que la IA no puede reemplazar (belleza, panadería, electricidad, gastronomía, idiomas y más).
-> ${courses.length} cursos con inscripción disponible, certificado, acceso de por vida y garantía de 7 días, impartidos
-> vía Hotmart. Precios en moneda local de ${COUNTRIES.length} países.
+> ${courses.length} cursos con inscripción disponible, constancia de finalización, acceso de por vida y garantía
+> de 7 días. La inscripción y el pago se hacen en Hotmart; Sably recibe una comisión sin costo extra para el
+> alumno. Cada ficha muestra el precio del checkout de su país, en moneda local o en dólares según el país.
 
-Los cursos existen a nivel país (/{código-país}/{slug-del-curso}/) y a nivel ciudad
-(/{código-país}/{ciudad}/{slug-del-curso}/). Países: ${COUNTRIES.map((c) => c.code).join(', ')}.
+Cada curso tiene una ficha por país (/{código-país}/{slug-del-curso}/). Las antiguas URLs de ciudad
+redirigen con 301 a la ficha de su país. Países: ${COUNTRIES.map((c) => c.code).join(', ')}.
 
 ## Categorías
 ${INTERNAL_CATEGORIES.map((c) => `- [${c.name}](${SITE.url}/co/cursos/${c.slug}/): ${c.description}`).join('\n')}

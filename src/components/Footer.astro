@@ -87,7 +87,7 @@ const ECOSYSTEM = (ecosystem?.items ?? []).flatMap(item=>{
 
       <!-- En móvil las 3 listas van en 2 columnas para no hacer un footer kilométrico -->
       <nav aria-label="Categorías" class="min-w-0">
-        <h2 class="font-display text-sm font-bold tracking-wide text-white uppercase">Categorías</h2>
+        <p class="font-display text-sm font-bold tracking-wide text-white uppercase">Categorías</p>
         <ul class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 lg:grid-cols-1" role="list">
           {
             CATEGORIES.map((cat) => (
@@ -106,7 +106,7 @@ const ECOSYSTEM = (ecosystem?.items ?? []).flatMap(item=>{
       </nav>
 
       <nav aria-label="Países" class="min-w-0">
-        <h2 class="font-display text-sm font-bold tracking-wide text-white uppercase">Por país</h2>
+        <p class="font-display text-sm font-bold tracking-wide text-white uppercase">Por país</p>
         <ul class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 lg:grid-cols-1" role="list">
           {
             COUNTRIES.map((c) => (
@@ -121,7 +121,7 @@ const ECOSYSTEM = (ecosystem?.items ?? []).flatMap(item=>{
       </nav>
 
       <nav aria-label="Sably" class="min-w-0">
-        <h2 class="font-display text-sm font-bold tracking-wide text-white uppercase">Sably</h2>
+        <p class="font-display text-sm font-bold tracking-wide text-white uppercase">Sably</p>
         <ul class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 sm:grid-cols-3 lg:grid-cols-1" role="list">
           {
             SABLY_LINKS.map((l) => (
@@ -141,13 +141,12 @@ const ECOSYSTEM = (ecosystem?.items ?? []).flatMap(item=>{
     <div class="container-site flex flex-col items-center gap-2 py-5 text-center text-xs text-white/50 sm:flex-row sm:flex-wrap sm:justify-between sm:text-left">
       <p>© {year} Sably — Todos los derechos reservados.</p>
       <p>Los cursos se imparten a través de Hotmart. Certificado incluido.</p>
-      {/* Aviso de afiliado en todo el sitio (FTC, SIC, LSSI y la política de
-          tergiversación de Google Ads piden declarar la comisión). Dice
-          «como afiliado» y no «afiliado de Hotmart»: los Términos de Hotmart
-          (6.4) prohíben sugerir un vínculo con Hotmart; la afiliación es a los
-          cursos de cada creador. sm:basis-full lo baja a su propia línea. */}
+      {/* Aviso de comisión en todo el sitio (FTC, SIC, LSSI y la política de
+          tergiversación de Google Ads piden declararla). No nombra un vínculo
+          con Hotmart: sus Términos (6.4) prohíben sugerirlo; la relación es con
+          los cursos de cada creador. sm:basis-full lo baja a su propia línea. */}
       <p class="sm:basis-full">
-        Sably recomienda cursos como afiliado: si compras a través de nuestros enlaces recibimos una comisión, sin
+        Sably recomienda cursos de otros creadores: si compras a través de nuestros enlaces recibimos una comisión, sin
         costo extra para ti. Pagos y acceso gestionados por Hotmart.{' '}
         <a
           href="/legal/terminos/#afiliacion"
