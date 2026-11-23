@@ -1,6 +1,6 @@
 import { gateEnvironment, protectEnvironmentResponse, type RuntimeEnvironment } from '../runtime-environment';
 import { parseLegacyRedirects, productionOriginRedirect, publicCanonicalRedirect, resolveLegacyRedirect, rootCountryRedirect } from '../legacy-redirects';
-import { canCachePublicPage, invalidatedTags, protectDeliveryResponse } from '../public-delivery';
+import { canCachePublicPage, FRESH_UNTIL_HEADER, invalidatedTags, isCrawlFile, nodeEdgePolicy, ORIGIN_EDGE_FRESH, protectDeliveryResponse } from '../public-delivery';
 
 /** Preserve the Worker boundary while keeping all execution at the Node origin. */
 export function createNodeRequestHandler(options: {
@@ -17,10 +17,16 @@ export function createNodeRequestHandler(options: {
       const protectedResponse = protectEnvironmentResponse(
         protectDeliveryResponse(request, response, options.env.SABLY_ENVIRONMENT, { redirect }), options.env);
       const headers = new Headers(protectedResponse.headers);
-      // Editorial content, APIs and mutable originals are invalidated at the
-      // origin. Static bundles still use the adapter/nginx cache policy.
-      headers.set('Cloudflare-CDN-Cache-Control', 'no-store');
+      // The origin owns invalidation, so Cloudflare only keeps a short-lived
+      // copy of anonymous pages, permanent redirects and crawl files, and serves
+      // it beyond that only while the origin is down. Everything else: no-store.
+      const edge = nodeEdgePolicy(request, protectedResponse, options.env.SABLY_ENVIRONMENT, { anonymousPage: !!anonymous, redirect });
+      headers.set('Cloudflare-CDN-Cache-Control', edge);
+      headers.delete(FRESH_UNTIL_HEADER);
       if (anonymous) headers.set('Cache-Control', 'max-age=0');
+      else if (edge !== 'no-store' && isCrawlFile(request, protectedResponse, options.env.SABLY_ENVIRONMENT)) {
+        headers.set('Cache-Control', `public, max-age=${ORIGIN_EDGE_FRESH}`);
+      }
       headers.set('X-Sably-Runtime', 'node');
       headers.set('X-Sably-Environment', options.env.SABLY_ENVIRONMENT ?? 'unconfigured');
       return new Response(protectedResponse.body, { status: protectedResponse.status, statusText: protectedResponse.statusText, headers });
