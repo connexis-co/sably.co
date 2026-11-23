@@ -60,17 +60,19 @@ test('Node boundary protects sessions and setup, and invalidates successful oper
 });
 
 test('Cloudflare keeps shareable copies to serve while the origin is down, and nothing else', async () => {
-  const outage = 'public, max-age=300, stale-if-error=604800';
+  // Crawl files and redirects: background refresh for a week; pages only up to the origin's expiry.
+  const outage = 'public, max-age=300, stale-while-revalidate=604800, stale-if-error=604800';
+  const page = /^public, max-age=300, stale-while-revalidate=(86099|86100), stale-if-error=604800$/;
   const handle = createNodeRequestHandler({env:{SABLY_ENVIRONMENT:'production'},redirects:'/old /co/nuevo/ 301',invalidate:()=>{}});
   const until = (seconds:number) => String(Math.floor(Date.now()/1000)+seconds);
   const html = (extra:Record<string,string>={},status=200) => async()=>new Response('page',{status,headers:{'content-type':'text/html',...extra}});
   const fresh = await handle(new Request('https://sably.co/co/'),html({'X-Sably-Fresh-Until':until(86400)}));
-  assert.equal(fresh.headers.get('cloudflare-cdn-cache-control'),outage);
+  assert.match(fresh.headers.get('cloudflare-cdn-cache-control')??'',page);
   assert.equal(fresh.headers.get('cache-control'),'max-age=0');
   assert.equal(fresh.headers.has('x-sably-fresh-until'),false);
   // A promotion boundary 90 s away: the edge may not call the copy fresh past it.
   const promo = await handle(new Request('https://sably.co/co/'),html({'X-Sably-Fresh-Until':until(90)}));
-  assert.match(promo.headers.get('cloudflare-cdn-cache-control')??'',/^public, max-age=(89|90), stale-if-error=604800$/);
+  assert.match(promo.headers.get('cloudflare-cdn-cache-control')??'',/^public, max-age=(89|90)(, stale-while-revalidate=1)?, stale-if-error=604800$/);
   const expired = await handle(new Request('https://sably.co/co/'),html({'X-Sably-Fresh-Until':until(-5)}));
   assert.equal(expired.headers.get('cloudflare-cdn-cache-control'),'no-store');
   // Pages that never opted into the origin cache, personal renders, queries and errors stay out.
@@ -114,7 +116,7 @@ test('the page cache provider, which wraps the boundary, has the last word on th
     const page=(status=200,extra:Record<string,string>={})=>async()=>new Response('page',{status,headers:{'content-type':'text/html','Cache-Control':status===200?'max-age=0':'private, no-store','Cloudflare-CDN-Cache-Control':'no-store','CDN-Cache-Control':'max-age=86400','X-Sably-Fresh-Until':until,...extra}});
     for (const hit of [false,true]) {
       const response=await cache.onRequest!(context('https://sably.co/mx/'),page());
-      assert.equal(response.headers.get('cloudflare-cdn-cache-control'),'public, max-age=300, stale-if-error=604800',`hit=${hit}`);
+      assert.match(response.headers.get('cloudflare-cdn-cache-control')??'',/^public, max-age=300, stale-while-revalidate=(86099|86100), stale-if-error=604800$/,`hit=${hit}`);
       assert.equal(response.headers.has('x-sably-fresh-until'),false);
     }
     const missing=await cache.onRequest!(context('https://sably.co/mx/no-existe/'),page(404));

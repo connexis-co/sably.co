@@ -45,8 +45,15 @@ export const FRESH_UNTIL_HEADER = 'X-Sably-Fresh-Until';
 /** robots.txt, sitemaps and llms files: what crawlers fetch first and must always get. */
 const CRAWL_FILE = /^\/(?:robots\.txt|sitemap\.xml|sitemap-index\.xml|sitemaps\/sitemap-[a-z0-9-]+\.xml|llms\.txt|llms-full\.txt)$/;
 
-export function outageEdgePolicy(fresh: number): string {
-  return `public, max-age=${fresh}, stale-if-error=${ORIGIN_OUTAGE_STALE}`;
+/**
+ * `revalidate` (stale-while-revalidate) lets Cloudflare hand out the stored
+ * copy at once and refresh it in the background. Without it an expired copy
+ * waited for the origin, and when the host hangs instead of failing that was up
+ * to 100 s before stale-if-error applied (23-nov: robots.txt took over 60 s).
+ */
+export function outageEdgePolicy(fresh: number, revalidate = 0): string {
+  const swr = revalidate > 0 ? `, stale-while-revalidate=${revalidate}` : '';
+  return `public, max-age=${fresh}${swr}, stale-if-error=${ORIGIN_OUTAGE_STALE}`;
 }
 
 export function isCrawlFile(request: Request, response: Response, environment?: string): boolean {
@@ -69,10 +76,14 @@ export function nodeEdgePolicy(request: Request, response: Response, environment
     const until = Number(response.headers.get(FRESH_UNTIL_HEADER));
     const remaining = Math.floor(until - now / 1000);
     if (!Number.isFinite(until) || until <= 0 || remaining < 1) return 'no-store';
-    return outageEdgePolicy(Math.min(ORIGIN_EDGE_FRESH, remaining));
+    // Background refresh only up to the origin's own expiry: a page is never
+    // served past the next promotion boundary except while the origin is down.
+    const fresh = Math.min(ORIGIN_EDGE_FRESH, remaining);
+    return outageEdgePolicy(fresh, remaining - fresh);
   }
-  if (options.redirect && isSharedRedirect(request, response, environment)) return outageEdgePolicy(ORIGIN_EDGE_FRESH);
-  if (isCrawlFile(request, response, environment)) return outageEdgePolicy(ORIGIN_EDGE_FRESH);
+  // Redirects and crawl files do not depend on promotions.
+  if (options.redirect && isSharedRedirect(request, response, environment)) return outageEdgePolicy(ORIGIN_EDGE_FRESH, ORIGIN_OUTAGE_STALE);
+  if (isCrawlFile(request, response, environment)) return outageEdgePolicy(ORIGIN_EDGE_FRESH, ORIGIN_OUTAGE_STALE);
   return 'no-store';
 }
 
