@@ -1,6 +1,7 @@
 ---
 import { Image as OptimizedImage } from 'astro:assets';
 import { getHomeEditorial } from '@/lib/home-editorial';
+import { monedasCobradas } from '@/lib/moneda-catalogo';
 import { cmsImageUrl } from '@/lib/cms-media';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import TrustBar from '@/components/TrustBar.astro';
@@ -13,8 +14,9 @@ import { CDN_URL } from '@/lib/site';
 import { HERO_ASSETS } from '@/lib/hero-assets';
 import type { load } from '@/lib/page-loaders/country-home';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
-const {stats, country, CATEGORIES, base, featured, posts, title, description} = Astro.props;
-const editorial = await getHomeEditorial(country);
+const {stats, country, CATEGORIES, base, featured, posts, title, description, allCourses} = Astro.props;
+// {moneda} en los textos del CMS: la que muestran las tarjetas, no la que se supone del país.
+const editorial = await getHomeEditorial({ name: country.name, currency: await monedasCobradas(allCourses.map(c => c.id), country, Astro.locals) });
 const copy = Object.fromEntries(Object.entries(editorial).map(([key,value])=>[key,value.fields])) as {[K in keyof typeof editorial]: typeof editorial[K]['fields']};
 const faqs = editorial.faq.groups.map(group=>({q:group.title,a:group.body}));
 const benefits = editorial.benefits.groups.map(group=>{const [icon,...title]=group.title.split(' ');return {icon,title:title.join(' '),text:group.body};});

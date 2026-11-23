@@ -5,6 +5,7 @@ import { countryAlternates, breadcrumbSchema, faqSchema, courseListSchema, curso
 import { SITE } from '@/lib/site';
 import type { PublicPageContext } from './types';
 import { conciseTitle } from '../seo-title';
+import { monedasCobradas } from '@/lib/moneda-catalogo';
 
 export async function load(Astro:PublicPageContext) {
 
@@ -66,7 +67,7 @@ const faqs = [
   },
   {
     q: '¿Cuánto cuestan los cursos?',
-    a: `Los precios se muestran en ${country.currency}. Cuando hay una campaña activa, el descuento se aplica automáticamente al inscribirte desde Sably.`,
+    a: `Los precios se muestran en ${await monedasCobradas(courses.map(c => c.id), country, Astro.locals)}. Cuando hay una campaña activa, el descuento se aplica automáticamente al inscribirte desde Sably.`,
   },
   {
     q: '¿Por cuánto tiempo tengo acceso?',
