@@ -19,6 +19,19 @@ export function formatMonto(monto: number, moneda: string): string {
 }
 
 /**
+ * «COP», «USD» o «COP y USD»: las monedas que de verdad muestran las tarjetas
+ * de un catálogo, la local primero. Hotmart no cobra en todas las monedas
+ * locales (en Argentina cobra en dólares) ni todos los cursos tienen precio
+ * local, así que «Precios en ARS» no se puede dar por hecho.
+ */
+export function listaMonedas(monedas: Iterable<string>, local: string): string {
+  const unicas = [...new Set(monedas)].filter(Boolean)
+    .sort((a, b) => (a === local ? -1 : b === local ? 1 : a.localeCompare(b)));
+  if (!unicas.length) return local;
+  return unicas.length === 1 ? unicas[0]! : `${unicas.slice(0, -1).join(', ')} y ${unicas.at(-1)}`;
+}
+
+/**
  * Precio con el cupón aplicado, redondeado hacia abajo igual que Hotmart.
  * Verificado en el checkout: 165.814 COP con −25 % muestra 124.360 (no
  * 124.361, que daría el redondeo al más cercano). Enteros en monedas sin
