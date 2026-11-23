@@ -1,6 +1,6 @@
 import memoryProvider from 'astro/cache/memory';
 import type { CacheProvider, CacheProviderFactory } from 'astro';
-import { canCachePublicPage, FRESH_UNTIL_HEADER } from '../public-delivery';
+import { canCachePublicPage, FRESH_UNTIL_HEADER, nodeEdgePolicy } from '../public-delivery';
 
 const caches = new Set<() => void>();
 
@@ -40,9 +40,20 @@ const nodeCacheProvider: CacheProviderFactory = config => {
         }
         return rendered;
       });
-      // The origin owns invalidation. The Node request boundary decides what
-      // Cloudflare may keep (see nodeEdgePolicy); until then, nothing.
-      response.headers.set('Cloudflare-CDN-Cache-Control', 'no-store');
+      // This provider wraps the request boundary and Astro adds the cache
+      // headers after it, so the edge policy for pages is decided here: an
+      // anonymous page gets the short copy that outlives an origin outage
+      // (nodeEdgePolicy); anything else keeps what the boundary set.
+      const html = response.headers.get('content-type')?.includes('text/html');
+      const anonymousPage = !!html && response.status === 200 && !response.headers.has('set-cookie')
+        && !/private|no-store/i.test(response.headers.get('cache-control') ?? '');
+      if (anonymousPage) {
+        response.headers.set('Cloudflare-CDN-Cache-Control',
+          nodeEdgePolicy(context.request, response, process.env.SABLY_ENVIRONMENT, { anonymousPage, redirect: false }));
+      } else if (!response.headers.has('Cloudflare-CDN-Cache-Control')) {
+        response.headers.set('Cloudflare-CDN-Cache-Control', 'no-store');
+      }
+      response.headers.delete(FRESH_UNTIL_HEADER);
       return response;
     },
     async invalidate() { invalidateNodePages(); },
