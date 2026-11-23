@@ -8,13 +8,31 @@
  * (el test falla con cualquier `error`; la CLI informa también los `aviso`).
  */
 
+/**
+ * Repite el reemplazo hasta que no cambie nada: quitar un bloque puede juntar
+ * los restos de otro (`<scr<script></script>ipt>`) y una pasada no basta.
+ */
+const hastaEstable = (valor, patron, reemplazo = ' ') => {
+  let antes;
+  do {
+    antes = valor;
+    valor = valor.replace(patron, reemplazo);
+  } while (valor !== antes);
+  return valor;
+};
+
+/** Comentarios HTML, incluido el cierre `--!>` que los navegadores también aceptan. */
+const COMENTARIO = /<!--[\s\S]*?--!?>/g;
+/** Bloques que no son contenido visible; el cierre admite espacios o atributos (`</script >`). */
+const CODIGO = /<script\b[^>]*>[\s\S]*?<\/script[^>]*>|<style\b[^>]*>[\s\S]*?<\/style[^>]*>|<template\b[^>]*>[\s\S]*?<\/template[^>]*>/gi;
+
+// `&amp;` se decodifica el último: antes convertiría `&amp;quot;` en una comilla.
 const texto = (html) =>
-  html
-    .replace(/<[^>]+>/g, ' ')
+  hastaEstable(html, /<[^>]+>/g)
     .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
     .replace(/&#x27;|&#39;/g, "'")
     .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&')
     .replace(/\s+/g, ' ')
     .trim();
 
@@ -25,7 +43,7 @@ const atributo = (tag, nombre) => {
 
 /** Encabezados en orden de documento: `{ nivel, texto }`. */
 export function encabezados(html) {
-  const cuerpo = html.replace(/<!--[\s\S]*?-->|<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<template[\s\S]*?<\/template>/gi, ' ');
+  const cuerpo = hastaEstable(hastaEstable(html, COMENTARIO), CODIGO);
   return [...cuerpo.matchAll(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi)].map((m) => ({ nivel: Number(m[1]), texto: texto(m[2]) }));
 }
 
@@ -47,8 +65,8 @@ export function auditarOnPage(url, html, opciones = {}) {
   const limites = { titulo: 60, descripcionMin: 70, descripcionMax: 160, ...opciones.limites };
   const hallazgos = [];
   const marcar = (regla, nivel, detalle) => hallazgos.push({ regla, nivel, detalle });
-  const documento = html.replace(/<!--[\s\S]*?-->/g, '');
-  const sinCodigo = documento.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<template[\s\S]*?<\/template>/gi, ' ');
+  const documento = hastaEstable(html, COMENTARIO, '');
+  const sinCodigo = hastaEstable(documento, CODIGO);
 
   // ── Encabezados ──────────────────────────────────────────────────────────
   const hs = encabezados(documento);

@@ -51,3 +51,14 @@ test('título, descripción y lang ausentes son errores; las longitudes, avisos'
   const avisos = auditarOnPage(url, sana.replace('Curso de masajes en Colombia | Sably', 'x'.repeat(80))).filter((h) => h.nivel === 'aviso').map((h) => h.regla);
   assert.deepEqual(avisos, ['titulo-largo']);
 });
+
+test('ignora encabezados dentro de comentarios y código aunque el cierre no sea el canónico', () => {
+  const html = sana.replace('<main>', '<main><!-- <h2>viejo</h2> --!><script>document.write("<h2>no</h2>")</script ><template><h2>molde</h2></template\n>');
+  assert.deepEqual(encabezados(html).map((h) => h.nivel), [1, 2, 3, 2]);
+  assert.deepEqual(errores(html), []);
+});
+
+test('decodifica las entidades una sola vez', () => {
+  const [h1] = encabezados('<h1>Corte &amp;quot;fade&amp;quot; &amp; barba</h1>');
+  assert.equal(h1.texto, 'Corte &quot;fade&quot; & barba');
+});
