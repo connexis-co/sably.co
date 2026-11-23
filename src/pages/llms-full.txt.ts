@@ -28,6 +28,6 @@ export const GET: APIRoute = async () => {
           .join('\n'),
     )
     .join('\n\n');
-  const body = `# Sably — Catálogo completo de cursos\n\n> ${courses.length} cursos online con inscripción disponible y certificado para Latinoamérica.\n\n${sections}\n`;
+  const body = `# Sably — Cursos de la plataforma\n\n> Sably es una plataforma de educación online para aprender oficios en español. ${courses.length} cursos seleccionados de creadores independientes, con inscripción disponible y constancia de finalización, para Latinoamérica y España.\n\n${sections}\n`;
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 };
