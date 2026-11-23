@@ -3,7 +3,7 @@ export const SITE = {
   url: import.meta.env.PUBLIC_SITE_URL || 'https://dev.sably.co',
   tagline: 'Aprende un oficio real. Emprende tu futuro.',
   description:
-    'Cursos online de oficios prácticos y habilidades anti-IA para Latinoamérica: panadería, costura, electricidad, barbería, gastronomía y más. Certificado incluido.',
+    'Plataforma de educación online para aprender oficios en español en Latinoamérica: cursos seleccionados de creadores independientes, guías y vídeos gratuitos, y homologación de saberes con instituciones aliadas en Colombia.',
   /**
    * Las promociones NO viven aquí: están en `src/lib/promo.ts`, con ventana de
    * fechas, países y activación por URL. Antes había un `defaultCoupon: 'SABLY40'`

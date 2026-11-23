@@ -62,3 +62,9 @@ test('decodifica las entidades una sola vez', () => {
   const [h1] = encabezados('<h1>Corte &amp;quot;fade&amp;quot; &amp; barba</h1>');
   assert.equal(h1.texto, 'Corte &quot;fade&quot; & barba');
 });
+
+test('una Person solo vale si es el creador real con su perfil en Sably', () => {
+  const creador = '"creator":{"@type":"Person","@id":"https://sably.co/co/creadores/mauricio-duque/#creador","name":"Mauricio Duque Zuluaga"}';
+  assert.deepEqual(errores(sana.replace('"name":"Curso de Masajes"', creador)), []);
+  assert.deepEqual(errores(sana.replace('"name":"Curso de Masajes"', '"creator":{"@type":"Person","name":"Daniela Osorio"}')), ['json-ld-person']);
+});
