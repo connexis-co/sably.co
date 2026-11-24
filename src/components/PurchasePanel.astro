@@ -35,7 +35,7 @@ const endDate = offer?.end ? new Date(offer.end) : null;
   const panel = document.querySelector<HTMLElement>('[data-purchase-panel]');
   if (panel) {
     const toggle = panel.querySelector<HTMLButtonElement>('[data-toggle]');
-    const link = panel.querySelector<HTMLAnchorElement>('a')!;
+    const link = panel.querySelector<HTMLAnchorElement>('a[data-cta-hotmart]')!;
     const summary = document.querySelector('[data-purchase-summary]');
     const deadline = Number(panel.dataset.until);
     let applied = Boolean(toggle);
