@@ -17,25 +17,22 @@ import Rating from '@/components/Rating.astro';
 import RatingInteractivo from '@/components/RatingInteractivo.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
-import StickyCta from '@/components/StickyCta.astro';
+import PurchasePanel from '@/components/PurchasePanel.astro';
+import { checkoutPrice } from '@/lib/checkout-price';
 import CoursePlayer from '@/components/CoursePlayer.astro';
-import ExitIntent from '@/components/ExitIntent.astro';
 import LeadModal from '@/components/LeadModal.astro';
 import {
-  formatPrice,
-  formatPriceCorto,
   localPrice,
   type Country,
   type City,
 } from '@/lib/countries';
 import { courseCover } from '@/lib/categories';
-import { formatMonto } from '@/lib/moneda';
 import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-operations/public';
 import { faqsHonestas } from '@/lib/faq-honestas';
 import { faqPagoPais } from '@/lib/medios-de-pago';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
-import { mejorPromocion, campaignDePromocion } from '@/lib/promo';
+import { mejorPromocion } from '@/lib/promo';
 import { readActivePromosForRequest } from '@/plugins/sably-operations/public';
 import { env } from 'virtual:sably-runtime';
 import { countryAlternates, breadcrumbSchema, conMarca, faqSchema, courseSchema } from '@/lib/seo';
@@ -181,28 +178,30 @@ const real = await readOperationalPrice(operationalDb, course.id, country, Astro
    al aggregateRating del schema porque es de un tercero (ver courseSchema más
    abajo). Nunca la del frontmatter, que era de catálogo/inventada. */
 const valoracion = await readOperationalRating(operationalDb, course.id, Astro.locals).catch(() => null);
-const precioTexto = real
-  ? formatMonto(real.monto, real.moneda)
-  : formatPrice(course.data.priceUSD, country);
-
 /* Importe base sobre el que se aplica el cupón. Va al DOM en crudo para que el
    controlador de promoción pueda recalcular en cliente sin volver a pedirlo. */
 const montoBase = real ? real.monto : localPrice(course.data.priceUSD, country);
 const monedaBase = real ? real.moneda : country.currency;
 
-/* El precio que se enseña es el que cobra el checkout. La campaña vive en D1 y
-   cambia sin desplegar, así que el build pinta el precio de tabla y el script
-   de abajo aplica el cupón vigente en cuanto responde /api/v1/promo. El tachado
-   y la píldora nacen ocultos: sin campaña confirmada no se anuncia descuento. */
-const precioTachadoTexto = undefined;
-const descuentoVisible = undefined;
-
-/* Campaña del calendario vigente en el build. Solo se usa para rotular la
-   píldora de la barra fija ("Black Friday −40%" en vez de un "−40%" pelado).
-   `null` es el caso normal la mayor parte del año. */
 const activePromos = await readActivePromosForRequest((env as unknown as {SABLY_DB:D1Database}).SABLY_DB, Astro.locals).catch(() => []);
 const promoRow = mejorPromocion(activePromos, { countryCode: country.code, proveedor, courseSlug: course.id, urlKey: Astro.url.searchParams.get('promo') });
-const promoVigente = promoRow ? campaignDePromocion(promoRow) : null;
+const coupon = conCupon && promoRow ? promoRow.cupon : null;
+const quote = sinProducto ? null : await checkoutPrice(course.id, course.data.hotmartUrl, country.code, coupon);
+const currency = quote?.currency ?? monedaBase;
+const displayMoney = (value: number) => new Intl.NumberFormat(country.hreflang, {style:'currency', currency, currencyDisplay:'narrowSymbol', minimumFractionDigits:Number.isInteger(value) ? 0 : 2, maximumFractionDigits:2}).format(value) + ' ' + currency;
+const baseAmount = quote?.base ?? montoBase;
+const saving = quote?.reduced ? Math.round(100 * (1 - quote.reduced / quote.base)) : 0;
+const offer = coupon && quote?.reduced && promoRow && saving === promoRow.pct
+  ? {price:displayMoney(quote.reduced), saving, coupon, name:promoRow.nombre, end:promoRow.hasta}
+  : null;
+const precioTexto = offer?.price ?? displayMoney(baseAmount);
+const marketQuery = new URLSearchParams(Astro.url.search);
+const marketLinks = COUNTRIES.filter(item => item.code !== country.code).map(item => ({
+  label: item.name,
+  href: '/' + item.code + '/' + course.id + '/' + (marketQuery.size ? '?' + marketQuery : '') + '#compra'
+}));
+const localCheckout = new URL(ctaUrl);
+if (quote) localCheckout.searchParams.set('countrycode', country.code.toUpperCase());
 
 /* Video de presentación: vive en R2 (cdn.sably.co). Sin CDN configurado no se
    pinta el reproductor, así el entorno local no queda con un <video> roto. */
@@ -335,8 +334,8 @@ const schemas = [
        catálogo mientras la página enseña el real de Hotmart, el snippet de
        Google anunciaría una cifra que no se cobra. Número crudo, nunca el texto
        ya formateado. */
-    price: real ? real.monto : localPrice(course.data.priceUSD, country),
-    priceCurrency: real ? real.moneda : country.currency,
+    price: offer && quote?.reduced ? quote.reduced : baseAmount,
+    priceCurrency: currency,
     creators: creadoresVisibles.map((c) => ({ slug: c.slug, nombre: c.nombre, bio: c.bio, url: urlCreador(SITE.url, country.code, c.slug) })),
     comprable: !sinProducto,
     category: category.name,
@@ -368,91 +367,11 @@ const schemas = [
   pageType={city ? 'course_city' : 'course'}
   image={cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug)}
   noindex={sinProducto}
-  sinCupon={!conCupon}
+  sinCupon={true}
   {proveedor}
   whatsappContext={city ? `${course.data.title} (${city.name})` : course.data.title}
   canonical={city ? `${SITE.url}${base}/${course.id}/` : undefined}
 >
-  {/* La barra fija anuncia precio y lleva al checkout. Sin producto no hay ni
-      uno ni otro: su enlace acabaría en la página de error de Hotmart y el
-      precio sería el de catálogo, que nadie va a cobrar. */}
-  {!sinProducto && (
-    <StickyCta
-      title={course.data.title}
-      precio={precioTexto}
-      precioTachado={precioTachadoTexto}
-      descuentoPct={descuentoVisible}
-      promoLabel={promoVigente?.label}
-      monto={montoBase}
-      moneda={monedaBase}
-      pais={country.code}
-      slug={course.id}
-      {ctaUrl}
-    />
-  )}
-
-  {/* Precio con el cupón vigente aplicado, en la tarjeta y en la barra a la vez.
-      Vive aquí y no en cada componente porque el importe debe ser el mismo en
-      los dos sitios: una sola petición, un solo cálculo, dos pintados. */}
-  <script>
-    import { formatMonto, precioConDescuento } from '@/lib/moneda';
-    import { leerPromos, mejorPromocion } from '@/lib/promo';
-
-    const cajas = document.querySelectorAll<HTMLElement>('[data-precio-caja]');
-
-    // Sin cupón no hay porcentaje que aplicar: el precio que se muestra ya es
-    // el que cobra el checkout. Repintarlo con el pct de una promoción enseñaría
-    // la mitad y el comprador pagaría el doble. Esta guarda es la última línea:
-    // aunque una promoción apuntara por error a un curso sin cupón, aquí no se
-    // repinta.
-    if (cajas.length && !document.body.hasAttribute('data-sin-cupon')) {
-      const proveedor = document.body.dataset.proveedor ?? 'masterclasses';
-
-      leerPromos()
-        .then((promos) => {
-          if (!promos.length) return;
-
-          for (const caja of cajas) {
-            const monto = Number(caja.dataset.monto);
-            const moneda = caja.dataset.moneda;
-            const pais = caja.dataset.pais ?? '';
-            const slug = caja.dataset.slug ?? '';
-            if (!Number.isFinite(monto) || monto <= 0 || !moneda) continue;
-
-            // La promoción que de verdad cubre este curso, país y proveedor. Si
-            // ninguna aplica, el precio de tabla se queda como está: nunca se
-            // anuncia un descuento que este curso no recibe en el checkout.
-            const promo = mejorPromocion(promos, { countryCode: pais, proveedor, courseSlug: slug, urlKey: new URLSearchParams(location.search).get('promo') });
-            if (!promo) continue;
-
-            const real = caja.querySelector<HTMLElement>('[data-precio-real]');
-            const tachado = caja.querySelector<HTMLElement>('[data-precio-tachado]');
-            const badge = caja.querySelector<HTMLElement>('[data-promo-badge]');
-            if (!real) continue;
-
-            const final = precioConDescuento(monto, moneda, promo.pct);
-            if (final >= monto) continue; // descuento nulo: no se toca nada
-
-            real.textContent = formatMonto(final, moneda);
-            if (tachado) {
-              // Sin el código de moneda: ya lo dice la cifra principal y en
-              // móvil esos caracteres de más cortaban la píldora.
-              tachado.textContent = formatMonto(monto, moneda).replace(/\s[A-Z]{3}$/, '');
-              tachado.hidden = false;
-            }
-            if (badge) {
-              badge.textContent = `−${promo.pct}%`;
-              badge.hidden = false;
-            }
-          }
-        })
-        .catch(() => {
-          /* Sin respuesta se queda el precio de tabla: nunca se anuncia un
-             descuento que no se ha podido confirmar. */
-        });
-    }
-  </script>
-
   <!-- Hero -->
   <section class="bg-primary" data-content-source={content.source} data-content-locale-source={content.localeSource}>
     <div class="container-site grid gap-10 py-14 lg:grid-cols-[1fr_420px] lg:py-20">
@@ -506,6 +425,7 @@ const schemas = [
           <span>📚 {course.data.lessonsCount} lecciones</span>
           <span>📈 {course.data.level}</span>
         </div>
+        {!sinProducto && <a href="#compra" class="mt-5 flex flex-wrap justify-between gap-2 rounded-md bg-white p-3 font-bold text-primary lg:hidden"><span>Opciones de compra ↓</span><span data-purchase-summary>{offer?.price ?? displayMoney(baseAmount)}</span></a>}
       </div>
 
       <!-- Card de compra -->
@@ -537,50 +457,7 @@ const schemas = [
             </div>
           )
         }
-        {/* Jerarquía de precio: la cifra que se paga manda y el precio anterior la
-            acompaña en la misma línea a un cuerpo mucho menor. Antes el tachado
-            iba a `text-lg` con una píldora al lado: sumaban 410 px en una columna
-            de 372 y el conjunto saltaba de línea partiendo "$196.000 COP" por el
-            espacio previo a la moneda. `whitespace-nowrap` impide ese corte. */}
-        {
-          /* Sin producto el importe sería el de catálogo, y nadie lo va a
-             cobrar porque no hay checkout. Anunciar una cifra concreta que no
-             corresponde a ninguna transacción posible es lo mismo que hacía el
-             `Offer` del marcado, solo que a la vista. */
-          sinProducto ? (
-            <p class="mt-5 text-lg font-bold text-primary">Próximamente</p>
-          ) : (
-            <div
-              class="mt-5 flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5"
-              data-precio-caja
-              data-monto={montoBase}
-              data-moneda={monedaBase}
-              data-pais={country.code}
-              data-slug={course.id}
-            >
-              <span data-precio-real class="text-3xl font-extrabold whitespace-nowrap text-primary">
-                {precioTexto}
-              </span>
-              <span
-                data-precio-tachado
-                hidden
-                class="text-sm whitespace-nowrap text-muted line-through"
-              />
-              <span
-                data-promo-badge
-                hidden
-                class="rounded-full bg-accent px-2 py-0.5 text-[11px] font-bold whitespace-nowrap text-white"
-              />
-            </div>
-          )
-        }
-        {
-          descuentoVisible ? (
-            <p class="mt-1 text-xs font-semibold text-error">
-              🔥 El precio ya incluye el {descuentoVisible}% de descuento
-            </p>
-          ) : null
-        }
+        {sinProducto ? <p class="mt-5 font-bold">Próximamente</p> : <PurchasePanel markets={marketLinks} country={country.name} price={displayMoney(baseAmount)} checkout={localCheckout.href} {offer} />}
         {
           /* Sin producto no hay checkout al que mandar a nadie: `hotmartUrl`
              sigue siendo el marcador `PENDIENTE` y ese enlace acaba en la
@@ -597,16 +474,6 @@ const schemas = [
             </button>
           ) : (
             <>
-              <a
-                href={ctaUrl}
-                target="_blank"
-                rel="noopener nofollow sponsored"
-                data-cta-hotmart
-                data-cta-position="hero"
-                class="animate-pulse-soft mt-5 block rounded-md bg-accent px-6 py-4 text-center font-bold text-white transition hover:bg-accent-hover"
-              >
-                🔥 Inscribirme ahora
-              </a>
               <button
                 type="button"
                 data-lead-open
@@ -919,14 +786,10 @@ const schemas = [
           </button>
         ) : (
           <a
-            href={ctaUrl}
-            target="_blank"
-            rel="noopener nofollow sponsored"
-            data-cta-hotmart
-            data-cta-position="footer"
+            href="#compra"
             class="animate-pulse-soft mt-7 inline-block rounded-md bg-accent px-8 py-4 font-bold text-white transition hover:bg-accent-hover"
           >
-            🔥 Inscribirme ahora
+            Opciones de compra
           </a>
         )
       }
@@ -952,7 +815,7 @@ const schemas = [
   <LeadModal {country} courseTitle={course.data.title} courseSlug={course.id} />
   {/* El popup de salida ofrece comprar. Sin producto no hay nada que comprar y
       su CTA acabaría en la misma página de error, así que no se monta. */}
-  {!sinProducto && <ExitIntent {ctaUrl} />}
+
 </BaseLayout>
 
 <script>

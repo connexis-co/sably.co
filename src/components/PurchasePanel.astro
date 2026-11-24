@@ -1,0 +1,71 @@
+---
+interface Props {
+  country: string;
+  markets: {label:string;href:string}[];
+  price: string;
+  checkout: string;
+  offer: { price: string; saving: number; coupon: string; name: string; end: number | null } | null;
+}
+const { country, markets, price, checkout, offer } = Astro.props;
+const discounted = new URL(checkout);
+if (offer) discounted.searchParams.set('offDiscount', offer.coupon);
+const endDate = offer?.end ? new Date(offer.end) : null;
+---
+<section id="compra" tabindex="-1" aria-labelledby="titulo-compra" class="mt-5 scroll-mt-24 rounded-md bg-off-white p-4"
+  data-purchase-panel data-base={price} data-reduced={offer?.price} data-original-url={checkout}
+  data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end}>
+  <h2 id="titulo-compra" class="text-xl font-bold text-primary">Opciones de compra</h2>
+  <p class="mt-2 text-sm text-muted">{country} · Pago en {price.split(' ').at(-1)}</p>
+  <details class="mt-1 text-sm"><summary class="cursor-pointer font-semibold text-accent">Cambiar país</summary>
+    <ul class="mt-1 grid grid-cols-2 gap-1">{markets.map(market => <li><a class="inline-block py-2 underline" href={market.href}>{market.label}</a></li>)}</ul>
+  </details>
+  <p class="mt-2 flex flex-wrap items-baseline gap-2" aria-live="polite" aria-atomic="true">
+    <strong data-amount class="text-2xl text-primary">{offer?.price ?? price}</strong>
+    {offer && <span data-savings><del class="italic">{price}</del> · Ahorras {offer.saving} %</span>}
+  </p>
+  {offer && <div data-promotion class="mt-3 text-sm">
+    <strong>{offer.name}</strong>
+    {endDate && <p>Vigente hasta el <time datetime={endDate.toISOString()}>{endDate.toLocaleString('es-CO',{timeZone:'America/Bogota'})}</time> (Bogotá). <span role="timer" aria-live="off" data-clock></span></p>}
+    <p data-coupon-status aria-live="polite">Cupón {offer.coupon} aplicado.</p>
+    <button hidden type="button" data-toggle data-code={offer.coupon} class="min-h-11 font-semibold text-accent underline">Quitar el cupón</button>
+  </div>}
+  <a href={offer ? discounted.href : checkout} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" class="mt-4 block rounded-md bg-accent px-4 py-3 text-center font-bold text-white">Inscribirme ahora</a>
+</section>
+<script>
+  const panel = document.querySelector<HTMLElement>('[data-purchase-panel]');
+  if (panel) {
+    const toggle = panel.querySelector<HTMLButtonElement>('[data-toggle]');
+    const link = panel.querySelector<HTMLAnchorElement>('a')!;
+    const summary = document.querySelector('[data-purchase-summary]');
+    const deadline = Number(panel.dataset.until);
+    let applied = Boolean(toggle);
+    function render(expired: boolean) {
+      if (!panel || !toggle) return;
+      const active = applied && !expired;
+      const amount = active ? panel.dataset.reduced! : panel.dataset.base!;
+      panel.querySelector('[data-amount]')!.textContent = amount;
+      if (summary) summary.textContent = amount;
+      panel.querySelector<HTMLElement>('[data-savings]')!.hidden = !active;
+      panel.querySelector<HTMLElement>('[data-promotion]')!.hidden = expired;
+      panel.querySelector('[data-coupon-status]')!.textContent = 'Cupón ' + toggle.dataset.code + (active ? ' aplicado.' : ' retirado.');
+      toggle.textContent = active ? 'Quitar el cupón' : 'Volver a aplicar el cupón';
+      link.href = active ? panel.dataset.discountUrl! : panel.dataset.originalUrl!;
+    }
+    const expired = () => deadline > 0 && Date.now() >= deadline;
+    if (toggle) {
+      toggle.hidden = false;
+      toggle.addEventListener('click', () => { applied = !applied; render(expired()); });
+      link.addEventListener('click', () => render(expired()));
+      const clock = panel.querySelector('[data-clock]');
+      if (clock && deadline) {
+        const tick = () => {
+          if (expired()) { render(true); clearInterval(timer); return; }
+          const minutes = Math.ceil((deadline - Date.now()) / 60000);
+          clock.textContent = 'Quedan ' + Math.floor(minutes / 1440) + ' d ' + Math.floor(minutes % 1440 / 60) + ' h ' + minutes % 60 + ' min.';
+        };
+        const timer = setInterval(tick, 1000);
+        tick();
+      }
+    }
+  }
+</script>
