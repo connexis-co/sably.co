@@ -1,5 +1,5 @@
-// Plugin de EmDash «sably-narracion» para sably.co. Narra con voz sintética cada artículo que se publica (gancho +
-// trabajador en segundo plano + cron de respaldo), con cola idempotente por huella del texto y voz, reintentos, topes
+// Plugin de EmDash «sably-narracion» para sably.co. Con la narración automática encendida en el panel, narra cada
+// artículo que se publica (gancho + trabajador en segundo plano + cron de respaldo); de fábrica no hace nada solo, con cola idempotente por huella del texto y voz, reintentos, topes
 // de gasto y disyuntor del proveedor. Panel «Sably · narraciones». Diseño en
 // docs/equipo/2026-11-25/narraciones/DISENO.md (carpeta sably.co). Base: el plugin homónimo de terapiadpareja.com.
 import { definePlugin, pluginResponse, PluginRouteError, type PluginContext, type PluginRoute, type RouteContext } from "emdash";
@@ -59,6 +59,19 @@ function despertar(ctx: PluginContext) {
     .finally(() => { enMarcha = undefined; });
 }
 
+/** Gancho de publicar o programar: solo encola con la narración automática encendida en el panel. */
+async function alPublicar(ctx: PluginContext, coleccion: string, contenido: Entrada) {
+  try {
+    const cola = colaDe(ctx);
+    const config = await cola.config();
+    if (!config.narrarAlPublicar) return;
+    const r = await encolarEntrada(cola, coleccion, contenido, "publicar", { config });
+    if (r?.resultado === "nuevo" && !r.reutilizada) despertar(ctx);
+  } catch (e) {
+    ctx.log.warn("No se pudo encolar la narración", { error: (e as Error).message });
+  }
+}
+
 async function listarPublicadas(ctx: PluginContext, coleccion: string) {
   const items: Entrada[] = [];
   if (!ctx.content) return items;
@@ -78,6 +91,7 @@ async function listarPublicadas(ctx: PluginContext, coleccion: string) {
 async function conciliar(ctx: PluginContext) {
   const cola = colaDe(ctx);
   const config = await cola.config();
+  if (!config.narrarAlPublicar) return 0;
   let activado = await ctx.kv.get<number>("activado");
   if (!activado) await ctx.kv.set("activado", (activado = Date.now()));
   const publicadas = new Set((await cola.publicadasTodas()).map((p) => p.id));
@@ -151,26 +165,12 @@ export function createPlugin() {
     storage: ALMACENAMIENTO as never,
     admin: { pages: [{ path: "/narraciones", label: "Narraciones", icon: "headphones" }] },
     hooks: {
+      // Solo programa el cron; con la narración automática apagada el cron no encola ni genera nada.
       "plugin:activate": async (_event, ctx) => {
         await ctx.cron?.schedule("narracion-cola", { schedule: "*/10 * * * *" });
-        if (!(await ctx.kv.get("activado"))) await ctx.kv.set("activado", Date.now());
       },
-      "content:afterPublish": async (event, ctx) => {
-        try {
-          const r = await encolarEntrada(colaDe(ctx), event.collection, event.content as Entrada, "publicar");
-          if (r?.resultado === "nuevo" && !r.reutilizada) despertar(ctx);
-        } catch (e) {
-          ctx.log.warn("No se pudo encolar la narración", { error: (e as Error).message });
-        }
-      },
-      "content:afterSchedule": async (event, ctx) => {
-        try {
-          const r = await encolarEntrada(colaDe(ctx), event.collection, event.content as Entrada, "publicar");
-          if (r?.resultado === "nuevo" && !r.reutilizada) despertar(ctx);
-        } catch (e) {
-          ctx.log.warn("No se pudo encolar la narración", { error: (e as Error).message });
-        }
-      },
+      "content:afterPublish": async (event, ctx) => alPublicar(ctx, event.collection, event.content as Entrada),
+      "content:afterSchedule": async (event, ctx) => alPublicar(ctx, event.collection, event.content as Entrada),
       "content:afterUnpublish": async (event, ctx) => {
         const { slug } = datosDe(event.content as Entrada);
         if (slug) await colaDe(ctx).retirar(event.collection, slug).catch(() => false);
@@ -259,7 +259,8 @@ export function createPlugin() {
         const voz = (await cola.voces()).find((v) => v.id === entrada(ctx).id);
         if (!voz) throw PluginRouteError.notFound("Voz desconocida.");
         const p = obtenerProveedor(voz.proveedor);
-        if ((await cola.gasto()).usd > config.topeMensualUsd) throw PluginRouteError.badRequest("Tope mensual alcanzado.");
+        if (config.topeMensualUsd <= 0) throw PluginRouteError.badRequest("Pon un tope de gasto mensual en Ajustes para probar voces.");
+        if ((await cola.gasto()).usd >= config.topeMensualUsd) throw PluginRouteError.badRequest("Tope mensual alcanzado.");
         const texto = guion([FRASE_PRUEBA], { pronunciaciones: config.pronunciaciones }).map((f) => f.texto).join(" ");
         try {
           const r = await p.sintetizar(texto, voz, { estilo: config.estilo });

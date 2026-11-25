@@ -159,8 +159,11 @@ export class Cola {
   }
 
   async guardarConfig(cambios: Partial<Config>): Promise<Config> {
-    const config = normalizarConfig({ ...(await this.config()), ...cambios });
+    const antes = await this.config();
+    const config = normalizarConfig({ ...antes, ...cambios });
     await this.a.kv.set("config", config);
+    // La conciliación solo recoge lo publicado desde que se encendió la narración automática: lo de antes va por lote.
+    if (config.narrarAlPublicar && !antes.narrarAlPublicar) await this.a.kv.set("activado", this.ahora());
     return config;
   }
 

@@ -15,6 +15,11 @@ export const COLECCIONES: Record<string, { etiqueta: string; campos: CampoNarrab
 };
 
 export interface Config {
+  /**
+   * Interruptor general de la narración automática: encolar al publicar o programar y conciliar en el cron. De fábrica
+   * apagado: desplegar, recrear el contenedor o arrancar el cron no genera nada hasta que JP lo encienda en el panel.
+   */
+  narrarAlPublicar: boolean;
   colecciones: Record<string, boolean>;
   /** Id del catálogo de voces que se usa por defecto. */
   voz: string;
@@ -46,13 +51,15 @@ export const VOCES_INICIALES: Voz[] = [
     etiqueta: "Masculina, cuarentona, acento colombiano, cálida y clara (terapiadpareja.com, temas de habilidades)" },
 ];
 
+// De fábrica no se gasta nada: narración automática apagada, revisión manual y topes en 0. Lo enciende JP en el panel.
 export const CONFIG_INICIAL: Config = {
+  narrarAlPublicar: false,
   colecciones: { blog: true, courses: false },
   voz: "csagent-9",
   estilo: estiloPorDefecto,
-  revision: "automatica",
-  topeMensualUsd: 5,
-  topeLoteUsd: 2,
+  revision: "manual",
+  topeMensualUsd: 0,
+  topeLoteUsd: 0,
   incluirPreguntas: false,
   deposito: "auto",
   pronunciaciones: { SMAW: "ese eme a doble ve", COP: "pesos colombianos", ARS: "pesos argentinos" },
@@ -72,10 +79,11 @@ export function normalizarConfig(valor: unknown): Config {
   for (const [k, l] of Object.entries(v.pronunciaciones ?? CONFIG_INICIAL.pronunciaciones))
     if (typeof l === "string" && k.trim() && l.trim() && k.length <= 40 && l.length <= 120) pronunciaciones[k.trim()] = l.trim();
   return {
+    narrarAlPublicar: v.narrarAlPublicar === true,
     colecciones,
     voz: typeof v.voz === "string" && /^[a-z0-9-]{1,40}$/.test(v.voz) ? v.voz : CONFIG_INICIAL.voz,
     estilo: typeof v.estilo === "string" && v.estilo.trim().length >= 10 ? v.estilo.trim().slice(0, 600) : CONFIG_INICIAL.estilo,
-    revision: v.revision === "manual" ? "manual" : "automatica",
+    revision: v.revision === "automatica" ? "automatica" : "manual",
     topeMensualUsd: numero(v.topeMensualUsd, 0, 200, CONFIG_INICIAL.topeMensualUsd),
     topeLoteUsd: numero(v.topeLoteUsd, 0, 100, CONFIG_INICIAL.topeLoteUsd),
     incluirPreguntas: v.incluirPreguntas === true,

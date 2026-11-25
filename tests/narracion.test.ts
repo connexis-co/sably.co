@@ -12,6 +12,7 @@ import { clasificar, ErrorProveedor, type Proveedor } from '../src/plugins/sably
 import { bloquesNarrables, camposBlog, guion, huella, normalizarParaVoz } from '../src/plugins/sably-narracion/src/texto';
 import { agrupar, procesar } from '../src/plugins/sably-narracion/src/trabajador';
 import { nodeEdgePolicy } from '../src/lib/public-delivery';
+import { createPlugin } from '../src/plugins/sably-narracion/index';
 
 const seno = (segundos: number, amplitud: number, frecuencia = 24000, hz = 997): Pcm => {
   const muestras = new Float32Array(Math.round(segundos * frecuencia));
@@ -88,7 +89,8 @@ async function nuevaCola(config: Record<string, unknown> = {}) {
   let reloj = Date.parse('2026-11-25T12:00:00Z');
   const avisos: number[] = [];
   const cola = new Cola(almacen, () => reloj, () => avisos.push(1));
-  await cola.guardarConfig({ deposito: 'disco', ...config });
+  // Las pruebas del trabajador parten de la narración encendida; las de fábrica están en «de fábrica: …».
+  await cola.guardarConfig({ deposito: 'disco', revision: 'automatica', topeMensualUsd: 5, topeLoteUsd: 2, ...config });
   return { cola, almacen, avisos, avanzar: (ms: number) => { reloj += ms; } };
 }
 
@@ -222,7 +224,7 @@ test('trabajador: tras tres fallos la toma queda en error con esperas crecientes
 test('config y depósito: valores fuera de rango se corrigen; nombres no válidos se rechazan', async () => {
   const c = normalizarConfig({ topeMensualUsd: 9999, revision: 'otra', colecciones: { blog: false, inventada: true } });
   assert.equal(c.topeMensualUsd, 200);
-  assert.equal(c.revision, 'automatica');
+  assert.equal(c.revision, 'manual', 'un valor desconocido vuelve a revisión manual');
   assert.deepEqual(c.colecciones, { blog: false, courses: false });
   await assert.rejects(guardar('disco', '../fuera.mp3', new Uint8Array(4)));
   assert.equal(idToma({ coleccion: 'blog', slug: 's', huella: 'a'.repeat(64), perfilId: 'b'.repeat(16), numero: 2 }), `blog:s:${'a'.repeat(12)}:${'b'.repeat(8)}:2`);
@@ -234,4 +236,71 @@ test('borde: Cloudflare guarda un año los MP3 de narraciones y nada más de esa
   assert.equal(politica('/narraciones/coser-0123456789ab.mp3', mp3), 'public, max-age=31536000, immutable');
   assert.equal(politica('/narraciones/coser-0123456789ab.mp3', new Response(null, { status: 404 })), 'no-store');
   assert.equal(politica('/narraciones/../x.mp3', mp3), 'no-store');
+});
+
+test('de fábrica: publicar, programar, activar el plugin y el cron no narran ni llaman al proveedor de voz', async (t) => {
+  const c = normalizarConfig(undefined);
+  assert.equal(c.narrarAlPublicar, false);
+  assert.equal(c.revision, 'manual');
+  assert.equal(c.topeMensualUsd, 0);
+  assert.equal(c.topeLoteUsd, 0);
+
+  // Con clave en el entorno: lo que impide generar son los ajustes de fábrica, no que falte la clave.
+  const claveAntes = process.env.GEMINI_API_KEY;
+  process.env.GEMINI_API_KEY = 'clave-de-prueba';
+  const fetchAntes = globalThis.fetch;
+  const peticiones: string[] = [];
+  globalThis.fetch = (async (url: string | URL | Request) => {
+    peticiones.push(String(url instanceof Request ? url.url : url));
+    throw new Error('sin red en la prueba');
+  }) as typeof fetch;
+  t.after(() => {
+    globalThis.fetch = fetchAntes;
+    if (claveAntes === undefined) delete process.env.GEMINI_API_KEY; else process.env.GEMINI_API_KEY = claveAntes;
+  });
+
+  const almacen = almacenEnMemoria();
+  const programados: string[] = [];
+  const post = { id: 'p1', slug: 'coser', status: 'published', data: { ...articulo, slug: 'coser', publishedAt: new Date(Date.now() + 60_000).toISOString() } };
+  const ctx = {
+    storage: { tomas: almacen.tomas, publicadas: almacen.publicadas, voces: almacen.voces, permisos: almacen.permisos },
+    kv: almacen.kv,
+    log: { info() {}, warn() {}, error() {}, debug() {} },
+    cron: { schedule: async (nombre: string) => { programados.push(nombre); } },
+    content: { list: async () => ({ items: [post], hasMore: false }) },
+  } as never;
+  const plugin = createPlugin() as unknown as { hooks: Record<string, { handler: (e: unknown, ctx: unknown) => Promise<unknown> }>;
+    routes: Record<string, { handler: (ctx: unknown) => Promise<unknown> }> };
+  const gancho = (nombre: string, evento: unknown) => plugin.hooks[nombre]!.handler(evento, ctx);
+
+  // Desplegar o recrear el contenedor (activar), publicar, volver a publicar, programar y varias pasadas del cron.
+  await gancho('plugin:activate', {});
+  await gancho('content:afterPublish', { collection: 'blog', content: post });
+  await gancho('content:afterUnpublish', { collection: 'blog', content: post });
+  await gancho('content:afterPublish', { collection: 'blog', content: post });
+  await gancho('content:afterSchedule', { collection: 'blog', content: post });
+  for (let i = 0; i < 3; i++) await gancho('cron', { name: 'narracion-cola' });
+  await new Promise((ok) => setTimeout(ok, 20));
+
+  const cola = new Cola(almacen);
+  assert.deepEqual(programados, ['narracion-cola'], 'el cron se programa, pero no hace nada');
+  assert.equal((await almacen.tomas.query()).items.length, 0, 'no se encola ninguna toma');
+  assert.equal((await cola.publicadasTodas()).length, 0, 'ninguna entrada tiene audio: la página no pinta reproductor ni AudioObject');
+  assert.equal((await cola.gasto()).usd, 0);
+  assert.equal(await almacen.kv.get('activado'), null, 'la conciliación no arranca a contar hasta encenderla');
+
+  // Probar una voz desde el panel tampoco gasta con el tope en 0.
+  await assert.rejects(plugin.routes['voz-probar']!.handler({ ...(ctx as object), input: { id: 'csagent-9' } }), /tope de gasto mensual/);
+
+  // Encender la narración automática sin poner tope: encola, pero el trabajador no genera nada.
+  await cola.guardarConfig({ narrarAlPublicar: true });
+  assert.ok(await almacen.kv.get('activado'), 'al encenderla empieza a contar la conciliación');
+  await gancho('content:afterPublish', { collection: 'blog', content: post });
+  await new Promise((ok) => setTimeout(ok, 20));
+  assert.equal((await almacen.tomas.query()).items.length, 1);
+  const r = await procesar(cola, { esperar: async () => {} });
+  assert.match(String(r.omitido), /Sin tope mensual/);
+  assert.equal((await cola.publicadasTodas()).length, 0);
+
+  assert.deepEqual(peticiones, [], 'ninguna petición al proveedor de voz ni a R2');
 });

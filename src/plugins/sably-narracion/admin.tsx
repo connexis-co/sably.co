@@ -16,7 +16,7 @@ async function api<T = any>(ruta: string, cuerpo?: unknown): Promise<T> {
 type Estado = 'pendiente' | 'generando' | 'revision' | 'publicada' | 'reemplazada' | 'rechazada' | 'obsoleta' | 'error' | 'retirada';
 interface Toma { id: string; coleccion: string; slug: string; titulo: string; estado: Estado; perfil: { vozId: string; voz: string; proveedor: string }; numero: number; origen: string; intentos: number; reintentarDesde: number; costoEstimadoUsd: number; costoUsd?: number; segundos?: number; url?: string; deposito?: string; error?: string; informe?: Record<string, any>; actualizado: number; palabras: number }
 interface Voz { id: string; proveedor: string; voz: string; modelo?: string; etiqueta: string; origen: string; activa: boolean; permiso?: string }
-interface Config { colecciones: Record<string, boolean>; voz: string; estilo: string; revision: 'automatica' | 'manual'; topeMensualUsd: number; topeLoteUsd: number; incluirPreguntas: boolean; deposito: string; pronunciaciones: Record<string, string>; caracteresPorSegundo: number }
+interface Config { narrarAlPublicar: boolean; colecciones: Record<string, boolean>; voz: string; estilo: string; revision: 'automatica' | 'manual'; topeMensualUsd: number; topeLoteUsd: number; incluirPreguntas: boolean; deposito: string; pronunciaciones: Record<string, string>; caracteresPorSegundo: number }
 interface Panel { config: Config; voces: Voz[]; proveedores: { id: string; nombre: string; disponible: boolean; puedeClonar: boolean; pausa: { hasta: number; motivo: string } | null }[]; tomas: Toma[]; permisos: any[]; colecciones: Record<string, string>; resumen: Partial<Record<Estado, number>>; gasto: { usd: number; tomas: number }; publicadas: number; deposito: { carpeta: string; r2: boolean } }
 
 const ESTADOS: Record<Estado, string> = { pendiente: 'En cola', generando: 'Generando', revision: 'En revisión', publicada: 'Suena en el sitio', reemplazada: 'Reemplazada', rechazada: 'Rechazada', obsoleta: 'Obsoleta', error: 'Error', retirada: 'Retirada' };
@@ -72,7 +72,11 @@ type Accion = (ruta: string, cuerpo: unknown, exito: string) => Promise<unknown>
 function Resumen({ panel, accion, ocupado }: { panel: Panel; accion: Accion; ocupado: boolean }) {
   const r = panel.resumen;
   const errores = panel.tomas.filter(t => t.estado === 'error' || (t.estado === 'pendiente' && t.error));
+  const c = panel.config;
   return <section>
+    {(!c.narrarAlPublicar || c.topeMensualUsd <= 0) && <p className="sn-mal" role="note">
+      {!c.narrarAlPublicar ? 'La narración automática está apagada: al publicar no se narra nada.' : 'La narración automática está encendida.'}
+      {c.topeMensualUsd <= 0 ? ' El tope de gasto mensual está en USD 0: no se genera ningún audio.' : ''} Se cambia en Ajustes.</p>}
     <div className="sn-cifras">
       <div><strong>{panel.publicadas}</strong>Entradas con audio</div>
       <div><strong>{(r.pendiente ?? 0) + (r.generando ?? 0)}</strong>En cola</div>
@@ -199,6 +203,7 @@ function Ajustes({ panel, accion, ocupado }: { panel: Panel; accion: Accion; ocu
     const f = new FormData(e.currentTarget);
     const pronunciaciones = Object.fromEntries(String(f.get('pronunciaciones') ?? '').split('\n').map(l => l.split('=').map(x => x.trim())).filter(p => p.length === 2 && p[0] && p[1]));
     void accion('ajustes', {
+      narrarAlPublicar: f.get('narrarAlPublicar') === 'si',
       colecciones: Object.fromEntries(Object.keys(panel.colecciones).map(k => [k, f.get(`col-${k}`) === 'si'])),
       revision: f.get('revision'), topeMensualUsd: Number(f.get('topeMensualUsd')), topeLoteUsd: Number(f.get('topeLoteUsd')),
       incluirPreguntas: f.get('incluirPreguntas') === 'si', deposito: f.get('deposito'), estilo: f.get('estilo'), pronunciaciones,
@@ -206,6 +211,9 @@ function Ajustes({ panel, accion, ocupado }: { panel: Panel; accion: Accion; ocu
     }, 'Ajustes guardados.');
   }
   return <form onSubmit={guardar} className="sn-form">
+    <fieldset><legend>Narración automática</legend>
+      <label className="sn-casilla"><input type="checkbox" name="narrarAlPublicar" value="si" defaultChecked={c.narrarAlPublicar} /> Narrar cada entrada al publicarla o programarla</label>
+      <small>Apagada, solo se narra lo que pidas aquí (lote, regenerar). Con el tope mensual en 0 no se genera nada.</small></fieldset>
     <fieldset><legend>Qué se narra</legend>{Object.entries(panel.colecciones).map(([k, v]) => <label key={k} className="sn-casilla"><input type="checkbox" name={`col-${k}`} value="si" defaultChecked={c.colecciones[k]} /> {v}</label>)}
       <label className="sn-casilla"><input type="checkbox" name="incluirPreguntas" value="si" defaultChecked={c.incluirPreguntas} /> Incluir las preguntas frecuentes del artículo</label></fieldset>
     <Campo etiqueta="Revisión" ayuda="Automática: se publica sola si todos los tramos duran lo esperado; si no, queda en revisión. Manual: siempre hay que escucharla y publicarla aquí."><select name="revision" defaultValue={c.revision}><option value="automatica">Automática con controles</option><option value="manual">Manual</option></select></Campo>

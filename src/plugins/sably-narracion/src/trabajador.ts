@@ -182,6 +182,10 @@ export async function procesar(cola: Cola, o: OpcionesTrabajo = {}): Promise<Res
         await cola.fallar(id, `Falta ${p.clave} en el servidor`, { pausa: true });
         return { ...resumen, omitido: `Falta ${p.clave}` };
       }
+      if (config.topeMensualUsd <= 0) {
+        await cola.fallar(id, "Sin tope de gasto mensual: ponlo en Ajustes para generar", { pausa: true });
+        return { ...resumen, omitido: "Sin tope mensual" };
+      }
       if (gasto.usd + toma.costoEstimadoUsd > config.topeMensualUsd) {
         await cola.fallar(id, `Tope mensual alcanzado: USD ${usdEs(gasto.usd)} gastados de USD ${usdEs(config.topeMensualUsd)}`, { pausa: true });
         return { ...resumen, omitido: "Tope mensual alcanzado" };
