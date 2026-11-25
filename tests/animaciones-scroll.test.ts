@@ -38,7 +38,7 @@ const ABREVIADA_CON_TIEMPO = /(?<![-\w])animation\s*:[^;{}]*(?:scroll\(|view\(|\
 
 test('hay animaciones de scroll que vigilar (cabecera, apariciones y progreso del artículo)', () => {
   const rutas = conLineaDeTiempo.map((a) => a.ruta);
-  for (const esperada of ['styles/v2.css', 'themes/sably-v2/estilos.css', 'themes/sably-v2/pages/blog-article.astro'])
+  for (const esperada of ['styles/v2.css', 'themes/sably-v2/estilos.css', 'themes/sably-v2/blog.css'])
     assert.ok(rutas.includes(esperada), `${esperada} ya no declara animation-timeline`);
 });
 

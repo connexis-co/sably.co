@@ -1,0 +1,7 @@
+---
+/** Etiqueta de categoría del blog con el tono de su área (punto, pastilla o filete; ajuste `blogEtiquetaEstilo`). */
+import { tonoDeCategoria } from '@/lib/blog';
+interface Props { categoria?: string; estilo?: 'punto' | 'pastilla' | 'filete'; class?: string; etiqueta?: 'span' | 'p' }
+const { categoria, estilo = 'punto', class: clase, etiqueta: Tag = 'span' } = Astro.props;
+---
+<Tag class:list={['v2-etiqueta', clase]} data-estilo={estilo} data-tono={tonoDeCategoria(categoria)}>{categoria ?? 'Guía'}</Tag>

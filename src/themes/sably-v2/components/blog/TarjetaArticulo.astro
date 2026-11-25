@@ -1,0 +1,39 @@
+---
+/**
+ * Tarjeta de artículo (lámina 11): un solo enlace con foto (o portada tipográfica si el artículo no tiene foto
+ * propia), etiqueta, título, resumen, fecha y minutos, y «Leer más →» dentro del mismo enlace. Variantes por
+ * `blogTarjeta` (borde, suelta, sombra, horizontal) y en móvil `blogTarjetaMovil`. Sin datos de relleno: las
+ * estrellas y los comentarios llegan con el PR de valoraciones y solo con datos reales.
+ */
+import { Image as OptimizedImage } from 'astro:assets';
+import { cmsImageUrl } from '@/lib/cms-media';
+import { blogCover, fechaCorta, minutosLectura, titularPortada, tonoDeCategoria } from '@/lib/blog';
+import { richText } from '@/lib/rich-content';
+import type { BlogPost } from '@/lib/emdash-content';
+import EtiquetaCategoria from './EtiquetaCategoria.astro';
+import Ico from '../Ico.astro';
+interface Props {
+  post: BlogPost; variante?: 'borde' | 'suelta' | 'sombra' | 'horizontal'; movil?: 'horizontal' | 'igual';
+  leerMas?: boolean; sinFoto?: 'tipografica' | 'foto'; estiloEtiqueta?: 'punto' | 'pastilla' | 'filete';
+  nivel?: 'h2' | 'h3'; eager?: boolean; sizes?: string;
+}
+const { post, variante = 'borde', movil = 'horizontal', leerMas = true, sinFoto = 'tipografica', estiloEtiqueta = 'punto', nivel: H = 'h3', eager = false,
+  sizes = '(min-width: 1024px) 380px, (min-width: 640px) 50vw, 96px' } = Astro.props;
+const propia = cmsImageUrl(post.cardImage) ?? cmsImageUrl(post.coverImage);
+const foto = propia ?? (sinFoto === 'foto' ? blogCover(post.data.category, 'card') : undefined);
+const minutos = minutosLectura(post.richBody ? richText(post.richBody) : post.body ?? '');
+---
+<a href={`/blog/${post.id}/`} class="v2-tarjeta-art group" data-variante={variante} data-movil={movil === 'horizontal' ? 'horizontal' : undefined}>
+  <div class="v2-ta-foto">
+    {foto
+      ? <OptimizedImage src={foto} alt="" width={640} height={400} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} {sizes} />
+      : <div class="v2-portada-tipo" data-tono={tonoDeCategoria(post.data.category)} aria-hidden="true"><b>{titularPortada(post.data.title)}</b><span>{post.data.category ?? 'Guía'}</span></div>}
+  </div>
+  <div class="v2-ta-cuerpo">
+    <EtiquetaCategoria categoria={post.data.category} estilo={estiloEtiqueta} />
+    <H class="v2-ta-titulo">{post.data.title}</H>
+    <p class="v2-ta-resumen">{post.data.description}</p>
+    <p class="v2-ta-datos"><time datetime={post.data.publishedAt.toISOString()}>{fechaCorta(post.data.publishedAt)}</time> · {minutos} min de lectura</p>
+    {leerMas && <span class="v2-ta-mas" aria-hidden="true">Leer más <Ico nombre="arrow-right" tamano={16} /></span>}
+  </div>
+</a>

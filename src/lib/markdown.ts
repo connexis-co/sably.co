@@ -101,7 +101,8 @@ export function renderMarkdown(md: string): string {
         i++;
       }
       i--;
-      out.push(`<table><thead><tr>${head}</tr></thead><tbody>${filas.join('')}</tbody></table>`);
+      // Envoltorio desplazable (las tablas anchas no rompen el móvil); `tabindex` para moverla con el teclado.
+      out.push(`<div class="v2-tabla" role="region" aria-label="Tabla" tabindex="0"><table><thead><tr>${head}</tr></thead><tbody>${filas.join('')}</tbody></table></div>`);
       continue;
     }
 

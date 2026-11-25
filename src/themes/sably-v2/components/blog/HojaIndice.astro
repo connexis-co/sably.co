@@ -1,0 +1,16 @@
+---
+/**
+ * Índice flotante del móvil: píldora «Índice · 2 de 4» abajo a la izquierda (el WhatsApp está a la derecha) que
+ * aparece cuando el índice del inicio sale por arriba y abre una hoja <dialog> modal (Esc y el fondo cierran,
+ * foco atrapado por el navegador). Solo apartados principales; la lista se pinta en el servidor.
+ */
+import Ico from '../Ico.astro';
+import type { Apartado } from '@/lib/blog';
+interface Props { apartados: Apartado[] }
+const principales = Astro.props.apartados.filter(a => a.depth === 2);
+---
+<button type="button" class="v2-indice-pildora" data-indice-pildora aria-haspopup="dialog" aria-controls="indice-hoja"><Ico nombre="list" tamano={18} /><span data-pildora-texto>Índice · 1 de {principales.length}</span></button>
+<dialog class="v2-indice-hoja" id="indice-hoja" aria-labelledby="indice-hoja-titulo" data-indice-hoja>
+  <div class="v2-ih-cabeza"><p id="indice-hoja-titulo">En este artículo</p><button type="button" class="v2-icono-boton v2-sin-borde" data-cerrar-hoja aria-label="Cerrar el índice"><Ico nombre="x" tamano={20} /></button></div>
+  <ol class="v2-indice-lista" role="list">{principales.map(a => <li><a href={`#${a.slug}`} data-indice-enlace={a.slug}>{a.text}</a></li>)}</ol>
+</dialog>
