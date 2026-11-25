@@ -5,13 +5,19 @@
  * Por qué: los MP4 de `videos/hd/` se subieron sin `Cache-Control` y R2 responde con el
  * `max-age=14400` por defecto. Cloudflare los cachea igual en el borde, pero el navegador
  * los vuelve a pedir cada 4 horas. El token no tiene permiso de purga, así que no se
- * reescriben en su sitio: se copian a una ruta nueva (`videos/web/`) con
+ * reescriben en su sitio: se copian a una ruta nueva (`videos/web2/`) con
  * `Cache-Control: public, max-age=31536000, immutable`. Cada archivo nuevo va siempre a
  * una ruta nueva; nunca se sobrescribe un objeto ya publicado.
  *
- *   node scripts/video-r2.mjs subir <archivo.mp4> <clave>   # p. ej. videos/web/curso-x.mp4
- *   node scripts/video-r2.mjs copiar-web [--aplicar]         # hd/ → web/ de los vídeos de COURSE_VIDEOS
+ *   node scripts/video-r2.mjs subir <archivo.mp4> <clave>   # p. ej. videos/web2/curso-x.mp4
  *   node scripts/video-r2.mjs comprobar                     # GET con Range: HIT + cabecera inmutable
+ *
+ * `videos/web2/` (25-nov-2026) es la copia web 720p SIN la cortinilla final «Beauty Luxe» (marca propia de Connexis;
+ * retirada por decisión de la orquestadora delegada por JP): `videos/web/` cortado en el inicio del fundido a negro,
+ * vídeo sin recodificar y audio con fundido de 0,25 s. Los originales intactos siguen en `videos/originales/` y los
+ * editados a 1080p (fuente para Mux) en `videos/editados/`. `videos/web/` quedó obsoleta y `videos/v2/` inservible
+ * (404 cacheado en el borde). Para saber si una ruta existe, `HEAD` a la API de R2, NUNCA un GET a cdn.sably.co: un
+ * 404 del CDN queda cacheado 4 horas y el token no puede purgarlo.
  *
  * Credenciales: CLOUDFLARE_API_TOKEN y CLOUDFLARE_ACCOUNT_ID en el entorno
  * (en el Mac de JP: `set -a; source ~/.config/connexis/cloudflare.env; set +a`).
@@ -23,11 +29,11 @@ export const CDN = 'https://cdn.sably.co';
 export const BUCKET = 'sably-assets';
 export const CACHE_INMUTABLE = 'public, max-age=31536000, immutable';
 
-/** `hd/curso.mp4` → `web/curso.mp4`. Solo cambia la carpeta; el nombre del archivo se conserva. */
+/** `hd/curso.mp4` → `web2/curso.mp4`. Solo cambia la carpeta; el nombre del archivo se conserva. */
 export function claveWeb(clave) {
   const nombre = String(clave).split('/').pop();
   if (!nombre || !nombre.endsWith('.mp4')) throw new Error(`clave de vídeo no válida: ${clave}`);
-  return `web/${nombre}`;
+  return `web2/${nombre}`;
 }
 
 function credenciales() {
@@ -47,35 +53,10 @@ async function subir(cuerpo, clave) {
   if (!r.ok) throw new Error(`PUT ${clave}: HTTP ${r.status} ${(await r.text()).slice(0, 160)}`);
 }
 
-/**
- * Se pregunta a la API de R2, NUNCA al CDN: un GET a cdn.sably.co de una ruta que aún no existe
- * deja un 404 cacheado en el borde durante 4 horas, y el token no puede purgarlo (pasó el 25-nov
- * con `videos/v2/`, que por eso quedó sin usar).
- */
-async function existe(clave) {
-  const { token, cuenta } = credenciales();
-  const url = `https://api.cloudflare.com/client/v4/accounts/${cuenta}/r2/buckets/${BUCKET}/objects/${encodeURI(clave)}`;
-  const r = await fetch(url, { method: 'HEAD', headers: { authorization: `Bearer ${token}` } });
-  return r.ok;
-}
-
 async function videos() {
   const { COURSE_VIDEOS } = await import('../src/lib/course-videos.ts').catch(() => ({}));
   if (!COURSE_VIDEOS) throw new Error('Ejecuta con un Node que cargue .ts (node ≥ 22.18) desde la raíz del repo.');
   return Object.entries(COURSE_VIDEOS);
-}
-
-async function copiarWeb(aplicar) {
-  for (const [slug, v] of await videos()) {
-    const origen = `videos/${v.cms}`;
-    const destino = `videos/${v.key}`;
-    if (await existe(destino)) { console.log(`= ${slug}: ya está en ${destino}`); continue; }
-    if (!aplicar) { console.log(`(prueba) ${origen} → ${destino}`); continue; }
-    const r = await fetch(`${CDN}/${origen}`);
-    if (!r.ok) throw new Error(`GET ${origen}: HTTP ${r.status}`);
-    await subir(Buffer.from(await r.arrayBuffer()), destino);
-    console.log(`↑ ${slug}: ${destino}`);
-  }
 }
 
 async function comprobar() {
@@ -98,7 +79,6 @@ async function comprobar() {
 const [orden, ...resto] = process.argv.slice(2);
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   if (orden === 'subir' && resto.length === 2) await subir(readFileSync(resto[0]), resto[1]);
-  else if (orden === 'copiar-web') await copiarWeb(resto.includes('--aplicar'));
   else if (orden === 'comprobar') await comprobar();
-  else { console.error('Uso: video-r2.mjs subir <archivo> <clave> | copiar-web [--aplicar] | comprobar'); process.exitCode = 2; }
+  else { console.error('Uso: video-r2.mjs subir <archivo> <clave> | comprobar'); process.exitCode = 2; }
 }

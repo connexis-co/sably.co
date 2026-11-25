@@ -7,8 +7,8 @@ const fixture={id:'curso-de-barberia',updatedAt:'2026-10-03T00:00:00Z',coverImag
 test('watch metadata uses the actual asset manifest and CMS thumbnail',()=>{
  const video=courseWatch(fixture,'https://sably.co','https://cdn.sably.co')!;
  assert.equal(video.url,'https://sably.co/videos/curso-de-barberia/');
- assert.equal(video.contentUrl,'https://cdn.sably.co/videos/web/curso-de-barberia.mp4');
- assert.equal(video.duration,'PT25S');
+ assert.equal(video.contentUrl,'https://cdn.sably.co/videos/web2/curso-de-barberia.mp4');
+ assert.equal(video.duration,'PT23S');
  assert.equal(video.thumbnail,'https://sably.co/_emdash/api/media/file/native.webp');
 });
 test('unpublished, excluded, pending or mismatched videos cannot create watch pages',()=>{
@@ -16,11 +16,11 @@ test('unpublished, excluded, pending or mismatched videos cannot create watch pa
  assert.equal(courseWatch(fixture,'https://sably.co',''),null);
 });
 test('the long-cache copy is served whether the CMS keeps the old or the new key',()=>{
- assert.equal(videoServido('curso-de-barberia','hd/curso-de-barberia.mp4'),'web/curso-de-barberia.mp4');
- assert.equal(videoServido('curso-de-barberia','web/curso-de-barberia.mp4'),'web/curso-de-barberia.mp4');
+ assert.equal(videoServido('curso-de-barberia','hd/curso-de-barberia.mp4'),'web2/curso-de-barberia.mp4');
+ assert.equal(videoServido('curso-de-barberia','web2/curso-de-barberia.mp4'),'web2/curso-de-barberia.mp4');
  assert.equal(videoServido('curso-de-barberia','otro.mp4'),'otro.mp4');
  assert.equal(videoServido('curso-sin-manifiesto','hd/x.mp4'),'hd/x.mp4');
  assert.equal(videoServido('curso-de-barberia',undefined),null);
- const nueva={...fixture,data:{...fixture.data,videoKey:'web/curso-de-barberia.mp4'}} as Course;
- assert.equal(courseWatch(nueva,'https://sably.co','https://cdn.sably.co')?.contentUrl,'https://cdn.sably.co/videos/web/curso-de-barberia.mp4');
+ const nueva={...fixture,data:{...fixture.data,videoKey:'web2/curso-de-barberia.mp4'}} as Course;
+ assert.equal(courseWatch(nueva,'https://sably.co','https://cdn.sably.co')?.contentUrl,'https://cdn.sably.co/videos/web2/curso-de-barberia.mp4');
 });

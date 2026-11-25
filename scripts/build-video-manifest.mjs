@@ -22,7 +22,7 @@ const cursos = readdirSync(DIR)
   .filter((f) => f.endsWith('.mdx'))
   .map((f) => {
     const key = /^videoKey:\s*(.+)$/m.exec(readFileSync(`${DIR}/${f}`, 'utf8'))?.[1]?.trim();
-    // El CMS guarda la clave antigua (hd/…); se mide y se sirve la copia inmutable (web/…).
+    // El CMS guarda la clave antigua (hd/…); se mide y se sirve la copia inmutable (web2/…).
     return key ? { slug: f.replace(/\.mdx$/, ''), cms: key, key: claveWeb(key) } : null;
   })
   .filter(Boolean)
