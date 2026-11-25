@@ -154,7 +154,7 @@ test('tema V2: las reglas cubren también la cabecera y el pie (todo el <body>)'
 
 test('enlaces internos: ruta y ancla, sin consulta, sin rutas técnicas ni externas', () => {
   const html = `<a href="/co/cursos/">a</a><a href="/co/cursos/?tema=v2">b</a><a href="https://sably.co/co/cursos/belleza/#unas">c</a>
-<a href="https://academiadebelleza.edu.co">d</a><a href="/_emdash/api/media/file/x.jpg">e</a><!-- <a href="/oculto/">f</a> --><a href="/blog/">g</a>`;
+<a href="#">x</a><a href="#preguntas">y</a><a href="https://academiadebelleza.edu.co">d</a><a href="/_emdash/api/media/file/x.jpg">e</a><!-- <a href="/oculto/">f</a> --><a href="/blog/">g</a>`;
   assert.deepEqual([...enlacesInternos(html)].sort(), ['/blog/', '/co/cursos/', '/co/cursos/belleza/#unas']);
 });
 

@@ -78,6 +78,7 @@ export function enlacesInternos(html, base = 'https://sably.co') {
   const origen = new URL(base).origin;
   const enlaces = new Set();
   for (const m of hastaEstable(html, COMENTARIO, '').matchAll(/<a\b[^>]*\shref=["']([^"']+)["']/gi)) {
+    if (m[1].startsWith('#')) continue; // ancla dentro de la misma página (o «#» vacío): no es un enlace a otra URL
     let u;
     try { u = new URL(m[1].replace(/&amp;/g, '&'), base); } catch { continue; }
     if (u.origin !== origen || u.pathname.startsWith('/_') || u.pathname.startsWith('/cdn-cgi/')) continue;
