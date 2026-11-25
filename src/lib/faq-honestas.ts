@@ -65,7 +65,8 @@ interface Contexto {
    * con cupón y la respuesta llamaba «precio de lista» a 93.067 COP mientras la
    * caja decía que el de lista era 186.134.
    */
-  precioTexto: string;
+  /** `null` cuando la ficha no pudo leer el precio en Hotmart: la respuesta no da cifra. */
+  precioTexto: string | null;
   /** La promoción que la caja de compra aplica ahora mismo, si hay alguna. */
   oferta?: { precio: string; cupon: string; hasta: number | null } | null;
   /** La FAQ de pago con los medios verificados del país; nunca se filtra. */
@@ -73,7 +74,8 @@ interface Contexto {
 }
 
 /** Respuesta de precio: el de lista y, aparte, lo que queda con el cupón vigente. */
-export function respuestaPrecio(precioTexto: string, oferta?: Contexto['oferta']): string {
+export function respuestaPrecio(precioTexto: string | null, oferta?: Contexto['oferta']): string {
+  if (precioTexto === null) return 'El precio en tu moneda lo ves en Hotmart antes de pagar: esta página no lo muestra porque no pudo leerlo en Hotmart en este momento.';
   if (!oferta) {
     return `El precio de lista es ${precioTexto}. Si hay una promoción vigente, el precio con descuento aparece en esta página antes de pagar.`;
   }
