@@ -11,7 +11,8 @@
   "dudas": [
     "El temario del CMS incluye rellenos, encapsulados, baby boomer y un módulo «Convierte el acrílico en ingresos» con la lección «Agenda llena y clientas que vuelven a cada relleno» (frase vetada). Hotmart no menciona rellenos ni esas técnicas. El texto nuevo no las promete.",
     "hotmart-map.json dice que curso-de-unas usa el mismo producto C55918118T: confirmar, porque dos fichas venderían el mismo curso.",
-    "Revisión adversaria 25-nov: orden técnico de preparación corregido (deshidratador, tip, primer solo en uña natural, perla); «cubrebocas» en MX."
+    "Revisión adversaria 25-nov: orden técnico de preparación corregido (deshidratador, tip, primer solo en uña natural, perla); «cubrebocas» en MX.",
+    "Pregunta de compra (pago único, acceso sin vencimiento, garantía de 7 días) conservada a pedido de la orquestadora: «acceso sin vencimiento» es lo que el sitio ya afirma en «Cómo se estudia»; Hotmart no lo dice en el checkout (producto tipo membership)."
   ],
   "base": {
     "h1": "Curso de uñas acrílicas online en {pais}",
@@ -63,8 +64,8 @@
         "a": "Sí. El curso empieza por la anatomía de la uña, los materiales y la preparación, y avanza hasta esculpir, limar y retirar. Conviene practicar primero en tips sueltos o en una mano de práctica, y pasar a una persona cuando la perla y el limado ya te salgan parejos."
       },
       {
-        "q": "¿Hay cursos de uñas acrílicas gratis?",
-        "a": "Es un curso de pago único en Hotmart, sin mensualidades. Tienes 7 días de garantía: si no te convence, pides allí el reembolso completo. Si antes de comprar quieres saber si el curso encaja con lo que buscas, escríbenos por WhatsApp y te respondemos."
+        "q": "¿El curso de uñas acrílicas es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
       }
     ],
     "alt_sugeridos": [

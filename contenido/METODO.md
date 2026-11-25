@@ -36,7 +36,7 @@ Un archivo por curso en `contenido/cursos/<slug>.json`: **un texto base** y, por
 | `para_quien` | 4; la última dice para quién **no** es |
 | `requisitos` (Qué necesitas) | 4; materiales reales del oficio |
 | `cuerpo` | 400–600 palabras en markdown, `##` subtítulos propios del oficio, enlaces internos `[ancla](/{cc}/…/)` |
-| `faqs` | 6–7, respuesta directa de 40–70 palabras; una «¿El curso de X da certificado?» que responde **constancia** (avalada por Hotmart y Seminarios Online; no es título oficial); sin medios de pago ni importes (la plantilla añade la de pago con datos verificados) |
+| `faqs` | 6–7, respuesta directa de 40–70 palabras; una «¿El curso de X da certificado?» que responde **constancia** (avalada por Hotmart y Seminarios Online; no es título oficial); sin medios de pago ni importes (la plantilla añade la de pago con datos verificados); **obligatoria** la de compra «¿El curso de X es gratis o tiene mensualidades?» con pago único, acceso por correo sin fecha de vencimiento y reembolso en 7 días (no se quita ninguna respuesta de compra que la ficha dé hoy) |
 | `paises.<cc>` | `meta_title` 30–60 distinto por país, `meta_description` 130–158 con la moneda; `vocabulario` para huecos `{computador}`, `{tapabocas}`… |
 | `base.curso` | `short_description` ≤ 158 y `meta_title` del curso (sin «certificado») |
 | `fuentes`, `dudas` | de dónde sale cada hecho y qué no cuadra (temario frente a Hotmart, etc.) |
@@ -56,8 +56,7 @@ viñetas y densidad de la principal; la revisión adversaria (subagente) busca l
 ## Países sin variante
 
 Si `course_locales/<slug>--<cc>` no existe, ese país pinta la ficha con el documento del curso (cabecera
-`X-Sably-Locale-Source: emdash-generic`). El guion escribe siempre en el curso una versión neutra (sin enlaces, sin la
-pregunta de «gratis», porque la plantilla suma cuatro fijas) y salta con aviso las variantes que no existen.
+`X-Sably-Locale-Source: emdash-generic`). El guion escribe siempre en el curso una versión neutra (sin enlaces; la plantilla le suma cuatro preguntas fijas) y salta con aviso las variantes que no existen.
 `"variantes": false` marca un curso sin ninguna variante.
 
 ## Carga

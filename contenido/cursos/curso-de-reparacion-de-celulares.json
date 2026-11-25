@@ -11,7 +11,8 @@
   "dudas": [
     "El temario del CMS tiene un módulo «Software y datos» (flasheo, recuperación de datos, «cuentas, patrones y desbloqueo») y lecciones de equipos mojados y microsoldadura. Hotmart describe el curso como hardware y no menciona nada de eso. El texto nuevo no lo promete; el temario hay que cotejarlo con el área de miembros. Ojo con «desbloqueo»: saltarse cuentas ajenas tiene riesgo legal.",
     "Hotmart promete «excelentes ingresos»: no se repite.",
-    "Revisión adversaria 25-nov: sin orden de lecciones inventado; aviso de batería de litio con calor."
+    "Revisión adversaria 25-nov: sin orden de lecciones inventado; aviso de batería de litio con calor.",
+    "Pregunta de compra (pago único, acceso sin vencimiento, garantía de 7 días) conservada a pedido de la orquestadora: «acceso sin vencimiento» es lo que el sitio ya afirma en «Cómo se estudia»; Hotmart no lo dice en el checkout (producto tipo membership)."
   ],
   "base": {
     "h1": "Curso de reparación de celulares online en {pais}",
@@ -61,6 +62,10 @@
       {
         "q": "¿Sirve para tablets y para cualquier marca?",
         "a": "Según la descripción del creador, el curso aplica a teléfonos y tablets, y enseña a ensamblar y desensamblar distintos tipos de equipo. Cada modelo tiene sus tornillos y su orden de apertura, así que lo que aprendes es el método para abrir, diagnosticar y cambiar piezas, más que el paso a paso de una sola marca."
+      },
+      {
+        "q": "¿El curso de reparación de celulares es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
       }
     ],
     "alt_sugeridos": [

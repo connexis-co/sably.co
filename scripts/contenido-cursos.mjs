@@ -66,6 +66,20 @@ export function leerCursos(filtro) {
     .filter((c) => !filtro || filtro.includes(c.slug));
 }
 
+/**
+ * Medios de pago verificados por país, leídos de src/lib/medios-de-pago.ts (la misma lista que pinta la plantilla).
+ * La variante lleva una pregunta de medios de pago con esos datos: la plantilla (faq-honestas.ts) la sustituye por
+ * «¿Cuánto cuesta el curso?» con el precio de la caja y añade «¿Cómo puedo pagar desde…?» verificada, igual que hacía
+ * con las preguntas de pago de agosto. Sin ella, la ficha con variante se quedaría sin esas dos respuestas de compra.
+ */
+export function faqMediosDePago(cc, nombrePais) {
+  const fuente = readFileSync(path.join(RAIZ, 'src', 'lib', 'medios-de-pago.ts'), 'utf8');
+  const lista = fuente.match(new RegExp(`\\b${cc}:\\s*\\[([^\\]]*)\\]`))?.[1].match(/'([^']+)'/g)?.map((x) => x.slice(1, -1)) ?? [];
+  const enumerar = (xs) => (xs.length > 1 ? `${xs.slice(0, -1).join(', ')} o ${xs.at(-1)}` : xs.join(''));
+  const extra = lista.length ? ` Desde ${nombrePais} el checkout admite además ${enumerar(lista)}, si el curso los tiene activados.` : '';
+  return { q: `¿Qué medios de pago acepta Hotmart en ${nombrePais}?`, a: `Se paga en el checkout seguro de Hotmart con tarjeta de crédito o débito, o con PayPal.${extra} Los medios disponibles aparecen antes de pagar.` };
+}
+
 /** Campos del documento `course_locales` para un país. Se escriben a la vez los del editor y los heredados. */
 export async function campos(curso, cc) {
   const { markdownToPortableText } = await import('emdash/client');
@@ -73,7 +87,7 @@ export async function campos(curso, cc) {
   const b = curso.base;
   const r = (s) => rellenar(s, cc, pais);
   const cuerpo = r(b.cuerpo);
-  const faqs = b.faqs.map((f) => ({ q: r(f.q), a: r(f.a) }));
+  const faqs = [...b.faqs.map((f) => ({ q: r(f.q), a: r(f.a) })), faqMediosDePago(cc, pais.pais)];
   const beneficios = b.beneficios.map(r);
   const paraQuien = b.para_quien.map(r);
   const requisitos = b.requisitos.map(r);
@@ -104,8 +118,7 @@ export async function campos(curso, cc) {
 /**
  * Campos del documento `courses`: `teaches` del JSON-LD sale de `learning_items`. Los países sin
  * variante (`course_locales`) pintan la ficha con este documento, así que también lleva la versión
- * neutra del cuerpo (sin enlaces: no sabe el país), el público y las preguntas (sin la de «gratis»,
- * porque la plantilla suma cuatro fijas). `variantes: false` marca los cursos sin ninguna variante.
+ * neutra del cuerpo (sin enlaces: no sabe el país), el público y las preguntas. `variantes: false` marca los cursos sin ninguna variante.
  */
 export async function camposCurso(curso) {
   const c = curso.base.curso ?? {};
@@ -119,7 +132,7 @@ export async function camposCurso(curso) {
     // La ficha de los países sin variante sale de este documento: versión neutra, sin enlaces.
     const { markdownToPortableText } = await import('emdash/client');
     const cuerpo = sinEnlaces(r(curso.base.cuerpo));
-    const faqs = curso.base.faqs.filter((f) => !/gratis/i.test(f.q)).map((f) => ({ q: r(f.q), a: r(f.a) }));
+    const faqs = curso.base.faqs.map((f) => ({ q: r(f.q), a: r(f.a) }));
     Object.assign(out, {
       body: markdownToPortableText(cuerpo),
       audience_items: curso.base.para_quien.map(r).map((text) => ({ text })),
@@ -178,6 +191,8 @@ export function validar(curso) {
   if (n < LIMITES.cuerpoPalabras[0] || n > LIMITES.cuerpoPalabras[1]) mal('cuerpo', `${n} palabras`);
   if (!/^## /m.test(b.cuerpo)) mal('cuerpo', 'sin subtítulos');
   if (b.faqs.length < 6 || b.faqs.length > 8) mal('faqs', `${b.faqs.length} preguntas`);
+  // Pregunta de compra obligatoria: pago único, acceso y garantía (no se quita ninguna respuesta de compra de hoy).
+  if (!b.faqs.some((f) => /pago único/i.test(f.a) && /7 días/.test(f.a) && /acceso/i.test(f.a))) mal('faqs', 'falta la pregunta de compra (pago único, acceso y garantía de 7 días)');
   b.faqs.forEach((f, i) => {
     revisar(`faq ${i + 1} (pregunta)`, f.q, { permitirCertificado: true });
     revisar(`faq ${i + 1} (respuesta)`, f.a);
@@ -203,11 +218,13 @@ export function validar(curso) {
 
 // ── CLI de EmDash ─────────────────────────────────────────────────────────────────────────────
 function emdash(args) {
-  const r = spawnSync('npx', ['--no-install', 'emdash', ...args], { cwd: RAIZ, encoding: 'utf8', maxBuffer: 64 << 20, env: process.env });
+  // Token de API opcional (servidor local con copia de datos); en producción vale la sesión guardada de la CLI.
+  const token = process.env.EMDASH_TOKEN_FILE ? readFileSync(process.env.EMDASH_TOKEN_FILE, 'utf8').trim() : null;
+  const r = spawnSync('npx', ['--no-install', 'emdash', ...args, ...(token ? ['--token', token] : [])], { cwd: RAIZ, encoding: 'utf8', maxBuffer: 64 << 20, env: process.env });
   if (r.status !== 0) throw new Error(`emdash ${args.slice(0, 3).join(' ')}: ${(r.stderr || r.stdout).trim().split('\n').slice(-3).join(' ')}`);
   return r.stdout;
 }
-const leer = (url, coleccion, slug) => JSON.parse(emdash(['content', 'get', coleccion, slug, '--url', url, '--json', '--raw']));
+export const leer = (url, coleccion, slug) => JSON.parse(emdash(['content', 'get', coleccion, slug, '--url', url, '--json', '--raw']));
 function escribir(url, coleccion, slug, data, rev) {
   const tmp = path.join(RAIZ, 'contenido', 'respaldos', '.escritura.json');
   writeFileSync(tmp, JSON.stringify(data));

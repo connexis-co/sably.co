@@ -11,7 +11,8 @@
   "dudas": [
     "El temario del CMS (5 módulos: maniobras base, relajante, descontracturante, servicio) no coincide con lo que declara Hotmart (reducción, estéticos, reflexología, nutrición). El texto nuevo solo usa lo de Hotmart. Falta cotejar el temario con el área de miembros.",
     "lessonsCount 28 frente a 18 lecciones listadas: el texto no da número de lecciones.",
-    "Revisión adversaria 25-nov: title sin «relajante» (C07, es de terapéuticos) ni «reductor» (C06)."
+    "Revisión adversaria 25-nov: title sin «relajante» (C07, es de terapéuticos) ni «reductor» (C06).",
+    "Pregunta de compra (pago único, acceso sin vencimiento, garantía de 7 días) conservada a pedido de la orquestadora: «acceso sin vencimiento» es lo que el sitio ya afirma en «Cómo se estudia»; Hotmart no lo dice en el checkout (producto tipo membership)."
   ],
   "base": {
     "h1": "Curso de masajes online en {pais}",
@@ -63,8 +64,8 @@
         "a": "Depende de la ciudad, de la tarifa y de cuántas personas atiendas, y este curso no promete ingresos. Lo que sí trata es la decisión de trabajar a domicilio o montar un local, con las ventajas y desventajas de cada opción, y cómo tratar a los distintos tipos de cliente."
       },
       {
-        "q": "¿Hay cursos de masajes gratis?",
-        "a": "No es gratuito. Pagas una sola vez en Hotmart y, si en los primeros 7 días ves que no era lo que buscabas, pides allí el reembolso completo. Antes de pagar puedes leer esta página con calma y, si te queda una duda sobre el curso, escribirnos por WhatsApp."
+        "q": "¿El curso de masajes es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
       }
     ],
     "alt_sugeridos": [
