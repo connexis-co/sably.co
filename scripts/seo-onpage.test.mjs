@@ -173,3 +173,22 @@ test('V2 no puede tener menos enlaces internos que el clásico', () => {
   assert.deepEqual(compararEnlaces('/co/', new Set(['/co/', '/co/cursos/', '/videos/']), clasico).map(h => h.regla), ['v2-enlace-perdido']);
   assert.deepEqual(compararEnlaces('/co/', new Set(['/co/']), clasico).map(h => `${h.nivel} ${h.regla}`), ['error v2-enlaces', 'aviso v2-enlace-perdido']);
 });
+
+test('señales de spam: enlaces ocultos, compra sin sponsored y webs propias follow', () => {
+  const con = (html) => errores(sana.replace('<footer>', `${html}<footer>`));
+  // El bloque de la red (cx-res-alt) y un contenedor ocultado con estilo en línea.
+  assert.deepEqual(con('<div class="cx-res-alt" aria-hidden="true" style="position:absolute;width:1px;height:1px;clip:rect(0 0 0 0)"><a href="https://sably.co/co/">curso de uñas</a></div>'), ['enlace-oculto']);
+  assert.deepEqual(con('<p style="display:none"><a href="https://ejemplo.com">x</a></p>'), ['enlace-oculto']);
+  // Lo oculto sin enlaces (decoración, GTM) no cuenta.
+  assert.deepEqual(con('<p aria-hidden="true" class="absolute">50 %</p><noscript><iframe src="https://www.googletagmanager.com/ns.html" style="display:none;visibility:hidden"></iframe></noscript>'), []);
+  assert.deepEqual(con('<a href="https://hotm.io/x" rel="noopener nofollow">Inscribirme</a>'), ['compra-sin-sponsored']);
+  assert.deepEqual(con('<a href="https://hotm.io/x" rel="noopener nofollow sponsored">Inscribirme</a>'), []);
+  assert.deepEqual(con('<a href="https://academiadebelleza.edu.co" target="_blank" rel="noopener">Belleza</a>'), ['red-propia-follow']);
+  assert.deepEqual(con('<a href="https://www.cursodeglobosonline.com/" rel="noopener nofollow">Globos</a>'), []);
+  assert.deepEqual(con('<a href="https://www.instagram.com/sably.academy" rel="noopener">Instagram</a>'), []);
+});
+
+test('Review en el JSON-LD es error: no hay reseñas propias', () => {
+  const conReview = sana.replace('"name":"Curso de Masajes"}', '"name":"Curso de Masajes","review":{"@type":"Review","reviewBody":"Bueno"}}');
+  assert.deepEqual(errores(conReview), ['json-ld-review']);
+});

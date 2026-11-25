@@ -9,6 +9,13 @@
  * entera, posición del botón de pago, desbordamiento horizontal, quitar y reaplicar el cupón
  * (precio y enlaces a la vez), parámetros del enlace a Hotmart, teclado hasta «Quitar», barra
  * fija en móvil y frases del <main> del tema clásico que faltan en V2. Escribe resultados.json.
+ *
+ * Solapes (también a 768 × 1024): baja hasta el final y sube por tramos hasta arriba del todo,
+ * con la barra de campaña abierta y, si la hay, cerrada; en cada parada compara los rectángulos
+ * pintados de cabecera, barra de campaña, navegación interna y barra de compra. Sale con código 1
+ * si alguno se monta sobre otro (25-nov: las pestañas quedaban pintadas encima del logo y del menú).
+ *
+ *   --fichas co/curso-de-masajes,...   --anchos 390,768,1440   --solo-solapes (sin capturas ni cupón)
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -20,7 +27,9 @@ const BASE = opcion('base', 'https://sably.co').replace(/\/$/, '');
 const SALIDA = opcion('salida', 'capturas');
 const CHROME = opcion('chrome', '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome');
 const FICHAS = (opcion('fichas', 'co/curso-de-masajes,mx/curso-de-unas-acrilicas,ec/curso-de-pasteleria,co/curso-de-soldadura,co/curso-de-tatuaje')).split(',');
-const ANCHOS = [{ nombre: '390', width: 390, height: 844, isMobile: true, hasTouch: true }, { nombre: '1440', width: 1440, height: 900 }];
+const TODOS_LOS_ANCHOS = [{ nombre: '390', width: 390, height: 844, isMobile: true, hasTouch: true }, { nombre: '768', width: 768, height: 1024, isMobile: true, hasTouch: true }, { nombre: '1440', width: 1440, height: 900 }];
+const ANCHOS = TODOS_LOS_ANCHOS.filter((a) => opcion('anchos', '390,768,1440').split(',').includes(a.nombre));
+const SOLO_SOLAPES = args.includes('--solo-solapes');
 const entorno = new URL(BASE).hostname.split('.')[0] === 'sably' ? 'produccion' : new URL(BASE).hostname.split('.')[0];
 const credenciales = process.env.SABLY_DEV_PASSWORD && !/^https:\/\/sably\.co$/.test(BASE) ? { username: 'sably', password: process.env.SABLY_DEV_PASSWORD } : null;
 mkdirSync(SALIDA, { recursive: true });
@@ -56,12 +65,61 @@ const textoMain = (page) => page.evaluate(() => {
   copia.querySelectorAll('p,li,h1,h2,h3,h4,dt,dd,summary,div,section,a,button,span,strong,figcaption,label').forEach((n) => n.prepend('\n'));
   return copia.textContent;
 });
+/**
+ * Piezas fijas de la ficha que no pueden montarse unas sobre otras. Cuenta lo que se PINTA:
+ * un elemento con `visibility: visible` dentro de un padre `hidden` se ve igual, así que se mira la
+ * visibilidad calculada de cada pieza, no la de su contenedor.
+ */
+const PIEZAS = { cabecera: '[data-cabecera]', campana: '[data-promo-v2="barra"]', barra: '[data-barra-fija]', navInterna: '.v2-fija-nav', compra: '.v2-fija-compra' };
+const medirSolapes = (page) => page.evaluate((PIEZAS) => {
+  const caja = (el) => {
+    if (!el) return null;
+    const cs = getComputedStyle(el);
+    if (cs.display === 'none' || cs.display === 'contents' || cs.visibility !== 'visible' || Number(cs.opacity) === 0) return null;
+    const r = el.getBoundingClientRect();
+    const top = Math.max(r.top, 0), bottom = Math.min(r.bottom, innerHeight);
+    if (r.width < 1 || bottom - top < 1) return null;
+    return { el, top, bottom, left: r.left, right: r.right };
+  };
+  const vistas = Object.entries(PIEZAS).map(([nombre, sel]) => [nombre, caja(document.querySelector(sel))]).filter(([, c]) => c);
+  const solapes = [];
+  for (let i = 0; i < vistas.length; i++) for (let j = i + 1; j < vistas.length; j++) {
+    const [na, a] = vistas[i], [nb, b] = vistas[j];
+    if (a.el.contains(b.el) || b.el.contains(a.el)) continue; // la navegación vive dentro de la barra en escritorio
+    const alto = Math.min(a.bottom, b.bottom) - Math.max(a.top, b.top);
+    const ancho = Math.min(a.right, b.right) - Math.max(a.left, b.left);
+    if (alto > 1 && ancho > 1) solapes.push(`${na} (${Math.round(a.top)}–${Math.round(a.bottom)}) sobre ${nb} (${Math.round(b.top)}–${Math.round(b.bottom)})`);
+  }
+  return { y: Math.round(scrollY), solapes };
+}, PIEZAS);
+
+/** Baja hasta el final y sube por tramos hasta arriba; devuelve cada parada con solape. */
+async function recorrerSolapes(page) {
+  const fallos = [];
+  const alto = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight);
+  const tramo = Math.max(200, Math.round((await page.evaluate(() => innerHeight)) * 0.6));
+  const ir = async (y, sentido) => {
+    await page.evaluate((y) => window.scrollTo({ top: y, behavior: 'instant' }), y);
+    await espera(380); // transiciones de la barra (--t-base) y observadores
+    const m = await medirSolapes(page);
+    if (m.solapes.length) fallos.push({ sentido, ...m });
+  };
+  for (let y = 0; y < alto; y += tramo) await ir(y, 'bajando');
+  await ir(alto, 'final');
+  for (let y = alto - tramo; y > 0; y -= tramo) await ir(y, 'subiendo');
+  await ir(0, 'arriba');
+  return fallos;
+}
+
 const norm = (s) => s.replace(/[^\p{L}\p{N}%.,:;¿?¡!()\-–—/ ]/gu, '').replace(/\s+/g, ' ').trim().toLowerCase();
 
 for (const ficha of FICHAS) {
-  const clasico = await abrir(`${BASE}/${ficha}/?verif=${Date.now()}`, ANCHOS[1]);
-  const textoClasico = await textoMain(clasico);
-  await clasico.close();
+  let textoClasico = '';
+  if (!SOLO_SOLAPES) {
+    const clasico = await abrir(`${BASE}/${ficha}/?verif=${Date.now()}`, TODOS_LOS_ANCHOS[2]);
+    textoClasico = await textoMain(clasico);
+    await clasico.close();
+  }
   for (const ancho of ANCHOS) {
     const nombre = `${entorno}-${ficha.replace('/', '_')}-${ancho.nombre}`;
     const page = await abrir(`${BASE}/${ficha}/?tema=v2`, ancho);
@@ -83,6 +141,29 @@ for (const ficha of FICHAS) {
         h1: document.querySelectorAll('h1').length,
       };
     }));
+    // Solapes de cabecera, barra de campaña, navegación interna y barra de compra.
+    r.solapes = { campanaAbierta: await recorrerSolapes(page) };
+    if (await page.evaluate(() => { const b = document.querySelector('[data-promo-v2="barra"]'); return !!b && !b.hidden && getComputedStyle(b).display !== 'none'; })) {
+      await page.evaluate(() => document.querySelector('[data-promo-cerrar]')?.click());
+      await espera(300);
+      r.solapes.campanaCerrada = await recorrerSolapes(page);
+    }
+    r.solapes.ok = Object.values(r.solapes).every((f) => !Array.isArray(f) || f.length === 0);
+    if (!r.solapes.ok) {
+      process.exitCode = 1;
+      for (const [estado, fallos] of Object.entries(r.solapes)) if (Array.isArray(fallos)) for (const f of fallos.slice(0, 4)) console.log(`  SOLAPE ${nombre} ${estado} ${f.sentido} y=${f.y}: ${f.solapes.join('; ')}`);
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+      await espera(400);
+      await page.screenshot({ path: join(SALIDA, `${nombre}-solape.jpg`), type: 'jpeg', quality: 70 });
+    }
+    if (SOLO_SOLAPES) {
+      resultados.push(r);
+      console.log(`${nombre}: solapes ${r.solapes.ok ? 'ok' : 'FALLA'}`);
+      await page.close();
+      continue;
+    }
+    await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+    await espera(400);
     await page.screenshot({ path: join(SALIDA, `${nombre}-pantallazo.jpg`), type: 'jpeg', quality: 70 });
     // La aparición al desplazar (animation-timeline: view()) deja en blanco lo que queda fuera del
     // primer pantallazo en una captura de página entera: se captura con movimiento reducido.
@@ -141,9 +222,11 @@ for (const ficha of FICHAS) {
       r.faltanEnV2 = faltan;
     }
     resultados.push(r);
-    console.log(`${nombre}: ${r.preajuste ?? r.estado} botón ${r.botonFinal}px${r.botonSinDesplazar ? ' (sin desplazar)' : ''}${r.cupon ? ` cupón ${r.cupon.ok ? 'ok' : 'FALLA'}` : ''}${r.teclado ? ` teclado ${r.teclado.enterQuita ? 'ok' : 'FALLA'}` : ''}${r.barra ? ` barra ${r.barra.visible ? 'ok' : 'FALLA'}` : ''}${r.desborda ? ' DESBORDA' : ''}`);
+    console.log(`${nombre}: ${r.preajuste ?? r.estado} botón ${r.botonFinal}px${r.botonSinDesplazar ? ' (sin desplazar)' : ''} solapes ${r.solapes.ok ? 'ok' : 'FALLA'}${r.cupon ? ` cupón ${r.cupon.ok ? 'ok' : 'FALLA'}` : ''}${r.teclado ? ` teclado ${r.teclado.enterQuita ? 'ok' : 'FALLA'}` : ''}${r.barra ? ` barra ${r.barra.visible ? 'ok' : 'FALLA'}` : ''}${r.desborda ? ' DESBORDA' : ''}`);
     await page.close();
   }
 }
 writeFileSync(join(SALIDA, `resultados-${entorno}.json`), JSON.stringify({ base: BASE, fecha: new Date().toISOString(), resultados }, null, 1));
+const conSolape = resultados.filter((r) => r.solapes && !r.solapes.ok).map((r) => `${r.ficha} a ${r.ancho}`);
+console.log(conSolape.length ? `\nSolapes en ${conSolape.length} vistas: ${conSolape.join(', ')}` : `\nSin solapes en ${resultados.length} vistas.`);
 await navegador.close();

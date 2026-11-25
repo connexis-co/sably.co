@@ -1,0 +1,41 @@
+{
+ "fuente": "Copia de producción de la tabla options (25-nov-2026, solo ajustes de plugins sably-*; sin secretos) más temaPorDefecto=v2, guardado al encender V2 a las 12:55 UTC.",
+ "filas": [
+  {
+   "name": "plugin:sably-brevo:settings:fromEmail",
+   "value": "\"contacto@sably.co\""
+  },
+  {
+   "name": "plugin:sably-brevo:settings:fromName",
+   "value": "\"Sably\""
+  },
+  {
+   "name": "plugin:sably-integrations:settings:browserMode",
+   "value": "\"gtm\""
+  },
+  {
+   "name": "plugin:sably-integrations:settings:ga4Id",
+   "value": "\"G-RZF4MSX5B7\""
+  },
+  {
+   "name": "plugin:sably-integrations:settings:gtmId",
+   "value": "\"GTM-56LHZGMK\""
+  },
+  {
+   "name": "plugin:sably-integrations:settings:metaPixelId",
+   "value": "\"1711030209407213\""
+  },
+  {
+   "name": "plugin:sably-integrations:settings:serverConversions",
+   "value": "false"
+  },
+  {
+   "name": "plugin:sably-operations:settings:notificationEmail",
+   "value": "\"contacto@sably.co\""
+  },
+  {
+   "name": "plugin:sably-operations:settings:temaPorDefecto",
+   "value": "\"v2\""
+  }
+ ]
+}

@@ -1,0 +1,151 @@
+/**
+ * «Ajustes del sitio»: los ajustes de Sably ordenados por tarea (ORDEN.md, docs/equipo/2026-11-25/panel).
+ * Lee y guarda por la API nativa de EmDash (`/_emdash/api/admin/plugins/sably-operations/settings`), la misma del
+ * formulario genérico: mismas claves y misma invalidación de caché. Solo envía lo que cambió, para no fijar un valor
+ * de fábrica (por ejemplo el tema, que sin guardar obedece a la variable del servidor).
+ */
+import { useEffect, useState, type ReactNode } from 'react';
+import { api, CSS_SO, Notice, Promotions, WidgetEditor } from './admin-comun';
+import { AJUSTES_PELIGROSOS, PESTANAS, cambiosAGuardar, settingsSchema, textoDeValor, valorDeFabrica, type ClaveAjuste, type IdPestana } from './ajustes';
+
+const NATIVA = '/_emdash/api/admin/plugins/sably-operations/settings';
+const ADMIN = '/_emdash/admin';
+type Valores = Partial<Record<ClaveAjuste, unknown>>;
+
+async function nativa<T>(method: 'GET' | 'PUT', body?: unknown): Promise<T> {
+  const r = await fetch(NATIVA, { method, credentials: 'same-origin', headers: { 'X-EmDash-Request': '1', ...(body ? { 'Content-Type': 'application/json' } : {}) }, body: body ? JSON.stringify(body) : undefined });
+  const j = await r.json() as { success?: boolean; data: T; error?: { message?: string } };
+  if (!r.ok || j.success === false) throw new Error(j.error?.message ?? 'No se pudo completar. Revisa la sesión y el rol (administrador).');
+  return j.data;
+}
+
+function Campo({ clave, valor, guardado, onChange }: { clave: ClaveAjuste; valor: unknown; guardado: boolean; onChange: (v: unknown) => void }) {
+  const campo = settingsSchema[clave];
+  const id = `aj-${clave}`;
+  const fabrica = valorDeFabrica(clave);
+  const rotulo = campo.label.replace(/^[^·]+ · /, '');
+  const control = campo.type === 'select'
+    ? <select id={id} value={String(valor ?? '')} onChange={e => onChange(e.target.value)} aria-describedby={`${id}-ayuda`}>{campo.options.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}</select>
+    : campo.type === 'boolean'
+      ? <select id={id} value={valor === false ? 'no' : 'si'} onChange={e => onChange(e.target.value === 'si')} aria-describedby={`${id}-ayuda`}><option value="si">Encendido</option><option value="no">Apagado</option></select>
+      : <input id={id} type={campo.type === 'email' ? 'email' : 'text'} value={String(valor ?? '')} onChange={e => onChange(e.target.value)} aria-describedby={`${id}-ayuda`} />;
+  return <div className="so-field">
+    <span className="so-row"><label htmlFor={id}>{rotulo}</label><span className="so-badge" data-guardado={guardado}>{guardado ? 'Guardado' : 'De fábrica'}</span></span>
+    {control}
+    <small id={`${id}-ayuda`} className="so-fieldhelp">{campo.description}{fabrica !== null && !campo.description.includes('Por defecto') ? ` Por defecto: ${textoDeValor(clave, fabrica)}.` : ''}</small>
+  </div>;
+}
+
+function Enlaces({ items }: { items: [string, string, string][] }) {
+  return <div className="so-cards">{items.map(([titulo, texto, href]) => <a key={href} href={href}><strong>{titulo}</strong><small>{texto}</small></a>)}</div>;
+}
+
+export function AjustesPage() {
+  const [tab, setTab] = useState<IdPestana>(() => {
+    const t = new URLSearchParams(location.search).get('tab');
+    return (PESTANAS.some(p => p.id === t) ? t : 'sitio') as IdPestana;
+  });
+  const [actuales, setActuales] = useState<Valores>({});
+  const [borrador, setBorrador] = useState<Valores>({});
+  const [guardados, setGuardados] = useState<string[]>([]);
+  const [confirmado, setConfirmado] = useState(false);
+  const [mensaje, setMensaje] = useState('');
+  const [ocupado, setOcupado] = useState(false);
+
+  async function cargar() {
+    const n = await nativa<{ values: Valores }>('GET');
+    setActuales(n.values); setBorrador(n.values);
+    // Si falla, los valores se ven igual; solo se pierde la marca «guardado / de fábrica».
+    await api<{ guardados: string[] }>('ajustes-guardados').then(g => setGuardados(g.guardados), () => setGuardados([]));
+  }
+  useEffect(() => { cargar().catch(e => setMensaje((e as Error).message)); }, []);
+  function irA(id: IdPestana) {
+    setTab(id); setMensaje(''); setConfirmado(false);
+    const u = new URL(location.href); u.searchParams.set('tab', id); history.replaceState(null, '', u);
+  }
+
+  async function guardar(claves: ClaveAjuste[]) {
+    setOcupado(true); setMensaje('');
+    try {
+      const propuestos = Object.fromEntries(claves.map(k => [k, borrador[k]]));
+      const cambios = cambiosAGuardar(propuestos, actuales, confirmado);
+      if (!Object.keys(cambios).length) { setMensaje('No hay cambios que guardar.'); return; }
+      await nativa('PUT', { values: cambios });
+      await cargar(); setConfirmado(false);
+      setMensaje(`Guardado: ${Object.keys(cambios).map(k => settingsSchema[k as ClaveAjuste].label.replace(/^[^·]+ · /, '')).join(', ')}. El público lo ve en unos minutos.`);
+    } catch (e) { setMensaje((e as Error).message); } finally { setOcupado(false); }
+  }
+
+  const pestana = PESTANAS.find(p => p.id === tab)!;
+  const seccion = (claves: ClaveAjuste[], titulo: string, extra?: ReactNode) => <section className="so-editor">
+    <h3>{titulo}</h3>{extra}
+    <div className="so-grid">{claves.map(k => <Campo key={k} clave={k} valor={borrador[k]} guardado={guardados.includes(k)} onChange={v => setBorrador(b => ({ ...b, [k]: v }))} />)}</div>
+    <button className="so-primary" disabled={ocupado} onClick={() => void guardar(claves)}>{ocupado ? 'Guardando…' : `Guardar ${titulo.toLowerCase()}`}</button>
+  </section>;
+
+  const tema = 'temaPorDefecto' as const;
+  const cambiaTema = borrador[tema] !== actuales[tema];
+  let cuerpo: ReactNode;
+  switch (tab) {
+    case 'sitio': cuerpo = <>
+      <section className="so-danger" aria-labelledby="zona-tema">
+        <h3 id="zona-tema">Zona con cuidado · Tema del sitio</h3>
+        <p>Cambia el diseño que ven <strong>todos los visitantes</strong> en unos minutos. Ahora: <strong>{textoDeValor(tema, actuales[tema])}</strong> {guardados.includes(tema) ? '(guardado en el panel)' : '(de fábrica: manda la variable SABLY_TEMA_POR_DEFECTO del servidor)'}. Para mirar el otro diseño sin cambiárselo a nadie, abre cualquier página con <code>?tema=v2</code> o <code>?tema=clasico</code>.</p>
+        <div className="so-grid"><Campo clave={tema} valor={borrador[tema]} guardado={guardados.includes(tema)} onChange={v => { setBorrador(b => ({ ...b, [tema]: v })); setConfirmado(false); }} /></div>
+        {cambiaTema && <label className="so-row"><input type="checkbox" checked={confirmado} onChange={e => setConfirmado(e.target.checked)} /> Entiendo que pasar a «{textoDeValor(tema, borrador[tema])}» cambia lo que ven todos los visitantes.</label>}
+        <p><button className="so-primary" disabled={ocupado || !cambiaTema || !confirmado} onClick={() => void guardar([tema])}>Cambiar el tema del sitio</button></p>
+      </section>
+      {seccion(['estiloCampo'], 'Formularios')}
+    </>; break;
+    case 'campanas': cuerpo = <Promotions />; break;
+    case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador'], 'Caja de compra')}<WidgetEditor only="social" /></>; break;
+    case 'contenido': cuerpo = <Enlaces items={[
+      ['Cursos', 'Ficha general de cada curso.', `${ADMIN}/content/courses`],
+      ['Cursos por país', 'Precio, enlace de compra y texto por país.', `${ADMIN}/content/course_locales`],
+      ['Categorías', 'Oficios y su orden.', `${ADMIN}/content/categories`],
+      ['Creadores', 'Quién dicta cada curso.', `${ADMIN}/content/creators`],
+      ['Países y ciudades', 'Moneda, WhatsApp y textos por país.', `${ADMIN}/content/countries`],
+      ['Páginas', 'Nosotros, contacto, legales y demás.', `${ADMIN}/content/pages`],
+      ['Artículos', 'Blog.', `${ADMIN}/content/blog`],
+      ['Menús', 'Cabecera y pie.', `${ADMIN}/menus`],
+      ['Moderación y contactos', 'Opiniones, calificaciones y solicitudes.', `${ADMIN}/plugins/sably-operations/operations`],
+    ]} />; break;
+    case 'medios': cuerpo = <>
+      <WidgetEditor only="video" />
+      <div className="so-hueco"><strong>Narraciones (audio)</strong><p>Reservado. Llega con la sesión de narraciones (docs/equipo/2026-11-25/narraciones/DISENO.md).</p></div>
+      <div className="so-hueco"><strong>Reproductor de vídeo</strong><p>Reservado. Llega con la sesión de vídeo (docs/equipo/2026-11-25/video/DISENO.md).</p></div>
+    </>; break;
+    case 'seo': cuerpo = <Enlaces items={[
+      ['Medición y conversiones', 'Tag Manager, GA4, píxel de Meta y compras enviadas desde el servidor.', `${ADMIN}/plugins/sably-integrations/integrations`],
+      ['Auditoría SEO', 'Revisión de títulos, descripciones y datos de los artículos.', `${ADMIN}/plugins/sably-seo/seo`],
+      ['SEO del núcleo', 'Verificación de buscadores e indexación (EmDash).', `${ADMIN}/settings`],
+      ['Redirecciones', 'Direcciones viejas que llevan a las nuevas.', `${ADMIN}/redirects`],
+    ]} />; break;
+    case 'integraciones': cuerpo = <>
+      {seccion(['notificationEmail'], 'Correo del equipo')}
+      <Enlaces items={[
+        ['WhatsApp', 'Botón flotante, números por país y reglas por curso.', `${ADMIN}/plugins/sably-whatsapp/whatsapp`],
+        ['Correo con Brevo y claves', 'Clave de Brevo, remitente y claves cifradas de conversiones.', `${ADMIN}/plugins/sably-integrations/integrations`],
+        ['Correo de EmDash', 'Estado del proveedor y correo de prueba.', `${ADMIN}/settings`],
+      ]} />
+    </>; break;
+    case 'avanzado': cuerpo = <section className="so-editor">
+      <h3>Para soporte técnico</h3>
+      <p>Revisar un diseño sin cambiárselo a nadie: añade <code>?tema=v2</code> o <code>?tema=clasico</code> a cualquier URL (no se indexa ni se guarda en caché).</p>
+      <p>Si el tema nunca se guardó en el panel, manda la variable <code>SABLY_TEMA_POR_DEFECTO</code> del servidor.</p>
+      <p>Formulario de respaldo de EmDash (los mismos ajustes, sin agrupar): <a href={`${ADMIN}/plugins-manager/sably-operations/settings`}>Plugins → sably-operations → ajustes</a>. Ojo: su botón «Guardar configuración» guarda todos los campos, también los que están de fábrica (y así fija el tema).</p>
+      <div className="so-table"><table><thead><tr><th>Ajuste</th><th>Clave guardada</th><th>Pestaña</th></tr></thead><tbody>
+        {PESTANAS.flatMap(p => p.claves.map(k => <tr key={k}><td>{settingsSchema[k].label}</td><td><code>plugin:sably-operations:settings:{k}</code></td><td>{p.titulo}</td></tr>))}
+      </tbody></table></div>
+    </section>; break;
+  }
+
+  return <div className="so"><style>{CSS_SO}</style>
+    <h1>Ajustes del sitio</h1>
+    <small>Todo lo que se configura de sably.co, ordenado por tarea. Los cambios llegan al público en unos minutos, sin desplegar.</small>
+    <nav aria-label="Secciones de los ajustes" className="so-nav">{PESTANAS.map((p, i) => <button key={p.id} aria-current={tab === p.id} onClick={() => irA(p.id)}>{i + 1} · {p.titulo}</button>)}</nav>
+    <p>{pestana.resumen}{AJUSTES_PELIGROSOS.some(k => pestana.claves.includes(k)) ? ' Lo que afecta a todo el sitio está aparte y pide confirmación.' : ''}</p>
+    <Notice text={mensaje} />
+    {cuerpo}
+  </div>;
+}

@@ -9,6 +9,7 @@
  * Con `?q=` la página filtra en el servidor y no se indexa (canónica limpia).
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { relDe } from '@/lib/enlaces-propios';
 import Migas from '@/components/v2/Migas.astro';
 import Ico from '../components/Ico.astro';
 import RejillaCursos from '../components/RejillaCursos.astro';
@@ -32,13 +33,13 @@ const [nav, promo, monedas] = await Promise.all([
 const ordenAreas = new Map(nav.areas.map((a, i) => [a.slug, i]));
 const enOrden = byCategory.flatMap(g => g.courses).sort((a, b) =>
   (ordenAreas.get(a.data.category) ?? 99) - (ordenAreas.get(b.data.category) ?? 99) || Number(b.data.featured) - Number(a.data.featured));
-const ordenes = await ordenesDeCursos(enOrden, country, slug => nav.nombreDeArea.get(slug) ?? slug, Astro.locals);
+const ordenes = await ordenesDeCursos(enOrden, country, slug => nav.nombreDeArea.get(slug) ?? slug, { url: Astro.url, locals: Astro.locals });
 const encontrados = q ? filtrarCursos(enOrden, q, ordenes.buscable) : enOrden;
 const externas = CATEGORIES.filter(c => c.externalUrl);
 const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos', url: `${SITE.url}${base}/cursos/` }];
 ---
 
-<BaseLayout {title} {description} {country} pathAfterCountry="/cursos/" alternates={await countryAlternates('/cursos/')} {schemas} pageType="catalog" noindex={!!q} temaV2>
+<BaseLayout {title} {description} {country} pathAfterCountry="/cursos/" alternates={await countryAlternates('/cursos/')} {schemas} pageType="catalog" noindex={!!q} freshUntil={ordenes.freshUntil} temaV2>
   <section class="border-b border-navy-100 bg-white">
     <div class="v2-contenedor pt-6 pb-8 lg:pt-8 lg:pb-10">
       <Migas items={migas} oscuro={false} />
@@ -76,7 +77,7 @@ const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos',
         </div>
       </div>
     ) : (
-      <RejillaCursos id="cursos" cursos={encontrados} {country} {promo} {base} ordenNota={ordenes.ordenNota} ordenPrecio={ordenes.ordenPrecio} buscable={ordenes.buscable} filtrable visibles={q ? encontrados.length : 24} />
+      <RejillaCursos id="cursos" cursos={encontrados} {country} {promo} {base} ordenNota={ordenes.ordenNota} ordenPrecio={ordenes.ordenPrecio} precios={ordenes.precios} buscable={ordenes.buscable} filtrable visibles={q ? encontrados.length : 24} />
     )}
   </section>
 
@@ -96,7 +97,7 @@ const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos',
         </li>
       ))}
       {externas.map(c => (
-        <li class="border-b border-navy-100"><a href={c.externalUrl} target="_blank" rel="noopener" class="flex items-start justify-between gap-4 py-5"><span><strong class="font-display text-t20 font-semibold text-navy-950">{nombreArea(c.name)}</strong><span class="mt-1 block text-t15 text-navy-700">{c.description}</span></span><Ico nombre="external-link" tamano={16} class="mt-1 flex-none" /></a></li>
+        <li class="border-b border-navy-100"><a href={c.externalUrl} target="_blank" rel={relDe(c.externalUrl, '_blank')} class="flex items-start justify-between gap-4 py-5"><span><strong class="font-display text-t20 font-semibold text-navy-950">{nombreArea(c.name)}</strong><span class="mt-1 block text-t15 text-navy-700">{c.description}</span></span><Ico nombre="external-link" tamano={16} class="mt-1 flex-none" /></a></li>
       ))}
     </ul>
   </section>

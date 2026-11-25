@@ -11,7 +11,7 @@ export async function audit(ctx: RouteContext) {
 export function createPlugin() {
   return definePlugin({
     id: 'sably-seo', version: '1.0.0', capabilities: ['content:read'],
-    admin: { pages: [{ path: '/seo', label: 'Sably · SEO', icon: 'search' }] },
+    admin: { pages: [{ path: '/seo', label: 'Auditoría SEO', icon: 'search' }] },
     routes: { audit: { methods: ['GET'], permission: 'content:read', public: false, request: { body: 'none' }, handler: audit } },
     // Typed page:metadata needs no additional capability in EmDash 1.1.
     // Its primary graph replaces the core graph by ID, preserving one article.
