@@ -171,6 +171,16 @@ export function auditarOnPage(url, html, opciones = {}) {
   if (tipos.includes('AggregateRating')) marcar('json-ld-rating', 'error', 'AggregateRating con valoraciones de terceros');
 
   // ── Precio: la caja de compra, la pregunta de precio y el Offer dicen lo mismo ──
+  /* Se compara el importe y la moneda, no la escritura: el tema V2 escribe «$ 1,191.32 MXN»
+     y la pregunta (común a los dos temas) «$1,191.32 MXN»; «$ 25,00 USD» y «$25 USD» son lo mismo. */
+  const importeDe = (frase) => {
+    const codigo = frase.match(/\b([A-Z]{3})\s*$/)?.[1] ?? '';
+    const cifra = frase.replace(/\b[A-Z]{3}\s*$/, '').replace(/[^\d.,]/g, '');
+    const decimal = cifra.match(/[.,](\d{1,2})$/);
+    const entero = (decimal ? cifra.slice(0, -decimal[0].length) : cifra).replace(/[.,]/g, '');
+    return { codigo, valor: Number(`${entero}.${decimal?.[1] ?? '0'}`) };
+  };
+  const mismoImporte = (a, b) => { const x = importeDe(a), y = importeDe(b); return x.codigo === y.codigo && Math.abs(x.valor - y.valor) < 0.005; };
   const visible = texto(sinCodigo);
   const caja = sinCodigo.match(/<section\b[^>]*\sdata-purchase-panel\b[^>]*>/i)?.[0];
   if (caja) {
@@ -181,7 +191,7 @@ export function auditarOnPage(url, html, opciones = {}) {
        24-nov-2026 la respuesta daba el rebajado y la caja lo desmentía. */
     for (const frase of [visible, ...respuestas.map(limpio)]) {
       const dicho = frase.match(/El precio de lista es (.+? [A-Z]{3})\b/)?.[1];
-      if (dicho && lista && dicho !== lista) {
+      if (dicho && lista && !mismoImporte(dicho, lista)) {
         marcar('precio-de-lista', 'error', `la pregunta de precio llama «precio de lista» a ${dicho} y la caja dice ${lista}`);
         break;
       }

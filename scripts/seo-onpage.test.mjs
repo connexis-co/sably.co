@@ -85,6 +85,11 @@ test('la caja de compra, la pregunta de precio y el Offer no se contradicen', ()
   assert.deepEqual(errores(ficha('Sin pregunta de precio.', { ...bien, price: 93067 }, crudos)), ['oferta-precio']);
   // Una ficha anterior a los importes en crudo no se juzga por lo que no publica.
   assert.deepEqual(errores(ficha('Sin pregunta de precio.', { ...bien, price: 93067 })), []);
+  // La caja V2 escribe el mismo importe con otro formato («$ 1,191.32 MXN» frente a «$1,191.32 MXN»).
+  const mx = (faq) => ficha(faq, { ...bien, price: 595.66, priceCurrency: 'MXN' }).replace('data-base="$ 191.012 COP" data-reduced="$ 95.506 COP"', 'data-base="$ 1,191.32 MXN" data-reduced="$ 595.66 MXN"');
+  assert.deepEqual(errores(mx('El precio de lista es $1,191.32 MXN. Con el cupón 031016 queda en $595.66 MXN.')), []);
+  assert.deepEqual(errores(mx('El precio de lista es $595.66 MXN.')), ['precio-de-lista']);
+  assert.deepEqual(errores(ficha('El precio de lista es $191.012,00 COP.', bien, crudos)), []);
   // La misma frase dentro del FAQPage también cuenta.
   const enJsonLd = ficha('Otra cosa.', bien, crudos).replace('</body>', '<script type="application/ld+json">{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cuánto cuesta el curso?","acceptedAnswer":{"@type":"Answer","text":"El precio de lista es $ 95.506 COP."}}]}</script></body>');
   assert.deepEqual(errores(enJsonLd), ['precio-de-lista']);

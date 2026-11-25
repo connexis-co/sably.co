@@ -1,0 +1,21 @@
+---
+/**
+ * Precio del tema V2: «$ 191.012 COP» a la vista (código más pequeño) y «191.012 pesos
+ * colombianos» para el lector de pantalla, una sola vez. `marca` pone data-<marca> en la cifra
+ * y data-<marca>-hablado en el texto oculto, para que la caja los cambie al quitar el cupón.
+ */
+import { importe } from '@/lib/presentacion-v2';
+interface Props {
+  valor: number;
+  moneda: string;
+  locale: string;
+  class?: string;
+  codigoClass?: string;
+  marca?: string;
+}
+const { valor, moneda, locale, class: clase, codigoClass = 'text-[0.6em] font-medium', marca } = Astro.props;
+const i = importe(valor, moneda, locale);
+const datos = marca ? { [`data-${marca}`]: '' } : {};
+const datosHablado = marca ? { [`data-${marca}-hablado`]: '' } : {};
+---
+<span class:list={['v2-num whitespace-nowrap', clase]}><span aria-hidden="true"><span {...datos}>{i.visible}</span> <span class={codigoClass}>{i.codigo}</span></span><span class="sr-only" {...datosHablado}>{i.hablado}</span></span>
