@@ -10,6 +10,7 @@
  * solo cambia qué área se ve y cierra con Esc (~0,6 KB).
  */
 import Logo from '@/components/Logo.astro';
+import { relDe } from '@/lib/enlaces-propios';
 import Bandera from '@/components/v2/Bandera.astro';
 import Ico from './Ico.astro';
 import Foto from './Foto.astro';
@@ -87,13 +88,13 @@ const buscar = `${base}/cursos/#buscar`;
               <a href="/blog/" class="v2-enlace min-h-11"><Ico nombre="book-open" tamano={18} />Guías gratuitas <Ico nombre="arrow-right" tamano={16} class="v2-flecha" /></a>
               <a href="/homologaciones/" class="v2-enlace min-h-11"><Ico nombre="badge-check" tamano={18} />Homologaciones <Ico nombre="arrow-right" tamano={16} class="v2-flecha" /></a>
               <a href={`${base}/cursos/`} class="v2-enlace min-h-11"><Ico nombre="layout-grid" tamano={18} />Ver los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={16} class="v2-flecha" /></a>
-              {externas.map(e => <a href={e.href} target="_blank" rel="noopener" class="v2-enlace min-h-11">{e.nombre}: academia <Ico nombre="external-link" tamano={16} /></a>)}
+              {externas.map(e => <a href={e.href} target="_blank" rel={relDe(e.href, '_blank')} class="v2-enlace min-h-11">{e.nombre}: academia <Ico nombre="external-link" tamano={16} /></a>)}
               <p class="ml-auto flex items-center gap-2 text-t15 text-navy-500">¿No sabes cuál elegir? <a href={nav.whatsapp} target="_blank" rel="noopener nofollow" class="v2-enlace min-h-11"><img src="/v2/logos/whatsapp.svg" alt="" width="18" height="18" />Escríbenos</a></p>
             </div>
           </div></div>
         </div>
       </div>
-      {otros.map(e => <a href={e.href} target={e.target} rel={e.target === '_blank' ? 'noopener' : undefined} class:list={['v2-nav-enlace', { 'v2-actual': actual(e.href) }]} aria-current={ruta === e.href ? 'page' : undefined}>{e.etiqueta}</a>)}
+      {otros.map(e => <a href={e.href} target={e.target} rel={relDe(e.href, e.target)} class:list={['v2-nav-enlace', { 'v2-actual': actual(e.href) }]} aria-current={ruta === e.href ? 'page' : undefined}>{e.etiqueta}</a>)}
     </nav>
 
     <div class="ml-auto flex items-center gap-2">
@@ -140,12 +141,12 @@ const buscar = `${base}/cursos/#buscar`;
       <summary class="flex min-h-14 items-center justify-between font-display text-t20 font-semibold">{nav.enlaceCursos.etiqueta}<Ico nombre="chevron-down" class="v2-giro" /></summary>
       <ul class="grid grid-cols-2 gap-x-4 pb-2" role="list">
         {areas.map(area => <li><a href={`${base}/cursos/${area.slug}/`} class="v2-hoja-area">{area.nombre}</a></li>)}
-        {externas.map(e => <li><a href={e.href} target="_blank" rel="noopener" class="v2-hoja-area gap-1">{e.nombre} <Ico nombre="external-link" tamano={14} /></a></li>)}
+        {externas.map(e => <li><a href={e.href} target="_blank" rel={relDe(e.href, '_blank')} class="v2-hoja-area gap-1">{e.nombre} <Ico nombre="external-link" tamano={14} /></a></li>)}
       </ul>
       <a href={nav.enlaceCursos.href} class="v2-enlace mb-4 min-h-11 text-coral-700">Ver los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
     </details>
     <nav aria-label="Menú principal">
-      {otros.map(e => <a href={e.href} target={e.target} rel={e.target === '_blank' ? 'noopener' : undefined} class="v2-hoja-enlace">{e.etiqueta}</a>)}
+      {otros.map(e => <a href={e.href} target={e.target} rel={relDe(e.href, e.target)} class="v2-hoja-enlace">{e.etiqueta}</a>)}
       <a href="/blog/" class="v2-hoja-enlace">Guías gratuitas</a>
     </nav>
   </div>
