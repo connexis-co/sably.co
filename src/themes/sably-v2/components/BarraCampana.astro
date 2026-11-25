@@ -26,3 +26,11 @@ const { promo } = Astro.props;
     </button>
   </div>
 </div>
+<script>
+  /* Copiar el cupón, cerrar la barra (y recordarlo en la sesión), confirmar la campaña
+     contra la caché del borde y retirarla al vencer: la misma lógica que el tema clásico
+     carga desde PromoBanner. Sin esto, en V2 «Copiar» y «×» no hacían nada fuera de la
+     ficha (25-nov). En la ficha (`data-sin-cupon`) la caja de compra lleva su propio cupón. */
+  import { iniciarPromos } from '@/lib/promo-cliente';
+  iniciarPromos();
+</script>

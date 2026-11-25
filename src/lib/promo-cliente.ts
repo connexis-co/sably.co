@@ -152,6 +152,9 @@ function pintar(el: HTMLElement, promo: Pintable): void {
   document.querySelectorAll<HTMLAnchorElement>('a[data-cta-hotmart]').forEach((a) => {
     try {
       const url = new URL(a.href);
+      /* Solo enlaces de pago de Hotmart: las homologaciones marcan con data-cta-hotmart
+         su botón de WhatsApp, que no lleva cupón. */
+      if (!/(^|\.)hotm(art)?\.(io|art|com)$/.test(url.hostname)) return;
       url.searchParams.set('offDiscount', promo.couponCode);
       a.href = url.toString();
     } catch {
