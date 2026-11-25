@@ -1,0 +1,653 @@
+{
+  "fuente": "src/content/courses/*.mdx · instructor.name",
+  "nota": "Instructores de relleno del lote generado en agosto de 2026. Ninguno es el creador del curso. scripts/seo-onpage.mjs falla si alguno aparece en una página.",
+  "nombres": [
+    {
+      "nombre": "Adriana Bustamante",
+      "cursos": [
+        "curso-de-contabilidad-basica"
+      ]
+    },
+    {
+      "nombre": "Adriana Peñaloza",
+      "cursos": [
+        "curso-de-bartending-y-cocteleria-profesional"
+      ]
+    },
+    {
+      "nombre": "Alejandra Montoya",
+      "cursos": [
+        "curso-de-defensa-personal-para-mujeres"
+      ]
+    },
+    {
+      "nombre": "Andrés Bermúdez",
+      "cursos": [
+        "curso-de-carpinteria-y-muebles"
+      ]
+    },
+    {
+      "nombre": "Andrés Caballero",
+      "cursos": [
+        "curso-de-bartender"
+      ]
+    },
+    {
+      "nombre": "Andrés Camacho",
+      "cursos": [
+        "curso-de-resina-epoxica"
+      ]
+    },
+    {
+      "nombre": "Andrés Felipe Solano",
+      "cursos": [
+        "curso-de-reposteria"
+      ]
+    },
+    {
+      "nombre": "Andrés Pineda",
+      "cursos": [
+        "curso-de-adiestramiento-canino-en-positivo"
+      ]
+    },
+    {
+      "nombre": "Andrés Villamil",
+      "cursos": [
+        "curso-de-masaje-descontracturante",
+        "curso-de-masaje-reductor",
+        "curso-de-masajes"
+      ]
+    },
+    {
+      "nombre": "Andrés Zambrano",
+      "cursos": [
+        "curso-de-guitarra"
+      ]
+    },
+    {
+      "nombre": "Andrés Zapata",
+      "cursos": [
+        "curso-de-barberia"
+      ]
+    },
+    {
+      "nombre": "Bernardo Iriarte",
+      "cursos": [
+        "curso-de-diseno-de-cejas-con-hilo-y-henna"
+      ]
+    },
+    {
+      "nombre": "Camila Duarte",
+      "cursos": [
+        "curso-de-maquillaje-profesional-de-novias"
+      ]
+    },
+    {
+      "nombre": "Camila Herrera",
+      "cursos": [
+        "curso-de-instructor-de-yoga-desde-cero"
+      ]
+    },
+    {
+      "nombre": "Camila Zuluaga",
+      "cursos": [
+        "curso-de-fondant"
+      ]
+    },
+    {
+      "nombre": "Camilo Arteaga",
+      "cursos": [
+        "curso-de-fotografia-con-celular"
+      ]
+    },
+    {
+      "nombre": "Camilo Herrera",
+      "cursos": [
+        "curso-de-mecanica-de-bicicletas"
+      ]
+    },
+    {
+      "nombre": "Carolina Restrepo",
+      "cursos": [
+        "curso-de-panaderia",
+        "curso-de-peinados",
+        "curso-de-peluqueria"
+      ]
+    },
+    {
+      "nombre": "Damián Rojas",
+      "cursos": [
+        "curso-de-hamburguesas-gourmet"
+      ]
+    },
+    {
+      "nombre": "Daniela Corredor",
+      "cursos": [
+        "curso-de-confeccion-de-trajes-de-bano"
+      ]
+    },
+    {
+      "nombre": "Daniela Escobar",
+      "cursos": [
+        "curso-de-pestanas-volumen-ruso"
+      ]
+    },
+    {
+      "nombre": "Daniela Montenegro",
+      "cursos": [
+        "curso-de-reposteria-para-mascotas"
+      ]
+    },
+    {
+      "nombre": "Daniela Osorio",
+      "cursos": [
+        "curso-de-unas-acrilicas"
+      ]
+    },
+    {
+      "nombre": "Daniela Pardo",
+      "cursos": [
+        "curso-de-frances"
+      ]
+    },
+    {
+      "nombre": "Daniela Pareja",
+      "cursos": [
+        "curso-de-community-manager"
+      ]
+    },
+    {
+      "nombre": "Daniela Poveda",
+      "cursos": [
+        "curso-de-coreano"
+      ]
+    },
+    {
+      "nombre": "Diana Marcela Torres",
+      "cursos": [
+        "curso-de-alisados-y-keratina"
+      ]
+    },
+    {
+      "nombre": "Diana Zambrano",
+      "cursos": [
+        "curso-de-decoracion-con-globos"
+      ]
+    },
+    {
+      "nombre": "Diego Cárdenas",
+      "cursos": [
+        "curso-de-instalacion-de-camaras-de-seguridad"
+      ]
+    },
+    {
+      "nombre": "Diego Matsuda",
+      "cursos": [
+        "curso-de-sushi"
+      ]
+    },
+    {
+      "nombre": "Diego Salcedo",
+      "cursos": [
+        "curso-de-ventas-por-whatsapp-y-redes"
+      ]
+    },
+    {
+      "nombre": "Édgar Huamán",
+      "cursos": [
+        "curso-de-pollo-broaster"
+      ]
+    },
+    {
+      "nombre": "Elena Barrios",
+      "cursos": [
+        "curso-de-joyeria-artesanal"
+      ]
+    },
+    {
+      "nombre": "Enjoy Digital",
+      "cursos": [
+        "curso-de-marketing-digital"
+      ]
+    },
+    {
+      "nombre": "Fabián Montoya",
+      "cursos": [
+        "curso-de-serigrafia"
+      ]
+    },
+    {
+      "nombre": "Fabio Mendoza",
+      "cursos": [
+        "curso-de-masajes-terapeuticos-y-relajantes"
+      ]
+    },
+    {
+      "nombre": "Felipe Cardoso",
+      "cursos": [
+        "curso-de-portugues"
+      ]
+    },
+    {
+      "nombre": "Felipe Zambrano",
+      "cursos": [
+        "curso-de-excel"
+      ]
+    },
+    {
+      "nombre": "Fisioparallevar",
+      "cursos": [
+        "curso-de-drenaje-linfatico"
+      ]
+    },
+    {
+      "nombre": "Gabriela Toro",
+      "cursos": [
+        "curso-de-microblading"
+      ]
+    },
+    {
+      "nombre": "Gloria Betancur",
+      "cursos": [
+        "curso-de-porcelana-fria"
+      ]
+    },
+    {
+      "nombre": "Héctor Salazar",
+      "cursos": [
+        "curso-de-reparacion-de-lavadoras"
+      ]
+    },
+    {
+      "nombre": "Héctor Salcedo",
+      "cursos": [
+        "curso-de-sublimacion"
+      ]
+    },
+    {
+      "nombre": "Héctor Villamizar",
+      "cursos": [
+        "curso-de-costura-industrial"
+      ]
+    },
+    {
+      "nombre": "Hernán Salguero",
+      "cursos": [
+        "curso-de-nutricion-practica-para-la-familia"
+      ]
+    },
+    {
+      "nombre": "Isabel Munévar",
+      "cursos": [
+        "curso-de-pasteleria"
+      ]
+    },
+    {
+      "nombre": "Jhon Rentería",
+      "cursos": [
+        "curso-de-barberia-como-negocio",
+        "curso-de-barberia-infantil"
+      ]
+    },
+    {
+      "nombre": "Joaquín Berrío",
+      "cursos": [
+        "curso-de-patronaje-profesional-de-ropa"
+      ]
+    },
+    {
+      "nombre": "Jorge Cárdenas",
+      "cursos": [
+        "curso-de-electricidad-residencial-certificado"
+      ]
+    },
+    {
+      "nombre": "Julián Cárdenas",
+      "cursos": [
+        "curso-de-cocina"
+      ]
+    },
+    {
+      "nombre": "Julián Mendoza",
+      "cursos": [
+        "curso-de-reparacion-de-computadoras"
+      ]
+    },
+    {
+      "nombre": "Karen Julieth Mora",
+      "cursos": [
+        "curso-de-extensiones-de-cabello"
+      ]
+    },
+    {
+      "nombre": "Karina Lozada",
+      "cursos": [
+        "curso-de-piano"
+      ]
+    },
+    {
+      "nombre": "Laura Benítez",
+      "cursos": [
+        "curso-de-extensiones-de-pestanas"
+      ]
+    },
+    {
+      "nombre": "Laura Betancur",
+      "cursos": [
+        "curso-de-cejas-y-pestanas"
+      ]
+    },
+    {
+      "nombre": "Laura Cifuentes",
+      "cursos": [
+        "curso-de-ingles-para-ninos"
+      ]
+    },
+    {
+      "nombre": "Leonardo Pardo",
+      "cursos": [
+        "curso-de-primeros-auxilios-para-mascotas"
+      ]
+    },
+    {
+      "nombre": "Lina Betancur",
+      "cursos": [
+        "curso-de-desayunos-sorpresa"
+      ]
+    },
+    {
+      "nombre": "Lucía Pardo",
+      "cursos": [
+        "curso-de-maderoterapia"
+      ]
+    },
+    {
+      "nombre": "Luisa Cárdenas",
+      "cursos": [
+        "curso-de-decoracion-de-unas"
+      ]
+    },
+    {
+      "nombre": "Manuela Ocampo",
+      "cursos": [
+        "curso-de-reparacion-de-celulares"
+      ]
+    },
+    {
+      "nombre": "Marcela Duarte",
+      "cursos": [
+        "curso-de-corte-y-confeccion"
+      ]
+    },
+    {
+      "nombre": "Marcela Quintero",
+      "cursos": [
+        "curso-de-colorimetria"
+      ]
+    },
+    {
+      "nombre": "Marcela Quiroga",
+      "cursos": [
+        "curso-de-crochet"
+      ]
+    },
+    {
+      "nombre": "Mariana Quiceno",
+      "cursos": [
+        "curso-de-tortas-decoradas-desde-cero"
+      ]
+    },
+    {
+      "nombre": "Mariana Quintero",
+      "cursos": [
+        "curso-de-barista"
+      ]
+    },
+    {
+      "nombre": "Mariano Bianchi",
+      "cursos": [
+        "curso-de-pizza-artesanal"
+      ]
+    },
+    {
+      "nombre": "Mauricio Salgado",
+      "cursos": [
+        "curso-de-bouquets-con-globos",
+        "curso-de-flores-con-globos",
+        "curso-de-globoflexia",
+        "curso-de-globos-burbuja"
+      ]
+    },
+    {
+      "nombre": "Olga Bermúdez",
+      "cursos": [
+        "curso-de-velas-artesanales-y-aromaticas"
+      ]
+    },
+    {
+      "nombre": "Óscar Benavides",
+      "cursos": [
+        "curso-de-primeros-auxilios"
+      ]
+    },
+    {
+      "nombre": "Óscar Valencia",
+      "cursos": [
+        "curso-de-remodelacion-de-banos-y-cocinas"
+      ]
+    },
+    {
+      "nombre": "Óscar Villalba",
+      "cursos": [
+        "curso-de-aire-acondicionado"
+      ]
+    },
+    {
+      "nombre": "Paola Andrade",
+      "cursos": [
+        "curso-de-maquillaje-permanente"
+      ]
+    },
+    {
+      "nombre": "Paola Andrea Cifuentes",
+      "cursos": [
+        "curso-de-limpieza-facial"
+      ]
+    },
+    {
+      "nombre": "Paola Cárdenas",
+      "cursos": [
+        "curso-de-finanzas-para-tu-negocio"
+      ]
+    },
+    {
+      "nombre": "Paola Guerrero",
+      "cursos": [
+        "curso-de-depilacion"
+      ]
+    },
+    {
+      "nombre": "Paola Gutiérrez",
+      "cursos": [
+        "curso-de-comidas-rapidas"
+      ]
+    },
+    {
+      "nombre": "Paola Sarmiento",
+      "cursos": [
+        "curso-de-manicure-y-pedicure"
+      ]
+    },
+    {
+      "nombre": "Paola Sifuentes",
+      "cursos": [
+        "curso-de-amigurumi"
+      ]
+    },
+    {
+      "nombre": "Renzo Valdivia",
+      "cursos": [
+        "curso-de-ceviche-peruano"
+      ]
+    },
+    {
+      "nombre": "Ricardo Fonseca",
+      "cursos": [
+        "curso-de-electricista"
+      ]
+    },
+    {
+      "nombre": "Ricardo Peña",
+      "cursos": [
+        "curso-de-mecanica-de-motos"
+      ]
+    },
+    {
+      "nombre": "Ricardo Salazar",
+      "cursos": [
+        "curso-de-energia-solar"
+      ]
+    },
+    {
+      "nombre": "Ricardo Salcedo",
+      "cursos": [
+        "curso-de-airbnb"
+      ]
+    },
+    {
+      "nombre": "Rocío Betancourt",
+      "cursos": [
+        "curso-de-confeccion-de-ropa-interior"
+      ]
+    },
+    {
+      "nombre": "Rosalba Mendoza",
+      "cursos": [
+        "curso-de-modisteria"
+      ]
+    },
+    {
+      "nombre": "Sandra Villamizar",
+      "cursos": [
+        "curso-de-galletas-decoradas"
+      ]
+    },
+    {
+      "nombre": "Santiago Rueda",
+      "cursos": [
+        "curso-de-barberia-artistica"
+      ]
+    },
+    {
+      "nombre": "Santiago Vélez",
+      "cursos": [
+        "curso-de-fotografia"
+      ]
+    },
+    {
+      "nombre": "Sebastián Aristizábal",
+      "cursos": [
+        "curso-de-dj"
+      ]
+    },
+    {
+      "nombre": "Sebastián Funes",
+      "cursos": [
+        "curso-de-parrilla-y-asados-como-un-maestro"
+      ]
+    },
+    {
+      "nombre": "Sebastián Higa",
+      "cursos": [
+        "curso-de-japones"
+      ]
+    },
+    {
+      "nombre": "Silvia Etcheverry",
+      "cursos": [
+        "curso-de-molderia-y-confeccion"
+      ]
+    },
+    {
+      "nombre": "Tatiana Osorio",
+      "cursos": [
+        "curso-de-peluqueria-canina-profesional"
+      ]
+    },
+    {
+      "nombre": "Tomás Riquelme",
+      "cursos": [
+        "curso-de-cerveza-artesanal"
+      ]
+    },
+    {
+      "nombre": "Valentina Cárdenas",
+      "cursos": [
+        "curso-de-automaquillaje",
+        "curso-de-cupcakes",
+        "curso-de-maquillaje-de-fantasia",
+        "curso-de-maquillaje"
+      ]
+    },
+    {
+      "nombre": "Valentina Ocampo",
+      "cursos": [
+        "curso-de-macrame"
+      ]
+    },
+    {
+      "nombre": "Valentina Ordóñez",
+      "cursos": [
+        "curso-de-ingles"
+      ]
+    },
+    {
+      "nombre": "Valentina Osorio",
+      "cursos": [
+        "curso-de-canto"
+      ]
+    },
+    {
+      "nombre": "Valentina Ríos",
+      "cursos": [
+        "curso-de-barismo-y-cafe-de-especialidad"
+      ]
+    },
+    {
+      "nombre": "Valentina Suárez",
+      "cursos": [
+        "curso-de-balayage"
+      ]
+    },
+    {
+      "nombre": "Valeria Cardona",
+      "cursos": [
+        "curso-de-chocolateria"
+      ]
+    },
+    {
+      "nombre": "Valeria Ospina",
+      "cursos": [
+        "curso-de-lenceria-y-ropa-interior-a-medida"
+      ]
+    },
+    {
+      "nombre": "Valeria Ríos",
+      "cursos": [
+        "curso-de-tatuaje"
+      ]
+    },
+    {
+      "nombre": "Ximena Aristizábal",
+      "cursos": [
+        "curso-de-estetica-canina"
+      ]
+    },
+    {
+      "nombre": "Yesenia Palacios",
+      "cursos": [
+        "curso-de-trenzas-y-peinados"
+      ]
+    }
+  ]
+}

@@ -8,6 +8,8 @@
  * (el test falla con cualquier `error`; la CLI informa también los `aviso`).
  */
 
+import { readFileSync } from 'node:fs';
+
 /**
  * Repite el reemplazo hasta que no cambie nada: quitar un bloque puede juntar
  * los restos de otro (`<scr<script></script>ipt>`) y una pasada no basta.
@@ -47,6 +49,19 @@ export function encabezados(html) {
   return [...cuerpo.matchAll(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi)].map((m) => ({ nivel: Number(m[1]), texto: texto(m[2]) }));
 }
 
+/**
+ * Instructores de relleno del lote generado en agosto (106 nombres, uno por
+ * curso; ninguno es el creador). La lista sale de los MDX con
+ * `node scripts/instructores-relleno.mjs --lista`.
+ */
+export const INSTRUCTORES_RELLENO = (() => {
+  try {
+    return JSON.parse(readFileSync(new URL('../src/data/instructores-relleno.json', import.meta.url), 'utf8')).nombres.map((n) => n.nombre);
+  } catch {
+    return [];
+  }
+})();
+
 /** Textos que se retiraron del sitio por no ser ciertos y no deben reaparecer. */
 export const TEXTOS_VETADOS = [
   [/Tu instructor/i, 'bloque de instructor sin dato verificado'],
@@ -64,7 +79,7 @@ export const TEXTOS_VETADOS = [
 /**
  * @param {string} url
  * @param {string} html
- * @param {{ limites?: { titulo?: number, descripcionMin?: number, descripcionMax?: number } }} [opciones]
+ * @param {{ limites?: { titulo?: number, descripcionMin?: number, descripcionMax?: number }, instructores?: string[] }} [opciones]
  * @returns {{ regla: string, nivel: 'error' | 'aviso', detalle: string }[]}
  */
 export function auditarOnPage(url, html, opciones = {}) {
@@ -180,6 +195,13 @@ export function auditarOnPage(url, html, opciones = {}) {
     const veces = (visible.match(/\bcertificad[oa]s?\b/gi) ?? []).length;
     if (veces) marcar('certificado', 'aviso', `«certificado» ${veces} veces en el texto visible (la regla es «constancia»)`);
   }
+
+  // ── Instructores de relleno ──────────────────────────────────────────────
+  // En el texto visible y en el JSON-LD (FAQPage): es lo que leen los asistentes.
+  const todo = `${visible} ${respuestas.join(' ')}`;
+  const inventados = (opciones.instructores ?? INSTRUCTORES_RELLENO).filter((nombre) => todo.includes(nombre));
+  if (inventados.length)
+    marcar('instructor-relleno', 'error', `nombra a ${inventados.slice(0, 3).join(', ')}: instructor de relleno, no es el creador del curso`);
 
   // ── Textos que no deben volver ───────────────────────────────────────────
   for (const [patron, motivo] of TEXTOS_VETADOS) if (patron.test(visible)) marcar('texto-vetado', 'error', motivo);

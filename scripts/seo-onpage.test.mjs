@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { auditarOnPage, encabezados } from './seo-onpage.mjs';
+import { auditarOnPage, encabezados, INSTRUCTORES_RELLENO } from './seo-onpage.mjs';
 
 const url = 'https://sably.co/co/curso-de-masajes/';
 const pagina = (cuerpo, cabeza = '') => `<!doctype html><html lang="es"><head><title>Curso de masajes en Colombia | Sably</title>
@@ -107,4 +107,16 @@ test('«constancia», nunca «certificado»: error en lo que sale de plantilla, 
   assert.deepEqual(auditarOnPage(url, conTexto).filter((h) => h.regla === 'certificado').map((h) => [h.nivel, h.detalle.match(/\d+/)[0]]), [['aviso', '2']]);
   // Las homologaciones sí son certificaciones de una institución.
   assert.deepEqual(auditarOnPage('https://sably.co/homologaciones/tecnico-laboral/', conTexto).filter((h) => h.regla === 'certificado'), []);
+});
+
+// 24-nov-2026: masajes CO decía «Andrés Villamil explica cada maniobra» y la
+// ficha, «Creado por MasterClasses.La®». Hotmart nombra a Mauricio Duque Zuluaga.
+test('un instructor de relleno no puede aparecer en la página ni en su FAQPage', () => {
+  assert.equal(INSTRUCTORES_RELLENO.length, 106);
+  assert(INSTRUCTORES_RELLENO.includes('Andrés Villamil') && INSTRUCTORES_RELLENO.includes('Isabel Munévar'));
+  assert(!INSTRUCTORES_RELLENO.some((n) => /masterclasses|mauricio duque/i.test(n)), 'los creadores reales no están en la lista');
+  assert.deepEqual(errores(sana.replace('</main>', '<p>Andrés Villamil explica cada maniobra paso a paso.</p></main>')), ['instructor-relleno']);
+  const enFaq = sana.replace('</body>', '<script type="application/ld+json">{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Quién enseña?","acceptedAnswer":{"@type":"Answer","text":"Isabel Munévar enseña cada receta."}}]}</script></body>');
+  assert.deepEqual(errores(enFaq), ['instructor-relleno']);
+  assert.deepEqual(errores(sana.replace('</main>', '<p>Creado por MasterClasses.La®. El curso explica cada maniobra paso a paso.</p></main>')), []);
 });
