@@ -29,6 +29,7 @@ import NotaFuente from '@/components/v2/NotaFuente.astro';
 import CajaCompra from './CajaCompra.astro';
 import BarraFija from './BarraFija.astro';
 import VideoPresentacion from './VideoPresentacion.astro';
+import Docente from './Docente.astro';
 import { cargarFicha, type FichaProps } from '@/lib/ficha';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import { mostrarPromedio, notaHotmart } from '@/lib/opiniones';
@@ -131,6 +132,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
               <span>Lo dicta {creador}<span class="block text-t13 font-normal text-navy-500 lg:text-white/70">Es el nombre que verás en Hotmart</span></span>
             </p>
           )}
+          <Docente instructor={course.data.instructor} lugar="cabeza" mostrar={ajustes.mostrarDocente} {sinProducto} />
           {!sinProducto && nota && (
             <p class="flex items-center gap-1.5 text-t15 text-navy-700 lg:text-white/80">
               <Estrellas nota={valoracion!.rating} />
@@ -272,6 +274,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
               <a href={`/${country.code}/creadores/${c.slug}/`} class="v2-btn v2-btn-secundario flex-none self-start sm:self-center" data-alto="48">Ver sus cursos en Sably</a>
             </article>
           ))}
+          <Docente instructor={course.data.instructor} lugar="ficha" mostrar={ajustes.mostrarDocente} {sinProducto} />
           {/* Opiniones de hoy (lámina z2Zai, «sin opiniones suficientes»): la nota de Hotmart con su fuente
               y su fecha, y lo que todavía no hay. Con menos de 5 calificaciones no se pinta. */}
           {!sinProducto && nota && (

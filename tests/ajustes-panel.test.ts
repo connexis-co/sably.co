@@ -20,6 +20,8 @@ const ANTES = {
     cajaTitulo: ['string', null, 'Empieza {curso}'],
     cajaSubtitulo: ['string', null, 'Lecciones en vídeo, a tu ritmo.'],
     mostrarCreador: ['boolean', null, true],
+    // Clave nueva (25-nov, punto C5): no reordena ni cambia ninguna de las anteriores.
+    mostrarDocente: ['boolean', null, true],
     estiloCampo: ['select', ['outlined', 'filled', 'underline'], 'outlined'],
   },
   integraciones: {
@@ -61,6 +63,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     temaPorDefecto: 'v2',
     caja: { variante: 'cuenta-clara', contador: 'barra', titulo: 'Empieza {curso}', subtitulo: 'Lecciones en vídeo, a tu ritmo.' },
     mostrarCreador: true,
+    mostrarDocente: true,
     estiloCampo: 'outlined',
   });
   const prefijo = 'plugin:sably-integrations:settings:';

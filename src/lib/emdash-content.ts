@@ -156,7 +156,13 @@ function courseData(value: unknown, context: string): { data: Course['data']; so
   for (const [field, editor] of [['learnings', 'learning_items'], ['audience', 'audience_items'], ['keywords', 'keyword_items']]) data[field!] = items(entry[editor!], data[field!], context, field!);
   data.faqs = faqs(entry.faq_items ?? data.faqs, context);
   if (entry.curriculum != null) data.modules = rows(entry.curriculum, context, 'curriculum').map(m => ({title: m.title, lessons: text(m.lessons_text, context, 'lessons_text', true).split(/\r?\n/).map(s=>s.trim()).filter(Boolean)}));
-  if (entry.instructor_name != null) data.instructor = entry.instructor_name ? {name:entry.instructor_name, title:entry.instructor_title ?? '',bio:entry.instructor_bio ?? ''} : undefined;
+  // Los campos del panel mandan. Del JSON `instructor` solo se conservan la fuente, la foto y las
+  // acreditaciones del docente real cuando nombra a la misma persona (src/lib/docente.ts).
+  if (entry.instructor_name != null) {
+    const json = entry.instructor && typeof entry.instructor === 'object' && !Array.isArray(entry.instructor) ? entry.instructor as Data : {};
+    const mismo = json.name === entry.instructor_name ? json : {};
+    data.instructor = entry.instructor_name ? {...mismo, name:entry.instructor_name, title:entry.instructor_title ?? '',bio:entry.instructor_bio ?? ''} : undefined;
+  }
   data.creatorSlug = entry.creator_slug;
   data.creatorManaged = 'creator_record' in entry;
   data.coverImage = entry.cover_image;

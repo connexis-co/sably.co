@@ -57,6 +57,12 @@ export const settingsSchema = {
     description: '«Lo dicta …» en la cabeza de la ficha y en la caja. Apagado no deja hueco. Por defecto: encendido.',
     default: true,
   },
+  mostrarDocente: {
+    type: 'boolean',
+    label: 'Caja de compra · Mostrar el docente del curso',
+    description: 'Nombre, foto, trayectoria y acreditaciones de quien imparte el curso, solo en los cursos con un docente real con fuente. Apagado no deja hueco. Por defecto: encendido.',
+    default: true,
+  },
   // Integraciones
   notificationEmail: {
     type: 'email',
@@ -74,7 +80,7 @@ export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'contenido' | 'medios' |
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos.', claves: [] },
-  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador'] },
+  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente'] },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
   { id: 'medios', titulo: 'Medios: audio y vídeo', resumen: 'Vídeo de presentación; narraciones y reproductor, cuando lleguen.', claves: [] },
   { id: 'seo', titulo: 'SEO y medición', resumen: 'Medición, conversiones y auditoría SEO.', claves: [] },

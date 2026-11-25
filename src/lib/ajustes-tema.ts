@@ -22,6 +22,8 @@ export interface AjustesV2 {
   };
   /** «Lo dicta …» en la cabeza y en la caja. */
   mostrarCreador: boolean;
+  /** Bloque del docente real (C5): solo en cursos con docente con fuente. */
+  mostrarDocente: boolean;
   estiloCampo: EstiloCampo;
 }
 
@@ -54,6 +56,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       subtitulo: texto('cajaSubtitulo', SUBTITULO_CAJA_POR_DEFECTO),
     },
     mostrarCreador: v.mostrarCreador !== false,
+    mostrarDocente: v.mostrarDocente !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
   };
 }
