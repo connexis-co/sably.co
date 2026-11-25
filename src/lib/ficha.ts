@@ -6,6 +6,7 @@
  */
 import {readVerifiedCourseReviews} from '@/lib/verified-course-reviews';
 import {courseWatch} from '@/lib/course-watch';
+import {videoServido} from '@/lib/course-videos';
 import {clusterDeCurso,relatedGuides} from '@/lib/related-guides';
 import {urlCreador} from '@/lib/creadores';
 import {courseSeo,indexableAtPath} from '@/lib/cms-indexability';
@@ -199,7 +200,8 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
 
   /* Video de presentación: vive en R2 (cdn.sably.co). Sin CDN configurado no se
      pinta el reproductor, así el entorno local no queda con un <video> roto. */
-  const videoSrc = course.data.videoKey && CDN_URL ? `${CDN_URL}/videos/${course.data.videoKey}` : null;
+  const videoKey = videoServido(course.id, course.data.videoKey);
+  const videoSrc = videoKey && CDN_URL ? `${CDN_URL}/videos/${videoKey}` : null;
   const watch = courseWatch(course,SITE.url,CDN_URL);
 
   /* FAQs: las del curso + banco estándar (garantiza ≥8 por página, con FAQPage schema). */
