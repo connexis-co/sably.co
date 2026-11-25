@@ -230,9 +230,9 @@ export function protectDeliveryResponse(request: Request, response: Response, en
 export function invalidatedTags(request: Request, response: Response): string[] {
   if (request.method === 'GET' || request.method === 'HEAD' || !response.ok) return [];
   const { pathname } = new URL(request.url);
-  if (/^\/_emdash\/api\/plugins\/sably-(?:operations|whatsapp|integrations|seo)\//.test(pathname)) return [PUBLIC_PAGE_TAG];
+  if (/^\/_emdash\/api\/plugins\/sably-(?:operations|whatsapp|integrations|seo|publicidad)\//.test(pathname)) return [PUBLIC_PAGE_TAG];
   // Ajustes de esos plugins desde «Ajustes» de EmDash (tema por defecto, caja de compra…).
-  if (/^\/_emdash\/api\/admin\/plugins\/sably-(?:operations|whatsapp|integrations|seo)\/settings\/?$/.test(pathname)) return [PUBLIC_PAGE_TAG];
+  if (/^\/_emdash\/api\/admin\/plugins\/sably-(?:operations|whatsapp|integrations|seo|publicidad)\/settings\/?$/.test(pathname)) return [PUBLIC_PAGE_TAG];
   // Token-gated operational refreshes (Hotmart prices/ratings, catalog subjects).
   if (request.method === 'POST' && /^\/api\/v1\/(?:precios|subjects)\/?$/.test(pathname)) return [PUBLIC_PAGE_TAG];
   // Upload, replace or delete: the original and every page embedding it.

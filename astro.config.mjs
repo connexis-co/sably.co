@@ -65,6 +65,8 @@ export default defineConfig({
         { id: 'sably-integrations', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-integrations/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-integrations/admin.tsx', import.meta.url)), adminPages: [{ path: '/integrations', label: 'Medición y conversiones', icon: 'chart-bar' }] },
         { id: 'sably-seo', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-seo/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-seo/admin.tsx', import.meta.url)), adminPages: [{ path: '/seo', label: 'Auditoría SEO', icon: 'search' }] },
         { id: 'sably-whatsapp', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-whatsapp/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-whatsapp/admin.tsx', import.meta.url)), adminPages: [{ path: '/whatsapp', label: 'WhatsApp', icon: 'message-circle' }] },
+        // Publicidad (AdSense): apagada por defecto; sin configuración guardada no cambia el HTML.
+        { id: 'sably-publicidad', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-publicidad/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-publicidad/admin.tsx', import.meta.url)), adminPages: [{ path: '/publicidad', label: 'Publicidad', icon: 'megaphone' }] },
       ],
     }),
   ],

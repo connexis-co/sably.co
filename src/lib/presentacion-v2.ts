@@ -57,7 +57,9 @@ export function importe(valor: number, moneda: string, locale: string): Importe 
   const display = MONEDA_PROPIA[locale] === moneda ? 'narrowSymbol' : 'symbol';
   const partes = new Intl.NumberFormat(locale, { ...base, currencyDisplay: display }).formatToParts(Math.abs(valor));
   const posSimbolo = partes.findIndex(p => p.type === 'currency');
-  const simbolo = partes[posSimbolo]?.value ?? moneda;
+  const crudo = partes[posSimbolo]?.value ?? moneda;
+  // es-MX y otras regiones devuelven «USD» como símbolo del dólar: sin «$» el precio se lee «USD 49.99 USD».
+  const simbolo = moneda === 'USD' && crudo === 'USD' ? 'US$' : crudo;
   const cifraTexto = partes.filter(p => p.type === 'integer' || p.type === 'group' || p.type === 'decimal' || p.type === 'fraction').map(p => p.value).join('');
   const detras = posSimbolo > partes.findIndex(p => p.type === 'integer');
   const signo = valor < 0 ? '−' : '';

@@ -13,6 +13,7 @@
  */
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { claveWeb } from './video-r2.mjs';
 
 const CDN = 'https://cdn.sably.co';
 const DIR = 'src/content/courses';
@@ -21,24 +22,26 @@ const cursos = readdirSync(DIR)
   .filter((f) => f.endsWith('.mdx'))
   .map((f) => {
     const key = /^videoKey:\s*(.+)$/m.exec(readFileSync(`${DIR}/${f}`, 'utf8'))?.[1]?.trim();
-    return key ? { slug: f.replace(/\.mdx$/, ''), key } : null;
+    // El CMS guarda la clave antigua (hd/…); se mide y se sirve la copia inmutable (web2/…).
+    return key ? { slug: f.replace(/\.mdx$/, ''), cms: key, key: claveWeb(key) } : null;
   })
   .filter(Boolean)
   .sort((a, b) => a.slug.localeCompare(b.slug));
 
 const filas = [];
-for (const { slug, key } of cursos) {
+for (const { slug, key, cms } of cursos) {
   const url = `${CDN}/videos/${key}`;
   const seg = Number(
     execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', url], {
       encoding: 'utf8',
     }).trim(),
   );
-  const r = await fetch(url, { method: 'HEAD' });
+  // La fecha de subida es la del vídeo original, no la de su copia con caché larga.
+  const r = await fetch(`${CDN}/videos/${cms}`, { method: 'HEAD' });
   const lm = r.headers.get('last-modified');
   if (!Number.isFinite(seg) || seg <= 0) throw new Error(`sin duración: ${key}`);
   if (!lm) throw new Error(`sin last-modified: ${key}`);
-  filas.push({ slug, key, segundos: Math.round(seg), subido: new Date(lm).toISOString() });
+  filas.push({ slug, key, cms, segundos: Math.round(seg), subido: new Date(lm).toISOString() });
   console.log(`  ${slug}  ${Math.round(seg)}s  ${lm}`);
 }
 
@@ -55,8 +58,10 @@ const ts = `/**
  * no hay ffprobe. Al añadir o reemplazar un vídeo, volver a ejecutar el script.
  */
 export interface VideoCurso {
-  /** Ruta dentro del bucket, la misma del frontmatter \`videoKey\`. */
+  /** Ruta servida dentro de \`videos/\` en el bucket: copia con caché inmutable de un año. */
   key: string;
+  /** La que guarda el CMS en \`videoKey\` (copia antigua con caché de 4 h). Se acepta igual. */
+  cms: string;
   /** Duración en segundos, medida sobre el archivo. */
   segundos: number;
   /** ISO 8601. Cuándo se subió a R2. */
@@ -64,7 +69,7 @@ export interface VideoCurso {
 }
 
 export const COURSE_VIDEOS: Record<string, VideoCurso> = {
-${filas.map((f) => `  '${f.slug}': { key: '${f.key}', segundos: ${f.segundos}, subido: '${f.subido}' },`).join('\n')}
+${filas.map((f) => `  '${f.slug}': { key: '${f.key}', cms: '${f.cms}', segundos: ${f.segundos}, subido: '${f.subido}' },`).join('\n')}
 };
 
 /** Duración en formato ISO 8601, que es el que exige Schema.org: PT1M23S. */
