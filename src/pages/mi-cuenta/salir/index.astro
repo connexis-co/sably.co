@@ -5,14 +5,14 @@
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCountry } from '@/lib/countries';
-import { aplicarCabecerasPrivadas, cerrarSesion, cuentaActual, cuentaServidor, leerFormulario, olvidarCookies, postValido, tokenCsrf } from '@/lib/cuenta/http';
+import { aplicarCabecerasPrivadas, cerrarSesion, cuentaActual, cuentaServidor, leerFormulario, postValido, tokenCsrf } from '@/lib/cuenta/http';
 import { RUTAS, destinoSeguro, enlaceIngresar } from '@/lib/cuenta/nucleo';
 import '@/themes/sably-v2/estilos.css';
 
 export const prerender = false;
 aplicarCabecerasPrivadas(Astro.response.headers);
 const servidor = await cuentaServidor(Astro);
-if (!servidor) { olvidarCookies(Astro); return Astro.rewrite('/404'); }
+if (!servidor) return new Response('Not found', { status: 404 }); // igual que hoy sin cuenta
 if (Astro.request.method === 'POST') {
   const formulario = await leerFormulario(Astro.request);
   if (!formulario || !postValido(Astro, servidor.secreto, formulario)) return Astro.redirect(`${RUTAS.salir}?aviso=formulario`, 303);

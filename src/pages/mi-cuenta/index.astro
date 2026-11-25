@@ -14,7 +14,7 @@ import '@/themes/sably-v2/estilos.css';
 export const prerender = false;
 aplicarCabecerasPrivadas(Astro.response.headers);
 const servidor = await cuentaServidor(Astro);
-if (!servidor) return Astro.rewrite('/404');
+if (!servidor) return new Response('Not found', { status: 404 }); // igual que hoy sin cuenta
 const cuenta = await cuentaActual(Astro, servidor.almacen);
 if (!cuenta) return Astro.redirect(enlaceIngresar(RUTAS.cuenta), 303);
 const [prefs, guardados] = await Promise.all([servidor.almacen.preferencias(cuenta.id), servidor.almacen.guardados(cuenta.id)]);

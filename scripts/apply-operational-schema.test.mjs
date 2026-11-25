@@ -36,7 +36,7 @@ test('CLI requires explicit target and execute; dry-run does not connect', () =>
   for (const args of [[], ['--target', 'prod'], ['--target', 'production', '--execute', '--dry-run'], ['--target', 'development', '--unknown']]) assert.throws(() => parseArgs(args));
   const plan = applyOperationalSchema({ target: 'development', run() { assert.fail('Offline dry run must not invoke Wrangler'); }, log() {} });
   assert.equal(plan.binding, 'SABLY_DB');
-  assert.equal(plan.legacyMigrations.length, 12);
+  assert.equal(plan.legacyMigrations.length, 13); // 0011_cuenta.sql (cuenta de usuario, 25-nov)
 });
 
 test('target validation rejects CMS DB, other operational database and migration paths', () => {

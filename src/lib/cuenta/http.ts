@@ -180,7 +180,7 @@ export function json(datos: unknown, status = 200): Response {
 export function noEncontrada(): Response {
   const headers = new Headers({ 'Content-Type': 'text/plain; charset=utf-8' });
   aplicarCabecerasPrivadas(headers);
-  return new Response('Página no encontrada', { status: 404, headers });
+  return new Response('Not found', { status: 404, headers });
 }
 
 export function prohibido(mensaje = 'El formulario caducó. Vuelve a intentarlo.'): Response {

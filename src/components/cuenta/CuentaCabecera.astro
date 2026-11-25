@@ -33,7 +33,7 @@ const entrar = enlaceIngresar(Astro.props.ruta);
 </div>
 {Astro.props.ventana && <DialogoCuenta />}
 
-<style is:global>
+<style is:inline>
   /* Solo escritorio: en móvil la cuenta va dentro del menú. Fuera de capa, este CSS ganaría a `max-lg:hidden`. */
   .v2-cuenta { display: none; justify-content: flex-end; align-items: center; width: 96px; height: 44px; flex: none; }
   @media (width >= 1024px) { .v2-cuenta { display: flex; } }

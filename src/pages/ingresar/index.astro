@@ -17,7 +17,7 @@ export const prerender = false;
 aplicarCabecerasPrivadas(Astro.response.headers);
 Astro.response.headers.set('Vary', 'X-Account-Form');
 const servidor = await cuentaServidor(Astro);
-if (!servidor) return Astro.rewrite('/404');
+if (!servidor) return new Response('Not found', { status: 404 }); // igual que hoy sin cuenta
 const volver = destinoSeguro(Astro.url.searchParams.get('volver'));
 if (await cuentaActual(Astro, servidor.almacen)) return Astro.redirect(volver, 303);
 const csrf = tokenCsrf(Astro, servidor.secreto);
