@@ -25,7 +25,7 @@ const buscar = (p: (typeof posts)[number]) => `${p.data.title} ${p.data.descript
       <label class="flex h-11 w-full items-center gap-2.5 rounded-full bg-navy-50 px-4 focus-within:ring-2 focus-within:ring-coral-600 lg:max-w-sm">
         <Ico nombre="search" tamano={18} class="text-navy-700" />
         <span class="sr-only">Buscar artículos</span>
-        <input type="search" data-blog-search placeholder="Buscar en el blog…" autocomplete="off" class="w-full bg-transparent text-t15 text-navy-950 outline-none placeholder:text-navy-500" />
+        <input type="search" data-blog-search placeholder="Buscar en el blog…" autocomplete="off" class="h-11 w-full bg-transparent text-t15 text-navy-950 outline-none placeholder:text-navy-500" />
       </label>
       <div class="-mx-5 flex gap-2 overflow-x-auto px-5 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:px-0" role="group" aria-label="Filtrar por tema">
         <button type="button" data-blog-filter="all" aria-pressed="true" class="v2-chip flex-none">Todos ({posts.length})</button>
