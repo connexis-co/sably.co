@@ -100,5 +100,7 @@ test('la semilla tiene los 15 de presentación con MP4 web y los 3 vídeos ofici
   assert.equal(Object.keys(s).length, 18);
   assert.ok(s['curso-de-barberia']!.web?.startsWith('videos/'));
   assert.equal(s['curso-de-barista']!.web, undefined);
+  assert.equal(s['curso-de-barberia']!.editado, 'videos/editados/curso-de-barberia.mp4');
+  assert.equal(s['curso-de-barista']!.editado, undefined);
   for (const v of Object.values(s)) assert.match(v.original, /^videos\/originales\/[a-z0-9-]+\.mp4$/);
 });

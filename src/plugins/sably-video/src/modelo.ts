@@ -20,7 +20,9 @@ export interface Video {
   titulo: string;
   /** Clave en R2 del original tal como se descargó (videos/originales/<id>.mp4). */
   original: string;
-  /** Clave en R2 del MP4 web con caché larga, si existe (videos/web/<id>.mp4). */
+  /** Clave en R2 de la versión editada a calidad de origen (sin cortinillas de marca), si la hay. Es la que va a Mux. */
+  editado?: string;
+  /** Clave en R2 del MP4 web con caché larga, si existe (videos/web2/<id>.mp4). */
   web?: string;
   segundos: number;
   ancho?: number;

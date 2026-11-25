@@ -14,7 +14,7 @@ async function api<T = any>(ruta: string, cuerpo?: unknown): Promise<T> {
 }
 
 interface Copia { id: string; proveedor: string; externoId: string; playbackId?: string; estado: 'preparando' | 'lista' | 'error' | 'borrada'; subtitulos?: string; mp4?: boolean; segundos?: number; resolucion?: string; error?: string; actualizado: number }
-interface Video { id: string; titulo: string; original: string; web: string | null; segundos: number; ancho?: number; alto?: number; origen?: string; copias: Copia[]; usos: string[]; publico: { proveedor: string; mp4: string; hls?: string } | null }
+interface Video { id: string; titulo: string; original: string; editado: string | null; web: string | null; segundos: number; ancho?: number; alto?: number; origen?: string; copias: Copia[]; usos: string[]; publico: { proveedor: string; mp4: string; hls?: string } | null }
 interface Config { entrega: 'r2' | 'mux'; calidad: 'basic' | 'plus' | 'premium'; alertaUsd: number }
 interface Panel { config: Config; mux: boolean; webhook: boolean; coste: { entradaUsd: number; almacenamientoMesUsd: number }; videos: Video[] }
 
@@ -66,7 +66,7 @@ function VideoPage() {
           return <tr key={v.id}>
             <td><strong>{v.titulo}</strong><br /><small>{v.id}{v.origen ? ` · ${v.origen}` : ''}</small></td>
             <td>{reloj(v.segundos)}{v.alto ? <><br /><small>{v.ancho}×{v.alto}</small></> : null}</td>
-            <td><a href={v.original} target="_blank" rel="noreferrer">Original</a>{v.web && <> · <a href={v.web} target="_blank" rel="noreferrer">MP4 web</a></>}</td>
+            <td><a href={v.original} target="_blank" rel="noreferrer">Original</a>{v.editado && <> · <a href={v.editado} target="_blank" rel="noreferrer">Editado</a></>}{v.web && <> · <a href={v.web} target="_blank" rel="noreferrer">MP4 web</a></>}</td>
             <td>{mux ? <>{ESTADO[mux.estado]}{mux.resolucion ? ` · ${mux.resolucion}` : ''}{mux.subtitulos ? ' · subtítulos' : ''}{mux.error && <><br /><small className="sv-mal">{mux.error}</small></>}</> : '—'}</td>
             <td>{v.publico ? (v.publico.proveedor === 'mux' ? 'Mux (HLS)' : 'R2 (MP4)') : <span className="sv-mal">No se muestra</span>}<br /><small>{v.usos.join(', ') || 'sin asignar'}</small></td>
             <td>

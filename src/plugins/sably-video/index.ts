@@ -146,7 +146,7 @@ export function createPlugin() {
             return {
               id, ...data, copias: suyas,
               usos: usos.filter((u) => u.data.video === id).map((u) => u.id),
-              original: `${CDN}/${data.original}`, web: data.web ? `${CDN}/${data.web}` : null,
+              original: `${CDN}/${data.original}`, editado: data.editado ? `${CDN}/${data.editado}` : null, web: data.web ? `${CDN}/${data.web}` : null,
               publico: fuentesDe(data, suyas, cfg) ?? null,
             };
           }),
@@ -198,7 +198,8 @@ export function createPlugin() {
         const ya = (await todos(a.copias, { video: id })).find((c) => c.data.proveedor === 'mux' && c.data.estado !== 'borrada' && c.data.estado !== 'error');
         if (ya) throw PluginRouteError.badRequest('Ese vídeo ya tiene copia en Mux.');
         const cfg = await config(ctx);
-        const asset = await mux().importar(`${CDN}/${video.original}`, id, cfg.calidad);
+        // La versión editada si existe (sin cortinillas de marca); si no, el original tal cual.
+        const asset = await mux().importar(`${CDN}/${video.editado ?? video.original}`, id, cfg.calidad);
         const copia: Copia = { video: id, proveedor: 'mux', externoId: asset.id, estado: 'preparando', ...copiaDesdeMux(asset), actualizado: Date.now() } as Copia;
         await a.copias.put(`${id}:mux`, copia);
         return copia;

@@ -12,13 +12,14 @@ const EXTRA: Record<string, Omit<Video, 'creado'>> = {
   'curso-de-barista': { titulo: 'Curso de barista', original: 'videos/originales/curso-de-barista.mp4', segundos: 78.46, ancho: 1920, alto: 1080, origen: 'https://www.youtube.com/watch?v=i_xmd0KUcCc' },
 };
 
-/** Clave web en R2: la de COURSE_VIDEOS si existe (`web/…` con caché larga, o `hd/…` en ramas sin ese cambio). */
+/** Clave web en R2: la de COURSE_VIDEOS si existe (`web2/…` sin cortinilla y con caché larga, o `hd/…` en ramas sin ese cambio). */
 export function semilla(ahora = Date.now()): Record<string, Video> {
   const salida: Record<string, Video> = {};
   for (const [slug, v] of Object.entries(COURSE_VIDEOS)) {
     salida[slug] = {
       titulo: slug.replace(/^curso-de-/, 'Curso de ').replaceAll('-', ' '),
-      original: `videos/originales/${slug}.mp4`, web: `videos/${v.key}`, segundos: v.segundos, ancho: 1920, alto: 1080,
+      // Editado: sin la cortinilla final «Beauty Luxe» (marca propia de Connexis), corte sin recodificar el vídeo.
+      original: `videos/originales/${slug}.mp4`, editado: `videos/editados/${slug}.mp4`, web: `videos/${v.key}`, segundos: v.segundos, ancho: 1920, alto: 1080,
       origen: 'YouTube · Sably Academy', creado: ahora,
     };
   }
