@@ -1,0 +1,35 @@
+---
+/**
+ * Bloque sably_cards en V2. La regla del rediseño prohíbe la fila de tres o
+ * cuatro tarjetas con icono + título + frase: aquí es una lista editorial
+ * numerada (título a la izquierda, texto a la derecha) y el emoji del CMS no
+ * se pinta. El texto y los enlaces son los mismos.
+ */
+import type { BlockValue } from 'emdash/ui';
+import { safeEditorialUrl } from '@/lib/sably-theme';
+import Ico from '../Ico.astro';
+interface Props { value: BlockValue & { eyebrow?: string; title?: string; background?: string; cards?: Array<{ icon?: string; title?: string; text?: string; button_label?: string; button_url?: string }> } }
+const { value } = Astro.props;
+const cards = value.cards ?? [];
+---
+<section class="v2-contenedor py-14 lg:py-20" data-cms>
+  <div class:list={[value.background === 'soft' && 'rounded-c-xl bg-navy-50 p-6 lg:p-14']}>
+    {value.eyebrow && <p class="v2-antetitulo text-navy-700">{value.eyebrow}</p>}
+    {value.title && <h2 class:list={['max-w-[760px] font-display text-d28 lg:text-d40', value.eyebrow && 'mt-3']}>{value.title}</h2>}
+    <ol class="mt-8 border-t border-navy-100" role="list">
+      {cards.map((card, i) => {
+        const href = safeEditorialUrl(card.button_url);
+        return (
+          <li class="grid gap-2 border-b border-navy-100 py-6 md:grid-cols-[48px_minmax(0,320px)_minmax(0,1fr)] md:gap-6">
+            <span class="v2-num text-t15 font-semibold text-navy-500" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h3 class="font-display text-t20 font-semibold">{card.title}</h3>
+            <div>
+              <p class="text-t17 whitespace-pre-line text-navy-700">{card.text}</p>
+              {href && card.button_label && <a href={href} class="v2-enlace mt-3 min-h-11">{card.button_label} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>}
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+  </div>
+</section>

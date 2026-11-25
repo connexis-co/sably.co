@@ -1,0 +1,30 @@
+---
+/**
+ * Cabecera de las páginas de contenido V2 (blog, editoriales, homologaciones,
+ * vídeos, mapa del sitio, legales): banda azul noche con migas, antetítulo,
+ * H1 y entradilla. El slot va debajo de la entradilla (botones, buscador).
+ */
+import Migas from '@/components/v2/Migas.astro';
+interface Props {
+  titulo: string;
+  acento?: string;
+  antetitulo?: string;
+  entradilla?: string;
+  migas?: { name: string; url: string }[];
+  /** Atributos de edición en vivo de EmDash para el H1 y la entradilla. */
+  editarTitulo?: Record<string, string>;
+  editarEntradilla?: Record<string, string>;
+  editarAntetitulo?: Record<string, string>;
+  clara?: boolean;
+}
+const { titulo, acento, antetitulo, entradilla, migas, editarTitulo, editarEntradilla, editarAntetitulo, clara = false } = Astro.props;
+---
+<section class:list={[clara ? 'border-b border-navy-100 bg-white' : 'bg-navy-950 text-white']}>
+  <div class="v2-contenedor pt-6 pb-12 lg:pt-8 lg:pb-20">
+    {migas && <Migas items={migas} oscuro={!clara} />}
+    {antetitulo && <p class:list={['v2-antetitulo', migas ? 'mt-8' : '', clara ? 'text-navy-700' : 'text-white/80']} {...editarAntetitulo}>{antetitulo}</p>}
+    <h1 class:list={['max-w-[900px] font-display text-[34px]/[40px] tracking-[-0.01em] lg:text-d56', antetitulo ? 'mt-4' : migas ? 'mt-6' : '', clara ? '' : '!text-white']} {...editarTitulo}>{titulo}{acento && <><br /><span class="text-coral-500">{acento}</span></>}</h1>
+    {entradilla && <p class:list={['mt-5 max-w-[720px] text-t17 whitespace-pre-line lg:text-t20', clara ? 'text-navy-700' : 'text-white/80']} {...editarEntradilla}>{entradilla}</p>}
+    <slot />
+  </div>
+</section>

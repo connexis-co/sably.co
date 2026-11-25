@@ -1,0 +1,129 @@
+---
+/**
+ * Artículo del blog V2. Mismo loader, título, descripción, imagen social,
+ * Article (articleSchema/articleMeta) y schemas que la plantilla clásica.
+ * Barra de progreso de lectura solo con CSS (línea de tiempo de la vista del
+ * artículo); índice plegable en móvil y fijo al lado en escritorio, con el
+ * apartado actual resaltado (~0,4 KB). Valoración y comentarios, los de siempre.
+ */
+import { Image as OptimizedImage } from 'astro:assets';
+import { cmsImageUrl } from '@/lib/cms-media';
+import CmsRichBody from '@/components/CmsRichBody.astro';
+import { renderMarkdown } from '@/lib/markdown';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import ArticleRating from '@/components/ArticleRating.astro';
+import Comentarios from '@/components/Comentarios.astro';
+import Migas from '@/components/v2/Migas.astro';
+import Acordeon from '@/components/v2/Acordeon.astro';
+import Ico from '../components/Ico.astro';
+import Preguntas from '../components/Preguntas.astro';
+import { blogCover } from '@/lib/blog';
+import type { load } from '@/lib/page-loaders/blog-article';
+import '../estilos.css';
+type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
+const { post, country, toc, related, minutes, title, schemas, articleSchema, articleMeta } = Astro.props;
+const portada = cmsImageUrl(post.coverImage) ?? blogCover(post.data.category, 'hero');
+const migas = [{ name: 'Inicio', url: '/co/' }, { name: 'Blog', url: '/blog/' }, { name: post.data.title, url: `/blog/${post.id}/` }];
+---
+<BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} {articleSchema} {articleMeta} pageType="article" image={portada} temaV2>
+  <div class="v2-lectura">
+    <div class="v2-progreso" role="presentation"></div>
+    <section class="bg-navy-950 text-white">
+      <div class="v2-contenedor grid items-end gap-8 pt-6 pb-10 lg:grid-cols-[minmax(0,1fr)_480px] lg:gap-14 lg:pt-8 lg:pb-16">
+        <div>
+          <Migas items={migas} />
+          <p class="v2-antetitulo mt-8 text-white/80">{post.data.category ?? 'Guía'}</p>
+          <h1 {...post.edit.title} class="mt-4 font-display text-[34px]/[40px] tracking-[-0.01em] !text-white lg:text-d56">{post.data.title}</h1>
+          <p class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-t15 text-white/70">
+            <span>Por el equipo Sably</span><span aria-hidden="true">·</span>
+            <span>{post.data.publishedAt.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}</span><span aria-hidden="true">·</span>
+            <span>{minutes} min de lectura</span>
+          </p>
+        </div>
+        <div class="overflow-hidden rounded-c-xl bg-navy-900">
+          <OptimizedImage src={portada} alt="" width={800} height={533} fetchpriority="high" sizes="(min-width: 1024px) 480px, 100vw" class="aspect-[3/2] w-full object-cover" />
+        </div>
+      </div>
+    </section>
+
+    <div class="v2-contenedor grid gap-12 py-12 lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-16 lg:py-16">
+      <article class="v2-articulo min-w-0 max-w-[720px]">
+        <p class="rounded-c-lg bg-navy-50 p-5 text-t17 text-navy-950">{post.data.description}</p>
+        {toc.length > 2 && (
+          <Acordeon titulo={`Tabla de contenidos (${toc.length})`} class="mt-6 rounded-c-lg px-5 ring-1 ring-navy-100 lg:hidden" tituloClass="min-h-14 text-t15 font-semibold text-navy-950">
+            <ol class="space-y-1 pb-4" role="list">
+              {toc.map(h => <li class={h.depth === 3 ? 'ml-4' : ''}><a href={`#${h.slug}`} class="inline-flex min-h-9 items-center text-t15 text-navy-700 hover:text-navy-950">{h.text}</a></li>)}
+            </ol>
+          </Acordeon>
+        )}
+        <div class="v2-prosa mt-8" data-cms>
+          {post.richBody ? <CmsRichBody value={post.richBody} /> : <Fragment set:html={renderMarkdown(post.body ?? '')} />}
+        </div>
+        {post.data.faq && post.data.faq.length > 0 && (
+          <div class="mt-14 [&>section]:!px-0"><Preguntas titulo="Preguntas frecuentes" faqs={post.data.faq} id="preguntas-articulo" /></div>
+        )}
+        <ArticleRating slug={post.id} temaV2 />
+        <aside class="mt-12 rounded-c-xl bg-navy-950 p-8 text-white">
+          <h2 class="font-display text-d28 !text-white">¿Listo para aprender un oficio de verdad?</h2>
+          <p class="mt-2 max-w-md text-t17 text-white/80">Cursos online con constancia de finalización, acceso de por vida y garantía de 7 días.</p>
+          <a href={`/${country.code}/cursos/`} class="v2-btn v2-btn-principal mt-6" data-alto="52">Explorar cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+        </aside>
+        <Comentarios subject={`blog:${post.id}`} temaV2 />
+      </article>
+      {toc.length > 2 && (
+        <aside class="max-lg:hidden">
+          <nav aria-label="Tabla de contenidos" class="sticky top-24">
+            <p class="text-t13 font-medium text-navy-500">En este artículo</p>
+            <ol class="mt-3 space-y-1 border-l border-navy-100" role="list">
+              {toc.map(h => <li class={h.depth === 3 ? 'pl-6' : 'pl-4'}><a href={`#${h.slug}`} data-toc-link={h.slug} class="-ml-px block border-l-2 border-transparent py-1 text-t15 text-navy-700 hover:text-navy-950 data-[current]:border-coral-600 data-[current]:font-semibold data-[current]:text-navy-950">{h.text}</a></li>)}
+            </ol>
+          </nav>
+        </aside>
+      )}
+    </div>
+  </div>
+
+  {related.length > 0 && (
+    <section class="v2-contenedor pt-8 lg:pt-12" aria-labelledby="sigue-titulo">
+      <h2 id="sigue-titulo" class="font-display text-d28 lg:text-d40">Sigue leyendo</h2>
+      <ul class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {related.map(p => (
+          <li><a href={`/blog/${p.id}/`} class="group block">
+            <div class="aspect-[3/2] overflow-hidden rounded-c-lg bg-navy-50"><OptimizedImage src={cmsImageUrl(p.cardImage) ?? cmsImageUrl(p.coverImage) ?? blogCover(p.data.category, 'card')} alt={p.data.title} width={480} height={320} loading="lazy" sizes="(min-width: 1024px) 380px, 100vw" class="h-full w-full object-cover transition-transform duration-(--t-lento) group-hover:scale-[1.03]" /></div>
+            <p class="mt-3 text-t13 font-medium text-navy-500">{p.data.category ?? 'Guía'}</p>
+            <h3 class="mt-1 font-display text-t20 font-semibold group-hover:underline group-hover:underline-offset-4">{p.data.title}</h3>
+          </a></li>
+        ))}
+      </ul>
+    </section>
+  )}
+</BaseLayout>
+
+<style is:global>
+  @layer components {
+    /* Progreso de lectura solo con CSS: la barra sigue la línea de tiempo de la vista del artículo. */
+    .v2-lectura { timeline-scope: --v2-lectura; }
+    .v2-articulo { view-timeline: --v2-lectura block; }
+    .v2-progreso { position: fixed; inset: 0 0 auto; z-index: 45; height: 3px; background: var(--color-coral-600); transform-origin: 0 50%; scale: 0 1; pointer-events: none; }
+    @supports (animation-timeline: view()) {
+      @keyframes v2-progreso { to { scale: 1 1; } }
+      .v2-progreso { animation: v2-progreso linear both; animation-timeline: --v2-lectura; animation-range: contain 0% contain 100%; }
+    }
+    @supports not (animation-timeline: view()) { .v2-progreso { display: none; } }
+  }
+</style>
+<script>
+  // Resalta en el índice el apartado que se está leyendo.
+  const enlaces = [...document.querySelectorAll<HTMLElement>('[data-toc-link]')];
+  if (enlaces.length) {
+    const porId = new Map(enlaces.map(l => [l.dataset.tocLink!, l]));
+    const observador = new IntersectionObserver(entradas => {
+      for (const e of entradas) {
+        if (!e.isIntersecting) continue;
+        enlaces.forEach(l => delete l.dataset.current);
+        porId.get(e.target.id)?.setAttribute('data-current', 'true');
+      }
+    }, { rootMargin: '-96px 0px -70% 0px' });
+    [...porId.keys()].map(id => document.getElementById(id)).forEach(t => t && observador.observe(t));
+  }
+</script>

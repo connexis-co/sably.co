@@ -1,0 +1,17 @@
+---
+/** Bloque sably_story en V2: antetítulo, título y texto rico, con la imagen al lado (radio 24) si la hay. */
+import { Image, type BlockValue } from 'emdash/ui';
+import type { MediaValue } from 'emdash';
+import type { RichBlock } from '@/lib/emdash-content';
+import CmsRichBody from '@/components/CmsRichBody.astro';
+interface Props { value: BlockValue & { eyebrow?: string; title?: string; content?: RichBlock[]; image?: MediaValue } }
+const { value } = Astro.props;
+---
+<section class:list={['v2-contenedor grid items-center gap-10 py-14 lg:gap-16 lg:py-20', value.image && 'lg:grid-cols-[minmax(0,1fr)_minmax(0,520px)]']} data-cms>
+  <div>
+    {value.eyebrow && <p class="v2-antetitulo text-navy-700">{value.eyebrow}</p>}
+    {value.title && <h2 class:list={['font-display text-d28 lg:text-d40', value.eyebrow && 'mt-3']}>{value.title}</h2>}
+    <div class="v2-prosa mt-5 max-w-[680px]"><CmsRichBody value={value.content ?? []} /></div>
+  </div>
+  {value.image && <Image image={value.image} sizes="(min-width: 1024px) 520px, 100vw" class="aspect-[4/3] w-full rounded-c-xl object-cover" loading="lazy" />}
+</section>

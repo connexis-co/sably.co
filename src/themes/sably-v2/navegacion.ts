@@ -67,13 +67,19 @@ export async function datosNavegacion(country: Country, scope: object) {
   const internas = categorias.filter(c => !c.externalUrl).sort((a, b) => posicion(a.slug) - posicion(b.slug));
   const areas: AreaMenu[] = internas.map(cat => {
     const delArea = cursos.filter(c => c.data.category === cat.slug);
+    /* El destacado que enlazaba el megamenú clásico (el marcado como destacado o, si no hay, el primero con
+       inscripción abierta) va siempre entre los cuatro: el menú V2 no puede perder ese enlace. */
+    const conPago = delArea.filter(comprable);
+    const clasico = conPago.find(c => c.data.featured) ?? conPago[0];
+    const top = conPago.sort(orden).slice(0, 4);
+    if (clasico && !top.includes(clasico)) top.splice(3, 1, clasico);
     return {
       slug: cat.slug,
       nombre: nombreArea(cat.name),
       descripcion: cat.description,
       subcategorias: cat.subcategories.map(s => ({ slug: s.slug, nombre: s.name })),
       total: delArea.length,
-      cursos: delArea.filter(comprable).sort(orden).slice(0, 4).map(aCurso),
+      cursos: top.map(aCurso),
       foto: FOTO_DE_AREA[cat.slug] ?? null,
       fotoCms: cmsImageUrl(cat.cardImage) ?? cmsImageUrl(cat.coverImage) ?? null,
     };

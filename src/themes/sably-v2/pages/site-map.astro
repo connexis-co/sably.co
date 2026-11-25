@@ -1,0 +1,64 @@
+---
+/** Mapa del sitio V2 (/sitemap/). Mismo loader, título, descripción y enlaces que la plantilla clásica. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CabezaPagina from '../components/CabezaPagina.astro';
+import Bandera from '@/components/v2/Bandera.astro';
+import { nombreArea } from '../navegacion';
+import type { load } from '@/lib/page-loaders/site-map';
+import '../estilos.css';
+type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
+const { country, COUNTRIES, PROGRAMAS, posts, byCategory, title, description, videos } = Astro.props;
+const enlace = 'inline-flex min-h-8 items-center text-t15 text-navy-700 hover:text-navy-950 hover:underline hover:underline-offset-4';
+---
+<BaseLayout {title} {description} {country} pathAfterCountry="/" pageType="sitemap" temaV2>
+  <CabezaPagina titulo="Mapa del sitio" entradilla={description} migas={[{ name: 'Inicio', url: `/${country.code}/` }, { name: 'Mapa del sitio', url: '/sitemap/' }]} clara />
+  <div class="v2-contenedor space-y-16 py-12 lg:py-16">
+    <section aria-labelledby="sm-paises">
+      <h2 id="sm-paises" class="font-display text-d28">Sably en tu país</h2>
+      <ul class="mt-5 grid gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4" role="list">
+        {COUNTRIES.map(c => (
+          <li>
+            <a href={`/${c.code}/`} class="inline-flex min-h-8 items-center gap-2 text-t17 font-semibold text-navy-950 hover:underline hover:underline-offset-4"><Bandera codigo={c.code} />Cursos online en {c.name}</a>
+            <ul class="mt-1 pl-8" role="list"><li><a href={`/${c.code}/cursos/`} class={enlace}>Cursos en {c.name}</a></li></ul>
+          </li>
+        ))}
+      </ul>
+    </section>
+    <section aria-labelledby="sm-cats">
+      <h2 id="sm-cats" class="font-display text-d28">Cursos por categoría</h2>
+      <ul class="mt-5 grid gap-x-8 gap-y-8 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {byCategory.map(({ cat, courses: enCategoria }) => (
+          <li>
+            <a href={`/${country.code}/cursos/${cat.slug}/`} class="inline-flex min-h-8 items-center text-t17 font-semibold text-navy-950 hover:underline hover:underline-offset-4">{nombreArea(cat.name)} ({enCategoria.length})</a>
+            <ul class="mt-1 border-l border-navy-100 pl-4" role="list">{enCategoria.map(c => <li><a href={`/${country.code}/${c.id}/`} class={enlace}>{c.data.title}</a></li>)}</ul>
+          </li>
+        ))}
+      </ul>
+    </section>
+    {videos.length > 0 && (
+      <section aria-labelledby="sm-videos">
+        <h2 id="sm-videos" class="font-display text-d28"><a href="/videos/" class="hover:underline hover:underline-offset-4">Presentaciones en vídeo</a></h2>
+        <ul class="mt-5 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3" role="list">{videos.map(video => <li><a href={video.path} class={enlace}>{video.title}</a></li>)}</ul>
+      </section>
+    )}
+    <div class="grid gap-12 lg:grid-cols-3">
+      <section aria-labelledby="sm-blog">
+        <h2 id="sm-blog" class="font-display text-d28">Blog</h2>
+        <ul class="mt-5" role="list"><li><a href="/blog/" class={`${enlace} font-semibold text-navy-950`}>Todos los artículos</a></li>{posts.map(p => <li><a href={`/blog/${p.id}/`} class={enlace}>{p.data.title}</a></li>)}</ul>
+      </section>
+      <section aria-labelledby="sm-homologaciones">
+        <h2 id="sm-homologaciones" class="font-display text-d28">Homologaciones</h2>
+        <ul class="mt-5" role="list"><li><a href="/homologaciones/" class={`${enlace} font-semibold text-navy-950`}>Todos los programas</a></li>{PROGRAMAS.map(p => <li><a href={`/homologaciones/${p.slug}/`} class={enlace}>{p.name}</a></li>)}</ul>
+      </section>
+      <section aria-labelledby="sm-pages">
+        <h2 id="sm-pages" class="font-display text-d28">Sably</h2>
+        <ul class="mt-5" role="list">
+          <li><a href="/nosotros/" class={enlace}>Sobre nosotros</a></li>
+          <li><a href="/contacto/" class={enlace}>Contacto</a></li>
+          <li><a href="/legal/terminos/" class={enlace}>Términos y condiciones</a></li>
+          <li><a href="/legal/privacidad/" class={enlace}>Política de privacidad</a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>

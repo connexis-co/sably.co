@@ -1,0 +1,77 @@
+---
+/**
+ * Página del creador V2 (maqueta t5djvt). Mismo loader, título, descripción,
+ * hreflang y JSON-LD (ProfilePage + ItemList) que la plantilla clásica. Foto
+ * solo si la sirve Sably (las de Hotmart en S3 dan 403): si no, iniciales.
+ * No dice «perfil verificado» ni «foto cedida» (no está comprobado). Cada
+ * cifra lleva su fuente y su fecha; con menos de 5 calificaciones no hay media.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
+import Migas from '@/components/v2/Migas.astro';
+import NotaFuente from '@/components/v2/NotaFuente.astro';
+import Ico from '../components/Ico.astro';
+import { countryAlternates } from '@/lib/seo';
+import { fotoPropia, iniciales } from '@/lib/presentacion-v2';
+import { mostrarPromedio } from '@/lib/opiniones';
+import { SITE } from '@/lib/site';
+import { cifrasPortada } from '../cifras';
+import type { load } from '@/lib/page-loaders/creator-profile';
+import '../estilos.css';
+type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
+const { country, autor, cursos, base, media, totalValoraciones, title, description, schemas } = Astro.props;
+const { hoy, leidas } = await cifrasPortada(Astro.locals);
+const conMedia = media !== null && mostrarPromedio(totalValoraciones);
+const mediaTexto = conMedia ? new Intl.NumberFormat('es-CO', { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(media!) : null;
+const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: autor.nombre, url: `${SITE.url}${base}/creadores/${autor.slug}/` }];
+---
+<BaseLayout {title} {description} {country} pathAfterCountry={`/creadores/${autor.slug}/`} alternates={await countryAlternates(`/creadores/${autor.slug}/`)} {schemas} pageType="creador" noindex={cursos.length === 0} whatsappContext={`los cursos de ${autor.nombre}`} temaV2>
+  <section class="bg-navy-950 text-white">
+    <div class="v2-contenedor pt-6 pb-12 lg:pt-8 lg:pb-20">
+      <Migas items={migas} />
+      <div class="mt-8 flex flex-col items-start gap-6 sm:flex-row sm:items-center">
+        {fotoPropia(autor.foto)
+          ? <img src={autor.foto} alt={autor.nombre} width="112" height="112" class="size-28 flex-none rounded-full object-cover ring-4 ring-white/10" />
+          : <span class="grid size-28 flex-none place-items-center rounded-full bg-white/10 font-display text-d40 font-semibold" aria-hidden="true">{iniciales(autor.nombre)}</span>}
+        <div>
+          <p class="v2-antetitulo text-white/80">Creador en Sably</p>
+          <h1 class="mt-3 font-display text-[34px]/[40px] !text-white lg:text-d56">{autor.nombre}</h1>
+          {autor.desde && <p class="mt-2 text-t15 text-white/70">Publica cursos desde {autor.desde}</p>}
+        </div>
+      </div>
+      {autor.bio && <p class="mt-6 max-w-[760px] text-t17 whitespace-pre-line text-white/80 lg:text-t20" data-cms>{autor.bio}</p>}
+    </div>
+  </section>
+
+  <section class="v2-contenedor pt-12 lg:pt-16" aria-label={`${autor.nombre} en cifras`}>
+    <dl class="grid gap-y-8 border-b border-navy-100 pb-10 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="flex flex-col sm:pr-10">
+        <dt class="order-2 mt-1 text-t15 font-semibold text-navy-950">{cursos.length === 1 ? 'curso publicado' : 'cursos publicados'} en Sably</dt>
+        <dd class="v2-num order-1 font-display text-d56 font-semibold text-navy-950">{cursos.length}</dd>
+        <dd class="order-3 text-t13 text-navy-500">Conteo de Sably, {hoy}.</dd>
+      </div>
+      {conMedia && (
+        <div class="flex flex-col border-navy-100 sm:border-l sm:pl-10">
+          <dt class="order-2 mt-1 text-t15 font-semibold text-navy-950">media de sus cursos</dt>
+          <dd class="v2-num order-1 font-display text-d56 font-semibold text-navy-950">{mediaTexto} <span class="text-t17 font-medium text-navy-500">de 5</span></dd>
+          <dd class="order-3 text-t13 text-navy-500">{totalValoraciones.toLocaleString('es-CO')} valoraciones reales en Hotmart{leidas && `, leídas el ${leidas}`}.</dd>
+        </div>
+      )}
+    </dl>
+  </section>
+
+  <section class="v2-contenedor pt-12 lg:pt-16" aria-labelledby="sus-cursos" data-cms>
+    <h2 id="sus-cursos" class="font-display text-d28 lg:text-d40">Todos sus cursos</h2>
+    {cursos.length === 0 ? (
+      <div class="mt-4 max-w-[640px] rounded-c-lg bg-navy-50 p-6">
+        <p class="text-t17 text-navy-700">Todavía no hay cursos asociados a este perfil.</p>
+        <a href={`${base}/cursos/`} class="v2-enlace mt-3 min-h-11">Ver todos los cursos de Sably <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+      </div>
+    ) : (
+      <ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" role="list">
+        {cursos.map(c => <li><TarjetaCurso course={c} {country} /></li>)}
+      </ul>
+    )}
+    <NotaFuente class="mt-8">Cada curso lo dicta su creador; el pago y el acceso los gestiona Hotmart.</NotaFuente>
+  </section>
+</BaseLayout>
