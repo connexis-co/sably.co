@@ -136,10 +136,16 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
           )}
         </div>
         <div class="v2-area-media -mx-5 lg:mx-0 lg:mt-10" data-course-media>
-          <VideoPresentacion src={videoSrc} poster={portada} titulo={course.data.title} alt={`${category.name}: ${course.data.title}`} courseId={course.id}
-            pie={videoSrc && creador ? `Vídeo de presentación del curso, de ${creador}.` : null} />
-          {watch && <a href={watch.path} class="v2-enlace mt-3 px-5 text-t13 lg:px-0">Ver la presentación en su página de vídeo <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></a>}
+          <VideoPresentacion src={videoSrc} poster={portada} titulo={course.data.title} alt={`${category.name}: ${course.data.title}`} courseId={course.id} />
         </div>
+        {/* Pie y enlace a la página del vídeo: bajo el vídeo en escritorio; en móvil, después de la
+            caja, para que el precio y el botón queden en el primer pantallazo. */}
+        {((videoSrc && creador) || watch) && (
+          <div class="v2-area-ver flex flex-col gap-2 lg:mt-3">
+            {videoSrc && creador && <p class="text-t13 text-navy-500">Vídeo de presentación del curso, de {creador}.</p>}
+            {watch && <a href={watch.path} class="v2-enlace text-t13">Ver la presentación en su página de vídeo <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></a>}
+          </div>
+        )}
         <div class="v2-area-caja">
           {sinProducto ? (
             <section id="compra" tabindex="-1" aria-labelledby="titulo-compra" class="scroll-mt-28 rounded-c-lg bg-white p-6 shadow-s2 outline-none" data-estado="cerrado">
@@ -447,7 +453,7 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
      caja fija a la derecha (sticky, botón por encima de 640 px). */
   .v2-cabeza-rejilla {
     display: grid;
-    grid-template-areas: 'media' 'titulo' 'meta' 'caja' 'promesa' 'datos';
+    grid-template-areas: 'media' 'titulo' 'meta' 'caja' 'promesa' 'ver' 'datos';
     grid-template-columns: minmax(0, 1fr);
     row-gap: 16px;
   }
@@ -457,6 +463,7 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
   .v2-area-media { grid-area: media; }
   .v2-area-caja { grid-area: caja; margin-top: 8px; }
   .v2-area-datos { grid-area: datos; }
+  .v2-area-ver { grid-area: ver; }
   .v2-area-titulo { padding-top: 8px; }
   @media (width < 1024px) {
     .v2-area-titulo :global(.v2-migas) { display: none; }
@@ -473,8 +480,8 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
     }
     .v2-cabeza-rejilla {
       grid-template-columns: minmax(0, 1fr) 400px;
-      grid-template-areas: 'titulo caja' 'promesa caja' 'meta caja' 'media caja' 'datos caja';
-      grid-template-rows: auto auto auto auto 1fr;
+      grid-template-areas: 'titulo caja' 'promesa caja' 'meta caja' 'media caja' 'ver caja' 'datos caja';
+      grid-template-rows: auto auto auto auto auto 1fr;
       column-gap: 40px; row-gap: 0;
     }
     .v2-area-caja { align-self: start; position: sticky; top: 88px; margin-top: 56px; z-index: 2; }
