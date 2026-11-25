@@ -72,7 +72,7 @@ const reloj = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60))
     abrir.addEventListener('click', async (e) => {
       e.preventDefault();
       if (raiz.dataset.medio !== undefined) return;
-      raiz.append(plantilla.content.cloneNode(true));
+      raiz.appendChild(plantilla.content.cloneNode(true));
       raiz.dataset.medio = '';
       const { prepararMedio } = await import('./medios/controlador');
       prepararMedio(raiz);
