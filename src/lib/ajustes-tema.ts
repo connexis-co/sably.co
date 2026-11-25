@@ -33,6 +33,7 @@ export interface AjustesV2 {
     /** Bloques visibles, en orden (el héroe va siempre primero y no está aquí). */
     bloques: BloquePortada[];
     heroe: { rota: boolean; intervalo: number; orden: 'aleatorio' | 'fijo'; cursos: string[] };
+    comoFuncionaAnimado: boolean;
   };
 }
 
@@ -76,6 +77,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
         orden: uno(v.portadaHeroeOrden, ['aleatorio', 'fijo'] as const, 'aleatorio'),
         cursos: listaDeTexto(v.portadaHeroeOficios).slice(0, 12),
       },
+      comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
     },
   };
 }

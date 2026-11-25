@@ -88,7 +88,7 @@ const masGuias = posts.slice(3);
     : bloque === 'destacados' ? <Destacados copy={copy.courses} {featured} {country} {precios} {base} {moneda} totalCursos={nav.totalCursos} />
     : bloque === 'promo' ? <BandaPromo {promo} {base} class="pt-20 lg:pt-24" />
     : bloque === 'oficio' ? <Oficio {oficios} {base} />
-    : bloque === 'como-funciona' ? <ComoFunciona />
+    : bloque === 'como-funciona' ? <ComoFunciona animado={portada.comoFuncionaAnimado} />
     : bloque === 'beneficios' ? <Beneficios copy={copy['benefits-heading']} {benefits} />
     : bloque === 'videos' ? <Videos {videos} />
     : bloque === 'guias' ? <Guias copy={copy.blog} {guiasDestacadas} {masGuias} />
