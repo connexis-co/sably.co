@@ -6,6 +6,7 @@
  * (lo comprueba `tests/ajustes-panel.test.ts`).
  */
 import type { SettingField } from 'emdash';
+import { BLOG_CLAVES, BLOG_SETTINGS } from './ajustes-blog';
 
 export const settingsSchema = {
   // Sitio y tema
@@ -223,6 +224,8 @@ export const settingsSchema = {
     options: [{ value: '10', label: '10 valoraciones' }, { value: '20', label: '20 valoraciones' }, { value: '50', label: '50 valoraciones' }],
     default: '20',
   },
+  // Blog (ajustes-blog.ts)
+  ...BLOG_SETTINGS,
   // Integraciones
   notificationEmail: {
     type: 'email',
@@ -234,7 +237,7 @@ export const settingsSchema = {
 export type ClaveAjuste = keyof typeof settingsSchema;
 export type ValorAjuste = string | boolean;
 
-export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
+export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'blog' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
 export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
@@ -246,6 +249,7 @@ export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves:
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
+  { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },
   { id: 'medios', titulo: 'Medios: audio y vídeo', resumen: 'Vídeo de presentación; narraciones y reproductor, cuando lleguen.', claves: [] },
   { id: 'seo', titulo: 'SEO y medición', resumen: 'Medición, conversiones y auditoría SEO.', claves: [] },
   { id: 'cuenta', titulo: 'Cuenta', resumen: 'Cuentas de usuario y acceso con Google.', claves: ['cuentaActiva', 'cuentaGoogle', 'cuentaAcceso'] },

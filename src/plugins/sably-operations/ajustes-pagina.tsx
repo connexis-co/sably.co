@@ -160,6 +160,14 @@ export function AjustesPage() {
       ['Menús', 'Cabecera y pie.', `${ADMIN}/menus`],
       ['Moderación y contactos', 'Opiniones, calificaciones y solicitudes.', `${ADMIN}/plugins/sably-operations/operations`],
     ]} />; break;
+    case 'blog': cuerpo = <>
+      {seccion(['blogCabecera', 'blogEntradillaEstilo', 'blogTamanoTexto', 'blogProgreso', 'blogProgresoMinimo'], 'Artículo · cabecera y lectura')}
+      {seccion(['blogIndiceEscritorio', 'blogIndiceProgreso', 'blogIndiceMovil', 'blogIndiceNiveles', 'blogIndiceMinimo', 'blogCarrilDerecho'], 'Artículo · índice')}
+      {seccion(['blogCompartirRedes', 'blogCompartirPosiciones', 'blogNarracionFija'], 'Artículo · compartir y narración')}
+      {seccion(['blogCursoMitad', 'blogLlamadaFinal', 'blogCursosSugeridos', 'blogArticulosSugeridos'], 'Artículo · cursos y sugeridos')}
+      {seccion(['blogTarjeta', 'blogTarjetaMovil', 'blogTarjetaLeerMas', 'blogPortadaSinFoto', 'blogEtiquetaEstilo'], 'Tarjetas y etiquetas')}
+      <Enlaces items={[['Artículos', 'Texto, portada, categoría y preguntas de cada artículo.', `${ADMIN}/content/blog`]]} />
+    </>; break;
     case 'medios': cuerpo = <>
       <WidgetEditor only="video" />
       <div className="so-hueco"><strong>Narraciones (audio)</strong><p>Reservado. Llega con la sesión de narraciones (docs/equipo/2026-11-25/narraciones/DISENO.md).</p></div>
