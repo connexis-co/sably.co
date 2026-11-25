@@ -130,7 +130,8 @@ export function canCachePublicPage(request: Request, environment: string | undef
   // No shared response for an editor, preview, authenticated caller or personalized session.
   if (['cookie', 'authorization', 'range', 'x-sably-preview-token'].some(name => request.headers.has(name))) return false;
   if (/no-cache|no-store|max-age=0/i.test(request.headers.get('cache-control') ?? '') || request.headers.has('pragma')) return false;
-  if (!url.pathname.endsWith('/') || /^\/(?:_|admin(?:\/|$)|api(?:\/|$))/.test(url.pathname)) return false;
+  // Cuenta (src/lib/cuenta): acceso y Mi cuenta son personales; nunca se guardan en ninguna caché.
+  if (!url.pathname.endsWith('/') || /^\/(?:_|admin(?:\/|$)|api(?:\/|$)|ingresar(?:\/|$)|mi-cuenta(?:\/|$))/.test(url.pathname)) return false;
   return !/%|\/\//.test(url.pathname);
 }
 
