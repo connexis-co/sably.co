@@ -3,15 +3,16 @@ import type { LegacyBindings } from '../../lib/legacy-backend';
 import { operationalEnvironmentEnabled } from '../../lib/operational-environment';
 
 export const settingsSchema = {
-  browserMode: { type: 'select', label: 'Medición del sitio', default: 'off', options: [{value:'off',label:'Desactivada'},{value:'gtm',label:'Google Tag Manager'},{value:'direct',label:'GA4 y Meta directamente'}] },
-  gtmId: { type:'string',label:'ID del contenedor de Tag Manager',default:'' },
-  gtmDelay: { type:'boolean',label:'Cargar Tag Manager después de la página',default:true },
-  ga4Id: { type:'string',label:'ID de medición de GA4',default:'' },
-  metaPixelId: { type:'string',label:'ID del píxel de Meta',default:'' },
-  serverConversions: { type:'boolean',label:'Enviar compras confirmadas a GA4 y Meta',default:false },
-  ga4ApiSecret: { type:'secret',label:'API Secret de GA4' },
-  metaCapiToken: { type:'secret',label:'Token de Conversion API de Meta' },
-  hotmartHottok: { type:'secret',label:'HOTTOK del webhook de Hotmart' },
+  // Rótulos con el grupo delante y ayuda en cada campo. Las claves son contrato (options `plugin:sably-integrations:settings:<clave>`).
+  browserMode: { type: 'select', label: 'Medición · Cómo se instala', description: 'Mejor editarlo en «Medición y conversiones», que valida los IDs. Por defecto: Desactivada.', default: 'off', options: [{value:'off',label:'Desactivada'},{value:'gtm',label:'Google Tag Manager'},{value:'direct',label:'GA4 y Meta directamente'}] },
+  gtmId: { type:'string',label:'Medición · ID del contenedor de Tag Manager',description:'Formato GTM-XXXXXXX. Pega solo el ID, sin código HTML. Por defecto: vacío.',default:'' },
+  gtmDelay: { type:'boolean',label:'Medición · Cargar Tag Manager después de la página',description:'Recomendado: la web se ve antes en móvil y los eventos previos se envían igual. Por defecto: encendido.',default:true },
+  ga4Id: { type:'string',label:'Medición · ID de medición de GA4',description:'Formato G-XXXXXXX. También identifica las compras enviadas desde el servidor. Por defecto: vacío.',default:'' },
+  metaPixelId: { type:'string',label:'Medición · ID del píxel de Meta',description:'Solo cifras. Por defecto: vacío.',default:'' },
+  serverConversions: { type:'boolean',label:'Conversiones · Enviar compras confirmadas a GA4 y Meta',description:'Necesita el ID y la clave de cada uno. Por defecto: apagado.',default:false },
+  ga4ApiSecret: { type:'secret',label:'Conversiones · Clave secreta de GA4 (Measurement Protocol)',description:'GA4 → flujo Web → Secretos de API de Measurement Protocol. Se guarda cifrada.' },
+  metaCapiToken: { type:'secret',label:'Conversiones · Token de la API de conversiones de Meta',description:'Administrador de eventos → Configuración → API de conversiones. Se guarda cifrado.' },
+  hotmartHottok: { type:'secret',label:'Conversiones · HOTTOK del webhook de Hotmart',description:'Hotmart → Herramientas → Webhook → autenticación. No es el Client Secret de la API. Se guarda cifrado.' },
 } satisfies Record<string, SettingField>;
 export type SettingKey = keyof typeof settingsSchema;
 export const publicKeys = ['browserMode','gtmId','gtmDelay','ga4Id','metaPixelId','serverConversions'] as const;
