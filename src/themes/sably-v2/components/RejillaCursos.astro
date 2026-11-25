@@ -44,7 +44,7 @@ const conFranja = !!promo && cursos.length > 12;
   <ul class="v2-rejilla mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" role="list" id={id}>
     {cursos.map((course, i) => (
       <li class="v2-celda" style={`--o-rec:${i * 2};--o-nota:${(ordenNota.get(course.id) ?? i) * 2};--o-precio:${(ordenPrecio.get(course.id) ?? i) * 2}`} data-mas={i >= visibles ? '' : undefined} data-buscar={filtrable ? buscable.get(course.id) : undefined}>
-        <TarjetaCurso {course} {country} />
+        <TarjetaCurso {course} {country} filaEnMovil />
       </li>
     ))}
     {conFranja && promo && (
@@ -118,16 +118,10 @@ const conFranja = !!promo && cursos.length > 12;
     .v2-orden input:focus-visible + label { outline: 3px solid var(--color-coral-600); outline-offset: 2px; }
     .v2-ver-mas input:focus-visible + label { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
   }
-  /* Fuera de la capa a propósito: tiene que ganar a las utilidades de la tarjeta del kit. Móvil: la tarjeta pasa a fila con miniatura 4:3 a la izquierda (maqueta del listado a 390). */
+  /* Móvil: la tarjeta pasa a fila (`filaEnMovil` del kit); aquí solo el separador entre filas. */
     @media (width < 640px) {
       .v2-rejilla { gap: 0; }
       .v2-rejilla > li.v2-celda { border-bottom: 1px solid var(--color-navy-100); }
-      .v2-rejilla > li.v2-celda > article { display: grid; grid-template-columns: 112px minmax(0, 1fr); align-items: start; gap: 0 14px; padding: 14px 0; box-shadow: none; border-radius: 0; background: transparent; }
-      .v2-rejilla > li.v2-celda > article > div:first-child { border-radius: 12px; }
-      .v2-rejilla > li.v2-celda > article > div:first-child > span { display: none; }
-      .v2-rejilla > li.v2-celda > article > div:last-child { padding: 0; gap: 4px; }
-      .v2-rejilla > li.v2-celda > article :is(p.line-clamp-2) { display: none; }
-      .v2-rejilla > li.v2-celda > article p:last-child { padding-top: 4px; }
       .v2-franja { margin: 16px 0; }
     }
 </style>

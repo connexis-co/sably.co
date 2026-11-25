@@ -46,7 +46,7 @@ const { country, city, content } = Astro.props;
 const f = await cargarFicha(Astro.props, { url: Astro.url, locals: Astro.locals, headers: Astro.response.headers });
 const { ajustes } = await temaDeLaPeticion(Astro);
 const {
-  course, locale, category, localeHtml, courseHtml, learnings, audience, proveedor, pillar, satellites, guides, related,
+  course, locale, category, localeHtml, courseHtml, learnings, audience, requisitos, proveedor, pillar, satellites, guides, related,
   sinProducto, creadoresVisibles, verifiedReviews, valoracion, quote, real, freshUntil, currency, baseAmount,
   offer, videoSrc, watch, faqs, h1, nombreEnFrase, deNombre, title, description, subtitulo, schemas, alternates, breadcrumb,
 } = f;
@@ -75,7 +75,6 @@ const datos = [
   { icono: 'signal' as const, etiqueta: 'Nivel', valor: course.data.level },
   { icono: 'infinity' as const, etiqueta: 'Ritmo', valor: 'A tu ritmo' },
 ];
-const requisitos = ['No necesitas experiencia previa', 'Conexión a internet (celular o computador)', 'Ganas de aprender y practicar'];
 const pestanas = [
   { id: 'aprende', etiqueta: 'Qué aprenderás' },
   { id: 'para-quien', etiqueta: 'Para quién es' },
