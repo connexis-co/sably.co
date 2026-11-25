@@ -45,7 +45,7 @@ const FOCUS = 'var(--color-accent,#c92c52)';
 
 export const CONSENT_CSS = [
   `#sbc,#sbc-dlg{font-family:var(--font-sans,ui-sans-serif,system-ui,sans-serif);color:${INK};font-size:15px;line-height:1.5}`,
-  '#sbc p,#sbc-dlg p,#sbc-dlg h2,#sbc-dlg ul{margin:0}',
+  '#sbc p,#sbc-dlg p,#sbc-dlg ul{margin:0}',
   // Tarjeta inferior (escritorio).
   `#sbc{position:fixed;z-index:60;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));width:min(27.5rem,calc(100vw - 32px));padding:20px;border:1px solid ${LINE};border-radius:16px;background:#fff;box-shadow:0 18px 44px -14px rgb(27 27 58/.32);display:grid;gap:12px}`,
   '#sbc[hidden]{display:none}',
@@ -62,7 +62,7 @@ export const CONSENT_CSS = [
   '#sbc-dlg::backdrop{background:rgb(13 20 31/.55)}',
   '.sbc-in{display:grid;gap:4px;padding:28px 32px 28px}',
   '.sbc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}',
-  `#sbc-dlg h2{font-family:var(--font-display,var(--font-sans,system-ui));font-size:1.5rem;font-weight:600;line-height:1.2}`,
+  `#sbc-dlg .sbc-h{font-family:var(--font-display,var(--font-sans,system-ui));font-size:1.5rem;font-weight:600;line-height:1.2}`,
   `.sbc-x{flex:none;display:grid;place-items:center;width:44px;height:44px;margin:-8px -10px 0 0;border:0;border-radius:999px;background:transparent;color:${INK};cursor:pointer}.sbc-x:hover{background:#f4f5f9}.sbc-x svg{width:22px;height:22px}`,
   `#sbc-dlg .sbc-i{color:${MUTED};font-size:16px}`,
   '#sbc-dlg ul{list-style:none;padding:0;margin-top:8px}',
@@ -104,7 +104,7 @@ export function consentBannerHtml(): string {
     `<button type="button" class="sbc-btn" data-sbc="accept">${t.accept}</button>`,
     '</div></section>',
     `<dialog id="sbc-dlg" aria-labelledby="sbc-dlg-t" closedby="any"><div class="sbc-in">`,
-    `<div class="sbc-top"><h2 id="sbc-dlg-t">${t.prefsTitle}</h2><button type="button" class="sbc-x" data-sbc="close" aria-label="${t.close}">${CROSS}</button></div>`,
+    `<div class="sbc-top"><p id="sbc-dlg-t" class="sbc-h">${t.prefsTitle}</p><button type="button" class="sbc-x" data-sbc="close" aria-label="${t.close}">${CROSS}</button></div>`,
     `<p class="sbc-i">${t.prefsIntro} ${link}.</p><ul>`,
     `<li class="sbc-row"><div><p class="sbc-n">${t.necessary}</p><p class="sbc-d">${t.necessaryDesc}</p></div><span class="sbc-lock" aria-hidden="true">${LOCK}</span></li>`,
     `<li class="sbc-row"><div><label for="sbc-a" class="sbc-n">${t.analytics}</label><p id="sbc-a-d" class="sbc-d">${t.analyticsDesc}</p></div><input type="checkbox" role="switch" id="sbc-a" class="sbc-sw" aria-describedby="sbc-a-d"></li>`,

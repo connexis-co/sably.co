@@ -41,6 +41,14 @@ test('el aviso sale con tres botones y sin casillas premarcadas; el script va pr
   const html = banner.kind === 'html' ? banner.html : '';
   for (const action of ['reject', 'prefs', 'accept']) assert.match(html, new RegExp(`data-sbc="${action}"`));
   assert.doesNotMatch(html, /\schecked[\s>=]/i);
+  assert.doesNotMatch(html, /<h[1-6][\s>]/i, 'un encabezado antes del H1 rompe seo:test');
   assert.match(html, /\/legal\/privacidad\/#cookies/);
   assert.match(html, /<section id="sbc"[^>]*\shidden>/);
+});
+
+test('el aviso de cookies va al final del body (su H2 no queda antes del H1)', async () => {
+  const { consentFragments } = await import('../src/lib/consent/index.ts');
+  const banner = consentFragments(true).find((f) => f.key === 'sably-consent-banner');
+  assert.equal(banner?.placement, 'body:end');
+  assert.equal(consentFragments(true)[0]?.placement, 'head');
 });
