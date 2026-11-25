@@ -14,6 +14,7 @@ export const BLOQUES_PORTADA = [
   { id: 'como-funciona', nombre: 'Cómo funciona Sably' },
   { id: 'escenas', nombre: 'De la primera clase a tu primer encargo (scroll narrativo)' },
   { id: 'oficio', nombre: 'Oficio destacado' },
+  { id: 'valorados', nombre: 'Los mejor valorados en Hotmart' },
   { id: 'beneficios', nombre: 'Por qué Sably' },
   { id: 'videos', nombre: 'Presentaciones en vídeo' },
   { id: 'guias', nombre: 'Guías del blog' },

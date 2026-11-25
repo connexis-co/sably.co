@@ -36,6 +36,7 @@ export interface AjustesV2 {
     comoFuncionaAnimado: boolean;
     escenasAtenuar: boolean;
     escenasVariante: 'apiladas' | 'foto-fija';
+    valoradosMinimo: number;
   };
 }
 
@@ -82,6 +83,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
       escenasAtenuar: v.portadaEscenasAtenuar !== false,
       escenasVariante: uno(v.portadaEscenasVariante, ['apiladas', 'foto-fija'] as const, 'apiladas'),
+      valoradosMinimo: Number(uno(v.portadaValoradosMinimo, ['10', '20', '50'] as const, '20')),
     },
   };
 }

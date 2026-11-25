@@ -21,7 +21,8 @@ import Videos from '../components/portada/Videos.astro';
 import Guias from '../components/portada/Guias.astro';
 import Cierre from '../components/portada/Cierre.astro';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
-import { inventarioMosaico, repartirEnCeldas } from '../portada';
+import { inventarioMosaico, mejorValorados, repartirEnCeldas } from '../portada';
+import Valorados from '../components/portada/Valorados.astro';
 import { getHomeEditorial, getHomeSectionOptional } from '@/lib/home-editorial';
 import { monedasCobradas } from '@/lib/moneda-catalogo';
 import { countryAlternates, faqSchema } from '@/lib/seo';
@@ -31,7 +32,7 @@ import { readOperationalRatings } from '@/plugins/sably-operations/public';
 import { cifrasPortada } from '../cifras';
 import { datosNavegacion, comprable } from '../navegacion';
 import { promoDeLaPagina } from '../promo-v2';
-import { fotoDeCurso, type NombreFoto } from '../fotos';
+import { fotoDeCurso, OFICIOS_MOSAICO, type NombreFoto } from '../fotos';
 import type { load } from '@/lib/page-loaders/country-home';
 import '../estilos.css';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
@@ -62,13 +63,19 @@ const portada = ajustes.portada;
    El primero (la foto grande, LCP) es el mismo curso que antes iba en la tarjeta flotante cuando no se elige
    otro en el panel. Precio de cada tarjeta y de cada oficio: el mismo que su ficha da como precio a pagar hoy
    (src/lib/precio-hoy.ts), nunca la captura vieja ni el de catálogo. */
+/* Foto del mosaico: la de su oficio hecha para el mosaico (fotos.ts, OFICIOS_MOSAICO) o, si no hay, la de su área. */
+const fotoMosaico = (id: string, area: string) => OFICIOS_MOSAICO.find(o => o.curso === id)?.foto ?? fotoDeCurso(id, area);
+/* Sin lista en el panel, los doce oficios con foto propia, completados con los destacados y mejor valorados. */
+const elegidos = portada.heroe.cursos.length ? portada.heroe.cursos : OFICIOS_MOSAICO.map(o => o.curso);
 const enMosaico = inventarioMosaico(allCourses.map(c => ({
-  id: c.id, destacado: Boolean(c.data.featured), valoraciones: valoraciones[c.id]?.total ?? 0, comprable: comprable(c), foto: fotoDeCurso(c.id, c.data.category),
-})), portada.heroe.cursos).map(m => allCourses.find(c => c.id === m.id)!);
-const conPrecio = [...new Map([...featured, ...enMosaico].map(c => [c.id, c])).values()];
+  id: c.id, destacado: Boolean(c.data.featured), valoraciones: valoraciones[c.id]?.total ?? 0, comprable: comprable(c), foto: fotoMosaico(c.id, c.data.category),
+})), elegidos, undefined, !portada.heroe.cursos.length).map(m => allCourses.find(c => c.id === m.id)!);
+/* «Los mejor valorados»: por nota de Hotmart con un mínimo de valoraciones (panel). */
+const valorados = portada.bloques.includes('valorados') ? mejorValorados(allCourses.map(c => ({ id: c.id, comprable: comprable(c), c })), valoraciones, portada.valoradosMinimo).map(x => x.c) : [];
+const conPrecio = [...new Map([...featured, ...enMosaico, ...valorados].map(c => [c.id, c])).values()];
 const { precios, freshUntil } = await preciosDeTarjetas(conPrecio, country, { url: Astro.url, locals: Astro.locals });
 const celdas: OficioMosaico[][] = repartirEnCeldas(enMosaico.map(c => ({
-  id: c.id, titulo: c.data.title, foto: fotoDeCurso(c.id, c.data.category)!, precio: precios.get(c.id) ?? null, nota: notaHotmart(valoraciones[c.id] ?? null),
+  id: c.id, titulo: c.data.title, foto: fotoMosaico(c.id, c.data.category)!, precio: precios.get(c.id) ?? null, nota: notaHotmart(valoraciones[c.id] ?? null),
 })));
 /* Áreas: las seis primeras con foto grande y el resto como enlaces. */
 const conFoto = nav.areas.slice(0, 6);
@@ -97,6 +104,7 @@ const masGuias = posts.slice(3);
     : bloque === 'escenas' ? <Escenas textos={textosEscenas} {base} areas={nav.areas} atenuar={portada.escenasAtenuar} variante={portada.escenasVariante} />
     : bloque === 'oficio' ? <Oficio {oficios} {base} />
     : bloque === 'como-funciona' ? <ComoFunciona animado={portada.comoFuncionaAnimado} />
+    : bloque === 'valorados' ? <Valorados cursos={valorados} {country} {precios} minimo={portada.valoradosMinimo} leidas={cifras.leidas} />
     : bloque === 'beneficios' ? <Beneficios copy={copy['benefits-heading']} {benefits} />
     : bloque === 'videos' ? <Videos {videos} />
     : bloque === 'guias' ? <Guias copy={copy.blog} {guiasDestacadas} {masGuias} />
