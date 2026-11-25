@@ -13,18 +13,18 @@ import { cmsImageUrl } from '@/lib/cms-media';
 import { getContentRepository } from '@/lib/emdash-content';
 import { renderMarkdown } from '@/lib/markdown';
 import type { ResolvedCourseContent } from '@/lib/emdash-content';
-import { checkoutPrice, quotable, quoteFreshUntil } from '@/lib/checkout-price';
-import { localPrice, type Country, type City } from '@/lib/countries';
+import { cotizarCurso } from '@/lib/precio-hoy';
+import type { Country, City } from '@/lib/countries';
 import { courseCover } from '@/lib/categories';
-import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-operations/public';
+import { readOperationalRating } from '@/plugins/sably-operations/public';
 import { faqsHonestas } from '@/lib/faq-honestas';
 import { requisitosDeFicha } from '@/lib/requisitos';
 import { DESCRIPCION_SIN_PRODUCTO, sinPromesas } from '@/lib/sin-producto';
 import { faqPagoPais } from '@/lib/medios-de-pago';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
-import { finDelTramo, mejorPromocion, promocionSiguiente } from '@/lib/promo';
-import { readActivePromosForRequest, readUpcomingPromos } from '@/plugins/sably-operations/public';
+import { finDelTramo, promocionSiguiente } from '@/lib/promo';
+import { readUpcomingPromos } from '@/plugins/sably-operations/public';
 import { env } from 'virtual:sably-runtime';
 import { countryAlternates, breadcrumbSchema, conMarca, faqSchema, courseSchema } from '@/lib/seo';
 import { SITE, CDN_URL } from '@/lib/site';
@@ -152,7 +152,11 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
    * La ficha sigue publicándose: conserva el SEO y capta el lead. Lo que se cae
    * es la cifra que afirma algo falso.
    */
-  const sinProducto = /PENDIENTE/i.test(course.data.hotmartUrl);
+  /* Precio, cupón y producto salen de `cotizarCurso` (src/lib/precio-hoy.ts),
+     la misma función que usan las tarjetas de portada, listados y relacionados:
+     una tarjeta nunca puede enseñar otra cifra que su ficha. */
+  const cotizacion = await cotizarCurso(course, country, ctx);
+  const { sinProducto } = cotizacion;
 
   /* Creador real del curso: la relación del CMS o, si falta, el autor que Hotmart
      publica en la página del producto (src/lib/creadores.ts). Sin creador no se
@@ -160,46 +164,26 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
      puede ser otro, y la ficha contradiría al checkout. */
   const creadoresVisibles = sinProducto ? [] : creators;
 
-  /* EmDash actualiza priceUSD como precio base editorial. La captura comercial
-     de Hotmart conserva prioridad mientras exista, igual que en CourseCard.
-     Precio real de Hotmart, igual que en CourseCard. Hasta ahora la ficha usaba
-     el de catálogo mientras las tarjetas de cursos relacionados ya usaban el real:
-     en la misma página podían convivir dos importes distintos para el mismo curso.
-     Se resuelve una vez aquí y de aquí beben la tarjeta de compra y la barra fija. */
   const operationalDb = (env as unknown as {SABLY_DB:D1Database}).SABLY_DB;
   const verifiedReviews = await readVerifiedCourseReviews(operationalDb,course.id).catch(()=>({reviews:[]}));
-  const real = await readOperationalPrice(operationalDb, course.id, country, ctx.locals).catch(() => null);
   /* Valoración PÚBLICA REAL de Hotmart (o null). Solo se pinta en el hero; no va
      al aggregateRating del schema porque es de un tercero (ver courseSchema más
      abajo). Nunca la del frontmatter, que era de catálogo/inventada. */
   const valoracion = await readOperationalRating(operationalDb, course.id, ctx.locals).catch(() => null);
-  /* Importe base sobre el que se aplica el cupón. Va al DOM en crudo para que el
-     controlador de promoción pueda recalcular en cliente sin volver a pedirlo. */
-  const montoBase = real ? real.monto : localPrice(course.data.priceUSD, country);
-  const monedaBase = real ? real.moneda : country.currency;
-
-  const activePromos = await readActivePromosForRequest((env as unknown as {SABLY_DB:D1Database}).SABLY_DB, ctx.locals).catch(() => []);
-  const promoRow = mejorPromocion(activePromos, { countryCode: country.code, proveedor, courseSlug: course.id, urlKey: ctx.url.searchParams.get('promo') });
+  /* Importe base sobre el que se aplica el cupón (`montoBase`): el real de Hotmart
+     o, sin él, el de catálogo. Va al DOM en crudo para que el controlador de
+     promoción pueda recalcular en cliente sin volver a pedirlo. */
+  const { real, montoBase, monedaBase, activePromos, promoCtx, promoRow, coupon, quote, freshUntil, currency, baseAmount, saving } = cotizacion;
   /* Qué campaña sigue al terminar la vigente (Black Friday → Cyber Monday → Navidad):
      la caja no promete «después vuelve a…» si a la misma hora empieza otra con
      descuento, y el precio rebajado no se retira en el relevo si sigue el mismo cupón. */
-  const promoCtx = { countryCode: country.code, proveedor, courseSlug: course.id, urlKey: ctx.url.searchParams.get('promo') };
   const proximas = promoRow?.hasta != null
     ? await readUpcomingPromos((env as unknown as {SABLY_DB:D1Database}).SABLY_DB).catch(() => [])
     : [];
   const promoSiguiente = promoRow ? promocionSiguiente(proximas, promoRow, promoCtx) : null;
   const finPrecioRebajado = promoRow ? (proximas.length ? finDelTramo(proximas, promoRow, promoCtx) : promoRow.hasta) : null;
-  const coupon = conCupon && promoRow ? promoRow.cupon : null;
-  const quote = sinProducto ? null : await checkoutPrice(course.id, course.data.hotmartUrl, country.code, coupon);
-  /* La ficha no puede vivir en caché más que la cotización que pinta: Hotmart
-     cambia la tasa de cambio sin aviso y la página guardada seguía un día entero
-     con el importe viejo (24-nov: 93.067 en la ficha, 95.506 en el pago). */
-  const freshUntil = sinProducto ? null : quoteFreshUntil(quote, quotable(course.id, course.data.hotmartUrl, country.code));
-  const currency = quote?.currency ?? monedaBase;
   const displayMoney = (value: number) => new Intl.NumberFormat(country.hreflang, {style:'currency', currency, currencyDisplay:'narrowSymbol', minimumFractionDigits:Number.isInteger(value) ? 0 : 2, maximumFractionDigits:2}).format(value) + ' ' + currency;
-  const baseAmount = quote?.base ?? montoBase;
-  const saving = quote?.reduced ? Math.round(100 * (1 - quote.reduced / quote.base)) : 0;
-  const offer = coupon && quote?.reduced && promoRow && saving === promoRow.pct
+  const offer = cotizacion.conOferta && quote?.reduced && promoRow && coupon
     ? {price:displayMoney(quote.reduced), saving, coupon, name:promoRow.nombre, end:promoRow.hasta, hastaPrecio:finPrecioRebajado}
     : null;
   /* Precio de lista para la pregunta «¿Cuánto cuesta?»: siempre el importe sin

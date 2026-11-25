@@ -32,13 +32,13 @@ const [nav, promo, monedas] = await Promise.all([
 const ordenAreas = new Map(nav.areas.map((a, i) => [a.slug, i]));
 const enOrden = byCategory.flatMap(g => g.courses).sort((a, b) =>
   (ordenAreas.get(a.data.category) ?? 99) - (ordenAreas.get(b.data.category) ?? 99) || Number(b.data.featured) - Number(a.data.featured));
-const ordenes = await ordenesDeCursos(enOrden, country, slug => nav.nombreDeArea.get(slug) ?? slug, Astro.locals);
+const ordenes = await ordenesDeCursos(enOrden, country, slug => nav.nombreDeArea.get(slug) ?? slug, { url: Astro.url, locals: Astro.locals });
 const encontrados = q ? filtrarCursos(enOrden, q, ordenes.buscable) : enOrden;
 const externas = CATEGORIES.filter(c => c.externalUrl);
 const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos', url: `${SITE.url}${base}/cursos/` }];
 ---
 
-<BaseLayout {title} {description} {country} pathAfterCountry="/cursos/" alternates={await countryAlternates('/cursos/')} {schemas} pageType="catalog" noindex={!!q} temaV2>
+<BaseLayout {title} {description} {country} pathAfterCountry="/cursos/" alternates={await countryAlternates('/cursos/')} {schemas} pageType="catalog" noindex={!!q} freshUntil={ordenes.freshUntil} temaV2>
   <section class="border-b border-navy-100 bg-white">
     <div class="v2-contenedor pt-6 pb-8 lg:pt-8 lg:pb-10">
       <Migas items={migas} oscuro={false} />
@@ -76,7 +76,7 @@ const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos',
         </div>
       </div>
     ) : (
-      <RejillaCursos id="cursos" cursos={encontrados} {country} {promo} {base} ordenNota={ordenes.ordenNota} ordenPrecio={ordenes.ordenPrecio} buscable={ordenes.buscable} filtrable visibles={q ? encontrados.length : 24} />
+      <RejillaCursos id="cursos" cursos={encontrados} {country} {promo} {base} ordenNota={ordenes.ordenNota} ordenPrecio={ordenes.ordenPrecio} precios={ordenes.precios} buscable={ordenes.buscable} filtrable visibles={q ? encontrados.length : 24} />
     )}
   </section>
 
