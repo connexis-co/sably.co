@@ -24,6 +24,8 @@ export interface AjustesV2 {
   mostrarCreador: boolean;
   /** Bloque del docente real (C5): solo en cursos con docente con fuente. */
   mostrarDocente: boolean;
+  /** «Disponible online en {país}» con las ciudades del país, en texto y sin enlaces. */
+  mostrarCiudades: boolean;
   estiloCampo: EstiloCampo;
 }
 
@@ -57,6 +59,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     },
     mostrarCreador: v.mostrarCreador !== false,
     mostrarDocente: v.mostrarDocente !== false,
+    mostrarCiudades: v.mostrarCiudades !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
   };
 }

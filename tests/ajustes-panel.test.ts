@@ -22,6 +22,8 @@ const ANTES = {
     mostrarCreador: ['boolean', null, true],
     // Clave nueva (25-nov, punto C5): no reordena ni cambia ninguna de las anteriores.
     mostrarDocente: ['boolean', null, true],
+    // Clave nueva (25-nov, ciudades en la ficha V2): tampoco reordena las anteriores.
+    mostrarCiudades: ['boolean', null, true],
     estiloCampo: ['select', ['outlined', 'filled', 'underline'], 'outlined'],
   },
   integraciones: {
@@ -72,6 +74,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     caja: { variante: 'cuenta-clara', contador: 'barra', titulo: 'Empieza {curso}', subtitulo: 'Lecciones en vídeo, a tu ritmo.' },
     mostrarCreador: true,
     mostrarDocente: true,
+    mostrarCiudades: true,
     estiloCampo: 'outlined',
   });
   const prefijo = 'plugin:sably-integrations:settings:';
