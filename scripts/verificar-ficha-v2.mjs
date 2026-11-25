@@ -33,8 +33,13 @@ async function abrir(url, ancho) {
   const page = await navegador.newPage();
   if (credenciales) await page.authenticate(credenciales);
   await page.setViewport({ width: ancho.width, height: ancho.height, isMobile: !!ancho.isMobile, hasTouch: !!ancho.hasTouch, deviceScaleFactor: 1 });
-  await page.goto(url, { waitUntil: 'networkidle2', timeout: 120_000 });
-  await espera(800);
+  // El Worker de dev.sably.co a veces responde un error suelto: hasta tres intentos.
+  for (let intento = 1; intento <= 3; intento++) {
+    const respuesta = await page.goto(url, { waitUntil: 'networkidle2', timeout: 120_000 }).catch(() => null);
+    await espera(800);
+    if (respuesta?.ok() && (await page.$('body[data-theme]'))) break;
+    if (intento === 3) console.error(`${url}: ${respuesta?.status() ?? 'sin respuesta'} tras 3 intentos`);
+  }
   return page;
 }
 
