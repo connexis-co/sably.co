@@ -18,7 +18,7 @@ import RatingInteractivo from '@/components/RatingInteractivo.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import PurchasePanel from '@/components/PurchasePanel.astro';
-import { checkoutPrice } from '@/lib/checkout-price';
+import { checkoutPrice, quotable, quoteFreshUntil } from '@/lib/checkout-price';
 import CoursePlayer from '@/components/CoursePlayer.astro';
 import LeadModal from '@/components/LeadModal.astro';
 import {
@@ -187,6 +187,10 @@ const activePromos = await readActivePromosForRequest((env as unknown as {SABLY_
 const promoRow = mejorPromocion(activePromos, { countryCode: country.code, proveedor, courseSlug: course.id, urlKey: Astro.url.searchParams.get('promo') });
 const coupon = conCupon && promoRow ? promoRow.cupon : null;
 const quote = sinProducto ? null : await checkoutPrice(course.id, course.data.hotmartUrl, country.code, coupon);
+/* La ficha no puede vivir en caché más que la cotización que pinta: Hotmart
+   cambia la tasa de cambio sin aviso y la página guardada seguía un día entero
+   con el importe viejo (24-nov: 93.067 en la ficha, 95.506 en el pago). */
+const freshUntil = sinProducto ? null : quoteFreshUntil(quote, quotable(course.id, course.data.hotmartUrl, country.code));
 const currency = quote?.currency ?? monedaBase;
 const displayMoney = (value: number) => new Intl.NumberFormat(country.hreflang, {style:'currency', currency, currencyDisplay:'narrowSymbol', minimumFractionDigits:Number.isInteger(value) ? 0 : 2, maximumFractionDigits:2}).format(value) + ' ' + currency;
 const baseAmount = quote?.base ?? montoBase;
@@ -367,6 +371,7 @@ const schemas = [
   pageType={city ? 'course_city' : 'course'}
   image={cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug)}
   noindex={sinProducto}
+  {freshUntil}
   sinCupon={true}
   {proveedor}
   whatsappContext={city ? `${course.data.title} (${city.name})` : course.data.title}
@@ -464,7 +469,8 @@ const schemas = [
         }
         </div>
         <div class="order-5 rounded-lg bg-white p-4 lg:p-0">
-        {sinProducto ? <p class="mt-5 font-bold">Próximamente</p> : <PurchasePanel markets={marketLinks} country={country.name} price={displayMoney(baseAmount)} checkout={localCheckout.href} {offer} />}
+        {sinProducto ? <p class="mt-5 font-bold">Próximamente</p> : <PurchasePanel markets={marketLinks} country={country.name} price={displayMoney(baseAmount)} checkout={localCheckout.href} {offer}
+          evidence={{currency, base:baseAmount, reduced:offer && quote?.reduced ? quote.reduced : null, source:quote ? 'hotmart' : 'respaldo', at:quote?.at ?? null}} />}
         {
           /* Sin producto no hay checkout al que mandar a nadie: `hotmartUrl`
              sigue siendo el marcador `PENDIENTE` y ese enlace acaba en la
