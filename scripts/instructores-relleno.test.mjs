@@ -83,3 +83,15 @@ test('la lista publicada tiene los 106 nombres y ningún creador real', () => {
   assert.equal(new Set(lista).size, 106);
   assert(!lista.some((n) => /masterclasses|seminarios/i.test(n)));
 });
+
+test('texto enriquecido: el encabezado se queda sin el nombre y un bloque vacío desaparece', () => {
+  const bloque = (style, text, k) => ({ _type: 'block', _key: k, style, markDefs: [], children: [{ _type: 'span', _key: `${k}-s`, text, marks: [] }] });
+  const { datos, cambios } = limpiarEntrada({ body: [
+    bloque('h3', `Aprendizaje práctico guiado por ${N}`, 'a'),
+    bloque('normal', `Clases dictadas por ${N}.`, 'b'),
+    bloque('normal', 'El temario sigue igual.', 'c'),
+  ] }, [N]);
+  assert.deepEqual(datos.body.map((b) => [b.style, b.children[0].text]), [['h3', 'Aprendizaje práctico'], ['normal', 'El temario sigue igual.']]);
+  assert.ok(cambios.some((c) => c.regla === 'bloque-eliminado' && c.campo === 'body[1]'));
+  assert.ok(!JSON.stringify(datos).includes(N));
+});
