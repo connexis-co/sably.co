@@ -7,7 +7,8 @@ export { default as SectionHeading } from '@/components/SectionHeading.astro';
 export { SABLY_THEME } from './sably-classic/manifest';
 export { default as PageTemplate } from './sably-classic/layouts/Page.astro';
 
-export { default as CountryHomeView } from './sably-classic/pages/country-home.astro';
+/** Las vistas de src/themes/vistas/ eligen entre el clásico y V2 según el tema de la petición. */
+export { default as CountryHomeView } from './vistas/CountryHome.astro';
 export { default as CountryCatalogView } from './sably-classic/pages/country-catalog.astro';
 export { default as CountryCategoryView } from './sably-classic/pages/country-category.astro';
 export { default as MarketItemView } from './sably-classic/pages/market-item.astro';

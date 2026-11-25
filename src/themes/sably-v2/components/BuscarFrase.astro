@@ -1,0 +1,16 @@
+---
+/**
+ * Buscador del héroe y del cierre: un formulario GET al listado de cursos
+ * (/xx/cursos/?q=…), que funciona sin JavaScript. Con JavaScript, enfocar el
+ * campo abre el buscador con sugerencias (Buscador.astro) con lo ya escrito.
+ */
+import Ico from './Ico.astro';
+interface Props { base: string; id: string; claro?: boolean; class?: string; valor?: string; etiqueta?: string }
+const { base, id, claro = false, class: clase, valor, etiqueta = '¿Qué oficio quieres aprender?' } = Astro.props;
+---
+<form action={`${base}/cursos/`} method="get" role="search" class:list={['v2-buscar-frase relative flex items-center gap-2 rounded-c-lg bg-white p-2 pl-4 shadow-s2', claro && 'ring-1 ring-navy-100', clase]} data-buscar-frase>
+  <Ico nombre="search" class="flex-none text-navy-700" />
+  <label for={id} class="sr-only">{etiqueta}</label>
+  <input {id} name="q" type="search" value={valor} placeholder={etiqueta} autocomplete="off" enterkeyhint="search" class="h-12 min-w-0 flex-1 bg-transparent text-t17 text-navy-950 outline-none placeholder:text-navy-500" />
+  <button type="submit" class="v2-btn v2-btn-principal flex-none max-sm:w-12 max-sm:px-0" data-alto="48" aria-label="Buscar"><span class="max-sm:hidden">Buscar</span><Ico nombre="search" tamano={18} class="sm:hidden" /></button>
+</form>

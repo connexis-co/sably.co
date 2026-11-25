@@ -1,0 +1,9 @@
+---
+/** Elige la portada de país del tema de la petición (src/lib/ajustes-tema.ts). */
+import Clasica from '../sably-classic/pages/country-home.astro';
+import V2 from '../sably-v2/pages/country-home.astro';
+import { temaDeLaPeticion } from '@/lib/ajustes-tema';
+type Props = Parameters<typeof Clasica>[0];
+const v2 = (await temaDeLaPeticion(Astro)).tema === 'v2';
+---
+{v2 ? <V2 {...Astro.props as Props} /> : <Clasica {...Astro.props as Props} />}

@@ -1,0 +1,29 @@
+---
+/**
+ * Preguntas frecuentes V2: una sola columna con el título arriba (regla del
+ * rediseño). Las respuestas están en el HTML aunque estén plegadas y son las
+ * mismas que el FAQPage del JSON-LD de la página.
+ */
+import Acordeon from '@/components/v2/Acordeon.astro';
+interface Props { /** Las respuestas vienen del CMS: las reglas de plantilla de seo-test no las cuentan. */ cms?: boolean; titulo: string; antetitulo?: string; faqs: { q: string; a: string }[]; whatsapp?: string; id?: string; class?: string; nivel?: 2 | 3 }
+const { cms = true, titulo, antetitulo, faqs, whatsapp, id = 'preguntas', class: clase, nivel = 2 } = Astro.props;
+const H = nivel === 2 ? 'h2' : 'h3';
+---
+<section class:list={['v2-contenedor', clase]} aria-labelledby={`${id}-titulo`} data-cms={cms ? '' : undefined}>
+  <div class="mx-auto max-w-[760px]">
+    {antetitulo && <p class="v2-antetitulo text-navy-700">{antetitulo}</p>}
+    <H id={`${id}-titulo`} class:list={['font-display text-d28 lg:text-d40', antetitulo && 'mt-3']}>{titulo}</H>
+    {whatsapp && (
+      <p class="mt-4 flex flex-wrap items-center gap-3 text-t15 text-navy-700">¿Otra duda?
+        <a href={whatsapp} target="_blank" rel="noopener nofollow" class="v2-btn v2-btn-whatsapp" data-alto="48"><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" />Escríbenos por WhatsApp</a>
+      </p>
+    )}
+    <div class="mt-6 border-t border-navy-100">
+      {faqs.map(f => (
+        <Acordeon titulo={f.q} grupo={id} icono="mas" class="border-b border-navy-100" tituloClass="min-h-16 py-4 text-left text-t17 font-semibold text-navy-950">
+          <p class="max-w-[640px] pb-6 text-t17 whitespace-pre-line text-navy-700">{f.a}</p>
+        </Acordeon>
+      ))}
+    </div>
+  </div>
+</section>
