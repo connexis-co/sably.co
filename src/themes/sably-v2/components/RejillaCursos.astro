@@ -33,7 +33,7 @@ const conFranja = !!promo && cursos.length > 12;
 ---
 <div class="v2-rejilla-raiz" data-rejilla={filtrable ? id : undefined}>
   {conOrden && cursos.length > 2 && (
-    <fieldset class="v2-orden -mx-5 flex items-center gap-2 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 [&>label]:flex-none">
+    <fieldset class="v2-orden -mx-5 flex min-w-0 items-center gap-2 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 [&>label]:flex-none">
       <legend class="sr-only">Ordenar los cursos</legend>
       <span class="mr-1 flex items-center gap-1.5 text-t15 text-navy-500" aria-hidden="true"><Ico nombre="arrow-up-down" tamano={16} />Ordenar</span>
       <input type="radio" name={`${id}-orden`} id={`${id}-rec`} value="rec" checked class="peer/rec sr-only" /><label for={`${id}-rec`} class="v2-chip">Recomendados</label>
