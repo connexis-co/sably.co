@@ -12,6 +12,8 @@ import BandaPromo from '../components/BandaPromo.astro';
 import Heroe, { type OficioMosaico } from '../components/portada/Heroe.astro';
 import Cifras from '../components/portada/Cifras.astro';
 import Categorias from '../components/portada/Categorias.astro';
+import CategoriasPila from '../components/portada/categorias/Pila.astro';
+import CategoriasFilas from '../components/portada/categorias/Filas.astro';
 import Destacados from '../components/portada/Destacados.astro';
 import Oficio from '../components/portada/Oficio.astro';
 import ComoFunciona from '../components/portada/ComoFunciona.astro';
@@ -33,7 +35,7 @@ import { readOperationalRatings } from '@/plugins/sably-operations/public';
 import { cifrasPortada } from '../cifras';
 import { datosNavegacion, comprable } from '../navegacion';
 import { promoDeLaPagina } from '../promo-v2';
-import { fotoDeCurso, OFICIOS_MOSAICO, type NombreFoto } from '../fotos';
+import { fotoDeCurso, OFICIOS_MOSAICO, OFICIOS_HEROE, type NombreFoto } from '../fotos';
 import type { load } from '@/lib/page-loaders/country-home';
 import '../estilos.css';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
@@ -65,9 +67,12 @@ const portada = ajustes.portada;
    otro en el panel. Precio de cada tarjeta y de cada oficio: el mismo que su ficha da como precio a pagar hoy
    (src/lib/precio-hoy.ts), nunca la captura vieja ni el de catálogo. */
 /* Foto del mosaico: la de su oficio hecha para el mosaico (fotos.ts, OFICIOS_MOSAICO) o, si no hay, la de su área. */
-const fotoMosaico = (id: string, area: string) => OFICIOS_MOSAICO.find(o => o.curso === id)?.foto ?? fotoDeCurso(id, area);
-/* Sin lista en el panel, los doce oficios con foto propia, completados con los destacados y mejor valorados. */
-const elegidos = portada.heroe.cursos.length ? portada.heroe.cursos : ordenarPorVisitas(OFICIOS_MOSAICO.map(o => o.curso));
+const fotoMosaico = (id: string, area: string) => (OFICIOS_HEROE.find(o => o.curso === id) ?? OFICIOS_MOSAICO.find(o => o.curso === id))?.foto ?? fotoDeCurso(id, area);
+/* Sin lista en el panel, los 12 oficios que eligió JP (HEROES-X §10.1), en su orden; si alguno cierra inscripción,
+   se completan con los de foto propia (por visitas) y los destacados. La variante «mosaico» sigue con su lista. */
+const elegidos = portada.heroe.cursos.length ? portada.heroe.cursos
+  : portada.heroe.variante === 'mosaico' && !portada.pruebaHeroe ? ordenarPorVisitas(OFICIOS_MOSAICO.map(o => o.curso))
+  : [...OFICIOS_HEROE.map(o => o.curso), ...ordenarPorVisitas(OFICIOS_MOSAICO.map(o => o.curso))];
 const enMosaico = inventarioMosaico(allCourses.map(c => ({
   id: c.id, destacado: Boolean(c.data.featured), valoraciones: valoraciones[c.id]?.total ?? 0, comprable: comprable(c), foto: fotoMosaico(c.id, c.data.category),
 })), elegidos, undefined, !portada.heroe.cursos.length).map(m => allCourses.find(c => c.id === m.id)!);
@@ -106,10 +111,12 @@ const guiasDestacadas = posts.slice(0, 3);
 const masGuias = posts.slice(3);
 ---
 <BaseLayout {title} {description} {country} pathAfterCountry="/" alternates={await countryAlternates('/')} schemas={[faqSchema(faqs)]} pageType="home" {freshUntil} temaV2>
-  <Heroe textos={copy.hero} {base} locale={country.hreflang} areas={nav.areas} {celdas} oficios={oficiosHeroe} rotacion={portada.heroe} variante={portada.heroe.variante} botones={portada.heroe.botones} tachar={portada.heroe.tachar} prueba={pruebaHeroe} extra={extraBusqueda} />
+  <Heroe textos={copy.hero} {base} locale={country.hreflang} areas={nav.areas} {celdas} oficios={oficiosHeroe} rotacion={portada.heroe} variante={portada.heroe.variante} fondo={portada.heroe.fondo} pruebaAB={portada.pruebaHeroe} botones={portada.heroe.botones} tachar={portada.heroe.tachar} prueba={pruebaHeroe} extra={extraBusqueda} />
   {portada.bloques.map(bloque => (
     bloque === 'cifras' ? <Cifras {cifras} {country} />
-    : bloque === 'categorias' ? <Categorias copy={copy.categories} {base} {conFoto} {resto} {externas} total={nav.areas.length} />
+    : bloque === 'categorias' ? (portada.categoriasVariante === 'pila' ? <CategoriasPila copy={copy.categories} {base} {conFoto} {resto} {externas} total={nav.areas.length} />
+      : portada.categoriasVariante === 'filas' ? <CategoriasFilas copy={copy.categories} {base} {conFoto} {resto} {externas} total={nav.areas.length} />
+      : <Categorias copy={copy.categories} {base} {conFoto} {resto} {externas} total={nav.areas.length} />)
     : bloque === 'convergen' ? <Convergen oficios={oficiosHeroe} {base} cursos={nav.totalCursos} areas={nav.areas.length} paises={cifras.paises} hoy={cifras.hoy} />
     : bloque === 'destacados' ? <Destacados copy={copy.courses} {featured} {country} {precios} {base} {moneda} totalCursos={nav.totalCursos} />
     : bloque === 'promo' ? <BandaPromo {promo} {base} class="pt-20 lg:pt-24" />

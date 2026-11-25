@@ -1,0 +1,41 @@
+---
+/**
+ * Fondo «aurora» opcional para las variantes de banda azul noche (prototipo 13). Tres manchas de color que ya vienen
+ * difuminadas (gradiente radial que acaba en transparente, sin `filter`) y solo se mueven con `translate` y `rotate`.
+ * Heroe la pone como primer hijo de la sección, dentro de `.v2-heroe-fondo` (z-index 0, la caja del texto va a z-index 1).
+ * Se detiene fuera de pantalla, en pestaña oculta y con la pausa de la variante (atributo `data-pausado` de la
+ * sección `[data-heroe]`). Con «reducir movimiento» las manchas quedan quietas; en móvil también (sin botón de
+ * pausa a mano y con menos coste), y allí sobra la tercera mancha.
+ */
+---
+<div class="v2-aur" aria-hidden="true" data-aurora><i></i><i></i><i></i></div>
+
+<style is:inline>
+  @layer components {
+    .v2-aur { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: clip; }
+    .v2-aur > i { position: absolute; width: 60vmax; height: 60vmax; border-radius: 50%; opacity: .55; }
+    .v2-aur > i:nth-child(1) { left: 5%; top: -10%; background: radial-gradient(closest-side, rgb(201 44 82 / .85), rgb(201 44 82 / 0)); }
+    .v2-aur > i:nth-child(2) { right: -5%; bottom: -15%; background: radial-gradient(closest-side, rgb(90 90 190 / .9), rgb(90 90 190 / 0)); }
+    .v2-aur > i:nth-child(3) { left: 40%; top: 30%; width: 40vmax; height: 40vmax; opacity: .5; background: radial-gradient(closest-side, rgb(224 179 74 / .45), rgb(224 179 74 / 0)); }
+    @media (max-width: 1023.98px) { .v2-aur > i:nth-child(3) { display: none; } }
+    @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+      @keyframes v2-aur-deriva1 { to { translate: 30% 18%; rotate: 40deg; } }
+      @keyframes v2-aur-deriva2 { to { translate: -26% -20%; rotate: -30deg; } }
+      .v2-aur > i { animation-iteration-count: infinite; animation-direction: alternate; animation-timing-function: cubic-bezier(.4, 0, .2, 1); }
+      .v2-aur > i:nth-child(1) { animation-name: v2-aur-deriva1; animation-duration: calc(26s * var(--m, 1)); }
+      .v2-aur > i:nth-child(2) { animation-name: v2-aur-deriva2; animation-duration: calc(32s * var(--m, 1)); }
+      .v2-aur > i:nth-child(3) { animation-name: v2-aur-deriva1; animation-duration: calc(38s * var(--m, 1)); animation-direction: alternate-reverse; }
+      [data-heroe][data-pausado] .v2-aur > i, .v2-aur[data-fuera] > i { animation-play-state: paused; }
+    }
+  }
+</style>
+
+<script>
+  for (const aurora of document.querySelectorAll<HTMLElement>('[data-aurora]')) {
+    if (!aurora.checkVisibility()) continue;
+    let enVista = true;
+    const aplica = () => aurora.toggleAttribute('data-fuera', !enVista || document.hidden);
+    new IntersectionObserver(([e]) => { enVista = !!e?.isIntersecting; aplica(); }).observe(aurora);
+    document.addEventListener('visibilitychange', aplica);
+  }
+</script>

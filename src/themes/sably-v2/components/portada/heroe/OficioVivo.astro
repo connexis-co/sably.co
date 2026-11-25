@@ -31,7 +31,7 @@ const { oficios, base, locale, tachar, rota, intervalo, aleatorio } = Astro.prop
   {rota && <span class="v2-vivo-progreso" aria-hidden="true" hidden data-rota-progreso><span data-rota-reloj></span></span>}
 </div>
 
-<style is:global>
+<style is:inline>
   @layer components {
     .v2-vivo { position: relative; }
     .v2-vivo-marco { position: relative; overflow: hidden; border-radius: var(--radius-c-xl); background: var(--color-navy-900); aspect-ratio: 4 / 3; }

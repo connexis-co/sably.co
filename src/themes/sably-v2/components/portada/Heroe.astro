@@ -18,6 +18,13 @@ import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
 import Vitrina from './heroe/Vitrina.astro';
 import OficioVivo from './heroe/OficioVivo.astro';
 import Abanico from './heroe/Abanico.astro';
+import Collage from './heroe/Collage.astro';
+import Muro from './heroe/Muro.astro';
+import Cintas from './heroe/Cintas.astro';
+import Orbita from './heroe/Orbita.astro';
+import Anillo3d from './heroe/Anillo3d.astro';
+import Aurora from './heroe/Aurora.astro';
+import type { PruebaHeroe, VarianteHeroe } from '@/lib/ajustes-tema';
 import type { ExtraBusqueda } from '../../buscar-sugerencias';
 
 export interface OficioMosaico { id: string; titulo: string; foto: NombreFoto; precio: PrecioTarjeta | null; nota: { cifra: string; texto: string } | null }
@@ -30,7 +37,11 @@ interface Props {
   /** Los mismos oficios en una lista (variantes vitrina, buscador y abanico). */
   oficios: OficioMosaico[];
   rotacion: { rota: boolean; intervalo: number; orden: 'aleatorio' | 'fijo' };
-  variante?: 'vitrina' | 'buscador' | 'abanico' | 'mosaico';
+  variante?: VarianteHeroe;
+  /** Fondo «aurora» opcional (solo en variantes de fondo oscuro). */
+  fondo?: 'liso' | 'aurora';
+  /** Prueba A/B encendida: el HTML lleva las ramas de todas sus variantes y un guion en línea elige una antes de pintar. */
+  pruebaAB?: PruebaHeroe | null;
   botones?: 'dos' | 'uno';
   tachar?: boolean;
   /** Línea de prueba real bajo los botones («★ 4,2 de media en 3.314 valoraciones…»); null = no sale. */
@@ -38,8 +49,17 @@ interface Props {
   /** Áreas y guías para las sugerencias del buscador. */
   extra?: ExtraBusqueda[];
 }
-const { textos, base, locale, areas, celdas, oficios, rotacion, variante = 'mosaico', botones = 'dos', tachar = true, prueba = null, extra = [] } = Astro.props;
+const { textos, base, locale, areas, celdas, oficios, rotacion, variante: elegida = 'collage', fondo = 'liso', botones = 'dos', tachar = true, prueba = null, extra = [], pruebaAB = null } = Astro.props;
+const ab = pruebaAB;
+/* Con la prueba encendida, la de control (la primera) es la que llevan el HTML y los bots; el guion en línea la cambia. */
+const variante: VarianteHeroe = ab ? ab.variantes[0]! : elegida;
+const ramas: VarianteHeroe[] = ab ? ab.variantes : [variante];
+const ESCAPARATE = { collage: Collage, muro: Muro, cintas: Cintas, orbita: Orbita, anillo3d: Anillo3d, vitrina: Vitrina, buscador: OficioVivo, abanico: Abanico } as const;
+/* Aurora: la pide el panel o la lleva la órbita; el collage (fondo arena) la oculta por CSS. */
+const conAurora = fondo === 'aurora' || ramas.includes('orbita');
 const nueva = variante !== 'mosaico';
+/* Reglas que enseñan solo la rama elegida (el resto queda en display:none: sin foto pedida ni foco). */
+const cssRamas = ab ? ab.variantes.map(v => `[data-heroe='${v}'] [data-heroe-rama='${v}']{display:contents}`).join('') : '';
 const rotaLista = rotacion.rota && oficios.length > 1;
 const props = { oficios, base, locale, tachar, rota: rotaLista, intervalo: rotacion.intervalo, aleatorio: rotacion.orden === 'aleatorio' };
 const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u, '');
@@ -50,15 +70,35 @@ const SIZES = ['(min-width: 1024px) 300px, 92vw', '(min-width: 1024px) 228px, 45
 const corto = (t: string) => { const r = t.replace(/^curso\s+(online\s+)?(de|del)\s+/i, ''); return r.charAt(0).toUpperCase() + r.slice(1); };
 const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.replace(/ calificaciones.*$/, '')} en Hotmart`;
 ---
-<section class="relative overflow-x-clip bg-navy-950 text-white" data-heroe={variante}>
-  <div class:list={['v2-contenedor grid items-center gap-10 pt-10 pb-14 lg:gap-14 lg:pt-24 lg:pb-24', variante === 'vitrina' ? 'lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]' : 'lg:grid-cols-[minmax(0,1fr)_minmax(0,540px)]']}>
-    <div>
-      <p class="v2-antetitulo text-white/80">{sinPrefijo(textos.eyebrow)}</p>
-      <h1 class:list={['mt-5 font-display text-[40px]/[44px] tracking-[-0.015em] !text-white', variante === 'vitrina' ? 'lg:text-[56px]/[60px]' : 'lg:text-d72']}>{textos.title}<br /><span class="text-coral-500">{textos.accent}</span></h1>
-      <p class="mt-5 max-w-[560px] text-t17 text-white/80 lg:text-t20">{textos.description}</p>
+<section class="v2-heroe relative isolate overflow-x-clip" data-heroe={variante} data-heroe-ab={ab ? variante : undefined}>
+  {ab && <script is:inline define:vars={{ AB: { v: ab.variantes, p: ab.pesos, i: ab.inicio || 'sin-fecha' } }}>
+    /* Prueba A/B del héroe (HEROES-X §11). Corre al leer la apertura de la sección, antes de que exista ni se pinte
+       nada de dentro: elige la rama sin salto de maquetación. El HTML es el mismo para todos (caché del borde). */
+    var s = document.currentScript.parentNode, v = AB.v, e = v[0];
+    try {
+      var q = new URLSearchParams(location.search).get('heroe_ab');
+      var bot = navigator.webdriver || /bot|crawl|spider|slurp|mediapartners|lighthouse|pagespeed|gptbot|chatgpt|oai-|claude|perplexity|bingpreview|facebookexternalhit|preview/i.test(navigator.userAgent);
+      var m = document.cookie.match(/(?:^|; )sably_ab_heroe=([^;]*)/), c = m ? decodeURIComponent(m[1]).split('|') : [];
+      if (q && v.indexOf(q) >= 0) e = q;
+      else if (bot) e = v[0];
+      else if (c[0] === AB.i && v.indexOf(c[1]) >= 0) e = c[1];
+      else {
+        for (var r = Math.random(), a = 0, i = 0; i < v.length; i++) { a += AB.p[i]; if (r < a || i === v.length - 1) { e = v[i]; break; } }
+        document.cookie = 'sably_ab_heroe=' + encodeURIComponent(AB.i + '|' + e) + ';max-age=2592000;path=/;samesite=lax' + (location.protocol === 'https:' ? ';secure' : '');
+      }
+    } catch (x) { /* sin cookie ni almacenamiento: la de control */ }
+    s.setAttribute('data-heroe', e); s.setAttribute('data-heroe-ab', e);
+  </script>}
+  {ab && <style set:html={`[data-heroe-rama]{display:none}${cssRamas}`} />}
+  {conAurora && <div class="v2-heroe-fondo" aria-hidden="true"><Aurora /></div>}
+  <div class="v2-heroe-caja v2-contenedor grid items-center gap-10 pt-10 pb-14 lg:gap-14 lg:pt-24 lg:pb-24">
+    <div class="v2-heroe-texto">
+      <p class="v2-antetitulo v2-ht-suave">{sinPrefijo(textos.eyebrow)}</p>
+      <h1 class="v2-heroe-h1 mt-5 font-display text-[40px]/[44px] tracking-[-0.015em] lg:text-d72">{textos.title}<br /><span class="v2-ht-acento">{textos.accent}</span></h1>
+      <p class="v2-ht-suave mt-5 max-w-[560px] text-t17 lg:text-t20">{textos.description}</p>
       <Buscar base={base} id="buscar-heroe" class="mt-8 max-w-[600px]" {extra} />
-      <p class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-t15 text-white/70">Para empezar:
-        {areas.slice(0, 4).map(a => <a href={`${base}/cursos/${a.slug}/`} class="text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">{a.nombre.toLowerCase()}</a>)}
+      <p class="v2-ht-tenue mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-t15">Para empezar:
+        {areas.slice(0, 4).map(a => <a href={`${base}/cursos/${a.slug}/`} class="v2-ht-enlace underline underline-offset-4">{a.nombre.toLowerCase()}</a>)}
       </p>
       {nueva ? (
         <p class="mt-6 flex flex-wrap items-center gap-3">
@@ -71,11 +111,12 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
           <a href="#categorias" class="v2-enlace min-h-11 !text-white/80">{textos.secondary}</a>
         </p>
       )}
-      {nueva && prueba && <p class="mt-5 flex items-center gap-2 text-t15 text-white/75"><Ico nombre="star" tamano={15} class="text-[#F5B544]" />{prueba}</p>}
+      {nueva && prueba && <p class="v2-ht-tenue mt-5 flex items-center gap-2 text-t15"><Ico nombre="star" tamano={15} class="text-[#F5B544]" />{prueba}</p>}
     </div>
-    {variante === 'vitrina' && oficios.length > 0 && <Vitrina {...props} />}
-    {variante === 'buscador' && oficios.length > 0 && <OficioVivo {...props} />}
-    {variante === 'abanico' && oficios.length > 0 && <Abanico {...props} />}
+    {nueva && oficios.length > 0 && ramas.map(v => {
+      const Escaparate = ESCAPARATE[v as keyof typeof ESCAPARATE];
+      return ab ? <div data-heroe-rama={v}><Escaparate {...props} /></div> : <Escaparate {...props} />;
+    })}
     {!nueva && celdas.length > 0 && (
       <div class="v2-mosaico" data-mosaico={rota ? '' : undefined} data-intervalo={rotacion.intervalo} data-orden={rotacion.orden} role="group" aria-roledescription="mosaico" aria-label="Oficios para empezar">
         {celdas.map((oficios, c) => (
@@ -112,6 +153,25 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
 
 <style is:global>
   @layer components {
+    /* Tinta y fondo de la banda: azul noche con texto blanco; el collage va sobre arena con texto azul noche. */
+    .v2-heroe { --ht-fondo: var(--color-navy-950); --ht-tinta: #fff; --ht-suave: rgb(255 255 255 / .8); --ht-tenue: rgb(255 255 255 / .72); --ht-acento: var(--color-coral-500); --ht-linea: rgb(255 255 255 / .4); background: var(--ht-fondo); color: var(--ht-tinta); }
+    .v2-heroe[data-heroe='collage'] { --ht-fondo: #f6efe6; --ht-tinta: var(--color-navy-950); --ht-suave: var(--color-navy-700); --ht-tenue: var(--color-navy-700); --ht-acento: var(--color-coral-600); --ht-linea: rgb(27 27 58 / .35); }
+    .v2-heroe-h1 { color: var(--ht-tinta) !important; }
+    .v2-ht-suave { color: var(--ht-suave); }
+    .v2-ht-tenue { color: var(--ht-tenue); }
+    .v2-ht-acento { color: var(--ht-acento); }
+    .v2-ht-enlace { color: var(--ht-tinta); text-decoration-color: var(--ht-linea); }
+    .v2-ht-enlace:hover { text-decoration-color: currentColor; }
+    .v2-heroe-caja, .v2-heroe-texto { position: relative; z-index: 1; }
+    @media (min-width: 1024px) {
+      .v2-heroe-caja { grid-template-columns: minmax(0, 1fr) minmax(0, 540px); }
+      [data-heroe='vitrina'] .v2-heroe-caja { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+      [data-heroe='vitrina'] .v2-heroe-h1 { font-size: 56px !important; line-height: 60px !important; }
+    }
+    .v2-heroe-fondo { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    [data-heroe='collage'] .v2-heroe-fondo { display: none; }
+    [data-heroe='collage'] .v2-heroe-secundario { color: var(--color-navy-950); box-shadow: inset 0 0 0 1.5px rgb(27 27 58 / .55); }
+    [data-heroe='collage'] .v2-heroe-secundario:hover { box-shadow: inset 0 0 0 1.5px var(--color-navy-950); }
     /* Variantes vitrina, buscador y abanico: pila de cursos donde solo se ve el actual; entra con fundido. */
     .v2-rota-item { position: absolute; inset: 0; display: block; opacity: 0; transition: opacity var(--t-escena, calc(700ms * var(--m))) var(--e-mueve); }
     .v2-rota-item:not([data-visible]) { display: none; }
@@ -248,3 +308,19 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
     if (document.readyState === 'complete') empezar(); else addEventListener('load', empezar, { once: true });
   }
 </script>
+
+<script>
+  /* Medición de la portada (HEROES-X §11): impresión de la prueba A/B del héroe y clic a una ficha de curso desde
+     la portada (métrica principal). El consentimiento lo aplican GTM/gtag (modo de consentimiento). */
+  import { trackEvent } from '@/lib/analytics';
+  const heroe = document.querySelector<HTMLElement>('[data-heroe]');
+  const ab = heroe?.dataset.heroeAb;
+  if (ab) trackEvent('experiment_impression', { experiment_id: 'heroe_portada', variant_id: ab });
+  const FICHA = /^\/[a-z]{2}\/(?!cursos\/|blog\/|buscar\/|guias\/)[^/]+\/$/;
+  document.addEventListener('click', e => {
+    const a = (e.target as Element | null)?.closest?.<HTMLAnchorElement>('a[href]');
+    if (!a || a.origin !== location.origin || !FICHA.test(a.pathname) || a.closest('header, footer, nav, dialog')) return;
+    trackEvent('click_course_home', { course_id: a.pathname.split('/')[2], zona: a.closest('[data-heroe]') ? 'heroe' : 'portada', heroe_variant: heroe?.dataset.heroe });
+  });
+</script>
+

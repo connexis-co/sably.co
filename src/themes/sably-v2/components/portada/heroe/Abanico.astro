@@ -35,7 +35,7 @@ const sitio = (i: number) => { const d = ((i % n) + n) % n; return d > n / 2 ? d
   {rota && <button type="button" class="v2-aba-pausa" data-rota-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" /><span class="sr-only" data-rota-pausa-texto>Pausar los cursos que cambian</span></button>}
 </div>
 
-<style is:global>
+<style is:inline>
   @layer components {
     .v2-abanico { position: relative; }
     .v2-aba-mesa { position: relative; height: 330px; }

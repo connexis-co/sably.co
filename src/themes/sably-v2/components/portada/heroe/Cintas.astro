@@ -1,0 +1,211 @@
+---
+/**
+ * Héroe «Cintas cinéticas»: dos cintas diagonales con los nombres de los oficios (cada uno, un enlace a su curso)
+ * que corren en sentidos opuestos sobre una foto en arco. Al bajar, el scroll empuja cada cinta hacia su lado
+ * (animation-timeline, propiedades largas). Con cursor fino, la vista previa de un oficio (foto, nota y precio)
+ * sigue al puntero (solo `translate`); con el teclado sale junto al enlace enfocado. Los precios, además, están
+ * siempre a la vista en la tira «Precio de hoy» bajo las cintas: ahí también llegan lectores de pantalla y táctil
+ * (en táctil no hay vista previa: tocar un oficio lleva a su ficha).
+ * Movimiento propio solo con JS activo y sin «reducir movimiento»; con «reducir», las cintas quedan quietas y se
+ * desplazan a mano. Pausa visible (WCAG 2.2.2), y también con cursor/foco, pestaña oculta y fuera de pantalla.
+ */
+import Foto from '../../Foto.astro';
+import Ico from '../../Ico.astro';
+import PrecioOficio from './PrecioOficio.astro';
+import { corto, notaCorta } from './comun';
+import type { OficioMosaico } from '../Heroe.astro';
+interface Props { oficios: OficioMosaico[]; base: string; locale: string; tachar: boolean; rota: boolean; intervalo: number; aleatorio: boolean }
+const { oficios, base, locale, tachar } = Astro.props;
+const medio = Math.ceil(oficios.length / 2);
+/* Cada cinta: tres juegos seguidos (copia, original, copia) para que el bucle no deje huecos a ningún lado. */
+const cintas = [oficios.slice(0, medio).map((o, i) => ({ o, i })), oficios.slice(medio).map((o, i) => ({ o, i: medio + i }))].filter(c => c.length > 0);
+const juegos = [true, false, true]; // true = copia decorativa (aria-hidden)
+const primero = oficios[0];
+---
+{primero && (
+<div class="v2-cin" data-cintas role="group" aria-label="Cursos para empezar">
+  <div class="v2-cin-escena">
+    <span class="v2-cin-arco" aria-hidden="true"><Foto nombre={primero.foto} sizes="(min-width: 1024px) 320px, 160px" prioridad={false} decorativa class="h-full w-full object-cover" /></span>
+    {cintas.map((cinta, k) => (
+      <div class="v2-cin-cinta" data-cinta={k}>
+        <span class="v2-cin-empuje">
+          <ul class="v2-cin-pista" role="list" aria-label={k === 0 ? 'Oficios' : 'Más oficios'}>
+            {juegos.map(copia => cinta.map(({ o, i }) => (
+              <li aria-hidden={copia ? 'true' : undefined} data-copia={copia ? '' : undefined}>
+                <a href={`${base}/${o.id}/`} class="v2-cin-link" data-i={i} tabindex={copia ? -1 : undefined}>{corto(o.titulo)}</a>
+                <span class="v2-cin-marca" aria-hidden="true">✱</span>
+              </li>
+            )))}
+          </ul>
+        </span>
+      </div>
+    ))}
+    <button type="button" class="v2-cin-pausa" data-cin-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={16} class="v2-ico-pausa" /><Ico nombre="play" tamano={16} class="v2-ico-seguir" /><span class="sr-only" data-cin-pausa-texto>Pausar las cintas en movimiento</span></button>
+  </div>
+
+  <ul class="v2-cin-lista" role="list" aria-label="Precio de hoy de cada curso">
+    {oficios.map(o => (
+      <li>
+        <a href={`${base}/${o.id}/`} class="v2-heroe-curso v2-cin-chip">
+          <strong class="line-clamp-1 text-t13 font-semibold">{corto(o.titulo)}</strong>
+          <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t15" />
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="v2-cin-vista" data-cin-vista aria-hidden="true">
+    {oficios.map((o, i) => (
+      <div class="v2-cin-ficha" data-i={i} hidden>
+        <span class="v2-cin-ficha-foto"><Foto nombre={o.foto} sizes="240px" prioridad={false} decorativa class="h-full w-full object-cover" /></span>
+        <strong class="mt-2 line-clamp-2 block text-t15 font-semibold">{corto(o.titulo)}</strong>
+        {o.nota && <span class="mt-0.5 flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
+        <PrecioOficio precio={o.precio} {locale} {tachar} class="mt-0.5 text-t15" />
+      </div>
+    ))}
+  </div>
+</div>
+)}
+
+<style is:inline>
+  @layer components {
+    .v2-cin { position: relative; min-width: 0; }
+    /* En móvil, la escena sube un poco para que las cintas asomen sobre el pliegue. */
+    @media (max-width: 1023.98px) { .v2-cin { margin-top: -28px; } }
+
+    .v2-cin-escena { position: relative; height: 250px; }
+    @media (min-width: 1024px) { .v2-cin-escena { height: 470px; } }
+
+    .v2-cin-arco { position: absolute; z-index: 1; right: 6%; top: 24px; width: 150px; height: 200px; border-radius: 999px 999px 20px 20px; overflow: hidden; background: var(--color-navy-900); }
+    .v2-cin-arco picture { display: block; height: 100%; }
+    @media (min-width: 1024px) { .v2-cin-arco { right: 4%; top: 0; width: 310px; height: 420px; border-radius: 999px 999px 28px 28px; } }
+
+    .v2-cin-cinta { position: absolute; z-index: 2; left: -3%; width: 106%; overflow-x: auto; overflow-y: hidden; scrollbar-width: none; scroll-snap-type: x proximity; }
+    .v2-cin-cinta::-webkit-scrollbar { display: none; }
+    .v2-cin-cinta[data-cinta='0'] { top: 54px; rotate: -5deg; background: #fff; color: var(--color-navy-950); }
+    .v2-cin-cinta[data-cinta='1'] { top: 134px; rotate: 3deg; background: var(--color-coral-600); color: #fff; }
+    @media (min-width: 1024px) {
+      .v2-cin-cinta[data-cinta='0'] { top: 130px; rotate: -6deg; }
+      .v2-cin-cinta[data-cinta='1'] { top: 290px; rotate: 4deg; }
+    }
+    .v2-cin-empuje { display: block; }
+    .v2-cin-pista { display: flex; width: max-content; margin: 0; padding: 10px 0; list-style: none; }
+    .v2-cin-pista > li { display: flex; flex: none; align-items: center; scroll-snap-align: start; }
+    .v2-cin-pista > li[data-copia] { display: none; }
+    .v2-cin-link { display: block; min-height: 44px; padding: 0 .4em; font-size: clamp(26px, 7vw, 32px); font-weight: 800; line-height: 44px; letter-spacing: -.03em; white-space: nowrap; color: inherit; text-decoration: none; transition: opacity var(--t-base) var(--e-sale); }
+    @media (min-width: 1024px) { .v2-cin-link { font-size: 42px; min-height: 64px; line-height: 64px; } }
+    .v2-cin-link:focus-visible { outline: 3px solid currentColor; outline-offset: -3px; border-radius: 6px; }
+    .v2-cin-marca { font-size: max(12px, .6em); opacity: .6; }
+    /* Atenuar al resto solo con ratón: en táctil, un :hover pegajoso exigiría un segundo toque. */
+    @media (hover: hover) and (pointer: fine) {
+      .v2-cin-cinta:hover .v2-cin-link { opacity: .45; }
+      .v2-cin-cinta .v2-cin-link:hover { opacity: 1; text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
+    }
+
+    /* Movimiento propio: solo con JS (si no, no habría pausa) y sin «reducir movimiento». */
+    @media (prefers-reduced-motion: no-preference) and (scripting: enabled) {
+      .v2-cin-cinta { overflow: hidden; }
+      .v2-cin-pista > li[data-copia] { display: flex; }
+      @keyframes v2-cin-pasa { from { translate: -33.3333% 0; } to { translate: -66.6667% 0; } }
+      .v2-cin-pista { translate: -33.3333% 0; animation-name: v2-cin-pasa; animation-duration: 55s; animation-timing-function: linear; animation-iteration-count: infinite; }
+      .v2-cin-cinta[data-cinta='1'] .v2-cin-pista { animation-duration: 70s; animation-direction: reverse; }
+      .v2-cin[data-pausado] .v2-cin-pista, .v2-cin[data-fuera] .v2-cin-pista, .v2-cin[data-oculta] .v2-cin-pista, .v2-cin-cinta:focus-within .v2-cin-pista { animation-play-state: paused; }
+      @media (hover: hover) { .v2-cin-cinta:hover .v2-cin-pista { animation-play-state: paused; } }
+    }
+
+    /* Scroll: cada cinta se desplaza hacia su lado al bajar la página. Solo propiedades largas (el minificador funde la abreviada). */
+    @media (prefers-reduced-motion: no-preference) {
+      @supports (animation-timeline: scroll()) {
+        @keyframes v2-cin-empuja-a { to { translate: -14vw 0; } }
+        @keyframes v2-cin-empuja-b { to { translate: 14vw 0; } }
+        .v2-cin-cinta[data-cinta='0'] .v2-cin-empuje { animation-name: v2-cin-empuja-a; animation-duration: 1ms; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); animation-range: 0 120vh; }
+        .v2-cin-cinta[data-cinta='1'] .v2-cin-empuje { animation-name: v2-cin-empuja-b; animation-duration: 1ms; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); animation-range: 0 120vh; }
+      }
+    }
+
+    /* Pausa (WCAG 2.2.2): 44 px, en la esquina de la escena. */
+    .v2-cin-pausa { position: absolute; z-index: 5; right: 0; top: 0; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; background: rgb(27 27 58 / .8); color: #fff; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .45); }
+    .v2-cin-pausa > * { grid-area: 1 / 1; }
+    .v2-cin-pausa[hidden] { display: none; }
+    .v2-cin-pausa .v2-ico-seguir, .v2-cin-pausa[aria-pressed='true'] .v2-ico-pausa { display: none; }
+    .v2-cin-pausa[aria-pressed='true'] .v2-ico-seguir { display: block; }
+    .v2-cin-pausa:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+    /* Tira «Precio de hoy»: los 12 cursos con su precio, siempre a la vista y con enlace (táctil, teclado, lectores). */
+    .v2-cin-lista { display: flex; gap: 8px; margin: 12px 0 0; padding: 0 0 6px; list-style: none; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: thin; scrollbar-color: rgb(255 255 255 / .35) transparent; }
+    .v2-cin-lista > li { flex: none; scroll-snap-align: start; }
+    .v2-cin-chip { display: grid; align-content: center; gap: 2px; width: 188px; min-height: 60px; padding: 8px 12px; border-radius: var(--radius-c-md); background: rgb(255 255 255 / .1); color: #fff; text-decoration: none; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .22); }
+    .v2-cin-chip:hover { background: rgb(255 255 255 / .18); }
+    .v2-cin-chip:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+    /* Vista previa: un solo elemento fijo que mueve el script con `translate` (cursor fino o foco de teclado). */
+    .v2-cin-vista { position: fixed; z-index: 30; left: 0; top: 0; width: 240px; padding: 8px; border-radius: var(--radius-c-lg); background: #fff; color: var(--color-navy-950); box-shadow: var(--shadow-s3); pointer-events: none; opacity: 0; visibility: hidden; scale: .88; transition: opacity var(--t-base) var(--e-sale), scale var(--t-base) var(--e-sale), visibility 0s linear var(--t-base); }
+    .v2-cin-vista[data-on] { opacity: 1; visibility: visible; scale: 1; transition-delay: 0s; }
+    .v2-cin-ficha[hidden] { display: none; }
+    .v2-cin-ficha-foto { display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: 10px; background: var(--color-navy-50); }
+    .v2-cin-ficha-foto picture { display: contents; }
+  }
+</style>
+
+<script>
+  for (const raiz of document.querySelectorAll<HTMLElement>('[data-cintas]')) {
+    if (!raiz.checkVisibility()) continue;
+    const boton = raiz.querySelector<HTMLButtonElement>('[data-cin-pausa]');
+    const texto = raiz.querySelector<HTMLElement>('[data-cin-pausa-texto]');
+    const vista = raiz.querySelector<HTMLElement>('[data-cin-vista]');
+    const reducido = matchMedia('(prefers-reduced-motion: reduce)');
+
+    /* Pausa: botón, pestaña oculta y fuera de pantalla (cursor y foco los resuelve el CSS). */
+    if (boton) {
+      boton.hidden = false;
+      boton.addEventListener('click', () => {
+        const p = !raiz.hasAttribute('data-pausado');
+        raiz.toggleAttribute('data-pausado', p);
+        boton.setAttribute('aria-pressed', String(p));
+        if (texto) texto.textContent = p ? 'Seguir con las cintas en movimiento' : 'Pausar las cintas en movimiento';
+      });
+    }
+    const oculta = () => raiz.toggleAttribute('data-oculta', document.hidden);
+    document.addEventListener('visibilitychange', oculta); oculta();
+    new IntersectionObserver(([e]) => raiz.toggleAttribute('data-fuera', !e?.isIntersecting)).observe(raiz);
+
+    if (!vista) continue;
+    const fichas = [...vista.querySelectorAll<HTMLElement>('.v2-cin-ficha')];
+    const fino = matchMedia('(pointer: fine)');
+    let raf = 0, x = 0, y = 0;
+    const poner = () => { raf = 0; vista.style.translate = `${x}px ${y}px`; };
+    const mover = (nx: number, ny: number) => {
+      x = Math.max(8, Math.min(nx, innerWidth - vista.offsetWidth - 8));
+      y = Math.max(8, Math.min(ny, innerHeight - vista.offsetHeight - 8));
+      if (!raf) raf = requestAnimationFrame(poner);
+    };
+    const enCursor = (e: PointerEvent) => mover(e.clientX + 18, e.clientY - vista.offsetHeight / 2);
+    const mostrar = (i: number) => { fichas.forEach((f, k) => { f.hidden = k !== i; }); vista.setAttribute('data-on', ''); };
+    const ocultar = () => { vista.removeAttribute('data-on'); removeEventListener('pointermove', enCursor); };
+    const enlaceDe = (t: EventTarget | null) => (t instanceof Element ? t.closest<HTMLAnchorElement>('.v2-cin-link') : null);
+
+    /* Ratón: la vista previa sigue al cursor (solo con puntero fino). */
+    raiz.addEventListener('pointerover', e => {
+      const a = enlaceDe(e.target);
+      if (!a || !fino.matches || e.pointerType !== 'mouse') return;
+      mostrar(Number(a.dataset.i));
+      mover(e.clientX + 18, e.clientY - vista.offsetHeight / 2);
+      addEventListener('pointermove', enCursor, { passive: true });
+    });
+    raiz.addEventListener('pointerout', e => { if (enlaceDe(e.target) && !enlaceDe(e.relatedTarget)) ocultar(); });
+    /* Teclado: sale junto al enlace enfocado; Escape la cierra. En táctil, tocar lleva directo a la ficha. */
+    raiz.addEventListener('focusin', e => {
+      const a = enlaceDe(e.target);
+      if (!a || !a.matches(':focus-visible')) return;
+      mostrar(Number(a.dataset.i));
+      const r = a.getBoundingClientRect();
+      mover(r.left, r.bottom + 14 + vista.offsetHeight > innerHeight ? r.top - vista.offsetHeight - 14 : r.bottom + 14);
+    });
+    raiz.addEventListener('focusout', e => {
+      if (enlaceDe(e.target)) ocultar();
+      /* El navegador desplaza la cinta para mostrar el enlace enfocado: al salir, vuelve a su sitio. */
+      if (!reducido.matches) raiz.querySelectorAll<HTMLElement>('.v2-cin-cinta').forEach(c => { c.scrollLeft = 0; });
+    });
+    raiz.addEventListener('keydown', e => { if (e.key === 'Escape') ocultar(); });
+  }
+</script>

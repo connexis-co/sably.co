@@ -105,9 +105,26 @@ export const settingsSchema = {
   portadaHeroeVariante: {
     type: 'select',
     label: 'Portada · Variante del héroe',
-    description: '«Vitrina viva»: celda grande con el curso en foco y 12 oficios con foto y precio (en móvil, dos filas que pasan solas). «Buscador primero»: foto grande del oficio de hoy con su tarjeta. «Abanico»: cinco tarjetas de curso que se abren al cargar y van girando. «Mosaico»: tres fotos que cambian (la de antes). Todas con buscador con sugerencias. Por defecto: Vitrina viva.',
-    options: [{ value: 'vitrina', label: 'Vitrina viva de 12 oficios' }, { value: 'buscador', label: 'Buscador primero y oficio de hoy' }, { value: 'abanico', label: 'Abanico de cursos' }, { value: 'mosaico', label: 'Mosaico de tres fotos' }],
-    default: 'vitrina',
+    description: 'Solo cambia el escaparate de cursos junto al titular: el H1, el buscador con sugerencias, los botones y los 12 cursos enlazados son los mismos en todas (lo que leen Google y ChatGPT no cambia). «Collage»: recortes de foto con cinta y pegatina de precio sobre fondo arena; se dispersan al bajar. «Muro inclinado»: cuatro filas de tarjetas que se deslizan; al pasar el cursor la tarjeta se endereza con su precio (idea de gurwi.com). «Cintas»: dos cintas diagonales con los oficios. «Órbita»: el buscador al centro y los oficios girando alrededor, con fondo aurora. «Anillo 3D»: cilindro de cursos en 3D (en móvil, carril plano). «Vitrina viva», «Buscador primero», «Abanico» y «Mosaico»: las de la ronda anterior. Todas se quedan quietas con «reducir movimiento» y llevan botón de pausa. Si la prueba A/B del héroe está encendida, manda la prueba. Por defecto: Collage.',
+    options: [
+      { value: 'collage', label: 'Collage (cuaderno del oficio)' },
+      { value: 'muro', label: 'Muro inclinado interactivo' },
+      { value: 'cintas', label: 'Cintas cinéticas' },
+      { value: 'orbita', label: 'Órbita alrededor del buscador (fondo aurora)' },
+      { value: 'anillo3d', label: 'Anillo 3D' },
+      { value: 'vitrina', label: 'Vitrina viva de 12 oficios' },
+      { value: 'buscador', label: 'Buscador primero y oficio de hoy' },
+      { value: 'abanico', label: 'Abanico de cursos' },
+      { value: 'mosaico', label: 'Mosaico de tres fotos' },
+    ],
+    default: 'collage',
+  },
+  portadaHeroeFondo: {
+    type: 'select',
+    label: 'Portada · Fondo del héroe',
+    description: '«Liso»: azul noche (o arena en el collage). «Aurora»: tres manchas de color que se mueven despacio detrás del texto; solo en las variantes de fondo oscuro, se para con la pausa y queda quieta con «reducir movimiento». La variante «Órbita» la lleva siempre. Por defecto: Liso.',
+    options: [{ value: 'liso', label: 'Liso' }, { value: 'aurora', label: 'Aurora animada' }],
+    default: 'liso',
   },
   portadaHeroeBotones: {
     type: 'select',
@@ -145,8 +162,40 @@ export const settingsSchema = {
   portadaHeroeOficios: {
     type: 'string',
     label: 'Portada · Cursos del mosaico del héroe',
-    description: 'Slugs de los cursos separados por comas (hasta 12; solo cuentan los que tienen inscripción abierta y foto de su oficio). El primero ocupa la foto grande al cargar. Vacío: los destacados y mejor valorados, uno por oficio. Por defecto: vacío.',
+    description: 'Slugs de los cursos separados por comas (hasta 12; solo cuentan los que tienen inscripción abierta y foto de su oficio). El primero ocupa la foto grande al cargar. Vacío: los 12 que eligió JP (HEROES-X §10.1: repostería para mascotas, cejas y pestañas, drenaje linfático, decoración con globos, macramé, mecánica de motos y de bicicletas, masajes, desayunos sorpresa, barbería, electricista y pastelería), completados con los destacados si alguno cierra inscripción. Por defecto: vacío.',
     default: '',
+  },
+  portadaHeroeAB: {
+    type: 'boolean',
+    label: 'Portada · Prueba A/B del héroe',
+    description: 'Encendida: cada visitante nuevo ve una de las variantes de la lista de abajo según el reparto y la conserva 30 días (cookie sably_ab_heroe, sin datos personales). Los buscadores y bots ven siempre la primera de la lista. GA4 recibe experiment_impression y variant_id en las búsquedas y clics. Mínimo 14 días sin mirar el resultado antes de tiempo. Apagada: manda «Variante del héroe». Por defecto: apagada.',
+    default: false,
+  },
+  portadaHeroeABVariantes: {
+    type: 'string',
+    label: 'Portada · Variantes de la prueba A/B',
+    description: 'Dos o tres valores separados por comas, de entre: collage, muro, cintas, orbita, anillo3d, vitrina, buscador, abanico (el mosaico no entra: cambia los botones). La primera es la de control y la que ven bots y navegadores sin JavaScript. Por defecto: collage, buscador (14 contra 06).',
+    default: 'collage, buscador',
+  },
+  portadaHeroeABReparto: {
+    type: 'select',
+    label: 'Portada · Reparto de la prueba A/B',
+    description: '«A partes iguales»: 50/50 o 34/33/33. «Prudente»: la primera variante se lleva el 70 % y el resto se reparte. Por defecto: A partes iguales.',
+    options: [{ value: 'iguales', label: 'A partes iguales' }, { value: '70', label: 'Prudente: 70 % para la primera' }],
+    default: 'iguales',
+  },
+  portadaHeroeABInicio: {
+    type: 'string',
+    label: 'Portada · Inicio de la prueba A/B',
+    description: 'Fecha AAAA-MM-DD en que empezó la prueba. La pone el panel al encenderla si está vacía; cambiarla reinicia la cuenta de días (y la medición, que se filtra por fecha en GA4). Por defecto: vacía.',
+    default: '',
+  },
+  portadaCategoriasVariante: {
+    type: 'select',
+    label: 'Portada · Cómo se ven las categorías',
+    description: '«Fotos»: tarjetas de cada área con su foto y sus cursos (la de siempre). «Pila de tarjetas»: una tarjeta de color por área que se queda pegada arriba y la siguiente sube por encima. «Filas que se cruzan»: dos filas que pasan en sentidos contrarios con pastillas de acceso rápido debajo. Las tres llevan los mismos enlaces. Por defecto: Fotos.',
+    options: [{ value: 'fotos', label: 'Fotos (la de siempre)' }, { value: 'pila', label: 'Pila de tarjetas de color' }, { value: 'filas', label: 'Filas que se cruzan' }],
+    default: 'fotos',
   },
   portadaComoFuncionaAnimado: {
     type: 'boolean',
@@ -188,7 +237,7 @@ export type ValorAjuste = string | boolean;
 export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
-export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
+export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
