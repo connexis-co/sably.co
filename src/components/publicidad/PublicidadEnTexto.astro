@@ -1,0 +1,37 @@
+---
+/**
+ * Envuelve el cuerpo del artículo e intercala la posición «articulo-texto»: cada N párrafos de primer nivel, después
+ * del primer H2, a dos párrafos o más de listas, tablas, galerías, vídeo o el bloque de curso, nunca tras el último
+ * bloque y solo si el texto llega al mínimo de palabras (reglas en `ELEGIR_PUNTOS_JS`).
+ *
+ * El cuerpo se pinta tal cual (`<slot />`); detrás van un <template> con el hueco y un script en línea que lo copia
+ * en los puntos elegidos mientras se lee el HTML, solo por debajo de la pantalla (lo de arriba no se mueve). No se usa
+ * `Astro.slots.render()`: renderizar el cuerpo a texto hace que Astro saque los estilos del <head> (página sin
+ * estilos al principio, CLS 1,56 medido en local).
+ *
+ * Va DENTRO del contenedor del cuerpo, de modo que sus hijos sean los bloques del texto:
+ *   <div class="v2-prosa"><PublicidadEnTexto><CmsRichBody value={post.richBody} /></PublicidadEnTexto></div>
+ * Con la posición apagada devuelve el cuerpo sin añadir nada.
+ */
+import { configPublicidad, cuentaPublicidad } from '@/lib/publicidad';
+import { POSICIONES_INFO, huecoHtml, paginaPermitida, reservar, textoScript, type Dispositivo } from '@/plugins/sably-publicidad/model';
+
+interface Props { tipoPagina?: string; /** Campo `publicidad: ninguna` del artículo. */ apagado?: boolean }
+const config = await configPublicidad(Astro.locals);
+const p = config.posiciones['articulo-texto'];
+const activa = config.enabled && !Astro.props.apagado && p.activa && paginaPermitida(config, Astro.props.tipoPagina ?? POSICIONES_INFO['articulo-texto'].tipo, Astro.url.pathname);
+// Se reservan aquí (tope por página) los que podrían entrar; el navegador pone como mucho esos.
+let n = 0, dispositivo: Dispositivo | null = null;
+if (activa) {
+  const cuenta = cuentaPublicidad(Astro.locals);
+  for (let i = 0; i < p.maximo; i++) {
+    const d = reservar(cuenta, config.maximoPorPagina, p.dispositivo);
+    if (!d) break;
+    // Todos los del texto comparten dispositivo: el más estrecho de los reservados.
+    dispositivo = dispositivo === null || dispositivo === d ? d : (d === 'ambos' ? dispositivo : d);
+    n++;
+  }
+}
+const hueco = n && dispositivo ? huecoHtml('articulo-texto', p, dispositivo, { muestra: config.muestra, rotulo: config.rotulo }) : '';
+---
+{hueco ? <><slot /><template data-n={n} data-cada={p.cada} data-min={config.minimoPalabras} set:html={hueco}></template><script is:inline set:html={textoScript()}></script></> : <slot />}
