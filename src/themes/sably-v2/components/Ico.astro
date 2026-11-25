@@ -1,0 +1,14 @@
+---
+/**
+ * Icono lucide pintado en el servidor: los del kit (src/components/v2/iconos.ts)
+ * más los que solo usan las páginas (iconos-paginas.ts). Decorativo salvo que
+ * lleve `etiqueta`.
+ */
+import { ICONOS } from '@/components/v2/iconos';
+import { ICONOS_PAGINAS } from './iconos-paginas';
+export type NombreIco = keyof typeof ICONOS | keyof typeof ICONOS_PAGINAS;
+interface Props { nombre: NombreIco; tamano?: number; trazo?: number; class?: string; etiqueta?: string }
+const { nombre, tamano = 20, trazo = 2, class: clase, etiqueta } = Astro.props;
+const trazos = (ICONOS as Record<string, string>)[nombre] ?? (ICONOS_PAGINAS as Record<string, string>)[nombre] ?? '';
+---
+<svg xmlns="http://www.w3.org/2000/svg" width={tamano} height={tamano} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={trazo} stroke-linecap="round" stroke-linejoin="round" class={clase} aria-hidden={etiqueta ? undefined : 'true'} role={etiqueta ? 'img' : undefined} aria-label={etiqueta} focusable="false" set:html={trazos} />

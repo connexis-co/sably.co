@@ -1,0 +1,18 @@
+---
+/** Fila de curso del megamenú: título, nota de Hotmart (si llega al mínimo) y flecha. */
+import Ico from './Ico.astro';
+import type { CursoMenu } from '../navegacion';
+interface Props { curso: CursoMenu; base: string; area?: string }
+const { curso, base, area } = Astro.props;
+---
+<a href={`${base}/${curso.slug}/`} class="v2-mega-curso">
+  <span class="min-w-0">
+    <strong class="block truncate text-t15 font-semibold text-navy-950">{curso.titulo}</strong>
+    <span class="flex items-center gap-1 text-t13 text-navy-500">
+      {curso.nota
+        ? <><Ico nombre="star" tamano={13} class="text-[#B87300]" /><span class="font-medium text-navy-700">{curso.nota.cifra}</span> · {curso.nota.texto.replace(/, leídas.*$/, '')}</>
+        : area}
+    </span>
+  </span>
+  <Ico nombre="arrow-right" tamano={18} class="v2-flecha flex-none" />
+</a>

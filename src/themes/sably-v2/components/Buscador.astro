@@ -1,0 +1,158 @@
+---
+/**
+ * Buscador V2 en un <dialog>. Nunca abre vacío: enseña las áreas, los cursos
+ * destacados y, si vuelves, tus búsquedas recientes (solo en este dispositivo).
+ * Resultados con miniatura y coincidencia resaltada; sin resultados, lo más
+ * cercano y la salida por WhatsApp. Sin JavaScript, los enlaces que lo abren
+ * llevan al buscador del listado (/xx/cursos/#buscar), que es un formulario GET.
+ * El índice (/search-index.json) se pide al abrirlo por primera vez.
+ */
+import Ico from './Ico.astro';
+import type { DatosNavegacion } from '../navegacion';
+interface Props { nav: DatosNavegacion }
+const { nav } = Astro.props;
+const { base } = nav;
+---
+<dialog id="v2-buscador" class="v2-buscador" aria-label="Buscar cursos" data-base={base} data-whatsapp={nav.whatsapp}>
+  <form action={`${base}/cursos/`} method="get" role="search" class="flex flex-none items-center gap-3 border-b border-navy-100 py-3 pr-3 pl-5" data-buscador-form>
+    <Ico nombre="search" class="flex-none text-navy-700" />
+    <label for="v2-buscador-campo" class="sr-only">Busca un curso u oficio</label>
+    <input id="v2-buscador-campo" name="q" type="search" placeholder="Busca un curso u oficio" autocomplete="off" spellcheck="false"
+      role="combobox" aria-expanded="true" aria-controls="v2-buscador-lista" aria-autocomplete="list"
+      class="min-w-0 flex-1 bg-transparent py-2 text-t17 text-navy-950 caret-coral-600 outline-none placeholder:text-navy-500" data-buscador-campo />
+    <button type="button" class="v2-icono-boton v2-sin-borde" aria-label="Borrar la búsqueda" hidden data-buscador-borrar><Ico nombre="x" tamano={18} /></button>
+    <button type="button" class="inline-flex min-h-11 items-center rounded-full bg-navy-50 px-4 text-t15 font-semibold" data-buscador-cerrar>Cerrar</button>
+  </form>
+  <div class="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5" data-buscador-cuerpo>
+    <div data-buscador-inicio>
+      <div data-buscador-recientes hidden>
+        <div class="flex items-center justify-between"><p class="text-t13 font-medium text-navy-500">Tus búsquedas recientes</p><button type="button" class="min-h-9 text-t13 font-semibold text-coral-700" data-buscador-olvidar>Borrar</button></div>
+        <ul class="mt-2 flex flex-wrap gap-2" role="list" data-buscador-recientes-lista></ul>
+        <p class="mt-2 text-t13 text-navy-500">Se guardan solo en este dispositivo.</p>
+      </div>
+      <p class="mt-4 text-t13 font-medium text-navy-500 first:mt-0">Áreas</p>
+      <ul class="mt-2 flex flex-wrap gap-2" role="list">
+        {nav.areas.map(a => <li><a href={`${base}/cursos/${a.slug}/`} class="v2-chip">{a.nombre}</a></li>)}
+      </ul>
+      <p class="mt-5 text-t13 font-medium text-navy-500">Cursos destacados</p>
+      <ul class="mt-1" role="list">
+        {nav.destacados.map(c => (
+          <li><a href={`${base}/${c.slug}/`} class="v2-resultado justify-between">
+            <span><strong class="block text-t15 font-semibold">{c.titulo}</strong><span class="text-t13 text-navy-500">{nav.nombreDeArea.get(c.area)}{c.nota && ` · ${c.nota.cifra} en Hotmart`}</span></span>
+            <Ico nombre="arrow-right" tamano={18} class="text-navy-300" />
+          </a></li>
+        ))}
+      </ul>
+    </div>
+    <div data-buscador-resultados hidden>
+      <p class="text-t13 font-medium text-navy-500" data-buscador-cuenta aria-live="polite"></p>
+      <ul id="v2-buscador-lista" role="listbox" aria-label="Cursos encontrados" class="mt-2 space-y-1" data-buscador-lista></ul>
+      <a href={`${base}/cursos/`} class="v2-btn v2-btn-secundario mt-4 w-full" data-alto="48" data-buscador-todos><span data-buscador-todos-texto>Ver todos los resultados</span> <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+    </div>
+    <div data-buscador-vacio hidden>
+      <p class="font-display text-t20 font-semibold text-navy-950">Todavía no hay un curso de «<span data-buscador-termino></span>»</p>
+      <p class="mt-1 text-t15 text-navy-700">Revisa la ortografía o prueba con el nombre del oficio. Esto es lo más cercano que tenemos:</p>
+      <ul class="mt-3" role="list" data-buscador-cercanos></ul>
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-c-lg bg-navy-50 p-4">
+        <p class="text-t15 text-navy-700">Cuéntanos qué curso buscas y te avisamos si llega.</p>
+        <a href={nav.whatsapp} target="_blank" rel="noopener nofollow" class="v2-btn v2-btn-whatsapp" data-alto="48"><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" />Escríbenos por WhatsApp</a>
+      </div>
+    </div>
+  </div>
+  <p class="flex flex-none items-center gap-5 bg-navy-50 px-5 py-3 text-t13 text-navy-500 max-sm:hidden [@media(pointer:coarse)]:hidden">
+    <span><kbd class="rounded border border-navy-100 bg-white px-1.5">↑ ↓</kbd> moverte</span><span><kbd class="rounded border border-navy-100 bg-white px-1.5">Enter</kbd> abrir</span><span><kbd class="rounded border border-navy-100 bg-white px-1.5">Esc</kbd> cerrar</span>
+  </p>
+</dialog>
+
+<script>
+  import { trackEvent } from '@/lib/analytics';
+  type Item = { t: string; s: string; c: string; a?: string; k: string; i?: string; n?: string };
+  const d = document.getElementById('v2-buscador') as HTMLDialogElement | null;
+  if (d) {
+    const $ = <T extends HTMLElement>(s: string) => d.querySelector<T>(s)!;
+    const campo = $<HTMLInputElement>('[data-buscador-campo]');
+    const lista = $('[data-buscador-lista]');
+    const base = d.dataset.base!;
+    const CLAVE = 'sably:busquedas';
+    let indice: Item[] | null = null;
+    let sel = -1;
+    const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    const esc = (s: string) => s.replace(/[&<>"]/g, c => `&#${c.charCodeAt(0)};`);
+    const leer = (): string[] => { try { return JSON.parse(localStorage.getItem(CLAVE) || '[]'); } catch { return []; } };
+    const guardar = (q: string) => { try { localStorage.setItem(CLAVE, JSON.stringify([q, ...leer().filter(x => x !== q)].slice(0, 5))); } catch { /* sin almacenamiento */ } };
+    const cargar = async () => { if (!indice) { try { indice = await (await fetch('/search-index.json')).json(); } catch { indice = []; } } };
+    /* Resalta la parte del título que coincide, sin perder las tildes del original. */
+    const resaltar = (t: string, q: string) => { const i = norm(t).indexOf(q); return i < 0 ? esc(t) : `${esc(t.slice(0, i))}<mark>${esc(t.slice(i, i + q.length))}</mark>${esc(t.slice(i + q.length))}`; };
+    const fila = (r: Item, q: string, i: number) => `<li><a role="option" id="v2-r${i}" aria-selected="false" href="/${base.slice(1)}/${r.s}/" class="v2-resultado">${r.i ? `<img src="${esc(r.i)}" alt="" width="96" height="72" loading="lazy" class="h-[60px] w-20 flex-none rounded-lg bg-navy-50 object-cover">` : ''}<span class="min-w-0"><strong class="block text-t15 font-medium">${resaltar(r.t, q)}</strong><span class="text-t13 text-navy-500">${esc(r.c)}${r.n ? ` · ${r.n} en Hotmart` : ''}</span></span></a></li>`;
+    const mostrar = (id: string) => ['inicio', 'resultados', 'vacio'].forEach(n => { $(`[data-buscador-${n}]`).hidden = n !== id; });
+    const pintarRecientes = () => {
+      const r = leer();
+      $('[data-buscador-recientes]').hidden = !r.length;
+      $('[data-buscador-recientes-lista]').innerHTML = r.map(q => `<li><button type="button" class="v2-chip" data-q="${esc(q)}">${esc(q)}</button></li>`).join('');
+    };
+    const buscar = () => {
+      const bruto = campo.value.trim();
+      const q = norm(bruto);
+      $('[data-buscador-borrar]').hidden = !bruto;
+      sel = -1;
+      if (q.length < 2 || !indice) { mostrar('inicio'); pintarRecientes(); return; }
+      const terminos = q.split(/\s+/);
+      const res = indice.map(it => {
+        const t = norm(it.t), todo = norm(`${it.t} ${it.c} ${it.k}`);
+        let p = 0;
+        for (const x of terminos) { if (t.includes(x)) p += 3; else if (todo.includes(x)) p += 1; else return null; }
+        return { it, p: p + (t.startsWith(q) ? 2 : 0) };
+      }).filter((x): x is { it: Item; p: number } => !!x).sort((a, b) => b.p - a.p).map(x => x.it);
+      if (res.length) {
+        mostrar('resultados');
+        $('[data-buscador-cuenta]').textContent = res.length === 1 ? '1 curso' : `${res.length} cursos`;
+        lista.innerHTML = res.slice(0, 8).map((r, i) => fila(r, q, i)).join('');
+        const todos = $<HTMLAnchorElement>('[data-buscador-todos]');
+        todos.href = `${base}/cursos/?q=${encodeURIComponent(bruto)}`;
+        todos.querySelector('[data-buscador-todos-texto]')!.textContent = `Ver los ${res.length} resultados de «${bruto}»`;
+      } else {
+        mostrar('vacio');
+        $('[data-buscador-termino]').textContent = bruto;
+        const area = indice.find(it => terminos.some(x => norm(it.c).includes(x)))?.a;
+        const cerca = (area ? indice.filter(it => it.a === area) : indice).slice(0, 3);
+        $('[data-buscador-cercanos]').innerHTML = cerca.map((r, i) => fila(r, '', 100 + i)).join('');
+      }
+      trackEvent('site_search', { query: bruto, results: res.length });
+    };
+    const opciones = () => [...lista.querySelectorAll<HTMLAnchorElement>('[role=option]')];
+    const mover = (paso: number) => {
+      const o = opciones(); if (!o.length) return;
+      sel = (sel + paso + o.length) % o.length;
+      o.forEach((a, i) => a.setAttribute('aria-selected', String(i === sel)));
+      campo.setAttribute('aria-activedescendant', o[sel]!.id);
+      o[sel]!.scrollIntoView({ block: 'nearest' });
+    };
+    const abrir = async (e?: Event) => {
+      e?.preventDefault();
+      if (!d.open) d.showModal();
+      campo.focus();
+      pintarRecientes();
+      await cargar();
+      buscar();
+    };
+    let t: ReturnType<typeof setTimeout>;
+    campo.addEventListener('input', () => { clearTimeout(t); t = setTimeout(buscar, 120); });
+    campo.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); mover(1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); mover(-1); }
+      else if (e.key === 'Enter' && sel >= 0) { e.preventDefault(); guardar(campo.value.trim()); opciones()[sel]!.click(); }
+    });
+    $('[data-buscador-form]').addEventListener('submit', () => guardar(campo.value.trim()));
+    lista.addEventListener('click', () => guardar(campo.value.trim()));
+    $('[data-buscador-borrar]').addEventListener('click', () => { campo.value = ''; buscar(); campo.focus(); });
+    $('[data-buscador-cerrar]').addEventListener('click', () => d.close());
+    $('[data-buscador-olvidar]').addEventListener('click', () => { try { localStorage.removeItem(CLAVE); } catch { /* nada */ } pintarRecientes(); });
+    $('[data-buscador-recientes-lista]').addEventListener('click', e => { const b = (e.target as Element).closest<HTMLElement>('[data-q]'); if (b) { campo.value = b.dataset.q!; buscar(); } });
+    d.addEventListener('click', e => { if (e.target === d) d.close(); });
+    document.querySelectorAll('[data-buscar-abrir]').forEach(a => a.addEventListener('click', abrir));
+    document.addEventListener('keydown', e => {
+      const enCampo = (e.target as Element)?.closest?.('input, textarea, select, [contenteditable]');
+      if ((e.key === '/' && !enCampo) || ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k')) abrir(e);
+    });
+  }
+</script>

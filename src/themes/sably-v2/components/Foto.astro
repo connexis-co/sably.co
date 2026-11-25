@@ -1,0 +1,34 @@
+---
+/**
+ * Foto del rediseño en <picture>: AVIF y WebP con sus anchos, y siempre
+ * `width`/`height` (sin salto de diseño). La de la LCP pasa `prioridad`:
+ * carga inmediata y `fetchpriority="high"`; el resto, diferida.
+ */
+import { FOTOS, srcFoto, srcsetFoto, type NombreFoto } from '../fotos';
+interface Props {
+  nombre: NombreFoto;
+  sizes: string;
+  prioridad?: boolean;
+  /** `alt=""` cuando la foto es decorativa (el texto de al lado ya dice lo mismo). */
+  decorativa?: boolean;
+  alt?: string;
+  class?: string;
+}
+const { nombre, sizes, prioridad = false, decorativa = false, alt, class: clase } = Astro.props;
+const foto = FOTOS[nombre];
+---
+<picture>
+  <source type="image/avif" srcset={srcsetFoto(nombre, 'avif')} {sizes} />
+  <img
+    src={srcFoto(nombre, foto.ancho >= 960 ? 960 : 480)}
+    srcset={srcsetFoto(nombre, 'webp')}
+    {sizes}
+    alt={decorativa ? '' : (alt ?? foto.alt)}
+    width={foto.ancho}
+    height={foto.alto}
+    loading={prioridad ? 'eager' : 'lazy'}
+    fetchpriority={prioridad ? 'high' : undefined}
+    decoding={prioridad ? 'sync' : 'async'}
+    class={clase}
+  />
+</picture>
