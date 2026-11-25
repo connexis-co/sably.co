@@ -475,8 +475,9 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
       </div>
     </section>
 
-    {!sinProducto && conPrecio && (
-      <BarraFija secciones={secciones} precio={precio(precioHoy)} moneda={currency} nota={offer ? `con cupón ${offer.coupon}` : 'precio para ' + country.name}
+    {/* Sin precio leído en Hotmart (#258) la barra sigue: secciones y botón de pago, sin cifra. */}
+    {!sinProducto && (
+      <BarraFija secciones={secciones} precio={conPrecio ? precio(precioHoy) : null} moneda={currency} nota={offer ? `con cupón ${offer.coupon}` : 'precio para ' + country.name}
         href={enlacePago} boton="Inscribirme" whatsapp={whatsapp} />
     )}
   </div>
