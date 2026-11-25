@@ -1,0 +1,4438 @@
+{
+ "academia": "0fa88b95aed88ea1c0597607fdd2ea5cb617fb8c",
+ "huellas": {
+  "model": "d2da83c9615286dd6cec4f4f87987552321f99c27af3876e57a1d06375037b51",
+  "fabrica": "95e0dcbbadb76725acb280967ab7a7251f868c6ce5f2285cfc942c503d12086a",
+  "parche": "c1dd2323fd3904fdc2b6ca73346d74a353cc98b23edef376903037a4fa8624c8",
+  "resolver": "bc1ea17b53c2625e034a5a81b1f8e24ee4d6d2b2a07e3559b2419a6edd18873f",
+  "validar": "4f1d8326d0effbcbcc5609dc51deabadb3f2bb5f2dcfc4375f37a0f52d0d94d6",
+  "migrar": "afac1cf82f3a6c88dc8c38816c0607b66e458ee8577d607f66bf6cbf8a4c04eb"
+ },
+ "generado": "2026-11-25",
+ "salidas": {
+  "version": 1,
+  "zonas": [
+   "cabeza",
+   "sobre",
+   "caja",
+   "barra"
+  ],
+  "iconos": [
+   "check",
+   "circle-check",
+   "lock",
+   "credit-card",
+   "receipt",
+   "file-check",
+   "graduation-cap",
+   "book-open-check",
+   "list-checks",
+   "monitor-play",
+   "circle-play",
+   "clock",
+   "hourglass",
+   "gift",
+   "star",
+   "user-round",
+   "globe",
+   "info",
+   "circle-help",
+   "message-circle",
+   "whatsapp",
+   "bell",
+   "package",
+   "signal-high",
+   "arrow-right",
+   "chevron-down",
+   "plus",
+   "pen-line",
+   "external-link",
+   "store"
+  ],
+  "catalogo": {
+   "titulo": {
+    "zonas": [
+     "caja",
+     "sobre",
+     "cabeza"
+    ],
+    "variantes": [
+     "display",
+     "simple",
+     "rotulo"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": false,
+    "items": null,
+    "opciones": [
+     [
+      "alineacion",
+      "inicio"
+     ]
+    ]
+   },
+   "subtitulo": {
+    "zonas": [
+     "caja",
+     "sobre"
+    ],
+    "variantes": [
+     "normal",
+     "atenuado"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": false,
+    "items": null,
+    "opciones": []
+   },
+   "pais": {
+    "zonas": [
+     "caja"
+    ],
+    "variantes": [
+     "fila"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": true,
+    "items": null,
+    "opciones": []
+   },
+   "promocion": {
+    "zonas": [
+     "caja",
+     "sobre",
+     "barra"
+    ],
+    "variantes": [
+     "tarjeta",
+     "banda",
+     "cinta",
+     "franja"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": false,
+    "items": null,
+    "opciones": [
+     [
+      "reloj",
+      "campana"
+     ]
+    ]
+   },
+   "precio": {
+    "zonas": [
+     "caja",
+     "cabeza",
+     "barra"
+    ],
+    "variantes": [
+     "grande"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": true,
+    "items": null,
+    "opciones": [
+     [
+      "ahorro",
+      "pildora"
+     ],
+     [
+      "tachado",
+      "fino"
+     ],
+     [
+      "equivalencia",
+      true
+     ]
+    ]
+   },
+   "cupon": {
+    "zonas": [
+     "caja"
+    ],
+    "variantes": [
+     "enlace",
+     "discreto",
+     "chip"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": false,
+    "items": null,
+    "opciones": []
+   },
+   "boton": {
+    "zonas": [
+     "caja",
+     "cabeza",
+     "barra"
+    ],
+    "variantes": [
+     "solido-l"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": true,
+    "items": null,
+    "opciones": []
+   },
+   "confianza": {
+    "zonas": [
+     "caja",
+     "cabeza"
+    ],
+    "variantes": [
+     "lista-checks",
+     "fila-iconos",
+     "chips"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": true,
+    "items": [
+     "pago-seguro",
+     "garantia",
+     "acceso",
+     "medios"
+    ],
+    "opciones": []
+   },
+   "calificacion": {
+    "zonas": [
+     "caja",
+     "cabeza"
+    ],
+    "variantes": [
+     "linea"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": false,
+    "items": null,
+    "opciones": []
+   },
+   "whatsapp": {
+    "zonas": [
+     "caja",
+     "sobre"
+    ],
+    "variantes": [
+     "contorno",
+     "enlace",
+     "tarjeta"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": false,
+    "items": null,
+    "opciones": [
+     [
+      "respaldo",
+      "preguntas"
+     ]
+    ]
+   },
+   "acordeon": {
+    "zonas": [
+     "caja"
+    ],
+    "variantes": [
+     "filas",
+     "tarjetas",
+     "mas-menos"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": false,
+    "items": [
+     "calcula",
+     "medios",
+     "clic",
+     "garantia",
+     "propia"
+    ],
+    "opciones": []
+   },
+   "separador": {
+    "zonas": [
+     "caja",
+     "sobre"
+    ],
+    "variantes": [
+     "linea",
+     "espacio",
+     "linea-texto"
+    ],
+    "maxPorZona": 6,
+    "obligatorio": false,
+    "items": null,
+    "opciones": []
+   },
+   "texto": {
+    "zonas": [
+     "caja",
+     "sobre"
+    ],
+    "variantes": [
+     "nota",
+     "aviso"
+    ],
+    "maxPorZona": 4,
+    "obligatorio": false,
+    "items": null,
+    "opciones": []
+   },
+   "nota_legal": {
+    "zonas": [
+     "caja"
+    ],
+    "variantes": [
+     "pie"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": false,
+    "items": null,
+    "opciones": []
+   },
+   "resena": {
+    "zonas": [
+     "caja"
+    ],
+    "variantes": [
+     "enlace"
+    ],
+    "maxPorZona": 1,
+    "obligatorio": false,
+    "items": null,
+    "opciones": []
+   }
+  },
+  "fabricaIds": [
+   "clasica",
+   "campana",
+   "minima",
+   "precio-claro",
+   "confianza-primero",
+   "cuenta-clara"
+  ],
+  "validarFabrica": [
+   {
+    "nivel": "aviso",
+    "regla": "I6",
+    "mensaje": "WhatsApp y Preguntas plegables quedan pegados: en el celular conviene un separador entre los dos.",
+    "donde": {
+     "preajuste": "clasica",
+     "zona": "caja",
+     "bloque": "b9"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Título sin texto no se verá.",
+    "donde": {
+     "preajuste": "campana",
+     "zona": "caja",
+     "bloque": "b12"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "I6",
+    "mensaje": "Cupón y WhatsApp quedan pegados: en el celular conviene un separador entre los dos.",
+    "donde": {
+     "preajuste": "precio-claro",
+     "zona": "caja",
+     "bloque": "b8"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "I6",
+    "mensaje": "WhatsApp y Preguntas plegables quedan pegados: en el celular conviene un separador entre los dos.",
+    "donde": {
+     "preajuste": "precio-claro",
+     "zona": "caja",
+     "bloque": "b9"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Título sin texto no se verá.",
+    "donde": {
+     "preajuste": "confianza-primero",
+     "zona": "caja",
+     "bloque": "b12"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Subtítulo sin texto no se verá.",
+    "donde": {
+     "preajuste": "confianza-primero",
+     "zona": "caja",
+     "bloque": "b13"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "I6",
+    "mensaje": "WhatsApp y Preguntas plegables quedan pegados: en el celular conviene un separador entre los dos.",
+    "donde": {
+     "preajuste": "confianza-primero",
+     "zona": "caja",
+     "bloque": "b9"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Título sin texto no se verá.",
+    "donde": {
+     "preajuste": "cuenta-clara",
+     "zona": "caja",
+     "bloque": "b12"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Subtítulo sin texto no se verá.",
+    "donde": {
+     "preajuste": "cuenta-clara",
+     "zona": "caja",
+     "bloque": "b13"
+    }
+   }
+  ],
+  "resolver-cabeza": {
+   "zona": "cabeza",
+   "preajuste": "clasica",
+   "estilo": {
+    "piel": "tarjeta",
+    "densidad": "comoda"
+   },
+   "bloques": [],
+   "corregidos": []
+  },
+  "resolver-sobre": {
+   "zona": "sobre",
+   "preajuste": "clasica",
+   "estilo": {
+    "piel": "tarjeta",
+    "densidad": "comoda"
+   },
+   "bloques": [],
+   "corregidos": []
+  },
+  "resolver-caja": {
+   "zona": "caja",
+   "preajuste": "clasica",
+   "estilo": {
+    "piel": "tarjeta",
+    "densidad": "comoda"
+   },
+   "bloques": [
+    {
+     "id": "b1",
+     "tipo": "pais",
+     "visible": true,
+     "variante": "fila"
+    },
+    {
+     "id": "b2",
+     "tipo": "promocion",
+     "visible": true,
+     "variante": "tarjeta",
+     "opciones": {
+      "reloj": "campana"
+     }
+    },
+    {
+     "id": "b3",
+     "tipo": "precio",
+     "visible": true,
+     "variante": "grande",
+     "opciones": {
+      "ahorro": "pildora",
+      "tachado": "fino",
+      "equivalencia": true
+     }
+    },
+    {
+     "id": "b4",
+     "tipo": "cupon",
+     "visible": true,
+     "variante": "enlace"
+    },
+    {
+     "id": "b5",
+     "tipo": "boton",
+     "visible": true,
+     "variante": "solido-l"
+    },
+    {
+     "id": "b6",
+     "tipo": "confianza",
+     "visible": true,
+     "variante": "lista-checks",
+     "hijos": [
+      {
+       "id": "b6a",
+       "tipo": "pago-seguro",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6b",
+       "tipo": "garantia",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6c",
+       "tipo": "acceso",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6d",
+       "tipo": "medios",
+       "visible": true,
+       "variante": "-"
+      }
+     ]
+    },
+    {
+     "id": "b7",
+     "tipo": "calificacion",
+     "visible": true,
+     "variante": "linea"
+    },
+    {
+     "id": "b8",
+     "tipo": "whatsapp",
+     "visible": true,
+     "variante": "contorno",
+     "opciones": {
+      "respaldo": "preguntas"
+     }
+    },
+    {
+     "id": "b9",
+     "tipo": "acordeon",
+     "visible": true,
+     "variante": "filas",
+     "hijos": [
+      {
+       "id": "b9a",
+       "tipo": "calcula",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b9b",
+       "tipo": "medios",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b9c",
+       "tipo": "clic",
+       "visible": true,
+       "variante": "-"
+      }
+     ]
+    },
+    {
+     "id": "b10",
+     "tipo": "resena",
+     "visible": false,
+     "variante": "enlace"
+    },
+    {
+     "id": "b11",
+     "tipo": "nota_legal",
+     "visible": true,
+     "variante": "pie"
+    }
+   ],
+   "corregidos": []
+  },
+  "resolver-barra": {
+   "zona": "barra",
+   "preajuste": "clasica",
+   "estilo": {
+    "piel": "tarjeta",
+    "densidad": "comoda"
+   },
+   "bloques": [],
+   "corregidos": []
+  },
+  "validarParches": [
+   {
+    "nivel": "aviso",
+    "regla": "I6",
+    "mensaje": "WhatsApp y Preguntas plegables quedan pegados: en el celular conviene un separador entre los dos.",
+    "donde": {
+     "preajuste": "clasica",
+     "zona": "caja",
+     "bloque": "b9"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Título sin texto no se verá.",
+    "donde": {
+     "preajuste": "campana",
+     "zona": "caja",
+     "bloque": "b12"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "I6",
+    "mensaje": "Cupón y WhatsApp quedan pegados: en el celular conviene un separador entre los dos.",
+    "donde": {
+     "preajuste": "precio-claro",
+     "zona": "caja",
+     "bloque": "b8"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "I6",
+    "mensaje": "WhatsApp y Preguntas plegables quedan pegados: en el celular conviene un separador entre los dos.",
+    "donde": {
+     "preajuste": "precio-claro",
+     "zona": "caja",
+     "bloque": "b9"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Título sin texto no se verá.",
+    "donde": {
+     "preajuste": "confianza-primero",
+     "zona": "caja",
+     "bloque": "b12"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Subtítulo sin texto no se verá.",
+    "donde": {
+     "preajuste": "confianza-primero",
+     "zona": "caja",
+     "bloque": "b13"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "I6",
+    "mensaje": "WhatsApp y Preguntas plegables quedan pegados: en el celular conviene un separador entre los dos.",
+    "donde": {
+     "preajuste": "confianza-primero",
+     "zona": "caja",
+     "bloque": "b9"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Título sin texto no se verá.",
+    "donde": {
+     "preajuste": "cuenta-clara",
+     "zona": "caja",
+     "bloque": "b12"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Subtítulo sin texto no se verá.",
+    "donde": {
+     "preajuste": "cuenta-clara",
+     "zona": "caja",
+     "bloque": "b13"
+    }
+   },
+   {
+    "nivel": "error",
+    "regla": "forma",
+    "mensaje": "El curso «c2» usa el preajuste «no-existe», que no existe.",
+    "donde": {
+     "curso": "c2"
+    }
+   }
+  ],
+  "resolverC1": {
+   "zona": "caja",
+   "preajuste": "clasica",
+   "estilo": {
+    "piel": "tarjeta",
+    "densidad": "comoda"
+   },
+   "bloques": [
+    {
+     "id": "b5",
+     "tipo": "boton",
+     "visible": true,
+     "variante": "solido-l"
+    },
+    {
+     "id": "b3",
+     "tipo": "precio",
+     "visible": true,
+     "variante": "grande",
+     "opciones": {
+      "ahorro": "pildora",
+      "tachado": "fino",
+      "equivalencia": true
+     }
+    },
+    {
+     "id": "b1",
+     "tipo": "pais",
+     "visible": true,
+     "variante": "fila"
+    },
+    {
+     "id": "b2",
+     "tipo": "promocion",
+     "visible": true,
+     "variante": "tarjeta",
+     "opciones": {
+      "reloj": "campana"
+     }
+    },
+    {
+     "id": "b4",
+     "tipo": "cupon",
+     "visible": true,
+     "variante": "chip"
+    },
+    {
+     "id": "x1",
+     "tipo": "texto",
+     "visible": true,
+     "variante": "nota",
+     "textos": {
+      "texto": "Clases en video desde tu casa"
+     }
+    },
+    {
+     "id": "b6",
+     "tipo": "confianza",
+     "visible": true,
+     "variante": "lista-checks",
+     "hijos": [
+      {
+       "id": "b6a",
+       "tipo": "pago-seguro",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6b",
+       "tipo": "garantia",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6c",
+       "tipo": "acceso",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6d",
+       "tipo": "medios",
+       "visible": true,
+       "variante": "-"
+      }
+     ]
+    },
+    {
+     "id": "b7",
+     "tipo": "calificacion",
+     "visible": true,
+     "variante": "linea"
+    },
+    {
+     "id": "b8",
+     "tipo": "whatsapp",
+     "visible": false,
+     "variante": "contorno",
+     "opciones": {
+      "respaldo": "preguntas"
+     }
+    },
+    {
+     "id": "b9",
+     "tipo": "acordeon",
+     "visible": true,
+     "variante": "filas",
+     "hijos": [
+      {
+       "id": "b9a",
+       "tipo": "calcula",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b9b",
+       "tipo": "medios",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b9c",
+       "tipo": "clic",
+       "visible": true,
+       "variante": "-"
+      }
+     ]
+    },
+    {
+     "id": "b10",
+     "tipo": "resena",
+     "visible": false,
+     "variante": "enlace"
+    },
+    {
+     "id": "b11",
+     "tipo": "nota_legal",
+     "visible": true,
+     "variante": "pie"
+    }
+   ],
+   "corregidos": []
+  },
+  "resolverEscuela": {
+   "zona": "caja",
+   "preajuste": "minima",
+   "estilo": {
+    "piel": "plana",
+    "densidad": "compacta"
+   },
+   "bloques": [
+    {
+     "id": "b1",
+     "tipo": "pais",
+     "visible": true,
+     "variante": "fila"
+    },
+    {
+     "id": "b2",
+     "tipo": "promocion",
+     "visible": true,
+     "variante": "cinta",
+     "opciones": {
+      "reloj": "no"
+     }
+    },
+    {
+     "id": "b3",
+     "tipo": "precio",
+     "visible": true,
+     "variante": "grande",
+     "opciones": {
+      "ahorro": "suave",
+      "tachado": "fino",
+      "equivalencia": false
+     }
+    },
+    {
+     "id": "b5",
+     "tipo": "boton",
+     "visible": true,
+     "variante": "solido-l"
+    },
+    {
+     "id": "b4",
+     "tipo": "cupon",
+     "visible": true,
+     "variante": "discreto"
+    },
+    {
+     "id": "b6",
+     "tipo": "confianza",
+     "visible": true,
+     "variante": "chips",
+     "hijos": [
+      {
+       "id": "b6a",
+       "tipo": "pago-seguro",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6b",
+       "tipo": "garantia",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6c",
+       "tipo": "acceso",
+       "visible": false,
+       "variante": "-"
+      },
+      {
+       "id": "b6d",
+       "tipo": "medios",
+       "visible": false,
+       "variante": "-"
+      }
+     ]
+    },
+    {
+     "id": "b8",
+     "tipo": "whatsapp",
+     "visible": true,
+     "variante": "enlace",
+     "opciones": {
+      "respaldo": "nada"
+     }
+    },
+    {
+     "id": "b11",
+     "tipo": "nota_legal",
+     "visible": true,
+     "variante": "pie"
+    }
+   ],
+   "corregidos": []
+  },
+  "resolverInexistente": {
+   "zona": "caja",
+   "preajuste": "clasica",
+   "estilo": {
+    "piel": "tarjeta",
+    "densidad": "comoda"
+   },
+   "bloques": [
+    {
+     "id": "b1",
+     "tipo": "pais",
+     "visible": true,
+     "variante": "fila"
+    },
+    {
+     "id": "b2",
+     "tipo": "promocion",
+     "visible": true,
+     "variante": "tarjeta",
+     "opciones": {
+      "reloj": "campana"
+     }
+    },
+    {
+     "id": "b3",
+     "tipo": "precio",
+     "visible": true,
+     "variante": "grande",
+     "opciones": {
+      "ahorro": "pildora",
+      "tachado": "fino",
+      "equivalencia": true
+     }
+    },
+    {
+     "id": "b4",
+     "tipo": "cupon",
+     "visible": true,
+     "variante": "enlace"
+    },
+    {
+     "id": "b5",
+     "tipo": "boton",
+     "visible": true,
+     "variante": "solido-l"
+    },
+    {
+     "id": "b6",
+     "tipo": "confianza",
+     "visible": true,
+     "variante": "lista-checks",
+     "hijos": [
+      {
+       "id": "b6a",
+       "tipo": "pago-seguro",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6b",
+       "tipo": "garantia",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6c",
+       "tipo": "acceso",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6d",
+       "tipo": "medios",
+       "visible": true,
+       "variante": "-"
+      }
+     ]
+    },
+    {
+     "id": "b7",
+     "tipo": "calificacion",
+     "visible": true,
+     "variante": "linea"
+    },
+    {
+     "id": "b8",
+     "tipo": "whatsapp",
+     "visible": true,
+     "variante": "contorno",
+     "opciones": {
+      "respaldo": "preguntas"
+     }
+    },
+    {
+     "id": "b9",
+     "tipo": "acordeon",
+     "visible": true,
+     "variante": "filas",
+     "hijos": [
+      {
+       "id": "b9a",
+       "tipo": "calcula",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b9b",
+       "tipo": "medios",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b9c",
+       "tipo": "clic",
+       "visible": true,
+       "variante": "-"
+      }
+     ]
+    },
+    {
+     "id": "b10",
+     "tipo": "resena",
+     "visible": false,
+     "variante": "enlace"
+    },
+    {
+     "id": "b11",
+     "tipo": "nota_legal",
+     "visible": true,
+     "variante": "pie"
+    }
+   ],
+   "corregidos": [
+    {
+     "nivel": "aviso",
+     "regla": "forma",
+     "mensaje": "El preajuste «no-existe» no existe: se usa el del sitio.",
+     "donde": {
+      "preajuste": "no-existe",
+      "curso": "c2"
+     }
+    }
+   ]
+  },
+  "resolverElementos": {
+   "zona": "caja",
+   "preajuste": "clasica",
+   "estilo": {
+    "piel": "tarjeta",
+    "densidad": "comoda"
+   },
+   "bloques": [
+    {
+     "id": "b1",
+     "tipo": "pais",
+     "visible": true,
+     "variante": "fila"
+    },
+    {
+     "id": "b2",
+     "tipo": "promocion",
+     "visible": true,
+     "variante": "tarjeta",
+     "opciones": {
+      "reloj": "campana"
+     }
+    },
+    {
+     "id": "b3",
+     "tipo": "precio",
+     "visible": true,
+     "variante": "grande",
+     "opciones": {
+      "ahorro": "pildora",
+      "tachado": "fino",
+      "equivalencia": true
+     }
+    },
+    {
+     "id": "b4",
+     "tipo": "cupon",
+     "visible": true,
+     "variante": "enlace"
+    },
+    {
+     "id": "b5",
+     "tipo": "boton",
+     "visible": true,
+     "variante": "solido-l"
+    },
+    {
+     "id": "b6",
+     "tipo": "confianza",
+     "visible": true,
+     "variante": "lista-checks",
+     "hijos": [
+      {
+       "id": "b6a",
+       "tipo": "pago-seguro",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6b",
+       "tipo": "garantia",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6c",
+       "tipo": "acceso",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6d",
+       "tipo": "medios",
+       "visible": true,
+       "variante": "-"
+      }
+     ]
+    },
+    {
+     "id": "b7",
+     "tipo": "calificacion",
+     "visible": true,
+     "variante": "linea"
+    },
+    {
+     "id": "b8",
+     "tipo": "whatsapp",
+     "visible": true,
+     "variante": "contorno",
+     "opciones": {
+      "respaldo": "preguntas"
+     }
+    },
+    {
+     "id": "b9",
+     "tipo": "acordeon",
+     "visible": true,
+     "variante": "filas",
+     "hijos": [
+      {
+       "id": "b9a",
+       "tipo": "calcula",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b9b",
+       "tipo": "medios",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b9c",
+       "tipo": "clic",
+       "visible": true,
+       "variante": "-"
+      }
+     ]
+    },
+    {
+     "id": "b10",
+     "tipo": "resena",
+     "visible": false,
+     "variante": "enlace"
+    },
+    {
+     "id": "b11",
+     "tipo": "nota_legal",
+     "visible": true,
+     "variante": "pie"
+    }
+   ],
+   "corregidos": []
+  },
+  "efectivoC1": {
+   "id": "clasica",
+   "nombre": "Clásica",
+   "fabrica": true,
+   "descripcion": "La caja de hoy, pieza por pieza.",
+   "estilo": {
+    "piel": "tarjeta",
+    "densidad": "comoda"
+   },
+   "zonas": {
+    "cabeza": [],
+    "sobre": [],
+    "caja": [
+     {
+      "id": "b5",
+      "tipo": "boton",
+      "visible": true,
+      "variante": "solido-l"
+     },
+     {
+      "id": "b3",
+      "tipo": "precio",
+      "visible": true,
+      "variante": "grande",
+      "opciones": {
+       "ahorro": "pildora",
+       "tachado": "fino",
+       "equivalencia": true
+      }
+     },
+     {
+      "id": "b1",
+      "tipo": "pais",
+      "visible": true,
+      "variante": "fila"
+     },
+     {
+      "id": "b2",
+      "tipo": "promocion",
+      "visible": true,
+      "variante": "tarjeta",
+      "opciones": {
+       "reloj": "campana"
+      }
+     },
+     {
+      "id": "b4",
+      "tipo": "cupon",
+      "visible": true,
+      "variante": "chip"
+     },
+     {
+      "id": "x1",
+      "tipo": "texto",
+      "visible": true,
+      "variante": "nota",
+      "textos": {
+       "texto": "Clases en video desde tu casa"
+      }
+     },
+     {
+      "id": "b6",
+      "tipo": "confianza",
+      "visible": true,
+      "variante": "lista-checks",
+      "hijos": [
+       {
+        "id": "b6a",
+        "tipo": "pago-seguro",
+        "visible": true,
+        "variante": "-"
+       },
+       {
+        "id": "b6b",
+        "tipo": "garantia",
+        "visible": true,
+        "variante": "-"
+       },
+       {
+        "id": "b6c",
+        "tipo": "acceso",
+        "visible": true,
+        "variante": "-"
+       },
+       {
+        "id": "b6d",
+        "tipo": "medios",
+        "visible": true,
+        "variante": "-"
+       }
+      ]
+     },
+     {
+      "id": "b7",
+      "tipo": "calificacion",
+      "visible": true,
+      "variante": "linea"
+     },
+     {
+      "id": "b8",
+      "tipo": "whatsapp",
+      "visible": false,
+      "variante": "contorno",
+      "opciones": {
+       "respaldo": "preguntas"
+      }
+     },
+     {
+      "id": "b9",
+      "tipo": "acordeon",
+      "visible": true,
+      "variante": "filas",
+      "hijos": [
+       {
+        "id": "b9a",
+        "tipo": "calcula",
+        "visible": true,
+        "variante": "-"
+       },
+       {
+        "id": "b9b",
+        "tipo": "medios",
+        "visible": true,
+        "variante": "-"
+       },
+       {
+        "id": "b9c",
+        "tipo": "clic",
+        "visible": true,
+        "variante": "-"
+       }
+      ]
+     },
+     {
+      "id": "b10",
+      "tipo": "resena",
+      "visible": false,
+      "variante": "enlace"
+     },
+     {
+      "id": "b11",
+      "tipo": "nota_legal",
+      "visible": true,
+      "variante": "pie"
+     }
+    ],
+    "barra": []
+   }
+  },
+  "validarRoto": [
+   {
+    "nivel": "error",
+    "regla": "forma",
+    "mensaje": "País y moneda no tiene la variante «inventada».",
+    "donde": {
+     "preajuste": "clasica",
+     "zona": "caja",
+     "bloque": "b1"
+    }
+   },
+   {
+    "nivel": "error",
+    "regla": "I1",
+    "mensaje": "La zona «Caja» no tiene el botón de inscripción.",
+    "donde": {
+     "preajuste": "clasica",
+     "zona": "caja"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "I6",
+    "mensaje": "WhatsApp y Preguntas plegables quedan pegados: en el celular conviene un separador entre los dos.",
+    "donde": {
+     "preajuste": "clasica",
+     "zona": "caja",
+     "bloque": "b9"
+    }
+   },
+   {
+    "nivel": "error",
+    "regla": "I9",
+    "mensaje": "La barra móvil solo admite Campaña, Precio y Botón; WhatsApp no cabe en una línea de 64 px.",
+    "donde": {
+     "preajuste": "clasica",
+     "zona": "barra",
+     "bloque": "z1"
+    }
+   },
+   {
+    "nivel": "error",
+    "regla": "I1",
+    "mensaje": "La zona «Barra móvil» no tiene el botón de inscripción.",
+    "donde": {
+     "preajuste": "clasica",
+     "zona": "barra"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Título sin texto no se verá.",
+    "donde": {
+     "preajuste": "campana",
+     "zona": "caja",
+     "bloque": "b12"
+    }
+   },
+   {
+    "nivel": "error",
+    "regla": "forma",
+    "mensaje": "La zona «Caja» admite hasta 6 bloques de Separador (tiene 8).",
+    "donde": {
+     "preajuste": "campana",
+     "zona": "caja"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "I6",
+    "mensaje": "Cupón y WhatsApp quedan pegados: en el celular conviene un separador entre los dos.",
+    "donde": {
+     "preajuste": "precio-claro",
+     "zona": "caja",
+     "bloque": "b8"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "I6",
+    "mensaje": "WhatsApp y Preguntas plegables quedan pegados: en el celular conviene un separador entre los dos.",
+    "donde": {
+     "preajuste": "precio-claro",
+     "zona": "caja",
+     "bloque": "b9"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Título sin texto no se verá.",
+    "donde": {
+     "preajuste": "confianza-primero",
+     "zona": "caja",
+     "bloque": "b12"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Subtítulo sin texto no se verá.",
+    "donde": {
+     "preajuste": "confianza-primero",
+     "zona": "caja",
+     "bloque": "b13"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "I6",
+    "mensaje": "WhatsApp y Preguntas plegables quedan pegados: en el celular conviene un separador entre los dos.",
+    "donde": {
+     "preajuste": "confianza-primero",
+     "zona": "caja",
+     "bloque": "b9"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Título sin texto no se verá.",
+    "donde": {
+     "preajuste": "cuenta-clara",
+     "zona": "caja",
+     "bloque": "b12"
+    }
+   },
+   {
+    "nivel": "aviso",
+    "regla": "forma",
+    "mensaje": "Subtítulo sin texto no se verá.",
+    "donde": {
+     "preajuste": "cuenta-clara",
+     "zona": "caja",
+     "bloque": "b13"
+    }
+   },
+   {
+    "nivel": "error",
+    "regla": "forma",
+    "mensaje": "«Campaña» es solo para campañas con fechas: no puede ser la caja de todo el sitio.",
+    "donde": {
+     "preajuste": "campana"
+    }
+   }
+  ],
+  "resolverRoto": {
+   "zona": "caja",
+   "preajuste": "campana",
+   "estilo": {
+    "piel": "tarjeta",
+    "densidad": "comoda"
+   },
+   "bloques": [
+    {
+     "id": "b12",
+     "tipo": "titulo",
+     "visible": true,
+     "variante": "display"
+    },
+    {
+     "id": "b1",
+     "tipo": "pais",
+     "visible": true,
+     "variante": "fila"
+    },
+    {
+     "id": "b2",
+     "tipo": "promocion",
+     "visible": true,
+     "variante": "banda",
+     "opciones": {
+      "reloj": "campana"
+     }
+    },
+    {
+     "id": "b3",
+     "tipo": "precio",
+     "visible": true,
+     "variante": "grande",
+     "opciones": {
+      "ahorro": "pildora-acento",
+      "tachado": "acento",
+      "equivalencia": false
+     }
+    },
+    {
+     "id": "b5",
+     "tipo": "boton",
+     "visible": true,
+     "variante": "solido-l"
+    },
+    {
+     "id": "b4",
+     "tipo": "cupon",
+     "visible": true,
+     "variante": "chip"
+    },
+    {
+     "id": "b6",
+     "tipo": "confianza",
+     "visible": true,
+     "variante": "lista-checks",
+     "hijos": [
+      {
+       "id": "b6a",
+       "tipo": "pago-seguro",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6b",
+       "tipo": "garantia",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b6c",
+       "tipo": "acceso",
+       "visible": false,
+       "variante": "-"
+      },
+      {
+       "id": "b6d",
+       "tipo": "medios",
+       "visible": false,
+       "variante": "-"
+      }
+     ]
+    },
+    {
+     "id": "b7",
+     "tipo": "calificacion",
+     "visible": true,
+     "variante": "linea"
+    },
+    {
+     "id": "b8",
+     "tipo": "whatsapp",
+     "visible": false,
+     "variante": "contorno",
+     "opciones": {
+      "respaldo": "nada"
+     }
+    },
+    {
+     "id": "b9",
+     "tipo": "acordeon",
+     "visible": true,
+     "variante": "filas",
+     "hijos": [
+      {
+       "id": "b9a",
+       "tipo": "calcula",
+       "visible": false,
+       "variante": "-"
+      },
+      {
+       "id": "b9b",
+       "tipo": "medios",
+       "visible": true,
+       "variante": "-"
+      },
+      {
+       "id": "b9c",
+       "tipo": "clic",
+       "visible": true,
+       "variante": "-"
+      }
+     ]
+    },
+    {
+     "id": "b11",
+     "tipo": "nota_legal",
+     "visible": true,
+     "variante": "pie"
+    },
+    {
+     "id": "s0",
+     "tipo": "separador",
+     "visible": true,
+     "variante": "linea"
+    },
+    {
+     "id": "s1",
+     "tipo": "separador",
+     "visible": true,
+     "variante": "linea"
+    },
+    {
+     "id": "s2",
+     "tipo": "separador",
+     "visible": true,
+     "variante": "linea"
+    },
+    {
+     "id": "s3",
+     "tipo": "separador",
+     "visible": true,
+     "variante": "linea"
+    },
+    {
+     "id": "s4",
+     "tipo": "separador",
+     "visible": true,
+     "variante": "linea"
+    },
+    {
+     "id": "s5",
+     "tipo": "separador",
+     "visible": true,
+     "variante": "linea"
+    }
+   ],
+   "corregidos": [
+    {
+     "nivel": "aviso",
+     "regla": "forma",
+     "mensaje": "Se quitó un «Separador» de más.",
+     "donde": {
+      "preajuste": "campana",
+      "zona": "caja",
+      "bloque": "s6"
+     }
+    },
+    {
+     "nivel": "aviso",
+     "regla": "forma",
+     "mensaje": "Se quitó un «Separador» de más.",
+     "donde": {
+      "preajuste": "campana",
+      "zona": "caja",
+      "bloque": "s7"
+     }
+    }
+   ]
+  },
+  "textos": [
+   [
+    "Inscríbete por $85.000",
+    [
+     {
+      "nivel": "error",
+      "regla": "I2",
+      "mensaje": "El texto «Inscríbete por $85.000» tiene una cifra, una moneda o un porcentaje. El precio y el descuento salen de Ofertas y Promociones: escríbelo sin números.",
+      "donde": {}
+     }
+    ],
+    [
+     {
+      "nivel": "error",
+      "regla": "I2",
+      "mensaje": "El texto «Inscríbete por $85.000» tiene una cifra, una moneda o un porcentaje. El precio y el descuento salen de Ofertas y Promociones: escríbelo sin números.",
+      "donde": {}
+     }
+    ]
+   ],
+   [
+    "Ahorra 30 %",
+    [
+     {
+      "nivel": "error",
+      "regla": "I2",
+      "mensaje": "El texto «Ahorra 30 %» tiene una cifra, una moneda o un porcentaje. El precio y el descuento salen de Ofertas y Promociones: escríbelo sin números.",
+      "donde": {}
+     },
+     {
+      "nivel": "error",
+      "regla": "I3",
+      "mensaje": "El texto «Ahorra 30 %» habla de ahorro, descuento o reloj. Solo se puede con la condición «Con campaña»: el tachado y el ahorro los pinta la campaña verificada.",
+      "donde": {}
+     }
+    ],
+    [
+     {
+      "nivel": "error",
+      "regla": "I2",
+      "mensaje": "El texto «Ahorra 30 %» tiene una cifra, una moneda o un porcentaje. El precio y el descuento salen de Ofertas y Promociones: escríbelo sin números.",
+      "donde": {}
+     }
+    ]
+   ],
+   [
+    "Termina en 3 horas",
+    [
+     {
+      "nivel": "error",
+      "regla": "I8",
+      "mensaje": "El texto «Termina en 3 horas» tiene urgencia («Termina en»). Solo se admite con la condición «Campaña con fechas».",
+      "donde": {}
+     }
+    ],
+    []
+   ],
+   [
+    "Aprende {curso} hoy",
+    [],
+    []
+   ],
+   [
+    "Aprende {precio} hoy",
+    [
+     {
+      "nivel": "error",
+      "regla": "forma",
+      "mensaje": "El texto «Aprende {precio} hoy» usa la variable {precio}; aquí solo valen {curso} y {escuela}.",
+      "donde": {}
+     }
+    ],
+    [
+     {
+      "nivel": "error",
+      "regla": "forma",
+      "mensaje": "El texto «Aprende {precio} hoy» usa la variable {precio}; aquí solo valen {curso} y {escuela}.",
+      "donde": {}
+     }
+    ]
+   ],
+   [
+    "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+    [
+     {
+      "nivel": "error",
+      "regla": "forma",
+      "mensaje": "El texto «xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx…» pasa de 40 caracteres (tiene 41).",
+      "donde": {}
+     }
+    ],
+    [
+     {
+      "nivel": "error",
+      "regla": "forma",
+      "mensaje": "El texto «xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx…» pasa de 40 caracteres (tiene 41).",
+      "donde": {}
+     }
+    ]
+   ],
+   [
+    "Clases en video",
+    [],
+    []
+   ]
+  ],
+  "migrarFabrica": {
+   "v": 1,
+   "sitio": "clasica",
+   "preajustes": [
+    {
+     "id": "clasica",
+     "nombre": "Clásica",
+     "fabrica": true,
+     "descripcion": "La caja de hoy, pieza por pieza.",
+     "estilo": {
+      "piel": "tarjeta",
+      "densidad": "comoda"
+     },
+     "zonas": {
+      "cabeza": [],
+      "sobre": [],
+      "caja": [
+       {
+        "id": "b1",
+        "tipo": "pais",
+        "visible": true,
+        "variante": "fila"
+       },
+       {
+        "id": "b2",
+        "tipo": "promocion",
+        "visible": true,
+        "variante": "tarjeta",
+        "opciones": {
+         "reloj": "campana"
+        }
+       },
+       {
+        "id": "b3",
+        "tipo": "precio",
+        "visible": true,
+        "variante": "grande",
+        "opciones": {
+         "ahorro": "pildora",
+         "tachado": "fino",
+         "equivalencia": true
+        }
+       },
+       {
+        "id": "b4",
+        "tipo": "cupon",
+        "visible": true,
+        "variante": "enlace"
+       },
+       {
+        "id": "b5",
+        "tipo": "boton",
+        "visible": true,
+        "variante": "solido-l"
+       },
+       {
+        "id": "b6",
+        "tipo": "confianza",
+        "visible": true,
+        "variante": "lista-checks",
+        "hijos": [
+         {
+          "id": "b6a",
+          "tipo": "pago-seguro",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6b",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6c",
+          "tipo": "acceso",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6d",
+          "tipo": "medios",
+          "visible": true,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b7",
+        "tipo": "calificacion",
+        "visible": true,
+        "variante": "linea"
+       },
+       {
+        "id": "b8",
+        "tipo": "whatsapp",
+        "visible": true,
+        "variante": "contorno",
+        "opciones": {
+         "respaldo": "preguntas"
+        }
+       },
+       {
+        "id": "b9",
+        "tipo": "acordeon",
+        "visible": true,
+        "variante": "filas",
+        "hijos": [
+         {
+          "id": "b9a",
+          "tipo": "calcula",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9b",
+          "tipo": "medios",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9c",
+          "tipo": "clic",
+          "visible": true,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b10",
+        "tipo": "resena",
+        "visible": false,
+        "variante": "enlace"
+       },
+       {
+        "id": "b11",
+        "tipo": "nota_legal",
+        "visible": true,
+        "variante": "pie"
+       }
+      ],
+      "barra": []
+     }
+    },
+    {
+     "id": "campana",
+     "nombre": "Campaña",
+     "fabrica": true,
+     "descripcion": "Solo para campañas con fechas: la campaña al frente, título, banda oscura con reloj, pastilla de acento y cupón en pastilla.",
+     "uso": "campana",
+     "estilo": {
+      "piel": "tarjeta",
+      "densidad": "comoda"
+     },
+     "zonas": {
+      "cabeza": [],
+      "sobre": [],
+      "caja": [
+       {
+        "id": "b12",
+        "tipo": "titulo",
+        "visible": true,
+        "variante": "display"
+       },
+       {
+        "id": "b1",
+        "tipo": "pais",
+        "visible": true,
+        "variante": "fila"
+       },
+       {
+        "id": "b2",
+        "tipo": "promocion",
+        "visible": true,
+        "variante": "banda",
+        "opciones": {
+         "reloj": "campana"
+        }
+       },
+       {
+        "id": "b3",
+        "tipo": "precio",
+        "visible": true,
+        "variante": "grande",
+        "opciones": {
+         "ahorro": "pildora-acento",
+         "tachado": "acento",
+         "equivalencia": false
+        }
+       },
+       {
+        "id": "b5",
+        "tipo": "boton",
+        "visible": true,
+        "variante": "solido-l"
+       },
+       {
+        "id": "b4",
+        "tipo": "cupon",
+        "visible": true,
+        "variante": "chip"
+       },
+       {
+        "id": "b6",
+        "tipo": "confianza",
+        "visible": true,
+        "variante": "lista-checks",
+        "hijos": [
+         {
+          "id": "b6a",
+          "tipo": "pago-seguro",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6b",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6c",
+          "tipo": "acceso",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b6d",
+          "tipo": "medios",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b7",
+        "tipo": "calificacion",
+        "visible": true,
+        "variante": "linea"
+       },
+       {
+        "id": "b8",
+        "tipo": "whatsapp",
+        "visible": false,
+        "variante": "contorno",
+        "opciones": {
+         "respaldo": "nada"
+        }
+       },
+       {
+        "id": "b9",
+        "tipo": "acordeon",
+        "visible": true,
+        "variante": "filas",
+        "hijos": [
+         {
+          "id": "b9a",
+          "tipo": "calcula",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b9b",
+          "tipo": "medios",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9c",
+          "tipo": "clic",
+          "visible": true,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b11",
+        "tipo": "nota_legal",
+        "visible": true,
+        "variante": "pie"
+       }
+      ],
+      "barra": []
+     }
+    },
+    {
+     "id": "minima",
+     "nombre": "Mínima",
+     "fabrica": true,
+     "descripcion": "Precio, botón y lo obligatorio. Para cajas cortas y pantallas bajas.",
+     "estilo": {
+      "piel": "plana",
+      "densidad": "compacta"
+     },
+     "zonas": {
+      "cabeza": [],
+      "sobre": [],
+      "caja": [
+       {
+        "id": "b1",
+        "tipo": "pais",
+        "visible": true,
+        "variante": "fila"
+       },
+       {
+        "id": "b2",
+        "tipo": "promocion",
+        "visible": true,
+        "variante": "cinta",
+        "opciones": {
+         "reloj": "no"
+        }
+       },
+       {
+        "id": "b3",
+        "tipo": "precio",
+        "visible": true,
+        "variante": "grande",
+        "opciones": {
+         "ahorro": "suave",
+         "tachado": "fino",
+         "equivalencia": false
+        }
+       },
+       {
+        "id": "b5",
+        "tipo": "boton",
+        "visible": true,
+        "variante": "solido-l"
+       },
+       {
+        "id": "b4",
+        "tipo": "cupon",
+        "visible": true,
+        "variante": "discreto"
+       },
+       {
+        "id": "b6",
+        "tipo": "confianza",
+        "visible": true,
+        "variante": "chips",
+        "hijos": [
+         {
+          "id": "b6a",
+          "tipo": "pago-seguro",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6b",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6c",
+          "tipo": "acceso",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b6d",
+          "tipo": "medios",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b8",
+        "tipo": "whatsapp",
+        "visible": true,
+        "variante": "enlace",
+        "opciones": {
+         "respaldo": "nada"
+        }
+       },
+       {
+        "id": "b11",
+        "tipo": "nota_legal",
+        "visible": true,
+        "variante": "pie"
+       }
+      ],
+      "barra": []
+     }
+    },
+    {
+     "id": "precio-claro",
+     "nombre": "Precio claro",
+     "fabrica": true,
+     "descripcion": "Precio y botón a un palmo: campaña en cinta (el reloj va en la barra fija), pastilla de ahorro suave, señales y tres plegables. Fase 2: rótulo «Precio con cupón», cuotas como pieza propia y la señal «Certificado al terminar».",
+     "estilo": {
+      "piel": "tarjeta",
+      "densidad": "comoda"
+     },
+     "zonas": {
+      "cabeza": [],
+      "sobre": [],
+      "caja": [
+       {
+        "id": "b1",
+        "tipo": "pais",
+        "visible": true,
+        "variante": "fila"
+       },
+       {
+        "id": "b2",
+        "tipo": "promocion",
+        "visible": true,
+        "variante": "cinta",
+        "opciones": {
+         "reloj": "no"
+        }
+       },
+       {
+        "id": "b3",
+        "tipo": "precio",
+        "visible": true,
+        "variante": "grande",
+        "opciones": {
+         "ahorro": "suave",
+         "tachado": "fino",
+         "equivalencia": true
+        }
+       },
+       {
+        "id": "b5",
+        "tipo": "boton",
+        "visible": true,
+        "variante": "solido-l"
+       },
+       {
+        "id": "b6",
+        "tipo": "confianza",
+        "visible": true,
+        "variante": "lista-checks",
+        "hijos": [
+         {
+          "id": "b6a",
+          "tipo": "pago-seguro",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6b",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6c",
+          "tipo": "acceso",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6d",
+          "tipo": "medios",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b4",
+        "tipo": "cupon",
+        "visible": true,
+        "variante": "discreto"
+       },
+       {
+        "id": "b8",
+        "tipo": "whatsapp",
+        "visible": true,
+        "variante": "contorno",
+        "opciones": {
+         "respaldo": "preguntas"
+        }
+       },
+       {
+        "id": "b9",
+        "tipo": "acordeon",
+        "visible": true,
+        "variante": "filas",
+        "hijos": [
+         {
+          "id": "b9b",
+          "tipo": "medios",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9c",
+          "tipo": "clic",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9d",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9a",
+          "tipo": "calcula",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b7",
+        "tipo": "calificacion",
+        "visible": false,
+        "variante": "linea"
+       },
+       {
+        "id": "b11",
+        "tipo": "nota_legal",
+        "visible": true,
+        "variante": "pie"
+       }
+      ],
+      "barra": []
+     }
+    },
+    {
+     "id": "confianza-primero",
+     "nombre": "Confianza primero",
+     "fabrica": true,
+     "descripcion": "Primero qué recibes, después el precio: título y subtítulo, campaña en cinta, señales en pastillas, calificación de Hotmart con su fuente y WhatsApp. Fase 2: la docente, «Qué recibes» como ficha técnica, el número de lecciones en el subtítulo y el plegable «Cómo funciona Sably».",
+     "estilo": {
+      "piel": "tarjeta",
+      "densidad": "comoda"
+     },
+     "zonas": {
+      "cabeza": [],
+      "sobre": [],
+      "caja": [
+       {
+        "id": "b12",
+        "tipo": "titulo",
+        "visible": true,
+        "variante": "display"
+       },
+       {
+        "id": "b13",
+        "tipo": "subtitulo",
+        "visible": true,
+        "variante": "atenuado"
+       },
+       {
+        "id": "b1",
+        "tipo": "pais",
+        "visible": true,
+        "variante": "fila"
+       },
+       {
+        "id": "b2",
+        "tipo": "promocion",
+        "visible": true,
+        "variante": "cinta",
+        "opciones": {
+         "reloj": "no"
+        }
+       },
+       {
+        "id": "b3",
+        "tipo": "precio",
+        "visible": true,
+        "variante": "grande",
+        "opciones": {
+         "ahorro": "suave",
+         "tachado": "fino",
+         "equivalencia": false
+        }
+       },
+       {
+        "id": "b5",
+        "tipo": "boton",
+        "visible": true,
+        "variante": "solido-l"
+       },
+       {
+        "id": "b6",
+        "tipo": "confianza",
+        "visible": true,
+        "variante": "chips",
+        "hijos": [
+         {
+          "id": "b6a",
+          "tipo": "pago-seguro",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6b",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6c",
+          "tipo": "acceso",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6d",
+          "tipo": "medios",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b4",
+        "tipo": "cupon",
+        "visible": true,
+        "variante": "discreto"
+       },
+       {
+        "id": "b7",
+        "tipo": "calificacion",
+        "visible": true,
+        "variante": "linea"
+       },
+       {
+        "id": "b8",
+        "tipo": "whatsapp",
+        "visible": true,
+        "variante": "contorno",
+        "opciones": {
+         "respaldo": "preguntas"
+        }
+       },
+       {
+        "id": "b9",
+        "tipo": "acordeon",
+        "visible": true,
+        "variante": "filas",
+        "hijos": [
+         {
+          "id": "b9c",
+          "tipo": "clic",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9d",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9a",
+          "tipo": "calcula",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b9b",
+          "tipo": "medios",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b11",
+        "tipo": "nota_legal",
+        "visible": true,
+        "variante": "pie"
+       }
+      ],
+      "barra": []
+     }
+    },
+    {
+     "id": "cuenta-clara",
+     "nombre": "Cuenta clara",
+     "fabrica": true,
+     "descripcion": "La cuenta antes de pagar: nombre del curso, precio con su tachado fino, cupón en línea, la campaña con su reloj y el botón; señales en pastillas, «¿Qué pasa al hacer clic?» y WhatsApp en tarjeta al pie. Fase 2: «Precio normal → cupón → Hoy pagas» como filas de la cuenta, el contador en barra, logos de los medios y la banda gris de las dudas.",
+     "estilo": {
+      "piel": "tarjeta",
+      "densidad": "comoda"
+     },
+     "zonas": {
+      "cabeza": [],
+      "sobre": [],
+      "caja": [
+       {
+        "id": "b12",
+        "tipo": "titulo",
+        "visible": true,
+        "variante": "simple"
+       },
+       {
+        "id": "b13",
+        "tipo": "subtitulo",
+        "visible": true,
+        "variante": "atenuado"
+       },
+       {
+        "id": "b1",
+        "tipo": "pais",
+        "visible": true,
+        "variante": "fila"
+       },
+       {
+        "id": "b3",
+        "tipo": "precio",
+        "visible": true,
+        "variante": "grande",
+        "opciones": {
+         "ahorro": "texto",
+         "tachado": "fino",
+         "equivalencia": false
+        }
+       },
+       {
+        "id": "b4",
+        "tipo": "cupon",
+        "visible": true,
+        "variante": "enlace"
+       },
+       {
+        "id": "b2",
+        "tipo": "promocion",
+        "visible": true,
+        "variante": "tarjeta",
+        "opciones": {
+         "reloj": "campana"
+        }
+       },
+       {
+        "id": "b5",
+        "tipo": "boton",
+        "visible": true,
+        "variante": "solido-l"
+       },
+       {
+        "id": "b6",
+        "tipo": "confianza",
+        "visible": true,
+        "variante": "chips",
+        "hijos": [
+         {
+          "id": "b6a",
+          "tipo": "pago-seguro",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6b",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6c",
+          "tipo": "acceso",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b6d",
+          "tipo": "medios",
+          "visible": true,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b9",
+        "tipo": "acordeon",
+        "visible": true,
+        "variante": "filas",
+        "hijos": [
+         {
+          "id": "b9c",
+          "tipo": "clic",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9a",
+          "tipo": "calcula",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b9b",
+          "tipo": "medios",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b14",
+        "tipo": "separador",
+        "visible": true,
+        "variante": "espacio"
+       },
+       {
+        "id": "b8",
+        "tipo": "whatsapp",
+        "visible": true,
+        "variante": "tarjeta",
+        "opciones": {
+         "respaldo": "preguntas"
+        }
+       },
+       {
+        "id": "b11",
+        "tipo": "nota_legal",
+        "visible": true,
+        "variante": "pie"
+       }
+      ],
+      "barra": []
+     }
+    }
+   ],
+   "escuelas": {},
+   "cursos": {},
+   "capas": [],
+   "revision": "migrado",
+   "updatedAt": null,
+   "updatedBy": null
+  },
+  "migrarApagados": {
+   "v": 1,
+   "sitio": "clasica",
+   "preajustes": [
+    {
+     "id": "clasica",
+     "nombre": "Clásica",
+     "fabrica": true,
+     "descripcion": "La caja de hoy, pieza por pieza.",
+     "estilo": {
+      "piel": "tarjeta",
+      "densidad": "comoda"
+     },
+     "zonas": {
+      "cabeza": [],
+      "sobre": [],
+      "caja": [
+       {
+        "id": "b1",
+        "tipo": "pais",
+        "visible": true,
+        "variante": "fila"
+       },
+       {
+        "id": "b2",
+        "tipo": "promocion",
+        "visible": true,
+        "variante": "tarjeta",
+        "opciones": {
+         "reloj": "campana"
+        }
+       },
+       {
+        "id": "b3",
+        "tipo": "precio",
+        "visible": true,
+        "variante": "grande",
+        "opciones": {
+         "ahorro": "pildora",
+         "tachado": "fino",
+         "equivalencia": true
+        }
+       },
+       {
+        "id": "b4",
+        "tipo": "cupon",
+        "visible": true,
+        "variante": "enlace"
+       },
+       {
+        "id": "b5",
+        "tipo": "boton",
+        "visible": true,
+        "variante": "solido-l"
+       },
+       {
+        "id": "b6",
+        "tipo": "confianza",
+        "visible": true,
+        "variante": "lista-checks",
+        "hijos": [
+         {
+          "id": "b6a",
+          "tipo": "pago-seguro",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6b",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6c",
+          "tipo": "acceso",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6d",
+          "tipo": "medios",
+          "visible": true,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b7",
+        "tipo": "calificacion",
+        "visible": false,
+        "variante": "linea"
+       },
+       {
+        "id": "b8",
+        "tipo": "whatsapp",
+        "visible": false,
+        "variante": "contorno",
+        "opciones": {
+         "respaldo": "preguntas"
+        }
+       },
+       {
+        "id": "b9",
+        "tipo": "acordeon",
+        "visible": true,
+        "variante": "filas",
+        "hijos": [
+         {
+          "id": "b9a",
+          "tipo": "calcula",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b9b",
+          "tipo": "medios",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9c",
+          "tipo": "clic",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b10",
+        "tipo": "resena",
+        "visible": false,
+        "variante": "enlace"
+       },
+       {
+        "id": "b11",
+        "tipo": "nota_legal",
+        "visible": true,
+        "variante": "pie"
+       }
+      ],
+      "barra": []
+     }
+    },
+    {
+     "id": "campana",
+     "nombre": "Campaña",
+     "fabrica": true,
+     "descripcion": "Solo para campañas con fechas: la campaña al frente, título, banda oscura con reloj, pastilla de acento y cupón en pastilla.",
+     "uso": "campana",
+     "estilo": {
+      "piel": "tarjeta",
+      "densidad": "comoda"
+     },
+     "zonas": {
+      "cabeza": [],
+      "sobre": [],
+      "caja": [
+       {
+        "id": "b12",
+        "tipo": "titulo",
+        "visible": true,
+        "variante": "display"
+       },
+       {
+        "id": "b1",
+        "tipo": "pais",
+        "visible": true,
+        "variante": "fila"
+       },
+       {
+        "id": "b2",
+        "tipo": "promocion",
+        "visible": true,
+        "variante": "banda",
+        "opciones": {
+         "reloj": "campana"
+        }
+       },
+       {
+        "id": "b3",
+        "tipo": "precio",
+        "visible": true,
+        "variante": "grande",
+        "opciones": {
+         "ahorro": "pildora-acento",
+         "tachado": "acento",
+         "equivalencia": false
+        }
+       },
+       {
+        "id": "b5",
+        "tipo": "boton",
+        "visible": true,
+        "variante": "solido-l"
+       },
+       {
+        "id": "b4",
+        "tipo": "cupon",
+        "visible": true,
+        "variante": "chip"
+       },
+       {
+        "id": "b6",
+        "tipo": "confianza",
+        "visible": true,
+        "variante": "lista-checks",
+        "hijos": [
+         {
+          "id": "b6a",
+          "tipo": "pago-seguro",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6b",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6c",
+          "tipo": "acceso",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b6d",
+          "tipo": "medios",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b7",
+        "tipo": "calificacion",
+        "visible": true,
+        "variante": "linea"
+       },
+       {
+        "id": "b8",
+        "tipo": "whatsapp",
+        "visible": false,
+        "variante": "contorno",
+        "opciones": {
+         "respaldo": "nada"
+        }
+       },
+       {
+        "id": "b9",
+        "tipo": "acordeon",
+        "visible": true,
+        "variante": "filas",
+        "hijos": [
+         {
+          "id": "b9a",
+          "tipo": "calcula",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b9b",
+          "tipo": "medios",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9c",
+          "tipo": "clic",
+          "visible": true,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b11",
+        "tipo": "nota_legal",
+        "visible": true,
+        "variante": "pie"
+       }
+      ],
+      "barra": []
+     }
+    },
+    {
+     "id": "minima",
+     "nombre": "Mínima",
+     "fabrica": true,
+     "descripcion": "Precio, botón y lo obligatorio. Para cajas cortas y pantallas bajas.",
+     "estilo": {
+      "piel": "plana",
+      "densidad": "compacta"
+     },
+     "zonas": {
+      "cabeza": [],
+      "sobre": [],
+      "caja": [
+       {
+        "id": "b1",
+        "tipo": "pais",
+        "visible": true,
+        "variante": "fila"
+       },
+       {
+        "id": "b2",
+        "tipo": "promocion",
+        "visible": true,
+        "variante": "cinta",
+        "opciones": {
+         "reloj": "no"
+        }
+       },
+       {
+        "id": "b3",
+        "tipo": "precio",
+        "visible": true,
+        "variante": "grande",
+        "opciones": {
+         "ahorro": "suave",
+         "tachado": "fino",
+         "equivalencia": false
+        }
+       },
+       {
+        "id": "b5",
+        "tipo": "boton",
+        "visible": true,
+        "variante": "solido-l"
+       },
+       {
+        "id": "b4",
+        "tipo": "cupon",
+        "visible": true,
+        "variante": "discreto"
+       },
+       {
+        "id": "b6",
+        "tipo": "confianza",
+        "visible": true,
+        "variante": "chips",
+        "hijos": [
+         {
+          "id": "b6a",
+          "tipo": "pago-seguro",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6b",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6c",
+          "tipo": "acceso",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b6d",
+          "tipo": "medios",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b8",
+        "tipo": "whatsapp",
+        "visible": true,
+        "variante": "enlace",
+        "opciones": {
+         "respaldo": "nada"
+        }
+       },
+       {
+        "id": "b11",
+        "tipo": "nota_legal",
+        "visible": true,
+        "variante": "pie"
+       }
+      ],
+      "barra": []
+     }
+    },
+    {
+     "id": "precio-claro",
+     "nombre": "Precio claro",
+     "fabrica": true,
+     "descripcion": "Precio y botón a un palmo: campaña en cinta (el reloj va en la barra fija), pastilla de ahorro suave, señales y tres plegables. Fase 2: rótulo «Precio con cupón», cuotas como pieza propia y la señal «Certificado al terminar».",
+     "estilo": {
+      "piel": "tarjeta",
+      "densidad": "comoda"
+     },
+     "zonas": {
+      "cabeza": [],
+      "sobre": [],
+      "caja": [
+       {
+        "id": "b1",
+        "tipo": "pais",
+        "visible": true,
+        "variante": "fila"
+       },
+       {
+        "id": "b2",
+        "tipo": "promocion",
+        "visible": true,
+        "variante": "cinta",
+        "opciones": {
+         "reloj": "no"
+        }
+       },
+       {
+        "id": "b3",
+        "tipo": "precio",
+        "visible": true,
+        "variante": "grande",
+        "opciones": {
+         "ahorro": "suave",
+         "tachado": "fino",
+         "equivalencia": true
+        }
+       },
+       {
+        "id": "b5",
+        "tipo": "boton",
+        "visible": true,
+        "variante": "solido-l"
+       },
+       {
+        "id": "b6",
+        "tipo": "confianza",
+        "visible": true,
+        "variante": "lista-checks",
+        "hijos": [
+         {
+          "id": "b6a",
+          "tipo": "pago-seguro",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6b",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6c",
+          "tipo": "acceso",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6d",
+          "tipo": "medios",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b4",
+        "tipo": "cupon",
+        "visible": true,
+        "variante": "discreto"
+       },
+       {
+        "id": "b8",
+        "tipo": "whatsapp",
+        "visible": true,
+        "variante": "contorno",
+        "opciones": {
+         "respaldo": "preguntas"
+        }
+       },
+       {
+        "id": "b9",
+        "tipo": "acordeon",
+        "visible": true,
+        "variante": "filas",
+        "hijos": [
+         {
+          "id": "b9b",
+          "tipo": "medios",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9c",
+          "tipo": "clic",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9d",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9a",
+          "tipo": "calcula",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b7",
+        "tipo": "calificacion",
+        "visible": false,
+        "variante": "linea"
+       },
+       {
+        "id": "b11",
+        "tipo": "nota_legal",
+        "visible": true,
+        "variante": "pie"
+       }
+      ],
+      "barra": []
+     }
+    },
+    {
+     "id": "confianza-primero",
+     "nombre": "Confianza primero",
+     "fabrica": true,
+     "descripcion": "Primero qué recibes, después el precio: título y subtítulo, campaña en cinta, señales en pastillas, calificación de Hotmart con su fuente y WhatsApp. Fase 2: la docente, «Qué recibes» como ficha técnica, el número de lecciones en el subtítulo y el plegable «Cómo funciona Sably».",
+     "estilo": {
+      "piel": "tarjeta",
+      "densidad": "comoda"
+     },
+     "zonas": {
+      "cabeza": [],
+      "sobre": [],
+      "caja": [
+       {
+        "id": "b12",
+        "tipo": "titulo",
+        "visible": true,
+        "variante": "display"
+       },
+       {
+        "id": "b13",
+        "tipo": "subtitulo",
+        "visible": true,
+        "variante": "atenuado"
+       },
+       {
+        "id": "b1",
+        "tipo": "pais",
+        "visible": true,
+        "variante": "fila"
+       },
+       {
+        "id": "b2",
+        "tipo": "promocion",
+        "visible": true,
+        "variante": "cinta",
+        "opciones": {
+         "reloj": "no"
+        }
+       },
+       {
+        "id": "b3",
+        "tipo": "precio",
+        "visible": true,
+        "variante": "grande",
+        "opciones": {
+         "ahorro": "suave",
+         "tachado": "fino",
+         "equivalencia": false
+        }
+       },
+       {
+        "id": "b5",
+        "tipo": "boton",
+        "visible": true,
+        "variante": "solido-l"
+       },
+       {
+        "id": "b6",
+        "tipo": "confianza",
+        "visible": true,
+        "variante": "chips",
+        "hijos": [
+         {
+          "id": "b6a",
+          "tipo": "pago-seguro",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6b",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6c",
+          "tipo": "acceso",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6d",
+          "tipo": "medios",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b4",
+        "tipo": "cupon",
+        "visible": true,
+        "variante": "discreto"
+       },
+       {
+        "id": "b7",
+        "tipo": "calificacion",
+        "visible": true,
+        "variante": "linea"
+       },
+       {
+        "id": "b8",
+        "tipo": "whatsapp",
+        "visible": true,
+        "variante": "contorno",
+        "opciones": {
+         "respaldo": "preguntas"
+        }
+       },
+       {
+        "id": "b9",
+        "tipo": "acordeon",
+        "visible": true,
+        "variante": "filas",
+        "hijos": [
+         {
+          "id": "b9c",
+          "tipo": "clic",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9d",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9a",
+          "tipo": "calcula",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b9b",
+          "tipo": "medios",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b11",
+        "tipo": "nota_legal",
+        "visible": true,
+        "variante": "pie"
+       }
+      ],
+      "barra": []
+     }
+    },
+    {
+     "id": "cuenta-clara",
+     "nombre": "Cuenta clara",
+     "fabrica": true,
+     "descripcion": "La cuenta antes de pagar: nombre del curso, precio con su tachado fino, cupón en línea, la campaña con su reloj y el botón; señales en pastillas, «¿Qué pasa al hacer clic?» y WhatsApp en tarjeta al pie. Fase 2: «Precio normal → cupón → Hoy pagas» como filas de la cuenta, el contador en barra, logos de los medios y la banda gris de las dudas.",
+     "estilo": {
+      "piel": "tarjeta",
+      "densidad": "comoda"
+     },
+     "zonas": {
+      "cabeza": [],
+      "sobre": [],
+      "caja": [
+       {
+        "id": "b12",
+        "tipo": "titulo",
+        "visible": true,
+        "variante": "simple"
+       },
+       {
+        "id": "b13",
+        "tipo": "subtitulo",
+        "visible": true,
+        "variante": "atenuado"
+       },
+       {
+        "id": "b1",
+        "tipo": "pais",
+        "visible": true,
+        "variante": "fila"
+       },
+       {
+        "id": "b3",
+        "tipo": "precio",
+        "visible": true,
+        "variante": "grande",
+        "opciones": {
+         "ahorro": "texto",
+         "tachado": "fino",
+         "equivalencia": false
+        }
+       },
+       {
+        "id": "b4",
+        "tipo": "cupon",
+        "visible": true,
+        "variante": "enlace"
+       },
+       {
+        "id": "b2",
+        "tipo": "promocion",
+        "visible": true,
+        "variante": "tarjeta",
+        "opciones": {
+         "reloj": "campana"
+        }
+       },
+       {
+        "id": "b5",
+        "tipo": "boton",
+        "visible": true,
+        "variante": "solido-l"
+       },
+       {
+        "id": "b6",
+        "tipo": "confianza",
+        "visible": true,
+        "variante": "chips",
+        "hijos": [
+         {
+          "id": "b6a",
+          "tipo": "pago-seguro",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6b",
+          "tipo": "garantia",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b6c",
+          "tipo": "acceso",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b6d",
+          "tipo": "medios",
+          "visible": true,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b9",
+        "tipo": "acordeon",
+        "visible": true,
+        "variante": "filas",
+        "hijos": [
+         {
+          "id": "b9c",
+          "tipo": "clic",
+          "visible": true,
+          "variante": "-"
+         },
+         {
+          "id": "b9a",
+          "tipo": "calcula",
+          "visible": false,
+          "variante": "-"
+         },
+         {
+          "id": "b9b",
+          "tipo": "medios",
+          "visible": false,
+          "variante": "-"
+         }
+        ]
+       },
+       {
+        "id": "b14",
+        "tipo": "separador",
+        "visible": true,
+        "variante": "espacio"
+       },
+       {
+        "id": "b8",
+        "tipo": "whatsapp",
+        "visible": true,
+        "variante": "tarjeta",
+        "opciones": {
+         "respaldo": "preguntas"
+        }
+       },
+       {
+        "id": "b11",
+        "tipo": "nota_legal",
+        "visible": true,
+        "variante": "pie"
+       }
+      ],
+      "barra": []
+     }
+    }
+   ],
+   "escuelas": {},
+   "cursos": {},
+   "capas": [],
+   "revision": "migrado",
+   "updatedAt": null,
+   "updatedBy": null
+  },
+  "parcheDeElementos": [
+   null,
+   null,
+   null,
+   {
+    "bloques": {
+     "b8": {
+      "visible": true
+     },
+     "b6b": {
+      "visible": true
+     }
+    }
+   }
+  ],
+  "readCaja": [
+   null,
+   null,
+   null,
+   {
+    "v": 1,
+    "sitio": "clasica",
+    "preajustes": [
+     {
+      "id": "clasica",
+      "nombre": "Clásica",
+      "fabrica": true,
+      "descripcion": "La caja de hoy, pieza por pieza.",
+      "estilo": {
+       "piel": "tarjeta",
+       "densidad": "comoda"
+      },
+      "zonas": {
+       "cabeza": [],
+       "sobre": [],
+       "caja": [
+        {
+         "id": "b1",
+         "tipo": "pais",
+         "visible": true,
+         "variante": "fila"
+        },
+        {
+         "id": "b2",
+         "tipo": "promocion",
+         "visible": true,
+         "variante": "tarjeta",
+         "opciones": {
+          "reloj": "campana"
+         }
+        },
+        {
+         "id": "b3",
+         "tipo": "precio",
+         "visible": true,
+         "variante": "grande",
+         "opciones": {
+          "ahorro": "pildora",
+          "tachado": "fino",
+          "equivalencia": true
+         }
+        },
+        {
+         "id": "b4",
+         "tipo": "cupon",
+         "visible": true,
+         "variante": "enlace"
+        },
+        {
+         "id": "b5",
+         "tipo": "boton",
+         "visible": true,
+         "variante": "solido-l"
+        },
+        {
+         "id": "b6",
+         "tipo": "confianza",
+         "visible": true,
+         "variante": "lista-checks",
+         "hijos": [
+          {
+           "id": "b6a",
+           "tipo": "pago-seguro",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6b",
+           "tipo": "garantia",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6c",
+           "tipo": "acceso",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6d",
+           "tipo": "medios",
+           "visible": true,
+           "variante": "-"
+          }
+         ]
+        },
+        {
+         "id": "b7",
+         "tipo": "calificacion",
+         "visible": true,
+         "variante": "linea"
+        },
+        {
+         "id": "b8",
+         "tipo": "whatsapp",
+         "visible": true,
+         "variante": "contorno",
+         "opciones": {
+          "respaldo": "preguntas"
+         }
+        },
+        {
+         "id": "b9",
+         "tipo": "acordeon",
+         "visible": true,
+         "variante": "filas",
+         "hijos": [
+          {
+           "id": "b9a",
+           "tipo": "calcula",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b9b",
+           "tipo": "medios",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b9c",
+           "tipo": "clic",
+           "visible": true,
+           "variante": "-"
+          }
+         ]
+        },
+        {
+         "id": "b10",
+         "tipo": "resena",
+         "visible": false,
+         "variante": "enlace"
+        },
+        {
+         "id": "b11",
+         "tipo": "nota_legal",
+         "visible": true,
+         "variante": "pie"
+        }
+       ],
+       "barra": []
+      }
+     },
+     {
+      "id": "campana",
+      "nombre": "Campaña",
+      "fabrica": true,
+      "descripcion": "Solo para campañas con fechas: la campaña al frente, título, banda oscura con reloj, pastilla de acento y cupón en pastilla.",
+      "uso": "campana",
+      "estilo": {
+       "piel": "tarjeta",
+       "densidad": "comoda"
+      },
+      "zonas": {
+       "cabeza": [],
+       "sobre": [],
+       "caja": [
+        {
+         "id": "b12",
+         "tipo": "titulo",
+         "visible": true,
+         "variante": "display"
+        },
+        {
+         "id": "b1",
+         "tipo": "pais",
+         "visible": true,
+         "variante": "fila"
+        },
+        {
+         "id": "b2",
+         "tipo": "promocion",
+         "visible": true,
+         "variante": "banda",
+         "opciones": {
+          "reloj": "campana"
+         }
+        },
+        {
+         "id": "b3",
+         "tipo": "precio",
+         "visible": true,
+         "variante": "grande",
+         "opciones": {
+          "ahorro": "pildora-acento",
+          "tachado": "acento",
+          "equivalencia": false
+         }
+        },
+        {
+         "id": "b5",
+         "tipo": "boton",
+         "visible": true,
+         "variante": "solido-l"
+        },
+        {
+         "id": "b4",
+         "tipo": "cupon",
+         "visible": true,
+         "variante": "chip"
+        },
+        {
+         "id": "b6",
+         "tipo": "confianza",
+         "visible": true,
+         "variante": "lista-checks",
+         "hijos": [
+          {
+           "id": "b6a",
+           "tipo": "pago-seguro",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6b",
+           "tipo": "garantia",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6c",
+           "tipo": "acceso",
+           "visible": false,
+           "variante": "-"
+          },
+          {
+           "id": "b6d",
+           "tipo": "medios",
+           "visible": false,
+           "variante": "-"
+          }
+         ]
+        },
+        {
+         "id": "b7",
+         "tipo": "calificacion",
+         "visible": true,
+         "variante": "linea"
+        },
+        {
+         "id": "b8",
+         "tipo": "whatsapp",
+         "visible": false,
+         "variante": "contorno",
+         "opciones": {
+          "respaldo": "nada"
+         }
+        },
+        {
+         "id": "b9",
+         "tipo": "acordeon",
+         "visible": true,
+         "variante": "filas",
+         "hijos": [
+          {
+           "id": "b9a",
+           "tipo": "calcula",
+           "visible": false,
+           "variante": "-"
+          },
+          {
+           "id": "b9b",
+           "tipo": "medios",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b9c",
+           "tipo": "clic",
+           "visible": true,
+           "variante": "-"
+          }
+         ]
+        },
+        {
+         "id": "b11",
+         "tipo": "nota_legal",
+         "visible": true,
+         "variante": "pie"
+        }
+       ],
+       "barra": []
+      }
+     },
+     {
+      "id": "minima",
+      "nombre": "Mínima",
+      "fabrica": true,
+      "descripcion": "Precio, botón y lo obligatorio. Para cajas cortas y pantallas bajas.",
+      "estilo": {
+       "piel": "plana",
+       "densidad": "compacta"
+      },
+      "zonas": {
+       "cabeza": [],
+       "sobre": [],
+       "caja": [
+        {
+         "id": "b1",
+         "tipo": "pais",
+         "visible": true,
+         "variante": "fila"
+        },
+        {
+         "id": "b2",
+         "tipo": "promocion",
+         "visible": true,
+         "variante": "cinta",
+         "opciones": {
+          "reloj": "no"
+         }
+        },
+        {
+         "id": "b3",
+         "tipo": "precio",
+         "visible": true,
+         "variante": "grande",
+         "opciones": {
+          "ahorro": "suave",
+          "tachado": "fino",
+          "equivalencia": false
+         }
+        },
+        {
+         "id": "b5",
+         "tipo": "boton",
+         "visible": true,
+         "variante": "solido-l"
+        },
+        {
+         "id": "b4",
+         "tipo": "cupon",
+         "visible": true,
+         "variante": "discreto"
+        },
+        {
+         "id": "b6",
+         "tipo": "confianza",
+         "visible": true,
+         "variante": "chips",
+         "hijos": [
+          {
+           "id": "b6a",
+           "tipo": "pago-seguro",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6b",
+           "tipo": "garantia",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6c",
+           "tipo": "acceso",
+           "visible": false,
+           "variante": "-"
+          },
+          {
+           "id": "b6d",
+           "tipo": "medios",
+           "visible": false,
+           "variante": "-"
+          }
+         ]
+        },
+        {
+         "id": "b8",
+         "tipo": "whatsapp",
+         "visible": true,
+         "variante": "enlace",
+         "opciones": {
+          "respaldo": "nada"
+         }
+        },
+        {
+         "id": "b11",
+         "tipo": "nota_legal",
+         "visible": true,
+         "variante": "pie"
+        }
+       ],
+       "barra": []
+      }
+     },
+     {
+      "id": "precio-claro",
+      "nombre": "Precio claro",
+      "fabrica": true,
+      "descripcion": "Precio y botón a un palmo: campaña en cinta (el reloj va en la barra fija), pastilla de ahorro suave, señales y tres plegables. Fase 2: rótulo «Precio con cupón», cuotas como pieza propia y la señal «Certificado al terminar».",
+      "estilo": {
+       "piel": "tarjeta",
+       "densidad": "comoda"
+      },
+      "zonas": {
+       "cabeza": [],
+       "sobre": [],
+       "caja": [
+        {
+         "id": "b1",
+         "tipo": "pais",
+         "visible": true,
+         "variante": "fila"
+        },
+        {
+         "id": "b2",
+         "tipo": "promocion",
+         "visible": true,
+         "variante": "cinta",
+         "opciones": {
+          "reloj": "no"
+         }
+        },
+        {
+         "id": "b3",
+         "tipo": "precio",
+         "visible": true,
+         "variante": "grande",
+         "opciones": {
+          "ahorro": "suave",
+          "tachado": "fino",
+          "equivalencia": true
+         }
+        },
+        {
+         "id": "b5",
+         "tipo": "boton",
+         "visible": true,
+         "variante": "solido-l"
+        },
+        {
+         "id": "b6",
+         "tipo": "confianza",
+         "visible": true,
+         "variante": "lista-checks",
+         "hijos": [
+          {
+           "id": "b6a",
+           "tipo": "pago-seguro",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6b",
+           "tipo": "garantia",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6c",
+           "tipo": "acceso",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6d",
+           "tipo": "medios",
+           "visible": false,
+           "variante": "-"
+          }
+         ]
+        },
+        {
+         "id": "b4",
+         "tipo": "cupon",
+         "visible": true,
+         "variante": "discreto"
+        },
+        {
+         "id": "b8",
+         "tipo": "whatsapp",
+         "visible": true,
+         "variante": "contorno",
+         "opciones": {
+          "respaldo": "preguntas"
+         }
+        },
+        {
+         "id": "b9",
+         "tipo": "acordeon",
+         "visible": true,
+         "variante": "filas",
+         "hijos": [
+          {
+           "id": "b9b",
+           "tipo": "medios",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b9c",
+           "tipo": "clic",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b9d",
+           "tipo": "garantia",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b9a",
+           "tipo": "calcula",
+           "visible": false,
+           "variante": "-"
+          }
+         ]
+        },
+        {
+         "id": "b7",
+         "tipo": "calificacion",
+         "visible": false,
+         "variante": "linea"
+        },
+        {
+         "id": "b11",
+         "tipo": "nota_legal",
+         "visible": true,
+         "variante": "pie"
+        }
+       ],
+       "barra": []
+      }
+     },
+     {
+      "id": "confianza-primero",
+      "nombre": "Confianza primero",
+      "fabrica": true,
+      "descripcion": "Primero qué recibes, después el precio: título y subtítulo, campaña en cinta, señales en pastillas, calificación de Hotmart con su fuente y WhatsApp. Fase 2: la docente, «Qué recibes» como ficha técnica, el número de lecciones en el subtítulo y el plegable «Cómo funciona Sably».",
+      "estilo": {
+       "piel": "tarjeta",
+       "densidad": "comoda"
+      },
+      "zonas": {
+       "cabeza": [],
+       "sobre": [],
+       "caja": [
+        {
+         "id": "b12",
+         "tipo": "titulo",
+         "visible": true,
+         "variante": "display"
+        },
+        {
+         "id": "b13",
+         "tipo": "subtitulo",
+         "visible": true,
+         "variante": "atenuado"
+        },
+        {
+         "id": "b1",
+         "tipo": "pais",
+         "visible": true,
+         "variante": "fila"
+        },
+        {
+         "id": "b2",
+         "tipo": "promocion",
+         "visible": true,
+         "variante": "cinta",
+         "opciones": {
+          "reloj": "no"
+         }
+        },
+        {
+         "id": "b3",
+         "tipo": "precio",
+         "visible": true,
+         "variante": "grande",
+         "opciones": {
+          "ahorro": "suave",
+          "tachado": "fino",
+          "equivalencia": false
+         }
+        },
+        {
+         "id": "b5",
+         "tipo": "boton",
+         "visible": true,
+         "variante": "solido-l"
+        },
+        {
+         "id": "b6",
+         "tipo": "confianza",
+         "visible": true,
+         "variante": "chips",
+         "hijos": [
+          {
+           "id": "b6a",
+           "tipo": "pago-seguro",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6b",
+           "tipo": "garantia",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6c",
+           "tipo": "acceso",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6d",
+           "tipo": "medios",
+           "visible": false,
+           "variante": "-"
+          }
+         ]
+        },
+        {
+         "id": "b4",
+         "tipo": "cupon",
+         "visible": true,
+         "variante": "discreto"
+        },
+        {
+         "id": "b7",
+         "tipo": "calificacion",
+         "visible": true,
+         "variante": "linea"
+        },
+        {
+         "id": "b8",
+         "tipo": "whatsapp",
+         "visible": true,
+         "variante": "contorno",
+         "opciones": {
+          "respaldo": "preguntas"
+         }
+        },
+        {
+         "id": "b9",
+         "tipo": "acordeon",
+         "visible": true,
+         "variante": "filas",
+         "hijos": [
+          {
+           "id": "b9c",
+           "tipo": "clic",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b9d",
+           "tipo": "garantia",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b9a",
+           "tipo": "calcula",
+           "visible": false,
+           "variante": "-"
+          },
+          {
+           "id": "b9b",
+           "tipo": "medios",
+           "visible": false,
+           "variante": "-"
+          }
+         ]
+        },
+        {
+         "id": "b11",
+         "tipo": "nota_legal",
+         "visible": true,
+         "variante": "pie"
+        }
+       ],
+       "barra": []
+      }
+     },
+     {
+      "id": "cuenta-clara",
+      "nombre": "Cuenta clara",
+      "fabrica": true,
+      "descripcion": "La cuenta antes de pagar: nombre del curso, precio con su tachado fino, cupón en línea, la campaña con su reloj y el botón; señales en pastillas, «¿Qué pasa al hacer clic?» y WhatsApp en tarjeta al pie. Fase 2: «Precio normal → cupón → Hoy pagas» como filas de la cuenta, el contador en barra, logos de los medios y la banda gris de las dudas.",
+      "estilo": {
+       "piel": "tarjeta",
+       "densidad": "comoda"
+      },
+      "zonas": {
+       "cabeza": [],
+       "sobre": [],
+       "caja": [
+        {
+         "id": "b12",
+         "tipo": "titulo",
+         "visible": true,
+         "variante": "simple"
+        },
+        {
+         "id": "b13",
+         "tipo": "subtitulo",
+         "visible": true,
+         "variante": "atenuado"
+        },
+        {
+         "id": "b1",
+         "tipo": "pais",
+         "visible": true,
+         "variante": "fila"
+        },
+        {
+         "id": "b3",
+         "tipo": "precio",
+         "visible": true,
+         "variante": "grande",
+         "opciones": {
+          "ahorro": "texto",
+          "tachado": "fino",
+          "equivalencia": false
+         }
+        },
+        {
+         "id": "b4",
+         "tipo": "cupon",
+         "visible": true,
+         "variante": "enlace"
+        },
+        {
+         "id": "b2",
+         "tipo": "promocion",
+         "visible": true,
+         "variante": "tarjeta",
+         "opciones": {
+          "reloj": "campana"
+         }
+        },
+        {
+         "id": "b5",
+         "tipo": "boton",
+         "visible": true,
+         "variante": "solido-l"
+        },
+        {
+         "id": "b6",
+         "tipo": "confianza",
+         "visible": true,
+         "variante": "chips",
+         "hijos": [
+          {
+           "id": "b6a",
+           "tipo": "pago-seguro",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6b",
+           "tipo": "garantia",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b6c",
+           "tipo": "acceso",
+           "visible": false,
+           "variante": "-"
+          },
+          {
+           "id": "b6d",
+           "tipo": "medios",
+           "visible": true,
+           "variante": "-"
+          }
+         ]
+        },
+        {
+         "id": "b9",
+         "tipo": "acordeon",
+         "visible": true,
+         "variante": "filas",
+         "hijos": [
+          {
+           "id": "b9c",
+           "tipo": "clic",
+           "visible": true,
+           "variante": "-"
+          },
+          {
+           "id": "b9a",
+           "tipo": "calcula",
+           "visible": false,
+           "variante": "-"
+          },
+          {
+           "id": "b9b",
+           "tipo": "medios",
+           "visible": false,
+           "variante": "-"
+          }
+         ]
+        },
+        {
+         "id": "b14",
+         "tipo": "separador",
+         "visible": true,
+         "variante": "espacio"
+        },
+        {
+         "id": "b8",
+         "tipo": "whatsapp",
+         "visible": true,
+         "variante": "tarjeta",
+         "opciones": {
+          "respaldo": "preguntas"
+         }
+        },
+        {
+         "id": "b11",
+         "tipo": "nota_legal",
+         "visible": true,
+         "variante": "pie"
+        }
+       ],
+       "barra": []
+      }
+     }
+    ],
+    "escuelas": {},
+    "cursos": {},
+    "capas": [],
+    "revision": "fabrica",
+    "updatedAt": null,
+    "updatedBy": null
+   }
+  ],
+  "aplicarParche": {
+   "id": "clasica",
+   "nombre": "Clásica",
+   "fabrica": true,
+   "descripcion": "La caja de hoy, pieza por pieza.",
+   "estilo": {
+    "piel": "tarjeta",
+    "densidad": "comoda"
+   },
+   "zonas": {
+    "cabeza": [],
+    "sobre": [],
+    "caja": [
+     {
+      "id": "b3",
+      "tipo": "precio",
+      "visible": true,
+      "variante": "grande",
+      "opciones": {
+       "ahorro": "pildora",
+       "tachado": "fino",
+       "equivalencia": true
+      }
+     },
+     {
+      "id": "b1",
+      "tipo": "pais",
+      "visible": true,
+      "variante": "fila"
+     },
+     {
+      "id": "b2",
+      "tipo": "promocion",
+      "visible": true,
+      "variante": "tarjeta",
+      "opciones": {
+       "reloj": "campana"
+      }
+     },
+     {
+      "id": "b4",
+      "tipo": "cupon",
+      "visible": true,
+      "variante": "enlace"
+     },
+     {
+      "id": "b5",
+      "tipo": "boton",
+      "visible": true,
+      "variante": "solido-l"
+     },
+     {
+      "id": "b6",
+      "tipo": "confianza",
+      "visible": true,
+      "variante": "lista-checks",
+      "hijos": [
+       {
+        "id": "b6a",
+        "tipo": "pago-seguro",
+        "visible": true,
+        "variante": "-"
+       },
+       {
+        "id": "b6b",
+        "tipo": "garantia",
+        "visible": true,
+        "variante": "-"
+       },
+       {
+        "id": "b6c",
+        "tipo": "acceso",
+        "visible": true,
+        "variante": "-"
+       },
+       {
+        "id": "b6d",
+        "tipo": "medios",
+        "visible": true,
+        "variante": "-"
+       }
+      ]
+     },
+     {
+      "id": "b7",
+      "tipo": "calificacion",
+      "visible": false,
+      "variante": "linea"
+     },
+     {
+      "id": "b8",
+      "tipo": "whatsapp",
+      "visible": true,
+      "variante": "contorno",
+      "opciones": {
+       "respaldo": "preguntas"
+      }
+     },
+     {
+      "id": "b9",
+      "tipo": "acordeon",
+      "visible": true,
+      "variante": "filas",
+      "hijos": [
+       {
+        "id": "b9a",
+        "tipo": "calcula",
+        "visible": true,
+        "variante": "-"
+       },
+       {
+        "id": "b9b",
+        "tipo": "medios",
+        "visible": true,
+        "variante": "-"
+       },
+       {
+        "id": "b9c",
+        "tipo": "clic",
+        "visible": true,
+        "variante": "-"
+       }
+      ]
+     },
+     {
+      "id": "b10",
+      "tipo": "resena",
+      "visible": false,
+      "variante": "enlace"
+     },
+     {
+      "id": "b11",
+      "tipo": "nota_legal",
+      "visible": true,
+      "variante": "pie"
+     }
+    ],
+    "barra": []
+   }
+  }
+ }
+}
