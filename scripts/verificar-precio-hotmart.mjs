@@ -142,6 +142,8 @@ export function leerTarjetas(html, pais) {
   /* Tarjeta flotante del héroe de la portada V2 (un enlace, no un <article>). */
   const heroe = html.match(new RegExp(`<a href="/${pais}/([a-z0-9-]+)/"[^>]*(?:data-tarjeta-heroe|class="relative -mt-10)[^>]*>([\\s\\S]*?)</a>`));
   if (heroe) agregar(heroe[1], heroe[2], 'héroe');
+  /* Oficios del mosaico del héroe de la portada V2: todos, también los que esperan turno (están en el HTML). */
+  for (const o of html.matchAll(new RegExp(`<a href="/${pais}/([a-z0-9-]+)/" class="v2-mos-oficio"[^>]*>([\\s\\S]*?)</a>`, 'g'))) agregar(o[1], o[2], 'mosaico');
   return tarjetas;
 }
 
