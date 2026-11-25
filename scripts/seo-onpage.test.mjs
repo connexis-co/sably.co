@@ -43,8 +43,14 @@ test('detecta imágenes sin alt, marcado roto y nodos que se retiraron', () => {
 test('los textos retirados por no ser ciertos no pueden volver', () => {
   for (const frase of ['<h2>Tu instructor</h2>', '<p>Enlace de afiliado</p>', '<p>¡Espera! Tu cupo sigue disponible</p>', '<p>50% solo hoy</p>',
     '<p>−50% en todos los cursos con el cupón 031016</p>', '<h2>El descuento más grande del año ya empezó</h2>',
-    '<p>Resuelve tus dudas por WhatsApp con nuestro equipo en tu país.</p>', '<p>Hotmart, la plataforma líder de cursos online</p>'])
+    '<p>Resuelve tus dudas por WhatsApp con nuestro equipo en tu país.</p>'])
     assert(errores(sana.replace('</main>', `${frase}</main>`)).includes('texto-vetado'), frase);
+});
+
+test('los textos que JP decidió mantener (25-nov) no dan error', () => {
+  for (const frase of ['<p>El pago se procesa de forma segura a través de Hotmart, la plataforma líder de cursos online en Latinoamérica.</p>',
+    '<p>Si quieres comparar precios y temarios reales, el catálogo completo de cursos muestra todos los precios sin registrarte.</p>'])
+    assert.deepEqual(errores(sana.replace('</main>', `${frase}</main>`)), [], frase);
 });
 
 test('título, descripción y lang ausentes son errores; las longitudes, avisos', () => {

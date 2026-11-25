@@ -96,8 +96,10 @@ export const TEXTOS_VETADOS = [
   [/en todos los cursos con el cup[oó]n/i, '«en todos los cursos»: el cupón solo cubre a los creadores que lo aceptan'],
   [/descuento más grande del año/i, 'superlativo sin dato («el descuento más grande del año»)'],
   [/nuestro equipo en tu país/i, '«nuestro equipo en tu país»: no hay un equipo por país'],
-  [/plataforma líder/i, 'superlativo sin dato («plataforma líder»)'],
-  [/\bCatálogo (?:de \d+\+? cursos|completo)\b/i, 'Sably descrito como «catálogo», con una cifra de cursos que no cuadra'],
+  // 25-nov-2026, JP: «Hotmart, la plataforma líder…» se queda (Hotmart está entre los líderes) y «el catálogo
+  // completo de cursos» es cierto (el listado enlaza los 120 cursos, con precio y sin registro). Ya no se vetan.
+  // Sigue vetada una cifra de cursos pegada a «Catálogo» (el título del listado decía «Catálogo de 120+ cursos»).
+  [/\bCatálogo de \d+\+? cursos\b/i, 'Sably descrito como «catálogo», con una cifra de cursos que no cuadra'],
 ];
 
 /**
