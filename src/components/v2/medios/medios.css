@@ -96,8 +96,50 @@
     .v2-medio-linea { grid-area: linea; }
   }
 
+
+  /* Vídeo (ReproductorVideo.astro): caja 16:9 fija; el póster es un <img> y el <video> se monta encima al pulsar. */
+  .v2-medio-video {
+    position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--color-navy-950);
+    --medio-acento: var(--color-coral-500, var(--color-coral-600)); --medio-pista: rgb(255 255 255 / 0.35); --medio-texto: #fff;
+    contain: layout paint;
+  }
+  @media (min-width: 1024px) { .v2-medio-video { border-radius: var(--radius-c-xl); } }
+  .v2-medio-poster, .v2-medio-video > video { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
+  .v2-medio-video > video { object-fit: contain; background: #000; }
+  .v2-medio-portada { position: absolute; inset: 0; display: grid; place-items: center; color: var(--color-navy-950); }
+  .v2-medio-portada[hidden] { display: none; }
+  .v2-medio-gran-play {
+    display: grid; place-items: center; inline-size: 56px; block-size: 56px; border-radius: 999px; background: #fff;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.25); transition: transform var(--t-rapido) var(--e-sale);
+  }
+  @media (min-width: 1024px) { .v2-medio-gran-play { inline-size: 72px; block-size: 72px; } }
+  .v2-medio-portada:hover .v2-medio-gran-play { transform: scale(1.05); }
+  .v2-medio-portada:focus-visible { outline: none; }
+  .v2-medio-portada:focus-visible .v2-medio-gran-play { outline: 3px solid #fff; outline-offset: 4px; }
+  .v2-medio-rotulo {
+    position: absolute; inset-block-end: 16px; inset-inline-start: 16px; display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 12px; border-radius: var(--radius-c-sm); background: #fff;
+    font-size: var(--text-t13); font-weight: 600; color: var(--color-navy-950);
+  }
+  .v2-medio-video .v2-medio-controles {
+    position: absolute; inset-inline: 0; inset-block-end: 0; padding: 32px 12px 10px;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.7), transparent);
+    transition: opacity var(--t-rapido) var(--e-sale);
+  }
+  .v2-medio-video .v2-medio-boton { background: rgb(255 255 255 / 0.16); }
+  .v2-medio-video .v2-medio-principal { background: var(--medio-acento); }
+  .v2-medio-video .v2-medio-tiempo { color: rgb(255 255 255 / 0.85); }
+  .v2-medio-video .v2-medio-boton:focus-visible, .v2-medio-video .v2-medio-barra:focus-visible { outline-color: #fff; }
+  /* Mientras suena y sin interacción, los controles se apartan; vuelven con el puntero, el foco o la pausa. */
+  .v2-medio-video[data-sonando="true"]:not(:hover):not(:focus-within) .v2-medio-controles { opacity: 0; }
+  .v2-medio-video[data-pantalla="true"] { border-radius: 0; }
+  @media (max-width: 639px) {
+    .v2-medio-video .v2-medio-controles:not([hidden]) { display: flex; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
-    .v2-medio-boton { transition: none; }
+    .v2-medio-boton, .v2-medio-gran-play, .v2-medio-video .v2-medio-controles { transition: none; }
+    .v2-medio-portada:hover .v2-medio-gran-play { transform: none; }
     .v2-medio-boton:active { transform: none; }
   }
   @media print { .v2-medio { display: none; } }

@@ -11,6 +11,9 @@
  *   data-medio-actual, data-medio-total   tiempos
  *   data-medio-velocidad      <select> de velocidad
  *   data-medio-estado         región aria-live para avisos
+ *   data-medio-pantalla       pantalla completa (vídeo)
+ * Textos (por defecto, los de la narración): data-medio-verbo («Escuchar»), data-medio-nombre («la narración»),
+ * data-medio-fin («Narración terminada.») y data-medio-album («Artículos narrados», para Media Session).
  * Sin JS queda el reproductor nativo. Si algo falla, vuelve al nativo. Recuerda el punto en localStorage.
  */
 import { enviarConConsentimiento, medir } from './medicion';
@@ -46,6 +49,9 @@ export function prepararMedio(raiz: HTMLElement) {
   const total = raiz.querySelector<HTMLElement>('[data-medio-total]');
   const velocidad = raiz.querySelector('[data-medio-velocidad]') as HTMLSelectElement | null;
   const estado = raiz.querySelector<HTMLElement>('[data-medio-estado]');
+  const pantalla = raiz.querySelector<HTMLButtonElement>('[data-medio-pantalla]');
+  const verbo = raiz.dataset.medioVerbo ?? 'Escuchar';
+  const nombre = raiz.dataset.medioNombre ?? 'la narración';
   const clave = `sably:medio:${new URL(medio.currentSrc || medio.src, location.href).pathname}`;
   const duracionInicial = Number(barra?.max) || 0;
   let arrastrando = false;
@@ -68,8 +74,8 @@ export function prepararMedio(raiz: HTMLElement) {
   function sincronizar() {
     const sonando = !medio.paused && !medio.ended;
     raiz.dataset.sonando = String(sonando);
-    if (etiqueta) etiqueta.textContent = sonando ? 'Pausar' : 'Escuchar';
-    alternar?.setAttribute('aria-label', sonando ? 'Pausar la narración' : 'Reproducir la narración');
+    if (etiqueta) etiqueta.textContent = sonando ? 'Pausar' : verbo;
+    alternar?.setAttribute('aria-label', `${sonando ? 'Pausar' : 'Reproducir'} ${nombre}`);
     if (!arrastrando && pendiente === undefined) pintarPosicion(medio.ended ? duracion() : medio.currentTime);
     if ('mediaSession' in navigator) navigator.mediaSession.playbackState = sonando ? 'playing' : 'paused';
   }
@@ -132,7 +138,7 @@ export function prepararMedio(raiz: HTMLElement) {
   });
   for (const ev of ['play', 'pause', 'seeked', 'emptied']) medio.addEventListener(ev, sincronizar);
   medio.addEventListener('pause', () => guardar(clave, medio.currentTime));
-  medio.addEventListener('ended', () => { guardar(clave, null); avisar('Narración terminada.'); sincronizar(); });
+  medio.addEventListener('ended', () => { guardar(clave, null); avisar(raiz.dataset.medioFin ?? 'Narración terminada.'); sincronizar(); });
   medio.addEventListener('error', nativo);
 
   // Atajos dentro del reproductor: espacio o K alterna; J y L retroceden y avanzan 15 s.
@@ -143,6 +149,22 @@ export function prepararMedio(raiz: HTMLElement) {
     if (k === 'k' || (k === ' ' && !destino.matches('button'))) { e.preventDefault(); alternar?.click(); }
     else if (k === 'j') { e.preventDefault(); ir(medio.currentTime - 15); }
     else if (k === 'l') { e.preventDefault(); ir(medio.currentTime + 15); }
+    else if (k === 'f' && pantalla) { e.preventDefault(); pantalla.click(); }
+  });
+
+  // Vídeo: pulsar la imagen alterna, y pantalla completa sobre la raíz (para conservar los controles propios);
+  // en iPhone, que no la permite sobre un div, la del propio <video>.
+  if (medio.tagName === 'VIDEO') medio.addEventListener('click', () => alternar?.click());
+  pantalla?.addEventListener('click', () => {
+    const video = medio as HTMLVideoElement & { webkitEnterFullscreen?: () => void };
+    if (document.fullscreenElement) void document.exitFullscreen();
+    else if (raiz.requestFullscreen) raiz.requestFullscreen().catch(() => video.webkitEnterFullscreen?.());
+    else video.webkitEnterFullscreen?.();
+  });
+  document.addEventListener('fullscreenchange', () => {
+    const dentro = document.fullscreenElement === raiz;
+    raiz.dataset.pantalla = String(dentro);
+    pantalla?.setAttribute('aria-label', dentro ? 'Salir de pantalla completa' : 'Pantalla completa');
   });
 
   if ('mediaSession' in navigator) {
@@ -151,7 +173,7 @@ export function prepararMedio(raiz: HTMLElement) {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: raiz.dataset.medioTitulo ?? document.title,
         artist: raiz.dataset.medioArtista ?? 'Sably',
-        album: 'Artículos narrados',
+        album: raiz.dataset.medioAlbum ?? 'Artículos narrados',
         ...(caratula ? { artwork: [{ src: caratula }] } : {}),
       });
       const acciones: [MediaSessionAction, MediaSessionActionHandler][] = [
