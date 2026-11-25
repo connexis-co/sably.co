@@ -14,7 +14,8 @@
     "«No necesitas experiencia previa» (requisitos y FAQ) viene del temario y de la lógica del curso, no de Hotmart: confirmar en el área de miembros.",
     "Hotmart promete «emprendimiento rentable»: no se repite. «Certificado» de Hotmart se escribe «constancia».",
     "Decisión de JP (C02): este es el dueño de «curso de manicure»; curso-de-unas (base, co) y decoración (es) deben sacarlo de sus title.",
-    "Revisión adversaria 25-nov: «paso a paso» se movió al masaje (es lo que dice Hotmart), fuera la frase de palabra clave en la FAQ manicure/manicura, «alicate o pinza» (neutro para MX). Salud: el uñero lleva aviso de derivar si hay infección, diabetes o mala circulación, y hongos = no atender. JP: «sacar un uñero» es contenido de Hotmart, pero en algunos países es acto de podología; valorar si se deja como viñeta."
+    "Revisión adversaria 25-nov: «paso a paso» se movió al masaje (es lo que dice Hotmart), fuera la frase de palabra clave en la FAQ manicure/manicura, «alicate o pinza» (neutro para MX). Salud: el uñero lleva aviso de derivar si hay infección, diabetes o mala circulación, y hongos = no atender. JP: «sacar un uñero» es contenido de Hotmart, pero en algunos países es acto de podología; valorar si se deja como viñeta.",
+    "Pregunta de experiencia previa conservada (existía en la ficha): Hotmart no la menciona; la respuesta lo dice así."
   ],
   "base": {
     "h1": "Curso de manicure y pedicure online en {pais}",
@@ -64,6 +65,10 @@
       {
         "q": "¿Qué diferencia hay entre manicure y manicura?",
         "a": "Ninguna en el servicio: son dos nombres para lo mismo, y se usa uno u otro según el país. Pasa igual con pedicure y pedicura. En muchos países conviven las dos formas, y las técnicas, las herramientas y el protocolo de atención son los mismos se llame como se llame."
+      },
+      {
+        "q": "¿Necesito experiencia previa para tomar el curso?",
+        "a": "La descripción del creador no pide estudios ni experiencia previa. El curso recorre las técnicas de manicura y pedicura y, paso a paso, el masaje de manos y pies. Si empiezas de cero, conviene practicar primero en tus propias manos o con alguien de confianza antes de atender clientes a domicilio."
       },
       {
         "q": "¿El curso de manicure y pedicure es gratis o tiene mensualidades?",

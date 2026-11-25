@@ -14,7 +14,8 @@
     "El temario del CMS (corte a máquina y tijera, estilos por raza, «monta tu peluquería») y los títulos previos (corte higiénico de patas, poodle) no están en Hotmart. El texto solo promete planear el corte y dice que no detalla estilos por raza.",
     "Hotmart no menciona constancia ni certificado para este curso; la FAQ sigue el patrón de los pilotos (constancia avalada por Hotmart y Seminarios Online). Confirmar en el área de miembros.",
     "Hotmart habla de competencias y premios: se cita como posibilidad que menciona el creador, sin promesa.",
-    "Revisión adversaria 25-nov: corregida la duda que decía «misma fuente en Hotmart» (son dos productos); «en unos países se llama peluquería canina y en otros grooming» no era cierto y pasa a «también se le llama»."
+    "Revisión adversaria 25-nov: corregida la duda que decía «misma fuente en Hotmart» (son dos productos); «en unos países se llama peluquería canina y en otros grooming» no era cierto y pasa a «también se le llama».",
+    "Pregunta de experiencia previa conservada (existía en la ficha): Hotmart no la menciona; la respuesta lo dice así."
   ],
   "base": {
     "h1": "Curso de {estetica} online en {pais}",
@@ -64,6 +65,10 @@
       {
         "q": "¿Cómo se baña a un perro sin lastimarlo?",
         "a": "Con agua tibia, un champú hecho para perros, cuidando que no le entre agua al oído y enjuagando bien todos los pliegues. Después, secarlo por completo, porque la humedad irrita la piel. Evitar lesiones e infecciones por un mal baño es uno de los puntos que plantea el curso. Si la piel se ve dañada, consulta al veterinario."
+      },
+      {
+        "q": "¿Necesito experiencia previa con perros?",
+        "a": "La descripción del creador no pide experiencia previa. El curso parte del conocimiento de las herramientas y su uso, y sigue con el baño, el cepillado, el corte de uñas, el secado y la planeación del corte. Si nunca has arreglado un perro, empieza con uno tranquilo y conocido, mejor el tuyo."
       },
       {
         "q": "¿El curso de estética canina es gratis o tiene mensualidades?",

@@ -15,7 +15,8 @@
     "Hotmart habla de «emprendimiento altamente rentable», «exportadores» y una fecha de origen (año 3.400 a. C.): no se repite la promesa ni la fecha.",
     "Hotmart no dice nivel de entrada, así que no se afirma «sin experiencia previa».",
     "El título del producto en Hotmart es «Extensiones de Cabello como Negocio»: la ficha lo trata como oficio y negocio, sin repetir la promesa de rentabilidad.",
-    "Revisión adversaria 25-nov: quitado «cubre corte, color y más» sobre el curso de peluquería (sin fuente aquí) y una enumeración de consejos en serie. Pendiente de cotejar en el área de miembros qué técnicas concretas (keratina, cinta, clip…) se enseñan."
+    "Revisión adversaria 25-nov: quitado «cubre corte, color y más» sobre el curso de peluquería (sin fuente aquí) y una enumeración de consejos en serie. Pendiente de cotejar en el área de miembros qué técnicas concretas (keratina, cinta, clip…) se enseñan.",
+    "Pregunta de experiencia previa conservada (existía en la ficha): Hotmart no la menciona; la respuesta lo dice así."
   ],
   "base": {
     "h1": "Curso de extensiones de cabello online en {pais}",
@@ -65,6 +66,10 @@
       {
         "q": "¿Sirve para montar un negocio de extensiones?",
         "a": "El curso incluye cómo seleccionar extensiones para tu negocio, entender la industria y vender para que la clienta regrese. No promete clientela ni ingresos: eso depende de tu ciudad, tu tarifa y cuántas personas atiendas. Es una base de oficio y de ventas, no un plan de negocio listo."
+      },
+      {
+        "q": "¿Necesito experiencia previa en peluquería?",
+        "a": "La descripción del creador no pide estudios ni experiencia previa. El curso explica paso a paso cómo elegir extensiones de buena calidad y los dos métodos de instalación, fijo y temporal. Si nunca has trabajado con cabello, conviene practicar primero en una cabeza de maniquí antes de instalar extensiones en una clienta."
       },
       {
         "q": "¿El curso de extensiones de cabello es gratis o tiene mensualidades?",
