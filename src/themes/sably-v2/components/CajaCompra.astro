@@ -13,6 +13,7 @@
  * la analítica: no se renombran.
  */
 import Icono from '@/components/v2/Icono.astro';
+import Estrellas from '@/components/v2/Estrellas.astro';
 import Boton from '@/components/v2/Boton.astro';
 import Contador from '@/components/v2/Contador.astro';
 import Acordeon from '@/components/v2/Acordeon.astro';
@@ -23,13 +24,28 @@ import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { fechaCorta } from '@/lib/cuenta-atras';
 import { nombresCreadores } from '@/lib/creadores';
 import { cifra as cifraSinSimbolo, fotoPropia, iniciales } from '@/lib/presentacion-v2';
-import type { AjustesV2 } from '@/lib/ajustes-tema';
+import { rellenarPlantilla, type AjustesV2 } from '@/lib/ajustes-tema';
+import { docConAjustes } from '@/lib/caja/sably';
+import { resolverZona } from '@/lib/caja/resolver';
+import type { Bloque, Condicion } from '@/lib/caja/model';
+import { notaHotmart } from '@/lib/opiniones';
 import type { Ficha } from '@/lib/ficha';
 import type { Country } from '@/lib/countries';
 
-interface Props { f: Ficha; country: Country; ajustes: AjustesV2; titulo: string; subtitulo: string }
-const { f, country, ajustes, titulo, subtitulo } = Astro.props;
-const { offer, quote, real, baseAmount, currency, displayMoney, localCheckout, marketLinks, promoRow, creadoresVisibles, course } = f;
+interface Props { f: Ficha; country: Country; ajustes: AjustesV2 }
+const { f, country, ajustes } = Astro.props;
+const { offer, quote, real, baseAmount, currency, displayMoney, localCheckout, marketLinks, promoRow, creadoresVisibles, course, proveedor, nombreEnFrase, valoracion } = f;
+
+/* Qué bloques lleva la caja, en qué variante y con qué textos: el núcleo común con la
+   academia (src/lib/caja/, copia exacta de la suya) sobre el documento de Sably. */
+const zona = resolverZona({ doc: docConAjustes(ajustes.caja), curso: { courseId: course.id, escuela: proveedor, cajaElementos: null }, zona: 'caja' });
+const cumple = (si?: Condicion) => !si
+  || ((!si.campana || (si.campana === 'sin' ? !offer : si.campana === 'con-fechas' ? Boolean(offer?.end) : Boolean(offer)))
+    && (!si.cupon || (si.cupon === 'aplicado') === Boolean(offer))
+    && (!si.paises?.length || si.paises.map(p => p.toLowerCase()).includes(country.code)));
+const bloque = (tipo: Bloque['tipo']) => zona.bloques.find(b => b.tipo === tipo && b.visible && cumple(b.si)) ?? null;
+const hijos = (tipo: Bloque['tipo']) => (bloque(tipo)?.hijos ?? []).filter(h => h.visible && cumple(h.si));
+const hijo = (tipo: Bloque['tipo'], item: Bloque['tipo']) => hijos(tipo).some(h => h.tipo === item);
 
 const cifra = (valor: number) => cifraSinSimbolo(valor, country.hreflang);
 const conMoneda = (valor: number) => `${cifra(valor)} ${currency}`;
@@ -42,13 +58,21 @@ if (offer) discounted.searchParams.set('offDiscount', offer.coupon);
 const enlaceInicial = offer ? discounted.href : localCheckout.href;
 const campana = promoRow?.etiqueta || promoRow?.nombre || null;
 const fin = offer?.end ? `${fechaCorta(offer.end)}, hora de Colombia` : null;
-const variante = ajustes.caja.variante === 'cabecera-oscura' && offer ? 'cabecera-oscura' : 'cuenta-clara';
+const variante = zona.preajuste === 'cabecera-oscura' && offer && bloque('promocion') ? 'cabecera-oscura' : 'cuenta-clara';
 const leida = quote?.at ? new Intl.DateTimeFormat('es-CO', { timeZone: 'America/Bogota', day: 'numeric', month: 'short', year: 'numeric' }).format(quote.at).replace(/ de /g, ' ') : null;
 const whatsapp = buildWhatsAppUrl(country.whatsapp, `Hola, tengo una duda antes de inscribirme en «${course.data.title}»`);
 const creador = ajustes.mostrarCreador && creadoresVisibles.length ? nombresCreadores(creadoresVisibles.map(c => c.nombre)) : null;
 const foto = ajustes.mostrarCreador ? creadoresVisibles.map(c => c.foto).find(fotoPropia) ?? null : null;
 const siglas = creador ? iniciales(creadoresVisibles[0]!.nombre) : '';
 const despues = descuento ? `Después vuelve a ${conMoneda(baseAmount)}.` : null;
+const variables = { curso: nombreEnFrase, escuela: creadoresVisibles.length ? nombresCreadores(creadoresVisibles.map(c => c.nombre)) : '' };
+const texto = (tipo: Bloque['tipo']) => { const b = bloque(tipo); return b?.textos?.texto ? rellenarPlantilla(b.textos.texto, variables) : ''; };
+const titulo = texto('titulo');
+const subtitulo = texto('subtitulo');
+const reloj = bloque('promocion') && bloque('promocion')!.opciones?.reloj !== 'no';
+const whatsappBloque = bloque('whatsapp');
+const nota = bloque('calificacion') ? notaHotmart(valoracion) : null;
+const preguntas = hijos('acordeon');
 const tituloId = 'titulo-compra';
 ---
 <section id="compra" tabindex="-1" aria-labelledby={tituloId}
@@ -58,7 +82,7 @@ const tituloId = 'titulo-compra';
   data-currency={currency} data-base-amount={baseAmount} data-reduced-amount={reducido ?? undefined}
   data-quote-source={quote ? 'hotmart' : 'respaldo'} data-quote-at={quote?.at ?? undefined}
   data-estado={estado} data-cupon={offer ? 'aplicado' : undefined} data-variante={variante}
-  data-codigo={offer?.coupon} data-pct={offer?.saving} data-campana={campana ?? undefined}>
+  data-codigo={offer?.coupon} data-pct={offer?.saving} data-campana={campana ?? undefined} data-preajuste={zona.preajuste}>
 
   {variante === 'cabecera-oscura' && offer ? (
     <div class="bg-navy-950 px-6 pt-6 pb-5 text-white" data-bloque="promocion">
@@ -70,10 +94,10 @@ const tituloId = 'titulo-compra';
           {campana && <p class="text-t13 font-semibold text-coral-500">{campana}</p>}
           <p class="v2-num font-display text-d40 font-semibold">{offer.saving} % <span class="text-t15 font-normal text-white/75">menos</span></p>
         </div>
-        {offer.end && <Contador hasta={offer.end} desde={promoRow?.desde} estilo="casillas" oscuro class="[&_p]:hidden" />}
+        {offer.end && reloj && <Contador hasta={offer.end} desde={promoRow?.desde} estilo="casillas" oscuro class="[&_p]:hidden" />}
       </div>
-      <p class="mt-3 flex items-center gap-2 text-t13 font-semibold" data-bloque="cupon"><Icono nombre="circle-check" tamano={16} class="text-whatsapp" /><span data-cupon-texto>Cupón {offer.coupon} aplicado</span>
-        <button type="button" data-toggle class="ml-auto min-h-9 font-medium text-white underline underline-offset-4">Quitar</button></p>
+      {bloque('cupon') && <p class="mt-3 flex items-center gap-2 text-t13 font-semibold" data-bloque="cupon"><Icono nombre="circle-check" tamano={16} class="text-whatsapp" /><span data-cupon-texto>Cupón {offer.coupon} aplicado</span>
+        <button type="button" data-toggle class="ml-auto min-h-9 font-medium text-white underline underline-offset-4">Quitar</button></p>}
       {fin && <p class="text-t13 text-white/70">Termina el {fin}</p>}
     </div>
   ) : (
@@ -94,14 +118,14 @@ const tituloId = 'titulo-compra';
           <dt class="text-navy-700">Precio normal</dt>
           <dd class="v2-num text-navy-500"><span data-tachado class="v2-tachado">{conMoneda(baseAmount)}</span></dd>
         </div>
-        <div class="flex items-baseline justify-between gap-3" data-bloque="cupon">
+        {bloque('cupon') && <div class="flex items-baseline justify-between gap-3" data-bloque="cupon">
           <dt class="flex min-w-0 items-center gap-x-2 text-navy-950">
             <span data-cupon-icono class="inline-flex flex-none"><Icono nombre="circle-check" tamano={16} class="text-v2-ok" /></span>
             <span data-cupon-texto class="whitespace-nowrap">Cupón {offer!.coupon} · {offer!.saving} %</span>
             <button type="button" data-toggle class="min-h-9 text-t13 font-medium whitespace-nowrap text-navy-950 underline underline-offset-4 hover:text-coral-700">Quitar</button>
           </dt>
           <dd class="v2-num font-semibold whitespace-nowrap text-coral-700" data-cupon-cifra data-con={`−${conMoneda(descuento)}`} data-sin={`−${offer!.saving} %`}>−{conMoneda(descuento)}</dd>
-        </div>
+        </div>}
       </dl>
     )}
 
@@ -115,7 +139,7 @@ const tituloId = 'titulo-compra';
       )}
     </div>
 
-    {estado === 'campana' && variante === 'cuenta-clara' && offer?.end && (
+    {estado === 'campana' && variante === 'cuenta-clara' && reloj && offer?.end && (
       <Contador hasta={offer.end} desde={promoRow?.desde} estilo={ajustes.caja.contador === 'tique' ? 'linea' : ajustes.caja.contador} campana={campana} despues={despues} cupon={offer.coupon} class="mt-4" />
     )}
     {offer && (
@@ -131,7 +155,7 @@ const tituloId = 'titulo-compra';
           ? <Boton variante="precio" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago precio={{ cifra: cifra(baseAmount), moneda: currency }}>Inscribirme</Boton>
           : <Boton variante="principal" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago>Ver precio en Hotmart</Boton>}
       <p class="mt-3 text-t13 text-navy-700" data-bloque="pago-seguro">Pagas en <LogoHotmart alto={15} class="mx-0.5" /> en {currency} · sin crear cuenta en Sably</p>
-      <p class="text-t13 text-navy-500">El acceso te llega por correo al instante.</p>
+      {hijo('confianza', 'acceso') && <p class="text-t13 text-navy-500">El acceso te llega por correo al instante.</p>}
     </div>
 
     {creador && (
@@ -142,29 +166,46 @@ const tituloId = 'titulo-compra';
       </div>
     )}
 
+    {nota && <p class="mt-5 flex items-center gap-1.5 text-t13 text-navy-700" data-bloque="calificacion"><Estrellas nota={valoracion!.rating} /><strong class="v2-num ml-1 font-semibold text-navy-950">{nota.cifra}</strong> · {nota.texto}</p>}
+
     <ul class="mt-5 space-y-3 border-t border-navy-100 pt-5 text-t15 text-navy-950" data-bloque="confianza">
-      <li class="flex items-center gap-3" data-item="garantia"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="shield-check" tamano={18} /></span>7 días para pedir reembolso</li>
+      {hijo('confianza', 'garantia') && <li class="flex items-center gap-3" data-item="garantia"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="shield-check" tamano={18} /></span>7 días para pedir reembolso</li>}
       <li class="flex items-center gap-3" data-item="constancia"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="award" tamano={18} /></span>Constancia de finalización</li>
-      <li class="flex items-center gap-3" data-item="medios"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="credit-card" tamano={18} /></span>Tarjeta o PayPal</li>
+      {hijo('confianza', 'medios') && <li class="flex items-center gap-3" data-item="medios"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="credit-card" tamano={18} /></span>Tarjeta o PayPal</li>}
     </ul>
-    <LogosPago pais={country.code} locales={false} class="mt-3 pl-11" />
+    {hijo('confianza', 'medios') && <LogosPago pais={country.code} locales={false} class="mt-3 pl-11" />}
 
     <div class="mt-5 border-t border-navy-100" data-bloque="acordeon">
-      <Acordeon titulo="Qué pasa al pulsar" grupo="caja" class="border-b border-navy-100" tituloClass="min-h-12 py-3 text-t15 font-medium text-navy-950">
-        <ol class="list-decimal space-y-1.5 pb-4 pl-5 text-t13 text-navy-700">
-          <li>Se abre Hotmart en otra pestaña, con el curso y el precio en {currency}{offer ? ` y el cupón ${offer.coupon} ya puesto` : ''}.</li>
-          <li>Pagas ahí; Sably no ve ni guarda tus datos de pago.</li>
-          <li>Hotmart te manda por correo el acceso a las lecciones.</li>
-          <li>Tienes 7 días para pedir el reembolso desde Hotmart.</li>
-          <li>Al terminar el 100 % de las lecciones, Hotmart emite tu constancia de finalización.</li>
-        </ol>
-      </Acordeon>
-      <Acordeon titulo="Medios de pago" grupo="caja" class="border-b border-navy-100" tituloClass="min-h-12 py-3 text-t15 font-medium text-navy-950">
-        <div class="pb-4 text-t13 text-navy-700">
-          <p>{f.FAQ_PAGO.a}</p>
-          <LogosPago pais={country.code} class="mt-3" alto={18} />
-        </div>
-      </Acordeon>
+      {preguntas.map(p => p.tipo === 'clic' ? (
+        <Acordeon titulo="Qué pasa al pulsar" grupo="caja" class="border-b border-navy-100" tituloClass="min-h-12 py-3 text-t15 font-medium text-navy-950">
+          <ol class="list-decimal space-y-1.5 pb-4 pl-5 text-t13 text-navy-700">
+            <li>Se abre Hotmart en otra pestaña, con el curso y el precio en {currency}{offer ? ` y el cupón ${offer.coupon} ya puesto` : ''}.</li>
+            <li>Pagas ahí; Sably no ve ni guarda tus datos de pago.</li>
+            <li>Hotmart te manda por correo el acceso a las lecciones.</li>
+            <li>Tienes 7 días para pedir el reembolso desde Hotmart.</li>
+            <li>Al terminar el 100 % de las lecciones, Hotmart emite tu constancia de finalización.</li>
+          </ol>
+        </Acordeon>
+      ) : p.tipo === 'medios' ? (
+        <Acordeon titulo="Medios de pago" grupo="caja" class="border-b border-navy-100" tituloClass="min-h-12 py-3 text-t15 font-medium text-navy-950">
+          <div class="pb-4 text-t13 text-navy-700">
+            <p>{f.FAQ_PAGO.a}</p>
+            <LogosPago pais={country.code} class="mt-3" alto={18} />
+          </div>
+        </Acordeon>
+      ) : p.tipo === 'calcula' ? (
+        <Acordeon titulo="¿Cómo se calcula el precio?" grupo="caja" class="border-b border-navy-100" tituloClass="min-h-12 py-3 text-t15 font-medium text-navy-950">
+          <p class="pb-4 text-t13 text-navy-700">Es el total con tarjeta que muestra Hotmart para {country.name}{leida ? `, leído el ${leida}` : ''}. Hotmart lo convierte a {currency} con su propia tasa{offer ? ` y le aplica el cupón ${offer.coupon}` : ''}; el importe final lo ves antes de pagar.</p>
+        </Acordeon>
+      ) : p.tipo === 'garantia' ? (
+        <Acordeon titulo="Garantía de 7 días" grupo="caja" class="border-b border-navy-100" tituloClass="min-h-12 py-3 text-t15 font-medium text-navy-950">
+          <p class="pb-4 text-t13 text-navy-700">Si el curso no cumple tus expectativas, pides el reembolso del 100 % en Hotmart dentro de los 7 días.</p>
+        </Acordeon>
+      ) : p.tipo === 'propia' && p.textos?.pregunta && p.textos?.respuesta ? (
+        <Acordeon titulo={p.textos.pregunta} grupo="caja" class="border-b border-navy-100" tituloClass="min-h-12 py-3 text-t15 font-medium text-navy-950">
+          <p class="pb-4 text-t13 text-navy-700">{rellenarPlantilla(p.textos.respuesta, variables)}</p>
+        </Acordeon>
+      ) : null)}
       <Acordeon titulo="País y moneda" grupo="caja" class="border-b border-navy-100" tituloClass="min-h-12 py-3 text-t15 font-medium text-navy-950">
         <p class="text-t13 text-navy-700">Ahora: {country.name} · {currency}. Cambiar a:</p>
         <ul class="grid grid-cols-2 gap-x-3 pb-3">{marketLinks.map(m => <li><a class="inline-block py-2 text-t13 text-navy-950 underline underline-offset-4" href={m.href}>{m.label}</a></li>)}</ul>
@@ -173,9 +214,11 @@ const tituloId = 'titulo-compra';
   </div>
 
   <div class="bg-navy-50 px-6 py-5" data-bloque="whatsapp">
-    <p class="text-t15 font-semibold text-navy-950">¿Dudas antes de pagar?</p>
-    <Boton variante="whatsapp" completo href={whatsapp} target="_blank" rel="noopener nofollow" class="mt-3">Escríbenos por WhatsApp</Boton>
-    <p class="mt-3 text-t13 text-navy-500" data-bloque="nota_legal">Sably recibe una comisión cuando te inscribes desde aquí, sin costo extra para ti.{leida && ` Precio leído en Hotmart el ${leida}.`}</p>
+    {whatsappBloque && (whatsappBloque.variante === 'enlace'
+      ? <p class="text-t15 text-navy-950">¿Dudas antes de pagar? <a href={whatsapp} target="_blank" rel="noopener nofollow" class="font-semibold underline underline-offset-4">{whatsappBloque.textos?.etiqueta || 'Escríbenos por WhatsApp'}</a></p>
+      : <><p class="text-t15 font-semibold text-navy-950">¿Dudas antes de pagar?</p>
+        <Boton variante="whatsapp" completo href={whatsapp} target="_blank" rel="noopener nofollow" class="mt-3">{whatsappBloque.textos?.etiqueta || 'Escríbenos por WhatsApp'}</Boton></>)}
+    <p class:list={['text-t13 text-navy-500', whatsappBloque && 'mt-3']} data-bloque="nota_legal">Sably recibe una comisión cuando te inscribes desde aquí, sin costo extra para ti.{leida && ` Precio leído en Hotmart el ${leida}.`}</p>
   </div>
 </section>
 

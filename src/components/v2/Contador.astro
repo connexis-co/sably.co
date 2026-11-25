@@ -29,14 +29,14 @@ const fin = `${fechaCorta(hasta)}, hora de Colombia`;
 {r && (
   <div class:list={['v2-contador', clase]} data-contador data-hasta={hasta} data-desde={desde ?? undefined} data-estilo={estilo}>
     {estilo === 'barra' && (
-      <div class:list={['rounded-c-md p-4', oscuro ? 'bg-white/8' : 'bg-navy-50']}>
+      <div class:list={['rounded-c-md px-4 py-3', oscuro ? 'bg-white/8' : 'bg-navy-50']}>
         <div class="flex items-center gap-2">
           <Icono nombre="timer" tamano={18} class={oscuro ? 'text-white' : 'text-navy-950'} />
           <p class:list={['text-t15', oscuro ? 'text-white/80' : 'text-navy-700']}>Quedan <strong class:list={['v2-num text-t17 font-semibold', oscuro ? 'text-white' : 'text-navy-950']} data-contador-texto>{textoRestante(r)}</strong></p>
           {campana && <p class="ml-auto text-t13 font-semibold text-coral-700">{campana}</p>}
         </div>
-        <div class="v2-barra mt-3" role="presentation"><span data-contador-barra style={`width:${(fraccion * 100).toFixed(1)}%`}></span></div>
-        <p class:list={['mt-3 text-t13', oscuro ? 'text-white/70' : 'text-navy-500']}>Termina el {fin}.{despues && <span data-contador-despues> {despues}</span>}{cupon && <span data-contador-sigue hidden> El cupón {cupon} sigue disponible hasta entonces.</span>}</p>
+        <div class="v2-barra mt-2.5" role="presentation"><span data-contador-barra style={`width:${(fraccion * 100).toFixed(1)}%`}></span></div>
+        <p class:list={['mt-2.5 text-t13', oscuro ? 'text-white/70' : 'text-navy-500']}>Termina el {fin}.{despues && <span data-contador-despues> {despues}</span>}{cupon && <span data-contador-sigue hidden> El cupón {cupon} sigue disponible hasta entonces.</span>}</p>
       </div>
     )}
     {estilo === 'casillas' && (
@@ -56,7 +56,6 @@ const fin = `${fechaCorta(hasta)}, hora de Colombia`;
         <span class:list={['w-full', oscuro ? 'text-white/70' : 'text-navy-500']}>{fin}</span>
       </p>
     )}
-    <span class="sr-only">Termina el {fin}.</span>
   </div>
 )}
 <script>
