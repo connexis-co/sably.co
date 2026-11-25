@@ -140,6 +140,13 @@ const ECOSYSTEM = (ecosystem?.items ?? []).flatMap(item=>{
   <div class="border-t border-white/10">
     <div class="container-site flex flex-col items-center gap-2 py-5 text-center text-xs text-white/50 sm:flex-row sm:flex-wrap sm:justify-between sm:text-left">
       <p>© {year} Sably — Todos los derechos reservados.</p>
+      {/* Reabre el centro de cookies (src/lib/consent): revocar es tan fácil como aceptar. */}
+      <button
+        type="button"
+        data-sably-consent-open
+        class="underline decoration-white/30 underline-offset-2 transition hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+        >Preferencias de cookies</button
+      >
       <p>Plataforma de educación online para aprender oficios en español.</p>
       {/* Aviso de comisión en todo el sitio (FTC, SIC, LSSI y la política de
           tergiversación de Google Ads piden declararla). Dice cómo se financia
