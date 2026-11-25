@@ -4,12 +4,16 @@
  * sigue entero en el HTML y el audio es un añadido. Alto reservado (sin CLS), `preload="none"` (no compite con el
  * LCP), controles propios con el controlador común de `medios/` y, sin JS, el reproductor del navegador.
  */
-import './medios/medios.css';
+// El CSS va en línea y solo con el reproductor: importado como hoja, entraría en el CSS empaquetado de todas las
+// páginas (y cambiaría su HTML) aunque ninguna tuviera narración.
+import cssMedios from './medios/medios.css?raw';
 interface Props { src: string; segundos: number; titulo: string; caratula?: string; id?: string; medioId?: string; proveedor?: string }
 const { src, segundos, titulo, caratula, id = 'narracion', medioId, proveedor } = Astro.props;
 const reloj = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
 const minutos = Math.max(1, Math.round(segundos / 60));
+const estilos = cssMedios.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').trim();
 ---
+<style is:inline set:html={estilos}></style>
 <section class="v2-medio v2-medio-audio" data-medio data-medio-tipo="audio" data-medio-id={medioId} data-medio-proveedor={proveedor} data-medio-titulo={titulo} data-medio-artista="Sably" data-medio-caratula={caratula} aria-labelledby={`${id}-titulo`}>
   <div class="v2-medio-cabeza">
     <p class="v2-medio-titulo" id={`${id}-titulo`}>Escucha este artículo · {minutos} min</p>
