@@ -197,7 +197,8 @@ async function cotizar(fuente, mercado, cupon) {
   const respuesta = await fetch('https://pay.hotmart.com/api/next/load', {
     method: 'POST', redirect: 'error', signal: AbortSignal.timeout(15000),
     headers: { 'content-type': 'application/json', origin: 'https://pay.hotmart.com', referer: `https://pay.hotmart.com/${fuente.codigo}` },
-    body: JSON.stringify({ items: [{ affiliation: fuente.codigo, quantity: 1, ...(cupon ? { coupon: cupon } : {}) }], countryIsoCode: mercado, device: 'DESKTOP' }),
+    // La oferta del enlace de compra cuando no es la por defecto (src/lib/checkout-price.ts, `Source.oferta`).
+    body: JSON.stringify({ items: [{ affiliation: fuente.codigo, quantity: 1, ...(fuente.oferta ? { offer: fuente.oferta } : {}), ...(cupon ? { coupon: cupon } : {}) }], countryIsoCode: mercado, device: 'DESKTOP' }),
   });
   return respuesta.ok ? respuesta.json() : null;
 }

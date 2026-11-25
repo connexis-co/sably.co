@@ -24,7 +24,9 @@ const bandera = (n) => args.includes(`--${n}`);
 const BASE = opcion('base', 'https://sably.co').replace(/\/$/, '');
 const SALIDA = opcion('salida', 'juez-ux-salida');
 const CHROME = opcion('chrome', '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome');
-const PAISES = opcion('paises', 'co,mx,pe,ec,cl,ar,es,us').split(',');
+// Solo códigos de país de dos letras: el país entra en una expresión regular (CodeQL, inyección de RegExp).
+const PAISES = opcion('paises', 'co,mx,pe,ec,cl,ar,es,us').split(',').filter((p) => /^[a-z]{2}$/.test(p));
+const escaparRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const VISTAS = { 390: { width: 390, height: 844, isMobile: true, hasTouch: true, deviceScaleFactor: 2 }, 768: { width: 768, height: 1024, hasTouch: true, deviceScaleFactor: 1 }, 1440: { width: 1440, height: 900 } };
 const vistas = opcion('vistas', '390,768,1440').split(',');
 const SOLO = opcion('solo', '') ? opcion('solo', '').split(',') : null;
@@ -53,8 +55,8 @@ async function plan() {
   const mapa = [];
   for (const [i, c] of PAISES.entries()) {
     const listado = await leer(`/${c}/cursos/`); await espera(PAUSA);
-    const fichas = hrefs(listado, new RegExp(`^/${c}/curso-de-[^/]+/$`));
-    const cats = hrefs(listado, new RegExp(`^/${c}/cursos/[^/]+/$`));
+    const fichas = hrefs(listado, new RegExp(`^/${escaparRe(c)}/curso-de-[^/]+/$`));
+    const cats = hrefs(listado, new RegExp(`^/${escaparRe(c)}/cursos/[^/]+/$`));
     const categoria = cats.find((h) => h.includes('/oficios/')) ?? cats[0] ?? `/${c}/cursos/oficios/`;
     const masajes = fichas.find((h) => h.includes('masajes-terapeuticos')) ?? fichas[0];
     let pago = null;

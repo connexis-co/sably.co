@@ -7,24 +7,25 @@
  * se pide nada al servidor. En móvil la cuenta va dentro del menú (CuentaHoja.astro). «Entrar» abre la ventana
  * emergente (DialogoCuenta.astro) o la página /ingresar/, según el panel.
  */
-import { RUTAS, enlaceIngresar } from '@/lib/cuenta/nucleo';
+import { RUTAS } from '@/lib/cuenta/nucleo';
 import DialogoCuenta from './DialogoCuenta.astro';
 /** `ventana`: «Entrar» abre la ventana emergente (panel → Cuenta → Cómo se abre «Entrar»); si no, la página. */
 interface Props { ruta: string; ventana: boolean }
-const entrar = enlaceIngresar(Astro.props.ruta);
 ---
 <div class="v2-cuenta max-lg:hidden" data-cuenta-caja>
-  <a href={entrar} class="v2-cuenta-entrar" data-cuenta-entrar data-cuenta-abrir={Astro.props.ventana ? '' : undefined} data-no-prefetch>Entrar</a>
+  <a href={RUTAS.ingresar} rel="nofollow" class="v2-cuenta-entrar" data-cuenta-entrar data-cuenta-abrir={Astro.props.ventana ? '' : undefined} data-no-prefetch>Entrar</a>
   <button type="button" popovertarget="v2-cuenta-menu" class="v2-cuenta-avatar [anchor-name:--v2-cuenta]" data-cuenta-con aria-label="Tu cuenta">
     <span data-cuenta-iniciales aria-hidden="true"></span>
     <img data-cuenta-foto alt="" width="36" height="36" referrerpolicy="no-referrer" hidden />
   </button>
 </div>
-<script is:inline>if (/(?:^|;\s*)sably_cuenta_ui=1(?:;|$)/.test(document.cookie)) document.documentElement.setAttribute('data-cuenta', '1');</script>
+<script is:inline>if (/(?:^|;\s*)sably_cuenta_ui=1(?:;|$)/.test(document.cookie)) document.documentElement.setAttribute('data-cuenta', '1');
+// El HTML enlaza a /ingresar/ sin parámetros (una sola URL para los rastreadores); al pulsar, se añade la vuelta.
+for (const t of ['pointerdown', 'click']) document.addEventListener(t, e => { const a = e.target instanceof Element ? e.target.closest('a[data-cuenta-entrar]') : null; if (a) a.search = '?volver=' + encodeURIComponent(location.pathname); }, true);</script>
 
 <div id="v2-cuenta-menu" popover class="v2-cuenta-menu" aria-label="Tu cuenta">
   <p class="truncate px-3 pt-2 pb-1 font-display text-t17 font-semibold text-navy-950" data-cuenta-nombre>Tu cuenta</p>
-  <a href={RUTAS.cuenta} class="v2-cuenta-fila" data-no-prefetch>Mi cuenta</a>
+  <a href={RUTAS.cuenta} rel="nofollow" class="v2-cuenta-fila" data-no-prefetch>Mi cuenta</a>
   <form method="post" action={RUTAS.salir} data-cuenta-salir>
     <input type="hidden" name="csrf" value="" />
     <input type="hidden" name="volver" value={Astro.props.ruta} />
