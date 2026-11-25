@@ -1,0 +1,219 @@
+---
+/**
+ * Héroe A · «Cuaderno del oficio» (collage desbordado), la variante por defecto de la portada. Recortes de fotos con
+ * formas distintas (arco, círculo, mancha, ticket y rectángulo girado), cinta adhesiva con el oficio (con nota y precio
+ * al pasar el cursor o enfocar) y pegatina coral con el precio de hoy y, si la campaña aplica, el normal tachado.
+ * Cada recorte es el enlace a su curso. El collage se sale por la derecha y por abajo a propósito.
+ *
+ * - Escritorio (≥ 1024 px): 8 recortes; móvil: 6. Es el mismo HTML para todos; los dos juegos de posiciones son
+ *   variables CSS (`--xd…` escritorio, `--xm…` móvil) y los dos recortes que solo salen en escritorio llevan `max-lg:hidden`.
+ * - Reposo: cada recorte flota ±6 px a su ritmo. Ratón (puntero fino): 3 capas de profundidad con paralaje.
+ *   Scroll: al bajar, los recortes se dispersan (animation-timeline, sin JS).
+ * - Pausa: botón visible arriba a la derecha; también con foco dentro, pestaña oculta y fuera de pantalla.
+ * - «Reducir movimiento»: sin flotación, paralaje, dispersión ni botón.
+ * - Los 12 cursos están enlazados en el HTML: los que no caben en el collage esperan en una lista oculta.
+ */
+import Foto from '../../Foto.astro';
+import Ico from '../../Ico.astro';
+import Precio from '@/components/v2/Precio.astro';
+import { corto } from './comun';
+import type { OficioMosaico } from '../Heroe.astro';
+interface Props { oficios: OficioMosaico[]; base: string; locale: string; tachar: boolean; rota: boolean; intervalo: number; aleatorio: boolean }
+const { oficios, base, locale, tachar } = Astro.props;
+
+type Forma = 'arco' | 'circulo' | 'mancha' | 'ticket' | 'rect';
+/* [índice del oficio, forma, x, y, ancho, capa z, giro, flotación, dispersión dx, dy, ¿lleva pegatina?] */
+const ESC: [number, Forma, string, string, string, number, string, string, string, string, boolean][] = [
+  [0, 'arco', '6%', '10%', '210px', 2, '-4deg', '5.2s', '-30vw', '-10vh', true],
+  [9, 'circulo', '34%', '2%', '190px', 1, '3deg', '6.1s', '-6vw', '-30vh', false],
+  [4, 'mancha', '58%', '8%', '230px', 3, '-2deg', '4.6s', '24vw', '-18vh', true],
+  [5, 'ticket', '80%', '30%', '220px', 2, '6deg', '5.8s', '34vw', '4vh', false],
+  [1, 'rect', '28%', '40%', '250px', 3, '-6deg', '6.6s', '-10vw', '16vh', true],
+  [7, 'circulo', '8%', '56%', '170px', 1, '0deg', '5.4s', '-28vw', '22vh', false],
+  [10, 'arco', '56%', '48%', '200px', 2, '4deg', '4.9s', '14vw', '26vh', true],
+  [3, 'ticket', '76%', '70%', '190px', 1, '-8deg', '6.3s', '30vw', '30vh', false],
+];
+/* Móvil: el mismo oficio, otro sitio (solo 6 de los 8). */
+const ESC_MOVIL: Record<number, [string, string, string, number, string, string, string, string]> = {
+  0: ['2%', '6%', '34%', 2, '-4deg', '5.2s', '-30vw', '-10vh'],
+  4: ['36%', '0%', '34%', 3, '-2deg', '4.6s', '0vw', '-20vh'],
+  5: ['70%', '10%', '32%', 2, '6deg', '5.8s', '30vw', '0vh'],
+  9: ['6%', '54%', '28%', 1, '3deg', '6.1s', '-30vw', '16vh'],
+  1: ['36%', '46%', '36%', 3, '-6deg', '6.6s', '0vw', '24vh'],
+  10: ['74%', '52%', '28%', 2, '4deg', '4.9s', '30vw', '20vh'],
+};
+/* Con la lista completa se usan los oficios por su índice; con menos, los que haya, en el orden de los puestos. */
+const porIndice = oficios.length >= 12;
+const puestos = ESC.flatMap((p, k) => {
+  const o = oficios[porIndice ? p[0] : k];
+  return o ? [{ o, p, m: ESC_MOVIL[p[0]] }] : [];
+});
+const usados = new Set(puestos.map(x => x.o.id));
+const sobran = oficios.filter(o => !usados.has(o.id));
+const SIZES = '(min-width: 1024px) 250px, 36vw';
+---
+<div class="v2-col" data-collage role="group" aria-roledescription="collage de cursos" aria-label="Cursos para empezar">
+  <ul class="v2-col-mesa" role="list">
+    {puestos.map(({ o, p, m }) => {
+      const [, forma, x, y, w, z, r, f, dx, dy, peg] = p;
+      const vars = `--xd:${x};--yd:${y};--wd:${w};--zd:${z};--rd:${r};--fd:${f};--dxd:${dx};--dyd:${dy};`
+        + (m ? `--xm:${m[0]};--ym:${m[1]};--wm:${m[2]};--zm:${m[3]};--rm:${m[4]};--fm:${m[5]};--dxm:${m[6]};--dym:${m[7]};` : '');
+      const pr = o.precio;
+      return (
+        <li class:list={['v2-col-rec', `v2-col-${forma}`, !m && 'max-lg:hidden']} style={vars}>
+          <div class="v2-col-par" data-capa={z}>
+            <a href={`${base}/${o.id}/`} class="v2-heroe-curso">
+              <span class="v2-col-foto"><Foto nombre={o.foto} sizes={SIZES} decorativa class="v2-col-img" /></span>
+              <span class="v2-col-cinta">
+                <span class="v2-col-titulo">{corto(o.titulo)}</span>
+                {(o.nota || (pr && !peg)) && (
+                  <span class="v2-col-mas">
+                    {o.nota && <span> · ★ {o.nota.cifra}</span>}
+                    {pr && !peg && <span data-tc-precio data-moneda={pr.moneda} data-hoy={pr.hoy} data-normal={pr.normal ?? undefined}> · <Precio valor={pr.hoy} moneda={pr.moneda} locale={locale} class="font-semibold" codigoClass="text-[11px] font-medium" />{tachar && pr.normal !== null && <> <span class="sr-only">Precio normal: </span><Precio valor={pr.normal} moneda={pr.moneda} locale={locale} class="font-medium line-through opacity-70" codigoClass="text-[11px]" /></>}</span>}
+                  </span>
+                )}
+              </span>
+              {pr && peg && (
+                <span class="v2-col-pega" data-tc-precio data-moneda={pr.moneda} data-hoy={pr.hoy} data-normal={pr.normal ?? undefined}>
+                  <span class="v2-col-pega-hoy">hoy</span>
+                  <Precio valor={pr.hoy} moneda={pr.moneda} locale={locale} class="v2-col-pega-precio font-semibold" codigoClass="v2-col-pega-cod font-medium" />
+                  {tachar && pr.normal !== null && <span class="v2-col-pega-antes"><span class="sr-only">Precio normal: </span><Precio valor={pr.normal} moneda={pr.moneda} locale={locale} class="line-through decoration-[1.5px]" codigoClass="v2-col-pega-cod" /></span>}
+                </span>
+              )}
+            </a>
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+  {sobran.length > 0 && <ul hidden>{sobran.map(o => <li><a href={`${base}/${o.id}/`}>{o.titulo}</a></li>)}</ul>}
+  <button type="button" class="v2-col-pausa" data-col-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={16} class="v2-ico-pausa" /><Ico nombre="play" tamano={16} class="v2-ico-seguir" /><span class="sr-only" data-col-pausa-texto>Pausar el movimiento de los cursos</span></button>
+</div>
+
+<style is:global>
+  @layer components {
+    /* Maqueta del contenedor: texto a la izquierda, collage que se sale por la derecha. */
+    @media (min-width: 1024px) {
+      [data-heroe='collage'] .v2-heroe-caja { grid-template-columns: minmax(0, 500px) minmax(0, 1fr) !important; }
+    }
+    [data-heroe='collage'] .v2-heroe-texto { position: relative; z-index: 3; }
+
+    .v2-col { position: relative; height: 430px; margin: 0 -20px -60px; view-timeline: --v2-col block; }
+    @media (min-width: 1024px) { .v2-col { height: 640px; margin: 0 -12vw -120px 0; } }
+    .v2-col-mesa { position: absolute; inset: 0; }
+
+    .v2-col-rec {
+      --x: var(--xm); --y: var(--ym); --w: var(--wm); --z: var(--zm); --r: var(--rm); --f: var(--fm); --dx: var(--dxm); --dy: var(--dym);
+      position: absolute; left: var(--x); top: var(--y); width: var(--w); z-index: var(--z);
+    }
+    @media (min-width: 1024px) {
+      .v2-col-rec { --x: var(--xd); --y: var(--yd); --w: var(--wd); --z: var(--zd); --r: var(--rd); --f: var(--fd); --dx: var(--dxd); --dy: var(--dyd); }
+    }
+    .v2-col-rec:has(a:hover), .v2-col-rec:has(a:focus-visible) { z-index: 9; }
+    .v2-col-rec > .v2-col-par { will-change: auto; }
+    .v2-col-rec a { position: relative; display: block; color: var(--color-navy-950); text-decoration: none; transition: scale var(--t-base) var(--e-sale); }
+    .v2-col-rec a:hover, .v2-col-rec a:focus-visible { scale: 1.06; }
+    .v2-col-rec a:focus-visible { outline: 3px solid var(--color-navy-950); outline-offset: 6px; border-radius: 12px; }
+
+    .v2-col-foto { display: block; overflow: hidden; rotate: var(--r); background: #fff; box-shadow: 0 22px 40px -20px rgb(27 27 58 / .55); }
+    .v2-col-foto picture { display: contents; }
+    .v2-col-img { display: block; width: 100%; height: auto; object-fit: cover; aspect-ratio: var(--ar, 4 / 3); }
+    .v2-col-arco .v2-col-foto { border-radius: 999px 999px 20px 20px; --ar: 3 / 4; }
+    .v2-col-circulo .v2-col-foto { border-radius: 50%; --ar: 1 / 1; }
+    .v2-col-mancha .v2-col-foto { border-radius: 42% 58% 61% 39% / 45% 39% 61% 55%; --ar: 1 / 1; }
+    .v2-col-ticket .v2-col-foto { border-radius: 14px; padding: 8px 8px 34px; }
+    .v2-col-ticket .v2-col-img { border-radius: 8px; }
+    .v2-col-rect .v2-col-foto { border-radius: 22px; }
+
+    /* Cinta adhesiva: el oficio; con cursor o foco suma la nota y el precio (para lectores de pantalla siempre están). */
+    .v2-col-cinta {
+      position: absolute; left: 50%; top: -12px; translate: -50% 0; rotate: calc(var(--r) * -1.6);
+      display: flex; flex-wrap: wrap; justify-content: center; width: max-content; max-width: calc(100% + 28px); padding: 5px 12px; background: rgb(255 255 255 / .85);
+      font-size: 12px; line-height: 1.3; font-weight: 700; text-align: center; text-wrap: balance; box-shadow: 0 1px 0 rgb(0 0 0 / .06);
+    }
+    @media (min-width: 1024px) { .v2-col-cinta { font-size: 13px; } }
+    .v2-col-titulo { min-width: 0; }
+    .v2-col-mas { font-weight: 500; position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .v2-col-rec a:hover .v2-col-cinta, .v2-col-rec a:focus-visible .v2-col-cinta { max-width: calc(100% + 72px); }
+    .v2-col-rec a:hover .v2-col-mas, .v2-col-rec a:focus-visible .v2-col-mas { position: static; width: auto; height: auto; overflow: visible; clip-path: none; flex: none; }
+
+    /* Pegatina coral: «hoy», precio de hoy y el normal tachado si la campaña aplica. */
+    .v2-col-pega {
+      position: absolute; right: -14px; bottom: -14px; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
+      width: 100px; height: 100px; border-radius: 50%; background: var(--color-coral-600); color: #fff; text-align: center; line-height: 1.15; rotate: -12deg;
+      box-shadow: 0 10px 20px -10px rgb(0 0 0 / .5);
+    }
+    .v2-col-pega-hoy { font-size: 12px; font-weight: 600; }
+    .v2-col-pega-precio { font-size: 13px; }
+    .v2-col-pega-cod { font-size: 11px; }
+    .v2-col-pega-antes { font-size: 11px; opacity: .85; }
+    @media (min-width: 1024px) {
+      .v2-col-pega { width: 116px; height: 116px; }
+      .v2-col-pega-precio { font-size: 16px; }
+      .v2-col-pega-antes { font-size: 12px; }
+    }
+
+    /* Botón de pausa (arriba a la derecha, dentro de la parte visible del collage). */
+    .v2-col-pausa { position: absolute; z-index: 12; right: 28px; top: 0; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; background: rgb(27 27 58 / .85); color: #fff; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .35); }
+    @media (min-width: 1024px) { .v2-col-pausa { right: calc(12vw + 12px); } }
+    .v2-col-pausa:focus-visible { outline: 3px solid var(--color-navy-950); outline-offset: 3px; }
+    .v2-col-pausa > * { grid-area: 1 / 1; }
+    .v2-col-pausa[hidden] { display: none; }
+    .v2-col-pausa .v2-ico-seguir, .v2-col-pausa[aria-pressed='true'] .v2-ico-pausa { display: none; }
+    .v2-col-pausa[aria-pressed='true'] .v2-ico-seguir { display: block; }
+
+    @media (prefers-reduced-motion: no-preference) {
+      /* Reposo: cada recorte flota ±6 px a su ritmo. La pausa solo detiene esta flotación (la dispersión la manda el scroll). */
+      @keyframes v2-col-flota { from { translate: 0 -6px; } to { translate: 0 6px; } }
+      .v2-col-rec a { animation-name: v2-col-flota; animation-duration: calc(var(--f) * var(--m)); animation-timing-function: ease-in-out; animation-iteration-count: infinite; animation-direction: alternate; }
+      .v2-col[data-pausado] .v2-col-rec a { animation-play-state: paused; }
+      /* Scroll: al bajar, los recortes se dispersan hacia fuera a distinta velocidad (solo propiedades largas). */
+      @supports (animation-timeline: view()) and (animation-range: exit 0% exit 100%) {
+        @keyframes v2-col-dispersa { to { translate: var(--dx) var(--dy); opacity: .2; } }
+        .v2-col-rec { animation-name: v2-col-dispersa; animation-duration: 1ms; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --v2-col; animation-range: exit 0% exit 100%; }
+      }
+    }
+    @media (prefers-reduced-motion: reduce) { .v2-col-pausa { display: none; } }
+  }
+</style>
+
+<script>
+  for (const raiz of document.querySelectorAll<HTMLElement>('[data-collage]')) {
+    if (!raiz.checkVisibility()) continue;
+    const reducido = matchMedia('(prefers-reduced-motion: reduce)');
+    const boton = raiz.querySelector<HTMLButtonElement>('[data-col-pausa]');
+    const texto = raiz.querySelector<HTMLElement>('[data-col-pausa-texto]');
+
+    /* Pausa con motivos acumulables (WCAG 2.2.2): botón, foco, pestaña oculta y fuera de pantalla. */
+    const motivos = new Set<string>();
+    const motivo = (m: string, on: boolean) => { if (on) motivos.add(m); else motivos.delete(m); raiz.toggleAttribute('data-pausado', motivos.size > 0); };
+    document.addEventListener('visibilitychange', () => motivo('oculta', document.hidden));
+    new IntersectionObserver(([e]) => motivo('fuera', !e!.isIntersecting)).observe(raiz);
+    raiz.addEventListener('focusin', () => motivo('foco', true));
+    raiz.addEventListener('focusout', e => { if (!raiz.contains(e.relatedTarget as Node)) motivo('foco', false); });
+    if (boton) {
+      boton.hidden = reducido.matches;
+      reducido.addEventListener('change', () => { boton.hidden = reducido.matches; });
+      boton.addEventListener('click', () => {
+        const on = boton.getAttribute('aria-pressed') !== 'true';
+        boton.setAttribute('aria-pressed', String(on));
+        if (texto) texto.textContent = on ? 'Reanudar el movimiento de los cursos' : 'Pausar el movimiento de los cursos';
+        motivo('usuario', on);
+      });
+    }
+
+    /* Paralaje: tres capas de profundidad que siguen al puntero (solo puntero fino y sin «reducir movimiento»). */
+    if (!matchMedia('(hover: hover) and (pointer: fine)').matches) continue;
+    const capas = [...raiz.querySelectorAll<HTMLElement>('.v2-col-par')].map(el => ({ el, k: (Number(el.dataset.capa) || 1) * 9 }));
+    const zona = raiz.closest<HTMLElement>('[data-heroe]') ?? raiz;
+    let raf = 0, px = 0, py = 0;
+    const pinta = (x: number, y: number) => { for (const c of capas) c.el.style.translate = `${x * c.k}px ${y * c.k}px`; };
+    zona.addEventListener('pointermove', e => {
+      if (reducido.matches) return;
+      const r = zona.getBoundingClientRect();
+      px = ((e.clientX - r.left) / r.width) * 2 - 1; py = ((e.clientY - r.top) / r.height) * 2 - 1;
+      if (!raf) raf = requestAnimationFrame(() => { raf = 0; pinta(px, py); });
+    });
+    zona.addEventListener('pointerleave', () => { cancelAnimationFrame(raf); raf = 0; pinta(0, 0); });
+  }
+</script>

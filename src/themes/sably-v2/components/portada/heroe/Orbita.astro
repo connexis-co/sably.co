@@ -1,0 +1,193 @@
+---
+/**
+ * Héroe «Órbita» (prototipo 13): el buscador es el sol. Texto centrado y dos órbitas elípticas de oficios que giran
+ * a su alrededor en sentidos opuestos, como capa absoluta detrás del texto (pasan por detrás del halo del H1).
+ * Elipse sin deformar las fotos:  órbita = scaleY(s) · rueda = rotate(θ) · satélite = rotate(a) translateX(R) rotate(−a),
+ * contragiro del satélite (−θ) y scaleY(1/s) en el enlace; todo `transform`/`rotate`/`scale`.
+ * Al bajar, las órbitas se abren y se desvanecen (view timeline, sin JS). Los satélites son enlaces reales al curso
+ * (`v2-heroe-curso`); el precio se enseña al pasar el cursor o enfocar, pero va siempre en el DOM.
+ * Móvil (< 1024 px) y «reducir movimiento»: sin órbitas animadas; el mismo HTML se vuelve un carril plano de
+ * círculos con scroll-snap (sin marquesina: no hace falta copiar ni pausar nada). La aurora la pone Heroe.
+ * Omitido del prototipo: el botón «Buscar» magnético (el buscador es de Heroe).
+ */
+import Foto from '../../Foto.astro';
+import Ico from '../../Ico.astro';
+import PrecioOficio from './PrecioOficio.astro';
+import { corto } from './comun';
+import type { OficioMosaico } from '../Heroe.astro';
+interface Props { oficios: OficioMosaico[]; base: string; locale: string; tachar: boolean; rota: boolean; intervalo: number; aleatorio: boolean }
+const { oficios, base, locale, tachar } = Astro.props;
+const mitad = Math.ceil(oficios.length / 2);
+const orbitas = [oficios.slice(0, mitad), oficios.slice(mitad)].filter(l => l.length > 0);
+const DURACION = [90, 120];
+---
+<div class="v2-orb" data-orbita role="group" aria-label="Cursos para empezar">
+  <button type="button" class="v2-orb-pausa" data-orb-pausa aria-pressed="false" hidden>
+    <Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" />
+    <span class="sr-only" data-orb-pausa-texto>Pausar las órbitas de cursos</span>
+  </button>
+  <div class="v2-orb-escena">
+    <div class="v2-orb-giro" data-orb-giro>
+      {orbitas.map((lista, k) => (
+        <div class={`v2-orb-orbita v2-orb-o${k + 1}`} style={`--d: ${DURACION[k]}s`}>
+          <div class="v2-orb-rueda" role="list">
+            {lista.map((o: OficioMosaico, i: number) => (
+              <div class="v2-orb-sat" role="listitem" style={`--a: ${(i * 360) / lista.length + (k ? 45 : 15)}deg`}>
+                <span class="v2-orb-sat-in">
+                  <a href={`${base}/${o.id}/`} class="v2-heroe-curso">
+                    <span class="v2-orb-foto"><Foto nombre={o.foto} sizes="(min-width: 1024px) 88px, 64px" decorativa class="h-full w-full object-cover" /></span>
+                    <span class="v2-orb-et">
+                      <span class="v2-orb-nom">{corto(o.titulo)}</span>
+                      <PrecioOficio precio={o.precio} {locale} {tachar} class="v2-orb-precio text-t13" />
+                    </span>
+                  </a>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  @layer components {
+    /* ── Maqueta de la banda: una columna centrada; el texto por encima del halo y de las órbitas ── */
+    [data-heroe='orbita'] .v2-heroe-texto { position: relative; z-index: 2; max-width: 640px; margin-inline: auto; text-align: center; }
+    [data-heroe='orbita'] .v2-heroe-texto > * { margin-inline: auto; }
+    [data-heroe='orbita'] .v2-heroe-texto > p.flex { justify-content: center; }
+    /* Halo: los satélites pasan POR DETRÁS del texto (profundidad intencionada; el texto siempre legible). */
+    [data-heroe='orbita'] .v2-heroe-texto::before { content: ''; position: absolute; inset: 2% -16%; z-index: -1; border-radius: 50%; pointer-events: none; background: radial-gradient(closest-side, var(--ht-fondo) 62%, rgb(27 27 58 / 0)); }
+    @media (min-width: 1024px) {
+      [data-heroe='orbita'] .v2-heroe-caja { grid-template-columns: minmax(0, 1fr); justify-items: center; min-height: 720px; }
+      [data-heroe='orbita'] .v2-heroe-h1 { font-size: 56px !important; line-height: 60px !important; text-wrap: balance; }
+    }
+
+    /* ── Base (móvil y «reducir movimiento»): carril plano de círculos; las capas de la órbita desaparecen ── */
+    .v2-orb { order: -1; min-width: 0; display: flex; gap: 14px; min-height: 156px; padding: 6px 6px 14px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 6px; scrollbar-width: thin; }
+    .v2-orb-escena, .v2-orb-giro, .v2-orb-orbita, .v2-orb-rueda, .v2-orb-sat, .v2-orb-sat-in { display: contents; }
+    .v2-orb-pausa { display: none; }
+    .v2-orb-sat-in > a { flex: none; width: 96px; display: grid; justify-items: center; align-content: start; gap: 6px; scroll-snap-align: start; text-align: center; color: #fff; text-decoration: none; }
+    .v2-orb-foto { display: block; width: 64px; height: 64px; border-radius: 50%; overflow: hidden; background: var(--color-navy-700); box-shadow: 0 0 0 2px rgb(255 255 255 / .9); }
+    .v2-orb-foto picture { display: contents; }
+    .v2-orb-et { display: grid; gap: 1px; justify-items: center; }
+    .v2-orb-nom { font-size: 13px; line-height: 1.25; font-weight: 600; }
+    .v2-orb-precio { justify-content: center; font-size: 13px; line-height: 1.25; color: rgb(255 255 255 / .85); }
+    .v2-orb-sat-in > a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; border-radius: var(--radius-c-md); }
+
+    /* ── Escritorio: las órbitas, capa absoluta del tamaño de la banda (alto fijo: el de la caja) ── */
+    @media (min-width: 1024px) {
+      .v2-orb {
+        --R1: min(620px, 44vw); --R2: calc(var(--R1) * .86); --s1: .6; --s2: .58;
+        position: absolute; inset: 0; z-index: 1; display: block; order: 0; min-height: 0; padding: 0; overflow: clip; pointer-events: none;
+      }
+      .v2-orb-escena { display: block; position: absolute; inset: 0; transform-origin: 50% 50%; }
+      .v2-orb-giro { display: block; position: absolute; left: 50%; top: 50%; width: 0; height: 0; transition: translate var(--t-lento) var(--e-sale); }
+      .v2-orb-orbita { display: block; position: absolute; left: 0; top: 0; width: 0; height: 0; scale: 1 var(--s); }
+      .v2-orb-o1 { --R: var(--R1); --s: var(--s1); }
+      .v2-orb-o2 { --R: var(--R2); --s: var(--s2); }
+      .v2-orb-rueda { display: block; position: absolute; left: 0; top: 0; }
+      .v2-orb-sat { display: block; position: absolute; left: 0; top: 0; transform: rotate(var(--a)) translateX(var(--R)) rotate(calc(-1 * var(--a))); }
+      .v2-orb-sat-in { display: block; }
+      .v2-orb-sat-in > a { width: auto; gap: 6px; translate: -50% -50%; scale: 1 calc(1 / var(--s)); pointer-events: auto; transition: scale var(--t-base) var(--e-sale); }
+      .v2-orb-sat-in > a:hover, .v2-orb-sat-in > a:focus-visible { scale: 1.15 calc(1.15 / var(--s)); }
+      .v2-orb-foto { width: 84px; height: 84px; box-shadow: 0 0 0 3px rgb(255 255 255 / .9), 0 14px 30px -10px rgb(0 0 0 / .6); }
+      .v2-orb-o2 .v2-orb-foto { width: 64px; height: 64px; }
+      .v2-orb-et { position: relative; display: block; padding: 3px 9px; border-radius: 999px; background: rgb(255 255 255 / .12); white-space: nowrap; }
+      /* El precio va siempre en el DOM; se ve al pasar el cursor o enfocar (y siempre en pantallas sin cursor). */
+      .v2-orb-precio { position: absolute; z-index: 3; top: calc(100% + 6px); left: 50%; translate: -50% 0; padding: 3px 10px; border-radius: 999px; background: #fff; color: var(--color-navy-950); white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity var(--t-base) var(--e-sale); }
+      .v2-orb-sat-in > a:hover .v2-orb-precio, .v2-orb-sat-in > a:focus-visible .v2-orb-precio { opacity: 1; }
+      @media (hover: none) { .v2-orb-precio { opacity: 1; } }
+      .v2-orb-pausa { position: absolute; z-index: 3; right: 20px; top: 20px; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; background: rgb(255 255 255 / .12); color: #fff; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .35); cursor: pointer; pointer-events: auto; }
+      .v2-orb-pausa > * { grid-area: 1 / 1; }
+      .v2-orb-pausa[hidden] { display: none; }
+      .v2-orb-pausa:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+      .v2-orb-pausa .v2-ico-seguir, .v2-orb-pausa[aria-pressed='true'] .v2-ico-pausa { display: none; }
+      .v2-orb-pausa[aria-pressed='true'] .v2-ico-seguir { display: block; }
+    }
+
+    /* ── Movimiento (solo escritorio + sin «reducir movimiento»; con JS cargado: data-vivo) ── */
+    @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+      @keyframes v2-orb-gira { to { rotate: 360deg; } }
+      .v2-orb[data-vivo] .v2-orb-rueda, .v2-orb[data-vivo] .v2-orb-sat-in { animation-name: v2-orb-gira; animation-duration: calc(var(--d) * var(--m, 1)); animation-timing-function: linear; animation-iteration-count: infinite; }
+      .v2-orb[data-vivo] .v2-orb-rueda { animation-direction: normal; }
+      .v2-orb[data-vivo] .v2-orb-sat-in { animation-direction: reverse; }
+      .v2-orb[data-vivo] .v2-orb-o2 .v2-orb-rueda { animation-direction: reverse; }
+      .v2-orb[data-vivo] .v2-orb-o2 .v2-orb-sat-in { animation-direction: normal; }
+      [data-heroe][data-pausado] .v2-orb[data-vivo] :is(.v2-orb-rueda, .v2-orb-sat-in) { animation-play-state: paused; }
+      /* Scroll: las órbitas se abren y se desvanecen al salir la banda (view timeline en la raíz, no en lo animado). */
+      @supports (animation-timeline: view()) {
+        .v2-orb { view-timeline-name: --v2-orb; view-timeline-axis: block; }
+        @keyframes v2-orb-dispersa { to { scale: 1.35; opacity: 0; } }
+        .v2-orb-escena { animation-name: v2-orb-dispersa; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --v2-orb; animation-range: exit 0% exit 70%; }
+      }
+    }
+  }
+</style>
+
+<script>
+  for (const raiz of document.querySelectorAll<HTMLElement>('[data-orbita]')) {
+    if (!raiz.checkVisibility()) continue;
+    const sec = raiz.closest<HTMLElement>('[data-heroe]') ?? raiz;
+    const giro = raiz.querySelector<HTMLElement>('[data-orb-giro]')!;
+    const boton = raiz.querySelector<HTMLButtonElement>('[data-orb-pausa]');
+    const texto = raiz.querySelector<HTMLElement>('[data-orb-pausa-texto]');
+    const mov = matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)');
+    const fino = matchMedia('(hover: hover) and (pointer: fine)');
+
+    /* Pausa por motivos acumulables (WCAG 2.2.2); el atributo vive en la sección para que también pare la aurora. */
+    const motivos = new Set<string>();
+    const motivo = (m: string, on: boolean) => { if (on) motivos.add(m); else motivos.delete(m); sec.toggleAttribute('data-pausado', motivos.size > 0); };
+    new IntersectionObserver(([e]) => motivo('fuera', !e?.isIntersecting)).observe(raiz);
+    document.addEventListener('visibilitychange', () => motivo('oculta', document.hidden));
+    boton?.addEventListener('click', () => {
+      const p = boton.getAttribute('aria-pressed') !== 'true';
+      boton.setAttribute('aria-pressed', String(p));
+      if (texto) texto.textContent = p ? 'Seguir con las órbitas de cursos' : 'Pausar las órbitas de cursos';
+      motivo('boton', p);
+    });
+    const esSat = (t: EventTarget | null) => (t as Element | null)?.closest?.('.v2-orb-sat') ?? null;
+    raiz.addEventListener('pointerover', e => { if (mov.matches && e.pointerType === 'mouse' && esSat(e.target)) motivo('cursor', true); });
+    raiz.addEventListener('pointerout', e => { if (esSat(e.target)) motivo('cursor', false); });
+    raiz.addEventListener('focusin', e => { if (mov.matches && esSat(e.target)) motivo('foco', true); });
+    raiz.addEventListener('focusout', e => { if (!esSat(e.relatedTarget)) motivo('foco', false); });
+
+    /* Radio y aplastamiento según el tamaño real de la banda: la elipse cabe en el alto y no sale del ancho. */
+    const ajusta = () => {
+      const { width: w, height: h } = raiz.getBoundingClientRect();
+      const R1 = Math.min(620, w * 0.44), R2 = R1 * 0.86;
+      const s = (R: number, margen: number) => Math.max(0.32, Math.min(0.62, (h / 2 - margen) / R));
+      raiz.style.setProperty('--R1', `${Math.round(R1)}px`);
+      raiz.style.setProperty('--R2', `${Math.round(R2)}px`);
+      raiz.style.setProperty('--s1', s(R1, 62).toFixed(3));
+      raiz.style.setProperty('--s2', s(R2, 50).toFixed(3));
+    };
+    new ResizeObserver(() => { if (mov.matches) ajusta(); }).observe(raiz);
+
+    /* Paralaje de puntero: las órbitas se desplazan un poco al contrario del cursor (rAF, solo `translate`). */
+    let pend = false, px = 0, py = 0;
+    const pinta = () => { pend = false; giro.style.translate = `${(-px * 14).toFixed(1)}px ${(-py * 8).toFixed(1)}px`; };
+    sec.addEventListener('pointermove', e => {
+      if (!mov.matches || !fino.matches) return;
+      const r = sec.getBoundingClientRect();
+      px = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width) * 2 - 1));
+      py = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height) * 2 - 1));
+      if (!pend) { pend = true; requestAnimationFrame(pinta); }
+    }, { passive: true });
+    sec.addEventListener('pointerleave', () => { px = 0; py = 0; pinta(); });
+
+    /* El giro y el botón de pausa existen solo en escritorio con movimiento, y una vez cargada la página. */
+    let cargado = false;
+    const modo = () => {
+      const on = mov.matches && cargado;
+      raiz.toggleAttribute('data-vivo', on);
+      if (boton) boton.hidden = !on;
+      if (mov.matches) ajusta();
+      else { giro.style.translate = ''; for (const m of ['cursor', 'foco']) motivo(m, false); }
+    };
+    mov.addEventListener('change', modo);
+    const empezar = () => { cargado = true; modo(); };
+    if (document.readyState === 'complete') empezar(); else addEventListener('load', empezar, { once: true });
+  }
+</script>
