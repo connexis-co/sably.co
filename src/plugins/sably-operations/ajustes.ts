@@ -128,6 +128,12 @@ export const settingsSchema = {
     description: 'Slugs de los cursos separados por comas (hasta 12; solo cuentan los que tienen inscripción abierta y foto de su oficio). El primero ocupa la foto grande al cargar. Vacío: los destacados y mejor valorados, uno por oficio. Por defecto: vacío.',
     default: '',
   },
+  portadaComoFuncionaAnimado: {
+    type: 'boolean',
+    label: 'Portada · «Cómo funciona» animado',
+    description: 'Los números de los pasos se encienden al bajar y un carril coral avanza hasta el paso que lees. Con «reducir movimiento», sin desplazamientos. Apagado: los cuatro pasos encendidos y quietos. Por defecto: encendido.',
+    default: true,
+  },
   // Integraciones
   notificationEmail: {
     type: 'email',
@@ -142,7 +148,7 @@ export type ValorAjuste = string | boolean;
 export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
-export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios'];
+export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaComoFuncionaAnimado'];
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
