@@ -34,7 +34,8 @@ import { mostrarPromedio, notaHotmart } from '@/lib/opiniones';
 import { dividirTexto } from '@/lib/texto-largo';
 import { fechaCorta } from '@/lib/cuenta-atras';
 import { nombresCreadores } from '@/lib/creadores';
-import { cifra as cifraSinSimbolo, fotoPropia, iniciales } from '@/lib/presentacion-v2';
+import { importe, fotoPropia, iniciales } from '@/lib/presentacion-v2';
+import Precio from '@/components/v2/Precio.astro';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { courseCover } from '@/lib/categories';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
@@ -49,8 +50,9 @@ const {
   offer, videoSrc, watch, faqs, h1, nombreEnFrase, deNombre, title, description, subtitulo, schemas, alternates, breadcrumb,
 } = f;
 
-const cifra = (valor: number) => cifraSinSimbolo(valor, country.hreflang);
-const conMoneda = (valor: number) => `${cifra(valor)} ${currency}`;
+/* Un solo formato de precio (símbolo + cifra del país + código): src/lib/presentacion-v2.ts. */
+const precio = (valor: number) => importe(valor, currency, country.hreflang);
+const conMoneda = (valor: number) => precio(valor).texto;
 const conPrecio = Boolean(quote || real);
 const precioHoy = offer && quote?.reduced ? quote.reduced : baseAmount;
 const portada = cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug);
@@ -91,6 +93,7 @@ const discounted = (() => { const u = new URL(f.localCheckout.href); if (offer) 
 const enlacePago = offer ? discounted : f.localCheckout.href;
 const botonCon = offer ? `Inscribirme con ${offer.saving} %` : 'Inscribirme';
 const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
+const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : undefined;
 ---
 
 <BaseLayout
@@ -428,14 +431,14 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
             <p class="mt-3 max-w-[560px] text-t17 text-white/80">{sinProducto ? 'Déjanos tus datos y te avisamos en cuanto abramos las inscripciones.' : 'Empieza hoy y aprende a tu ritmo.'}</p>
             {!sinProducto && conPrecio && (
               <p class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <span class="v2-num font-display text-d40 font-semibold"><span data-precio-fijo>{cifra(precioHoy)}</span> <span class="text-t20 font-medium">{currency}</span></span>
-                {offer && <span class="text-t15 text-white/70" data-cierre-promo>antes <s class="v2-num">{conMoneda(baseAmount)}</s></span>}
+                <Precio valor={precioHoy} moneda={currency} locale={country.hreflang} marca="precio-fijo" class="font-display text-d40 font-semibold" codigoClass="text-t20 font-medium" />
+                {offer && <span class="text-t15 text-white/70" data-cierre-promo>antes <Precio valor={baseAmount} moneda={currency} locale={country.hreflang} class="line-through" codigoClass="text-t13" /></span>}
               </p>
             )}
             <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
               {sinProducto
                 ? <Boton variante="principal" data-lead-open>Avísame cuando abra</Boton>
-                : <Boton variante="principal" href={enlacePago} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="cierre" data-pago data-btn-con={offer ? botonCon : undefined} data-btn-sin={botonSin}>{botonCon}</Boton>}
+                : <Boton variante="principal" href={enlacePago} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="cierre" data-pago data-btn-con={offer ? botonCon : undefined} data-btn-sin={botonSin} data-btn-sin-hablado={botonSinHablado}>{botonCon}</Boton>}
               {!sinProducto && <p class="text-t13 text-white/70">Pagas en <img src="/v2/logos/hotmart.svg" alt="Hotmart" width="56" height="16" loading="lazy" class="inline-block align-[-3px] brightness-0 invert" /> en {currency} · sin crear cuenta en Sably</p>}
             </div>
             {!sinProducto && <p class="mt-4 text-t13 text-white/60">Si te inscribes desde este enlace, Sably recibe una comisión sin costo extra para ti.</p>}
@@ -453,7 +456,7 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
     </section>
 
     {!sinProducto && conPrecio && (
-      <BarraFija secciones={secciones} precio={cifra(precioHoy)} moneda={currency} nota={offer ? `con cupón ${offer.coupon}` : 'precio para ' + country.name}
+      <BarraFija secciones={secciones} precio={precio(precioHoy)} moneda={currency} nota={offer ? `con cupón ${offer.coupon}` : 'precio para ' + country.name}
         href={enlacePago} boton="Inscribirme" whatsapp={whatsapp} />
     )}
   </div>
