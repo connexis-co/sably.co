@@ -4,8 +4,10 @@
  * Es una cookie técnica: recuerda la respuesta y no mide nada. Sin dependencias, para que la lean tanto el
  * navegador (consent/runtime.ts repite esta lógica) como el servidor o las pruebas.
  *
- * Criterio: todo `denied` por defecto en TODAS las regiones (EEE, Reino Unido y Suiza incluidos; en América el
- * criterio de la academia: Ley 1581/2012 y, para quien viene de la UE o EE. UU., el más estricto).
+ * Criterio (decisión de JP del 25-nov-2026): el modo del aviso se elige en el panel (`ConsentOptions`). En el modo
+ * «Discreto» (por defecto) la medición y la publicidad quedan concedidas desde la primera visita y solo hay un icono
+ * para cambiarlo; en «Aviso completo», todo `denied` hasta que se responda. Con la excepción europea encendida (por
+ * defecto), a quien visita desde el EEE, Reino Unido o Suiza se le aplica siempre el aviso completo.
  */
 export const CONSENT_COOKIE = 'sably_consent';
 /** Sube cuando cambia lo que se pregunta: una respuesta a una versión anterior cuenta como «sin respuesta». */
@@ -58,6 +60,51 @@ export function consentFromCookieHeader(
 
 export type ConsentSignal = 'granted' | 'denied';
 const signal = (granted: boolean): ConsentSignal => (granted ? 'granted' : 'denied');
+
+/** Modo del aviso: sin letrero e icono flotante, letrero de siempre, o sin letrero y solo el enlace del pie. */
+export type ConsentNoticeMode = 'discreto' | 'completo' | 'pie';
+export const CONSENT_NOTICE_MODES: readonly ConsentNoticeMode[] = ['discreto', 'completo', 'pie'];
+export interface ConsentOptions {
+  mode: ConsentNoticeMode;
+  /** A visitantes del EEE, Reino Unido y Suiza se les aplica el aviso completo, sea cual sea el modo. */
+  europe: boolean;
+}
+export const CONSENT_OPTIONS_DEFAULT: ConsentOptions = { mode: 'discreto', europe: true };
+
+/**
+ * Donde rige el aviso completo con la excepción europea: los 27 de la UE, los otros tres del EEE (Islandia,
+ * Liechtenstein, Noruega), Reino Unido y Suiza, más los territorios de la UE que Cloudflare y Google informan con
+ * código propio (Åland, Guadalupe, Guayana Francesa, Martinica, Reunión, Mayotte y San Martín). Códigos ISO 3166-1
+ * alfa-2: los mismos que da `loc` en `/cdn-cgi/trace` y que acepta `region` en `gtag('consent','default', …)`.
+ */
+export const CONSENT_STRICT_REGIONS: readonly string[] = [
+  'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT',
+  'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE',
+  'IS', 'LI', 'NO', 'GB', 'CH',
+  'AX', 'GP', 'GF', 'MQ', 'RE', 'YT', 'MF',
+];
+
+/** Valor del panel → opciones; lo que no se reconoce cae en el valor por defecto. */
+export function consentOptions(mode: unknown, europe: unknown): ConsentOptions {
+  return {
+    mode: CONSENT_NOTICE_MODES.includes(mode as ConsentNoticeMode) ? (mode as ConsentNoticeMode) : CONSENT_OPTIONS_DEFAULT.mode,
+    europe: typeof europe === 'boolean' ? europe : CONSENT_OPTIONS_DEFAULT.europe,
+  };
+}
+
+/**
+ * Llamadas a `gtag('consent','default', …)` en orden. Aviso completo: una, todo denegado. Discreto o pie: la global
+ * concedida y, con la excepción europea, otra denegada con `region` (Google aplica la regional a quien visita desde
+ * esos países, sin que el sitio tenga que saber el país).
+ */
+export function consentModeDefaults(options: ConsentOptions): Record<string, unknown>[] {
+  if (options.mode === 'completo') return [consentModeDefault()];
+  const granted = {
+    ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted',
+    functionality_storage: 'granted', security_storage: 'granted',
+  };
+  return options.europe ? [granted, { ...consentModeDefault(), region: [...CONSENT_STRICT_REGIONS] }] : [granted];
+}
 
 /** `gtag('consent','default', …)`: todo denegado salvo lo necesario; espera 500 ms a la respuesta guardada. */
 export function consentModeDefault(): Record<string, string | number> {
