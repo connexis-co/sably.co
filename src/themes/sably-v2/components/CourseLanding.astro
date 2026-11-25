@@ -521,7 +521,11 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
       grid-template-rows: auto auto auto auto auto 1fr;
       column-gap: 40px; row-gap: 0;
     }
-    .v2-area-caja { align-self: start; position: sticky; top: 88px; margin-top: 24px; z-index: 2; }
+    /* Pegada bajo la cabecera (60 px al bajar) y la barra de secciones (65 px), no debajo de ellas:
+       con 88 px el título de la caja quedaba tapado al saltar al temario (juez UX, M4). Si la caja no
+       cabe entera en la ventana, no se pega (data-sin-pegar, script de abajo): no se cortaría su pie. */
+    .v2-area-caja { --caja-top: 133px; align-self: start; position: sticky; top: var(--caja-top); margin-top: 24px; z-index: 2; }
+    .v2-area-caja[data-sin-pegar] { position: relative; top: auto; }
   }
   .v2-bloque-tinta { background: var(--color-navy-50); }
   /* Sin creador visible ni opiniones que mostrar, el bloque no deja un hueco tintado. */
@@ -594,6 +598,18 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
 <script>
   import { trackEvent } from '@/lib/analytics';
   trackEvent('view_course', { page: location.pathname, theme: 'v2' });
+  // Escritorio: la caja solo se pega si cabe entera bajo la cabecera y la barra de secciones.
+  const caja = document.querySelector<HTMLElement>('.v2-area-caja');
+  if (caja) {
+    const escritorio = matchMedia('(width >= 1024px)');
+    const ajustarCaja = () => {
+      const tope = parseFloat(getComputedStyle(caja).getPropertyValue('--caja-top')) || 133;
+      caja.toggleAttribute('data-sin-pegar', escritorio.matches && caja.offsetHeight > innerHeight - tope - 16);
+    };
+    new ResizeObserver(ajustarCaja).observe(caja);
+    addEventListener('resize', ajustarCaja, { passive: true });
+    ajustarCaja();
+  }
   document.querySelectorAll<HTMLAnchorElement>('[data-cta-hotmart]').forEach(cta =>
     cta.addEventListener('click', () => trackEvent('click_cta_hotmart', { page: location.pathname, cta_position: cta.dataset.ctaPosition ?? 'unknown' })));
   const marcas = [25, 50, 75, 100], hechas = new Set<number>();
