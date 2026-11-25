@@ -471,6 +471,33 @@ export function mejorPromocion(promos: Promocion[], ctx: PromoCtx): Promocion | 
 }
 
 /**
+ * La promoción que toma el relevo justo cuando termina `actual` en este curso y
+ * país, o `null`. `promos` debe incluir las que aún no empezaron (ver
+ * `readUpcomingPromos`). Sirve para no anunciar «después vuelve a…» cuando a
+ * las 00:00 sigue otra campaña con descuento.
+ */
+export function promocionSiguiente(promos: Promocion[], actual: Promocion, ctx: PromoCtx): Promocion | null {
+  if (actual.hasta == null) return null;
+  return mejorPromocion(promos.filter((p) => p.id !== actual.id && p.pct > 0), { ...ctx, now: actual.hasta });
+}
+
+/**
+ * Fin del tramo continuo con el mismo cupón y el mismo descuento que `actual`:
+ * hasta ahí el precio rebajado no cambia aunque cambie el nombre de la campaña.
+ * `null` si el tramo acaba en una promoción sin cierre.
+ */
+export function finDelTramo(promos: Promocion[], actual: Promocion, ctx: PromoCtx): number | null {
+  let p = actual;
+  for (let i = 0; i < 20; i++) {
+    const s = promocionSiguiente(promos, p, ctx);
+    if (!s || s.cupon !== p.cupon || s.pct !== p.pct) return p.hasta;
+    if (s.hasta == null) return null;
+    p = s;
+  }
+  return p.hasta;
+}
+
+/**
  * Convierte una promoción en la campaña que pinta el banner, para que este
  * tenga un único tipo que dibujar.
  *

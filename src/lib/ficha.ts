@@ -22,8 +22,8 @@ import { DESCRIPCION_SIN_PRODUCTO, sinPromesas } from '@/lib/sin-producto';
 import { faqPagoPais } from '@/lib/medios-de-pago';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
-import { mejorPromocion } from '@/lib/promo';
-import { readActivePromosForRequest } from '@/plugins/sably-operations/public';
+import { finDelTramo, mejorPromocion, promocionSiguiente } from '@/lib/promo';
+import { readActivePromosForRequest, readUpcomingPromos } from '@/plugins/sably-operations/public';
 import { env } from 'virtual:sably-runtime';
 import { countryAlternates, breadcrumbSchema, conMarca, faqSchema, courseSchema } from '@/lib/seo';
 import { SITE, CDN_URL } from '@/lib/site';
@@ -178,6 +178,15 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
 
   const activePromos = await readActivePromosForRequest((env as unknown as {SABLY_DB:D1Database}).SABLY_DB, ctx.locals).catch(() => []);
   const promoRow = mejorPromocion(activePromos, { countryCode: country.code, proveedor, courseSlug: course.id, urlKey: ctx.url.searchParams.get('promo') });
+  /* Qué campaña sigue al terminar la vigente (Black Friday → Cyber Monday → Navidad):
+     la caja no promete «después vuelve a…» si a la misma hora empieza otra con
+     descuento, y el precio rebajado no se retira en el relevo si sigue el mismo cupón. */
+  const promoCtx = { countryCode: country.code, proveedor, courseSlug: course.id, urlKey: ctx.url.searchParams.get('promo') };
+  const proximas = promoRow?.hasta != null
+    ? await readUpcomingPromos((env as unknown as {SABLY_DB:D1Database}).SABLY_DB).catch(() => [])
+    : [];
+  const promoSiguiente = promoRow ? promocionSiguiente(proximas, promoRow, promoCtx) : null;
+  const finPrecioRebajado = promoRow ? (proximas.length ? finDelTramo(proximas, promoRow, promoCtx) : promoRow.hasta) : null;
   const coupon = conCupon && promoRow ? promoRow.cupon : null;
   const quote = sinProducto ? null : await checkoutPrice(course.id, course.data.hotmartUrl, country.code, coupon);
   /* La ficha no puede vivir en caché más que la cotización que pinta: Hotmart
@@ -189,7 +198,7 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
   const baseAmount = quote?.base ?? montoBase;
   const saving = quote?.reduced ? Math.round(100 * (1 - quote.reduced / quote.base)) : 0;
   const offer = coupon && quote?.reduced && promoRow && saving === promoRow.pct
-    ? {price:displayMoney(quote.reduced), saving, coupon, name:promoRow.nombre, end:promoRow.hasta}
+    ? {price:displayMoney(quote.reduced), saving, coupon, name:promoRow.nombre, end:promoRow.hasta, hastaPrecio:finPrecioRebajado}
     : null;
   /* Precio de lista para la pregunta «¿Cuánto cuesta?»: siempre el importe sin
      cupón. El rebajado va aparte, con su cupón y su fecha (ver faq-honestas). */
@@ -367,7 +376,7 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
     return indexableAtPath(courseSeo(course.seo,variant?.seo),alt.href,SITE.url);
   });
 
-  return { cms, COUNTRIES, course, locale, category, base, coursePath, localeHtml, courseHtml, learnings, audience, localesDelCurso, tituloColisiona, conCupon, proveedor, ctaUrl, allCourses, creators, pillar, satellites, guides, related, discountPct, sinProducto, creadoresVisibles, operationalDb, verifiedReviews, real, valoracion, montoBase, monedaBase, activePromos, promoRow, coupon, quote, freshUntil, currency, displayMoney, baseAmount, saving, offer, precioTexto, marketQuery, marketLinks, localCheckout, videoSrc, watch, FAQ_PAGO, baseFaqs, faqs, pageUrl, canonicalUrl, h1, esCurso, nombreEnFrase, deNombre, title, description, descripcionCurso, subtitulo, breadcrumb, schemas, alternates };
+  return { cms, COUNTRIES, course, locale, category, base, coursePath, localeHtml, courseHtml, learnings, audience, localesDelCurso, tituloColisiona, conCupon, proveedor, ctaUrl, allCourses, creators, pillar, satellites, guides, related, discountPct, sinProducto, creadoresVisibles, operationalDb, verifiedReviews, real, valoracion, montoBase, monedaBase, activePromos, promoRow, promoSiguiente, coupon, quote, freshUntil, currency, displayMoney, baseAmount, saving, offer, precioTexto, marketQuery, marketLinks, localCheckout, videoSrc, watch, FAQ_PAGO, baseFaqs, faqs, pageUrl, canonicalUrl, h1, esCurso, nombreEnFrase, deNombre, title, description, descripcionCurso, subtitulo, breadcrumb, schemas, alternates };
 }
 
 export type Ficha = Awaited<ReturnType<typeof cargarFicha>>;

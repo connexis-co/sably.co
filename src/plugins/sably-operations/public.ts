@@ -4,12 +4,19 @@ import { decodePromo } from './service';
 /** Only live rows are public; query campaigns still require matching ?promo= client-side. */
 export async function readActivePromos(db: D1Database, now = Math.floor(Date.now()/1000)): Promise<Promocion[]> {
   const { results } = await db.prepare('SELECT * FROM promocion WHERE activa=1 AND (desde IS NULL OR desde<=?) AND (hasta IS NULL OR hasta>?) ORDER BY prioridad DESC,id').bind(now,now).all<Record<string,unknown>>();
-  return results.map(row => {
-    const p = decodePromo(row);
-    return { id:p.id, nombre:p.nombre, pct:p.pct, cupon:p.cupon, titular:p.titular, proveedores:p.proveedores,
-      incluir:p.incluir, excluir:p.excluir, paises:p.paises, desde:p.desde === null ? null : p.desde*1000,
-      hasta:p.hasta === null ? null : p.hasta*1000, prioridad:p.prioridad, urlKey:p.url_key || null, tema:p.tema, etiqueta:p.etiqueta };
-  });
+  return results.map(row => toPromocion(decodePromo(row)));
+}
+
+function toPromocion(p: ReturnType<typeof decodePromo>): Promocion {
+  return { id:p.id, nombre:p.nombre, pct:p.pct, cupon:p.cupon, titular:p.titular, proveedores:p.proveedores,
+    incluir:p.incluir, excluir:p.excluir, paises:p.paises, desde:p.desde === null ? null : p.desde*1000,
+    hasta:p.hasta === null ? null : p.hasta*1000, prioridad:p.prioridad, urlKey:p.url_key || null, tema:p.tema, etiqueta:p.etiqueta };
+}
+
+/** Active and scheduled promotions that have not ended yet (to know which one follows the current one). */
+export async function readUpcomingPromos(db: D1Database, now = Math.floor(Date.now()/1000)): Promise<Promocion[]> {
+  const { results } = await db.prepare('SELECT * FROM promocion WHERE activa=1 AND (hasta IS NULL OR hasta>?) ORDER BY prioridad DESC,id').bind(now).all<Record<string,unknown>>();
+  return results.map(row => toPromocion(decodePromo(row)));
 }
 
 /** Epoch second of the next start or end of an active promotion that can reach this country, or null. */

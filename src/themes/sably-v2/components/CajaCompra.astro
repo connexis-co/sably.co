@@ -35,7 +35,7 @@ import type { Country } from '@/lib/countries';
 
 interface Props { f: Ficha; country: Country; ajustes: AjustesV2 }
 const { f, country, ajustes } = Astro.props;
-const { offer, quote, real, baseAmount, currency, localCheckout, marketLinks, promoRow, creadoresVisibles, course, proveedor, nombreEnFrase, valoracion } = f;
+const { offer, quote, real, baseAmount, currency, localCheckout, marketLinks, promoRow, promoSiguiente, creadoresVisibles, course, proveedor, nombreEnFrase, valoracion } = f;
 
 /* Qué bloques lleva la caja, en qué variante y con qué textos: el núcleo común con la
    academia (src/lib/caja/, copia exacta de la suya) sobre el documento de Sably. */
@@ -67,7 +67,9 @@ const whatsapp = buildWhatsAppUrl(country.whatsapp, `Hola, tengo una duda antes 
 const creador = ajustes.mostrarCreador && creadoresVisibles.length ? nombresCreadores(creadoresVisibles.map(c => c.nombre)) : null;
 const foto = ajustes.mostrarCreador ? creadoresVisibles.map(c => c.foto).find(fotoPropia) ?? null : null;
 const siglas = creador ? iniciales(creadoresVisibles[0]!.nombre) : '';
-const despues = descuento ? `Después vuelve a ${conMoneda(baseAmount)}.` : null;
+/* Si a la misma hora empieza otra campaña con descuento (Black Friday → Cyber Monday),
+   no se promete la vuelta al precio normal: solo cuándo termina esta. */
+const despues = descuento && !promoSiguiente ? `Después vuelve a ${conMoneda(baseAmount)}.` : null;
 const variables = { curso: nombreEnFrase, escuela: creadoresVisibles.length ? nombresCreadores(creadoresVisibles.map(c => c.nombre)) : '' };
 const texto = (tipo: Bloque['tipo']) => { const b = bloque(tipo); return b?.textos?.texto ? rellenarPlantilla(b.textos.texto, variables) : ''; };
 const titulo = texto('titulo');
@@ -82,7 +84,7 @@ const tituloId = 'titulo-compra';
   class:list={['v2-caja scroll-mt-28 overflow-hidden rounded-c-lg bg-white shadow-s2 outline-none', variante === 'cabecera-oscura' && 'v2-caja-oscura']}
   data-purchase-panel data-base={conMoneda(baseAmount)} data-reduced={reducido ? conMoneda(reducido) : undefined}
   data-base-hablado={precio(baseAmount).hablado} data-reduced-hablado={reducido ? precio(reducido).hablado : undefined} data-original-url={localCheckout.href}
-  data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end}
+  data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end} data-precio-hasta={offer ? (offer.hastaPrecio ?? 'nunca') : undefined}
   data-currency={currency} data-base-amount={baseAmount} data-reduced-amount={reducido ?? undefined}
   data-quote-source={quote ? 'hotmart' : 'respaldo'} data-quote-at={quote?.at ?? undefined}
   data-estado={estado} data-cupon={offer ? 'aplicado' : undefined} data-variante={variante}
@@ -144,7 +146,7 @@ const tituloId = 'titulo-compra';
     </div>
 
     {estado === 'campana' && variante === 'cuenta-clara' && reloj && offer?.end && (
-      <Contador hasta={offer.end} desde={promoRow?.desde} estilo={ajustes.caja.contador === 'tique' ? 'linea' : ajustes.caja.contador} campana={campana} despues={despues} cupon={offer.coupon} class="mt-4" />
+      <Contador hasta={offer.end} desde={promoRow?.desde} estilo={ajustes.caja.contador === 'tique' ? 'linea' : ajustes.caja.contador} campana={campana} despues={despues} sigueOtra={Boolean(promoSiguiente)} cupon={offer.coupon} class="mt-4" />
     )}
     {offer && (
       <p class="mt-4 hidden rounded-c-md bg-navy-50 p-3 text-t13 text-navy-700" data-aviso-fin>
@@ -260,7 +262,8 @@ const tituloId = 'titulo-compra';
     const d = caja.dataset;
     const enlaces = document.querySelectorAll<HTMLAnchorElement>('a[data-pago]');
     const toggles = caja.querySelectorAll<HTMLButtonElement>('[data-toggle]');
-    const fin = Number(d.until);
+    // Fin del precio rebajado: el del tramo con el mismo cupón (ver ficha.ts), no el de la campaña.
+    const fin = d.precioHasta === 'nunca' ? 0 : Number(d.precioHasta ?? d.until);
     const vencida = () => fin > 0 && Date.now() >= fin;
     let aplicado = true;
     // «$ 95.506 COP» → «$ 95.506»: el código va aparte, más pequeño.

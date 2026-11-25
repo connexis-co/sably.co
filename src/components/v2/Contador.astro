@@ -7,7 +7,7 @@
  * oculta y la caja vuelve al precio normal (ver CajaCompra).
  */
 import Icono from './Icono.astro';
-import { fechaCorta, fraccionRestante, restante, textoRestante } from '@/lib/cuenta-atras';
+import { fechaCorta, fechaDia, fraccionRestante, restante, textoRestante } from '@/lib/cuenta-atras';
 interface Props {
   hasta: number;
   desde?: number | null;
@@ -15,12 +15,14 @@ interface Props {
   campana?: string | null;
   /** «Después vuelve a 191.012 COP.» */
   despues?: string | null;
+  /** A la misma hora empieza otra campaña: «Black Friday termina el 29 nov.» y nada más. */
+  sigueOtra?: boolean;
   /** Código del cupón: si se retira, el texto lo recuerda en vez de «después vuelve a…». */
   cupon?: string | null;
   oscuro?: boolean;
   class?: string;
 }
-const { hasta, desde = null, estilo = 'barra', campana, despues, cupon = null, oscuro = false, class: clase } = Astro.props;
+const { hasta, desde = null, estilo = 'barra', campana, despues, sigueOtra = false, cupon = null, oscuro = false, class: clase } = Astro.props;
 const ahora = Date.now();
 const r = restante(hasta, ahora);
 const fraccion = fraccionRestante(desde, hasta, ahora);
@@ -36,7 +38,7 @@ const fin = `${fechaCorta(hasta)}, hora de Colombia`;
           {campana && <p class="ml-auto text-t13 font-semibold text-coral-700">{campana}</p>}
         </div>
         <div class="v2-barra mt-2.5" role="presentation"><span data-contador-barra style={`width:${(fraccion * 100).toFixed(1)}%`}></span></div>
-        <p class:list={['mt-2.5 text-t13', oscuro ? 'text-white/70' : 'text-navy-500']}>Termina el {fin}.{despues && <span data-contador-despues> {despues}</span>}{cupon && <span data-contador-sigue hidden> El cupón {cupon} sigue disponible hasta entonces.</span>}</p>
+        <p class:list={['mt-2.5 text-t13', oscuro ? 'text-white/70' : 'text-navy-500']}>{sigueOtra ? `${campana ?? 'La promoción'} termina el ${fechaDia(hasta)}` : <>Termina el {fin}.</>}{despues && !sigueOtra && <span data-contador-despues> {despues}</span>}{cupon && <span data-contador-sigue hidden> El cupón {cupon} sigue disponible hasta entonces.</span>}</p>
       </div>
     )}
     {estilo === 'casillas' && (
