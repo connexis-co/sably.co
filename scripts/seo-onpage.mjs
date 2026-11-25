@@ -162,6 +162,7 @@ export function auditarOnPage(url, html, opciones = {}) {
   const personasSinPerfil = [];
   const ofertas = [];
   const respuestas = [];
+  let proveedorSably = false;
   for (const m of documento.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try {
       const recorrer = (nodo) => {
@@ -173,6 +174,9 @@ export function auditarOnPage(url, html, opciones = {}) {
           if ([].concat(nodo['@type'] ?? []).includes('Person') && !/\/creadores\/[a-z0-9-]+\/#creador$/.test(String(nodo['@id'] ?? '')))
             personasSinPerfil.push(nodo.name ?? '(sin nombre)');
           if ([].concat(nodo['@type'] ?? []).includes('Offer')) ofertas.push(nodo);
+          // Sably no imparte los cursos: el `provider` de un Course es su creador.
+          if ([].concat(nodo['@type'] ?? []).includes('Course') && [].concat(nodo.provider ?? []).some((p) => /\/#organization$/.test(String(p?.['@id'] ?? ''))))
+            proveedorSably = true;
           if ([].concat(nodo['@type'] ?? []).includes('EducationalOccupationalCredential')) credenciales.push(String(nodo.name ?? ''));
           if ([].concat(nodo['@type'] ?? []).includes('Answer') && typeof nodo.text === 'string') respuestas.push(nodo.text);
           Object.values(nodo).forEach(recorrer);
@@ -183,6 +187,7 @@ export function auditarOnPage(url, html, opciones = {}) {
       marcar('json-ld', 'error', 'bloque JSON-LD que no se puede leer');
     }
   }
+  if (proveedorSably) marcar('json-ld-provider', 'error', 'el Course declara a Sably como provider: quien imparte el curso es el creador');
   if (personasSinPerfil.length)
     marcar('json-ld-person', 'error', `nodo Person sin perfil de creador (${personasSinPerfil.slice(0, 2).join(', ')}): no hay persona verificada`);
   if (tipos.includes('AggregateRating')) marcar('json-ld-rating', 'error', 'AggregateRating con valoraciones de terceros');

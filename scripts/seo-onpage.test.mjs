@@ -18,6 +18,12 @@ test('una ficha bien construida no deja errores', () => {
   assert.deepEqual(encabezados(sana).map((h) => h.nivel), [1, 2, 3, 2]);
 });
 
+test('el provider de un Course no puede ser Sably', () => {
+  const con = (provider) => errores(sana.replace('"name":"Curso de Masajes"}', `"name":"Curso de Masajes","provider":${provider}}`));
+  assert.deepEqual(con('{"@id":"https://sably.co/#organization"}'), ['json-ld-provider']);
+  assert.deepEqual(con('{"@id":"https://sably.co/co/creadores/masterclasses-la/#creador"}'), []);
+});
+
 test('los rótulos del menú no pueden ser encabezados antes del H1', () => {
   assert.deepEqual(errores(sana.replace('<p>Programas de estudio</p>', '<h2>Programas de estudio</h2>')), ['h1-primero']);
 });
