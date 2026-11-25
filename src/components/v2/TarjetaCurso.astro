@@ -4,6 +4,10 @@
  * título, descripción, nota real de Hotmart (si existe), duración y nivel, y
  * precio real. Al pasar el cursor la foto escala 1,03 y la tarjeta gana s2;
  * la tarjeta no se mueve.
+ * El precio llega hecho (`precio`, de `preciosDeTarjetas` en src/lib/precio-hoy.ts):
+ * es el que la ficha da como precio a pagar hoy, con el normal tachado al lado
+ * cuando la campaña aplica a ese curso. `null` = sin precio de Hotmart para ese
+ * país: la tarjeta no enseña cifra (nunca una de relleno).
  * Con `filaEnMovil`, por debajo de 640 px pasa a fila de listado: miniatura 4:3
  * de 112 px a la izquierda, sin placa ni descripción y sin marco (el separador
  * lo pone la lista).
@@ -14,22 +18,22 @@ import { cmsImageUrl } from '@/lib/cms-media';
 import type { Course } from '@/lib/emdash-content';
 import { courseCover } from '@/lib/categories';
 import { getCategory } from '@/lib/emdash-content';
-import { localPrice, type Country } from '@/lib/countries';
+import type { Country } from '@/lib/countries';
+import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
 import Precio from './Precio.astro';
-import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-operations/public';
+import { readOperationalRating } from '@/plugins/sably-operations/public';
 import Icono from './Icono.astro';
 import Estrellas from './Estrellas.astro';
 import { notaHotmart } from '@/lib/opiniones';
-interface Props { course: Course; country: Country; eager?: boolean; filaEnMovil?: boolean }
-const { course, country, eager = false, filaEnMovil = false } = Astro.props;
+interface Props { course: Course; country: Country; precio: PrecioTarjeta | null; eager?: boolean; filaEnMovil?: boolean }
+const { course, country, precio, eager = false, filaEnMovil = false } = Astro.props;
 const cat = (await getCategory(course.data.category))!;
 const operationalDb = (env as unknown as { SABLY_DB: D1Database }).SABLY_DB;
-const real = await readOperationalPrice(operationalDb, course.id, country, Astro.locals).catch(() => null);
 const valoracion = await readOperationalRating(operationalDb, course.id, Astro.locals).catch(() => null);
 const url = `/${country.code}/${course.id}/`;
 const nota = notaHotmart(valoracion);
 ---
-<article data-fila-movil={filaEnMovil || undefined} class="group relative flex h-full flex-col overflow-hidden rounded-c-lg bg-white ring-1 ring-navy-100 transition-shadow duration-(--t-lento) ease-(--e-sale) hover:shadow-s2 hover:ring-transparent">
+<article data-fila-movil={filaEnMovil || undefined} data-tarjeta-curso={course.id} class="group relative flex h-full flex-col overflow-hidden rounded-c-lg bg-white ring-1 ring-navy-100 transition-shadow duration-(--t-lento) ease-(--e-sale) hover:shadow-s2 hover:ring-transparent">
   <div class="v2-tc-foto relative aspect-[4/3] overflow-hidden bg-navy-50">
     <OptimizedImage
       src={cmsImageUrl(course.cardImage) ?? cmsImageUrl(course.coverImage) ?? courseCover(course.id, cat.slug, 'card')}
@@ -44,10 +48,14 @@ const nota = notaHotmart(valoracion);
     <p class="v2-tc-desc line-clamp-2 text-t15 text-navy-700">{course.data.shortDescription}</p>
     {nota && <p class="flex items-start gap-1 text-t13 text-navy-500"><Estrellas nota={valoracion!.rating} tamano={13} class="mt-0.5 flex-none" /><span><span class="font-semibold text-navy-950">{nota.cifra}</span> · {nota.texto}</span></p>}
     <p class="text-t13 text-navy-500">{course.data.durationHours} h · {course.data.level}</p>
-    <p class="v2-tc-precio mt-auto flex items-center justify-between pt-3 text-t17 font-semibold text-navy-950">
-      {real ? <Precio valor={real.monto} moneda={real.moneda} locale={country.hreflang} codigoClass="text-t13 font-medium" />
-        : <Precio valor={localPrice(course.data.priceUSD, country)} moneda={country.currency} locale={country.hreflang} codigoClass="text-t13 font-medium" />}
-      <Icono nombre="arrow-right" class="text-navy-950 transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" />
+    <p class="v2-tc-precio mt-auto flex items-center justify-between gap-3 pt-3 text-t17 font-semibold text-navy-950">
+      {precio ? (
+        <span class="flex flex-wrap items-baseline gap-x-2" data-tc-precio data-moneda={precio.moneda} data-hoy={precio.hoy} data-normal={precio.normal ?? undefined}>
+          <Precio valor={precio.hoy} moneda={precio.moneda} locale={country.hreflang} codigoClass="text-t13 font-medium" />
+          {precio.normal !== null && <span class="text-t13 font-normal text-navy-500"><span class="sr-only">Precio normal: </span><Precio valor={precio.normal} moneda={precio.moneda} locale={country.hreflang} class="line-through decoration-[1.5px]" codigoClass="text-t13" /></span>}
+        </span>
+      ) : <span />}
+      <Icono nombre="arrow-right" class="flex-none text-navy-950 transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" />
     </p>
   </div>
 </article>

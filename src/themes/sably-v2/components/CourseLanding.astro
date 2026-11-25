@@ -29,6 +29,7 @@ import NotaFuente from '@/components/v2/NotaFuente.astro';
 import CajaCompra from './CajaCompra.astro';
 import BarraFija from './BarraFija.astro';
 import VideoPresentacion from './VideoPresentacion.astro';
+import Docente from './Docente.astro';
 import { cargarFicha, type FichaProps } from '@/lib/ficha';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import { mostrarPromedio, notaHotmart } from '@/lib/opiniones';
@@ -40,6 +41,7 @@ import Precio from '@/components/v2/Precio.astro';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { courseCover } from '@/lib/categories';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
+import { plazoMasCorto, preciosDeTarjetas } from '@/lib/precio-hoy';
 
 type Props = FichaProps;
 const { country, city, content } = Astro.props;
@@ -61,6 +63,11 @@ const creador = ajustes.mostrarCreador && creadoresVisibles.length ? nombresCrea
 const fotoCreador = ajustes.mostrarCreador ? creadoresVisibles.map(c => c.foto).find(fotoPropia) ?? null : null;
 const siglas = creador ? iniciales(creadoresVisibles[0]!.nombre) : '';
 const nota = notaHotmart(valoracion);
+/* Tarjetas de especializaciones y relacionados: el precio de SU ficha, con la misma
+   función que esta (src/lib/precio-hoy.ts). La página no vive en caché más que la
+   cotización más corta que pinta. */
+const tarjetas = await preciosDeTarjetas([...satellites.slice(0, 8), ...related], country, { url: Astro.url, locals: Astro.locals });
+const vigencia = plazoMasCorto(freshUntil, tarjetas.freshUntil);
 const whatsapp = buildWhatsAppUrl(country.whatsapp, `Hola, tengo una duda antes de inscribirme en «${course.data.title}»`);
 
 
@@ -107,7 +114,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
   pageType={city ? 'course_city' : 'course'}
   image={portada}
   noindex={sinProducto}
-  {freshUntil}
+  freshUntil={vigencia}
   sinCupon={true}
   {proveedor}
   whatsappContext={course.data.title}
@@ -131,6 +138,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
               <span>Lo dicta {creador}<span class="block text-t13 font-normal text-navy-500 lg:text-white/70">Es el nombre que verás en Hotmart</span></span>
             </p>
           )}
+          <Docente instructor={course.data.instructor} lugar="cabeza" mostrar={ajustes.mostrarDocente} {sinProducto} />
           {!sinProducto && nota && (
             <p class="flex items-center gap-1.5 text-t15 text-navy-700 lg:text-white/80">
               <Estrellas nota={valoracion!.rating} />
@@ -272,6 +280,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
               <a href={`/${country.code}/creadores/${c.slug}/`} class="v2-btn v2-btn-secundario flex-none self-start sm:self-center" data-alto="48">Ver sus cursos en Sably</a>
             </article>
           ))}
+          <Docente instructor={course.data.instructor} lugar="ficha" mostrar={ajustes.mostrarDocente} {sinProducto} />
           {/* Opiniones de hoy (lámina z2Zai, «sin opiniones suficientes»): la nota de Hotmart con su fuente
               y su fecha, y lo que todavía no hay. Con menos de 5 calificaciones no se pinta. */}
           {!sinProducto && nota && (
@@ -395,7 +404,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
         <div class="v2-contenedor">
           <h2 id="titulo-especializate" class="font-display text-d28 lg:text-d40">Especialízate después de este curso</h2>
           <p class="mt-3 max-w-2xl text-t17 text-navy-700">Este es el curso general. Cuando domines la base, estas especializaciones te dejan cobrar más por servicio.</p>
-          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{satellites.slice(0, 8).map(c => <TarjetaCurso course={c} {country} />)}</div>
+          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{satellites.slice(0, 8).map(c => <TarjetaCurso course={c} {country} precio={tarjetas.precios.get(c.id) ?? null} />)}</div>
         </div>
       </section>
     )}
@@ -425,7 +434,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
             </div>
             <a href={`/${country.code}/cursos/${category.slug}/`} class="v2-enlace">Ver los cursos de {category.name} <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></a>
           </div>
-          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{related.map(c => <TarjetaCurso course={c} {country} />)}</div>
+          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{related.map(c => <TarjetaCurso course={c} {country} precio={tarjetas.precios.get(c.id) ?? null} />)}</div>
         </div>
       </section>
     )}

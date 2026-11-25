@@ -146,7 +146,7 @@ const FRASES = /(?<=[.!?…])\s+(?=[\p{Lu}¿¡"«(*_#\d])/u;
  * Quita todos los nombres de un texto (una frase, un párrafo o Markdown con
  * varias líneas). Devuelve el texto y la lista de cambios aplicados.
  */
-export function limpiarTexto(texto, nombres) {
+export function limpiarTexto(texto, nombres, { encabezado = false } = {}) {
   const cambios = [];
   if (typeof texto !== 'string' || !nombres.some((n) => texto.includes(n))) return { texto, cambios };
   const lineas = texto.split('\n').map((linea) => {
@@ -157,7 +157,7 @@ export function limpiarTexto(texto, nombres) {
       let actual = frase;
       for (const nombre of nombres) {
         if (!actual.includes(nombre)) continue;
-        const { texto: nuevo, regla } = quitarDeFrase(actual, nombre, /^\s*#/.test(sangria) ? 2 : 3);
+        const { texto: nuevo, regla } = quitarDeFrase(actual, nombre, encabezado || /^\s*#/.test(sangria) ? 2 : 3);
         cambios.push({ nombre, regla, antes: actual, despues: nuevo });
         actual = nuevo;
         if (!actual) break;
@@ -175,12 +175,15 @@ export function limpiarTexto(texto, nombres) {
  * sus textos. Las preguntas frecuentes se tratan como pareja: si la pregunta o
  * la respuesta se quedan vacías, se elimina la pareja.
  */
+const esBloque = (v) => v && typeof v === 'object' && !Array.isArray(v) && v._type === 'block' && Array.isArray(v.children);
+const textoDeBloque = (v) => (esBloque(v) ? v.children.map((c) => (typeof c?.text === 'string' ? c.text : '')).join('').trim() : '');
+
 export function limpiarEntrada(datos, nombres) {
   const cambios = [];
   const anotar = (campo, lista) => cambios.push(...lista.map((c) => ({ campo, ...c })));
-  const recorrer = (valor, campo) => {
+  const recorrer = (valor, campo, encabezado = false) => {
     if (typeof valor === 'string') {
-      const { texto, cambios: lista } = limpiarTexto(valor, nombres);
+      const { texto, cambios: lista } = limpiarTexto(valor, nombres, { encabezado });
       anotar(campo, lista);
       return texto;
     }
@@ -188,7 +191,10 @@ export function limpiarEntrada(datos, nombres) {
       const esFaq = valor.length > 0 && valor.every((v) => v && typeof v === 'object' && typeof v.q === 'string' && typeof v.a === 'string');
       const salida = [];
       valor.forEach((item, i) => {
-        const limpio = recorrer(item, `${campo}[${i}]`);
+        const limpio = recorrer(item, `${campo}[${i}]`, encabezado);
+        // Bloque de texto enriquecido (Portable Text) que se quedó sin texto: fuera
+        // entero, para que no quede un encabezado ni un párrafo vacíos.
+        if (esBloque(item) && textoDeBloque(item) && !textoDeBloque(limpio)) { cambios.push({ campo: `${campo}[${i}]`, nombre: '', regla: 'bloque-eliminado', antes: textoDeBloque(item), despues: '' }); return; }
         if (esFaq && (!limpio.q || !limpio.a)) { cambios.push({ campo: `${campo}[${i}]`, nombre: '', regla: 'faq-eliminada', antes: `${item.q} — ${item.a}`, despues: '' }); return; }
         if (typeof item === 'string' && !limpio) { cambios.push({ campo: `${campo}[${i}]`, nombre: '', regla: 'elemento-eliminado', antes: item, despues: '' }); return; }
         salida.push(limpio);
@@ -196,12 +202,14 @@ export function limpiarEntrada(datos, nombres) {
       return salida;
     }
     if (valor && typeof valor === 'object') {
-      return Object.fromEntries(Object.entries(valor).map(([clave, v]) => [clave, clave.startsWith('_') ? v : recorrer(v, campo ? `${campo}.${clave}` : clave)]));
+      // En un encabezado (style h1–h6) basta con dos palabras: «Aprendizaje práctico guiado por N» → «Aprendizaje práctico».
+      const enEncabezado = encabezado || (esBloque(valor) && /^h[1-6]$/.test(String(valor.style ?? '')));
+      return Object.fromEntries(Object.entries(valor).map(([clave, v]) => [clave, clave.startsWith('_') ? v : recorrer(v, campo ? `${campo}.${clave}` : clave, enEncabezado)]));
     }
     return valor;
   };
   const limpio = recorrer(datos, '');
-  for (const c of cambios) if (c.regla !== 'faq-eliminada' && c.regla !== 'elemento-eliminado' && c.despues === '') c.regla = 'frase';
+  for (const c of cambios) if (!['faq-eliminada', 'elemento-eliminado', 'bloque-eliminado'].includes(c.regla) && c.despues === '') c.regla = 'frase';
   return { datos: limpio, cambios };
 }
 

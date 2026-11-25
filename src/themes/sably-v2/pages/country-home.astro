@@ -20,8 +20,7 @@ import Buscar from '../components/BuscarFrase.astro';
 import { getHomeEditorial } from '@/lib/home-editorial';
 import { monedasCobradas } from '@/lib/moneda-catalogo';
 import { countryAlternates, faqSchema } from '@/lib/seo';
-import { readOperationalPrice } from '@/plugins/sably-operations/public';
-import { localPrice } from '@/lib/countries';
+import { preciosDeTarjetas } from '@/lib/precio-hoy';
 import Precio from '@/components/v2/Precio.astro';
 import { notaHotmart } from '@/lib/opiniones';
 import { readOperationalRatings } from '@/plugins/sably-operations/public';
@@ -53,14 +52,12 @@ const COMO_FUNCIONA = [
   { titulo: 'Estudias a tu ritmo', texto: 'Recibes el acceso por correo y ves las clases en video desde el celular o el computador.' },
   { titulo: 'Tienes 7 días de garantía', texto: 'Si no es lo que esperabas, pides el reembolso en Hotmart dentro de ese plazo.' },
 ];
-const precio = async (slug: string, usd: number) => {
-  const real = await readOperationalPrice(db, slug, country, Astro.locals).catch(() => null);
-  // Formato único del tema (src/components/v2/Precio.astro): «$ 191.012 COP».
-  return real ? { valor: real.monto, moneda: real.moneda } : { valor: localPrice(usd, country), moneda: country.currency };
-};
 /* Tarjeta flotante del héroe: el primer destacado con inscripción abierta, con su nota y precio reales. */
 const heroe = featured.find(comprable) ?? null;
-const heroePrecio = heroe ? await precio(heroe.id, heroe.data.priceUSD) : null;
+/* Precio de cada tarjeta y del héroe: el mismo que su ficha da como precio a pagar hoy
+   (src/lib/precio-hoy.ts), nunca la captura vieja ni el de catálogo. */
+const { precios, freshUntil } = await preciosDeTarjetas(featured, country, { url: Astro.url, locals: Astro.locals });
+const heroePrecio = heroe ? precios.get(heroe.id) ?? null : null;
 const heroeNota = heroe ? notaHotmart(valoraciones[heroe.id] ?? null) : null;
 /* Áreas: las seis primeras con foto grande y el resto como enlaces. */
 const conFoto = nav.areas.slice(0, 6);
@@ -80,7 +77,7 @@ const masGuias = posts.slice(3);
 const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u, '');
 ---
 
-<BaseLayout {title} {description} {country} pathAfterCountry="/" alternates={await countryAlternates('/')} schemas={[faqSchema(faqs)]} pageType="home" temaV2>
+<BaseLayout {title} {description} {country} pathAfterCountry="/" alternates={await countryAlternates('/')} schemas={[faqSchema(faqs)]} pageType="home" {freshUntil} temaV2>
   <!-- Héroe: banda azul noche, buscador y mosaico de fotos con tarjeta flotante -->
   <section class="relative bg-navy-950 text-white">
     <div class="v2-contenedor grid items-center gap-10 pt-10 pb-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,540px)] lg:gap-14 lg:pt-24 lg:pb-24">
@@ -104,12 +101,12 @@ const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u
           <div class="col-span-2 overflow-hidden rounded-c-xl lg:absolute lg:top-[224px] lg:right-0 lg:w-[360px]"><Foto nombre="foto-masajes-1" sizes="(min-width: 1024px) 360px, 92vw" prioridad class="aspect-[4/3] w-full object-cover lg:aspect-[36/45]" /></div>
         </div>
         {heroe && (
-          <a href={`${base}/${heroe.id}/`} class="relative -mt-10 ml-4 flex max-w-[320px] items-center gap-4 rounded-c-lg bg-white p-3 pr-5 text-navy-950 shadow-s3 lg:absolute lg:bottom-6 lg:left-6 lg:mt-0 lg:ml-0">
+          <a href={`${base}/${heroe.id}/`} data-tarjeta-heroe class="relative -mt-10 ml-4 flex max-w-[320px] items-center gap-4 rounded-c-lg bg-white p-3 pr-5 text-navy-950 shadow-s3 lg:absolute lg:bottom-6 lg:left-6 lg:mt-0 lg:ml-0">
             <span class="grid size-16 flex-none place-items-center rounded-c-md bg-navy-50 text-navy-950"><Ico nombre="play" tamano={22} /></span>
             <span class="min-w-0">
               <strong class="block truncate text-t15 font-semibold">{heroe.data.title}</strong>
               {heroeNota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" /><span class="font-medium text-navy-950">{heroeNota.cifra}</span> · {heroeNota.texto.replace(/ calificaciones.*$/, '')} en Hotmart</span>}
-              {heroePrecio && <Precio valor={heroePrecio.valor} moneda={heroePrecio.moneda} locale={country.hreflang} class="v2-num block text-t17 font-semibold" />}
+              {heroePrecio && <span class="flex flex-wrap items-baseline gap-x-2" data-tc-precio data-moneda={heroePrecio.moneda} data-hoy={heroePrecio.hoy} data-normal={heroePrecio.normal ?? undefined}><Precio valor={heroePrecio.hoy} moneda={heroePrecio.moneda} locale={country.hreflang} class="v2-num text-t17 font-semibold" />{heroePrecio.normal !== null && <span class="text-t13 text-navy-500"><span class="sr-only">Precio normal: </span><Precio valor={heroePrecio.normal} moneda={heroePrecio.moneda} locale={country.hreflang} class="line-through decoration-[1.5px]" codigoClass="text-t13" /></span>}</span>}
             </span>
           </a>
         )}
@@ -174,7 +171,7 @@ const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u
         {!copy.courses.description && <p class="text-t15 text-navy-500">Precios para {country.name}, en {moneda}</p>}
       </div>
       <ul class="v2-contenedor mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4" role="list">
-        {featured.map(course => <li class="w-[85%] flex-none snap-start sm:w-auto"><TarjetaCurso {course} {country} /></li>)}
+        {featured.map(course => <li class="w-[85%] flex-none snap-start sm:w-auto"><TarjetaCurso {course} {country} precio={precios.get(course.id) ?? null} /></li>)}
       </ul>
       <div class="v2-contenedor mt-8"><a href={`${base}/cursos/`} class="v2-btn v2-btn-secundario max-sm:w-full" data-alto="52">Ver todos los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a></div>
     </section>

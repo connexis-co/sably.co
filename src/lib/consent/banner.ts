@@ -9,8 +9,11 @@
  *   APAGADOS; las necesarias se explican y no se pueden apagar. Cerrar no decide nada.
  * - `position: fixed` y oculto hasta que el script confirma que no hay respuesta vigente: no empuja el contenido
  *   (CLS 0). En móvil se apila encima de la barra fija (`:has`) para no taparla.
+ * - Modo «Discreto»: además, un icono fijo abajo a la izquierda (WhatsApp va a la derecha) que abre las preferencias.
+ *   Sube con `translate` (no mueve el diseño) sobre la barra de compra cuando está a la vista, y se esconde mientras
+ *   se ve el letrero o la prueba social, que usan esa misma esquina.
  */
-import { CONSENT_COOKIE } from './format';
+import { CONSENT_COOKIE, type ConsentNoticeMode } from './format';
 
 export const POLICY_URL = '/legal/privacidad/#cookies';
 
@@ -24,6 +27,8 @@ const TEXT = {
   accept: 'Aceptar',
   prefsTitle: 'Preferencias de cookies',
   prefsIntro: 'Elige cuáles aceptas. Las opcionales vienen apagadas.',
+  /** Cuando no hay letrero (modo discreto fuera de Europa) o ya se respondió: los interruptores muestran lo vigente. */
+  prefsIntroOn: 'Elige cuáles aceptas. Los interruptores muestran lo que está activo ahora.',
   necessary: 'Necesarias',
   necessaryDesc: 'Hacen funcionar el sitio y recuerdan esta elección. Siempre activas.',
   analytics: 'Medición',
@@ -35,6 +40,8 @@ const TEXT = {
   all: 'Aceptar todas',
   close: 'Cerrar',
   closeNote: 'Cerrar esta ventana no decide nada: el aviso vuelve a aparecer.',
+  closeNoteOn: 'Cerrar esta ventana no cambia nada.',
+  icon: 'Preferencias de cookies',
   saved: 'Preferencias de cookies guardadas.',
 } as const;
 
@@ -80,18 +87,41 @@ export const CONSENT_CSS = [
   '.sbc-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}',
   // Móvil: hoja compacta pegada al borde, por encima de la barra fija (V2 mide 72 px; en el clásico, --barra-alto).
   '@media (max-width:39.99rem){#sbc{left:8px;right:8px;width:auto;bottom:calc(8px + env(safe-area-inset-bottom,0px));padding:14px 14px 12px;gap:8px;border-radius:16px}.sbc-t{font-size:1rem}#sbc .sbc-b{font-size:13px;line-height:1.4}.sbc-btn{min-height:44px;padding:0 6px;font-size:14px}.sbc-in{padding:20px 20px 24px}}',
-  '@media (max-width:63.99rem){body:has([data-barra-fija]:not([data-oculta])) #sbc{bottom:calc(80px + env(safe-area-inset-bottom,0px))}}',
-  'body:has([data-sticky-cta]:not([data-oculta])) #sbc{bottom:calc(var(--barra-alto,57px) + 8px + env(safe-area-inset-bottom,0px))}',
+  // Sube con `translate` y no con `bottom`: mover `bottom` cuenta como desplazamiento de diseño (CLS).
+  '@media (max-width:63.99rem){body:has([data-barra-fija]:not([data-oculta])) #sbc{translate:0 -72px}}',
+  'body:has([data-sticky-cta]:not([data-oculta])) #sbc{translate:0 calc(-1 * var(--barra-alto,57px))}',
   // Entrada: opacidad y un desplazamiento corto, solo sin «reducir movimiento».
-  '@media (prefers-reduced-motion:no-preference){#sbc{transition:opacity .25s cubic-bezier(.2,.8,.2,1),translate .25s cubic-bezier(.2,.8,.2,1),bottom .2s,display .25s allow-discrete}#sbc[hidden]{opacity:0;translate:0 12px}@starting-style{#sbc{opacity:0;translate:0 12px}}}',
+  '@media (prefers-reduced-motion:no-preference){#sbc{transition:opacity .25s cubic-bezier(.2,.8,.2,1),translate .25s cubic-bezier(.2,.8,.2,1),display .25s allow-discrete}#sbc[hidden]{opacity:0;translate:0 12px}@starting-style{#sbc{opacity:0;translate:0 12px}}}',
   '@media (forced-colors:active){#sbc,#sbc-dlg{border:1px solid CanvasText}.sbc-btn,.sbc-sw{border:1.5px solid ButtonText}}',
 ].join('');
+
+/** Icono del modo discreto. Esquina inferior izquierda; sube con `translate` sobre las barras de compra (sin CLS). */
+export const CONSENT_ICON_CSS = [
+  `#sbc-ico{position:fixed;z-index:41;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid ${LINE};border-radius:999px;background:#fff;color:${INK};box-shadow:0 6px 16px -8px rgb(27 27 58/.4);cursor:pointer}`,
+  '#sbc-ico:hover{background:#f4f5f9}#sbc-ico svg{width:20px;height:20px}',
+  `#sbc-ico:focus-visible{outline:3px solid ${FOCUS};outline-offset:2px}`,
+  '#sbc:not([hidden])~#sbc-ico,body:has([data-prueba-social]:not([hidden])) #sbc-ico{visibility:hidden;opacity:0}',
+  // Si el panel de WhatsApp lo pone a la izquierda, el icono se va a la derecha.
+  'body:has(#sably-whatsapp[style*="left"]) #sbc-ico{left:auto;right:16px}',
+  '@media (max-width:63.99rem){body:has([data-barra-fija]:not([data-oculta])) #sbc-ico{translate:0 -72px}}',
+  'body:has([data-sticky-cta]:not([data-oculta])) #sbc-ico{translate:0 calc(-1 * var(--barra-alto,57px))}',
+  '@media (prefers-reduced-motion:no-preference){#sbc-ico{transition:translate .2s cubic-bezier(.2,.8,.2,1),opacity .2s,visibility .2s}}',
+  '@media (forced-colors:active){#sbc-ico{border:1px solid ButtonText}}',
+  '@media print{#sbc-ico{display:none}}',
+].join('');
+
+/** Galleta de lucide (licencia ISC, la misma familia de iconos del sitio). */
+const COOKIE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/><path d="M8.5 8.5v.01M16 15.5v.01M12 12v.01M11 17v.01M7 14v.01"/></svg>';
 
 const CROSS = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18 6 6 18M6 6l12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
 const LOCK = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 11V8a5 5 0 0 1 10 0v3M6 11h12v9H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>';
 
-/** HTML del aviso (oculto hasta que el script confirme que no hay respuesta vigente) y del diálogo. */
-export function consentBannerHtml(): string {
+/**
+ * HTML del aviso (oculto hasta que el script confirme que le toca y no hay respuesta vigente), del diálogo y, en modo
+ * discreto, del icono. Los textos con `data-sbc-off`/`data-sbc-on` los cambia el script según los interruptores
+ * vengan apagados (letrero) o muestren lo vigente.
+ */
+export function consentBannerHtml(mode: ConsentNoticeMode = 'discreto'): string {
   const t = TEXT;
   const link = `<a href="${POLICY_URL}">${t.policy}</a>`;
   return [
@@ -105,13 +135,16 @@ export function consentBannerHtml(): string {
     '</div></section>',
     `<dialog id="sbc-dlg" aria-labelledby="sbc-dlg-t" closedby="any"><div class="sbc-in">`,
     `<div class="sbc-top"><p id="sbc-dlg-t" class="sbc-h">${t.prefsTitle}</p><button type="button" class="sbc-x" data-sbc="close" aria-label="${t.close}">${CROSS}</button></div>`,
-    `<p class="sbc-i">${t.prefsIntro} ${link}.</p><ul>`,
+    `<p class="sbc-i"><span data-sbc-off="${t.prefsIntro}" data-sbc-on="${t.prefsIntroOn}">${t.prefsIntro}</span> ${link}.</p><ul>`,
     `<li class="sbc-row"><div><p class="sbc-n">${t.necessary}</p><p class="sbc-d">${t.necessaryDesc}</p></div><span class="sbc-lock" aria-hidden="true">${LOCK}</span></li>`,
     `<li class="sbc-row"><div><label for="sbc-a" class="sbc-n">${t.analytics}</label><p id="sbc-a-d" class="sbc-d">${t.analyticsDesc}</p></div><input type="checkbox" role="switch" id="sbc-a" class="sbc-sw" aria-describedby="sbc-a-d"></li>`,
     `<li class="sbc-row"><div><label for="sbc-m" class="sbc-n">${t.ads}</label><p id="sbc-m-d" class="sbc-d">${t.adsDesc}</p></div><input type="checkbox" role="switch" id="sbc-m" class="sbc-sw" aria-describedby="sbc-m-d"></li>`,
     `</ul><p class="sbc-d sbc-hot">${t.hotmart}</p>`,
     `<div class="sbc-save"><button type="button" class="sbc-btn sbc-btn--solid" data-sbc="save">${t.save}</button><button type="button" class="sbc-btn" data-sbc="all">${t.all}</button></div>`,
-    `<p class="sbc-note">${t.closeNote}</p></div></dialog>`,
+    `<p class="sbc-note" data-sbc-off="${t.closeNote}" data-sbc-on="${t.closeNoteOn}">${t.closeNote}</p></div></dialog>`,
     `<p id="sbc-live" class="sbc-sr" role="status" data-msg="${t.saved}"></p>`,
+    ...(mode === 'discreto'
+      ? [`<style>${CONSENT_ICON_CSS}</style>`, `<button type="button" id="sbc-ico" data-sably-consent-open aria-haspopup="dialog" aria-label="${t.icon}" title="${t.icon}">${COOKIE}</button>`]
+      : []),
   ].join('');
 }

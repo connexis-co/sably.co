@@ -20,6 +20,8 @@ const ANTES = {
     cajaTitulo: ['string', null, 'Empieza {curso}'],
     cajaSubtitulo: ['string', null, 'Lecciones en vídeo, a tu ritmo.'],
     mostrarCreador: ['boolean', null, true],
+    // Clave nueva (25-nov, punto C5): no reordena ni cambia ninguna de las anteriores.
+    mostrarDocente: ['boolean', null, true],
     estiloCampo: ['select', ['outlined', 'filled', 'underline'], 'outlined'],
   },
   integraciones: {
@@ -39,9 +41,17 @@ function huella(schema: Record<string, any>) {
   return Object.fromEntries(Object.entries(schema).map(([k, c]) => [k, [c.type, c.options ? c.options.map((o: any) => o.value) : null, c.default]]));
 }
 
+/** Claves añadidas después (clave nueva, nunca renombrada): aviso de cookies (25-nov). */
+const NUEVAS = {
+  integraciones: {
+    consentNotice: ['select', ['discreto', 'completo', 'pie'], 'discreto'],
+    consentEurope: ['boolean', null, true],
+  },
+} as const;
+
 test('ninguna clave, tipo, opción ni valor de fábrica cambia al reordenar el panel', () => {
   assert.deepEqual(huella(operaciones), ANTES.operaciones);
-  assert.deepEqual(huella(integraciones), ANTES.integraciones);
+  assert.deepEqual(huella(integraciones), { ...ANTES.integraciones, ...NUEVAS.integraciones });
 });
 
 test('cada ajuste guardado está en una sola pestaña y todos tienen ayuda', () => {
@@ -61,11 +71,12 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     temaPorDefecto: 'v2',
     caja: { variante: 'cuenta-clara', contador: 'barra', titulo: 'Empieza {curso}', subtitulo: 'Lecciones en vídeo, a tu ritmo.' },
     mostrarCreador: true,
+    mostrarDocente: true,
     estiloCampo: 'outlined',
   });
   const prefijo = 'plugin:sably-integrations:settings:';
   const settings = { get: async (k: string) => { const f = filas.find(r => r.name === prefijo + k); return f ? JSON.parse(f.value) : null; } };
-  assert.deepEqual(await readPublic(settings as never), { browserMode: 'gtm', gtmId: 'GTM-56LHZGMK', gtmDelay: true, ga4Id: 'G-RZF4MSX5B7', metaPixelId: '1711030209407213', serverConversions: false });
+  assert.deepEqual(await readPublic(settings as never), { browserMode: 'gtm', gtmId: 'GTM-56LHZGMK', gtmDelay: true, ga4Id: 'G-RZF4MSX5B7', metaPixelId: '1711030209407213', serverConversions: false, consentNotice: 'discreto', consentEurope: true });
   // Todas las claves guardadas de estos dos plugins siguen existiendo en su esquema.
   for (const { name } of filas) {
     const [, plugin, , clave] = name.split(':');

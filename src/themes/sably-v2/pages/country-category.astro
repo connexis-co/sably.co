@@ -34,7 +34,7 @@ const [nav, promo, valoraciones] = await Promise.all([
   promoDeLaPagina(Astro, { pais: country.code }),
   readOperationalRatings((env as unknown as { SABLY_DB: D1Database }).SABLY_DB, Astro.locals).catch(() => ({} as Awaited<ReturnType<typeof readOperationalRatings>>)),
 ]);
-const ordenes = await ordenesDeCursos(courses, country, slug => nav.nombreDeArea.get(slug) ?? slug, Astro.locals);
+const ordenes = await ordenesDeCursos(courses, country, slug => nav.nombreDeArea.get(slug) ?? slug, { url: Astro.url, locals: Astro.locals });
 const foto = FOTO_DE_AREA[category.slug] ?? null;
 const fotoCms = cmsImageUrl(category.coverImage) ?? categoryCover(category.slug);
 /* «Por dónde empezar»: hasta cuatro cursos con inscripción abierta, primero los que parten de cero (por su nivel), después por calificaciones en Hotmart. */
@@ -51,7 +51,7 @@ const migas = [
 const grupos = [...bySubcategory.map(g => ({ id: g.sub.slug, titulo: g.sub.name, cursos: g.courses })), ...(uncategorized.length ? [{ id: 'mas-cursos', titulo: `Más cursos de ${category.name}`, cursos: uncategorized }] : [])];
 ---
 
-<BaseLayout {title} {description} {country} pathAfterCountry={`/cursos/${category.slug}/`} alternates={await countryAlternates(`/cursos/${category.slug}/`)} {schemas} pageType="category" whatsappContext={`Cursos de ${category.name}`} temaV2>
+<BaseLayout {title} {description} {country} pathAfterCountry={`/cursos/${category.slug}/`} alternates={await countryAlternates(`/cursos/${category.slug}/`)} {schemas} pageType="category" whatsappContext={`Cursos de ${category.name}`} freshUntil={ordenes.freshUntil} temaV2>
   <!-- Cabecera de oficio: banda azul noche con la foto a caballo del borde -->
   <section class="relative bg-navy-950 text-white">
     <div class="v2-contenedor grid items-end gap-8 pt-6 pb-10 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-14 lg:pt-8 lg:pb-0">
@@ -105,7 +105,7 @@ const grupos = [...bySubcategory.map(g => ({ id: g.sub.slug, titulo: g.sub.name,
   {grupos.map((g, i) => (
     <section id={g.id} class="v2-contenedor scroll-mt-28 pt-16 lg:pt-20" aria-labelledby={`${g.id}-titulo`} data-cms>
       <h2 id={`${g.id}-titulo`} class="font-display text-d28">{g.titulo}</h2>
-      <RejillaCursos id={`g-${g.id}`} cursos={g.cursos} {country} {base} promo={i === 0 ? promo : null} ordenNota={ordenes.ordenNota} ordenPrecio={ordenes.ordenPrecio} buscable={ordenes.buscable} conOrden={g.cursos.length > 6} visibles={12} />
+      <RejillaCursos id={`g-${g.id}`} cursos={g.cursos} {country} {base} promo={i === 0 ? promo : null} ordenNota={ordenes.ordenNota} ordenPrecio={ordenes.ordenPrecio} precios={ordenes.precios} buscable={ordenes.buscable} conOrden={g.cursos.length > 6} visibles={12} />
     </section>
   ))}
 
