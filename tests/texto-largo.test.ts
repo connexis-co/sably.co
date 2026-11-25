@@ -23,3 +23,8 @@ test('ids únicos aunque se repita el subtítulo', () => {
   const t = dividirTexto('<h3>Repaso</h3><p>a</p><h3>Repaso</h3><p>b</p>');
   assert.deepEqual(t.titulos.map(x => x.id), ['texto-repaso', 'texto-repaso-2']);
 });
+
+test('el índice usa el texto del subtítulo, sin etiquetas y bien decodificado', () => {
+  const t = dividirTexto('<h3>Aceites &amp;lt;b&amp;gt; y <em>sábanas</em></h3><p>x</p>');
+  assert.equal(t.titulos[0]!.texto, 'Aceites &lt;b&gt; y sábanas');
+});
