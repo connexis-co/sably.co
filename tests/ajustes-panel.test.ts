@@ -54,9 +54,13 @@ const NUEVAS = {
     consentEurope: ['boolean', null, true],
   },
 } as const;
+/** Claves de la portada (25-nov): solo pueden ser nuevas y empezar por «portada». */
+const DE_PORTADA = /^portada[A-Z]/;
 
 test('ninguna clave, tipo, opción ni valor de fábrica cambia al reordenar el panel', () => {
-  assert.deepEqual(huella(operaciones), ANTES.operaciones);
+  const huellaOperaciones = huella(operaciones);
+  assert.deepEqual(Object.fromEntries(Object.entries(huellaOperaciones).filter(([k]) => !DE_PORTADA.test(k))), ANTES.operaciones);
+  for (const k of Object.keys(huellaOperaciones)) assert.ok(Object.hasOwn(ANTES.operaciones, k) || DE_PORTADA.test(k), `${k} no es una clave conocida ni de la portada`);
   assert.deepEqual(huella(integraciones), { ...ANTES.integraciones, ...NUEVAS.integraciones });
 });
 
@@ -68,7 +72,7 @@ test('cada ajuste guardado está en una sola pestaña y todos tienen ayuda', () 
     assert.ok((c as { description?: string }).description, `${k} sin ayuda`);
     assert.doesNotMatch(c.label, /^V2 ·/, `${k} conserva la jerga «V2 ·»`);
   }
-  assert.deepEqual(PESTANAS.map(p => p.titulo), ['Sitio y tema', 'Campañas y cupones', 'Caja de compra', 'Cursos y contenido', 'Medios: audio y vídeo', 'SEO y medición', 'Cuenta', 'Integraciones', 'Avanzado']);
+  assert.deepEqual(PESTANAS.map(p => p.titulo), ['Sitio y tema', 'Campañas y cupones', 'Caja de compra', 'Portada', 'Cursos y contenido', 'Medios: audio y vídeo', 'SEO y medición', 'Cuenta', 'Integraciones', 'Avanzado']);
 });
 
 test('los ajustes guardados en la copia de producción se leen igual', async () => {
@@ -80,6 +84,10 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     mostrarDocente: true,
     mostrarCiudades: true,
     estiloCampo: 'outlined',
+    portada: {
+      bloques: ['cifras', 'categorias', 'destacados', 'promo', 'oficio', 'como-funciona', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],
+      heroe: { rota: true, intervalo: 4500, orden: 'aleatorio', cursos: [] },
+    },
   });
   const prefijo = 'plugin:sably-integrations:settings:';
   const settings = { get: async (k: string) => { const f = filas.find(r => r.name === prefijo + k); return f ? JSON.parse(f.value) : null; } };

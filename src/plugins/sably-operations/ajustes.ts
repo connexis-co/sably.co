@@ -89,6 +89,45 @@ export const settingsSchema = {
     options: [{ value: 'ventana', label: 'Ventana emergente' }, { value: 'pagina', label: 'Página /ingresar/' }],
     default: 'ventana',
   },
+  // Portada
+  portadaOrden: {
+    type: 'string',
+    label: 'Portada · Orden de los bloques',
+    description: 'Ids de los bloques separados por comas, de arriba abajo (el héroe va siempre primero). Un bloque que falte entra en su sitio de fábrica. Mejor ordénalos con las flechas de la pestaña «Portada». Por defecto: vacío (orden de fábrica).',
+    default: '',
+  },
+  portadaOcultos: {
+    type: 'string',
+    label: 'Portada · Bloques apagados',
+    description: 'Ids de los bloques que no se muestran, separados por comas. Apagar un bloque quita su texto y sus enlaces de la portada: ojo con lo que leen ChatGPT y Google. Por defecto: vacío (todos encendidos).',
+    default: '',
+  },
+  portadaHeroeRota: {
+    type: 'boolean',
+    label: 'Portada · Los oficios del héroe rotan solos',
+    description: 'Cambia una foto del mosaico cada pocos segundos, con fundido. Se para al pasar el cursor, con el teclado, con el botón de pausa y fuera de pantalla; nunca con «reducir movimiento». Apagado: tres oficios fijos. Por defecto: encendido.',
+    default: true,
+  },
+  portadaHeroeIntervalo: {
+    type: 'select',
+    label: 'Portada · Cada cuánto cambia una foto del héroe',
+    description: 'Tiempo entre un cambio y el siguiente (cambia una celda cada vez). Por defecto: 4,5 segundos.',
+    options: [{ value: '3500', label: '3,5 segundos' }, { value: '4500', label: '4,5 segundos' }, { value: '6000', label: '6 segundos' }],
+    default: '4500',
+  },
+  portadaHeroeOrden: {
+    type: 'select',
+    label: 'Portada · Orden de los oficios del héroe',
+    description: '«Aleatorio» no repite un oficio hasta haber enseñado los demás de su celda. «Fijo» sigue el orden de la lista. Por defecto: Aleatorio.',
+    options: [{ value: 'aleatorio', label: 'Aleatorio' }, { value: 'fijo', label: 'Fijo' }],
+    default: 'aleatorio',
+  },
+  portadaHeroeOficios: {
+    type: 'string',
+    label: 'Portada · Cursos del mosaico del héroe',
+    description: 'Slugs de los cursos separados por comas (hasta 12; solo cuentan los que tienen inscripción abierta y foto de su oficio). El primero ocupa la foto grande al cargar. Vacío: los destacados y mejor valorados, uno por oficio. Por defecto: vacío.',
+    default: '',
+  },
   // Integraciones
   notificationEmail: {
     type: 'email',
@@ -100,13 +139,17 @@ export const settingsSchema = {
 export type ClaveAjuste = keyof typeof settingsSchema;
 export type ValorAjuste = string | boolean;
 
-export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'contenido' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
+export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
+
+/** Ajustes de la pestaña «Portada», en el orden en que se ven. */
+export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios'];
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos.', claves: [] },
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'] },
+  { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
   { id: 'medios', titulo: 'Medios: audio y vídeo', resumen: 'Vídeo de presentación; narraciones y reproductor, cuando lleguen.', claves: [] },
   { id: 'seo', titulo: 'SEO y medición', resumen: 'Medición, conversiones y auditoría SEO.', claves: [] },

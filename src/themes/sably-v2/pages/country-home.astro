@@ -6,26 +6,29 @@
  * Todo el texto y todos los enlaces de la clásica siguen en el HTML inicial.
  */
 import { env } from 'virtual:sably-runtime';
-import { relDe } from '@/lib/enlaces-propios';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
-import LogoHotmart from '@/components/v2/LogoHotmart.astro';
-import LogosPago from '@/components/v2/LogosPago.astro';
-import NotaFuente from '@/components/v2/NotaFuente.astro';
-import Ico from '../components/Ico.astro';
-import Foto from '../components/Foto.astro';
 import Preguntas from '../components/Preguntas.astro';
 import BandaPromo from '../components/BandaPromo.astro';
-import Buscar from '../components/BuscarFrase.astro';
+import Heroe, { type OficioMosaico } from '../components/portada/Heroe.astro';
+import Cifras from '../components/portada/Cifras.astro';
+import Categorias from '../components/portada/Categorias.astro';
+import Destacados from '../components/portada/Destacados.astro';
+import Oficio from '../components/portada/Oficio.astro';
+import ComoFunciona from '../components/portada/ComoFunciona.astro';
+import Beneficios from '../components/portada/Beneficios.astro';
+import Videos from '../components/portada/Videos.astro';
+import Guias from '../components/portada/Guias.astro';
+import Cierre from '../components/portada/Cierre.astro';
+import { temaDeLaPeticion } from '@/lib/ajustes-tema';
+import { inventarioMosaico, repartirEnCeldas } from '../portada';
 import { getHomeEditorial } from '@/lib/home-editorial';
 import { monedasCobradas } from '@/lib/moneda-catalogo';
 import { countryAlternates, faqSchema } from '@/lib/seo';
 import { preciosDeTarjetas } from '@/lib/precio-hoy';
-import Precio from '@/components/v2/Precio.astro';
 import { notaHotmart } from '@/lib/opiniones';
 import { readOperationalRatings } from '@/plugins/sably-operations/public';
 import { cifrasPortada } from '../cifras';
-import { datosNavegacion, nombreArea, comprable } from '../navegacion';
+import { datosNavegacion, comprable } from '../navegacion';
 import { promoDeLaPagina } from '../promo-v2';
 import { fotoDeCurso, type NombreFoto } from '../fotos';
 import type { load } from '@/lib/page-loaders/country-home';
@@ -40,31 +43,33 @@ const copy = Object.fromEntries(Object.entries(editorial).map(([key, value]) => 
 const faqs = editorial.faq.groups.map(group => ({ q: group.title, a: group.body }));
 /* Los beneficios del CMS empiezan por un emoji («🎓 Título»): V2 no pinta emojis de interfaz, se queda el texto. */
 const benefits = editorial.benefits.groups.map(group => { const [, ...t] = group.title.split(' '); return { title: t.join(' ') || group.title, text: group.body }; });
-const [nav, promo, cifras, valoraciones] = await Promise.all([
+const [nav, promo, cifras, valoraciones, { ajustes }] = await Promise.all([
   datosNavegacion(country, Astro.locals),
   promoDeLaPagina(Astro, { pais: country.code }),
   cifrasPortada(Astro.locals),
   readOperationalRatings(db, Astro.locals).catch(() => ({} as Awaited<ReturnType<typeof readOperationalRatings>>)),
+  temaDeLaPeticion(Astro),
 ]);
-const COMO_FUNCIONA = [
-  { titulo: 'Eliges el curso', texto: 'Cada ficha muestra qué aprenderás, el temario, la duración y el precio para tu país.' },
-  { titulo: 'Te inscribes en Hotmart', texto: 'El pago se hace en Hotmart, la plataforma donde el creador publica su curso.' },
-  { titulo: 'Estudias a tu ritmo', texto: 'Recibes el acceso por correo y ves las clases en video desde el celular o el computador.' },
-  { titulo: 'Tienes 7 días de garantía', texto: 'Si no es lo que esperabas, pides el reembolso en Hotmart dentro de ese plazo.' },
-];
-/* Tarjeta flotante del héroe: el primer destacado con inscripción abierta, con su nota y precio reales. */
-const heroe = featured.find(comprable) ?? null;
-/* Precio de cada tarjeta y del héroe: el mismo que su ficha da como precio a pagar hoy
+const portada = ajustes.portada;
+/* Mosaico del héroe (D1): 10–12 cursos con inscripción abierta, uno por oficio, repartidos en tres celdas.
+   El primero (la foto grande, LCP) es el mismo curso que antes iba en la tarjeta flotante cuando no se elige
+   otro en el panel. Precio de cada tarjeta y de cada oficio: el mismo que su ficha da como precio a pagar hoy
    (src/lib/precio-hoy.ts), nunca la captura vieja ni el de catálogo. */
-const { precios, freshUntil } = await preciosDeTarjetas(featured, country, { url: Astro.url, locals: Astro.locals });
-const heroePrecio = heroe ? precios.get(heroe.id) ?? null : null;
-const heroeNota = heroe ? notaHotmart(valoraciones[heroe.id] ?? null) : null;
+const enMosaico = inventarioMosaico(allCourses.map(c => ({
+  id: c.id, destacado: Boolean(c.data.featured), valoraciones: valoraciones[c.id]?.total ?? 0, comprable: comprable(c), foto: fotoDeCurso(c.id, c.data.category),
+})), portada.heroe.cursos).map(m => allCourses.find(c => c.id === m.id)!);
+const conPrecio = [...new Map([...featured, ...enMosaico].map(c => [c.id, c])).values()];
+const { precios, freshUntil } = await preciosDeTarjetas(conPrecio, country, { url: Astro.url, locals: Astro.locals });
+const celdas: OficioMosaico[][] = repartirEnCeldas(enMosaico.map(c => ({
+  id: c.id, titulo: c.data.title, foto: fotoDeCurso(c.id, c.data.category)!, precio: precios.get(c.id) ?? null, nota: notaHotmart(valoraciones[c.id] ?? null),
+})));
 /* Áreas: las seis primeras con foto grande y el resto como enlaces. */
 const conFoto = nav.areas.slice(0, 6);
 const resto = nav.areas.slice(6);
 const externas = CATEGORIES.filter(c => c.externalUrl);
-/* Oficio destacado: tres cursos destacados con nota publicada en Hotmart, cada uno con la foto de su área. */
-const EN_HEROE = new Set<NombreFoto>(['foto-heroe-2', 'foto-celulares-1', 'foto-masajes-1', 'foto-heroe-1', 'foto-estudiar-celular-1', 'foto-estudiar-celular-2']);
+/* Oficio destacado: tres cursos destacados con nota publicada en Hotmart, cada uno con la foto de su área,
+   sin repetir las tres que el mosaico enseña al cargar ni las de «Cómo funciona» y «Por qué Sably». */
+const EN_HEROE = new Set<NombreFoto>([...celdas.map(c => c[0]!.foto), 'foto-heroe-1', 'foto-estudiar-celular-1', 'foto-estudiar-celular-2']);
 const usadas = new Set<NombreFoto>(EN_HEROE);
 const oficios = featured.filter(comprable).flatMap(c => {
   const foto = fotoDeCurso(c.id, c.data.category);
@@ -74,253 +79,27 @@ const oficios = featured.filter(comprable).flatMap(c => {
 }).slice(0, 3);
 const guiasDestacadas = posts.slice(0, 3);
 const masGuias = posts.slice(3);
-const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u, '');
 ---
-
 <BaseLayout {title} {description} {country} pathAfterCountry="/" alternates={await countryAlternates('/')} schemas={[faqSchema(faqs)]} pageType="home" {freshUntil} temaV2>
-  <!-- Héroe: banda azul noche, buscador y mosaico de fotos con tarjeta flotante -->
-  <section class="relative bg-navy-950 text-white">
-    <div class="v2-contenedor grid items-center gap-10 pt-10 pb-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,540px)] lg:gap-14 lg:pt-24 lg:pb-24">
-      <div>
-        <p class="v2-antetitulo text-white/80">{sinPrefijo(copy.hero.eyebrow)}</p>
-        <h1 class="mt-5 font-display text-[40px]/[44px] tracking-[-0.015em] !text-white lg:text-d72">{copy.hero.title}<br /><span class="text-coral-500">{copy.hero.accent}</span></h1>
-        <p class="mt-5 max-w-[560px] text-t17 text-white/80 lg:text-t20">{copy.hero.description}</p>
-        <Buscar base={base} id="buscar-heroe" class="mt-8 max-w-[600px]" />
-        <p class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-t15 text-white/70">Para empezar:
-          {nav.areas.slice(0, 4).map(a => <a href={`${base}/cursos/${a.slug}/`} class="text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">{a.nombre.toLowerCase()}</a>)}
-        </p>
-        <p class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-          <a href={`${base}/cursos/`} class="v2-enlace min-h-11 !text-white">{copy.hero.button} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
-          <a href="#categorias" class="v2-enlace min-h-11 !text-white/80">{copy.hero.secondary}</a>
-        </p>
-      </div>
-      <div class="relative lg:h-[560px]" aria-hidden={heroe ? undefined : 'true'}>
-        <div class="grid grid-cols-2 gap-3 lg:block">
-          <div class="overflow-hidden rounded-c-xl max-lg:hidden lg:absolute lg:top-[84px] lg:left-0 lg:w-[260px]"><Foto nombre="foto-heroe-2" sizes="(min-width: 1024px) 260px, 45vw" class="aspect-[13/10] w-full object-cover" /></div>
-          <div class="overflow-hidden rounded-c-xl max-lg:hidden lg:absolute lg:top-0 lg:right-0 lg:w-[260px]"><Foto nombre="foto-celulares-1" sizes="(min-width: 1024px) 260px, 45vw" class="aspect-[13/10] w-full object-cover" /></div>
-          <div class="col-span-2 overflow-hidden rounded-c-xl lg:absolute lg:top-[224px] lg:right-0 lg:w-[360px]"><Foto nombre="foto-masajes-1" sizes="(min-width: 1024px) 360px, 92vw" prioridad class="aspect-[4/3] w-full object-cover lg:aspect-[36/45]" /></div>
-        </div>
-        {heroe && (
-          <a href={`${base}/${heroe.id}/`} data-tarjeta-heroe class="relative -mt-10 ml-4 flex max-w-[320px] items-center gap-4 rounded-c-lg bg-white p-3 pr-5 text-navy-950 shadow-s3 lg:absolute lg:bottom-6 lg:left-6 lg:mt-0 lg:ml-0">
-            <span class="grid size-16 flex-none place-items-center rounded-c-md bg-navy-50 text-navy-950"><Ico nombre="play" tamano={22} /></span>
-            <span class="min-w-0">
-              <strong class="block truncate text-t15 font-semibold">{heroe.data.title}</strong>
-              {heroeNota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" /><span class="font-medium text-navy-950">{heroeNota.cifra}</span> · {heroeNota.texto.replace(/ calificaciones.*$/, '')} en Hotmart</span>}
-              {heroePrecio && <span class="flex flex-wrap items-baseline gap-x-2" data-tc-precio data-moneda={heroePrecio.moneda} data-hoy={heroePrecio.hoy} data-normal={heroePrecio.normal ?? undefined}><Precio valor={heroePrecio.hoy} moneda={heroePrecio.moneda} locale={country.hreflang} class="v2-num text-t17 font-semibold" />{heroePrecio.normal !== null && <span class="text-t13 text-navy-500"><span class="sr-only">Precio normal: </span><Precio valor={heroePrecio.normal} moneda={heroePrecio.moneda} locale={country.hreflang} class="line-through decoration-[1.5px]" codigoClass="text-t13" /></span>}</span>}
-            </span>
-          </a>
-        )}
-      </div>
-    </div>
-  </section>
-
-  <!-- Cifras reales con fuente y fecha, y cómo se paga -->
-  <section class="v2-contenedor pt-12 lg:pt-16" aria-label="Sably en cifras">
-    <dl class="grid grid-cols-3 gap-x-4 gap-y-6 lg:flex lg:gap-x-12">
-      <div><dt class="sr-only">Cursos</dt><dd class="v2-num font-display text-d28 font-semibold text-navy-950 lg:text-d56">{cifras.cursos}</dd><dd class="text-t13 text-navy-700 lg:text-t15">cursos en vídeo con inscripción abierta</dd></div>
-      <div class="border-navy-100 lg:border-l lg:pl-12"><dt class="sr-only">Países</dt><dd class="v2-num font-display text-d28 font-semibold text-navy-950 lg:text-d56">{cifras.paises}</dd><dd class="text-t13 text-navy-700 lg:text-t15">Disponible en {cifras.paises} países</dd></div>
-      {cifras.calificaciones > 0 && cifras.mediaTexto && (
-        <div class="border-navy-100 lg:border-l lg:pl-12"><dt class="sr-only">Valoraciones</dt><dd class="v2-num font-display text-d28 font-semibold text-navy-950 lg:text-d56">{cifras.calificaciones.toLocaleString('es-CO')}</dd><dd class="text-t13 text-navy-700 lg:text-t15">{cifras.mediaTexto} de media en {cifras.calificaciones.toLocaleString('es-CO')} valoraciones reales en Hotmart</dd></div>
-      )}
-    </dl>
-    <NotaFuente class="mt-4">Cursos y países contados el {cifras.hoy}.{cifras.leidas && ` Valoraciones leídas en Hotmart el ${cifras.leidas}: son las que Hotmart publica en la página de cada curso.`}</NotaFuente>
-    <div class="mt-8 flex flex-wrap items-center justify-between gap-x-8 gap-y-4 border-t border-navy-100 pt-6">
-      <p class="flex items-center gap-2 text-t15 text-navy-700">Pagas en <LogoHotmart alto={20} /></p>
-      <LogosPago pais={country.code} alto={22} />
-    </div>
-  </section>
-
-  <!-- Áreas -->
-  <section id="categorias" class="v2-contenedor scroll-mt-24 pt-24 lg:pt-32" aria-labelledby="categorias-titulo">
-    <p class="v2-antetitulo text-navy-700">{copy.categories.eyebrow}</p>
-    <h2 id="categorias-titulo" class="mt-3 font-display text-d28 lg:text-d40">{copy.categories.title}</h2>
-    {copy.categories.description && <p class="mt-3 max-w-[640px] text-t17 text-navy-700">{copy.categories.description}</p>}
-    <ul class="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] lg:grid lg:grid-cols-6 lg:overflow-visible" role="list">
-      {conFoto.map(a => (
-        <li class="w-[44%] flex-none snap-start lg:w-auto">
-          <a href={`${base}/cursos/${a.slug}/`} class="group block">
-            <span class="block aspect-[4/5] overflow-hidden rounded-c-lg bg-navy-50">
-              {a.foto ? <Foto nombre={a.foto} sizes="(min-width: 1024px) 180px, 44vw" decorativa class="h-full w-full object-cover transition-transform duration-(--t-lento) ease-(--e-sale) group-hover:scale-[1.03]" />
-                : a.fotoCms && <img src={a.fotoCms} alt="" width="480" height="600" loading="lazy" decoding="async" class="h-full w-full object-cover" />}
-            </span>
-            <span class="mt-3 flex items-center justify-between gap-2 text-t17 font-semibold text-navy-950">{a.nombre}<Ico nombre="arrow-right" tamano={18} class="transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" /></span>
-            <span class="text-t13 text-navy-500">{a.total === 1 ? '1 curso' : `${a.total} cursos`}</span>
-          </a>
-        </li>
-      ))}
-    </ul>
-    <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-navy-100 pt-6">
-      <p class="text-t15 text-navy-500">También:</p>
-      <ul class="flex flex-wrap gap-x-6 gap-y-2" role="list">
-        {resto.map(a => <li><a href={`${base}/cursos/${a.slug}/`} class="v2-subrayado inline-flex min-h-11 items-center text-t17 font-medium text-navy-950">{a.nombre}</a></li>)}
-        {externas.map(c => <li><a href={c.externalUrl} target="_blank" rel={relDe(c.externalUrl, '_blank')} class="v2-subrayado inline-flex min-h-11 items-center gap-1 text-t17 font-medium text-navy-950">{nombreArea(c.name)} <span class="text-t13 font-normal text-navy-500">(Academia especializada)</span><Ico nombre="external-link" tamano={14} /></a></li>)}
-      </ul>
-      <a href={`${base}/cursos/`} class="v2-enlace ml-auto min-h-11">Ver las {nav.areas.length} áreas <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
-    </div>
-  </section>
-
-  <!-- Cursos destacados -->
-  {featured.length > 0 && (
-    <section class="pt-24 lg:pt-32" aria-labelledby="destacados-titulo">
-      <div class="v2-contenedor flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p class="v2-antetitulo text-navy-700">{copy.courses.eyebrow}</p>
-          <h2 id="destacados-titulo" class="mt-3 font-display text-d28 lg:text-d40">{copy.courses.title}</h2>
-          {copy.courses.description && <p class="mt-3 max-w-[640px] text-t17 text-navy-700">{copy.courses.description}</p>}
-        </div>
-        {!copy.courses.description && <p class="text-t15 text-navy-500">Precios para {country.name}, en {moneda}</p>}
-      </div>
-      <ul class="v2-contenedor mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4" role="list">
-        {featured.map(course => <li class="w-[85%] flex-none snap-start sm:w-auto"><TarjetaCurso {course} {country} precio={precios.get(course.id) ?? null} /></li>)}
-      </ul>
-      <div class="v2-contenedor mt-8"><a href={`${base}/cursos/`} class="v2-btn v2-btn-secundario max-sm:w-full" data-alto="52">Ver todos los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a></div>
-    </section>
-  )}
-
-  <!-- Banda de promoción «Noche» -->
-  <BandaPromo {promo} {base} class="pt-20 lg:pt-24" />
-
-  <!-- Oficio destacado: foto grande con panel azul (radios, sin JavaScript) -->
-  {oficios.length > 0 && (
-    <section class="v2-contenedor pt-24 lg:pt-32" aria-labelledby="oficio-titulo">
-      <h2 id="oficio-titulo" class="sr-only">Oficio destacado</h2>
-      <div class="v2-oficios relative">
-        {oficios.map((o, i) => <input type="radio" name="oficio" id={`oficio-${i}`} class="sr-only" checked={i === 0} aria-label={`Oficio destacado ${i + 1} de ${oficios.length}: ${o.c.data.title}`} />)}
-        {oficios.map((o, i) => (
-          <article class="v2-oficio relative" data-i={i}>
-            <div class="overflow-hidden rounded-c-xl"><Foto nombre={o.foto!} sizes="(min-width: 1024px) 1200px, 100vw" class="aspect-[4/3] w-full object-cover lg:aspect-[1200/660]" /></div>
-            <div class="relative -mt-16 mx-3 rounded-c-xl bg-navy-950 p-6 text-white shadow-s3 lg:absolute lg:right-10 lg:-bottom-10 lg:m-0 lg:w-[448px] lg:p-8">
-              <p class="flex items-center justify-between border-b border-white/15 pb-4 text-t15"><span class="flex items-center gap-2"><span class="size-1.5 rounded-full bg-coral-500" aria-hidden="true"></span>Oficio destacado</span><span class="text-t13 text-white/60">{i + 1} de {oficios.length}</span></p>
-              <h3 class="mt-5 font-display text-d28 !text-white lg:text-d40">{o.c.data.title}</h3>
-              <p class="mt-3 text-t17 text-white/80">{o.c.data.shortDescription}{o.nota && ` Tiene ${o.nota.cifra} de 5 en ${o.nota.texto}.`}</p>
-              <div class="mt-6 flex items-center justify-between gap-4">
-                <a href={`${base}/${o.c.id}/`} class="v2-btn v2-btn-principal" data-alto="52">Ver el curso <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
-                {oficios.length > 1 && (
-                  <span class="flex gap-2">
-                    <label for={`oficio-${(i - 1 + oficios.length) % oficios.length}`} class="grid size-12 cursor-pointer place-items-center rounded-full ring-1 ring-white/40 hover:ring-white" title="Anterior"><Ico nombre="arrow-left" tamano={18} /><span class="sr-only">Oficio anterior</span></label>
-                    <label for={`oficio-${(i + 1) % oficios.length}`} class="grid size-12 cursor-pointer place-items-center rounded-full ring-1 ring-white/40 hover:ring-white" title="Siguiente"><Ico nombre="arrow-right" tamano={18} /><span class="sr-only">Oficio siguiente</span></label>
-                  </span>
-                )}
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-    </section>
-  )}
-
-  <!-- Cómo funciona Sably -->
-  <section class="v2-contenedor grid gap-10 pt-28 lg:grid-cols-[minmax(0,1fr)_480px] lg:gap-16 lg:pt-40" aria-labelledby="como-funciona-title">
-    <div>
-      <p class="v2-antetitulo text-navy-700">Con transparencia</p>
-      <h2 id="como-funciona-title" class="mt-3 font-display text-d28 lg:text-d40">Cómo funciona Sably</h2>
-      <p class="mt-4 max-w-[600px] text-t17 text-navy-700">Sably es una plataforma de educación online para aprender oficios en español. Reúne cursos seleccionados de creadores independientes, guías y vídeos gratuitos, ordenados por oficio y por país.</p>
-      <ol class="mt-8 border-t border-navy-100" role="list">
-        {COMO_FUNCIONA.map((paso, i) => (
-          <li class="v2-paso grid grid-cols-[40px_1fr] gap-2 border-b border-navy-100 py-6">
-            <span class="v2-num pt-1 text-t15 font-semibold text-navy-500" aria-hidden="true">{i + 1}</span>
-            <div><h3 class="font-display text-t20 font-semibold">{paso.titulo}</h3><p class="mt-1 text-t17 text-navy-700">{paso.texto}</p></div>
-          </li>
-        ))}
-      </ol>
-      <p class="mt-6 text-t15 text-navy-700">Sably es un proyecto de Connexis, agencia colombiana de desarrollo web y marketing digital. <a href="/nosotros/" class="font-semibold text-navy-950 underline underline-offset-4">Conoce quién está detrás</a></p>
-    </div>
-    <figure>
-      <div class="overflow-hidden rounded-c-xl"><Foto nombre="foto-heroe-1" sizes="(min-width: 1024px) 480px, 100vw" class="aspect-[4/5] w-full object-cover" /></div>
-      <figcaption class="mt-3 text-t13 text-navy-500">Paso 3. La lección en el celular, mientras practicas.</figcaption>
-    </figure>
-  </section>
-
-  <!-- Por qué Sably: los beneficios del CMS junto a las fotos de estudiar donde estés -->
-  <section class="v2-contenedor pt-24 lg:pt-32" aria-labelledby="beneficios-titulo" data-cms>
-    <div class="grid gap-10 rounded-c-xl bg-navy-50 p-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:p-16">
-      <div>
-        <p class="v2-antetitulo text-navy-700">{copy['benefits-heading'].eyebrow}</p>
-        <h2 id="beneficios-titulo" class="mt-3 font-display text-d28 lg:text-d40">{copy['benefits-heading'].title}</h2>
-        <ul class="mt-8 space-y-5" role="list">
-          {benefits.map(b => (
-            <li class="flex gap-4"><span class="grid size-10 flex-none place-items-center rounded-c-sm bg-white text-navy-950"><Ico nombre="check" tamano={18} /></span><div><h3 class="text-t17 font-semibold">{b.title}</h3><p class="mt-1 text-t15 text-navy-700">{b.text}</p></div></li>
-          ))}
-        </ul>
-      </div>
-      <div class="grid grid-cols-2 items-start gap-4">
-        <figure><div class="overflow-hidden rounded-c-lg"><Foto nombre="foto-estudiar-celular-1" sizes="(min-width: 1024px) 280px, 45vw" class="aspect-[3/4] w-full object-cover" /></div><figcaption class="mt-2 text-t13 text-navy-500">En el bus, camino al trabajo.</figcaption></figure>
-        <figure class="mt-16"><div class="overflow-hidden rounded-c-lg"><Foto nombre="foto-estudiar-celular-2" sizes="(min-width: 1024px) 280px, 45vw" class="aspect-[3/4] w-full object-cover" /></div><figcaption class="mt-2 text-t13 text-navy-500">En la mesa de la cocina, con cuaderno.</figcaption></figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- Presentaciones en vídeo -->
-  <section class="v2-contenedor pt-24 lg:pt-28" aria-labelledby="videos-heading">
-    <h2 id="videos-heading" class="font-display text-d28">Conoce los cursos en vídeo</h2>
-    <p class="mt-2 text-t17 text-navy-700">Mira las presentaciones antes de consultar el programa y elegir tu curso.</p>
-    {videos.length > 0 && (
-      <ul class="mt-6 flex flex-wrap gap-2" role="list">
-        {videos.map(video => <li><a href={video.path} class="v2-chip gap-2"><Ico nombre="circle-play" tamano={18} />{video.course.data.title}</a></li>)}
-      </ul>
-    )}
-    <a href="/videos/" class="v2-enlace mt-5 min-h-11">Ver presentaciones <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
-  </section>
-
-  <!-- Guías gratuitas del blog -->
-  {guiasDestacadas.length > 0 && (
-    <section class="v2-contenedor grid gap-10 pt-24 lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-16 lg:pt-32" aria-labelledby="guias-titulo">
-      <div>
-        <p class="v2-antetitulo text-navy-700">{copy.blog.eyebrow}</p>
-        <h2 id="guias-titulo" class="mt-3 font-display text-d28 lg:text-d40">{copy.blog.title}</h2>
-        <p class="mt-3 text-t17 text-navy-700">Artículos del blog para entender un oficio antes de elegir curso.</p>
-        <a href="/blog/" class="v2-enlace mt-6 min-h-11">Ver blog <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
-      </div>
-      <div>
-        <ul class="border-t border-navy-100" role="list">
-          {guiasDestacadas.map(post => (
-            <li><a href={`/blog/${post.id}/`} class="group flex items-center gap-5 border-b border-navy-100 py-5">
-              <span class="min-w-0 flex-1">
-                <span class="text-t13 text-navy-500">{post.data.category ?? 'Guía'}</span>
-                <strong class="mt-1 block font-display text-t20 font-semibold text-navy-950 group-hover:underline group-hover:underline-offset-4">{post.data.title}</strong>
-                <span class="mt-1 line-clamp-2 text-t15 text-navy-700">{post.data.description}</span>
-              </span>
-              <Ico nombre="arrow-right" class="flex-none text-navy-950 transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" />
-            </a></li>
-          ))}
-        </ul>
-        {masGuias.length > 0 && (
-          <div class="mt-8">
-            <h3 class="text-t13 font-medium text-navy-500">Más guías</h3>
-            <ul class="mt-3 grid gap-x-8 gap-y-1 sm:grid-cols-2" role="list">
-              {masGuias.map(post => <li><a href={`/blog/${post.id}/`} class="v2-subrayado inline-flex min-h-11 items-center text-t15 font-medium text-navy-950">{post.data.title}</a></li>)}
-            </ul>
-          </div>
-        )}
-      </div>
-    </section>
-  )}
-
-  <!-- Preguntas frecuentes: una columna, título arriba -->
-  <Preguntas antetitulo={copy['faq-heading'].eyebrow} titulo={copy['faq-heading'].title} {faqs} whatsapp={nav.whatsapp} class="pt-24 lg:pt-32" />
-
-  <!-- Cierre -->
-  <section class="v2-contenedor relative z-10 pt-24 lg:pt-32" aria-labelledby="cierre-titulo">
-    <div class="-mb-24 grid items-center gap-6 rounded-c-xl bg-navy-50 p-6 shadow-s1 lg:grid-cols-[minmax(0,1fr)_minmax(0,600px)] lg:p-16">
-      <div>
-        <h2 id="cierre-titulo" class="font-display text-d28 lg:text-d40">Encuentra tu curso</h2>
-        <a href={`${base}/cursos/`} class="v2-enlace mt-3 min-h-11">O mira los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
-      </div>
-      <Buscar base={base} id="buscar-cierre" claro />
-    </div>
-  </section>
+  <Heroe textos={copy.hero} {base} locale={country.hreflang} areas={nav.areas} {celdas} rotacion={portada.heroe} />
+  {portada.bloques.map(bloque => (
+    bloque === 'cifras' ? <Cifras {cifras} {country} />
+    : bloque === 'categorias' ? <Categorias copy={copy.categories} {base} {conFoto} {resto} {externas} total={nav.areas.length} />
+    : bloque === 'destacados' ? <Destacados copy={copy.courses} {featured} {country} {precios} {base} {moneda} totalCursos={nav.totalCursos} />
+    : bloque === 'promo' ? <BandaPromo {promo} {base} class="pt-20 lg:pt-24" />
+    : bloque === 'oficio' ? <Oficio {oficios} {base} />
+    : bloque === 'como-funciona' ? <ComoFunciona />
+    : bloque === 'beneficios' ? <Beneficios copy={copy['benefits-heading']} {benefits} />
+    : bloque === 'videos' ? <Videos {videos} />
+    : bloque === 'guias' ? <Guias copy={copy.blog} {guiasDestacadas} {masGuias} />
+    : bloque === 'preguntas' ? <Preguntas antetitulo={copy['faq-heading'].eyebrow} titulo={copy['faq-heading'].title} {faqs} whatsapp={nav.whatsapp} class="pt-24 lg:pt-32" />
+    : bloque === 'cierre' ? <Cierre {base} totalCursos={nav.totalCursos} />
+    : null
+  ))}
 </BaseLayout>
 
 <style is:global>
   @layer components {
-    .v2-oficios .v2-oficio { display: none; }
-    .v2-oficios:has(#oficio-0:checked) .v2-oficio[data-i='0'],
-    .v2-oficios:has(#oficio-1:checked) .v2-oficio[data-i='1'],
-    .v2-oficios:has(#oficio-2:checked) .v2-oficio[data-i='2'] { display: block; }
-    /* Sin :has() se ven los tres seguidos: no se pierde nada. */
-    @supports not selector(:has(*)) { .v2-oficios .v2-oficio { display: block; margin-bottom: 48px; } }
-    .v2-oficios input:focus-visible ~ .v2-oficio label { outline: 2px solid #fff; outline-offset: 2px; }
-    @media (prefers-reduced-motion: no-preference) { .v2-oficio { animation: v2-funde var(--t-base) var(--e-sale); } }
     [data-pie='completo'] { margin-top: 0; padding-top: 64px; }
   }
 </style>

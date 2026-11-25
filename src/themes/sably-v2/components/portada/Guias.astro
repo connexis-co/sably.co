@@ -1,0 +1,41 @@
+---
+/** Guías gratuitas del blog (bloque `guias`). */
+import Ico from '../Ico.astro';
+type Post = { id: string; data: { title: string; description?: string; category?: string | null } };
+interface Props { copy: { eyebrow: string; title: string }; guiasDestacadas: Post[]; masGuias: Post[] }
+const { copy: c, guiasDestacadas, masGuias } = Astro.props;
+const copy = { blog: c };
+---
+<!-- Guías gratuitas del blog -->
+{guiasDestacadas.length > 0 && (
+  <section class="v2-contenedor grid gap-10 pt-24 lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-16 lg:pt-32" aria-labelledby="guias-titulo">
+    <div>
+      <p class="v2-antetitulo text-navy-700">{copy.blog.eyebrow}</p>
+      <h2 id="guias-titulo" class="mt-3 font-display text-d28 lg:text-d40">{copy.blog.title}</h2>
+      <p class="mt-3 text-t17 text-navy-700">Artículos del blog para entender un oficio antes de elegir curso.</p>
+      <a href="/blog/" class="v2-enlace mt-6 min-h-11">Ver blog <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+    </div>
+    <div>
+      <ul class="border-t border-navy-100" role="list">
+        {guiasDestacadas.map(post => (
+          <li><a href={`/blog/${post.id}/`} class="group flex items-center gap-5 border-b border-navy-100 py-5">
+            <span class="min-w-0 flex-1">
+              <span class="text-t13 text-navy-500">{post.data.category ?? 'Guía'}</span>
+              <strong class="mt-1 block font-display text-t20 font-semibold text-navy-950 group-hover:underline group-hover:underline-offset-4">{post.data.title}</strong>
+              <span class="mt-1 line-clamp-2 text-t15 text-navy-700">{post.data.description}</span>
+            </span>
+            <Ico nombre="arrow-right" class="flex-none text-navy-950 transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" />
+          </a></li>
+        ))}
+      </ul>
+      {masGuias.length > 0 && (
+        <div class="mt-8">
+          <h3 class="text-t13 font-medium text-navy-500">Más guías</h3>
+          <ul class="mt-3 grid gap-x-8 gap-y-1 sm:grid-cols-2" role="list">
+            {masGuias.map(post => <li><a href={`/blog/${post.id}/`} class="v2-subrayado inline-flex min-h-11 items-center text-t15 font-medium text-navy-950">{post.data.title}</a></li>)}
+          </ul>
+        </div>
+      )}
+    </div>
+  </section>
+)}

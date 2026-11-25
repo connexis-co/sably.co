@@ -1,0 +1,214 @@
+---
+/**
+ * Héroe de la portada de país V2 (D1, estudio de movimiento F6). Banda azul noche con el único H1, buscador y
+ * un mosaico de tres celdas que rota sola entre 10–12 oficios. Cada oficio es un enlace a su ficha con su
+ * precio real (el mismo que la ficha da como precio a pagar hoy) y su nota de Hotmart si la tiene.
+ *
+ * Todo el inventario va en el HTML inicial: lo que no se ve está en `display: none` (sus fotos no se piden
+ * hasta que le toca entrar). La foto de la celda grande es la LCP: se pinta visible y sin animación de entrada.
+ * La rotación la lleva un reloj de Web Animations en la línea de progreso (scaleX); se para con cursor, foco,
+ * botón, pestaña oculta y fuera de pantalla, y no existe con «reducir movimiento» (WCAG 2.2.2).
+ */
+import Ico from '../Ico.astro';
+import Foto from '../Foto.astro';
+import Buscar from '../BuscarFrase.astro';
+import Precio from '@/components/v2/Precio.astro';
+import type { NombreFoto } from '../../fotos';
+import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
+
+export interface OficioMosaico { id: string; titulo: string; foto: NombreFoto; precio: PrecioTarjeta | null; nota: { cifra: string; texto: string } | null }
+interface Props {
+  textos: { eyebrow: string; title: string; accent: string; description: string; button: string; secondary: string };
+  base: string;
+  locale: string;
+  areas: { slug: string; nombre: string }[];
+  celdas: OficioMosaico[][];
+  rotacion: { rota: boolean; intervalo: number; orden: 'aleatorio' | 'fijo' };
+}
+const { textos, base, locale, areas, celdas, rotacion } = Astro.props;
+const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u, '');
+const rota = rotacion.rota && celdas.some(c => c.length > 1);
+const SIZES = ['(min-width: 1024px) 300px, 92vw', '(min-width: 1024px) 228px, 45vw', '(min-width: 1024px) 228px, 45vw'];
+/* Nota corta para el rótulo: «4,8 · 312 en Hotmart». */
+/* En las celdas pequeñas sobra «Curso de»: «Barbería desde Cero». */
+const corto = (t: string) => { const r = t.replace(/^curso\s+(online\s+)?(de|del)\s+/i, ''); return r.charAt(0).toUpperCase() + r.slice(1); };
+const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.replace(/ calificaciones.*$/, '')} en Hotmart`;
+---
+<section class="relative bg-navy-950 text-white">
+  <div class="v2-contenedor grid items-center gap-10 pt-10 pb-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,540px)] lg:gap-14 lg:pt-24 lg:pb-24">
+    <div>
+      <p class="v2-antetitulo text-white/80">{sinPrefijo(textos.eyebrow)}</p>
+      <h1 class="mt-5 font-display text-[40px]/[44px] tracking-[-0.015em] !text-white lg:text-d72">{textos.title}<br /><span class="text-coral-500">{textos.accent}</span></h1>
+      <p class="mt-5 max-w-[560px] text-t17 text-white/80 lg:text-t20">{textos.description}</p>
+      <Buscar base={base} id="buscar-heroe" class="mt-8 max-w-[600px]" />
+      <p class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-t15 text-white/70">Para empezar:
+        {areas.slice(0, 4).map(a => <a href={`${base}/cursos/${a.slug}/`} class="text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">{a.nombre.toLowerCase()}</a>)}
+      </p>
+      <p class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+        <a href={`${base}/cursos/`} class="v2-enlace min-h-11 !text-white">{textos.button} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+        <a href="#categorias" class="v2-enlace min-h-11 !text-white/80">{textos.secondary}</a>
+      </p>
+    </div>
+    {celdas.length > 0 && (
+      <div class="v2-mosaico" data-mosaico={rota ? '' : undefined} data-intervalo={rotacion.intervalo} data-orden={rotacion.orden} role="group" aria-roledescription="mosaico" aria-label="Oficios para empezar">
+        {celdas.map((oficios, c) => (
+          <div class="v2-mos-celda" data-celda={c}>
+            {oficios.map((o, i) => (
+              <a href={`${base}/${o.id}/`} class="v2-mos-oficio" data-visible={i === 0 ? '' : undefined}>
+                <Foto nombre={o.foto} sizes={SIZES[c] ?? SIZES[1]!} prioridad={c === 0 && i === 0} decorativa class="v2-mos-foto" />
+                <span class="v2-mos-rotulo">
+                  <strong class="line-clamp-2 text-t15 font-semibold text-navy-950">{c === 0 ? o.titulo : corto(o.titulo)}</strong>
+                  {o.precio && (
+                    <span class="mt-0.5 flex flex-wrap items-baseline gap-x-2 text-navy-950" data-tc-precio data-moneda={o.precio.moneda} data-hoy={o.precio.hoy} data-normal={o.precio.normal ?? undefined}>
+                      <Precio valor={o.precio.hoy} moneda={o.precio.moneda} locale={locale} class="v2-num text-t15 font-semibold" codigoClass="text-t13 font-medium" />
+                      {o.precio.normal !== null && <span class:list={['text-t13 text-navy-500', c > 0 && 'max-lg:sr-only']}><span class="sr-only">Precio normal: </span><Precio valor={o.precio.normal} moneda={o.precio.moneda} locale={locale} class="line-through decoration-[1.5px]" codigoClass="text-t13" /></span>}
+                    </span>
+                  )}
+                  {o.nota && c === 0 && <span class="v2-mos-nota flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" /><span>{notaCorta(o.nota)}</span></span>}
+                </span>
+              </a>
+            ))}
+          </div>
+        ))}
+        {rota && (
+          <span class="v2-mos-progreso" aria-hidden="true" hidden data-mos-progreso><span data-mos-reloj></span></span>
+          <button type="button" class="v2-mos-pausa" data-mos-pausa aria-pressed="false" hidden>
+            <Ico nombre="pause" tamano={14} class="v2-mos-ico-pausa" />
+            <Ico nombre="play" tamano={14} class="v2-mos-ico-seguir" />
+            <span class="sr-only" data-mos-pausa-texto>Pausar los oficios que cambian</span>
+          </button>
+        )}
+      </div>
+    )}
+  </div>
+</section>
+
+<style is:global>
+  @layer components {
+    .v2-mosaico { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .v2-mos-celda { position: relative; overflow: hidden; border-radius: var(--radius-c-xl); background: var(--color-navy-900); aspect-ratio: 1; }
+    .v2-mos-celda[data-celda='0'] { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+    @media (min-width: 1024px) {
+      .v2-mosaico { grid-template-columns: 300fr 228fr; grid-template-rows: 1fr 1fr; height: 560px; gap: 16px; }
+      .v2-mos-celda, .v2-mos-celda[data-celda='0'] { aspect-ratio: auto; }
+      .v2-mos-celda[data-celda='0'] { grid-column: 1; grid-row: 1 / 3; }
+    }
+    /* Cada oficio llena su celda; los que esperan turno no se pintan (ni piden su foto). */
+    .v2-mos-oficio { position: absolute; inset: 0; display: block; opacity: 0; transition: opacity var(--t-escena, calc(700ms * var(--m))) var(--e-mueve); }
+    .v2-mos-oficio:not([data-visible], [data-prep]) { display: none; }
+    .v2-mos-oficio[data-visible] { opacity: 1; z-index: 1; }
+    .v2-mos-oficio picture { display: block; height: 100%; }
+    .v2-mos-foto { width: 100%; height: 100%; object-fit: cover; scale: 1.04; transition: scale calc(var(--t-escena, calc(700ms * var(--m))) * 1.6) var(--e-sale); }
+    .v2-mos-oficio[data-visible] .v2-mos-foto { scale: 1; }
+    .v2-mos-rotulo {
+      position: absolute; left: 12px; right: 12px; bottom: 12px; display: block; max-width: 320px; padding: 10px 14px;
+      border-radius: var(--radius-c-md); background: #fff; box-shadow: var(--shadow-s2);
+      opacity: 0; translate: 0 6px; transition: opacity var(--t-base) var(--e-sale), translate var(--t-base) var(--e-sale);
+    }
+    .v2-mos-oficio[data-visible] .v2-mos-rotulo { opacity: 1; translate: 0 0; transition-delay: var(--t-base); }
+    .v2-mos-oficio:hover .v2-mos-rotulo strong { text-decoration: underline; text-underline-offset: 3px; }
+    .v2-mos-oficio:focus-visible { outline: 3px solid #fff; outline-offset: -3px; border-radius: inherit; }
+    @media (max-width: 1023.98px) { .v2-mos-celda:not([data-celda='0']) .v2-mos-rotulo { left: 8px; right: 8px; bottom: 8px; padding: 8px 10px; } }
+
+    /* Pausa (WCAG 2.2.2) y, bajo el mosaico, la línea que mide la espera hasta el próximo cambio (solo scaleX). */
+    .v2-mos-pausa { position: absolute; z-index: 2; right: 12px; top: 12px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; background: rgb(27 27 58 / .72); color: #fff; backdrop-filter: blur(6px); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .35); }
+    .v2-mos-pausa[hidden], .v2-mos-progreso[hidden] { display: none; }
+    .v2-mos-pausa > * { grid-area: 1 / 1; }
+    .v2-mos-progreso { position: absolute; left: 0; right: 0; bottom: -14px; height: 2px; border-radius: 2px; overflow: hidden; background: rgb(255 255 255 / .15); }
+    .v2-mos-progreso > span { display: block; height: 100%; background: rgb(255 255 255 / .7); transform-origin: left; transform: scaleX(0); }
+    .v2-mos-pausa .v2-mos-ico-seguir, .v2-mos-pausa[aria-pressed='true'] .v2-mos-ico-pausa { display: none; }
+    .v2-mos-pausa[aria-pressed='true'] .v2-mos-ico-seguir { display: block; }
+    .v2-mos-pausa:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { .v2-mos-pausa, .v2-mos-progreso { display: none !important; } }
+  }
+</style>
+
+<script>
+  /* Rotación del mosaico (D1). Una celda cada vez; dentro de cada celda, bolsa aleatoria sin repetición. */
+  const raiz = document.querySelector<HTMLElement>('[data-mosaico]');
+  const reducido = matchMedia('(prefers-reduced-motion: reduce)');
+  if (raiz && 'animate' in Element.prototype) {
+    const celdas = [...raiz.querySelectorAll<HTMLElement>('.v2-mos-celda')].map(el => ({ el, oficios: [...el.querySelectorAll<HTMLAnchorElement>('.v2-mos-oficio')], bolsa: [] as number[], actual: 0 }));
+    const giran = celdas.filter(c => c.oficios.length > 1);
+    const intervalo = Number(raiz.dataset.intervalo) || 4500;
+    const aleatorio = raiz.dataset.orden !== 'fijo';
+    const boton = raiz.querySelector<HTMLButtonElement>('[data-mos-pausa]')!;
+    const reloj = raiz.querySelector<HTMLElement>('[data-mos-reloj]')!;
+    const progreso = raiz.querySelector<HTMLElement>('[data-mos-progreso]')!;
+    const textoBoton = raiz.querySelector<HTMLElement>('[data-mos-pausa-texto]')!;
+    const barajar = (n: number, sin: number) => {
+      const b = [...Array(n).keys()].filter(i => i !== sin);
+      if (aleatorio) for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j]!, b[i]!]; }
+      return b;
+    };
+    /* Siguiente cambio ya elegido, para que su foto cargue durante la espera. */
+    let ultima = -1;
+    let proximo: { celda: (typeof celdas)[number]; n: number } | null = null;
+    const preparar = () => {
+      let i = 0;
+      if (aleatorio) { do { i = Math.floor(Math.random() * giran.length); } while (giran.length > 1 && i === ultima); }
+      else i = (ultima + 1) % giran.length;
+      ultima = i;
+      const celda = giran[i]!;
+      if (!celda.bolsa.length) celda.bolsa = aleatorio ? barajar(celda.oficios.length, celda.actual) : [...Array(celda.oficios.length).keys()].map(k => (celda.actual + 1 + k) % celda.oficios.length).filter(k => k !== celda.actual);
+      const n = celda.bolsa.shift()!;
+      celda.oficios[n]!.setAttribute('data-prep', '');
+      celda.oficios[n]!.inert = true;
+      proximo = { celda, n };
+    };
+    const cambiar = async () => {
+      if (!proximo) return;
+      const { celda, n } = proximo;
+      const nuevo = celda.oficios[n]!, viejo = celda.oficios[celda.actual]!;
+      const img = nuevo.querySelector('img');
+      if (img) { img.loading = 'eager'; try { await img.decode(); } catch { /* sin foto lista no se cambia: nunca un hueco */ nuevo.removeAttribute('data-prep'); proximo = null; preparar(); return; } }
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+      nuevo.inert = false;
+      nuevo.setAttribute('data-visible', '');
+      nuevo.removeAttribute('data-prep');
+      viejo.removeAttribute('data-visible');
+      celda.actual = n;
+      proximo = null;
+      preparar();
+    };
+    /* Los que esperan no se tabulan ni se leen (están en el HTML para buscadores y sin JavaScript). */
+    celdas.forEach(c => c.oficios.forEach((o, i) => { if (i) o.inert = true; }));
+
+    let enVista = true, cursor = false, foco = false, manual = false, ocupado = false;
+    /* El reloj es la propia animación de la línea (solo transform). No existe hasta que puede correr:
+       con «reducir movimiento» no se crea nunca. */
+    let anim: Animation | null = null;
+    const corriendo = () => enVista && !cursor && !foco && !manual && !document.hidden && !reducido.matches;
+    const reloj0 = () => {
+      const a = reloj.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: intervalo, easing: 'linear', fill: 'both' });
+      a.onfinish = async () => {
+        ocupado = true;
+        await cambiar();
+        ocupado = false;
+        a.currentTime = 0;
+        actualizar();
+      };
+      return a;
+    };
+    const actualizar = () => {
+      if (corriendo() && !ocupado) (anim ??= reloj0()).play();
+      else anim?.pause();
+    };
+    raiz.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { cursor = true; actualizar(); } });
+    raiz.addEventListener('pointerleave', () => { cursor = false; actualizar(); });
+    raiz.addEventListener('focusin', () => { foco = true; actualizar(); });
+    raiz.addEventListener('focusout', e => { if (!raiz.contains(e.relatedTarget as Node)) { foco = false; actualizar(); } });
+    document.addEventListener('visibilitychange', actualizar);
+    reducido.addEventListener('change', actualizar);
+    new IntersectionObserver(([e]) => { enVista = !!e?.isIntersecting; actualizar(); }, { threshold: 0.25 }).observe(raiz);
+    boton.addEventListener('click', () => {
+      manual = !manual;
+      boton.setAttribute('aria-pressed', String(manual));
+      textoBoton.textContent = manual ? 'Seguir con los oficios que cambian' : 'Pausar los oficios que cambian';
+      actualizar();
+    });
+    /* Arranca cuando la página ya cargó: el primer cambio nunca compite con la LCP. */
+    const empezar = () => { boton.hidden = false; progreso.hidden = false; preparar(); actualizar(); };
+    if (document.readyState === 'complete') empezar(); else addEventListener('load', empezar, { once: true });
+  }
+</script>

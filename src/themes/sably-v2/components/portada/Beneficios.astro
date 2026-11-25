@@ -1,0 +1,26 @@
+---
+/** Por qué Sably: los beneficios del CMS junto a las fotos de estudiar donde estés (bloque `beneficios`). */
+import Ico from '../Ico.astro';
+import Foto from '../Foto.astro';
+interface Props { copy: { eyebrow: string; title: string }; benefits: { title: string; text: string }[] }
+const { copy: c, benefits } = Astro.props;
+const copy = { 'benefits-heading': c };
+---
+<!-- Por qué Sably: los beneficios del CMS junto a las fotos de estudiar donde estés -->
+<section class="v2-contenedor pt-24 lg:pt-32" aria-labelledby="beneficios-titulo" data-cms>
+  <div class="grid gap-10 rounded-c-xl bg-navy-50 p-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:p-16">
+    <div>
+      <p class="v2-antetitulo text-navy-700">{copy['benefits-heading'].eyebrow}</p>
+      <h2 id="beneficios-titulo" class="mt-3 font-display text-d28 lg:text-d40">{copy['benefits-heading'].title}</h2>
+      <ul class="mt-8 space-y-5" role="list">
+        {benefits.map(b => (
+          <li class="flex gap-4"><span class="grid size-10 flex-none place-items-center rounded-c-sm bg-white text-navy-950"><Ico nombre="check" tamano={18} /></span><div><h3 class="text-t17 font-semibold">{b.title}</h3><p class="mt-1 text-t15 text-navy-700">{b.text}</p></div></li>
+        ))}
+      </ul>
+    </div>
+    <div class="grid grid-cols-2 items-start gap-4">
+      <figure><div class="overflow-hidden rounded-c-lg"><Foto nombre="foto-estudiar-celular-1" sizes="(min-width: 1024px) 280px, 45vw" class="aspect-[3/4] w-full object-cover" /></div><figcaption class="mt-2 text-t13 text-navy-500">En el bus, camino al trabajo.</figcaption></figure>
+      <figure class="mt-16"><div class="overflow-hidden rounded-c-lg"><Foto nombre="foto-estudiar-celular-2" sizes="(min-width: 1024px) 280px, 45vw" class="aspect-[3/4] w-full object-cover" /></div><figcaption class="mt-2 text-t13 text-navy-500">En la mesa de la cocina, con cuaderno.</figcaption></figure>
+    </div>
+  </div>
+</section>
