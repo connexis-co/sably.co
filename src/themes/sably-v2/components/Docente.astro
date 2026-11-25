@@ -1,0 +1,50 @@
+---
+/**
+ * Docente real del curso (punto C5 del encargo de pulido): quién imparte el
+ * curso, junto al creador («Lo dicta {creador}» no cambia).
+ *
+ * Solo se pinta con un docente que trae fuente y fecha (`docenteReal`, en
+ * src/lib/docente.ts) y con el interruptor «Mostrar el docente del curso» del
+ * panel encendido. Sin docente no deja hueco. Todo va en el HTML inicial, sin
+ * JavaScript, y la foto tiene medidas fijas (CLS 0). Sin foto propia, iniciales.
+ *
+ * `lugar="cabeza"`: una línea bajo «Lo dicta …» en la cabeza de la ficha.
+ * `lugar="ficha"`: la tarjeta completa en «Creador y opiniones».
+ */
+import { docenteReal } from '@/lib/docente';
+import { iniciales } from '@/lib/presentacion-v2';
+
+interface Props {
+  instructor: unknown;
+  lugar: 'cabeza' | 'ficha';
+  mostrar: boolean;
+  /** Curso sin producto en Hotmart: no hay docente que mostrar. */
+  sinProducto?: boolean;
+}
+
+const { instructor, lugar, mostrar, sinProducto = false } = Astro.props;
+const d = mostrar && !sinProducto ? docenteReal(instructor) : null;
+const alt = d ? `Foto de ${d.nombre}` : '';
+---
+{d && lugar === 'cabeza' && (
+  <p class="flex items-center gap-3 text-t15 font-semibold text-navy-950 lg:text-white" data-docente={d.slug}>
+    {d.foto ? <img src={d.foto} alt={alt} width="40" height="40" decoding="async" class="size-8 flex-none rounded-full bg-white object-cover ring-1 ring-navy-100 lg:size-10" />
+      : <span class="grid size-8 flex-none place-items-center rounded-full bg-navy-100 text-t13 font-semibold text-navy-950 lg:size-10 lg:bg-white/15 lg:text-white" aria-hidden="true">{iniciales(d.nombre)}</span>}
+    <span>Imparte {d.nombre}{d.titulo && <span class="block text-t13 font-normal text-navy-500 lg:text-white/70">{d.titulo}</span>}</span>
+  </p>
+)}
+{d && lugar === 'ficha' && (
+  <article class="flex flex-col gap-6 rounded-c-lg bg-white p-6 sm:flex-row sm:items-start lg:p-10" aria-labelledby={`docente-${d.slug}`} data-docente={d.slug}>
+    {d.foto ? <img src={d.foto} alt={alt} width="96" height="96" loading="lazy" decoding="async" class="size-24 flex-none rounded-full bg-white object-cover ring-1 ring-navy-100" />
+      : <span class="grid size-24 flex-none place-items-center rounded-full bg-navy-50 font-display text-d28 text-navy-950" aria-hidden="true">{iniciales(d.nombre)}</span>}
+    <div class="min-w-0 flex-1">
+      <p class="text-t13 text-navy-500">Imparte el curso</p>
+      <h3 id={`docente-${d.slug}`} class="font-display text-d28">{d.nombre}</h3>
+      {d.titulo && <p class="mt-1 text-t15 font-semibold text-navy-700">{d.titulo}</p>}
+      {d.trayectoria && <p class="mt-2 max-w-[640px] text-t15 text-navy-700">{d.trayectoria}</p>}
+      {d.acreditaciones && (
+        <p class="mt-3 max-w-[640px] text-t15 text-navy-700"><span class="font-semibold text-navy-950">Acreditaciones: </span>{d.acreditaciones}</p>
+      )}
+    </div>
+  </article>
+)}
