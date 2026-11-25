@@ -11,6 +11,7 @@ import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
 import Ico from './Ico.astro';
 import type { Course } from '@/lib/emdash-content';
 import type { Country } from '@/lib/countries';
+import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
 import type { PromoV2 } from '../promo-v2';
 interface Props {
   id: string;
@@ -19,6 +20,8 @@ interface Props {
   /** Orden por nota y por precio: posiciones ya calculadas por slug. */
   ordenNota: Map<string, number>;
   ordenPrecio: Map<string, number>;
+  /** Precio de cada tarjeta, el mismo de su ficha (`preciosDeTarjetas`). */
+  precios: Map<string, PrecioTarjeta | null>;
   /** Texto con el que se filtra cada tarjeta (título, área, palabras clave). */
   buscable: Map<string, string>;
   promo?: PromoV2 | null;
@@ -27,7 +30,7 @@ interface Props {
   conOrden?: boolean;
   filtrable?: boolean;
 }
-const { id, cursos, country, ordenNota, ordenPrecio, buscable, promo = null, base, visibles = 24, conOrden = true, filtrable = false } = Astro.props;
+const { id, cursos, country, ordenNota, ordenPrecio, precios, buscable, promo = null, base, visibles = 24, conOrden = true, filtrable = false } = Astro.props;
 const ocultos = Math.max(0, cursos.length - visibles);
 const conFranja = !!promo && cursos.length > 12;
 ---
@@ -44,7 +47,7 @@ const conFranja = !!promo && cursos.length > 12;
   <ul class="v2-rejilla mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" role="list" id={id}>
     {cursos.map((course, i) => (
       <li class="v2-celda" style={`--o-rec:${i * 2};--o-nota:${(ordenNota.get(course.id) ?? i) * 2};--o-precio:${(ordenPrecio.get(course.id) ?? i) * 2}`} data-mas={i >= visibles ? '' : undefined} data-buscar={filtrable ? buscable.get(course.id) : undefined}>
-        <TarjetaCurso {course} {country} filaEnMovil />
+        <TarjetaCurso {course} {country} precio={precios.get(course.id) ?? null} filaEnMovil />
       </li>
     ))}
     {conFranja && promo && (
