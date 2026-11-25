@@ -8,7 +8,7 @@
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCountry } from '@/lib/countries';
-import { aplicarCabecerasPrivadas, cuentaActual, cuentaServidor, tokenCsrf } from '@/lib/cuenta/http';
+import { aplicarCabecerasPrivadas, cuentaActual, cuentaServidor, tokenCsrf, redirigir } from '@/lib/cuenta/http';
 import { AVISOS, destinoSeguro } from '@/lib/cuenta/nucleo';
 import FormularioAcceso from '@/components/cuenta/FormularioAcceso.astro';
 import '@/themes/sably-v2/estilos.css';
@@ -19,7 +19,7 @@ Astro.response.headers.set('Vary', 'X-Account-Form');
 const servidor = await cuentaServidor(Astro);
 if (!servidor) return new Response('Not found', { status: 404 }); // igual que hoy sin cuenta
 const volver = destinoSeguro(Astro.url.searchParams.get('volver'));
-if (await cuentaActual(Astro, servidor.almacen)) return Astro.redirect(volver, 303);
+if (await cuentaActual(Astro, servidor.almacen)) return redirigir(volver);
 const csrf = tokenCsrf(Astro, servidor.secreto);
 const codigoAviso = Astro.url.searchParams.get('aviso') ?? '';
 const aviso = Object.hasOwn(AVISOS, codigoAviso) ? AVISOS[codigoAviso] : null;

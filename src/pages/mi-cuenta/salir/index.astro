@@ -5,7 +5,7 @@
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCountry } from '@/lib/countries';
-import { aplicarCabecerasPrivadas, cerrarSesion, cuentaActual, cuentaServidor, leerFormulario, postValido, tokenCsrf } from '@/lib/cuenta/http';
+import { aplicarCabecerasPrivadas, cerrarSesion, cuentaActual, cuentaServidor, leerFormulario, postValido, tokenCsrf, redirigir } from '@/lib/cuenta/http';
 import { RUTAS, destinoSeguro, enlaceIngresar } from '@/lib/cuenta/nucleo';
 import '@/themes/sably-v2/estilos.css';
 
@@ -15,16 +15,16 @@ const servidor = await cuentaServidor(Astro);
 if (!servidor) return new Response('Not found', { status: 404 }); // igual que hoy sin cuenta
 if (Astro.request.method === 'POST') {
   const formulario = await leerFormulario(Astro.request);
-  if (!formulario || !postValido(Astro, servidor.secreto, formulario)) return Astro.redirect(`${RUTAS.salir}?aviso=formulario`, 303);
+  if (!formulario || !postValido(Astro, servidor.secreto, formulario)) return redirigir(`${RUTAS.salir}?aviso=formulario`);
   const cuenta = await cuentaActual(Astro, servidor.almacen);
   if (cuenta && formulario.get('todas') === '1') await servidor.almacen.revocarTodas(cuenta.id);
   await cerrarSesion(Astro, servidor.almacen);
   // Desde el menú de la cabecera se vuelve a la misma página; desde Mi cuenta, a /ingresar/ con el aviso.
   const volver = destinoSeguro(String(formulario.get('volver') ?? ''));
-  return Astro.redirect(volver !== RUTAS.cuenta ? volver : enlaceIngresar(null, 'salida'), 303);
+  return redirigir(volver !== RUTAS.cuenta ? volver : enlaceIngresar(null, 'salida'));
 }
 const cuenta = await cuentaActual(Astro, servidor.almacen);
-if (!cuenta) return Astro.redirect('/', 303);
+if (!cuenta) return redirigir('/');
 const csrf = tokenCsrf(Astro, servidor.secreto);
 const caducado = Astro.url.searchParams.get('aviso') === 'formulario';
 ---
