@@ -8,7 +8,7 @@ const ICON = 'M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.7 14.1c-
 export function createPlugin() {
   return definePlugin({
     id: 'sably-whatsapp', version: '1.0.0', capabilities: ['hooks.page-fragments:register'],
-    admin: { pages: [{path:'/whatsapp',label:'Sably · WhatsApp',icon:'message-circle'}] },
+    admin: { pages: [{path:'/whatsapp',label:'WhatsApp',icon:'message-circle'}] },
     routes: {
       config: { methods:['GET'], permission:'settings:manage', request:{body:'none'}, handler:async ctx => ({config:await ctx.kv.get<WhatsAppSettings>('config') ?? DEFAULT_SETTINGS}) },
       save: { methods:['POST'],permission:'settings:manage',request:{body:'json',maxBytes:65536},handler:async ctx => {
