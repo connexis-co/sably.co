@@ -18,6 +18,7 @@ import { localPrice, type Country, type City } from '@/lib/countries';
 import { courseCover } from '@/lib/categories';
 import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-operations/public';
 import { faqsHonestas } from '@/lib/faq-honestas';
+import { requisitosDeFicha } from '@/lib/requisitos';
 import { DESCRIPCION_SIN_PRODUCTO, sinPromesas } from '@/lib/sin-producto';
 import { faqPagoPais } from '@/lib/medios-de-pago';
 import { buildHotmartUrl } from '@/lib/hotmart';
@@ -66,6 +67,7 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
   const courseHtml = content.sourceBody === null ? null : renderMarkdown(content.sourceBody);
   const learnings = locale?.data.beneficios ?? course.data.learnings;
   const audience = locale?.data.para_quien ?? course.data.audience;
+  const requisitos = requisitosDeFicha(locale?.data.requisitos, course.data.level);
 
   /* El título de país colisiona por dos vías: sin variante todos los países
      comparten el metaTitle del MDX, y con variante el modelo a veces repite el
@@ -376,7 +378,7 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
     return indexableAtPath(courseSeo(course.seo,variant?.seo),alt.href,SITE.url);
   });
 
-  return { cms, COUNTRIES, course, locale, category, base, coursePath, localeHtml, courseHtml, learnings, audience, localesDelCurso, tituloColisiona, conCupon, proveedor, ctaUrl, allCourses, creators, pillar, satellites, guides, related, discountPct, sinProducto, creadoresVisibles, operationalDb, verifiedReviews, real, valoracion, montoBase, monedaBase, activePromos, promoRow, promoSiguiente, coupon, quote, freshUntil, currency, displayMoney, baseAmount, saving, offer, precioTexto, marketQuery, marketLinks, localCheckout, videoSrc, watch, FAQ_PAGO, baseFaqs, faqs, pageUrl, canonicalUrl, h1, esCurso, nombreEnFrase, deNombre, title, description, descripcionCurso, subtitulo, breadcrumb, schemas, alternates };
+  return { cms, COUNTRIES, course, locale, category, base, coursePath, localeHtml, courseHtml, learnings, audience, requisitos, localesDelCurso, tituloColisiona, conCupon, proveedor, ctaUrl, allCourses, creators, pillar, satellites, guides, related, discountPct, sinProducto, creadoresVisibles, operationalDb, verifiedReviews, real, valoracion, montoBase, monedaBase, activePromos, promoRow, promoSiguiente, coupon, quote, freshUntil, currency, displayMoney, baseAmount, saving, offer, precioTexto, marketQuery, marketLinks, localCheckout, videoSrc, watch, FAQ_PAGO, baseFaqs, faqs, pageUrl, canonicalUrl, h1, esCurso, nombreEnFrase, deNombre, title, description, descripcionCurso, subtitulo, breadcrumb, schemas, alternates };
 }
 
 export type Ficha = Awaited<ReturnType<typeof cargarFicha>>;

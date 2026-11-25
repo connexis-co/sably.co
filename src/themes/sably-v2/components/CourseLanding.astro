@@ -23,6 +23,7 @@ import Migas from '@/components/v2/Migas.astro';
 import FilaDatos from '@/components/v2/FilaDatos.astro';
 import Acordeon from '@/components/v2/Acordeon.astro';
 import Tique from '@/components/v2/Tique.astro';
+import Constancia from '@/components/v2/Constancia.astro';
 import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
 import NotaFuente from '@/components/v2/NotaFuente.astro';
 import CajaCompra from './CajaCompra.astro';
@@ -45,7 +46,7 @@ const { country, city, content } = Astro.props;
 const f = await cargarFicha(Astro.props, { url: Astro.url, locals: Astro.locals, headers: Astro.response.headers });
 const { ajustes } = await temaDeLaPeticion(Astro);
 const {
-  course, locale, category, localeHtml, courseHtml, learnings, audience, proveedor, pillar, satellites, guides, related,
+  course, locale, category, localeHtml, courseHtml, learnings, audience, requisitos, proveedor, pillar, satellites, guides, related,
   sinProducto, creadoresVisibles, verifiedReviews, valoracion, quote, real, freshUntil, currency, baseAmount,
   offer, videoSrc, watch, faqs, h1, nombreEnFrase, deNombre, title, description, subtitulo, schemas, alternates, breadcrumb,
 } = f;
@@ -74,7 +75,6 @@ const datos = [
   { icono: 'signal' as const, etiqueta: 'Nivel', valor: course.data.level },
   { icono: 'infinity' as const, etiqueta: 'Ritmo', valor: 'A tu ritmo' },
 ];
-const requisitos = ['No necesitas experiencia previa', 'Conexión a internet (celular o computador)', 'Ganas de aprender y practicar'];
 const pestanas = [
   { id: 'aprende', etiqueta: 'Qué aprenderás' },
   { id: 'para-quien', etiqueta: 'Para quién es' },
@@ -216,6 +216,15 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
             </div>
           </div>
         </div>
+        {!sinProducto && (
+          <div class="mt-12 grid gap-6 lg:mt-16 lg:grid-cols-[minmax(0,620px)_1fr] lg:items-center lg:gap-12">
+            <Constancia curso={course.data.title} creador={creador} class="[--constancia-fondo:var(--color-navy-50)]" />
+            <div class="max-w-[420px]">
+              <h3 class="font-display text-d28">Lo que acredita tu constancia</h3>
+              <p class="mt-3 text-t17">Este documento es una ilustración con datos de ejemplo. La constancia real la emite Hotmart, con su propio diseño, cuando completas el 100 % de las lecciones.</p>
+            </div>
+          </div>
+        )}
       </div>
     </section>
 
@@ -561,7 +570,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
   @media (width < 1024px) {
     :global(body[data-con-barra]) { padding-bottom: 72px; }
     /* Lo que se enfoca o se desplaza solo no queda debajo de la barra fija. */
-    :global(html:has(body[data-con-barra])) { scroll-padding-bottom: 88px; }
+    :global(html:has(body[data-con-barra])) { scroll-padding-bottom: 88px; scroll-padding-top: 112px; }
     /* La caja y la barra ya traen WhatsApp: el botón flotante sobraba y en 390 tapaba la
        flecha de «Inscribirme» en el primer pantallazo. */
     :global([data-wa-float]) { display: none; }
