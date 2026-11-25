@@ -218,7 +218,7 @@ export function courseSchema(c: CourseSchemaInput) {
       : {
           educationalCredentialAwarded: {
             '@type': 'EducationalOccupationalCredential',
-            name: 'Certificado digital de finalización',
+            name: 'Constancia digital de finalización',
             credentialCategory: 'Certificate',
           },
         }),

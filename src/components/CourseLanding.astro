@@ -262,8 +262,8 @@ const faqs = city
       },
       ...baseFaqs,
       {
-        q: `¿El certificado sirve en ${city.name}?`,
-        a: `El certificado digital respalda tus habilidades ante clientes y empleadores en ${city.name} y toda Latinoamérica.`,
+        q: `¿La constancia sirve en ${city.name}?`,
+        a: `La constancia de finalización la emite Hotmart al completar el curso y acredita que lo terminaste, en ${city.name} o en cualquier otro lugar. No es un título oficial ni una certificación profesional.`,
       },
     ]
   : baseFaqs;
@@ -518,13 +518,13 @@ const schemas = [
             </>
           )
         }
-        {/* Acceso, certificado, garantía y pago solo existen si hay checkout: en
+        {/* Acceso, constancia, garantía y pago solo existen si hay checkout: en
             «Próximamente» la lista entera prometía algo que todavía no se
             puede comprar (tatuaje anunciaba acceso de por vida y certificado). */}
         {!sinProducto && (
           <ul class="mt-5 space-y-2 text-sm text-body" role="list">
             <li>✅ Acceso de por vida, 24/7</li>
-            <li>✅ Certificado digital incluido</li>
+            <li>✅ Constancia digital de finalización</li>
             <li>✅ Garantía de 7 días</li>
             <li>✅ Pago seguro vía Hotmart</li>
           </ul>
@@ -812,7 +812,7 @@ const schemas = [
       {
         !sinProducto && (
           <p class="mt-4 text-sm text-white/60">
-            Garantía de 7 días · Acceso de por vida · Certificado incluido
+            Garantía de 7 días · Acceso de por vida · Constancia de finalización
           </p>
         )
       }

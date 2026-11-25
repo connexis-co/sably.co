@@ -96,3 +96,15 @@ test('el título del listado no vuelve a decir «Catálogo de 120+ cursos»', ()
   // «Catálogo» referido a lo que vende el alumno no es Sably descrito como catálogo.
   assert.deepEqual(errores(sana.replace('</main>', '<p>Arma tu primer catálogo de postres para vender.</p></main>')), []);
 });
+
+test('«constancia», nunca «certificado»: error en lo que sale de plantilla, aviso en el texto del CMS', () => {
+  const credencial = (nombre) => sana.replace('"name":"Curso de Masajes"', `"name":"Curso de Masajes","educationalCredentialAwarded":{"@type":"EducationalOccupationalCredential","name":"${nombre}","credentialCategory":"Certificate"}`);
+  assert.deepEqual(errores(credencial('Constancia digital de finalización')), []);
+  assert.deepEqual(errores(credencial('Certificado digital de finalización')), ['constancia-json-ld']);
+  assert.deepEqual(errores(sana.replace('src="/a.jpg"', 'src="/certificado-sably.jpg"')), ['imagen-certificado']);
+  const conTexto = sana.replace('</main>', '<p>Certificado incluido. Obtén tu certificado digital.</p></main>');
+  assert.deepEqual(errores(conTexto), []);
+  assert.deepEqual(auditarOnPage(url, conTexto).filter((h) => h.regla === 'certificado').map((h) => [h.nivel, h.detalle.match(/\d+/)[0]]), [['aviso', '2']]);
+  // Las homologaciones sí son certificaciones de una institución.
+  assert.deepEqual(auditarOnPage('https://sably.co/homologaciones/tecnico-laboral/', conTexto).filter((h) => h.regla === 'certificado'), []);
+});

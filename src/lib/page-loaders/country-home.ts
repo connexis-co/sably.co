@@ -60,8 +60,8 @@ const faqs = [
     a: `Sí. Todos nuestros cursos son 100% online y puedes tomarlos desde cualquier ciudad de ${country.name}, a tu ritmo y con acceso de por vida. Los precios se muestran en ${country.currency}.`,
   },
   {
-    q: '¿Recibo un certificado al terminar?',
-    a: 'Sí, todos los cursos incluyen certificado digital de finalización que puedes compartir en tu hoja de vida y redes profesionales.',
+    q: '¿Recibo una constancia al terminar?',
+    a: 'Sí. Al completar un curso, Hotmart emite una constancia digital de finalización con tu nombre y el del curso.',
   },
   {
     q: '¿Cómo se realiza el pago?',
@@ -85,6 +85,6 @@ const tituloLargo = `Sably: cursos online de oficios con certificado en ${countr
 
 const title = tituloLargo.length <= LIMITE_TITULO ? tituloLargo : `Sably: cursos online de oficios en ${country.name}`;
 
-const description = `Aprende panadería, costura, electricidad, gastronomía y más oficios rentables desde ${country.name}. Cursos online con certificado y acceso de por vida.`;
+const description = `Aprende panadería, costura, electricidad, gastronomía y más oficios rentables desde ${country.name}. Cursos online con constancia de finalización y acceso de por vida.`;
 return {stats,cms,country,CATEGORIES,INTERNAL_CATEGORIES,base,allCourses,featured,posts,videos,faqs,tituloLargo,title,description};
 }

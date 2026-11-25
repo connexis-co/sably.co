@@ -37,7 +37,7 @@ const byCategory = INTERNAL_CATEGORIES.map((cat) => ({
    en los 8 países (≤60, ver conMarca). */
 const title = conMarca(`Todos los cursos online en ${country.name}`);
 
-const description = `Explora todos los cursos online de Sably disponibles en ${country.name}: oficios, gastronomía, moda, emprendimiento y más. Certificado incluido.`;
+const description = `Explora todos los cursos online de Sably disponibles en ${country.name}: oficios, gastronomía, moda, emprendimiento y más. Con constancia de finalización.`;
 
 
 const schemas = [

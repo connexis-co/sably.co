@@ -115,6 +115,7 @@ export function auditarOnPage(url, html, opciones = {}) {
 
   // ── Datos estructurados ──────────────────────────────────────────────────
   const tipos = [];
+  const credenciales = [];
   const personasSinPerfil = [];
   const ofertas = [];
   const respuestas = [];
@@ -129,6 +130,7 @@ export function auditarOnPage(url, html, opciones = {}) {
           if ([].concat(nodo['@type'] ?? []).includes('Person') && !/\/creadores\/[a-z0-9-]+\/#creador$/.test(String(nodo['@id'] ?? '')))
             personasSinPerfil.push(nodo.name ?? '(sin nombre)');
           if ([].concat(nodo['@type'] ?? []).includes('Offer')) ofertas.push(nodo);
+          if ([].concat(nodo['@type'] ?? []).includes('EducationalOccupationalCredential')) credenciales.push(String(nodo.name ?? ''));
           if ([].concat(nodo['@type'] ?? []).includes('Answer') && typeof nodo.text === 'string') respuestas.push(nodo.text);
           Object.values(nodo).forEach(recorrer);
         }
@@ -164,6 +166,19 @@ export function auditarOnPage(url, html, opciones = {}) {
     const crudo = atributo(caja, rebajado ? 'data-reduced-amount' : 'data-base-amount');
     if (oferta && crudo && Math.abs(Number(oferta.price) - Number(crudo)) >= 0.005)
       marcar('oferta-precio', 'error', `el Offer dice ${oferta.price} y la caja ${crudo}`);
+  }
+
+  // ── «Constancia», nunca «certificado» ────────────────────────────────────
+  // Lo que sale de plantilla es error. El texto del CMS (descripciones cortas,
+  // preguntas de las variantes de país, títulos) sigue pendiente de decisión y
+  // solo se cuenta, para que el número baje y no vuelva a subir. Las
+  // homologaciones son certificaciones de verdad, de una institución.
+  if (credenciales.some((nombre) => /certificad/i.test(nombre)))
+    marcar('constancia-json-ld', 'error', 'el JSON-LD llama «certificado» a la constancia de finalización');
+  if (/certificado-sably\.jpg/i.test(documento)) marcar('imagen-certificado', 'error', 'vuelve la imagen del certificado inventado');
+  if (!/\/homologaciones\//.test(url)) {
+    const veces = (visible.match(/\bcertificad[oa]s?\b/gi) ?? []).length;
+    if (veces) marcar('certificado', 'aviso', `«certificado» ${veces} veces en el texto visible (la regla es «constancia»)`);
   }
 
   // ── Textos que no deben volver ───────────────────────────────────────────
