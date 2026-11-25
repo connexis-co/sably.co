@@ -136,3 +136,11 @@ ${cuerpo}
   // El tema clásico no pasa por estas reglas.
   assert.deepEqual(errores(v2('<p>✅ Acceso de por vida</p><p>Acceso de por vida</p>').replace('<body data-tema="v2">', '<body>')), []);
 });
+
+test('una URL de imagen con comas en src o srcset es error (Bing corta en la coma)', () => {
+  const conComa = sana.replace('<img src="/a.jpg" alt="Curso de Masajes" width="480" height="320">',
+    '<img src="/cdn-cgi/image/width=480,quality=80/a.jpg" srcset="/cdn-cgi/image/width=96,quality=80/a.jpg 96w, /cdn-cgi/image/width=480,quality=80/a.jpg 480w" alt="Curso de Masajes" width="480" height="320">');
+  assert.deepEqual(errores(conComa), ['img-url-coma']);
+  const codificada = conComa.replaceAll('width=96,quality', 'width=96%2Cquality').replaceAll('width=480,quality', 'width=480%2Cquality');
+  assert.deepEqual(errores(codificada), []);
+});

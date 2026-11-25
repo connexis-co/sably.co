@@ -78,6 +78,23 @@ export function publicCanonicalRedirect(request: Request): Response | null {
   return Response.redirect(url.href, 301);
 }
 
+/**
+ * Rutas que fabrican los rastreadores y no existen. Bing lee mal el `srcset` de
+ * las imágenes (corta en cada coma de `/cdn-cgi/image/width=…,onerror=redirect/…`)
+ * y pide `/us/curso/onerror=redirect/_emdash/api/media/file/….jpg`: 551 de sus 564
+ * 404 del 19 al 25-nov-2026. Se manda a la imagen original. También los nombres de
+ * sitemap que nunca existieron, hacia el índice real.
+ */
+const SITEMAP_ALIAS = new Set(['/sitemap.xml.gz', '/sitemap.txt', '/sitemap_index.xml']);
+export function crawlerArtifactRedirect(request: Request): Response | null {
+  if (request.method !== 'GET' && request.method !== 'HEAD') return null;
+  const url = new URL(request.url);
+  const media = url.pathname.match(/^\/.+?\/onerror=redirect\/(_emdash\/api\/media\/file\/[^?#]+)$/);
+  if (media) return Response.redirect(new URL(`/${media[1]}`, url.origin).href, 301);
+  if (SITEMAP_ALIAS.has(url.pathname)) return Response.redirect(new URL('/sitemap-index.xml', url.origin).href, 301);
+  return null;
+}
+
 /** `/` → `/co/`, the same hop as astro.config `redirects`, without booting EmDash. */
 export function rootCountryRedirect(request: Request): Response | null {
   if (request.method !== 'GET' && request.method !== 'HEAD') return null;

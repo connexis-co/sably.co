@@ -1,5 +1,5 @@
 import { gateEnvironment, protectEnvironmentResponse, type RuntimeEnvironment } from '../runtime-environment';
-import { parseLegacyRedirects, productionOriginRedirect, publicCanonicalRedirect, resolveLegacyRedirect, rootCountryRedirect } from '../legacy-redirects';
+import { parseLegacyRedirects, productionOriginRedirect, publicCanonicalRedirect, resolveLegacyRedirect, rootCountryRedirect, crawlerArtifactRedirect } from '../legacy-redirects';
 import { PARAMETRO_TEMA } from '../tema';
 import { canCachePublicPage, FRESH_UNTIL_HEADER, invalidatedTags, isCrawlFile, nodeEdgePolicy, ORIGIN_EDGE_FRESH, protectDeliveryResponse } from '../public-delivery';
 
@@ -40,7 +40,7 @@ export function createNodeRequestHandler(options: {
       if (origin) return finish(origin, true);
       const denied = await gateEnvironment(request, options.env);
       if (denied) return finish(denied);
-      const redirect = rootCountryRedirect(request) ?? resolveLegacyRedirect(request, legacy) ?? publicCanonicalRedirect(request);
+      const redirect = crawlerArtifactRedirect(request) ?? rootCountryRedirect(request) ?? resolveLegacyRedirect(request, legacy) ?? publicCanonicalRedirect(request);
       if (redirect) return finish(redirect, true);
       const response = await next();
       if (invalidatedTags(request, response).length) options.invalidate();
