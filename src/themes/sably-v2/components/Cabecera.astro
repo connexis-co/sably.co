@@ -19,6 +19,9 @@ import MegaDetalle from './MegaDetalle.astro';
 import type { Country } from '@/lib/countries';
 import type { DatosNavegacion } from '../navegacion';
 import type { PromoV2 } from '../promo-v2';
+import CuentaCabecera from '@/components/cuenta/CuentaCabecera.astro';
+import CuentaHoja from '@/components/cuenta/CuentaHoja.astro';
+import { estadoCuenta } from '@/lib/cuenta/ajustes';
 import '../estilos.css';
 interface Props { country: Country; pathAfterCountry: string; nav: DatosNavegacion; promo: PromoV2 | null }
 const { country, pathAfterCountry, nav, promo } = Astro.props;
@@ -28,6 +31,8 @@ const actual = (href: string) => href !== '/' && (ruta === href || (href.length 
 const otros = nav.principal.filter(e => e !== nav.enlaceCursos);
 const enCursos = ruta.startsWith(`${base}/cursos/`);
 const buscar = `${base}/cursos/#buscar`;
+// Cuenta (panel → Cuenta): apagada o sin configurar en el servidor, la cabecera no cambia en nada.
+const cuenta = await estadoCuenta(Astro.locals);
 ---
 <header class="v2-cabecera" data-cabecera>
   <div class="v2-contenedor v2-cabecera-fila flex items-center gap-2 lg:gap-6">
@@ -104,6 +109,7 @@ const buscar = `${base}/cursos/#buscar`;
         <Bandera codigo={country.code} /><span class="text-t15 font-semibold max-lg:hidden">{country.currency}</span><Ico nombre="chevron-down" tamano={16} class="max-lg:hidden" />
       </button>
       <a href={nav.whatsapp} target="_blank" rel="noopener nofollow" class="v2-icono-boton max-lg:hidden" aria-label="Escríbenos por WhatsApp"><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" /></a>
+      {cuenta.disponible && <CuentaCabecera ruta={ruta} ventana={cuenta.acceso === 'ventana'} />}
       <button type="button" popovertarget="v2-menu-movil" class="v2-icono-boton v2-sin-borde lg:hidden" aria-label="Abrir el menú"><Ico nombre="menu" /></button>
     </div>
   </div>
@@ -128,7 +134,7 @@ const buscar = `${base}/cursos/#buscar`;
 
 <div id="v2-menu-movil" popover class="v2-hoja" aria-label="Menú">
   <div class="flex h-14 flex-none items-center justify-between px-5">
-    <span class="[&_svg]:h-7"><Logo href={`${base}/`} /></span>
+    <span class="[&_a]:inline-flex [&_a]:min-h-11 [&_a]:min-w-11 [&_a]:items-center [&_svg]:h-7"><Logo href={`${base}/`} /></span>
     <button type="button" popovertarget="v2-menu-movil" popovertargetaction="hide" class="inline-flex min-h-11 items-center gap-2 rounded-full bg-navy-50 px-4 text-t15 font-semibold">Cerrar<Ico nombre="x" tamano={18} /></button>
   </div>
   <div class="flex-1 overflow-y-auto overscroll-contain px-5 pb-6">
@@ -148,6 +154,7 @@ const buscar = `${base}/cursos/#buscar`;
     <nav aria-label="Menú principal">
       {otros.map(e => <a href={e.href} target={e.target} rel={relDe(e.href, e.target)} class="v2-hoja-enlace">{e.etiqueta}</a>)}
       <a href="/blog/" class="v2-hoja-enlace">Guías gratuitas</a>
+      {cuenta.disponible && <CuentaHoja ruta={ruta} ventana={cuenta.acceso === 'ventana'} />}
     </nav>
   </div>
   <div class="flex flex-none items-center gap-3 bg-navy-50 px-5 py-4">

@@ -98,7 +98,7 @@ export function AjustesPage() {
       {seccion(['estiloCampo'], 'Formularios')}
     </>; break;
     case 'campanas': cuerpo = <Promotions />; break;
-    case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente'], 'Caja de compra')}<WidgetEditor only="social" /></>; break;
+    case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'], 'Caja de compra')}<WidgetEditor only="social" /></>; break;
     case 'contenido': cuerpo = <Enlaces items={[
       ['Cursos', 'Ficha general de cada curso.', `${ADMIN}/content/courses`],
       ['Cursos por país', 'Precio, enlace de compra y texto por país.', `${ADMIN}/content/course_locales`],
@@ -121,6 +121,10 @@ export function AjustesPage() {
       ['SEO del núcleo', 'Verificación de buscadores e indexación (EmDash).', `${ADMIN}/settings`],
       ['Redirecciones', 'Direcciones viejas que llevan a las nuevas.', `${ADMIN}/redirects`],
     ]} />; break;
+    case 'cuenta': cuerpo = <>
+      {seccion(['cuentaActiva', 'cuentaGoogle', 'cuentaAcceso'], 'Cuenta')}
+      <div className="so-hueco"><strong>Claves del servidor</strong><p>El identificador y la clave del cliente OAuth de Google y la clave de sesión no se escriben aquí: van en el entorno del servidor (<code>SABLY_GOOGLE_ID</code>, <code>SABLY_GOOGLE_SECRET</code>, <code>SABLY_AUTH_SECRET</code>). Sin ellas, la cuenta no aparece aunque esté encendida. Detalle en docs/equipo/2026-11-25/cuenta/IMPLEMENTACION.md.</p></div>
+    </>; break;
     case 'integraciones': cuerpo = <>
       {seccion(['notificationEmail'], 'Correo del equipo')}
       <Enlaces items={[

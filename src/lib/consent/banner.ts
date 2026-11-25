@@ -90,8 +90,12 @@ export const CONSENT_CSS = [
   // Sube con `translate` y no con `bottom`: mover `bottom` cuenta como desplazamiento de diseño (CLS).
   '@media (max-width:63.99rem){body:has([data-barra-fija]:not([data-oculta])) #sbc{translate:0 -72px}}',
   'body:has([data-sticky-cta]:not([data-oculta])) #sbc{translate:0 calc(-1 * var(--barra-alto,57px))}',
-  // Entrada: opacidad y un desplazamiento corto, solo sin «reducir movimiento».
-  '@media (prefers-reduced-motion:no-preference){#sbc{transition:opacity .25s cubic-bezier(.2,.8,.2,1),translate .25s cubic-bezier(.2,.8,.2,1),display .25s allow-discrete}#sbc[hidden]{opacity:0;translate:0 12px}@starting-style{#sbc{opacity:0;translate:0 12px}}}',
+  // Arriba, bajo la cabecera, cuando abajo taparía la compra o el foco (lo decide el script; también con translate).
+  '#sbc[data-arriba]{translate:0 var(--sbc-ty,0px)!important}',
+  // El WhatsApp sube por encima del aviso mientras está abierto (el script calcula cuánto).
+  'body:has(#sbc:not([hidden])) :is(#sably-whatsapp,[data-wa-float]){translate:0 calc(-1 * var(--sbc-wa,0px))}',
+  // Solo fundido: el aviso cambia de sitio (barra de compra, arriba o abajo) sin animar el desplazamiento.
+  '@media (prefers-reduced-motion:no-preference){#sbc{transition:opacity .2s cubic-bezier(.2,.8,.2,1),display .2s allow-discrete}#sbc[hidden]{opacity:0}@starting-style{#sbc{opacity:0}}}',
   '@media (forced-colors:active){#sbc,#sbc-dlg{border:1px solid CanvasText}.sbc-btn,.sbc-sw{border:1.5px solid ButtonText}}',
 ].join('');
 
@@ -100,12 +104,14 @@ export const CONSENT_ICON_CSS = [
   `#sbc-ico{position:fixed;z-index:41;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid ${LINE};border-radius:999px;background:#fff;color:${INK};box-shadow:0 6px 16px -8px rgb(27 27 58/.4);cursor:pointer}`,
   '#sbc-ico:hover{background:#f4f5f9}#sbc-ico svg{width:20px;height:20px}',
   `#sbc-ico:focus-visible{outline:3px solid ${FOCUS};outline-offset:2px}`,
-  '#sbc:not([hidden])~#sbc-ico,body:has([data-prueba-social]:not([hidden])) #sbc-ico{visibility:hidden;opacity:0}',
+  '#sbc:not([hidden])~#sbc-ico,#sbc-ico[data-aparte],body:has([data-prueba-social]:not([hidden])) #sbc-ico{visibility:hidden;opacity:0}',
   // Si el panel de WhatsApp lo pone a la izquierda, el icono se va a la derecha.
   'body:has(#sably-whatsapp[style*="left"]) #sbc-ico{left:auto;right:16px}',
   '@media (max-width:63.99rem){body:has([data-barra-fija]:not([data-oculta])) #sbc-ico{translate:0 -72px}}',
   'body:has([data-sticky-cta]:not([data-oculta])) #sbc-ico{translate:0 calc(-1 * var(--barra-alto,57px))}',
-  '@media (prefers-reduced-motion:no-preference){#sbc-ico{transition:translate .2s cubic-bezier(.2,.8,.2,1),opacity .2s,visibility .2s}}',
+  '@media (prefers-reduced-motion:no-preference){#sbc-ico{transition:opacity .2s,visibility .2s}}',
+  // Apartarse para no tapar el foco o la compra es inmediato.
+  '#sbc-ico[data-aparte]{transition:none}',
   '@media (forced-colors:active){#sbc-ico{border:1px solid ButtonText}}',
   '@media print{#sbc-ico{display:none}}',
 ].join('');

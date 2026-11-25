@@ -100,7 +100,7 @@
   @media (hover: hover) { .v2-btn-whatsapp:hover { box-shadow: inset 0 0 0 1.5px var(--color-navy-300); } }
   .v2-btn-redondo { width: 48px; min-height: 48px; padding: 0; border-radius: 999px; }
   .v2-btn-precio .v2-btn-sep { width: 4px; height: 4px; border-radius: 99px; background: currentColor; opacity: 0.7; }
-  .v2-btn-precio .v2-btn-moneda { font-size: 0.7em; font-weight: 500; }
+  .v2-btn-precio .v2-btn-moneda { font-size: max(0.7em, 12px); font-weight: 500; }
   .v2-enlace {
     display: inline-flex; align-items: center; gap: 8px; font: 600 15px/22px var(--font-sans);
     color: var(--color-navy-950); text-decoration: none; border-radius: 4px;
@@ -108,6 +108,8 @@
   .v2-enlace .v2-flecha { transition: translate var(--t-rapido) var(--e-sale); }
   @media (hover: hover) { .v2-enlace:hover { text-decoration: underline; text-underline-offset: 4px; } .v2-enlace:hover .v2-flecha { translate: 3px 0; } }
   .v2-enlace:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+  /* Objetivo táctil de 44 px en móvil para los enlaces de texto (juez UX, M6: medían 18–22 px). */
+  @media (width < 1024px) { :is(a, label, button).v2-enlace { min-height: 44px; } }
   @media (prefers-reduced-motion: reduce) { .v2-btn:active { scale: 1; } }
 
   /* ---------- Campos con etiqueta flotante (data-field en :root) ---------- */
@@ -195,7 +197,7 @@
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       @keyframes v2-aparece { from { opacity: 0; translate: 0 16px; } }
-      [data-aparece] { animation: v2-aparece linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+      [data-aparece] { animation-name: v2-aparece; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
     }
   }
 }

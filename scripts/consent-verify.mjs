@@ -89,14 +89,14 @@ async function session(label, width, height, steps) {
 }
 const click = (p, sel) => p.evaluate((s) => document.querySelector(s).click(), sel);
 /** El icono no se monta sobre lo fijo (WhatsApp, barras de compra) a lo largo de la página, ni sobre un botón de compra en el primer pantallazo. */
-async function overlap(p) {
+async function overlap(p, cual = '#sbc-ico') {
   const hits = [];
   for (const frac of [0, 0.35, 0.7, 1]) {
     await p.evaluate((f) => window.scrollTo(0, (document.documentElement.scrollHeight - innerHeight) * f), frac);
     await new Promise((r) => setTimeout(r, 700));
-    hits.push(...await p.evaluate((f) => {
-      const ico = document.getElementById('sbc-ico');
-      if (!ico || getComputedStyle(ico).visibility !== 'visible') return [];
+    hits.push(...await p.evaluate((f, cual) => {
+      const ico = document.querySelector(cual);
+      if (!ico || ico.hidden || getComputedStyle(ico).visibility !== 'visible') return [];
       const a = ico.getBoundingClientRect();
       const sel = ['#sably-whatsapp', '[data-wa-float]', '.v2-fija-compra', '[data-barra-fija] a[data-pago]', '[data-sticky-cta]:not([data-oculta])', '[data-prueba-social]:not([hidden])', ...(f === 0 ? ['[data-cta-hotmart]', 'a[data-pago]'] : [])];
       const out = [];
@@ -106,10 +106,45 @@ async function overlap(p) {
         if (a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top) out.push(`${Math.round(f * 100)} %: ${el.tagName.toLowerCase()}${el.className ? '.' + String(el.className).split(' ')[0] : ''}`);
       }
       return out;
-    }, frac));
+    }, frac, cual));
   }
   await p.evaluate(() => window.scrollTo(0, 0));
   return hits;
+}
+
+/**
+ * Foco del teclado (WCAG 2.2, 2.4.11) y WhatsApp: se recorre la página con Tab y ningún elemento enfocado puede
+ * quedar, ni en parte, bajo el letrero (`#sbc`) o el icono (`#sbc-ico`); el letrero tampoco puede tapar el WhatsApp.
+ * Se mide 450 ms después de cada Tab, cuando ya terminó el desplazamiento del aviso (250 ms).
+ */
+async function obscured(p, tabs = 70) {
+  const cover = () => p.evaluate(() => {
+    const vis = (el) => { if (!el || el.hidden) return null; const st = getComputedStyle(el); if (st.display === 'none' || st.visibility === 'hidden' || +st.opacity === 0) return null; const r = el.getBoundingClientRect(); return r.width && r.height ? r : null; };
+    const hit = (a, b) => a && b && a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+    const tapas = [vis(document.getElementById('sbc')), vis(document.getElementById('sbc-ico'))].filter(Boolean);
+    const wa = vis(document.getElementById('sably-whatsapp')) || vis(document.querySelector('[data-wa-float]'));
+    const tw = tapas.find((t) => hit(t, wa));
+    const out = { wa: wa && tw ? `y=${Math.round(scrollY)} wa ${Math.round(wa.top)}-${Math.round(wa.bottom)} aviso ${Math.round(tw.top)}-${Math.round(tw.bottom)}${document.getElementById('sbc')?.hasAttribute('data-arriba') ? ' arriba' : ''} foco=${document.activeElement?.tagName}` : '', foco: null };
+    const el = document.activeElement;
+    if (el && el !== document.body && !el.closest('#sbc,#sbc-dlg,#sbc-ico')) {
+      const r = el.getBoundingClientRect();
+      if (r.width && r.height && tapas.some((t) => hit(t, r))) out.foco = `${el.tagName.toLowerCase()}${el.id ? '#' + el.id : ''} «${(el.getAttribute('aria-label') || el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 30)}»`;
+    }
+    return out;
+  });
+  const focos = new Set();
+  let wa = (await cover()).wa;
+  await p.evaluate(() => { window.scrollTo(0, 0); document.activeElement?.blur?.(); });
+  for (let i = 0; i < tabs; i++) {
+    await p.keyboard.press('Tab');
+    await p.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r, 450)))));
+    const c = await cover();
+    if (c.foco) focos.add(c.foco);
+    wa ||= c.wa;
+    if (await p.evaluate(() => !!document.activeElement?.closest('#sbc,#sbc-dlg'))) break; // llegó al aviso: fin de la página
+  }
+  await p.evaluate(() => { document.activeElement?.blur?.(); window.scrollTo(0, 0); });
+  return { focos: [...focos], wa };
 }
 
 if (strict) {
@@ -120,6 +155,10 @@ if (strict) {
       ok(`${w} icono escondido mientras se ve el letrero`, !a.icono);
       ok(`${w} Consent Mode denegado al entrar`, !a.gcs || /^G100/.test(a.gcs), a.gcs || a.consent);
       ok(`${w} Meta y Clarity retenidos`, a['meta(s/b)'] === '0/0' && a['clarity(s/b)'] === '0/0', `${a['meta(s/b)']} ${a['clarity(s/b)']}`);
+      const o = await obscured(p);
+      ok(`${w} el letrero no tapa el WhatsApp`, !o.wa, o.wa);
+      ok(`${w} el letrero no tapa el foco del teclado`, o.focos.length === 0, o.focos.join('; '));
+      { const hb = await overlap(p, '#sbc'); ok(`${w} el letrero no tapa la compra ni las barras`, hb.length === 0, hb.join('; ')); }
       await click(p, '[data-sbc=reject]'); const b = await snap('tras Rechazar');
       ok(`${w} Rechazar guarda 1.0.0`, /^1\.0\.0\./.test(b.cookie ?? ''), b.cookie);
       ok(`${w} icono visible tras responder (modo discreto)`, mode !== 'discreto' || b.icono);
@@ -165,7 +204,10 @@ if (strict) {
         ok(`${w} Meta y Clarity cargan`, !a['meta(s/b)'].startsWith('0/') && !a['clarity(s/b)'].startsWith('0/'), `${a['meta(s/b)']} ${a['clarity(s/b)']}`);
       }
       ok(`${w} icono ${mode === 'discreto' ? 'visible' : 'ausente'}`, a.icono === (mode === 'discreto'));
-      if (mode === 'discreto') { const hits = await overlap(p); ok(`${w} el icono no tapa WhatsApp, barras ni compra`, hits.length === 0, hits.join('; ')); }
+      if (mode === 'discreto') {
+        const hits = await overlap(p); ok(`${w} el icono no tapa WhatsApp, barras ni compra`, hits.length === 0, hits.join('; '));
+        const o = await obscured(p); ok(`${w} el icono no tapa el foco del teclado`, o.focos.length === 0, o.focos.join('; '));
+      }
       await p.evaluate((m) => document.querySelector(m === 'discreto' ? '#sbc-ico' : '[data-sably-consent-open]').click(), mode);
       const on = await p.evaluate(() => [document.getElementById('sbc-dlg').open, document.getElementById('sbc-a').checked, document.getElementById('sbc-m').checked]);
       ok(`${w} las preferencias abren con medición y publicidad encendidas`, on.every(Boolean), on);

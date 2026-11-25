@@ -8,4 +8,4 @@ const handle = createNodeRequestHandler({ env, redirects: redirectSource, invali
 
 // Configured through EmDash's middleware.outer so redirects and setup protection
 // run before CMS initialization and final headers include EmDash's response work.
-export const onRequest: MiddlewareHandler = ({ request }, next) => handle(request, next);
+export const onRequest: MiddlewareHandler = ({ request, locals }, next) => handle(request, next, locals);

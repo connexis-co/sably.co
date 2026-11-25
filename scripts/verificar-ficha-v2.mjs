@@ -8,12 +8,16 @@
  * Por ficha y ancho (390 × 844 y 1440 × 900): captura del primer pantallazo y de la página
  * entera, posición del botón de pago, desbordamiento horizontal, quitar y reaplicar el cupón
  * (precio y enlaces a la vez), parámetros del enlace a Hotmart, teclado hasta «Quitar», barra
- * fija en móvil y frases del <main> del tema clásico que faltan en V2. Escribe resultados.json.
+ * fija en móvil, «Disponible online en {país}» con las mismas ciudades que el clásico y sin enlaces,
+ * y frases del <main> del tema clásico (?tema=clasico) que faltan en V2. Escribe resultados.json.
  *
  * Solapes (también a 768 × 1024): baja hasta el final y sube por tramos hasta arriba del todo,
  * con la barra de campaña abierta y, si la hay, cerrada; en cada parada compara los rectángulos
- * pintados de cabecera, barra de campaña, navegación interna y barra de compra. Sale con código 1
+ * pintados de cabecera, barra de campaña, navegación interna, barra de compra y burbuja de WhatsApp. Sale con código 1
  * si alguno se monta sobre otro (25-nov: las pestañas quedaban pintadas encima del logo y del menú).
+ *
+ * También: la caja de compra pegada no queda bajo la cabecera ni la barra (1440) y, en móvil, los
+ * enlaces de texto del <main> (.v2-enlace) miden al menos 44 px de alto.
  *
  *   --fichas co/curso-de-masajes,...   --anchos 390,768,1440   --solo-solapes (sin capturas ni cupón)
  */
@@ -70,7 +74,7 @@ const textoMain = (page) => page.evaluate(() => {
  * un elemento con `visibility: visible` dentro de un padre `hidden` se ve igual, así que se mira la
  * visibilidad calculada de cada pieza, no la de su contenedor.
  */
-const PIEZAS = { cabecera: '[data-cabecera]', campana: '[data-promo-v2="barra"]', barra: '[data-barra-fija]', navInterna: '.v2-fija-nav', compra: '.v2-fija-compra' };
+const PIEZAS = { cabecera: '[data-cabecera]', campana: '[data-promo-v2="barra"]', barra: '[data-barra-fija]', navInterna: '.v2-fija-nav', compra: '.v2-fija-compra', whatsapp: '#sably-whatsapp, [data-wa-float]' };
 const medirSolapes = (page) => page.evaluate((PIEZAS) => {
   const caja = (el) => {
     if (!el) return null;
@@ -82,6 +86,13 @@ const medirSolapes = (page) => page.evaluate((PIEZAS) => {
     return { el, top, bottom, left: r.left, right: r.right };
   };
   const vistas = Object.entries(PIEZAS).map(([nombre, sel]) => [nombre, caja(document.querySelector(sel))]).filter(([, c]) => c);
+  /* La caja de compra pegajosa cuenta solo mientras está pegada (top = su `top` de sticky): al
+     pasar por debajo de la cabecera con el scroll normal no es un solape (juez UX, M4). */
+  const cajaCompra = document.querySelector('.v2-area-caja');
+  if (cajaCompra && getComputedStyle(cajaCompra).position === 'sticky') {
+    const c = caja(cajaCompra);
+    if (c && Math.abs(cajaCompra.getBoundingClientRect().top - parseFloat(getComputedStyle(cajaCompra).top)) < 2) vistas.push(['cajaPegada', c]);
+  }
   const solapes = [];
   for (let i = 0; i < vistas.length; i++) for (let j = i + 1; j < vistas.length; j++) {
     const [na, a] = vistas[i], [nb, b] = vistas[j];
@@ -115,9 +126,12 @@ const norm = (s) => s.replace(/[^\p{L}\p{N}%.,:;¿?¡!()\-–—/ ]/gu, '').repl
 
 for (const ficha of FICHAS) {
   let textoClasico = '';
+  let ciudadesClasico = [];
   if (!SOLO_SOLAPES) {
-    const clasico = await abrir(`${BASE}/${ficha}/?verif=${Date.now()}`, TODOS_LOS_ANCHOS[2]);
+    // Con V2 como tema por defecto, sin ?tema=clasico esto comparaba V2 consigo mismo.
+    const clasico = await abrir(`${BASE}/${ficha}/?tema=clasico&verif=${Date.now()}`, TODOS_LOS_ANCHOS[2]);
     textoClasico = await textoMain(clasico);
+    ciudadesClasico = await clasico.evaluate(() => [...(document.getElementById('cities-title')?.parentElement?.querySelectorAll('span') ?? [])].map((n) => n.textContent.replace(/📍/g, '').trim()).filter(Boolean));
     await clasico.close();
   }
   for (const ancho of ANCHOS) {
@@ -210,6 +224,39 @@ for (const ficha of FICHAS) {
       });
       await page.screenshot({ path: join(SALIDA, `${nombre}-barra.jpg`), type: 'jpeg', quality: 65 });
     }
+    // «Disponible online en {país}»: las mismas ciudades que el clásico, en texto y sin enlaces.
+    if (ancho.nombre === '1440') {
+      const v2 = await page.evaluate(() => {
+        const b = document.querySelector('[data-ciudades]');
+        return b ? { pais: b.dataset.ciudades, ciudades: [...b.querySelectorAll('li')].map((n) => n.textContent.trim()), enlaces: b.querySelectorAll('a').length, rotulo: b.querySelector('#titulo-ciudades')?.tagName } : null;
+      });
+      const igual = (a, b) => a.length === b.length && [...a].sort().join('|') === [...b].sort().join('|');
+      // Sin producto («cerrado») no hay «Cómo funciona» y tampoco el bloque. Con producto, el bloque
+      // debe estar (el ajuste `mostrarCiudades` viene encendido por defecto).
+      r.ciudades = v2 ? { ...v2, clasico: ciudadesClasico.length, mismas: igual(v2.ciudades, [...new Set(ciudadesClasico)]) } : { falta: r.estado !== 'cerrado' };
+      if (v2 ? (!r.ciudades.mismas || v2.enlaces > 0 || v2.rotulo !== 'P') : r.ciudades.falta) process.exitCode = 1;
+    }
+    // Objetivos táctiles: en móvil, los enlaces de texto del <main> miden al menos 44 px de alto (M6).
+    if (ancho.isMobile) {
+      r.tactilesPequenos = await page.evaluate(() => [...document.querySelectorAll('main :is(a, label, button).v2-enlace')]
+        .filter((e) => e.getClientRects().length && getComputedStyle(e).visibility === 'visible')
+        .map((e) => ({ texto: e.textContent.trim().replace(/\s+/g, ' ').slice(0, 40), alto: Math.round(e.getBoundingClientRect().height) }))
+        .filter((e) => e.alto < 44));
+      if (r.tactilesPequenos.length) process.exitCode = 1;
+    }
+    // Caja de compra en escritorio (M4): si no cabe entera bajo la cabecera y la barra, no se pega;
+    // si se pega, lo hace por debajo de la barra de secciones (cabecera 60 + barra 65).
+    if (ancho.nombre === '1440') {
+      r.cajaPegajosa = await page.evaluate(() => {
+        const c = document.querySelector('.v2-area-caja');
+        if (!c) return null;
+        const cs = getComputedStyle(c);
+        return { alto: Math.round(c.getBoundingClientRect().height), ventana: innerHeight, posicion: cs.position, top: parseFloat(cs.top) || 0 };
+      });
+      const k = r.cajaPegajosa;
+      if (k) k.ok = k.posicion !== 'sticky' || (k.top >= 125 && k.alto <= k.ventana - k.top);
+      if (k && !k.ok) process.exitCode = 1;
+    }
     // Paridad de texto con el tema clásico.
     if (ancho.nombre === '1440') {
       const v2 = norm((await textoMain(page)).replace(/\n/g, ' '));
@@ -222,7 +269,7 @@ for (const ficha of FICHAS) {
       r.faltanEnV2 = faltan;
     }
     resultados.push(r);
-    console.log(`${nombre}: ${r.preajuste ?? r.estado} botón ${r.botonFinal}px${r.botonSinDesplazar ? ' (sin desplazar)' : ''} solapes ${r.solapes.ok ? 'ok' : 'FALLA'}${r.cupon ? ` cupón ${r.cupon.ok ? 'ok' : 'FALLA'}` : ''}${r.teclado ? ` teclado ${r.teclado.enterQuita ? 'ok' : 'FALLA'}` : ''}${r.barra ? ` barra ${r.barra.visible ? 'ok' : 'FALLA'}` : ''}${r.desborda ? ' DESBORDA' : ''}`);
+    console.log(`${nombre}: ${r.preajuste ?? r.estado} botón ${r.botonFinal}px${r.botonSinDesplazar ? ' (sin desplazar)' : ''} solapes ${r.solapes.ok ? 'ok' : 'FALLA'}${r.cupon ? ` cupón ${r.cupon.ok ? 'ok' : 'FALLA'}` : ''}${r.teclado ? ` teclado ${r.teclado.enterQuita ? 'ok' : 'FALLA'}` : ''}${r.barra ? ` barra ${r.barra.visible ? 'ok' : 'FALLA'}` : ''}${r.ciudades?.falta ? ' ciudades FALTAN' : ''}${r.ciudades?.ciudades ? ` ciudades ${r.ciudades.mismas && !r.ciudades.enlaces ? 'ok' : 'FALLA'} (${r.ciudades.ciudades.length} de ${r.ciudades.pais}, clásico ${r.ciudades.clasico})` : ''}${r.cajaPegajosa && !r.cajaPegajosa.ok ? ` CAJA pegada ${r.cajaPegajosa.alto}px en ventana ${r.cajaPegajosa.ventana} con top ${r.cajaPegajosa.top}` : ''}${r.tactilesPequenos?.length ? ` TÁCTILES<44: ${r.tactilesPequenos.map((t) => `«${t.texto}» ${t.alto}px`).join(', ')}` : ''}${r.desborda ? ' DESBORDA' : ''}`);
     await page.close();
   }
 }

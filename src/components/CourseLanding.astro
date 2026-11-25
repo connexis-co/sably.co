@@ -139,7 +139,7 @@ const {
         </div>
         <div class="order-5 rounded-lg bg-white p-4 lg:p-0">
         {sinProducto ? <p class="mt-5 font-bold">Próximamente</p> : <PurchasePanel markets={marketLinks} country={country.name} price={displayMoney(baseAmount)} checkout={localCheckout.href} {offer}
-          evidence={{currency, base:baseAmount, reduced:offer && quote?.reduced ? quote.reduced : null, source:quote ? 'hotmart' : 'respaldo', at:quote?.at ?? null}} />}
+          evidence={{currency, base:baseAmount, reduced:offer && quote?.reduced ? quote.reduced : null, source:quote?.fuente ?? 'respaldo', at:quote?.at ?? null}} />}
         {
           /* Sin producto no hay checkout al que mandar a nadie: `hotmartUrl`
              sigue siendo el marcador `PENDIENTE` y ese enlace acaba en la

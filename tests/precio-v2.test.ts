@@ -27,6 +27,9 @@ test('importe: símbolo, formato del país y código en los ocho países', () =>
 test('importe: una moneda ajena al país lleva el símbolo largo', () => {
   assert.equal(importe(49.99, 'USD', 'es-ES').texto, nb('49,99 US$ USD'));
   assert.equal(importe(49.99, 'USD', 'es-CO').texto, nb('US$ 49,99 USD'));
+  // México y Perú: Intl da «USD» como símbolo; el formato único pone «US$» para no leer «USD 49.99 USD».
+  assert.equal(importe(49.99, 'USD', 'es-MX').texto, nb('US$ 49.99 USD'));
+  assert.equal(importe(49.99, 'USD', 'es-PE').texto, nb('US$ 49.99 USD'));
 });
 
 test('importe: COP y CLP sin decimales aunque Hotmart mande fracción; descuentos con signo', () => {

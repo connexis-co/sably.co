@@ -1,0 +1,115 @@
+---
+/**
+ * Mi cuenta (V2): datos de Google, país preferido (la moneda sale del país), cursos guardados,
+ * sesión y borrado de la cuenta. Privada: `no-store`, `noindex`, sin marcos, fuera de los sitemaps.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { COUNTRIES, getCountry } from '@/lib/countries';
+import { getCourses } from '@/lib/emdash-content';
+import { aplicarCabecerasPrivadas, cuentaActual, cuentaServidor, tokenCsrf } from '@/lib/cuenta/http';
+import { AVISOS, RUTAS, enlaceIngresar, iniciales } from '@/lib/cuenta/nucleo';
+import Bandera from '@/components/v2/Bandera.astro';
+import '@/themes/sably-v2/estilos.css';
+
+export const prerender = false;
+aplicarCabecerasPrivadas(Astro.response.headers);
+const servidor = await cuentaServidor(Astro);
+if (!servidor) return new Response('Not found', { status: 404 }); // igual que hoy sin cuenta
+const cuenta = await cuentaActual(Astro, servidor.almacen);
+if (!cuenta) return Astro.redirect(enlaceIngresar(RUTAS.cuenta), 303);
+const [prefs, guardados] = await Promise.all([servidor.almacen.preferencias(cuenta.id), servidor.almacen.guardados(cuenta.id)]);
+const csrf = tokenCsrf(Astro, servidor.secreto);
+const pais = prefs.pais && COUNTRIES.some(c => c.code === prefs.pais) ? getCountry(prefs.pais) : null;
+const country = pais ?? getCountry('co');
+const titulos = guardados.length ? new Map((await getCourses().catch(() => [])).map(c => [c.id, c.data.title])) : new Map<string, string>();
+const cursos = guardados.map(item => item.slice('curso:'.length)).filter(slug => titulos.has(slug));
+const codigoAviso = Astro.url.searchParams.get('aviso') ?? '';
+const aviso = codigoAviso === 'guardado' ? AVISOS.guardado : null;
+const nombre = cuenta.nombre || cuenta.email;
+---
+<BaseLayout title="Mi cuenta | Sably" description="Tu cuenta de Sably: datos, preferencias y sesión." {country} pathAfterCountry="/" pageType="cuenta" noindex temaV2>
+  <section class="v2-contenedor py-10 lg:py-16">
+    <div class="mx-auto max-w-[720px]">
+      <div class="flex items-center gap-4">
+        {cuenta.foto
+          ? <img src={cuenta.foto} alt="" width="64" height="64" referrerpolicy="no-referrer" class="size-16 flex-none rounded-full bg-navy-50 object-cover" />
+          : <span class="grid size-16 flex-none place-items-center rounded-full bg-navy-900 font-display text-t20 font-semibold text-white" aria-hidden="true">{iniciales(cuenta.nombre, cuenta.email)}</span>}
+        <div class="min-w-0">
+          <h1 class="font-display text-[28px]/[34px] font-semibold text-navy-950 lg:text-d40">Mi cuenta</h1>
+          <p class="truncate text-t15 text-navy-700">{nombre}</p>
+        </div>
+      </div>
+
+      {aviso && <p role="status" class="mt-6 rounded-c-md bg-navy-50 px-4 py-3 text-t15 text-navy-900">{aviso}</p>}
+
+      <div class="mt-10 grid gap-6">
+        <section class="rounded-c-lg p-6 ring-1 ring-navy-100" aria-labelledby="cuenta-datos">
+          <h2 id="cuenta-datos" class="font-display text-t20 font-semibold text-navy-950">Tus datos</h2>
+          <dl class="mt-4 grid gap-3 text-t15 sm:grid-cols-[160px_1fr]">
+            <dt class="text-navy-500">Nombre</dt><dd class="text-navy-950">{cuenta.nombre || '—'}</dd>
+            <dt class="text-navy-500">Correo</dt><dd class="break-all text-navy-950">{cuenta.email}</dd>
+            <dt class="text-navy-500">Forma de acceso</dt><dd class="text-navy-950">Google</dd>
+          </dl>
+          <p class="mt-4 text-t13 text-navy-500">Nombre, correo y foto vienen de tu cuenta de Google. Si los cambias allí, aquí se actualizan la próxima vez que entres.</p>
+        </section>
+
+        <section class="rounded-c-lg p-6 ring-1 ring-navy-100" aria-labelledby="cuenta-preferencias">
+          <h2 id="cuenta-preferencias" class="font-display text-t20 font-semibold text-navy-950">País y moneda</h2>
+          <form method="post" action={RUTAS.preferencias} class="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end">
+            <input type="hidden" name="csrf" value={csrf} />
+            <div class="v2-campo flex-1">
+              <select id="cuenta-pais" name="pais">
+                <option value="" selected={!pais}>Automático (el de la página que visites)</option>
+                {COUNTRIES.map(c => <option value={c.code} selected={pais?.code === c.code}>{c.name} · {c.currency}</option>)}
+              </select>
+              <label for="cuenta-pais">País preferido</label>
+            </div>
+            <button type="submit" class="v2-btn v2-btn-secundario" data-alto="52">Guardar</button>
+          </form>
+          <p class="mt-4 text-t13 text-navy-500">Cada país tiene sus fichas y sus precios en su moneda. Elegir un país no te cambia de página por sí solo.</p>
+          {pais && <a href={`/${pais.code}/cursos/`} class="v2-enlace mt-3 inline-flex items-center gap-2 text-coral-700"><Bandera codigo={pais.code} />Ver los cursos en {pais.name} ({pais.currency})</a>}
+        </section>
+
+        {cursos.length > 0 && (
+          <section class="rounded-c-lg p-6 ring-1 ring-navy-100" aria-labelledby="cuenta-guardados">
+            <h2 id="cuenta-guardados" class="font-display text-t20 font-semibold text-navy-950">Cursos guardados</h2>
+            <ul class="mt-4 grid gap-2" role="list">
+              {cursos.map(slug => <li><a href={`/${country.code}/${slug}/`} class="v2-enlace">{titulos.get(slug)}</a></li>)}
+            </ul>
+          </section>
+        )}
+
+        <section class="rounded-c-lg p-6 ring-1 ring-navy-100" aria-labelledby="cuenta-compras">
+          <h2 id="cuenta-compras" class="font-display text-t20 font-semibold text-navy-950">Tus cursos comprados</h2>
+          <p class="mt-3 text-t15 text-navy-700">Los cursos se pagan y se ven en Hotmart, con el correo que usaste al comprar.</p>
+          <a href="https://consumer.hotmart.com/" target="_blank" rel="noopener nofollow" class="v2-enlace mt-3 inline-flex text-coral-700">Ir a mis compras en Hotmart</a>
+        </section>
+
+        <section class="rounded-c-lg p-6 ring-1 ring-navy-100" aria-labelledby="cuenta-sesion">
+          <h2 id="cuenta-sesion" class="font-display text-t20 font-semibold text-navy-950">Sesión</h2>
+          <div class="mt-4 flex flex-wrap gap-3">
+            <form method="post" action={RUTAS.salir}>
+              <input type="hidden" name="csrf" value={csrf} />
+              <button type="submit" class="v2-btn v2-btn-secundario" data-alto="48">Cerrar sesión</button>
+            </form>
+            <form method="post" action={RUTAS.salir}>
+              <input type="hidden" name="csrf" value={csrf} />
+              <input type="hidden" name="todas" value="1" />
+              <button type="submit" class="v2-btn v2-btn-secundario" data-alto="48">Cerrar en todos los dispositivos</button>
+            </form>
+          </div>
+        </section>
+
+        <section class="rounded-c-lg p-6 ring-1 ring-navy-100" aria-labelledby="cuenta-borrar">
+          <h2 id="cuenta-borrar" class="font-display text-t20 font-semibold text-navy-950">Borrar mi cuenta</h2>
+          <p class="mt-3 text-t15 text-navy-700">Se borran tu cuenta, tus preferencias, tus cursos guardados y la constancia de tu consentimiento. No afecta a tus compras en Hotmart. No se puede deshacer.</p>
+          <form method="post" action={RUTAS.borrar} class="mt-4 grid gap-4">
+            <input type="hidden" name="csrf" value={csrf} />
+            <label class="flex min-h-11 items-center gap-3 text-t15 text-navy-950"><input type="checkbox" name="confirmar" value="si" required class="size-5 accent-coral-600" />Entiendo que mi cuenta se borra para siempre.</label>
+            <button type="submit" class="v2-btn w-fit bg-coral-700 text-white" data-alto="48">Borrar mi cuenta</button>
+          </form>
+        </section>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -24,7 +24,8 @@ const enlaces = async (url) => {
 };
 const out = {};
 for (const f of FICHAS) {
-  const c = await enlaces(`${BASE}/${f}/?verif=${Date.now()}`);
+  // Con V2 como tema por defecto, sin ?tema=clasico esto comparaba V2 consigo mismo.
+  const c = await enlaces(`${BASE}/${f}/?tema=clasico&verif=${Date.now()}`);
   const v = await enlaces(`${BASE}/${f}/?tema=v2`);
   const set = (a) => new Set(a);
   const faltan = [...set(c.main)].filter((h) => !set(v.pagina).has(h));

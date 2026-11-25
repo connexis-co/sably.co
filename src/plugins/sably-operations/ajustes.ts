@@ -63,6 +63,32 @@ export const settingsSchema = {
     description: 'Nombre, foto, trayectoria y acreditaciones de quien imparte el curso, solo en los cursos con un docente real con fuente. Apagado no deja hueco. Por defecto: encendido.',
     default: true,
   },
+  mostrarCiudades: {
+    type: 'boolean',
+    label: 'Ficha · Mostrar «Disponible online en {país}»',
+    description: 'Las ciudades del país en texto, sin enlaces ni páginas propias, dentro de «Cómo funciona Sably». Ayuda a ChatGPT a ver que el curso se estudia desde cualquier ciudad. Apagado no deja hueco. Por defecto: encendido.',
+    default: true,
+  },
+  // Cuenta (src/lib/cuenta): claves nuevas del 25-nov-2026, encendidas de fábrica.
+  cuentaActiva: {
+    type: 'boolean',
+    label: 'Cuenta · Cuentas de usuario',
+    description: 'Botón «Entrar» en la cabecera V2, «Mi cuenta» y las rutas /ingresar/ y /mi-cuenta/. Comprar nunca exige cuenta. Apagado, el sitio queda como sin cuentas: sin botón y esas rutas dan 404; las cuentas guardadas no se borran. Necesita SABLY_AUTH_SECRET en el servidor. Por defecto: encendido.',
+    default: true,
+  },
+  cuentaGoogle: {
+    type: 'boolean',
+    label: 'Cuenta · Entrar con Google',
+    description: 'Hoy es la única forma de entrar: apagado, no se puede entrar ni crear cuenta y el botón «Entrar» desaparece. Necesita SABLY_GOOGLE_ID y SABLY_GOOGLE_SECRET en el servidor (el cliente OAuth de Google). Por defecto: encendido.',
+    default: true,
+  },
+  cuentaAcceso: {
+    type: 'select',
+    label: 'Cuenta · Cómo se abre «Entrar»',
+    description: '«Ventana» abre el acceso encima de la página, sin salir de ella (en móvil, una hoja que sube desde abajo). «Página» lleva a /ingresar/. Las dos funcionan siempre: los enlaces directos, los avisos y los navegadores sin JavaScript usan la página. Por defecto: Ventana.',
+    options: [{ value: 'ventana', label: 'Ventana emergente' }, { value: 'pagina', label: 'Página /ingresar/' }],
+    default: 'ventana',
+  },
   // Integraciones
   notificationEmail: {
     type: 'email',
@@ -74,16 +100,17 @@ export const settingsSchema = {
 export type ClaveAjuste = keyof typeof settingsSchema;
 export type ValorAjuste = string | boolean;
 
-export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'contenido' | 'medios' | 'seo' | 'integraciones' | 'avanzado';
+export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'contenido' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos.', claves: [] },
-  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente'] },
+  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'] },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
   { id: 'medios', titulo: 'Medios: audio y vídeo', resumen: 'Vídeo de presentación; narraciones y reproductor, cuando lleguen.', claves: [] },
   { id: 'seo', titulo: 'SEO y medición', resumen: 'Medición, conversiones y auditoría SEO.', claves: [] },
+  { id: 'cuenta', titulo: 'Cuenta', resumen: 'Cuentas de usuario y acceso con Google.', claves: ['cuentaActiva', 'cuentaGoogle', 'cuentaAcceso'] },
   { id: 'integraciones', titulo: 'Integraciones', resumen: 'Correo del equipo, WhatsApp, Brevo y claves cifradas.', claves: ['notificationEmail'] },
   { id: 'avanzado', titulo: 'Avanzado', resumen: 'Revisar un tema sin cambiarlo, claves técnicas y formulario de respaldo.', claves: [] },
 ];

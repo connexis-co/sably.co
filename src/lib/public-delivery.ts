@@ -95,8 +95,14 @@ export function nodeEdgePolicy(request: Request, response: Response, environment
   // Redirects and crawl files do not depend on promotions.
   if (options.redirect && isSharedRedirect(request, response, environment)) return outageEdgePolicy(ORIGIN_EDGE_FRESH, ORIGIN_OUTAGE_STALE);
   if (isCrawlFile(request, response, environment)) return outageEdgePolicy(ORIGIN_EDGE_FRESH, ORIGIN_OUTAGE_STALE);
+  // MP3 de narraciones (plugin sably-narracion): el nombre lleva la huella del contenido, nunca cambia.
+  if (NARRACION_FILE.test(new URL(request.url).pathname) && [200, 206, 304].includes(response.status)
+    && /^audio\/mpeg/i.test(response.headers.get('content-type') ?? '')) return `public, max-age=${NARRACION_EDGE_TTL}, immutable`;
   return 'no-store';
 }
+
+const NARRACION_FILE = /^\/narraciones\/[a-z0-9][a-z0-9-]{0,160}\.mp3$/;
+export const NARRACION_EDGE_TTL = 31_536_000;
 
 /** Originals behind Cloudflare image variants; media writes purge this tag. */
 export const MEDIA_TAG = 'sably:media';
@@ -124,7 +130,8 @@ export function canCachePublicPage(request: Request, environment: string | undef
   // No shared response for an editor, preview, authenticated caller or personalized session.
   if (['cookie', 'authorization', 'range', 'x-sably-preview-token'].some(name => request.headers.has(name))) return false;
   if (/no-cache|no-store|max-age=0/i.test(request.headers.get('cache-control') ?? '') || request.headers.has('pragma')) return false;
-  if (!url.pathname.endsWith('/') || /^\/(?:_|admin(?:\/|$)|api(?:\/|$))/.test(url.pathname)) return false;
+  // Cuenta (src/lib/cuenta): acceso y Mi cuenta son personales; nunca se guardan en ninguna caché.
+  if (!url.pathname.endsWith('/') || /^\/(?:_|admin(?:\/|$)|api(?:\/|$)|ingresar(?:\/|$)|mi-cuenta(?:\/|$))/.test(url.pathname)) return false;
   return !/%|\/\//.test(url.pathname);
 }
 
@@ -229,7 +236,7 @@ export function protectDeliveryResponse(request: Request, response: Response, en
 export function invalidatedTags(request: Request, response: Response): string[] {
   if (request.method === 'GET' || request.method === 'HEAD' || !response.ok) return [];
   const { pathname } = new URL(request.url);
-  if (/^\/_emdash\/api\/plugins\/sably-(?:operations|whatsapp|integrations|seo|publicidad)\//.test(pathname)) return [PUBLIC_PAGE_TAG];
+  if (/^\/_emdash\/api\/plugins\/sably-(?:operations|whatsapp|integrations|seo|publicidad|narracion)\//.test(pathname)) return [PUBLIC_PAGE_TAG];
   // Ajustes de esos plugins desde «Ajustes» de EmDash (tema por defecto, caja de compra…).
   if (/^\/_emdash\/api\/admin\/plugins\/sably-(?:operations|whatsapp|integrations|seo|publicidad)\/settings\/?$/.test(pathname)) return [PUBLIC_PAGE_TAG];
   // Token-gated operational refreshes (Hotmart prices/ratings, catalog subjects).
