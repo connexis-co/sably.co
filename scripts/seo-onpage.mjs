@@ -53,6 +53,12 @@ export const TEXTOS_VETADOS = [
   [/\bafiliad[oa]s?\b/i, 'la palabra «afiliado» en texto público'],
   [/\bcupo(s)? (sigue|limitad|disponible)/i, 'escasez falsa («cupo») en un curso online'],
   [/\bsolo (por )?hoy\b/i, 'urgencia falsa («solo hoy»)'],
+  // 24-nov-2026: frases de plantilla que no eran ciertas.
+  [/en todos los cursos con el cup[oó]n/i, '«en todos los cursos»: el cupón solo cubre a los creadores que lo aceptan'],
+  [/descuento más grande del año/i, 'superlativo sin dato («el descuento más grande del año»)'],
+  [/nuestro equipo en tu país/i, '«nuestro equipo en tu país»: no hay un equipo por país'],
+  [/plataforma líder/i, 'superlativo sin dato («plataforma líder»)'],
+  [/\bCatálogo (?:de \d+\+? cursos|completo)\b/i, 'Sably descrito como «catálogo», con una cifra de cursos que no cuadra'],
 ];
 
 /**

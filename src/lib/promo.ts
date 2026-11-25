@@ -220,7 +220,7 @@ export const CAMPAIGNS: readonly PromoCampaign[] = [
   {
     id: 'bf-2026',
     label: 'Black Friday',
-    titular: 'El descuento más grande del año',
+    titular: 'Black Friday en Sably',
     theme: TEMA.blackFriday,
     couponCode: CUPON.MAXIMO.code,
     discountPct: CUPON.MAXIMO.pct,

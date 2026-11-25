@@ -169,7 +169,7 @@
             {
               "_type": "span",
               "_key": "eyebrow-text",
-              "text": "Los favoritos de la comunidad",
+              "text": "Selección de Sably",
               "marks": []
             }
           ]
@@ -333,7 +333,7 @@
             {
               "_type": "span",
               "_key": "benefit-3-body-text",
-              "text": "Resuelve tus dudas por WhatsApp con nuestro equipo en tu país.",
+              "text": "Resuelve tus dudas por WhatsApp con el equipo de Sably.",
               "marks": []
             }
           ]
@@ -631,7 +631,7 @@
             {
               "_type": "span",
               "_key": "a3-text",
-              "text": "El pago se procesa de forma segura a través de Hotmart, la plataforma líder de cursos online en Latinoamérica. Aceptamos tarjetas y métodos de pago locales de {pais}.",
+              "text": "El pago lo procesa Hotmart, que acepta tarjetas y métodos de pago locales de {pais}.",
               "marks": []
             }
           ]

@@ -65,7 +65,7 @@ const faqs = [
   },
   {
     q: '¿Cómo se realiza el pago?',
-    a: `El pago se procesa de forma segura a través de Hotmart, la plataforma líder de cursos online en Latinoamérica. Aceptamos tarjetas y métodos de pago locales de ${country.name}.`,
+    a: `El pago lo procesa Hotmart, que acepta tarjetas y métodos de pago locales de ${country.name}.`,
   },
   {
     q: '¿Qué pasa si el curso no me gusta?',

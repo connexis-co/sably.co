@@ -40,7 +40,9 @@ test('detecta imágenes sin alt, marcado roto y nodos que se retiraron', () => {
 });
 
 test('los textos retirados por no ser ciertos no pueden volver', () => {
-  for (const frase of ['<h2>Tu instructor</h2>', '<p>Enlace de afiliado</p>', '<p>¡Espera! Tu cupo sigue disponible</p>', '<p>50% solo hoy</p>'])
+  for (const frase of ['<h2>Tu instructor</h2>', '<p>Enlace de afiliado</p>', '<p>¡Espera! Tu cupo sigue disponible</p>', '<p>50% solo hoy</p>',
+    '<p>−50% en todos los cursos con el cupón 031016</p>', '<h2>El descuento más grande del año ya empezó</h2>',
+    '<p>Resuelve tus dudas por WhatsApp con nuestro equipo en tu país.</p>', '<p>Hotmart, la plataforma líder de cursos online</p>'])
     assert(errores(sana.replace('</main>', `${frase}</main>`)).includes('texto-vetado'), frase);
 });
 
@@ -86,4 +88,11 @@ test('la caja de compra, la pregunta de precio y el Offer no se contradicen', ()
   // La misma frase dentro del FAQPage también cuenta.
   const enJsonLd = ficha('Otra cosa.', bien, crudos).replace('</body>', '<script type="application/ld+json">{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cuánto cuesta el curso?","acceptedAnswer":{"@type":"Answer","text":"El precio de lista es $ 95.506 COP."}}]}</script></body>');
   assert.deepEqual(errores(enJsonLd), ['precio-de-lista']);
+});
+
+test('el título del listado no vuelve a decir «Catálogo de 120+ cursos»', () => {
+  assert(errores(sana.replace('Curso de masajes en Colombia | Sably', 'Catálogo de 120+ cursos online en Colombia | Sably')).includes('texto-vetado'));
+  assert.deepEqual(errores(sana.replace('Curso de masajes en Colombia | Sably', 'Todos los cursos online en Colombia | Sably')), []);
+  // «Catálogo» referido a lo que vende el alumno no es Sably descrito como catálogo.
+  assert.deepEqual(errores(sana.replace('</main>', '<p>Arma tu primer catálogo de postres para vender.</p></main>')), []);
 });

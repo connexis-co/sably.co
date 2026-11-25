@@ -29,6 +29,7 @@ import {
 import { courseCover } from '@/lib/categories';
 import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-operations/public';
 import { faqsHonestas } from '@/lib/faq-honestas';
+import { DESCRIPCION_SIN_PRODUCTO, sinPromesas } from '@/lib/sin-producto';
 import { faqPagoPais } from '@/lib/medios-de-pago';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
@@ -242,7 +243,7 @@ const baseFaqsRaw = locale ? locale.data.faqs : [...course.data.faqs, ...STANDAR
 const baseFaqs = sinProducto
   ? [
       ...baseFaqsRaw.filter(
-        (f) => !/(pago|hotmart|garant|reembolso|inscrib|inscríb|se procesa|confirmarse|precio)/i.test(`${f.q} ${f.a}`),
+        (f) => !/(pago|hotmart|garant|reembolso|inscrib|inscríb|se procesa|confirmarse|precio|certific|constancia|diploma)/i.test(`${f.q} ${f.a}`),
       ),
       {
         q: '¿Cuándo puedo inscribirme?',
@@ -317,11 +318,18 @@ const descPais = locale?.data.meta_description ?? course.data.shortDescription;
 const descColisiona = locale
   ? localesDelCurso.filter((l) => l.data.meta_description === locale.data.meta_description).length > 1
   : localesDelCurso.length < COUNTRIES.length - 1;
-const description = city
-  ? recortarDesc(`Estudia desde ${city.name}: ${course.data.shortDescription}`)
-  : descColisiona
-    ? recortarDesc(`Desde ${country.name}: ${descPais}`)
-    : recortarDesc(descPais);
+/* Sin producto, la descripción y el subtítulo no pueden prometer constancia,
+   garantía ni acceso: no hay nada que comprar (ver src/lib/sin-producto.ts). */
+const sinPromesa = (texto: string): string => (sinProducto ? sinPromesas(texto) : texto);
+const descripcionCurso = sinPromesa(course.data.shortDescription);
+const description = sinProducto
+  ? recortarDesc(sinPromesa(descPais) || DESCRIPCION_SIN_PRODUCTO)
+  : city
+    ? recortarDesc(`Estudia desde ${city.name}: ${course.data.shortDescription}`)
+    : descColisiona
+      ? recortarDesc(`Desde ${country.name}: ${descPais}`)
+      : recortarDesc(descPais);
+const subtitulo = sinPromesa(locale?.data.subtitulo ?? course.data.shortDescription);
 
 const breadcrumb = [
       { name: 'Inicio', url: `${SITE.url}${base}/` },
@@ -333,7 +341,7 @@ const schemas = [
   breadcrumbSchema(breadcrumb),
   courseSchema({
     title: course.data.title,
-    description: course.data.shortDescription,
+    description: descripcionCurso || course.data.title,
     url: canonicalUrl,
     image: new URL(cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug), SITE.url).href,
     /* El mismo importe que ve el visitante. Si el schema declarase el precio de
@@ -409,7 +417,7 @@ const schemas = [
         <h1 {...(locale?.edit.h1 ?? course.edit.title)} class="mt-2 text-2xl leading-tight font-extrabold text-white sm:text-3xl lg:mt-4 lg:text-4xl">{h1}</h1>
         </div>
         <div class="order-4">
-        <p class="mt-4 max-w-xl text-lg text-white/80">{locale?.data.subtitulo ?? course.data.shortDescription}</p>
+        {subtitulo && <p class="mt-4 max-w-xl text-lg text-white/80">{subtitulo}</p>}
         {/* Solo el nombre, sin enlace (decisión de JP, 4-nov-2026): nombrar al
             creador es la señal de autoría; sacar al visitante de la ficha antes
             del botón de compra no aporta nada a la venta. */}
@@ -510,14 +518,17 @@ const schemas = [
             </>
           )
         }
-        <ul class="mt-5 space-y-2 text-sm text-body" role="list">
-          <li>✅ Acceso de por vida, 24/7</li>
-          <li>✅ Certificado digital incluido</li>
-          {/* Garantía y pago solo existen si hay checkout: en «Próximamente»
-              prometerían algo que todavía no se puede comprar. */}
-          {!sinProducto && <li>✅ Garantía de 7 días</li>}
-          {!sinProducto && <li>✅ Pago seguro vía Hotmart</li>}
-        </ul>
+        {/* Acceso, certificado, garantía y pago solo existen si hay checkout: en
+            «Próximamente» la lista entera prometía algo que todavía no se
+            puede comprar (tatuaje anunciaba acceso de por vida y certificado). */}
+        {!sinProducto && (
+          <ul class="mt-5 space-y-2 text-sm text-body" role="list">
+            <li>✅ Acceso de por vida, 24/7</li>
+            <li>✅ Certificado digital incluido</li>
+            <li>✅ Garantía de 7 días</li>
+            <li>✅ Pago seguro vía Hotmart</li>
+          </ul>
+        )}
         </div>
       </div>
     </div>

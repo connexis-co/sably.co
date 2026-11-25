@@ -211,13 +211,17 @@ export function courseSchema(c: CourseSchemaInput) {
           })),
         }
       : {}),
-    // Todos los cursos entregan certificado digital de finalización: es una
-    // propiedad real del producto, no una promesa de marketing.
-    educationalCredentialAwarded: {
-      '@type': 'EducationalOccupationalCredential',
-      name: 'Certificado digital de finalización',
-      credentialCategory: 'Certificate',
-    },
+    // La credencial es del producto de Hotmart: sin checkout no hay curso que
+    // terminar ni documento que emitir, así que no se declara.
+    ...(c.comprable === false
+      ? {}
+      : {
+          educationalCredentialAwarded: {
+            '@type': 'EducationalOccupationalCredential',
+            name: 'Certificado digital de finalización',
+            credentialCategory: 'Certificate',
+          },
+        }),
     timeRequired: `PT${c.workloadHours}H`,
     // Solo se declara «sin requisitos» donde es cierto: un curso marcado como
     // Intermedio o Avanzado sí parte de una base.
