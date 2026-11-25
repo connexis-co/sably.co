@@ -6,6 +6,7 @@
  */
 import { resolverTema, temaPorDefecto, type Tema, type TemaResuelto } from './tema';
 import { SUBTITULO_SABLY, TITULO_SABLY } from './caja/sably';
+import { bloquesVisibles, listaDeTexto, type BloquePortada } from './portada-bloques';
 
 export type VarianteCaja = 'cuenta-clara' | 'cabecera-oscura';
 export type EstiloContador = 'barra' | 'casillas' | 'linea' | 'tique';
@@ -27,6 +28,12 @@ export interface AjustesV2 {
   /** «Disponible online en {país}» con las ciudades del país, en texto y sin enlaces. */
   mostrarCiudades: boolean;
   estiloCampo: EstiloCampo;
+  /** Portada de país V2 («Ajustes del sitio → Portada»). */
+  portada: {
+    /** Bloques visibles, en orden (el héroe va siempre primero y no está aquí). */
+    bloques: BloquePortada[];
+    heroe: { rota: boolean; intervalo: number; orden: 'aleatorio' | 'fijo'; cursos: string[] };
+  };
 }
 
 export interface TemaDeLaPeticion extends TemaResuelto {
@@ -61,6 +68,15 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     mostrarDocente: v.mostrarDocente !== false,
     mostrarCiudades: v.mostrarCiudades !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
+    portada: {
+      bloques: bloquesVisibles(v.portadaOrden, v.portadaOcultos),
+      heroe: {
+        rota: v.portadaHeroeRota !== false,
+        intervalo: Number(uno(v.portadaHeroeIntervalo, ['3500', '4500', '6000'] as const, '4500')),
+        orden: uno(v.portadaHeroeOrden, ['aleatorio', 'fijo'] as const, 'aleatorio'),
+        cursos: listaDeTexto(v.portadaHeroeOficios).slice(0, 12),
+      },
+    },
   };
 }
 

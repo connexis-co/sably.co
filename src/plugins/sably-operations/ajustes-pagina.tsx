@@ -6,6 +6,7 @@
  */
 import { useEffect, useState, type ReactNode } from 'react';
 import { api, CSS_SO, Notice, Promotions, WidgetEditor } from './admin-comun';
+import { bloquesParaElPanel, ORDEN_DE_FABRICA } from '../../lib/portada-bloques';
 import { AJUSTES_PELIGROSOS, PESTANAS, cambiosAGuardar, settingsSchema, textoDeValor, valorDeFabrica, type ClaveAjuste, type IdPestana } from './ajustes';
 
 const NATIVA = '/_emdash/api/admin/plugins/sably-operations/settings';
@@ -33,6 +34,29 @@ function Campo({ clave, valor, guardado, onChange }: { clave: ClaveAjuste; valor
     <span className="so-row"><label htmlFor={id}>{rotulo}</label><span className="so-badge" data-guardado={guardado}>{guardado ? 'Guardado' : 'De fábrica'}</span></span>
     {control}
     <small id={`${id}-ayuda`} className="so-fieldhelp">{campo.description}{fabrica !== null && !campo.description.includes('Por defecto') ? ` Por defecto: ${textoDeValor(clave, fabrica)}.` : ''}</small>
+  </div>;
+}
+
+/** Orden y visibilidad de los bloques de la portada: escribe `portadaOrden` y `portadaOcultos` en el borrador. */
+function OrdenPortada({ orden, ocultos, onChange }: { orden: unknown; ocultos: unknown; onChange: (orden: string, ocultos: string) => void }) {
+  const filas = bloquesParaElPanel(orden, ocultos);
+  const escribir = (f: typeof filas) => {
+    const ids = f.map(x => x.id);
+    // Si coincide con el de fábrica se guarda vacío: así los bloques que lleguen después entran en su sitio.
+    onChange(ids.join(',') === ORDEN_DE_FABRICA.join(',') ? '' : ids.join(','), f.filter(x => !x.visible).map(x => x.id).join(','));
+  };
+  const mover = (i: number, paso: number) => { const f = [...filas]; const [x] = f.splice(i, 1); f.splice(i + paso, 0, x!); escribir(f); };
+  return <div className="so-field">
+    <span className="so-row"><strong>Bloques de la portada</strong></span>
+    <small className="so-fieldhelp">El héroe (con el título principal) va siempre primero. Apagar un bloque quita su texto y sus enlaces de la portada de los ocho países.</small>
+    <ol className="so-orden">{filas.map((f, i) => <li key={f.id}>
+      <label className="so-row"><input type="checkbox" checked={f.visible} onChange={e => escribir(filas.map(x => x.id === f.id ? { ...x, visible: e.target.checked } : x))} /> {f.nombre} <code>{f.id}</code></label>
+      <span>
+        <button type="button" disabled={i === 0} aria-label={`Subir «${f.nombre}»`} onClick={() => mover(i, -1)}>↑</button>
+        <button type="button" disabled={i === filas.length - 1} aria-label={`Bajar «${f.nombre}»`} onClick={() => mover(i, 1)}>↓</button>
+      </span>
+    </li>)}</ol>
+    <button type="button" onClick={() => onChange('', '')}>Volver al orden de fábrica</button>
   </div>;
 }
 
@@ -99,6 +123,15 @@ export function AjustesPage() {
     </>; break;
     case 'campanas': cuerpo = <Promotions />; break;
     case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'], 'Caja de compra')}<WidgetEditor only="social" /></>; break;
+    case 'portada': cuerpo = <>
+      <section className="so-editor">
+        <h3>Bloques</h3>
+        <OrdenPortada orden={borrador.portadaOrden} ocultos={borrador.portadaOcultos} onChange={(orden, ocultos) => setBorrador(b => ({ ...b, portadaOrden: orden, portadaOcultos: ocultos }))} />
+        <button className="so-primary" disabled={ocupado} onClick={() => void guardar(['portadaOrden', 'portadaOcultos'])}>{ocupado ? 'Guardando…' : 'Guardar bloques'}</button>
+      </section>
+      {seccion(['portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios'], 'Héroe')}
+      <Enlaces items={[['Textos de la portada', 'Titular, entradilla y textos de cada bloque (secciones sably-home-*).', `${ADMIN}/sections`]]} />
+    </>; break;
     case 'contenido': cuerpo = <Enlaces items={[
       ['Cursos', 'Ficha general de cada curso.', `${ADMIN}/content/courses`],
       ['Cursos por país', 'Precio, enlace de compra y texto por país.', `${ADMIN}/content/course_locales`],
