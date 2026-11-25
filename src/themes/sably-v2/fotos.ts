@@ -8,7 +8,10 @@ export type NombreFoto =
   | 'foto-barberia-1' | 'foto-celulares-1' | 'foto-cocina-1' | 'foto-costura-1' | 'foto-creador-1'
   | 'foto-electricidad-1' | 'foto-estudiar-celular-1' | 'foto-estudiar-celular-2' | 'foto-heroe-1'
   | 'foto-heroe-2' | 'foto-heroe-vertical-1' | 'foto-maquillaje-1' | 'foto-masajes-1' | 'foto-mascotas-1'
-  | 'foto-panaderia-1' | 'foto-soldadura-1' | 'foto-unas-acrilicas-1' | 'foto-velas-1';
+  | 'foto-panaderia-1' | 'foto-soldadura-1' | 'foto-unas-acrilicas-1' | 'foto-velas-1'
+  | 'foto-oficio-masajes' | 'foto-oficio-unas' | 'foto-oficio-carroceria' | 'foto-oficio-pasteleria'
+  | 'foto-oficio-barberia' | 'foto-oficio-celulares' | 'foto-oficio-canina' | 'foto-oficio-ceviche'
+  | 'foto-oficio-electricidad' | 'foto-oficio-globos' | 'foto-oficio-idiomas' | 'foto-oficio-modisteria';
 
 interface Foto { ancho: number; alto: number; alt: string }
 
@@ -31,7 +34,39 @@ export const FOTOS: Record<NombreFoto, Foto> = {
   'foto-soldadura-1': { ancho: 1200, alto: 900, alt: 'Soldador con careta, chaqueta y guantes de cuero que suelda el marco de una reja en un taller' },
   'foto-unas-acrilicas-1': { ancho: 1200, alto: 900, alt: 'Manos con guantes negros que aplican acrílico con pincel sobre un molde de uña' },
   'foto-velas-1': { ancho: 1200, alto: 900, alt: 'Manos que vierten cera desde una jarra de acero en un frasco con la mecha sujeta por una barra' },
+  'foto-oficio-masajes': { ancho: 1200, alto: 900, alt: 'Masajista que trabaja con el antebrazo la espalda de un cliente en una camilla' },
+  'foto-oficio-unas': { ancho: 1200, alto: 900, alt: 'Manos con guantes negros que esculpen una uña acrílica rosa con pincel' },
+  'foto-oficio-carroceria': { ancho: 1200, alto: 900, alt: 'Técnica con careta que suelda un panel de carrocería en un taller automotriz' },
+  'foto-oficio-pasteleria': { ancho: 1200, alto: 900, alt: 'Pastelero que coloca tartaletas de mango en una bandeja sobre una mesa de acero' },
+  'foto-oficio-barberia': { ancho: 1200, alto: 900, alt: 'Barbero que hace un degradado con máquina a un joven en una barbería de barrio' },
+  'foto-oficio-celulares': { ancho: 1200, alto: 900, alt: 'Técnico que repara un celular con estación de calor en un local de reparación' },
+  'foto-oficio-canina': { ancho: 1200, alto: 900, alt: 'Peluquera canina que recorta con tijera la cara de un caniche sobre la mesa' },
+  'foto-oficio-ceviche': { ancho: 1200, alto: 900, alt: 'Cocinero que exprime limón sobre un ceviche en la cocina de un restaurante' },
+  'foto-oficio-electricidad': { ancho: 1200, alto: 900, alt: 'Electricista con guantes y gafas que conecta cables en una caja de pared' },
+  'foto-oficio-globos': { ancho: 1200, alto: 900, alt: 'Artista de globos que arma una flor para una niña en una fiesta en el parque' },
+  'foto-oficio-idiomas': { ancho: 1200, alto: 900, alt: 'Recepcionista de hotel que da indicaciones a turistas en otro idioma' },
+  'foto-oficio-modisteria': { ancho: 1200, alto: 900, alt: 'Modista que prende con alfileres el ruedo de un vestido verde a una clienta' },
 };
+
+/**
+ * Doce oficios para el mosaico de la portada, cada uno ligado a su curso (la foto es la misma escena que la
+ * portada del curso en el CMS, recortada a 4:3). Para un mosaico vertical, `object-cover` con aspect 4/5 o 3/4
+ * mantiene la acción: el sujeto está en el cuadrado central.
+ */
+export const OFICIOS_MOSAICO: readonly { foto: NombreFoto; curso: string }[] = [
+  { foto: 'foto-oficio-masajes', curso: 'curso-de-masajes' },
+  { foto: 'foto-oficio-unas', curso: 'curso-de-unas-acrilicas' },
+  { foto: 'foto-oficio-carroceria', curso: 'curso-de-soldadura' },
+  { foto: 'foto-oficio-pasteleria', curso: 'curso-de-pasteleria' },
+  { foto: 'foto-oficio-barberia', curso: 'curso-de-barberia' },
+  { foto: 'foto-oficio-celulares', curso: 'curso-de-reparacion-de-celulares' },
+  { foto: 'foto-oficio-canina', curso: 'curso-de-peluqueria-canina-profesional' },
+  { foto: 'foto-oficio-ceviche', curso: 'curso-de-ceviche-peruano' },
+  { foto: 'foto-oficio-electricidad', curso: 'curso-de-electricista' },
+  { foto: 'foto-oficio-globos', curso: 'curso-de-globoflexia' },
+  { foto: 'foto-oficio-idiomas', curso: 'curso-de-ingles' },
+  { foto: 'foto-oficio-modisteria', curso: 'curso-de-modisteria' },
+];
 
 /** Foto que representa cada área en el megamenú y en la portada. Sin foto propia, la del CMS. */
 export const FOTO_DE_AREA: Partial<Record<string, NombreFoto>> = {
