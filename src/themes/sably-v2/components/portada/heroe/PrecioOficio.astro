@@ -1,0 +1,13 @@
+---
+/** Precio de hoy de un oficio del héroe y, si la campaña aplica y el panel lo pide, el normal tachado (misma fuente que la ficha). */
+import Precio from '@/components/v2/Precio.astro';
+import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
+interface Props { precio: PrecioTarjeta | null; locale: string; tachar?: boolean; class?: string }
+const { precio, locale, tachar = true, class: clase } = Astro.props;
+---
+{precio && (
+  <span class:list={['flex flex-wrap items-baseline gap-x-2', clase]} data-tc-precio data-moneda={precio.moneda} data-hoy={precio.hoy} data-normal={precio.normal ?? undefined}>
+    <Precio valor={precio.hoy} moneda={precio.moneda} locale={locale} class="v2-num font-semibold" codigoClass="text-t13 font-medium" />
+    {tachar && precio.normal !== null && <span class="text-t13 opacity-70"><span class="sr-only">Precio normal: </span><Precio valor={precio.normal} moneda={precio.moneda} locale={locale} class="line-through decoration-[1.5px]" codigoClass="text-t13" /></span>}
+  </span>
+)}

@@ -64,6 +64,12 @@ test('tarjetas: lee la cifra visible (y la tachada) de la tarjeta V2, la del hé
     { slug: 'curso-de-masajes', lugar: 'tarjeta', precio: { hoy: 95506, moneda: 'COP', normal: 191012 } },
     { slug: 'curso-de-masajes', lugar: 'héroe', precio: { hoy: 95506, moneda: 'COP', normal: null } },
   ]);
+  const mosaico = `<a href="/co/curso-de-barberia/" class="v2-mos-oficio" data-visible><picture></picture><span class="v2-mos-rotulo"><strong>Barbería</strong><span data-tc-precio>${precio('$ 95.506', 'COP')}<span><span class="sr-only">Precio normal: </span>${precio('$ 191.012', 'COP')}</span></span></span></a>`
+    + `<a href="/co/curso-de-velas/" class="v2-mos-oficio"><span class="v2-mos-rotulo"><strong>Velas</strong></span></a>`;
+  assert.deepEqual(leerTarjetas(mosaico, 'co'), [
+    { slug: 'curso-de-barberia', lugar: 'mosaico', precio: { hoy: 95506, moneda: 'COP', normal: 191012 } },
+    { slug: 'curso-de-velas', lugar: 'mosaico', precio: null },
+  ]);
   const sinPrecio = '<article data-tarjeta-curso="curso-x"><p class="v2-tc-precio"><span></span></p></article>';
   assert.deepEqual(leerTarjetas(sinPrecio, 'co'), [{ slug: 'curso-x', lugar: 'tarjeta', precio: null }]);
   const euro = `<article data-tarjeta-curso="curso-y"><p class="v2-tc-precio">${precio('29,65 €', 'EUR')}</p></article>`;

@@ -6,10 +6,14 @@
  */
 import { resolverTema, temaPorDefecto, type Tema, type TemaResuelto } from './tema';
 import { SUBTITULO_SABLY, TITULO_SABLY } from './caja/sably';
+import { bloquesVisibles, listaDeTexto, type BloquePortada } from './portada-bloques';
 
 export type VarianteCaja = 'cuenta-clara' | 'cabecera-oscura';
 export type EstiloContador = 'barra' | 'casillas' | 'linea' | 'tique';
 export type EstiloCampo = 'outlined' | 'filled' | 'underline';
+
+export { VARIANTES_HEROE, VARIANTES_HEROE_AB, leerPruebaHeroe, type PruebaHeroe, type VarianteHeroe } from './prueba-heroe';
+import { VARIANTES_HEROE, leerPruebaHeroe, type PruebaHeroe, type VarianteHeroe } from './prueba-heroe';
 
 export interface AjustesV2 {
   temaPorDefecto: Tema;
@@ -27,6 +31,19 @@ export interface AjustesV2 {
   /** «Disponible online en {país}» con las ciudades del país, en texto y sin enlaces. */
   mostrarCiudades: boolean;
   estiloCampo: EstiloCampo;
+  /** Portada de país V2 («Ajustes del sitio → Portada»). */
+  portada: {
+    /** Bloques visibles, en orden (el héroe va siempre primero y no está aquí). */
+    bloques: BloquePortada[];
+    heroe: { variante: VarianteHeroe; fondo: 'liso' | 'aurora'; botones: 'dos' | 'uno'; tachar: boolean; rota: boolean; intervalo: number; orden: 'aleatorio' | 'fijo'; cursos: string[] };
+    /** Prueba A/B del héroe (HEROES-X §11). `null` = apagada o mal configurada (menos de dos variantes válidas). */
+    pruebaHeroe: PruebaHeroe | null;
+    categoriasVariante: 'fotos' | 'pila' | 'filas';
+    comoFuncionaAnimado: boolean;
+    escenasAtenuar: boolean;
+    escenasVariante: 'apiladas' | 'foto-fija';
+    valoradosMinimo: number;
+  };
 }
 
 export interface TemaDeLaPeticion extends TemaResuelto {
@@ -61,6 +78,25 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     mostrarDocente: v.mostrarDocente !== false,
     mostrarCiudades: v.mostrarCiudades !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
+    portada: {
+      bloques: bloquesVisibles(v.portadaOrden, v.portadaOcultos),
+      heroe: {
+        variante: uno(v.portadaHeroeVariante, VARIANTES_HEROE, 'collage'),
+        fondo: uno(v.portadaHeroeFondo, ['liso', 'aurora'] as const, 'liso'),
+        botones: uno(v.portadaHeroeBotones, ['dos', 'uno'] as const, 'dos'),
+        tachar: v.portadaHeroeTachado !== false,
+        rota: v.portadaHeroeRota !== false,
+        intervalo: Number(uno(v.portadaHeroeIntervalo, ['3500', '4500', '6000'] as const, '4500')),
+        orden: uno(v.portadaHeroeOrden, ['aleatorio', 'fijo'] as const, 'aleatorio'),
+        cursos: listaDeTexto(v.portadaHeroeOficios).slice(0, 12),
+      },
+      pruebaHeroe: leerPruebaHeroe(v.portadaHeroeAB, v.portadaHeroeABVariantes ?? 'collage, buscador', v.portadaHeroeABReparto, v.portadaHeroeABInicio),
+      categoriasVariante: uno(v.portadaCategoriasVariante, ['fotos', 'pila', 'filas'] as const, 'fotos'),
+      comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
+      escenasAtenuar: v.portadaEscenasAtenuar !== false,
+      escenasVariante: uno(v.portadaEscenasVariante, ['apiladas', 'foto-fija'] as const, 'apiladas'),
+      valoradosMinimo: Number(uno(v.portadaValoradosMinimo, ['10', '20', '50'] as const, '20')),
+    },
   };
 }
 

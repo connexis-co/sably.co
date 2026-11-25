@@ -1,16 +1,41 @@
 ---
 /**
  * Buscador del héroe y del cierre: un formulario GET al listado de cursos
- * (/xx/cursos/?q=…), que funciona sin JavaScript. Con JavaScript, enfocar el
- * campo abre el buscador con sugerencias (Buscador.astro) con lo ya escrito.
+ * (/xx/cursos/?q=…), que funciona sin JavaScript. Con JavaScript, al escribir
+ * sugiere cursos en una lista bajo el campo (buscar-sugerencias.ts, I3), con el
+ * mismo índice y criterio que el buscador de la cabecera.
  */
 import Ico from './Ico.astro';
-interface Props { base: string; id: string; claro?: boolean; class?: string; valor?: string; etiqueta?: string }
-const { base, id, claro = false, class: clase, valor, etiqueta = '¿Qué oficio quieres aprender?' } = Astro.props;
+import type { ExtraBusqueda } from '../buscar-sugerencias';
+interface Props { base: string; id: string; claro?: boolean; class?: string; valor?: string; etiqueta?: string; extra?: ExtraBusqueda[] }
+const { base, id, claro = false, class: clase, valor, etiqueta = '¿Qué oficio quieres aprender?', extra = [] } = Astro.props;
 ---
-<form action={`${base}/cursos/`} method="get" role="search" class:list={['v2-buscar-frase relative flex items-center gap-2 rounded-c-lg bg-white p-2 pl-4 shadow-s2', claro && 'ring-1 ring-navy-100', clase]} data-buscar-frase>
+<form action={`${base}/cursos/`} method="get" role="search" class:list={['v2-buscar-frase relative flex items-center gap-2 rounded-c-lg bg-white p-2 pl-4 shadow-s2', claro && 'ring-1 ring-navy-100', clase]} data-buscar-frase data-extra={extra.length ? JSON.stringify(extra) : undefined}>
   <Ico nombre="search" class="flex-none text-navy-700" />
   <label for={id} class="sr-only">{etiqueta}</label>
   <input {id} name="q" type="search" value={valor} placeholder={etiqueta} autocomplete="off" enterkeyhint="search" class="h-12 min-w-0 flex-1 bg-transparent text-t17 text-navy-950 outline-none placeholder:text-navy-500" />
   <button type="submit" class="v2-btn v2-btn-principal flex-none max-sm:w-12 max-sm:px-0" data-alto="48" aria-label="Buscar"><span class="max-sm:hidden">Buscar</span><Ico nombre="search" tamano={18} class="sm:hidden" /></button>
 </form>
+
+<style is:global>
+  @layer components {
+    /* Sugerencias al escribir (I3): lista bajo el campo, por encima del contenido, sin mover nada (CLS 0). */
+    .v2-sugerencias { position: absolute; z-index: 30; top: calc(100% + 8px); left: 0; right: 0; padding: 8px; border-radius: var(--radius-c-lg); background: #fff; box-shadow: var(--shadow-s3); color: var(--color-navy-950); text-align: left; }
+    .v2-sugerencias[hidden] { display: none; }
+    @media (prefers-reduced-motion: no-preference) { .v2-sugerencias:not([hidden]) { animation: v2-sug-entra var(--t-rapido) var(--e-sale); } }
+    @keyframes v2-sug-entra { from { opacity: 0; translate: 0 -4px; } }
+    .v2-sugerencias ul { display: grid; gap: 2px; }
+    .v2-sugerencias a[role='option'] { display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 12px; text-decoration: none; color: inherit; }
+    .v2-sugerencias a[role='option'][aria-selected='true'], .v2-sugerencias a[role='option']:hover { background: var(--color-navy-50); }
+    .v2-sugerencias img { width: 64px; height: 48px; flex: none; border-radius: 8px; object-fit: cover; background: var(--color-navy-50); }
+    .v2-sugerencias strong { display: block; font: 500 15px/22px var(--font-sans); }
+    .v2-sugerencias small { display: block; font: 400 13px/18px var(--font-sans); color: var(--color-navy-500); }
+    .v2-sug-tipo { flex: none; width: 64px; padding: 4px 0; border-radius: 8px; background: var(--color-coral-50); color: var(--color-coral-700); font: 600 12px/16px var(--font-sans); text-align: center; }
+    .v2-sugerencias-todos { display: flex; min-height: 44px; align-items: center; padding: 0 8px; margin-top: 4px; border-top: 1px solid var(--color-navy-100); font: 600 15px/22px var(--font-sans); color: var(--color-coral-700); text-decoration: none; }
+  }
+</style>
+
+<script>
+  import { iniciarSugerencias } from '../buscar-sugerencias';
+  document.querySelectorAll<HTMLFormElement>('[data-buscar-frase]').forEach(iniciarSugerencias);
+</script>

@@ -1,0 +1,164 @@
+---
+/**
+ * Categorías · «Pila» (prototipo 17). Una tarjeta de color por área, pegada bajo la cabecera con un desfase
+ * creciente; la siguiente sube por encima y la de atrás se encoge un 4 % y se oscurece (solo scale y opacity).
+ * Encima, chips de las áreas como índice: el activo es la tarjeta que ocupa la pila, y ninguno mientras la
+ * cabecera de la sección sigue a la vista. Las tarjetas ya cubiertas llevan `inert` (sus enlaces salen del orden
+ * de foco). Con «reducir movimiento» o una pantalla de menos de 640 px de alto: lista normal, sin sticky ni inert.
+ * Mismas props, mismo `id` y mismo H2 que `Categorias.astro`; abajo, «También:» y «Ver las N áreas» idénticos.
+ * Extra real (nada inventado): descripción del área y hasta 3 de sus cursos, si el CMS los trae.
+ */
+import { relDe } from '@/lib/enlaces-propios';
+import Ico from '../../Ico.astro';
+import Foto from '../../Foto.astro';
+import { corto } from '../heroe/comun';
+import { nombreArea, type DatosNavegacion } from '../../../navegacion';
+type Area = DatosNavegacion['areas'][number];
+interface Props { copy: { eyebrow: string; title: string; description: string }; base: string; conFoto: Area[]; resto: Area[]; externas: { name: string; externalUrl?: string }[]; total: number }
+const { copy: c, base, conFoto, resto, externas, total } = Astro.props;
+const copy = { categories: c };
+const nav = { areas: { length: total } };
+/* Fondo y tinta de cada tarjeta (se repiten si hay más de cuatro áreas). */
+const TINTAS = [
+  { fondo: 'var(--color-navy-950)', tinta: '#fff', fila: 'rgb(255 255 255 / .1)' },
+  { fondo: 'var(--color-coral-600)', tinta: '#fff', fila: 'rgb(255 255 255 / .14)' },
+  { fondo: '#f6efe6', tinta: 'var(--color-navy-950)', fila: 'rgb(255 255 255 / .6)' },
+  { fondo: 'var(--color-navy-700)', tinta: '#fff', fila: 'rgb(255 255 255 / .12)' },
+];
+const cuentaDe = (a: Area) => (a.total === 1 ? '1 curso' : `${a.total} cursos`);
+---
+<!-- Áreas -->
+<section id="categorias" class="v2-contenedor scroll-mt-24 pt-24 lg:pt-32" aria-labelledby="categorias-titulo" data-cat-pila>
+  <p class="v2-antetitulo text-navy-700">{copy.categories.eyebrow}</p>
+  <h2 id="categorias-titulo" class="mt-3 font-display text-d28 lg:text-d40">{copy.categories.title}</h2>
+  {copy.categories.description && <p class="mt-3 max-w-[640px] text-t17 text-navy-700">{copy.categories.description}</p>}
+  {conFoto.length > 1 && (
+    <nav class="v2-cp-chips mt-6" aria-label="Áreas de cursos">
+      <ul role="list">
+        {conFoto.map((a, i) => <li><a href={`#categoria-${a.slug}`} class="v2-cp-chip" data-cat-chip={i}>{a.nombre}</a></li>)}
+      </ul>
+    </nav>
+  )}
+  <ol class="v2-cp-pila mt-6" role="list">
+    {conFoto.map((a, i) => {
+      const t = TINTAS[i % TINTAS.length]!;
+      return (
+        <li id={`categoria-${a.slug}`} class="v2-cp-carta" style={`--i: ${i}; --fondo: ${t.fondo}; --tinta: ${t.tinta}; --fila: ${t.fila}`} data-cat-carta={i}>
+          <article class="v2-cp-cara">
+            <div class="v2-cp-texto">
+              <p class="v2-num text-t13 font-semibold opacity-80">{String(i + 1).padStart(2, '0')} / {String(conFoto.length).padStart(2, '0')}</p>
+              <h3 class="mt-2 font-display text-t20 font-semibold lg:text-d28">
+                <a href={`${base}/cursos/${a.slug}/`} class="v2-cp-area">
+                  <span class="flex items-center justify-between gap-2">{a.nombre}<Ico nombre="arrow-right" tamano={18} class="v2-cp-flecha" /></span>
+                  <span class="block text-t13 font-normal opacity-80">{cuentaDe(a)}</span>
+                </a>
+              </h3>
+              {a.descripcion && <p class="v2-cp-desc mt-2 line-clamp-2 text-t15 opacity-90">{a.descripcion}</p>}
+              {a.cursos.length > 0 && (
+                <ul class="v2-cp-cursos mt-4" role="list">
+                  {a.cursos.slice(0, 3).map(k => <li><a href={`${base}/${k.slug}/`} class="v2-cp-curso"><span class="line-clamp-2">{corto(k.titulo)}</span><Ico nombre="arrow-right" tamano={16} /></a></li>)}
+                </ul>
+              )}
+            </div>
+            <div class="v2-cp-foto">
+              {a.foto ? <Foto nombre={a.foto} sizes="(min-width: 900px) 520px, 92vw" decorativa class="h-full w-full object-cover" />
+                : a.fotoCms && <img src={a.fotoCms} alt="" width="480" height="600" loading="lazy" decoding="async" class="h-full w-full object-cover" />}
+            </div>
+          </article>
+        </li>
+      );
+    })}
+  </ol>
+  <div class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-navy-100 pt-6">
+    <p class="text-t15 text-navy-500">También:</p>
+    <ul class="flex flex-wrap gap-x-6 gap-y-2" role="list">
+      {resto.map(a => <li><a href={`${base}/cursos/${a.slug}/`} class="v2-subrayado inline-flex min-h-11 items-center text-t17 font-medium text-navy-950">{a.nombre}</a></li>)}
+      {externas.map(c => <li><a href={c.externalUrl} target="_blank" rel={relDe(c.externalUrl, '_blank')} class="v2-subrayado inline-flex min-h-11 items-center gap-1 text-t17 font-medium text-navy-950">{nombreArea(c.name)} <span class="text-t13 font-normal text-navy-500">(Academia especializada)</span><Ico nombre="external-link" tamano={14} /></a></li>)}
+    </ul>
+    <a href={`${base}/cursos/`} class="v2-enlace ml-auto min-h-11">Ver las {nav.areas.length} áreas <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+  </div>
+</section>
+
+<style is:inline>
+  @layer components {
+    .v2-cp-chips ul { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 2px; }
+    .v2-cp-chip {
+      display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; white-space: nowrap;
+      font-size: 15px; font-weight: 600; color: var(--color-navy-950); box-shadow: inset 0 0 0 1px var(--color-navy-100);
+
+    }
+    .v2-cp-chip[aria-current='true'] { background: var(--color-navy-950); color: #fff; box-shadow: none; }
+    .v2-cp-chip:focus-visible, .v2-cp-area:focus-visible, .v2-cp-curso:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 2px; }
+    .v2-cp-carta :is(.v2-cp-area, .v2-cp-curso):focus-visible { outline-color: currentColor; }
+
+    .v2-cp-pila { display: grid; gap: 20px; }
+    .v2-cp-carta { scroll-margin-top: calc(var(--fijo-superior, 72px) + 8px); }
+    .v2-cp-cara {
+      position: relative; display: grid; gap: 16px; padding: 20px; border-radius: var(--radius-c-xl); background: var(--fondo); color: var(--tinta);
+      box-shadow: 0 -1px 0 rgb(27 27 58 / .06), var(--shadow-s3); transform-origin: 50% 0;
+      transition: scale var(--t-lento) var(--e-sale);
+    }
+    .v2-cp-cara::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--color-navy-950); opacity: 0; pointer-events: none; transition: opacity var(--t-lento) var(--e-sale); }
+    .v2-cp-foto { overflow: hidden; border-radius: var(--radius-c-lg); aspect-ratio: 16 / 7; background: rgb(255 255 255 / .12); }
+    .v2-cp-foto picture { display: block; height: 100%; }
+    .v2-cp-area { display: block; color: inherit; }
+    .v2-cp-area:hover .v2-cp-flecha { translate: 3px 0; }
+    .v2-cp-flecha { transition: translate var(--t-rapido) var(--e-sale); }
+    .v2-cp-cursos { display: grid; gap: 6px; }
+    .v2-cp-cursos li:nth-child(n + 3) { display: none; }
+    .v2-cp-curso { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 6px 12px; border-radius: var(--radius-c-md); background: var(--fila); color: inherit; font-size: 15px; font-weight: 600; line-height: 1.25; }
+    @media (min-width: 900px) {
+      .v2-cp-pila { gap: 28px; }
+      .v2-cp-cara { grid-template-columns: minmax(0, 1fr) minmax(0, 520px); align-items: center; gap: 40px; padding: 32px 32px 32px 48px; min-height: 380px; }
+      .v2-cp-cursos li:nth-child(n + 3) { display: block; }
+      .v2-cp-foto { aspect-ratio: auto; height: 100%; min-height: 300px; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) and (min-height: 640px) {
+      .v2-cp-pila { padding-bottom: 24vh; }
+      .v2-cp-carta { position: sticky; top: calc(var(--fijo-superior, 72px) + 16px + var(--i) * 14px); }
+      .v2-cp-carta[data-atras] .v2-cp-cara { scale: .96; }
+      .v2-cp-carta[data-atras] .v2-cp-cara::after { opacity: .28; }
+    }
+  }
+</style>
+
+<script>
+  /* Alto de lo fijo arriba (cabecera y barra de campaña) si el sitio no lo da en --fijo-superior. */
+  const arriba = (raiz: HTMLElement) => {
+    if (getComputedStyle(document.documentElement).getPropertyValue('--fijo-superior').trim()) return;
+    const cab = document.querySelector<HTMLElement>('[data-cabecera]');
+    const alto = cab ? Math.max(cab.getBoundingClientRect().bottom, cab.offsetHeight) : 72;
+    raiz.style.setProperty('--fijo-superior', `${Math.ceil(alto)}px`);
+  };
+  for (const raiz of document.querySelectorAll<HTMLElement>('[data-cat-pila]')) {
+    if (!raiz.checkVisibility()) continue;
+    const cartas = [...raiz.querySelectorAll<HTMLElement>('[data-cat-carta]')];
+    const chips = [...raiz.querySelectorAll<HTMLElement>('[data-cat-chip]')];
+    if (cartas.length < 2) continue;
+    const pila = matchMedia('(prefers-reduced-motion: no-preference) and (min-height: 640px)');
+    const llegadas = new Set<number>();
+    let ios: IntersectionObserver[] = [];
+    /* Activa = la última tarjeta que ya llegó a su sitio pegado; las anteriores quedan «atrás» e inertes. */
+    const pinta = () => {
+      const act = llegadas.size ? Math.max(...llegadas) : -1;
+      cartas.forEach((c, i) => { const atras = i < act; c.toggleAttribute('data-atras', atras); c.inert = atras; });
+      chips.forEach((a, i) => { if (i === act) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
+    };
+    const montar = () => {
+      ios.forEach(o => o.disconnect()); ios = []; llegadas.clear(); pinta();
+      arriba(raiz);
+      if (!pila.matches || !('IntersectionObserver' in window)) return;
+      cartas.forEach((c, i) => {
+        const top = parseFloat(getComputedStyle(c).top) || 88;
+        const io = new IntersectionObserver(([e]) => { if (e!.isIntersecting) llegadas.add(i); else llegadas.delete(i); pinta(); },
+          { rootMargin: `0px 0px -${Math.max(0, innerHeight - top - 24)}px 0px` });
+        io.observe(c); ios.push(io);
+      });
+    };
+    montar();
+    pila.addEventListener('change', montar);
+    let t: ReturnType<typeof setTimeout>;
+    addEventListener('resize', () => { clearTimeout(t); t = setTimeout(montar, 200); });
+  }
+</script>

@@ -54,9 +54,13 @@ const NUEVAS = {
     consentEurope: ['boolean', null, true],
   },
 } as const;
+/** Claves de la portada (25-nov): solo pueden ser nuevas y empezar por «portada». */
+const DE_PORTADA = /^portada[A-Z]/;
 
 test('ninguna clave, tipo, opción ni valor de fábrica cambia al reordenar el panel', () => {
-  assert.deepEqual(huella(operaciones), ANTES.operaciones);
+  const huellaOperaciones = huella(operaciones);
+  assert.deepEqual(Object.fromEntries(Object.entries(huellaOperaciones).filter(([k]) => !DE_PORTADA.test(k))), ANTES.operaciones);
+  for (const k of Object.keys(huellaOperaciones)) assert.ok(Object.hasOwn(ANTES.operaciones, k) || DE_PORTADA.test(k), `${k} no es una clave conocida ni de la portada`);
   assert.deepEqual(huella(integraciones), { ...ANTES.integraciones, ...NUEVAS.integraciones });
 });
 
@@ -68,7 +72,7 @@ test('cada ajuste guardado está en una sola pestaña y todos tienen ayuda', () 
     assert.ok((c as { description?: string }).description, `${k} sin ayuda`);
     assert.doesNotMatch(c.label, /^V2 ·/, `${k} conserva la jerga «V2 ·»`);
   }
-  assert.deepEqual(PESTANAS.map(p => p.titulo), ['Sitio y tema', 'Campañas y cupones', 'Caja de compra', 'Cursos y contenido', 'Medios: audio y vídeo', 'SEO y medición', 'Cuenta', 'Integraciones', 'Avanzado']);
+  assert.deepEqual(PESTANAS.map(p => p.titulo), ['Sitio y tema', 'Campañas y cupones', 'Caja de compra', 'Portada', 'Cursos y contenido', 'Medios: audio y vídeo', 'SEO y medición', 'Cuenta', 'Integraciones', 'Avanzado']);
 });
 
 test('los ajustes guardados en la copia de producción se leen igual', async () => {
@@ -80,6 +84,16 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     mostrarDocente: true,
     mostrarCiudades: true,
     estiloCampo: 'outlined',
+    portada: {
+      bloques: ['cifras', 'categorias', 'convergen', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],
+      heroe: { variante: 'collage', fondo: 'liso', botones: 'dos', tachar: true, rota: true, intervalo: 4500, orden: 'aleatorio', cursos: [] },
+      pruebaHeroe: null,
+      categoriasVariante: 'fotos',
+      comoFuncionaAnimado: true,
+      escenasAtenuar: true,
+      escenasVariante: 'apiladas',
+      valoradosMinimo: 20,
+    },
   });
   const prefijo = 'plugin:sably-integrations:settings:';
   const settings = { get: async (k: string) => { const f = filas.find(r => r.name === prefijo + k); return f ? JSON.parse(f.value) : null; } };
@@ -112,4 +126,16 @@ test('el menú declarado en astro.config.mjs coincide con las páginas del plugi
   for (const p of PAGINAS) assert.ok(config.includes(`{ path: '${p.path}', label: '${p.label}', icon: '${p.icon}' }`), p.label);
   assert.ok(config.indexOf("id: 'sably-operations'") < config.indexOf("id: 'sably-integrations'"), '«Ajustes del sitio» va primero');
   assert.ok(config.indexOf("id: 'sably-integrations'") < config.indexOf("id: 'sably-whatsapp'"), 'los fragmentos de página conservan su orden');
+});
+
+test('prueba A/B del héroe: solo con dos o tres variantes válidas', async () => {
+  const { leerPruebaHeroe } = await import('../src/lib/prueba-heroe.ts');
+  assert.equal(leerPruebaHeroe(false, 'collage, buscador', 'iguales', ''), null);
+  assert.equal(leerPruebaHeroe(true, 'collage', 'iguales', ''), null);
+  assert.equal(leerPruebaHeroe(true, 'collage, mosaico', 'iguales', ''), null);
+  assert.deepEqual(leerPruebaHeroe(true, 'Collage, buscador, collage', 'iguales', '2026-12-01'), { variantes: ['collage', 'buscador'], pesos: [0.5, 0.5], inicio: '2026-12-01' });
+  const p = leerPruebaHeroe(true, 'collage, buscador, muro, cintas', '70', 'mañana')!;
+  assert.deepEqual(p.variantes, ['collage', 'buscador', 'muro']);
+  assert.equal(p.inicio, '');
+  assert.ok(Math.abs(p.pesos.reduce((a, b) => a + b) - 1) < 1e-9 && p.pesos[0] === 0.7);
 });

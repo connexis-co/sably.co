@@ -1,0 +1,17 @@
+---
+/** Presentaciones en vídeo (bloque `videos`). */
+import Ico from '../Ico.astro';
+interface Props { videos: { path: string; course: { data: { title: string } } }[] }
+const { videos } = Astro.props;
+---
+<!-- Presentaciones en vídeo -->
+<section class="v2-contenedor pt-24 lg:pt-28" aria-labelledby="videos-heading">
+  <h2 id="videos-heading" class="font-display text-d28">Conoce los cursos en vídeo</h2>
+  <p class="mt-2 text-t17 text-navy-700">Mira las presentaciones antes de consultar el programa y elegir tu curso.</p>
+  {videos.length > 0 && (
+    <ul class="mt-6 flex flex-wrap gap-2" role="list">
+      {videos.map(video => <li><a href={video.path} class="v2-chip gap-2"><Ico nombre="circle-play" tamano={18} />{video.course.data.title}</a></li>)}
+    </ul>
+  )}
+  <a href="/videos/" class="v2-enlace mt-5 min-h-11">Ver presentaciones <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+</section>

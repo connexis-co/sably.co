@@ -1,0 +1,236 @@
+---
+/**
+ * Héroe «Anillo 3D» (prototipo 11, opción 3D de JP). Los cursos en un cilindro con CSS 3D real (perspective +
+ * transform-style: preserve-3d, sin WebGL). Tres capas, cada una con una sola fuente de movimiento:
+ *   .v2-ani-inclina ← ratón (propiedad `rotate`, rAF) · .v2-ani-scroll ← scroll (view timeline, sin JS)
+ *   .v2-ani-gira    ← giro automático (CSS), arrastre y foco por teclado (currentTime de esa animación)
+ * Arreglos del juez: `backface-visibility: hidden` en cada tarjeta (sin caras espejadas) y, en móvil, un carril plano con
+ * scroll-snap en vez del anillo. Con «reducir movimiento» (o < 1024 px) es ese mismo carril, sin 3D ni giro.
+ * Los 12 cursos son enlaces en el HTML, en orden lógico. El giro solo arranca cuando el JS pone `data-vivo` (y
+ * muestra el botón de pausa), así que sin JS el anillo queda quieto.
+ */
+import Foto from '../../Foto.astro';
+import Ico from '../../Ico.astro';
+import PrecioOficio from './PrecioOficio.astro';
+import { corto, notaCorta } from './comun';
+import type { OficioMosaico } from '../Heroe.astro';
+interface Props { oficios: OficioMosaico[]; base: string; locale: string; tachar: boolean; rota: boolean; intervalo: number; aleatorio: boolean }
+const { oficios, base, locale, tachar } = Astro.props;
+const n = oficios.length;
+---
+<div class="v2-ani" data-anillo role="group" aria-roledescription="anillo de cursos" aria-label="Cursos para empezar">
+  <div class="v2-ani-escena">
+    <div class="v2-ani-suelo" aria-hidden="true"></div>
+    <div class="v2-ani-inclina">
+      <div class="v2-ani-scroll">
+        <ul class="v2-ani-gira" role="list" style={`--p: ${360 / n}deg`}>
+          {oficios.map((o: OficioMosaico, i: number) => (
+            <li class="v2-ani-carta" data-i={i} style={`--i: ${i}`}>
+              <a href={`${base}/${o.id}/`} class="v2-heroe-curso" draggable="false">
+                <span class="v2-ani-foto"><Foto nombre={o.foto} sizes="(min-width: 1024px) 180px, 220px" decorativa class="h-full w-full object-cover" /></span>
+                <span class="v2-ani-pie">
+                  <strong class="line-clamp-2 text-t15 font-semibold">{corto(o.titulo)}</strong>
+                  {o.nota && <span class="v2-ani-nota flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
+                  <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t13 text-navy-950" />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <p class="v2-ani-ayuda" aria-hidden="true">Arrastra para girar · pasa el cursor para pausar</p>
+  </div>
+  <button type="button" class="v2-ani-pausa" data-ani-pausa aria-pressed="false" hidden>
+    <Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" />
+    <span class="sr-only" data-ani-pausa-texto>Pausar el anillo de cursos</span>
+  </button>
+</div>
+
+<style is:inline>
+  @layer components {
+    .v2-ani { position: relative; min-width: 0; }
+    /* Base (móvil y «reducir movimiento»): carril plano con scroll-snap; el padding deja sitio al contorno de foco. */
+    .v2-ani-escena { position: relative; }
+    .v2-ani-suelo, .v2-ani-ayuda { display: none; }
+    .v2-ani-gira { display: flex; gap: 12px; margin: 0; padding: 6px; min-height: 280px; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 6px; scrollbar-width: thin; }
+    .v2-ani-carta { flex: none; width: min(62%, 220px); scroll-snap-align: start; }
+    .v2-ani-carta > a { display: block; height: 100%; overflow: hidden; border-radius: var(--radius-c-lg); background: #fff; color: var(--color-navy-950); box-shadow: var(--shadow-s2); -webkit-user-drag: none; }
+    .v2-ani-carta > a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+    .v2-ani-foto { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--color-navy-50); }
+    .v2-ani-foto picture { display: contents; }
+    .v2-ani-pie { display: grid; gap: 2px; padding: 10px 12px 12px; }
+    .v2-ani-pausa { position: absolute; z-index: 5; right: 0; top: 0; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 999px; background: rgb(255 255 255 / .12); color: #fff; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .35); cursor: pointer; }
+    .v2-ani-pausa > * { grid-area: 1 / 1; }
+    .v2-ani-pausa[hidden] { display: none; }
+    .v2-ani-pausa:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+    .v2-ani-pausa .v2-ico-seguir, .v2-ani-pausa[aria-pressed='true'] .v2-ico-pausa { display: none; }
+    .v2-ani-pausa[aria-pressed='true'] .v2-ico-seguir { display: block; }
+
+    /* Escritorio con movimiento: el cilindro. Alto fijo reservado (CLS 0). */
+    @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+      .v2-ani-escena { height: 460px; perspective: 1300px; perspective-origin: 50% 30%; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+      .v2-ani-escena[data-arrastre] { cursor: grabbing; }
+      .v2-ani-inclina, .v2-ani-scroll, .v2-ani-gira { position: absolute; inset: 0; transform-style: preserve-3d; }
+      .v2-ani-inclina { transform: rotateX(-12deg); transition: rotate var(--t-lento) var(--e-sale); }
+      .v2-ani-gira { --R: 216px; --w: 108px; display: block; min-height: 0; padding: 0; overflow: visible; scroll-snap-type: none; }
+      .v2-ani-carta {
+        position: absolute; left: 50%; top: 50%; width: var(--w); margin: -80px 0 0 calc(var(--w) / -2);
+        transform: rotateY(calc(var(--i) * var(--p))) translateZ(var(--R));
+        backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      }
+      .v2-ani-carta > a { transition: scale var(--t-base) var(--e-sale); }
+      .v2-ani-carta > a:hover, .v2-ani-carta > a:focus-visible { scale: 1.06; }
+      .v2-ani-pie { height: 96px; padding: 8px 10px; overflow: hidden; align-content: start; }
+      .v2-ani-nota { display: none; }
+      .v2-ani-suelo { display: block; position: absolute; left: 50%; top: 62%; width: 80%; height: 90px; translate: -50% 0; background: radial-gradient(closest-side, rgb(0 0 0 / .5), transparent); pointer-events: none; }
+      .v2-ani-ayuda { display: block; position: absolute; left: 0; right: 0; bottom: 0; margin: 0; text-align: center; font-size: 13px; color: rgb(255 255 255 / .72); }
+
+      @keyframes v2-ani-vuelta { to { rotate: y -360deg; } }
+      .v2-ani[data-vivo] .v2-ani-gira { animation-name: v2-ani-vuelta; animation-duration: calc(70s * var(--m, 1)); animation-timing-function: linear; animation-iteration-count: infinite; }
+      [data-heroe][data-pausado] .v2-ani[data-vivo] .v2-ani-gira { animation-play-state: paused; }
+
+      /* Scroll: mientras el anillo sale de la pantalla gira un cuarto de vuelta más (sin JS, solo propiedades largas). */
+      @supports (animation-timeline: view()) {
+        .v2-ani { view-timeline-name: --v2-ani; view-timeline-axis: block; }
+        @keyframes v2-ani-scroll { to { rotate: y -90deg; } }
+        .v2-ani-scroll { animation-name: v2-ani-scroll; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --v2-ani; animation-range: exit 0% exit 100%; }
+      }
+    }
+  }
+</style>
+
+<script>
+  for (const raiz of document.querySelectorAll<HTMLElement>('[data-anillo]')) {
+    if (!raiz.checkVisibility()) continue;
+    const sec = raiz.closest<HTMLElement>('[data-heroe]') ?? raiz;
+    const escena = raiz.querySelector<HTMLElement>('.v2-ani-escena')!;
+    const inclina = raiz.querySelector<HTMLElement>('.v2-ani-inclina')!;
+    const gira = raiz.querySelector<HTMLElement>('.v2-ani-gira')!;
+    const boton = raiz.querySelector<HTMLButtonElement>('[data-ani-pausa]');
+    const texto = raiz.querySelector<HTMLElement>('[data-ani-pausa-texto]');
+    const n = gira.children.length;
+    const mov = matchMedia('(min-width: 1024px) and (prefers-reduced-motion: no-preference)');
+    const fino = matchMedia('(hover: hover) and (pointer: fine)');
+    const mod = (x: number, d: number) => ((x % d) + d) % d;
+
+    /* Pausa por motivos acumulables (WCAG 2.2.2); el atributo vive en la sección para que también pare la aurora. */
+    const motivos = new Set<string>();
+    const motivo = (m: string, on: boolean) => { if (on) motivos.add(m); else motivos.delete(m); sec.toggleAttribute('data-pausado', motivos.size > 0); };
+    new IntersectionObserver(([e]) => motivo('fuera', !e?.isIntersecting)).observe(raiz);
+    document.addEventListener('visibilitychange', () => motivo('oculta', document.hidden));
+    boton?.addEventListener('click', () => {
+      const p = boton.getAttribute('aria-pressed') !== 'true';
+      boton.setAttribute('aria-pressed', String(p));
+      if (texto) texto.textContent = p ? 'Seguir con el anillo de cursos' : 'Pausar el anillo de cursos';
+      motivo('boton', p);
+    });
+    escena.addEventListener('pointerenter', e => { if (mov.matches && e.pointerType === 'mouse') motivo('cursor', true); });
+    escena.addEventListener('pointerleave', () => motivo('cursor', false));
+
+    /* Radio según el ancho real de la escena: el anillo no invade la columna del texto. 12 tarjetas por vuelta con aire. */
+    const ajusta = () => {
+      const R = Math.round(Math.min(300, Math.max(176, escena.clientWidth * 0.4)));
+      gira.style.setProperty('--R', `${R}px`);
+      gira.style.setProperty('--w', `${Math.round(R * 0.5)}px`);
+    };
+    new ResizeObserver(() => { if (mov.matches) ajusta(); }).observe(escena);
+
+    const anim = () => gira.getAnimations()[0] ?? null;
+    const duracion = (a: Animation) => Number(a.effect?.getComputedTiming().duration) || 70000;
+    let raf = 0;
+    const llevar = (a: Animation, destino: number) => {
+      cancelAnimationFrame(raf);
+      const D = duracion(a);
+      const t0 = mod(Number(a.currentTime ?? 0), D);
+      let d = destino - t0;
+      if (d > D / 2) d -= D; else if (d < -D / 2) d += D;
+      const ini = performance.now();
+      const paso = (ahora: number) => {
+        const p = Math.min(1, (ahora - ini) / 550);
+        a.currentTime = mod(t0 + d * (1 - (1 - p) ** 3), D);
+        if (p < 1) raf = requestAnimationFrame(paso);
+      };
+      raf = requestAnimationFrame(paso);
+    };
+
+    /* Foco por teclado: pausa y gira el anillo hasta dejar la tarjeta enfocada de frente. */
+    gira.addEventListener('focusin', e => {
+      if (!mov.matches) return;
+      motivo('foco', true);
+      const el = e.target as Element;
+      const li = el.closest<HTMLElement>('.v2-ani-carta');
+      const a = anim();
+      if (li && a && el.matches(':focus-visible')) llevar(a, (Number(li.dataset.i) / n) * duracion(a));
+    });
+    gira.addEventListener('focusout', e => { if (!gira.contains(e.relatedTarget as Node | null)) motivo('foco', false); });
+
+    /* Arrastre: solo se captura el puntero pasado el umbral, para que el clic en una tarjeta siga abriendo el curso. */
+    let ar: { x: number; t: number; D: number; id: number; mov: number } | null = null;
+    let movio = false;
+    let libera = 0;
+    escena.addEventListener('dragstart', e => e.preventDefault());
+    escena.addEventListener('pointerdown', e => {
+      if (!mov.matches || e.button !== 0 || (e.target as Element).closest('button')) return;
+      const a = anim();
+      if (!a) return;
+      cancelAnimationFrame(raf);
+      ar = { x: e.clientX, t: Number(a.currentTime ?? 0), D: duracion(a), id: e.pointerId, mov: 0 };
+    });
+    escena.addEventListener('pointermove', e => {
+      if (!ar || e.pointerId !== ar.id) return;
+      const a = anim();
+      if (!a) return;
+      const dx = e.clientX - ar.x;
+      ar.mov = Math.max(ar.mov, Math.abs(dx));
+      if (ar.mov <= 6) return;
+      if (!escena.hasPointerCapture(e.pointerId)) {
+        escena.setPointerCapture(e.pointerId);
+        escena.setAttribute('data-arrastre', '');
+        clearTimeout(libera);
+        motivo('arrastre', true);
+      }
+      /* Arrastrar a la derecha gira el anillo a la derecha: la animación va hacia −360°, así que se retrocede en el tiempo. */
+      a.currentTime = mod(ar.t - (dx * ar.D) / 1080, ar.D);
+    });
+    const suelta = () => {
+      if (!ar) return;
+      movio = ar.mov > 6;
+      ar = null;
+      escena.removeAttribute('data-arrastre');
+      if (movio) { libera = window.setTimeout(() => motivo('arrastre', false), 1200); setTimeout(() => { movio = false; }, 0); }
+    };
+    escena.addEventListener('pointerup', suelta);
+    escena.addEventListener('pointercancel', suelta);
+    escena.addEventListener('click', e => { if (movio) { e.preventDefault(); e.stopPropagation(); } }, true);
+
+    /* Ratón: el anillo se inclina hacia el cursor (rAF, solo `rotate`). */
+    let pend = false, px = 0, py = 0;
+    const inclinar = () => {
+      pend = false;
+      const g = Math.hypot(py * -6, px * 7);
+      inclina.style.rotate = g < 0.05 ? '' : `${py * -6} ${px * 7} 0 ${g}deg`;
+    };
+    sec.addEventListener('pointermove', e => {
+      if (!mov.matches || !fino.matches) return;
+      const r = sec.getBoundingClientRect();
+      px = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width) * 2 - 1));
+      py = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height) * 2 - 1));
+      if (!pend) { pend = true; requestAnimationFrame(inclinar); }
+    }, { passive: true });
+    sec.addEventListener('pointerleave', () => { px = 0; py = 0; inclinar(); });
+
+    /* El giro y el botón de pausa existen solo con 3D + movimiento, y una vez cargada la página. */
+    let cargado = false;
+    const modo = () => {
+      const on = mov.matches && cargado;
+      raiz.toggleAttribute('data-vivo', on);
+      if (boton) boton.hidden = !on;
+      if (mov.matches) ajusta();
+      else { cancelAnimationFrame(raf); inclina.style.rotate = ''; for (const m of ['cursor', 'foco', 'arrastre']) motivo(m, false); }
+    };
+    mov.addEventListener('change', modo);
+    const empezar = () => { cargado = true; modo(); };
+    if (document.readyState === 'complete') empezar(); else addEventListener('load', empezar, { once: true });
+  }
+</script>

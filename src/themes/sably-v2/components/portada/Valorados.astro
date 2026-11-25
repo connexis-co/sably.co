@@ -1,0 +1,27 @@
+---
+/**
+ * «Los mejor valorados» (bloque `valorados`): cursos ordenados por la nota que Hotmart publica en la página de
+ * cada curso, solo con un mínimo de valoraciones (panel), con fuente y fecha de lectura. Sin textos de opiniones:
+ * Sably no tiene opiniones propias publicables. Si no hay al menos tres cursos que pasen el umbral, no sale.
+ */
+import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
+import NotaFuente from '@/components/v2/NotaFuente.astro';
+import type { Course } from '@/lib/emdash-content';
+import type { Country } from '@/lib/countries';
+import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
+interface Props { cursos: Course[]; country: Country; precios: Map<string, PrecioTarjeta | null>; minimo: number; leidas: string | null }
+const { cursos, country, precios, minimo, leidas } = Astro.props;
+---
+{cursos.length > 0 && (
+  <section class="pt-24 lg:pt-32" aria-labelledby="valorados-titulo">
+    <div class="v2-contenedor">
+      <p class="v2-antetitulo text-navy-700">Lo que dicen en Hotmart</p>
+      <h2 id="valorados-titulo" class="mt-3 font-display text-d28 lg:text-d40">Los mejor valorados</h2>
+      <p class="mt-3 max-w-[640px] text-t17 text-navy-700">Ordenados por la nota media que les dan quienes los compraron en Hotmart.</p>
+    </div>
+    <ul class="v2-contenedor mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4" role="list">
+      {cursos.map(course => <li class="w-[85%] flex-none snap-start sm:w-auto"><TarjetaCurso {course} {country} precio={precios.get(course.id) ?? null} /></li>)}
+    </ul>
+    <div class="v2-contenedor"><NotaFuente class="mt-4">Nota media y número de valoraciones que Hotmart publica en la página de cada curso{leidas ? `, leídos el ${leidas}` : ''}. Solo cursos con al menos {minimo} valoraciones.</NotaFuente></div>
+  </section>
+)}

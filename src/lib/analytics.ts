@@ -21,8 +21,22 @@ const META_MAP: Record<string, string> = {
   click_whatsapp: 'Contact',
 };
 
+/**
+ * Prueba A/B del héroe de la portada (HEROES-X §11): si el visitante tiene variante asignada (cookie
+ * `sably_ab_heroe` = «inicio|variante», la pone la portada), todos sus eventos llevan experiment_id y variant_id.
+ */
+export function varianteHeroeAB(): { experiment_id: string; variant_id: string } | null {
+  try {
+    const m = document.cookie.match(/(?:^|; )sably_ab_heroe=([^;]*)/);
+    const v = m ? decodeURIComponent(m[1]!).split('|')[1] : undefined;
+    return v && /^[a-z0-9]{2,12}$/.test(v) ? { experiment_id: 'heroe_portada', variant_id: v } : null;
+  } catch { return null; }
+}
+
 export function trackEvent(event: string, params: EventParams = {}): void {
   if (typeof window === 'undefined') return;
+  const ab = varianteHeroeAB();
+  if (ab) params = { ...ab, ...params };
   window.dataLayer ??= [];
   window.dataLayer.push({ event, ...params });
   if (window.sablyTrackingMode !== 'direct') return;

@@ -1,0 +1,139 @@
+---
+/**
+ * Héroe B · «Vitrina viva de 12 oficios» (HEROES-X.md §3, prototipo 07). Escritorio: bento de 4 columnas con
+ * una celda grande (el curso en foco, con foto, nota y precio) y 12 celdas con foto, oficio y precio; la grande
+ * cambia sola y la pequeña del mismo curso se marca; cursor o foco en una celda la lleva a la grande.
+ * Móvil: dos filas de tarjetas en marquesina en sentidos opuestos, con «Pausar». Con «reducir movimiento», nada
+ * rota y las filas se desplazan a mano. Todos los cursos están enlazados en el HTML inicial.
+ */
+import Foto from '../../Foto.astro';
+import Ico from '../../Ico.astro';
+import PrecioOficio from './PrecioOficio.astro';
+import { corto, notaCorta } from './comun';
+import type { OficioMosaico } from '../Heroe.astro';
+interface Props { oficios: OficioMosaico[]; base: string; locale: string; tachar: boolean; rota: boolean; intervalo: number; aleatorio: boolean }
+const { oficios, base, locale, tachar, rota, intervalo, aleatorio } = Astro.props;
+const filas = [oficios.filter((_, i) => i % 2 === 0), oficios.filter((_, i) => i % 2 === 1)];
+---
+<div class="v2-vitrina" data-vitrina={rota ? '' : undefined} data-intervalo={intervalo} data-orden={aleatorio ? 'aleatorio' : 'fijo'} role="group" aria-roledescription="vitrina" aria-label="Cursos para empezar">
+  <ul class="v2-vit-bento" role="list">
+    <li class="v2-vit-grande">
+      {oficios.map((o, i) => (
+        <a href={`${base}/${o.id}/`} class="v2-heroe-curso v2-rota-item" data-i={i} data-visible={i === 0 ? '' : undefined} tabindex="-1" aria-hidden="true">
+          <Foto nombre={o.foto} sizes="(min-width: 1024px) 300px, 1px" decorativa class="v2-vit-foto" />
+          <span class="v2-vit-pie">
+            <strong class="line-clamp-2 text-t15 font-semibold">{o.titulo}</strong>
+            {o.nota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
+            <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t15 text-navy-950" />
+          </span>
+        </a>
+      ))}
+    </li>
+    {oficios.map((o, i) => (
+      <li class="v2-vit-celda" data-i={i} data-on={i === 0 ? '' : undefined}>
+        <a href={`${base}/${o.id}/`} class="v2-heroe-curso" data-i={i}>
+          <Foto nombre={o.foto} sizes="(min-width: 1024px) 150px, 1px" decorativa class="v2-vit-mini" />
+          <span class="v2-vit-txt"><b class="line-clamp-2">{corto(o.titulo)}</b><PrecioOficio precio={o.precio} {locale} tachar={false} class="text-t13" /></span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  {rota && <span class="v2-vit-progreso" aria-hidden="true" hidden data-rota-progreso><span data-rota-reloj></span></span>}
+  {rota && <button type="button" class="v2-vit-pausa" data-rota-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" /><span class="sr-only" data-rota-pausa-texto>Pausar los cursos que cambian</span></button>}
+
+  <div class="v2-vit-carriles" data-carriles>
+    {filas.map((fila, f) => (
+      <div class="v2-vit-carril">
+        <ul class="v2-vit-pista" role="list" style={`--dur: ${f ? 56 : 48}s`}>
+          {[0, 1].map(copia => fila.map(o => (
+            <li aria-hidden={copia ? 'true' : undefined}>
+              <a href={`${base}/${o.id}/`} class="v2-vit-chip" tabindex={copia ? '-1' : undefined}>
+                <Foto nombre={o.foto} sizes="56px" decorativa class="v2-vit-chip-foto" />
+                <span class="min-w-0"><b class="line-clamp-2 text-t15 font-semibold leading-5">{corto(o.titulo)}</b><PrecioOficio precio={o.precio} {locale} tachar={false} class="text-t13" /></span>
+              </a>
+            </li>
+          )))}
+        </ul>
+      </div>
+    ))}
+    <button type="button" class="v2-vit-quieto" data-carriles-pausa aria-pressed="false">Pausar el movimiento</button>
+  </div>
+</div>
+
+<style is:inline>
+  @layer components {
+    .v2-vitrina { position: relative; }
+    .v2-vit-bento { display: none; }
+    @media (min-width: 1024px) {
+      .v2-vit-bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 118px; gap: 10px; }
+      .v2-vit-grande { grid-column: 1 / 3; grid-row: 1 / 3; position: relative; overflow: hidden; border-radius: var(--radius-c-xl); background: var(--color-navy-900); }
+      .v2-vit-foto { width: 100%; height: 100%; object-fit: cover; scale: 1.06; transition: scale calc(var(--t-escena, calc(700ms * var(--m))) * 6) linear; }
+      .v2-rota-item[data-visible] .v2-vit-foto { scale: 1; }
+      .v2-vit-pie { position: absolute; left: 12px; right: 12px; bottom: 12px; display: grid; gap: 2px; padding: 10px 12px; border-radius: var(--radius-c-md); background: rgb(255 255 255 / .96); color: var(--color-navy-950); box-shadow: var(--shadow-s2); }
+      .v2-vit-celda > a { position: relative; display: block; height: 100%; overflow: hidden; border-radius: var(--radius-c-lg); color: #fff; isolation: isolate; }
+      .v2-vit-mini { position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; transition: scale var(--t-lento) var(--e-sale); }
+      .v2-vit-celda > a:hover .v2-vit-mini { scale: 1.05; }
+      .v2-vit-celda picture { display: contents; }
+      .v2-vit-txt { position: absolute; inset: auto 0 0 0; display: grid; padding: 24px 10px 8px; background: linear-gradient(transparent, rgb(27 27 58 / .88)); font-size: 13px; line-height: 1.25; }
+      .v2-vit-txt b { font-size: 14px; }
+      /* Anillo de la celda en foco: un ::after que solo cambia opacity. */
+      .v2-vit-celda > a::after { content: ''; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 3px var(--color-coral-500); opacity: 0; transition: opacity var(--t-base) var(--e-sale); }
+      .v2-vit-celda[data-on] > a::after { opacity: 1; }
+      .v2-vit-celda > a:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+      .v2-vit-progreso { position: absolute; left: 0; right: 0; bottom: -14px; height: 2px; border-radius: 2px; overflow: hidden; background: rgb(255 255 255 / .15); }
+      .v2-vit-progreso > span { display: block; height: 100%; background: rgb(255 255 255 / .7); transform-origin: left; transform: scaleX(0); }
+      .v2-vit-pausa { position: absolute; z-index: 2; left: calc(50% - 52px); top: 12px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; background: rgb(27 27 58 / .72); color: #fff; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .35); }
+      .v2-vit-pausa > * { grid-area: 1 / 1; }
+      .v2-vit-carriles { display: none !important; }
+    }
+    .v2-vit-pausa[hidden], .v2-vit-progreso[hidden] { display: none; }
+    .v2-vit-pausa .v2-ico-seguir, .v2-vit-pausa[aria-pressed='true'] .v2-ico-pausa { display: none; }
+    .v2-vit-pausa[aria-pressed='true'] .v2-ico-seguir { display: block; }
+
+    /* Móvil: dos filas en marquesina (solo translate), con pausa al tocar, al enfocar y con el botón. */
+    .v2-vit-carriles { display: grid; gap: 10px; }
+    .v2-vit-carril { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 20px, #000 calc(100% - 20px), transparent); }
+    .v2-vit-pista { display: flex; gap: 10px; width: max-content; }
+    .v2-vit-pista > li { flex: none; }
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes v2-vit-pasa { to { translate: -50% 0; } }
+      .v2-vit-pista { animation-name: v2-vit-pasa; animation-duration: var(--dur); animation-timing-function: linear; animation-iteration-count: infinite; }
+      .v2-vit-carril:nth-child(2) .v2-vit-pista { animation-direction: reverse; }
+      .v2-vit-carriles[data-quieto] .v2-vit-pista, .v2-vit-carriles:focus-within .v2-vit-pista, .v2-vit-carril:active .v2-vit-pista { animation-play-state: paused; }
+    }
+    .v2-vit-chip { display: flex; align-items: center; gap: 10px; width: 236px; padding: 8px; border-radius: 14px; background: #fff; color: var(--color-navy-950); text-decoration: none; }
+    .v2-vit-chip-foto { width: 56px; height: 56px; flex: none; border-radius: 10px; object-fit: cover; }
+    .v2-vit-chip picture { display: contents; }
+    .v2-vit-quieto { justify-self: start; min-height: 44px; font-size: 13px; color: rgb(255 255 255 / .75); text-decoration: underline; text-underline-offset: 3px; }
+    @media (prefers-reduced-motion: reduce) {
+      .v2-vit-carril { overflow-x: auto; scroll-snap-type: x mandatory; mask-image: none; scrollbar-width: none; }
+      .v2-vit-pista > li[aria-hidden] { display: none; }
+      .v2-vit-pista > li { scroll-snap-align: start; }
+      .v2-vit-quieto { display: none; }
+    }
+  }
+</style>
+
+<script>
+  import { rotacion } from '../../../heroe-rotacion';
+  for (const raiz of document.querySelectorAll<HTMLElement>('.v2-vitrina')) {
+    const carriles = raiz.querySelector<HTMLElement>('[data-carriles]');
+    const quieto = raiz.querySelector<HTMLButtonElement>('[data-carriles-pausa]');
+    quieto?.addEventListener('click', () => {
+      const p = !carriles!.hasAttribute('data-quieto');
+      carriles!.toggleAttribute('data-quieto', p);
+      quieto.setAttribute('aria-pressed', String(p));
+      quieto.textContent = p ? 'Seguir con el movimiento' : 'Pausar el movimiento';
+    });
+    if (!raiz.hasAttribute('data-vitrina') || !matchMedia('(min-width: 1024px)').matches) continue;
+    const items = [...raiz.querySelectorAll<HTMLElement>('.v2-vit-grande [data-i]')];
+    const celdas = [...raiz.querySelectorAll<HTMLElement>('.v2-vit-celda')];
+    const pintar = (n: number) => {
+      items.forEach((a, i) => a.toggleAttribute('data-visible', i === n));
+      celdas.forEach((c, i) => c.toggleAttribute('data-on', i === n));
+    };
+    const r = rotacion(raiz, { total: items.length, intervalo: Number(raiz.dataset.intervalo) || 4500, aleatorio: raiz.dataset.orden !== 'fijo', pintar, foto: n => items[n]?.querySelector('img') });
+    /* Manda el usuario: cursor o foco en una celda la lleva a la grande. */
+    celdas.forEach((c, i) => { c.addEventListener('pointerenter', () => r.ir(i)); c.addEventListener('focusin', () => r.ir(i)); });
+  }
+</script>

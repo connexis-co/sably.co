@@ -1,0 +1,326 @@
+---
+/**
+ * Héroe de la portada de país V2 (D1, estudio de movimiento F6). Banda azul noche con el único H1, buscador y
+ * un mosaico de tres celdas que rota sola entre 10–12 oficios. Cada oficio es un enlace a su ficha con su
+ * precio real (el mismo que la ficha da como precio a pagar hoy) y su nota de Hotmart si la tiene.
+ *
+ * Todo el inventario va en el HTML inicial: lo que no se ve está en `display: none` (sus fotos no se piden
+ * hasta que le toca entrar). La foto de la celda grande es la LCP: se pinta visible y sin animación de entrada.
+ * La rotación la lleva un reloj de Web Animations en la línea de progreso (scaleX); se para con cursor, foco,
+ * botón, pestaña oculta y fuera de pantalla, y no existe con «reducir movimiento» (WCAG 2.2.2).
+ */
+import Ico from '../Ico.astro';
+import Foto from '../Foto.astro';
+import Buscar from '../BuscarFrase.astro';
+import Precio from '@/components/v2/Precio.astro';
+import type { NombreFoto } from '../../fotos';
+import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
+import Vitrina from './heroe/Vitrina.astro';
+import OficioVivo from './heroe/OficioVivo.astro';
+import Abanico from './heroe/Abanico.astro';
+import Collage from './heroe/Collage.astro';
+import Muro from './heroe/Muro.astro';
+import Cintas from './heroe/Cintas.astro';
+import Orbita from './heroe/Orbita.astro';
+import Anillo3d from './heroe/Anillo3d.astro';
+import Aurora from './heroe/Aurora.astro';
+import type { PruebaHeroe, VarianteHeroe } from '@/lib/ajustes-tema';
+import type { ExtraBusqueda } from '../../buscar-sugerencias';
+
+export interface OficioMosaico { id: string; titulo: string; foto: NombreFoto; precio: PrecioTarjeta | null; nota: { cifra: string; texto: string } | null }
+interface Props {
+  textos: { eyebrow: string; title: string; accent: string; description: string; button: string; secondary: string };
+  base: string;
+  locale: string;
+  areas: { slug: string; nombre: string }[];
+  celdas: OficioMosaico[][];
+  /** Los mismos oficios en una lista (variantes vitrina, buscador y abanico). */
+  oficios: OficioMosaico[];
+  rotacion: { rota: boolean; intervalo: number; orden: 'aleatorio' | 'fijo' };
+  variante?: VarianteHeroe;
+  /** Fondo «aurora» opcional (solo en variantes de fondo oscuro). */
+  fondo?: 'liso' | 'aurora';
+  /** Prueba A/B encendida: el HTML lleva las ramas de todas sus variantes y un guion en línea elige una antes de pintar. */
+  pruebaAB?: PruebaHeroe | null;
+  botones?: 'dos' | 'uno';
+  tachar?: boolean;
+  /** Línea de prueba real bajo los botones («★ 4,2 de media en 3.314 valoraciones…»); null = no sale. */
+  prueba?: string | null;
+  /** Áreas y guías para las sugerencias del buscador. */
+  extra?: ExtraBusqueda[];
+}
+const { textos, base, locale, areas, celdas, oficios, rotacion, variante: elegida = 'collage', fondo = 'liso', botones = 'dos', tachar = true, prueba = null, extra = [], pruebaAB = null } = Astro.props;
+const ab = pruebaAB;
+/* Con la prueba encendida, la de control (la primera) es la que llevan el HTML y los bots; el guion en línea la cambia. */
+const variante: VarianteHeroe = ab ? ab.variantes[0]! : elegida;
+const ramas: VarianteHeroe[] = ab ? ab.variantes : [variante];
+const ESCAPARATE = { collage: Collage, muro: Muro, cintas: Cintas, orbita: Orbita, anillo3d: Anillo3d, vitrina: Vitrina, buscador: OficioVivo, abanico: Abanico } as const;
+/* Aurora: la pide el panel o la lleva la órbita; el collage (fondo arena) la oculta por CSS. */
+const conAurora = fondo === 'aurora' || ramas.includes('orbita');
+const nueva = variante !== 'mosaico';
+/* Reglas que enseñan solo la rama elegida (el resto queda en display:none: sin foto pedida ni foco). */
+const cssRamas = ab ? ab.variantes.map(v => `[data-heroe='${v}'] [data-heroe-rama='${v}']{display:contents}`).join('') : '';
+const rotaLista = rotacion.rota && oficios.length > 1;
+const props = { oficios, base, locale, tachar, rota: rotaLista, intervalo: rotacion.intervalo, aleatorio: rotacion.orden === 'aleatorio' };
+const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u, '');
+const rota = rotacion.rota && celdas.some(c => c.length > 1);
+const SIZES = ['(min-width: 1024px) 300px, 92vw', '(min-width: 1024px) 228px, 45vw', '(min-width: 1024px) 228px, 45vw'];
+/* Nota corta para el rótulo: «4,8 · 312 en Hotmart». */
+/* En las celdas pequeñas sobra «Curso de»: «Barbería desde Cero». */
+const corto = (t: string) => { const r = t.replace(/^curso\s+(online\s+)?(de|del)\s+/i, ''); return r.charAt(0).toUpperCase() + r.slice(1); };
+const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.replace(/ calificaciones.*$/, '')} en Hotmart`;
+---
+<section class="v2-heroe relative isolate overflow-x-clip" data-heroe={variante} data-heroe-ab={ab ? variante : undefined}>
+  {ab && <script is:inline define:vars={{ AB: { v: ab.variantes, p: ab.pesos, i: ab.inicio || 'sin-fecha' } }}>
+    /* Prueba A/B del héroe (HEROES-X §11). Corre al leer la apertura de la sección, antes de que exista ni se pinte
+       nada de dentro: elige la rama sin salto de maquetación. El HTML es el mismo para todos (caché del borde). */
+    var s = document.currentScript.parentNode, v = AB.v, e = v[0];
+    try {
+      var q = new URLSearchParams(location.search).get('heroe_ab');
+      var bot = navigator.webdriver || /bot|crawl|spider|slurp|mediapartners|lighthouse|pagespeed|gptbot|chatgpt|oai-|claude|perplexity|bingpreview|facebookexternalhit|preview/i.test(navigator.userAgent);
+      var m = document.cookie.match(/(?:^|; )sably_ab_heroe=([^;]*)/), c = m ? decodeURIComponent(m[1]).split('|') : [];
+      if (q && v.indexOf(q) >= 0) e = q;
+      else if (bot) e = v[0];
+      else if (c[0] === AB.i && v.indexOf(c[1]) >= 0) e = c[1];
+      else {
+        for (var r = Math.random(), a = 0, i = 0; i < v.length; i++) { a += AB.p[i]; if (r < a || i === v.length - 1) { e = v[i]; break; } }
+        document.cookie = 'sably_ab_heroe=' + encodeURIComponent(AB.i + '|' + e) + ';max-age=2592000;path=/;samesite=lax' + (location.protocol === 'https:' ? ';secure' : '');
+      }
+    } catch (x) { /* sin cookie ni almacenamiento: la de control */ }
+    s.setAttribute('data-heroe', e); s.setAttribute('data-heroe-ab', e);
+  </script>}
+  {ab && <style set:html={`[data-heroe-rama]{display:none}${cssRamas}`} />}
+  {conAurora && <div class="v2-heroe-fondo" aria-hidden="true"><Aurora /></div>}
+  <div class="v2-heroe-caja v2-contenedor grid items-center gap-10 pt-10 pb-14 lg:gap-14 lg:pt-24 lg:pb-24">
+    <div class="v2-heroe-texto">
+      <p class="v2-antetitulo v2-ht-suave">{sinPrefijo(textos.eyebrow)}</p>
+      <h1 class="v2-heroe-h1 mt-5 font-display text-[40px]/[44px] tracking-[-0.015em] lg:text-d72">{textos.title}<br /><span class="v2-ht-acento">{textos.accent}</span></h1>
+      <p class="v2-ht-suave mt-5 max-w-[560px] text-t17 lg:text-t20">{textos.description}</p>
+      <Buscar base={base} id="buscar-heroe" class="mt-8 max-w-[600px]" {extra} />
+      <p class="v2-ht-tenue mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-t15">Para empezar:
+        {areas.slice(0, 4).map(a => <a href={`${base}/cursos/${a.slug}/`} class="v2-ht-enlace underline underline-offset-4">{a.nombre.toLowerCase()}</a>)}
+      </p>
+      {nueva ? (
+        <p class="mt-6 flex flex-wrap items-center gap-3">
+          <a href={`${base}/cursos/`} class="v2-btn v2-btn-principal" data-alto="52">{textos.button} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+          {botones === 'dos' && <a href="/homologaciones/" class="v2-btn v2-heroe-secundario" data-alto="52">Homologaciones</a>}
+        </p>
+      ) : (
+        <p class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+          <a href={`${base}/cursos/`} class="v2-enlace min-h-11 !text-white">{textos.button} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+          <a href="#categorias" class="v2-enlace min-h-11 !text-white/80">{textos.secondary}</a>
+        </p>
+      )}
+      {nueva && prueba && <p class="v2-ht-tenue mt-5 flex items-center gap-2 text-t15"><Ico nombre="star" tamano={15} class="text-[#F5B544]" />{prueba}</p>}
+    </div>
+    {nueva && oficios.length > 0 && ramas.map(v => {
+      const Escaparate = ESCAPARATE[v as keyof typeof ESCAPARATE];
+      return ab ? <div data-heroe-rama={v}><Escaparate {...props} /></div> : <Escaparate {...props} />;
+    })}
+    {!nueva && celdas.length > 0 && (
+      <div class="v2-mosaico" data-mosaico={rota ? '' : undefined} data-intervalo={rotacion.intervalo} data-orden={rotacion.orden} role="group" aria-roledescription="mosaico" aria-label="Oficios para empezar">
+        {celdas.map((oficios, c) => (
+          <div class="v2-mos-celda" data-celda={c}>
+            {oficios.map((o, i) => (
+              <a href={`${base}/${o.id}/`} class="v2-mos-oficio" data-visible={i === 0 ? '' : undefined}>
+                <Foto nombre={o.foto} sizes={SIZES[c] ?? SIZES[1]!} prioridad={c === 0 && i === 0} decorativa class="v2-mos-foto" />
+                <span class="v2-mos-rotulo">
+                  <strong class="line-clamp-2 text-t15 font-semibold text-navy-950">{c === 0 ? o.titulo : corto(o.titulo)}</strong>
+                  {o.precio && (
+                    <span class="mt-0.5 flex flex-wrap items-baseline gap-x-2 text-navy-950" data-tc-precio data-moneda={o.precio.moneda} data-hoy={o.precio.hoy} data-normal={o.precio.normal ?? undefined}>
+                      <Precio valor={o.precio.hoy} moneda={o.precio.moneda} locale={locale} class="v2-num text-t15 font-semibold" codigoClass="text-t13 font-medium" />
+                      {tachar && o.precio.normal !== null && <span class:list={['text-t13 text-navy-500', c > 0 && 'max-lg:sr-only']}><span class="sr-only">Precio normal: </span><Precio valor={o.precio.normal} moneda={o.precio.moneda} locale={locale} class="line-through decoration-[1.5px]" codigoClass="text-t13" /></span>}
+                    </span>
+                  )}
+                  {o.nota && c === 0 && <span class="v2-mos-nota flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" /><span>{notaCorta(o.nota)}</span></span>}
+                </span>
+              </a>
+            ))}
+          </div>
+        ))}
+        {rota && (
+          <span class="v2-mos-progreso" aria-hidden="true" hidden data-mos-progreso><span data-mos-reloj></span></span>
+          <button type="button" class="v2-mos-pausa" data-mos-pausa aria-pressed="false" hidden>
+            <Ico nombre="pause" tamano={14} class="v2-mos-ico-pausa" />
+            <Ico nombre="play" tamano={14} class="v2-mos-ico-seguir" />
+            <span class="sr-only" data-mos-pausa-texto>Pausar los oficios que cambian</span>
+          </button>
+        )}
+      </div>
+    )}
+  </div>
+</section>
+
+<style is:global>
+  @layer components {
+    /* Tinta y fondo de la banda: azul noche con texto blanco; el collage va sobre arena con texto azul noche. */
+    .v2-heroe { --ht-fondo: var(--color-navy-950); --ht-tinta: #fff; --ht-suave: rgb(255 255 255 / .8); --ht-tenue: rgb(255 255 255 / .72); --ht-acento: var(--color-coral-500); --ht-linea: rgb(255 255 255 / .4); background: var(--ht-fondo); color: var(--ht-tinta); }
+    .v2-heroe[data-heroe='collage'] { --ht-fondo: #f6efe6; --ht-tinta: var(--color-navy-950); --ht-suave: var(--color-navy-700); --ht-tenue: var(--color-navy-700); --ht-acento: var(--color-coral-600); --ht-linea: rgb(27 27 58 / .35); }
+    .v2-heroe-h1 { color: var(--ht-tinta) !important; }
+    .v2-ht-suave { color: var(--ht-suave); }
+    .v2-ht-tenue { color: var(--ht-tenue); }
+    .v2-ht-acento { color: var(--ht-acento); }
+    .v2-ht-enlace { color: var(--ht-tinta); text-decoration-color: var(--ht-linea); }
+    .v2-ht-enlace:hover { text-decoration-color: currentColor; }
+    .v2-heroe-caja, .v2-heroe-texto { position: relative; z-index: 1; }
+    @media (min-width: 1024px) {
+      .v2-heroe-caja { grid-template-columns: minmax(0, 1fr) minmax(0, 540px); }
+      [data-heroe='vitrina'] .v2-heroe-caja { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+      [data-heroe='vitrina'] .v2-heroe-h1 { font-size: 56px !important; line-height: 60px !important; }
+    }
+    .v2-heroe-fondo { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    [data-heroe='collage'] .v2-heroe-fondo { display: none; }
+    [data-heroe='collage'] .v2-heroe-secundario { color: var(--color-navy-950); box-shadow: inset 0 0 0 1.5px rgb(27 27 58 / .55); }
+    [data-heroe='collage'] .v2-heroe-secundario:hover { box-shadow: inset 0 0 0 1.5px var(--color-navy-950); }
+    /* Variantes vitrina, buscador y abanico: pila de cursos donde solo se ve el actual; entra con fundido. */
+    .v2-rota-item { position: absolute; inset: 0; display: block; opacity: 0; transition: opacity var(--t-escena, calc(700ms * var(--m))) var(--e-mueve); }
+    .v2-rota-item:not([data-visible]) { display: none; }
+    .v2-rota-item[data-visible] { opacity: 1; z-index: 1; }
+    /* Solo cuando ya rota: al cargar, el primero se pinta entero (sin fundido de entrada). */
+    @starting-style { [data-rotando] .v2-rota-item[data-visible] { opacity: 0; } }
+    .v2-rota-item picture { display: block; height: 100%; }
+    .v2-heroe-secundario { background: transparent; color: #fff; box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / .6); }
+    .v2-heroe-secundario:hover { box-shadow: inset 0 0 0 1.5px #fff; }
+    .v2-mosaico { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .v2-mos-celda { position: relative; overflow: hidden; border-radius: var(--radius-c-xl); background: var(--color-navy-900); aspect-ratio: 1; }
+    .v2-mos-celda[data-celda='0'] { grid-column: 1 / -1; aspect-ratio: 4 / 3; }
+    @media (min-width: 1024px) {
+      .v2-mosaico { grid-template-columns: 300fr 228fr; grid-template-rows: 1fr 1fr; height: 560px; gap: 16px; }
+      .v2-mos-celda, .v2-mos-celda[data-celda='0'] { aspect-ratio: auto; }
+      .v2-mos-celda[data-celda='0'] { grid-column: 1; grid-row: 1 / 3; }
+    }
+    /* Cada oficio llena su celda; los que esperan turno no se pintan (ni piden su foto). */
+    .v2-mos-oficio { position: absolute; inset: 0; display: block; opacity: 0; transition: opacity var(--t-escena, calc(700ms * var(--m))) var(--e-mueve); }
+    .v2-mos-oficio:not([data-visible], [data-prep]) { display: none; }
+    .v2-mos-oficio[data-visible] { opacity: 1; z-index: 1; }
+    .v2-mos-oficio picture { display: block; height: 100%; }
+    .v2-mos-foto { width: 100%; height: 100%; object-fit: cover; scale: 1.04; transition: scale calc(var(--t-escena, calc(700ms * var(--m))) * 1.6) var(--e-sale); }
+    .v2-mos-oficio[data-visible] .v2-mos-foto { scale: 1; }
+    .v2-mos-rotulo {
+      position: absolute; left: 12px; right: 12px; bottom: 12px; display: block; max-width: 320px; padding: 10px 14px;
+      border-radius: var(--radius-c-md); background: #fff; box-shadow: var(--shadow-s2);
+      opacity: 0; translate: 0 6px; transition: opacity var(--t-base) var(--e-sale), translate var(--t-base) var(--e-sale);
+    }
+    .v2-mos-oficio[data-visible] .v2-mos-rotulo { opacity: 1; translate: 0 0; transition-delay: var(--t-base); }
+    .v2-mos-oficio:hover .v2-mos-rotulo strong { text-decoration: underline; text-underline-offset: 3px; }
+    .v2-mos-oficio:focus-visible { outline: 3px solid #fff; outline-offset: -3px; border-radius: inherit; }
+    @media (max-width: 1023.98px) { .v2-mos-celda:not([data-celda='0']) .v2-mos-rotulo { left: 8px; right: 8px; bottom: 8px; padding: 8px 10px; } }
+
+    /* Pausa (WCAG 2.2.2) y, bajo el mosaico, la línea que mide la espera hasta el próximo cambio (solo scaleX). */
+    .v2-mos-pausa { position: absolute; z-index: 2; right: 12px; top: 12px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; background: rgb(27 27 58 / .72); color: #fff; backdrop-filter: blur(6px); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .35); }
+    .v2-mos-pausa[hidden], .v2-mos-progreso[hidden] { display: none; }
+    .v2-mos-pausa > * { grid-area: 1 / 1; }
+    .v2-mos-progreso { position: absolute; left: 0; right: 0; bottom: -14px; height: 2px; border-radius: 2px; overflow: hidden; background: rgb(255 255 255 / .15); }
+    .v2-mos-progreso > span { display: block; height: 100%; background: rgb(255 255 255 / .7); transform-origin: left; transform: scaleX(0); }
+    .v2-mos-pausa .v2-mos-ico-seguir, .v2-mos-pausa[aria-pressed='true'] .v2-mos-ico-pausa { display: none; }
+    .v2-mos-pausa[aria-pressed='true'] .v2-mos-ico-seguir { display: block; }
+    .v2-mos-pausa:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) { .v2-mos-pausa, .v2-mos-progreso { display: none !important; } }
+  }
+</style>
+
+<script>
+  /* Rotación del mosaico (D1). Una celda cada vez; dentro de cada celda, bolsa aleatoria sin repetición. */
+  const raiz = document.querySelector<HTMLElement>('[data-mosaico]');
+  const reducido = matchMedia('(prefers-reduced-motion: reduce)');
+  if (raiz && 'animate' in Element.prototype) {
+    const celdas = [...raiz.querySelectorAll<HTMLElement>('.v2-mos-celda')].map(el => ({ el, oficios: [...el.querySelectorAll<HTMLAnchorElement>('.v2-mos-oficio')], bolsa: [] as number[], actual: 0 }));
+    const giran = celdas.filter(c => c.oficios.length > 1);
+    const intervalo = Number(raiz.dataset.intervalo) || 4500;
+    const aleatorio = raiz.dataset.orden !== 'fijo';
+    const boton = raiz.querySelector<HTMLButtonElement>('[data-mos-pausa]')!;
+    const reloj = raiz.querySelector<HTMLElement>('[data-mos-reloj]')!;
+    const progreso = raiz.querySelector<HTMLElement>('[data-mos-progreso]')!;
+    const textoBoton = raiz.querySelector<HTMLElement>('[data-mos-pausa-texto]')!;
+    const barajar = (n: number, sin: number) => {
+      const b = [...Array(n).keys()].filter(i => i !== sin);
+      if (aleatorio) for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j]!, b[i]!]; }
+      return b;
+    };
+    /* Siguiente cambio ya elegido, para que su foto cargue durante la espera. */
+    let ultima = -1;
+    let proximo: { celda: (typeof celdas)[number]; n: number } | null = null;
+    const preparar = () => {
+      let i = 0;
+      if (aleatorio) { do { i = Math.floor(Math.random() * giran.length); } while (giran.length > 1 && i === ultima); }
+      else i = (ultima + 1) % giran.length;
+      ultima = i;
+      const celda = giran[i]!;
+      if (!celda.bolsa.length) celda.bolsa = aleatorio ? barajar(celda.oficios.length, celda.actual) : [...Array(celda.oficios.length).keys()].map(k => (celda.actual + 1 + k) % celda.oficios.length).filter(k => k !== celda.actual);
+      const n = celda.bolsa.shift()!;
+      celda.oficios[n]!.setAttribute('data-prep', '');
+      celda.oficios[n]!.inert = true;
+      proximo = { celda, n };
+    };
+    const cambiar = async () => {
+      if (!proximo) return;
+      const { celda, n } = proximo;
+      const nuevo = celda.oficios[n]!, viejo = celda.oficios[celda.actual]!;
+      const img = nuevo.querySelector('img');
+      if (img) { img.loading = 'eager'; try { await img.decode(); } catch { /* sin foto lista no se cambia: nunca un hueco */ nuevo.removeAttribute('data-prep'); proximo = null; preparar(); return; } }
+      await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
+      nuevo.inert = false;
+      nuevo.setAttribute('data-visible', '');
+      nuevo.removeAttribute('data-prep');
+      viejo.removeAttribute('data-visible');
+      celda.actual = n;
+      proximo = null;
+      preparar();
+    };
+    /* Los que esperan no se tabulan ni se leen (están en el HTML para buscadores y sin JavaScript). */
+    celdas.forEach(c => c.oficios.forEach((o, i) => { if (i) o.inert = true; }));
+
+    let enVista = true, cursor = false, foco = false, manual = false, ocupado = false;
+    /* El reloj es la propia animación de la línea (solo transform). No existe hasta que puede correr:
+       con «reducir movimiento» no se crea nunca. */
+    let anim: Animation | null = null;
+    const corriendo = () => enVista && !cursor && !foco && !manual && !document.hidden && !reducido.matches;
+    const reloj0 = () => {
+      const a = reloj.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: intervalo, easing: 'linear', fill: 'both' });
+      a.onfinish = async () => {
+        ocupado = true;
+        await cambiar();
+        ocupado = false;
+        a.currentTime = 0;
+        actualizar();
+      };
+      return a;
+    };
+    const actualizar = () => {
+      if (corriendo() && !ocupado) (anim ??= reloj0()).play();
+      else anim?.pause();
+    };
+    raiz.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { cursor = true; actualizar(); } });
+    raiz.addEventListener('pointerleave', () => { cursor = false; actualizar(); });
+    raiz.addEventListener('focusin', () => { foco = true; actualizar(); });
+    raiz.addEventListener('focusout', e => { if (!raiz.contains(e.relatedTarget as Node)) { foco = false; actualizar(); } });
+    document.addEventListener('visibilitychange', actualizar);
+    reducido.addEventListener('change', actualizar);
+    new IntersectionObserver(([e]) => { enVista = !!e?.isIntersecting; actualizar(); }, { threshold: 0.25 }).observe(raiz);
+    boton.addEventListener('click', () => {
+      manual = !manual;
+      boton.setAttribute('aria-pressed', String(manual));
+      textoBoton.textContent = manual ? 'Seguir con los oficios que cambian' : 'Pausar los oficios que cambian';
+      actualizar();
+    });
+    /* Arranca cuando la página ya cargó: el primer cambio nunca compite con la LCP. */
+    const empezar = () => { boton.hidden = false; progreso.hidden = false; preparar(); actualizar(); };
+    if (document.readyState === 'complete') empezar(); else addEventListener('load', empezar, { once: true });
+  }
+</script>
+
+<script>
+  /* Medición de la portada (HEROES-X §11): impresión de la prueba A/B del héroe y clic a una ficha de curso desde
+     la portada (métrica principal). El consentimiento lo aplican GTM/gtag (modo de consentimiento). */
+  import { trackEvent } from '@/lib/analytics';
+  const heroe = document.querySelector<HTMLElement>('[data-heroe]');
+  const ab = heroe?.dataset.heroeAb;
+  if (ab) trackEvent('experiment_impression', { experiment_id: 'heroe_portada', variant_id: ab });
+  const FICHA = /^\/[a-z]{2}\/(?!cursos\/|blog\/|buscar\/|guias\/)[^/]+\/$/;
+  document.addEventListener('click', e => {
+    const a = (e.target as Element | null)?.closest?.<HTMLAnchorElement>('a[href]');
+    if (!a || a.origin !== location.origin || !FICHA.test(a.pathname) || a.closest('header, footer, nav, dialog')) return;
+    trackEvent('click_course_home', { course_id: a.pathname.split('/')[2], zona: a.closest('[data-heroe]') ? 'heroe' : 'portada', heroe_variant: heroe?.dataset.heroe });
+  });
+</script>
+
