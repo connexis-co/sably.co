@@ -155,6 +155,10 @@ test('tema V2: las reglas cubren también la cabecera y el pie (todo el <body>)'
   const v2 = (fuera) => pagina(`<header>${fuera}</header><main><h1>Cursos online en Colombia</h1><h2>Áreas</h2></main>`).replace('<body>', '<body data-tema="v2">');
   assert.ok(errores(v2('<p>🎓 Cursos</p>')).includes('v2-emoji'), 'un emoji en la cabecera V2 es un error');
   assert.ok(errores(v2('<p>Acceso de por vida</p><p>Acceso de por vida</p>')).includes('v2-hecho-repetido'));
+  // El documento de muestra de la constancia es ilustrativo: no cuenta como hecho repetido.
+  const doc = '<figure role="img" data-constancia-ejemplo><p>Constancia de finalización</p></figure>';
+  assert.ok(!errores(v2(`<p>Hotmart emite una constancia digital de finalización</p>${doc}`)).includes('v2-hecho-repetido'));
+  assert.ok(errores(v2(`<p>Constancia de finalización</p><p>Constancia de finalización</p>${doc}`)).includes('v2-hecho-repetido'));
 });
 
 test('enlaces internos: ruta y ancla, sin consulta, sin rutas técnicas ni externas', () => {

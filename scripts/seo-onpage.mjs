@@ -249,7 +249,9 @@ export function auditarOnPage(url, html, opciones = {}) {
     const principal = sinCodigo.match(/<body\b[^>]*>([\s\S]*)<\/body>/i)?.[1] ?? sinCodigo;
     const plantilla = principal
       .replace(/<section\b[^>]*\sdata-purchase-panel\b[\s\S]*?<\/section>/gi, ' ')
-      .replace(/<section\b[^>]*\sdata-cms\b[\s\S]*?<\/section>/gi, ' ');
+      .replace(/<section\b[^>]*\sdata-cms\b[\s\S]*?<\/section>/gi, ' ')
+      // El documento de muestra de la constancia es una imagen ilustrativa, no una afirmación repetida.
+      .replace(/<figure\b[^>]*\sdata-constancia-ejemplo\b[\s\S]*?<\/figure>/gi, ' ');
     const enPlantilla = texto(plantilla);
     // ©, ® y ™ son «pictográficos» para Unicode pero son parte de nombres de marca.
     const emoji = /(?![©®™])\p{Extended_Pictographic}/u;
