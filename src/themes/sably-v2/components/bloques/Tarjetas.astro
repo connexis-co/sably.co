@@ -7,6 +7,7 @@
  */
 import type { BlockValue } from 'emdash/ui';
 import { safeEditorialUrl } from '@/lib/sably-theme';
+import { relDe } from '@/lib/enlaces-propios';
 import Ico from '../Ico.astro';
 interface Props { value: BlockValue & { eyebrow?: string; title?: string; background?: string; cards?: Array<{ icon?: string; title?: string; text?: string; button_label?: string; button_url?: string }> } }
 const { value } = Astro.props;
@@ -25,7 +26,7 @@ const cards = value.cards ?? [];
             <h3 class="font-display text-t20 font-semibold">{card.title}</h3>
             <div>
               <p class="text-t17 whitespace-pre-line text-navy-700">{card.text}</p>
-              {href && card.button_label && <a href={href} class="v2-enlace mt-3 min-h-11">{card.button_label} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>}
+              {href && card.button_label && <a href={href} rel={relDe(href)} class="v2-enlace mt-3 min-h-11">{card.button_label} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>}
             </div>
           </li>
         );
