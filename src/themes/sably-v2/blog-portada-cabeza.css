@@ -1,0 +1,35 @@
+/* Cabeza de la portada del blog y buscador: en línea antes del H1. El resto, en la hoja del blog. */
+@layer components {
+/* ---------- Cabeza ---------- */
+.v2-bp-cabeza { padding-block: 24px 40px; }
+.v2-bp-ante { margin-top: 24px; font: 600 13px/18px var(--font-sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-coral-700); }
+.v2-bp-h1 { margin-top: 12px; max-width: 14ch; font: 600 38px/41px var(--font-display); letter-spacing: -0.02em; color: var(--color-navy-950); text-wrap: balance; }
+.v2-bp-entradilla { margin-top: 16px; max-width: 620px; font: 400 17px/26px var(--font-sans); color: var(--color-navy-700); }
+.v2-bp-cuadro { display: grid; gap: 24px; }
+@media (width >= 1024px) {
+  .v2-bp-cabeza { padding-block: 32px 56px; }
+  .v2-bp-h1 { font-size: 72px; line-height: 76px; }
+  .v2-bp-entradilla { font-size: 20px; line-height: 30px; }
+  .v2-bp-cuadro { grid-template-columns: minmax(0, 1fr) 440px; align-items: end; gap: 56px; }
+}
+
+/* ---------- Buscador con sugerencias (combobox ARIA 1.2) ---------- */
+.v2-bb { position: relative; }
+.v2-bb-campo { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 8px 0 18px; border-radius: 99px; background: #fff; box-shadow: inset 0 0 0 1px var(--color-navy-300); color: var(--color-navy-700); }
+.v2-bb-campo:focus-within { box-shadow: inset 0 0 0 2px var(--color-navy-950); }
+.v2-bb-campo input { flex: 1; min-width: 0; height: 100%; border: 0; background: none; outline: none; font: 400 16px/24px var(--font-sans); color: var(--color-navy-950); }
+.v2-bb-campo input::placeholder { color: var(--color-navy-500); }
+.v2-bb-campo kbd { display: grid; place-items: center; min-width: 28px; height: 28px; border-radius: 8px; box-shadow: inset 0 0 0 1px var(--color-navy-100); font: 500 13px/1 var(--font-sans); color: var(--color-navy-700); }
+@media (width >= 1024px) { .v2-bb-campo { height: 56px; } }
+@media (pointer: coarse) { .v2-bb-campo kbd { display: none; } }
+.v2-bb-dato { margin-top: 10px; font: 400 13px/18px var(--font-sans); color: var(--color-navy-500); }
+.v2-bb-lista { position: absolute; z-index: 45; inset: calc(100% + 8px) 0 auto; max-height: min(70vh, 520px); overflow-y: auto; padding: 8px; border-radius: 16px; background: #fff; box-shadow: var(--shadow-s3), 0 0 0 1px var(--color-navy-100); }
+.v2-bb-lista[hidden] { display: none; }
+.v2-bb-grupo { padding: 10px 12px 4px; font: 600 12px/16px var(--font-sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-navy-500); }
+.v2-bb-op { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 44px; padding: 8px 12px; border-radius: 10px; font: 500 15px/21px var(--font-sans); color: var(--color-navy-950); cursor: pointer; }
+.v2-bb-op small { flex: none; font: 400 13px/18px var(--font-sans); color: var(--color-navy-500); }
+.v2-bb-op[aria-selected='true'] { background: var(--color-navy-50); }
+.v2-bb-op mark { background: var(--color-coral-100); color: inherit; border-radius: 3px; }
+.v2-bb-vacio { padding: 12px; font: 400 15px/22px var(--font-sans); color: var(--color-navy-700); }
+
+}
