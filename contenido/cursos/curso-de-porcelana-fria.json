@@ -1,0 +1,101 @@
+{
+  "slug": "curso-de-porcelana-fria",
+  "estado": "borrador",
+  "fuentes": [
+    "Hotmart, checkout público del producto K60819262W «El Negocio de La Porcelana Fría» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: figuras y muñecos para tartas, centros de mesa y adornos en porcelanicron o pasta flexible; usos, herramientas, rostros, partes del cuerpo, cómo vender",
+    "CMS: durationHours 10 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de porcelana fría», 20 CO / 50 MX; variación «curso de porcelanicron» 70 en CO); canibalización: sin choque medido por title/H1",
+    "Preguntas: faq-nuevas.csv (PAA de todos los países: qué necesito, cómo es, brillo, color)",
+    "Hotmart, checkout de los tres productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "El temario del CMS (receta de masa casera, flores, animales, toppers, brillo y sellado, imanes, costeo) no sale de Hotmart, que habla de usos, herramientas, rostros, cuerpos y venta. El texto no promete la receta de la masa ni las flores.",
+    "Hotmart dice «conocerás por qué el negocio se volvió altamente rentable» y «muy rentable para ti»: no se repite.",
+    "Los PAA de precio (cuánto cuesta el kilo) no se contestaron: dependen del país y de la tienda. Los volúmenes del principal son muy bajos (20 CO / 50 MX); la demanda real está en la guía «porcelana fría» (9.900 MX).",
+    "Sin variantes: el texto va al documento del curso y los 8 países leen el mismo."
+  ],
+  "base": {
+    "h1": "Curso de porcelana fría online en {pais}",
+    "subtitulo": "Aprendes los usos y las herramientas de la porcelana fría y a modelar rostros, cuerpos y figuras para tartas, centros de mesa y adornos.",
+    "beneficios": [
+      "Conocer los usos de la porcelana fría y sus herramientas",
+      "Hacer figuras y muñecos para tartas, centros de mesa y adornos",
+      "Modelar rostros desde cero con las bases del oficio",
+      "Armar todas las partes del cuerpo de una figura",
+      "Trabajar con porcelanicron o pasta flexible",
+      "Saber cómo empezar a vender tus figuras"
+    ],
+    "para_quien": [
+      "Quieres modelar figuras y muñecos desde cero",
+      "Te interesa decorar tartas, mesas y otros adornos",
+      "Ya haces manualidades y quieres sumar porcelana fría",
+      "No es para ti si buscas un título de artes plásticas"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Porcelana fría o porcelanicron, y estecas o modeladores",
+      "Rodillo pequeño, cortadores, palillos y pinceles",
+      "Una superficie lisa y plástico para guardar la masa"
+    ],
+    "cuerpo": "El curso de porcelana fría online de MasterClasses.La enseña a crear figuras y muñecos para decorar tartas, centros de mesa y otros adornos, trabajando con porcelanicron o pasta flexible. Según la descripción del creador, parte de cero: los usos del material, las herramientas, los rostros y todas las partes del cuerpo de una figura. Si buscabas un curso de porcelanicron o de cerámica fría, es el mismo material.\n\nSon unas 10 horas de video que ves a tu ritmo. No hace falta haber modelado antes.\n\n## Qué es la porcelana fría\n\nEs una masa blanda de modelado que se seca al aire, sin horno. Se compra lista, como el porcelanicron, o se prepara en casa con ingredientes como almidón de maíz y pegamento blanco. El curso explica de qué maneras se usa y cuáles son las herramientas para iniciar en estas manualidades.\n\n## Rostros y partes del cuerpo\n\nDos partes del curso son el rostro y el cuerpo. Según el creador, aprendes a hacer rostros desde cero, con las bases para iniciar, y todas las partes del cuerpo de las figuras que quieras hacer. En el modelado, los rostros son lo que más cuesta, porque una diferencia de un milímetro cambia la expresión. Conviene practicar una cara por vez antes de armar una figura completa, y dejar secar cada pieza sin moverla, porque una figura húmeda se deforma si la tocas.\n\n## Tartas, centros de mesa y adornos\n\nLos usos que menciona Hotmart son la decoración de tartas, los centros de mesa y otros adornos. En una tarta, las figuras son solo adorno: la porcelana fría no es comestible y se retira antes de cortar y servir.\n\n## Herramientas para empezar\n\nSe empieza con pocas cosas: estecas o modeladores, un rodillo pequeño, cortadores, palillos, pinceles y un poco de crema de manos o aceite para que la masa no se pegue. Guarda la masa envuelta en plástico, porque se reseca rápido al aire. Para practicar al principio sirven figuras pequeñas: un rostro, una mano o un cuerpo simple enseñan más que una escena grande.\n\n## Aprender a vender tus figuras\n\nLa descripción dice que el curso enseña a vender tus figuras desde cero. No hay promesa de ingresos: Hotmart aclara que el producto no garantiza resultados, y lo que ganes dependerá de tu tiempo, tus materiales y tus clientes.\n\n## Qué viene después\n\nEs un curso libre online, y al terminar recibes una constancia de finalización, no un título. Si las figuras son para decorar pasteles, el [curso de pastelería](/{cc}/curso-de-pasteleria/) enseña a hacer los pasteles mismos. Otros oficios para hacer con las manos están en [cursos de manualidades](/{cc}/cursos/manualidades/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de porcelana fría?",
+        "a": "Son unas 10 horas de video que ves a tu ritmo, sin horarios. Lo que más tiempo toma es practicar: los rostros y las proporciones salen mejor después de varias figuras. Cada pieza además necesita tiempo de secado al aire, así que conviene avanzar con una figura mientras otra se seca."
+      },
+      {
+        "q": "¿El curso de porcelana fría da certificado?",
+        "a": "Al terminar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La), el creador. Sirve para mostrar que hiciste la formación. No es un título oficial ni un registro profesional, así que no te certifica como artista plástico."
+      },
+      {
+        "q": "¿Qué necesito para hacer porcelana fría?",
+        "a": "Porcelana fría o porcelanicron, estecas o modeladores, un rodillo pequeño, cortadores, palillos, pinceles y un poco de crema de manos o aceite para que la masa no se pegue. Suma plástico para guardar la masa y una superficie lisa. Con eso empiezas; el color y el brillo llegan después."
+      },
+      {
+        "q": "¿Cómo es la porcelana fría?",
+        "a": "Es una masa blanda de modelado que se seca al aire, sin horno, y queda firme y liviana. También se la conoce como porcelanicron, cerámica fría, pasta flexible o pasta francesa. Mientras trabajas, la masa se mantiene envuelta para que no se reseque; una vez seca, se pinta y se barniza."
+      },
+      {
+        "q": "¿Qué se le pone a la porcelana fría para darle color y brillo?",
+        "a": "Se colorea con pintura al óleo o colorante mientras amasas, o se pinta ya seca con acrílicos. Para el brillo se usa un barniz o esmalte brillante sobre la pieza seca. Cada marca de masa se comporta distinto: prueba primero con un trozo pequeño antes de tratar una figura entera."
+      },
+      {
+        "q": "¿La porcelana fría se puede comer?",
+        "a": "No. Es un material de manualidades, no comestible. Las figuras que decoran una tarta son adorno y se retiran antes de cortarla y servirla; si la tarta se entrega, avisa al cliente. Para decorar con algo comestible hay otras masas, como el fondant, que son otro tema."
+      },
+      {
+        "q": "¿Puedo aprender porcelana fría sin saber dibujar?",
+        "a": "Sí. Según el creador, el curso parte de cero, incluidos los rostros y las partes del cuerpo. Saber dibujar ayuda con las proporciones, pero no es requisito: en el modelado casi todo arranca de formas básicas y se mejora con repetición."
+      },
+      {
+        "q": "¿El curso de porcelana fría es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Figura de porcelana fría en proceso con las manos modelando el rostro con una steca",
+      "Muñecos de porcelana fría terminados junto a una tarta decorada"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de pastelería",
+        "url": "/{cc}/curso-de-pasteleria/",
+        "motivo": "las figuras decoran tartas"
+      },
+      {
+        "ancla": "cursos de manualidades",
+        "url": "/{cc}/cursos/manualidades/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar todas las lecciones recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de porcelana fría online: usos y herramientas, rostros y partes del cuerpo, y figuras para tartas, centros de mesa y adornos.",
+      "meta_title": "Curso de porcelana fría: rostros, cuerpos y figuras"
+    }
+  },
+  "paises": {},
+  "variantes": false,
+  "nota_variantes": "En el CMS no hay course_locales de este curso (la ficha sale con X-Sably-Locale-Source: emdash-generic en los 8 países). El texto va al documento del curso: sin H1 por país, sin enlaces por país y sin la pregunta de compra si el filtro de «gratis» la quita (la plantilla suma 4 preguntas fijas)."
+}

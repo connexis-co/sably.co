@@ -1,0 +1,99 @@
+{
+  "slug": "curso-de-velas-artesanales-y-aromaticas",
+  "estado": "revisado",
+  "fuentes": [
+    "Hotmart, checkout público del producto X54364766X «Velas Artesanales como Negocio» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: tipos de cera y de velas, herramientas y presentaciones, técnicas y opciones, decorar hogares, crear marca y administrar la empresa",
+    "CMS: durationHours 10 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de velas», 480 CO / 880 MX); canibalización C33 (velas frente a jabones, la dueña de «curso de velas y jabones artesanales» es esta ficha; jabones conserva «curso de jabones artesanales»)",
+    "Preguntas: faq-nuevas.csv (PAA de CO, MX, ES, CL, EC, PE, AR: «¿Cuántas velas salen de 1 kg de cera?», «¿Qué necesito para comenzar a hacer velas?», rentabilidad)",
+    "Hotmart, checkout de los tres productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "Hotmart no menciona aromas, fragancias, colorantes, mechas ni seguridad: habla de tipos de cera y de velas, herramientas, presentaciones, técnicas, decoración, marca y administración. El nombre de la ficha («y aromáticas») y el temario del CMS (carga de fragancia, vertido, curado, costeo, ferias) no salen de Hotmart. El texto solo da lo de Hotmart y deja fragancia y seguridad como consejo del oficio.",
+    "Confirmar con el área de miembros si el curso enseña aromas; si no, conviene renombrar la ficha. El título mantiene «velas aromáticas» porque es el nombre vigente y lo que más buscan en MX (390), pero es la parte menos respaldada.",
+    "En el CMS existe course_locales de velas--ec; el encargo lo trata como sin variantes (paises vacío). Si se carga con paises vacíos, EC conserva su texto antiguo.",
+    "Hotmart promete «negocio altamente rentable» e ingresos diarios con poca inversión: no se repite. La FAQ de rentabilidad responde sin cifras.",
+    "Sin variante de MX hay un hueco: «curso de velas aromáticas» pesa 390 en MX frente a 30 en CO. Decisión de JP: crear course_locales de velas--mx.",
+    "Revisión adversaria 25-nov: FAQ de 1 kg corregida (la fragancia sustituye cera, no reduce el rendimiento; 1000/160–180 g da 5–6 velas); quitados «se estudian en el mismo bloque» (estructura inventada) y la frase de relleno «quien busca un curso de velas…»."
+  ],
+  "base": {
+    "h1": "Curso de velas artesanales y aromáticas online en {pais}",
+    "subtitulo": "Aprendes qué ceras y qué tipos de vela existen, con qué herramientas se trabajan y cómo montar tu propia marca de velas.",
+    "beneficios": [
+      "Conocer los tipos de cera y de velas que existen",
+      "Elegir herramientas y presentaciones para cada tipo de vela",
+      "Aplicar técnicas para elaborar velas desde cero",
+      "Decorar el hogar y otros espacios con tus velas",
+      "Crear una marca propia de velas",
+      "Administrar tu emprendimiento y posicionarlo en el mercado"
+    ],
+    "para_quien": [
+      "Quieres aprender a hacer velas desde cero, sin experiencia",
+      "Te gustaría decorar tu casa o regalar velas hechas por ti",
+      "Piensas vender velas y quieres crear tu propia marca",
+      "No es para ti si buscas un título oficial"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Cera, mechas y recipientes o moldes para las primeras velas",
+      "Olla para baño maría, termómetro y balanza de cocina",
+      "Un lugar ventilado y una superficie que resista el calor"
+    ],
+    "cuerpo": "El curso de velas artesanales y aromáticas online de MasterClasses.La parte de cero. Según la descripción del creador, recorre los tipos de cera y de velas que existen, las herramientas y las presentaciones, y las técnicas para elaborarlas. Incluye además decorar hogares y espacios con tus velas, crear una marca propia y administrar el negocio.\n\nSon unas 10 horas de video que ves a tu ritmo, sin horarios. No es un taller de velas presencial ni hace falta haber trabajado con cera antes.\n\n## Cera, velas y presentaciones\n\nLo primero es saber con qué material trabajas. El curso presenta los tipos de cera y los tipos de vela. Como orientación del oficio, la cera de soja se usa mucho en velas dentro de un vaso y la parafina en velas de molde; cada taller termina con sus preferencias después de probar lotes pequeños. La cera no se elige sola: la mecha y el recipiente tienen que ir de acuerdo con ella.\n\n## Herramientas para empezar\n\nPara las primeras velas bastan pocas cosas: una olla para el baño maría, un termómetro, una balanza, mechas, recipientes o moldes y una jarra con pico para verter. Las velas aromáticas llevan además una fragancia hecha para velas. La cantidad máxima depende de la cera y la indican el fabricante de la cera y quien vende la esencia, así que sigue esa recomendación en vez de calcularla a ojo.\n\n## Seguridad con cera caliente\n\nLa cera se derrite en baño maría, nunca sobre la llama directa, porque puede incendiarse. Trabaja en un lugar ventilado, sobre una superficie que resista el calor, y deja una tapa al alcance: si la cera se prende, se tapa la olla, no se le echa agua. Una vela encendida tampoco se deja sola.\n\n## Decorar y regalar\n\nEl curso incluye decorar hogares y espacios favoritos con velas, y las velas temáticas que menciona el creador sirven también como regalo.\n\n## Marca y negocio\n\nLa descripción de Hotmart dice que aprendes a crear tu propia marca de velas, a administrar tu empresa y a posicionarte en el mercado. No hay promesa de ingresos, y el propio producto aclara que no garantiza resultados. Lo que vendas va a depender de lo que te cueste cada vela, del precio que pongas y de cuántas personas te conozcan.\n\n## Velas y jabones\n\nVelas y jabones suelen aprenderse juntos, pero son oficios distintos, con otros materiales y otros cuidados. Si te atraen los jabones, tienen su propio [curso de jabones artesanales](/{cc}/curso-de-jabones-artesanales-para-vender/). Al terminar recibes una constancia de finalización, no un título. Otros oficios para hacer con las manos están en [cursos de manualidades](/{cc}/cursos/manualidades/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de velas artesanales?",
+        "a": "Son unas 10 horas de video que ves a tu ritmo, sin horarios fijos. Lo que más tiempo pide es practicar: cada cera y cada mecha se comportan distinto, y los primeros lotes sirven para ajustar la técnica. Conviene empezar con cantidades pequeñas mientras avanzas en las clases."
+      },
+      {
+        "q": "¿El curso de velas artesanales da certificado?",
+        "a": "Al terminar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La), el creador. Sirve para mostrar que hiciste la formación. No es un título oficial ni un registro profesional, así que no te acredita como técnico."
+      },
+      {
+        "q": "¿Qué necesito para comenzar a hacer velas?",
+        "a": "Cera, mechas y recipientes o moldes, una olla para el baño maría, un termómetro y una balanza. Si harás velas aromáticas, suma una fragancia hecha para velas. Trabaja en un lugar ventilado y sobre una superficie que resista el calor. Al principio compra poco de cada cosa: tardarás en saber qué cera y qué mecha te funcionan."
+      },
+      {
+        "q": "¿Cuántas velas salen de 1 kg de cera?",
+        "a": "Depende del tamaño. Como referencia, un vaso de unos 200 ml lleva entre 160 y 180 g de cera, así que de un kilo salen entre cinco y seis, y menos si el recipiente es más grande. Pesa siempre la cera en la balanza y anota cuánto te rindió cada lote."
+      },
+      {
+        "q": "¿Qué tan rentable es vender velas artesanales?",
+        "a": "No hay una cifra que valga para todos. Depende de cuánto te cuesta cada vela entre cera, mecha, recipiente y fragancia, del precio que pongas y de cuántos clientes consigas. El curso incluye crear tu marca y administrar el negocio, pero Hotmart aclara que no garantiza resultados."
+      },
+      {
+        "q": "¿Puedo aprender a hacer velas sin experiencia?",
+        "a": "Sí. El curso parte de cero y se ve en video, así que puedes pausar y repetir cada parte. Empieza con velas pequeñas y una sola cera para entender cómo se comporta antes de combinar colores o aromas. Es lo que más ayuda al empezar."
+      },
+      {
+        "q": "¿El curso de velas artesanales es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Cera derretida en una jarra con pico mientras se vierte en un vaso con mecha centrada",
+      "Velas artesanales de distintos tamaños sobre una mesa de madera junto a un termómetro"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de jabones artesanales",
+        "url": "/{cc}/curso-de-jabones-artesanales-para-vender/",
+        "motivo": "C33: jabones conserva su principal; velas enlaza a la dueña de jabones"
+      },
+      {
+        "ancla": "cursos de manualidades",
+        "url": "/{cc}/cursos/manualidades/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar todas las lecciones recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de velas artesanales y aromáticas online: tipos de cera y de velas, herramientas, técnicas, decoración y cómo crear tu propia marca.",
+      "meta_title": "Curso de velas artesanales: cera, técnicas y marca propia"
+    }
+  },
+  "paises": {},
+  "variantes": false,
+  "nota_variantes": "El encargo lo trata como curso sin variantes: la ficha sale del documento del curso en los países sin course_locales (en el CMS existe solo velas--ec). Sin H1 por país, sin enlaces por país (la plantilla suma 4 preguntas fijas)."
+}

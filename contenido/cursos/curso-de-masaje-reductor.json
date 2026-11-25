@@ -1,0 +1,119 @@
+{
+  "slug": "curso-de-masaje-reductor",
+  "estado": "revisado",
+  "fuentes": [
+    "Hotmart, checkout público del producto Q56744994D «Masaje Moldeador Pro» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: técnica moldeadora sin dolor, masaje y drenaje linfático, posturas y estiramientos, creación de marca, página de Facebook y piezas en Canva",
+    "CMS: durationHours 16 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de masaje reductor», 50 CO / 90 MX); canibalización C06 («curso de masajes» es de curso-de-masajes: aquí solo como enlace)",
+    "Preguntas: faq-nuevas.csv (PAA de CO, MX, PE, EC, CL, ES); las de salud (embarazo, partes que no se masajean) no se responden como hecho de la ficha",
+    "Hotmart, checkout de los productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "Hotmart nombra el producto «Masaje Moldeador Pro» y no usa «reductor»; el título de la ficha sigue la búsqueda (C06). Falta cotejar con el área de miembros si el temario es de reducción por zonas.",
+    "El temario del CMS (abdomen y cintura, plan de 10 sesiones, tejido adiposo) no aparece en Hotmart; el texto no lo promete. Hotmart promete combatir retención de líquidos e «inflamación» y «excelentes resultados»: no se repite (salud/resultados).",
+    "Hotmart no dice si hay requisitos de entrada: el texto dice «no se piden estudios previos». Confirmar.",
+    "Contraindicaciones (embarazo, várices, trombosis, infecciones): son consejo general del oficio, no del curso; pedir a un fisioterapeuta que las confirme.",
+    "Enlace a curso-de-drenaje-linfatico: hay otra ficha dueña de «drenaje»; no está en title ni H1.",
+    "Revisión adversaria 25-nov: quitada la frase con calzador «dependiendo del país… aprender masajes reductores»; «la última parte» (orden no dado por Hotmart) pasa a «otra parte»; title MX «sin dolor y con marca» reescrito."
+  ],
+  "base": {
+    "h1": "Curso de masaje reductor online en {pais}",
+    "subtitulo": "Aprendes la técnica del masaje moldeador sin dolor y el drenaje linfático, cuidas tus posturas al trabajar y armas tu propia marca.",
+    "beneficios": [
+      "La técnica moldeadora, en detalle y sin dolor",
+      "Conceptos del masaje y del drenaje linfático",
+      "Posturas y estiramientos para cuidar tu cuerpo y el de tu equipo",
+      "Paso a paso para crear tu propia marca",
+      "Recomendaciones para planear y llevar bien cada tratamiento",
+      "Página de Facebook y piezas publicitarias en Canva"
+    ],
+    "para_quien": [
+      "Quieres aprender masaje moldeador y drenaje linfático con técnica",
+      "Das masajes y quieres sumar el reductor a tus servicios",
+      "Piensas montar tu marca y anunciarte en Facebook",
+      "No es para ti si buscas un título de fisioterapia o tratar enfermedades"
+    ],
+    "requisitos": [
+      "No se piden estudios previos",
+      "Camilla o superficie firme a buena altura, y toallas limpias",
+      "Aceite o crema de masaje y alguien de confianza para practicar",
+      "Celular o {computador} con internet y una cuenta de Facebook"
+    ],
+    "cuerpo": "El curso de masaje reductor online de MasterClasses.La (en Hotmart, «Masaje Moldeador Pro») se centra en una técnica: el masaje moldeador, que el creador describe como un masaje sin dolor. Junto a ella ves los conceptos del masaje y del drenaje linfático, el cuidado de tu propio cuerpo al trabajar y los pasos para armar tu marca. Son unas 16 horas de video que ves a tu ritmo, desde el celular o el {computador}.\n\nEs formación de bienestar y estética. No reemplaza una carrera de fisioterapia ni sirve para tratar enfermedades, y el propio creador aclara que no sustituye el criterio de un médico.\n\n## La técnica moldeadora\n\nLa descripción habla de conocer el detalle práctico y técnico del masaje moldeador, con las posturas adecuadas para hacerlo bien. En el oficio, un masaje reductor se trabaja por zonas del cuerpo y con más presión y ritmo que un masaje de relajación, y por eso pesan tanto la posición de la persona en la camilla y la tuya junto a ella. También se le llama masaje reductivo. Si buscas un panorama más amplio, el [curso de masajes](/{cc}/curso-de-masajes/) reúne más tipos.\n\n## Drenaje linfático\n\nEl curso incluye los conceptos relacionados con el masaje y con el drenaje linfático. En general, el drenaje linfático usa maniobras suaves y lentas, con poca presión, que siguen el recorrido de los vasos linfáticos. Si esa técnica es lo que más te interesa, el [curso de drenaje linfático](/{cc}/curso-de-drenaje-linfatico/) la desarrolla por separado.\n\n## Antes de cada sesión\n\nUn masaje reductor no se le da a todo el mundo. Conviene preguntar si hay embarazo, várices o antecedentes de trombosis, infecciones o heridas en la piel, fiebre o algún tratamiento médico. Ante cualquiera de esas respuestas, lo prudente es no hacer la sesión y sugerir que consulte a su médico. Y si la persona siente dolor, se baja la presión.\n\n## Tu cuerpo también trabaja\n\nQuien da varias sesiones seguidas lo nota en las muñecas, los hombros y la zona lumbar. El curso incluye posturas y estiramientos para cuidarte tú y tu equipo. Una costumbre que ayuda en la práctica: poner la camilla a la altura de tus caderas y dejar que la presión salga del peso del cuerpo, no de apretar con los dedos.\n\n## Marca y publicidad\n\nOtra parte es de negocio: un paso a paso para crear tu propia marca y herramientas gratuitas para anunciarte, como una página de Facebook y piezas publicitarias hechas en Canva. No hay promesa de ingresos ni de resultados en el cuerpo de quien recibe el masaje: lo que ganes depende de tu ciudad, tu tarifa y cuántas personas atiendas.\n\n## Qué necesitas para practicar\n\nUna camilla o una superficie firme a buena altura, toallas o sábanas limpias, aceite o crema de masaje y alguien de confianza que se deje practicar. La camilla puede esperar a que empieces a atender. Si dudas entre varias opciones del área, están todas en [cursos de bienestar](/{cc}/cursos/bienestar/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de masaje reductor?",
+        "a": "Son unas 16 horas de video que ves a tu ritmo, sin horarios ni fechas de entrega. Cuánto tardas depende de cuánto practiques: la técnica se afina con muchas repeticiones, y conviene hacerlo con alguien de confianza que te diga si la presión es cómoda. Con una o dos horas al día puedes terminar las clases en un par de semanas."
+      },
+      {
+        "q": "¿El curso de masaje reductor da certificado?",
+        "a": "Al terminar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La), el creador. Sirve para mostrar que hiciste la formación. No es un título oficial ni un registro profesional, así que no te habilita como fisioterapeuta ni sustituye el criterio de un médico."
+      },
+      {
+        "q": "¿Cuál es la diferencia entre el drenaje linfático y el masaje reductor?",
+        "a": "El drenaje linfático usa maniobras suaves y lentas, con poca presión, que siguen el recorrido de los vasos linfáticos. El masaje reductor o moldeador trabaja por zonas con más presión y ritmo. Según la descripción del creador, el curso incluye la técnica moldeadora y los conceptos de drenaje linfático. Ninguno de los dos sustituye una consulta médica."
+      },
+      {
+        "q": "¿Qué se necesita para aprender masajes reductores?",
+        "a": "La descripción del creador no pide estudios ni experiencia previa. Para practicar necesitas una camilla o una superficie firme, toallas limpias, aceite o crema y alguien de confianza que se deje masajear. Antes de cada sesión conviene preguntar por embarazo, várices, infecciones o tratamientos médicos, y ante la duda sugerir que consulte a su médico."
+      },
+      {
+        "q": "¿Cuánto se cobra por un masaje reductor?",
+        "a": "Depende de la ciudad, de tu tarifa y de cuántas personas atiendas, y el curso no promete ingresos. Lo que sí incluye, según su descripción, es un paso a paso para crear tu propia marca y herramientas gratuitas de publicidad, como una página de Facebook y piezas publicitarias hechas en Canva."
+      },
+      {
+        "q": "¿Es lo mismo que un curso de masajes en general?",
+        "a": "No. Este se centra en la técnica moldeadora y en el drenaje linfático. Un curso de masajes en general reúne más tipos, como el relajante o la reflexología. Si todavía no sabes cuál te conviene, compara también con el curso de masajes de Sably y vuelve a este cuando quieras profundizar en la línea reductora."
+      },
+      {
+        "q": "¿El curso de masaje reductor es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Masajista con las manos sobre el abdomen de una clienta en una camilla, con toalla blanca",
+      "Manos aplicando aceite de masaje sobre el muslo en una cabina con luz cálida"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de masajes",
+        "url": "/{cc}/curso-de-masajes/",
+        "motivo": "C06: «curso de masajes» es de curso-de-masajes"
+      },
+      {
+        "ancla": "curso de drenaje linfático",
+        "url": "/{cc}/curso-de-drenaje-linfatico/",
+        "motivo": "el drenaje linfático tiene su propia ficha"
+      },
+      {
+        "ancla": "cursos de bienestar",
+        "url": "/{cc}/cursos/bienestar/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar todas las lecciones recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial ni de fisioterapia.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de masaje reductor online: técnica moldeadora sin dolor, drenaje linfático, posturas para cuidarte al trabajar y cómo crear tu marca.",
+      "meta_title": "Curso de masaje reductor online: técnica moldeadora"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador"
+      },
+      "meta_title": "Curso de masaje reductor online: técnica moldeadora",
+      "meta_description": "Curso de masaje reductor online: técnica moldeadora sin dolor, posturas para cuidarte al trabajar y crear tu marca. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora"
+      },
+      "meta_title": "Curso de masaje reductor en video, sin dolor y a tu ritmo",
+      "meta_description": "Aprende masaje reductor online: técnica moldeadora sin dolor, drenaje linfático y publicidad en Facebook y Canva. Pagas en MXN y recibes constancia."
+    }
+  }
+}

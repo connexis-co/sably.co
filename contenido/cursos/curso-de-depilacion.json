@@ -1,0 +1,113 @@
+{
+  "slug": "curso-de-depilacion",
+  "estado": "revisado",
+  "fuentes": [
+    "Hotmart, checkout público del producto (producto de depilación; texto «Experta en el negocio de la depilación especializada») (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: lista «¿Qué vas a lograr?»",
+    "CMS: durationHours 12 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de depilación con cera», 90 CO / 170 MX; variaciones: curso de depilación, depilación corporal, online); sin choque en canibalizacion.md",
+    "Preguntas: faq-nuevas.csv (PAA: duración, gratis, láser, certificado)",
+    "Hotmart, checkout del producto (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "Hotmart es muy corto: solo dice depilar cualquier parte del cuerpo, teoría y práctica de distintas técnicas, y dónde se ejerce. No nombra cera, ni zonas, ni láser. El H1/title siguen la principal «con cera» (instrucción de JP), pero el texto lo presenta como conocimiento del oficio y no como contenido listado. El temario del CMS (cera tibia, caliente y española, zona por zona) no está en Hotmart; confirmar en el área de miembros.",
+    "Hotmart promete «el negocio más lucrativo» y «la mejor cabina del mundo»: no se repite. Hotmart solo ofrece 3 hechos; por eso hay 5 viñetas en «Qué aprenderás» y no 6.",
+    "Preguntas del CSV que no se publican: «depilación láser» (no es el curso; pregunta del oficio) y «zona íntima» (salud, sin respaldo).",
+    "Los requisitos (cera, guantes, loción) son materiales generales del oficio, no los que pida el creador.",
+    "Revisión adversaria 25-nov: fuera «las técnicas más avanzadas del momento» (reclamo del creador) y «técnicas manuales» (Hotmart no lo dice); WhatsApp solo en cuerpo y en «¿Qué enseña?». El H1 «con cera» sigue siendo una deducción: confirmar en el área de miembros que el curso trabaja con cera.",
+    "Hotmart da pocos hechos: «Qué aprenderás» queda en 4 viñetas; la constancia ya sale en «Cómo se estudia» (regla V2: una sola vez)."
+  ],
+  "base": {
+    "h1": "Curso de depilación con cera online en {pais}",
+    "subtitulo": "Aprendes a depilar cualquier parte del cuerpo con teoría y práctica de distintas técnicas de depilación.",
+    "beneficios": [
+      "Depilar cualquier parte del cuerpo",
+      "Teoría y práctica de distintas técnicas de depilación",
+      "La depilación como negocio, con tu propia cabina",
+      "Un oficio que se ejerce en estéticas, spas, salones y barberías"
+    ],
+    "para_quien": [
+      "Quieres aprender a depilar cualquier parte del cuerpo",
+      "Empiezas y quieres ver teoría y práctica de varias técnicas",
+      "Ya depilas y quieres revisar tu técnica con un curso en video",
+      "No es para ti si buscas depilación láser o un título técnico oficial"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Cera y el equipo para calentarla o aplicarla",
+      "Guantes desechables, toallas y loción calmante",
+      "Una camilla o silla cómoda y buena luz para practicar"
+    ],
+    "cuerpo": "El curso de depilación con cera online de MasterClasses.La enseña a depilar cualquier parte del cuerpo y combina teoría y práctica de distintas técnicas de depilación. Son unas 12 horas de video que ves a tu ritmo. La descripción del creador es breve y no detalla las clases, así que este texto separa lo que el curso dice de lo que, en el oficio, conviene saber sobre la cera.\n\n## Qué dice el curso\n\nEl creador habla de depilar cualquier parte del cuerpo con distintas técnicas, en teoría y en práctica, y de la depilación como negocio: conseguir empleo en una estética, un spa, un salón de belleza o una barbería, o montar tu propia cabina. No lista técnicas ni zonas una por una. Si necesitas confirmar alguna en particular, escríbenos por WhatsApp antes de comprar.\n\n## La cera en el oficio\n\nLa cera es la técnica de entrada de la mayoría de las cabinas. La cera tibia, en roll-on o en espátula con banda, sirve para zonas amplias como piernas y brazos. La cera caliente, que se retira sin banda, se usa más en zonas pequeñas y sensibles. En las dos importa más la técnica que la marca: la temperatura se prueba en la muñeca antes de cada aplicación, y la cera se aplica a favor del vello y se retira en contra, con la piel tensa.\n\n## Antes y después de depilar\n\nAntes de empezar conviene preguntar si la piel tiene heridas, quemaduras de sol o irritación, y si el cliente usa tratamientos con ácidos o retinoides. En esos casos la piel se lastima con más facilidad, y lo prudente es no depilar o consultar a un profesional de la salud. Después se calma la piel con una loción suave y durante las 24 horas siguientes se evitan el sol directo y el agua muy caliente. Estos son criterios generales del oficio, no contenido que el creador detalle.\n\n## Depilación con cera y depilación láser\n\nLa depilación láser es otra especialidad, con equipos propios y formación aparte. La descripción del creador no la menciona, así que no cuentes con ella al comprar este curso. Si te interesa otro servicio de cabina, el [curso de limpieza facial](/{cc}/curso-de-limpieza-facial/) y el [curso de cejas y pestañas](/{cc}/curso-de-cejas-y-pestanas/) son opciones cercanas.\n\n## Qué necesitas para practicar\n\nCera y el equipo para calentarla o aplicarla, espátulas o roll-on, bandas o paños, guantes desechables, toallas, antiséptico y una loción calmante para el final. Practica primero en tus propias piernas o brazos, y pasa a una zona sensible de otra persona solo cuando manejes la temperatura. El resto de opciones del área están en [cursos de belleza](/{cc}/cursos/belleza-online/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de depilación con cera?",
+        "a": "Son unas 12 horas de video que ves a tu ritmo. Es un curso libre online, no una carrera técnica, así que puedes terminarlo en pocas semanas. Lo que más tiempo pide es la práctica: el manejo de la temperatura y el tirón se afinan depilando muchas veces, empezando por zonas amplias como piernas o brazos."
+      },
+      {
+        "q": "¿El curso de depilación da certificado?",
+        "a": "Recibes una constancia digital de finalización cuando terminas el curso. La avalan Hotmart y Seminarios Online (MasterClasses.La), que es el creador. Sirve como prueba de que hiciste la formación y puedes mostrarla a quien te contrate o a tus clientes, pero no es un título oficial."
+      },
+      {
+        "q": "¿Qué enseña el curso de depilación?",
+        "a": "Según el creador, enseña a depilar cualquier parte del cuerpo, con teoría y práctica de distintas técnicas de depilación. También trata la depilación como negocio, para trabajar en una estética o montar tu cabina. La descripción no lista las técnicas ni las zonas una por una; si necesitas confirmar una en particular, escríbenos por WhatsApp antes de comprar."
+      },
+      {
+        "q": "¿Sirve el curso para depilación láser?",
+        "a": "La depilación láser es otra especialidad, con equipos propios y formación aparte, y la descripción del creador no la menciona, así que no cuentes con ella en este curso. Si lo que buscas es láser, conviene una formación presencial específica, porque se aprende con el equipo en la mano."
+      },
+      {
+        "q": "¿Qué materiales necesito para depilar con cera?",
+        "a": "Cera y el equipo para calentarla o aplicarla, espátulas o roll-on, bandas o paños, guantes desechables, toallas, antiséptico y una loción calmante para el final. Para practicar sirven tus piernas o brazos antes de pasar a otra persona. Una camilla o silla cómoda y buena luz facilitan el trabajo."
+      },
+      {
+        "q": "¿Puedo aprender a depilar sin experiencia?",
+        "a": "El curso reúne teoría y práctica para aprender a depilar. No hace falta un título para empezar. Conviene practicar primero en zonas amplias, piernas o brazos, y cuidar la temperatura de la cera y la higiene antes de pasar a zonas sensibles como las axilas o el rostro."
+      },
+      {
+        "q": "¿El curso de depilación con cera es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Mano aplicando cera tibia con espátula sobre una pierna",
+      "Mesa con cera, espátulas, bandas y guantes desechables listos para depilar"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de limpieza facial",
+        "url": "/{cc}/curso-de-limpieza-facial/",
+        "motivo": "misma subcategoría de cabina"
+      },
+      {
+        "ancla": "curso de cejas y pestañas",
+        "url": "/{cc}/curso-de-cejas-y-pestanas/",
+        "motivo": "servicio cercano de cabina"
+      },
+      {
+        "ancla": "cursos de belleza",
+        "url": "/{cc}/cursos/belleza-online/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de depilación con cera online: teoría y práctica para depilar cualquier parte del cuerpo con distintas técnicas de depilación.",
+      "meta_title": "Curso de Depilación con Cera Online | Sably"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {},
+      "meta_title": "Curso de depilación con cera online: teoría y práctica",
+      "meta_description": "Curso de depilación con cera online: depila cualquier parte del cuerpo con teoría y práctica de varias técnicas. 12 horas. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {},
+      "meta_title": "Curso de depilación con cera: cualquier parte del cuerpo",
+      "meta_description": "Curso de depilación con cera en video: varias técnicas, con teoría y práctica, para depilar cualquier zona. 12 horas. Pagas en MXN y recibes constancia."
+    }
+  }
+}

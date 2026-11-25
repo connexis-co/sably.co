@@ -1,0 +1,120 @@
+{
+  "slug": "curso-de-extensiones-de-cabello",
+  "estado": "revisado",
+  "fuentes": [
+    "Hotmart, checkout público del producto L57846638B «Extensiones de Cabello como Negocio» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: selección de extensiones de calidad, industria y principales exportadores, origen histórico, técnicas para distintas ocasiones, métodos de instalación fijos y temporales, cómo vender y fidelizar a la clienta",
+    "CMS: durationHours 11 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de extensiones de cabello», 20 CO / 480 MX)",
+    "Canibalización C29 (el genérico «curso de extensiones» es de esta ficha; pestañas siempre dice «de pestañas»)",
+    "Preguntas: faq-nuevas.csv (PAA de CO y MX)",
+    "Conocimiento general del oficio (tipos habituales de extensión fija y temporal, cuidado del cabello natural), siempre como consejo",
+    "Hotmart, checkout del producto (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "Hotmart no dice qué técnicas concretas se enseñan (solo «fijas y temporales»). El texto cita keratina, cinta y clips solo como ejemplos del oficio, no como contenido del curso. El title de hoy en CO dice «método de keratina»: no hay fuente, ya no se usa.",
+    "Hotmart habla de «emprendimiento altamente rentable», «exportadores» y una fecha de origen (año 3.400 a. C.): no se repite la promesa ni la fecha.",
+    "Hotmart no dice nivel de entrada, así que no se afirma «sin experiencia previa».",
+    "El título del producto en Hotmart es «Extensiones de Cabello como Negocio»: la ficha lo trata como oficio y negocio, sin repetir la promesa de rentabilidad.",
+    "Revisión adversaria 25-nov: quitado «cubre corte, color y más» sobre el curso de peluquería (sin fuente aquí) y una enumeración de consejos en serie. Pendiente de cotejar en el área de miembros qué técnicas concretas (keratina, cinta, clip…) se enseñan."
+  ],
+  "base": {
+    "h1": "Curso de extensiones de cabello online en {pais}",
+    "subtitulo": "Aprendes a elegir extensiones de calidad, instalarlas de forma fija o temporal y venderle el servicio a tus clientas.",
+    "beneficios": [
+      "Seleccionar extensiones de buena calidad para tu negocio",
+      "Conocer la industria y a los principales exportadores de cabello",
+      "Técnicas de extensiones para distintas ocasiones",
+      "Instalación fija y temporal: en qué se diferencian",
+      "Vender el servicio y lograr que tu cliente regrese",
+      "Origen de la moda de las extensiones de cabello"
+    ],
+    "para_quien": [
+      "Quieres aprender a colocar extensiones fijas y temporales",
+      "Ya trabajas en peluquería y quieres sumar este servicio",
+      "Piensas vender extensiones y quieres saber elegirlas bien",
+      "No es para ti si buscas un título de estilismo"
+    ],
+    "requisitos": [
+      "Una cabeza de práctica con cabello para ensayar",
+      "Extensiones y los materiales de la técnica que practiques",
+      "Peines, pinzas para seccionar y tijeras",
+      "Celular o {computador} con internet"
+    ],
+    "cuerpo": "El curso de extensiones de cabello online de MasterClasses.La está planteado como un negocio: cómo elegir bien la mercancía, las técnicas para instalarla y cómo vender el servicio y conseguir que la clienta regrese. Son unas 11 horas de video que ves a tu ritmo, desde el celular o un {computador}.\n\n## Elegir extensiones de calidad\n\nEl curso enseña a seleccionar extensiones de buena calidad para tu negocio y repasa cómo funciona la industria, incluidos los mayores exportadores. En el oficio, antes de comprar por volumen, conviene probar una muestra: el brillo, el enredo al lavar y el peso se notan en la mano.\n\n## Fijas y temporales\n\nLa descripción oficial habla de dos métodos de instalación: los fijos y los temporales. En el oficio, las fijas se adhieren al cabello natural con keratina, cinta o costura y se mantienen por semanas o meses; las temporales, como las de clip, se ponen y se quitan el mismo día. Esos son ejemplos del oficio, no una lista de lo que enseña el curso: Hotmart no detalla cuáles técnicas cubre cada método. Lo que sí incluye son las principales técnicas de extensiones para distintas ocasiones.\n\n## Vender y lograr que regrese\n\nUna parte del curso es comercial: cómo hacer una venta y cómo cuidar a la clienta para que vuelva. No hay cifras de ingresos ni promesas de clientela. Lo que ganes depende de tu ciudad, de tu tarifa y de cuántas personas atiendas.\n\n## Un poco de historia\n\nTambién repasa el origen de la moda de las extensiones. Es contexto del oficio, no una técnica que vayas a aplicar.\n\n## Cuidado del cabello natural\n\nUna extensión mal puesta tensa la raíz. En el oficio se cuida que cada mechón cargue poco peso y que la tensión sea pareja, y el retiro se hace con el mismo cuidado que la colocación. Si la clienta siente dolor o nota caída de cabello, se retiran.\n\n## Qué necesitas para practicar\n\nUna cabeza de práctica con cabello, extensiones y los materiales de la técnica que quieras ensayar, peines, pinzas para seccionar y tijeras. Practica primero en la cabeza de práctica y pasa a una persona cuando el resultado salga parejo.\n\n## Qué no es\n\nNo reemplaza un título de estilismo. Si buscas una base más amplia del oficio, mira el [curso de peluquería](/{cc}/curso-de-peluqueria/). Y si lo que buscas son extensiones de pestañas, es otro curso: el [curso de extensiones de pestañas](/{cc}/curso-de-extensiones-de-pestanas/). El resto está en [cursos de belleza](/{cc}/cursos/belleza-online/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de extensiones de cabello?",
+        "a": "Son unas 11 horas de video que ves a tu ritmo. Es un curso libre online, no una carrera técnica, así que puedes terminarlo en pocas semanas. Lo que más tiempo pide después es practicar en una cabeza de práctica hasta que el peso y la separación de cada extensión salgan parejos."
+      },
+      {
+        "q": "¿El curso de extensiones de cabello da certificado?",
+        "a": "Recibes una constancia digital de finalización cuando terminas el curso. La avalan Hotmart y Seminarios Online (MasterClasses.La), que es el creador. Sirve como prueba de que hiciste la formación y puedes mostrarla a quien te contrate o a tus clientas, pero no es un título oficial."
+      },
+      {
+        "q": "¿Qué métodos de instalación de extensiones se enseñan?",
+        "a": "La descripción oficial habla de dos: instalación fija y temporal, además de las principales técnicas de extensiones para distintas ocasiones. No detalla qué técnica concreta va en cada método. Si necesitas saber si incluye una en particular, escríbenos por WhatsApp antes de comprar."
+      },
+      {
+        "q": "¿Qué necesito para empezar a poner extensiones?",
+        "a": "Una cabeza de práctica con cabello, las extensiones y los materiales de la técnica que ensayes, peines, pinzas para seccionar y tijeras. Empieza en la cabeza de práctica y pasa a una persona cuando el resultado salga parejo. No compres todo junto: define primero qué método vas a practicar."
+      },
+      {
+        "q": "¿Qué extensiones dañan menos el cabello?",
+        "a": "Depende menos de la marca que de la instalación: poco peso, tensión pareja y un retiro hecho con cuidado. Las temporales de clip no quedan pegadas, así que no tensan todo el día; las fijas piden más cuidado al colocarlas y al quitarlas. Ante dolor o caída de cabello, se retiran."
+      },
+      {
+        "q": "¿Sirve para montar un negocio de extensiones?",
+        "a": "El curso incluye cómo seleccionar extensiones para tu negocio, entender la industria y vender para que la clienta regrese. No promete clientela ni ingresos: eso depende de tu ciudad, tu tarifa y cuántas personas atiendas. Es una base de oficio y de ventas, no un plan de negocio listo."
+      },
+      {
+        "q": "¿El curso de extensiones de cabello es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Manos de estilista colocando una extensión de cabello en una sección delgada del cabello",
+      "Cabeza de práctica con extensiones de distintos colores y pinzas de seccionar"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de peluquería",
+        "url": "/{cc}/curso-de-peluqueria/",
+        "motivo": "base del oficio"
+      },
+      {
+        "ancla": "curso de extensiones de pestañas",
+        "url": "/{cc}/curso-de-extensiones-de-pestanas/",
+        "motivo": "C29: pestañas siempre dice «de pestañas»"
+      },
+      {
+        "ancla": "cursos de belleza",
+        "url": "/{cc}/cursos/belleza-online/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de extensiones de cabello online: cómo elegir extensiones de calidad, instalación fija y temporal, técnicas por ocasión y cómo vender el servicio.",
+      "meta_title": "Curso de Extensiones de Cabello Online | Sably"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador"
+      },
+      "meta_title": "Curso de extensiones de cabello online: fijas y temporales",
+      "meta_description": "Curso de extensiones de cabello online: cómo elegirlas, instalación fija y temporal y cómo vender el servicio, en video. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora"
+      },
+      "meta_title": "Curso de extensiones de cabello: técnicas y cómo vender",
+      "meta_description": "Curso de extensiones de cabello en video: selección de extensiones, métodos de instalación fijos y temporales y ventas. Pagas en MXN y recibes constancia."
+    }
+  }
+}
