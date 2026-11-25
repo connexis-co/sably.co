@@ -22,7 +22,6 @@ export const CABECERAS_PRIVADAS: Record<string, string> = {
   'Cloudflare-CDN-Cache-Control': 'no-store',
   'X-Robots-Tag': 'noindex, nofollow',
   'Referrer-Policy': 'same-origin',
-  'X-Frame-Options': 'DENY',
   'Content-Security-Policy': "frame-ancestors 'none'",
 };
 

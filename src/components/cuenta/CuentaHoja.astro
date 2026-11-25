@@ -3,12 +3,12 @@
  * Cuenta dentro del menú móvil V2 (la hoja es un popover cerrado al cargar: no mueve nada).
  * «Entrar» sin sesión; «Mi cuenta» y «Cerrar sesión» con la cookie pista (`html[data-cuenta='1']`).
  */
-import { RUTAS, enlaceIngresar } from '@/lib/cuenta/nucleo';
+import { RUTAS } from '@/lib/cuenta/nucleo';
 interface Props { ruta: string; ventana: boolean }
 ---
-<a href={enlaceIngresar(Astro.props.ruta)} class="v2-hoja-enlace v2-hoja-cuenta-sin" data-cuenta-abrir={Astro.props.ventana ? '' : undefined} data-no-prefetch>Entrar</a>
-<a href={RUTAS.cuenta} class="v2-hoja-enlace v2-hoja-cuenta-con" data-no-prefetch>Mi cuenta</a>
-<a href={RUTAS.salir} class="v2-hoja-enlace v2-hoja-cuenta-con" data-no-prefetch>Cerrar sesión</a>
+<a href={RUTAS.ingresar} rel="nofollow" class="v2-hoja-enlace v2-hoja-cuenta-sin" data-cuenta-entrar data-cuenta-abrir={Astro.props.ventana ? '' : undefined} data-no-prefetch>Entrar</a>
+<a href={RUTAS.cuenta} rel="nofollow" class="v2-hoja-enlace v2-hoja-cuenta-con" data-no-prefetch>Mi cuenta</a>
+<a href={RUTAS.salir} rel="nofollow" class="v2-hoja-enlace v2-hoja-cuenta-con" data-no-prefetch>Cerrar sesión</a>
 <style is:inline>
   .v2-hoja-cuenta-con { display: none; }
   html[data-cuenta='1'] .v2-hoja-cuenta-con { display: flex; }

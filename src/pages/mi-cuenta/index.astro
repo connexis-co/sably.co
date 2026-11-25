@@ -6,7 +6,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { COUNTRIES, getCountry } from '@/lib/countries';
 import { getCourses } from '@/lib/emdash-content';
-import { aplicarCabecerasPrivadas, cuentaActual, cuentaServidor, tokenCsrf } from '@/lib/cuenta/http';
+import { aplicarCabecerasPrivadas, cuentaActual, cuentaServidor, tokenCsrf, redirigir } from '@/lib/cuenta/http';
 import { AVISOS, RUTAS, enlaceIngresar, iniciales } from '@/lib/cuenta/nucleo';
 import Bandera from '@/components/v2/Bandera.astro';
 import '@/themes/sably-v2/estilos.css';
@@ -16,7 +16,7 @@ aplicarCabecerasPrivadas(Astro.response.headers);
 const servidor = await cuentaServidor(Astro);
 if (!servidor) return new Response('Not found', { status: 404 }); // igual que hoy sin cuenta
 const cuenta = await cuentaActual(Astro, servidor.almacen);
-if (!cuenta) return Astro.redirect(enlaceIngresar(RUTAS.cuenta), 303);
+if (!cuenta) return redirigir(enlaceIngresar(RUTAS.cuenta));
 const [prefs, guardados] = await Promise.all([servidor.almacen.preferencias(cuenta.id), servidor.almacen.guardados(cuenta.id)]);
 const csrf = tokenCsrf(Astro, servidor.secreto);
 const pais = prefs.pais && COUNTRIES.some(c => c.code === prefs.pais) ? getCountry(prefs.pais) : null;
