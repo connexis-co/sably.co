@@ -10,7 +10,7 @@ export const contactDefaults = {
   whatsapp: '', whatsapp_label: 'Escribir por WhatsApp',
   whatsapp_description: 'Para dudas rápidas antes de comprar.', hours: '',
   help_title: 'Antes de escribir',
-  help_text: 'Muchas dudas ya están resueltas en la ficha de cada curso: qué incluye, cuántas horas son, cómo se recibe el certificado y cómo se paga.',
+  help_text: 'Muchas dudas ya están resueltas en la ficha de cada curso: qué incluye, cuántas horas son, cómo se recibe la constancia y cómo se paga.',
   help_button_label: 'Ver los cursos', help_button_url: '/co/cursos/',
 };
 

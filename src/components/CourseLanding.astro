@@ -18,7 +18,7 @@ import RatingInteractivo from '@/components/RatingInteractivo.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import PurchasePanel from '@/components/PurchasePanel.astro';
-import { checkoutPrice } from '@/lib/checkout-price';
+import { checkoutPrice, quotable, quoteFreshUntil } from '@/lib/checkout-price';
 import CoursePlayer from '@/components/CoursePlayer.astro';
 import LeadModal from '@/components/LeadModal.astro';
 import {
@@ -29,6 +29,7 @@ import {
 import { courseCover } from '@/lib/categories';
 import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-operations/public';
 import { faqsHonestas } from '@/lib/faq-honestas';
+import { DESCRIPCION_SIN_PRODUCTO, sinPromesas } from '@/lib/sin-producto';
 import { faqPagoPais } from '@/lib/medios-de-pago';
 import { buildHotmartUrl } from '@/lib/hotmart';
 import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
@@ -187,6 +188,10 @@ const activePromos = await readActivePromosForRequest((env as unknown as {SABLY_
 const promoRow = mejorPromocion(activePromos, { countryCode: country.code, proveedor, courseSlug: course.id, urlKey: Astro.url.searchParams.get('promo') });
 const coupon = conCupon && promoRow ? promoRow.cupon : null;
 const quote = sinProducto ? null : await checkoutPrice(course.id, course.data.hotmartUrl, country.code, coupon);
+/* La ficha no puede vivir en caché más que la cotización que pinta: Hotmart
+   cambia la tasa de cambio sin aviso y la página guardada seguía un día entero
+   con el importe viejo (24-nov: 93.067 en la ficha, 95.506 en el pago). */
+const freshUntil = sinProducto ? null : quoteFreshUntil(quote, quotable(course.id, course.data.hotmartUrl, country.code));
 const currency = quote?.currency ?? monedaBase;
 const displayMoney = (value: number) => new Intl.NumberFormat(country.hreflang, {style:'currency', currency, currencyDisplay:'narrowSymbol', minimumFractionDigits:Number.isInteger(value) ? 0 : 2, maximumFractionDigits:2}).format(value) + ' ' + currency;
 const baseAmount = quote?.base ?? montoBase;
@@ -194,7 +199,9 @@ const saving = quote?.reduced ? Math.round(100 * (1 - quote.reduced / quote.base
 const offer = coupon && quote?.reduced && promoRow && saving === promoRow.pct
   ? {price:displayMoney(quote.reduced), saving, coupon, name:promoRow.nombre, end:promoRow.hasta}
   : null;
-const precioTexto = offer?.price ?? displayMoney(baseAmount);
+/* Precio de lista para la pregunta «¿Cuánto cuesta?»: siempre el importe sin
+   cupón. El rebajado va aparte, con su cupón y su fecha (ver faq-honestas). */
+const precioTexto = displayMoney(baseAmount);
 const marketQuery = new URLSearchParams(Astro.url.search);
 const marketLinks = COUNTRIES.filter(item => item.code !== country.code).map(item => ({
   label: item.name,
@@ -236,7 +243,7 @@ const baseFaqsRaw = locale ? locale.data.faqs : [...course.data.faqs, ...STANDAR
 const baseFaqs = sinProducto
   ? [
       ...baseFaqsRaw.filter(
-        (f) => !/(pago|hotmart|garant|reembolso|inscrib|inscríb|se procesa|confirmarse|precio)/i.test(`${f.q} ${f.a}`),
+        (f) => !/(pago|hotmart|garant|reembolso|inscrib|inscríb|se procesa|confirmarse|precio|certific|constancia|diploma)/i.test(`${f.q} ${f.a}`),
       ),
       {
         q: '¿Cuándo puedo inscribirme?',
@@ -246,7 +253,7 @@ const baseFaqs = sinProducto
   : /* Las variantes de país traen precios, descuentos y medios de pago que no
        coinciden con el checkout: se quitan, el precio sale de esta ficha y los
        medios de pago de la lista verificada del país. */
-    faqsHonestas(baseFaqsRaw, { precioTexto, faqPago: FAQ_PAGO });
+    faqsHonestas(baseFaqsRaw, { precioTexto, oferta: offer && { precio: offer.price, cupon: offer.coupon, hasta: offer.end }, faqPago: FAQ_PAGO });
 const faqs = city
   ? [
       {
@@ -255,8 +262,8 @@ const faqs = city
       },
       ...baseFaqs,
       {
-        q: `¿El certificado sirve en ${city.name}?`,
-        a: `El certificado digital respalda tus habilidades ante clientes y empleadores en ${city.name} y toda Latinoamérica.`,
+        q: `¿La constancia sirve en ${city.name}?`,
+        a: `La constancia de finalización la emite Hotmart al completar el curso y acredita que lo terminaste, en ${city.name} o en cualquier otro lugar. No es un título oficial ni una certificación profesional.`,
       },
     ]
   : baseFaqs;
@@ -311,11 +318,18 @@ const descPais = locale?.data.meta_description ?? course.data.shortDescription;
 const descColisiona = locale
   ? localesDelCurso.filter((l) => l.data.meta_description === locale.data.meta_description).length > 1
   : localesDelCurso.length < COUNTRIES.length - 1;
-const description = city
-  ? recortarDesc(`Estudia desde ${city.name}: ${course.data.shortDescription}`)
-  : descColisiona
-    ? recortarDesc(`Desde ${country.name}: ${descPais}`)
-    : recortarDesc(descPais);
+/* Sin producto, la descripción y el subtítulo no pueden prometer constancia,
+   garantía ni acceso: no hay nada que comprar (ver src/lib/sin-producto.ts). */
+const sinPromesa = (texto: string): string => (sinProducto ? sinPromesas(texto) : texto);
+const descripcionCurso = sinPromesa(course.data.shortDescription);
+const description = sinProducto
+  ? recortarDesc(sinPromesa(descPais) || DESCRIPCION_SIN_PRODUCTO)
+  : city
+    ? recortarDesc(`Estudia desde ${city.name}: ${course.data.shortDescription}`)
+    : descColisiona
+      ? recortarDesc(`Desde ${country.name}: ${descPais}`)
+      : recortarDesc(descPais);
+const subtitulo = sinPromesa(locale?.data.subtitulo ?? course.data.shortDescription);
 
 const breadcrumb = [
       { name: 'Inicio', url: `${SITE.url}${base}/` },
@@ -327,7 +341,7 @@ const schemas = [
   breadcrumbSchema(breadcrumb),
   courseSchema({
     title: course.data.title,
-    description: course.data.shortDescription,
+    description: descripcionCurso || course.data.title,
     url: canonicalUrl,
     image: new URL(cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug), SITE.url).href,
     /* El mismo importe que ve el visitante. Si el schema declarase el precio de
@@ -336,6 +350,9 @@ const schemas = [
        ya formateado. */
     price: offer && quote?.reduced ? quote.reduced : baseAmount,
     priceCurrency: currency,
+    /* El precio rebajado tiene fecha: sin ella el Offer anuncia el importe con
+       cupón como si fuera el precio permanente del curso. */
+    priceValidUntil: offer?.end ?? null,
     creators: creadoresVisibles.map((c) => ({ slug: c.slug, nombre: c.nombre, bio: c.bio, url: urlCreador(SITE.url, country.code, c.slug) })),
     comprable: !sinProducto,
     category: category.name,
@@ -367,6 +384,7 @@ const schemas = [
   pageType={city ? 'course_city' : 'course'}
   image={cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug)}
   noindex={sinProducto}
+  {freshUntil}
   sinCupon={true}
   {proveedor}
   whatsappContext={city ? `${course.data.title} (${city.name})` : course.data.title}
@@ -399,7 +417,7 @@ const schemas = [
         <h1 {...(locale?.edit.h1 ?? course.edit.title)} class="mt-2 text-2xl leading-tight font-extrabold text-white sm:text-3xl lg:mt-4 lg:text-4xl">{h1}</h1>
         </div>
         <div class="order-4">
-        <p class="mt-4 max-w-xl text-lg text-white/80">{locale?.data.subtitulo ?? course.data.shortDescription}</p>
+        {subtitulo && <p class="mt-4 max-w-xl text-lg text-white/80">{subtitulo}</p>}
         {/* Solo el nombre, sin enlace (decisión de JP, 4-nov-2026): nombrar al
             creador es la señal de autoría; sacar al visitante de la ficha antes
             del botón de compra no aporta nada a la venta. */}
@@ -464,7 +482,8 @@ const schemas = [
         }
         </div>
         <div class="order-5 rounded-lg bg-white p-4 lg:p-0">
-        {sinProducto ? <p class="mt-5 font-bold">Próximamente</p> : <PurchasePanel markets={marketLinks} country={country.name} price={displayMoney(baseAmount)} checkout={localCheckout.href} {offer} />}
+        {sinProducto ? <p class="mt-5 font-bold">Próximamente</p> : <PurchasePanel markets={marketLinks} country={country.name} price={displayMoney(baseAmount)} checkout={localCheckout.href} {offer}
+          evidence={{currency, base:baseAmount, reduced:offer && quote?.reduced ? quote.reduced : null, source:quote ? 'hotmart' : 'respaldo', at:quote?.at ?? null}} />}
         {
           /* Sin producto no hay checkout al que mandar a nadie: `hotmartUrl`
              sigue siendo el marcador `PENDIENTE` y ese enlace acaba en la
@@ -499,14 +518,17 @@ const schemas = [
             </>
           )
         }
-        <ul class="mt-5 space-y-2 text-sm text-body" role="list">
-          <li>✅ Acceso de por vida, 24/7</li>
-          <li>✅ Certificado digital incluido</li>
-          {/* Garantía y pago solo existen si hay checkout: en «Próximamente»
-              prometerían algo que todavía no se puede comprar. */}
-          {!sinProducto && <li>✅ Garantía de 7 días</li>}
-          {!sinProducto && <li>✅ Pago seguro vía Hotmart</li>}
-        </ul>
+        {/* Acceso, constancia, garantía y pago solo existen si hay checkout: en
+            «Próximamente» la lista entera prometía algo que todavía no se
+            puede comprar (tatuaje anunciaba acceso de por vida y certificado). */}
+        {!sinProducto && (
+          <ul class="mt-5 space-y-2 text-sm text-body" role="list">
+            <li>✅ Acceso de por vida, 24/7</li>
+            <li>✅ Constancia digital de finalización</li>
+            <li>✅ Garantía de 7 días</li>
+            <li>✅ Pago seguro vía Hotmart</li>
+          </ul>
+        )}
         </div>
       </div>
     </div>
@@ -572,32 +594,17 @@ const schemas = [
         </div>
       </section>
 
-      <!-- Certificado -->
-      <section aria-labelledby="cert-title" class="rounded-lg bg-off-white p-6 sm:p-8">
-        <div class="grid items-center gap-6 sm:grid-cols-[1fr_260px]">
-          <div>
-            <h2 id="cert-title" class="text-2xl font-bold">Tu certificado al completar el curso</h2>
-            <p class="mt-3 text-sm leading-relaxed text-body">
-              Al terminar el 100% de las lecciones recibes un <strong class="text-heading">certificado digital de
-              finalización emitido a través de Hotmart</strong>, con tu nombre y el del curso. Puedes descargarlo,
-              imprimirlo y compartirlo en tu hoja de vida o redes profesionales.
-            </p>
-            <ul class="mt-4 space-y-1.5 text-sm text-body" role="list">
-              <li>✅ Digital y verificable</li>
-              <li>✅ Con tu nombre completo</li>
-              <li>✅ Sin costo adicional</li>
-            </ul>
-          </div>
-          <OptimizedImage
-            src="/certificado-sably.jpg"
-            alt="Ejemplo del certificado digital de finalización que recibirás"
-            width={800}
-            height={533}
-            loading="lazy"
-            class="w-full rounded-md border border-surface-200 object-cover shadow-md"
-          />
-        </div>
-      </section>
+      {/* Constancia: una línea de texto. Aquí había una sección entera con la
+          imagen /certificado-sably.jpg, un «diploma» generado («Nivel Avanzado ·
+          120 horas», sello dorado y dos firmas) presentado como «ejemplo del
+          certificado digital que recibirás». No era el documento que emite
+          Hotmart. Sin producto no hay constancia que anunciar. */}
+      {!sinProducto && (
+        <p data-constancia class="rounded-lg bg-off-white p-5 text-sm leading-relaxed text-body">
+          <strong class="text-heading">Constancia de finalización.</strong> Al completar el 100 % de las lecciones,
+          Hotmart emite una constancia digital de finalización con tu nombre y el del curso.
+        </p>
+      )}
 
       <!-- Sobre el curso: variante país generada, o el MDX genérico si no hay -->
       <section aria-label="Sobre este curso">
@@ -610,7 +617,8 @@ const schemas = [
       </section>
 
       <VerifiedReviews data={verifiedReviews}/>
-      <ResenasCurso slug={course.id} relacionados={related.map(c => c.id)} />
+      {/* Sin producto no hay compradores: ni reseñas propias ni ajenas. */}
+      {!sinProducto && <ResenasCurso slug={course.id} />}
 
       <!-- Para quién es -->
       <section aria-labelledby="audience-title">
@@ -804,7 +812,7 @@ const schemas = [
       {
         !sinProducto && (
           <p class="mt-4 text-sm text-white/60">
-            Garantía de 7 días · Acceso de por vida · Certificado incluido
+            Garantía de 7 días · Acceso de por vida · Constancia de finalización
           </p>
         )
       }

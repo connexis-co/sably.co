@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { auditarOnPage, encabezados } from './seo-onpage.mjs';
+import { auditarOnPage, encabezados, INSTRUCTORES_RELLENO } from './seo-onpage.mjs';
 
 const url = 'https://sably.co/co/curso-de-masajes/';
 const pagina = (cuerpo, cabeza = '') => `<!doctype html><html lang="es"><head><title>Curso de masajes en Colombia | Sably</title>
@@ -40,7 +40,9 @@ test('detecta imágenes sin alt, marcado roto y nodos que se retiraron', () => {
 });
 
 test('los textos retirados por no ser ciertos no pueden volver', () => {
-  for (const frase of ['<h2>Tu instructor</h2>', '<p>Enlace de afiliado</p>', '<p>¡Espera! Tu cupo sigue disponible</p>', '<p>50% solo hoy</p>'])
+  for (const frase of ['<h2>Tu instructor</h2>', '<p>Enlace de afiliado</p>', '<p>¡Espera! Tu cupo sigue disponible</p>', '<p>50% solo hoy</p>',
+    '<p>−50% en todos los cursos con el cupón 031016</p>', '<h2>El descuento más grande del año ya empezó</h2>',
+    '<p>Resuelve tus dudas por WhatsApp con nuestro equipo en tu país.</p>', '<p>Hotmart, la plataforma líder de cursos online</p>'])
     assert(errores(sana.replace('</main>', `${frase}</main>`)).includes('texto-vetado'), frase);
 });
 
@@ -67,4 +69,54 @@ test('una Person solo vale si es el creador real con su perfil en Sably', () => 
   const creador = '"creator":{"@type":"Person","@id":"https://sably.co/co/creadores/mauricio-duque/#creador","name":"Mauricio Duque Zuluaga"}';
   assert.deepEqual(errores(sana.replace('"name":"Curso de Masajes"', creador)), []);
   assert.deepEqual(errores(sana.replace('"name":"Curso de Masajes"', '"creator":{"@type":"Person","name":"Daniela Osorio"}')), ['json-ld-person']);
+});
+
+// 24-nov-2026: la FAQ llamaba «precio de lista» al precio con cupón y el Offer
+// publicaba el rebajado sin fecha de validez.
+test('la caja de compra, la pregunta de precio y el Offer no se contradicen', () => {
+  const ficha = (faq, oferta, extra = '') => sana
+    .replace('</main>', `<section id="compra" data-purchase-panel data-base="$ 191.012 COP" data-reduced="$ 95.506 COP" data-until="1795651200000"${extra}><h2>Opciones de compra</h2></section><p>${faq}</p></main>`)
+    .replace('"name":"Curso de Masajes"}', `"name":"Curso de Masajes","offers":${JSON.stringify(oferta)}}`);
+  const bien = { '@type': 'Offer', price: 95506, priceCurrency: 'COP', priceValidUntil: '2026-11-25' };
+  const crudos = ' data-base-amount="191012" data-reduced-amount="95506"';
+  assert.deepEqual(errores(ficha('El precio de lista es $ 191.012 COP. Con el cupón 031016 queda en $ 95.506 COP.', bien, crudos)), []);
+  assert.deepEqual(errores(ficha('El precio de lista es $ 95.506 COP. Si hay una promoción vigente…', bien, crudos)), ['precio-de-lista']);
+  assert.deepEqual(errores(ficha('Sin pregunta de precio.', { ...bien, priceValidUntil: undefined }, crudos)), ['oferta-sin-fecha']);
+  assert.deepEqual(errores(ficha('Sin pregunta de precio.', { ...bien, price: 93067 }, crudos)), ['oferta-precio']);
+  // Una ficha anterior a los importes en crudo no se juzga por lo que no publica.
+  assert.deepEqual(errores(ficha('Sin pregunta de precio.', { ...bien, price: 93067 })), []);
+  // La misma frase dentro del FAQPage también cuenta.
+  const enJsonLd = ficha('Otra cosa.', bien, crudos).replace('</body>', '<script type="application/ld+json">{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cuánto cuesta el curso?","acceptedAnswer":{"@type":"Answer","text":"El precio de lista es $ 95.506 COP."}}]}</script></body>');
+  assert.deepEqual(errores(enJsonLd), ['precio-de-lista']);
+});
+
+test('el título del listado no vuelve a decir «Catálogo de 120+ cursos»', () => {
+  assert(errores(sana.replace('Curso de masajes en Colombia | Sably', 'Catálogo de 120+ cursos online en Colombia | Sably')).includes('texto-vetado'));
+  assert.deepEqual(errores(sana.replace('Curso de masajes en Colombia | Sably', 'Todos los cursos online en Colombia | Sably')), []);
+  // «Catálogo» referido a lo que vende el alumno no es Sably descrito como catálogo.
+  assert.deepEqual(errores(sana.replace('</main>', '<p>Arma tu primer catálogo de postres para vender.</p></main>')), []);
+});
+
+test('«constancia», nunca «certificado»: error en lo que sale de plantilla, aviso en el texto del CMS', () => {
+  const credencial = (nombre) => sana.replace('"name":"Curso de Masajes"', `"name":"Curso de Masajes","educationalCredentialAwarded":{"@type":"EducationalOccupationalCredential","name":"${nombre}","credentialCategory":"Certificate"}`);
+  assert.deepEqual(errores(credencial('Constancia digital de finalización')), []);
+  assert.deepEqual(errores(credencial('Certificado digital de finalización')), ['constancia-json-ld']);
+  assert.deepEqual(errores(sana.replace('src="/a.jpg"', 'src="/certificado-sably.jpg"')), ['imagen-certificado']);
+  const conTexto = sana.replace('</main>', '<p>Certificado incluido. Obtén tu certificado digital.</p></main>');
+  assert.deepEqual(errores(conTexto), []);
+  assert.deepEqual(auditarOnPage(url, conTexto).filter((h) => h.regla === 'certificado').map((h) => [h.nivel, h.detalle.match(/\d+/)[0]]), [['aviso', '2']]);
+  // Las homologaciones sí son certificaciones de una institución.
+  assert.deepEqual(auditarOnPage('https://sably.co/homologaciones/tecnico-laboral/', conTexto).filter((h) => h.regla === 'certificado'), []);
+});
+
+// 24-nov-2026: masajes CO decía «Andrés Villamil explica cada maniobra» y la
+// ficha, «Creado por MasterClasses.La®». Hotmart nombra a Mauricio Duque Zuluaga.
+test('un instructor de relleno no puede aparecer en la página ni en su FAQPage', () => {
+  assert.equal(INSTRUCTORES_RELLENO.length, 106);
+  assert(INSTRUCTORES_RELLENO.includes('Andrés Villamil') && INSTRUCTORES_RELLENO.includes('Isabel Munévar'));
+  assert(!INSTRUCTORES_RELLENO.some((n) => /masterclasses|mauricio duque/i.test(n)), 'los creadores reales no están en la lista');
+  assert.deepEqual(errores(sana.replace('</main>', '<p>Andrés Villamil explica cada maniobra paso a paso.</p></main>')), ['instructor-relleno']);
+  const enFaq = sana.replace('</body>', '<script type="application/ld+json">{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Quién enseña?","acceptedAnswer":{"@type":"Answer","text":"Isabel Munévar enseña cada receta."}}]}</script></body>');
+  assert.deepEqual(errores(enFaq), ['instructor-relleno']);
+  assert.deepEqual(errores(sana.replace('</main>', '<p>Creado por MasterClasses.La®. El curso explica cada maniobra paso a paso.</p></main>')), []);
 });

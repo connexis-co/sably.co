@@ -5,15 +5,24 @@ interface Props {
   price: string;
   checkout: string;
   offer: { price: string; saving: number; coupon: string; name: string; end: number | null } | null;
+  /**
+   * Los mismos importes en crudo y de dónde salieron. No se pintan: los lee la
+   * prueba que compara la ficha con Hotmart (scripts/verificar-precio-hotmart.mjs).
+   * `source` es «hotmart» cuando viene de la cotización del pago y «respaldo»
+   * cuando Hotmart no respondió y se muestra el precio guardado.
+   */
+  evidence?: { currency: string; base: number; reduced: number | null; source: 'hotmart' | 'respaldo'; at: number | null };
 }
-const { country, markets, price, checkout, offer } = Astro.props;
+const { country, markets, price, checkout, offer, evidence } = Astro.props;
 const discounted = new URL(checkout);
 if (offer) discounted.searchParams.set('offDiscount', offer.coupon);
 const endDate = offer?.end ? new Date(offer.end) : null;
 ---
 <section id="compra" tabindex="-1" aria-labelledby="titulo-compra" class="mt-5 scroll-mt-24 rounded-md bg-off-white p-4"
   data-purchase-panel data-base={price} data-reduced={offer?.price} data-original-url={checkout}
-  data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end}>
+  data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end}
+  data-currency={evidence?.currency} data-base-amount={evidence?.base} data-reduced-amount={evidence?.reduced ?? undefined}
+  data-quote-source={evidence?.source} data-quote-at={evidence?.at ?? undefined}>
   <h2 id="titulo-compra" class="text-xl font-bold text-primary">Opciones de compra</h2>
   <p class="mt-2 text-sm text-muted">{country} · Pago en {price.split(' ').at(-1)}</p>
   <details class="mt-1 text-sm"><summary class="cursor-pointer font-semibold text-accent">Cambiar país</summary>

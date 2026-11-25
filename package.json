@@ -11,6 +11,7 @@
     "preview": "astro preview",
     "check": "astro check",
     "seo:test": "node scripts/seo-test.mjs",
+    "precio:test": "node scripts/verificar-precio-hotmart.mjs",
     "check:functions": "tsc -p tsconfig.functions.json",
     "prepare": "husky",
     "deploy:dev": "node scripts/deploy-emdash-dev.mjs",

@@ -35,7 +35,7 @@ export const CATEGORIES: Category[] = [
     name: 'Belleza Online',
     emoji: '💄',
     description:
-      'Uñas, barbería, maquillaje y estética: certifícate online y emprende desde casa.',
+      'Uñas, barbería, maquillaje y estética: aprende online y emprende desde casa.',
     gradient: ['#E8456B', '#C9A87C'],
     subcategories: [
       { slug: 'unas', name: 'Uñas' },

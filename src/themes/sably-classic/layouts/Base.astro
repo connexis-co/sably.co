@@ -3,7 +3,7 @@ import '@/styles/global.css';
 import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import outfitFont from '@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2?url';
 import { env } from 'virtual:sably-runtime';
-import { canCachePublicPage, pageMaxAge, PUBLIC_PAGE_SWR, PUBLIC_PAGE_TAGS } from '@/lib/public-delivery';
+import { canCachePublicPage, earliestBoundary, pageMaxAge, PUBLIC_PAGE_SWR, PUBLIC_PAGE_TAGS } from '@/lib/public-delivery';
 import { readNextPromoBoundary } from '@/plugins/sably-operations/public';
 import { EmDashBodyStart, EmDashBodyEnd, WidgetArea } from 'emdash/ui';
 import { createPublicPageContext } from 'emdash/page';
@@ -58,6 +58,12 @@ export interface Props {
    * `city`: las fichas ciudad+curso también pasan `city` y no deben llevarlo.
    */
   noindexGoogle?: boolean;
+  /**
+   * Momento (ms) a partir del cual la página ya no puede servirse de caché
+   * porque pinta un dato con caducidad propia: la cotización de Hotmart de la
+   * ficha. Sin él la página vive lo que diga la próxima promoción.
+   */
+  freshUntil?: number | null;
 }
 
 const {
@@ -78,6 +84,7 @@ const {
   image,
   canonical,
   noindexGoogle = false,
+  freshUntil = null,
 } = Astro.props;
 
 const [organization, settings] = await Promise.all([organizationSchema(), getLiveSiteSettings()]);
@@ -101,7 +108,8 @@ const development = import.meta.env.SITE?.replace(/\/+$/, '') !== 'https://sably
 if (canCachePublicPage(Astro.request, development ? 'development' : 'production')) {
   // La barra de promoción se pinta en el servidor: la copia no puede sobrevivir a su inicio o fin.
   const boundary = await readNextPromoBoundary((env as unknown as { SABLY_DB: D1Database }).SABLY_DB, country.code).catch(() => null);
-  Astro.cache.set({ maxAge: pageMaxAge(boundary), swr: PUBLIC_PAGE_SWR, tags: PUBLIC_PAGE_TAGS });
+  // Tampoco a la cotización de Hotmart que pinta la ficha (`freshUntil`).
+  Astro.cache.set({ maxAge: pageMaxAge(earliestBoundary(boundary, freshUntil)), swr: PUBLIC_PAGE_SWR, tags: PUBLIC_PAGE_TAGS });
 } else Astro.cache.set(false);
 for (const font of [interFont, outfitFont]) Astro.response.headers.append('Link', `<${font}>; rel=preload; as=font; type="font/woff2"; crossorigin`);
 const pageContext = { ...createPublicPageContext({

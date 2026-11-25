@@ -31,7 +31,7 @@ redirigen con 301 a la ficha de su país. Países: ${COUNTRIES.map((c) => c.code
 ${INTERNAL_CATEGORIES.map((c) => `- [${c.name}](${SITE.url}/co/cursos/${c.slug}/): ${c.description}`).join('\n')}
 
 ## Páginas principales
-- [Catálogo completo](${SITE.url}/co/cursos/)
+- [Todos los cursos](${SITE.url}/co/cursos/)
 - [Homologación de saberes](${SITE.url}/homologaciones/): certificación de experiencia con instituciones ETDH aliadas en Colombia
 - [Sobre Sably](${SITE.url}/nosotros/)
 - [Blog](${SITE.url}/blog/)

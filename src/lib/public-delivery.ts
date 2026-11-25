@@ -15,6 +15,17 @@ export function pageMaxAge(nextBoundary: number | null, now = Math.floor(Date.no
   if (nextBoundary === null || !Number.isFinite(nextBoundary)) return PUBLIC_PAGE_TTL;
   return Math.min(PUBLIC_PAGE_TTL, Math.max(PUBLIC_PAGE_MIN_TTL, Math.ceil(nextBoundary - now)));
 }
+
+/**
+ * The earliest of the deadlines (epoch seconds) a page must not outlive: the
+ * next promotion boundary and, on a course page, the expiry of the Hotmart
+ * quote it prints. `freshUntilMs` comes in milliseconds.
+ */
+export function earliestBoundary(promoBoundary: number | null, freshUntilMs: number | null | undefined): number | null {
+  const deadlines = [promoBoundary, typeof freshUntilMs === 'number' ? Math.floor(freshUntilMs / 1000) : null]
+    .filter((value): value is number => typeof value === 'number' && Number.isFinite(value));
+  return deadlines.length ? Math.min(...deadlines) : null;
+}
 export const PUBLIC_PAGE_TAG = 'sably:public';
 export const PUBLIC_PAGE_TAGS = [PUBLIC_PAGE_TAG, 'emdash:settings',
   'emdash:menu:primary', 'emdash:menu:footer', 'emdash:menu:social', 'emdash:menu:ecosystem',

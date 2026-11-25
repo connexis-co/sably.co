@@ -15,6 +15,8 @@
  * construida con el precio que la propia ficha muestra.
  */
 
+import { fechaFinPromo } from './fecha-promo';
+
 export interface Faq {
   q: string;
   a: string;
@@ -56,10 +58,27 @@ export function motivoFaqFalsa(faq: Faq): Motivo | null {
 }
 
 interface Contexto {
-  /** El precio tal como lo pinta la ficha («US$49,99», «$294.950 COP»). */
+  /**
+   * El precio de LISTA tal como lo pinta la ficha («US$49,99», «$294.950 COP»):
+   * el importe sin cupón, el que la caja de compra muestra tachado cuando hay
+   * promoción. Nunca el rebajado: hasta el 24-nov-2026 se pasaba aquí el precio
+   * con cupón y la respuesta llamaba «precio de lista» a 93.067 COP mientras la
+   * caja decía que el de lista era 186.134.
+   */
   precioTexto: string;
+  /** La promoción que la caja de compra aplica ahora mismo, si hay alguna. */
+  oferta?: { precio: string; cupon: string; hasta: number | null } | null;
   /** La FAQ de pago con los medios verificados del país; nunca se filtra. */
   faqPago: Faq;
+}
+
+/** Respuesta de precio: el de lista y, aparte, lo que queda con el cupón vigente. */
+export function respuestaPrecio(precioTexto: string, oferta?: Contexto['oferta']): string {
+  if (!oferta) {
+    return `El precio de lista es ${precioTexto}. Si hay una promoción vigente, el precio con descuento aparece en esta página antes de pagar.`;
+  }
+  const vigencia = oferta.hasta ? ` hasta el ${fechaFinPromo(oferta.hasta)} (hora de Colombia)` : '';
+  return `El precio de lista es ${precioTexto}. Con el cupón ${oferta.cupon}, que esta página aplica al enlace de pago, queda en ${oferta.precio}${vigencia}. El importe final lo confirma Hotmart antes de pagar.`;
 }
 
 /**
@@ -67,10 +86,10 @@ interface Contexto {
  * que se cae deja su sitio a una de precio con la cifra de la ficha; si con
  * ella se fue la única pregunta de pago, se añade la verificada del país.
  */
-export function faqsHonestas(faqs: Faq[], { precioTexto, faqPago }: Contexto): Faq[] {
+export function faqsHonestas(faqs: Faq[], { precioTexto, oferta, faqPago }: Contexto): Faq[] {
   const faqPrecio: Faq = {
     q: '¿Cuánto cuesta el curso?',
-    a: `El precio de lista es ${precioTexto}. Si hay una promoción vigente, el precio con descuento aparece en esta página antes de pagar.`,
+    a: respuestaPrecio(precioTexto, oferta),
   };
   const salida: Faq[] = [];
   let cayoAlguna = false;

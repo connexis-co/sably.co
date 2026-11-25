@@ -32,11 +32,12 @@ const byCategory = INTERNAL_CATEGORIES.map((cat) => ({
 })).filter((g) => g.courses.length > 0);
 
 
-/* Antes 71-81 caracteres: Google cortaba justo la marca. Se conserva el conteo
-   y la marca entra en los 8 países (≤60, ver conMarca). */
-const title = conMarca(`Catálogo de ${courses.length}+ cursos online en ${country.name}`);
+/* Sin cifra y sin «catálogo»: el título decía «Catálogo de 120+ cursos» cuando
+   se pueden comprar 112, y Sably no se presenta como catálogo. La marca entra
+   en los 8 países (≤60, ver conMarca). */
+const title = conMarca(`Todos los cursos online en ${country.name}`);
 
-const description = `Explora todos los cursos online de Sably disponibles en ${country.name}: oficios, gastronomía, moda, emprendimiento y más. Certificado incluido.`;
+const description = `Explora todos los cursos online de Sably disponibles en ${country.name}: oficios, gastronomía, moda, emprendimiento y más. Con constancia de finalización.`;
 
 
 const schemas = [

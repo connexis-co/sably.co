@@ -8,6 +8,8 @@
  * (el test falla con cualquier `error`; la CLI informa también los `aviso`).
  */
 
+import { readFileSync } from 'node:fs';
+
 /**
  * Repite el reemplazo hasta que no cambie nada: quitar un bloque puede juntar
  * los restos de otro (`<scr<script></script>ipt>`) y una pasada no basta.
@@ -47,18 +49,37 @@ export function encabezados(html) {
   return [...cuerpo.matchAll(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi)].map((m) => ({ nivel: Number(m[1]), texto: texto(m[2]) }));
 }
 
+/**
+ * Instructores de relleno del lote generado en agosto (106 nombres, uno por
+ * curso; ninguno es el creador). La lista sale de los MDX con
+ * `node scripts/instructores-relleno.mjs --lista`.
+ */
+export const INSTRUCTORES_RELLENO = (() => {
+  try {
+    return JSON.parse(readFileSync(new URL('../src/data/instructores-relleno.json', import.meta.url), 'utf8')).nombres.map((n) => n.nombre);
+  } catch {
+    return [];
+  }
+})();
+
 /** Textos que se retiraron del sitio por no ser ciertos y no deben reaparecer. */
 export const TEXTOS_VETADOS = [
   [/Tu instructor/i, 'bloque de instructor sin dato verificado'],
   [/\bafiliad[oa]s?\b/i, 'la palabra «afiliado» en texto público'],
   [/\bcupo(s)? (sigue|limitad|disponible)/i, 'escasez falsa («cupo») en un curso online'],
   [/\bsolo (por )?hoy\b/i, 'urgencia falsa («solo hoy»)'],
+  // 24-nov-2026: frases de plantilla que no eran ciertas.
+  [/en todos los cursos con el cup[oó]n/i, '«en todos los cursos»: el cupón solo cubre a los creadores que lo aceptan'],
+  [/descuento más grande del año/i, 'superlativo sin dato («el descuento más grande del año»)'],
+  [/nuestro equipo en tu país/i, '«nuestro equipo en tu país»: no hay un equipo por país'],
+  [/plataforma líder/i, 'superlativo sin dato («plataforma líder»)'],
+  [/\bCatálogo (?:de \d+\+? cursos|completo)\b/i, 'Sably descrito como «catálogo», con una cifra de cursos que no cuadra'],
 ];
 
 /**
  * @param {string} url
  * @param {string} html
- * @param {{ limites?: { titulo?: number, descripcionMin?: number, descripcionMax?: number } }} [opciones]
+ * @param {{ limites?: { titulo?: number, descripcionMin?: number, descripcionMax?: number }, instructores?: string[] }} [opciones]
  * @returns {{ regla: string, nivel: 'error' | 'aviso', detalle: string }[]}
  */
 export function auditarOnPage(url, html, opciones = {}) {
@@ -109,7 +130,10 @@ export function auditarOnPage(url, html, opciones = {}) {
 
   // ── Datos estructurados ──────────────────────────────────────────────────
   const tipos = [];
+  const credenciales = [];
   const personasSinPerfil = [];
+  const ofertas = [];
+  const respuestas = [];
   for (const m of documento.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try {
       const recorrer = (nodo) => {
@@ -120,6 +144,9 @@ export function auditarOnPage(url, html, opciones = {}) {
           // (`@id` …/creadores/<slug>/#creador); el instructor de relleno no tenía.
           if ([].concat(nodo['@type'] ?? []).includes('Person') && !/\/creadores\/[a-z0-9-]+\/#creador$/.test(String(nodo['@id'] ?? '')))
             personasSinPerfil.push(nodo.name ?? '(sin nombre)');
+          if ([].concat(nodo['@type'] ?? []).includes('Offer')) ofertas.push(nodo);
+          if ([].concat(nodo['@type'] ?? []).includes('EducationalOccupationalCredential')) credenciales.push(String(nodo.name ?? ''));
+          if ([].concat(nodo['@type'] ?? []).includes('Answer') && typeof nodo.text === 'string') respuestas.push(nodo.text);
           Object.values(nodo).forEach(recorrer);
         }
       };
@@ -132,8 +159,51 @@ export function auditarOnPage(url, html, opciones = {}) {
     marcar('json-ld-person', 'error', `nodo Person sin perfil de creador (${personasSinPerfil.slice(0, 2).join(', ')}): no hay persona verificada`);
   if (tipos.includes('AggregateRating')) marcar('json-ld-rating', 'error', 'AggregateRating con valoraciones de terceros');
 
-  // ── Textos que no deben volver ───────────────────────────────────────────
+  // ── Precio: la caja de compra, la pregunta de precio y el Offer dicen lo mismo ──
   const visible = texto(sinCodigo);
+  const caja = sinCodigo.match(/<section\b[^>]*\sdata-purchase-panel\b[^>]*>/i)?.[0];
+  if (caja) {
+    const limpio = (valor) => texto(String(valor ?? ''));
+    const lista = limpio(atributo(caja, 'data-base'));
+    const rebajado = limpio(atributo(caja, 'data-reduced'));
+    /* «El precio de lista es X» solo puede nombrar el importe sin cupón. El
+       24-nov-2026 la respuesta daba el rebajado y la caja lo desmentía. */
+    for (const frase of [visible, ...respuestas.map(limpio)]) {
+      const dicho = frase.match(/El precio de lista es (.+? [A-Z]{3})\b/)?.[1];
+      if (dicho && lista && dicho !== lista) {
+        marcar('precio-de-lista', 'error', `la pregunta de precio llama «precio de lista» a ${dicho} y la caja dice ${lista}`);
+        break;
+      }
+    }
+    const oferta = ofertas[0];
+    if (oferta && rebajado && atributo(caja, 'data-until') && !oferta.priceValidUntil)
+      marcar('oferta-sin-fecha', 'error', 'el Offer publica el precio con cupón sin priceValidUntil');
+    const crudo = atributo(caja, rebajado ? 'data-reduced-amount' : 'data-base-amount');
+    if (oferta && crudo && Math.abs(Number(oferta.price) - Number(crudo)) >= 0.005)
+      marcar('oferta-precio', 'error', `el Offer dice ${oferta.price} y la caja ${crudo}`);
+  }
+
+  // ── «Constancia», nunca «certificado» ────────────────────────────────────
+  // Lo que sale de plantilla es error. El texto del CMS (descripciones cortas,
+  // preguntas de las variantes de país, títulos) sigue pendiente de decisión y
+  // solo se cuenta, para que el número baje y no vuelva a subir. Las
+  // homologaciones son certificaciones de verdad, de una institución.
+  if (credenciales.some((nombre) => /certificad/i.test(nombre)))
+    marcar('constancia-json-ld', 'error', 'el JSON-LD llama «certificado» a la constancia de finalización');
+  if (/certificado-sably\.jpg/i.test(documento)) marcar('imagen-certificado', 'error', 'vuelve la imagen del certificado inventado');
+  if (!/\/homologaciones\//.test(url)) {
+    const veces = (visible.match(/\bcertificad[oa]s?\b/gi) ?? []).length;
+    if (veces) marcar('certificado', 'aviso', `«certificado» ${veces} veces en el texto visible (la regla es «constancia»)`);
+  }
+
+  // ── Instructores de relleno ──────────────────────────────────────────────
+  // En el texto visible y en el JSON-LD (FAQPage): es lo que leen los asistentes.
+  const todo = `${visible} ${respuestas.join(' ')}`;
+  const inventados = (opciones.instructores ?? INSTRUCTORES_RELLENO).filter((nombre) => todo.includes(nombre));
+  if (inventados.length)
+    marcar('instructor-relleno', 'error', `nombra a ${inventados.slice(0, 3).join(', ')}: instructor de relleno, no es el creador del curso`);
+
+  // ── Textos que no deben volver ───────────────────────────────────────────
   for (const [patron, motivo] of TEXTOS_VETADOS) if (patron.test(visible)) marcar('texto-vetado', 'error', motivo);
 
   return hallazgos.map((h) => ({ ...h, url }));
