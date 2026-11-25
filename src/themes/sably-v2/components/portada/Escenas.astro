@@ -14,8 +14,10 @@ import Foto from '../Foto.astro';
 import type { NombreFoto } from '../../fotos';
 
 export interface TextosEscenas { eyebrow: string; title: string; description: string; capitulos: { titulo: string; texto: string }[] }
-interface Props { textos: TextosEscenas | null; base: string; areas: { slug: string; nombre: string }[]; atenuar?: boolean }
-const { textos, base, areas, atenuar = true } = Astro.props;
+export type VarianteEscenas = 'apiladas' | 'foto-fija';
+interface Props { textos: TextosEscenas | null; base: string; areas: { slug: string; nombre: string }[]; atenuar?: boolean; variante?: VarianteEscenas }
+const { textos, base, areas, atenuar = true, variante = 'apiladas' } = Astro.props;
+const FONDOS = ['#ffffff', 'var(--color-coral-50)', 'var(--color-navy-50)', '#ffffff'];
 
 const FABRICA: TextosEscenas = {
   eyebrow: 'Paso a paso',
@@ -38,11 +40,28 @@ const EXTRA: { foto: NombreFoto; enlace?: { href: string; texto: string } }[] = 
 ];
 const capitulos = t.capitulos.slice(0, EXTRA.length).map((c, i) => ({ ...c, ...EXTRA[i]! }));
 ---
-<section class="v2-escenas mt-24 bg-navy-950 text-white lg:mt-32" aria-labelledby="escenas-titulo" data-escenas data-atenuar={atenuar ? '' : undefined}>
+<section class="v2-escenas mt-24 bg-navy-950 text-white lg:mt-32" aria-labelledby="escenas-titulo" data-escenas={variante === 'foto-fija' ? '' : undefined} data-atenuar={atenuar ? '' : undefined}>
   <div class="v2-contenedor py-20 lg:py-28">
     <p class="v2-antetitulo text-white/80">{t.eyebrow}</p>
     <h2 id="escenas-titulo" class="mt-3 max-w-[720px] font-display text-d28 !text-white lg:text-d40">{t.title}</h2>
     {t.description && <p class="mt-4 max-w-[600px] text-t17 text-white/75">{t.description}</p>}
+    {variante === 'apiladas' ? (
+      <ol class="v2-pila mt-12" role="list" data-pila style={`--total: ${capitulos.length}`}>
+        {capitulos.map((c, i) => (
+          <li class="v2-pila-carta" style={`--i: ${i}; --fondo: ${FONDOS[i % FONDOS.length]}`} data-carta={i}>
+            <div class="v2-pila-cara">
+              <div class="v2-pila-texto">
+                <p class="v2-num text-t13 font-semibold text-coral-600">{String(i + 1).padStart(2, '0')} <span class="text-navy-500">/ {String(capitulos.length).padStart(2, '0')}</span></p>
+                <h3 class="mt-3 font-display text-t20 font-semibold lg:text-d40">{c.titulo}</h3>
+                <p class="mt-3 max-w-[460px] text-t17 text-navy-700">{c.texto}</p>
+                {c.enlace && <a href={c.enlace.href} class="v2-enlace mt-5 min-h-11">{c.enlace.texto} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>}
+              </div>
+              <div class="v2-pila-foto"><Foto nombre={c.foto} sizes="(min-width: 900px) 560px, 92vw" decorativa class="h-full w-full object-cover" /></div>
+            </div>
+          </li>
+        ))}
+      </ol>
+    ) : (
     <div class="v2-escenas-rejilla mt-12">
       <ol class="v2-escenas-lista" role="list">
         {capitulos.map((c, i) => (
@@ -64,11 +83,35 @@ const capitulos = t.capitulos.slice(0, EXTRA.length).map((c, i) => ({ ...c, ...E
         </div>
       </figure>
     </div>
+    )}
   </div>
 </section>
 
 <style is:global>
   @layer components {
+    /* Tarjetas apiladas (como visitvalle.travel/pueblos-magicos): cada capítulo se queda pegado bajo la cabecera,
+       un poco más abajo que el anterior, y la siguiente sube por encima. Las de atrás se encogen un 4 % y se
+       oscurecen (solo transform y opacity). Sin «sticky» o con «reducir movimiento», se apilan igual sin encoger. */
+    .v2-pila { display: grid; gap: 24px; padding-bottom: 28vh; }
+    .v2-pila-carta { position: sticky; top: calc(var(--fijo-superior, 72px) + 16px + var(--i) * 14px); }
+    .v2-pila-cara {
+      position: relative; display: grid; gap: 20px; padding: 20px; border-radius: var(--radius-c-xl); background: var(--fondo); color: var(--color-navy-950);
+      box-shadow: 0 -1px 0 rgb(27 27 58 / .06), var(--shadow-s3); transform-origin: 50% 0;
+      transition: scale var(--t-lento) var(--e-sale);
+    }
+    .v2-pila-cara::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--color-navy-950); opacity: 0; pointer-events: none; transition: opacity var(--t-lento) var(--e-sale); }
+    .v2-pila-foto { overflow: hidden; border-radius: var(--radius-c-lg); aspect-ratio: 16 / 9; }
+    .v2-pila-foto picture { display: block; height: 100%; }
+    .v2-pila-carta[data-atras] .v2-pila-cara::after { opacity: .28; }
+    @media (prefers-reduced-motion: no-preference) {
+      .v2-pila-carta[data-atras] .v2-pila-cara { scale: .96; }
+    }
+    @media (min-width: 900px) {
+      .v2-pila { gap: 40px; }
+      .v2-pila-cara { grid-template-columns: minmax(0, 1fr) minmax(0, 560px); align-items: center; gap: 48px; padding: 40px 40px 40px 56px; min-height: min(520px, calc(100vh - var(--fijo-superior, 72px) - 120px)); }
+      .v2-pila-foto { aspect-ratio: auto; height: 100%; min-height: 380px; }
+    }
+
     .v2-escenario { display: none; }
     .v2-capitulo + .v2-capitulo { margin-top: 56px; }
     .v2-capitulo { color: #fff; }
@@ -97,6 +140,26 @@ const capitulos = t.capitulos.slice(0, EXTRA.length).map((c, i) => ({ ...c, ...E
 </style>
 
 <script>
+  /* Tarjetas apiladas: una tarjeta queda «atrás» cuando la siguiente ya llegó a su sitio pegado (franja de arriba). */
+  for (const pila of document.querySelectorAll<HTMLElement>('[data-pila]')) {
+    if (!('IntersectionObserver' in window)) break;
+    const cartas = [...pila.querySelectorAll<HTMLElement>('[data-carta]')];
+    let io: IntersectionObserver | null = null;
+    const montar = () => {
+      io?.disconnect();
+      const top = parseFloat(getComputedStyle(cartas[cartas.length - 1]!).top) || 120;
+      io = new IntersectionObserver(es => {
+        for (const e of es) {
+          const i = cartas.indexOf(e.target as HTMLElement);
+          if (i > 0) cartas[i - 1]!.toggleAttribute('data-atras', e.isIntersecting);
+        }
+      }, { rootMargin: `0px 0px -${Math.max(0, innerHeight - top - 40)}px 0px` });
+      cartas.forEach(c => io!.observe(c));
+    };
+    montar();
+    let t: ReturnType<typeof setTimeout>;
+    addEventListener('resize', () => { clearTimeout(t); t = setTimeout(montar, 200); });
+  }
   for (const raiz of document.querySelectorAll<HTMLElement>('[data-escenas]')) {
     if (!('IntersectionObserver' in window)) break;
     const capitulos = [...raiz.querySelectorAll<HTMLElement>('[data-capitulo]')];

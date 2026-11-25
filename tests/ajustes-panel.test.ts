@@ -85,6 +85,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
       heroe: { rota: true, intervalo: 4500, orden: 'aleatorio', cursos: [] },
       comoFuncionaAnimado: true,
       escenasAtenuar: true,
+      escenasVariante: 'apiladas',
     },
   });
   const prefijo = 'plugin:sably-integrations:settings:';
