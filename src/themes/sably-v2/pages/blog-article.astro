@@ -17,12 +17,25 @@ import Migas from '@/components/v2/Migas.astro';
 import Acordeon from '@/components/v2/Acordeon.astro';
 import Ico from '../components/Ico.astro';
 import Preguntas from '../components/Preguntas.astro';
+import ReproductorAudio from '@/components/v2/ReproductorAudio.astro';
+import { narracionVigente, duracionIso } from '@/lib/narracion';
 import { blogCover } from '@/lib/blog';
 import type { load } from '@/lib/page-loaders/blog-article';
 import '../estilos.css';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
-const { post, country, toc, related, minutes, title, schemas, articleSchema, articleMeta } = Astro.props;
+const { post, country, toc, related, minutes, title, schemas, articleSchema: articuloBase, articleMeta } = Astro.props;
 const portada = cmsImageUrl(post.coverImage) ?? blogCover(post.data.category, 'hero');
+// Narración (plugin sably-narracion): solo si su huella coincide con este texto. Nunca en vista previa.
+const narracion = post.isPreview ? undefined : await narracionVigente('blog', post.id, {
+  title: post.data.title, description: post.data.description, body: post.richBody, faq: post.data.faq,
+});
+const audioUrl = narracion ? new URL(narracion.url, Astro.site ?? Astro.url).href : undefined;
+// Article.audio → AudioObject, solo con narración vigente (mismo audio que suena en la página).
+const articleSchema = narracion && audioUrl && articuloBase ? {
+  ...articuloBase,
+  audio: { '@type': 'AudioObject', name: `Narración: ${post.data.title}`, description: 'Narración del artículo.',
+    contentUrl: audioUrl, encodingFormat: 'audio/mpeg', duration: duracionIso(narracion.segundos), inLanguage: 'es' },
+} : articuloBase;
 const migas = [{ name: 'Inicio', url: '/co/' }, { name: 'Blog', url: '/blog/' }, { name: post.data.title, url: `/blog/${post.id}/` }];
 ---
 <BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} {articleSchema} {articleMeta} pageType="article" image={portada} temaV2>
@@ -49,6 +62,7 @@ const migas = [{ name: 'Inicio', url: '/co/' }, { name: 'Blog', url: '/blog/' },
     <div class="v2-contenedor grid gap-12 py-12 lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-16 lg:py-16">
       <article class="v2-articulo min-w-0 max-w-[720px]">
         <p class="rounded-c-lg bg-navy-50 p-5 text-t17 text-navy-950">{post.data.description}</p>
+        {narracion && <div class="mt-6"><ReproductorAudio src={narracion.url} segundos={narracion.segundos} titulo={post.data.title} caratula={portada} medioId={`blog:${post.id}`} proveedor={narracion.proveedor} /></div>}
         {toc.length > 2 && (
           <Acordeon titulo={`Tabla de contenidos (${toc.length})`} class="mt-6 rounded-c-lg px-5 ring-1 ring-navy-100 lg:hidden" tituloClass="min-h-14 text-t15 font-semibold text-navy-950">
             <ol class="space-y-1 pb-4" role="list">
