@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { auditarOnPage, encabezados, INSTRUCTORES_RELLENO } from './seo-onpage.mjs';
+import { auditarOnPage, encabezados, enlacesInternos, INSTRUCTORES_RELLENO } from './seo-onpage.mjs';
+import { compararEnlaces } from './seo-test.mjs';
 
 const url = 'https://sably.co/co/curso-de-masajes/';
 const pagina = (cuerpo, cabeza = '') => `<!doctype html><html lang="es"><head><title>Curso de masajes en Colombia | Sably</title>
@@ -143,4 +144,23 @@ test('una URL de imagen con comas en src o srcset es error (Bing corta en la com
   assert.deepEqual(errores(conComa), ['img-url-coma']);
   const codificada = conComa.replaceAll('width=96,quality', 'width=96%2Cquality').replaceAll('width=480,quality', 'width=480%2Cquality');
   assert.deepEqual(errores(codificada), []);
+});
+
+test('tema V2: las reglas cubren también la cabecera y el pie (todo el <body>)', () => {
+  const v2 = (fuera) => pagina(`<header>${fuera}</header><main><h1>Cursos online en Colombia</h1><h2>Áreas</h2></main>`).replace('<body>', '<body data-tema="v2">');
+  assert.ok(errores(v2('<p>🎓 Cursos</p>')).includes('v2-emoji'), 'un emoji en la cabecera V2 es un error');
+  assert.ok(errores(v2('<p>Acceso de por vida</p><p>Acceso de por vida</p>')).includes('v2-hecho-repetido'));
+});
+
+test('enlaces internos: ruta y ancla, sin consulta, sin rutas técnicas ni externas', () => {
+  const html = `<a href="/co/cursos/">a</a><a href="/co/cursos/?tema=v2">b</a><a href="https://sably.co/co/cursos/belleza/#unas">c</a>
+<a href="https://academiadebelleza.edu.co">d</a><a href="/_emdash/api/media/file/x.jpg">e</a><!-- <a href="/oculto/">f</a> --><a href="/blog/">g</a>`;
+  assert.deepEqual([...enlacesInternos(html)].sort(), ['/blog/', '/co/cursos/', '/co/cursos/belleza/#unas']);
+});
+
+test('V2 no puede tener menos enlaces internos que el clásico', () => {
+  const clasico = new Set(['/co/', '/co/cursos/', '/blog/']);
+  assert.deepEqual(compararEnlaces('/co/', new Set(['/co/', '/co/cursos/', '/blog/', '/videos/']), clasico), []);
+  assert.deepEqual(compararEnlaces('/co/', new Set(['/co/', '/co/cursos/', '/videos/']), clasico).map(h => h.regla), ['v2-enlace-perdido']);
+  assert.deepEqual(compararEnlaces('/co/', new Set(['/co/']), clasico).map(h => `${h.nivel} ${h.regla}`), ['error v2-enlaces', 'aviso v2-enlace-perdido']);
 });

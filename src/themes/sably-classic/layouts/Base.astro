@@ -217,7 +217,7 @@ const pageContext = { ...createPublicPageContext({
     </main>
     {navV2 ? <PieV2 {country} nav={navV2} variante={pieV2} {pathAfterCountry} /> : <Footer {country} />}
     <WidgetArea name="footer_after" />
-    <PruebaSocial />
+    <PruebaSocial temaV2={!!navV2} />
     {navV2 ? <BuscadorV2 nav={navV2} /> : (
       <>
         <GeoDialog {pathAfterCountry} />

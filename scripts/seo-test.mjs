@@ -9,7 +9,9 @@
  *   node scripts/seo-test.mjs --base http://localhost:4321 --muestra 5 --tema v2
  *
  * `--tema v2` pide cada URL con ?tema=v2 (vista de revisión del rediseño) y
- * aplica además las reglas del tema V2. En dev.sably.co la puerta pide
+ * aplica además las reglas del tema V2; también la pide con ?tema=clasico y
+ * comprueba que la versión V2 no tenga menos enlaces internos que la clásica
+ * (`v2-enlaces`, error) y avisa de los que no lleve (`v2-enlace-perdido`). En dev.sably.co la puerta pide
  * credenciales: exporta SABLY_DEV_PASSWORD (de .dev.vars) y se envían solas.
  *
  * Recorre el sitemap, audita cada página con `seo-onpage.mjs` y añade lo que
@@ -18,7 +20,7 @@
  */
 import { writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
-import { auditarOnPage, encabezados } from './seo-onpage.mjs';
+import { auditarOnPage, encabezados, enlacesInternos } from './seo-onpage.mjs';
 
 const args = process.argv.slice(2);
 const opcion = (nombre) => { const i = args.indexOf(`--${nombre}`); return i >= 0 ? args[i + 1] : undefined; };
@@ -33,7 +35,16 @@ export const cabecerasEntorno = (base, env = process.env) =>
   env.SABLY_DEV_PASSWORD && !/^https:\/\/(?:www\.)?sably\.co(?:\/|$)/.test(base)
     ? { authorization: `Basic ${Buffer.from(`sably:${env.SABLY_DEV_PASSWORD}`).toString('base64')}` }
     : {};
-const conTema = (url) => (TEMA ? `${url}${url.includes('?') ? '&' : '?'}tema=${encodeURIComponent(TEMA)}` : url);
+const conTema = (url, tema = TEMA) => (tema ? `${url}${url.includes('?') ? '&' : '?'}tema=${encodeURIComponent(tema)}` : url);
+
+/** Compara los enlaces internos de la versión V2 con los de la clásica de la misma URL. */
+export function compararEnlaces(ruta, v2, clasico) {
+  const perdidos = [...clasico].filter((e) => !v2.has(e));
+  const hallazgos = [];
+  if (v2.size < clasico.size) hallazgos.push({ url: ruta, regla: 'v2-enlaces', nivel: 'error', detalle: `${v2.size} enlaces internos en V2 frente a ${clasico.size} en el clásico` });
+  if (perdidos.length) hallazgos.push({ url: ruta, regla: 'v2-enlace-perdido', nivel: 'aviso', detalle: `${perdidos.length} enlace(s) del clásico que V2 no lleva: ${perdidos.slice(0, 4).join(', ')}` });
+  return hallazgos;
+}
 
 const leer = async (url) => {
   for (let intento = 0; intento < 3; intento++) {
@@ -92,6 +103,10 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       const { status, html } = await leer(conTema(BASE + ruta));
       if (status !== 200) { hallazgos.push({ url: ruta, regla: 'estado', nivel: 'error', detalle: `responde ${status}` }); continue; }
       hallazgos.push(...auditarOnPage(ruta, html));
+      if (TEMA === 'v2') {
+        const clasico = await leer(conTema(BASE + ruta, 'clasico'));
+        if (clasico.status === 200) hallazgos.push(...compararEnlaces(ruta, enlacesInternos(html, BASE), enlacesInternos(clasico.html, BASE)));
+      }
       paginas.push({
         ruta,
         titulo: (html.match(/<title\b[^>]*>([\s\S]*?)<\/title>/i) ?? [])[1]?.trim() ?? '',
