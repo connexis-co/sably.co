@@ -45,3 +45,10 @@ test('el aviso sale con tres botones y sin casillas premarcadas; el script va pr
   assert.match(html, /\/legal\/privacidad\/#cookies/);
   assert.match(html, /<section id="sbc"[^>]*\shidden>/);
 });
+
+test('el aviso de cookies va al final del body (su H2 no queda antes del H1)', async () => {
+  const { consentFragments } = await import('../src/lib/consent/index.ts');
+  const banner = consentFragments(true).find((f) => f.key === 'sably-consent-banner');
+  assert.equal(banner?.placement, 'body:end');
+  assert.equal(consentFragments(true)[0]?.placement, 'head');
+});
