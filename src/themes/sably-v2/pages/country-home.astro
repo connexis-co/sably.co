@@ -23,6 +23,7 @@ import Cierre from '../components/portada/Cierre.astro';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import { inventarioMosaico, mejorValorados, ordenarPorVisitas, repartirEnCeldas } from '../portada';
 import Valorados from '../components/portada/Valorados.astro';
+import Convergen from '../components/portada/Convergen.astro';
 import { getHomeEditorial, getHomeSectionOptional } from '@/lib/home-editorial';
 import { monedasCobradas } from '@/lib/moneda-catalogo';
 import { countryAlternates, faqSchema } from '@/lib/seo';
@@ -109,6 +110,7 @@ const masGuias = posts.slice(3);
   {portada.bloques.map(bloque => (
     bloque === 'cifras' ? <Cifras {cifras} {country} />
     : bloque === 'categorias' ? <Categorias copy={copy.categories} {base} {conFoto} {resto} {externas} total={nav.areas.length} />
+    : bloque === 'convergen' ? <Convergen oficios={oficiosHeroe} {base} cursos={nav.totalCursos} areas={nav.areas.length} paises={cifras.paises} hoy={cifras.hoy} />
     : bloque === 'destacados' ? <Destacados copy={copy.courses} {featured} {country} {precios} {base} {moneda} totalCursos={nav.totalCursos} />
     : bloque === 'promo' ? <BandaPromo {promo} {base} class="pt-20 lg:pt-24" />
     : bloque === 'escenas' ? <Escenas textos={textosEscenas} {base} areas={nav.areas} atenuar={portada.escenasAtenuar} variante={portada.escenasVariante} />
