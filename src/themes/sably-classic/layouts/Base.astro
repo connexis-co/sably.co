@@ -20,6 +20,7 @@ import SearchModal from '@/components/SearchModal.astro';
 import type { Country, City } from '@/lib/countries';
 import type { HreflangAlternate } from '@/lib/seo';
 import { organizationSchema } from '@/lib/seo';
+import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 
 export interface Props {
   title: string;
@@ -64,6 +65,12 @@ export interface Props {
    * ficha. Sin él la página vive lo que diga la próxima promoción.
    */
   freshUntil?: number | null;
+  /**
+   * La página se pintó con el tema V2 (hoy solo la ficha de curso). Marca el
+   * <body> y el estilo de campo; las demás páginas siguen en el clásico aunque
+   * V2 sea el tema por defecto, hasta que tengan su plantilla V2.
+   */
+  temaV2?: boolean;
 }
 
 const {
@@ -85,9 +92,14 @@ const {
   canonical,
   noindexGoogle = false,
   freshUntil = null,
+  temaV2 = false,
 } = Astro.props;
 
-const [organization, settings] = await Promise.all([organizationSchema(), getLiveSiteSettings()]);
+const [organization, settings, temaPeticion] = await Promise.all([organizationSchema(), getLiveSiteSettings(), temaDeLaPeticion(Astro)]);
+/* ?tema=v2 / ?tema=clasico: vista de revisión. Nunca se indexa (la canónica ya
+   es la URL sin parámetros) y nunca se cachea (lleva query). */
+const temaForzado = temaPeticion.forzado;
+if (temaForzado) Astro.response.headers.set('X-Robots-Tag', 'noindex, follow');
 const allSchemas = [organization, ...schemas];
 
 /* og:locale del mercado (es_MX en /mx/…) en todo lo que cuelga de /xx/; antes
@@ -119,12 +131,12 @@ const pageContext = { ...createPublicPageContext({
   canonical: seo.canonical && Astro.locals.sablySeo?.canonical ? seo.canonical : canonical ?? new URL(Astro.url.pathname, SITE.url).href,
   image: seo.ogImage, siteName: settings.title || SITE.name, siteUrl: SITE.url,
   articleMeta,
-  seo: { robots: development ? 'noindex, nofollow, noarchive' : noindex ? 'noindex, follow' : seo.robots || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
+  seo: { robots: development ? 'noindex, nofollow, noarchive' : noindex || temaForzado ? 'noindex, follow' : seo.robots || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
 }), ...(articleSchema ? { sablyArticle: articleSchema } : {}) };
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" data-field={temaV2 ? temaPeticion.ajustes.estiloCampo : undefined}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -158,7 +170,8 @@ const pageContext = { ...createPublicPageContext({
     </script>
   </head>
   <body
-    data-theme="sably-classic"
+    data-theme={temaV2 ? 'sably-v2' : 'sably-classic'}
+    data-tema={temaV2 ? 'v2' : undefined}
     data-country={country.code}
     data-page-type={pageType}
     data-sin-cupon={sinCupon ? '' : undefined}
@@ -183,5 +196,17 @@ const pageContext = { ...createPublicPageContext({
     <GeoDialog {pathAfterCountry} />
     <SearchModal {country} />
     <EmDashBodyEnd page={pageContext} />
+    {temaForzado && (
+      /* Vista de revisión: los enlaces internos conservan ?tema= para seguir
+         navegando en el mismo tema. Solo existe en páginas forzadas. */
+      <script is:inline define:vars={{ tema: Astro.url.searchParams.get('tema') }}>
+        for (const a of document.querySelectorAll('a[href^="/"]')) {
+          const u = new URL(a.href);
+          if (u.origin !== location.origin || u.pathname.startsWith('/_') || u.pathname.startsWith('/api/')) continue;
+          u.searchParams.set('tema', tema);
+          a.href = u.pathname + u.search + u.hash;
+        }
+      </script>
+    )}
   </body>
 </html>
