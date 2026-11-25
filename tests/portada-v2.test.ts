@@ -45,8 +45,35 @@ test('el mosaico con cursos elegidos en el panel respeta su orden y descarta los
   assert.deepEqual(inventarioMosaico(cursos, ['d', 'c', 'zz', 'b', 'a']).map(c => c.id), ['d', 'b']);
 });
 
+test('el mosaico con la lista de fábrica se completa con el orden automático sin repetir foto', () => {
+  const cursos = [curso('a', 'f1', { destacado: true }), curso('b', 'f2'), curso('c', 'f3', { valoraciones: 9 }), curso('d', 'f2', { valoraciones: 99 })];
+  assert.deepEqual(inventarioMosaico(cursos, ['b', 'zz'], 12, true).map(c => c.id), ['b', 'a', 'c']);
+});
+
 test('el reparto entre celdas es por turnos y el primero de cada celda es el que se ve al cargar', () => {
   assert.deepEqual(repartirEnCeldas([1, 2, 3, 4, 5, 6, 7]), [[1, 4, 7], [2, 5], [3, 6]]);
   assert.deepEqual(repartirEnCeldas([1, 2]), [[1], [2]]);
   assert.deepEqual(repartirEnCeldas([]), []);
+});
+
+test('los mejor valorados: umbral de valoraciones, orden por nota y por número, y nada si no llegan a tres', async () => {
+  const { mejorValorados } = await import('../src/themes/sably-v2/portada.ts');
+  const c = (id: string, comprable = true) => ({ id, comprable });
+  const notas = { a: { rating: 4.9, total: 25 }, b: { rating: 4.9, total: 300 }, c: { rating: 5, total: 19 }, d: { rating: 4.1, total: 80 }, e: { rating: 4.95, total: 40 }, f: { rating: 6, total: 99 } };
+  assert.deepEqual(mejorValorados([c('a'), c('b'), c('c'), c('d'), c('e', false), c('f')], notas).map(x => x.id), ['b', 'a', 'd']);
+  assert.deepEqual(mejorValorados([c('a'), c('b'), c('c')], notas), []);
+  assert.deepEqual(mejorValorados([c('a'), c('b'), c('c'), c('d')], notas, 10, 2, 2).map(x => x.id), ['c', 'b']);
+});
+
+test('las sugerencias del buscador de la portada: mismos criterios que el de la cabecera', async () => {
+  const { buscarEnIndice } = await import('../src/themes/sably-v2/buscar-sugerencias.ts');
+  const indice = [
+    { t: 'Curso de Masajes', s: 'curso-de-masajes', c: 'Bienestar', k: 'relajante espalda' },
+    { t: 'Curso de Barbería', s: 'curso-de-barberia', c: 'Belleza', k: 'masa muscular no' },
+    { t: 'Drenaje linfático', s: 'curso-de-drenaje', c: 'Bienestar', k: 'masaje' },
+  ];
+  assert.deepEqual(buscarEnIndice(indice, 'masa').map(r => r.s), ['curso-de-masajes', 'curso-de-barberia', 'curso-de-drenaje']);
+  assert.deepEqual(buscarEnIndice(indice, 'BARBERIA').map(r => r.s), ['curso-de-barberia']);
+  assert.deepEqual(buscarEnIndice(indice, 'm'), []);
+  assert.deepEqual(buscarEnIndice(indice, 'masaje bienestar').map(r => r.s), ['curso-de-masajes', 'curso-de-drenaje']);
 });

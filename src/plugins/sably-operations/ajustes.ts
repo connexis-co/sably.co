@@ -127,6 +127,13 @@ export const settingsSchema = {
     description: 'Solo con la variante «Foto fija». En escritorio, mientras la foto fija acompaña al capítulo que lees, los demás bajan de tono (el texto sigue entero). Los textos se editan en Secciones → sably-home-escenas. Por defecto: encendido.',
     default: true,
   },
+  portadaValoradosMinimo: {
+    type: 'select',
+    label: 'Portada · Mínimo de valoraciones para «Los mejor valorados»',
+    description: 'Solo entran los cursos con al menos este número de valoraciones en Hotmart; si no llegan a tres cursos, el bloque no sale. Más alto = ranking más fiable. Por defecto: 20.',
+    options: [{ value: '10', label: '10 valoraciones' }, { value: '20', label: '20 valoraciones' }, { value: '50', label: '50 valoraciones' }],
+    default: '20',
+  },
   // Integraciones
   notificationEmail: {
     type: 'email',
@@ -141,7 +148,7 @@ export type ValorAjuste = string | boolean;
 export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'medios' | 'seo' | 'integraciones' | 'avanzado';
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
-export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar'];
+export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [

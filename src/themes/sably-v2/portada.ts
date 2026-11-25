@@ -12,11 +12,13 @@ export const MAXIMO_MOSAICO = 12;
  * valoraciones, como «Destacados». Solo con inscripción abierta y foto de su oficio, y sin repetir foto:
  * dos celdas nunca enseñan la misma escena.
  */
-export function inventarioMosaico(cursos: readonly CursoMosaico[], elegidos: readonly string[] = [], maximo = MAXIMO_MOSAICO): CursoMosaico[] {
+export function inventarioMosaico(cursos: readonly CursoMosaico[], elegidos: readonly string[] = [], maximo = MAXIMO_MOSAICO, relleno = false): CursoMosaico[] {
   const validos = cursos.filter(c => c.comprable && c.foto);
-  const orden = elegidos.length
-    ? elegidos.map(id => validos.find(c => c.id === id)).filter((c): c is CursoMosaico => !!c)
-    : [...validos].sort((a, b) => Number(b.destacado) - Number(a.destacado) || b.valoraciones - a.valoraciones);
+  const automatico = [...validos].sort((a, b) => Number(b.destacado) - Number(a.destacado) || b.valoraciones - a.valoraciones);
+  const primero = elegidos.map(id => validos.find(c => c.id === id)).filter((c): c is CursoMosaico => !!c);
+  /* Con `relleno`, lo que falte hasta `maximo` se completa con el orden automático (lista de fábrica);
+     sin él, una lista elegida en el panel manda tal cual. */
+  const orden = !elegidos.length ? automatico : relleno ? [...primero, ...automatico.filter(c => !primero.includes(c))] : primero;
   const fotos = new Set<string>();
   const salida: CursoMosaico[] = [];
   for (const c of orden) {
@@ -33,4 +35,19 @@ export function repartirEnCeldas<T>(inventario: readonly T[], celdas = CELDAS_MO
   const salida: T[][] = Array.from({ length: celdas }, () => []);
   inventario.forEach((x, i) => salida[i % celdas]!.push(x));
   return salida.filter(c => c.length > 0);
+}
+
+export interface NotaCurso { rating: number; total: number }
+
+/**
+ * «Los mejor valorados»: cursos con inscripción abierta y al menos `minimo` valoraciones en Hotmart, por nota
+ * y, a igual nota, por número de valoraciones. Si no llegan a `alMenos`, ninguno (el bloque no sale).
+ */
+export function mejorValorados<T extends { id: string; comprable: boolean }>(cursos: readonly T[], notas: Record<string, NotaCurso | null | undefined>, minimo = 20, maximo = 4, alMenos = 3): T[] {
+  const con = cursos.flatMap(c => {
+    const n = notas[c.id];
+    return c.comprable && n && n.total >= minimo && n.rating >= 1 && n.rating <= 5 ? [{ c, n }] : [];
+  });
+  con.sort((a, b) => b.n.rating - a.n.rating || b.n.total - a.n.total);
+  return con.length >= alMenos ? con.slice(0, maximo).map(x => x.c) : [];
 }

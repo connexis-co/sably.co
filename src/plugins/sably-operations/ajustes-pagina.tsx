@@ -131,6 +131,7 @@ export function AjustesPage() {
       </section>
       {seccion(['portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios'], 'Héroe')}
       {seccion(['portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar'], 'Movimiento de los bloques')}
+      {seccion(['portadaValoradosMinimo'], 'Los mejor valorados')}
       <Enlaces items={[['Textos de la portada', 'Titular, entradilla y textos de cada bloque (secciones sably-home-*).', `${ADMIN}/sections`]]} />
     </>; break;
     case 'contenido': cuerpo = <Enlaces items={[
