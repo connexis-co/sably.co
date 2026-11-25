@@ -82,11 +82,11 @@ const tituloId = 'titulo-compra';
 ---
 <section id="compra" tabindex="-1" aria-labelledby={tituloId}
   class:list={['v2-caja scroll-mt-28 overflow-hidden rounded-c-lg bg-white shadow-s2 outline-none', variante === 'cabecera-oscura' && 'v2-caja-oscura']}
-  data-purchase-panel data-base={conMoneda(baseAmount)} data-reduced={reducido ? conMoneda(reducido) : undefined}
-  data-base-hablado={precio(baseAmount).hablado} data-reduced-hablado={reducido ? precio(reducido).hablado : undefined} data-original-url={localCheckout.href}
+  data-purchase-panel data-base={conPrecio ? conMoneda(baseAmount) : undefined} data-reduced={reducido ? conMoneda(reducido) : undefined}
+  data-base-hablado={conPrecio ? precio(baseAmount).hablado : undefined} data-reduced-hablado={reducido ? precio(reducido).hablado : undefined} data-original-url={localCheckout.href}
   data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end} data-precio-hasta={offer ? (offer.hastaPrecio ?? 'nunca') : undefined}
-  data-currency={currency} data-base-amount={baseAmount} data-reduced-amount={reducido ?? undefined}
-  data-quote-source={quote ? 'hotmart' : 'respaldo'} data-quote-at={quote?.at ?? undefined}
+  data-currency={currency} data-base-amount={conPrecio ? baseAmount : undefined} data-reduced-amount={reducido ?? undefined}
+  data-quote-source={quote?.fuente ?? 'respaldo'} data-quote-at={quote?.at ?? undefined}
   data-estado={estado} data-cupon={offer ? 'aplicado' : undefined} data-variante={variante}
   data-codigo={offer?.coupon} data-pct={offer?.saving} data-campana={campana ?? undefined} data-preajuste={zona.preajuste}>
 

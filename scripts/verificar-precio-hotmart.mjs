@@ -98,8 +98,10 @@ export function comparar(ficha, hotmart, ahora = Date.now()) {
   const reciente = ficha.leida !== null && ahora - ficha.leida <= VIDA_COTIZACION_MS + MARGEN_MS;
   const nivel = reciente ? 'aviso' : 'error';
   const cuando = ficha.leida === null ? 'sin fecha de lectura' : `leída hace ${Math.round((ahora - ficha.leida) / 60000)} min`;
-  if (ficha.fuente === 'respaldo') anotar('aviso', 'La ficha muestra el precio de respaldo: el servidor no pudo cotizar en Hotmart.');
-  if (!igual(ficha.base, hotmart.base)) anotar(ficha.fuente === 'respaldo' ? 'aviso' : nivel, `Precio sin cupón: ficha ${ficha.base} ${ficha.moneda}, Hotmart ${hotmart.base} (${cuando}).`);
+  if (ficha.fuente === 'respaldo') anotar('aviso', 'La ficha no muestra precio de Hotmart: el servidor no pudo cotizar y no tenía una cotización guardada.');
+  if (ficha.fuente === 'guardada') anotar('aviso', `La ficha muestra la última cotización guardada (${cuando}): Hotmart no respondió a tiempo.`);
+  if (ficha.estado === 'sin-precio') return hallazgos;
+  if (!igual(ficha.base, hotmart.base)) anotar(ficha.fuente !== 'hotmart' ? 'aviso' : nivel, `Precio sin cupón: ficha ${ficha.base} ${ficha.moneda}, Hotmart ${hotmart.base} (${cuando}).`);
   if (ficha.cupon) {
     if (hotmart.rebajado === null) anotar('error', `La ficha ofrece el cupón ${ficha.cupon} y Hotmart no lo aplica.`);
     else if (!igual(ficha.rebajado, hotmart.rebajado)) anotar(nivel, `Precio con cupón ${ficha.cupon}: ficha ${ficha.rebajado} ${ficha.moneda}, Hotmart ${hotmart.rebajado} (${cuando}).`);

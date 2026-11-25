@@ -127,7 +127,8 @@ interface CourseSchemaInput {
    */
   url: string;
   image?: string;
-  price: number;
+  /** `null` cuando la ficha no pudo leer el precio en Hotmart: sin `Offer` (nunca un importe de relleno). */
+  price: number | null;
   priceCurrency: string;
   /**
    * Fin (ms) de la promoción cuando `price` es el importe con cupón. Sale como
@@ -186,9 +187,11 @@ const NIVEL: Record<string, string> = {
  * ninguno, así que un Product vacío sería un elemento no válido en GSC.
  */
 export function courseSchema(c: CourseSchemaInput) {
+  /* Sin precio leído no hay Offer, y un Product sin offers, review ni aggregateRating no es válido. */
+  const conOferta = c.comprable !== false && c.price !== null;
   return {
     '@context': 'https://schema.org',
-    '@type': c.comprable === false ? 'Course' : ['Product', 'Course'],
+    '@type': conOferta ? ['Product', 'Course'] : 'Course',
     '@id': `${c.url}#curso`,
     name: c.title,
     description: c.description,
@@ -231,7 +234,7 @@ export function courseSchema(c: CourseSchemaInput) {
     isAccessibleForFree: false,
     ...(c.datePublished ? { datePublished: c.datePublished } : {}),
     ...(c.verifiedReviews ? verifiedReviewMarkup(c.verifiedReviews) : {}),
-    ...(c.comprable === false
+    ...(!conOferta
       ? {}
       : {
           offers: {

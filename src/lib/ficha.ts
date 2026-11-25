@@ -14,6 +14,7 @@ import { getContentRepository } from '@/lib/emdash-content';
 import { renderMarkdown } from '@/lib/markdown';
 import type { ResolvedCourseContent } from '@/lib/emdash-content';
 import { cotizarCurso } from '@/lib/precio-hoy';
+import { enlaceDeCompra } from '@/lib/enlace-compra';
 import type { Country, City } from '@/lib/countries';
 import { courseCover } from '@/lib/categories';
 import { readOperationalRating } from '@/plugins/sably-operations/public';
@@ -173,7 +174,7 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
   /* Importe base sobre el que se aplica el cupón (`montoBase`): el real de Hotmart
      o, sin él, el de catálogo. Va al DOM en crudo para que el controlador de
      promoción pueda recalcular en cliente sin volver a pedirlo. */
-  const { real, montoBase, monedaBase, activePromos, promoCtx, promoRow, coupon, quote, freshUntil, currency, baseAmount, saving } = cotizacion;
+  const { real, montoBase, monedaBase, activePromos, promoCtx, promoRow, coupon, quote, freshUntil, currency, baseAmount, saving, conPrecio, cuponEnEnlace } = cotizacion;
   /* Qué campaña sigue al terminar la vigente (Black Friday → Cyber Monday → Navidad):
      la caja no promete «después vuelve a…» si a la misma hora empieza otra con
      descuento, y el precio rebajado no se retira en el relevo si sigue el mismo cupón. */
@@ -188,14 +189,15 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
     : null;
   /* Precio de lista para la pregunta «¿Cuánto cuesta?»: siempre el importe sin
      cupón. El rebajado va aparte, con su cupón y su fecha (ver faq-honestas). */
-  const precioTexto = displayMoney(baseAmount);
+  const precioTexto = conPrecio ? displayMoney(baseAmount) : null;
   const marketQuery = new URLSearchParams(ctx.url.search);
   const marketLinks = COUNTRIES.filter(item => item.code !== country.code).map(item => ({
     label: item.name,
     href: '/' + item.code + '/' + course.id + '/' + (marketQuery.size ? '?' + marketQuery : '') + '#compra'
   }));
-  const localCheckout = new URL(ctaUrl);
-  if (quote) localCheckout.searchParams.set('countrycode', country.code.toUpperCase());
+  /* Atribución completa siempre, aunque falle la cotización: país del checkout y, si la campaña
+     aplica a este creador y no está confirmada como rebaja visible, su cupón (cotizarCurso). */
+  const localCheckout = enlaceDeCompra(ctaUrl, country.code, offer ? null : cuponEnEnlace);
 
   /* Video de presentación: vive en R2 (cdn.sably.co). Sin CDN configurado no se
      pinta el reproductor, así el entorno local no queda con un <video> roto. */
@@ -335,7 +337,7 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
          catálogo mientras la página enseña el real de Hotmart, el snippet de
          Google anunciaría una cifra que no se cobra. Número crudo, nunca el texto
          ya formateado. */
-      price: offer && quote?.reduced ? quote.reduced : baseAmount,
+      price: !conPrecio ? null : offer && quote?.reduced ? quote.reduced : baseAmount,
       priceCurrency: currency,
       /* El precio rebajado tiene fecha: sin ella el Offer anuncia el importe con
          cupón como si fuera el precio permanente del curso. */

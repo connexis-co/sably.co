@@ -11,7 +11,7 @@ interface Props {
    * `source` es «hotmart» cuando viene de la cotización del pago y «respaldo»
    * cuando Hotmart no respondió y se muestra el precio guardado.
    */
-  evidence?: { currency: string; base: number; reduced: number | null; source: 'hotmart' | 'respaldo'; at: number | null };
+  evidence?: { currency: string; base: number; reduced: number | null; source: 'hotmart' | 'guardada' | 'respaldo'; at: number | null };
 }
 const { country, markets, price, checkout, offer, evidence } = Astro.props;
 const discounted = new URL(checkout);
