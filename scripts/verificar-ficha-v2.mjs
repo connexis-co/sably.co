@@ -16,6 +16,9 @@
  * pintados de cabecera, barra de campaña, navegación interna, barra de compra y burbuja de WhatsApp. Sale con código 1
  * si alguno se monta sobre otro (25-nov: las pestañas quedaban pintadas encima del logo y del menú).
  *
+ * También: la caja de compra pegada no queda bajo la cabecera ni la barra (1440) y, en móvil, los
+ * enlaces de texto del <main> (.v2-enlace) miden al menos 44 px de alto.
+ *
  *   --fichas co/curso-de-masajes,...   --anchos 390,768,1440   --solo-solapes (sin capturas ni cupón)
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
@@ -83,6 +86,13 @@ const medirSolapes = (page) => page.evaluate((PIEZAS) => {
     return { el, top, bottom, left: r.left, right: r.right };
   };
   const vistas = Object.entries(PIEZAS).map(([nombre, sel]) => [nombre, caja(document.querySelector(sel))]).filter(([, c]) => c);
+  /* La caja de compra pegajosa cuenta solo mientras está pegada (top = su `top` de sticky): al
+     pasar por debajo de la cabecera con el scroll normal no es un solape (juez UX, M4). */
+  const cajaCompra = document.querySelector('.v2-area-caja');
+  if (cajaCompra && getComputedStyle(cajaCompra).position === 'sticky') {
+    const c = caja(cajaCompra);
+    if (c && Math.abs(cajaCompra.getBoundingClientRect().top - parseFloat(getComputedStyle(cajaCompra).top)) < 2) vistas.push(['cajaPegada', c]);
+  }
   const solapes = [];
   for (let i = 0; i < vistas.length; i++) for (let j = i + 1; j < vistas.length; j++) {
     const [na, a] = vistas[i], [nb, b] = vistas[j];
@@ -226,6 +236,27 @@ for (const ficha of FICHAS) {
       r.ciudades = v2 ? { ...v2, clasico: ciudadesClasico.length, mismas: igual(v2.ciudades, [...new Set(ciudadesClasico)]) } : { falta: r.estado !== 'cerrado' };
       if (v2 ? (!r.ciudades.mismas || v2.enlaces > 0 || v2.rotulo !== 'P') : r.ciudades.falta) process.exitCode = 1;
     }
+    // Objetivos táctiles: en móvil, los enlaces de texto del <main> miden al menos 44 px de alto (M6).
+    if (ancho.isMobile) {
+      r.tactilesPequenos = await page.evaluate(() => [...document.querySelectorAll('main :is(a, label, button).v2-enlace')]
+        .filter((e) => e.getClientRects().length && getComputedStyle(e).visibility === 'visible')
+        .map((e) => ({ texto: e.textContent.trim().replace(/\s+/g, ' ').slice(0, 40), alto: Math.round(e.getBoundingClientRect().height) }))
+        .filter((e) => e.alto < 44));
+      if (r.tactilesPequenos.length) process.exitCode = 1;
+    }
+    // Caja de compra en escritorio (M4): si no cabe entera bajo la cabecera y la barra, no se pega;
+    // si se pega, lo hace por debajo de la barra de secciones (cabecera 60 + barra 65).
+    if (ancho.nombre === '1440') {
+      r.cajaPegajosa = await page.evaluate(() => {
+        const c = document.querySelector('.v2-area-caja');
+        if (!c) return null;
+        const cs = getComputedStyle(c);
+        return { alto: Math.round(c.getBoundingClientRect().height), ventana: innerHeight, posicion: cs.position, top: parseFloat(cs.top) || 0 };
+      });
+      const k = r.cajaPegajosa;
+      if (k) k.ok = k.posicion !== 'sticky' || (k.top >= 125 && k.alto <= k.ventana - k.top);
+      if (k && !k.ok) process.exitCode = 1;
+    }
     // Paridad de texto con el tema clásico.
     if (ancho.nombre === '1440') {
       const v2 = norm((await textoMain(page)).replace(/\n/g, ' '));
@@ -238,7 +269,7 @@ for (const ficha of FICHAS) {
       r.faltanEnV2 = faltan;
     }
     resultados.push(r);
-    console.log(`${nombre}: ${r.preajuste ?? r.estado} botón ${r.botonFinal}px${r.botonSinDesplazar ? ' (sin desplazar)' : ''} solapes ${r.solapes.ok ? 'ok' : 'FALLA'}${r.cupon ? ` cupón ${r.cupon.ok ? 'ok' : 'FALLA'}` : ''}${r.teclado ? ` teclado ${r.teclado.enterQuita ? 'ok' : 'FALLA'}` : ''}${r.barra ? ` barra ${r.barra.visible ? 'ok' : 'FALLA'}` : ''}${r.ciudades?.falta ? ' ciudades FALTAN' : ''}${r.ciudades?.ciudades ? ` ciudades ${r.ciudades.mismas && !r.ciudades.enlaces ? 'ok' : 'FALLA'} (${r.ciudades.ciudades.length} de ${r.ciudades.pais}, clásico ${r.ciudades.clasico})` : ''}${r.desborda ? ' DESBORDA' : ''}`);
+    console.log(`${nombre}: ${r.preajuste ?? r.estado} botón ${r.botonFinal}px${r.botonSinDesplazar ? ' (sin desplazar)' : ''} solapes ${r.solapes.ok ? 'ok' : 'FALLA'}${r.cupon ? ` cupón ${r.cupon.ok ? 'ok' : 'FALLA'}` : ''}${r.teclado ? ` teclado ${r.teclado.enterQuita ? 'ok' : 'FALLA'}` : ''}${r.barra ? ` barra ${r.barra.visible ? 'ok' : 'FALLA'}` : ''}${r.ciudades?.falta ? ' ciudades FALTAN' : ''}${r.ciudades?.ciudades ? ` ciudades ${r.ciudades.mismas && !r.ciudades.enlaces ? 'ok' : 'FALLA'} (${r.ciudades.ciudades.length} de ${r.ciudades.pais}, clásico ${r.ciudades.clasico})` : ''}${r.cajaPegajosa && !r.cajaPegajosa.ok ? ` CAJA pegada ${r.cajaPegajosa.alto}px en ventana ${r.cajaPegajosa.ventana} con top ${r.cajaPegajosa.top}` : ''}${r.tactilesPequenos?.length ? ` TÁCTILES<44: ${r.tactilesPequenos.map((t) => `«${t.texto}» ${t.alto}px`).join(', ')}` : ''}${r.desborda ? ' DESBORDA' : ''}`);
     await page.close();
   }
 }

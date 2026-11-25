@@ -108,6 +108,8 @@
   .v2-enlace .v2-flecha { transition: translate var(--t-rapido) var(--e-sale); }
   @media (hover: hover) { .v2-enlace:hover { text-decoration: underline; text-underline-offset: 4px; } .v2-enlace:hover .v2-flecha { translate: 3px 0; } }
   .v2-enlace:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+  /* Objetivo táctil de 44 px en móvil para los enlaces de texto (juez UX, M6: medían 18–22 px). */
+  @media (width < 1024px) { :is(a, label, button).v2-enlace { min-height: 44px; } }
   @media (prefers-reduced-motion: reduce) { .v2-btn:active { scale: 1; } }
 
   /* ---------- Campos con etiqueta flotante (data-field en :root) ---------- */
