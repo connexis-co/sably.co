@@ -13,7 +13,7 @@ interface Props {
   codigoClass?: string;
   marca?: string;
 }
-const { valor, moneda, locale, class: clase, codigoClass = 'text-[0.6em] font-medium', marca } = Astro.props;
+const { valor, moneda, locale, class: clase, codigoClass = 'text-[length:max(0.6em,12px)] font-medium', marca } = Astro.props;
 const i = importe(valor, moneda, locale);
 const datos = marca ? { [`data-${marca}`]: '' } : {};
 const datosHablado = marca ? { [`data-${marca}-hablado`]: '' } : {};
