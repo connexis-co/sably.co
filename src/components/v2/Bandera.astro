@@ -3,4 +3,4 @@
 interface Props { codigo: string; class?: string }
 const { codigo, class: clase } = Astro.props;
 ---
-<img src={`/v2/banderas/${codigo}.png`} alt="" width="24" height="16" loading="lazy" decoding="async" class:list={['inline-block h-4 w-6 rounded-[3px] object-cover ring-1 ring-navy-100', clase]} />
+<img src={`/v2/banderas/${codigo}.png`} alt="" width="24" height="16" decoding="async" class:list={['inline-block h-4 w-6 rounded-[3px] object-cover ring-1 ring-navy-100', clase]} />

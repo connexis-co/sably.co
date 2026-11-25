@@ -6,4 +6,4 @@
 interface Props { alto?: number; class?: string }
 const { alto = 16, class: clase } = Astro.props;
 ---
-<img src="/v2/logos/hotmart.svg" alt="Hotmart" width={Math.round(alto * 3.5)} height={alto} loading="lazy" decoding="async" class:list={['inline-block align-[-3px]', clase]} />
+<img src="/v2/logos/hotmart.svg" alt="Hotmart" width={Math.round(alto * 3.5)} height={alto} decoding="async" class:list={['inline-block align-[-3px]', clase]} />

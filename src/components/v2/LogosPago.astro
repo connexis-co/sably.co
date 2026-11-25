@@ -19,5 +19,5 @@ const PORPAIS: Record<string, string[]> = { co: ['pse', 'nequi'], mx: ['oxxo', '
 const lista = ['visa', 'mastercard', 'paypal', ...(locales ? PORPAIS[pais] ?? [] : [])];
 ---
 <ul class:list={['flex flex-wrap items-center gap-x-4 gap-y-2', clase]} aria-label="Medios de pago">
-  {lista.map(clave => { const l = LOGOS[clave]!; return <li><img src={l.src} alt={l.alt} height={alto} width={Math.round(alto * l.ancho)} loading="lazy" decoding="async" class="block object-contain" style={`height:${alto}px;width:auto`} /></li>; })}
+  {lista.map(clave => { const l = LOGOS[clave]!; return <li><img src={l.src} alt={l.alt} height={alto} width={Math.round(alto * l.ancho)} decoding="async" class="block object-contain" style={`height:${alto}px;width:auto`} /></li>; })}
 </ul>
