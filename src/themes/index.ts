@@ -11,6 +11,9 @@ export { default as CountryHomeView } from './sably-classic/pages/country-home.a
 export { default as CountryCatalogView } from './sably-classic/pages/country-catalog.astro';
 export { default as CountryCategoryView } from './sably-classic/pages/country-category.astro';
 export { default as MarketItemView } from './sably-classic/pages/market-item.astro';
+/** Ficha de curso del tema V2; la elige la página según `temaDeLaPeticion` (src/lib/ajustes-tema.ts). */
+export { default as MarketItemViewV2 } from './sably-v2/pages/market-item.astro';
+export { SABLY_V2_THEME } from './sably-v2/manifest';
 export { default as CreatorProfileView } from './sably-classic/pages/creator-profile.astro';
 export { default as BlogIndexView } from './sably-classic/pages/blog-index.astro';
 export { default as BlogArticleView } from './sably-classic/pages/blog-article.astro';

@@ -1,0 +1,243 @@
+---
+/**
+ * Caja de compra V2 (lámina RGZQ7). Variante E «Cuenta clara» por defecto y B
+ * «Cabecera oscura» desde el panel. Nombres de bloque según el módulo común con
+ * la academia (contrato-ia-caja.md): titulo, subtitulo, promocion, precio,
+ * cupon, boton, confianza (pago-seguro, garantia, constancia, medios),
+ * acordeon, pais, whatsapp, nota_legal.
+ *
+ * Reutiliza lo ya verificado de PurchasePanel.astro: el servidor pinta el
+ * enlace correcto; el script solo alterna el cupón (precio y enlace cambian a
+ * la vez, la atribución se conserva) y, al vencer la campaña, vuelve al precio
+ * normal. Los atributos data-* de la <section> los lee `npm run precio:test` y
+ * la analítica: no se renombran.
+ */
+import Icono from '@/components/v2/Icono.astro';
+import Boton from '@/components/v2/Boton.astro';
+import Contador from '@/components/v2/Contador.astro';
+import Acordeon from '@/components/v2/Acordeon.astro';
+import Bandera from '@/components/v2/Bandera.astro';
+import LogosPago from '@/components/v2/LogosPago.astro';
+import LogoHotmart from '@/components/v2/LogoHotmart.astro';
+import { buildWhatsAppUrl } from '@/lib/hotmart';
+import { fechaCorta } from '@/lib/cuenta-atras';
+import { nombresCreadores } from '@/lib/creadores';
+import { cifra as cifraSinSimbolo, fotoPropia, iniciales } from '@/lib/presentacion-v2';
+import type { AjustesV2 } from '@/lib/ajustes-tema';
+import type { Ficha } from '@/lib/ficha';
+import type { Country } from '@/lib/countries';
+
+interface Props { f: Ficha; country: Country; ajustes: AjustesV2; titulo: string; subtitulo: string }
+const { f, country, ajustes, titulo, subtitulo } = Astro.props;
+const { offer, quote, real, baseAmount, currency, displayMoney, localCheckout, marketLinks, promoRow, creadoresVisibles, course } = f;
+
+const cifra = (valor: number) => cifraSinSimbolo(valor, country.hreflang);
+const conMoneda = (valor: number) => `${cifra(valor)} ${currency}`;
+const conPrecio = Boolean(quote || real);
+const estado = offer ? 'campana' : conPrecio ? 'normal' : 'sin-precio';
+const reducido = offer && quote?.reduced ? quote.reduced : null;
+const descuento = reducido ? baseAmount - reducido : null;
+const discounted = new URL(localCheckout.href);
+if (offer) discounted.searchParams.set('offDiscount', offer.coupon);
+const enlaceInicial = offer ? discounted.href : localCheckout.href;
+const campana = promoRow?.etiqueta || promoRow?.nombre || null;
+const fin = offer?.end ? `${fechaCorta(offer.end)}, hora de Colombia` : null;
+const variante = ajustes.caja.variante === 'cabecera-oscura' && offer ? 'cabecera-oscura' : 'cuenta-clara';
+const leida = quote?.at ? new Intl.DateTimeFormat('es-CO', { timeZone: 'America/Bogota', day: 'numeric', month: 'short', year: 'numeric' }).format(quote.at).replace(/ de /g, ' ') : null;
+const whatsapp = buildWhatsAppUrl(country.whatsapp, `Hola, tengo una duda antes de inscribirme en «${course.data.title}»`);
+const creador = ajustes.mostrarCreador && creadoresVisibles.length ? nombresCreadores(creadoresVisibles.map(c => c.nombre)) : null;
+const foto = ajustes.mostrarCreador ? creadoresVisibles.map(c => c.foto).find(fotoPropia) ?? null : null;
+const siglas = creador ? iniciales(creadoresVisibles[0]!.nombre) : '';
+const despues = descuento ? `Después vuelve a ${conMoneda(baseAmount)}.` : null;
+const tituloId = 'titulo-compra';
+---
+<section id="compra" tabindex="-1" aria-labelledby={tituloId}
+  class:list={['v2-caja scroll-mt-28 overflow-hidden rounded-c-lg bg-white shadow-s2 outline-none', variante === 'cabecera-oscura' && 'v2-caja-oscura']}
+  data-purchase-panel data-base={displayMoney(baseAmount)} data-reduced={offer?.price} data-original-url={localCheckout.href}
+  data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end}
+  data-currency={currency} data-base-amount={baseAmount} data-reduced-amount={reducido ?? undefined}
+  data-quote-source={quote ? 'hotmart' : 'respaldo'} data-quote-at={quote?.at ?? undefined}
+  data-estado={estado} data-cupon={offer ? 'aplicado' : undefined} data-variante={variante}
+  data-codigo={offer?.coupon} data-pct={offer?.saving} data-campana={campana ?? undefined}>
+
+  {variante === 'cabecera-oscura' && offer ? (
+    <div class="bg-navy-950 px-6 pt-6 pb-5 text-white" data-bloque="promocion">
+      {titulo && <h2 id={tituloId} class="text-t20 font-semibold !text-white">{titulo}</h2>}
+      {!titulo && <h2 id={tituloId} class="sr-only">Inscripción al curso</h2>}
+      {subtitulo && <p class="mt-1 text-t15 text-white/75">{subtitulo}</p>}
+      <div class="mt-5 flex items-end justify-between gap-4 border-t border-white/15 pt-5">
+        <div>
+          {campana && <p class="text-t13 font-semibold text-coral-500">{campana}</p>}
+          <p class="v2-num font-display text-d40 font-semibold">{offer.saving} % <span class="text-t15 font-normal text-white/75">menos</span></p>
+        </div>
+        {offer.end && <Contador hasta={offer.end} desde={promoRow?.desde} estilo="casillas" oscuro class="[&_p]:hidden" />}
+      </div>
+      <p class="mt-3 flex items-center gap-2 text-t13 font-semibold" data-bloque="cupon"><Icono nombre="circle-check" tamano={16} class="text-whatsapp" /><span data-cupon-texto>Cupón {offer.coupon} aplicado</span>
+        <button type="button" data-toggle class="ml-auto min-h-9 font-medium text-white underline underline-offset-4">Quitar</button></p>
+      {fin && <p class="text-t13 text-white/70">Termina el {fin}</p>}
+    </div>
+  ) : (
+    (titulo || subtitulo) ? (
+      <div class="v2-caja-titulo px-6 pt-6" data-bloque="titulo">
+        {titulo ? <h2 id={tituloId} class="text-t20 font-semibold">{titulo}</h2> : <h2 id={tituloId} class="sr-only">Inscripción al curso</h2>}
+        {subtitulo && <p class="mt-1 text-t15 text-navy-700 max-lg:hidden">{subtitulo}</p>}
+      </div>
+    ) : <h2 id={tituloId} class="sr-only">Inscripción al curso</h2>
+  )}
+
+  <div class="v2-caja-cuerpo px-6 pt-5 pb-6">
+    <p class="flex items-center gap-2 text-t13 text-navy-700" data-bloque="pais"><Bandera codigo={country.code} />Precio para {country.name}</p>
+
+    {estado === 'campana' && variante === 'cuenta-clara' && descuento && (
+      <dl class="mt-4 space-y-2 border-b border-navy-100 pb-4 text-t15" data-bloque="precio">
+        <div class="flex items-baseline justify-between gap-3">
+          <dt class="text-navy-700">Precio normal</dt>
+          <dd class="v2-num text-navy-500"><span data-tachado class="v2-tachado">{conMoneda(baseAmount)}</span></dd>
+        </div>
+        <div class="flex items-baseline justify-between gap-3" data-bloque="cupon">
+          <dt class="flex flex-wrap items-center gap-x-2 text-navy-950">
+            <span data-cupon-icono class="inline-flex"><Icono nombre="circle-check" tamano={16} class="text-v2-ok" /></span>
+            <span data-cupon-texto>Cupón {offer!.coupon} · {offer!.saving} %</span>
+            <button type="button" data-toggle class="min-h-9 text-t13 font-medium text-navy-950 underline underline-offset-4 hover:text-coral-700">Quitar</button>
+          </dt>
+          <dd class="v2-num font-semibold text-coral-700" data-cupon-cifra>−{conMoneda(descuento)}</dd>
+        </div>
+      </dl>
+    )}
+
+    <div class="mt-4" aria-live="polite" aria-atomic="true" data-bloque="importe">
+      <p class="text-t13 text-navy-500" data-precio-rotulo>{estado === 'campana' ? (variante === 'cuenta-clara' ? 'Hoy pagas' : 'Precio con cupón') : estado === 'sin-precio' ? 'Precio' : 'Precio'}</p>
+      {estado === 'sin-precio'
+        ? <p class="mt-1 text-t17 text-navy-700">El precio en {currency} lo ves en Hotmart antes de pagar.</p>
+        : <p class="v2-num font-display text-d40 font-semibold text-navy-950"><span data-amount-cifra>{cifra(reducido ?? baseAmount)}</span> <span class="text-t20 font-medium">{currency}</span><span class="sr-only" data-amount>{offer?.price ?? displayMoney(baseAmount)}</span></p>}
+      {estado === 'campana' && variante === 'cabecera-oscura' && (
+        <p class="mt-1 flex flex-wrap items-center gap-2 text-t15 text-navy-500" data-savings>antes <span class="v2-num v2-tachado">{conMoneda(baseAmount)}</span><span class="rounded-c-sm bg-coral-50 px-2 py-0.5 text-t13 font-semibold text-coral-700">Ahorras {offer!.saving} %</span></p>
+      )}
+    </div>
+
+    {estado === 'campana' && variante === 'cuenta-clara' && offer?.end && (
+      <Contador hasta={offer.end} desde={promoRow?.desde} estilo={ajustes.caja.contador === 'tique' ? 'linea' : ajustes.caja.contador} campana={campana} despues={despues} class="mt-4" />
+    )}
+    <p class="mt-4 hidden rounded-c-md bg-navy-50 p-3 text-t13 text-navy-700" data-aviso-fin>
+      <Icono nombre="calendar-off" tamano={16} class="mr-1 inline align-[-3px]" />{campana ?? 'La promoción'} terminó{fin ? ` el ${fin}` : ''}. Este es el precio normal.
+    </p>
+
+    <div class="mt-5" data-bloque="boton">
+      {estado === 'campana'
+        ? <Boton variante="principal" completo href={enlaceInicial} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago data-btn-con={`Inscribirme con ${offer!.saving} %`} data-btn-sin={`Inscribirme · ${conMoneda(baseAmount)}`}>Inscribirme con {offer!.saving} %</Boton>
+        : estado === 'normal'
+          ? <Boton variante="precio" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago precio={{ cifra: cifra(baseAmount), moneda: currency }}>Inscribirme</Boton>
+          : <Boton variante="principal" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago>Ver precio en Hotmart</Boton>}
+      <p class="mt-3 text-t13 text-navy-700" data-bloque="pago-seguro">Pagas en <LogoHotmart alto={15} class="mx-0.5" /> en {currency} · sin crear cuenta en Sably</p>
+      <p class="text-t13 text-navy-500">El acceso te llega por correo al instante.</p>
+    </div>
+
+    {creador && (
+      <div class="mt-5 flex items-center gap-3 border-t border-navy-100 pt-5" data-bloque="docente">
+        {foto ? <img src={foto} alt="" width="40" height="40" loading="lazy" class="size-10 rounded-full object-cover ring-1 ring-navy-100" />
+              : <span class="grid size-10 flex-none place-items-center rounded-full bg-navy-950 text-t13 font-semibold text-white" aria-hidden="true">{siglas}</span>}
+        <p class="text-t15 font-semibold text-navy-950">Lo dicta {creador}<span class="block text-t13 font-normal text-navy-500">Es el nombre que verás en Hotmart al pagar.</span></p>
+      </div>
+    )}
+
+    <ul class="mt-5 space-y-3 border-t border-navy-100 pt-5 text-t15 text-navy-950" data-bloque="confianza">
+      <li class="flex items-center gap-3" data-item="garantia"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="shield-check" tamano={18} /></span>7 días para pedir reembolso</li>
+      <li class="flex items-center gap-3" data-item="constancia"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="award" tamano={18} /></span>Constancia de finalización</li>
+      <li class="flex items-center gap-3" data-item="medios"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="credit-card" tamano={18} /></span>Tarjeta o PayPal</li>
+    </ul>
+    <LogosPago pais={country.code} locales={false} class="mt-3 pl-11" />
+
+    <div class="mt-5 border-t border-navy-100" data-bloque="acordeon">
+      <Acordeon titulo="Qué pasa al pulsar" grupo="caja" class="border-b border-navy-100" tituloClass="min-h-12 py-3 text-t15 font-medium text-navy-950">
+        <ol class="list-decimal space-y-1.5 pb-4 pl-5 text-t13 text-navy-700">
+          <li>Se abre Hotmart en otra pestaña, con el curso y el precio en {currency}{offer ? ` y el cupón ${offer.coupon} ya puesto` : ''}.</li>
+          <li>Pagas ahí; Sably no ve ni guarda tus datos de pago.</li>
+          <li>Hotmart te manda por correo el acceso a las lecciones.</li>
+          <li>Tienes 7 días para pedir el reembolso desde Hotmart.</li>
+          <li>Al terminar el 100 % de las lecciones, Hotmart emite tu constancia de finalización.</li>
+        </ol>
+      </Acordeon>
+      <Acordeon titulo="Medios de pago" grupo="caja" class="border-b border-navy-100" tituloClass="min-h-12 py-3 text-t15 font-medium text-navy-950">
+        <div class="pb-4 text-t13 text-navy-700">
+          <p>{f.FAQ_PAGO.a}</p>
+          <LogosPago pais={country.code} class="mt-3" alto={18} />
+        </div>
+      </Acordeon>
+      <Acordeon titulo="País y moneda" grupo="caja" class="border-b border-navy-100" tituloClass="min-h-12 py-3 text-t15 font-medium text-navy-950">
+        <p class="text-t13 text-navy-700">Ahora: {country.name} · {currency}. Cambiar a:</p>
+        <ul class="grid grid-cols-2 gap-x-3 pb-3">{marketLinks.map(m => <li><a class="inline-block py-2 text-t13 text-navy-950 underline underline-offset-4" href={m.href}>{m.label}</a></li>)}</ul>
+      </Acordeon>
+    </div>
+  </div>
+
+  <div class="bg-navy-50 px-6 py-5" data-bloque="whatsapp">
+    <p class="text-t15 font-semibold text-navy-950">¿Dudas antes de pagar?</p>
+    <Boton variante="whatsapp" completo href={whatsapp} target="_blank" rel="noopener nofollow" class="mt-3">Escríbenos por WhatsApp</Boton>
+    <p class="mt-3 text-t13 text-navy-500" data-bloque="nota_legal">Sably recibe una comisión cuando te inscribes desde aquí, sin costo extra para ti.{leida && ` Precio leído en Hotmart el ${leida}.`}</p>
+  </div>
+</section>
+
+<style>
+  .v2-tachado { text-decoration: line-through; text-decoration-thickness: 1.5px; }
+  .v2-caja[data-cupon='retirado'] [data-cupon-icono] { opacity: 0.4; }
+  .v2-caja[data-cupon='retirado'] [data-cupon-cifra] { color: var(--color-navy-500); font-weight: 400; }
+  .v2-caja[data-cupon='retirado'] .v2-tachado { text-decoration: none; }
+  .v2-caja[data-estado='vencida'] :is([data-bloque='cupon'], [data-contador], [data-savings]) { display: none; }
+  .v2-caja[data-estado='vencida'] [data-aviso-fin] { display: block; }
+  /* Móvil: precio y botón primero (dentro de los primeros 844 px); la cuenta y el contador, después. */
+  @media (width < 1024px) {
+    .v2-caja-cuerpo { display: flex; flex-direction: column; }
+    .v2-caja-cuerpo > :global(*) { order: 5; }
+    .v2-caja-cuerpo > :global([data-bloque='pais']) { order: 0; }
+    .v2-caja-cuerpo > :global([data-bloque='importe']) { order: 1; }
+    .v2-caja-cuerpo > :global([data-bloque='boton']) { order: 2; }
+    .v2-caja-cuerpo > :global([data-bloque='precio']) { order: 3; margin-top: 20px; border-top: 1px solid var(--color-navy-100); padding-top: 16px; }
+    .v2-caja-cuerpo > :global(:is([data-contador], [data-aviso-fin])) { order: 4; }
+    /* El H1 ya está encima: en móvil el título de la caja solo lo leen los lectores de pantalla. */
+    .v2-caja-titulo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+    .v2-caja-titulo + .v2-caja-cuerpo { padding-top: 24px; }
+  }
+  [data-amount-cifra].cambia { animation: v2-cambia var(--t-base) var(--e-sale); }
+  @keyframes v2-cambia { from { opacity: 0.2; translate: 0 0.25em; } }
+</style>
+
+<script>
+  import { trackEvent } from '@/lib/analytics';
+  const caja = document.querySelector<HTMLElement>('section[data-purchase-panel][data-variante]');
+  if (caja && caja.dataset.discountUrl) {
+    const d = caja.dataset;
+    const enlaces = document.querySelectorAll<HTMLAnchorElement>('a[data-pago]');
+    const toggles = caja.querySelectorAll<HTMLButtonElement>('[data-toggle]');
+    const fin = Number(d.until);
+    const vencida = () => fin > 0 && Date.now() >= fin;
+    let aplicado = true;
+    // «$ 95.506 COP» → «95.506»: la moneda va aparte, más pequeña.
+    const cifra = (texto: string) => texto.replace(/\s+[A-Z]{3}$/, '').replace(/^[^\d]+/, '');
+    function pintar() {
+      const activo = aplicado && !vencida();
+      const importe = activo ? d.reduced! : d.base!;
+      if (vencida()) caja!.dataset.estado = 'vencida';
+      caja!.dataset.cupon = activo ? 'aplicado' : 'retirado';
+      const nodo = caja!.querySelector<HTMLElement>('[data-amount-cifra]');
+      if (nodo && nodo.textContent !== cifra(importe)) { nodo.textContent = cifra(importe); nodo.classList.remove('cambia'); void nodo.offsetWidth; nodo.classList.add('cambia'); }
+      caja!.querySelector('[data-amount]')!.textContent = importe;
+      const rotulo = caja!.querySelector('[data-precio-rotulo]');
+      if (rotulo) rotulo.textContent = activo ? (d.variante === 'cuenta-clara' ? 'Hoy pagas' : 'Precio con cupón') : vencida() ? 'Precio' : 'Pagas sin cupón';
+      caja!.querySelectorAll('[data-cupon-texto]').forEach(t => { t.textContent = `Cupón ${d.codigo}${d.variante === 'cuenta-clara' ? ` · ${d.pct} %` : ''} ${activo ? (d.variante === 'cuenta-clara' ? '' : 'aplicado') : 'retirado'}`.replace(/\s+$/, ''); });
+      toggles.forEach(b => { b.textContent = activo ? 'Quitar' : 'Volver a aplicar'; b.setAttribute('aria-label', activo ? `Quitar el cupón ${d.codigo}` : `Volver a aplicar el cupón ${d.codigo}`); });
+      // El botón de la caja, la barra fija y el cierre cambian precio y enlace a la vez.
+      enlaces.forEach(a => {
+        a.href = activo ? d.discountUrl! : d.originalUrl!;
+        const texto = a.querySelector('[data-btn-texto]');
+        if (texto && a.dataset.btnCon) texto.textContent = activo ? a.dataset.btnCon : a.dataset.btnSin!;
+      });
+      document.querySelectorAll<HTMLElement>('[data-precio-fijo]').forEach(p => { p.textContent = cifra(importe); });
+      document.querySelectorAll<HTMLElement>('[data-precio-fijo-nota]').forEach(p => { p.textContent = activo ? `con cupón ${d.codigo}` : 'precio normal'; });
+      document.querySelectorAll<HTMLElement>('[data-cierre-promo]').forEach(p => { p.hidden = !activo; });
+    }
+    toggles.forEach(b => b.addEventListener('click', () => { aplicado = !aplicado; pintar(); trackEvent('coupon_toggle', { page: location.pathname, applied: String(aplicado) }); }));
+    // Si la campaña vence con la página abierta, el clic ya lleva al precio normal.
+    enlaces.forEach(a => a.addEventListener('click', () => { if (vencida()) pintar(); }));
+    if (fin > 0) { if (vencida()) pintar(); else setTimeout(pintar, Math.min(fin - Date.now() + 500, 2_147_000_000)); }
+  }
+</script>

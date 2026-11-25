@@ -1,0 +1,73 @@
+---
+/**
+ * Aparece cuando el botón de la caja sale de la pantalla y se va al volver o al
+ * llegar al cierre. En móvil, barra inferior de 72 px (precio, WhatsApp e
+ * «Inscribirme»); en escritorio, subnavegación bajo la cabecera con las
+ * secciones, el precio y el botón. El precio y el enlace los actualiza la caja
+ * al quitar o reaplicar el cupón (data-pago, data-precio-fijo).
+ */
+import Boton from '@/components/v2/Boton.astro';
+interface Props {
+  secciones: { id: string; etiqueta: string }[];
+  precio: string | null;
+  moneda: string;
+  nota: string;
+  href: string;
+  boton: string;
+  botonSin?: string;
+  whatsapp: string;
+}
+const { secciones, precio, moneda, nota, href, boton, botonSin, whatsapp } = Astro.props;
+---
+<div class="v2-fija" data-barra-fija data-oculta inert>
+  <div class="v2-contenedor flex h-[72px] items-center gap-4 lg:h-16">
+    <nav aria-label="Secciones de la ficha" class="hidden min-w-0 flex-1 lg:block">
+      <ul class="flex gap-7 overflow-x-auto">
+        {secciones.map(s => <li><a href={`#${s.id}`} data-subnav={s.id} class="block border-b-2 border-transparent py-5 text-t15 font-medium whitespace-nowrap text-navy-700 hover:text-navy-950">{s.etiqueta}</a></li>)}
+      </ul>
+    </nav>
+    {precio && (
+      <p class="min-w-0 lg:text-right">
+        <span class="v2-num block font-display text-t20 leading-tight font-semibold text-navy-950"><span data-precio-fijo>{precio}</span> <span class="text-t13 font-medium">{moneda}</span></span>
+        <span class="block text-t13 text-navy-500" data-precio-fijo-nota>{nota}</span>
+      </p>
+    )}
+    <a href={whatsapp} target="_blank" rel="noopener nofollow" class="ml-auto grid size-12 flex-none place-items-center rounded-full bg-white ring-1 ring-navy-100 lg:hidden" aria-label="Escríbenos por WhatsApp"><img src="/v2/logos/whatsapp.svg" alt="" width="24" height="24" /></a>
+    <Boton variante="principal" alto={48} href={href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="barra" data-pago data-btn-con={botonSin ? boton : undefined} data-btn-sin={botonSin} class="flex-none">{boton}</Boton>
+  </div>
+</div>
+<style>
+  .v2-fija {
+    position: fixed; inset: auto 0 0 0; z-index: 40; background: #fff; box-shadow: 0 -24px 56px -12px rgb(27 27 58 / 0.3);
+    translate: 0 100%; visibility: hidden;
+    transition: translate var(--t-base) var(--e-sale), visibility 0s linear var(--t-base);
+  }
+  .v2-fija:not([data-oculta]) { translate: 0 0; visibility: visible; transition-delay: 0s; }
+  @media (width >= 1024px) {
+    .v2-fija { inset: 64px 0 auto 0; translate: 0 -100%; box-shadow: var(--shadow-s2); border-top: 1px solid var(--color-navy-100); z-index: 45; }
+  }
+  .v2-fija [data-subnav][aria-current='true'] { color: var(--color-navy-950); border-color: var(--color-coral-600); }
+</style>
+<script>
+  const barra = document.querySelector<HTMLElement>('[data-barra-fija]');
+  const boton = document.querySelector('#compra a[data-pago]');
+  const cierre = document.querySelector('[data-cierre]');
+  if (barra && boton) {
+    let fueraCaja = false, enCierre = false;
+    const actualizar = () => {
+      const visible = fueraCaja && !enCierre;
+      barra.toggleAttribute('data-oculta', !visible);
+      barra.inert = !visible;
+      document.body.toggleAttribute('data-barra-fija', visible);
+    };
+    new IntersectionObserver(([e]) => { fueraCaja = !e!.isIntersecting && e!.boundingClientRect.top < 0; actualizar(); }).observe(boton);
+    if (cierre) new IntersectionObserver(([e]) => { enCierre = e!.isIntersecting; actualizar(); }).observe(cierre);
+    // La pestaña activa sigue a la sección en lectura.
+    const enlaces = [...barra.querySelectorAll<HTMLAnchorElement>('[data-subnav]')];
+    const secciones = enlaces.map(a => document.getElementById(a.dataset.subnav!)).filter(Boolean) as HTMLElement[];
+    const observador = new IntersectionObserver(entradas => {
+      for (const e of entradas) if (e.isIntersecting) enlaces.forEach(a => a.setAttribute('aria-current', String(a.dataset.subnav === e.target.id)));
+    }, { rootMargin: '-140px 0px -60% 0px' });
+    secciones.forEach(s => observador.observe(s));
+  }
+</script>
