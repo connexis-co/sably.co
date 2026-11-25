@@ -2,7 +2,23 @@
 // WAV PCM → unir tramos con pausas → sonoridad integrada BS.1770-4 → ganancia a −16 LUFS → limitador de pico →
 // MP3 mono (MPEG-2 capa III con LAME en JS) → etiquetas ID3v2.3 que declaran la voz sintética.
 
-export const preset = { lufs: -16, techoDbfs: -2, kbps: 64 } as const;
+// Techo de pico real (entre muestras, estimado ×4) a −3 dBTP: deja margen al sobrepico del MP3 para quedar
+// por debajo de −1,5 dBTP, el objetivo de terapiadpareja.
+// El MP3 a 64 kb/s pierde ~0,5 LU frente al PCM (medido con ffmpeg ebur128 en dos tomas del 25-nov): se apunta a
+// −15,6 LUFS en el PCM para entregar unos −16 LUFS en el archivo.
+export const preset = { lufs: -15.6, techoDbfs: -3, kbps: 64 } as const;
+
+/** Pico entre muestras alrededor de `i` (Catmull-Rom en t = ¼, ½, ¾): aproxima el pico real ×4 de BS.1770. */
+function picoReal(x: Float32Array, i: number): number {
+  const a = x[i - 1] ?? x[i]!, b = x[i]!, c = x[i + 1] ?? b, d = x[i + 2] ?? c;
+  let pico = Math.abs(b);
+  for (let j = 1; j < 4; j++) {
+    const t = j / 4, t2 = t * t, t3 = t2 * t;
+    const v = 0.5 * (2 * b + (-a + c) * t + (2 * a - 5 * b + 4 * c - d) * t2 + (-a + 3 * b - 3 * c + d) * t3);
+    if (Math.abs(v) > pico) pico = Math.abs(v);
+  }
+  return pico;
+}
 
 export interface Pcm {
   frecuencia: number;
@@ -120,7 +136,11 @@ function filtrosK(fs: number): [Biquad, Biquad] {
   return [estante, pasoAlto];
 }
 
-function filtrar(x: Float32Array, [b0, b1, b2, a1, a2]: Biquad): Float32Array {
+/** Cede el hilo de Node cada ~130.000 muestras (unos milisegundos): el servidor sigue atendiendo páginas. */
+const PASO_CEDER = 0x1ffff;
+const ceder = () => new Promise<void>((ok) => setTimeout(ok, 0));
+
+async function filtrar(x: Float32Array, [b0, b1, b2, a1, a2]: Biquad): Promise<Float32Array> {
   const y = new Float32Array(x.length);
   let x1 = 0, x2 = 0, y1 = 0, y2 = 0;
   for (let i = 0; i < x.length; i++) {
@@ -128,77 +148,101 @@ function filtrar(x: Float32Array, [b0, b1, b2, a1, a2]: Biquad): Float32Array {
     const s = b0 * v + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2;
     x2 = x1; x1 = v; y2 = y1; y1 = s;
     y[i] = s;
+    if ((i & PASO_CEDER) === PASO_CEDER) await ceder();
   }
   return y;
 }
 
 /** Sonoridad integrada en LUFS (BS.1770-4: bloques de 400 ms al 75 %, puerta absoluta −70 y relativa −10). */
-export function sonoridad(pcm: Pcm): number {
+export async function sonoridad(pcm: Pcm): Promise<number> {
   const [estante, pasoAlto] = filtrosK(pcm.frecuencia);
-  const k = filtrar(filtrar(pcm.muestras, estante), pasoAlto);
+  const k = await filtrar(await filtrar(pcm.muestras, estante), pasoAlto);
   const bloque = Math.round(0.4 * pcm.frecuencia);
   const paso = Math.round(0.1 * pcm.frecuencia);
   if (k.length < bloque) return -Infinity;
-  const energias: number[] = [];
-  for (let i = 0; i + bloque <= k.length; i += paso) {
-    let s = 0;
-    for (let j = i; j < i + bloque; j++) s += k[j]! * k[j]!;
-    energias.push(s / bloque);
+  // Suma acumulada de cuadrados: cada bloque cuesta O(1).
+  const acumulada = new Float64Array(k.length + 1);
+  for (let i = 0; i < k.length; i++) {
+    acumulada[i + 1] = acumulada[i]! + k[i]! * k[i]!;
+    if ((i & PASO_CEDER) === PASO_CEDER) await ceder();
   }
+  const energias: number[] = [];
+  for (let i = 0; i + bloque <= k.length; i += paso) energias.push((acumulada[i + bloque]! - acumulada[i]!) / bloque);
   const L = (z: number) => -0.691 + 10 * Math.log10(z);
-  const absolutos = energias.filter((z) => L(z) > -70);
+  const absolutos = energias.filter((z) => z > 0 && L(z) > -70);
   if (!absolutos.length) return -Infinity;
   const relativo = L(absolutos.reduce((a, b) => a + b, 0) / absolutos.length) - 10;
   const validos = absolutos.filter((z) => L(z) > relativo);
   return L(validos.reduce((a, b) => a + b, 0) / validos.length);
 }
 
-export function medir(pcm: Pcm): Medicion {
+export async function medir(pcm: Pcm): Promise<Medicion> {
   let pico = 0;
   let racha = 0;
   let maxRacha = 0;
-  for (const v of pcm.muestras) {
-    const a = Math.abs(v);
+  const m = pcm.muestras;
+  for (let i = 0; i < m.length; i++) {
+    const a = Math.abs(m[i]!);
     if (a > pico) pico = a;
     if (a < 0.003) racha++;
     else {
       if (racha > maxRacha) maxRacha = racha;
       racha = 0;
     }
+    if ((i & PASO_CEDER) === PASO_CEDER) await ceder();
   }
   if (racha > maxRacha) maxRacha = racha;
   const redondear = (n: number) => Math.round(n * 100) / 100;
   return {
-    segundos: redondear(pcm.muestras.length / pcm.frecuencia),
-    lufs: redondear(sonoridad(pcm)),
+    segundos: redondear(m.length / pcm.frecuencia),
+    lufs: redondear(await sonoridad(pcm)),
     picoDbfs: redondear(20 * Math.log10(pico || 1e-9)),
     silencioMaximo: redondear(maxRacha / pcm.frecuencia),
   };
 }
 
-/** Ganancia y limitador con anticipación (5 ms) y liberación suave (60 ms): ningún pico pasa de `techoDbfs`. */
-export function normalizar(pcm: Pcm, lufs: number = preset.lufs, techoDbfs: number = preset.techoDbfs): Pcm {
-  const medida = sonoridad(pcm);
-  const ganancia = Number.isFinite(medida) ? Math.pow(10, (lufs - medida) / 20) : 1;
+/**
+ * Lleva el audio a `lufs` sin que ningún pico real pase de `techoDbfs`. El limitador resta sonoridad (en voz, alrededor
+ * de 1 LU), así que se mide el resultado y se corrige la ganancia hasta quedar a ±0,2 LU (máximo 4 pasadas).
+ */
+export async function normalizar(pcm: Pcm, lufs: number = preset.lufs, techoDbfs: number = preset.techoDbfs): Promise<Pcm> {
+  const original = await sonoridad(pcm);
+  if (!Number.isFinite(original)) return pcm;
+  let objetivo = lufs;
+  let salida = await limitar(pcm, Math.pow(10, (objetivo - original) / 20), techoDbfs);
+  for (let i = 0; i < 3; i++) {
+    const medida = await sonoridad(salida);
+    if (!Number.isFinite(medida) || Math.abs(lufs - medida) <= 0.2) break;
+    objetivo += lufs - medida;
+    salida = await limitar(pcm, Math.pow(10, (objetivo - original) / 20), techoDbfs);
+  }
+  return salida;
+}
+
+/** Ganancia lineal y limitador de pico real con anticipación (5 ms) y liberación suave (60 ms). */
+async function limitar(pcm: Pcm, ganancia: number, techoDbfs: number): Promise<Pcm> {
   const techo = Math.pow(10, techoDbfs / 20);
   const x = pcm.muestras;
   const n = x.length;
   const requerida = new Float32Array(n);
   for (let i = 0; i < n; i++) {
-    const a = Math.abs(x[i]! * ganancia);
+    const a = picoReal(x, i) * ganancia;
     requerida[i] = a > techo ? techo / a : 1;
+    if ((i & PASO_CEDER) === PASO_CEDER) await ceder();
   }
   // Mínimo en ventana deslizante hacia delante: la ganancia baja antes de que llegue el pico.
   const ventana = Math.max(1, Math.round(0.005 * pcm.frecuencia));
   const minimo = new Float32Array(n);
-  const cola: number[] = [];
+  // Cola monótona sobre un arreglo fijo (cabeza y cola como índices): O(n) sin copias.
+  const cola = new Int32Array(n);
   let cabeza = 0;
+  let fin = 0;
   for (let i = n - 1; i >= 0; i--) {
-    while (cola.length > cabeza && requerida[cola[cola.length - 1]!]! >= requerida[i]!) cola.pop();
-    cola.push(i);
+    while (fin > cabeza && requerida[cola[fin - 1]!]! >= requerida[i]!) fin--;
+    cola[fin++] = i;
     while (cola[cabeza]! > i + ventana) cabeza++;
     minimo[i] = requerida[cola[cabeza]!]!;
-    if (cabeza > 4096) { cola.splice(0, cabeza); cabeza = 0; }
+    if ((i & PASO_CEDER) === 0) await ceder();
   }
   const liberar = 1 - Math.exp(-1 / (0.06 * pcm.frecuencia));
   const salida = new Float32Array(n);
@@ -207,6 +251,7 @@ export function normalizar(pcm: Pcm, lufs: number = preset.lufs, techoDbfs: numb
     const objetivo = minimo[i]!;
     g = objetivo < g ? objetivo : g + (objetivo - g) * liberar;
     salida[i] = x[i]! * ganancia * g;
+    if ((i & PASO_CEDER) === PASO_CEDER) await ceder();
   }
   return { frecuencia: pcm.frecuencia, muestras: salida };
 }
@@ -261,9 +306,11 @@ export async function aMp3(pcm: Pcm, meta: Metadatos, kbps: number = preset.kbps
   const { Mp3Encoder } = await import("@breezystack/lamejs");
   const codificador = new Mp3Encoder(1, pcm.frecuencia, kbps);
   const partes: Uint8Array[] = [id3(meta)];
-  const bloque = 1152 * 8;
+  const bloque = 1152 * 2;
   const enteros = new Int16Array(bloque);
   for (let i = 0; i < pcm.muestras.length; i += bloque) {
+    // Cede el hilo entre bloques (~0,4 s de audio): el servidor sigue atendiendo páginas mientras codifica.
+    if (i) await new Promise((ok) => setTimeout(ok, 0));
     const trozo = pcm.muestras.subarray(i, i + bloque);
     for (let j = 0; j < trozo.length; j++) enteros[j] = Math.max(-32768, Math.min(32767, Math.round(trozo[j]! * 32767)));
     const salida = codificador.encodeBuffer(trozo.length === bloque ? enteros : enteros.subarray(0, trozo.length));

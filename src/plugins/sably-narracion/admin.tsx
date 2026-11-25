@@ -20,7 +20,7 @@ interface Config { colecciones: Record<string, boolean>; voz: string; estilo: st
 interface Panel { config: Config; voces: Voz[]; proveedores: { id: string; nombre: string; disponible: boolean; puedeClonar: boolean; pausa: { hasta: number; motivo: string } | null }[]; tomas: Toma[]; permisos: any[]; colecciones: Record<string, string>; resumen: Partial<Record<Estado, number>>; gasto: { usd: number; tomas: number }; publicadas: number; deposito: { carpeta: string; r2: boolean } }
 
 const ESTADOS: Record<Estado, string> = { pendiente: 'En cola', generando: 'Generando', revision: 'En revisión', publicada: 'Suena en el sitio', reemplazada: 'Reemplazada', rechazada: 'Rechazada', obsoleta: 'Obsoleta', error: 'Error', retirada: 'Retirada' };
-const usd = (n?: number) => n === undefined ? '—' : `USD ${n.toFixed(n < 0.1 ? 4 : 2)}`;
+const usd = (n?: number) => n === undefined ? '—' : `USD ${n.toLocaleString('es-CO', { minimumFractionDigits: 2, maximumFractionDigits: n > 0 && n < 0.1 ? 4 : 2 })}`;
 const duracion = (s?: number) => s === undefined ? '—' : `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
 const fecha = (ms: number) => new Intl.DateTimeFormat('es-CO', { timeZone: 'America/Bogota', dateStyle: 'medium', timeStyle: 'short' }).format(ms);
 const escuchar = (t: Toma) => t.deposito === 'r2' && t.url ? t.url : `${BASE}escuchar?id=${encodeURIComponent(t.id)}`;
@@ -221,12 +221,12 @@ function Ajustes({ panel, accion, ocupado }: { panel: Panel; accion: Accion; ocu
 
 const ESTILOS = `.sn{max-width:1180px;padding:24px}.sn h1{font-size:28px;font-weight:700}.sn h2{font-size:18px;font-weight:650;margin:24px 0 8px}.sn p{margin:10px 0;max-width:80ch}
 .sn button{background:#1765d1;color:#fff;border-radius:6px;padding:8px 14px;margin:4px 6px 4px 0;min-height:40px}.sn button:disabled{opacity:.55}
-.sn button:focus-visible,.sn select:focus-visible,.sn input:focus-visible,.sn textarea:focus-visible{outline:3px solid #ff8a65;outline-offset:2px}
-.sn-pestanas{display:flex;gap:4px;border-bottom:1px solid #d6dbe4;margin:16px 0}.sn-pestanas button{background:transparent;color:#1d2a44;border-radius:6px 6px 0 0;margin:0}.sn-pestanas button[aria-selected=true]{background:#1d2a44;color:#fff}
+.sn button:focus-visible,.sn select:focus-visible,.sn input:focus-visible,.sn textarea:focus-visible{outline:3px solid #ff8a65;outline-offset:2px}.sn-tabla th,.sn-tabla td{border-color:#8b94a540}
+.sn-pestanas{display:flex;gap:4px;border-bottom:1px solid #d6dbe4;margin:16px 0}.sn-pestanas button{background:transparent;color:inherit;border-radius:6px 6px 0 0;margin:0}.sn-pestanas button[aria-selected=true]{background:#1765d1;color:#fff}
 .sn-cifras{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:12px 0}.sn-cifras div{border:1px solid #d6dbe4;border-radius:8px;padding:12px}.sn-cifras strong{display:block;font-size:24px}
 .sn-tabla{width:100%;border-collapse:collapse;margin:12px 0}.sn-tabla th,.sn-tabla td{border-bottom:1px solid #e3e7ee;padding:8px;text-align:left;vertical-align:top}.sn-acciones audio{max-width:260px;display:block;margin-bottom:4px}
-.sn-form{display:grid;gap:12px;max-width:720px}.sn-campo{display:grid;gap:4px}.sn-campo input,.sn-campo select,.sn-campo textarea{border:1px solid #b9c1cf;border-radius:6px;padding:8px}.sn-campo small{color:#5b6577}
+.sn-form{display:grid;gap:12px;max-width:720px}.sn-campo{display:grid;gap:4px}.sn-campo input,.sn-campo select,.sn-campo textarea{border:1px solid #8b94a5;border-radius:6px;padding:8px;background:transparent;color:inherit}.sn select{color:inherit;background:transparent}.sn option{color:#111}.sn-campo small{opacity:.75}
 .sn-casilla{display:flex;gap:8px;align-items:flex-start}.sn fieldset{border:1px solid #d6dbe4;border-radius:8px;padding:12px;display:grid;gap:8px}
-.sn-mal,.sn-error{color:#b42318}.sn-lista{display:grid;gap:6px;padding-left:18px;list-style:disc}`;
+.sn-mal,.sn-error{color:#e5484d}.sn-lista{display:grid;gap:6px;padding-left:18px;list-style:disc}`;
 
 export const pages: PluginAdminExports['pages'] = { '/narraciones': NarracionesPage };

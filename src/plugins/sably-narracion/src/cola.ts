@@ -207,6 +207,13 @@ export class Cola {
     for (const p of previas)
       if ((p.data.huella !== e.huella || p.data.perfilId !== perfilId) && SIN_PUBLICAR.includes(p.data.estado))
         await this.a.tomas.put(p.id, { ...p.data, estado: "obsoleta", actualizado: t });
+    // Volver a publicar una entrada retirada repone su audio al momento si el texto y la voz no cambiaron.
+    const retirada = mismas.find((p) => p.data.estado === "retirada" && p.data.archivo);
+    if (retirada && !e.forzar && !(await this.a.publicadas.get(idEntrada(e.coleccion, e.slug)))) {
+      await this.a.tomas.put(retirada.id, { ...retirada.data, estado: "revision", actualizado: t });
+      await this.publicar(retirada.id, retirada.data.revisor ?? "reutilizada");
+      return { resultado: "vigente" };
+    }
     if (viva && !e.forzar) {
       if (viva.data.estado === "publicada") return { resultado: "vigente" };
       return { resultado: "existente", id: viva.id, toma: viva.data };

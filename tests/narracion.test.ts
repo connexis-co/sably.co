@@ -4,13 +4,14 @@ import { mkdtemp, readFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
-import { aMp3, aWav, leerWav, medir, normalizar, sonoridad, unir, type Pcm } from '../src/plugins/sably-narracion/src/audio';
+import { aMp3, aWav, leerWav, medir, normalizar, preset, sonoridad, unir, type Pcm } from '../src/plugins/sably-narracion/src/audio';
 import { Cola, almacenEnMemoria, idToma } from '../src/plugins/sably-narracion/src/cola';
 import { bloquesDe, normalizarConfig, VOCES_INICIALES } from '../src/plugins/sably-narracion/src/config';
 import { guardar } from '../src/plugins/sably-narracion/src/deposito';
 import { clasificar, ErrorProveedor, type Proveedor } from '../src/plugins/sably-narracion/src/proveedores';
 import { bloquesNarrables, camposBlog, guion, huella, normalizarParaVoz } from '../src/plugins/sably-narracion/src/texto';
 import { agrupar, procesar } from '../src/plugins/sably-narracion/src/trabajador';
+import { nodeEdgePolicy } from '../src/lib/public-delivery';
 
 const seno = (segundos: number, amplitud: number, frecuencia = 24000, hz = 997): Pcm => {
   const muestras = new Float32Array(Math.round(segundos * frecuencia));
@@ -47,16 +48,16 @@ test('texto: tramos sin partir bloques y de hasta 1.800 caracteres', () => {
   assert.equal(tramos.join('\n\n').split('\n\n').length, 8);
 });
 
-test('audio: sonoridad BS.1770 de un seno de 997 Hz a escala completa ≈ −3,01 LUFS', () => {
-  assert.ok(Math.abs(sonoridad(seno(3, 1, 48000)) - -3.01) < 0.1);
-  assert.ok(Math.abs(sonoridad(seno(3, 1, 24000)) - -3.01) < 0.15);
+test('audio: sonoridad BS.1770 de un seno de 997 Hz a escala completa ≈ −3,01 LUFS', async () => {
+  assert.ok(Math.abs((await sonoridad(seno(3, 1, 48000))) - -3.01) < 0.1);
+  assert.ok(Math.abs((await sonoridad(seno(3, 1, 24000))) - -3.01) < 0.15);
 });
 
-test('audio: normaliza a −16 LUFS sin pasar el techo de pico', () => {
+test('audio: normaliza a la sonoridad objetivo sin pasar el techo de pico', async () => {
   const voz = unir([seno(2, 0.05), seno(2, 0.9, 24000, 300)], 0.5);
-  const m = medir(normalizar(voz));
-  assert.ok(Math.abs(m.lufs - -16) < 1, `LUFS ${m.lufs}`);
-  assert.ok(m.picoDbfs <= -1.9, `pico ${m.picoDbfs}`);
+  const m = await medir(await normalizar(voz));
+  assert.ok(Math.abs(m.lufs - preset.lufs) <= 0.25, `LUFS ${m.lufs}`);
+  assert.ok(m.picoDbfs <= -2.99, `pico ${m.picoDbfs}`);
   assert.ok(Math.abs(m.segundos - 4.5) < 0.01);
 });
 
@@ -65,7 +66,7 @@ test('audio: WAV de ida y vuelta, y MP3 con ID3 y tramas MPEG', async () => {
   const vuelta = leerWav(aWav(pcm));
   assert.equal(vuelta.frecuencia, 24000);
   assert.equal(vuelta.muestras.length, pcm.muestras.length);
-  const mp3 = await aMp3(normalizar(pcm), { titulo: 'Título ñ', artista: 'Sably', comentario: 'Voz sintética.' });
+  const mp3 = await aMp3(await normalizar(pcm), { titulo: 'Título ñ', artista: 'Sably', comentario: 'Voz sintética.' });
   assert.equal(String.fromCharCode(mp3[0]!, mp3[1]!, mp3[2]!), 'ID3');
   const tam = ((mp3[6]! & 0x7f) << 21) | ((mp3[7]! & 0x7f) << 14) | ((mp3[8]! & 0x7f) << 7) | (mp3[9]! & 0x7f);
   assert.equal(mp3[10 + tam], 0xff);
@@ -125,7 +126,7 @@ function falso(guion: ('ok' | 'corto' | 'transitorio' | 'saldo')[] = []): Provee
       const paso = guion[p.llamadas++] ?? 'ok';
       if (paso === 'transitorio') throw new ErrorProveedor('transitorio', 'HTTP 503');
       if (paso === 'saldo') throw new ErrorProveedor('saldo', 'HTTP 400: billing');
-      const segundos = (texto.length / 14.5) * (paso === 'corto' ? 0.4 : 1);
+      const segundos = (texto.length / 13.5) * (paso === 'corto' ? 0.4 : 1);
       return { pcm: seno(segundos, 0.3, 24000, 220), costoUsd: 0.002, fuenteCosto: 'prueba' };
     },
   };
@@ -145,13 +146,16 @@ test('trabajador: genera, deposita en disco y publica solo con revisión automá
   assert.equal((await readFile(join(carpeta, publicada.archivo))).subarray(0, 3).toString(), 'ID3');
   assert.equal(avisos.length, 1, 'avisa para invalidar la caché de páginas');
   assert.equal((await cola.gasto()).usd, 0.002);
-  // Mismo texto y voz otra vez (despublicar y volver a publicar): se reutiliza sin pagar.
+  // Despublicar y volver a publicar el mismo texto con la misma voz: repone el audio sin pagar.
   await cola.retirar('blog', 'coser');
-  const otra = await encolar(cola);
-  assert.equal(otra.resultado, 'nuevo');
-  assert.equal((otra as { reutilizada: boolean }).reutilizada, true);
+  assert.equal((await cola.publicadasTodas()).length, 0);
+  assert.equal((await encolar(cola)).resultado, 'vigente');
   assert.equal((await cola.gasto()).usd, 0.002);
   assert.equal((await cola.publicadasTodas()).length, 1);
+  // El mismo texto en otra entrada reutiliza el MP3 ya pagado.
+  const copia = await encolar(cola, 'coser-copia');
+  assert.equal((copia as { reutilizada: boolean }).reutilizada, true);
+  assert.equal((await cola.gasto()).usd, 0.002);
 });
 
 test('trabajador: un tramo que sale corto se repite y, si sigue corto, la toma queda en revisión', async (t) => {
@@ -198,6 +202,7 @@ test('trabajador: el tope mensual detiene la cola', async () => {
   await encolar(cola);
   const r = await procesar(cola, { proveedorInstancia: falso(), esperar: async () => {} });
   assert.match(String(r.omitido), /Tope mensual/);
+  assert.match(String((await cola.a.tomas.query()).items[0]?.data.error), /USD 0,00 gastados de USD 0,005/);
   assert.equal((await cola.gasto()).usd, 0);
 });
 
@@ -221,4 +226,12 @@ test('config y depósito: valores fuera de rango se corrigen; nombres no válido
   assert.deepEqual(c.colecciones, { blog: false, courses: false });
   await assert.rejects(guardar('disco', '../fuera.mp3', new Uint8Array(4)));
   assert.equal(idToma({ coleccion: 'blog', slug: 's', huella: 'a'.repeat(64), perfilId: 'b'.repeat(16), numero: 2 }), `blog:s:${'a'.repeat(12)}:${'b'.repeat(8)}:2`);
+});
+
+test('borde: Cloudflare guarda un año los MP3 de narraciones y nada más de esa ruta', () => {
+  const mp3 = new Response(null, { status: 206, headers: { 'Content-Type': 'audio/mpeg' } });
+  const politica = (ruta: string, r: Response) => nodeEdgePolicy(new Request(`https://sably.co${ruta}`), r, 'production', { anonymousPage: false, redirect: false });
+  assert.equal(politica('/narraciones/coser-0123456789ab.mp3', mp3), 'public, max-age=31536000, immutable');
+  assert.equal(politica('/narraciones/coser-0123456789ab.mp3', new Response(null, { status: 404 })), 'no-store');
+  assert.equal(politica('/narraciones/../x.mp3', mp3), 'no-store');
 });

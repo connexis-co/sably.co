@@ -23,18 +23,19 @@ import { blogCover } from '@/lib/blog';
 import type { load } from '@/lib/page-loaders/blog-article';
 import '../estilos.css';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
-const { post, country, toc, related, minutes, title, schemas: schemasBase, articleSchema, articleMeta } = Astro.props;
+const { post, country, toc, related, minutes, title, schemas, articleSchema: articuloBase, articleMeta } = Astro.props;
 const portada = cmsImageUrl(post.coverImage) ?? blogCover(post.data.category, 'hero');
 // Narración (plugin sably-narracion): solo si su huella coincide con este texto. Nunca en vista previa.
 const narracion = post.isPreview ? undefined : await narracionVigente('blog', post.id, {
   title: post.data.title, description: post.data.description, body: post.richBody, faq: post.data.faq,
 });
 const audioUrl = narracion ? new URL(narracion.url, Astro.site ?? Astro.url).href : undefined;
-const schemas = narracion && audioUrl ? schemasBase.map((s) => (s as { '@type'?: string })['@type'] === 'Article' ? {
-  ...s,
+// Article.audio → AudioObject, solo con narración vigente (mismo audio que suena en la página).
+const articleSchema = narracion && audioUrl && articuloBase ? {
+  ...articuloBase,
   audio: { '@type': 'AudioObject', name: `Narración: ${post.data.title}`, description: 'Narración del artículo con voz sintética.',
     contentUrl: audioUrl, encodingFormat: 'audio/mpeg', duration: duracionIso(narracion.segundos), inLanguage: 'es' },
-} : s) : schemasBase;
+} : articuloBase;
 const migas = [{ name: 'Inicio', url: '/co/' }, { name: 'Blog', url: '/blog/' }, { name: post.data.title, url: `/blog/${post.id}/` }];
 ---
 <BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} {articleSchema} {articleMeta} pageType="article" image={portada} temaV2>

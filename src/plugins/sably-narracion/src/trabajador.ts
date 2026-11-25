@@ -15,6 +15,8 @@ export const PAUSA_ENTRE_TRAMOS = 0.6;
 export const RANGO_DURACION: [number, number] = [0.7, 1.45];
 const ESPERAS_TRAMO_MS = [1000, 4000, 16000];
 
+const usdEs = (n: number) => n.toLocaleString("es-CO", { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+
 export function agrupar(fragmentos: Fragmento[], maximo = MAXIMO_TRAMO): string[] {
   const grupos: string[] = [];
   let actual = "";
@@ -89,7 +91,7 @@ async function tramo(p: Proveedor, texto: string, toma: Toma, config: Config, o:
     const pcm = recortar(resultado.pcm);
     const segundos = pcm.muestras.length / pcm.frecuencia;
     const razon = segundos / segundosEsperados(texto.length, config);
-    const silencio = medir(pcm).silencioMaximo;
+    const silencio = (await medir(pcm)).silencioMaximo;
     const bien = razon >= RANGO_DURACION[0] && razon <= RANGO_DURACION[1] && silencio <= 4;
     if (!mejor || Math.abs(Math.log(razon)) < Math.abs(Math.log(mejor.razon))) mejor = { pcm, razon };
     if (bien) break;
@@ -130,8 +132,8 @@ async function generarToma(cola: Cola, id: string, toma: Toma, config: Config, o
       resumen.costoUsd += costo;
     }
   }
-  const pcm = normalizar(unir(partes, PAUSA_ENTRE_TRAMOS));
-  const medicion = medir(pcm);
+  const pcm = await normalizar(unir(partes, PAUSA_ENTRE_TRAMOS));
+  const medicion = await medir(pcm);
   const mp3 = await aMp3(pcm, {
     titulo: toma.titulo,
     artista: o.metadatos?.artista ?? "Sably",
@@ -181,7 +183,7 @@ export async function procesar(cola: Cola, o: OpcionesTrabajo = {}): Promise<Res
         return { ...resumen, omitido: `Falta ${p.clave}` };
       }
       if (gasto.usd + toma.costoEstimadoUsd > config.topeMensualUsd) {
-        await cola.fallar(id, `Tope mensual alcanzado (USD ${gasto.usd.toFixed(2)} de ${config.topeMensualUsd})`, { pausa: true });
+        await cola.fallar(id, `Tope mensual alcanzado: USD ${usdEs(gasto.usd)} gastados de USD ${usdEs(config.topeMensualUsd)}`, { pausa: true });
         return { ...resumen, omitido: "Tope mensual alcanzado" };
       }
       await cola.tomarCerrojo(dueno);

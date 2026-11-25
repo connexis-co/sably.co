@@ -56,7 +56,8 @@ export const CONFIG_INICIAL: Config = {
   incluirPreguntas: false,
   deposito: "auto",
   pronunciaciones: { SMAW: "ese eme a doble ve", COP: "pesos colombianos", ARS: "pesos argentinos" },
-  caracteresPorSegundo: 14.5,
+  // Medido con es-419-csagent-9 el 25-nov-2026: 2.294 caracteres en 169,6 s (13,5 c/s).
+  caracteresPorSegundo: 13.5,
 };
 
 const numero = (v: unknown, min: number, max: number, defecto: number) =>

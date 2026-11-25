@@ -7,7 +7,7 @@
 @layer components {
   .v2-medio {
     --medio-acento: var(--color-coral-600);
-    --medio-pista: var(--color-navy-300);
+    --medio-pista: var(--color-navy-500);
     --medio-texto: var(--color-navy-950);
     --medio-suave: var(--color-navy-500);
     color: var(--medio-texto);
@@ -27,19 +27,20 @@
     contain: layout;
   }
   @media (min-width: 640px) {
-    .v2-medio-audio { block-size: 88px; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto; padding: 16px 20px; }
+    .v2-medio-audio { block-size: 88px; grid-template-columns: max-content minmax(0, 1fr); grid-template-rows: auto; padding: 16px 20px; }
+    .v2-medio-titulo, .v2-medio-nota { white-space: nowrap; }
   }
   .v2-medio-cabeza { min-inline-size: 0; }
   .v2-medio-titulo { margin: 0; font-size: var(--text-t15); line-height: var(--text-t15--line-height); font-weight: 600; }
   .v2-medio-nota { margin: 2px 0 0; font-size: var(--text-t13); line-height: var(--text-t13--line-height); color: var(--medio-suave); }
   /* Sin JS: el reproductor del navegador ocupa la fila de los controles. */
   .v2-medio-audio > audio { grid-column: 1 / -1; inline-size: 100%; block-size: 44px; }
-  @media (min-width: 640px) { .v2-medio-audio > audio { grid-column: 2 / -1; grid-row: 1; } }
+  @media (min-width: 640px) { .v2-medio-audio > audio { grid-column: 2; grid-row: 1; } }
   .v2-medio-audio > audio:not([controls]) { display: none; }
 
   .v2-medio-controles { display: flex; align-items: center; gap: 8px; grid-column: 1 / -1; min-inline-size: 0; }
   .v2-medio-controles[hidden] { display: none; }
-  @media (min-width: 640px) { .v2-medio-controles { grid-column: 3; } }
+  @media (min-width: 640px) { .v2-medio-controles { grid-column: 2; grid-row: 1; } }
 
   .v2-medio-boton {
     display: inline-grid; place-items: center; flex: none;
@@ -59,7 +60,7 @@
   }
 
   .v2-medio-linea { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px; flex: 1; min-inline-size: 0; }
-  .v2-medio-tiempo { font-size: var(--text-t13); color: var(--medio-suave); font-variant-numeric: tabular-nums; min-inline-size: 4ch; }
+  .v2-medio-tiempo { font-size: var(--text-t13); color: var(--medio-suave); font-variant-numeric: tabular-nums; min-inline-size: 3.5ch; }
 
   .v2-medio-barra {
     --pista: 6px; --pulgar: 16px; --lleno: 0%;
@@ -82,11 +83,18 @@
     background: var(--color-navy-50); color: var(--medio-texto); font-size: var(--text-t13); font-weight: 600; font-variant-numeric: tabular-nums;
   }
   .v2-medio-estado { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .v2-medio-icono { display: inline-grid; place-items: center; inline-size: 40px; block-size: 40px; border-radius: var(--radius-c-sm); background: var(--color-coral-50); color: var(--medio-acento); }
+  /* Móvil: botones en una fila y la barra con sus tiempos a todo el ancho debajo. */
   @media (max-width: 639px) {
-    .v2-medio-icono, .v2-medio-tiempo[data-medio-total] { display: none; }
-    .v2-medio-audio { grid-template-columns: minmax(0, 1fr); }
-    .v2-medio-controles, .v2-medio-linea { gap: 6px; }
+    .v2-medio-audio { grid-template-columns: minmax(0, 1fr); block-size: 184px; }
+    .v2-medio-controles:not([hidden]) {
+      display: grid; grid-template-columns: auto auto 1fr auto auto; grid-template-areas: "principal atras . adelante velocidad" "linea linea linea linea linea";
+      row-gap: 4px; column-gap: 8px;
+    }
+    .v2-medio-principal { grid-area: principal; }
+    [data-medio-saltar^="-"] { grid-area: atras; }
+    [data-medio-saltar]:not([data-medio-saltar^="-"]) { grid-area: adelante; }
+    .v2-medio-velocidad { grid-area: velocidad; }
+    .v2-medio-linea { grid-area: linea; }
   }
 
   @media (prefers-reduced-motion: reduce) {

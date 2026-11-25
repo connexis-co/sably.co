@@ -11,9 +11,6 @@ const reloj = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60))
 const minutos = Math.max(1, Math.round(segundos / 60));
 ---
 <section class="v2-medio v2-medio-audio" data-medio data-medio-titulo={titulo} data-medio-artista="Sably" data-medio-caratula={caratula} aria-labelledby={`${id}-titulo`}>
-  <span class="v2-medio-icono" aria-hidden="true">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
-  </span>
   <div class="v2-medio-cabeza">
     <p class="v2-medio-titulo" id={`${id}-titulo`}>Escucha este artículo · {minutos} min</p>
     <p class="v2-medio-nota">Voz sintética · español latino</p>

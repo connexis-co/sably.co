@@ -95,8 +95,14 @@ export function nodeEdgePolicy(request: Request, response: Response, environment
   // Redirects and crawl files do not depend on promotions.
   if (options.redirect && isSharedRedirect(request, response, environment)) return outageEdgePolicy(ORIGIN_EDGE_FRESH, ORIGIN_OUTAGE_STALE);
   if (isCrawlFile(request, response, environment)) return outageEdgePolicy(ORIGIN_EDGE_FRESH, ORIGIN_OUTAGE_STALE);
+  // MP3 de narraciones (plugin sably-narracion): el nombre lleva la huella del contenido, nunca cambia.
+  if (NARRACION_FILE.test(new URL(request.url).pathname) && [200, 206, 304].includes(response.status)
+    && /^audio\/mpeg/i.test(response.headers.get('content-type') ?? '')) return `public, max-age=${NARRACION_EDGE_TTL}, immutable`;
   return 'no-store';
 }
+
+const NARRACION_FILE = /^\/narraciones\/[a-z0-9][a-z0-9-]{0,160}\.mp3$/;
+export const NARRACION_EDGE_TTL = 31_536_000;
 
 /** Originals behind Cloudflare image variants; media writes purge this tag. */
 export const MEDIA_TAG = 'sably:media';
