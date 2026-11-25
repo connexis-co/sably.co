@@ -56,6 +56,16 @@ export const QUOTE_RETRY_MS = 300_000;
 export const QUOTE_WAIT_WITH_SAVED_MS = 600;
 /** Lo que se espera a Hotmart en el render sin cotización guardada; la lectura sigue después. */
 export const QUOTE_WAIT_WITHOUT_SAVED_MS = 1500;
+/**
+ * Tarjetas (portada, listados, relacionados): no preguntan a Hotmart al renderizar. Leen la última
+ * cotización guardada y, si tiene más de esto, la piden de nuevo en segundo plano.
+ */
+export const CARD_QUOTE_TTL_MS = 30 * 60_000;
+/** Vida de la página cuando alguna tarjeta enseña una cotización vieja o ninguna: vuelve pronto con la nueva. */
+export const CARD_QUOTE_RETRY_MS = 120_000;
+/** Lecturas de fondo a la vez y pausa entre una y otra: un listado de 120 cursos no lanza 240 peticiones de golpe. */
+export const BACKGROUND_PARALLEL = 2;
+export const BACKGROUND_PAUSE_MS = 250;
 /** Tiempo máximo de cada petición a Hotmart. */
 export const QUOTE_FETCH_TIMEOUT_MS = 2500;
 
@@ -91,6 +101,9 @@ export function createCheckoutPrice(options: {
   esperaSinGuardada?: number;
   /** Aviso en el registro cuando Hotmart falla (para medir con qué frecuencia pasa). */
   avisar?: (mensaje: string) => void;
+  /** Cola de lecturas en segundo plano de las tarjetas. */
+  colaParalelo?: number;
+  colaPausaMs?: number;
 }) {
   const now = options.now ?? Date.now;
   const espera = options.esperaConGuardada ?? QUOTE_WAIT_WITH_SAVED_MS;
@@ -107,6 +120,19 @@ export function createCheckoutPrice(options: {
   const ultimas = new Map<string, Entry>();
   const retryAfter = new Map<string, number>();
   const pending = new Map<string, Promise<void>>();
+  /* Lo leído del almacén se recuerda un minuto: un listado no repite 120 lecturas de la base por render. */
+  const leidasAlmacen = new Map<string, {c: CotizacionGuardada | null; hasta: number}>();
+  /* Cola de lecturas de fondo: pocas a la vez y espaciadas, deduplicadas por curso, país y cupón. */
+  const cola: (() => Promise<void>)[] = [];
+  const enCola = new Set<string>();
+  let activas = 0;
+  const bombear = () => {
+    while (activas < (options.colaParalelo ?? BACKGROUND_PARALLEL) && cola.length) {
+      const tarea = cola.shift()!;
+      activas++;
+      void tarea().catch(() => { /* el fallo ya queda en el registro */ }).finally(() => setTimeout(() => { activas--; bombear(); }, options.colaPausaMs ?? BACKGROUND_PAUSE_MS));
+    }
+  };
 
   async function refresh(key:string, id:string, row:Row, source:Source) {
     // Las dos lecturas salen a la vez: son el mismo instante de la tasa de cambio.
@@ -147,7 +173,15 @@ export function createCheckoutPrice(options: {
     let c: CotizacionGuardada | null = enMemoria
       ? {currency, base:enMemoria.base, at:enMemoria.at, cupon: coupon && enMemoria.reduced.has(coupon) ? coupon : null, reduced: coupon ? enMemoria.reduced.get(coupon) ?? null : null}
       : null;
-    if (!c) c = await options.almacen?.()?.leer(slug, market, coupon).catch(() => null) ?? null;
+    if (!c) {
+      const id = JSON.stringify([slug, market, coupon]);
+      const recordada = leidasAlmacen.get(id);
+      if (recordada && recordada.hasta > now()) c = recordada.c;
+      else {
+        c = await options.almacen?.()?.leer(slug, market, coupon).catch(() => null) ?? null;
+        leidasAlmacen.set(id, {c, hasta: now() + 60_000});
+      }
+    }
     if (!c || c.currency !== currency || !(c.base > 0)) return null;
     const conocido = !coupon || c.cupon === coupon;
     return {currency, base:c.base, reduced: conocido && coupon ? c.reduced : null, at:c.at, validUntil: now() + QUOTE_RETRY_MS, fuente:'guardada', reducedKnown: conocido};
@@ -156,6 +190,43 @@ export function createCheckoutPrice(options: {
   /** ¿Hay una fuente comprobada para cotizar este curso en este país? */
   function quotable(slug:string, url:string, country:string): boolean {
     return options.sources[slug]?.url === url && country.toUpperCase() in currencies;
+  }
+
+  /** Pone en marcha (o reutiliza) la lectura de Hotmart de este curso, país y cupón. */
+  function lanzar(key:string, id:string, row:Row, source:Source): Promise<void> {
+    let job = pending.get(id);
+    if (!job) {
+      job = refresh(key, id, row, source).finally(() => { pending.delete(id); leidasAlmacen.delete(id); });
+      pending.set(id, job);
+    }
+    return job;
+  }
+
+  /**
+   * Cotización para una tarjeta: nunca espera a Hotmart. La viva si está en memoria; si no, la
+   * última guardada (con su fecha). Si tiene más de `CARD_QUOTE_TTL_MS`, o no hay ninguna, se pide
+   * de nuevo en segundo plano por la cola. `null` = sin cotización todavía: la tarjeta no da cifra.
+   */
+  async function cardQuote(slug:string, url:string, country:string, coupon:string | null): Promise<CheckoutQuote | null> {
+    const source = options.sources[slug];
+    const market = country.toUpperCase();
+    const currency = (currencies as Record<string,string>)[market];
+    if (!source || !currency || !quotable(slug, url, country)) return null;
+    const key = JSON.stringify([slug, market]);
+    const id = JSON.stringify([slug, market, coupon]);
+    const entry = quotes.get(key);
+    if (entry && now() - entry.at <= CARD_QUOTE_TTL_MS && entry.expires > now() && (!coupon || entry.reduced.has(coupon))) {
+      return {currency, base:entry.base, reduced:coupon ? entry.reduced.get(coupon) ?? null : null, at:entry.at, validUntil:entry.at + CARD_QUOTE_TTL_MS, fuente:'hotmart', reducedKnown:true};
+    }
+    const g = await guardada(slug, market, currency, coupon);
+    const vieja = !g || now() - g.at > CARD_QUOTE_TTL_MS || !g.reducedKnown;
+    if (vieja && !((retryAfter.get(id) ?? 0) > now()) && !pending.has(id) && !enCola.has(id)) {
+      enCola.add(id);
+      cola.push(() => lanzar(key, id, {product:source.product, market, currency, coupon}, source).finally(() => enCola.delete(id)));
+      bombear();
+    }
+    if (!g) return null;
+    return {...g, validUntil: vieja ? now() + CARD_QUOTE_RETRY_MS : g.at + CARD_QUOTE_TTL_MS};
   }
 
   async function checkoutPrice(slug:string, url:string, country:string, coupon:string | null): Promise<CheckoutQuote | null> {
@@ -174,11 +245,7 @@ export function createCheckoutPrice(options: {
     const known = read();
     if (known) return known;
     if ((retryAfter.get(id) ?? 0) > now()) return guardada(slug, market, currency, coupon);
-    let job = pending.get(id);
-    if (!job) {
-      job = refresh(key, id, {product:source.product, market, currency, coupon}, source).finally(() => pending.delete(id));
-      pending.set(id, job);
-    }
+    const job = lanzar(key, id, {product:source.product, market, currency, coupon}, source);
     /* Con una cotización guardada, el render no espera a Hotmart más que un instante: si no
        llega, sale la guardada (con su fecha) y la lectura sigue en segundo plano para la próxima. */
     const respaldo = await guardada(slug, market, currency, coupon);
@@ -190,14 +257,14 @@ export function createCheckoutPrice(options: {
     return read();
   }
 
-  return {checkoutPrice, quotable};
+  return {checkoutPrice, cardQuote, quotable};
 }
 
 let almacenPorDefecto: AlmacenCotizaciones | null = null;
 /** Lo fija src/lib/precio-hoy.ts con el almacén de sably.db (aquí no se importa el runtime). */
 export function fijarAlmacenCotizaciones(almacen: AlmacenCotizaciones | null): void { almacenPorDefecto = almacen; }
 
-export const {checkoutPrice, quotable} = createCheckoutPrice({
+export const {checkoutPrice, cardQuote, quotable} = createCheckoutPrice({
   sources: sources as Record<string, Source>, load: loadFromHotmart,
   almacen: () => almacenPorDefecto,
   avisar: (mensaje) => console.warn(mensaje),

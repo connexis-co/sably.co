@@ -4,13 +4,26 @@ import { PARAMETRO_TEMA } from '../tema';
 import { canCachePublicPage, FRESH_UNTIL_HEADER, invalidatedTags, isCrawlFile, nodeEdgePolicy, ORIGIN_EDGE_FRESH, protectDeliveryResponse } from '../public-delivery';
 
 /** Preserve the Worker boundary while keeping all execution at the Node origin. */
+/** `Astro.locals` interno con la ruta pedida cuando se reescribe a la página 404 (la plantilla elige el país con ella). */
+export const RUTA_PEDIDA_404 = 'rutaPedida404';
+
+/** Rutas que no son una página que ve un visitante: su 404 se queda como está. */
+const SIN_PLANTILLA_404 = /^\/(api|_emdash|_astro|cdn-cgi|sitemaps|admin)(\/|$)|\.[a-z0-9]{2,5}$/i;
+
+/** Un 404 sin HTML (texto plano de un cargador de páginas) en una URL de navegación: se sustituye por la plantilla de 404. */
+export function necesitaPagina404(request: Request, response: Response): boolean {
+  if (response.status !== 404 || !['GET', 'HEAD'].includes(request.method)) return false;
+  if ((response.headers.get('content-type') ?? '').includes('text/html')) return false;
+  return !SIN_PLANTILLA_404.test(new URL(request.url).pathname);
+}
+
 export function createNodeRequestHandler(options: {
   env: RuntimeEnvironment;
   redirects: string;
   invalidate: () => void;
 }) {
   const legacy = parseLegacyRedirects(options.redirects);
-  return async (request: Request, next: () => Promise<Response>): Promise<Response> => {
+  return async (request: Request, next: (rewrite?: string) => Promise<Response>, locals?: object): Promise<Response> => {
     const finish = (response: Response, redirect = false) => {
       const html = response.headers.get('content-type')?.includes('text/html');
       const anonymous = html && response.status === 200 && canCachePublicPage(request, options.env.SABLY_ENVIRONMENT)
@@ -42,7 +55,21 @@ export function createNodeRequestHandler(options: {
       if (denied) return finish(denied);
       const redirect = crawlerArtifactRedirect(request) ?? rootCountryRedirect(request) ?? resolveLegacyRedirect(request, legacy) ?? publicCanonicalRedirect(request);
       if (redirect) return finish(redirect, true);
-      const response = await next();
+      let response = await next();
+      if (necesitaPagina404(request, response)) {
+        // Plantilla del sitio (cabecera, pie, buscador) con estado 404 real, sin caché y sin indexar.
+        try {
+          // La reescritura conserva cookies y ?tema=; la ruta pedida viaja en una cabecera para elegir el país.
+          if (locals) (locals as Record<string, unknown>)[RUTA_PEDIDA_404] = new URL(request.url).pathname;
+          const pagina = await next('/404');
+          if ((pagina.headers.get('content-type') ?? '').includes('text/html')) {
+            const cabeceras = new Headers(pagina.headers);
+            cabeceras.set('Cache-Control', 'no-store');
+            cabeceras.set('X-Robots-Tag', 'noindex, nofollow');
+            response = new Response(request.method === 'HEAD' ? null : pagina.body, { status: 404, headers: cabeceras });
+          }
+        } catch (error) { console.error('Sably 404 template failed', error); }
+      }
       if (invalidatedTags(request, response).length) options.invalidate();
       return finish(response);
     } catch (error) {

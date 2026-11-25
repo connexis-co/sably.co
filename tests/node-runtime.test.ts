@@ -180,3 +180,22 @@ test('la vista de revisión del tema (?tema=) nunca se indexa ni se guarda en el
   const normal = await handle(new Request('https://sably.co/co/curso-de-masajes/'),html);
   assert.equal(normal.headers.get('x-robots-tag'),null);
 });
+
+test('Node boundary sustituye el 404 de texto plano por la plantilla, sin tocar APIs ni archivos', async () => {
+  const handle = createNodeRequestHandler({env:{SABLY_ENVIRONMENT:'production'},redirects:'',invalidate:()=>{}});
+  const plano = async (ruta?: string) => ruta === '/404'
+    ? new Response('<h1>No existe</h1>',{status:200,headers:{'content-type':'text/html'}})
+    : new Response('Not found',{status:404,headers:{'content-type':'text/plain'}});
+  const locals: Record<string, unknown> = {};
+  const pagina = await handle(new Request('https://sably.co/mx/no-existe/'),plano,locals);
+  assert.equal(locals.rutaPedida404,'/mx/no-existe/');
+  assert.equal(pagina.status,404);
+  assert.match(await pagina.text(),/No existe/);
+  assert.match(pagina.headers.get('cache-control') ?? '',/no-store/);
+  assert.match(pagina.headers.get('x-robots-tag') ?? '', /noindex/);
+  assert.equal(pagina.headers.get('cloudflare-cdn-cache-control'),'no-store');
+  for (const ruta of ['/api/v1/x','/sitemaps/zz.xml','/robots.txt','/_emdash/api/x']) {
+    const otra = await handle(new Request(`https://sably.co${ruta}`),plano);
+    assert.equal(await otra.text(),'Not found',ruta);
+  }
+});

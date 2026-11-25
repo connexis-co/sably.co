@@ -1,0 +1,33 @@
+---
+/**
+ * Hueco de anuncio para una posición del módulo de publicidad (panel «Publicidad»).
+ * No pinta NADA si el módulo está apagado, la posición está inactiva, el tipo de página no está permitido, la ruta
+ * está excluida, el dispositivo ya llegó al tope de anuncios o (rejilla) el índice no toca. Si se pinta, reserva el
+ * tamaño exacto de la creatividad y lleva el rótulo; queda oculto hasta que hay permiso de publicidad.
+ *
+ *   <HuecoPublicidad posicion="articulo-final" />
+ *   <HuecoPublicidad posicion="articulo-lateral" fija />            (columna lateral, pegada)
+ *   <HuecoPublicidad posicion="blog-rejilla" indice={i} etiqueta="li" />   (tras la tarjeta i, empezando en 0)
+ *
+ * `apagado`: el artículo pidió «publicidad: ninguna». `tipoPagina` solo hace falta si se coloca en un tipo de página distinto del de la posición.
+ */
+import { configPublicidad, cuentaPublicidad } from '@/lib/publicidad';
+import { POSICIONES_INFO, huecoHtml, paginaPermitida, reservar, type IdPosicion } from '@/plugins/sably-publicidad/model';
+
+interface Props { posicion: IdPosicion; tipoPagina?: string; indice?: number; fija?: boolean; etiqueta?: 'div' | 'li'; /** Campo `publicidad: ninguna` del artículo. */ apagado?: boolean }
+const { posicion, tipoPagina, indice, fija = false, etiqueta = 'div', apagado = false } = Astro.props;
+const config = await configPublicidad(Astro.locals);
+let html = '';
+if (config.enabled && !apagado && posicion !== 'articulo-texto') {
+  const p = config.posiciones[posicion];
+  const tipo = tipoPagina ?? POSICIONES_INFO[posicion].tipo;
+  let toca = p.activa && paginaPermitida(config, tipo, Astro.url.pathname);
+  if (toca && posicion === 'blog-rejilla') {
+    const n = (indice ?? -1) + 1;
+    toca = n > 0 && n % p.cada === 0 && n / p.cada <= p.maximo;
+  }
+  const dispositivo = toca ? reservar(cuentaPublicidad(Astro.locals), config.maximoPorPagina, p.dispositivo) : null;
+  if (dispositivo) html = huecoHtml(posicion, p, dispositivo, { muestra: config.muestra, rotulo: config.rotulo, fija, etiqueta });
+}
+---
+{html && <Fragment set:html={html} />}

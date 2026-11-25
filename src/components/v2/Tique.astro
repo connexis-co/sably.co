@@ -16,7 +16,7 @@ const { pct, codigo, estado = 'normal', copiable = false, class: clase } = Astro
         ? <p class="flex items-center gap-1.5 text-t15 font-semibold"><Icono nombre="circle-check" tamano={16} class="text-v2-ok" />Cupón {codigo} aplicado</p>
         : <p class="text-t15 font-semibold">Cupón <span class="v2-num tracking-wide">{codigo}</span></p>}
       {copiable && (
-        <button type="button" data-copiar={codigo} class="ml-auto inline-flex min-h-9 items-center gap-1.5 rounded-c-sm bg-white px-3 text-t13 font-semibold text-coral-700 ring-1 ring-coral-100 hover:ring-coral-600 focus-visible:outline-3 focus-visible:outline-coral-600">
+        <button type="button" data-copiar={codigo} class="ml-auto inline-flex min-h-11 items-center gap-1.5 rounded-c-sm bg-white px-3 text-t13 font-semibold text-coral-700 ring-1 ring-coral-100 hover:ring-coral-600 focus-visible:outline-3 focus-visible:outline-coral-600">
           <Icono nombre="copy" tamano={16} /><span data-copiar-texto>Copiar</span>
         </button>
       )}

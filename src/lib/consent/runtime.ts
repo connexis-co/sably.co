@@ -71,7 +71,34 @@ w.sablyConsent={get:function(){var c=eff();return c?{analytics:c.a,ads:c.m}:null
 function ui(){var box=d.getElementById('sbc'),dlg=d.getElementById('sbc-dlg');if(!box||!dlg)return;
 var ca=d.getElementById('sbc-a'),cm=d.getElementById('sbc-m'),live=d.getElementById('sbc-live'),back=null;
 function need(){return !ch&&strict===true}
-function show(v){box.hidden=!v}
+function show(v){box.hidden=!v;if(v){box.removeAttribute('data-arriba');place()}else d.documentElement.style.removeProperty('--sbc-wa')}
+/* Que el aviso y el icono no tapen la compra, el WhatsApp ni el foco del teclado (WCAG 2.2, 2.4.11). Todo se mueve
+   con translate (sin CLS): el aviso pasa arriba, bajo la cabecera, si abajo tapa la compra o el foco; el WhatsApp sube
+   sobre el aviso; el icono se aparta mientras tape algo. */
+var ico=d.getElementById('sbc-ico'),raf=0;
+function vis(el){if(!el||el.hidden)return null;var st=getComputedStyle(el);if(st.display==='none'||st.visibility==='hidden')return null;var r=el.getBoundingClientRect();return r.width&&r.height?r:null}
+function hit(a,b){return!!(a&&b&&a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top)}
+function pinned(el){for(;el&&el!==d.body;el=el.parentElement){var q=getComputedStyle(el).position;if(q==='fixed'||q==='sticky')return true}return false}
+function focused(){var a=d.activeElement;return a&&a!==d.body&&a.closest&&!a.closest('#sbc,#sbc-dlg,#sbc-ico')?a:null}
+function guarded(){var out=[],f=focused();if(f)out.push(vis(f));d.querySelectorAll('a[data-pago],[data-cta-hotmart]').forEach(function(e){if(!pinned(e))out.push(vis(e))});return out.filter(Boolean)}
+function clash(r,list){return list.some(function(t){return hit(r,t)})}
+function topEdge(){var m=8;[12,innerWidth/2,innerWidth-12].forEach(function(x){d.elementsFromPoint(x,2).forEach(function(e){if(e===box||box.contains(e))return;for(var el=e;el&&el!==d.body&&el!==d.documentElement;el=el.parentElement){var q=getComputedStyle(el).position;if(q==='fixed'||q==='sticky'){var r=el.getBoundingClientRect();if(r.bottom<240)m=Math.max(m,r.bottom+8);break}}})});return m}
+function rect(t){var l=box.offsetLeft,w=box.offsetWidth;return{left:l,right:l+w,top:t,bottom:t+box.offsetHeight}}
+function place(){raf=0;if(dlg.open)return;var list=guarded(),f=focused();
+if(ico){var ri=vis(ico)||(ico.hasAttribute('data-aparte')&&ico.getBoundingClientRect());ico.toggleAttribute('data-aparte',d.activeElement!==ico&&!!(ri&&ri.width&&clash(ri,list)))}
+if(box.hidden)return;
+var was=box.hasAttribute('data-arriba');if(was)box.removeAttribute('data-arriba');var db=box.getBoundingClientRect(),down={left:db.left,right:db.right,top:db.top,bottom:db.bottom},top=topEdge(),up=rect(top),cu=clash(up,list),cd=clash(down,list);
+/* El foco manda: va al borde que no lo tapa. Si no decide, se queda donde está mientras no tape la compra. */
+var ff=f?[vis(f)].filter(Boolean):[],fu=clash(up,ff),fd=clash(down,ff);
+var useUp=fu!==fd?fd:was?!(cu&&!cd):cd&&!cu;
+box.toggleAttribute('data-arriba',useUp);if(useUp)box.style.setProperty('--sbc-ty',(top-box.offsetTop)+'px');
+var at=useUp?up:down,wa=d.getElementById('sably-whatsapp')||d.querySelector('[data-wa-float]'),rw=vis(wa),cur=parseFloat(d.documentElement.style.getPropertyValue('--sbc-wa'))||0,wl=0;
+if(rw&&!useUp){var b0=rw.bottom+cur;if(rw.left<at.right&&rw.right>at.left&&b0>at.top-8)wl=b0-at.top+8}
+wl?d.documentElement.style.setProperty('--sbc-wa',wl+'px'):d.documentElement.style.removeProperty('--sbc-wa');
+if(f&&clash(at,[vis(f)].filter(Boolean))&&!useUp){var rf=f.getBoundingClientRect();w.scrollBy({top:rf.bottom-at.top+12,behavior:'instant'})}}
+function later2(){if(!raf)raf=requestAnimationFrame(place)}
+if(w.MutationObserver)new MutationObserver(later2).observe(d.body,{subtree:true,attributes:true,attributeFilter:['data-oculta','hidden']});w.addEventListener('scroll',later2,{passive:true});w.addEventListener('resize',later2);d.addEventListener('focusin',function(){requestAnimationFrame(place)});d.addEventListener('focusout',later2);
+later2();
 function done(c){apply(c);show(false);if(dlg.open)dlg.close();live.textContent=live.getAttribute('data-msg');if(back&&back.focus&&d.contains(back))back.focus();back=null}
 function open(from){back=from||d.activeElement;var c=eff();ca.checked=!!(c&&c.a);cm.checked=!!(c&&c.m);
 dlg.querySelectorAll('[data-sbc-off]').forEach(function(el){el.textContent=el.getAttribute(need()?'data-sbc-off':'data-sbc-on')});show(false);if(!dlg.open)dlg.showModal()}
