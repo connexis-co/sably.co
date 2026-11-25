@@ -120,3 +120,19 @@ test('un instructor de relleno no puede aparecer en la página ni en su FAQPage'
   assert.deepEqual(errores(enFaq), ['instructor-relleno']);
   assert.deepEqual(errores(sana.replace('</main>', '<p>Creado por MasterClasses.La®. El curso explica cada maniobra paso a paso.</p></main>')), []);
 });
+
+test('tema V2: sin emojis de interfaz, cada hecho una vez fuera de la caja y el texto largo en el HTML', () => {
+  const v2 = (cuerpo) => pagina(`<main><h1>Curso de masajes</h1>
+<section id="compra" data-purchase-panel data-base="191.012 COP"><h2>Caja</h2><p>7 días para pedir reembolso</p><p>Constancia de finalización</p></section>
+${cuerpo}
+<section id="mas"><h2>Más sobre el curso</h2><div data-texto-largo><p>${'palabra '.repeat(200)}</p></div></section></main>`).replace('<body>', '<body data-tema="v2">');
+  assert.deepEqual(errores(v2('<h2>Cómo funciona</h2><p>Garantía de 7 días</p>')), []);
+  assert.deepEqual(errores(v2('<h2>Cómo funciona</h2><p>Garantía de 7 días</p><p>Garantía de 7 días · Acceso de por vida</p>')), ['v2-hecho-repetido']);
+  assert.deepEqual(errores(v2('<h2>Cómo funciona</h2><p>✅ Acceso de por vida</p>')), ['v2-emoji']);
+  assert.deepEqual(errores(v2('<p>Lo dicta MasterClasses.La® · Sably™</p>')), [], '© ® ™ no son emojis');
+  // En las preguntas (texto del CMS) los hechos y los emojis no cuentan como plantilla.
+  assert.deepEqual(errores(v2('<section data-cms><h2>Preguntas</h2><p>Garantía de 7 días 🙂</p><p>Garantía de 7 días</p></section><p>Garantía de 7 días</p>')), []);
+  assert.deepEqual(errores(v2('').replace(/<section id="mas">[\s\S]*<\/section>/, '')), ['v2-texto-largo']);
+  // El tema clásico no pasa por estas reglas.
+  assert.deepEqual(errores(v2('<p>✅ Acceso de por vida</p><p>Acceso de por vida</p>').replace('<body data-tema="v2">', '<body>')), []);
+});
