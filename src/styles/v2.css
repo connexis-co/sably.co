@@ -19,6 +19,8 @@
   --color-coral-100: #fbd9e2;
   --color-coral-50: #fef1f4;
   --color-whatsapp: #25d366;
+  /* Estrellas de nota (lámina z2Zai, B1): el color que todo el mundo lee como «nota»; el coral queda para comprar. 3,2:1 sobre blanco. */
+  --color-ambar: #d97706;
   --color-v2-error: #b42318;
   --color-v2-ok: #1d7a4f;
 

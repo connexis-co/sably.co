@@ -16,6 +16,8 @@ import ResenasCurso from '@/components/ResenasCurso.astro';
 import CmsRichBody from '@/components/CmsRichBody.astro';
 import LeadModal from '@/components/LeadModal.astro';
 import Icono from '@/components/v2/Icono.astro';
+import Estrellas from '@/components/v2/Estrellas.astro';
+import LogoHotmart from '@/components/v2/LogoHotmart.astro';
 import Boton from '@/components/v2/Boton.astro';
 import Migas from '@/components/v2/Migas.astro';
 import FilaDatos from '@/components/v2/FilaDatos.astro';
@@ -80,7 +82,7 @@ const pestanas = [
 const secciones = [
   { id: 'sobre', etiqueta: 'Sobre este curso' },
   { id: 'temario', etiqueta: 'Temario' },
-  ...(creador ? [{ id: 'creador', etiqueta: 'Quién lo dicta' }] : []),
+  ...(creador || (!sinProducto && nota) ? [{ id: 'creador', etiqueta: creador && nota ? 'Creador y opiniones' : creador ? 'Quién lo dicta' : 'Opiniones' }] : []),
   ...(texto || content.richBody ? [{ id: 'mas', etiqueta: 'Más sobre el curso' }] : []),
   { id: 'preguntas', etiqueta: 'Preguntas' },
 ];
@@ -128,8 +130,8 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
           )}
           {!sinProducto && nota && (
             <p class="flex items-center gap-1.5 text-t15 text-navy-700 lg:text-white/80">
-              <Icono nombre="star" tamano={16} class="fill-coral-500 text-coral-500" />
-              <strong class="v2-num font-semibold text-navy-950 lg:text-white">{nota.cifra}</strong> · {nota.texto}
+              <Estrellas nota={valoracion!.rating} />
+              <strong class="v2-num ml-1 font-semibold text-navy-950 lg:text-white">{nota.cifra}</strong> · {nota.texto}
             </p>
           )}
         </div>
@@ -255,8 +257,21 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
                 {c.bio && <p class="mt-2 line-clamp-4 max-w-[640px] text-t15 text-navy-700">{c.bio}</p>}
                 <p class="mt-2 text-t13 text-navy-500">En Hotmart el curso figura a nombre de {c.nombre}: es el nombre que verás al pagar.</p>
               </div>
+              <a href={`/${country.code}/creadores/${c.slug}/`} class="v2-btn v2-btn-secundario flex-none self-start sm:self-center" data-alto="48">Ver sus cursos en Sably</a>
             </article>
           ))}
+          {/* Opiniones de hoy (lámina z2Zai, «sin opiniones suficientes»): la nota de Hotmart con su fuente
+              y su fecha, y lo que todavía no hay. Con menos de 5 calificaciones no se pinta. */}
+          {!sinProducto && nota && (
+            <section id="opiniones" aria-labelledby="titulo-opiniones" class="flex flex-col gap-4 rounded-c-lg bg-white p-6 sm:flex-row sm:items-center lg:px-10">
+              <h2 id="titulo-opiniones" class="font-display text-t20 font-semibold sm:w-36 sm:flex-none">Opiniones</h2>
+              <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+                <LogoHotmart alto={16} />
+                <span class="flex items-center gap-2"><Estrellas nota={valoracion!.rating} tamano={18} /><strong class="v2-num text-t20 font-semibold text-navy-950">{nota.cifra} de 5</strong></span>
+              </div>
+              <p class="text-t13 text-navy-700 sm:ml-auto sm:text-right">{nota.texto}<span class="block text-navy-500">{verifiedReviews.reviews.length ? '' : 'Aún no hay opiniones de compradores publicadas en Sably.'}</span></p>
+            </section>
+          )}
           {/* Con menos de 5 opiniones no se muestra el promedio (widgets-opiniones.md). */}
           {mostrarPromedio(('rating' in verifiedReviews ? verifiedReviews.rating?.count : 0) ?? 0) && <VerifiedReviews data={verifiedReviews} />}
           {!sinProducto && <ResenasCurso slug={course.id} />}
@@ -483,7 +498,7 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
       grid-template-rows: auto auto auto auto auto 1fr;
       column-gap: 40px; row-gap: 0;
     }
-    .v2-area-caja { align-self: start; position: sticky; top: 88px; margin-top: 56px; z-index: 2; }
+    .v2-area-caja { align-self: start; position: sticky; top: 88px; margin-top: 24px; z-index: 2; }
   }
   .v2-bloque-tinta { background: var(--color-navy-50); }
   /* Sin creador visible ni opiniones que mostrar, el bloque no deja un hueco tintado. */
@@ -542,6 +557,8 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
   /* La barra fija no tapa el pie ni el último botón en móvil. */
   @media (width < 1024px) {
     :global(body[data-con-barra]) { padding-bottom: 72px; }
+    /* Lo que se enfoca o se desplaza solo no queda debajo de la barra fija. */
+    :global(html:has(body[data-con-barra])) { scroll-padding-bottom: 88px; }
     /* La barra ya trae WhatsApp: el botón flotante no se duplica encima. */
     :global(body[data-con-barra] [data-wa-float]) { visibility: hidden; }
   }
