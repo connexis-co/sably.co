@@ -25,6 +25,8 @@ const entorno = new URL(BASE).hostname.split('.')[0] === 'sably' ? 'produccion' 
 const credenciales = process.env.SABLY_DEV_PASSWORD && !/^https:\/\/sably\.co$/.test(BASE) ? { username: 'sably', password: process.env.SABLY_DEV_PASSWORD } : null;
 mkdirSync(SALIDA, { recursive: true });
 
+const UA_ESCRITORIO = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36';
+const UA_MOVIL = 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Mobile Safari/537.36';
 const espera = (ms) => new Promise((ok) => setTimeout(ok, ms));
 const navegador = await puppeteer.launch({ executablePath: CHROME, headless: true, args: ['--hide-scrollbars'] });
 const resultados = [];
@@ -32,6 +34,8 @@ const resultados = [];
 async function abrir(url, ancho) {
   const page = await navegador.newPage();
   if (credenciales) await page.authenticate(credenciales);
+  // El nginx del servidor responde 403 a «HeadlessChrome»: agente de Chrome normal.
+  await page.setUserAgent(ancho.isMobile ? UA_MOVIL : UA_ESCRITORIO);
   await page.setViewport({ width: ancho.width, height: ancho.height, isMobile: !!ancho.isMobile, hasTouch: !!ancho.hasTouch, deviceScaleFactor: 1 });
   // El Worker de dev.sably.co a veces responde un error suelto: hasta tres intentos.
   for (let intento = 1; intento <= 3; intento++) {
@@ -80,7 +84,11 @@ for (const ficha of FICHAS) {
       };
     }));
     await page.screenshot({ path: join(SALIDA, `${nombre}-pantallazo.jpg`), type: 'jpeg', quality: 70 });
+    // La aparición al desplazar (animation-timeline: view()) deja en blanco lo que queda fuera del
+    // primer pantallazo en una captura de página entera: se captura con movimiento reducido.
+    await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
     await page.screenshot({ path: join(SALIDA, `${nombre}-pagina.jpg`), type: 'jpeg', quality: 55, fullPage: true });
+    await page.emulateMediaFeatures([]);
 
     // Enlace de pago y cupón.
     const enlaces = () => page.evaluate(() => [...document.querySelectorAll('a[data-pago]')].map((a) => {
