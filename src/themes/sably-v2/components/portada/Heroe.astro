@@ -6,7 +6,7 @@
  *
  * Todo el inventario va en el HTML inicial: lo que no se ve está en `display: none` (sus fotos no se piden
  * hasta que le toca entrar). La foto de la celda grande es la LCP: se pinta visible y sin animación de entrada.
- * La rotación la lleva un reloj de Web Animations en el anillo del botón de pausa; se para con cursor, foco,
+ * La rotación la lleva un reloj de Web Animations en la línea de progreso (scaleX); se para con cursor, foco,
  * botón, pestaña oculta y fuera de pantalla, y no existe con «reducir movimiento» (WCAG 2.2.2).
  */
 import Ico from '../Ico.astro';
@@ -71,8 +71,8 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
           </div>
         ))}
         {rota && (
+          <span class="v2-mos-progreso" aria-hidden="true" hidden data-mos-progreso><span data-mos-reloj></span></span>
           <button type="button" class="v2-mos-pausa" data-mos-pausa aria-pressed="false" hidden>
-            <svg class="v2-mos-anillo" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" /><circle cx="20" cy="20" r="18" data-mos-reloj pathLength="100" /></svg>
             <Ico nombre="pause" tamano={14} class="v2-mos-ico-pausa" />
             <Ico nombre="play" tamano={14} class="v2-mos-ico-seguir" />
             <span class="sr-only" data-mos-pausa-texto>Pausar los oficios que cambian</span>
@@ -110,17 +110,16 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
     .v2-mos-oficio:focus-visible { outline: 3px solid #fff; outline-offset: -3px; border-radius: inherit; }
     @media (max-width: 1023.98px) { .v2-mos-celda:not([data-celda='0']) .v2-mos-rotulo { left: 8px; right: 8px; bottom: 8px; padding: 8px 10px; } }
 
-    /* Pausa con el tiempo que falta dibujado en su anillo (stroke-dashoffset en 40 px: pintura despreciable). */
-    .v2-mos-pausa { position: absolute; z-index: 2; right: 12px; top: 12px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; background: rgb(27 27 58 / .72); color: #fff; backdrop-filter: blur(6px); }
-    .v2-mos-pausa[hidden] { display: none; }
+    /* Pausa (WCAG 2.2.2) y, bajo el mosaico, la línea que mide la espera hasta el próximo cambio (solo scaleX). */
+    .v2-mos-pausa { position: absolute; z-index: 2; right: 12px; top: 12px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; background: rgb(27 27 58 / .72); color: #fff; backdrop-filter: blur(6px); box-shadow: inset 0 0 0 1px rgb(255 255 255 / .35); }
+    .v2-mos-pausa[hidden], .v2-mos-progreso[hidden] { display: none; }
     .v2-mos-pausa > * { grid-area: 1 / 1; }
-    .v2-mos-anillo { width: 40px; height: 40px; rotate: -90deg; fill: none; stroke-width: 2; }
-    .v2-mos-anillo circle:first-child { stroke: rgb(255 255 255 / .25); }
-    .v2-mos-anillo circle:last-child { stroke: #fff; stroke-dasharray: 100; stroke-dashoffset: 100; }
+    .v2-mos-progreso { position: absolute; left: 0; right: 0; bottom: -14px; height: 2px; border-radius: 2px; overflow: hidden; background: rgb(255 255 255 / .15); }
+    .v2-mos-progreso > span { display: block; height: 100%; background: rgb(255 255 255 / .7); transform-origin: left; transform: scaleX(0); }
     .v2-mos-pausa .v2-mos-ico-seguir, .v2-mos-pausa[aria-pressed='true'] .v2-mos-ico-pausa { display: none; }
     .v2-mos-pausa[aria-pressed='true'] .v2-mos-ico-seguir { display: block; }
     .v2-mos-pausa:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
-    @media (prefers-reduced-motion: reduce) { .v2-mos-pausa { display: none !important; } }
+    @media (prefers-reduced-motion: reduce) { .v2-mos-pausa, .v2-mos-progreso { display: none !important; } }
   }
 </style>
 
@@ -134,7 +133,8 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
     const intervalo = Number(raiz.dataset.intervalo) || 4500;
     const aleatorio = raiz.dataset.orden !== 'fijo';
     const boton = raiz.querySelector<HTMLButtonElement>('[data-mos-pausa]')!;
-    const reloj = raiz.querySelector<SVGCircleElement>('[data-mos-reloj]')!;
+    const reloj = raiz.querySelector<HTMLElement>('[data-mos-reloj]')!;
+    const progreso = raiz.querySelector<HTMLElement>('[data-mos-progreso]')!;
     const textoBoton = raiz.querySelector<HTMLElement>('[data-mos-pausa-texto]')!;
     const barajar = (n: number, sin: number) => {
       const b = [...Array(n).keys()].filter(i => i !== sin);
@@ -175,16 +175,24 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
     celdas.forEach(c => c.oficios.forEach((o, i) => { if (i) o.inert = true; }));
 
     let enVista = true, cursor = false, foco = false, manual = false, ocupado = false;
-    const anim = reloj.animate([{ strokeDashoffset: 100 }, { strokeDashoffset: 0 }], { duration: intervalo, easing: 'linear' });
-    anim.pause();
+    /* El reloj es la propia animación de la línea (solo transform). No existe hasta que puede correr:
+       con «reducir movimiento» no se crea nunca. */
+    let anim: Animation | null = null;
     const corriendo = () => enVista && !cursor && !foco && !manual && !document.hidden && !reducido.matches;
-    const actualizar = () => { if (corriendo() && !ocupado) anim.play(); else anim.pause(); };
-    anim.onfinish = async () => {
-      ocupado = true;
-      await cambiar();
-      ocupado = false;
-      anim.currentTime = 0;
-      actualizar();
+    const reloj0 = () => {
+      const a = reloj.animate([{ transform: 'scaleX(0)' }, { transform: 'scaleX(1)' }], { duration: intervalo, easing: 'linear', fill: 'both' });
+      a.onfinish = async () => {
+        ocupado = true;
+        await cambiar();
+        ocupado = false;
+        a.currentTime = 0;
+        actualizar();
+      };
+      return a;
+    };
+    const actualizar = () => {
+      if (corriendo() && !ocupado) (anim ??= reloj0()).play();
+      else anim?.pause();
     };
     raiz.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { cursor = true; actualizar(); } });
     raiz.addEventListener('pointerleave', () => { cursor = false; actualizar(); });
@@ -200,7 +208,7 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
       actualizar();
     });
     /* Arranca cuando la página ya cargó: el primer cambio nunca compite con la LCP. */
-    const empezar = () => { boton.hidden = false; preparar(); actualizar(); };
+    const empezar = () => { boton.hidden = false; progreso.hidden = false; preparar(); actualizar(); };
     if (document.readyState === 'complete') empezar(); else addEventListener('load', empezar, { once: true });
   }
 </script>
