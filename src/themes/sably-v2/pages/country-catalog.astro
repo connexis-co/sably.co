@@ -1,0 +1,113 @@
+---
+/**
+ * Listado de cursos V2 (/xx/cursos/, maqueta ZD0OZ «Listado de cursos»). Mismo
+ * loader, título, descripción, hreflang y JSON-LD (BreadcrumbList e ItemList)
+ * que src/themes/sably-classic/pages/country-catalog.astro. Buscador GET,
+ * chips por área que son enlaces a cada categoría, orden y «Ver más» con CSS,
+ * franja de promoción intercalada y estado sin resultados útil. Debajo, el
+ * directorio de áreas (con su descripción) y los creadores, como en el clásico.
+ * Con `?q=` la página filtra en el servidor y no se indexa (canónica limpia).
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Migas from '@/components/v2/Migas.astro';
+import Ico from '../components/Ico.astro';
+import RejillaCursos from '../components/RejillaCursos.astro';
+import { countryAlternates } from '@/lib/seo';
+import { monedasCobradas } from '@/lib/moneda-catalogo';
+import { SITE } from '@/lib/site';
+import { datosNavegacion, nombreArea } from '../navegacion';
+import { promoDeLaPagina } from '../promo-v2';
+import { filtrarCursos, ordenesDeCursos } from '../listado';
+import type { load } from '@/lib/page-loaders/country-catalog';
+import '../estilos.css';
+type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
+const { country, base, courses, creators, byCategory, CATEGORIES, title, description, schemas } = Astro.props;
+const q = (Astro.url.searchParams.get('q') ?? '').trim().slice(0, 80);
+const [nav, promo, monedas] = await Promise.all([
+  datosNavegacion(country, Astro.locals),
+  promoDeLaPagina(Astro, { pais: country.code }),
+  monedasCobradas(courses.map(c => c.id), country, Astro.locals),
+]);
+/* Mismo orden que el clásico (áreas en su orden y, dentro, los cursos del área), con los destacados primero. */
+const ordenAreas = new Map(nav.areas.map((a, i) => [a.slug, i]));
+const enOrden = byCategory.flatMap(g => g.courses).sort((a, b) =>
+  (ordenAreas.get(a.data.category) ?? 99) - (ordenAreas.get(b.data.category) ?? 99) || Number(b.data.featured) - Number(a.data.featured));
+const ordenes = await ordenesDeCursos(enOrden, country, slug => nav.nombreDeArea.get(slug) ?? slug, Astro.locals);
+const encontrados = q ? filtrarCursos(enOrden, q, ordenes.buscable) : enOrden;
+const externas = CATEGORIES.filter(c => c.externalUrl);
+const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos', url: `${SITE.url}${base}/cursos/` }];
+---
+
+<BaseLayout {title} {description} {country} pathAfterCountry="/cursos/" alternates={await countryAlternates('/cursos/')} {schemas} pageType="catalog" noindex={!!q} temaV2>
+  <section class="border-b border-navy-100 bg-white">
+    <div class="v2-contenedor pt-6 pb-8 lg:pt-8 lg:pb-10">
+      <Migas items={migas} oscuro={false} />
+      <h1 class="mt-5 font-display text-[34px]/[40px] tracking-[-0.01em] lg:text-d56">Todos los cursos online para {country.name}</h1>
+      <p class="mt-3 max-w-[720px] text-t17 text-navy-700">Aprende un oficio con demanda real. Precios en {monedas}, constancia de finalización y acceso de por vida.</p>
+      <p class="mt-2 text-t15 text-navy-500"><strong class="font-semibold text-navy-950">{courses.length} cursos</strong> · de creadores independientes</p>
+      <form id="buscar" action={`${base}/cursos/`} method="get" role="search" class="mt-6 flex max-w-[640px] scroll-mt-28 items-center gap-2 rounded-c-md bg-white p-1.5 pl-4 ring-1 ring-navy-100 focus-within:ring-2 focus-within:ring-coral-600">
+        <Ico nombre="search" class="flex-none text-navy-700" />
+        <label for="buscar-cursos" class="sr-only">Buscar entre los {courses.length} cursos</label>
+        <input id="buscar-cursos" name="q" type="search" value={q || undefined} placeholder={`Buscar entre los ${courses.length} cursos`} autocomplete="off" enterkeyhint="search" data-filtra="cursos" class="h-11 min-w-0 flex-1 bg-transparent text-t17 text-navy-950 outline-none placeholder:text-navy-500" />
+        <button type="submit" class="v2-btn v2-btn-principal" data-alto="48">Buscar</button>
+      </form>
+      <nav aria-label="Cursos por área" class="-mx-5 mt-5 overflow-x-auto px-5 [scrollbar-width:none] lg:mx-0 lg:px-0">
+        <ul class="flex gap-2 lg:flex-wrap" role="list">
+          <li class="flex-none"><a href={`${base}/cursos/`} class="v2-chip gap-2" aria-current={q ? undefined : 'page'}>{!q && <span class="size-1.5 rounded-full bg-coral-500" aria-hidden="true"></span>}Todos</a></li>
+          {nav.areas.map(a => <li class="flex-none"><a href={`${base}/cursos/${a.slug}/`} class="v2-chip">{a.nombre}</a></li>)}
+        </ul>
+      </nav>
+    </div>
+  </section>
+
+  {/* data-cms: las tarjetas pintan el título y la descripción corta de cada curso, que son del CMS. */}
+  <section class="v2-contenedor pt-8 pb-4" aria-labelledby="lista-titulo" data-cms>
+    <h2 id="lista-titulo" class="sr-only">{q ? `Resultados de «${q}»` : `Los ${courses.length} cursos`}</h2>
+    {q && encontrados.length > 0 && <p class="text-t17 text-navy-700"><strong class="text-navy-950">{encontrados.length}</strong> {encontrados.length === 1 ? 'curso coincide' : 'cursos coinciden'} con «{q}». <a href={`${base}/cursos/`} class="font-semibold text-navy-950 underline underline-offset-4">Ver todos</a></p>}
+    {encontrados.length === 0 ? (
+      <div class="max-w-[640px] py-10">
+        <h2 class="font-display text-d28">Todavía no hay cursos de «{q}»</h2>
+        <p class="mt-2 text-t17 text-navy-700">Puede que lo tengamos con otro nombre. Revisa cómo está escrito o mira un área cercana.</p>
+        <ul class="mt-5 flex flex-wrap gap-2" role="list">{nav.areas.map(a => <li><a href={`${base}/cursos/${a.slug}/`} class="v2-chip">{a.nombre}</a></li>)}</ul>
+        <div class="mt-6 rounded-c-lg bg-navy-50 p-5">
+          <p class="text-t17 font-semibold text-navy-950">Cuéntanos qué curso buscas</p>
+          <p class="mt-1 text-t15 text-navy-700">Te respondemos por WhatsApp y te avisamos si llega.</p>
+          <a href={nav.whatsapp} target="_blank" rel="noopener nofollow" class="v2-btn v2-btn-whatsapp mt-4" data-alto="48"><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" />Pregúntanos por WhatsApp</a>
+        </div>
+      </div>
+    ) : (
+      <RejillaCursos id="cursos" cursos={encontrados} {country} {promo} {base} ordenNota={ordenes.ordenNota} ordenPrecio={ordenes.ordenPrecio} buscable={ordenes.buscable} filtrable visibles={q ? encontrados.length : 24} />
+    )}
+  </section>
+
+  {/* Directorio de áreas: la descripción de cada una y su enlace, como las secciones del listado clásico. */}
+  <section class="v2-contenedor pt-20 lg:pt-28" aria-labelledby="areas-titulo">
+    <h2 id="areas-titulo" class="font-display text-d28 lg:text-d40">Cursos por área</h2>
+    <ul class="mt-6 grid border-t border-navy-100 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-3" role="list">
+      {byCategory.map(({ cat, courses: delArea }) => (
+        <li id={cat.slug} class="scroll-mt-28 border-b border-navy-100">
+          <a href={`${base}/cursos/${cat.slug}/`} class="group flex h-full items-start justify-between gap-4 py-5">
+            <span>
+              <span class="flex items-baseline gap-2"><strong class="font-display text-t20 font-semibold text-navy-950 group-hover:underline group-hover:underline-offset-4">{nombreArea(cat.name)}</strong><span class="text-t13 text-navy-500">{delArea.length === 1 ? '1 curso' : `${delArea.length} cursos`}</span></span>
+              <span class="mt-1 block text-t15 text-navy-700">{cat.description}</span>
+            </span>
+            <span class="flex flex-none items-center gap-1 pt-1 text-t13 font-semibold text-navy-950">Ver categoría<Ico nombre="arrow-right" tamano={16} class="transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" /></span>
+          </a>
+        </li>
+      ))}
+      {externas.map(c => (
+        <li class="border-b border-navy-100"><a href={c.externalUrl} target="_blank" rel="noopener" class="flex items-start justify-between gap-4 py-5"><span><strong class="font-display text-t20 font-semibold text-navy-950">{nombreArea(c.name)}</strong><span class="mt-1 block text-t15 text-navy-700">{c.description}</span></span><Ico nombre="external-link" tamano={16} class="mt-1 flex-none" /></a></li>
+      ))}
+    </ul>
+  </section>
+
+  {creators.length > 0 && (
+    <section class="v2-contenedor pt-20 lg:pt-28" aria-labelledby="creadores-titulo">
+      <h2 id="creadores-titulo" class="font-display text-d28">Creadores de nuestros cursos</h2>
+      <p class="mt-2 max-w-[640px] text-t17 text-navy-700">Cada curso lo dicta su creador. En su página ves todos sus cursos.</p>
+      <ul class="mt-5 flex flex-wrap gap-2" role="list">
+        {creators.map(creator => <li><a href={`${base}/creadores/${creator.slug}/`} class="v2-chip">{creator.nombre}</a></li>)}
+      </ul>
+    </section>
+  )}
+</BaseLayout>

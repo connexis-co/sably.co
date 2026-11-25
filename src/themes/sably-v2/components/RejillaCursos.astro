@@ -1,0 +1,133 @@
+---
+/**
+ * Rejilla de cursos V2 con orden y «Ver más» sin JavaScript (diseno/exportes/v2/
+ * ZD0OZ, listado). El orden lo cambian tres radios con `:has()` y la propiedad
+ * `order`; «Ver N cursos más» es una casilla. Todas las tarjetas están en el
+ * HTML (los buscadores y los asistentes ven todos los enlaces). La franja de
+ * promoción va después de la duodécima tarjeta (fila completa con 2, 3 o 4 columnas). Con `filtrable`, el campo de
+ * búsqueda de la página filtra las tarjetas al escribir (~0,5 KB).
+ */
+import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
+import Ico from './Ico.astro';
+import type { Course } from '@/lib/emdash-content';
+import type { Country } from '@/lib/countries';
+import type { PromoV2 } from '../promo-v2';
+interface Props {
+  id: string;
+  cursos: Course[];
+  country: Country;
+  /** Orden por nota y por precio: posiciones ya calculadas por slug. */
+  ordenNota: Map<string, number>;
+  ordenPrecio: Map<string, number>;
+  /** Texto con el que se filtra cada tarjeta (título, área, palabras clave). */
+  buscable: Map<string, string>;
+  promo?: PromoV2 | null;
+  base: string;
+  visibles?: number;
+  conOrden?: boolean;
+  filtrable?: boolean;
+}
+const { id, cursos, country, ordenNota, ordenPrecio, buscable, promo = null, base, visibles = 24, conOrden = true, filtrable = false } = Astro.props;
+const ocultos = Math.max(0, cursos.length - visibles);
+const conFranja = !!promo && cursos.length > 12;
+---
+<div class="v2-rejilla-raiz" data-rejilla={filtrable ? id : undefined}>
+  {conOrden && cursos.length > 2 && (
+    <fieldset class="v2-orden -mx-5 flex items-center gap-2 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 [&>label]:flex-none">
+      <legend class="sr-only">Ordenar los cursos</legend>
+      <span class="mr-1 flex items-center gap-1.5 text-t15 text-navy-500" aria-hidden="true"><Ico nombre="arrow-up-down" tamano={16} />Ordenar</span>
+      <input type="radio" name={`${id}-orden`} id={`${id}-rec`} value="rec" checked class="peer/rec sr-only" /><label for={`${id}-rec`} class="v2-chip">Recomendados</label>
+      <input type="radio" name={`${id}-orden`} id={`${id}-nota`} value="nota" class="sr-only" /><label for={`${id}-nota`} class="v2-chip">Mejor calificados en Hotmart</label>
+      <input type="radio" name={`${id}-orden`} id={`${id}-precio`} value="precio" class="sr-only" /><label for={`${id}-precio`} class="v2-chip">Precio más bajo</label>
+    </fieldset>
+  )}
+  <ul class="v2-rejilla mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" role="list" id={id}>
+    {cursos.map((course, i) => (
+      <li class="v2-celda" style={`--o-rec:${i * 2};--o-nota:${(ordenNota.get(course.id) ?? i) * 2};--o-precio:${(ordenPrecio.get(course.id) ?? i) * 2}`} data-mas={i >= visibles ? '' : undefined} data-buscar={filtrable ? buscable.get(course.id) : undefined}>
+        <TarjetaCurso {course} {country} />
+      </li>
+    ))}
+    {conFranja && promo && (
+      <li class="v2-franja col-span-full" data-promo-v2="franja" data-promo-ssr={promo.ssr} style="--o-rec:23;--o-nota:23;--o-precio:23">
+        <div class="flex flex-wrap items-center gap-x-8 gap-y-3 rounded-c-lg bg-coral-50 px-6 py-5 ring-1 ring-coral-100">
+          <p class="font-display text-d40 font-semibold text-coral-600"><span data-promo-pct-v2>{promo.pct} %</span></p>
+          <div class="min-w-0 flex-1">
+            <p class="text-t17 font-semibold text-navy-950">Con el cupón <span data-promo-codigo>{promo.cupon}</span>, en cursos seleccionados</p>
+            {promo.fin && <p data-promo-fin class="text-t13 text-navy-500">Hasta el <span data-promo-fecha>{promo.fin}</span> (hora de Colombia). El precio de cada ficha ya lo indica.</p>}
+          </div>
+          <button type="button" data-promo-cupon class="v2-tique-mini bg-white" aria-label={`Copiar el cupón ${promo.cupon}`}>
+            <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{promo.cupon}</span>
+            <span class="gap-1 font-semibold text-coral-700"><Ico nombre="copy" tamano={14} /><span data-promo-copiar-texto>Copiar</span></span>
+          </button>
+        </div>
+      </li>
+    )}
+  </ul>
+  {filtrable && <p class="py-10 text-t17 text-navy-700" data-rejilla-vacia hidden>Ningún curso de esta lista coincide con «<span data-rejilla-termino></span>». <a href={`${base}/cursos/`} class="font-semibold text-navy-950 underline underline-offset-4">Ver todos los cursos</a></p>}
+  {ocultos > 0 && (
+    <div class="v2-ver-mas mt-10 flex flex-col items-center gap-3">
+      <p class="text-t15 text-navy-500">Has visto {visibles} de {cursos.length} cursos</p>
+      <span class="h-1 w-40 overflow-hidden rounded-full bg-navy-100" aria-hidden="true"><span class="block h-full rounded-full bg-navy-950" style={`width:${Math.round(visibles / cursos.length * 100)}%`}></span></span>
+      <input type="checkbox" id={`${id}-mas`} class="peer sr-only" />
+      <label for={`${id}-mas`} class="v2-btn v2-btn-secundario max-sm:w-full" data-alto="52">Ver {ocultos} cursos más</label>
+    </div>
+  )}
+</div>
+
+{filtrable && (
+  <script>
+    // Filtro al escribir: oculta las tarjetas que no coinciden. Sin JavaScript, el formulario GET filtra en el servidor.
+    document.querySelectorAll<HTMLElement>('[data-rejilla]').forEach(raiz => {
+      const campo = document.querySelector<HTMLInputElement>(`[data-filtra="${raiz.dataset.rejilla}"]`);
+      if (!campo) return;
+      const celdas = [...raiz.querySelectorAll<HTMLElement>('[data-buscar]')];
+      const vacia = raiz.querySelector<HTMLElement>('[data-rejilla-vacia]');
+      const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+      const filtrar = () => {
+        const q = norm(campo.value.trim());
+        const terminos = q.split(/\s+/).filter(Boolean);
+        let n = 0;
+        for (const c of celdas) { const ok = q.length < 2 || terminos.every(t => c.dataset.buscar!.includes(t)); c.hidden = !ok; if (ok) n++; }
+        raiz.toggleAttribute('data-filtrando', q.length >= 2);
+        if (vacia) { vacia.hidden = n > 0; vacia.querySelector('[data-rejilla-termino]')!.textContent = campo.value.trim(); }
+      };
+      campo.addEventListener('input', filtrar);
+      filtrar();
+    });
+  </script>
+)}
+
+<style is:global>
+  @layer components {
+    .v2-rejilla > li { order: var(--o-rec); }
+    .v2-rejilla-raiz:has(input[value='nota']:checked) .v2-rejilla > li { order: var(--o-nota); }
+    .v2-rejilla-raiz:has(input[value='precio']:checked) .v2-rejilla > li { order: var(--o-precio); }
+    /* «Ver más»: ocultos hasta marcar la casilla; con otro orden o filtrando se ven todos. */
+    .v2-rejilla > li[data-mas] { display: none; }
+    .v2-rejilla-raiz:has(.v2-ver-mas input:checked) .v2-rejilla > li[data-mas],
+    .v2-rejilla-raiz:has(input[value='nota']:checked) .v2-rejilla > li[data-mas],
+    .v2-rejilla-raiz:has(input[value='precio']:checked) .v2-rejilla > li[data-mas],
+    .v2-rejilla-raiz[data-filtrando] .v2-rejilla > li[data-mas] { display: list-item; }
+    .v2-rejilla > li[hidden] { display: none !important; }
+    .v2-rejilla-raiz:has(.v2-ver-mas input:checked) .v2-ver-mas,
+    .v2-rejilla-raiz:has(input[value='nota']:checked) .v2-ver-mas,
+    .v2-rejilla-raiz:has(input[value='precio']:checked) .v2-ver-mas,
+    .v2-rejilla-raiz[data-filtrando] :is(.v2-ver-mas, .v2-franja) { display: none; }
+    @supports not selector(:has(*)) { .v2-rejilla > li[data-mas] { display: list-item; } .v2-ver-mas, .v2-orden { display: none; } }
+    .v2-orden input:checked + label { background: var(--color-navy-950); color: #fff; box-shadow: none; font-weight: 600; }
+    .v2-orden input:focus-visible + label { outline: 3px solid var(--color-coral-600); outline-offset: 2px; }
+    .v2-ver-mas input:focus-visible + label { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+  }
+  /* Fuera de la capa a propósito: tiene que ganar a las utilidades de la tarjeta del kit. Móvil: la tarjeta pasa a fila con miniatura 4:3 a la izquierda (maqueta del listado a 390). */
+    @media (width < 640px) {
+      .v2-rejilla { gap: 0; }
+      .v2-rejilla > li.v2-celda { border-bottom: 1px solid var(--color-navy-100); }
+      .v2-rejilla > li.v2-celda > article { display: grid; grid-template-columns: 112px minmax(0, 1fr); align-items: start; gap: 0 14px; padding: 14px 0; box-shadow: none; border-radius: 0; background: transparent; }
+      .v2-rejilla > li.v2-celda > article > div:first-child { border-radius: 12px; }
+      .v2-rejilla > li.v2-celda > article > div:first-child > span { display: none; }
+      .v2-rejilla > li.v2-celda > article > div:last-child { padding: 0; gap: 4px; }
+      .v2-rejilla > li.v2-celda > article :is(p.line-clamp-2) { display: none; }
+      .v2-rejilla > li.v2-celda > article p:last-child { padding-top: 4px; }
+      .v2-franja { margin: 16px 0; }
+    }
+</style>

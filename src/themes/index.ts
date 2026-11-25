@@ -9,8 +9,8 @@ export { default as PageTemplate } from './sably-classic/layouts/Page.astro';
 
 /** Las vistas de src/themes/vistas/ eligen entre el clásico y V2 según el tema de la petición. */
 export { default as CountryHomeView } from './vistas/CountryHome.astro';
-export { default as CountryCatalogView } from './sably-classic/pages/country-catalog.astro';
-export { default as CountryCategoryView } from './sably-classic/pages/country-category.astro';
+export { default as CountryCatalogView } from './vistas/CountryCatalog.astro';
+export { default as CountryCategoryView } from './vistas/CountryCategory.astro';
 export { default as MarketItemView } from './sably-classic/pages/market-item.astro';
 /** Ficha de curso del tema V2; la elige la página según `temaDeLaPeticion` (src/lib/ajustes-tema.ts). */
 export { default as MarketItemViewV2 } from './sably-v2/pages/market-item.astro';
