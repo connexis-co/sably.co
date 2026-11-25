@@ -6,6 +6,7 @@
  * Todo el texto y todos los enlaces de la clásica siguen en el HTML inicial.
  */
 import { env } from 'virtual:sably-runtime';
+import { relDe } from '@/lib/enlaces-propios';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
 import LogoHotmart from '@/components/v2/LogoHotmart.astro';
@@ -155,7 +156,7 @@ const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u
       <p class="text-t15 text-navy-500">También:</p>
       <ul class="flex flex-wrap gap-x-6 gap-y-2" role="list">
         {resto.map(a => <li><a href={`${base}/cursos/${a.slug}/`} class="v2-subrayado inline-flex min-h-11 items-center text-t17 font-medium text-navy-950">{a.nombre}</a></li>)}
-        {externas.map(c => <li><a href={c.externalUrl} target="_blank" rel="noopener" class="v2-subrayado inline-flex min-h-11 items-center gap-1 text-t17 font-medium text-navy-950">{nombreArea(c.name)} <span class="text-t13 font-normal text-navy-500">(Academia especializada)</span><Ico nombre="external-link" tamano={14} /></a></li>)}
+        {externas.map(c => <li><a href={c.externalUrl} target="_blank" rel={relDe(c.externalUrl, '_blank')} class="v2-subrayado inline-flex min-h-11 items-center gap-1 text-t17 font-medium text-navy-950">{nombreArea(c.name)} <span class="text-t13 font-normal text-navy-500">(Academia especializada)</span><Ico nombre="external-link" tamano={14} /></a></li>)}
       </ul>
       <a href={`${base}/cursos/`} class="v2-enlace ml-auto min-h-11">Ver las {nav.areas.length} áreas <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
     </div>

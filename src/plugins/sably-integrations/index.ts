@@ -7,7 +7,7 @@ import { consentFragments } from '../../lib/consent';
 export function createPlugin(){
   return definePlugin({
     id:'sably-integrations',version:'1.0.0',capabilities:['hooks.page-fragments:register'],
-    admin:{pages:[{path:'/integrations',label:'Sably · integraciones',icon:'settings'}],settingsSchema},
+    admin:{pages:[{path:'/integrations',label:'Medición y conversiones',icon:'chart-bar'}],settingsSchema},
     routes:{
       config:{methods:['GET'],permission:'plugins:manage',request:{body:'none'},handler:async ctx=>({...await adminConfig(ctx.settings),environment:(env as OperationalBindings).SABLY_ENVIRONMENT})},
       save:{methods:['POST'],permission:'plugins:manage',request:{body:'json',maxBytes:32768},handler:async ctx=>{

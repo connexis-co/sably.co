@@ -1,5 +1,6 @@
 ---
 import { Image as OptimizedImage } from 'astro:assets';
+import { relDe } from '@/lib/enlaces-propios';
 import { getMenu } from 'emdash';
 import { getCourses, getCategories } from '@/lib/emdash-content';
 import { marketMenuUrl } from '@/lib/sably-theme';
@@ -79,7 +80,7 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
                       <a
                         href={cat.externalUrl}
                         target="_blank"
-                        rel="noopener"
+                        rel={relDe(cat.externalUrl, '_blank')}
                         class="flex items-center justify-between gap-2 rounded-md px-3 py-2.5 text-sm font-medium text-heading hover:bg-accent-soft"
                       >
                         <span>{cat.emoji} {cat.name}</span>
@@ -174,7 +175,7 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
         </div>
       </div>
 
-      {primaryLinks.map(item => <a href={item.href} target={item.target} rel={item.target === '_blank' ? 'noopener' : undefined} class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">{item.label}</a>)}
+      {primaryLinks.map(item => <a href={item.href} target={item.target} rel={relDe(item.href, item.target)} class="rounded-md px-4 py-2 text-sm font-semibold text-heading transition hover:bg-surface-100 hover:text-primary">{item.label}</a>)}
     </nav>
 
     <div class="flex items-center gap-2">
@@ -267,7 +268,7 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
             Programas
             <span class="text-muted" aria-hidden="true">›</span>
           </button>
-          {primaryLinks.map(item => <a href={item.href} target={item.target} rel={item.target === '_blank' ? 'noopener' : undefined} class="flex items-center border-b border-surface-100 py-4 text-[15px] font-semibold text-heading transition-colors duration-150 active:bg-surface-100">{item.label}</a>)}
+          {primaryLinks.map(item => <a href={item.href} target={item.target} rel={relDe(item.href, item.target)} class="flex items-center border-b border-surface-100 py-4 text-[15px] font-semibold text-heading transition-colors duration-150 active:bg-surface-100">{item.label}</a>)}
         </nav>
         <a href={`${base}/cursos/`} class="mt-6 block rounded-md bg-accent px-4 py-3.5 text-center text-sm font-bold text-white">
           Ver todos los cursos
@@ -287,7 +288,7 @@ const waUrl = buildWhatsAppUrl(country.whatsapp, 'Hola, estoy interesado(a) y qu
               <a
                 href={cat.externalUrl}
                 target="_blank"
-                rel="noopener"
+                rel={relDe(cat.externalUrl, '_blank')}
                 data-cat-extra={i >= 6 ? 'true' : undefined}
                 class:list={[
                   'mb-2 flex w-full items-center justify-between rounded-lg bg-off-white px-4 py-3.5 text-sm font-semibold text-heading transition-all duration-150 active:scale-[0.99]',

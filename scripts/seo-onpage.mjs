@@ -101,6 +101,55 @@ export const TEXTOS_VETADOS = [
 ];
 
 /**
+ * Webs del mismo dueño. Un enlace follow desde cada página de Sably hacia ellas
+ * es enlazado cruzado entre sitios propios, y esta red llevó enlaces ocultos a
+ * Sably hasta el 20-nov-2026: se enlazan solo con `nofollow`.
+ */
+export const DOMINIOS_PROPIOS = [
+  'academiadebelleza.edu.co', 'academiadebelleza.co', 'cursodeglobosonline.com', 'connexis.co', 'blinder.com.co',
+  'bateriasparacarrosbogota.com', 'elportalgeriatrico.com', 'newlinedrywall.com', 'inmobiliariacolombia.co', 'jennylinares.com',
+  'ciudadperdidacolombia.com', 'inmobiliariabogota.net', 'becasicetex.com', 'academiadeconduccion.academy',
+  'fundacionlideresmonarca.org', 'escuelasdeconduccion.academy', 'repcarol.com', 'hostalelrodadero.com', 'lostcitytrek.tours',
+  'desayunossorpresa.net', 'tractoagrocolombia.com', 'academiasdeconduccion.academy', 'constitucionpoliticadecolombia.net',
+];
+/** Enlaces de compra (acortadores y pago de Hotmart): son enlaces con comisión. */
+const COMPRA = /^(?:hotm\.io|hotm\.art|pay\.hotmart\.com|go\.hotmart\.com)$/i;
+/** Contenedor ocultado con estilo en línea o con la clase del bloque de la red (`cx-res-alt`). */
+const OCULTO = /^<([a-z][a-z0-9]*)\b[^>]*(?:\sstyle\s*=\s*["'][^"']*(?:display\s*:\s*none|visibility\s*:\s*hidden|clip\s*:\s*rect\(\s*0|text-indent\s*:\s*-\d{3,}|(?:left|top)\s*:\s*-\d{3,}px|font-size\s*:\s*0(?:px)?\s*[;"'])|\sclass\s*=\s*["'][^"']*\bcx-res-alt\b)/i;
+
+/**
+ * Enlaces que leen como esquema de enlaces: dentro de un contenedor oculto,
+ * de compra sin `sponsored` y hacia webs propias sin `nofollow`.
+ * @returns {[string, 'error' | 'aviso', string][]}
+ */
+export function auditarEnlaces(html) {
+  const hallazgos = [];
+  const sinCodigo = hastaEstable(hastaEstable(html, COMENTARIO, ''), CODIGO);
+  let ocultos = 0;
+  for (const m of sinCodigo.matchAll(/<[a-z][a-z0-9]*\b[^>]*>/gi)) {
+    const abre = m[0].match(OCULTO);
+    if (!abre) continue;
+    const cierre = sinCodigo.indexOf(`</${abre[1]}`, m.index + m[0].length);
+    const dentro = sinCodigo.slice(m.index + m[0].length, cierre < 0 ? undefined : cierre);
+    ocultos += (dentro.match(/<a\b[^>]*\shref=/gi) ?? []).length;
+  }
+  if (ocultos) hallazgos.push(['enlace-oculto', 'error', `${ocultos} enlace(s) dentro de un contenedor oculto: texto y enlaces ocultos incumplen las políticas de spam`]);
+  const compraSin = new Set();
+  const propiosFollow = new Set();
+  for (const m of sinCodigo.matchAll(/<a\b[^>]*>/gi)) {
+    const href = atributo(m[0], 'href') ?? '';
+    let host;
+    try { host = new URL(href.replace(/&amp;/g, '&')).hostname.replace(/^www\./, ''); } catch { continue; }
+    const rel = (atributo(m[0], 'rel') ?? '').toLowerCase().split(/\s+/);
+    if (COMPRA.test(host) && !rel.includes('sponsored')) compraSin.add(host);
+    if (DOMINIOS_PROPIOS.includes(host) && !rel.includes('nofollow') && !rel.includes('sponsored')) propiosFollow.add(host);
+  }
+  if (compraSin.size) hallazgos.push(['compra-sin-sponsored', 'error', `enlace de compra sin rel="sponsored" (${[...compraSin].join(', ')})`]);
+  if (propiosFollow.size) hallazgos.push(['red-propia-follow', 'error', `enlace follow a una web propia (${[...propiosFollow].join(', ')}): debe llevar rel="nofollow"`]);
+  return hallazgos;
+}
+
+/**
  * @param {string} url
  * @param {string} html
  * @param {{ limites?: { titulo?: number, descripcionMin?: number, descripcionMax?: number }, instructores?: string[] }} [opciones]
@@ -186,6 +235,11 @@ export function auditarOnPage(url, html, opciones = {}) {
   if (personasSinPerfil.length)
     marcar('json-ld-person', 'error', `nodo Person sin perfil de creador (${personasSinPerfil.slice(0, 2).join(', ')}): no hay persona verificada`);
   if (tipos.includes('AggregateRating')) marcar('json-ld-rating', 'error', 'AggregateRating con valoraciones de terceros');
+  // Sably no tiene reseñas propias publicadas: cualquier Review sería de otro sitio (Hotmart).
+  if (tipos.includes('Review')) marcar('json-ld-review', 'error', 'Review en el JSON-LD sin reseñas propias que lo sostengan');
+
+  // ── Señales de spam en los enlaces (políticas de spam de Google) ─────────
+  for (const hallazgo of auditarEnlaces(documento)) marcar(...hallazgo);
 
   // ── Precio: la caja de compra, la pregunta de precio y el Offer dicen lo mismo ──
   /* Se compara el importe y la moneda, no la escritura: el tema V2 escribe «$ 1,191.32 MXN»

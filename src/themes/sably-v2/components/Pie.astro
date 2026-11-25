@@ -9,6 +9,7 @@
  * pasan a acordeones nativos y el contenido sigue en el HTML.
  */
 import Logo from '@/components/Logo.astro';
+import { relDe } from '@/lib/enlaces-propios';
 import Bandera from '@/components/v2/Bandera.astro';
 import LogoHotmart from '@/components/v2/LogoHotmart.astro';
 import Ico from './Ico.astro';
@@ -53,7 +54,7 @@ const compacto = variante === 'compacto';
         <nav aria-label="Áreas de cursos" class="pb-5 lg:pt-4">
           <ul class="grid grid-flow-col grid-cols-2 gap-x-6" style={`grid-template-rows: repeat(${Math.ceil((areas.length + externas.length) / 2)}, auto)`} role="list">
             {areas.map(a => <li><a href={`${base}/cursos/${a.slug}/`} class="v2-pie-enlace">{a.nombre}</a></li>)}
-            {externas.map(e => <li><a href={e.href} target="_blank" rel="noopener" class="v2-pie-enlace gap-1">{e.nombre} en la academia <Ico nombre="external-link" tamano={14} /></a></li>)}
+            {externas.map(e => <li><a href={e.href} target="_blank" rel={relDe(e.href, '_blank')} class="v2-pie-enlace gap-1">{e.nombre} en la academia <Ico nombre="external-link" tamano={14} /></a></li>)}
           </ul>
           <a href={`${base}/cursos/`} class="mt-3 inline-flex min-h-11 items-center gap-2 text-t15 font-semibold text-white">Ver los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={18} class="text-coral-500" /></a>
         </nav>
@@ -63,8 +64,8 @@ const compacto = variante === 'compacto';
         <summary class="flex min-h-14 items-center justify-between text-t15 font-semibold text-white lg:min-h-0 lg:text-t13 lg:font-medium lg:text-white/60">Sably<Ico nombre="chevron-down" class="v2-giro lg:hidden" /></summary>
         <nav aria-label="Sably" class="pb-5 lg:pt-4">
           <ul role="list">
-            {sably.map(e => <li><a href={e.href} target={e.target} rel={e.target === '_blank' ? 'noopener' : undefined} class="v2-pie-enlace">{e.etiqueta}</a></li>)}
-            {nav.ecosistema.map(e => <li><a href={e.href} target={e.target} rel={e.target === '_blank' ? 'noopener' : undefined} class="v2-pie-enlace gap-1">{e.etiqueta}{e.target === '_blank' && <Ico nombre="external-link" tamano={14} />}</a></li>)}
+            {sably.map(e => <li><a href={e.href} target={e.target} rel={relDe(e.href, e.target)} class="v2-pie-enlace">{e.etiqueta}</a></li>)}
+            {nav.ecosistema.map(e => <li><a href={e.href} target={e.target} rel={relDe(e.href, e.target)} class="v2-pie-enlace gap-1">{e.etiqueta}{e.target === '_blank' && <Ico nombre="external-link" tamano={14} />}</a></li>)}
           </ul>
         </nav>
       </details>
