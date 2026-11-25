@@ -14,10 +14,9 @@ interface Props {
   nota: string;
   href: string;
   boton: string;
-  botonSin?: string;
   whatsapp: string;
 }
-const { secciones, precio, moneda, nota, href, boton, botonSin, whatsapp } = Astro.props;
+const { secciones, precio, moneda, nota, href, boton, whatsapp } = Astro.props;
 ---
 <div class="v2-fija" data-barra-fija data-oculta inert>
   <div class="v2-contenedor flex h-[72px] items-center gap-4 lg:h-16">
@@ -33,7 +32,7 @@ const { secciones, precio, moneda, nota, href, boton, botonSin, whatsapp } = Ast
       </p>
     )}
     <a href={whatsapp} target="_blank" rel="noopener nofollow" class="ml-auto grid size-12 flex-none place-items-center rounded-full bg-white ring-1 ring-navy-100 lg:hidden" aria-label="Escríbenos por WhatsApp"><img src="/v2/logos/whatsapp.svg" alt="" width="24" height="24" /></a>
-    <Boton variante="principal" alto={48} href={href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="barra" data-pago data-btn-con={botonSin ? boton : undefined} data-btn-sin={botonSin} class="flex-none">{boton}</Boton>
+    <Boton variante="principal" alto={48} href={href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="barra" data-pago class="flex-none">{boton}</Boton>
   </div>
 </div>
 <style>
@@ -49,7 +48,7 @@ const { secciones, precio, moneda, nota, href, boton, botonSin, whatsapp } = Ast
   .v2-fija [data-subnav][aria-current='true'] { color: var(--color-navy-950); border-color: var(--color-coral-600); }
 </style>
 <script>
-  const barra = document.querySelector<HTMLElement>('[data-barra-fija]');
+  const barra = document.querySelector<HTMLElement>('div[data-barra-fija]');
   const boton = document.querySelector('#compra a[data-pago]');
   const cierre = document.querySelector('[data-cierre]');
   if (barra && boton) {
@@ -58,7 +57,7 @@ const { secciones, precio, moneda, nota, href, boton, botonSin, whatsapp } = Ast
       const visible = fueraCaja && !enCierre;
       barra.toggleAttribute('data-oculta', !visible);
       barra.inert = !visible;
-      document.body.toggleAttribute('data-barra-fija', visible);
+      document.body.toggleAttribute('data-con-barra', visible);
     };
     new IntersectionObserver(([e]) => { fueraCaja = !e!.isIntersecting && e!.boundingClientRect.top < 0; actualizar(); }).observe(boton);
     if (cierre) new IntersectionObserver(([e]) => { enCierre = e!.isIntersecting; actualizar(); }).observe(cierre);

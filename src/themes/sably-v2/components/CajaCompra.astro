@@ -95,12 +95,12 @@ const tituloId = 'titulo-compra';
           <dd class="v2-num text-navy-500"><span data-tachado class="v2-tachado">{conMoneda(baseAmount)}</span></dd>
         </div>
         <div class="flex items-baseline justify-between gap-3" data-bloque="cupon">
-          <dt class="flex flex-wrap items-center gap-x-2 text-navy-950">
-            <span data-cupon-icono class="inline-flex"><Icono nombre="circle-check" tamano={16} class="text-v2-ok" /></span>
-            <span data-cupon-texto>Cupón {offer!.coupon} · {offer!.saving} %</span>
-            <button type="button" data-toggle class="min-h-9 text-t13 font-medium text-navy-950 underline underline-offset-4 hover:text-coral-700">Quitar</button>
+          <dt class="flex min-w-0 items-center gap-x-2 text-navy-950">
+            <span data-cupon-icono class="inline-flex flex-none"><Icono nombre="circle-check" tamano={16} class="text-v2-ok" /></span>
+            <span data-cupon-texto class="whitespace-nowrap">Cupón {offer!.coupon} · {offer!.saving} %</span>
+            <button type="button" data-toggle class="min-h-9 text-t13 font-medium whitespace-nowrap text-navy-950 underline underline-offset-4 hover:text-coral-700">Quitar</button>
           </dt>
-          <dd class="v2-num font-semibold text-coral-700" data-cupon-cifra>−{conMoneda(descuento)}</dd>
+          <dd class="v2-num font-semibold whitespace-nowrap text-coral-700" data-cupon-cifra data-con={`−${conMoneda(descuento)}`} data-sin={`−${offer!.saving} %`}>−{conMoneda(descuento)}</dd>
         </div>
       </dl>
     )}
@@ -109,18 +109,20 @@ const tituloId = 'titulo-compra';
       <p class="text-t13 text-navy-500" data-precio-rotulo>{estado === 'campana' ? (variante === 'cuenta-clara' ? 'Hoy pagas' : 'Precio con cupón') : estado === 'sin-precio' ? 'Precio' : 'Precio'}</p>
       {estado === 'sin-precio'
         ? <p class="mt-1 text-t17 text-navy-700">El precio en {currency} lo ves en Hotmart antes de pagar.</p>
-        : <p class="v2-num font-display text-d40 font-semibold text-navy-950"><span data-amount-cifra>{cifra(reducido ?? baseAmount)}</span> <span class="text-t20 font-medium">{currency}</span><span class="sr-only" data-amount>{offer?.price ?? displayMoney(baseAmount)}</span></p>}
+        : <p class="v2-num font-display text-d40 font-semibold text-navy-950"><span data-amount-cifra>{cifra(reducido ?? baseAmount)}</span> <span class="text-t20 font-medium">{currency}</span></p>}
       {estado === 'campana' && variante === 'cabecera-oscura' && (
         <p class="mt-1 flex flex-wrap items-center gap-2 text-t15 text-navy-500" data-savings>antes <span class="v2-num v2-tachado">{conMoneda(baseAmount)}</span><span class="rounded-c-sm bg-coral-50 px-2 py-0.5 text-t13 font-semibold text-coral-700">Ahorras {offer!.saving} %</span></p>
       )}
     </div>
 
     {estado === 'campana' && variante === 'cuenta-clara' && offer?.end && (
-      <Contador hasta={offer.end} desde={promoRow?.desde} estilo={ajustes.caja.contador === 'tique' ? 'linea' : ajustes.caja.contador} campana={campana} despues={despues} class="mt-4" />
+      <Contador hasta={offer.end} desde={promoRow?.desde} estilo={ajustes.caja.contador === 'tique' ? 'linea' : ajustes.caja.contador} campana={campana} despues={despues} cupon={offer.coupon} class="mt-4" />
     )}
-    <p class="mt-4 hidden rounded-c-md bg-navy-50 p-3 text-t13 text-navy-700" data-aviso-fin>
-      <Icono nombre="calendar-off" tamano={16} class="mr-1 inline align-[-3px]" />{campana ?? 'La promoción'} terminó{fin ? ` el ${fin}` : ''}. Este es el precio normal.
-    </p>
+    {offer && (
+      <p class="mt-4 hidden rounded-c-md bg-navy-50 p-3 text-t13 text-navy-700" data-aviso-fin>
+        <Icono nombre="calendar-off" tamano={16} class="mr-1 inline align-[-3px]" />{campana ?? 'La promoción'} terminó{fin ? ` el ${fin}` : ''}. Este es el precio normal; recarga la página para ver si hay otra promoción vigente.
+      </p>
+    )}
 
     <div class="mt-5" data-bloque="boton">
       {estado === 'campana'
@@ -182,8 +184,10 @@ const tituloId = 'titulo-compra';
   .v2-caja[data-cupon='retirado'] [data-cupon-icono] { opacity: 0.4; }
   .v2-caja[data-cupon='retirado'] [data-cupon-cifra] { color: var(--color-navy-500); font-weight: 400; }
   .v2-caja[data-cupon='retirado'] .v2-tachado { text-decoration: none; }
-  .v2-caja[data-estado='vencida'] :is([data-bloque='cupon'], [data-contador], [data-savings]) { display: none; }
-  .v2-caja[data-estado='vencida'] [data-aviso-fin] { display: block; }
+  .v2-caja[data-cupon='retirado'] :global([data-contador-despues]) { display: none; }
+  .v2-caja[data-cupon='retirado'] :global([data-contador-sigue]) { display: inline; }
+  .v2-caja[data-estado='vencida'] :global(:is([data-bloque='cupon'], [data-contador], [data-savings])) { display: none; }
+  .v2-caja[data-estado='vencida'] :global([data-aviso-fin]) { display: block; }
   /* Móvil: precio y botón primero (dentro de los primeros 844 px); la cuenta y el contador, después. */
   @media (width < 1024px) {
     .v2-caja-cuerpo { display: flex; flex-direction: column; }
@@ -220,10 +224,10 @@ const tituloId = 'titulo-compra';
       caja!.dataset.cupon = activo ? 'aplicado' : 'retirado';
       const nodo = caja!.querySelector<HTMLElement>('[data-amount-cifra]');
       if (nodo && nodo.textContent !== cifra(importe)) { nodo.textContent = cifra(importe); nodo.classList.remove('cambia'); void nodo.offsetWidth; nodo.classList.add('cambia'); }
-      caja!.querySelector('[data-amount]')!.textContent = importe;
       const rotulo = caja!.querySelector('[data-precio-rotulo]');
       if (rotulo) rotulo.textContent = activo ? (d.variante === 'cuenta-clara' ? 'Hoy pagas' : 'Precio con cupón') : vencida() ? 'Precio' : 'Pagas sin cupón';
-      caja!.querySelectorAll('[data-cupon-texto]').forEach(t => { t.textContent = `Cupón ${d.codigo}${d.variante === 'cuenta-clara' ? ` · ${d.pct} %` : ''} ${activo ? (d.variante === 'cuenta-clara' ? '' : 'aplicado') : 'retirado'}`.replace(/\s+$/, ''); });
+      caja!.querySelectorAll('[data-cupon-texto]').forEach(t => { t.textContent = activo ? `Cupón ${d.codigo}${d.variante === 'cuenta-clara' ? ` · ${d.pct} %` : ' aplicado'}` : `Cupón ${d.codigo} retirado`; });
+      caja!.querySelectorAll<HTMLElement>('[data-cupon-cifra]').forEach(c => { c.textContent = (activo ? c.dataset.con : c.dataset.sin) ?? c.textContent; });
       toggles.forEach(b => { b.textContent = activo ? 'Quitar' : 'Volver a aplicar'; b.setAttribute('aria-label', activo ? `Quitar el cupón ${d.codigo}` : `Volver a aplicar el cupón ${d.codigo}`); });
       // El botón de la caja, la barra fija y el cierre cambian precio y enlace a la vez.
       enlaces.forEach(a => {

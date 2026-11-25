@@ -167,7 +167,7 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
         <div class="v2-pestanas mt-8 grid gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-12">
           <div class="relative self-start">
             <OptimizedImage src={portada} alt={`${category.name}: ${course.data.title}`} width={600} height={600} sizes="(min-width: 1024px) 600px, 100vw" loading="lazy" decoding="async" class="aspect-[4/5] w-full rounded-c-xl object-cover lg:aspect-square" />
-            <fieldset class="absolute inset-x-3 bottom-3 flex justify-center">
+            <fieldset class="absolute inset-x-3 bottom-3 flex min-w-0 justify-center">
               <legend class="sr-only">Apartados de «Sobre este curso»</legend>
               <div class="v2-pildoras">
                 {pestanas.map((p, i) => <><input type="radio" name="sobre-pestana" id={`pestana-${p.id}`} value={p.id} checked={i === 0} aria-controls={`panel-${p.id}`} /><label for={`pestana-${p.id}`}>{p.etiqueta}</label></>)}
@@ -434,7 +434,7 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
 
     {!sinProducto && conPrecio && (
       <BarraFija secciones={secciones} precio={cifra(precioHoy)} moneda={currency} nota={offer ? `con cupón ${offer.coupon}` : 'precio para ' + country.name}
-        href={enlacePago} boton={botonCon} botonSin={botonSin} whatsapp={whatsapp} />
+        href={enlacePago} boton="Inscribirme" whatsapp={whatsapp} />
     )}
   </div>
 
@@ -448,6 +448,7 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
   .v2-cabeza-rejilla {
     display: grid;
     grid-template-areas: 'media' 'titulo' 'meta' 'caja' 'promesa' 'datos';
+    grid-template-columns: minmax(0, 1fr);
     row-gap: 16px;
   }
   .v2-area-titulo { grid-area: titulo; }
@@ -531,7 +532,11 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
   @media (width < 1024px) { .v2-cierre-cifra { font-size: 220px; bottom: -60px; } }
 
   /* La barra fija no tapa el pie ni el último botón en móvil. */
-  @media (width < 1024px) { :global(body[data-barra-fija]) { padding-bottom: 72px; } }
+  @media (width < 1024px) {
+    :global(body[data-con-barra]) { padding-bottom: 72px; }
+    /* La barra ya trae WhatsApp: el botón flotante no se duplica encima. */
+    :global(body[data-con-barra] [data-wa-float]) { visibility: hidden; }
+  }
 </style>
 
 <script>

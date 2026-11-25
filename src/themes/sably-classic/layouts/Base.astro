@@ -97,9 +97,10 @@ const {
 
 const [organization, settings, temaPeticion] = await Promise.all([organizationSchema(), getLiveSiteSettings(), temaDeLaPeticion(Astro)]);
 /* ?tema=v2 / ?tema=clasico: vista de revisión. Nunca se indexa (la canónica ya
-   es la URL sin parámetros) y nunca se cachea (lleva query). */
+   es la URL sin parámetros) y nunca se cachea (lleva query). La cabecera
+   X-Robots-Tag la pone la frontera de Node (request-handler.ts): un layout no
+   puede fijar cabeceras de la respuesta. */
 const temaForzado = temaPeticion.forzado;
-if (temaForzado) Astro.response.headers.set('X-Robots-Tag', 'noindex, follow');
 const allSchemas = [organization, ...schemas];
 
 /* og:locale del mercado (es_MX en /mx/…) en todo lo que cuelga de /xx/; antes

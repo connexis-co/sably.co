@@ -15,10 +15,12 @@ interface Props {
   campana?: string | null;
   /** «Después vuelve a 191.012 COP.» */
   despues?: string | null;
+  /** Código del cupón: si se retira, el texto lo recuerda en vez de «después vuelve a…». */
+  cupon?: string | null;
   oscuro?: boolean;
   class?: string;
 }
-const { hasta, desde = null, estilo = 'barra', campana, despues, oscuro = false, class: clase } = Astro.props;
+const { hasta, desde = null, estilo = 'barra', campana, despues, cupon = null, oscuro = false, class: clase } = Astro.props;
 const ahora = Date.now();
 const r = restante(hasta, ahora);
 const fraccion = fraccionRestante(desde, hasta, ahora);
@@ -34,7 +36,7 @@ const fin = `${fechaCorta(hasta)}, hora de Colombia`;
           {campana && <p class="ml-auto text-t13 font-semibold text-coral-700">{campana}</p>}
         </div>
         <div class="v2-barra mt-3" role="presentation"><span data-contador-barra style={`width:${(fraccion * 100).toFixed(1)}%`}></span></div>
-        <p class:list={['mt-3 text-t13', oscuro ? 'text-white/70' : 'text-navy-500']}>Termina el {fin}.{despues && <> {despues}</>}</p>
+        <p class:list={['mt-3 text-t13', oscuro ? 'text-white/70' : 'text-navy-500']}>Termina el {fin}.{despues && <span data-contador-despues> {despues}</span>}{cupon && <span data-contador-sigue hidden> El cupón {cupon} sigue disponible hasta entonces.</span>}</p>
       </div>
     )}
     {estilo === 'casillas' && (
