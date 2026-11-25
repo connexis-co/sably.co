@@ -581,8 +581,11 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
     /* Lo que se enfoca o se desplaza solo no queda debajo de la barra fija. */
     :global(html:has(body[data-con-barra])) { scroll-padding-bottom: 88px; scroll-padding-top: 112px; }
     /* La caja y la barra ya traen WhatsApp: el botón flotante sobraba y en 390 tapaba la
-       flecha de «Inscribirme» en el primer pantallazo. */
-    :global([data-wa-float]) { display: none; }
+       flecha de «Inscribirme» en el primer pantallazo. Hoy la burbuja la pinta el plugin
+       sably-whatsapp (#sably-whatsapp), no WhatsAppFloat: con solo [data-wa-float] seguía a
+       la vista y se montaba 14 px sobre la barra de compra (25-nov). */
+    /* `body #…` para ganar al `#sably-whatsapp{display:flex}` del plugin, que va después. */
+    :global([data-wa-float]), :global(body #sably-whatsapp) { display: none; }
   }
 </style>
 

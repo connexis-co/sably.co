@@ -12,7 +12,7 @@
  *
  * Solapes (también a 768 × 1024): baja hasta el final y sube por tramos hasta arriba del todo,
  * con la barra de campaña abierta y, si la hay, cerrada; en cada parada compara los rectángulos
- * pintados de cabecera, barra de campaña, navegación interna y barra de compra. Sale con código 1
+ * pintados de cabecera, barra de campaña, navegación interna, barra de compra y burbuja de WhatsApp. Sale con código 1
  * si alguno se monta sobre otro (25-nov: las pestañas quedaban pintadas encima del logo y del menú).
  *
  *   --fichas co/curso-de-masajes,...   --anchos 390,768,1440   --solo-solapes (sin capturas ni cupón)
@@ -70,7 +70,7 @@ const textoMain = (page) => page.evaluate(() => {
  * un elemento con `visibility: visible` dentro de un padre `hidden` se ve igual, así que se mira la
  * visibilidad calculada de cada pieza, no la de su contenedor.
  */
-const PIEZAS = { cabecera: '[data-cabecera]', campana: '[data-promo-v2="barra"]', barra: '[data-barra-fija]', navInterna: '.v2-fija-nav', compra: '.v2-fija-compra' };
+const PIEZAS = { cabecera: '[data-cabecera]', campana: '[data-promo-v2="barra"]', barra: '[data-barra-fija]', navInterna: '.v2-fija-nav', compra: '.v2-fija-compra', whatsapp: '#sably-whatsapp, [data-wa-float]' };
 const medirSolapes = (page) => page.evaluate((PIEZAS) => {
   const caja = (el) => {
     if (!el) return null;
