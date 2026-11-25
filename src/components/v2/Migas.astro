@@ -1,0 +1,19 @@
+---
+/** Migas visibles: las mismas que el BreadcrumbList del JSON-LD. El último eslabón es la página actual. */
+import Icono from './Icono.astro';
+interface Props { items: { name: string; url: string }[]; oscuro?: boolean; class?: string }
+const { items, oscuro = true, class: clase } = Astro.props;
+const camino = (url: string) => { try { return new URL(url).pathname; } catch { return url; } };
+---
+<nav aria-label="Migas de pan" class:list={['text-t13', clase]}>
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+    {items.map((item, i) => (
+      <li class="flex items-center gap-2">
+        {i > 0 && <Icono nombre="chevron-right" tamano={14} class={oscuro ? 'text-white/50' : 'text-navy-300'} />}
+        {i === items.length - 1
+          ? <span aria-current="page" class={oscuro ? 'font-medium text-white' : 'font-medium text-navy-950'}>{item.name}</span>
+          : <a href={camino(item.url)} class={oscuro ? 'text-white/70 hover:text-white' : 'text-navy-700 hover:text-navy-950'}>{item.name}</a>}
+      </li>
+    ))}
+  </ol>
+</nav>

@@ -1,0 +1,7 @@
+---
+/** Icono lucide de 20 px pintado en el servidor. Decorativo salvo que lleve `etiqueta`. */
+import { ICONOS, type NombreIcono } from './iconos';
+interface Props { nombre: NombreIcono; tamano?: number; trazo?: number; class?: string; etiqueta?: string }
+const { nombre, tamano = 20, trazo = 2, class: clase, etiqueta } = Astro.props;
+---
+<svg xmlns="http://www.w3.org/2000/svg" width={tamano} height={tamano} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width={trazo} stroke-linecap="round" stroke-linejoin="round" class={clase} aria-hidden={etiqueta ? undefined : 'true'} role={etiqueta ? 'img' : undefined} aria-label={etiqueta} focusable="false" set:html={ICONOS[nombre]} />

@@ -1,0 +1,23 @@
+---
+/**
+ * Logos de los medios de pago. Tarjeta y PayPal valen en todos los países; los
+ * locales salen de la lista verificada de Hotmart (src/lib/medios-de-pago.ts) y
+ * dependen de que el curso los tenga activados, por eso van aparte (`locales`).
+ */
+interface Props { pais: string; locales?: boolean; alto?: number; class?: string }
+const { pais, locales = true, alto = 20, class: clase } = Astro.props;
+const LOGOS: Record<string, { src: string; alt: string; ancho: number }> = {
+  visa: { src: '/v2/logos/visa.svg', alt: 'Visa', ancho: 3.08 },
+  mastercard: { src: '/v2/logos/mastercard.svg', alt: 'Mastercard', ancho: 1.62 },
+  paypal: { src: '/v2/logos/paypal.svg', alt: 'PayPal', ancho: 3.15 },
+  pse: { src: '/v2/logos/pse.jpg', alt: 'PSE', ancho: 1 },
+  nequi: { src: '/v2/logos/nequi.svg', alt: 'Nequi', ancho: 3.15 },
+  oxxo: { src: '/v2/logos/oxxo.svg', alt: 'OXXO', ancho: 1.97 },
+  'mercado-pago': { src: '/v2/logos/mercado-pago.png', alt: 'Mercado Pago', ancho: 1 },
+};
+const PORPAIS: Record<string, string[]> = { co: ['pse', 'nequi'], mx: ['oxxo', 'mercado-pago'], ar: ['mercado-pago'] };
+const lista = ['visa', 'mastercard', 'paypal', ...(locales ? PORPAIS[pais] ?? [] : [])];
+---
+<ul class:list={['flex flex-wrap items-center gap-x-4 gap-y-2', clase]} aria-label="Medios de pago">
+  {lista.map(clave => { const l = LOGOS[clave]!; return <li><img src={l.src} alt={l.alt} height={alto} width={Math.round(alto * l.ancho)} loading="lazy" decoding="async" class="block object-contain" style={`height:${alto}px;width:auto`} /></li>; })}
+</ul>

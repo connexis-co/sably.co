@@ -1,0 +1,79 @@
+---
+/**
+ * Contador de campaña con la fecha de fin REAL del panel (nunca se reinicia).
+ * Cuatro tratamientos: barra que recorre la campaña, casillas, una línea y
+ * dentro del tique. Días, horas y minutos; sin segundos. El servidor pinta el
+ * primer valor y el navegador lo corrige cada 30 s; al llegar la fecha se
+ * oculta y la caja vuelve al precio normal (ver CajaCompra).
+ */
+import Icono from './Icono.astro';
+import { fechaCorta, fraccionRestante, restante, textoRestante } from '@/lib/cuenta-atras';
+interface Props {
+  hasta: number;
+  desde?: number | null;
+  estilo?: 'barra' | 'casillas' | 'linea' | 'tique';
+  campana?: string | null;
+  /** «Después vuelve a 191.012 COP.» */
+  despues?: string | null;
+  oscuro?: boolean;
+  class?: string;
+}
+const { hasta, desde = null, estilo = 'barra', campana, despues, oscuro = false, class: clase } = Astro.props;
+const ahora = Date.now();
+const r = restante(hasta, ahora);
+const fraccion = fraccionRestante(desde, hasta, ahora);
+const fin = `${fechaCorta(hasta)}, hora de Colombia`;
+---
+{r && (
+  <div class:list={['v2-contador', clase]} data-contador data-hasta={hasta} data-desde={desde ?? undefined} data-estilo={estilo}>
+    {estilo === 'barra' && (
+      <div class:list={['rounded-c-md p-4', oscuro ? 'bg-white/8' : 'bg-navy-50']}>
+        <div class="flex items-center gap-2">
+          <Icono nombre="timer" tamano={18} class={oscuro ? 'text-white' : 'text-navy-950'} />
+          <p class:list={['text-t15', oscuro ? 'text-white/80' : 'text-navy-700']}>Quedan <strong class:list={['v2-num text-t17 font-semibold', oscuro ? 'text-white' : 'text-navy-950']} data-contador-texto>{textoRestante(r)}</strong></p>
+          {campana && <p class="ml-auto text-t13 font-semibold text-coral-700">{campana}</p>}
+        </div>
+        <div class="v2-barra mt-3" role="presentation"><span data-contador-barra style={`width:${(fraccion * 100).toFixed(1)}%`}></span></div>
+        <p class:list={['mt-3 text-t13', oscuro ? 'text-white/70' : 'text-navy-500']}>Termina el {fin}.{despues && <> {despues}</>}</p>
+      </div>
+    )}
+    {estilo === 'casillas' && (
+      <div class="flex items-center gap-2">
+        {(r.dias > 0 ? [[r.dias, 'días', 'd'], [r.horas, 'horas', 'h']] : [[r.horas, 'horas', 'h'], [r.minutos, 'min', 'm']]).map(([valor, rotulo, clave]) => (
+          <span class:list={['v2-casilla', oscuro ? 'text-white' : 'bg-navy-50 text-navy-950']}>
+            <strong class="v2-num text-d28 font-semibold" data-contador-casilla={clave}>{valor}</strong>
+            <span class="text-t13 opacity-80">{rotulo}</span>
+          </span>
+        ))}
+        <p class:list={['ml-2 text-t13', oscuro ? 'text-white/70' : 'text-navy-500']}>Termina el {fin}.</p>
+      </div>
+    )}
+    {(estilo === 'linea' || estilo === 'tique') && (
+      <p class:list={['flex flex-wrap items-center gap-x-1.5 text-t13', oscuro ? 'text-white/80' : 'text-navy-700']}>
+        <Icono nombre="timer" tamano={16} />Termina en <strong class:list={['v2-num font-semibold', oscuro ? 'text-white' : 'text-navy-950']} data-contador-texto>{textoRestante(r)}</strong>
+        <span class:list={['w-full', oscuro ? 'text-white/70' : 'text-navy-500']}>{fin}</span>
+      </p>
+    )}
+    <span class="sr-only">Termina el {fin}.</span>
+  </div>
+)}
+<script>
+  import { fraccionRestante, restante, textoRestante } from '@/lib/cuenta-atras';
+  const contadores = [...document.querySelectorAll<HTMLElement>('[data-contador]')];
+  function pintar() {
+    const ahora = Date.now();
+    for (const c of contadores) {
+      const hasta = Number(c.dataset.hasta);
+      const r = restante(hasta, ahora);
+      if (!r) { c.hidden = true; continue; }
+      c.querySelectorAll('[data-contador-texto]').forEach(t => { t.textContent = textoRestante(r); });
+      const barra = c.querySelector<HTMLElement>('[data-contador-barra]');
+      if (barra) barra.style.width = `${(fraccionRestante(Number(c.dataset.desde) || null, hasta, ahora) * 100).toFixed(1)}%`;
+      c.querySelectorAll<HTMLElement>('[data-contador-casilla]').forEach(casilla => {
+        const clave = casilla.dataset.contadorCasilla;
+        casilla.textContent = String(clave === 'd' ? r.dias : clave === 'h' ? r.horas : r.minutos);
+      });
+    }
+  }
+  if (contadores.length) { pintar(); setInterval(pintar, 30_000); }
+</script>

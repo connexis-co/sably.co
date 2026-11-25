@@ -1,0 +1,199 @@
+/*
+ * Sably V2 — tokens y kit (diseno/BRIEF-V2.md, docs/equipo/2026-11-24/rediseno/
+ * benchmark/inspiracion-visual.md, Parte 3). Conviven con los del tema clásico:
+ * ningún nombre de aquí pisa uno de `global.css`. Las utilidades de Tailwind
+ * solo se generan para las clases que se usan, así que el tema clásico no carga
+ * nada que no pinte.
+ */
+@theme {
+  --color-navy-950: #1b1b3a;
+  --color-navy-900: #25254d;
+  --color-navy-700: #4a4a78;
+  --color-navy-500: #66668e;
+  --color-navy-300: #a5a5c3;
+  --color-navy-100: #e6e6f0;
+  --color-navy-50: #f3f3f8;
+  --color-coral-700: #a8213f;
+  --color-coral-600: #c92c52;
+  --color-coral-500: #e8456b;
+  --color-coral-100: #fbd9e2;
+  --color-coral-50: #fef1f4;
+  --color-whatsapp: #25d366;
+  --color-v2-error: #b42318;
+  --color-v2-ok: #1d7a4f;
+
+  /* Radios 8/12/16/24 (en Pencil: $c-r-sm … $c-r-xl). */
+  --radius-c-sm: 8px;
+  --radius-c-md: 12px;
+  --radius-c-lg: 16px;
+  --radius-c-xl: 24px;
+
+  /* Sombras tintadas de azul noche. Borde o sombra, nunca los dos. */
+  --shadow-s1: 0 1px 2px rgb(27 27 58 / 0.06);
+  --shadow-s2: 0 12px 32px -8px rgb(27 27 58 / 0.18);
+  --shadow-s3: 0 24px 56px -12px rgb(27 27 58 / 0.3);
+
+  /* Escala cerrada de ocho tamaños: d* en Outfit, t* en Inter. */
+  --text-d72: 72px;
+  --text-d72--line-height: 76px;
+  --text-d72--letter-spacing: -0.02em;
+  --text-d56: 56px;
+  --text-d56--line-height: 60px;
+  --text-d56--letter-spacing: -0.015em;
+  --text-d40: 40px;
+  --text-d40--line-height: 44px;
+  --text-d40--letter-spacing: -0.01em;
+  --text-d28: 28px;
+  --text-d28--line-height: 34px;
+  --text-t20: 20px;
+  --text-t20--line-height: 30px;
+  --text-t17: 17px;
+  --text-t17--line-height: 28px;
+  --text-t15: 15px;
+  --text-t15--line-height: 22px;
+  --text-t13: 13px;
+  --text-t13--line-height: 18px;
+}
+
+/* Movimiento: tres duraciones, dos curvas y un interruptor (`--m: 0` lo apaga). */
+:root {
+  --m: 1;
+  --t-rapido: calc(140ms * var(--m));
+  --t-base: calc(240ms * var(--m));
+  --t-lento: calc(380ms * var(--m));
+  --e-sale: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --e-mueve: cubic-bezier(0.65, 0, 0.35, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --m: 0; }
+}
+
+@layer components {
+  [data-tema='v2'] { color: var(--color-navy-700); }
+  [data-tema='v2'] :is(h1, h2, h3) { color: var(--color-navy-950); font-weight: 600; }
+  .v2-num { font-variant-numeric: tabular-nums; }
+  .v2-contenedor { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: 20px; }
+  @media (width >= 1024px) { .v2-contenedor { padding-inline: 0; width: calc(100% - 80px); } }
+
+  /* ---------- Botones ---------- */
+  .v2-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+    min-height: 56px; padding: 0 24px; border-radius: var(--radius-c-md);
+    font: 600 17px/1.2 var(--font-sans); text-decoration: none; cursor: pointer; border: 0;
+    transition: background-color var(--t-rapido) var(--e-sale), scale var(--t-rapido) var(--e-sale), border-color var(--t-rapido) var(--e-sale);
+  }
+  .v2-btn[data-alto='52'] { min-height: 52px; }
+  .v2-btn[data-alto='48'] { min-height: 48px; padding-inline: 18px; font-size: 15px; }
+  .v2-btn:active { scale: 0.98; transition-duration: 60ms; }
+  .v2-btn:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 3px; box-shadow: 0 0 0 7px var(--color-coral-100); }
+  .v2-btn .v2-flecha { transition: translate var(--t-rapido) var(--e-sale); }
+  @media (hover: hover) { .v2-btn:hover .v2-flecha { translate: 3px 0; } }
+  .v2-btn-principal { background: var(--color-coral-600); color: #fff; }
+  @media (hover: hover) { .v2-btn-principal:hover { background: var(--color-coral-700); } }
+  .v2-btn-principal:active { background: var(--color-coral-700); }
+  .v2-btn-principal[aria-disabled='true'], .v2-btn-principal:disabled { background: var(--color-navy-100); color: var(--color-navy-500); cursor: not-allowed; }
+  .v2-btn-secundario { background: #fff; color: var(--color-navy-950); box-shadow: inset 0 0 0 1.5px var(--color-navy-950); }
+  @media (hover: hover) { .v2-btn-secundario:hover { background: var(--color-navy-50); } }
+  .v2-btn-whatsapp { background: #fff; color: var(--color-navy-950); box-shadow: inset 0 0 0 1px var(--color-navy-100); min-height: 48px; font-size: 15px; }
+  @media (hover: hover) { .v2-btn-whatsapp:hover { box-shadow: inset 0 0 0 1.5px var(--color-navy-300); } }
+  .v2-btn-redondo { width: 48px; min-height: 48px; padding: 0; border-radius: 999px; }
+  .v2-btn-precio .v2-btn-sep { width: 4px; height: 4px; border-radius: 99px; background: currentColor; opacity: 0.7; }
+  .v2-btn-precio .v2-btn-moneda { font-size: 0.7em; font-weight: 500; }
+  .v2-enlace {
+    display: inline-flex; align-items: center; gap: 8px; font: 600 15px/22px var(--font-sans);
+    color: var(--color-navy-950); text-decoration: none; border-radius: 4px;
+  }
+  .v2-enlace .v2-flecha { transition: translate var(--t-rapido) var(--e-sale); }
+  @media (hover: hover) { .v2-enlace:hover { text-decoration: underline; text-underline-offset: 4px; } .v2-enlace:hover .v2-flecha { translate: 3px 0; } }
+  .v2-enlace:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) { .v2-btn:active { scale: 1; } }
+
+  /* ---------- Campos con etiqueta flotante (data-field en :root) ---------- */
+  .v2-campo { position: relative; display: block; }
+  .v2-campo input, .v2-campo textarea, .v2-campo select {
+    width: 100%; height: 56px; padding: 22px 16px 6px; border: 1.5px solid var(--color-navy-100);
+    border-radius: var(--radius-c-md); background: #fff; color: var(--color-navy-950);
+    font: 400 17px/24px var(--font-sans); outline: none; appearance: none;
+    transition: border-color var(--t-rapido) var(--e-sale), box-shadow var(--t-rapido) var(--e-sale);
+  }
+  .v2-campo textarea { height: auto; min-height: 112px; padding-top: 26px; resize: vertical; }
+  .v2-campo label {
+    position: absolute; left: 17px; top: 16px; color: var(--color-navy-500); font: 400 17px/24px var(--font-sans);
+    pointer-events: none; transform-origin: left top;
+    transition: translate var(--t-rapido) var(--e-sale), scale var(--t-rapido) var(--e-sale), color var(--t-rapido) var(--e-sale);
+  }
+  .v2-campo :is(input, textarea):is(:focus, :not(:placeholder-shown)) + label,
+  .v2-campo select + label { translate: 0 -9px; scale: 0.765; }
+  .v2-campo :is(input, textarea, select):focus { border-color: var(--color-coral-600); border-width: 2px; box-shadow: 0 0 0 4px var(--color-coral-100); }
+  .v2-campo :is(input, textarea, select):focus + label { color: var(--color-coral-700); }
+  .v2-campo :is(input, textarea):autofill { box-shadow: inset 0 0 0 40px var(--color-navy-50); }
+  .v2-campo :is(input, textarea, select):user-invalid { border-color: var(--color-v2-error); }
+  .v2-campo :is(input, textarea, select):user-invalid + label { color: var(--color-v2-error); }
+  .v2-campo :is(input, textarea, select):disabled { opacity: 0.5; cursor: not-allowed; }
+  .v2-campo-ayuda { display: block; margin-top: 6px; font: 400 13px/18px var(--font-sans); color: var(--color-navy-500); }
+  .v2-campo-error { display: none; margin-top: 6px; font: 500 13px/18px var(--font-sans); color: var(--color-v2-error); }
+  .v2-campo:has(:user-invalid) .v2-campo-error { display: flex; gap: 6px; align-items: center; }
+  :root[data-field='filled'] .v2-campo :is(input, textarea, select) {
+    background: var(--color-navy-50); border: 0; border-bottom: 2px solid var(--color-navy-700); border-radius: var(--radius-c-md) var(--radius-c-md) 0 0;
+  }
+  :root[data-field='filled'] .v2-campo :is(input, textarea, select):focus { border-bottom-color: var(--color-coral-600); box-shadow: none; }
+  :root[data-field='underline'] .v2-campo :is(input, textarea, select) {
+    border: 0; border-bottom: 1.5px solid var(--color-navy-300); border-radius: 0; padding-inline: 0; background: transparent;
+  }
+  :root[data-field='underline'] .v2-campo label { left: 0; }
+  :root[data-field='underline'] .v2-campo :is(input, textarea, select):focus { border-bottom: 2px solid var(--color-coral-600); box-shadow: none; }
+
+  /* ---------- Tique de cupón (muescas con máscara) ---------- */
+  .v2-tique {
+    --muesca: 10px; --corte: 96px;
+    position: relative; display: grid; grid-template-columns: var(--corte) 1fr; align-items: center;
+    background: var(--color-coral-50); border-radius: var(--radius-c-md); color: var(--color-navy-950);
+    box-shadow: inset 0 0 0 1px var(--color-coral-100);
+    -webkit-mask: radial-gradient(circle var(--muesca) at var(--corte) 0, #0000 98%, #000) top / 100% 51% no-repeat,
+                  radial-gradient(circle var(--muesca) at var(--corte) 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+            mask: radial-gradient(circle var(--muesca) at var(--corte) 0, #0000 98%, #000) top / 100% 51% no-repeat,
+                  radial-gradient(circle var(--muesca) at var(--corte) 100%, #0000 98%, #000) bottom / 100% 51% no-repeat;
+  }
+  .v2-tique-pct { padding: 14px 8px; text-align: center; font: 600 32px/1 var(--font-display); color: var(--color-coral-600); }
+  .v2-tique-cuerpo { padding: 14px 16px; border-left: 1.5px dashed var(--color-coral-100); min-width: 0; }
+
+  /* ---------- Contador ---------- */
+  .v2-barra { height: 4px; border-radius: 99px; background: var(--color-navy-100); position: relative; }
+  .v2-barra > span { position: absolute; inset: 0 auto 0 0; border-radius: inherit; background: var(--color-navy-950); }
+  .v2-barra > span::after {
+    content: ''; position: absolute; right: -6px; top: 50%; width: 12px; height: 12px; translate: 0 -50%;
+    border-radius: 99px; background: #fff; box-shadow: inset 0 0 0 2px var(--color-navy-950);
+  }
+  .v2-casilla { display: grid; place-items: center; min-width: 56px; padding: 6px 8px; border-radius: var(--radius-c-sm); background: rgb(255 255 255 / 0.08); }
+
+  /* ---------- Acordeón nativo ---------- */
+  .v2-acordeon > summary { list-style: none; cursor: pointer; }
+  .v2-acordeon > summary::-webkit-details-marker { display: none; }
+  .v2-acordeon > summary:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 2px; border-radius: 6px; }
+  .v2-acordeon .v2-giro { transition: rotate var(--t-base) var(--e-sale); }
+  .v2-acordeon[open] > summary .v2-giro { rotate: 180deg; }
+  .v2-acordeon[open] > summary .v2-giro-45 { rotate: 45deg; }
+  @supports (interpolate-size: allow-keywords) {
+    .v2-acordeon { interpolate-size: allow-keywords; }
+    .v2-acordeon::details-content {
+      block-size: 0; overflow: clip;
+      transition: block-size var(--t-base) var(--e-sale), content-visibility var(--t-base) allow-discrete;
+    }
+    .v2-acordeon[open]::details-content { block-size: auto; }
+  }
+
+  /* ---------- Pestañas de píldora (radios: sin JavaScript) ---------- */
+  .v2-pildoras { display: inline-flex; gap: 4px; padding: 6px; border-radius: 999px; background: #fff; box-shadow: var(--shadow-s2); max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .v2-pildoras label { flex: none; padding: 9px 14px; border-radius: 999px; font: 500 15px/22px var(--font-sans); color: var(--color-navy-700); cursor: pointer; transition: background-color var(--t-rapido) var(--e-sale), color var(--t-rapido) var(--e-sale); }
+  .v2-pildoras input { position: absolute; opacity: 0; pointer-events: none; }
+  .v2-pildoras input:checked + label { background: var(--color-navy-950); color: #fff; font-weight: 600; }
+  .v2-pildoras input:focus-visible + label { outline: 3px solid var(--color-coral-600); outline-offset: 2px; }
+
+  /* ---------- Aparición al desplazar (decorativa; visible por defecto) ---------- */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes v2-aparece { from { opacity: 0; translate: 0 16px; } }
+      [data-aparece] { animation: v2-aparece linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+    }
+  }
+}

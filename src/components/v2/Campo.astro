@@ -1,0 +1,30 @@
+---
+/**
+ * Campo con etiqueta flotante. El estilo (contorno, relleno, subrayado) lo
+ * decide `data-field` en <html>; los estados salen de CSS (:focus,
+ * :placeholder-shown, :user-invalid, :autofill, :disabled), sin JavaScript.
+ */
+import Icono from './Icono.astro';
+interface Props {
+  id: string;
+  nombre: string;
+  etiqueta: string;
+  tipo?: 'text' | 'email' | 'tel' | 'textarea';
+  requerido?: boolean;
+  autocompletar?: string;
+  ayuda?: string;
+  error?: string;
+  deshabilitado?: boolean;
+  maximo?: number;
+}
+const { id, nombre, etiqueta, tipo = 'text', requerido = false, autocompletar, ayuda, error, deshabilitado = false, maximo } = Astro.props;
+const descrito = [ayuda && `${id}-ayuda`, error && `${id}-error`].filter(Boolean).join(' ') || undefined;
+---
+<div class="v2-campo">
+  {tipo === 'textarea'
+    ? <textarea id={id} name={nombre} placeholder=" " required={requerido} disabled={deshabilitado} maxlength={maximo} aria-describedby={descrito}></textarea>
+    : <input id={id} name={nombre} type={tipo} placeholder=" " required={requerido} autocomplete={autocompletar} disabled={deshabilitado} maxlength={maximo} aria-describedby={descrito} />}
+  <label for={id}>{etiqueta}{requerido ? '' : ' (opcional)'}</label>
+  {ayuda && <span id={`${id}-ayuda`} class="v2-campo-ayuda">{ayuda}</span>}
+  {error && <span id={`${id}-error`} class="v2-campo-error"><Icono nombre="circle-alert" tamano={16} />{error}</span>}
+</div>
