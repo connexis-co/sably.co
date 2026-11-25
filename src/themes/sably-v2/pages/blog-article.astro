@@ -13,8 +13,6 @@ import { cmsImageUrl } from '@/lib/cms-media';
 import CmsRichBody from '@/components/CmsRichBody.astro';
 import { renderMarkdown } from '@/lib/markdown';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import ArticleRating from '@/components/ArticleRating.astro';
-import Comentarios from '@/components/Comentarios.astro';
 import Migas from '@/components/v2/Migas.astro';
 import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
 import HuecoPublicidad from '@/components/publicidad/HuecoPublicidad.astro';
@@ -30,6 +28,10 @@ import HojaIndice from '../components/blog/HojaIndice.astro';
 import CursoRelacionado from '../components/blog/CursoRelacionado.astro';
 import LlamadaFinal from '../components/blog/LlamadaFinal.astro';
 import TarjetaArticulo from '../components/blog/TarjetaArticulo.astro';
+import Valoracion from '../components/blog/Valoracion.astro';
+import EstrellasArticulo from '../components/blog/EstrellasArticulo.astro';
+import ComentariosV2 from '../components/blog/ComentariosV2.astro';
+import { pulsoDeArticulos } from '@/lib/blog-pulso';
 import { narracionVigente, duracionIso } from '@/lib/narracion';
 import { blogCover, minutosLectura, oficioDeCurso } from '@/lib/blog';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
@@ -121,6 +123,11 @@ const guias = Number(a.blogArticulosSugeridos) > 0 ? guiasSugeridas(await cms.ge
 // Las mismas que el BreadcrumbList del JSON-LD (el último eslabón, recortado a una línea en CSS).
 const migas = [{ name: 'Inicio', url: '/co/' }, { name: 'Blog', url: '/blog/' }, { name: post.data.title, url: `/blog/${post.id}/` }];
 const carrilCurso = curso && (a.blogCarrilDerecho === 'curso' || a.blogCarrilDerecho === 'indice-curso');
+/* Valoración y comentarios (apagados de fábrica): datos reales horneados, nunca en el JSON-LD. */
+const conComentarios = a.blogComentarios !== 'apagados';
+const pulsos = a.blogValoracion || conComentarios ? await pulsoDeArticulos([post.id, ...guias.map(g => g.id)]) : new Map();
+const pulso = pulsos.get(post.id);
+const conCierre = a.blogValoracion || posiciones.includes('final');
 ---
 <BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} {articleSchema} {articleMeta} pageType="article" image={portada} {freshUntil} temaV2>
   <EstilosBlog parte="cabeza" />
@@ -137,6 +144,7 @@ const carrilCurso = curso && (a.blogCarrilDerecho === 'curso' || a.blogCarrilDer
           <EtiquetaCategoria categoria={post.data.category} estilo={a.blogEtiquetaEstilo} etiqueta="p" class="mt-6" />
           <h1 {...post.edit.title} class="v2-ba-h1">{post.data.title}</h1>
           <p class="v2-ba-entradilla" data-estilo={a.blogEntradillaEstilo}>{post.data.description}</p>
+          {a.blogValoracion && a.blogEstrellasCabecera && <EstrellasArticulo {pulso} />}
           <MetaArticulo publicado={post.data.publishedAt} actualizado={conActualizado ? actualizado : null} {minutos} duracion={narracion ? reloj(narracion.segundos) : undefined} compartir={posiciones.includes('metadatos')} {url} titulo={post.data.title} {redes} />
         </div>
         {cabecera === 'c' && <figure class="v2-ba-portada"><OptimizedImage src={portada} alt="" width={1160} height={870} fetchpriority="high" loading="eager" sizes="(min-width: 1024px) 580px, 100vw" /></figure>}
@@ -184,17 +192,19 @@ const carrilCurso = curso && (a.blogCarrilDerecho === 'curso' || a.blogCarrilDer
         </div>
 
         <div class="v2-ba-cierre-pieza"><HuecoPublicidad posicion="articulo-final" /></div>
-        <div class="v2-ba-cierre-pieza"><ArticleRating slug={post.id} temaV2 /></div>
-        {posiciones.includes('final') && (
+        {conCierre && (
           <div class="v2-ba-cierre-pieza v2-ba-cierre">
-            <div>
-              <p class="v2-bc-titulo">{oficio ? `¿Conoces a alguien que quiera aprender ${oficio}?` : '¿Conoces a alguien a quien le sirva esta guía?'}</p>
-              <p class="mt-1 text-t15 text-navy-700">Envíaselo por WhatsApp o copia el enlace.</p>
-              <Compartir {url} titulo={post.data.title} redes={redes.filter(r => r === 'whatsapp' || r === 'copiar')} forma="ancha" class="mt-4" etiqueta="Compartir (final)" />
-            </div>
+            {a.blogValoracion && <Valoracion slug={post.id} {pulso} />}
+            {posiciones.includes('final') && (
+              <div>
+                <p class="v2-bc-titulo">{oficio ? `¿Conoces a alguien que quiera aprender ${oficio}?` : '¿Conoces a alguien a quien le sirva esta guía?'}</p>
+                <p class="mt-1 text-t15 text-navy-700">Envíaselo por WhatsApp o copia el enlace.</p>
+                <Compartir {url} titulo={post.data.title} redes={redes.filter(r => r === 'whatsapp' || r === 'copiar')} forma="ancha" class="mt-4" etiqueta="Compartir (final)" />
+              </div>
+            )}
           </div>
         )}
-        <div class="v2-ba-cierre-pieza"><Comentarios subject={`blog:${post.id}`} temaV2 /></div>
+        {conComentarios && <div class="v2-ba-cierre-pieza"><ComentariosV2 subject={`blog:${post.id}`} modo={a.blogComentarios === 'lectura' ? 'lectura' : 'activados'} plegados={a.blogComentariosPlegados} total={pulso?.comentarios ?? 0} /></div>}
       </div>
 
       <aside class="v2-ba-carril-der" aria-label="Índice y curso">
@@ -219,7 +229,7 @@ const carrilCurso = curso && (a.blogCarrilDerecho === 'curso' || a.blogCarrilDer
         <section aria-labelledby="sigue-titulo">
           <div class="v2-ba-seccion-titulo"><h2 id="sigue-titulo">Sigue leyendo</h2></div>
           <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8" role="list">
-            {guias.map(p => <li><TarjetaArticulo post={p} variante={a.blogTarjeta} movil={a.blogTarjetaMovil} leerMas={a.blogTarjetaLeerMas} sinFoto={a.blogPortadaSinFoto} estiloEtiqueta={a.blogEtiquetaEstilo} /></li>)}
+            {guias.map(p => <li><TarjetaArticulo post={p} variante={a.blogTarjeta} movil={a.blogTarjetaMovil} leerMas={a.blogTarjetaLeerMas} sinFoto={a.blogPortadaSinFoto} estiloEtiqueta={a.blogEtiquetaEstilo} pulso={pulsos.get(p.id)} estrellas={a.blogValoracion && a.blogTarjetaEstrellas} comentarios={conComentarios && a.blogTarjetaComentarios} /></li>)}
           </ul>
         </section>
       )}

@@ -34,7 +34,15 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
     return error('demasiados votos desde esta conexión', 429);
   }
 
-  try {
+  /* Un voto por conexión y artículo cada 24 h: quien borra su almacenamiento (visitor_id nuevo) desde la misma IP
+     no suma otro voto. Se ignora sin error visible; el mismo visitante sí puede cambiar el suyo. */
+  const otro = await env.DB.prepare(
+    'SELECT 1 FROM vote WHERE subject_id = ? AND ip_hash = ? AND visitor_id <> ? AND updated_at > unixepoch() - 86400 LIMIT 1',
+  )
+    .bind(subject, ipHash, visitante)
+    .first();
+
+  if (!otro) try {
     await env.DB.prepare(
       `INSERT INTO vote (subject_id, visitor_id, value, ip_hash, country, dwell_ms)
        VALUES (?, ?, ?, ?, ?, ?)

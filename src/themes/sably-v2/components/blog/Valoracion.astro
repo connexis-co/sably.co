@@ -1,0 +1,81 @@
+---
+/**
+ * «¿Te sirvió esta guía?» (DISENO §4.9, lámina 09), piel V2 sobre el backend de siempre (/api/v1/votos y /pulso):
+ * sin registrarse, un voto por visitante (y por conexión cada 24 h), permanencia mínima de 3 s en la base. Grupo de
+ * radio: flechas cambian, Intro o Espacio envía. La media solo se enseña cuando /pulso dice `publicable` (≥ 5 votos
+ * de ≥ 5 conexiones). Nada de esto va al JSON-LD.
+ */
+import type { PulsoArticulo } from '@/lib/blog-pulso';
+import { notaCorta } from '@/lib/blog-pulso';
+interface Props { slug: string; pulso?: PulsoArticulo }
+const { slug, pulso } = Astro.props;
+const ROTULOS = ['Nada útil', 'Poco útil', 'Útil a medias', 'Útil', 'Muy útil'];
+const d = 'M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z';
+---
+<div class="v2-valorar" id="valorar" data-valorar={slug}>
+  <p class="v2-bc-titulo" id="valorar-titulo">¿Te sirvió esta guía?</p>
+  <div class="v2-valorar-estrellas" role="radiogroup" aria-labelledby="valorar-titulo">
+    {ROTULOS.map((r, i) => (
+      <button type="button" role="radio" aria-checked="false" tabindex={i === 0 ? 0 : -1} data-estrella={i + 1} aria-label={`${i + 1} de 5 · ${r}`}>
+        <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d={d} /></svg>
+      </button>
+    ))}
+  </div>
+  <p class="v2-valorar-rotulo" data-valorar-rotulo aria-hidden="true">&nbsp;</p>
+  <p class="v2-valorar-estado" role="status" aria-live="polite" data-valorar-estado>Sin registrarte. Un voto por persona.</p>
+  <p class="v2-valorar-media" data-valorar-media hidden={!pulso?.publicable}>{pulso?.publicable && pulso.media !== null ? `${notaCorta(pulso.media)} de 5 · ${pulso.votos} valoraciones` : ''}</p>
+</div>
+<script>
+  import { visitanteId, permanencia } from '@/lib/visitante';
+  import { trackEvent } from '@/lib/analytics';
+  const raiz = document.querySelector<HTMLElement>('[data-valorar]');
+  if (raiz) {
+    const slug = raiz.dataset.valorar!;
+    const subject = `blog:${slug}`;
+    const clave = `sably:rating:${slug}`;
+    const botones = [...raiz.querySelectorAll<HTMLButtonElement>('[data-estrella]')];
+    const rotulo = raiz.querySelector<HTMLElement>('[data-valorar-rotulo]')!;
+    const estado = raiz.querySelector<HTMLElement>('[data-valorar-estado]')!;
+    const media = raiz.querySelector<HTMLElement>('[data-valorar-media]')!;
+    const leer = () => { try { return Number(localStorage.getItem(clave) || 0); } catch { return 0; } };
+    const pintar = (n: number, foco = false) => botones.forEach((b, i) => {
+      b.toggleAttribute('data-llena', i < n);
+      b.setAttribute('aria-checked', String(i + 1 === n));
+      b.tabIndex = (n ? i + 1 === n : i === 0) ? 0 : -1;
+      if (foco && i + 1 === n) b.focus();
+    });
+    const mostrar = (n: number) => { rotulo.textContent = n ? botones[n - 1]!.getAttribute('aria-label')! : ' '; };
+    const pulso = () => fetch(`/api/v1/pulso?subject=${encodeURIComponent(subject)}`).then(r => (r.ok ? r.json() : null) as Promise<{ votes: number; avg: number | null; publicable: boolean } | null>).then(d => {
+      if (!d?.publicable || d.avg === null) return;
+      media.textContent = `${d.avg.toLocaleString('es-CO', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} de 5 · ${d.votes} valoraciones`;
+      media.hidden = false;
+    }).catch(() => {});
+    const enviar = async (n: number) => {
+      pintar(n);
+      estado.textContent = 'Guardando…';
+      try {
+        const r = await fetch('/api/v1/votos', { method: 'POST', headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ subject, value: n, visitor_id: visitanteId(), dwell_ms: permanencia() }), signal: AbortSignal.timeout(8000) });
+        const d = await r.json().catch(() => ({})) as { error?: string };
+        if (!r.ok) throw new Error(r.status === 429 && /rápido/.test(d.error ?? '') ? 'Lee un poco antes de valorar.' : 'No pudimos guardar tu valoración. Prueba otra vez.');
+        try { localStorage.setItem(clave, String(n)); } catch { /* sin almacenamiento */ }
+        estado.textContent = 'Guardada. Puedes cambiarla si vuelves.';
+        trackEvent('rate_article', { article: slug, rating: n });
+        void pulso();
+      } catch (e) { pintar(leer()); estado.textContent = (e as Error).message; }
+    };
+    const previo = leer();
+    if (previo) { pintar(previo); estado.textContent = 'Guardada. Puedes cambiarla si vuelves.'; }
+    botones.forEach((b, i) => {
+      b.addEventListener('click', () => void enviar(i + 1));
+      b.addEventListener('mouseenter', () => mostrar(i + 1));
+      b.addEventListener('focus', () => mostrar(i + 1));
+      b.addEventListener('keydown', e => {
+        const paso = e.key === 'ArrowRight' || e.key === 'ArrowUp' ? 1 : e.key === 'ArrowLeft' || e.key === 'ArrowDown' ? -1 : 0;
+        if (paso) { e.preventDefault(); const n = Math.min(5, Math.max(1, i + 1 + paso)); pintar(n, true); mostrar(n); }
+      });
+    });
+    raiz.addEventListener('mouseleave', () => mostrar(0));
+    if (!raiz.querySelector('[data-valorar-media]:not([hidden])')) void pulso();
+  }
+</script>

@@ -12,12 +12,16 @@ import { richText } from '@/lib/rich-content';
 import type { BlogPost } from '@/lib/emdash-content';
 import EtiquetaCategoria from './EtiquetaCategoria.astro';
 import Ico from '../Ico.astro';
+import Estrellas from '@/components/v2/Estrellas.astro';
+import { notaCorta, type PulsoArticulo } from '@/lib/blog-pulso';
 interface Props {
   post: BlogPost; variante?: 'borde' | 'suelta' | 'sombra' | 'horizontal'; movil?: 'horizontal' | 'igual';
   leerMas?: boolean; sinFoto?: 'tipografica' | 'foto'; estiloEtiqueta?: 'punto' | 'pastilla' | 'filete';
   nivel?: 'h2' | 'h3'; eager?: boolean; sizes?: string;
+  /** Datos reales (sably.db) y si se enseñan: estrellas solo con la valoración encendida, comentarios solo si hay. */
+  pulso?: PulsoArticulo; estrellas?: boolean; comentarios?: boolean;
 }
-const { post, variante = 'borde', movil = 'horizontal', leerMas = true, sinFoto = 'tipografica', estiloEtiqueta = 'punto', nivel: H = 'h3', eager = false,
+const { pulso, estrellas = false, comentarios = false, post, variante = 'borde', movil = 'horizontal', leerMas = true, sinFoto = 'tipografica', estiloEtiqueta = 'punto', nivel: H = 'h3', eager = false,
   sizes = '(min-width: 1024px) 380px, (min-width: 640px) 50vw, 96px' } = Astro.props;
 const propia = cmsImageUrl(post.cardImage) ?? cmsImageUrl(post.coverImage);
 const foto = propia ?? (sinFoto === 'foto' ? blogCover(post.data.category, 'card') : undefined);
@@ -34,6 +38,14 @@ const minutos = minutosLectura(post.richBody ? richText(post.richBody) : post.bo
     <H class="v2-ta-titulo">{post.data.title}</H>
     <p class="v2-ta-resumen">{post.data.description}</p>
     <p class="v2-ta-datos"><time datetime={post.data.publishedAt.toISOString()}>{fechaCorta(post.data.publishedAt)}</time> · {minutos} min de lectura</p>
-    {leerMas && <span class="v2-ta-mas" aria-hidden="true">Leer más <Ico nombre="arrow-right" tamano={16} /></span>}
+    {(estrellas || (comentarios && pulso?.comentarios)) ? (
+      <p class="v2-ta-pie">
+        {estrellas && (pulso?.publicable && pulso.media !== null
+          ? <span><Estrellas nota={pulso.media} tamano={14} /><b>{notaCorta(pulso.media)}</b> ({pulso.votos})<span class="sr-only"> valoraciones</span></span>
+          : <span>Sin valoraciones aún</span>)}
+        {comentarios && !!pulso?.comentarios && <span><Ico nombre="message-circle" tamano={14} />{pulso.comentarios}<span class="sr-only"> comentarios</span></span>}
+        {leerMas && <span class="v2-ta-mas" aria-hidden="true">Leer más <Ico nombre="arrow-right" tamano={16} /></span>}
+      </p>
+    ) : leerMas && <span class="v2-ta-mas" aria-hidden="true">Leer más <Ico nombre="arrow-right" tamano={16} /></span>}
   </div>
 </a>
