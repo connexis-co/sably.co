@@ -14,7 +14,9 @@ test('production variants preserve the nested native origin and negotiate format
  const options={src:'https://sably.co/_emdash/api/media/file/migration/imagen%20uno.jpg',width:800,height:450};
  const config={endpoint:{route:'/_image'},domains:[],remotePatterns:[]} as any;
  const url=production.getURL(options,config,{} as any);
- assert.match(url,/^\/cdn-cgi\/image\/width=800,quality=80,format=auto,fit=scale-down,onerror=redirect\/_emdash\/api\/media\/file\/migration\/imagen%20uno.jpg$/);
+ assert.match(url,/^\/cdn-cgi\/image\/width=800%2Cquality=80%2Cformat=auto%2Cfit=scale-down%2Conerror=redirect\/_emdash\/api\/media\/file\/migration\/imagen%20uno.jpg$/);
+ // Sin comas: Bing corta el srcset en cada coma y pedía rutas inventadas (25-nov-2026).
+ assert.ok(!production.getSrcSet(options,config).some(entry=>production.getURL(entry.transform,config,{} as any).includes(',')));
  const set=production.getSrcSet(options,config);
  assert.ok(set.some(s=>s.descriptor==='480w'));
  assert.ok(set.some(s=>s.descriptor==='800w'));

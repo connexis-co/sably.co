@@ -13,7 +13,10 @@ export function cloudflareImageUrl(src: string, width: number, siteOrigin?: stri
   const publicAsset = /^\/(?:covers|heroes)\//.test(source.pathname);
   if ((!native && !publicAsset) || /\.(?:svg|gif)$/i.test(source.pathname)) return undefined;
   const path = source.origin === origin ? source.pathname.slice(1) : source.href;
-  return `/cdn-cgi/image/width=${Math.min(Math.round(width), 1600)},quality=80,format=auto,fit=scale-down,onerror=redirect/${path}`;
+  // Opciones separadas con la coma codificada: Cloudflare la acepta igual (mismos bytes, formato y
+  // caché, comprobado el 25-nov-2026) y Bing, que corta el `srcset` en cada coma, deja de pedir
+  // rutas inventadas como `/curso/onerror=redirect/_emdash/…`.
+  return `/cdn-cgi/image/${[`width=${Math.min(Math.round(width), 1600)}`, 'quality=80', 'format=auto', 'fit=scale-down', 'onerror=redirect'].join('%2C')}/${path}`;
 }
 
 export function imageWidths(width: number): number[] {

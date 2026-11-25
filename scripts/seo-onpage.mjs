@@ -132,6 +132,10 @@ export function auditarOnPage(url, html, opciones = {}) {
   const altVacio = imagenes.filter((i) => /\salt=(""|'')/i.test(i) || /\salt(?=[\s>])/i.test(i)).length;
   if (imagenes.length >= 4 && altVacio / imagenes.length > 0.5)
     marcar('img-alt-vacio', 'aviso', `${altVacio} de ${imagenes.length} imágenes con alt vacío`);
+  // Bing corta el srcset en cada coma: una URL con comas acaba pedida como ruta inventada (404).
+  const urlsConComa = imagenes.flatMap((i) => [atributo(i, 'src') ?? '', ...(atributo(i, 'srcset') ?? '').split(/\s+\d+(?:\.\d+)?[wx](?:,|$)/)])
+    .map((u) => u.trim()).filter((u) => u.includes(','));
+  if (urlsConComa.length) marcar('img-url-coma', 'error', `${urlsConComa.length} URL de imagen con comas (Bing las corta): ${urlsConComa[0].slice(0, 80)}`);
   const sinMedidas = imagenes.filter((i) => !/\swidth=/i.test(i) || !/\sheight=/i.test(i)).length;
   if (sinMedidas) marcar('img-medidas', 'aviso', `${sinMedidas} imagen(es) sin width/height (CLS)`);
 

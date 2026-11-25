@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { URL as NodeURL } from 'node:url';
 import test from 'node:test';
-import { parseLegacyRedirects, publicCanonicalRedirect, resolveLegacyRedirect,productionOriginRedirect, rootCountryRedirect } from '../src/lib/legacy-redirects.ts';
+import { parseLegacyRedirects, publicCanonicalRedirect, resolveLegacyRedirect,productionOriginRedirect, rootCountryRedirect, crawlerArtifactRedirect } from '../src/lib/legacy-redirects.ts';
 
 const source = await readFile(new NodeURL('../public/_redirects', import.meta.url), 'utf8');
 const rules = parseLegacyRedirects(source);
@@ -133,4 +133,18 @@ test('the root goes to the default country before EmDash boots, keeping campaign
   assert.equal(rootCountryRedirect(new Request('https://sably.co/', { method: 'HEAD' }))?.status, 301);
   for (const path of ['/co/', '/x', '//']) assert.equal(rootCountryRedirect(request(path)), null, path);
   assert.equal(rootCountryRedirect(new Request('https://sably.co/', { method: 'POST' })), null);
+});
+
+test('las rutas que Bing fabrica con el srcset y los sitemaps inventados responden 301', () => {
+  const media = '_emdash/api/media/file/migration/fef7b2d87608d60d34444280f32d5f8f47d900b88ed1959f8586bb0ddf04e230.jpg';
+  for (const pagina of ['/us/curso-de-soldadura', '/co/cursos/belleza', '/blog/empezar-a-coser-en-casa']) {
+    const r = crawlerArtifactRedirect(new Request(`https://sably.co${pagina}/onerror=redirect/${media}`));
+    assert.equal(r?.status, 301);
+    assert.equal(r?.headers.get('location'), `https://sably.co/${media}`);
+  }
+  for (const alias of ['/sitemap.xml.gz', '/sitemap.txt', '/sitemap_index.xml'])
+    assert.equal(crawlerArtifactRedirect(new Request(`https://sably.co${alias}`))?.headers.get('location'), 'https://sably.co/sitemap-index.xml');
+  for (const sana of [`/${media}`, '/co/curso-de-masajes/', '/sitemap-index.xml', '/onerror=redirect/x.jpg'])
+    assert.equal(crawlerArtifactRedirect(new Request(`https://sably.co${sana}`)), null, sana);
+  assert.equal(crawlerArtifactRedirect(new Request(`https://sably.co/us/x/onerror=redirect/${media}`, { method: 'POST' })), null);
 });
