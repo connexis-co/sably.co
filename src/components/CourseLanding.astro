@@ -25,7 +25,7 @@ type Props = FichaProps;
 
 const { country, city, content } = Astro.props;
 const {
-  course, locale, category, base, localeHtml, courseHtml, learnings, audience, proveedor, pillar, satellites, guides, related, sinProducto, creadoresVisibles, verifiedReviews, valoracion, quote, freshUntil, currency, displayMoney, baseAmount, offer, marketLinks, localCheckout, videoSrc, watch, faqs, h1, nombreEnFrase, deNombre, title, description, subtitulo, schemas, alternates,
+  course, locale, category, base, canonicalUrl, localeHtml, courseHtml, learnings, audience, proveedor, pillar, satellites, guides, related, sinProducto, creadoresVisibles, verifiedReviews, valoracion, quote, freshUntil, currency, displayMoney, baseAmount, offer, marketLinks, localCheckout, videoSrc, watch, faqs, h1, nombreEnFrase, deNombre, title, description, subtitulo, schemas, alternates,
 } = await cargarFicha(Astro.props, { url: Astro.url, locals: Astro.locals, headers: Astro.response.headers });
 ---
 
@@ -44,7 +44,7 @@ const {
   sinCupon={true}
   {proveedor}
   whatsappContext={city ? `${course.data.title} (${city.name})` : course.data.title}
-  canonical={city ? `${SITE.url}${base}/${course.id}/` : undefined}
+  canonical={city ? canonicalUrl : undefined}
 >
   <!-- Hero -->
   <section class="bg-primary" data-content-source={content.source} data-content-locale-source={content.localeSource}>
