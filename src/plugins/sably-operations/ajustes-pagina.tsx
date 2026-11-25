@@ -7,6 +7,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { api, CSS_SO, Notice, Promotions, WidgetEditor } from './admin-comun';
 import { bloquesParaElPanel, ORDEN_DE_FABRICA } from '../../lib/portada-bloques';
+import { leerPruebaHeroe } from '../../lib/prueba-heroe';
 import { AJUSTES_PELIGROSOS, PESTANAS, cambiosAGuardar, settingsSchema, textoDeValor, valorDeFabrica, type ClaveAjuste, type IdPestana } from './ajustes';
 
 const NATIVA = '/_emdash/api/admin/plugins/sably-operations/settings';
@@ -18,6 +19,16 @@ async function nativa<T>(method: 'GET' | 'PUT', body?: unknown): Promise<T> {
   const j = await r.json() as { success?: boolean; data: T; error?: { message?: string } };
   if (!r.ok || j.success === false) throw new Error(j.error?.message ?? 'No se pudo completar. Revisa la sesión y el rol (administrador).');
   return j.data;
+}
+
+/** Estado de la prueba A/B del héroe con lo guardado (no con el borrador). */
+function EstadoPruebaAB({ valores }: { valores: Valores }) {
+  const p = leerPruebaHeroe(valores.portadaHeroeAB, valores.portadaHeroeABVariantes ?? 'collage, buscador', valores.portadaHeroeABReparto, valores.portadaHeroeABInicio);
+  if (valores.portadaHeroeAB !== true) return <p>Estado: <strong>apagada</strong>. Manda «Variante del héroe». Primera prueba propuesta: collage contra buscador primero (14 contra 06), 14 días como mínimo.</p>;
+  if (!p) return <p role="alert">Estado: <strong>encendida pero sin efecto</strong>: hacen falta dos o tres variantes válidas (el mosaico no entra). Mientras tanto manda «Variante del héroe».</p>;
+  const dias = p.inicio ? Math.floor((Date.now() - Date.parse(`${p.inicio}T00:00:00Z`)) / 86_400_000) : null;
+  const reparto = p.variantes.map((v, i) => `${v} ${Math.round(p.pesos[i]! * 100)} %`).join(' · ');
+  return <p>Estado: <strong>encendida</strong>{p.inicio ? ` desde el ${p.inicio} (${dias} ${dias === 1 ? 'día' : 'días'}${dias !== null && dias < 14 ? `; faltan ${14 - dias} para el mínimo de 14: no la cortes antes` : '; ya pasó el mínimo de 14 días'})` : ' (sin fecha de inicio)'}. Reparto: {reparto}. Control y bots: {p.variantes[0]}. En GA4: evento experiment_impression con experiment_id «heroe_portada» y variant_id; la métrica principal es click_course_home por variant_id.</p>;
 }
 
 function Campo({ clave, valor, guardado, onChange }: { clave: ClaveAjuste; valor: unknown; guardado: boolean; onChange: (v: unknown) => void }) {
@@ -91,7 +102,9 @@ export function AjustesPage() {
   async function guardar(claves: ClaveAjuste[]) {
     setOcupado(true); setMensaje('');
     try {
-      const propuestos = Object.fromEntries(claves.map(k => [k, borrador[k]]));
+      const propuestos: Valores = Object.fromEntries(claves.map(k => [k, borrador[k]]));
+      /* Al encender la prueba A/B sin fecha de inicio, el panel pone la de hoy (UTC). */
+      if (propuestos.portadaHeroeAB === true && actuales.portadaHeroeAB !== true && !String(borrador.portadaHeroeABInicio ?? '').trim()) propuestos.portadaHeroeABInicio = new Date().toISOString().slice(0, 10);
       const cambios = cambiosAGuardar(propuestos, actuales, confirmado);
       if (!Object.keys(cambios).length) { setMensaje('No hay cambios que guardar.'); return; }
       await nativa('PUT', { values: cambios });
@@ -129,7 +142,9 @@ export function AjustesPage() {
         <OrdenPortada orden={borrador.portadaOrden} ocultos={borrador.portadaOcultos} onChange={(orden, ocultos) => setBorrador(b => ({ ...b, portadaOrden: orden, portadaOcultos: ocultos }))} />
         <button className="so-primary" disabled={ocupado} onClick={() => void guardar(['portadaOrden', 'portadaOcultos'])}>{ocupado ? 'Guardando…' : 'Guardar bloques'}</button>
       </section>
-      {seccion(['portadaHeroeVariante', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios'], 'Héroe')}
+      {seccion(['portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios'], 'Héroe')}
+      {seccion(['portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio'], 'Prueba A/B del héroe', <EstadoPruebaAB valores={actuales} />)}
+      {seccion(['portadaCategoriasVariante'], 'Categorías')}
       {seccion(['portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar'], 'Movimiento de los bloques')}
       {seccion(['portadaValoradosMinimo'], 'Los mejor valorados')}
       <Enlaces items={[['Textos de la portada', 'Titular, entradilla y textos de cada bloque (secciones sably-home-*).', `${ADMIN}/sections`]]} />

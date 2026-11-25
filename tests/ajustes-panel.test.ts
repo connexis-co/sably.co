@@ -82,7 +82,9 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     estiloCampo: 'outlined',
     portada: {
       bloques: ['cifras', 'categorias', 'convergen', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],
-      heroe: { variante: 'vitrina', botones: 'dos', tachar: true, rota: true, intervalo: 4500, orden: 'aleatorio', cursos: [] },
+      heroe: { variante: 'collage', fondo: 'liso', botones: 'dos', tachar: true, rota: true, intervalo: 4500, orden: 'aleatorio', cursos: [] },
+      pruebaHeroe: null,
+      categoriasVariante: 'fotos',
       comoFuncionaAnimado: true,
       escenasAtenuar: true,
       escenasVariante: 'apiladas',
@@ -120,4 +122,16 @@ test('el menú declarado en astro.config.mjs coincide con las páginas del plugi
   for (const p of PAGINAS) assert.ok(config.includes(`{ path: '${p.path}', label: '${p.label}', icon: '${p.icon}' }`), p.label);
   assert.ok(config.indexOf("id: 'sably-operations'") < config.indexOf("id: 'sably-integrations'"), '«Ajustes del sitio» va primero');
   assert.ok(config.indexOf("id: 'sably-integrations'") < config.indexOf("id: 'sably-whatsapp'"), 'los fragmentos de página conservan su orden');
+});
+
+test('prueba A/B del héroe: solo con dos o tres variantes válidas', async () => {
+  const { leerPruebaHeroe } = await import('../src/lib/prueba-heroe.ts');
+  assert.equal(leerPruebaHeroe(false, 'collage, buscador', 'iguales', ''), null);
+  assert.equal(leerPruebaHeroe(true, 'collage', 'iguales', ''), null);
+  assert.equal(leerPruebaHeroe(true, 'collage, mosaico', 'iguales', ''), null);
+  assert.deepEqual(leerPruebaHeroe(true, 'Collage, buscador, collage', 'iguales', '2026-12-01'), { variantes: ['collage', 'buscador'], pesos: [0.5, 0.5], inicio: '2026-12-01' });
+  const p = leerPruebaHeroe(true, 'collage, buscador, muro, cintas', '70', 'mañana')!;
+  assert.deepEqual(p.variantes, ['collage', 'buscador', 'muro']);
+  assert.equal(p.inicio, '');
+  assert.ok(Math.abs(p.pesos.reduce((a, b) => a + b) - 1) < 1e-9 && p.pesos[0] === 0.7);
 });
