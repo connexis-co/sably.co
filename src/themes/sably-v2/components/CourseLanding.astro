@@ -1,0 +1,552 @@
+---
+/**
+ * Ficha de curso del tema V2 (maquetas ngHn2 y rjXmm; orden de
+ * auditoria/cro-ficha-compra.md, «Ficha (orden)»). Los datos salen de
+ * `cargarFicha`, la misma función que usa el tema clásico: precio, cupón,
+ * atribución, FAQ, títulos y JSON-LD son idénticos en los dos temas.
+ *
+ * Todo el texto que hoy leen Google, Bing y ChatGPT sigue en el HTML inicial:
+ * pestañas, acordeones y el texto largo se pliegan con CSS, nunca se cargan
+ * después con JavaScript.
+ */
+import { Image as OptimizedImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { VerifiedReviews } from '@/themes';
+import ResenasCurso from '@/components/ResenasCurso.astro';
+import CmsRichBody from '@/components/CmsRichBody.astro';
+import LeadModal from '@/components/LeadModal.astro';
+import Icono from '@/components/v2/Icono.astro';
+import Boton from '@/components/v2/Boton.astro';
+import Migas from '@/components/v2/Migas.astro';
+import FilaDatos from '@/components/v2/FilaDatos.astro';
+import Acordeon from '@/components/v2/Acordeon.astro';
+import Tique from '@/components/v2/Tique.astro';
+import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
+import NotaFuente from '@/components/v2/NotaFuente.astro';
+import CajaCompra from './CajaCompra.astro';
+import BarraFija from './BarraFija.astro';
+import VideoPresentacion from './VideoPresentacion.astro';
+import { cargarFicha, type FichaProps } from '@/lib/ficha';
+import { temaDeLaPeticion, rellenarPlantilla } from '@/lib/ajustes-tema';
+import { dividirTexto } from '@/lib/texto-largo';
+import { fechaCorta } from '@/lib/cuenta-atras';
+import { nombresCreadores } from '@/lib/creadores';
+import { cifra as cifraSinSimbolo, fotoPropia, iniciales } from '@/lib/presentacion-v2';
+import { cmsImageUrl } from '@/lib/cms-media';
+import { courseCover } from '@/lib/categories';
+import { buildWhatsAppUrl } from '@/lib/hotmart';
+
+type Props = FichaProps;
+const { country, city, content } = Astro.props;
+const f = await cargarFicha(Astro.props, { url: Astro.url, locals: Astro.locals, headers: Astro.response.headers });
+const { ajustes } = await temaDeLaPeticion(Astro);
+const {
+  course, locale, category, localeHtml, courseHtml, learnings, audience, proveedor, pillar, satellites, guides, related,
+  sinProducto, creadoresVisibles, verifiedReviews, valoracion, quote, real, freshUntil, currency, baseAmount,
+  offer, videoSrc, watch, faqs, h1, nombreEnFrase, deNombre, title, description, subtitulo, schemas, alternates, breadcrumb,
+} = f;
+
+const cifra = (valor: number) => cifraSinSimbolo(valor, country.hreflang);
+const conMoneda = (valor: number) => `${cifra(valor)} ${currency}`;
+const conPrecio = Boolean(quote || real);
+const precioHoy = offer && quote?.reduced ? quote.reduced : baseAmount;
+const portada = cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug);
+const creador = ajustes.mostrarCreador && creadoresVisibles.length ? nombresCreadores(creadoresVisibles.map(c => c.nombre)) : null;
+const fotoCreador = ajustes.mostrarCreador ? creadoresVisibles.map(c => c.foto).find(fotoPropia) ?? null : null;
+const siglas = creador ? iniciales(creadoresVisibles[0]!.nombre) : '';
+const nota = valoracion ? new Intl.NumberFormat('es-CO', { maximumFractionDigits: 1 }).format(valoracion.rating) : null;
+const whatsapp = buildWhatsAppUrl(country.whatsapp, `Hola, tengo una duda antes de inscribirme en «${course.data.title}»`);
+
+const plantilla = { curso: nombreEnFrase, lecciones: course.data.lessonsCount, horas: course.data.durationHours, pais: country.name, descuento: offer ? `${offer.saving} %` : null };
+const tituloCaja = rellenarPlantilla(ajustes.caja.titulo, plantilla);
+const subtituloCaja = rellenarPlantilla(ajustes.caja.subtitulo, plantilla);
+
+/* Texto largo: el del CMS (rich text) se pliega por altura; el Markdown se corta
+   antes de un subtítulo pasadas ~300 palabras. Las dos mitades van en el HTML. */
+const textoHtml = content.richBody ? null : (localeHtml ?? courseHtml ?? '');
+const texto = textoHtml ? dividirTexto(textoHtml, 300) : null;
+
+const datos = [
+  { icono: 'circle-play' as const, etiqueta: 'Lecciones', valor: `${course.data.lessonsCount} en vídeo` },
+  { icono: 'clock' as const, etiqueta: 'Duración', valor: `${course.data.durationHours} horas` },
+  { icono: 'signal' as const, etiqueta: 'Nivel', valor: course.data.level },
+  { icono: 'infinity' as const, etiqueta: 'Ritmo', valor: 'A tu ritmo' },
+];
+const requisitos = ['No necesitas experiencia previa', 'Conexión a internet (celular o computador)', 'Ganas de aprender y practicar'];
+const pestanas = [
+  { id: 'aprende', etiqueta: 'Qué aprenderás' },
+  { id: 'para-quien', etiqueta: 'Para quién es' },
+  { id: 'necesitas', etiqueta: 'Qué necesitas' },
+  { id: 'estudia', etiqueta: 'Cómo se estudia' },
+];
+const secciones = [
+  { id: 'sobre', etiqueta: 'Sobre este curso' },
+  { id: 'temario', etiqueta: 'Temario' },
+  ...(creador ? [{ id: 'creador', etiqueta: 'Quién lo dicta' }] : []),
+  ...(texto || content.richBody ? [{ id: 'mas', etiqueta: 'Más sobre el curso' }] : []),
+  { id: 'preguntas', etiqueta: 'Preguntas' },
+];
+const fin = offer?.end ? `${fechaCorta(offer.end)} (hora de Colombia)` : null;
+const discounted = (() => { const u = new URL(f.localCheckout.href); if (offer) u.searchParams.set('offDiscount', offer.coupon); return u.href; })();
+const enlacePago = offer ? discounted : f.localCheckout.href;
+const botonCon = offer ? `Inscribirme con ${offer.saving} %` : 'Inscribirme';
+const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
+---
+
+<BaseLayout
+  {title}
+  {description}
+  {country}
+  {city}
+  pathAfterCountry={`/${course.id}/`}
+  {alternates}
+  {schemas}
+  pageType={city ? 'course_city' : 'course'}
+  image={portada}
+  noindex={sinProducto}
+  {freshUntil}
+  sinCupon={true}
+  {proveedor}
+  whatsappContext={course.data.title}
+  canonical={city ? `${f.canonicalUrl}` : undefined}
+  temaV2
+>
+  <div class="v2-ficha" data-content-source={content.source} data-content-locale-source={content.localeSource}>
+    <!-- Cabeza: migas, H1, promesa, quién lo dicta, nota; vídeo; caja a la derecha. -->
+    <section class="v2-cabeza pb-12 lg:pb-16" aria-labelledby="titulo-curso">
+      <div class="v2-contenedor v2-cabeza-rejilla">
+        <div class="v2-area-titulo pt-6 lg:pt-14">
+          <Migas items={breadcrumb} oscuro class="v2-migas" />
+          <h1 id="titulo-curso" {...(locale?.edit.h1 ?? course.edit.title)} class="mt-3 font-display text-[32px] leading-[36px] font-semibold tracking-[-0.01em] text-balance text-navy-950 lg:mt-5 lg:text-d56 lg:leading-[60px] lg:tracking-[-0.015em] lg:!text-white">{h1}</h1>
+        </div>
+        {subtitulo && <p class="v2-area-promesa max-w-[560px] text-t17 text-navy-700 lg:mt-5 lg:text-t20 lg:text-white/80">{subtitulo}</p>}
+        <div class="v2-area-meta flex flex-col gap-3 lg:mt-6">
+          {creador && (
+            <p class="flex items-center gap-3 text-t15 font-semibold text-navy-950 lg:text-white" data-creado-por>
+              {fotoCreador ? <img src={fotoCreador} alt="" width="40" height="40" class="size-8 rounded-full bg-white object-cover ring-1 ring-navy-100 lg:size-10" />
+                : <span class="grid size-8 flex-none place-items-center rounded-full bg-navy-950 text-t13 font-semibold text-white lg:size-10 lg:bg-white lg:text-navy-950" aria-hidden="true">{siglas}</span>}
+              <span>Lo dicta {creador}<span class="block text-t13 font-normal text-navy-500 lg:text-white/70">Es el nombre que verás en Hotmart</span></span>
+            </p>
+          )}
+          {!sinProducto && valoracion && nota && (
+            <p class="flex items-center gap-1.5 text-t15 text-navy-700 lg:text-white/80">
+              <Icono nombre="star" tamano={16} class="fill-coral-500 text-coral-500" />
+              <strong class="v2-num font-semibold text-navy-950 lg:text-white">{nota}</strong> · {valoracion.total} calificaciones en Hotmart
+            </p>
+          )}
+        </div>
+        <div class="v2-area-media -mx-5 lg:mx-0 lg:mt-10" data-course-media>
+          <VideoPresentacion src={videoSrc} poster={portada} titulo={course.data.title} alt={`${category.name}: ${course.data.title}`} courseId={course.id}
+            pie={videoSrc && creador ? `Vídeo de presentación del curso, de ${creador}.` : null} />
+          {watch && <a href={watch.path} class="v2-enlace mt-3 px-5 text-t13 lg:px-0">Ver la presentación en su página de vídeo <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></a>}
+        </div>
+        <div class="v2-area-caja">
+          {sinProducto ? (
+            <section id="compra" tabindex="-1" aria-labelledby="titulo-compra" class="scroll-mt-28 rounded-c-lg bg-white p-6 shadow-s2 outline-none" data-estado="cerrado">
+              <h2 id="titulo-compra" class="text-t20 font-semibold">Inscripciones cerradas por ahora</h2>
+              <p class="mt-2 text-t15 text-navy-700">Estamos habilitando las inscripciones de este curso. Déjanos tus datos y te avisamos apenas esté disponible, sin compromiso.</p>
+              <p class="mt-4 font-semibold text-navy-950">Próximamente</p>
+              <Boton variante="principal" completo data-lead-open class="mt-5">Avísame cuando abra</Boton>
+              <Boton variante="whatsapp" completo href={whatsapp} target="_blank" rel="noopener nofollow" class="mt-3">Escríbenos por WhatsApp</Boton>
+            </section>
+          ) : (
+            <CajaCompra {f} {country} {ajustes} titulo={tituloCaja} subtitulo={subtituloCaja} />
+          )}
+        </div>
+        <div class="v2-area-datos mt-8 lg:mt-12">
+          <FilaDatos items={datos} />
+        </div>
+      </div>
+      <div id="hero-sentinel" aria-hidden="true"></div>
+    </section>
+
+    <!-- Sobre este curso: pestañas de píldora sobre la foto; los cuatro paneles están en el HTML. -->
+    <section id="sobre" class="v2-bloque-tinta scroll-mt-36" aria-labelledby="titulo-sobre" data-aparece>
+      <div class="v2-contenedor py-16 lg:py-24">
+        <h2 id="titulo-sobre" class="font-display text-d28 lg:text-d40">Sobre este curso</h2>
+        <div class="v2-pestanas mt-8 grid gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-12">
+          <div class="relative self-start">
+            <OptimizedImage src={portada} alt={`${category.name}: ${course.data.title}`} width={600} height={600} sizes="(min-width: 1024px) 600px, 100vw" loading="lazy" decoding="async" class="aspect-[4/5] w-full rounded-c-xl object-cover lg:aspect-square" />
+            <fieldset class="absolute inset-x-3 bottom-3 flex min-w-0 justify-center">
+              <legend class="sr-only">Apartados de «Sobre este curso»</legend>
+              <div class="v2-pildoras">
+                {pestanas.map((p, i) => <><input type="radio" name="sobre-pestana" id={`pestana-${p.id}`} value={p.id} checked={i === 0} aria-controls={`panel-${p.id}`} /><label for={`pestana-${p.id}`}>{p.etiqueta}</label></>)}
+              </div>
+            </fieldset>
+          </div>
+          <div class="min-w-0">
+            <div id="panel-aprende" class="v2-panel" role="region" aria-labelledby="titulo-aprende">
+              <h3 id="titulo-aprende" class="font-display text-d28">{`Qué aprenderás en ${nombreEnFrase}`}</h3>
+              <ol class="mt-6 divide-y divide-navy-100 border-y border-navy-100">
+                {learnings.map((item, i) => <li class="flex gap-6 py-4 text-t17 text-navy-950"><span class="v2-num w-8 flex-none font-display text-d28 leading-none text-navy-300" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><span>{item}</span></li>)}
+              </ol>
+            </div>
+            <div id="panel-para-quien" class="v2-panel" role="region" aria-labelledby="titulo-para-quien">
+              <h3 id="titulo-para-quien" class="font-display text-d28">¿Para quién es este curso?</h3>
+              <ul class="mt-6 divide-y divide-navy-100 border-y border-navy-100">
+                {audience.map(item => <li class="flex gap-4 py-4 text-t17 text-navy-950"><Icono nombre="user" class="mt-1 flex-none text-navy-500" />{item}</li>)}
+              </ul>
+            </div>
+            <div id="panel-necesitas" class="v2-panel" role="region" aria-labelledby="titulo-necesitas">
+              <h3 id="titulo-necesitas" class="font-display text-d28">Requisitos previos</h3>
+              <ul class="mt-6 divide-y divide-navy-100 border-y border-navy-100">
+                {requisitos.map(item => <li class="flex gap-4 py-4 text-t17 text-navy-950"><Icono nombre="check" class="mt-1 flex-none text-v2-ok" />{item}</li>)}
+              </ul>
+            </div>
+            <div id="panel-estudia" class="v2-panel" role="region" aria-labelledby="titulo-estudia">
+              <h3 id="titulo-estudia" class="font-display text-d28">Cómo se estudia</h3>
+              <ul class="mt-6 divide-y divide-navy-100 border-y border-navy-100 text-t17 text-navy-950">
+                <li class="flex gap-4 py-4"><Icono nombre="circle-play" class="mt-1 flex-none text-navy-500" />{course.data.lessonsCount} lecciones en vídeo, unas {course.data.durationHours} horas, que ves a tu ritmo desde el celular o el computador.</li>
+                {!sinProducto && <li class="flex gap-4 py-4"><Icono nombre="infinity" class="mt-1 flex-none text-navy-500" />Acceso de por vida, 24/7.</li>}
+                {!sinProducto && <li class="flex gap-4 py-4" data-constancia><Icono nombre="award" class="mt-1 flex-none text-navy-500" /><span><strong class="font-semibold">Constancia.</strong> Al completar el 100 % de las lecciones, Hotmart emite una constancia digital de finalización con tu nombre y el del curso.</span></li>}
+              </ul>
+            </div>
+            <div class="v2-siguiente mt-6 flex items-center justify-between text-t13 text-navy-500" aria-hidden="true">
+              {pestanas.map((p, i) => <span class="v2-paso" data-paso={p.id}>{i + 1} de {pestanas.length}</span>)}
+              {pestanas.map((p, i) => i < pestanas.length - 1 && <label for={`pestana-${pestanas[i + 1]!.id}`} class="v2-paso v2-enlace cursor-pointer" data-paso={p.id}>Sigue: {pestanas[i + 1]!.etiqueta} <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></label>)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Temario: el primer módulo abierto; todas las lecciones en el HTML. -->
+    <section id="temario" class="scroll-mt-36" aria-labelledby="titulo-temario" data-aparece>
+      <div class="v2-contenedor py-16 lg:py-24">
+        <div class="max-w-[880px]">
+          <div class="flex flex-wrap items-end justify-between gap-3 border-b border-navy-100 pb-6">
+            <h2 id="titulo-temario" class="font-display text-d28 lg:text-d40">{`Temario ${deNombre}`}</h2>
+            <p class="v2-num text-t15 text-navy-700">{course.data.modules.length} módulos · {course.data.lessonsCount} lecciones · {course.data.durationHours} horas</p>
+          </div>
+          <div class="divide-y divide-navy-100 border-b border-navy-100">
+            {course.data.modules.map((mod, i) => (
+              <details class="v2-acordeon v2-modulo group" open={i === 0}>
+                <summary class="flex min-h-[72px] items-center gap-4 py-3">
+                  <span class="v2-num grid size-10 flex-none place-items-center rounded-c-sm bg-navy-50 text-t15 font-semibold text-navy-950 group-open:bg-navy-950 group-open:text-white">{i + 1}</span>
+                  <span class="flex-1 text-t17 font-semibold text-navy-950 lg:text-t20">{mod.title}</span>
+                  <span class="hidden text-t13 text-navy-500 sm:inline">{mod.lessons.length} {mod.lessons.length === 1 ? 'tema' : 'temas'}</span>
+                  <Icono nombre="chevron-down" class="v2-giro flex-none text-navy-950" />
+                </summary>
+                <ul class="space-y-0 pb-4 pl-14">
+                  {mod.lessons.map(leccion => <li class="flex items-center gap-3 border-b border-navy-50 py-2.5 text-t15 text-navy-700 last:border-0"><Icono nombre="circle-play" tamano={16} class="flex-none text-navy-500" />{leccion}</li>)}
+                </ul>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quién lo dicta y opiniones propias (solo con tres o más). -->
+    {(creador || verifiedReviews) && (
+      <section id="creador" class="v2-bloque-tinta scroll-mt-36" aria-labelledby={creador ? 'titulo-creador' : undefined} data-aparece data-cms>
+        <div class="v2-contenedor space-y-10 py-16 lg:py-24">
+          {creadoresVisibles.length > 0 && ajustes.mostrarCreador && creadoresVisibles.map(c => (
+            <article class="flex flex-col gap-6 rounded-c-lg bg-white p-6 sm:flex-row sm:items-center lg:p-10">
+              {fotoPropia(c.foto) ? <img src={c.foto} alt="" width="96" height="96" loading="lazy" class="size-24 flex-none rounded-full bg-white object-contain ring-1 ring-navy-100" />
+                : <span class="grid size-24 flex-none place-items-center rounded-full bg-navy-50 font-display text-d28 text-navy-950" aria-hidden="true">{iniciales(c.nombre)}</span>}
+              <div class="min-w-0 flex-1">
+                <p class="text-t13 text-navy-500">Lo dicta</p>
+                <h2 id="titulo-creador" class="font-display text-d28">{c.nombre}</h2>
+                {c.bio && <p class="mt-2 line-clamp-4 max-w-[640px] text-t15 text-navy-700">{c.bio}</p>}
+                <p class="mt-2 text-t13 text-navy-500">En Hotmart el curso figura a nombre de {c.nombre}: es el nombre que verás al pagar.</p>
+              </div>
+            </article>
+          ))}
+          <VerifiedReviews data={verifiedReviews} />
+          {!sinProducto && <ResenasCurso slug={course.id} />}
+        </div>
+      </section>
+    )}
+
+    <!-- Más sobre el curso: ~300 palabras visibles; el resto plegado pero en el HTML. -->
+    {(texto || content.richBody) && (
+      <section id="mas" class="scroll-mt-36" aria-labelledby="titulo-mas" data-aparece data-cms>
+        <div class="v2-contenedor grid gap-10 py-16 lg:grid-cols-[480px_1fr] lg:gap-24 lg:py-24">
+          <div class="hidden lg:block">
+            <figure class="m-0">
+              <img src="/v2/fotos/foto-estudiar-celular-2.webp" alt="Una joven estudia en la mesa de la cocina con el celular apoyado y un cuaderno" width="480" height="600" loading="lazy" decoding="async" class="aspect-[4/5] w-full rounded-c-xl object-cover" />
+              <figcaption class="mt-3 text-t13 text-navy-500">Las lecciones se ven desde el celular o el computador. Foto ilustrativa.</figcaption>
+            </figure>
+            {texto && texto.titulos.length > 1 && (
+              <nav aria-label="En este texto" class="sticky top-40 mt-10">
+                <p class="text-t13 font-semibold text-navy-500">En este texto</p>
+                <ul class="mt-3 border-l border-navy-100">
+                  {texto.titulos.map(t => <li><a href={`#${t.id}`} class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-t15 text-navy-700 hover:border-coral-600 hover:text-navy-950" data-indice>{t.texto}</a></li>)}
+                </ul>
+              </nav>
+            )}
+          </div>
+          <div class="min-w-0">
+            <h2 id="titulo-mas" class="font-display text-d28 lg:text-d40">Más sobre el curso</h2>
+            <input type="checkbox" id="leer-todo" class="peer sr-only" aria-controls="texto-plegado" />
+            <div class="v2-prosa mt-6" data-texto-largo>
+              {content.richBody
+                ? <div class="v2-prosa-altura"><CmsRichBody value={content.richBody} /></div>
+                : <Fragment set:html={texto!.visible} />}
+              {texto?.resto && <div id="texto-plegado" class="v2-plegado"><Fragment set:html={texto.resto} /></div>}
+            </div>
+            {(texto?.resto || content.richBody) && (
+              <div class="v2-leer mt-6 border-t border-navy-100 pt-5">
+                {texto && texto.plegados.length > 0 && <p class="v2-leer-aviso text-t13 text-navy-500">Siguen {texto.plegados.length === 1 ? 'un apartado' : `${texto.plegados.length} apartados`}: {texto.plegados.join(', ')}.</p>}
+                <label for="leer-todo" class="v2-btn v2-btn-secundario mt-4 cursor-pointer" data-alto="48"><span class="v2-leer-mas">Leer el texto completo</span><span class="v2-leer-menos">Mostrar menos</span><Icono nombre="chevron-down" tamano={18} class="v2-giro" /></label>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Garantía y cómo funciona Sably. -->
+    {!sinProducto && (
+      <section class="v2-bloque-tinta" aria-labelledby="titulo-funciona" data-aparece>
+        <div class="v2-contenedor grid gap-10 py-16 lg:grid-cols-[1fr_480px] lg:gap-20 lg:py-24">
+          <div>
+            <h2 id="titulo-funciona" class="font-display text-d28 lg:text-d40">Cómo funciona Sably</h2>
+            <ol class="mt-8 border-t border-navy-100">
+              {[
+                ['Eliges el curso', 'Cada ficha te dice quién lo dicta, qué trae el temario y cuánto cuesta en tu moneda.'],
+                ['Te inscribes en Hotmart', 'El pago se hace en el checkout seguro de Hotmart, con tarjeta, PayPal o los medios locales que tenga activados el curso. No tienes que crear una cuenta en Sably.'],
+                ['Estudias a tu ritmo', 'El acceso te llega por correo apenas pagas. Ves las lecciones en vídeo desde el celular o el computador, cuando puedas.'],
+                ['Garantía de 7 días', 'Si el curso no cumple tus expectativas, pides el reembolso del 100 % en Hotmart dentro de los 7 días.'],
+              ].map(([t, d], i) => (
+                <li class="flex gap-6 border-b border-navy-100 py-6">
+                  <span class="v2-num w-6 flex-none pt-1 text-t15 font-semibold text-coral-600">{i + 1}</span>
+                  <div><h3 class="font-display text-t20 lg:text-d28 lg:leading-[34px]">{t}</h3><p class="mt-1 text-t15 text-navy-700">{d}</p></div>
+                </li>
+              ))}
+            </ol>
+            <NotaFuente class="mt-6 max-w-[620px]">El creador dicta el curso, Hotmart cobra y te da el acceso, y Sably elige los cursos y te orienta por WhatsApp. Si te inscribes desde este enlace, Sably recibe una comisión sin costo extra para ti.</NotaFuente>
+          </div>
+          <figure class="m-0 hidden lg:block">
+            <img src="/v2/fotos/foto-estudiar-celular-1.webp" alt="Una mujer mira una lección en el celular mientras viaja en bus" width="480" height="600" loading="lazy" decoding="async" class="aspect-[4/5] w-full rounded-c-xl object-cover" />
+            <figcaption class="mt-3 text-t13 text-navy-500">La lección en el celular, cuando tengas un rato. Foto ilustrativa.</figcaption>
+          </figure>
+        </div>
+      </section>
+    )}
+
+    <!-- Preguntas frecuentes: una columna, el título arriba. Las mismas del FAQPage. -->
+    <section id="preguntas" class="scroll-mt-36" aria-labelledby="titulo-preguntas" data-aparece data-cms>
+      <div class="mx-auto max-w-[800px] px-5 py-16 lg:py-24">
+        <h2 id="titulo-preguntas" class="font-display text-d28 lg:text-d40">{`Preguntas frecuentes sobre ${nombreEnFrase}`}</h2>
+        <p class="mt-3 flex items-center gap-2 text-t15 text-navy-700"><img src="/v2/logos/whatsapp.svg" alt="" width="18" height="18" />¿Otra duda? <a href={whatsapp} target="_blank" rel="noopener nofollow" class="font-semibold text-navy-950 underline underline-offset-4">Escríbenos por WhatsApp</a></p>
+        <div class="mt-8 border-t border-navy-100">
+          {faqs.map(faq => (
+            <Acordeon titulo={faq.q} grupo="faq" icono="mas" class="border-b border-navy-100" tituloClass="min-h-[72px] py-4 text-t17 font-semibold text-navy-950 lg:text-[18px]">
+              <p class="max-w-[640px] pb-6 text-t17 text-navy-700">{faq.a}</p>
+            </Acordeon>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {guides.length > 0 && (
+      <section class="py-16" aria-labelledby="titulo-guias" data-aparece>
+        <div class="v2-contenedor">
+          <h2 id="titulo-guias" class="font-display text-d28 lg:text-d40">Guías para seguir aprendiendo</h2>
+          <div class="mt-8 grid gap-6 sm:grid-cols-2">
+            {guides.map(post => (
+              <a href={`/blog/${post.id}/`} class="group flex flex-col rounded-c-lg p-6 ring-1 ring-navy-100 transition-shadow duration-(--t-base) hover:shadow-s2 hover:ring-transparent">
+                <h3 class="text-t20 font-semibold text-navy-950">{post.data.title}</h3>
+                <p class="mt-2 text-t15 text-navy-700">{post.data.description}</p>
+                <span class="v2-enlace mt-4">Leer la guía <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    {satellites.length > 0 && (
+      <section class="py-16" aria-labelledby="titulo-especializate" data-aparece data-cms>
+        <div class="v2-contenedor">
+          <h2 id="titulo-especializate" class="font-display text-d28 lg:text-d40">Especialízate después de este curso</h2>
+          <p class="mt-3 max-w-2xl text-t17 text-navy-700">Este es el curso general. Cuando domines la base, estas especializaciones te dejan cobrar más por servicio.</p>
+          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{satellites.slice(0, 8).map(c => <TarjetaCurso course={c} {country} />)}</div>
+        </div>
+      </section>
+    )}
+
+    {pillar && (
+      <section class="py-10" data-cms>
+        <div class="v2-contenedor">
+          <a href={`/${country.code}/${pillar.id}/`} class="group flex flex-wrap items-center gap-x-6 gap-y-2 rounded-c-lg bg-navy-50 p-6 hover:shadow-s2">
+            <span class="min-w-0 flex-1">
+              <span class="block text-t13 font-semibold text-coral-700">¿Prefieres empezar por lo general?</span>
+              <span class="mt-1 block font-display text-t20 font-semibold text-navy-950">{pillar.data.title}</span>
+              <span class="mt-1 block text-t15 text-navy-700">{pillar.data.shortDescription}</span>
+            </span>
+            <span class="v2-enlace">Ver curso <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></span>
+          </a>
+        </div>
+      </section>
+    )}
+
+    {related.length > 0 && (
+      <section class="py-16 lg:py-24" aria-labelledby="titulo-relacionados" data-aparece data-cms>
+        <div class="v2-contenedor">
+          <div class="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <h2 id="titulo-relacionados" class="font-display text-d28 lg:text-d40">Cursos relacionados</h2>
+              <p class="mt-3 text-t15 text-navy-700">Otros oficios de {category.name} que se estudian igual: en vídeo y a tu ritmo.</p>
+            </div>
+            <a href={`/${country.code}/cursos/${category.slug}/`} class="v2-enlace">Ver los cursos de {category.name} <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></a>
+          </div>
+          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{related.map(c => <TarjetaCurso course={c} {country} />)}</div>
+        </div>
+      </section>
+    )}
+
+    <!-- Cierre: botón de pago real (no un ancla), precio y garantía. -->
+    <section class="px-0 pb-16 lg:px-[60px] lg:pb-24" aria-labelledby="titulo-cierre" data-cierre>
+      <div class="v2-cierre relative overflow-hidden bg-navy-950 px-5 py-14 text-white lg:rounded-c-xl lg:px-[60px] lg:py-20">
+        {offer && <span class="v2-cierre-cifra" aria-hidden="true">{offer.saving}</span>}
+        <div class="relative grid gap-10 lg:grid-cols-[1fr_384px] lg:items-center">
+          <div>
+            <h2 id="titulo-cierre" class="font-display text-d28 !text-white lg:text-d40">{sinProducto ? '¿Te avisamos cuando abra?' : '¿Listo para empezar?'}</h2>
+            <p class="mt-3 max-w-[560px] text-t17 text-white/80">{sinProducto ? 'Déjanos tus datos y te avisamos en cuanto abramos las inscripciones.' : 'Empieza hoy y aprende a tu ritmo.'}</p>
+            {!sinProducto && conPrecio && (
+              <p class="mt-6 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span class="v2-num font-display text-d40 font-semibold"><span data-precio-fijo>{cifra(precioHoy)}</span> <span class="text-t20 font-medium">{currency}</span></span>
+                {offer && <span class="text-t15 text-white/70" data-cierre-promo>antes <s class="v2-num">{conMoneda(baseAmount)}</s></span>}
+              </p>
+            )}
+            <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3">
+              {sinProducto
+                ? <Boton variante="principal" data-lead-open>Avísame cuando abra</Boton>
+                : <Boton variante="principal" href={enlacePago} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="cierre" data-pago data-btn-con={offer ? botonCon : undefined} data-btn-sin={botonSin}>{botonCon}</Boton>}
+              {!sinProducto && <p class="text-t13 text-white/70">Pagas en <img src="/v2/logos/hotmart.svg" alt="Hotmart" width="56" height="16" loading="lazy" class="inline-block align-[-3px] brightness-0 invert" /> en {currency} · sin crear cuenta en Sably</p>}
+            </div>
+            {!sinProducto && <p class="mt-4 text-t13 text-white/60">Si te inscribes desde este enlace, Sably recibe una comisión sin costo extra para ti.</p>}
+          </div>
+          {offer && (
+            <div data-cierre-promo>
+              <Tique pct={offer.saving} codigo={offer.coupon} estado="aplicado" class="text-navy-950">
+                <p class="mt-1 text-t13 text-navy-700">En cursos seleccionados</p>
+                {fin && <p class="text-t13 text-navy-700">Hasta el {fin}</p>}
+              </Tique>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+
+    {!sinProducto && conPrecio && (
+      <BarraFija secciones={secciones} precio={cifra(precioHoy)} moneda={currency} nota={offer ? `con cupón ${offer.coupon}` : 'precio para ' + country.name}
+        href={enlacePago} boton="Inscribirme" whatsapp={whatsapp} />
+    )}
+  </div>
+
+  <LeadModal {country} courseTitle={course.data.title} courseSlug={course.id} />
+</BaseLayout>
+
+<style>
+  /* Cabeza: en móvil, el vídeo a sangre arriba y la caja dentro del primer
+     pantallazo; en escritorio, banda azul noche hasta la mitad del vídeo y la
+     caja fija a la derecha (sticky, botón por encima de 640 px). */
+  .v2-cabeza-rejilla {
+    display: grid;
+    grid-template-areas: 'media' 'titulo' 'meta' 'caja' 'promesa' 'datos';
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 16px;
+  }
+  .v2-area-titulo { grid-area: titulo; }
+  .v2-area-promesa { grid-area: promesa; margin-top: 8px; }
+  .v2-area-meta { grid-area: meta; }
+  .v2-area-media { grid-area: media; }
+  .v2-area-caja { grid-area: caja; margin-top: 8px; }
+  .v2-area-datos { grid-area: datos; }
+  .v2-area-titulo { padding-top: 8px; }
+  @media (width < 1024px) {
+    .v2-area-titulo :global(.v2-migas) { display: none; }
+  }
+  @media (width >= 1024px) {
+    /* Banda azul noche hasta la mitad del vídeo, sin JavaScript: un
+       pseudo-elemento del vídeo a sangre, recortado por la sección
+       (overflow: clip no crea contenedor de scroll, la caja sigue fija). */
+    .v2-cabeza { position: relative; isolation: isolate; overflow: clip; }
+    .v2-area-media { position: relative; }
+    .v2-area-media::before {
+      content: ''; position: absolute; z-index: -1; left: -100vw; right: -100vw; top: -2000px; bottom: 50%;
+      background: var(--color-navy-950);
+    }
+    .v2-cabeza-rejilla {
+      grid-template-columns: minmax(0, 1fr) 400px;
+      grid-template-areas: 'titulo caja' 'promesa caja' 'meta caja' 'media caja' 'datos caja';
+      grid-template-rows: auto auto auto auto 1fr;
+      column-gap: 40px; row-gap: 0;
+    }
+    .v2-area-caja { align-self: start; position: sticky; top: 88px; margin-top: 56px; z-index: 2; }
+  }
+  .v2-bloque-tinta { background: var(--color-navy-50); }
+  @media (width >= 1024px) { .v2-bloque-tinta { margin-inline: 60px; border-radius: var(--radius-c-xl); } }
+
+  /* Pestañas: sin :has() se ven los cuatro paneles seguidos (nada se pierde). */
+  .v2-panel + .v2-panel { margin-top: 40px; }
+  .v2-paso { display: none; }
+  @supports selector(:has(*)) {
+    .v2-panel { display: none; }
+    .v2-panel + .v2-panel { margin-top: 0; }
+    .v2-pestanas:has(#pestana-aprende:checked) #panel-aprende { display: block; }
+    .v2-pestanas:has(#pestana-aprende:checked) span[data-paso='aprende'] { display: inline; }
+    .v2-pestanas:has(#pestana-aprende:checked) label[data-paso='aprende'] { display: inline-flex; }
+    .v2-pestanas:has(#pestana-para-quien:checked) #panel-para-quien { display: block; }
+    .v2-pestanas:has(#pestana-para-quien:checked) span[data-paso='para-quien'] { display: inline; }
+    .v2-pestanas:has(#pestana-para-quien:checked) label[data-paso='para-quien'] { display: inline-flex; }
+    .v2-pestanas:has(#pestana-necesitas:checked) #panel-necesitas { display: block; }
+    .v2-pestanas:has(#pestana-necesitas:checked) span[data-paso='necesitas'] { display: inline; }
+    .v2-pestanas:has(#pestana-necesitas:checked) label[data-paso='necesitas'] { display: inline-flex; }
+    .v2-pestanas:has(#pestana-estudia:checked) #panel-estudia { display: block; }
+    .v2-pestanas:has(#pestana-estudia:checked) span[data-paso='estudia'] { display: inline; }
+  }
+
+  /* Texto largo. */
+  .v2-prosa { color: var(--color-navy-700); font-size: 17px; line-height: 28px; }
+  .v2-prosa :global(:where(p, ul, ol, blockquote, figure, h3, h4) + :where(p, ul, ol, blockquote, figure)) { margin-top: 16px; }
+  .v2-prosa :global(p:first-child) { font-size: 20px; line-height: 30px; color: var(--color-navy-950); }
+  .v2-prosa :global(h3) { margin-top: 40px; margin-bottom: -4px; font-family: var(--font-sans); font-size: 20px; line-height: 30px; font-weight: 600; color: var(--color-navy-950); scroll-margin-top: 150px; }
+  .v2-prosa :global(h4) { margin-top: 28px; margin-bottom: -8px; font-size: 17px; font-weight: 600; color: var(--color-navy-950); }
+  .v2-prosa :global(ul), .v2-prosa :global(ol) { padding-left: 22px; }
+  .v2-prosa :global(ul > li) { list-style: disc; }
+  .v2-prosa :global(ol > li) { list-style: decimal; }
+  .v2-prosa :global(li + li) { margin-top: 6px; }
+  .v2-prosa :global(strong) { color: var(--color-navy-950); }
+  .v2-prosa :global(blockquote) { border-left: 2px solid var(--color-coral-600); padding-left: 22px; font-family: var(--font-display); font-size: 28px; line-height: 34px; color: var(--color-navy-950); }
+  .v2-plegado { display: none; }
+  .v2-prosa-altura { max-height: 46rem; overflow: hidden; }
+  .peer:checked ~ .v2-prosa .v2-plegado { display: block; }
+  .peer:checked ~ .v2-prosa .v2-prosa-altura { max-height: none; }
+  .v2-leer-menos { display: none; }
+  .peer:checked ~ .v2-leer .v2-leer-mas, .peer:checked ~ .v2-leer .v2-leer-aviso { display: none; }
+  .peer:checked ~ .v2-leer .v2-leer-menos { display: inline; }
+  .peer:checked ~ .v2-leer :global(.v2-giro) { rotate: 180deg; }
+  .peer:focus-visible ~ .v2-leer label { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+  @media print { .v2-plegado { display: block; } .v2-prosa-altura { max-height: none; } }
+
+  /* Cierre: el «50» como ilustración tipográfica recortada por el borde. */
+  .v2-cierre-cifra {
+    position: absolute; right: -40px; bottom: -110px; font: 600 360px/1 var(--font-display); color: var(--color-navy-900);
+    letter-spacing: -0.04em; pointer-events: none; user-select: none;
+  }
+  @media (width < 1024px) { .v2-cierre-cifra { font-size: 220px; bottom: -60px; } }
+
+  /* La barra fija no tapa el pie ni el último botón en móvil. */
+  @media (width < 1024px) {
+    :global(body[data-con-barra]) { padding-bottom: 72px; }
+    /* La barra ya trae WhatsApp: el botón flotante no se duplica encima. */
+    :global(body[data-con-barra] [data-wa-float]) { visibility: hidden; }
+  }
+</style>
+
+<script>
+  import { trackEvent } from '@/lib/analytics';
+  trackEvent('view_course', { page: location.pathname, theme: 'v2' });
+  document.querySelectorAll<HTMLAnchorElement>('[data-cta-hotmart]').forEach(cta =>
+    cta.addEventListener('click', () => trackEvent('click_cta_hotmart', { page: location.pathname, cta_position: cta.dataset.ctaPosition ?? 'unknown' })));
+  const marcas = [25, 50, 75, 100], hechas = new Set<number>();
+  addEventListener('scroll', () => {
+    const profundidad = ((scrollY + innerHeight) / document.body.scrollHeight) * 100;
+    for (const m of marcas) if (profundidad >= m && !hechas.has(m)) { hechas.add(m); trackEvent('scroll_depth', { page_type: 'course', depth: `${m}%` }); }
+  }, { passive: true });
+</script>

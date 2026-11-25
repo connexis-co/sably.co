@@ -1,0 +1,50 @@
+---
+/**
+ * Tarjeta de curso V2: foto 4:3 con radio 16, categoría en placa, y debajo
+ * título, descripción, nota real de Hotmart (si existe), duración y nivel, y
+ * precio real. Al pasar el cursor la foto escala 1,03 y la tarjeta gana s2;
+ * la tarjeta no se mueve.
+ */
+import { Image as OptimizedImage } from 'astro:assets';
+import { env } from 'virtual:sably-runtime';
+import { cmsImageUrl } from '@/lib/cms-media';
+import type { Course } from '@/lib/emdash-content';
+import { courseCover } from '@/lib/categories';
+import { getCategory } from '@/lib/emdash-content';
+import { formatPrice, type Country } from '@/lib/countries';
+import { cifra } from '@/lib/presentacion-v2';
+import { readOperationalPrice, readOperationalRating } from '@/plugins/sably-operations/public';
+import Icono from './Icono.astro';
+interface Props { course: Course; country: Country; eager?: boolean }
+const { course, country, eager = false } = Astro.props;
+const cat = (await getCategory(course.data.category))!;
+const operationalDb = (env as unknown as { SABLY_DB: D1Database }).SABLY_DB;
+const real = await readOperationalPrice(operationalDb, course.id, country, Astro.locals).catch(() => null);
+const valoracion = await readOperationalRating(operationalDb, course.id, Astro.locals).catch(() => null);
+const url = `/${country.code}/${course.id}/`;
+const nota = valoracion ? new Intl.NumberFormat('es-CO', { maximumFractionDigits: 1 }).format(valoracion.rating) : null;
+---
+<article class="group relative flex h-full flex-col overflow-hidden rounded-c-lg bg-white ring-1 ring-navy-100 transition-shadow duration-(--t-lento) ease-(--e-sale) hover:shadow-s2 hover:ring-transparent">
+  <div class="relative aspect-[4/3] overflow-hidden bg-navy-50">
+    <OptimizedImage
+      src={cmsImageUrl(course.cardImage) ?? cmsImageUrl(course.coverImage) ?? courseCover(course.id, cat.slug, 'card')}
+      alt={course.data.title} width={480} height={360}
+      sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+      loading={eager ? 'eager' : 'lazy'} decoding="async"
+      class="h-full w-full object-cover transition-transform duration-(--t-lento) ease-(--e-sale) group-hover:scale-[1.03]" />
+    <span class="absolute top-3 left-3 rounded-full bg-navy-950/85 px-3 py-1 text-t13 font-medium text-white">{cat.name}</span>
+  </div>
+  <div class="flex flex-1 flex-col gap-2 p-5">
+    <h3 class="text-t17 font-semibold text-navy-950"><a href={url} class="after:absolute after:inset-0 focus-visible:outline-none">{course.data.title}</a></h3>
+    <p class="line-clamp-2 text-t15 text-navy-700">{course.data.shortDescription}</p>
+    {valoracion && nota && <p class="flex items-center gap-1 text-t13 text-navy-500"><Icono nombre="star" tamano={14} class="fill-coral-500 text-coral-500" /><span class="font-semibold text-navy-950">{nota}</span> · {valoracion.total} calificaciones en Hotmart</p>}
+    <p class="text-t13 text-navy-500">{course.data.durationHours} h · {course.data.level}</p>
+    <p class="mt-auto flex items-center justify-between pt-3 text-t17 font-semibold text-navy-950">
+      <span class="v2-num">{real ? `${cifra(real.monto, country.hreflang)} ${real.moneda}` : formatPrice(course.data.priceUSD, country)}</span>
+      <Icono nombre="arrow-right" class="text-navy-950 transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" />
+    </p>
+  </div>
+</article>
+<style>
+  article:has(a:focus-visible) { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+</style>

@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getContentRepository } from '@/lib/emdash-content';
 import { aiCatalogCourses } from '@/lib/ai-catalog';
+import { conConstancia } from '@/lib/vocabulario';
 export const prerender = false;
 
 import { SITE } from '@/lib/site';
@@ -23,7 +24,8 @@ export const GET: APIRoute = async () => {
         items
           .map(
             (c) =>
-              `- [${c.data.title}](${SITE.url}/co/${c.id}/): ${c.data.shortDescription}`,
+              // La descripción corta viene del CMS con «Certificado incluido.»: se dice constancia.
+              `- [${c.data.title}](${SITE.url}/co/${c.id}/): ${conConstancia(c.data.shortDescription)}`,
           )
           .join('\n'),
     )

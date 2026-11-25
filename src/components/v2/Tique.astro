@@ -1,0 +1,40 @@
+---
+/**
+ * Tique de cupón: «50 %» a la izquierda, muescas y línea discontinua, y a la
+ * derecha el código con su estado. `copiable` añade el botón «Copiar»
+ * (anunciado con aria-live). El contenido extra va en el slot.
+ */
+import Icono from './Icono.astro';
+interface Props { pct: number; codigo: string; estado?: 'normal' | 'aplicado'; copiable?: boolean; class?: string }
+const { pct, codigo, estado = 'normal', copiable = false, class: clase } = Astro.props;
+---
+<div class:list={['v2-tique', clase]} data-tique>
+  <p class="v2-tique-pct v2-num">{pct} %</p>
+  <div class="v2-tique-cuerpo">
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+      {estado === 'aplicado'
+        ? <p class="flex items-center gap-1.5 text-t15 font-semibold"><Icono nombre="circle-check" tamano={16} class="text-v2-ok" />Cupón {codigo} aplicado</p>
+        : <p class="text-t15 font-semibold">Cupón <span class="v2-num tracking-wide">{codigo}</span></p>}
+      {copiable && (
+        <button type="button" data-copiar={codigo} class="ml-auto inline-flex min-h-9 items-center gap-1.5 rounded-c-sm bg-white px-3 text-t13 font-semibold text-coral-700 ring-1 ring-coral-100 hover:ring-coral-600 focus-visible:outline-3 focus-visible:outline-coral-600">
+          <Icono nombre="copy" tamano={16} /><span data-copiar-texto>Copiar</span>
+        </button>
+      )}
+    </div>
+    <slot />
+  </div>
+  {copiable && <span class="sr-only" aria-live="polite" data-copiar-aviso></span>}
+</div>
+<script>
+  // Un solo manejador para todos los tiques de la página (~0,3 KB).
+  document.addEventListener('click', async (evento) => {
+    const boton = (evento.target as Element).closest<HTMLButtonElement>('[data-copiar]');
+    if (!boton) return;
+    try { await navigator.clipboard.writeText(boton.dataset.copiar!); } catch { return; }
+    const texto = boton.querySelector('[data-copiar-texto]')!;
+    const aviso = boton.closest('[data-tique]')?.querySelector('[data-copiar-aviso]');
+    texto.textContent = 'Copiado';
+    if (aviso) aviso.textContent = `Cupón ${boton.dataset.copiar} copiado`;
+    setTimeout(() => { texto.textContent = 'Copiar'; if (aviso) aviso.textContent = ''; }, 2000);
+  });
+</script>

@@ -6,6 +6,11 @@
  *   node scripts/seo-test.mjs --base https://dev.sably.co --muestra 5
  *   node scripts/seo-test.mjs --url /co/curso-de-masajes/ --url /co/
  *   node scripts/seo-test.mjs --json informe.json
+ *   node scripts/seo-test.mjs --base http://localhost:4321 --muestra 5 --tema v2
+ *
+ * `--tema v2` pide cada URL con ?tema=v2 (vista de revisión del rediseño) y
+ * aplica además las reglas del tema V2. En dev.sably.co la puerta pide
+ * credenciales: exporta SABLY_DEV_PASSWORD (de .dev.vars) y se envían solas.
  *
  * Recorre el sitemap, audita cada página con `seo-onpage.mjs` y añade lo que
  * solo se ve comparando páginas (títulos, descripciones y H1 repetidos).
@@ -22,11 +27,18 @@ const BASE = (opcion('base') ?? 'https://sably.co').replace(/\/$/, '');
 const MUESTRA = Number(opcion('muestra') ?? 0);
 const CONCURRENCIA = Number(opcion('concurrencia') ?? 4);
 const UA = 'Mozilla/5.0 (compatible; sably-seo-test/1.0; +https://sably.co)';
+const TEMA = opcion('tema');
+/** Credenciales de la puerta de dev.sably.co; nunca se mandan a producción. */
+export const cabecerasEntorno = (base, env = process.env) =>
+  env.SABLY_DEV_PASSWORD && !/^https:\/\/(?:www\.)?sably\.co(?:\/|$)/.test(base)
+    ? { authorization: `Basic ${Buffer.from(`sably:${env.SABLY_DEV_PASSWORD}`).toString('base64')}` }
+    : {};
+const conTema = (url) => (TEMA ? `${url}${url.includes('?') ? '&' : '?'}tema=${encodeURIComponent(TEMA)}` : url);
 
 const leer = async (url) => {
   for (let intento = 0; intento < 3; intento++) {
     try {
-      const r = await fetch(url, { headers: { 'user-agent': UA }, redirect: 'manual' });
+      const r = await fetch(url, { headers: { 'user-agent': UA, ...cabecerasEntorno(BASE) }, redirect: 'manual' });
       return { status: r.status, html: r.status === 200 ? await r.text() : '' };
     } catch {
       await new Promise((ok) => setTimeout(ok, 1500));
@@ -77,7 +89,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   await Promise.all(Array.from({ length: CONCURRENCIA }, async () => {
     while (siguiente < lista.length) {
       const ruta = lista[siguiente++];
-      const { status, html } = await leer(BASE + ruta);
+      const { status, html } = await leer(conTema(BASE + ruta));
       if (status !== 200) { hallazgos.push({ url: ruta, regla: 'estado', nivel: 'error', detalle: `responde ${status}` }); continue; }
       hallazgos.push(...auditarOnPage(ruta, html));
       paginas.push({
@@ -106,7 +118,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     resumen.set(clave, fila);
   }
   const errores = hallazgos.filter((h) => h.nivel === 'error').length;
-  console.log(`Test SEO on-page · ${BASE} · ${paginas.length} páginas leídas de ${lista.length}`);
+  console.log(`Test SEO on-page · ${BASE}${TEMA ? ` · tema ${TEMA}` : ''} · ${paginas.length} páginas leídas de ${lista.length}`);
   for (const [clave, fila] of [...resumen].sort((a, b) => a[0].localeCompare(b[0]) || b[1].n - a[1].n)) {
     console.log(`\n${clave} — ${fila.n} páginas (${[...fila.tipos].map(([t, n]) => `${t} ${n}`).join(', ')})`);
     console.log(`   p. ej. ${fila.ejemplo.url}: ${fila.ejemplo.detalle}`);

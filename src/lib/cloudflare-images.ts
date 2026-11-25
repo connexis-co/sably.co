@@ -10,7 +10,7 @@ export function cloudflareImageUrl(src: string, width: number, siteOrigin?: stri
   try { source = new URL(src, origin); } catch { return undefined; }
   if (!['https://sably.co', 'https://cdn.sably.co'].includes(source.origin) || source.username || source.password || source.search || source.hash) return undefined;
   const native = source.origin === origin && source.pathname.startsWith('/_emdash/api/media/file/');
-  const publicAsset = /^\/(?:covers|heroes)\//.test(source.pathname) || source.pathname === '/certificado-sably.jpg';
+  const publicAsset = /^\/(?:covers|heroes)\//.test(source.pathname);
   if ((!native && !publicAsset) || /\.(?:svg|gif)$/i.test(source.pathname)) return undefined;
   const path = source.origin === origin ? source.pathname.slice(1) : source.href;
   return `/cdn-cgi/image/width=${Math.min(Math.round(width), 1600)},quality=80,format=auto,fit=scale-down,onerror=redirect/${path}`;

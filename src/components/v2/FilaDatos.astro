@@ -1,0 +1,18 @@
+---
+/** Fila de datos del curso: icono en cuadro navy-50, etiqueta de 13 y valor de 17/600, separadores de 1 px. */
+import Icono from './Icono.astro';
+import type { NombreIcono } from './iconos';
+interface Props { items: { icono: NombreIcono; etiqueta: string; valor: string }[]; class?: string }
+const { items, class: clase } = Astro.props;
+---
+<dl class:list={['grid grid-cols-2 gap-y-6 sm:grid-cols-4', clase]}>
+  {items.map((item, i) => (
+    <div class:list={['flex flex-col gap-3 pr-4', i % 2 === 1 ? 'border-l border-navy-100 pl-5' : '', i >= 2 ? 'sm:border-l sm:border-navy-100 sm:pl-5' : '', i === 2 ? 'max-sm:border-l-0 max-sm:pl-0' : '']}>
+      <span class="grid size-10 place-items-center rounded-c-sm bg-navy-50 text-navy-950"><Icono nombre={item.icono} /></span>
+      <div>
+        <dt class="text-t13 text-navy-500">{item.etiqueta}</dt>
+        <dd class="text-t17 font-semibold text-navy-950">{item.valor}</dd>
+      </div>
+    </div>
+  ))}
+</dl>

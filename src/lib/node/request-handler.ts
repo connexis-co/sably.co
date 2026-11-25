@@ -1,5 +1,6 @@
 import { gateEnvironment, protectEnvironmentResponse, type RuntimeEnvironment } from '../runtime-environment';
 import { parseLegacyRedirects, productionOriginRedirect, publicCanonicalRedirect, resolveLegacyRedirect, rootCountryRedirect } from '../legacy-redirects';
+import { PARAMETRO_TEMA } from '../tema';
 import { canCachePublicPage, FRESH_UNTIL_HEADER, invalidatedTags, isCrawlFile, nodeEdgePolicy, ORIGIN_EDGE_FRESH, protectDeliveryResponse } from '../public-delivery';
 
 /** Preserve the Worker boundary while keeping all execution at the Node origin. */
@@ -27,6 +28,9 @@ export function createNodeRequestHandler(options: {
       else if (edge !== 'no-store' && isCrawlFile(request, protectedResponse, options.env.SABLY_ENVIRONMENT)) {
         headers.set('Cache-Control', `public, max-age=${ORIGIN_EDGE_FRESH}`);
       }
+      // ?tema=v2 / ?tema=clasico: vista de revisión del rediseño (src/lib/tema.ts). Nunca se indexa;
+      // la página ya lleva canónica limpia y no entra en caché (tiene query).
+      if (html && new URL(request.url).searchParams.has(PARAMETRO_TEMA)) headers.set('X-Robots-Tag', 'noindex, follow');
       headers.set('X-Sably-Runtime', 'node');
       headers.set('X-Sably-Environment', options.env.SABLY_ENVIRONMENT ?? 'unconfigured');
       return new Response(protectedResponse.body, { status: protectedResponse.status, statusText: protectedResponse.statusText, headers });

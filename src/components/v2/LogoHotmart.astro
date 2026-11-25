@@ -1,0 +1,9 @@
+---
+/**
+ * Logo original de Hotmart (decisión de JP, 24-nov). Solo junto a las frases de
+ * pago («Pagas en» + logo); nunca dentro de un botón ni como sello de aval.
+ */
+interface Props { alto?: number; class?: string }
+const { alto = 16, class: clase } = Astro.props;
+---
+<img src="/v2/logos/hotmart.svg" alt="Hotmart" width={Math.round(alto * 3.5)} height={alto} decoding="async" class:list={['inline-block align-[-3px]', clase]} />

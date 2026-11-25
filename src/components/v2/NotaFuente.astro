@@ -1,0 +1,6 @@
+---
+/** Nota de fuente de 13 px: de dónde sale una cifra y cuándo se leyó. */
+interface Props { class?: string; oscuro?: boolean }
+const { class: clase, oscuro = false } = Astro.props;
+---
+<p class:list={['text-t13', oscuro ? 'text-white/70' : 'text-navy-500', clase]}><slot /></p>
