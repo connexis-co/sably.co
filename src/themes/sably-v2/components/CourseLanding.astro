@@ -30,6 +30,7 @@ import CajaCompra from './CajaCompra.astro';
 import BarraFija from './BarraFija.astro';
 import VideoPresentacion from './VideoPresentacion.astro';
 import Docente from './Docente.astro';
+import CiudadesPais from './CiudadesPais.astro';
 import { cargarFicha, type FichaProps } from '@/lib/ficha';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import { mostrarPromedio, notaHotmart } from '@/lib/opiniones';
@@ -358,6 +359,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
               ))}
             </ol>
             <NotaFuente class="mt-6 max-w-[620px]">El creador dicta el curso, Hotmart cobra y te da el acceso, y Sably elige los cursos y te orienta por WhatsApp. Si te inscribes desde este enlace, Sably recibe una comisión sin costo extra para ti.</NotaFuente>
+            <CiudadesPais {country} mostrar={ajustes.mostrarCiudades} class="mt-10 max-w-[620px]" />
           </div>
           <figure class="m-0 hidden lg:block">
             <img src="/v2/fotos/foto-estudiar-celular-1.webp" alt="Una mujer mira una lección en el celular mientras viaja en bus" width="480" height="600" loading="lazy" decoding="async" class="aspect-[4/5] w-full rounded-c-xl object-cover" />

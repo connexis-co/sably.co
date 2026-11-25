@@ -8,7 +8,8 @@
  * Por ficha y ancho (390 × 844 y 1440 × 900): captura del primer pantallazo y de la página
  * entera, posición del botón de pago, desbordamiento horizontal, quitar y reaplicar el cupón
  * (precio y enlaces a la vez), parámetros del enlace a Hotmart, teclado hasta «Quitar», barra
- * fija en móvil y frases del <main> del tema clásico que faltan en V2. Escribe resultados.json.
+ * fija en móvil, «Disponible online en {país}» con las mismas ciudades que el clásico y sin enlaces,
+ * y frases del <main> del tema clásico (?tema=clasico) que faltan en V2. Escribe resultados.json.
  *
  * Solapes (también a 768 × 1024): baja hasta el final y sube por tramos hasta arriba del todo,
  * con la barra de campaña abierta y, si la hay, cerrada; en cada parada compara los rectángulos
@@ -115,9 +116,12 @@ const norm = (s) => s.replace(/[^\p{L}\p{N}%.,:;¿?¡!()\-–—/ ]/gu, '').repl
 
 for (const ficha of FICHAS) {
   let textoClasico = '';
+  let ciudadesClasico = [];
   if (!SOLO_SOLAPES) {
-    const clasico = await abrir(`${BASE}/${ficha}/?verif=${Date.now()}`, TODOS_LOS_ANCHOS[2]);
+    // Con V2 como tema por defecto, sin ?tema=clasico esto comparaba V2 consigo mismo.
+    const clasico = await abrir(`${BASE}/${ficha}/?tema=clasico&verif=${Date.now()}`, TODOS_LOS_ANCHOS[2]);
     textoClasico = await textoMain(clasico);
+    ciudadesClasico = await clasico.evaluate(() => [...(document.getElementById('cities-title')?.parentElement?.querySelectorAll('span') ?? [])].map((n) => n.textContent.replace(/📍/g, '').trim()).filter(Boolean));
     await clasico.close();
   }
   for (const ancho of ANCHOS) {
@@ -210,6 +214,18 @@ for (const ficha of FICHAS) {
       });
       await page.screenshot({ path: join(SALIDA, `${nombre}-barra.jpg`), type: 'jpeg', quality: 65 });
     }
+    // «Disponible online en {país}»: las mismas ciudades que el clásico, en texto y sin enlaces.
+    if (ancho.nombre === '1440') {
+      const v2 = await page.evaluate(() => {
+        const b = document.querySelector('[data-ciudades]');
+        return b ? { pais: b.dataset.ciudades, ciudades: [...b.querySelectorAll('li')].map((n) => n.textContent.trim()), enlaces: b.querySelectorAll('a').length, rotulo: b.querySelector('#titulo-ciudades')?.tagName } : null;
+      });
+      const igual = (a, b) => a.length === b.length && [...a].sort().join('|') === [...b].sort().join('|');
+      // Sin producto («cerrado») no hay «Cómo funciona» y tampoco el bloque. Con producto, el bloque
+      // debe estar (el ajuste `mostrarCiudades` viene encendido por defecto).
+      r.ciudades = v2 ? { ...v2, clasico: ciudadesClasico.length, mismas: igual(v2.ciudades, [...new Set(ciudadesClasico)]) } : { falta: r.estado !== 'cerrado' };
+      if (v2 ? (!r.ciudades.mismas || v2.enlaces > 0 || v2.rotulo !== 'P') : r.ciudades.falta) process.exitCode = 1;
+    }
     // Paridad de texto con el tema clásico.
     if (ancho.nombre === '1440') {
       const v2 = norm((await textoMain(page)).replace(/\n/g, ' '));
@@ -222,7 +238,7 @@ for (const ficha of FICHAS) {
       r.faltanEnV2 = faltan;
     }
     resultados.push(r);
-    console.log(`${nombre}: ${r.preajuste ?? r.estado} botón ${r.botonFinal}px${r.botonSinDesplazar ? ' (sin desplazar)' : ''} solapes ${r.solapes.ok ? 'ok' : 'FALLA'}${r.cupon ? ` cupón ${r.cupon.ok ? 'ok' : 'FALLA'}` : ''}${r.teclado ? ` teclado ${r.teclado.enterQuita ? 'ok' : 'FALLA'}` : ''}${r.barra ? ` barra ${r.barra.visible ? 'ok' : 'FALLA'}` : ''}${r.desborda ? ' DESBORDA' : ''}`);
+    console.log(`${nombre}: ${r.preajuste ?? r.estado} botón ${r.botonFinal}px${r.botonSinDesplazar ? ' (sin desplazar)' : ''} solapes ${r.solapes.ok ? 'ok' : 'FALLA'}${r.cupon ? ` cupón ${r.cupon.ok ? 'ok' : 'FALLA'}` : ''}${r.teclado ? ` teclado ${r.teclado.enterQuita ? 'ok' : 'FALLA'}` : ''}${r.barra ? ` barra ${r.barra.visible ? 'ok' : 'FALLA'}` : ''}${r.ciudades?.falta ? ' ciudades FALTAN' : ''}${r.ciudades?.ciudades ? ` ciudades ${r.ciudades.mismas && !r.ciudades.enlaces ? 'ok' : 'FALLA'} (${r.ciudades.ciudades.length} de ${r.ciudades.pais}, clásico ${r.ciudades.clasico})` : ''}${r.desborda ? ' DESBORDA' : ''}`);
     await page.close();
   }
 }

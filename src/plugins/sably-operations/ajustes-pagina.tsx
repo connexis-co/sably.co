@@ -98,7 +98,7 @@ export function AjustesPage() {
       {seccion(['estiloCampo'], 'Formularios')}
     </>; break;
     case 'campanas': cuerpo = <Promotions />; break;
-    case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente'], 'Caja de compra')}<WidgetEditor only="social" /></>; break;
+    case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'], 'Caja de compra')}<WidgetEditor only="social" /></>; break;
     case 'contenido': cuerpo = <Enlaces items={[
       ['Cursos', 'Ficha general de cada curso.', `${ADMIN}/content/courses`],
       ['Cursos por país', 'Precio, enlace de compra y texto por país.', `${ADMIN}/content/course_locales`],
