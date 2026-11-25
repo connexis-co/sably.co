@@ -1,6 +1,6 @@
 # Publicidad de Sably (Google AdSense)
 
-Plugin nativo de EmDash 1.1, **apagado por defecto**. Sin configuración guardada, o con el interruptor apagado, no añade nada al HTML. La única excepción es `/ads.txt`, que responde 404 como hasta ahora.
+Plugin nativo de EmDash 1.1, **apagado por defecto**. Sin configuración guardada, o con el interruptor apagado, no añade nada al HTML. La única excepción es `/ads.txt`: sirve por defecto la línea de Google del editor de JP (`pub-6213862553989716`), que AdSense necesita para verificar sably.co. Se cambia o se vacía desde el panel; vacío, da 404.
 
 El panel está en **Publicidad** y exige el permiso `settings:manage`. La configuración se guarda en `options` como `plugin:sably-publicidad:config`. Al guardar se invalida la caché de páginas.
 

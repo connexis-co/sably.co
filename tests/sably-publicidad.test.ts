@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { DEFAULT_CONFIG, LINEA_ADS_TXT, cuentaNueva, huecoHtml, ELEGIR_PUNTOS_JS, normalizarConfig, paginaPermitida, textoScript, reservar, validarConfig, type ConfigPublicidad } from '../src/plugins/sably-publicidad/model';
+import { DEFAULT_CONFIG, EDITOR_JP, LINEA_ADS_TXT, cuentaNueva, huecoHtml, ELEGIR_PUNTOS_JS, normalizarConfig, paginaPermitida, textoScript, reservar, validarConfig, type ConfigPublicidad } from '../src/plugins/sably-publicidad/model';
 import { createPlugin, fragmentosPublicidad } from '../src/plugins/sably-publicidad/index';
 import { motorScript, puertaScript } from '../src/plugins/sably-publicidad/runtime';
 
@@ -79,7 +79,7 @@ test('el hueco reserva el tamaño, lleva un rótulo permitido y no carga nada', 
 
 test('validación: editor, unidad, in-feed, ads.txt; una configuración rota queda apagada', () => {
   assert.throws(() => encendida({ cliente: 'pub-123' }), /ca-pub-/);
-  assert.throws(() => validarConfig({ ...DEFAULT_CONFIG, enabled: true }), /identificador de editor/);
+  assert.throws(() => validarConfig({ ...DEFAULT_CONFIG, enabled: true, cliente: '' }), /identificador de editor/);
   assert.throws(() => encendida({ adsTxt: 'esto no es ads.txt' }), /ads\.txt/);
   assert.equal(LINEA_ADS_TXT('ca-pub-6213862553989716'), 'google.com, pub-6213862553989716, DIRECT, f08c47fec0942fa0');
   assert.equal(encendida({ adsTxt: LINEA_ADS_TXT('ca-pub-6213862553989716') }).adsTxt.startsWith('google.com'), true);
@@ -88,4 +88,7 @@ test('validación: editor, unidad, in-feed, ads.txt; una configuración rota que
   assert.throws(() => encendida({ posiciones }), /clave de diseño/);
   assert.equal(normalizarConfig({ enabled: true }).enabled, false);
   assert.equal(normalizarConfig(null), DEFAULT_CONFIG);
+  // Sin configuración guardada, /ads.txt ya sirve la línea de Google de JP (verificación del sitio en AdSense).
+  assert.equal(DEFAULT_CONFIG.adsTxt, LINEA_ADS_TXT(EDITOR_JP));
+  assert.equal(validarConfig({ ...DEFAULT_CONFIG }).adsTxt, LINEA_ADS_TXT(EDITOR_JP));
 });

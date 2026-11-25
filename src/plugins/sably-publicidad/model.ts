@@ -109,26 +109,31 @@ const pos = (p: Partial<Posicion>): Posicion => ({
   movil: { ancho: 300, alto: 250 }, escritorio: { ancho: 336, alto: 280 }, claveDiseno: '', cada: 4, maximo: 1, ...p,
 });
 
+/** Editor de AdSense de JP (el de certificadossena y los demás sitios de la cuenta). */
+export const EDITOR_JP = 'ca-pub-6213862553989716';
+
 export const DEFAULT_CONFIG: ConfigPublicidad = {
   enabled: false,
   muestra: false,
-  cliente: '',
+  cliente: EDITOR_JP,
   exigirConsentimiento: true,
   metaVerificacion: false,
   automaticos: { activos: false, dispositivo: 'movil', anclaSoloAbajo: true },
+  // Unidades display adaptables creadas en AdSense el 25-nov (sably-<posición>); el tamaño lo fija el hueco.
   posiciones: {
-    'articulo-arriba': pos({ movil: { ancho: 320, alto: 100 }, escritorio: { ancho: 728, alto: 90 } }),
-    'articulo-texto': pos({ cada: 4, maximo: 2 }),
-    'articulo-lateral': pos({ dispositivo: 'escritorio', escritorio: { ancho: 300, alto: 600 } }),
-    'articulo-final': pos({}),
-    'blog-rejilla': pos({ cada: 6, maximo: 2, escritorio: { ancho: 300, alto: 250 } }),
+    'articulo-arriba': pos({ unidad: '9443193326', movil: { ancho: 320, alto: 100 }, escritorio: { ancho: 728, alto: 90 } }),
+    'articulo-texto': pos({ unidad: '7667398026', cada: 4, maximo: 2 }),
+    'articulo-lateral': pos({ unidad: '2415071343', dispositivo: 'escritorio', escritorio: { ancho: 300, alto: 600 } }),
+    'articulo-final': pos({ unidad: '6354316351' }),
+    'blog-rejilla': pos({ unidad: '8784717772', cada: 6, maximo: 2, escritorio: { ancho: 300, alto: 250 } }),
   },
   tiposPagina: ['article', 'blog'],
   confirmoProtegidos: false,
   exclusiones: [],
   maximoPorPagina: 3,
   minimoPalabras: 400,
-  adsTxt: '',
+  // JP añadió sably.co en AdSense (25-nov) y eligió verificar con ads.txt: se sirve aunque no haya anuncios.
+  adsTxt: 'google.com, pub-6213862553989716, DIRECT, f08c47fec0942fa0',
   rotulo: 'Anuncios',
 };
 
