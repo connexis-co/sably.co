@@ -64,6 +64,7 @@ export default defineConfig({
         { id: 'sably-operations', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-operations/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-operations/admin.tsx', import.meta.url)), adminPages: [{ path: '/ajustes', label: 'Ajustes del sitio', icon: 'settings' }, { path: '/operations', label: 'Moderación y contactos', icon: 'sliders' }] },
         { id: 'sably-integrations', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-integrations/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-integrations/admin.tsx', import.meta.url)), adminPages: [{ path: '/integrations', label: 'Medición y conversiones', icon: 'chart-bar' }] },
         { id: 'sably-seo', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-seo/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-seo/admin.tsx', import.meta.url)), adminPages: [{ path: '/seo', label: 'Auditoría SEO', icon: 'search' }] },
+        { id: 'sably-narracion', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-narracion/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-narracion/admin.tsx', import.meta.url)), adminPages: [{ path: '/narraciones', label: 'Narraciones', icon: 'headphones' }] },
         { id: 'sably-whatsapp', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-whatsapp/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-whatsapp/admin.tsx', import.meta.url)), adminPages: [{ path: '/whatsapp', label: 'WhatsApp', icon: 'message-circle' }] },
       ],
     }),
@@ -82,6 +83,8 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     resolve: { alias: { 'virtual:sably-runtime': nodeRuntime ? localPath('./src/lib/node/runtime-bindings.ts') : 'cloudflare:workers' } },
+    // El codificador MP3 de las narraciones viaja dentro de dist: el despliegue por capa (crane) solo lleva app/dist.
+    ssr: { noExternal: ['@breezystack/lamejs'] },
   },
   build: {
     inlineStylesheets: 'auto',

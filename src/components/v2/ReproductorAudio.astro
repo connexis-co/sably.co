@@ -1,0 +1,48 @@
+---
+/**
+ * Reproductor de la narración de un artículo (V2). Solo se pinta si hay narración vigente: el texto del artículo
+ * sigue entero en el HTML y el audio es un añadido. Alto reservado (sin CLS), `preload="none"` (no compite con el
+ * LCP), controles propios con el controlador común de `medios/` y, sin JS, el reproductor del navegador.
+ */
+import './medios/medios.css';
+interface Props { src: string; segundos: number; titulo: string; caratula?: string; id?: string }
+const { src, segundos, titulo, caratula, id = 'narracion' } = Astro.props;
+const reloj = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
+const minutos = Math.max(1, Math.round(segundos / 60));
+---
+<section class="v2-medio v2-medio-audio" data-medio data-medio-titulo={titulo} data-medio-artista="Sably" data-medio-caratula={caratula} aria-labelledby={`${id}-titulo`}>
+  <span class="v2-medio-icono" aria-hidden="true">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg>
+  </span>
+  <div class="v2-medio-cabeza">
+    <p class="v2-medio-titulo" id={`${id}-titulo`}>Escucha este artículo · {minutos} min</p>
+    <p class="v2-medio-nota">Voz sintética · español latino</p>
+  </div>
+  <audio data-medio-elemento controls preload="none" src={src} aria-labelledby={`${id}-titulo`}></audio>
+  <div class="v2-medio-controles" data-medio-controles role="group" aria-label="Controles de la narración" hidden>
+    <button type="button" class="v2-medio-boton v2-medio-principal" data-medio-alternar aria-label="Reproducir la narración">
+      <svg class="v2-medio-play" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 3.5 16.5 10 6 16.5z" /></svg>
+      <svg class="v2-medio-pausa" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" focusable="false"><path d="M5 3.5h3.5v13H5zm6.5 0H15v13h-3.5z" /></svg>
+      <span class="v2-medio-estado" data-medio-etiqueta>Escuchar</span>
+    </button>
+    <button type="button" class="v2-medio-boton" data-medio-saltar="-15" aria-label="Retroceder 15 segundos">−15</button>
+    <div class="v2-medio-linea">
+      <span class="v2-medio-tiempo" data-medio-actual aria-hidden="true">0:00</span>
+      <input type="range" class="v2-medio-barra" data-medio-barra min="0" max={Math.ceil(segundos)} step="1" value="0" aria-label="Posición de la narración" />
+      <span class="v2-medio-tiempo" data-medio-total aria-hidden="true">{reloj(segundos)}</span>
+    </div>
+    <button type="button" class="v2-medio-boton" data-medio-saltar="15" aria-label="Avanzar 15 segundos">+15</button>
+    <select class="v2-medio-velocidad" data-medio-velocidad aria-label="Velocidad">
+      <option value="0.75">0,75×</option>
+      <option value="1" selected>1×</option>
+      <option value="1.25">1,25×</option>
+      <option value="1.5">1,5×</option>
+      <option value="2">2×</option>
+    </select>
+  </div>
+  <p class="v2-medio-estado" data-medio-estado role="status" aria-live="polite"></p>
+</section>
+<script>
+  import { prepararMedios } from './medios/controlador';
+  prepararMedios();
+</script>
