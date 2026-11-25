@@ -79,7 +79,10 @@ export class CuentaAlmacen {
     if (!tokenValido(flujo)) throw new Error('Flujo inválido.');
     const state = tokenAleatorio(), nonce = tokenAleatorio(), verifier = base64url(bytesAleatorios(48));
     await this.db.batch([
+      // Limpieza de paso (índices o claves primarias pequeñas): flujos, límites y sesiones caducados.
       this.db.prepare('DELETE FROM account_oauth WHERE expires <= ?').bind(ahora),
+      this.db.prepare('DELETE FROM account_rates WHERE started <= ?').bind(ahora - 3600),
+      this.db.prepare('DELETE FROM account_sessions WHERE expires <= ?').bind(ahora),
       this.db.prepare('INSERT OR REPLACE INTO account_oauth (flow, state, nonce, verifier, expires) VALUES (?, ?, ?, ?, ?)')
         .bind(this.h('oauth', flujo), this.h('state', state), nonce, verifier, ahora + OAUTH_SEGUNDOS),
     ]);

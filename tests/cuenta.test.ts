@@ -218,6 +218,18 @@ test('límite de intentos de inicio por IP y por hora', async () => {
   assert.ok(await a.permitirInicio('198.51.100.1', T0 + 3600), 'una hora después vuelve a dejar');
 });
 
+test('cada inicio limpia flujos, límites y sesiones caducados', async () => {
+  const { a, db } = await almacen();
+  const r = await a.entrarConGoogle(cuenta(), T0, CONSENT);
+  assert.ok(r.ok);
+  await a.permitirInicio('198.51.100.9', T0);
+  await a.iniciarGoogle(tokenAleatorio(), T0);
+  await a.iniciarGoogle(tokenAleatorio(), T0 + 91 * DIA);
+  assert.equal(contar(db, 'account_sessions'), 0);
+  assert.equal(contar(db, 'account_rates'), 0);
+  assert.equal(contar(db, 'account_oauth'), 1, 'solo queda el flujo vigente');
+});
+
 // ---------- HTTP: CSRF, formularios, retornos ----------
 function contexto(opciones: { metodo?: string; origen?: string | null; cookies?: Record<string, string>; sitio?: string } = {}) {
   const jar = new Map(Object.entries(opciones.cookies ?? {}));
