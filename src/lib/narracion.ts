@@ -14,6 +14,14 @@ export interface Narracion {
 
 const PLUGIN = 'sably-narracion';
 
+async function existeEnDisco(archivo: string) {
+  if (process.env.SABLY_RUNTIME !== 'node') return false;
+  const [{ stat }, { join, resolve }, { carpetaAudios }] = await Promise.all([
+    import('node:fs/promises'), import('node:path'), import('@/plugins/sably-narracion/src/deposito'),
+  ]);
+  return stat(join(resolve(carpetaAudios()), archivo)).then((s) => s.isFile() && s.size > 0, () => false);
+}
+
 export async function narracionVigente(coleccion: string, slug: string, datos: Record<string, unknown>): Promise<Narracion | undefined> {
   try {
     const { getDb } = await import('emdash/runtime');
@@ -27,6 +35,8 @@ export async function narracionVigente(coleccion: string, slug: string, datos: R
     const sin = await huella(bloquesDe(coleccion, datos, { incluirPreguntas: false }));
     const con = Array.isArray(datos.faq) && datos.faq.length ? await huella(bloquesDe(coleccion, datos, { incluirPreguntas: true })) : sin;
     if (p.huella !== sin && p.huella !== con) return undefined;
+    // Depósito en disco: si el archivo no está (copia restaurada sin la carpeta de audios), no hay reproductor roto.
+    if (p.url.startsWith('/narraciones/') && !(await existeEnDisco(p.url.slice('/narraciones/'.length)))) return undefined;
     return { url: p.url, segundos: Math.round(p.segundos), vozId: p.vozId ?? '' };
   } catch {
     return undefined;
