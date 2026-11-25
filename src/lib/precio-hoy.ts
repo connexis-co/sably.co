@@ -9,7 +9,7 @@
  * la página no viva en caché más que la cotización que pinta.
  */
 import { env } from 'virtual:sably-runtime';
-import { checkoutPrice, fijarAlmacenCotizaciones, quotable, quoteFreshUntil } from '@/lib/checkout-price';
+import { CARD_QUOTE_RETRY_MS, cardQuote, checkoutPrice, fijarAlmacenCotizaciones, quotable, quoteFreshUntil } from '@/lib/checkout-price';
 import { almacenEnBase } from '@/lib/cotizaciones-guardadas';
 import { cuponEnEnlace as cuponDelEnlace } from '@/lib/enlace-compra';
 import { localPrice, type Country } from '@/lib/countries';
@@ -31,7 +31,11 @@ const baseDeDatos = () => (env as unknown as { SABLY_DB: D1Database }).SABLY_DB;
 /* La última cotización buena sobrevive a un reinicio en sably.db (tabla hotmart_cotizacion). */
 fijarAlmacenCotizaciones(almacenEnBase(baseDeDatos));
 
-export async function cotizarCurso(course: CursoConPrecio, country: Country, ctx: ContextoPrecio) {
+/**
+ * `ficha`: cotiza en vivo (espera corta, con la guardada de respaldo). `tarjeta`: nunca pregunta a
+ * Hotmart al renderizar; lee el almacén y lo refresca en segundo plano (checkout-price `cardQuote`).
+ */
+export async function cotizarCurso(course: CursoConPrecio, country: Country, ctx: ContextoPrecio, modo: 'ficha' | 'tarjeta' = 'ficha') {
   const db = baseDeDatos();
   /* Sin producto en Hotmart (`PENDIENTE`) no hay checkout: ni cotización ni cifra. */
   const sinProducto = /PENDIENTE/i.test(course.data.hotmartUrl);
@@ -45,7 +49,7 @@ export async function cotizarCurso(course: CursoConPrecio, country: Country, ctx
   const promoRow = mejorPromocion(activePromos, promoCtx);
   const coupon = conCupon && promoRow ? promoRow.cupon : null;
   /* En vivo o, si Hotmart falla o tarda, la última buena guardada con su fecha (`quote.fuente`). */
-  const quote = sinProducto ? null : await checkoutPrice(course.id, course.data.hotmartUrl, country.code, coupon);
+  const quote = sinProducto ? null : await (modo === 'tarjeta' ? cardQuote : checkoutPrice)(course.id, course.data.hotmartUrl, country.code, coupon);
   /* Un curso que se cotiza no cae a la captura de octubre (USD en casi todos los países): sin
      cotización viva ni guardada no hay importe. La captura solo vale para los que no se cotizan. */
   const real = cotizable && !quote ? null : captura;
@@ -53,7 +57,8 @@ export async function cotizarCurso(course: CursoConPrecio, country: Country, ctx
   const monedaBase = real ? real.moneda : country.currency;
   /* La página no puede vivir en caché más que la cotización que pinta: Hotmart
      cambia la tasa de cambio sin aviso (24-nov: 93.067 en la ficha, 95.506 en el pago). */
-  const freshUntil = sinProducto ? null : quoteFreshUntil(quote, cotizable);
+  /* Tarjeta sin cotización todavía (pedida en segundo plano): la página vuelve pronto con ella. */
+  const freshUntil = sinProducto ? null : modo === 'tarjeta' && !quote && cotizable ? Date.now() + CARD_QUOTE_RETRY_MS : quoteFreshUntil(quote, cotizable);
   const currency = quote?.currency ?? monedaBase;
   const baseAmount = quote?.base ?? montoBase;
   const saving = quote?.reduced ? Math.round(100 * (1 - quote.reduced / quote.base)) : 0;
@@ -86,7 +91,7 @@ export function tarjetaDe(c: Cotizacion): PrecioTarjeta | null {
   });
 }
 
-/** Peticiones a Hotmart a la vez: un listado de 120 cursos no lanza 240 de golpe. */
+/** Tarjetas resueltas a la vez (solo memoria y sably.db: las tarjetas ya no preguntan a Hotmart al renderizar). */
 const A_LA_VEZ = 12;
 
 /**
@@ -102,7 +107,7 @@ export async function preciosDeTarjetas(cursos: readonly CursoConPrecio[], count
   const trabajar = async () => {
     while (siguiente < unicos.length) {
       const curso = unicos[siguiente++]!;
-      const c = await cotizarCurso(curso, country, ctx);
+      const c = await cotizarCurso(curso, country, ctx, 'tarjeta');
       precios.set(curso.id, tarjetaDe(c));
       if (c.freshUntil !== null && (freshUntil === null || c.freshUntil < freshUntil)) freshUntil = c.freshUntil;
     }
