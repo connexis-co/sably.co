@@ -17,8 +17,6 @@
   Cache-Control: public, max-age=604800, stale-while-revalidate=604800
 /heroes/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=604800
-/certificado-sably.jpg
-  Cache-Control: public, max-age=604800, stale-while-revalidate=604800
 /favicon.ico
   Cache-Control: public, max-age=604800
 /favicon.svg

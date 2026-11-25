@@ -11,7 +11,7 @@ export function targetConfig(target=process.env.SABLY_TARGET??'development') {
  return {target,...TARGETS[target]};
 }
 /** Public files Workers Static Assets serves without the Worker: compiled bundles and brand/media files. */
-export const PRODUCTION_ASSET_BYPASS=['/_astro/*','/brand/*','/covers/*','/creadores/*','/heroes/*','/certificado-sably.jpg','/favicon.ico','/favicon.svg','/icon-192.png','/icon-512.png','/apple-touch-icon.png','/site.webmanifest'];
+export const PRODUCTION_ASSET_BYPASS=['/_astro/*','/brand/*','/covers/*','/creadores/*','/heroes/*','/favicon.ico','/favicon.svg','/icon-192.png','/icon-512.png','/apple-touch-icon.png','/site.webmanifest'];
 export function readTarget(target) {return JSON.parse(readFileSync(targetConfig(target).configPath,'utf8'));}
 export function fingerprint(config) {return createHash('sha256').update(JSON.stringify(config)).digest('hex');}
 export function validateTarget(target,config,development=readTarget('development')) {
