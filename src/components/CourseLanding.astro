@@ -621,7 +621,8 @@ const schemas = [
       </section>
 
       <VerifiedReviews data={verifiedReviews}/>
-      <ResenasCurso slug={course.id} relacionados={related.map(c => c.id)} />
+      {/* Sin producto no hay compradores: ni reseñas propias ni ajenas. */}
+      {!sinProducto && <ResenasCurso slug={course.id} />}
 
       <!-- Para quién es -->
       <section aria-labelledby="audience-title">
