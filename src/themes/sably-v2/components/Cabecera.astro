@@ -34,9 +34,8 @@ const buscar = `${base}/cursos/#buscar`;
 
     <nav class="flex items-center gap-1 max-lg:hidden" aria-label="Navegación principal">
       <div class="v2-mega-raiz" data-mega>
-        <a href={nav.enlaceCursos.href} class:list={['v2-nav-enlace', { 'v2-actual': enCursos }]} aria-current={ruta === nav.enlaceCursos.href ? 'page' : undefined} aria-haspopup="true" aria-controls="v2-megamenu" data-mega-gatillo>
-          {nav.enlaceCursos.etiqueta}<Ico nombre="chevron-down" tamano={16} class="v2-giro" />
-        </a>
+        <a href={nav.enlaceCursos.href} class:list={['v2-nav-enlace', { 'v2-actual': enCursos }]} aria-current={ruta === nav.enlaceCursos.href ? 'page' : undefined} data-mega-gatillo>{nav.enlaceCursos.etiqueta}</a>
+        <button type="button" class="v2-mega-boton" aria-expanded="false" aria-controls="v2-megamenu" aria-label="Mostrar las áreas de cursos" data-mega-boton><Ico nombre="chevron-down" tamano={16} class="v2-giro" /></button>
         <div class="v2-mega-velo" aria-hidden="true"></div>
         <div class="v2-mega" id="v2-megamenu">
           <div class="v2-contenedor"><div class="v2-mega-panel">
@@ -173,13 +172,19 @@ const buscar = `${base}/cursos/#buscar`;
       a.addEventListener('pointerenter', ir);
       a.addEventListener('focus', ir);
     });
+    /* Teclado: «Cursos» es un enlace y Tab sigue de largo; el botón de la flecha abre y cierra
+       (aria-expanded). Se cierra con Esc y cuando el foco sale del megamenú. El ratón lo abre al pasar. */
+    const boton = raiz.querySelector<HTMLButtonElement>('[data-mega-boton]')!;
+    const abrir = (si: boolean) => { raiz.toggleAttribute('data-abierto', si); boton.setAttribute('aria-expanded', String(si)); };
+    boton.addEventListener('click', () => { const si = !raiz.hasAttribute('data-abierto'); abrir(si); raiz.removeAttribute('data-cerrado'); if (si) raiz.querySelector<HTMLElement>('[data-area]')?.focus(); });
+    raiz.addEventListener('focusout', (e) => { if (!raiz.contains(e.relatedTarget as Node | null)) abrir(false); });
     raiz.addEventListener('pointerleave', () => raiz.removeAttribute('data-cerrado'));
     raiz.addEventListener('keydown', (e) => {
       if (e.key !== 'Escape') return;
+      abrir(false);
       raiz.setAttribute('data-cerrado', '');
-      raiz.querySelector<HTMLElement>('[data-mega-gatillo]')?.focus();
+      boton.focus();
     });
-    raiz.addEventListener('focusin', (e) => { if (e.target !== raiz.querySelector('[data-mega-gatillo]')) raiz.removeAttribute('data-cerrado'); });
   }
   // País: se guarda la preferencia y se avisa a GTM con el mismo evento que el clásico.
   document.querySelectorAll<HTMLElement>('[data-geo-country]').forEach(a => a.addEventListener('click', () => {
