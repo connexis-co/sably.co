@@ -37,10 +37,12 @@ interface Props {
   courseSlug?: string;
   /** Título del curso, para nombrarlo en el aviso. */
   courseTitle?: string;
+  /** Tema V2: icono lucide en lugar del emoji (el rediseño no pinta emojis de interfaz). */
+  temaV2?: boolean;
 }
 /* El componente vive en BaseLayout, sin contexto: el slug sale de la ruta
    (/<pais>/[ciudad/]curso-…/), que en SSG se conoce en build. */
-const { courseSlug: slugProp, courseTitle: tituloProp } = Astro.props;
+const { courseSlug: slugProp, courseTitle: tituloProp, temaV2 = false } = Astro.props;
 const courseSlug =
   slugProp ?? Astro.url.pathname.split('/').find((t) => t.startsWith('curso-'));
 const courseTitle = tituloProp ?? (courseSlug ? (tituloDe(courseSlug) ?? undefined) : undefined);
@@ -131,7 +133,9 @@ mensajes.push({
     data-caja
   >
     <span class="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-success/10 text-base">
-      🎓
+      {temaV2
+        ? <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="text-navy-950"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg>
+        : '🎓'}
     </span>
     <div class="min-w-0 flex-1">
       <p data-ps-texto class="text-[13px] leading-snug font-bold text-heading"></p>

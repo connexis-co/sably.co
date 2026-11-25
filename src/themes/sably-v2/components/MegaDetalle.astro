@@ -1,0 +1,23 @@
+---
+/**
+ * Detalle de un área en el megamenú: sus cursos destacados, sus subcategorías
+ * (los mismos enlaces que el megamenú clásico) y el enlace a todos los cursos
+ * del área. Está en el HTML aunque esté oculto: lo leen los buscadores.
+ */
+import Ico from './Ico.astro';
+import MegaFila from './MegaFila.astro';
+import type { AreaMenu } from '../navegacion';
+interface Props { area: AreaMenu; base: string }
+const { area, base } = Astro.props;
+---
+<div data-mega-detalle={area.slug} hidden>
+  <p class="font-display text-d28 font-semibold text-navy-950">{area.nombre}</p>
+  <p class="mt-1 text-t15 text-navy-700">{area.descripcion}</p>
+  {area.cursos.length > 0 && <ul class="mt-4" role="list">{area.cursos.map(c => <li><MegaFila curso={c} base={base} area={area.nombre} /></li>)}</ul>}
+  {area.subcategorias.length > 0 && (
+    <ul class="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-t13" role="list" aria-label={`Temas de ${area.nombre}`}>
+      {area.subcategorias.map(s => <li><a href={`${base}/cursos/${area.slug}/#${s.slug}`} class="v2-subrayado inline-flex min-h-8 items-center text-navy-700">{s.nombre}</a></li>)}
+    </ul>
+  )}
+  <a href={`${base}/cursos/${area.slug}/`} class="v2-enlace mt-4 text-coral-700">Ver {area.total === 1 ? 'el curso' : `los ${area.total} cursos`} de {area.nombre} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+</div>

@@ -70,6 +70,22 @@ export const HECHOS_V2 = [
   ['acceso de por vida', /acceso de por vida/gi],
 ];
 
+/**
+ * Enlaces internos distintos de una página (ruta + ancla, sin consulta), para
+ * comparar la versión V2 con la clásica: el rediseño no puede perder enlaces.
+ */
+export function enlacesInternos(html, base = 'https://sably.co') {
+  const origen = new URL(base).origin;
+  const enlaces = new Set();
+  for (const m of hastaEstable(html, COMENTARIO, '').matchAll(/<a\b[^>]*\shref=["']([^"']+)["']/gi)) {
+    let u;
+    try { u = new URL(m[1].replace(/&amp;/g, '&'), base); } catch { continue; }
+    if (u.origin !== origen || u.pathname.startsWith('/_') || u.pathname.startsWith('/cdn-cgi/')) continue;
+    enlaces.add(u.pathname + u.hash);
+  }
+  return enlaces;
+}
+
 export const TEXTOS_VETADOS = [
   [/Tu instructor/i, 'bloque de instructor sin dato verificado'],
   [/\bafiliad[oa]s?\b/i, 'la palabra «afiliado» en texto público'],
@@ -228,8 +244,8 @@ export function auditarOnPage(url, html, opciones = {}) {
   if (/<body\b[^>]*\sdata-tema=["']v2["']/i.test(documento)) {
     // Bloques con texto del CMS (preguntas, texto largo, biografía): ahí manda
     // el contenido, no la plantilla. La caja de compra repite hechos a propósito.
-    // Solo <main>: la cabecera y el pie siguen siendo los del tema clásico hasta que tengan versión V2.
-    const principal = sinCodigo.match(/<main\b[^>]*>([\s\S]*)<\/main>/i)?.[1] ?? sinCodigo;
+    // Todo el <body>: desde el 25-nov la cabecera, el megamenú y el pie también son V2.
+    const principal = sinCodigo.match(/<body\b[^>]*>([\s\S]*)<\/body>/i)?.[1] ?? sinCodigo;
     const plantilla = principal
       .replace(/<section\b[^>]*\sdata-purchase-panel\b[\s\S]*?<\/section>/gi, ' ')
       .replace(/<section\b[^>]*\sdata-cms\b[\s\S]*?<\/section>/gi, ' ');
