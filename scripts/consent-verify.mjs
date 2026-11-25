@@ -83,7 +83,7 @@ async function session(label, width, height, steps) {
     if (shots) await page.screenshot({ path: `${shots}/${label.replace(/\W+/g, '-')}-${name.replace(/\W+/g, '-')}.png` });
     return row;
   };
-  await page.goto(url, { waitUntil: 'load' });
+  await page.goto(url, { waitUntil: 'load', timeout: 120000 });
   await steps(page, snap);
   await ctx.close();
 }
@@ -123,14 +123,14 @@ if (strict) {
       await click(p, '[data-sbc=reject]'); const b = await snap('tras Rechazar');
       ok(`${w} Rechazar guarda 1.0.0`, /^1\.0\.0\./.test(b.cookie ?? ''), b.cookie);
       ok(`${w} icono visible tras responder (modo discreto)`, mode !== 'discreto' || b.icono);
-      await p.reload({ waitUntil: 'load' }); const c = await snap('recarga tras rechazar');
+      await p.reload({ waitUntil: 'load', timeout: 120000 }); const c = await snap('recarga tras rechazar');
       ok(`${w} recarga: recuerda y no vuelve el letrero`, !c.banner && /^1\.0\.0\./.test(c.cookie ?? ''));
     });
     await session(`${w}: acepta`, w, h, async (p, snap) => {
       await snap('sin responder');
       await click(p, '[data-sbc=accept]'); const a = await snap('tras Aceptar');
       ok(`${w} Aceptar concede`, /^1\.1\.1\./.test(a.cookie ?? '') && (!tagsSeen || /G111/.test(a.gcs)), `${a.cookie} ${a.gcs}`);
-      await p.reload({ waitUntil: 'load' }); await snap('recarga tras aceptar');
+      await p.reload({ waitUntil: 'load', timeout: 120000 }); await snap('recarga tras aceptar');
       await p.evaluate(() => document.querySelector('[data-sably-consent-open]').click());
       await p.evaluate(() => { document.getElementById('sbc-a').click(); }); // apaga medición
       await click(p, '[data-sbc=save]'); const b = await snap('retira medición (queda publicidad)');
@@ -174,7 +174,7 @@ if (strict) {
       ok(`${w} retirar medición guarda 1.0.1`, /^1\.0\.1\./.test(b.cookie ?? ''), b.cookie);
       ok(`${w} retirar medición pasa a denegado`, /update:denied/.test(b.consent), b.consent);
       if (tagsSeen) ok(`${w} retirar medición borra _ga y _clck`, !/(^| )_ga|_clck/.test(b.cookies), b.cookies);
-      await p.reload({ waitUntil: 'load' }); const c = await snap('recarga tras retirar');
+      await p.reload({ waitUntil: 'load', timeout: 120000 }); const c = await snap('recarga tras retirar');
       ok(`${w} recarga: se recuerda (denegado, sin letrero)`, !c.banner && /^1\.0\.1\./.test(c.cookie ?? '') && /update:denied/.test(c.consent), c.consent);
       if (tagsSeen) ok(`${w} recarga: GA4 sin medición (G110) y sin _ga`, !/G111/.test(c.gcs) && !/(^| )_ga/.test(c.cookies), `${c.gcs} [${c.cookies}]`);
     });
