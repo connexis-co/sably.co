@@ -36,7 +36,12 @@ export type NombreFoto =
   | 'foto-serie-3-practica'
   | 'foto-serie-3-practica-ancha'
   | 'foto-serie-4-ofrece'
-  | 'foto-serie-4-ofrece-ancha';
+  | 'foto-serie-4-ofrece-ancha'
+  | 'foto-serie-2-aprende'
+  | 'foto-serie-2-aprende-ancha'
+  | 'foto-unas-acrilicas-vertical-1'
+  | 'foto-motos-1'
+  | 'foto-motos-vertical-1';
 
 interface Foto { ancho: number; alto: number; alt: string }
 
@@ -96,6 +101,11 @@ export const FOTOS: Record<NombreFoto, Foto> = {
   'foto-serie-3-practica-ancha': { ancho: 1600, alto: 900, alt: 'Mujer que decora con manga pastelera su primera torta sobre un giratorio en la cocina de su casa' },
   'foto-serie-4-ofrece': { ancho: 1200, alto: 1280, alt: 'Mujer que entrega una caja blanca atada con cabuya a una vecina en la puerta de su casa' },
   'foto-serie-4-ofrece-ancha': { ancho: 1600, alto: 900, alt: 'Mujer que entrega una caja blanca atada con cabuya a una vecina en la puerta de su casa' },
+  'foto-serie-2-aprende': { ancho: 1200, alto: 1280, alt: 'Mujer que toma notas a lápiz en su cuaderno en la mesa de la cocina, con un tazón y un batidor al lado' },
+  'foto-serie-2-aprende-ancha': { ancho: 1600, alto: 900, alt: 'Mujer que toma notas a lápiz en su cuaderno en la mesa de la cocina, con un tazón y un batidor al lado' },
+  'foto-unas-acrilicas-vertical-1': { ancho: 1200, alto: 1600, alt: 'Manos con guantes negros que aplican acrílico con pincel sobre un molde de uña' },
+  'foto-motos-1': { ancho: 1600, alto: 1200, alt: 'Mecánico que ajusta la cadena de una moto en un taller abierto a la calle' },
+  'foto-motos-vertical-1': { ancho: 1200, alto: 1600, alt: 'Mecánico que ajusta la cadena de una moto en un taller abierto a la calle' },
 };
 
 /**
@@ -145,7 +155,7 @@ const POR_OFICIO: [RegExp, NombreFoto][] = [
   [/barber/, 'foto-barberia-1'], [/un(as|a)-|unas$|acrilic/, 'foto-unas-acrilicas-1'], [/maquill/, 'foto-maquillaje-1'],
   [/masaj|drenaje/, 'foto-masajes-1'], [/panader|pasteler|reposter/, 'foto-panaderia-1'], [/costura|confecci|corte-y/, 'foto-costura-1'],
   [/soldad/, 'foto-soldadura-1'], [/electric/, 'foto-electricidad-1'], [/celular/, 'foto-celulares-1'], [/vela|jabon/, 'foto-velas-1'],
-  [/mascota|canin|perr/, 'foto-mascotas-1'], [/cocina|gastronom/, 'foto-cocina-1'], [/pestan|cejas/, 'foto-pestanas-1'], [/barista|cafe/, 'foto-barista-1'], [/tortas/, 'foto-tortas-1'], [/globo/, 'foto-globos-1'], [/guitarra/, 'foto-guitarra-1'], [/ingles|frances|portugues|japones|coreano|idioma/, 'foto-idiomas-1'], [/crochet|amigurumi|tejid/, 'foto-crochet-1'],
+  [/mascota|canin|perr/, 'foto-mascotas-1'], [/cocina|gastronom/, 'foto-cocina-1'], [/pestan|cejas/, 'foto-pestanas-1'], [/barista|cafe/, 'foto-barista-1'], [/tortas/, 'foto-tortas-1'], [/globo/, 'foto-globos-1'], [/guitarra/, 'foto-guitarra-1'], [/ingles|frances|portugues|japones|coreano|idioma/, 'foto-idiomas-1'], [/crochet|amigurumi|tejid/, 'foto-crochet-1'], [/moto/, 'foto-motos-1'],
 ];
 export function fotoDeCurso(slug: string, area: string): NombreFoto | null {
   return POR_OFICIO.find(([re]) => re.test(slug))?.[1] ?? FOTO_DE_AREA[area] ?? null;
