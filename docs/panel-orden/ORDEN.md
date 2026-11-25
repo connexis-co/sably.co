@@ -95,6 +95,14 @@ una sola pestaña; los ajustes de la copia de producción se leen igual) y `scri
   actuales `caja*` no se renombran.
 - **Tienda:** página propia «Tienda» cuando exista; sus ajustes generales, como pestaña nueva entre «Caja de compra» y
   «Cursos y contenido».
+- **Blog** (grupo reservado, pedido de la orquestadora el 25-nov): página propia «Blog» en el menú, justo después de
+  «Ajustes del sitio», para lo que defina `docs/equipo/2026-11-25/blog/DISENO.md` (portada del blog, plantilla del
+  artículo, autores, índice «En este texto»…). Los artículos siguen en la colección «Artículos»; la pestaña 4
+  «Cursos y contenido» enlaza a ambas.
+- **Publicidad** (grupo reservado): página propia «Publicidad» después de «Blog», para lo que defina
+  `docs/equipo/2026-11-25/publicidad/DISENO.md` (espacios, campañas de anuncios, reglas por página). Si solo trae
+  ajustes sueltos, pestaña nueva «Publicidad» entre «SEO y medición» e «Integraciones». No se mezcla con «Campañas y
+  cupones», que son promociones de los cursos.
 - **Cuenta y preferencias:** pestaña «Avanzado» para lo técnico; si tiene moderación o usuarios, página propia.
 - **Cookies y consentimiento:** «SEO y medición».
 - Regla para todas: rótulo en español, ayuda en cada campo, valor por defecto visible, nada peligroso sin
