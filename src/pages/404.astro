@@ -1,13 +1,17 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
+import { getCountry, DEFAULT_COUNTRY, COUNTRIES } from '@/lib/countries';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import NoEncontradaV2 from '@/themes/sably-v2/pages/404.astro';
 
-const country = getCountry(DEFAULT_COUNTRY);
+// El país de la URL pedida (/mx/…) si existe; si no, el de por defecto. El middleware reescribe a /404 y deja la ruta pedida en Astro.locals.
+const pedida = String((Astro.locals as unknown as Record<string, unknown>).rutaPedida404 ?? new URL(Astro.request.url).pathname);
+const primero = pedida.split('/')[1]?.toLowerCase() ?? '';
+const delUrl = COUNTRIES.some((c) => c.code === primero);
+const country = getCountry(delUrl ? primero : DEFAULT_COUNTRY);
 const v2 = (await temaDeLaPeticion(Astro)).tema === 'v2';
 ---
-{v2 ? <NoEncontradaV2 {country} /> : (
+{v2 ? <NoEncontradaV2 {country} conPais={delUrl} /> : (
 
 <BaseLayout
   title="Página no encontrada | Sably"
@@ -29,6 +33,7 @@ const v2 = (await temaDeLaPeticion(Astro)).tema === 'v2';
     >
       Explorar todos los cursos
     </a>
+    {delUrl && <p class="mt-4"><a href={`/${country.code}/`} class="underline">Ir a la portada de {country.name}</a></p>}
   </section>
 </BaseLayout>
 )}

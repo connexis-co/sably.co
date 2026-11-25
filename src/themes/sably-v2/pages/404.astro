@@ -6,8 +6,8 @@ import BuscarFrase from '../components/BuscarFrase.astro';
 import { datosNavegacion } from '../navegacion';
 import type { Country } from '@/lib/countries';
 import '../estilos.css';
-interface Props { country: Country }
-const { country } = Astro.props;
+interface Props { country: Country; conPais?: boolean }
+const { country, conPais = false } = Astro.props;
 const nav = await datosNavegacion(country, Astro.locals);
 ---
 <BaseLayout title="Página no encontrada | Sably" description="La página que buscas no existe o cambió de dirección." {country} pathAfterCountry="/" pageType="404" noindex temaV2>
@@ -17,6 +17,7 @@ const nav = await datosNavegacion(country, Astro.locals);
     <p class="mt-4 max-w-[600px] text-t17 text-navy-700 lg:text-t20">Puede que el enlace haya cambiado. Lo importante: tus ganas de aprender siguen intactas.</p>
     <BuscarFrase base={nav.base} id="buscar-404" claro class="mt-8 max-w-[600px]" />
     <a href={`/${country.code}/cursos/`} class="v2-btn v2-btn-principal mt-6" data-alto="52">Explorar todos los cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+    {conPais && <p class="mt-4"><a href={`/${country.code}/`} class="v2-enlace">Ir a la portada de {country.name}</a></p>}
     <ul class="mt-10 flex flex-wrap gap-2" role="list" aria-label="Áreas">
       {nav.areas.map(a => <li><a href={`${nav.base}/cursos/${a.slug}/`} class="v2-chip">{a.nombre}</a></li>)}
     </ul>
