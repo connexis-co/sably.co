@@ -1,7 +1,12 @@
 import sources from '../data/fuentes-precios.json';
 import { currencies, readAmount } from './hotmart-evidencia.mjs';
 
-interface Source {url:string; product:string; codigo:string; ofertaSha256:string}
+/**
+ * `oferta`: el código `off=` al que lleva el enlace de compra, cuando no es la oferta por defecto
+ * del producto. Sin él Hotmart cotiza la oferta por defecto, cuya clave no coincide con la
+ * huella (`ofertaSha256`), y la ficha se quedaba sin precio (drenaje linfático y barista, 25-nov).
+ */
+interface Source {url:string; product:string; codigo:string; ofertaSha256:string; oferta?:string}
 interface Row {product:string; market:string; currency:string; coupon:string | null}
 type Load = (row:Row, source:Source, coupon:string | null) => Promise<unknown>;
 
@@ -72,8 +77,8 @@ export const QUOTE_FETCH_TIMEOUT_MS = 2500;
 async function loadFromHotmart(row:Row, source:Source, coupon:string | null) {
   const response = await fetch('https://pay.hotmart.com/api/next/load', {
     method:'POST', redirect:'error', signal:AbortSignal.timeout(QUOTE_FETCH_TIMEOUT_MS),
-    headers:{'content-type':'application/json',origin:'https://pay.hotmart.com',referer:'https://pay.hotmart.com/'+source.codigo},
-    body:JSON.stringify({items:[{affiliation:source.codigo,quantity:1,...(coupon ? {coupon} : {})}],countryIsoCode:row.market,device:'DESKTOP'})
+    headers:{'content-type':'application/json',origin:'https://pay.hotmart.com',referer:'https://pay.hotmart.com/'+source.codigo+(source.oferta ? '?off='+source.oferta : '')},
+    body:JSON.stringify({items:[{affiliation:source.codigo,quantity:1,...(source.oferta ? {offer:source.oferta} : {}),...(coupon ? {coupon} : {})}],countryIsoCode:row.market,device:'DESKTOP'})
   });
   if (!response.ok) throw new Error(`Cotización no disponible (${response.status})`);
   return response.json();
