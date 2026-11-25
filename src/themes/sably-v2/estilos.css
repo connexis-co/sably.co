@@ -133,7 +133,7 @@
 .v2-resultado[aria-selected='true'], .v2-resultado:focus-visible { background: var(--color-navy-50); outline: none; }
 @media (hover: hover) and (pointer: fine) { .v2-resultado:hover { background: var(--color-navy-50); } }
 .v2-resultado mark { background: none; color: var(--color-coral-700); font-weight: 600; }
-.v2-chip { display: inline-flex; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--color-navy-100); font: 500 15px/22px var(--font-sans); color: var(--color-navy-950); text-decoration: none; cursor: pointer; }
+.v2-chip { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; background: #fff; box-shadow: inset 0 0 0 1px var(--color-navy-100); font: 500 15px/22px var(--font-sans); color: var(--color-navy-950); text-decoration: none; cursor: pointer; }
 @media (hover: hover) and (pointer: fine) { .v2-chip:hover { box-shadow: inset 0 0 0 1.5px var(--color-navy-300); } }
 .v2-chip:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 2px; }
 .v2-chip[aria-current='page'], .v2-chip[aria-pressed='true'] { background: var(--color-navy-950); color: #fff; box-shadow: none; font-weight: 600; }
