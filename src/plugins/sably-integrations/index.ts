@@ -2,7 +2,7 @@ import { definePlugin, PluginRouteError } from 'emdash';
 import { env } from 'virtual:sably-runtime';
 import type { OperationalBindings } from '../../lib/operational-environment';
 import { operationalEnvironmentEnabled } from '../../lib/operational-environment';
-import { settingsSchema, validateUpdates, adminConfig, readPublic, trackingFragments } from './model';
+import { settingsSchema, validateUpdates, adminConfig, readPublic, readConsentOptions, trackingFragments } from './model';
 import { consentFragments } from '../../lib/consent';
 export function createPlugin(){
   return definePlugin({
@@ -23,7 +23,8 @@ export function createPlugin(){
       const production=(env as OperationalBindings).SABLY_ENVIRONMENT==='production'&&operationalEnvironmentEnabled(env,page.url);
       const config=production?await readPublic(ctx.settings):null;
       const tags=config?trackingFragments(config,true):[];
-      return [...consentFragments(tags.length>0),...tags];
+      const consent=config?{mode:config.consentNotice,europe:config.consentEurope}:await readConsentOptions(ctx.settings);
+      return [...consentFragments(tags.length>0,consent),...tags];
     }},
   });
 }

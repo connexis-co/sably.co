@@ -1,6 +1,7 @@
 import type { PageFragmentContribution, SettingField, SettingsAccess } from 'emdash';
 import type { LegacyBindings } from '../../lib/legacy-backend';
 import { operationalEnvironmentEnabled } from '../../lib/operational-environment';
+import { CONSENT_NOTICE_MODES, CONSENT_OPTIONS_DEFAULT, type ConsentNoticeMode, type ConsentOptions } from '../../lib/consent/format';
 
 export const settingsSchema = {
   browserMode: { type: 'select', label: 'Medición del sitio', default: 'off', options: [{value:'off',label:'Desactivada'},{value:'gtm',label:'Google Tag Manager'},{value:'direct',label:'GA4 y Meta directamente'}] },
@@ -12,12 +13,14 @@ export const settingsSchema = {
   ga4ApiSecret: { type:'secret',label:'API Secret de GA4' },
   metaCapiToken: { type:'secret',label:'Token de Conversion API de Meta' },
   hotmartHottok: { type:'secret',label:'HOTTOK del webhook de Hotmart' },
+  consentNotice: { type:'select',label:'Aviso de cookies',default:CONSENT_OPTIONS_DEFAULT.mode,description:'Discreto: sin letrero, se mide desde la primera visita y queda un icono para gestionar las cookies. Aviso completo: letrero y nada se mide hasta que la persona acepte. Solo enlace en el pie: como el discreto, sin icono.',options:[{value:'discreto',label:'Discreto'},{value:'completo',label:'Aviso completo'},{value:'pie',label:'Solo enlace en el pie'}] },
+  consentEurope: { type:'boolean',label:'Mostrar el aviso a visitantes de Europa',default:CONSENT_OPTIONS_DEFAULT.europe,description:'A quien visita desde la Unión Europea, el resto del Espacio Económico Europeo, Reino Unido o Suiza se le muestra el aviso completo y no se mide hasta que acepte, sea cual sea el modo.' },
 } satisfies Record<string, SettingField>;
 export type SettingKey = keyof typeof settingsSchema;
-export const publicKeys = ['browserMode','gtmId','gtmDelay','ga4Id','metaPixelId','serverConversions'] as const;
+export const publicKeys = ['browserMode','gtmId','gtmDelay','ga4Id','metaPixelId','serverConversions','consentNotice','consentEurope'] as const;
 export const secretKeys = ['ga4ApiSecret','metaCapiToken','hotmartHottok'] as const;
-export interface PublicSettings { browserMode:'off'|'gtm'|'direct';gtmId:string;gtmDelay:boolean;ga4Id:string;metaPixelId:string;serverConversions:boolean }
-export const defaults:PublicSettings = {browserMode:'off',gtmId:'',gtmDelay:true,ga4Id:'',metaPixelId:'',serverConversions:false};
+export interface PublicSettings { browserMode:'off'|'gtm'|'direct';gtmId:string;gtmDelay:boolean;ga4Id:string;metaPixelId:string;serverConversions:boolean;consentNotice:ConsentNoticeMode;consentEurope:boolean }
+export const defaults:PublicSettings = {browserMode:'off',gtmId:'',gtmDelay:true,ga4Id:'',metaPixelId:'',serverConversions:false,consentNotice:CONSENT_OPTIONS_DEFAULT.mode,consentEurope:CONSENT_OPTIONS_DEFAULT.europe};
 const patterns = {gtmId:/^GTM-[A-Z0-9]{4,20}$/,ga4Id:/^G-[A-Z0-9]{4,20}$/,metaPixelId:/^\d{5,30}$/};
 
 export function validateUpdates(input:unknown):Partial<Record<SettingKey,string|boolean>> {
@@ -26,14 +29,15 @@ export function validateUpdates(input:unknown):Partial<Record<SettingKey,string|
   for (const [key,value] of Object.entries(input)) {
     if (!Object.hasOwn(settingsSchema,key)) throw new Error('El campo no pertenece a estas integraciones.');
     const k=key as SettingKey;
-    if(k==='serverConversions'||k==='gtmDelay') {
-      if(typeof value!=='boolean')throw new Error(k==='gtmDelay'?'Indica si Tag Manager se carga después de la página.':'Selecciona si deseas enviar conversiones.');
+    if(k==='serverConversions'||k==='gtmDelay'||k==='consentEurope') {
+      if(typeof value!=='boolean')throw new Error(k==='gtmDelay'?'Indica si Tag Manager se carga después de la página.':k==='consentEurope'?'Indica si se muestra el aviso a visitantes de Europa.':'Selecciona si deseas enviar conversiones.');
       result[k]=value; continue;
     }
     if(typeof value!=='string')throw new Error('El valor debe ser texto.');
     const clean=value.trim();
     if(clean.length>8192||/[\r\n\u0000]/.test(clean))throw new Error('El valor contiene caracteres no permitidos.');
     if(k==='browserMode'&&!['off','gtm','direct'].includes(clean))throw new Error('Selecciona un modo de medición válido.');
+    if(k==='consentNotice'&&!CONSENT_NOTICE_MODES.includes(clean as ConsentNoticeMode))throw new Error('Selecciona un modo de aviso de cookies válido.');
     if(Object.hasOwn(patterns,k)&&clean&&!patterns[k as keyof typeof patterns].test(clean))throw new Error(`Revisa el formato de ${settingsSchema[k].label}. Pega solo el identificador, sin código HTML.`);
     result[k]=clean;
   }
@@ -48,6 +52,14 @@ export async function readPublic(settings:Pick<SettingsAccess,'get'>):Promise<Pu
     // The native generic settings form only validates types. Invalid IDs never reach HTML.
     try{Object.assign(out,validateUpdates({[key]:value}));}catch{/* Fail closed for this setting. */}
   }
+  return out;
+}
+/** Modo del aviso de cookies y excepción europea (se leen también fuera de producción, para revisarlo en staging). */
+export async function readConsentOptions(settings:Pick<SettingsAccess,'get'>):Promise<ConsentOptions> {
+  const out:ConsentOptions={...CONSENT_OPTIONS_DEFAULT};
+  const [mode,europe]=await Promise.all([settings.get('consentNotice'),settings.get('consentEurope')]);
+  try{const v=validateUpdates({consentNotice:mode});if(v.consentNotice)out.mode=v.consentNotice as ConsentNoticeMode;}catch{/* valor por defecto */}
+  if(typeof europe==='boolean')out.europe=europe;
   return out;
 }
 export async function adminConfig(settings:Pick<SettingsAccess,'get'>) {
