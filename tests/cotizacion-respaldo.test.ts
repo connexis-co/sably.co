@@ -168,3 +168,37 @@ test('sin cotización guardada y Hotmart colgado: el render espera como mucho el
   assert.equal(await checkoutPrice('curso-de-prueba', URL_CURSO, 'co', CUPON), null);
   assert.ok(Date.now() - inicio < 200, 'no espera al tiempo máximo de la petición');
 });
+
+test('tarjetas: nunca esperan a Hotmart, leen el almacén y lo refrescan en segundo plano por una cola limitada', async () => {
+  const almacen = almacenDePrueba();
+  let clock = 10_000_000;
+  let llamadas = 0, simultaneas = 0, maximo = 0;
+  const { cardQuote } = createCheckoutPrice({
+    sources: Object.fromEntries(Array.from({ length: 10 }, (_, i) => [`curso-${i}`, { ...sources['curso-de-prueba'], url: `https://hotm.io/c${i}` }])),
+    now: () => clock, almacen: () => almacen, colaParalelo: 2, colaPausaMs: 0,
+    load: async (row: { market: string; currency: string }, _s: unknown, coupon: string | null) => {
+      llamadas++; simultaneas++; maximo = Math.max(maximo, simultaneas);
+      await new Promise((ok) => setTimeout(ok, 20));
+      simultaneas--;
+      return respuesta(row.market, row.currency, coupon ? 95506 : 191012, Boolean(coupon));
+    },
+  });
+  // Sin nada guardado: null al instante (sin cifra) y la lectura queda en cola.
+  const inicio = Date.now();
+  const primeras = await Promise.all(Array.from({ length: 10 }, (_, i) => cardQuote(`curso-${i}`, `https://hotm.io/c${i}`, 'co', CUPON)));
+  assert.ok(Date.now() - inicio < 50, 'el render no espera a Hotmart');
+  assert.ok(primeras.every((q) => q === null));
+  await new Promise((ok) => setTimeout(ok, 400));
+  assert.equal(llamadas, 20, 'una lectura (con y sin cupón) por curso, sin repetir');
+  assert.ok(maximo <= 4, `como mucho 2 lecturas a la vez (cada una son 2 peticiones): ${maximo}`);
+  // Ya guardadas: las tarjetas las enseñan sin preguntar a Hotmart.
+  const despues = await cardQuote('curso-3', 'https://hotm.io/c3', 'co', CUPON);
+  assert.deepEqual([despues?.base, despues?.reduced, despues?.fuente], [191012, 95506, 'hotmart']);
+  assert.equal(llamadas, 20);
+  // Con más de 30 min: se enseña igual (con su fecha) y se refresca en segundo plano.
+  clock += 31 * 60_000;
+  const vieja = await cardQuote('curso-3', 'https://hotm.io/c3', 'co', CUPON);
+  assert.deepEqual([vieja?.fuente, vieja?.base], ['guardada', 191012]);
+  await new Promise((ok) => setTimeout(ok, 100));
+  assert.equal(llamadas, 22, 'la vieja se pidió de nuevo, una sola vez');
+});
