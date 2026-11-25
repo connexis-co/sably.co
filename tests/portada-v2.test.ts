@@ -77,3 +77,8 @@ test('las sugerencias del buscador de la portada: mismos criterios que el de la 
   assert.deepEqual(buscarEnIndice(indice, 'm'), []);
   assert.deepEqual(buscarEnIndice(indice, 'masaje bienestar').map(r => r.s), ['curso-de-masajes', 'curso-de-drenaje']);
 });
+
+test('los oficios del héroe se ordenan por visitas y el resto conserva su orden', async () => {
+  const { ordenarPorVisitas } = await import('../src/themes/sably-v2/portada.ts');
+  assert.deepEqual(ordenarPorVisitas(['x', 'b', 'y', 'a'], ['a', 'b']), ['a', 'b', 'x', 'y']);
+});

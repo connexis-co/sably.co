@@ -5,6 +5,17 @@
  * enviando a /xx/cursos/?q=…
  */
 export type ItemIndice = { t: string; s: string; c: string; a?: string; k: string; i?: string; n?: string };
+/** Áreas y guías que se suman a las sugerencias (título, enlace y tipo). */
+export type ExtraBusqueda = { t: string; u: string; c: 'Área' | 'Guía' };
+
+/** Puro: áreas y guías cuyo título contiene todos los términos (hasta `max` de cada tipo). */
+export function buscarExtra(extra: readonly ExtraBusqueda[], bruto: string, max = 2): ExtraBusqueda[] {
+  const q = normalizar(bruto.trim());
+  if (q.length < 2) return [];
+  const terminos = q.split(/\s+/);
+  const vale = extra.filter(e => terminos.every(x => normalizar(e.t).includes(x)));
+  return [...vale.filter(e => e.c === 'Área').slice(0, max), ...vale.filter(e => e.c === 'Guía').slice(0, max)];
+}
 
 export const normalizar = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 
@@ -30,6 +41,8 @@ export function iniciarSugerencias(form: HTMLFormElement) {
   if (!campo || form.dataset.sugerencias) return;
   form.dataset.sugerencias = '1';
   const base = new URL(form.action, location.href).pathname.replace(/\/cursos\/?$/, '');
+  let extra: ExtraBusqueda[] = [];
+  try { extra = JSON.parse(form.dataset.extra || '[]'); } catch { /* sin extras */ }
   const id = `${campo.id}-sugerencias`;
   const panel = document.createElement('div');
   panel.className = 'v2-sugerencias';
@@ -58,10 +71,15 @@ export function iniciarSugerencias(form: HTMLFormElement) {
     const res = buscarEnIndice(await cargar(), bruto);
     if (mio !== turno) return;
     sel = -1;
-    lista.innerHTML = res.slice(0, 6).map((r, i) => `<li><a role="option" id="${id}-${i}" aria-selected="false" href="${base}/${r.s}/">${r.i ? `<img src="${esc(r.i)}" alt="" width="64" height="48" loading="lazy">` : ''}<span><strong>${esc(r.t)}</strong><small>${esc(r.c)}${r.n ? ` · ${esc(r.n)} en Hotmart` : ''}</small></span></a></li>`).join('');
+    const otros = buscarExtra(extra, bruto);
+    const areas = otros.filter(o => o.c === 'Área'), guias = otros.filter(o => o.c === 'Guía');
+    const filaExtra = (o: ExtraBusqueda, i: number) => `<li><a role="option" id="${id}-x${i}" aria-selected="false" href="${esc(o.u)}"><span class="v2-sug-tipo">${o.c}</span><span><strong>${esc(o.t)}</strong></span></a></li>`;
+    lista.innerHTML = areas.map(filaExtra).join('')
+      + res.slice(0, 5).map((r, i) => `<li><a role="option" id="${id}-${i}" aria-selected="false" href="${base}/${r.s}/">${r.i ? `<img src="${esc(r.i)}" alt="" width="64" height="48" loading="lazy">` : ''}<span><strong>${esc(r.t)}</strong><small>${esc(r.c)}${r.n ? ` · ${esc(r.n)} en Hotmart` : ''}</small></span></a></li>`).join('')
+      + guias.map((o, i) => filaExtra(o, 10 + i)).join('');
     todos.href = `${base}/cursos/?q=${encodeURIComponent(bruto)}`;
     todos.textContent = res.length ? `Ver los ${res.length} resultados de «${bruto}»` : `Buscar «${bruto}» en todos los cursos`;
-    vivo.textContent = res.length === 1 ? '1 curso sugerido' : `${res.length} cursos sugeridos`;
+    vivo.textContent = `${res.length === 1 ? '1 curso' : `${res.length} cursos`}${otros.length ? ` y ${otros.length} más` : ''} sugeridos`;
     panel.hidden = false;
     campo.setAttribute('aria-expanded', 'true');
   };

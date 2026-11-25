@@ -21,7 +21,7 @@ import Videos from '../components/portada/Videos.astro';
 import Guias from '../components/portada/Guias.astro';
 import Cierre from '../components/portada/Cierre.astro';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
-import { inventarioMosaico, mejorValorados, repartirEnCeldas } from '../portada';
+import { inventarioMosaico, mejorValorados, ordenarPorVisitas, repartirEnCeldas } from '../portada';
 import Valorados from '../components/portada/Valorados.astro';
 import { getHomeEditorial, getHomeSectionOptional } from '@/lib/home-editorial';
 import { monedasCobradas } from '@/lib/moneda-catalogo';
@@ -66,7 +66,7 @@ const portada = ajustes.portada;
 /* Foto del mosaico: la de su oficio hecha para el mosaico (fotos.ts, OFICIOS_MOSAICO) o, si no hay, la de su área. */
 const fotoMosaico = (id: string, area: string) => OFICIOS_MOSAICO.find(o => o.curso === id)?.foto ?? fotoDeCurso(id, area);
 /* Sin lista en el panel, los doce oficios con foto propia, completados con los destacados y mejor valorados. */
-const elegidos = portada.heroe.cursos.length ? portada.heroe.cursos : OFICIOS_MOSAICO.map(o => o.curso);
+const elegidos = portada.heroe.cursos.length ? portada.heroe.cursos : ordenarPorVisitas(OFICIOS_MOSAICO.map(o => o.curso));
 const enMosaico = inventarioMosaico(allCourses.map(c => ({
   id: c.id, destacado: Boolean(c.data.featured), valoraciones: valoraciones[c.id]?.total ?? 0, comprable: comprable(c), foto: fotoMosaico(c.id, c.data.category),
 })), elegidos, undefined, !portada.heroe.cursos.length).map(m => allCourses.find(c => c.id === m.id)!);
@@ -74,9 +74,19 @@ const enMosaico = inventarioMosaico(allCourses.map(c => ({
 const valorados = portada.bloques.includes('valorados') ? mejorValorados(allCourses.map(c => ({ id: c.id, comprable: comprable(c), c })), valoraciones, portada.valoradosMinimo).map(x => x.c) : [];
 const conPrecio = [...new Map([...featured, ...enMosaico, ...valorados].map(c => [c.id, c])).values()];
 const { precios, freshUntil } = await preciosDeTarjetas(conPrecio, country, { url: Astro.url, locals: Astro.locals });
-const celdas: OficioMosaico[][] = repartirEnCeldas(enMosaico.map(c => ({
+const oficiosHeroe: OficioMosaico[] = enMosaico.map(c => ({
   id: c.id, titulo: c.data.title, foto: fotoMosaico(c.id, c.data.category)!, precio: precios.get(c.id) ?? null, nota: notaHotmart(valoraciones[c.id] ?? null),
-})));
+}));
+const celdas = repartirEnCeldas(oficiosHeroe);
+/* Línea de prueba del héroe: las mismas cifras reales del bloque de cifras (fecha en su nota de fuente). */
+const pruebaHeroe = cifras.calificaciones > 0 && cifras.mediaTexto
+  ? `${cifras.mediaTexto} de media en ${cifras.calificaciones.toLocaleString('es-CO')} valoraciones reales en Hotmart · ${cifras.cursos} cursos`
+  : null;
+/* Sugerencias del buscador del héroe: además de los cursos, las áreas y las guías del blog. */
+const extraBusqueda = [
+  ...nav.areas.map(a => ({ t: a.nombre, u: `${base}/cursos/${a.slug}/`, c: 'Área' as const })),
+  ...posts.map(p => ({ t: p.data.title, u: `/blog/${p.id}/`, c: 'Guía' as const })),
+];
 /* Áreas: las seis primeras con foto grande y el resto como enlaces. */
 const conFoto = nav.areas.slice(0, 6);
 const resto = nav.areas.slice(6);
@@ -95,7 +105,7 @@ const guiasDestacadas = posts.slice(0, 3);
 const masGuias = posts.slice(3);
 ---
 <BaseLayout {title} {description} {country} pathAfterCountry="/" alternates={await countryAlternates('/')} schemas={[faqSchema(faqs)]} pageType="home" {freshUntil} temaV2>
-  <Heroe textos={copy.hero} {base} locale={country.hreflang} areas={nav.areas} {celdas} rotacion={portada.heroe} />
+  <Heroe textos={copy.hero} {base} locale={country.hreflang} areas={nav.areas} {celdas} oficios={oficiosHeroe} rotacion={portada.heroe} variante={portada.heroe.variante} botones={portada.heroe.botones} tachar={portada.heroe.tachar} prueba={pruebaHeroe} extra={extraBusqueda} />
   {portada.bloques.map(bloque => (
     bloque === 'cifras' ? <Cifras {cifras} {country} />
     : bloque === 'categorias' ? <Categorias copy={copy.categories} {base} {conFoto} {resto} {externas} total={nav.areas.length} />

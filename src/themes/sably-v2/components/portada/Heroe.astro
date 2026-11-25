@@ -15,6 +15,10 @@ import Buscar from '../BuscarFrase.astro';
 import Precio from '@/components/v2/Precio.astro';
 import type { NombreFoto } from '../../fotos';
 import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
+import Vitrina from './heroe/Vitrina.astro';
+import OficioVivo from './heroe/OficioVivo.astro';
+import Abanico from './heroe/Abanico.astro';
+import type { ExtraBusqueda } from '../../buscar-sugerencias';
 
 export interface OficioMosaico { id: string; titulo: string; foto: NombreFoto; precio: PrecioTarjeta | null; nota: { cifra: string; texto: string } | null }
 interface Props {
@@ -23,9 +27,21 @@ interface Props {
   locale: string;
   areas: { slug: string; nombre: string }[];
   celdas: OficioMosaico[][];
+  /** Los mismos oficios en una lista (variantes vitrina, buscador y abanico). */
+  oficios: OficioMosaico[];
   rotacion: { rota: boolean; intervalo: number; orden: 'aleatorio' | 'fijo' };
+  variante?: 'vitrina' | 'buscador' | 'abanico' | 'mosaico';
+  botones?: 'dos' | 'uno';
+  tachar?: boolean;
+  /** Línea de prueba real bajo los botones («★ 4,2 de media en 3.314 valoraciones…»); null = no sale. */
+  prueba?: string | null;
+  /** Áreas y guías para las sugerencias del buscador. */
+  extra?: ExtraBusqueda[];
 }
-const { textos, base, locale, areas, celdas, rotacion } = Astro.props;
+const { textos, base, locale, areas, celdas, oficios, rotacion, variante = 'mosaico', botones = 'dos', tachar = true, prueba = null, extra = [] } = Astro.props;
+const nueva = variante !== 'mosaico';
+const rotaLista = rotacion.rota && oficios.length > 1;
+const props = { oficios, base, locale, tachar, rota: rotaLista, intervalo: rotacion.intervalo, aleatorio: rotacion.orden === 'aleatorio' };
 const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u, '');
 const rota = rotacion.rota && celdas.some(c => c.length > 1);
 const SIZES = ['(min-width: 1024px) 300px, 92vw', '(min-width: 1024px) 228px, 45vw', '(min-width: 1024px) 228px, 45vw'];
@@ -34,22 +50,33 @@ const SIZES = ['(min-width: 1024px) 300px, 92vw', '(min-width: 1024px) 228px, 45
 const corto = (t: string) => { const r = t.replace(/^curso\s+(online\s+)?(de|del)\s+/i, ''); return r.charAt(0).toUpperCase() + r.slice(1); };
 const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.replace(/ calificaciones.*$/, '')} en Hotmart`;
 ---
-<section class="relative bg-navy-950 text-white">
-  <div class="v2-contenedor grid items-center gap-10 pt-10 pb-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,540px)] lg:gap-14 lg:pt-24 lg:pb-24">
+<section class="relative overflow-x-clip bg-navy-950 text-white" data-heroe={variante}>
+  <div class:list={['v2-contenedor grid items-center gap-10 pt-10 pb-14 lg:gap-14 lg:pt-24 lg:pb-24', variante === 'vitrina' ? 'lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]' : 'lg:grid-cols-[minmax(0,1fr)_minmax(0,540px)]']}>
     <div>
       <p class="v2-antetitulo text-white/80">{sinPrefijo(textos.eyebrow)}</p>
-      <h1 class="mt-5 font-display text-[40px]/[44px] tracking-[-0.015em] !text-white lg:text-d72">{textos.title}<br /><span class="text-coral-500">{textos.accent}</span></h1>
+      <h1 class:list={['mt-5 font-display text-[40px]/[44px] tracking-[-0.015em] !text-white', variante === 'vitrina' ? 'lg:text-[56px]/[60px]' : 'lg:text-d72']}>{textos.title}<br /><span class="text-coral-500">{textos.accent}</span></h1>
       <p class="mt-5 max-w-[560px] text-t17 text-white/80 lg:text-t20">{textos.description}</p>
-      <Buscar base={base} id="buscar-heroe" class="mt-8 max-w-[600px]" />
+      <Buscar base={base} id="buscar-heroe" class="mt-8 max-w-[600px]" {extra} />
       <p class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-t15 text-white/70">Para empezar:
         {areas.slice(0, 4).map(a => <a href={`${base}/cursos/${a.slug}/`} class="text-white underline decoration-white/40 underline-offset-4 hover:decoration-white">{a.nombre.toLowerCase()}</a>)}
       </p>
-      <p class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
-        <a href={`${base}/cursos/`} class="v2-enlace min-h-11 !text-white">{textos.button} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
-        <a href="#categorias" class="v2-enlace min-h-11 !text-white/80">{textos.secondary}</a>
-      </p>
+      {nueva ? (
+        <p class="mt-6 flex flex-wrap items-center gap-3">
+          <a href={`${base}/cursos/`} class="v2-btn v2-btn-principal" data-alto="52">{textos.button} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+          {botones === 'dos' && <a href="/homologaciones/" class="v2-btn v2-heroe-secundario" data-alto="52">Homologaciones</a>}
+        </p>
+      ) : (
+        <p class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+          <a href={`${base}/cursos/`} class="v2-enlace min-h-11 !text-white">{textos.button} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+          <a href="#categorias" class="v2-enlace min-h-11 !text-white/80">{textos.secondary}</a>
+        </p>
+      )}
+      {nueva && prueba && <p class="mt-5 flex items-center gap-2 text-t15 text-white/75"><Ico nombre="star" tamano={15} class="text-[#F5B544]" />{prueba}</p>}
     </div>
-    {celdas.length > 0 && (
+    {variante === 'vitrina' && oficios.length > 0 && <Vitrina {...props} />}
+    {variante === 'buscador' && oficios.length > 0 && <OficioVivo {...props} />}
+    {variante === 'abanico' && oficios.length > 0 && <Abanico {...props} />}
+    {!nueva && celdas.length > 0 && (
       <div class="v2-mosaico" data-mosaico={rota ? '' : undefined} data-intervalo={rotacion.intervalo} data-orden={rotacion.orden} role="group" aria-roledescription="mosaico" aria-label="Oficios para empezar">
         {celdas.map((oficios, c) => (
           <div class="v2-mos-celda" data-celda={c}>
@@ -61,7 +88,7 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
                   {o.precio && (
                     <span class="mt-0.5 flex flex-wrap items-baseline gap-x-2 text-navy-950" data-tc-precio data-moneda={o.precio.moneda} data-hoy={o.precio.hoy} data-normal={o.precio.normal ?? undefined}>
                       <Precio valor={o.precio.hoy} moneda={o.precio.moneda} locale={locale} class="v2-num text-t15 font-semibold" codigoClass="text-t13 font-medium" />
-                      {o.precio.normal !== null && <span class:list={['text-t13 text-navy-500', c > 0 && 'max-lg:sr-only']}><span class="sr-only">Precio normal: </span><Precio valor={o.precio.normal} moneda={o.precio.moneda} locale={locale} class="line-through decoration-[1.5px]" codigoClass="text-t13" /></span>}
+                      {tachar && o.precio.normal !== null && <span class:list={['text-t13 text-navy-500', c > 0 && 'max-lg:sr-only']}><span class="sr-only">Precio normal: </span><Precio valor={o.precio.normal} moneda={o.precio.moneda} locale={locale} class="line-through decoration-[1.5px]" codigoClass="text-t13" /></span>}
                     </span>
                   )}
                   {o.nota && c === 0 && <span class="v2-mos-nota flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" /><span>{notaCorta(o.nota)}</span></span>}
@@ -85,6 +112,15 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
 
 <style is:global>
   @layer components {
+    /* Variantes vitrina, buscador y abanico: pila de cursos donde solo se ve el actual; entra con fundido. */
+    .v2-rota-item { position: absolute; inset: 0; display: block; opacity: 0; transition: opacity var(--t-escena, calc(700ms * var(--m))) var(--e-mueve); }
+    .v2-rota-item:not([data-visible]) { display: none; }
+    .v2-rota-item[data-visible] { opacity: 1; z-index: 1; }
+    /* Solo cuando ya rota: al cargar, el primero se pinta entero (sin fundido de entrada). */
+    @starting-style { [data-rotando] .v2-rota-item[data-visible] { opacity: 0; } }
+    .v2-rota-item picture { display: block; height: 100%; }
+    .v2-heroe-secundario { background: transparent; color: #fff; box-shadow: inset 0 0 0 1.5px rgb(255 255 255 / .6); }
+    .v2-heroe-secundario:hover { box-shadow: inset 0 0 0 1.5px #fff; }
     .v2-mosaico { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .v2-mos-celda { position: relative; overflow: hidden; border-radius: var(--radius-c-xl); background: var(--color-navy-900); aspect-ratio: 1; }
     .v2-mos-celda[data-celda='0'] { grid-column: 1 / -1; aspect-ratio: 4 / 3; }

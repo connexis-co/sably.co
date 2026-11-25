@@ -129,7 +129,7 @@ export function AjustesPage() {
         <OrdenPortada orden={borrador.portadaOrden} ocultos={borrador.portadaOcultos} onChange={(orden, ocultos) => setBorrador(b => ({ ...b, portadaOrden: orden, portadaOcultos: ocultos }))} />
         <button className="so-primary" disabled={ocupado} onClick={() => void guardar(['portadaOrden', 'portadaOcultos'])}>{ocupado ? 'Guardando…' : 'Guardar bloques'}</button>
       </section>
-      {seccion(['portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios'], 'Héroe')}
+      {seccion(['portadaHeroeVariante', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios'], 'Héroe')}
       {seccion(['portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar'], 'Movimiento de los bloques')}
       {seccion(['portadaValoradosMinimo'], 'Los mejor valorados')}
       <Enlaces items={[['Textos de la portada', 'Titular, entradilla y textos de cada bloque (secciones sably-home-*).', `${ADMIN}/sections`]]} />
