@@ -13,6 +13,7 @@
  * la analítica: no se renombran.
  */
 import Icono from '@/components/v2/Icono.astro';
+import Estrellas from '@/components/v2/Estrellas.astro';
 import Boton from '@/components/v2/Boton.astro';
 import Contador from '@/components/v2/Contador.astro';
 import Acordeon from '@/components/v2/Acordeon.astro';
@@ -165,7 +166,7 @@ const tituloId = 'titulo-compra';
       </div>
     )}
 
-    {nota && <p class="mt-5 flex items-center gap-1.5 text-t13 text-navy-700" data-bloque="calificacion"><Icono nombre="star" tamano={16} class="fill-coral-500 text-coral-500" /><strong class="v2-num font-semibold text-navy-950">{nota.cifra}</strong> · {nota.texto}</p>}
+    {nota && <p class="mt-5 flex items-center gap-1.5 text-t13 text-navy-700" data-bloque="calificacion"><Estrellas nota={valoracion!.rating} /><strong class="v2-num ml-1 font-semibold text-navy-950">{nota.cifra}</strong> · {nota.texto}</p>}
 
     <ul class="mt-5 space-y-3 border-t border-navy-100 pt-5 text-t15 text-navy-950" data-bloque="confianza">
       {hijo('confianza', 'garantia') && <li class="flex items-center gap-3" data-item="garantia"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="shield-check" tamano={18} /></span>7 días para pedir reembolso</li>}
