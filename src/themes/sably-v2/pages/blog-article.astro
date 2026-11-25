@@ -107,7 +107,7 @@ const migas = [{ name: 'Inicio', url: '/co/' }, { name: 'Blog', url: '/blog/' },
     .v2-progreso { position: fixed; inset: 0 0 auto; z-index: 45; height: 3px; background: var(--color-coral-600); transform-origin: 0 50%; scale: 0 1; pointer-events: none; }
     @supports (animation-timeline: view()) {
       @keyframes v2-progreso { to { scale: 1 1; } }
-      .v2-progreso { animation: v2-progreso linear both; animation-timeline: --v2-lectura; animation-range: contain 0% contain 100%; }
+      .v2-progreso { animation-name: v2-progreso; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --v2-lectura; animation-range: contain 0% contain 100%; }
     }
     @supports not (animation-timeline: view()) { .v2-progreso { display: none; } }
   }
