@@ -2391,7 +2391,7 @@
               "slug": "help_text",
               "label": "Texto de ayuda",
               "type": "text",
-              "defaultValue": "Muchas dudas ya están resueltas en la ficha de cada curso: qué incluye, cuántas horas son, cómo se recibe el certificado y cómo se paga."
+              "defaultValue": "Muchas dudas ya están resueltas en la ficha de cada curso: qué incluye, cuántas horas son, cómo se recibe la constancia y cómo se paga."
             },
             {
               "slug": "help_button_label",
