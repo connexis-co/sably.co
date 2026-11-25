@@ -9,6 +9,7 @@ declare global {
       sablySeo?: ContentSeo;
       /** Tema de esta petición (src/lib/ajustes-tema.ts), resuelto una sola vez. */
       sablyTema?: import('./lib/ajustes-tema').TemaDeLaPeticion;
+      sablyCuenta?: import('./lib/cuenta/ajustes').EstadoCuenta;
     }
   }
 }

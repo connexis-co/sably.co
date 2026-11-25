@@ -1,0 +1,43 @@
+---
+/**
+ * Cerrar sesión. GET enseña la confirmación (sin JavaScript, el menú de la cabecera enlaza aquí);
+ * POST con CSRF cierra esta sesión o, con `todas=1`, las de todos los dispositivos.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getCountry } from '@/lib/countries';
+import { aplicarCabecerasPrivadas, cerrarSesion, cuentaActual, cuentaServidor, leerFormulario, olvidarCookies, postValido, tokenCsrf } from '@/lib/cuenta/http';
+import { RUTAS, destinoSeguro, enlaceIngresar } from '@/lib/cuenta/nucleo';
+import '@/themes/sably-v2/estilos.css';
+
+export const prerender = false;
+aplicarCabecerasPrivadas(Astro.response.headers);
+const servidor = await cuentaServidor(Astro);
+if (!servidor) { olvidarCookies(Astro); return Astro.rewrite('/404'); }
+if (Astro.request.method === 'POST') {
+  const formulario = await leerFormulario(Astro.request);
+  if (!formulario || !postValido(Astro, servidor.secreto, formulario)) return Astro.redirect(`${RUTAS.salir}?aviso=formulario`, 303);
+  const cuenta = await cuentaActual(Astro, servidor.almacen);
+  if (cuenta && formulario.get('todas') === '1') await servidor.almacen.revocarTodas(cuenta.id);
+  await cerrarSesion(Astro, servidor.almacen);
+  // Desde el menú de la cabecera se vuelve a la misma página; desde Mi cuenta, a /ingresar/ con el aviso.
+  const volver = destinoSeguro(String(formulario.get('volver') ?? ''));
+  return Astro.redirect(volver !== RUTAS.cuenta ? volver : enlaceIngresar(null, 'salida'), 303);
+}
+const cuenta = await cuentaActual(Astro, servidor.almacen);
+if (!cuenta) return Astro.redirect('/', 303);
+const csrf = tokenCsrf(Astro, servidor.secreto);
+const caducado = Astro.url.searchParams.get('aviso') === 'formulario';
+---
+<BaseLayout title="Cerrar sesión | Sably" description="Cerrar la sesión de tu cuenta de Sably." country={getCountry('co')} pathAfterCountry="/" pageType="cuenta" noindex temaV2>
+  <section class="v2-contenedor flex justify-center py-12 lg:py-20">
+    <div class="w-full max-w-[440px]">
+      <h1 class="font-display text-[32px]/[38px] font-semibold text-navy-950 lg:text-d40">¿Cerrar la sesión?</h1>
+      {caducado && <p role="alert" class="mt-6 rounded-c-md bg-coral-50 px-4 py-3 text-t15 text-coral-700">El formulario caducó. Vuelve a intentarlo.</p>}
+      <form method="post" action={RUTAS.salir} class="mt-8 grid gap-3">
+        <input type="hidden" name="csrf" value={csrf} />
+        <button type="submit" class="v2-btn v2-btn-principal w-full justify-center" data-alto="52">Cerrar sesión</button>
+        <a href={RUTAS.cuenta} class="v2-btn v2-btn-secundario w-full justify-center" data-alto="52">Volver a Mi cuenta</a>
+      </form>
+    </div>
+  </section>
+</BaseLayout>

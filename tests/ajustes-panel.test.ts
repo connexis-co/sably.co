@@ -25,6 +25,10 @@ const ANTES = {
     // Clave nueva (25-nov, ciudades en la ficha V2): tampoco reordena las anteriores.
     mostrarCiudades: ['boolean', null, true],
     estiloCampo: ['select', ['outlined', 'filled', 'underline'], 'outlined'],
+    // Claves nuevas (cuenta, 25-nov): se añaden, no sustituyen a ninguna.
+    cuentaActiva: ['boolean', null, true],
+    cuentaGoogle: ['boolean', null, true],
+    cuentaAcceso: ['select', ['ventana', 'pagina'], 'ventana'],
   },
   integraciones: {
     browserMode: ['select', ['off', 'gtm', 'direct'], 'off'],
@@ -64,7 +68,7 @@ test('cada ajuste guardado está en una sola pestaña y todos tienen ayuda', () 
     assert.ok((c as { description?: string }).description, `${k} sin ayuda`);
     assert.doesNotMatch(c.label, /^V2 ·/, `${k} conserva la jerga «V2 ·»`);
   }
-  assert.deepEqual(PESTANAS.map(p => p.titulo), ['Sitio y tema', 'Campañas y cupones', 'Caja de compra', 'Cursos y contenido', 'Medios: audio y vídeo', 'SEO y medición', 'Integraciones', 'Avanzado']);
+  assert.deepEqual(PESTANAS.map(p => p.titulo), ['Sitio y tema', 'Campañas y cupones', 'Caja de compra', 'Cursos y contenido', 'Medios: audio y vídeo', 'SEO y medición', 'Cuenta', 'Integraciones', 'Avanzado']);
 });
 
 test('los ajustes guardados en la copia de producción se leen igual', async () => {

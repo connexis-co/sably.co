@@ -1,0 +1,24 @@
+---
+/**
+ * Formulario de acceso (contrato §9, `AccountEntryForm`): el mismo en la página /ingresar/ y en la ventana
+ * emergente (`DialogoCuenta.astro`), que lo pide a /ingresar/ con la cabecera `X-Account-Form: 1`.
+ * Un solo botón: Google; la primera vez crea la cuenta.
+ */
+import BotonGoogle from './BotonGoogle.astro';
+import { CONSENTIMIENTO, RUTAS } from '@/lib/cuenta/nucleo';
+interface Props { csrf: string; volver: string; aviso?: string | null; tono?: 'alerta' | 'info' }
+const { csrf, volver, aviso, tono = 'alerta' } = Astro.props;
+---
+<div data-cuenta-formulario>
+  {aviso && (
+    <p role={tono === 'alerta' ? 'alert' : 'status'} class:list={['mb-6 rounded-c-md px-4 py-3 text-t15', tono === 'alerta' ? 'bg-coral-50 text-coral-700' : 'bg-navy-50 text-navy-900']}>{aviso}</p>
+  )}
+  <form method="post" action={RUTAS.googleInicio} data-cuenta-ingresar>
+    <input type="hidden" name="csrf" value={csrf} />
+    <input type="hidden" name="volver" value={volver} />
+    <input type="hidden" name="pais" value="" data-cuenta-pais />
+    <BotonGoogle />
+  </form>
+  <p class="mt-6 text-t13 text-navy-500">{CONSENTIMIENTO.texto} Más detalles en la <a href="/legal/privacidad/" class="underline underline-offset-2">política de privacidad</a>.</p>
+  <p class="mt-6 border-t border-navy-100 pt-5 text-t15 text-navy-700">Para comprar un curso no necesitas cuenta: pagas en Hotmart con tu correo.</p>
+</div>

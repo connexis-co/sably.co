@@ -1,0 +1,69 @@
+---
+/**
+ * Cuenta en la cabecera V2 (escritorio). El HTML es el mismo para todos (la página sale de la caché
+ * del borde sin `Vary: Cookie`): «Entrar» y un avatar vacío ocupan la misma caja fija de 96 × 44 px.
+ * Un script en línea mira la cookie pista `sably_cuenta_ui` (sin datos) y, antes de pintar, enseña el
+ * avatar; después `/api/cuenta/yo` rellena nombre, foto y el CSRF de «Cerrar sesión». Sin cookie pista no
+ * se pide nada al servidor. En móvil la cuenta va dentro del menú (CuentaHoja.astro). «Entrar» abre la ventana
+ * emergente (DialogoCuenta.astro) o la página /ingresar/, según el panel.
+ */
+import { RUTAS, enlaceIngresar } from '@/lib/cuenta/nucleo';
+import DialogoCuenta from './DialogoCuenta.astro';
+/** `ventana`: «Entrar» abre la ventana emergente (panel → Cuenta → Cómo se abre «Entrar»); si no, la página. */
+interface Props { ruta: string; ventana: boolean }
+const entrar = enlaceIngresar(Astro.props.ruta);
+---
+<div class="v2-cuenta max-lg:hidden" data-cuenta-caja>
+  <a href={entrar} class="v2-cuenta-entrar" data-cuenta-entrar data-cuenta-abrir={Astro.props.ventana ? '' : undefined} data-no-prefetch>Entrar</a>
+  <button type="button" popovertarget="v2-cuenta-menu" class="v2-cuenta-avatar [anchor-name:--v2-cuenta]" data-cuenta-con aria-label="Tu cuenta">
+    <span data-cuenta-iniciales aria-hidden="true"></span>
+    <img data-cuenta-foto alt="" width="36" height="36" referrerpolicy="no-referrer" hidden />
+  </button>
+</div>
+<script is:inline>if (/(?:^|;\s*)sably_cuenta_ui=1(?:;|$)/.test(document.cookie)) document.documentElement.setAttribute('data-cuenta', '1');</script>
+
+<div id="v2-cuenta-menu" popover class="v2-cuenta-menu" aria-label="Tu cuenta">
+  <p class="truncate px-3 pt-2 pb-1 font-display text-t17 font-semibold text-navy-950" data-cuenta-nombre>Tu cuenta</p>
+  <a href={RUTAS.cuenta} class="v2-cuenta-fila" data-no-prefetch>Mi cuenta</a>
+  <form method="post" action={RUTAS.salir} data-cuenta-salir>
+    <input type="hidden" name="csrf" value="" />
+    <input type="hidden" name="volver" value={Astro.props.ruta} />
+    <button type="submit" class="v2-cuenta-fila w-full">Cerrar sesión</button>
+  </form>
+</div>
+{Astro.props.ventana && <DialogoCuenta />}
+
+<style is:global>
+  /* Solo escritorio: en móvil la cuenta va dentro del menú. Fuera de capa, este CSS ganaría a `max-lg:hidden`. */
+  .v2-cuenta { display: none; justify-content: flex-end; align-items: center; width: 96px; height: 44px; flex: none; }
+  @media (width >= 1024px) { .v2-cuenta { display: flex; } }
+  .v2-cuenta-entrar {
+    display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 18px; border-radius: 999px;
+    font: 600 15px/22px var(--font-sans); color: var(--color-navy-950); text-decoration: none; box-shadow: inset 0 0 0 1px var(--color-navy-100);
+  }
+  @media (hover: hover) and (pointer: fine) { .v2-cuenta-entrar:hover { box-shadow: inset 0 0 0 1.5px var(--color-navy-300); } }
+  .v2-cuenta-avatar {
+    display: none; place-items: center; width: 44px; height: 44px; border-radius: 999px; overflow: hidden; cursor: pointer;
+    background: var(--color-navy-900); color: #fff; font: 600 15px/1 var(--font-display);
+  }
+  .v2-cuenta-avatar img { width: 44px; height: 44px; object-fit: cover; }
+  html[data-cuenta='1'] .v2-cuenta-entrar { display: none; }
+  html[data-cuenta='1'] .v2-cuenta-avatar { display: grid; }
+  .v2-cuenta-entrar:focus-visible, .v2-cuenta-avatar:focus-visible, .v2-cuenta-fila:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 2px; }
+  .v2-cuenta-menu {
+    margin: 0; padding: 8px; border: 0; border-radius: var(--radius-c-lg); background: #fff; box-shadow: var(--shadow-s3); color: var(--color-navy-950);
+    width: 260px; inset: auto; position: fixed; top: 80px; right: max(16px, calc((100vw - 1200px) / 2));
+  }
+  @supports (position-anchor: --a) { .v2-cuenta-menu { position-anchor: --v2-cuenta; top: anchor(bottom); right: anchor(right); margin-top: 8px; } }
+  .v2-cuenta-menu::backdrop { background: transparent; }
+  .v2-cuenta-fila {
+    display: flex; align-items: center; min-height: 48px; padding: 0 12px; border-radius: 10px; text-align: left;
+    font: 500 15px/22px var(--font-sans); color: var(--color-navy-950); text-decoration: none; background: none; border: 0; cursor: pointer;
+  }
+  @media (hover: hover) and (pointer: fine) { .v2-cuenta-fila:hover { background: var(--color-navy-50); } }
+</style>
+
+<script>
+  import { pintarCuenta } from './cuenta-cliente';
+  void pintarCuenta();
+</script>
