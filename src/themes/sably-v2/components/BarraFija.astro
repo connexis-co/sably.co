@@ -82,7 +82,10 @@ const { secciones, precio, moneda, nota, href, boton, whatsapp } = Astro.props;
     }
     .v2-fija:not([data-oculta]) { translate: 0 0; visibility: visible; transition-delay: 0s; }
     .v2-fija-fila { display: flex; height: 64px; align-items: center; gap: 16px; }
-    .v2-fija-nav { position: static; z-index: auto; height: auto; min-width: 0; flex: 1; background: none; box-shadow: none; translate: none; visibility: visible; transition: none; }
+    /* `inherit`, nunca `visible`: un hijo con `visibility: visible` se pinta aunque la barra
+       esté oculta, y la barra oculta queda subida (−100 %) justo encima de la cabecera. Así
+       estuvieron las pestañas pintadas sobre el logo y el menú hasta el 25-nov. */
+    .v2-fija-nav { position: static; z-index: auto; height: auto; min-width: 0; flex: 1; background: none; box-shadow: none; translate: none; visibility: inherit; transition: none; }
     .v2-fija-lista { gap: 28px; padding-inline: 0; }
     .v2-fija-pestana { padding: 20px 0; font-size: 15px; }
     .v2-fija-compra { display: contents; }
