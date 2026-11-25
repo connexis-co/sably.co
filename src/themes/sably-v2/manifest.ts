@@ -2,6 +2,6 @@
 export const SABLY_V2_THEME = {
   id: 'sably-v2',
   name: 'Sably V2',
-  /** Plantillas que ya existen en V2. El resto de páginas sigue en el clásico aunque V2 sea el tema por defecto. */
-  pages: ['market-item'] as const,
+  /** Plantillas que existen en V2 (src/themes/vistas/ elige cada una según el tema de la petición). */
+  pages: ['market-item', 'country-home', 'country-catalog', 'country-category', 'blog-index', 'blog-article', 'creator-profile', 'video-library', 'course-watch', 'homologaciones-index', 'homologacion-program', 'site-map', 'pagina', '404'] as const,
 } as const;

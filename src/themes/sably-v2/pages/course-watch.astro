@@ -1,0 +1,42 @@
+---
+/**
+ * Página de un vídeo de presentación (V2). Mismo título, descripción, canónica,
+ * imagen social y schemas (VideoObject + BreadcrumbList) que la clásica.
+ */
+import { getImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Migas from '@/components/v2/Migas.astro';
+import Bandera from '@/components/v2/Bandera.astro';
+import Ico from '../components/Ico.astro';
+import { breadcrumbSchema, videoSchema } from '@/lib/seo';
+import { conciseTitle } from '@/lib/seo-title';
+import { SITE } from '@/lib/site';
+import type { load } from '@/lib/page-loaders/course-watch';
+import '../estilos.css';
+type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
+const { country, video, markets, related } = Astro.props;
+const title = conciseTitle(video.title);
+const cover = await getImage({ src: video.thumbnail, width: 1280, height: 720 });
+const schema = videoSchema({ name: video.title, description: video.description, thumbnailUrl: video.thumbnail, uploadDate: video.uploadedAt, duration: video.duration, contentUrl: video.contentUrl, pageUrl: video.url });
+const breadcrumbs = [{ name: 'Inicio', url: `${SITE.url}/${country.code}/` }, { name: video.title, url: video.url }];
+---
+<BaseLayout {country} {title} description={video.description} canonical={video.url} image={video.thumbnail} pageType="video" schemas={[schema, breadcrumbSchema(breadcrumbs)]} temaV2>
+  <section class="bg-navy-950 text-white">
+    <div class="v2-contenedor max-w-[1000px] pt-6 pb-12 lg:pt-8 lg:pb-16">
+      <Migas items={breadcrumbs} />
+      <p class="mt-8 text-t15 text-white/70">Presentación del curso · {video.seconds} segundos</p>
+      <h1 class="mt-2 font-display text-[30px]/[36px] !text-white lg:text-d40">{video.title}</h1>
+      <video controls playsinline preload="metadata" poster={cover.src} width="1280" height="720" class="mt-6 aspect-video w-full rounded-c-xl bg-black" aria-label={video.title}>
+        <source src={video.contentUrl} type="video/mp4" />
+        <p><a href={video.contentUrl}>Abrir el vídeo de presentación</a></p>
+      </video>
+    </div>
+  </section>
+  <div class="v2-contenedor max-w-[1000px] space-y-12 py-12 lg:py-16">
+    <section aria-labelledby="acerca"><h2 id="acerca" class="font-display text-d28">Acerca de esta presentación</h2><p class="mt-3 text-t17 text-navy-700" data-cms>{video.course.data.shortDescription}</p><p class="mt-3 text-t17 text-navy-700">Este vídeo presenta el curso. Consulta la ficha de tu país para ver el programa completo, la duración y el precio disponible.</p></section>
+    <section aria-labelledby="temario"><h2 id="temario" class="font-display text-d28">Ver temario e inscripción</h2>
+      <ul class="mt-5 flex flex-wrap gap-2" role="list">{markets.map(m => <li><a class="v2-chip gap-2" href={`/${m.code}/${video.course.id}/`}><Bandera codigo={m.code} />{m.name}</a></li>)}</ul>
+    </section>
+    {related.length > 0 && <section aria-labelledby="otras"><h2 id="otras" class="font-display text-d28">Otras presentaciones</h2><ul class="mt-5 grid gap-3 sm:grid-cols-2" role="list">{related.map(v => <li><a href={v.path} class="v2-enlace min-h-11"><Ico nombre="circle-play" tamano={18} />{v.title}</a></li>)}</ul></section>}
+  </div>
+</BaseLayout>

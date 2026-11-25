@@ -1,0 +1,21 @@
+---
+/** Bloque sably_hero en V2: banda azul noche con título, texto, botón y la imagen montada. */
+import { Image } from 'emdash/ui';
+import type { MediaValue } from 'emdash';
+import { safeEditorialUrl } from '@/lib/sably-theme';
+import type { BlockValue } from 'emdash/ui';
+import Ico from '../Ico.astro';
+interface Props { value: BlockValue & { title?: string; text?: string; image?: MediaValue; button_label?: string; button_url?: string } }
+const { value } = Astro.props;
+const href = safeEditorialUrl(value.button_url);
+---
+<section class="v2-contenedor py-12" data-cms>
+  <div class="grid items-center gap-10 rounded-c-xl bg-navy-950 p-6 text-white lg:grid-cols-2 lg:p-14">
+    <div>
+      <h2 class="font-display text-d28 !text-white lg:text-d40">{value.title}</h2>
+      <p class="mt-4 text-t17 text-white/80">{value.text}</p>
+      {href && value.button_label && <a href={href} class="v2-btn v2-btn-principal mt-6" data-alto="52">{value.button_label}<Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>}
+    </div>
+    {value.image && <Image image={value.image} class="w-full rounded-c-lg" />}
+  </div>
+</section>

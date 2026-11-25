@@ -12,8 +12,10 @@
  */
 interface Props {
   slug: string;
+  /** Tema V2: sin emoji en el agradecimiento (el rediseño no pinta emojis de interfaz). */
+  temaV2?: boolean;
 }
-const { slug } = Astro.props;
+const { slug, temaV2 = false } = Astro.props;
 ---
 
 <section
@@ -40,7 +42,7 @@ const { slug } = Astro.props;
     }
   </div>
 
-  <p data-rating-thanks class="mt-2 hidden text-sm font-semibold text-success">¡Gracias por tu valoración! 🎉</p>
+  <p data-rating-thanks class="mt-2 hidden text-sm font-semibold text-success">¡Gracias por tu valoración!{temaV2 ? '' : ' 🎉'}</p>
   <p data-rating-error class="mt-2 hidden text-sm font-semibold text-error"></p>
   <p data-rating-avg class="mt-2 hidden text-sm text-muted"></p>
 </section>

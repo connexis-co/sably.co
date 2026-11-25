@@ -1,0 +1,24 @@
+---
+/** Página no encontrada en V2: mismo título, descripción y noindex que la clásica, con buscador y áreas para seguir. */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Ico from '../components/Ico.astro';
+import BuscarFrase from '../components/BuscarFrase.astro';
+import { datosNavegacion } from '../navegacion';
+import type { Country } from '@/lib/countries';
+import '../estilos.css';
+interface Props { country: Country }
+const { country } = Astro.props;
+const nav = await datosNavegacion(country, Astro.locals);
+---
+<BaseLayout title="Página no encontrada | Sably" description="La página que buscas no existe o cambió de dirección." {country} pathAfterCountry="/" pageType="404" noindex temaV2>
+  <section class="v2-contenedor py-20 lg:py-28">
+    <p class="v2-antetitulo text-navy-700">Error 404</p>
+    <h1 class="mt-4 max-w-[760px] font-display text-[34px]/[40px] lg:text-d56">Ups, esta página no existe</h1>
+    <p class="mt-4 max-w-[600px] text-t17 text-navy-700 lg:text-t20">Puede que el enlace haya cambiado. Lo importante: tus ganas de aprender siguen intactas.</p>
+    <BuscarFrase base={nav.base} id="buscar-404" claro class="mt-8 max-w-[600px]" />
+    <a href={`/${country.code}/cursos/`} class="v2-btn v2-btn-principal mt-6" data-alto="52">Explorar todos los cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+    <ul class="mt-10 flex flex-wrap gap-2" role="list" aria-label="Áreas">
+      {nav.areas.map(a => <li><a href={`${nav.base}/cursos/${a.slug}/`} class="v2-chip">{a.nombre}</a></li>)}
+    </ul>
+  </section>
+</BaseLayout>

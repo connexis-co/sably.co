@@ -1,0 +1,8 @@
+---
+/** Bloque sably_rich_text en V2: columna de lectura de 720 px con la prosa V2. */
+import CmsRichBody from '@/components/CmsRichBody.astro';
+import type { RichBlock } from '@/lib/emdash-content';
+import type { BlockValue } from 'emdash/ui';
+interface Props { value: BlockValue & { content?: RichBlock[] } }
+---
+<section class="v2-contenedor py-12 lg:py-16" data-cms><div class="v2-prosa mx-auto max-w-[720px]"><CmsRichBody value={Astro.props.value.content ?? []} /></div></section>

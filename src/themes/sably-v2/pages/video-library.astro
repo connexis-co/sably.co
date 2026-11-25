@@ -1,0 +1,28 @@
+---
+/** Presentaciones en vídeo (V2). Mismo loader, título, descripción y schemas que la plantilla clásica. */
+import { Image as OptimizedImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CabezaPagina from '../components/CabezaPagina.astro';
+import Ico from '../components/Ico.astro';
+import type { load } from '@/lib/page-loaders/video-library';
+import '../estilos.css';
+type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
+const { country, videos, title, description, schemas } = Astro.props;
+---
+<BaseLayout {country} {title} {description} {schemas} pageType="video_library" temaV2>
+  <CabezaPagina titulo="Presentaciones de cursos en vídeo" entradilla="Mira cada presentación en su página de vídeo. Después puedes consultar el temario, el precio y la inscripción para tu país." migas={[{ name: 'Inicio', url: `/${country.code}/` }, { name: 'Vídeos', url: '/videos/' }]} />
+  <ul class="v2-contenedor grid gap-x-6 gap-y-10 py-12 sm:grid-cols-2 lg:grid-cols-3 lg:py-16" role="list">
+    {videos.map((video, i) => (
+      <li><a href={video.path} class="group block">
+        <span class="relative block overflow-hidden rounded-c-lg bg-navy-950">
+          <OptimizedImage src={video.thumbnail} alt={`Presentación en vídeo: ${video.course.data.title}`} width={640} height={360} loading={i < 3 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : undefined} sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" class="aspect-video w-full object-cover opacity-90 transition-[opacity,scale] duration-(--t-lento) group-hover:scale-[1.03] group-hover:opacity-100" />
+          <span class="absolute bottom-3 left-3 grid size-12 place-items-center rounded-full bg-white text-navy-950 shadow-s2"><Ico nombre="play" tamano={20} /></span>
+          <span class="v2-num absolute right-3 bottom-3 rounded-full bg-navy-950/80 px-2.5 py-1 text-t13 text-white">{video.seconds} s</span>
+        </span>
+        <h2 class="mt-4 font-display text-t20 font-semibold group-hover:underline group-hover:underline-offset-4">{video.course.data.title}</h2>
+        <p class="mt-1 text-t15 text-navy-700">Presentación · {video.seconds} segundos</p>
+        <span class="mt-2 inline-flex items-center gap-1 text-t15 font-semibold text-navy-950">Ver vídeo <Ico nombre="arrow-right" tamano={16} /></span>
+      </a></li>
+    ))}
+  </ul>
+</BaseLayout>

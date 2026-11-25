@@ -1,0 +1,61 @@
+---
+/**
+ * Bloque sably_contact en V2: el mismo formulario (mismos campos, nombres,
+ * avisos y envío a /api/v1/leads con src/lib/formulario-contacto.ts) con los
+ * campos de etiqueta flotante del tema y sin emojis de bandera.
+ */
+import { getCountries } from '@/lib/emdash-content';
+import { contactContent } from '@/lib/contact-page.mjs';
+import { safeEditorialUrl, marketMenuUrl } from '@/lib/sably-theme';
+import type { BlockValue } from 'emdash/ui';
+import Ico from '../Ico.astro';
+interface Props { value: BlockValue }
+const contact = contactContent(Astro.props.value);
+const COUNTRIES = await getCountries();
+const country = COUNTRIES.find(c => c.code === 'co') ?? COUNTRIES[0];
+const phone = (contact.whatsapp || country?.whatsapp || '').replace(/[^0-9]/g, '');
+const whatsapp = /^\d{7,15}$/.test(phone) ? `https://wa.me/${phone}` : null;
+const email = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email) ? contact.email : null;
+const privacyUrl = safeEditorialUrl(contact.privacy_url) ?? '/legal/privacidad/';
+const helpUrl = marketMenuUrl(contact.help_button_url, country?.code ?? 'co');
+---
+<div class="v2-contenedor grid items-start gap-8 py-12 lg:grid-cols-[minmax(0,1fr)_380px] lg:gap-12 lg:py-16">
+  <form method="post" data-contacto class="rounded-c-xl bg-white p-6 shadow-s2 ring-1 ring-navy-100 lg:p-8" novalidate>
+    <fieldset disabled data-contact-fields class="min-w-0">
+      <legend class="font-display text-d28">{contact.form_title}</legend>
+      <div aria-hidden="true" style="position:absolute;left:-9999px;height:0;overflow:hidden">
+        <label>Deja este campo vacío <input type="text" name="trampa" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <div><div class="v2-campo"><input id="c-name" name="name" required minlength="2" maxlength="80" autocomplete="name" placeholder=" " aria-describedby="err-name" /><label for="c-name">{contact.name_label}</label></div><span id="err-name" data-err="name" class="mt-1.5 hidden text-t13 font-medium text-v2-error"></span></div>
+        <div><div class="v2-campo"><input id="c-email" name="email" type="email" required autocomplete="email" placeholder=" " aria-describedby="err-email" /><label for="c-email">{contact.email_label}</label></div><span id="err-email" data-err="email" class="mt-1.5 hidden text-t13 font-medium text-v2-error"></span></div>
+        <div class="v2-campo"><input id="c-phone" name="phone" type="tel" autocomplete="tel" placeholder=" " /><label for="c-phone">{contact.phone_label}</label></div>
+        <div class="v2-campo"><select id="c-country" name="country">{COUNTRIES.map(c => <option value={c.code} selected={c.code === country?.code}>{c.name}</option>)}</select><label for="c-country">{contact.country_label}</label><Ico nombre="chevron-down" tamano={18} class="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2 text-navy-700" /></div>
+      </div>
+      <div class="mt-4"><div class="v2-campo"><textarea id="c-message" name="message" required minlength="10" maxlength="2000" rows="6" placeholder=" " aria-describedby="err-message"></textarea><label for="c-message">{contact.message_label}</label></div>{contact.message_placeholder && <span class="v2-campo-ayuda">{contact.message_placeholder}</span>}<span id="err-message" data-err="message" class="mt-1.5 hidden text-t13 font-medium text-v2-error"></span></div>
+      <label class="mt-5 flex items-start gap-3 text-t15 text-navy-700">
+        <input type="checkbox" name="consent" required class="mt-1 size-5 flex-none accent-coral-600" />
+        <span><span data-consent-text>{contact.consent_text}</span>{' '}<a data-privacy-link href={privacyUrl} class="font-medium text-navy-950 underline underline-offset-2">{contact.privacy_label}</a>.</span>
+      </label>
+      <span data-err="consent" class="mt-1.5 hidden text-t13 font-medium text-v2-error"></span>
+      <div class="mt-6 flex flex-wrap items-center gap-4">
+        <button type="submit" data-enviar class="v2-btn v2-btn-principal disabled:opacity-60" data-alto="52">{contact.submit_label}</button>
+        <span data-aviso role="status" class="text-sm"></span>
+      </div>
+    </fieldset>
+    <noscript><p class="mt-4 rounded-c-md bg-navy-50 p-3 text-t15">El formulario necesita JavaScript. Escríbenos por WhatsApp mientras tanto.</p></noscript>
+  </form>
+  <aside class="space-y-5">
+    <div class="rounded-c-xl bg-navy-50 p-6">
+      <h2 class="font-display text-t20 font-semibold">{contact.channels_title}</h2>
+      {whatsapp && <div class="mt-4"><a href={whatsapp} target="_blank" rel="noopener" class="v2-btn v2-btn-whatsapp" data-alto="48"><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" />{contact.whatsapp_label}</a><p class="mt-3 text-t15 text-navy-700">{contact.whatsapp_description}</p></div>}
+      {email && <a class="mt-4 block font-semibold break-words text-navy-950 underline underline-offset-4" href={`mailto:${email}`}>{email}</a>}
+      {contact.hours && <p class="mt-4 text-t15 whitespace-pre-line text-navy-700">{contact.hours}</p>}
+    </div>
+    {contact.help_title && <div class="rounded-c-xl p-6 ring-1 ring-navy-100"><h2 class="font-display text-t20 font-semibold">{contact.help_title}</h2><p class="mt-2 text-t15 whitespace-pre-line text-navy-700">{contact.help_text}</p>{helpUrl && contact.help_button_label && <a href={helpUrl} class="v2-enlace mt-4 min-h-11">{contact.help_button_label} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>}</div>}
+  </aside>
+</div>
+<script>
+  import { iniciarContacto } from '@/lib/formulario-contacto';
+  iniciarContacto();
+</script>

@@ -1,0 +1,72 @@
+---
+/** Programa de homologación V2. Mismo loader, título, descripción, schemas y textos que la clásica. */
+import { Image as OptimizedImage } from 'astro:assets';
+import { cmsImageUrl } from '@/lib/cms-media';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Migas from '@/components/v2/Migas.astro';
+import Preguntas from '../components/Preguntas.astro';
+import Ico from '../components/Ico.astro';
+import { categoryCover } from '@/lib/categories';
+import type { load } from '@/lib/page-loaders/homologacion-program';
+import '../estilos.css';
+type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
+const { country, PROGRAMAS, programa, SEDES, waUrl, faqs, title, description, schemas } = Astro.props;
+const migas = [{ name: 'Inicio', url: '/co/' }, { name: 'Homologaciones', url: '/homologaciones/' }, { name: programa.name, url: `/homologaciones/${programa.slug}/` }];
+---
+<BaseLayout {title} {description} {country} pathAfterCountry="/" {schemas} pageType="homologacion_programa" whatsappContext={`Homologación de ${programa.name}`} temaV2>
+  <section class="bg-navy-950 text-white">
+    <div class="v2-contenedor grid items-end gap-8 pt-6 pb-12 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-14 lg:pt-8 lg:pb-16">
+      <div>
+        <Migas items={migas} />
+        <h1 class="mt-8 font-display text-[34px]/[40px] !text-white lg:text-d56">Homologa tu experiencia en <span class="text-coral-500">{programa.name}</span></h1>
+        <p class="mt-5 max-w-[640px] text-t17 text-white/80 lg:text-t20">{programa.shortDescription}</p>
+        <a href={waUrl} target="_blank" rel="noopener nofollow" data-cta-hotmart data-cta-position="hero_programa" class="v2-btn v2-btn-whatsapp mt-8" data-alto="52"><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" />Consultar por WhatsApp</a>
+        <p class="mt-3 text-t13 text-white/60">Te contamos requisitos y costos el mismo día · Sin compromiso</p>
+      </div>
+      <div class="overflow-hidden rounded-c-xl"><OptimizedImage src={cmsImageUrl(programa.coverImage) ?? categoryCover(programa.coverCategory)} alt="" width={800} height={533} fetchpriority="high" sizes="(min-width: 1024px) 440px, 100vw" class="aspect-[3/2] w-full object-cover" /></div>
+    </div>
+  </section>
+
+  <div class="v2-contenedor grid gap-12 py-14 lg:grid-cols-[minmax(0,1fr)_360px] lg:gap-16 lg:py-20">
+    <div class="space-y-14">
+      <section aria-labelledby="audiencia">
+        <h2 id="audiencia" class="font-display text-d28">¿Es para ti?</h2>
+        <ul class="mt-5 border-t border-navy-100" role="list">
+          {programa.audience.map(item => <li class="flex items-start gap-3 border-b border-navy-100 py-4 text-t17 text-navy-950"><Ico nombre="user-check" tamano={20} class="mt-0.5 flex-none text-navy-700" />{item}</li>)}
+        </ul>
+      </section>
+      <section aria-labelledby="evaluacion">
+        <h2 id="evaluacion" class="font-display text-d28">Qué evalúa la institución</h2>
+        <ul class="mt-5 grid gap-3" role="list">
+          {programa.evaluacion.map(item => <li class="flex items-start gap-3 rounded-c-md bg-navy-50 p-4 text-t17 text-navy-950"><Ico nombre="circle-check" tamano={20} class="mt-0.5 flex-none text-v2-ok" />{item}</li>)}
+        </ul>
+        <p class="mt-4 rounded-c-md bg-coral-50 p-4 text-t15 text-navy-950">La certificación está <strong class="font-semibold">sujeta a la evaluación de saberes</strong> que realiza la institución aliada autorizada. Nuestro equipo te acompaña en todo el proceso por WhatsApp.</p>
+      </section>
+      <div class="[&>section]:!px-0 [&>section>div]:!max-w-none"><Preguntas titulo="Preguntas frecuentes" {faqs} id="faq-programa" /></div>
+    </div>
+    <aside class="space-y-5 lg:sticky lg:top-24 lg:h-fit">
+      <div class="rounded-c-xl p-6 ring-1 ring-navy-100">
+        <h2 class="text-t13 font-medium text-navy-500">Sedes aliadas</h2>
+        <ul class="mt-3 space-y-2" role="list">{SEDES.map(s => <li class="flex items-center gap-2 text-t15 text-navy-950"><Ico nombre="map-pin" tamano={16} class="text-navy-500" />{s.city}, {s.region}</li>)}</ul>
+        <p class="mt-3 text-t13 text-navy-500">Asesoría remota por WhatsApp para todo Colombia.</p>
+      </div>
+      <a href={waUrl} target="_blank" rel="noopener nofollow" class="v2-btn v2-btn-whatsapp w-full" data-alto="52"><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" />Iniciar mi homologación</a>
+      <div class="rounded-c-xl bg-navy-50 p-5 text-t15 text-navy-700">
+        <p class="font-semibold text-navy-950">¿Prefieres estudiar desde cero?</p>
+        <p class="mt-1">Mira nuestros <a href="/co/cursos/" class="font-semibold text-navy-950 underline underline-offset-4">cursos online con constancia de finalización</a>.</p>
+      </div>
+    </aside>
+  </div>
+
+  <section class="v2-contenedor pt-4" aria-labelledby="otros-programas">
+    <h2 id="otros-programas" class="font-display text-d28">Otros programas de homologación</h2>
+    <ul class="mt-6 grid gap-5 sm:grid-cols-3" role="list">
+      {PROGRAMAS.filter(p => p.slug !== programa.slug).map(p => (
+        <li><a href={`/homologaciones/${p.slug}/`} class="group block h-full rounded-c-lg p-5 ring-1 ring-navy-100 transition-shadow duration-(--t-base) hover:shadow-s2 hover:ring-transparent">
+          <h3 class="font-display text-t20 font-semibold group-hover:underline group-hover:underline-offset-4">{p.name}</h3>
+          <p class="mt-1.5 line-clamp-2 text-t15 text-navy-700">{p.shortDescription}</p>
+        </a></li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

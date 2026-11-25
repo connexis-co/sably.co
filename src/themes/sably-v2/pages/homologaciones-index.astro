@@ -1,0 +1,75 @@
+---
+/**
+ * Homologaciones V2 (/homologaciones/). Mismo loader, título, descripción,
+ * schemas y textos que la plantilla clásica; «certificado» es correcto aquí
+ * (lo emite una institución). Los enlaces de WhatsApp conservan
+ * `data-cta-hotmart` y `data-cta-position` (los usa la analítica).
+ */
+import { Image as OptimizedImage } from 'astro:assets';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CabezaPagina from '../components/CabezaPagina.astro';
+import Preguntas from '../components/Preguntas.astro';
+import Ico from '../components/Ico.astro';
+import { categoryCover } from '@/lib/categories';
+import type { load } from '@/lib/page-loaders/homologaciones-index';
+import '../estilos.css';
+type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
+const { country, PROGRAMAS, SEDES, waUrl, faqs, title, description, schemas } = Astro.props;
+const PASOS = [
+  { titulo: 'Nos escribes', texto: 'Cuéntanos tu experiencia y el programa que quieres certificar. Te damos requisitos y costos exactos.' },
+  { titulo: 'Te evalúan', texto: 'La institución aliada valida tus conocimientos y habilidades en el oficio.' },
+  { titulo: 'Te certificas', texto: 'Si cumples el perfil, recibes tu certificación técnica para trabajar o emprender formalmente.' },
+];
+---
+<BaseLayout {title} {description} {country} pathAfterCountry="/" {schemas} pageType="homologaciones" whatsappContext="Homologación de mi experiencia" temaV2>
+  <CabezaPagina titulo="Ya sabes el oficio." acento="Ahora certifícalo." antetitulo="Validación de saberes previos" migas={[{ name: 'Inicio', url: '/co/' }, { name: 'Homologaciones', url: '/homologaciones/' }]}>
+    <p class="mt-5 max-w-[720px] text-t17 text-white/80 lg:text-t20">Si llevas años trabajando en belleza, barbería o estética sin certificado técnico, una institución de formación para el trabajo aliada puede <strong class="font-semibold text-white">evaluar tu experiencia y certificar tu competencia</strong> — sin repetir toda la formación desde cero.</p>
+    <a href={waUrl} target="_blank" rel="noopener nofollow" data-cta-hotmart data-cta-position="hero_homologacion" class="v2-btn v2-btn-whatsapp mt-8" data-alto="52"><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" />Escríbenos por WhatsApp</a>
+    <p class="mt-3 text-t13 text-white/60">Respuesta el mismo día · Asesoría sin compromiso</p>
+  </CabezaPagina>
+
+  <section class="v2-contenedor pt-20 lg:pt-28" aria-labelledby="como-titulo">
+    <p class="v2-antetitulo text-navy-700">Así de simple</p>
+    <h2 id="como-titulo" class="mt-3 font-display text-d28 lg:text-d40">¿Cómo funciona la homologación?</h2>
+    <ol class="mt-8 grid border-t border-navy-100 lg:grid-cols-3" role="list">
+      {PASOS.map((p, i) => (
+        <li class="grid grid-cols-[40px_1fr] gap-2 border-b border-navy-100 py-6 lg:border-b-0 lg:border-l lg:px-6 lg:first:border-l-0 lg:first:pl-0">
+          <span class="v2-num pt-1 text-t15 font-semibold text-navy-500" aria-hidden="true">{i + 1}</span>
+          <div><h3 class="font-display text-t20 font-semibold">{p.titulo}</h3><p class="mt-1 text-t17 text-navy-700">{p.texto}</p></div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="v2-contenedor pt-20 lg:pt-28" aria-labelledby="programas-titulo">
+    <p class="v2-antetitulo text-navy-700">Programas disponibles</p>
+    <h2 id="programas-titulo" class="mt-3 font-display text-d28 lg:text-d40">¿Qué experiencia puedes certificar?</h2>
+    <p class="mt-3 text-t17 text-navy-700">Cada programa tiene su propia página con requisitos y detalles.</p>
+    <ul class="mt-8 grid gap-5 sm:grid-cols-2" role="list">
+      {PROGRAMAS.map(p => (
+        <li><a href={`/homologaciones/${p.slug}/`} class="group flex h-full gap-5 rounded-c-lg p-4 ring-1 ring-navy-100 transition-shadow duration-(--t-base) hover:shadow-s2 hover:ring-transparent">
+          <OptimizedImage sizes="128px" src={categoryCover(p.coverCategory, 'card')} alt="" width={480} height={320} loading="lazy" class="h-24 w-32 flex-none rounded-c-md object-cover" />
+          <span><strong class="font-display text-t20 font-semibold text-navy-950 group-hover:underline group-hover:underline-offset-4">{p.name}</strong><span class="mt-1 line-clamp-3 block text-t15 text-navy-700">{p.shortDescription}</span></span>
+        </a></li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="v2-contenedor pt-20 lg:pt-28" aria-labelledby="cobertura-titulo">
+    <p class="v2-antetitulo text-navy-700">Cobertura</p>
+    <h2 id="cobertura-titulo" class="mt-3 font-display text-d28">Instituciones aliadas con sedes en</h2>
+    <p class="mt-2 text-t17 text-navy-700">Y atención 100% remota por WhatsApp para todo Colombia.</p>
+    <ul class="mt-5 flex flex-wrap gap-2" role="list">
+      {SEDES.map(s => <li class="v2-chip gap-2"><Ico nombre="map-pin" tamano={16} class="text-navy-500" />{s.city}, {s.region}</li>)}
+    </ul>
+  </section>
+
+  <Preguntas antetitulo="Preguntas frecuentes" titulo="Resolvemos tus dudas" {faqs} class="pt-20 lg:pt-28" />
+
+  <section class="v2-contenedor pt-20 lg:pt-28">
+    <div class="flex flex-wrap items-center justify-between gap-6 rounded-c-xl bg-navy-950 p-8 text-white lg:p-14">
+      <h2 class="font-display text-d28 !text-white lg:text-d40">Tu experiencia vale. Certifícala.</h2>
+      <a href={waUrl} target="_blank" rel="noopener nofollow" class="v2-btn v2-btn-whatsapp" data-alto="52"><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" />Hablar con un asesor por WhatsApp</a>
+    </div>
+  </section>
+</BaseLayout>

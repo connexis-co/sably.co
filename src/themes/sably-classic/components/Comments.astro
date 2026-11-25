@@ -12,8 +12,10 @@
 interface Props {
   /** Identificador del subject en D1: `blog:<slug>`. */
   subject: string;
+  /** Tema V2: «Útil» sin emoji (el rediseño no pinta emojis de interfaz). */
+  temaV2?: boolean;
 }
-const { subject } = Astro.props;
+const { subject, temaV2 = false } = Astro.props;
 import { CONSENTIMIENTO, POLITICA_URL } from '@/lib/consentimiento';
 import { env } from 'virtual:sably-runtime';
 import { readPublicComments } from '@/plugins/sably-operations/public';
@@ -132,7 +134,7 @@ const commentDate = (value:number)=>new Intl.DateTimeFormat('es-CO',{dateStyle:'
           type="button" data-util
           class="min-h-11 rounded-full border border-surface-200 px-3 py-2 text-xs text-muted transition hover:border-accent hover:text-accent aria-pressed:border-accent aria-pressed:text-accent"
           aria-pressed="false"
-        >👍 Útil <span data-utiles></span></button>
+        >{temaV2 ? '' : '👍 '}Útil <span data-utiles></span></button>
         <button type="button" data-responder class="min-h-11 px-1 text-xs font-semibold text-body underline hover:text-accent">
           Responder
         </button>
