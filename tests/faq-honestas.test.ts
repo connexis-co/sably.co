@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { faqsHonestas, motivoFaqFalsa, type Faq } from '../src/lib/faq-honestas.ts';
+import { faqsHonestas, motivoFaqFalsa, respuestaPrecio, type Faq } from '../src/lib/faq-honestas.ts';
+import { fechaColombia, fechaFinPromo } from '../src/lib/fecha-promo.ts';
 import { faqPagoPais } from '../src/lib/medios-de-pago.ts';
 
 const contexto = {
@@ -78,4 +79,31 @@ test('the verified payment answer survives the filter that removes invented ones
   const inventada = { q: '¿Puedo pagar con Plin?', a: 'Sí, con Plin o Yape.' };
   const salida = faqsHonestas([certificado, inventada, peru], { ...contexto, faqPago: peru });
   assert.deepEqual(salida.map((f) => f.q), [certificado.q, '¿Cuánto cuesta el curso?', peru.q]);
+});
+
+// 24-nov-2026: la respuesta decía «El precio de lista es $ 93.067 COP» (el
+// precio con cupón) mientras la caja tachaba $ 186.134 COP como precio de lista.
+test('the list price is never the discounted one', () => {
+  const fin = Date.UTC(2026, 10, 26, 0, 0); // 25-nov 19:00 en Bogotá
+  const a = respuestaPrecio('$ 191.012 COP', { precio: '$ 95.506 COP', cupon: '031016', hasta: fin });
+  assert.match(a, /^El precio de lista es \$ 191\.012 COP\./);
+  assert.match(a, /Con el cupón 031016.* queda en \$ 95\.506 COP hasta el 25 de noviembre de 2026 a las 7:00 p\. m\. \(hora de Colombia\)/);
+  assert.doesNotMatch(a, /precio de lista es \$ 95/);
+
+  // Promoción sin fecha de fin: no se inventa una.
+  assert.doesNotMatch(respuestaPrecio('$ 191.012 COP', { precio: '$ 95.506 COP', cupon: '031016', hasta: null }), /hasta el/);
+  // Sin promoción: la respuesta de siempre, con el precio de lista.
+  assert.equal(respuestaPrecio('US$49,99'), respuestaPrecio('US$49,99', null));
+  assert.match(respuestaPrecio('US$49,99'), /^El precio de lista es US\$49,99\. Si hay una promoción vigente/);
+
+  const falsa = { q: '¿El precio de $32 USD ya tiene el descuento?', a: 'Sí, $32 USD es el precio final.' };
+  const [precio] = faqsHonestas([falsa], { ...contexto, precioTexto: '$ 191.012 COP', oferta: { precio: '$ 95.506 COP', cupon: '031016', hasta: fin } });
+  assert.equal(precio.a, a);
+});
+
+test('the promotion end is told in Colombian time, the one the purchase box shows', () => {
+  const fin = Date.UTC(2026, 10, 26, 0, 0);
+  assert.equal(fechaFinPromo(fin), '25 de noviembre de 2026 a las 7:00 p. m.');
+  assert.equal(fechaColombia(fin), '2026-11-25');
+  assert.equal(fechaColombia(Date.UTC(2026, 11, 1, 5, 0)), '2026-12-01');
 });

@@ -110,6 +110,8 @@ export function auditarOnPage(url, html, opciones = {}) {
   // ── Datos estructurados ──────────────────────────────────────────────────
   const tipos = [];
   const personasSinPerfil = [];
+  const ofertas = [];
+  const respuestas = [];
   for (const m of documento.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try {
       const recorrer = (nodo) => {
@@ -120,6 +122,8 @@ export function auditarOnPage(url, html, opciones = {}) {
           // (`@id` …/creadores/<slug>/#creador); el instructor de relleno no tenía.
           if ([].concat(nodo['@type'] ?? []).includes('Person') && !/\/creadores\/[a-z0-9-]+\/#creador$/.test(String(nodo['@id'] ?? '')))
             personasSinPerfil.push(nodo.name ?? '(sin nombre)');
+          if ([].concat(nodo['@type'] ?? []).includes('Offer')) ofertas.push(nodo);
+          if ([].concat(nodo['@type'] ?? []).includes('Answer') && typeof nodo.text === 'string') respuestas.push(nodo.text);
           Object.values(nodo).forEach(recorrer);
         }
       };
@@ -132,8 +136,31 @@ export function auditarOnPage(url, html, opciones = {}) {
     marcar('json-ld-person', 'error', `nodo Person sin perfil de creador (${personasSinPerfil.slice(0, 2).join(', ')}): no hay persona verificada`);
   if (tipos.includes('AggregateRating')) marcar('json-ld-rating', 'error', 'AggregateRating con valoraciones de terceros');
 
-  // ── Textos que no deben volver ───────────────────────────────────────────
+  // ── Precio: la caja de compra, la pregunta de precio y el Offer dicen lo mismo ──
   const visible = texto(sinCodigo);
+  const caja = sinCodigo.match(/<section\b[^>]*\sdata-purchase-panel\b[^>]*>/i)?.[0];
+  if (caja) {
+    const limpio = (valor) => texto(String(valor ?? ''));
+    const lista = limpio(atributo(caja, 'data-base'));
+    const rebajado = limpio(atributo(caja, 'data-reduced'));
+    /* «El precio de lista es X» solo puede nombrar el importe sin cupón. El
+       24-nov-2026 la respuesta daba el rebajado y la caja lo desmentía. */
+    for (const frase of [visible, ...respuestas.map(limpio)]) {
+      const dicho = frase.match(/El precio de lista es (.+? [A-Z]{3})\b/)?.[1];
+      if (dicho && lista && dicho !== lista) {
+        marcar('precio-de-lista', 'error', `la pregunta de precio llama «precio de lista» a ${dicho} y la caja dice ${lista}`);
+        break;
+      }
+    }
+    const oferta = ofertas[0];
+    if (oferta && rebajado && atributo(caja, 'data-until') && !oferta.priceValidUntil)
+      marcar('oferta-sin-fecha', 'error', 'el Offer publica el precio con cupón sin priceValidUntil');
+    const crudo = atributo(caja, rebajado ? 'data-reduced-amount' : 'data-base-amount');
+    if (oferta && crudo && Math.abs(Number(oferta.price) - Number(crudo)) >= 0.005)
+      marcar('oferta-precio', 'error', `el Offer dice ${oferta.price} y la caja ${crudo}`);
+  }
+
+  // ── Textos que no deben volver ───────────────────────────────────────────
   for (const [patron, motivo] of TEXTOS_VETADOS) if (patron.test(visible)) marcar('texto-vetado', 'error', motivo);
 
   return hallazgos.map((h) => ({ ...h, url }));

@@ -6,6 +6,7 @@ import { SITE } from './site';
 import { creatorDelCurso } from './creadores';
 import { getCountries } from './emdash-content';
 import {verifiedReviewMarkup,type VerifiedReviews} from './verified-course-reviews';
+import { fechaColombia } from './fecha-promo';
 
 export interface HreflangAlternate {
   hreflang: string;
@@ -129,6 +130,12 @@ interface CourseSchemaInput {
   price: number;
   priceCurrency: string;
   /**
+   * Fin (ms) de la promoción cuando `price` es el importe con cupón. Sale como
+   * `priceValidUntil`. Sin promoción o sin fecha no se emite: el precio de
+   * lista no tiene un final conocido y no se inventa uno.
+   */
+  priceValidUntil?: number | null;
+  /**
    * `false` cuando el curso todavía no tiene checkout.
    *
    * Sin producto no hay nada que ofertar: emitir un `Offer` con precio y
@@ -227,6 +234,7 @@ export function courseSchema(c: CourseSchemaInput) {
             '@type': 'Offer',
             price: c.price,
             priceCurrency: c.priceCurrency,
+            ...(c.priceValidUntil ? { priceValidUntil: fechaColombia(c.priceValidUntil) } : {}),
             availability: 'https://schema.org/InStock',
             category: 'Paid',
             url: c.url,

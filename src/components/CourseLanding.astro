@@ -198,7 +198,9 @@ const saving = quote?.reduced ? Math.round(100 * (1 - quote.reduced / quote.base
 const offer = coupon && quote?.reduced && promoRow && saving === promoRow.pct
   ? {price:displayMoney(quote.reduced), saving, coupon, name:promoRow.nombre, end:promoRow.hasta}
   : null;
-const precioTexto = offer?.price ?? displayMoney(baseAmount);
+/* Precio de lista para la pregunta «¿Cuánto cuesta?»: siempre el importe sin
+   cupón. El rebajado va aparte, con su cupón y su fecha (ver faq-honestas). */
+const precioTexto = displayMoney(baseAmount);
 const marketQuery = new URLSearchParams(Astro.url.search);
 const marketLinks = COUNTRIES.filter(item => item.code !== country.code).map(item => ({
   label: item.name,
@@ -250,7 +252,7 @@ const baseFaqs = sinProducto
   : /* Las variantes de país traen precios, descuentos y medios de pago que no
        coinciden con el checkout: se quitan, el precio sale de esta ficha y los
        medios de pago de la lista verificada del país. */
-    faqsHonestas(baseFaqsRaw, { precioTexto, faqPago: FAQ_PAGO });
+    faqsHonestas(baseFaqsRaw, { precioTexto, oferta: offer && { precio: offer.price, cupon: offer.coupon, hasta: offer.end }, faqPago: FAQ_PAGO });
 const faqs = city
   ? [
       {
@@ -340,6 +342,9 @@ const schemas = [
        ya formateado. */
     price: offer && quote?.reduced ? quote.reduced : baseAmount,
     priceCurrency: currency,
+    /* El precio rebajado tiene fecha: sin ella el Offer anuncia el importe con
+       cupón como si fuera el precio permanente del curso. */
+    priceValidUntil: offer?.end ?? null,
     creators: creadoresVisibles.map((c) => ({ slug: c.slug, nombre: c.nombre, bio: c.bio, url: urlCreador(SITE.url, country.code, c.slug) })),
     comprable: !sinProducto,
     category: category.name,

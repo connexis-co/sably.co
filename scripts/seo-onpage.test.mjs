@@ -68,3 +68,22 @@ test('una Person solo vale si es el creador real con su perfil en Sably', () => 
   assert.deepEqual(errores(sana.replace('"name":"Curso de Masajes"', creador)), []);
   assert.deepEqual(errores(sana.replace('"name":"Curso de Masajes"', '"creator":{"@type":"Person","name":"Daniela Osorio"}')), ['json-ld-person']);
 });
+
+// 24-nov-2026: la FAQ llamaba «precio de lista» al precio con cupón y el Offer
+// publicaba el rebajado sin fecha de validez.
+test('la caja de compra, la pregunta de precio y el Offer no se contradicen', () => {
+  const ficha = (faq, oferta, extra = '') => sana
+    .replace('</main>', `<section id="compra" data-purchase-panel data-base="$ 191.012 COP" data-reduced="$ 95.506 COP" data-until="1795651200000"${extra}><h2>Opciones de compra</h2></section><p>${faq}</p></main>`)
+    .replace('"name":"Curso de Masajes"}', `"name":"Curso de Masajes","offers":${JSON.stringify(oferta)}}`);
+  const bien = { '@type': 'Offer', price: 95506, priceCurrency: 'COP', priceValidUntil: '2026-11-25' };
+  const crudos = ' data-base-amount="191012" data-reduced-amount="95506"';
+  assert.deepEqual(errores(ficha('El precio de lista es $ 191.012 COP. Con el cupón 031016 queda en $ 95.506 COP.', bien, crudos)), []);
+  assert.deepEqual(errores(ficha('El precio de lista es $ 95.506 COP. Si hay una promoción vigente…', bien, crudos)), ['precio-de-lista']);
+  assert.deepEqual(errores(ficha('Sin pregunta de precio.', { ...bien, priceValidUntil: undefined }, crudos)), ['oferta-sin-fecha']);
+  assert.deepEqual(errores(ficha('Sin pregunta de precio.', { ...bien, price: 93067 }, crudos)), ['oferta-precio']);
+  // Una ficha anterior a los importes en crudo no se juzga por lo que no publica.
+  assert.deepEqual(errores(ficha('Sin pregunta de precio.', { ...bien, price: 93067 })), []);
+  // La misma frase dentro del FAQPage también cuenta.
+  const enJsonLd = ficha('Otra cosa.', bien, crudos).replace('</body>', '<script type="application/ld+json">{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cuánto cuesta el curso?","acceptedAnswer":{"@type":"Answer","text":"El precio de lista es $ 95.506 COP."}}]}</script></body>');
+  assert.deepEqual(errores(enJsonLd), ['precio-de-lista']);
+});
