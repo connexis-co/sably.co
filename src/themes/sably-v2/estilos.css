@@ -32,9 +32,9 @@
     @keyframes v2-cabecera-sombra { to { box-shadow: 0 12px 32px -16px rgb(27 27 58 / 0.22); } }
     @keyframes v2-cabecera-fila { to { translate: 0 6px; } }
     @keyframes v2-cabecera-logo { to { scale: 0.88; } }
-    .v2-cabecera { animation: v2-cabecera-sombra linear both; animation-timeline: scroll(root); animation-range: 0 64px; }
-    .v2-cabecera-fila { animation: v2-cabecera-fila linear both; animation-timeline: scroll(root); animation-range: 0 64px; }
-    .v2-cabecera-logo { transform-origin: left center; animation: v2-cabecera-logo linear both; animation-timeline: scroll(root); animation-range: 0 64px; }
+    .v2-cabecera { animation-name: v2-cabecera-sombra; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); animation-range: 0 64px; }
+    .v2-cabecera-fila { animation-name: v2-cabecera-fila; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); animation-range: 0 64px; }
+    .v2-cabecera-logo { transform-origin: left center; animation-name: v2-cabecera-logo; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); animation-range: 0 64px; }
   }
 }
 .v2-nav-enlace {

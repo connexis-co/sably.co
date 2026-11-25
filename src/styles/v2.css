@@ -195,7 +195,7 @@
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
       @keyframes v2-aparece { from { opacity: 0; translate: 0 16px; } }
-      [data-aparece] { animation: v2-aparece linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+      [data-aparece] { animation-name: v2-aparece; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
     }
   }
 }
