@@ -93,6 +93,7 @@ export async function datosNavegacion(country: Country, scope: object) {
     nombreDeArea,
     destacados,
     totalCursos: cursos.length,
+    /** Cursos con inscripción abierta (las cifras de la portada lo dicen así). */
     comprables: cursos.filter(comprable).length,
     paises: paises.map(p => ({ code: p.code, nombre: p.name, moneda: p.currency })),
     /* «Cursos» abre el megamenú; los demás enlaces del menú principal van tal cual. */

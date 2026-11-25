@@ -21,7 +21,7 @@ export type VariantePie = 'completo' | 'compacto';
 interface Props { country: Country; nav: DatosNavegacion; variante?: VariantePie; pathAfterCountry: string }
 const { country, nav, variante = 'completo', pathAfterCountry } = Astro.props;
 const settings = await getLiveSiteSettings();
-const { base, areas, externas, comprables } = nav;
+const { base, areas, externas } = nav;
 const year = new Date().getFullYear();
 const PAGOS: Record<string, { src: string; alt: string }[]> = {
   todos: [{ src: '/v2/logos/visa.svg', alt: 'Visa' }, { src: '/v2/logos/mastercard.svg', alt: 'Mastercard' }, { src: '/v2/logos/paypal.svg', alt: 'PayPal' }],
@@ -55,7 +55,7 @@ const compacto = variante === 'compacto';
             {areas.map(a => <li><a href={`${base}/cursos/${a.slug}/`} class="v2-pie-enlace">{a.nombre}</a></li>)}
             {externas.map(e => <li><a href={e.href} target="_blank" rel="noopener" class="v2-pie-enlace gap-1">{e.nombre} en la academia <Ico nombre="external-link" tamano={14} /></a></li>)}
           </ul>
-          <a href={`${base}/cursos/`} class="mt-3 inline-flex min-h-11 items-center gap-2 text-t15 font-semibold text-white">Ver los {comprables} cursos <Ico nombre="arrow-right" tamano={18} class="text-coral-500" /></a>
+          <a href={`${base}/cursos/`} class="mt-3 inline-flex min-h-11 items-center gap-2 text-t15 font-semibold text-white">Ver los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={18} class="text-coral-500" /></a>
         </nav>
       </details>
 

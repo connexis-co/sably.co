@@ -174,7 +174,7 @@ const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u
       <ul class="v2-contenedor mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4" role="list">
         {featured.map(course => <li class="w-[85%] flex-none snap-start sm:w-auto"><TarjetaCurso {course} {country} /></li>)}
       </ul>
-      <div class="v2-contenedor mt-8"><a href={`${base}/cursos/`} class="v2-btn v2-btn-secundario max-sm:w-full" data-alto="52">Ver todos los {nav.comprables} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a></div>
+      <div class="v2-contenedor mt-8"><a href={`${base}/cursos/`} class="v2-btn v2-btn-secundario max-sm:w-full" data-alto="52">Ver todos los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a></div>
     </section>
   )}
 
@@ -305,7 +305,7 @@ const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u
     <div class="-mb-24 grid items-center gap-6 rounded-c-xl bg-navy-50 p-6 shadow-s1 lg:grid-cols-[minmax(0,1fr)_minmax(0,600px)] lg:p-16">
       <div>
         <h2 id="cierre-titulo" class="font-display text-d28 lg:text-d40">Encuentra tu curso</h2>
-        <a href={`${base}/cursos/`} class="v2-enlace mt-3 min-h-11">O mira los {nav.comprables} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+        <a href={`${base}/cursos/`} class="v2-enlace mt-3 min-h-11">O mira los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
       </div>
       <Buscar base={base} id="buscar-cierre" claro />
     </div>
