@@ -10,6 +10,8 @@ export interface Narracion {
   url: string;
   segundos: number;
   vozId: string;
+  /** «proveedor:voz» (p. ej. gemini:es-419-csagent-9), para la medición. */
+  proveedor: string;
 }
 
 const PLUGIN = 'sably-narracion';
@@ -29,7 +31,7 @@ export async function narracionVigente(coleccion: string, slug: string, datos: R
       .where('plugin_id' as never, '=', PLUGIN as never).where('collection' as never, '=', 'publicadas' as never)
       .where('id' as never, '=', `${coleccion}:${slug}` as never).executeTakeFirst() as { data?: string } | undefined;
     if (!fila?.data) return undefined;
-    const p = JSON.parse(fila.data) as { huella?: string; url?: string; segundos?: number; vozId?: string };
+    const p = JSON.parse(fila.data) as { huella?: string; url?: string; segundos?: number; vozId?: string; proveedor?: string; voz?: string };
     if (!p.huella || !p.url || !p.segundos) return undefined;
     // La huella depende de si el ajuste incluía las preguntas frecuentes: vale cualquiera de las dos lecturas.
     const sin = await huella(bloquesDe(coleccion, datos, { incluirPreguntas: false }));
@@ -37,7 +39,7 @@ export async function narracionVigente(coleccion: string, slug: string, datos: R
     if (p.huella !== sin && p.huella !== con) return undefined;
     // Depósito en disco: si el archivo no está (copia restaurada sin la carpeta de audios), no hay reproductor roto.
     if (p.url.startsWith('/narraciones/') && !(await existeEnDisco(p.url.slice('/narraciones/'.length)))) return undefined;
-    return { url: p.url, segundos: Math.round(p.segundos), vozId: p.vozId ?? '' };
+    return { url: p.url, segundos: Math.round(p.segundos), vozId: p.vozId ?? '', proveedor: p.proveedor && p.voz ? `${p.proveedor}:${p.voz}` : `sably-narracion:${p.vozId ?? ''}` };
   } catch {
     return undefined;
   }

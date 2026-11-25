@@ -1,7 +1,8 @@
 /**
  * Controlador común de los reproductores V2 (audio de las narraciones y, si lo adopta, el vídeo). Une un
  * HTMLMediaElement a controles marcados con atributos `data-medio-*`, sin React:
- *   data-medio                raíz (data-medio-titulo, data-medio-artista, data-medio-caratula para Media Session)
+ *   data-medio                raíz (data-medio-titulo, data-medio-artista, data-medio-caratula para Media Session;
+ *                             data-medio-tipo, data-medio-id y data-medio-proveedor para la medición de medicion.ts)
  *   data-medio-elemento       el <audio> o <video>
  *   data-medio-controles      contenedor de los controles propios (oculto hasta que hay JS)
  *   data-medio-alternar       reproducir / pausar
@@ -12,6 +13,8 @@
  *   data-medio-estado         región aria-live para avisos
  * Sin JS queda el reproductor nativo. Si algo falla, vuelve al nativo. Recuerda el punto en localStorage.
  */
+import { enviarConConsentimiento, medir } from './medicion';
+
 const reloj = (s: number) => {
   const t = Math.max(0, Math.floor(s));
   return `${Math.floor(t / 60)}:${String(t % 60).padStart(2, '0')}`;
@@ -161,6 +164,16 @@ export function prepararMedio(raiz: HTMLElement) {
       for (const [accion, fn] of acciones) { try { navigator.mediaSession.setActionHandler(accion, fn); } catch { /* acción no admitida */ } }
     });
   }
+
+  // Medición de retención (solo con la medición aceptada; ver medicion.ts).
+  const medicion = medir(medio, {
+    tipo: raiz.dataset.medioTipo === 'video' || medio.tagName === 'VIDEO' ? 'video' : 'audio',
+    id: raiz.dataset.medioId ?? new URL(medio.currentSrc || medio.src, location.href).pathname,
+    titulo: raiz.dataset.medioTitulo ?? document.title,
+    proveedor: raiz.dataset.medioProveedor ?? '',
+  }, enviarConConsentimiento(window as never), location.pathname);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') medicion.salir(); });
+  window.addEventListener('pagehide', () => medicion.salir());
 
   pintarPosicion(0);
   controles.hidden = false;

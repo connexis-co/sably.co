@@ -62,7 +62,7 @@ const migas = [{ name: 'Inicio', url: '/co/' }, { name: 'Blog', url: '/blog/' },
     <div class="v2-contenedor grid gap-12 py-12 lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-16 lg:py-16">
       <article class="v2-articulo min-w-0 max-w-[720px]">
         <p class="rounded-c-lg bg-navy-50 p-5 text-t17 text-navy-950">{post.data.description}</p>
-        {narracion && <div class="mt-6"><ReproductorAudio src={narracion.url} segundos={narracion.segundos} titulo={post.data.title} caratula={portada} /></div>}
+        {narracion && <div class="mt-6"><ReproductorAudio src={narracion.url} segundos={narracion.segundos} titulo={post.data.title} caratula={portada} medioId={`blog:${post.id}`} proveedor={narracion.proveedor} /></div>}
         {toc.length > 2 && (
           <Acordeon titulo={`Tabla de contenidos (${toc.length})`} class="mt-6 rounded-c-lg px-5 ring-1 ring-navy-100 lg:hidden" tituloClass="min-h-14 text-t15 font-semibold text-navy-950">
             <ol class="space-y-1 pb-4" role="list">

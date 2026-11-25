@@ -54,6 +54,8 @@ export interface Publicada {
   huella: string;
   perfilId: string;
   vozId: string;
+  proveedor?: string;
+  voz?: string;
   url: string;
   archivo: string;
   deposito: "r2" | "disco";
@@ -290,6 +292,7 @@ export class Cola {
     await this.a.tomas.put(id, final);
     await this.a.publicadas.put(clave, {
       toma: id, coleccion: toma.coleccion, slug: toma.slug, huella: toma.huella, perfilId: toma.perfilId, vozId: toma.perfil.vozId,
+      proveedor: toma.perfil.proveedor, voz: toma.perfil.voz,
       url: toma.url, archivo: toma.archivo, deposito: toma.deposito, segundos: Math.round(toma.segundos ?? 0), bytes: toma.bytes ?? 0, publicada: t,
     });
     await Promise.resolve(this.avisar()).catch(() => undefined);
