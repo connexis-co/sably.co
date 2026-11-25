@@ -20,8 +20,8 @@ import { getHomeEditorial } from '@/lib/home-editorial';
 import { monedasCobradas } from '@/lib/moneda-catalogo';
 import { countryAlternates, faqSchema } from '@/lib/seo';
 import { readOperationalPrice } from '@/plugins/sably-operations/public';
-import { formatPrice } from '@/lib/countries';
-import { cifra } from '@/lib/presentacion-v2';
+import { localPrice } from '@/lib/countries';
+import Precio from '@/components/v2/Precio.astro';
 import { notaHotmart } from '@/lib/opiniones';
 import { readOperationalRatings } from '@/plugins/sably-operations/public';
 import { cifrasPortada } from '../cifras';
@@ -54,7 +54,8 @@ const COMO_FUNCIONA = [
 ];
 const precio = async (slug: string, usd: number) => {
   const real = await readOperationalPrice(db, slug, country, Astro.locals).catch(() => null);
-  return real ? { cifra: cifra(real.monto, country.hreflang), moneda: real.moneda } : { cifra: formatPrice(usd, country), moneda: '' };
+  // Formato único del tema (src/components/v2/Precio.astro): «$ 191.012 COP».
+  return real ? { valor: real.monto, moneda: real.moneda } : { valor: localPrice(usd, country), moneda: country.currency };
 };
 /* Tarjeta flotante del héroe: el primer destacado con inscripción abierta, con su nota y precio reales. */
 const heroe = featured.find(comprable) ?? null;
@@ -107,7 +108,7 @@ const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u
             <span class="min-w-0">
               <strong class="block truncate text-t15 font-semibold">{heroe.data.title}</strong>
               {heroeNota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" /><span class="font-medium text-navy-950">{heroeNota.cifra}</span> · {heroeNota.texto.replace(/ calificaciones.*$/, '')} en Hotmart</span>}
-              {heroePrecio && <span class="v2-num block text-t17 font-semibold">{heroePrecio.cifra} <span class="text-t13 font-medium">{heroePrecio.moneda}</span></span>}
+              {heroePrecio && <Precio valor={heroePrecio.valor} moneda={heroePrecio.moneda} locale={country.hreflang} class="v2-num block text-t17 font-semibold" />}
             </span>
           </a>
         )}
