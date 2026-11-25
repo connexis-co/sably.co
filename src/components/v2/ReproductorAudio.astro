@@ -13,7 +13,6 @@ const minutos = Math.max(1, Math.round(segundos / 60));
 <section class="v2-medio v2-medio-audio" data-medio data-medio-tipo="audio" data-medio-id={medioId} data-medio-proveedor={proveedor} data-medio-titulo={titulo} data-medio-artista="Sably" data-medio-caratula={caratula} aria-labelledby={`${id}-titulo`}>
   <div class="v2-medio-cabeza">
     <p class="v2-medio-titulo" id={`${id}-titulo`}>Escucha este artículo · {minutos} min</p>
-    <p class="v2-medio-nota">Voz sintética · español latino</p>
   </div>
   <audio data-medio-elemento controls preload="none" src={src} aria-labelledby={`${id}-titulo`}></audio>
   <div class="v2-medio-controles" data-medio-controles role="group" aria-label="Controles de la narración" hidden>

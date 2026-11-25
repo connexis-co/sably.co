@@ -10,7 +10,7 @@ export interface Narracion {
   url: string;
   segundos: number;
   vozId: string;
-  /** «proveedor:voz» (p. ej. gemini:es-419-csagent-9), para la medición. */
+  /** Id de la voz del catálogo (p. ej. csagent-9), para la medición. Sin nombre de proveedor: va en el HTML público. */
   proveedor: string;
 }
 
@@ -39,9 +39,31 @@ export async function narracionVigente(coleccion: string, slug: string, datos: R
     if (p.huella !== sin && p.huella !== con) return undefined;
     // Depósito en disco: si el archivo no está (copia restaurada sin la carpeta de audios), no hay reproductor roto.
     if (p.url.startsWith('/narraciones/') && !(await existeEnDisco(p.url.slice('/narraciones/'.length)))) return undefined;
-    return { url: p.url, segundos: Math.round(p.segundos), vozId: p.vozId ?? '', proveedor: p.proveedor && p.voz ? `${p.proveedor}:${p.voz}` : `sably-narracion:${p.vozId ?? ''}` };
+    return { url: p.url, segundos: Math.round(p.segundos), vozId: p.vozId ?? '', proveedor: p.vozId ?? '' };
   } catch {
     return undefined;
+  }
+}
+
+/**
+ * Segundos de la narración publicada de cada entrada de una colección, en una sola consulta: para el distintivo
+ * «Escúchalo · N min» de tarjetas y listados (blog/DISENO.md §12.11). No comprueba la huella: tras editar el texto, el
+ * distintivo puede seguir visible el minuto o dos que tarda la toma nueva, mientras la ficha ya no pinta el reproductor.
+ */
+export async function duracionesNarradas(coleccion: string): Promise<Map<string, number>> {
+  try {
+    const { getDb } = await import('emdash/runtime');
+    const filas = await (await getDb()).selectFrom('_plugin_storage' as never).select(['id', 'data'] as never)
+      .where('plugin_id' as never, '=', PLUGIN as never).where('collection' as never, '=', 'publicadas' as never)
+      .where('id' as never, 'like', `${coleccion}:%` as never).execute() as { id: string; data: string }[];
+    const mapa = new Map<string, number>();
+    for (const f of filas) {
+      const segundos = Number((JSON.parse(f.data) as { segundos?: unknown }).segundos);
+      if (segundos > 0) mapa.set(f.id.slice(coleccion.length + 1), Math.round(segundos));
+    }
+    return mapa;
+  } catch {
+    return new Map();
   }
 }
 

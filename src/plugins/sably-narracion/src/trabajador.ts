@@ -138,7 +138,7 @@ async function generarToma(cola: Cola, id: string, toma: Toma, config: Config, o
     titulo: toma.titulo,
     artista: o.metadatos?.artista ?? "Sably",
     album: o.metadatos?.album ?? "Artículos narrados",
-    comentario: "Narración con voz sintética generada con IA.",
+    comentario: "Narración del artículo.",
   });
   const huellaAudio = await sha256(mp3);
   const archivo = `${toma.slug.slice(0, 140)}-${huellaAudio.slice(0, 12)}.mp3`;

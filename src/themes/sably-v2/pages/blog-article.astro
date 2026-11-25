@@ -33,7 +33,7 @@ const audioUrl = narracion ? new URL(narracion.url, Astro.site ?? Astro.url).hre
 // Article.audio → AudioObject, solo con narración vigente (mismo audio que suena en la página).
 const articleSchema = narracion && audioUrl && articuloBase ? {
   ...articuloBase,
-  audio: { '@type': 'AudioObject', name: `Narración: ${post.data.title}`, description: 'Narración del artículo con voz sintética.',
+  audio: { '@type': 'AudioObject', name: `Narración: ${post.data.title}`, description: 'Narración del artículo.',
     contentUrl: audioUrl, encodingFormat: 'audio/mpeg', duration: duracionIso(narracion.segundos), inLanguage: 'es' },
 } : articuloBase;
 const migas = [{ name: 'Inicio', url: '/co/' }, { name: 'Blog', url: '/blog/' }, { name: post.data.title, url: `/blog/${post.id}/` }];

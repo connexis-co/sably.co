@@ -264,7 +264,7 @@ export function createPlugin() {
         try {
           const r = await p.sintetizar(texto, voz, { estilo: config.estilo });
           await cola.sumarGasto(r.costoUsd);
-          const mp3 = await aMp3(await normalizar(recortar(r.pcm)), { titulo: "Prueba de voz", artista: "Sably", comentario: "Voz sintética." });
+          const mp3 = await aMp3(await normalizar(recortar(r.pcm)), { titulo: "Prueba de voz", artista: "Sably", comentario: "Prueba de voz." });
           return { mp3: Buffer.from(mp3).toString("base64"), usd: r.costoUsd, segundos: (await medir(r.pcm)).segundos };
         } catch (e) {
           if (e instanceof ErrorProveedor) throw PluginRouteError.badRequest(`El proveedor respondió: ${e.message}`);
