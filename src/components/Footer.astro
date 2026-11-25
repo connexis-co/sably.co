@@ -1,5 +1,6 @@
 ---
 import { getCategories, getCountries } from '@/lib/emdash-content';
+import { relDe } from '@/lib/enlaces-propios';
 import { getMenu } from 'emdash';
 import { getLiveSiteSettings } from '@/lib/live-site-settings';
 import { safeEditorialUrl, marketMenuUrl } from '@/lib/sably-theme';
@@ -57,7 +58,7 @@ const ECOSYSTEM = (ecosystem?.items ?? []).flatMap(item=>{
                 <a
                   href={f.href}
                   target={f.target}
-                  rel={f.target==='_blank'?'noopener':undefined}
+                  rel={relDe(f.href, f.target)}
                   class="inline-flex items-center gap-1.5 text-sm font-semibold text-white transition hover:text-accent"
                 >
                   {f.label}
@@ -95,7 +96,7 @@ const ECOSYSTEM = (ecosystem?.items ?? []).flatMap(item=>{
                 <a
                   href={cat.externalUrl ?? `${base}/cursos/${cat.slug}/`}
                   class="text-sm text-white/70 transition hover:text-white"
-                  {...(cat.externalUrl ? { target: '_blank', rel: 'noopener' } : {})}
+                  {...(cat.externalUrl ? { target: '_blank', rel: relDe(cat.externalUrl, '_blank') } : {})}
                 >
                   {cat.name}
                 </a>
@@ -126,7 +127,7 @@ const ECOSYSTEM = (ecosystem?.items ?? []).flatMap(item=>{
           {
             SABLY_LINKS.map((l) => (
               <li>
-                <a href={l.href} target={l.target} rel={l.target==='_blank'?'noopener':undefined} class="text-sm text-white/70 transition hover:text-white">
+                <a href={l.href} target={l.target} rel={relDe(l.href, l.target)} class="text-sm text-white/70 transition hover:text-white">
                   {l.label}
                 </a>
               </li>
