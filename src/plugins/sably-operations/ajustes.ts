@@ -114,6 +114,12 @@ export const settingsSchema = {
     description: 'Los números de los pasos se encienden al bajar y un carril coral avanza hasta el paso que lees. Con «reducir movimiento», sin desplazamientos. Apagado: los cuatro pasos encendidos y quietos. Por defecto: encendido.',
     default: true,
   },
+  portadaEscenasAtenuar: {
+    type: 'boolean',
+    label: 'Portada · Atenuar los capítulos que no se leen en el scroll narrativo',
+    description: 'En escritorio, mientras la foto fija acompaña al capítulo que lees, los demás bajan de tono (el texto sigue entero). Los textos se editan en Secciones → sably-home-escenas. Por defecto: encendido.',
+    default: true,
+  },
   // Integraciones
   notificationEmail: {
     type: 'email',
@@ -128,7 +134,7 @@ export type ValorAjuste = string | boolean;
 export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'medios' | 'seo' | 'integraciones' | 'avanzado';
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
-export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaComoFuncionaAnimado'];
+export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaComoFuncionaAnimado', 'portadaEscenasAtenuar'];
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [

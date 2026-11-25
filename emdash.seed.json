@@ -205,6 +205,172 @@
       ]
     },
     {
+      "slug": "sably-home-escenas",
+      "title": "Inicio · Scroll narrativo (De la primera clase a tu primer encargo)",
+      "description": "Portada V2. Antetítulo, título y entradilla; después, cada capítulo es un H3 seguido de su párrafo (hasta cuatro: la foto y el enlace van por posición). {pais} y {moneda} se adaptan al visitante.",
+      "source": "theme",
+      "keywords": [
+        "sably",
+        "inicio"
+      ],
+      "content": [
+        {
+          "_type": "block",
+          "_key": "eyebrow",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "eyebrow-text",
+              "text": "Paso a paso",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "title",
+          "style": "h2",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "title-text",
+              "text": "De la primera clase a tu primer encargo",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "description",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "description-text",
+              "text": "Así se ve aprender un oficio en línea, desde que eliges el curso hasta que lo ofreces a otros.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "c1",
+          "style": "h3",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "c1-text",
+              "text": "Eliges un oficio que puedas practicar",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "c1-texto",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "c1-texto-text",
+              "text": "Cada curso dice qué materiales necesitas y cuánto dura. Empieza por lo que ya te llama: la cocina, el cabello, la electricidad de tu casa.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "c2",
+          "style": "h3",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "c2-text",
+              "text": "Aprendes en vídeo, a tu ritmo",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "c2-texto",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "c2-texto-text",
+              "text": "Las lecciones se ven en el celular o en el computador, las veces que quieras. Pausas, repites y sigues cuando puedas.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "c3",
+          "style": "h3",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "c3-text",
+              "text": "Practicas con tus manos",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "c3-texto",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "c3-texto-text",
+              "text": "Repites cada técnica en casa o en el taller, con la clase abierta al lado.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "c4",
+          "style": "h3",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "c4-text",
+              "text": "Ofreces tu trabajo",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "c4-texto",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "c4-texto-text",
+              "text": "Con la técnica dominada, la ofreces a vecinos, familia o clientes. El temario de cada curso dice si enseña a poner precio a tu trabajo.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    },
+    {
       "slug": "sably-home-benefits-heading",
       "title": "Inicio · Título de beneficios",
       "description": "Edita los textos conservando su orden. {pais} y {moneda} se adaptan al mercado de la página.",

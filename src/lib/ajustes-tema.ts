@@ -34,6 +34,7 @@ export interface AjustesV2 {
     bloques: BloquePortada[];
     heroe: { rota: boolean; intervalo: number; orden: 'aleatorio' | 'fijo'; cursos: string[] };
     comoFuncionaAnimado: boolean;
+    escenasAtenuar: boolean;
   };
 }
 
@@ -78,6 +79,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
         cursos: listaDeTexto(v.portadaHeroeOficios).slice(0, 12),
       },
       comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
+      escenasAtenuar: v.portadaEscenasAtenuar !== false,
     },
   };
 }

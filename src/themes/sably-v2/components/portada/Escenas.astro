@@ -1,0 +1,123 @@
+---
+/**
+ * Scroll narrativo «De la primera clase a tu primer encargo» (bloque `escenas`, D3, estudio de movimiento F8).
+ * Banda azul noche con cuatro capítulos a la izquierda y, desde 900 px, una foto fija a la derecha que cambia
+ * cuando el centro de un capítulo cruza el 45 % de la ventana (IntersectionObserver: sin listener de scroll y
+ * nada por fotograma). Por debajo de 900 px, sin JavaScript o con «reducir movimiento», todo va en flujo: cada
+ * capítulo con su foto y nada atenuado. Todo el texto está en el HTML inicial.
+ *
+ * Textos: sección del CMS `sably-home-escenas` (antetítulo `eyebrow`, título `title`, entradilla `description` y un
+ * H3 + párrafo por capítulo). Si no existe, los de fábrica de este archivo. Fotos y enlaces van por capítulo.
+ */
+import Ico from '../Ico.astro';
+import Foto from '../Foto.astro';
+import type { NombreFoto } from '../../fotos';
+
+export interface TextosEscenas { eyebrow: string; title: string; description: string; capitulos: { titulo: string; texto: string }[] }
+interface Props { textos: TextosEscenas | null; base: string; areas: { slug: string; nombre: string }[]; atenuar?: boolean }
+const { textos, base, areas, atenuar = true } = Astro.props;
+
+const FABRICA: TextosEscenas = {
+  eyebrow: 'Paso a paso',
+  title: 'De la primera clase a tu primer encargo',
+  description: 'Así se ve aprender un oficio en línea, desde que eliges el curso hasta que lo ofreces a otros.',
+  capitulos: [
+    { titulo: 'Eliges un oficio que puedas practicar', texto: 'Cada curso dice qué materiales necesitas y cuánto dura. Empieza por lo que ya te llama: la cocina, el cabello, la electricidad de tu casa.' },
+    { titulo: 'Aprendes en vídeo, a tu ritmo', texto: 'Las lecciones se ven en el celular o en el computador, las veces que quieras. Pausas, repites y sigues cuando puedas.' },
+    { titulo: 'Practicas con tus manos', texto: 'Repites cada técnica en casa o en el taller, con la clase abierta al lado.' },
+    { titulo: 'Ofreces tu trabajo', texto: 'Con la técnica dominada, la ofreces a vecinos, familia o clientes. El temario de cada curso dice si enseña a poner precio a tu trabajo.' },
+  ],
+};
+const t = textos && textos.capitulos.length >= 2 ? { ...FABRICA, ...Object.fromEntries(Object.entries(textos).filter(([, v]) => v && (!Array.isArray(v) || v.length))) } as TextosEscenas : FABRICA;
+const emprender = areas.find(a => a.slug === 'emprendimiento');
+const EXTRA: { foto: NombreFoto; enlace?: { href: string; texto: string } }[] = [
+  { foto: 'foto-panaderia-1', enlace: { href: `${base}/cursos/`, texto: 'Ver las áreas' } },
+  { foto: 'foto-estudiar-celular-1', enlace: { href: '/videos/', texto: 'Mira las presentaciones en vídeo' } },
+  { foto: 'foto-heroe-1' },
+  { foto: 'foto-barberia-1', enlace: emprender ? { href: `${base}/cursos/${emprender.slug}/`, texto: `Cursos de ${emprender.nombre.toLowerCase()}` } : { href: `${base}/cursos/`, texto: 'Ver los cursos' } },
+];
+const capitulos = t.capitulos.slice(0, EXTRA.length).map((c, i) => ({ ...c, ...EXTRA[i]! }));
+---
+<section class="v2-escenas mt-24 bg-navy-950 text-white lg:mt-32" aria-labelledby="escenas-titulo" data-escenas data-atenuar={atenuar ? '' : undefined}>
+  <div class="v2-contenedor py-20 lg:py-28">
+    <p class="v2-antetitulo text-white/80">{t.eyebrow}</p>
+    <h2 id="escenas-titulo" class="mt-3 max-w-[720px] font-display text-d28 !text-white lg:text-d40">{t.title}</h2>
+    {t.description && <p class="mt-4 max-w-[600px] text-t17 text-white/75">{t.description}</p>}
+    <div class="v2-escenas-rejilla mt-12">
+      <ol class="v2-escenas-lista" role="list">
+        {capitulos.map((c, i) => (
+          <li class="v2-capitulo" data-capitulo={i} data-activo={i === 0 ? '' : undefined}>
+            <p class="v2-num text-t13 font-semibold text-coral-500">{String(i + 1).padStart(2, '0')}</p>
+            <h3 class="mt-2 font-display text-t20 font-semibold !text-inherit lg:text-d28">{c.titulo}</h3>
+            <p class="mt-3 max-w-[460px] text-t17">{c.texto}</p>
+            {c.enlace && <a href={c.enlace.href} class="v2-enlace mt-4 min-h-11 !text-white">{c.enlace.texto} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>}
+            <div class="v2-capitulo-foto mt-6 overflow-hidden rounded-c-xl"><Foto nombre={c.foto} sizes="92vw" decorativa class="aspect-video w-full object-cover" /></div>
+          </li>
+        ))}
+      </ol>
+      <figure class="v2-escenario" aria-hidden="true">
+        <div class="v2-escenario-marco">
+          {capitulos.map((c, i) => (
+            <div class="v2-escena" data-escena={i} data-activa={i === 0 ? '' : undefined}><Foto nombre={c.foto} sizes="600px" decorativa class="h-full w-full object-cover" /></div>
+          ))}
+          <span class="v2-escenario-placa v2-num"><span data-escena-n>1</span> de {capitulos.length}</span>
+        </div>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  @layer components {
+    .v2-escenario { display: none; }
+    .v2-capitulo + .v2-capitulo { margin-top: 56px; }
+    .v2-capitulo { color: #fff; }
+    .v2-capitulo p:not(.v2-num) { color: rgb(255 255 255 / .78); }
+    @media (min-width: 900px) {
+      .v2-escenas-rejilla { display: grid; grid-template-columns: minmax(0, 520px) minmax(0, 600px); justify-content: space-between; gap: 48px; }
+      .v2-capitulo-foto { display: none; }
+      .v2-capitulo { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; }
+      .v2-capitulo + .v2-capitulo { margin-top: 0; }
+      .v2-escenario { display: block; }
+      .v2-escenario-marco {
+        position: sticky; top: calc(var(--fijo-superior, 72px) + 24px);
+        height: min(640px, calc(100vh - var(--fijo-superior, 72px) - 48px)); border-radius: var(--radius-c-xl); overflow: hidden; background: var(--color-navy-900);
+      }
+      .v2-escena { position: absolute; inset: 0; opacity: 0; transition: opacity var(--t-lento) var(--e-mueve); }
+      .v2-escena img { scale: 1.04; transition: scale calc(var(--t-lento) * 2) var(--e-sale); }
+      .v2-escena[data-activa] { opacity: 1; }
+      .v2-escena[data-activa] img { scale: 1; }
+      .v2-escena picture { display: block; height: 100%; }
+      .v2-escenario-placa { position: absolute; left: 16px; bottom: 16px; padding: 6px 12px; border-radius: 999px; background: rgb(27 27 58 / .72); backdrop-filter: blur(6px); font: 600 13px/18px var(--font-sans); color: #fff; }
+      /* Capítulos no activos en un tono más bajo: cambio de color, el texto sigue entero. Solo con JS. */
+      [data-escenas][data-atenuar][data-vivo] .v2-capitulo { transition: color var(--t-base) var(--e-sale); }
+      [data-escenas][data-atenuar][data-vivo] .v2-capitulo:not([data-activo]), [data-escenas][data-atenuar][data-vivo] .v2-capitulo:not([data-activo]) p:not(.v2-num) { color: var(--color-navy-300); }
+    }
+  }
+</style>
+
+<script>
+  for (const raiz of document.querySelectorAll<HTMLElement>('[data-escenas]')) {
+    if (!('IntersectionObserver' in window)) break;
+    const capitulos = [...raiz.querySelectorAll<HTMLElement>('[data-capitulo]')];
+    const escenas = [...raiz.querySelectorAll<HTMLElement>('[data-escena]')];
+    const n = raiz.querySelector<HTMLElement>('[data-escena-n]');
+    let activo = 0;
+    const activar = async (i: number) => {
+      if (i === activo) return;
+      activo = i;
+      capitulos.forEach((c, k) => c.toggleAttribute('data-activo', k === i));
+      const img = escenas[i]?.querySelector('img');
+      if (img) { img.loading = 'eager'; try { await img.decode(); } catch { /* se pinta igual */ } }
+      if (activo !== i) return; // ya se pasó a otro capítulo: no se pinta el viejo
+      escenas.forEach((e, k) => e.toggleAttribute('data-activa', k === i));
+      if (n) n.textContent = String(i + 1);
+      // La siguiente, precargada para que el cambio no espere a la red.
+      const sig = escenas[i + 1]?.querySelector('img');
+      if (sig) sig.loading = 'eager';
+    };
+    raiz.setAttribute('data-vivo', '');
+    const io = new IntersectionObserver(es => { for (const e of es) if (e.isIntersecting) void activar(capitulos.indexOf(e.target as HTMLElement)); }, { rootMargin: '-45% 0px -55% 0px' });
+    capitulos.forEach(c => io.observe(c));
+  }
+</script>

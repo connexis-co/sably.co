@@ -12,6 +12,7 @@ export const BLOQUES_PORTADA = [
   { id: 'destacados', nombre: 'Cursos destacados' },
   { id: 'promo', nombre: 'Banda de la campaña' },
   { id: 'como-funciona', nombre: 'Cómo funciona Sably' },
+  { id: 'escenas', nombre: 'De la primera clase a tu primer encargo (scroll narrativo)' },
   { id: 'oficio', nombre: 'Oficio destacado' },
   { id: 'beneficios', nombre: 'Por qué Sably' },
   { id: 'videos', nombre: 'Presentaciones en vídeo' },

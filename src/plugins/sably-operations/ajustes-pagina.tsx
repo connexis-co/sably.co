@@ -130,7 +130,7 @@ export function AjustesPage() {
         <button className="so-primary" disabled={ocupado} onClick={() => void guardar(['portadaOrden', 'portadaOcultos'])}>{ocupado ? 'Guardando…' : 'Guardar bloques'}</button>
       </section>
       {seccion(['portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios'], 'Héroe')}
-      {seccion(['portadaComoFuncionaAnimado'], 'Movimiento de los bloques')}
+      {seccion(['portadaComoFuncionaAnimado', 'portadaEscenasAtenuar'], 'Movimiento de los bloques')}
       <Enlaces items={[['Textos de la portada', 'Titular, entradilla y textos de cada bloque (secciones sably-home-*).', `${ADMIN}/sections`]]} />
     </>; break;
     case 'contenido': cuerpo = <Enlaces items={[
