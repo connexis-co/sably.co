@@ -1,0 +1,195 @@
+---
+/**
+ * Cabecera V2 «Clásica» (diseno/exportes/v2/QKGnp-secciones): logo, «Cursos»
+ * con el megamenú A, el resto del menú principal de EmDash, buscador, país con
+ * moneda y WhatsApp. Sin botón de venta. 72 px en reposo y 60 px al desplazar
+ * (solo CSS). En móvil, 56 px con buscar, país y la hoja completa (popover).
+ *
+ * Todos los enlaces del megamenú del clásico siguen en el HTML: las 12 áreas,
+ * sus subcategorías, el área externa y los cursos destacados. El JavaScript
+ * solo cambia qué área se ve y cierra con Esc (~0,6 KB).
+ */
+import Logo from '@/components/Logo.astro';
+import Bandera from '@/components/v2/Bandera.astro';
+import Ico from './Ico.astro';
+import Foto from './Foto.astro';
+import MegaFila from './MegaFila.astro';
+import MegaDetalle from './MegaDetalle.astro';
+import type { Country } from '@/lib/countries';
+import type { DatosNavegacion } from '../navegacion';
+import type { PromoV2 } from '../promo-v2';
+import '../estilos.css';
+interface Props { country: Country; pathAfterCountry: string; nav: DatosNavegacion; promo: PromoV2 | null }
+const { country, pathAfterCountry, nav, promo } = Astro.props;
+const { base, areas, externas, destacados } = nav;
+const ruta = Astro.url.pathname;
+const actual = (href: string) => href !== '/' && (ruta === href || (href.length > 4 && ruta.startsWith(href)));
+const otros = nav.principal.filter(e => e !== nav.enlaceCursos);
+const enCursos = ruta.startsWith(`${base}/cursos/`);
+const buscar = `${base}/cursos/#buscar`;
+---
+<header class="v2-cabecera" data-cabecera>
+  <div class="v2-contenedor v2-cabecera-fila flex items-center gap-2 lg:gap-6">
+    <span class="v2-cabecera-logo flex-none [&_svg]:h-7 lg:[&_svg]:h-8"><Logo href={`${base}/`} /></span>
+
+    <nav class="flex items-center gap-1 max-lg:hidden" aria-label="Navegación principal">
+      <div class="v2-mega-raiz" data-mega>
+        <a href={nav.enlaceCursos.href} class:list={['v2-nav-enlace', { 'v2-actual': enCursos }]} aria-current={ruta === nav.enlaceCursos.href ? 'page' : undefined} data-mega-gatillo>{nav.enlaceCursos.etiqueta}</a>
+        <button type="button" class="v2-mega-boton" aria-expanded="false" aria-controls="v2-megamenu" aria-label="Mostrar las áreas de cursos" data-mega-boton><Ico nombre="chevron-down" tamano={16} class="v2-giro" /></button>
+        <div class="v2-mega-velo" aria-hidden="true"></div>
+        <div class="v2-mega" id="v2-megamenu">
+          <div class="v2-contenedor"><div class="v2-mega-panel">
+            <div class="grid grid-cols-[minmax(0,420px)_minmax(0,1fr)_280px]">
+              <div class="border-r border-navy-100 p-6 pr-5">
+                <p class="px-4 text-t13 font-medium text-navy-500">Áreas</p>
+                <ul class="mt-2 grid grid-flow-col grid-cols-2 gap-x-2" style={`grid-template-rows: repeat(${Math.ceil(areas.length / 2)}, auto)`} role="list">
+                  {areas.map(area => (
+                    <li><a href={`${base}/cursos/${area.slug}/`} class="v2-mega-area" data-area={area.slug}>{area.nombre}</a></li>
+                  ))}
+                </ul>
+                {promo && (
+                  <div data-promo-v2="tarjeta" data-promo-ssr={promo.ssr} class="mt-5 rounded-c-lg bg-coral-50 p-4">
+                    <p class="flex items-center gap-2 text-t13 font-semibold text-coral-700"><span class="size-1.5 rounded-full bg-coral-500" aria-hidden="true"></span><span data-promo-gorro>{promo.etiqueta}</span></p>
+                    <p class="mt-1 font-display text-t20 font-semibold text-navy-950"><span data-promo-pct-v2>{promo.pct} %</span> en cursos seleccionados</p>
+                    <button type="button" data-promo-cupon class="v2-tique-mini mt-3 bg-white" aria-label={`Copiar el cupón ${promo.cupon}`}>
+                      <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{promo.cupon}</span>
+                      <span class="gap-1 font-semibold text-coral-700"><Ico nombre="copy" tamano={14} /><span data-promo-copiar-texto>Copiar</span></span>
+                    </button>
+                    {promo.fin && <p data-promo-fin class="mt-2 text-t13 text-navy-500">Termina el <span data-promo-fecha>{promo.fin}</span> (hora de Colombia)</p>}
+                  </div>
+                )}
+              </div>
+              <div class="relative p-6 px-8">
+                <div data-mega-detalle="">
+                  <p class="font-display text-d28 font-semibold text-navy-950">Cursos destacados en Sably</p>
+                  <ul class="mt-4" role="list">
+                    {destacados.map(c => <li><MegaFila curso={c} base={base} area={nav.nombreDeArea.get(c.area)} /></li>)}
+                  </ul>
+                  <a href={`${base}/cursos/`} class="v2-enlace mt-5 text-coral-700">Ver los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+                  <p class="mt-4 text-t13 text-navy-500">Destacados por el equipo de Sably y por número de calificaciones en Hotmart.</p>
+                </div>
+                {areas.map(area => <MegaDetalle area={area} base={base} />)}
+              </div>
+              <div class="v2-mega-foto p-6 pl-0">
+                <div data-mega-foto="" class="h-full max-h-[420px] overflow-hidden rounded-c-lg bg-navy-50">
+                  <Foto nombre="foto-estudiar-celular-1" sizes="280px" decorativa class="h-full w-full object-cover" />
+                </div>
+                {areas.map(area => (
+                  <div data-mega-foto={area.slug} hidden class="h-full max-h-[420px] overflow-hidden rounded-c-lg bg-navy-50">
+                    {area.foto
+                      ? <Foto nombre={area.foto} sizes="280px" decorativa class="h-full w-full object-cover" />
+                      : area.fotoCms && <img src={area.fotoCms} alt="" width="480" height="320" loading="lazy" decoding="async" class="h-full w-full object-cover" />}
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-x-6 gap-y-2 bg-navy-50 px-6 py-3">
+              <a href="/blog/" class="v2-enlace min-h-11"><Ico nombre="book-open" tamano={18} />Guías gratuitas <Ico nombre="arrow-right" tamano={16} class="v2-flecha" /></a>
+              <a href="/homologaciones/" class="v2-enlace min-h-11"><Ico nombre="badge-check" tamano={18} />Homologaciones <Ico nombre="arrow-right" tamano={16} class="v2-flecha" /></a>
+              <a href={`${base}/cursos/`} class="v2-enlace min-h-11"><Ico nombre="layout-grid" tamano={18} />Ver los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={16} class="v2-flecha" /></a>
+              {externas.map(e => <a href={e.href} target="_blank" rel="noopener" class="v2-enlace min-h-11">{e.nombre}: academia <Ico nombre="external-link" tamano={16} /></a>)}
+              <p class="ml-auto flex items-center gap-2 text-t15 text-navy-500">¿No sabes cuál elegir? <a href={nav.whatsapp} target="_blank" rel="noopener nofollow" class="v2-enlace min-h-11"><img src="/v2/logos/whatsapp.svg" alt="" width="18" height="18" />Escríbenos</a></p>
+            </div>
+          </div></div>
+        </div>
+      </div>
+      {otros.map(e => <a href={e.href} target={e.target} rel={e.target === '_blank' ? 'noopener' : undefined} class:list={['v2-nav-enlace', { 'v2-actual': actual(e.href) }]} aria-current={ruta === e.href ? 'page' : undefined}>{e.etiqueta}</a>)}
+    </nav>
+
+    <div class="ml-auto flex items-center gap-2">
+      <a href={buscar} class="v2-campo-falso max-lg:hidden" data-buscar-abrir aria-label="Buscar un curso (tecla /)"><Ico nombre="search" tamano={18} class="text-navy-700" />Busca un curso<kbd aria-hidden="true">/</kbd></a>
+      <a href={buscar} class="v2-icono-boton v2-sin-borde lg:hidden" data-buscar-abrir aria-label="Buscar un curso"><Ico nombre="search" /></a>
+      <button type="button" popovertarget="v2-pais" class="v2-icono-boton inline-flex items-center gap-2 px-3 [anchor-name:--v2-pais]" aria-label={`País: ${country.name}. Precios en ${country.currency}. Cambiar país`}>
+        <Bandera codigo={country.code} /><span class="text-t15 font-semibold max-lg:hidden">{country.currency}</span><Ico nombre="chevron-down" tamano={16} class="max-lg:hidden" />
+      </button>
+      <a href={nav.whatsapp} target="_blank" rel="noopener nofollow" class="v2-icono-boton max-lg:hidden" aria-label="Escríbenos por WhatsApp"><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" /></a>
+      <button type="button" popovertarget="v2-menu-movil" class="v2-icono-boton v2-sin-borde lg:hidden" aria-label="Abrir el menú"><Ico nombre="menu" /></button>
+    </div>
+  </div>
+</header>
+
+<div id="v2-pais" popover class="v2-pais-panel" aria-label="País y moneda">
+  <div class="flex items-start justify-between gap-4 px-3 pt-3 pb-2">
+    <div>
+      <p class="font-display text-t20 font-semibold">País y moneda</p>
+      <p class="text-t13 text-navy-500">Cada país tiene sus propias fichas y precios.</p>
+    </div>
+    <button type="button" popovertarget="v2-pais" popovertargetaction="hide" class="v2-icono-boton v2-sin-borde -mr-1" aria-label="Cerrar"><Ico nombre="x" /></button>
+  </div>
+  <ul role="list">
+    {nav.paises.map(p => (
+      <li><a href={`/${p.code}${pathAfterCountry}`} class="v2-pais-fila" data-geo-country={p.code} aria-current={p.code === country.code ? 'true' : undefined} hreflang={undefined}>
+        <Bandera codigo={p.code} />{p.nombre}<span class="ml-auto text-t13 font-medium text-navy-500">{p.moneda}</span>{p.code === country.code && <Ico nombre="check" tamano={18} class="text-coral-600" />}
+      </a></li>
+    ))}
+  </ul>
+</div>
+
+<div id="v2-menu-movil" popover class="v2-hoja" aria-label="Menú">
+  <div class="flex h-14 flex-none items-center justify-between px-5">
+    <span class="[&_svg]:h-7"><Logo href={`${base}/`} /></span>
+    <button type="button" popovertarget="v2-menu-movil" popovertargetaction="hide" class="inline-flex min-h-11 items-center gap-2 rounded-full bg-navy-50 px-4 text-t15 font-semibold">Cerrar<Ico nombre="x" tamano={18} /></button>
+  </div>
+  <div class="flex-1 overflow-y-auto overscroll-contain px-5 pb-6">
+    <form action={`${base}/cursos/`} method="get" role="search" class="relative mt-2">
+      <label for="v2-buscar-movil" class="sr-only">Busca un curso u oficio</label>
+      <Ico nombre="search" tamano={20} class="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-navy-700" />
+      <input id="v2-buscar-movil" name="q" type="search" placeholder="Busca un curso u oficio" autocomplete="off" class="h-13 w-full rounded-full bg-navy-50 pr-4 pl-12 text-t17 text-navy-950 outline-none placeholder:text-navy-500 focus-visible:ring-3 focus-visible:ring-coral-600" />
+    </form>
+    <details class="v2-acordeon mt-4 border-b border-navy-100" open>
+      <summary class="flex min-h-14 items-center justify-between font-display text-t20 font-semibold">{nav.enlaceCursos.etiqueta}<Ico nombre="chevron-down" class="v2-giro" /></summary>
+      <ul class="grid grid-cols-2 gap-x-4 pb-2" role="list">
+        {areas.map(area => <li><a href={`${base}/cursos/${area.slug}/`} class="v2-hoja-area">{area.nombre}</a></li>)}
+        {externas.map(e => <li><a href={e.href} target="_blank" rel="noopener" class="v2-hoja-area gap-1">{e.nombre} <Ico nombre="external-link" tamano={14} /></a></li>)}
+      </ul>
+      <a href={nav.enlaceCursos.href} class="v2-enlace mb-4 min-h-11 text-coral-700">Ver los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+    </details>
+    <nav aria-label="Menú principal">
+      {otros.map(e => <a href={e.href} target={e.target} rel={e.target === '_blank' ? 'noopener' : undefined} class="v2-hoja-enlace">{e.etiqueta}</a>)}
+      <a href="/blog/" class="v2-hoja-enlace">Guías gratuitas</a>
+    </nav>
+  </div>
+  <div class="flex flex-none items-center gap-3 bg-navy-50 px-5 py-4">
+    <button type="button" popovertarget="v2-pais" class="flex min-h-12 flex-1 items-center gap-3 rounded-c-md bg-white px-4 text-t15 font-medium ring-1 ring-navy-100"><Bandera codigo={country.code} />{country.name} · {country.currency}<Ico nombre="chevron-down" tamano={18} class="ml-auto" /></button>
+    <a href={nav.whatsapp} target="_blank" rel="noopener nofollow" class="v2-icono-boton size-12" aria-label="Escríbenos por WhatsApp"><img src="/v2/logos/whatsapp.svg" alt="" width="22" height="22" /></a>
+  </div>
+</div>
+
+<script>
+  // Megamenú: el área bajo el cursor o el foco cambia el detalle y la foto. Esc lo cierra.
+  const raiz = document.querySelector<HTMLElement>('[data-mega]');
+  if (raiz) {
+    const detalles = raiz.querySelectorAll<HTMLElement>('[data-mega-detalle]');
+    const fotos = raiz.querySelectorAll<HTMLElement>('[data-mega-foto]');
+    const areas = raiz.querySelectorAll<HTMLElement>('[data-area]');
+    const activar = (slug: string) => {
+      areas.forEach(a => a.toggleAttribute('data-activa', a.dataset.area === slug));
+      detalles.forEach(d => { d.hidden = d.dataset.megaDetalle !== slug; });
+      fotos.forEach(f => { f.hidden = f.dataset.megaFoto !== slug; });
+    };
+    areas.forEach(a => {
+      const ir = () => activar(a.dataset.area!);
+      a.addEventListener('pointerenter', ir);
+      a.addEventListener('focus', ir);
+    });
+    /* Teclado: «Cursos» es un enlace y Tab sigue de largo; el botón de la flecha abre y cierra
+       (aria-expanded). Se cierra con Esc y cuando el foco sale del megamenú. El ratón lo abre al pasar. */
+    const boton = raiz.querySelector<HTMLButtonElement>('[data-mega-boton]')!;
+    const abrir = (si: boolean) => { raiz.toggleAttribute('data-abierto', si); boton.setAttribute('aria-expanded', String(si)); };
+    boton.addEventListener('click', () => { const si = !raiz.hasAttribute('data-abierto'); abrir(si); raiz.removeAttribute('data-cerrado'); if (si) raiz.querySelector<HTMLElement>('[data-area]')?.focus(); });
+    raiz.addEventListener('focusout', (e) => { if (!raiz.contains(e.relatedTarget as Node | null)) abrir(false); });
+    raiz.addEventListener('pointerleave', () => raiz.removeAttribute('data-cerrado'));
+    raiz.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      abrir(false);
+      raiz.setAttribute('data-cerrado', '');
+      boton.focus();
+    });
+  }
+  // País: se guarda la preferencia y se avisa a GTM con el mismo evento que el clásico.
+  document.querySelectorAll<HTMLElement>('[data-geo-country]').forEach(a => a.addEventListener('click', () => {
+    try { localStorage.setItem('sably:country', a.dataset.geoCountry ?? 'co'); } catch { /* sin almacenamiento */ }
+    (window as unknown as { dataLayer?: unknown[] }).dataLayer ??= [];
+    (window as unknown as { dataLayer: unknown[] }).dataLayer.push({ event: 'select_country', country_code: a.dataset.geoCountry, city: 'all' });
+  }));
+</script>

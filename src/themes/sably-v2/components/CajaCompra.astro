@@ -20,10 +20,11 @@ import Acordeon from '@/components/v2/Acordeon.astro';
 import Bandera from '@/components/v2/Bandera.astro';
 import LogosPago from '@/components/v2/LogosPago.astro';
 import LogoHotmart from '@/components/v2/LogoHotmart.astro';
+import Precio from '@/components/v2/Precio.astro';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { fechaCorta } from '@/lib/cuenta-atras';
 import { nombresCreadores } from '@/lib/creadores';
-import { cifra as cifraSinSimbolo, fotoPropia, iniciales } from '@/lib/presentacion-v2';
+import { importe, fotoPropia, iniciales } from '@/lib/presentacion-v2';
 import { rellenarPlantilla, type AjustesV2 } from '@/lib/ajustes-tema';
 import { docConAjustes } from '@/lib/caja/sably';
 import { resolverZona } from '@/lib/caja/resolver';
@@ -34,7 +35,7 @@ import type { Country } from '@/lib/countries';
 
 interface Props { f: Ficha; country: Country; ajustes: AjustesV2 }
 const { f, country, ajustes } = Astro.props;
-const { offer, quote, real, baseAmount, currency, displayMoney, localCheckout, marketLinks, promoRow, creadoresVisibles, course, proveedor, nombreEnFrase, valoracion } = f;
+const { offer, quote, real, baseAmount, currency, localCheckout, marketLinks, promoRow, promoSiguiente, creadoresVisibles, course, proveedor, nombreEnFrase, valoracion } = f;
 
 /* Qué bloques lleva la caja, en qué variante y con qué textos: el núcleo común con la
    academia (src/lib/caja/, copia exacta de la suya) sobre el documento de Sably. */
@@ -47,8 +48,10 @@ const bloque = (tipo: Bloque['tipo']) => zona.bloques.find(b => b.tipo === tipo 
 const hijos = (tipo: Bloque['tipo']) => (bloque(tipo)?.hijos ?? []).filter(h => h.visible && cumple(h.si));
 const hijo = (tipo: Bloque['tipo'], item: Bloque['tipo']) => hijos(tipo).some(h => h.tipo === item);
 
-const cifra = (valor: number) => cifraSinSimbolo(valor, country.hreflang);
-const conMoneda = (valor: number) => `${cifra(valor)} ${currency}`;
+/* Un solo formato de precio (símbolo + cifra del país + código): src/lib/presentacion-v2.ts. */
+const precio = (valor: number) => importe(valor, currency, country.hreflang);
+const conMoneda = (valor: number) => precio(valor).texto;
+const loc = country.hreflang;
 const conPrecio = Boolean(quote || real);
 const estado = offer ? 'campana' : conPrecio ? 'normal' : 'sin-precio';
 const reducido = offer && quote?.reduced ? quote.reduced : null;
@@ -64,7 +67,9 @@ const whatsapp = buildWhatsAppUrl(country.whatsapp, `Hola, tengo una duda antes 
 const creador = ajustes.mostrarCreador && creadoresVisibles.length ? nombresCreadores(creadoresVisibles.map(c => c.nombre)) : null;
 const foto = ajustes.mostrarCreador ? creadoresVisibles.map(c => c.foto).find(fotoPropia) ?? null : null;
 const siglas = creador ? iniciales(creadoresVisibles[0]!.nombre) : '';
-const despues = descuento ? `Después vuelve a ${conMoneda(baseAmount)}.` : null;
+/* Si a la misma hora empieza otra campaña con descuento (Black Friday → Cyber Monday),
+   no se promete la vuelta al precio normal: solo cuándo termina esta. */
+const despues = descuento && !promoSiguiente ? `Después vuelve a ${conMoneda(baseAmount)}.` : null;
 const variables = { curso: nombreEnFrase, escuela: creadoresVisibles.length ? nombresCreadores(creadoresVisibles.map(c => c.nombre)) : '' };
 const texto = (tipo: Bloque['tipo']) => { const b = bloque(tipo); return b?.textos?.texto ? rellenarPlantilla(b.textos.texto, variables) : ''; };
 const titulo = texto('titulo');
@@ -77,8 +82,9 @@ const tituloId = 'titulo-compra';
 ---
 <section id="compra" tabindex="-1" aria-labelledby={tituloId}
   class:list={['v2-caja scroll-mt-28 overflow-hidden rounded-c-lg bg-white shadow-s2 outline-none', variante === 'cabecera-oscura' && 'v2-caja-oscura']}
-  data-purchase-panel data-base={displayMoney(baseAmount)} data-reduced={offer?.price} data-original-url={localCheckout.href}
-  data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end}
+  data-purchase-panel data-base={conMoneda(baseAmount)} data-reduced={reducido ? conMoneda(reducido) : undefined}
+  data-base-hablado={precio(baseAmount).hablado} data-reduced-hablado={reducido ? precio(reducido).hablado : undefined} data-original-url={localCheckout.href}
+  data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end} data-precio-hasta={offer ? (offer.hastaPrecio ?? 'nunca') : undefined}
   data-currency={currency} data-base-amount={baseAmount} data-reduced-amount={reducido ?? undefined}
   data-quote-source={quote ? 'hotmart' : 'respaldo'} data-quote-at={quote?.at ?? undefined}
   data-estado={estado} data-cupon={offer ? 'aplicado' : undefined} data-variante={variante}
@@ -116,7 +122,7 @@ const tituloId = 'titulo-compra';
       <dl class="mt-4 space-y-2 border-b border-navy-100 pb-4 text-t15" data-bloque="precio">
         <div class="flex items-baseline justify-between gap-3">
           <dt class="text-navy-700">Precio normal</dt>
-          <dd class="v2-num text-navy-500"><span data-tachado class="v2-tachado">{conMoneda(baseAmount)}</span></dd>
+          <dd class="text-navy-500" data-tachado><Precio valor={baseAmount} moneda={currency} locale={loc} class="v2-tachado" codigoClass="text-t13" /></dd>
         </div>
         {bloque('cupon') && <div class="flex items-baseline justify-between gap-3" data-bloque="cupon">
           <dt class="flex min-w-0 flex-wrap items-center gap-x-2 text-navy-950">
@@ -124,7 +130,7 @@ const tituloId = 'titulo-compra';
             <span data-cupon-texto class="whitespace-nowrap">Cupón {offer!.coupon} · {offer!.saving} %</span>
             <button type="button" data-toggle class="min-h-9 text-t13 font-medium whitespace-nowrap text-navy-950 underline underline-offset-4 hover:text-coral-700">Quitar</button>
           </dt>
-          <dd class="v2-num flex-none font-semibold whitespace-nowrap text-coral-700" data-cupon-cifra data-con={`−${conMoneda(descuento)}`} data-sin={`−${offer!.saving} %`}>−{conMoneda(descuento)}</dd>
+          <dd class="flex-none font-semibold whitespace-nowrap text-coral-700" data-cupon-cifra>{descuento ? <span data-con-cupon><Precio valor={-descuento} moneda={currency} locale={loc} codigoClass="text-t13" /></span> : null}<span data-sin-cupon class="v2-num">−{offer!.saving} %</span></dd>
         </div>}
       </dl>
     )}
@@ -133,14 +139,14 @@ const tituloId = 'titulo-compra';
       <p class="text-t13 text-navy-500" data-precio-rotulo>{estado === 'campana' ? (variante === 'cuenta-clara' ? 'Hoy pagas' : 'Precio con cupón') : estado === 'sin-precio' ? 'Precio' : 'Precio'}</p>
       {estado === 'sin-precio'
         ? <p class="mt-1 text-t17 text-navy-700">El precio en {currency} lo ves en Hotmart antes de pagar.</p>
-        : <p class="v2-num font-display text-d40 font-semibold text-navy-950"><span data-amount-cifra>{cifra(reducido ?? baseAmount)}</span> <span class="text-t20 font-medium">{currency}</span></p>}
+        : <p class="font-display text-d40 font-semibold text-navy-950"><Precio valor={reducido ?? baseAmount} moneda={currency} locale={loc} marca="amount-cifra" codigoClass="text-t20 font-medium" /></p>}
       {estado === 'campana' && variante === 'cabecera-oscura' && (
-        <p class="mt-1 flex flex-wrap items-center gap-2 text-t15 text-navy-500" data-savings>antes <span class="v2-num v2-tachado">{conMoneda(baseAmount)}</span><span class="rounded-c-sm bg-coral-50 px-2 py-0.5 text-t13 font-semibold text-coral-700">Ahorras {offer!.saving} %</span></p>
+        <p class="mt-1 flex flex-wrap items-center gap-2 text-t15 text-navy-500" data-savings>antes <Precio valor={baseAmount} moneda={currency} locale={loc} class="v2-tachado" codigoClass="text-t13" /><span class="rounded-c-sm bg-coral-50 px-2 py-0.5 text-t13 font-semibold text-coral-700">Ahorras {offer!.saving} %</span></p>
       )}
     </div>
 
     {estado === 'campana' && variante === 'cuenta-clara' && reloj && offer?.end && (
-      <Contador hasta={offer.end} desde={promoRow?.desde} estilo={ajustes.caja.contador === 'tique' ? 'linea' : ajustes.caja.contador} campana={campana} despues={despues} cupon={offer.coupon} class="mt-4" />
+      <Contador hasta={offer.end} desde={promoRow?.desde} estilo={ajustes.caja.contador === 'tique' ? 'linea' : ajustes.caja.contador} campana={campana} despues={despues} sigueOtra={Boolean(promoSiguiente)} cupon={offer.coupon} class="mt-4" />
     )}
     {offer && (
       <p class="mt-4 hidden rounded-c-md bg-navy-50 p-3 text-t13 text-navy-700" data-aviso-fin>
@@ -150,9 +156,9 @@ const tituloId = 'titulo-compra';
 
     <div class="mt-5" data-bloque="boton">
       {estado === 'campana'
-        ? <Boton variante="principal" completo href={enlaceInicial} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago data-btn-con={`Inscribirme con ${offer!.saving} %`} data-btn-sin={`Inscribirme · ${conMoneda(baseAmount)}`}>Inscribirme con {offer!.saving} %</Boton>
+        ? <Boton variante="principal" completo href={enlaceInicial} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago data-btn-con={`Inscribirme con ${offer!.saving} %`} data-btn-sin={`Inscribirme · ${conMoneda(baseAmount)}`} data-btn-sin-hablado={`Inscribirme, ${precio(baseAmount).hablado}`}>Inscribirme con {offer!.saving} %</Boton>
         : estado === 'normal'
-          ? <Boton variante="precio" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago precio={{ cifra: cifra(baseAmount), moneda: currency }}>Inscribirme</Boton>
+          ? <Boton variante="precio" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago aria-label={`Inscribirme, ${precio(baseAmount).hablado}`} precio={{ cifra: precio(baseAmount).visible, moneda: currency }}>Inscribirme</Boton>
           : <Boton variante="principal" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago>Ver precio en Hotmart</Boton>}
       <p class="mt-3 text-t13 text-navy-700" data-bloque="pago-seguro">Pagas en <LogoHotmart alto={15} class="mx-0.5" /> en {currency} · sin crear cuenta en Sably</p>
       {hijo('confianza', 'acceso') && <p class="text-t13 text-navy-500">El acceso te llega por correo al instante.</p>}
@@ -226,6 +232,7 @@ const tituloId = 'titulo-compra';
   .v2-tachado { text-decoration: line-through; text-decoration-thickness: 1.5px; }
   .v2-caja[data-cupon='retirado'] [data-cupon-icono] { opacity: 0.4; }
   .v2-caja[data-cupon='retirado'] [data-cupon-cifra] { color: var(--color-navy-500); font-weight: 400; }
+  .v2-caja:not([data-cupon='retirado']) [data-sin-cupon], .v2-caja[data-cupon='retirado'] [data-con-cupon] { display: none; }
   .v2-caja[data-cupon='retirado'] .v2-tachado { text-decoration: none; }
   .v2-caja[data-cupon='retirado'] :global([data-contador-despues]) { display: none; }
   .v2-caja[data-cupon='retirado'] :global([data-contador-sigue]) { display: inline; }
@@ -255,11 +262,12 @@ const tituloId = 'titulo-compra';
     const d = caja.dataset;
     const enlaces = document.querySelectorAll<HTMLAnchorElement>('a[data-pago]');
     const toggles = caja.querySelectorAll<HTMLButtonElement>('[data-toggle]');
-    const fin = Number(d.until);
+    // Fin del precio rebajado: el del tramo con el mismo cupón (ver ficha.ts), no el de la campaña.
+    const fin = d.precioHasta === 'nunca' ? 0 : Number(d.precioHasta ?? d.until);
     const vencida = () => fin > 0 && Date.now() >= fin;
     let aplicado = true;
-    // «$ 95.506 COP» → «95.506»: la moneda va aparte, más pequeña.
-    const cifra = (texto: string) => texto.replace(/\s+[A-Z]{3}$/, '').replace(/^[^\d]+/, '');
+    // «$ 95.506 COP» → «$ 95.506»: el código va aparte, más pequeño.
+    const cifra = (texto: string) => texto.replace(/\s+[A-Z]{3}$/, '');
     function pintar() {
       const activo = aplicado && !vencida();
       const importe = activo ? d.reduced! : d.base!;
@@ -267,16 +275,18 @@ const tituloId = 'titulo-compra';
       caja!.dataset.cupon = activo ? 'aplicado' : 'retirado';
       const nodo = caja!.querySelector<HTMLElement>('[data-amount-cifra]');
       if (nodo && nodo.textContent !== cifra(importe)) { nodo.textContent = cifra(importe); nodo.classList.remove('cambia'); void nodo.offsetWidth; nodo.classList.add('cambia'); }
+      const hablado = (activo ? d.reducedHablado : d.baseHablado) ?? '';
+      document.querySelectorAll('[data-amount-cifra-hablado], [data-precio-fijo-hablado]').forEach(n => { n.textContent = hablado; });
       const rotulo = caja!.querySelector('[data-precio-rotulo]');
       if (rotulo) rotulo.textContent = activo ? (d.variante === 'cuenta-clara' ? 'Hoy pagas' : 'Precio con cupón') : vencida() ? 'Precio' : 'Pagas sin cupón';
       caja!.querySelectorAll('[data-cupon-texto]').forEach(t => { t.textContent = activo ? `Cupón ${d.codigo}${d.variante === 'cuenta-clara' ? ` · ${d.pct} %` : ' aplicado'}` : `Cupón ${d.codigo} retirado`; });
-      caja!.querySelectorAll<HTMLElement>('[data-cupon-cifra]').forEach(c => { c.textContent = (activo ? c.dataset.con : c.dataset.sin) ?? c.textContent; });
       toggles.forEach(b => { b.textContent = activo ? 'Quitar' : 'Volver a aplicar'; b.setAttribute('aria-label', activo ? `Quitar el cupón ${d.codigo}` : `Volver a aplicar el cupón ${d.codigo}`); });
       // El botón de la caja, la barra fija y el cierre cambian precio y enlace a la vez.
       enlaces.forEach(a => {
         a.href = activo ? d.discountUrl! : d.originalUrl!;
         const texto = a.querySelector('[data-btn-texto]');
         if (texto && a.dataset.btnCon) texto.textContent = activo ? a.dataset.btnCon : a.dataset.btnSin!;
+        if (a.dataset.btnSinHablado) { if (activo) a.removeAttribute('aria-label'); else a.setAttribute('aria-label', a.dataset.btnSinHablado); }
       });
       document.querySelectorAll<HTMLElement>('[data-precio-fijo]').forEach(p => { p.textContent = cifra(importe); });
       document.querySelectorAll<HTMLElement>('[data-precio-fijo-nota]').forEach(p => { p.textContent = activo ? `con cupón ${d.codigo}` : 'precio normal'; });

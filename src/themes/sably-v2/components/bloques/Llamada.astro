@@ -1,0 +1,15 @@
+---
+/** Bloque sably_cta en V2: franja azul noche clara con título, texto y botón coral. */
+import { safeEditorialUrl } from '@/lib/sably-theme';
+import type { BlockValue } from 'emdash/ui';
+import Ico from '../Ico.astro';
+interface Props { value: BlockValue & { title?: string; text?: string; button_label?: string; button_url?: string } }
+const { value } = Astro.props;
+const href = safeEditorialUrl(value.button_url);
+---
+<section class="v2-contenedor py-12" data-cms>
+  <div class="flex flex-wrap items-center justify-between gap-6 rounded-c-xl bg-navy-50 p-6 lg:p-12">
+    <div class="max-w-[640px]"><h2 class="font-display text-d28">{value.title}</h2><p class="mt-2 text-t17 text-navy-700">{value.text}</p></div>
+    {href && value.button_label && <a href={href} class="v2-btn v2-btn-principal" data-alto="52">{value.button_label}<Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>}
+  </div>
+</section>

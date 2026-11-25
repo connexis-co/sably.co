@@ -1,0 +1,36 @@
+---
+/**
+ * Banda de promoción «Noche» (diseno/exportes/v2/ZD0OZ): azul noche, el «50 %»
+ * como ilustración tipográfica, tique copiable con la fecha de fin en texto.
+ * «50 % con el cupón 031016», «en cursos seleccionados»: sin nombrar al
+ * creador y sin urgencia falsa. Se retira sola al vencer (promo-cliente.ts).
+ */
+import Ico from './Ico.astro';
+import type { PromoV2 } from '../promo-v2';
+interface Props { promo: PromoV2 | null; base: string; class?: string }
+const { promo, base, class: clase } = Astro.props;
+---
+{promo && (
+  <section data-promo-v2="banda" data-promo-ssr={promo.ssr} class:list={['v2-contenedor', clase]} aria-labelledby="banda-promo-titulo">
+    <div class="relative isolate overflow-hidden rounded-c-xl bg-navy-900 px-6 py-8 text-white lg:px-14 lg:py-12">
+      <p aria-hidden="true" class="pointer-events-none absolute -right-6 -bottom-10 -z-10 font-display text-[200px] leading-none font-semibold tracking-tight text-coral-500 select-none max-lg:hidden lg:text-[260px]"><span data-promo-pct-v2>{promo.pct} %</span></p>
+      <p class="flex items-center gap-2 text-t15 font-semibold"><span class="size-1.5 rounded-full bg-coral-500" aria-hidden="true"></span><span data-promo-gorro>{promo.etiqueta}</span></p>
+      <p aria-hidden="true" class="mt-2 font-display text-[112px] leading-[0.9] font-semibold text-coral-500 lg:hidden"><span data-promo-pct-v2>{promo.pct} %</span></p>
+      <h2 id="banda-promo-titulo" class="mt-3 font-display text-d28 !text-white lg:text-d40"><span data-promo-pct-v2>{promo.pct} %</span> con el cupón <span data-promo-codigo>{promo.cupon}</span></h2>
+      <div class="mt-6 flex flex-wrap items-center gap-x-8 gap-y-4">
+        <div class="v2-tique max-w-[400px] [--corte:104px]">
+          <p class="v2-tique-pct v2-num"><span data-promo-pct-v2>{promo.pct} %</span></p>
+          <div class="v2-tique-cuerpo">
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+              <p class="text-t15 font-semibold">Cupón <span class="v2-num tracking-wide" data-promo-codigo>{promo.cupon}</span></p>
+              <button type="button" data-promo-cupon class="ml-auto inline-flex min-h-9 items-center gap-1.5 rounded-c-sm bg-white px-3 text-t13 font-semibold text-coral-700 ring-1 ring-coral-100 hover:ring-coral-600" aria-label={`Copiar el cupón ${promo.cupon}`}><Ico nombre="copy" tamano={16} /><span data-promo-copiar-texto>Copiar</span></button>
+            </div>
+            <p class="mt-1 text-t13 text-navy-700">En cursos seleccionados</p>
+            {promo.fin && <p data-promo-fin class="text-t13 text-navy-500">Hasta el <span data-promo-fecha>{promo.fin}</span> (hora de Colombia)</p>}
+          </div>
+        </div>
+        <a href={`${base}/cursos/`} class="v2-enlace min-h-11 !text-white">Ver qué cursos entran <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+      </div>
+    </div>
+  </section>
+)}

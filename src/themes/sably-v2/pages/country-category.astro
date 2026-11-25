@@ -1,0 +1,121 @@
+---
+/**
+ * Categoría V2 (/xx/cursos/<área>/). Mismo loader, título, descripción,
+ * hreflang y JSON-LD (BreadcrumbList, FAQPage y lista de cursos) que
+ * src/themes/sably-classic/pages/country-category.astro. Cabecera con la foto
+ * del área, ruta «Por dónde empezar» (por nivel, sin inventar nada), una
+ * sección por subcategoría con su ancla (#subcategoria, a la que apuntan el
+ * megamenú y el pie), franja de promoción, preguntas en una columna y las
+ * demás áreas.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Migas from '@/components/v2/Migas.astro';
+import Ico from '../components/Ico.astro';
+import Foto from '../components/Foto.astro';
+import RejillaCursos from '../components/RejillaCursos.astro';
+import Preguntas from '../components/Preguntas.astro';
+import { cmsImageUrl } from '@/lib/cms-media';
+import { categoryCover } from '@/lib/categories';
+import { countryAlternates } from '@/lib/seo';
+import { notaHotmart } from '@/lib/opiniones';
+import { SITE } from '@/lib/site';
+import { datosNavegacion, comprable } from '../navegacion';
+import { promoDeLaPagina } from '../promo-v2';
+import { ordenesDeCursos } from '../listado';
+import { FOTO_DE_AREA } from '../fotos';
+import { env } from 'virtual:sably-runtime';
+import { readOperationalRatings } from '@/plugins/sably-operations/public';
+import type { load } from '@/lib/page-loaders/country-category';
+import '../estilos.css';
+type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
+const { country, category, base, catName, courses, bySubcategory, uncategorized, faqs, title, description, schemas } = Astro.props;
+const [nav, promo, valoraciones] = await Promise.all([
+  datosNavegacion(country, Astro.locals),
+  promoDeLaPagina(Astro, { pais: country.code }),
+  readOperationalRatings((env as unknown as { SABLY_DB: D1Database }).SABLY_DB, Astro.locals).catch(() => ({} as Awaited<ReturnType<typeof readOperationalRatings>>)),
+]);
+const ordenes = await ordenesDeCursos(courses, country, slug => nav.nombreDeArea.get(slug) ?? slug, Astro.locals);
+const foto = FOTO_DE_AREA[category.slug] ?? null;
+const fotoCms = cmsImageUrl(category.coverImage) ?? categoryCover(category.slug);
+/* «Por dónde empezar»: hasta cuatro cursos con inscripción abierta, primero los que parten de cero (por su nivel), después por calificaciones en Hotmart. */
+const inicial = (nivel: string) => /principiante|desde cero|b[aá]sico/i.test(nivel) ? 0 : /todos/i.test(nivel) ? 1 : 2;
+const ruta = courses.filter(comprable)
+  .sort((a, b) => inicial(a.data.level) - inicial(b.data.level) || (valoraciones[b.id]?.total ?? 0) - (valoraciones[a.id]?.total ?? 0))
+  .slice(0, 4);
+const otras = nav.areas.filter(a => a.slug !== category.slug);
+const migas = [
+  { name: 'Inicio', url: `${SITE.url}${base}/` },
+  { name: 'Cursos', url: `${SITE.url}${base}/cursos/` },
+  { name: category.name, url: `${SITE.url}${base}/cursos/${category.slug}/` },
+];
+const grupos = [...bySubcategory.map(g => ({ id: g.sub.slug, titulo: g.sub.name, cursos: g.courses })), ...(uncategorized.length ? [{ id: 'mas-cursos', titulo: `Más cursos de ${category.name}`, cursos: uncategorized }] : [])];
+---
+
+<BaseLayout {title} {description} {country} pathAfterCountry={`/cursos/${category.slug}/`} alternates={await countryAlternates(`/cursos/${category.slug}/`)} {schemas} pageType="category" whatsappContext={`Cursos de ${category.name}`} temaV2>
+  <!-- Cabecera de oficio: banda azul noche con la foto a caballo del borde -->
+  <section class="relative bg-navy-950 text-white">
+    <div class="v2-contenedor grid items-end gap-8 pt-6 pb-10 lg:grid-cols-[minmax(0,1fr)_440px] lg:gap-14 lg:pt-8 lg:pb-0">
+      <div class="lg:pb-16">
+        <Migas items={migas} />
+        <h1 class="mt-6 font-display text-[34px]/[40px] tracking-[-0.01em] !text-white lg:text-d56">Cursos de {catName} online en {country.name}</h1>
+        <p class="mt-4 max-w-[600px] text-t17 text-white/80 lg:text-t20">{category.description}</p>
+        <p class="mt-5 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-t15 font-medium">{courses.length} {courses.length === 1 ? 'curso disponible' : 'cursos disponibles'} · Constancia de finalización</p>
+      </div>
+      <div class="overflow-hidden rounded-c-xl lg:translate-y-12 lg:shadow-s3">
+        {foto
+          ? <Foto nombre={foto} sizes="(min-width: 1024px) 440px, 100vw" prioridad class="aspect-[4/3] w-full object-cover" />
+          : <img src={fotoCms} alt={`Cursos de ${catName}`} width="800" height="600" fetchpriority="high" decoding="async" class="aspect-[4/3] w-full object-cover" />}
+      </div>
+    </div>
+  </section>
+
+  {courses.length === 0 && (
+    <section class="v2-contenedor py-16"><p class="text-t17 text-navy-700">Estamos preparando los cursos de esta categoría. Mientras tanto, mira las demás áreas.</p></section>
+  )}
+
+  {grupos.length > 1 && (
+    <nav aria-label={`Temas de ${catName}`} class="v2-contenedor pt-10 lg:pt-20">
+      <ul class="flex flex-wrap gap-2" role="list">
+        {grupos.map(g => <li><a href={`#${g.id}`} class="v2-chip">{g.titulo} <span class="ml-1.5 text-t13 text-navy-500">{g.cursos.length}</span></a></li>)}
+      </ul>
+    </nav>
+  )}
+
+  {ruta.length >= 3 && (
+    <section class="v2-contenedor pt-14 lg:pt-20" aria-labelledby="ruta-titulo">
+      <h2 id="ruta-titulo" class="font-display text-d28 lg:text-d40">Por dónde empezar</h2>
+      <p class="mt-2 max-w-[640px] text-t15 text-navy-500">Primero los cursos que parten de cero, según el nivel que indica cada ficha; después, los que más calificaciones tienen en Hotmart.</p>
+      <ol class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4" role="list">
+        {ruta.map((c, i) => {
+          const nota = notaHotmart(valoraciones[c.id] ?? null);
+          return (
+            <li><a href={`${base}/${c.id}/`} class="group flex h-full flex-col rounded-c-lg p-5 ring-1 ring-navy-100 transition-shadow duration-(--t-base) hover:shadow-s2 hover:ring-transparent">
+              <span class="v2-num grid size-9 place-items-center rounded-full bg-navy-950 text-t15 font-semibold text-white">{i + 1}</span>
+              <strong class="mt-4 font-display text-t20 font-semibold text-navy-950 group-hover:underline group-hover:underline-offset-4">{c.data.title}</strong>
+              <span class="mt-1 text-t13 text-navy-500">{c.data.level} · {c.data.durationHours} h</span>
+              {nota && <span class="mt-2 flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" /><span class="font-medium text-navy-950">{nota.cifra}</span> · {nota.texto.replace(/, leídas.*$/, '')}</span>}
+              <span class="mt-auto flex items-center gap-1 pt-4 text-t15 font-semibold text-navy-950">Ver el curso<Ico nombre="arrow-right" tamano={18} class="transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" /></span>
+            </a></li>
+          );
+        })}
+      </ol>
+    </section>
+  )}
+
+  {grupos.map((g, i) => (
+    <section id={g.id} class="v2-contenedor scroll-mt-28 pt-16 lg:pt-20" aria-labelledby={`${g.id}-titulo`} data-cms>
+      <h2 id={`${g.id}-titulo`} class="font-display text-d28">{g.titulo}</h2>
+      <RejillaCursos id={`g-${g.id}`} cursos={g.cursos} {country} {base} promo={i === 0 ? promo : null} ordenNota={ordenes.ordenNota} ordenPrecio={ordenes.ordenPrecio} buscable={ordenes.buscable} conOrden={g.cursos.length > 6} visibles={12} />
+    </section>
+  ))}
+
+  <Preguntas titulo={`Preguntas frecuentes sobre ${catName.toLowerCase()}`} {faqs} whatsapp={nav.whatsapp} id="preguntas-area" class="pt-24 lg:pt-32" />
+
+  <section class="v2-contenedor pt-20 lg:pt-28" aria-labelledby="otras-titulo">
+    <h2 id="otras-titulo" class="font-display text-d28">Otras áreas</h2>
+    <ul class="mt-5 flex flex-wrap gap-2" role="list">
+      {otras.map(a => <li><a href={`${base}/cursos/${a.slug}/`} class="v2-chip">{a.nombre}<span class="ml-1.5 text-t13 text-navy-500">{a.total}</span></a></li>)}
+      <li><a href={`${base}/cursos/`} class="v2-chip gap-1 font-semibold">Todos los cursos <Ico nombre="arrow-right" tamano={16} /></a></li>
+    </ul>
+  </section>
+</BaseLayout>

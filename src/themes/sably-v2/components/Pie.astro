@@ -1,0 +1,120 @@
+---
+/**
+ * Pie V2 (diseno/exportes/v2/QKGnp-secciones/n9AeA). «Completo» por defecto:
+ * azul noche con esquinas superiores de 48 px montadas sobre la página, las 12
+ * áreas en dos columnas, Sably, legal y ayuda, la capa «Pagas en» con Hotmart
+ * y los medios de pago, el país con bandera y las redes. «Compacto» (ficha):
+ * lo mismo en menos alto. En los dos están todos los enlaces del pie clásico
+ * (áreas, países, menú del pie, ecosistema y redes). En móvil las columnas
+ * pasan a acordeones nativos y el contenido sigue en el HTML.
+ */
+import Logo from '@/components/Logo.astro';
+import Bandera from '@/components/v2/Bandera.astro';
+import LogoHotmart from '@/components/v2/LogoHotmart.astro';
+import Ico from './Ico.astro';
+import { getLiveSiteSettings } from '@/lib/live-site-settings';
+import { SITE } from '@/lib/site';
+import type { Country } from '@/lib/countries';
+import type { DatosNavegacion } from '../navegacion';
+import '../estilos.css';
+export type VariantePie = 'completo' | 'compacto';
+interface Props { country: Country; nav: DatosNavegacion; variante?: VariantePie; pathAfterCountry: string }
+const { country, nav, variante = 'completo', pathAfterCountry } = Astro.props;
+const settings = await getLiveSiteSettings();
+const { base, areas, externas } = nav;
+const year = new Date().getFullYear();
+const PAGOS: Record<string, { src: string; alt: string }[]> = {
+  todos: [{ src: '/v2/logos/visa.svg', alt: 'Visa' }, { src: '/v2/logos/mastercard.svg', alt: 'Mastercard' }, { src: '/v2/logos/paypal.svg', alt: 'PayPal' }],
+  co: [{ src: '/v2/logos/pse.jpg', alt: 'PSE' }, { src: '/v2/logos/nequi.svg', alt: 'Nequi' }],
+  mx: [{ src: '/v2/logos/oxxo.svg', alt: 'OXXO' }, { src: '/v2/logos/mercado-pago.png', alt: 'Mercado Pago' }],
+  ar: [{ src: '/v2/logos/mercado-pago.png', alt: 'Mercado Pago' }],
+};
+const pagos = [...PAGOS.todos!, ...(PAGOS[country.code] ?? [])];
+/* «Legal y ayuda» reúne los enlaces legales del menú del pie; el resto va en «Sably». */
+const esLegal = (href: string) => /^\/(legal|sitemap)\//.test(href);
+const sably = [...nav.pie.filter(e => !esLegal(e.href)), { etiqueta: 'Guías gratuitas', href: '/blog/', target: undefined }]
+  .filter((e, i, todos) => todos.findIndex(x => x.href === e.href && x.etiqueta === e.etiqueta) === i);
+const legal = [...nav.pie.filter(e => esLegal(e.href)), { etiqueta: 'Cómo se financia Sably', href: '/legal/terminos/#afiliacion', target: undefined }];
+const RED_ICONO: Record<string, string> = { instagram: 'instagram', tiktok: 'tiktok', facebook: 'facebook', youtube: 'youtube', x: 'x' };
+const compacto = variante === 'compacto';
+---
+<footer class="v2-pie" data-pie={variante}>
+  <div class:list={['v2-contenedor', compacto ? 'py-10' : 'pt-14 pb-8 lg:pt-20']}>
+    <div class="v2-pie-rejilla">
+      <div class="flex flex-col items-start gap-5">
+        <span class="[&_svg]:h-9"><Logo href={`${base}/`} inverted /></span>
+        <p class="max-w-xs text-t17 text-white/80">{settings.tagline ?? SITE.tagline}</p>
+        <a href={nav.whatsapp} target="_blank" rel="noopener nofollow" class="v2-btn v2-btn-whatsapp" data-alto="48"><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" />Escríbenos por WhatsApp</a>
+      </div>
+
+      {/* Áreas: dos columnas en escritorio, acordeón en móvil. */}
+      <details class="v2-pie-grupo v2-acordeon border-white/15 max-lg:border-b" open data-pie-grupo>
+        <summary class="flex min-h-14 items-center justify-between text-t15 font-semibold text-white lg:min-h-0 lg:text-t13 lg:font-medium lg:text-white/60">Cursos<Ico nombre="chevron-down" class="v2-giro lg:hidden" /></summary>
+        <nav aria-label="Áreas de cursos" class="pb-5 lg:pt-4">
+          <ul class="grid grid-flow-col grid-cols-2 gap-x-6" style={`grid-template-rows: repeat(${Math.ceil((areas.length + externas.length) / 2)}, auto)`} role="list">
+            {areas.map(a => <li><a href={`${base}/cursos/${a.slug}/`} class="v2-pie-enlace">{a.nombre}</a></li>)}
+            {externas.map(e => <li><a href={e.href} target="_blank" rel="noopener" class="v2-pie-enlace gap-1">{e.nombre} en la academia <Ico nombre="external-link" tamano={14} /></a></li>)}
+          </ul>
+          <a href={`${base}/cursos/`} class="mt-3 inline-flex min-h-11 items-center gap-2 text-t15 font-semibold text-white">Ver los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={18} class="text-coral-500" /></a>
+        </nav>
+      </details>
+
+      <details class="v2-pie-grupo v2-acordeon border-white/15 max-lg:border-b" open data-pie-grupo>
+        <summary class="flex min-h-14 items-center justify-between text-t15 font-semibold text-white lg:min-h-0 lg:text-t13 lg:font-medium lg:text-white/60">Sably<Ico nombre="chevron-down" class="v2-giro lg:hidden" /></summary>
+        <nav aria-label="Sably" class="pb-5 lg:pt-4">
+          <ul role="list">
+            {sably.map(e => <li><a href={e.href} target={e.target} rel={e.target === '_blank' ? 'noopener' : undefined} class="v2-pie-enlace">{e.etiqueta}</a></li>)}
+            {nav.ecosistema.map(e => <li><a href={e.href} target={e.target} rel={e.target === '_blank' ? 'noopener' : undefined} class="v2-pie-enlace gap-1">{e.etiqueta}{e.target === '_blank' && <Ico nombre="external-link" tamano={14} />}</a></li>)}
+          </ul>
+        </nav>
+      </details>
+
+      <details class="v2-pie-grupo v2-acordeon border-white/15 max-lg:border-b" open data-pie-grupo>
+        <summary class="flex min-h-14 items-center justify-between text-t15 font-semibold text-white lg:min-h-0 lg:text-t13 lg:font-medium lg:text-white/60">Legal y ayuda<Ico nombre="chevron-down" class="v2-giro lg:hidden" /></summary>
+        <nav aria-label="Legal y ayuda" class="pb-5 lg:pt-4">
+          <ul role="list">{legal.map(e => <li><a href={e.href} class="v2-pie-enlace">{e.etiqueta}</a></li>)}</ul>
+        </nav>
+      </details>
+    </div>
+
+    <div class:list={['flex flex-wrap items-center justify-between gap-x-6 gap-y-4 rounded-c-lg bg-navy-900 px-5 py-4 lg:px-7', compacto ? 'mt-8' : 'mt-12']}>
+      <p class="flex flex-wrap items-center gap-x-2 gap-y-1 text-t15 text-white/80">Pagas en <span class="inline-flex rounded-md bg-white px-2 py-1"><LogoHotmart alto={16} /></span> en tu moneda, con 7 días de garantía</p>
+      <ul class="flex flex-wrap items-center gap-2" role="list" aria-label="Medios de pago">
+        {pagos.map(p => <li class="v2-logo-pago"><img src={p.src} alt={p.alt} height="18" width="48" loading="lazy" decoding="async" /></li>)}
+      </ul>
+    </div>
+
+    <div class="mt-8 flex flex-wrap items-center justify-between gap-4">
+      <details class="relative" data-pie-pais>
+        <summary class="flex min-h-12 cursor-pointer list-none items-center gap-3 rounded-full px-4 text-t15 font-medium text-white ring-1 ring-white/30 [&::-webkit-details-marker]:hidden"><Bandera codigo={country.code} class="ring-white/20" />{country.name} · {country.currency}<Ico nombre="chevron-down" tamano={16} /></summary>
+        <nav aria-label="Países" class="absolute bottom-full left-0 z-10 mb-2 w-64 rounded-c-lg bg-white p-2 text-navy-950 shadow-s3">
+          <ul role="list">
+            {nav.paises.map(p => <li><a href={`/${p.code}/`} class="v2-pais-fila min-h-11 text-t15" data-geo-country={p.code} aria-current={p.code === country.code ? 'true' : undefined}><Bandera codigo={p.code} />{p.nombre}<span class="ml-auto text-t13 text-navy-500">{p.moneda}</span></a></li>)}
+          </ul>
+        </nav>
+      </details>
+      <ul class="flex items-center gap-1" role="list">
+        {nav.redes.map(r => (
+          <li><a href={r.url} target="_blank" rel="noopener" class="v2-pie-red" aria-label={`Sably en ${r.etiqueta}`}>
+            {r.red ? <img src={`/v2/redes/${RED_ICONO[r.red]}-blanco-96.png`} alt="" width="20" height="20" loading="lazy" /> : <span class="text-t13 font-semibold">{r.etiqueta}</span>}
+          </a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="mt-8 grid gap-3 border-t border-white/15 pt-6 text-t13 text-white/60 lg:grid-cols-[1fr_1.3fr] lg:gap-8">
+      <p>© {year} Sably — Todos los derechos reservados. Plataforma de educación online para aprender oficios en español. Sably es un proyecto de Connexis.</p>
+      {/* Aviso de comisión en todo el sitio, con las mismas palabras que el pie clásico (FTC, SIC, LSSI, Google Ads). No nombra un vínculo con Hotmart. */}
+      <p>Cada curso lo dicta su creador; el pago y el acceso los gestiona Hotmart. Sably se financia con una comisión cuando te inscribes desde aquí, sin costo extra para ti. <a href="/legal/terminos/#afiliacion" class="underline decoration-white/30 underline-offset-2">Cómo se financia Sably</a></p>
+    </div>
+  </div>
+</footer>
+<script>
+  // En escritorio las columnas del pie siempre están abiertas; en móvil son acordeones
+  // (llegan abiertas en el HTML y se pliegan aquí: el pie está fuera de la primera pantalla).
+  const grupos = document.querySelectorAll<HTMLDetailsElement>('[data-pie-grupo]');
+  const mq = matchMedia('(min-width: 1024px)');
+  const ajustar = () => grupos.forEach(g => { g.open = mq.matches; });
+  ajustar();
+  mq.addEventListener('change', ajustar);
+</script>

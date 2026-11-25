@@ -1,0 +1,9 @@
+---
+/** Bloque sably_faq en V2: una sola columna con el título arriba. */
+import type { BlockValue } from 'emdash/ui';
+import Preguntas from '../Preguntas.astro';
+interface Props { value: BlockValue & { title?: string; faq_items?: Array<{ question?: string; answer?: string; q?: string; a?: string }> } }
+const { value } = Astro.props;
+const faqs = (value.faq_items ?? []).map(i => ({ q: i.question ?? i.q ?? '', a: i.answer ?? i.a ?? '' })).filter(f => f.q);
+---
+<Preguntas titulo={value.title || 'Preguntas frecuentes'} {faqs} id={`faq-${value._key ?? 'bloque'}`} class="py-14 lg:py-20" />

@@ -37,3 +37,10 @@ export function fechaCorta(ms: number): string {
   const periodo = valor('dayPeriod').replace(/[\u202f\u00a0]/g, ' ');
   return `${valor('day')} ${mes}., ${valor('hour')}:${valor('minute')} ${periodo}`;
 }
+
+/** «29 nov.» en hora de Colombia: el día en que termina, sin la hora. */
+export function fechaDia(ms: number): string {
+  const partes = new Intl.DateTimeFormat('es-CO', { timeZone: ZONA, day: 'numeric', month: 'short' }).formatToParts(new Date(ms));
+  const valor = (tipo: string) => partes.find(p => p.type === tipo)?.value ?? '';
+  return `${valor('day')} ${valor('month').replace(/\.$/, '')}.`;
+}

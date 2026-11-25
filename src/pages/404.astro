@@ -1,9 +1,13 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCountry, DEFAULT_COUNTRY } from '@/lib/countries';
+import { temaDeLaPeticion } from '@/lib/ajustes-tema';
+import NoEncontradaV2 from '@/themes/sably-v2/pages/404.astro';
 
 const country = getCountry(DEFAULT_COUNTRY);
+const v2 = (await temaDeLaPeticion(Astro)).tema === 'v2';
 ---
+{v2 ? <NoEncontradaV2 {country} /> : (
 
 <BaseLayout
   title="Página no encontrada | Sably"
@@ -27,3 +31,4 @@ const country = getCountry(DEFAULT_COUNTRY);
     </a>
   </section>
 </BaseLayout>
+)}

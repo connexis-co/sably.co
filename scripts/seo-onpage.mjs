@@ -70,6 +70,23 @@ export const HECHOS_V2 = [
   ['acceso de por vida', /acceso de por vida/gi],
 ];
 
+/**
+ * Enlaces internos distintos de una página (ruta + ancla, sin consulta), para
+ * comparar la versión V2 con la clásica: el rediseño no puede perder enlaces.
+ */
+export function enlacesInternos(html, base = 'https://sably.co') {
+  const origen = new URL(base).origin;
+  const enlaces = new Set();
+  for (const m of hastaEstable(html, COMENTARIO, '').matchAll(/<a\b[^>]*\shref=["']([^"']+)["']/gi)) {
+    if (m[1].startsWith('#')) continue; // ancla dentro de la misma página (o «#» vacío): no es un enlace a otra URL
+    let u;
+    try { u = new URL(m[1].replace(/&amp;/g, '&'), base); } catch { continue; }
+    if (u.origin !== origen || u.pathname.startsWith('/_') || u.pathname.startsWith('/cdn-cgi/')) continue;
+    enlaces.add(u.pathname + u.hash);
+  }
+  return enlaces;
+}
+
 export const TEXTOS_VETADOS = [
   [/Tu instructor/i, 'bloque de instructor sin dato verificado'],
   [/\bafiliad[oa]s?\b/i, 'la palabra «afiliado» en texto público'],
@@ -171,6 +188,16 @@ export function auditarOnPage(url, html, opciones = {}) {
   if (tipos.includes('AggregateRating')) marcar('json-ld-rating', 'error', 'AggregateRating con valoraciones de terceros');
 
   // ── Precio: la caja de compra, la pregunta de precio y el Offer dicen lo mismo ──
+  /* Se compara el importe y la moneda, no la escritura: el tema V2 escribe «$ 1,191.32 MXN»
+     y la pregunta (común a los dos temas) «$1,191.32 MXN»; «$ 25,00 USD» y «$25 USD» son lo mismo. */
+  const importeDe = (frase) => {
+    const codigo = frase.match(/\b([A-Z]{3})\s*$/)?.[1] ?? '';
+    const cifra = frase.replace(/\b[A-Z]{3}\s*$/, '').replace(/[^\d.,]/g, '');
+    const decimal = cifra.match(/[.,](\d{1,2})$/);
+    const entero = (decimal ? cifra.slice(0, -decimal[0].length) : cifra).replace(/[.,]/g, '');
+    return { codigo, valor: Number(`${entero}.${decimal?.[1] ?? '0'}`) };
+  };
+  const mismoImporte = (a, b) => { const x = importeDe(a), y = importeDe(b); return x.codigo === y.codigo && Math.abs(x.valor - y.valor) < 0.005; };
   const visible = texto(sinCodigo);
   const caja = sinCodigo.match(/<section\b[^>]*\sdata-purchase-panel\b[^>]*>/i)?.[0];
   if (caja) {
@@ -181,7 +208,7 @@ export function auditarOnPage(url, html, opciones = {}) {
        24-nov-2026 la respuesta daba el rebajado y la caja lo desmentía. */
     for (const frase of [visible, ...respuestas.map(limpio)]) {
       const dicho = frase.match(/El precio de lista es (.+? [A-Z]{3})\b/)?.[1];
-      if (dicho && lista && dicho !== lista) {
+      if (dicho && lista && !mismoImporte(dicho, lista)) {
         marcar('precio-de-lista', 'error', `la pregunta de precio llama «precio de lista» a ${dicho} y la caja dice ${lista}`);
         break;
       }
@@ -218,8 +245,8 @@ export function auditarOnPage(url, html, opciones = {}) {
   if (/<body\b[^>]*\sdata-tema=["']v2["']/i.test(documento)) {
     // Bloques con texto del CMS (preguntas, texto largo, biografía): ahí manda
     // el contenido, no la plantilla. La caja de compra repite hechos a propósito.
-    // Solo <main>: la cabecera y el pie siguen siendo los del tema clásico hasta que tengan versión V2.
-    const principal = sinCodigo.match(/<main\b[^>]*>([\s\S]*)<\/main>/i)?.[1] ?? sinCodigo;
+    // Todo el <body>: desde el 25-nov la cabecera, el megamenú y el pie también son V2.
+    const principal = sinCodigo.match(/<body\b[^>]*>([\s\S]*)<\/body>/i)?.[1] ?? sinCodigo;
     const plantilla = principal
       .replace(/<section\b[^>]*\sdata-purchase-panel\b[\s\S]*?<\/section>/gi, ' ')
       .replace(/<section\b[^>]*\sdata-cms\b[\s\S]*?<\/section>/gi, ' ');

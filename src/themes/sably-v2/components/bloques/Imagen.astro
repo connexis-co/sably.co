@@ -1,0 +1,9 @@
+---
+/** Bloque sably_image en V2: imagen con radio 24 y pie de foto de 13 px. */
+import { Image } from 'emdash/ui';
+import type { MediaValue } from 'emdash';
+import type { BlockValue } from 'emdash/ui';
+interface Props { value: BlockValue & { image?: MediaValue; caption?: string } }
+const { value } = Astro.props;
+---
+{value.image && <figure class="v2-contenedor py-8"><Image image={value.image} class="mx-auto max-h-[640px] w-full rounded-c-xl object-cover" /><figcaption class="mt-3 text-t13 text-navy-500">{value.caption}</figcaption></figure>}

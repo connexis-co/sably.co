@@ -1,0 +1,19 @@
+---
+/** Bloques de página del CMS (sably_*) pintados con el aspecto V2. Mismos datos que los del clásico. */
+import { Blocks, type BlockValue } from 'emdash/ui';
+import Historia from './bloques/Historia.astro';
+import Tarjetas from './bloques/Tarjetas.astro';
+import Contacto from './bloques/Contacto.astro';
+import TextoRico from './bloques/TextoRico.astro';
+import Imagen from './bloques/Imagen.astro';
+import Heroe from './bloques/Heroe.astro';
+import Llamada from './bloques/Llamada.astro';
+import PreguntasBloque from './bloques/PreguntasBloque.astro';
+interface Props { value?: BlockValue[] | null }
+const components = {
+  sably_story: Historia, sably_cards: Tarjetas, sably_contact: Contacto,
+  sably_rich_text: TextoRico, sably_image: Imagen, sably_hero: Heroe,
+  sably_cta: Llamada, sably_faq: PreguntasBloque,
+};
+---
+<Blocks value={Astro.props.value} components={components} />

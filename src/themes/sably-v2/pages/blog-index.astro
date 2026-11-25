@@ -1,0 +1,90 @@
+---
+/**
+ * Índice del blog V2. Mismo loader, título, descripción y schemas que la
+ * plantilla clásica. Destacado grande, rejilla de guías, buscador y chips por
+ * tema que filtran sin recargar (~0,6 KB); sin JavaScript se ven todas.
+ */
+import { Image as OptimizedImage } from 'astro:assets';
+import { cmsImageUrl } from '@/lib/cms-media';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CabezaPagina from '../components/CabezaPagina.astro';
+import Ico from '../components/Ico.astro';
+import { blogCover, readingTime } from '@/lib/blog';
+import type { load } from '@/lib/page-loaders/blog-index';
+import '../estilos.css';
+type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
+const { country, posts, facets, featured, rest, title, description, schemas } = Astro.props;
+const fecha = (d: Date, mes: 'long' | 'short') => d.toLocaleDateString('es-CO', { day: 'numeric', month: mes, year: 'numeric' });
+const buscar = (p: (typeof posts)[number]) => `${p.data.title} ${p.data.description} ${(p.data.keywords ?? []).join(' ')}`.toLowerCase();
+---
+<BaseLayout {title} {description} {country} pathAfterCountry="/" {schemas} pageType="blog" temaV2>
+  <CabezaPagina titulo="Blog de Sably" antetitulo="Guías gratuitas" entradilla={description} migas={[{ name: 'Inicio', url: `/${country.code}/` }, { name: 'Blog', url: '/blog/' }]} />
+
+  <section class="sticky top-[60px] z-30 border-b border-navy-100 bg-white/95 backdrop-blur max-lg:top-14" aria-label="Buscar y filtrar artículos">
+    <div class="v2-contenedor flex flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between">
+      <label class="flex h-11 w-full items-center gap-2.5 rounded-full bg-navy-50 px-4 focus-within:ring-2 focus-within:ring-coral-600 lg:max-w-sm">
+        <Ico nombre="search" tamano={18} class="text-navy-700" />
+        <span class="sr-only">Buscar artículos</span>
+        <input type="search" data-blog-search placeholder="Buscar en el blog…" autocomplete="off" class="w-full bg-transparent text-t15 text-navy-950 outline-none placeholder:text-navy-500" />
+      </label>
+      <div class="-mx-5 flex gap-2 overflow-x-auto px-5 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:px-0" role="group" aria-label="Filtrar por tema">
+        <button type="button" data-blog-filter="all" aria-pressed="true" class="v2-chip flex-none">Todos ({posts.length})</button>
+        {facets.map(f => <button type="button" data-blog-filter={f.name} aria-pressed="false" class="v2-chip flex-none">{f.name} ({f.count})</button>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="v2-contenedor py-10 lg:py-14" data-cms>
+    {posts.length === 0 ? <p class="text-t17 text-navy-700">Muy pronto publicaremos nuestras primeras guías.</p> : (
+      <>
+        {featured && (
+          <a href={`/blog/${featured.id}/`} data-blog-card data-category={featured.data.category ?? 'Guía'} data-search={buscar(featured)} class="group mb-12 grid overflow-hidden rounded-c-xl ring-1 ring-navy-100 transition-shadow duration-(--t-lento) hover:shadow-s2 hover:ring-transparent lg:grid-cols-2">
+            <div class="aspect-[16/10] overflow-hidden bg-navy-50 lg:aspect-auto">
+              <OptimizedImage src={cmsImageUrl(featured.coverImage) ?? blogCover(featured.data.category, 'hero')} alt={featured.data.title} width={800} height={533} fetchpriority="high" sizes="(min-width: 1024px) 600px, 100vw" class="h-full w-full object-cover transition-transform duration-(--t-lento) ease-(--e-sale) group-hover:scale-[1.03]" />
+            </div>
+            <div class="flex flex-col justify-center p-6 lg:p-10">
+              <p class="text-t13 font-medium text-navy-500">{featured.data.category ?? 'Guía'} · Destacado</p>
+              <h2 class="mt-3 font-display text-d28 group-hover:underline group-hover:underline-offset-4 lg:text-d40">{featured.data.title}</h2>
+              <p class="mt-3 line-clamp-3 text-t17 text-navy-700">{featured.data.description}</p>
+              <p class="mt-5 text-t13 text-navy-500">{fecha(featured.data.publishedAt, 'long')} · {readingTime(featured.body ?? '')} min de lectura</p>
+            </div>
+          </a>
+        )}
+        <div data-blog-grid class="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          {rest.map(post => (
+            <a href={`/blog/${post.id}/`} data-blog-card data-category={post.data.category ?? 'Guía'} data-search={buscar(post)} class="group flex flex-col">
+              <div class="aspect-[3/2] overflow-hidden rounded-c-lg bg-navy-50">
+                <OptimizedImage src={cmsImageUrl(post.cardImage) ?? cmsImageUrl(post.coverImage) ?? blogCover(post.data.category, 'card')} alt={post.data.title} width={480} height={320} loading="lazy" sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" class="h-full w-full object-cover transition-transform duration-(--t-lento) ease-(--e-sale) group-hover:scale-[1.03]" />
+              </div>
+              <p class="mt-4 text-t13 font-medium text-navy-500">{post.data.category ?? 'Guía'}</p>
+              <h2 class="mt-1 font-display text-t20 font-semibold text-navy-950 group-hover:underline group-hover:underline-offset-4">{post.data.title}</h2>
+              <p class="mt-2 line-clamp-3 text-t15 text-navy-700">{post.data.description}</p>
+              <p class="mt-auto pt-3 text-t13 text-navy-500">{fecha(post.data.publishedAt, 'short')} · {readingTime(post.body ?? '')} min</p>
+            </a>
+          ))}
+        </div>
+        <p data-blog-empty hidden class="py-12 text-t17 text-navy-700">No encontramos artículos con esa búsqueda. Prueba con otra palabra.</p>
+      </>
+    )}
+  </section>
+</BaseLayout>
+<script>
+  import { trackEvent } from '@/lib/analytics';
+  const search = document.querySelector<HTMLInputElement>('[data-blog-search]');
+  const filtros = [...document.querySelectorAll<HTMLButtonElement>('[data-blog-filter]')];
+  const tarjetas = [...document.querySelectorAll<HTMLElement>('[data-blog-card]')];
+  const vacio = document.querySelector<HTMLElement>('[data-blog-empty]');
+  if (tarjetas.length) {
+    const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+    let categoria = 'all';
+    const aplicar = () => {
+      const q = norm(search?.value.trim() ?? '');
+      let n = 0;
+      for (const t of tarjetas) { const ok = (categoria === 'all' || t.dataset.category === categoria) && (q.length < 2 || norm(t.dataset.search ?? '').includes(q)); t.hidden = !ok; if (ok) n++; }
+      if (vacio) vacio.hidden = n > 0;
+    };
+    let espera: ReturnType<typeof setTimeout>;
+    search?.addEventListener('input', () => { clearTimeout(espera); espera = setTimeout(() => { aplicar(); const q = search.value.trim(); if (q.length >= 2) trackEvent('blog_search', { query: q }); }, 160); });
+    filtros.forEach(b => b.addEventListener('click', () => { categoria = b.dataset.blogFilter!; filtros.forEach(x => x.setAttribute('aria-pressed', String(x === b))); aplicar(); trackEvent('blog_filter', { category: categoria }); }));
+  }
+</script>
