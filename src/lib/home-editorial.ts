@@ -14,3 +14,8 @@ export async function getHomeEditorial(market:Market){
  const keys=['hero','categories','courses','benefits-heading','benefits','testimonials','cities','blog','faq-heading','faq']as const;
  return Object.fromEntries(await Promise.all(keys.map(async key=>[key,homeSectionContent(await getSection(`sably-home-${key}`),market)])))as Record<typeof keys[number],ReturnType<typeof homeSectionContent>>;
 }
+/** Sección de la portada que puede no existir todavía en el CMS (bloques nuevos): null si no está. */
+export async function getHomeSectionOptional(key:string,market:Market){
+ const section=await getSection(`sably-home-${key}`).catch(()=>null);
+ return section?homeSectionContent(section,market):null;
+}

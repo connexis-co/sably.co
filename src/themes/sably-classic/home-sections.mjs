@@ -8,6 +8,13 @@ export const homeSections=[
   block('button','Explorar cursos'),block('secondary','Ver categorías')]),
  section('categories','Categorías',[block('eyebrow','Explora por categoría'),block('title','¿Qué quieres aprender hoy?','h2'),block('description','Oficios y habilidades con demanda real en el mercado.')]),
  section('courses','Cursos destacados',[block('eyebrow','Selección de Sably'),block('title','Cursos destacados','h2'),block('description','Precios en {moneda} para {pais}.')]),
+ section('escenas','Scroll narrativo (De la primera clase a tu primer encargo)',[
+  block('eyebrow','Paso a paso'),block('title','De la primera clase a tu primer encargo','h2'),block('description','Así se ve aprender un oficio en línea, desde que eliges el curso hasta que lo ofreces a otros.'),
+  block('c1','Eliges un oficio que puedas practicar','h3'),block('c1-texto','Cada curso dice qué materiales necesitas y cuánto dura. Empieza por lo que ya te llama: la cocina, el cabello, la electricidad de tu casa.'),
+  block('c2','Aprendes en vídeo, a tu ritmo','h3'),block('c2-texto','Las lecciones se ven en el celular o en el computador, las veces que quieras. Pausas, repites y sigues cuando puedas.'),
+  block('c3','Practicas con tus manos','h3'),block('c3-texto','Repites cada técnica en casa o en el taller, con la clase abierta al lado.'),
+  block('c4','Ofreces tu trabajo','h3'),block('c4-texto','Con la técnica dominada, la ofreces a vecinos, familia o clientes. El temario de cada curso dice si enseña a poner precio a tu trabajo.')],
+  'Portada V2. Antetítulo, título y entradilla; después, cada capítulo es un H3 seguido de su párrafo (hasta cuatro: la foto y el enlace van por posición). {pais} y {moneda} se adaptan al visitante.'),
  section('benefits-heading','Título de beneficios',[block('eyebrow','¿Por qué Sably?'),block('title','Aprender un oficio nunca fue tan fácil','h2')]),
  section('benefits','Beneficios',[
   block('benefit-1','📜 Constancia al terminar','h3'),block('benefit-1-body','Al completar un curso, Hotmart emite una constancia digital de finalización con tu nombre.'),

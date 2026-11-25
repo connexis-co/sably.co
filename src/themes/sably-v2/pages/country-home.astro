@@ -15,13 +15,14 @@ import Categorias from '../components/portada/Categorias.astro';
 import Destacados from '../components/portada/Destacados.astro';
 import Oficio from '../components/portada/Oficio.astro';
 import ComoFunciona from '../components/portada/ComoFunciona.astro';
+import Escenas, { type TextosEscenas } from '../components/portada/Escenas.astro';
 import Beneficios from '../components/portada/Beneficios.astro';
 import Videos from '../components/portada/Videos.astro';
 import Guias from '../components/portada/Guias.astro';
 import Cierre from '../components/portada/Cierre.astro';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import { inventarioMosaico, repartirEnCeldas } from '../portada';
-import { getHomeEditorial } from '@/lib/home-editorial';
+import { getHomeEditorial, getHomeSectionOptional } from '@/lib/home-editorial';
 import { monedasCobradas } from '@/lib/moneda-catalogo';
 import { countryAlternates, faqSchema } from '@/lib/seo';
 import { preciosDeTarjetas } from '@/lib/precio-hoy';
@@ -43,13 +44,19 @@ const copy = Object.fromEntries(Object.entries(editorial).map(([key, value]) => 
 const faqs = editorial.faq.groups.map(group => ({ q: group.title, a: group.body }));
 /* Los beneficios del CMS empiezan por un emoji («🎓 Título»): V2 no pinta emojis de interfaz, se queda el texto. */
 const benefits = editorial.benefits.groups.map(group => { const [, ...t] = group.title.split(' '); return { title: t.join(' ') || group.title, text: group.body }; });
-const [nav, promo, cifras, valoraciones, { ajustes }] = await Promise.all([
+const [nav, promo, cifras, valoraciones, { ajustes }, seccionEscenas] = await Promise.all([
   datosNavegacion(country, Astro.locals),
   promoDeLaPagina(Astro, { pais: country.code }),
   cifrasPortada(Astro.locals),
   readOperationalRatings(db, Astro.locals).catch(() => ({} as Awaited<ReturnType<typeof readOperationalRatings>>)),
   temaDeLaPeticion(Astro),
+  getHomeSectionOptional('escenas', { name: country.name, currency: moneda }),
 ]);
+/* Textos del scroll narrativo desde Secciones → sably-home-escenas; sin sección, los de fábrica del componente. */
+const textosEscenas: TextosEscenas | null = seccionEscenas && {
+  eyebrow: seccionEscenas.fields.eyebrow, title: seccionEscenas.fields.title, description: seccionEscenas.fields.description,
+  capitulos: seccionEscenas.groups.map(g => ({ titulo: g.title, texto: g.body })),
+};
 const portada = ajustes.portada;
 /* Mosaico del héroe (D1): 10–12 cursos con inscripción abierta, uno por oficio, repartidos en tres celdas.
    El primero (la foto grande, LCP) es el mismo curso que antes iba en la tarjeta flotante cuando no se elige
@@ -87,6 +94,7 @@ const masGuias = posts.slice(3);
     : bloque === 'categorias' ? <Categorias copy={copy.categories} {base} {conFoto} {resto} {externas} total={nav.areas.length} />
     : bloque === 'destacados' ? <Destacados copy={copy.courses} {featured} {country} {precios} {base} {moneda} totalCursos={nav.totalCursos} />
     : bloque === 'promo' ? <BandaPromo {promo} {base} class="pt-20 lg:pt-24" />
+    : bloque === 'escenas' ? <Escenas textos={textosEscenas} {base} areas={nav.areas} atenuar={portada.escenasAtenuar} variante={portada.escenasVariante} />
     : bloque === 'oficio' ? <Oficio {oficios} {base} />
     : bloque === 'como-funciona' ? <ComoFunciona animado={portada.comoFuncionaAnimado} />
     : bloque === 'beneficios' ? <Beneficios copy={copy['benefits-heading']} {benefits} />

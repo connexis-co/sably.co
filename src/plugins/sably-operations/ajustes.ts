@@ -134,6 +134,19 @@ export const settingsSchema = {
     description: 'Los números de los pasos se encienden al bajar y un carril coral avanza hasta el paso que lees. Con «reducir movimiento», sin desplazamientos. Apagado: los cuatro pasos encendidos y quietos. Por defecto: encendido.',
     default: true,
   },
+  portadaEscenasVariante: {
+    type: 'select',
+    label: 'Portada · Cómo se recorre «De la primera clase a tu primer encargo»',
+    description: '«Tarjetas apiladas»: cada capítulo es una tarjeta que se queda pegada arriba y la siguiente sube por encima (como visitvalle.travel/pueblos-magicos). «Foto fija»: los capítulos pasan a la izquierda y una foto fija cambia a la derecha (como platzi.com). Por defecto: Tarjetas apiladas.',
+    options: [{ value: 'apiladas', label: 'Tarjetas apiladas' }, { value: 'foto-fija', label: 'Foto fija' }],
+    default: 'apiladas',
+  },
+  portadaEscenasAtenuar: {
+    type: 'boolean',
+    label: 'Portada · Atenuar los capítulos que no se leen en el scroll narrativo',
+    description: 'Solo con la variante «Foto fija». En escritorio, mientras la foto fija acompaña al capítulo que lees, los demás bajan de tono (el texto sigue entero). Los textos se editan en Secciones → sably-home-escenas. Por defecto: encendido.',
+    default: true,
+  },
   // Integraciones
   notificationEmail: {
     type: 'email',
@@ -148,7 +161,7 @@ export type ValorAjuste = string | boolean;
 export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
-export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaComoFuncionaAnimado'];
+export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar'];
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
