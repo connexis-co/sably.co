@@ -1,7 +1,7 @@
 import handler, { createScheduledHandler, PluginBridge } from '@emdash-cms/cloudflare/worker';
 import { gateEnvironment, protectEnvironmentResponse, type RuntimeEnvironment } from './lib/runtime-environment';
 import redirectSource from '../public/_redirects?raw';
-import { parseLegacyRedirects, publicCanonicalRedirect, resolveLegacyRedirect, productionOriginRedirect, rootCountryRedirect } from './lib/legacy-redirects';
+import { parseLegacyRedirects, publicCanonicalRedirect, resolveLegacyRedirect, productionOriginRedirect, rootCountryRedirect, crawlerArtifactRedirect } from './lib/legacy-redirects';
 import { canCachePublicPage, protectDeliveryResponse, invalidatedTags, sharedPublicRequest, type DeliveryPolicy } from './lib/public-delivery';
 import { bumpPageGeneration, servePage } from './lib/page-store';
 
@@ -22,7 +22,7 @@ export default {
     if (denied) return finish(denied);
     try {
       // Answered before EmDash initialises, and shared from the edge cache.
-      const redirect = rootCountryRedirect(request) ?? resolveLegacyRedirect(request, legacyRedirects) ?? publicCanonicalRedirect(request);
+      const redirect = crawlerArtifactRedirect(request) ?? rootCountryRedirect(request) ?? resolveLegacyRedirect(request, legacyRedirects) ?? publicCanonicalRedirect(request);
       if (redirect) return finish(redirect, { redirect: true });
       if (!handler.fetch) throw new Error('EmDash fetch handler unavailable');
       const emdash = handler.fetch;

@@ -101,6 +101,14 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     }
   }));
 
+  // Rutas que fabrica Bing al cortar el srcset en las comas: deben responder 301 a la imagen.
+  const ficha = paginas.find((p) => tipoDeRuta(p.ruta) === 'ficha')?.ruta ?? '/co/curso-de-masajes/';
+  const media = '_emdash/api/media/file/migration/seo-test.jpg';
+  const fabricada = await fetch(`${BASE}${ficha}onerror=redirect/${media}`, { headers: { 'user-agent': UA, ...cabecerasEntorno(BASE) }, redirect: 'manual' }).catch(() => null);
+  const destino = fabricada?.headers.get('location') ?? '';
+  if (fabricada?.status !== 301 || !destino.endsWith(`/${media}`))
+    hallazgos.push({ url: `${ficha}onerror=redirect/…`, regla: 'ruta-bing', nivel: 'error', detalle: `la ruta que fabrica Bing responde ${fabricada?.status ?? 'sin conexión'} (debe ser 301 a la imagen)` });
+
   // Lo que solo se ve entre páginas.
   for (const [campo, regla, nivel] of [['titulo', 'titulo-repetido', 'error'], ['descripcion', 'descripcion-repetida', 'error'], ['h1', 'h1-repetido', 'aviso']]) {
     const grupos = new Map();
