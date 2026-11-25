@@ -119,12 +119,12 @@ const tituloId = 'titulo-compra';
           <dd class="v2-num text-navy-500"><span data-tachado class="v2-tachado">{conMoneda(baseAmount)}</span></dd>
         </div>
         {bloque('cupon') && <div class="flex items-baseline justify-between gap-3" data-bloque="cupon">
-          <dt class="flex min-w-0 items-center gap-x-2 text-navy-950">
+          <dt class="flex min-w-0 flex-wrap items-center gap-x-2 text-navy-950">
             <span data-cupon-icono class="inline-flex flex-none"><Icono nombre="circle-check" tamano={16} class="text-v2-ok" /></span>
             <span data-cupon-texto class="whitespace-nowrap">Cupón {offer!.coupon} · {offer!.saving} %</span>
             <button type="button" data-toggle class="min-h-9 text-t13 font-medium whitespace-nowrap text-navy-950 underline underline-offset-4 hover:text-coral-700">Quitar</button>
           </dt>
-          <dd class="v2-num font-semibold whitespace-nowrap text-coral-700" data-cupon-cifra data-con={`−${conMoneda(descuento)}`} data-sin={`−${offer!.saving} %`}>−{conMoneda(descuento)}</dd>
+          <dd class="v2-num flex-none font-semibold whitespace-nowrap text-coral-700" data-cupon-cifra data-con={`−${conMoneda(descuento)}`} data-sin={`−${offer!.saving} %`}>−{conMoneda(descuento)}</dd>
         </div>}
       </dl>
     )}
