@@ -7,6 +7,8 @@ declare global {
     interface Locals {
       sablyContent?: { collection: string; id: string; slug?: string };
       sablySeo?: ContentSeo;
+      /** Tema de esta petición (src/lib/ajustes-tema.ts), resuelto una sola vez. */
+      sablyTema?: import('./lib/ajustes-tema').TemaDeLaPeticion;
     }
   }
 }

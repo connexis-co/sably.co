@@ -5,6 +5,7 @@
  *
  *   node scripts/verificar-precio-hotmart.mjs                       # producción, muestra de 4 fichas
  *   node scripts/verificar-precio-hotmart.mjs --base http://localhost:4321
+ *   node scripts/verificar-precio-hotmart.mjs --base https://dev.sably.co --tema v2   (con SABLY_DEV_PASSWORD)
  *   node scripts/verificar-precio-hotmart.mjs --ficha co/curso-de-masajes --ficha mx/curso-de-unas-acrilicas
  *   node scripts/verificar-precio-hotmart.mjs --json informe.json
  *
@@ -120,7 +121,10 @@ async function main() {
     const fila = { ficha: `/${pais}/${slug}/`, hallazgos: [] };
     informe.push(fila);
     if (!fuente || !currencies[mercado]) { fila.hallazgos.push({ nivel: 'error', detalle: 'Sin fuente de precio comprobada para este curso o país.' }); continue; }
-    const pagina = await fetch(`${base}${fila.ficha}`, { headers: { 'user-agent': UA } }).catch(() => null);
+    const tema = opcion('tema');
+    const cabeceras = process.env.SABLY_DEV_PASSWORD && !/^https:\/\/(?:www\.)?sably\.co$/.test(base)
+      ? { authorization: `Basic ${Buffer.from(`sably:${process.env.SABLY_DEV_PASSWORD}`).toString('base64')}` } : {};
+    const pagina = await fetch(`${base}${fila.ficha}${tema ? `?tema=${encodeURIComponent(tema)}` : ''}`, { headers: { 'user-agent': UA, ...cabeceras } }).catch(() => null);
     if (!pagina?.ok) { fila.hallazgos.push({ nivel: 'error', detalle: `La ficha respondió ${pagina?.status ?? 'sin conexión'}.` }); continue; }
     const ficha = leerFicha(await pagina.text());
     const fila_ = { product: fuente.product, market: mercado, currency: currencies[mercado], coupon: ficha?.cupon ?? null };

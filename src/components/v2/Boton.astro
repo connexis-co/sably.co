@@ -1,0 +1,36 @@
+---
+/**
+ * Botón del sistema V2: principal (coral, 56/52/48), con precio dentro,
+ * secundario (contorno), enlace con flecha y WhatsApp. Con `href` es un enlace;
+ * sin él, un <button>. El resto de atributos (data-*, rel, target…) pasa tal cual.
+ */
+import Icono from './Icono.astro';
+import type { HTMLAttributes } from 'astro/types';
+type Variante = 'principal' | 'precio' | 'secundario' | 'enlace' | 'whatsapp';
+interface Props extends Omit<HTMLAttributes<'a'>, 'type'> {
+  variante?: Variante;
+  alto?: 56 | 52 | 48;
+  flecha?: boolean;
+  /** Solo en «precio»: «Inscribirme · 191.012 COP». */
+  precio?: { cifra: string; moneda: string } | null;
+  completo?: boolean;
+  tipo?: 'button' | 'submit';
+}
+const { variante = 'principal', alto = 56, flecha = variante !== 'whatsapp' && variante !== 'secundario', precio, completo = false, tipo = 'button', class: clase, href, ...resto } = Astro.props;
+const clases = [
+  variante === 'enlace' ? 'v2-enlace' : 'v2-btn',
+  variante === 'principal' || variante === 'precio' ? 'v2-btn-principal' : '',
+  variante === 'precio' ? 'v2-btn-precio' : '',
+  variante === 'secundario' ? 'v2-btn-secundario' : '',
+  variante === 'whatsapp' ? 'v2-btn-whatsapp' : '',
+  completo ? 'w-full' : '',
+  clase ?? '',
+].filter(Boolean).join(' ');
+const Etiqueta = href ? 'a' : 'button';
+---
+<Etiqueta class={clases} href={href} type={href ? undefined : tipo} data-alto={variante === 'enlace' ? undefined : String(alto)} {...resto}>
+  {variante === 'whatsapp' && <img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" />}
+  <span data-btn-texto><slot /></span>
+  {variante === 'precio' && precio && <><span class="v2-btn-sep" aria-hidden="true"></span><span class="v2-num" data-btn-precio>{precio.cifra} <span class="v2-btn-moneda">{precio.moneda}</span></span></>}
+  {flecha && <Icono nombre="arrow-right" class="v2-flecha" />}
+</Etiqueta>

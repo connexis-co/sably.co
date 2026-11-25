@@ -1,0 +1,91 @@
+/**
+ * Ajustes del tema V2 desde el panel (plugin sably-operations, «Ajustes»).
+ * Se leen de la tabla `options` de EmDash en cada render (la página ya está en
+ * caché, así que es una consulta por render, no por visita), y guardarlos
+ * invalida las páginas (ver `invalidatedTags` en public-delivery.ts).
+ */
+import { resolverTema, temaPorDefecto, type Tema, type TemaResuelto } from './tema';
+
+export type VarianteCaja = 'cuenta-clara' | 'cabecera-oscura';
+export type EstiloContador = 'barra' | 'casillas' | 'linea' | 'tique';
+export type EstiloCampo = 'outlined' | 'filled' | 'underline';
+
+export interface AjustesV2 {
+  temaPorDefecto: Tema;
+  caja: {
+    variante: VarianteCaja;
+    contador: EstiloContador;
+    /** Plantilla con {curso}, {lecciones}, {horas}, {pais} y {descuento}; vacía = sin título. */
+    titulo: string;
+    subtitulo: string;
+  };
+  /** «Lo dicta …» en la cabeza y en la caja. */
+  mostrarCreador: boolean;
+  estiloCampo: EstiloCampo;
+}
+
+export interface TemaDeLaPeticion extends TemaResuelto {
+  ajustes: AjustesV2;
+}
+
+const PREFIJO = 'plugin:sably-operations:settings:';
+export const TITULO_CAJA_POR_DEFECTO = 'Empieza {curso}';
+export const SUBTITULO_CAJA_POR_DEFECTO = '{lecciones} lecciones en vídeo, a tu ritmo.';
+
+const uno = <T extends string>(valor: unknown, validos: readonly T[], defecto: T): T =>
+  typeof valor === 'string' && (validos as readonly string[]).includes(valor) ? (valor as T) : defecto;
+
+function decodificar(valor: string): unknown {
+  try { return JSON.parse(valor); } catch { return valor; }
+}
+
+/** Puro: filas de `options` (+ variable de entorno) → ajustes con sus valores por defecto. */
+export function leerAjustesV2(filas: { name: string; value: string }[], entornoTema?: string): AjustesV2 {
+  const v: Record<string, unknown> = {};
+  for (const fila of filas) if (fila.name.startsWith(PREFIJO)) v[fila.name.slice(PREFIJO.length)] = decodificar(fila.value);
+  const texto = (clave: string, defecto: string) => (typeof v[clave] === 'string' ? (v[clave] as string).trim() : defecto);
+  return {
+    temaPorDefecto: temaPorDefecto(v.temaPorDefecto, entornoTema),
+    caja: {
+      variante: uno(v.cajaVariante, ['cuenta-clara', 'cabecera-oscura'] as const, 'cuenta-clara'),
+      contador: uno(v.cajaContador, ['barra', 'casillas', 'linea', 'tique'] as const, 'barra'),
+      titulo: texto('cajaTitulo', TITULO_CAJA_POR_DEFECTO),
+      subtitulo: texto('cajaSubtitulo', SUBTITULO_CAJA_POR_DEFECTO),
+    },
+    mostrarCreador: v.mostrarCreador !== false,
+    estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
+  };
+}
+
+/** Sustituye {variable} por su valor; las que no se conocen se quitan con su espacio. */
+export function rellenarPlantilla(plantilla: string, valores: Record<string, string | number | null | undefined>): string {
+  return plantilla
+    .replace(/\{(\w+)\}/g, (_, clave: string) => {
+      const valor = valores[clave];
+      return valor === null || valor === undefined || valor === '' ? '' : String(valor);
+    })
+    .replace(/\s{2,}/g, ' ')
+    .replace(/\s+([.,;:])/g, '$1')
+    .trim();
+}
+
+async function leerFilas(): Promise<{ name: string; value: string }[]> {
+  try {
+    const { getDb } = await import('emdash/runtime');
+    return await (await getDb()).selectFrom('options').select(['name', 'value']).where('name', 'like', `${PREFIJO}%`).execute();
+  } catch {
+    // Sin base (build, pruebas) el sitio sigue con los valores por defecto: el clásico.
+    return [];
+  }
+}
+
+/** Tema y ajustes de esta petición, resueltos una vez y guardados en `locals`. */
+export async function temaDeLaPeticion(astro: { url: URL; locals: App.Locals }): Promise<TemaDeLaPeticion> {
+  if (astro.locals.sablyTema) return astro.locals.sablyTema;
+  const { env } = await import('virtual:sably-runtime');
+  const entorno = (env as unknown as { SABLY_TEMA_POR_DEFECTO?: string }).SABLY_TEMA_POR_DEFECTO;
+  const ajustes = leerAjustesV2(await leerFilas(), entorno);
+  const resuelto = { ...resolverTema(astro.url, ajustes.temaPorDefecto), ajustes };
+  astro.locals.sablyTema = resuelto;
+  return resuelto;
+}

@@ -63,6 +63,13 @@ export const INSTRUCTORES_RELLENO = (() => {
 })();
 
 /** Textos que se retiraron del sitio por no ser ciertos y no deben reaparecer. */
+/** Hechos que la plantilla V2 dice una sola vez fuera de la caja de compra (BRIEF-V2, «Reglas que no cambian»). */
+export const HECHOS_V2 = [
+  ['garantía de 7 días', /garant[ií]a de 7 d[ií]as|7 d[ií]as para pedir (?:el )?reembolso/gi],
+  ['constancia de finalización', /constancia (?:digital )?de finalizaci[oó]n/gi],
+  ['acceso de por vida', /acceso de por vida/gi],
+];
+
 export const TEXTOS_VETADOS = [
   [/Tu instructor/i, 'bloque de instructor sin dato verificado'],
   [/\bafiliad[oa]s?\b/i, 'la palabra «afiliado» en texto público'],
@@ -202,6 +209,33 @@ export function auditarOnPage(url, html, opciones = {}) {
   const inventados = (opciones.instructores ?? INSTRUCTORES_RELLENO).filter((nombre) => todo.includes(nombre));
   if (inventados.length)
     marcar('instructor-relleno', 'error', `nombra a ${inventados.slice(0, 3).join(', ')}: instructor de relleno, no es el creador del curso`);
+
+  // ── Reglas del rediseño (tema V2: <body data-tema="v2">) ──────────────────
+  if (/<body\b[^>]*\sdata-tema=["']v2["']/i.test(documento)) {
+    // Bloques con texto del CMS (preguntas, texto largo, biografía): ahí manda
+    // el contenido, no la plantilla. La caja de compra repite hechos a propósito.
+    // Solo <main>: la cabecera y el pie siguen siendo los del tema clásico hasta que tengan versión V2.
+    const principal = sinCodigo.match(/<main\b[^>]*>([\s\S]*)<\/main>/i)?.[1] ?? sinCodigo;
+    const plantilla = principal
+      .replace(/<section\b[^>]*\sdata-purchase-panel\b[\s\S]*?<\/section>/gi, ' ')
+      .replace(/<section\b[^>]*\sdata-cms\b[\s\S]*?<\/section>/gi, ' ');
+    const enPlantilla = texto(plantilla);
+    // ©, ® y ™ son «pictográficos» para Unicode pero son parte de nombres de marca.
+    const emoji = /(?![©®™])\p{Extended_Pictographic}/u;
+    if (emoji.test(enPlantilla)) marcar('v2-emoji', 'error', `emoji en la interfaz: «${enPlantilla.match(/.{0,20}(?![©®™])\p{Extended_Pictographic}/u)?.[0] ?? ''}»`);
+    else if (emoji.test(texto(principal))) marcar('v2-emoji-cms', 'aviso', 'emoji en el texto del CMS');
+    for (const [hecho, patron] of HECHOS_V2) {
+      const veces = (enPlantilla.match(patron) ?? []).length;
+      if (veces > 1) marcar('v2-hecho-repetido', 'error', `«${hecho}» ${veces} veces fuera de la caja de compra (una sola vez)`);
+    }
+    const ficha = /\sdata-purchase-panel\b|data-estado=["']cerrado["']/i.test(sinCodigo);
+    if (ficha) {
+      const largo = sinCodigo.match(/<div\b[^>]*\sdata-texto-largo\b[^>]*>([\s\S]*?)<\/section>/i)?.[1];
+      const palabras = largo ? texto(largo).split(' ').filter(Boolean).length : 0;
+      if (!largo) marcar('v2-texto-largo', 'error', 'la ficha no trae el texto largo del curso en el HTML');
+      else if (palabras < 150) marcar('v2-texto-largo', 'aviso', `texto largo de ${palabras} palabras en el HTML`);
+    }
+  }
 
   // ── Textos que no deben volver ───────────────────────────────────────────
   for (const [patron, motivo] of TEXTOS_VETADOS) if (patron.test(visible)) marcar('texto-vetado', 'error', motivo);

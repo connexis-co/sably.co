@@ -1,0 +1,19 @@
+---
+/**
+ * Acordeón nativo (<details>). Con `grupo`, el navegador deja abierto solo uno
+ * (`name`). El contenido está en el HTML aunque esté plegado: lo leen los
+ * buscadores y Ctrl+F lo encuentra.
+ */
+import Icono from './Icono.astro';
+interface Props { titulo: string; grupo?: string; abierto?: boolean; icono?: 'chevron' | 'mas'; class?: string; tituloClass?: string; id?: string }
+const { titulo, grupo, abierto = false, icono = 'chevron', class: clase, tituloClass, id } = Astro.props;
+---
+<details class:list={['v2-acordeon', clase]} name={grupo} open={abierto} id={id}>
+  <summary class:list={['flex items-center justify-between gap-4', tituloClass]}>
+    <span>{titulo}</span>
+    {icono === 'mas'
+      ? <span class="grid size-9 flex-none place-items-center rounded-full bg-navy-50 text-navy-950"><Icono nombre="plus" class="v2-giro-45 v2-giro" /></span>
+      : <Icono nombre="chevron-down" class="v2-giro flex-none text-navy-950" />}
+  </summary>
+  <slot />
+</details>

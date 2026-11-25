@@ -170,3 +170,13 @@ test('Node HTML cache bypasses credentials, previews and errors; writes retire i
     else process.env.SABLY_ENVIRONMENT=previous;
   }
 });
+
+test('la vista de revisión del tema (?tema=) nunca se indexa ni se guarda en el borde', async () => {
+  const handle = createNodeRequestHandler({env:{SABLY_ENVIRONMENT:'production'},redirects:'',invalidate:()=>{}});
+  const html = async () => new Response('<h1>Ficha</h1>',{headers:{'content-type':'text/html'}});
+  const forzada = await handle(new Request('https://sably.co/co/curso-de-masajes/?tema=v2'),html);
+  assert.equal(forzada.headers.get('x-robots-tag'),'noindex, follow');
+  assert.equal(forzada.headers.get('cloudflare-cdn-cache-control'),'no-store');
+  const normal = await handle(new Request('https://sably.co/co/curso-de-masajes/'),html);
+  assert.equal(normal.headers.get('x-robots-tag'),null);
+});
