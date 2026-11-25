@@ -82,7 +82,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     estiloCampo: 'outlined',
     portada: {
       bloques: ['cifras', 'categorias', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],
-      heroe: { rota: true, intervalo: 4500, orden: 'aleatorio', cursos: [] },
+      heroe: { variante: 'vitrina', botones: 'dos', tachar: true, rota: true, intervalo: 4500, orden: 'aleatorio', cursos: [] },
       comoFuncionaAnimado: true,
       escenasAtenuar: true,
       escenasVariante: 'apiladas',

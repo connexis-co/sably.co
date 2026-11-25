@@ -51,3 +51,14 @@ export function mejorValorados<T extends { id: string; comprable: boolean }>(cur
   con.sort((a, b) => b.n.rating - a.n.rating || b.n.total - a.n.total);
   return con.length >= alMenos ? con.slice(0, maximo).map(x => x.c) : [];
 }
+
+/**
+ * Orden por defecto de los oficios del héroe: primero los que más visitas tuvieron en su ficha según GA4
+ * (sin tráfico Direct, que estaba anómalo; 28-oct → 24-nov-2026, docs/equipo/2026-11-25/portada/datos/
+ * mas-vistos-ga4.csv), después el resto en el orden de la lista. No hay datos de ventas por curso en el repo.
+ */
+export const ORDEN_POR_VISITAS = ['curso-de-masajes', 'curso-de-unas-acrilicas', 'curso-de-barberia', 'curso-de-pasteleria', 'curso-de-reparacion-de-celulares'];
+export function ordenarPorVisitas(slugs: readonly string[], orden: readonly string[] = ORDEN_POR_VISITAS): string[] {
+  const rango = (s: string) => { const i = orden.indexOf(s); return i < 0 ? orden.length : i; };
+  return [...slugs].map((s, i) => ({ s, i })).sort((a, b) => rango(a.s) - rango(b.s) || a.i - b.i).map(x => x.s);
+}

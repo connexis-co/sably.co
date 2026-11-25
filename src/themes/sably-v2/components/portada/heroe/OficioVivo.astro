@@ -1,0 +1,64 @@
+---
+/**
+ * Héroe A · «Buscador primero y oficio vivo» (HEROES-X.md §3, prototipo 06). El buscador manda; a la derecha, la
+ * foto grande del «oficio de hoy» con su tarjeta (curso, nota y precio). Cada pocos segundos cambian juntas foto y
+ * tarjeta. En móvil la foto queda bajo los botones (la LCP sigue siendo el H1). Con «reducir movimiento», quieto en
+ * el primero. Todos los cursos están enlazados en el HTML inicial.
+ */
+import Foto from '../../Foto.astro';
+import Ico from '../../Ico.astro';
+import PrecioOficio from './PrecioOficio.astro';
+import { notaCorta } from './comun';
+import type { OficioMosaico } from '../Heroe.astro';
+interface Props { oficios: OficioMosaico[]; base: string; locale: string; tachar: boolean; rota: boolean; intervalo: number; aleatorio: boolean }
+const { oficios, base, locale, tachar, rota, intervalo, aleatorio } = Astro.props;
+---
+<div class="v2-vivo" data-vivo-heroe={rota ? '' : undefined} data-intervalo={intervalo} data-orden={aleatorio ? 'aleatorio' : 'fijo'} role="group" aria-roledescription="oficio del momento" aria-label="Cursos para empezar">
+  <div class="v2-vivo-marco">
+    {oficios.map((o, i) => (
+      <a href={`${base}/${o.id}/`} class="v2-heroe-curso v2-rota-item" data-i={i} data-visible={i === 0 ? '' : undefined}>
+        <Foto nombre={o.foto} sizes="(min-width: 1024px) 540px, 92vw" decorativa class="v2-vivo-foto" />
+        <span class="v2-vivo-tarjeta">
+          <span class="text-t13 font-medium text-coral-700">Oficio de hoy</span>
+          <strong class="line-clamp-2 text-t17 font-semibold">{o.titulo}</strong>
+          {o.nota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
+          <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t17 text-navy-950" />
+        </span>
+      </a>
+    ))}
+    {rota && <button type="button" class="v2-vivo-pausa" data-rota-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" /><span class="sr-only" data-rota-pausa-texto>Pausar los cursos que cambian</span></button>}
+  </div>
+  {rota && <span class="v2-vivo-progreso" aria-hidden="true" hidden data-rota-progreso><span data-rota-reloj></span></span>}
+</div>
+
+<style is:global>
+  @layer components {
+    .v2-vivo { position: relative; }
+    .v2-vivo-marco { position: relative; overflow: hidden; border-radius: var(--radius-c-xl); background: var(--color-navy-900); aspect-ratio: 4 / 3; }
+    @media (min-width: 1024px) { .v2-vivo-marco { aspect-ratio: auto; height: 560px; } }
+    .v2-vivo-foto { width: 100%; height: 100%; object-fit: cover; scale: 1.04; transition: scale calc(var(--t-escena, calc(700ms * var(--m))) * 1.6) var(--e-sale); }
+    .v2-rota-item[data-visible] .v2-vivo-foto { scale: 1; }
+    .v2-vivo-tarjeta { position: absolute; left: 16px; bottom: 16px; display: grid; gap: 2px; max-width: min(340px, calc(100% - 32px)); padding: 12px 16px; border-radius: var(--radius-c-lg); background: #fff; color: var(--color-navy-950); box-shadow: var(--shadow-s3); opacity: 0; translate: 0 8px; transition: opacity var(--t-base) var(--e-sale), translate var(--t-base) var(--e-sale); }
+    .v2-rota-item[data-visible] .v2-vivo-tarjeta { opacity: 1; translate: 0 0; transition-delay: var(--t-base); }
+    .v2-vivo-pausa { position: absolute; z-index: 2; right: 12px; top: 12px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; background: rgb(27 27 58 / .72); color: #fff; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .35); }
+    .v2-vivo-pausa > * { grid-area: 1 / 1; }
+    .v2-vivo-pausa[hidden], .v2-vivo-progreso[hidden] { display: none; }
+    .v2-vivo-pausa .v2-ico-seguir, .v2-vivo-pausa[aria-pressed='true'] .v2-ico-pausa { display: none; }
+    .v2-vivo-pausa[aria-pressed='true'] .v2-ico-seguir { display: block; }
+    .v2-vivo-progreso { position: absolute; left: 0; right: 0; bottom: -14px; height: 2px; border-radius: 2px; overflow: hidden; background: rgb(255 255 255 / .15); }
+    .v2-vivo-progreso > span { display: block; height: 100%; background: rgb(255 255 255 / .7); transform-origin: left; transform: scaleX(0); }
+  }
+</style>
+
+<script>
+  import { rotacion } from '../../../heroe-rotacion';
+  for (const raiz of document.querySelectorAll<HTMLElement>('[data-vivo-heroe]')) {
+    const items = [...raiz.querySelectorAll<HTMLElement>('.v2-rota-item')];
+    items.forEach((a, i) => { if (i) a.inert = true; });
+    rotacion(raiz, {
+      total: items.length, intervalo: Number(raiz.dataset.intervalo) || 4500, aleatorio: raiz.dataset.orden !== 'fijo',
+      foto: n => items[n]?.querySelector('img'),
+      pintar: n => items.forEach((a, i) => { a.toggleAttribute('data-visible', i === n); a.inert = i !== n; }),
+    });
+  }
+</script>

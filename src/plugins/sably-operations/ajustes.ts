@@ -82,9 +82,29 @@ export const settingsSchema = {
     description: 'Ids de los bloques que no se muestran, separados por comas. Apagar un bloque quita su texto y sus enlaces de la portada: ojo con lo que leen ChatGPT y Google. Por defecto: vacío (todos encendidos).',
     default: '',
   },
+  portadaHeroeVariante: {
+    type: 'select',
+    label: 'Portada · Variante del héroe',
+    description: '«Vitrina viva»: celda grande con el curso en foco y 12 oficios con foto y precio (en móvil, dos filas que pasan solas). «Buscador primero»: foto grande del oficio de hoy con su tarjeta. «Abanico»: cinco tarjetas de curso que se abren al cargar y van girando. «Mosaico»: tres fotos que cambian (la de antes). Todas con buscador con sugerencias. Por defecto: Vitrina viva.',
+    options: [{ value: 'vitrina', label: 'Vitrina viva de 12 oficios' }, { value: 'buscador', label: 'Buscador primero y oficio de hoy' }, { value: 'abanico', label: 'Abanico de cursos' }, { value: 'mosaico', label: 'Mosaico de tres fotos' }],
+    default: 'vitrina',
+  },
+  portadaHeroeBotones: {
+    type: 'select',
+    label: 'Portada · Botones del héroe',
+    description: '«Dos»: «Ver cursos» (texto de Secciones → sably-home-hero) y «Homologaciones». «Uno»: solo «Ver cursos»; el buscador hace de segunda llamada. No aplica a la variante «Mosaico». Por defecto: Dos.',
+    options: [{ value: 'dos', label: 'Dos: cursos y homologaciones' }, { value: 'uno', label: 'Uno: solo cursos' }],
+    default: 'dos',
+  },
+  portadaHeroeTachado: {
+    type: 'boolean',
+    label: 'Portada · Tachar el precio normal en el héroe',
+    description: 'Cuando la campaña aplica a un curso, junto al precio de hoy se ve el normal tachado (los dos reales, de la misma fuente que la ficha). Por defecto: encendido.',
+    default: true,
+  },
   portadaHeroeRota: {
     type: 'boolean',
-    label: 'Portada · Los oficios del héroe rotan solos',
+    label: 'Portada · Los cursos del héroe cambian solos',
     description: 'Cambia una foto del mosaico cada pocos segundos, con fundido. Se para al pasar el cursor, con el teclado, con el botón de pausa y fuera de pantalla; nunca con «reducir movimiento». Apagado: tres oficios fijos. Por defecto: encendido.',
     default: true,
   },
@@ -148,7 +168,7 @@ export type ValorAjuste = string | boolean;
 export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'medios' | 'seo' | 'integraciones' | 'avanzado';
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
-export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
+export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [

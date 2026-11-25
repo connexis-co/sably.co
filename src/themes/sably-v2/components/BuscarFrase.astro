@@ -6,10 +6,11 @@
  * mismo índice y criterio que el buscador de la cabecera.
  */
 import Ico from './Ico.astro';
-interface Props { base: string; id: string; claro?: boolean; class?: string; valor?: string; etiqueta?: string }
-const { base, id, claro = false, class: clase, valor, etiqueta = '¿Qué oficio quieres aprender?' } = Astro.props;
+import type { ExtraBusqueda } from '../buscar-sugerencias';
+interface Props { base: string; id: string; claro?: boolean; class?: string; valor?: string; etiqueta?: string; extra?: ExtraBusqueda[] }
+const { base, id, claro = false, class: clase, valor, etiqueta = '¿Qué oficio quieres aprender?', extra = [] } = Astro.props;
 ---
-<form action={`${base}/cursos/`} method="get" role="search" class:list={['v2-buscar-frase relative flex items-center gap-2 rounded-c-lg bg-white p-2 pl-4 shadow-s2', claro && 'ring-1 ring-navy-100', clase]} data-buscar-frase>
+<form action={`${base}/cursos/`} method="get" role="search" class:list={['v2-buscar-frase relative flex items-center gap-2 rounded-c-lg bg-white p-2 pl-4 shadow-s2', claro && 'ring-1 ring-navy-100', clase]} data-buscar-frase data-extra={extra.length ? JSON.stringify(extra) : undefined}>
   <Ico nombre="search" class="flex-none text-navy-700" />
   <label for={id} class="sr-only">{etiqueta}</label>
   <input {id} name="q" type="search" value={valor} placeholder={etiqueta} autocomplete="off" enterkeyhint="search" class="h-12 min-w-0 flex-1 bg-transparent text-t17 text-navy-950 outline-none placeholder:text-navy-500" />
@@ -29,6 +30,7 @@ const { base, id, claro = false, class: clase, valor, etiqueta = '¿Qué oficio 
     .v2-sugerencias img { width: 64px; height: 48px; flex: none; border-radius: 8px; object-fit: cover; background: var(--color-navy-50); }
     .v2-sugerencias strong { display: block; font: 500 15px/22px var(--font-sans); }
     .v2-sugerencias small { display: block; font: 400 13px/18px var(--font-sans); color: var(--color-navy-500); }
+    .v2-sug-tipo { flex: none; width: 64px; padding: 4px 0; border-radius: 8px; background: var(--color-coral-50); color: var(--color-coral-700); font: 600 12px/16px var(--font-sans); text-align: center; }
     .v2-sugerencias-todos { display: flex; min-height: 44px; align-items: center; padding: 0 8px; margin-top: 4px; border-top: 1px solid var(--color-navy-100); font: 600 15px/22px var(--font-sans); color: var(--color-coral-700); text-decoration: none; }
   }
 </style>

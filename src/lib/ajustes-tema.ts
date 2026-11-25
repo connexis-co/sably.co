@@ -32,7 +32,7 @@ export interface AjustesV2 {
   portada: {
     /** Bloques visibles, en orden (el héroe va siempre primero y no está aquí). */
     bloques: BloquePortada[];
-    heroe: { rota: boolean; intervalo: number; orden: 'aleatorio' | 'fijo'; cursos: string[] };
+    heroe: { variante: 'vitrina' | 'buscador' | 'abanico' | 'mosaico'; botones: 'dos' | 'uno'; tachar: boolean; rota: boolean; intervalo: number; orden: 'aleatorio' | 'fijo'; cursos: string[] };
     comoFuncionaAnimado: boolean;
     escenasAtenuar: boolean;
     escenasVariante: 'apiladas' | 'foto-fija';
@@ -75,6 +75,9 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     portada: {
       bloques: bloquesVisibles(v.portadaOrden, v.portadaOcultos),
       heroe: {
+        variante: uno(v.portadaHeroeVariante, ['vitrina', 'buscador', 'abanico', 'mosaico'] as const, 'vitrina'),
+        botones: uno(v.portadaHeroeBotones, ['dos', 'uno'] as const, 'dos'),
+        tachar: v.portadaHeroeTachado !== false,
         rota: v.portadaHeroeRota !== false,
         intervalo: Number(uno(v.portadaHeroeIntervalo, ['3500', '4500', '6000'] as const, '4500')),
         orden: uno(v.portadaHeroeOrden, ['aleatorio', 'fijo'] as const, 'aleatorio'),

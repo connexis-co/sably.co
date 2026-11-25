@@ -140,6 +140,15 @@ const capitulos = t.capitulos.slice(0, EXTRA.length).map((c, i) => ({ ...c, ...E
 </style>
 
 <script>
+  /* Alto de lo que está fijo arriba (cabecera y, si está, la barra de campaña), si el sitio no lo da en --fijo-superior:
+     las tarjetas y la foto fija se pegan justo debajo, nunca detrás de la cabecera. */
+  const arriba = () => {
+    if (getComputedStyle(document.documentElement).getPropertyValue('--fijo-superior').trim()) return;
+    const cab = document.querySelector<HTMLElement>('[data-cabecera]');
+    const alto = cab ? Math.max(cab.getBoundingClientRect().bottom, cab.offsetHeight) : 72;
+    document.querySelectorAll<HTMLElement>('.v2-escenas').forEach(s => s.style.setProperty('--fijo-superior', `${Math.ceil(alto)}px`));
+  };
+  arriba();
   /* Tarjetas apiladas: una tarjeta queda «atrás» cuando la siguiente ya llegó a su sitio pegado (franja de arriba). */
   for (const pila of document.querySelectorAll<HTMLElement>('[data-pila]')) {
     if (!('IntersectionObserver' in window)) break;
@@ -158,7 +167,7 @@ const capitulos = t.capitulos.slice(0, EXTRA.length).map((c, i) => ({ ...c, ...E
     };
     montar();
     let t: ReturnType<typeof setTimeout>;
-    addEventListener('resize', () => { clearTimeout(t); t = setTimeout(montar, 200); });
+    addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { arriba(); montar(); }, 200); });
   }
   for (const raiz of document.querySelectorAll<HTMLElement>('[data-escenas]')) {
     if (!('IntersectionObserver' in window)) break;

@@ -1,0 +1,90 @@
+---
+/**
+ * Héroe D · «Abanico de cursos» (la variante disruptiva sin vídeo). Cinco tarjetas de curso en abanico que se abren
+ * al cargar desde una pila; la de delante cambia sola y el resto gira a su sitio (solo rotate, translate y scale).
+ * Cursor o foco levantan una tarjeta. Con «reducir movimiento», el abanico sale abierto y quieto. Los 12 cursos
+ * están enlazados en el HTML; los que no caben en el abanico esperan con `display: none`.
+ */
+import Foto from '../../Foto.astro';
+import Ico from '../../Ico.astro';
+import PrecioOficio from './PrecioOficio.astro';
+import { corto, notaCorta } from './comun';
+import type { OficioMosaico } from '../Heroe.astro';
+interface Props { oficios: OficioMosaico[]; base: string; locale: string; tachar: boolean; rota: boolean; intervalo: number; aleatorio: boolean }
+const { oficios, base, locale, tachar, rota, intervalo, aleatorio } = Astro.props;
+const n = oficios.length;
+/* Sitio de cada tarjeta respecto a la de delante (0): −2…2 visibles; el resto, fuera. */
+const sitio = (i: number) => { const d = ((i % n) + n) % n; return d > n / 2 ? d - n : d; };
+---
+<div class="v2-abanico" data-abanico={rota ? '' : undefined} data-intervalo={intervalo} data-orden={aleatorio ? 'aleatorio' : 'fijo'} role="group" aria-roledescription="abanico de cursos" aria-label="Cursos para empezar">
+  <ul class="v2-aba-mesa" role="list">
+    {oficios.map((o, i) => (
+      <li class="v2-aba-carta" data-i={i} data-sitio={Math.abs(sitio(i)) <= 2 ? sitio(i) : 'fuera'} style={`--k: ${i}`}>
+        <a href={`${base}/${o.id}/`} class="v2-heroe-curso">
+          <span class="v2-aba-foto"><Foto nombre={o.foto} sizes="(min-width: 1024px) 260px, 180px" prioridad={false} decorativa class="h-full w-full object-cover" /></span>
+          <span class="grid gap-1 p-4">
+            <strong class="line-clamp-2 text-t15 font-semibold">{corto(o.titulo)}</strong>
+            {o.nota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
+            <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t15 text-navy-950" />
+          </span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  {rota && <span class="v2-aba-progreso" aria-hidden="true" hidden data-rota-progreso><span data-rota-reloj></span></span>}
+  {rota && <button type="button" class="v2-aba-pausa" data-rota-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" /><span class="sr-only" data-rota-pausa-texto>Pausar los cursos que cambian</span></button>}
+</div>
+
+<style is:global>
+  @layer components {
+    .v2-abanico { position: relative; }
+    .v2-aba-mesa { position: relative; height: 330px; }
+    @media (min-width: 1024px) { .v2-aba-mesa { height: 520px; } }
+    .v2-aba-carta {
+      --w: 180px; --x: 0px; --g: 0deg; --s: 1;
+      position: absolute; left: calc(50% - var(--w) / 2); top: 16px; width: var(--w); z-index: 1;
+      translate: var(--x) var(--y, 0px); rotate: var(--g); scale: var(--s); transform-origin: 50% 120%;
+      transition: translate var(--t-lento) var(--e-mueve), rotate var(--t-lento) var(--e-mueve), scale var(--t-lento) var(--e-mueve), opacity var(--t-lento) var(--e-mueve);
+    }
+    @media (min-width: 1024px) { .v2-aba-carta { --w: 260px; top: 40px; } }
+    .v2-aba-carta[data-sitio='fuera'] { display: none; }
+    .v2-aba-carta[data-sitio='0'] { z-index: 3; }
+    .v2-aba-carta[data-sitio='-1'] { --x: -34%; --g: -6deg; --s: .94; z-index: 2; }
+    .v2-aba-carta[data-sitio='1'] { --x: 34%; --g: 6deg; --s: .94; z-index: 2; }
+    .v2-aba-carta[data-sitio='-2'] { --x: -58%; --g: -11deg; --s: .88; }
+    .v2-aba-carta[data-sitio='2'] { --x: 58%; --g: 11deg; --s: .88; }
+    @media (min-width: 1024px) { .v2-aba-carta[data-sitio='-2'] { --x: -64%; } .v2-aba-carta[data-sitio='2'] { --x: 64%; } }
+    .v2-aba-carta:hover, .v2-aba-carta:focus-within { --y: -14px; z-index: 4; }
+    .v2-aba-carta > a { display: block; overflow: hidden; border-radius: var(--radius-c-lg); background: #fff; color: var(--color-navy-950); box-shadow: var(--shadow-s3); }
+    .v2-aba-carta > a:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+    .v2-aba-foto { display: block; aspect-ratio: 4 / 3; overflow: hidden; background: var(--color-navy-50); }
+    .v2-aba-foto picture { display: contents; }
+    @media (prefers-reduced-motion: no-preference) {
+      /* Al cargar, el abanico se abre desde la pila, una tarjeta tras otra (60 ms). */
+      @keyframes v2-aba-abre { from { translate: 0 24px; rotate: 0deg; scale: .9; } }
+      .v2-aba-carta { animation-name: v2-aba-abre; animation-duration: calc(700ms * var(--m)); animation-timing-function: cubic-bezier(.2, .8, .2, 1); animation-delay: calc(var(--k) * 60ms); animation-fill-mode: backwards; }
+      @starting-style { [data-rotando] .v2-aba-carta[data-sitio] { opacity: 0; } }
+    }
+    .v2-aba-progreso { position: absolute; left: 25%; right: 25%; bottom: 0; height: 2px; border-radius: 2px; overflow: hidden; background: rgb(255 255 255 / .15); }
+    .v2-aba-progreso > span { display: block; height: 100%; background: rgb(255 255 255 / .7); transform-origin: left; transform: scaleX(0); }
+    .v2-aba-pausa { position: absolute; z-index: 5; right: 0; top: 0; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 999px; background: rgb(255 255 255 / .12); color: #fff; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .35); }
+    .v2-aba-pausa > * { grid-area: 1 / 1; }
+    .v2-aba-pausa[hidden], .v2-aba-progreso[hidden] { display: none; }
+    .v2-aba-pausa .v2-ico-seguir, .v2-aba-pausa[aria-pressed='true'] .v2-ico-pausa { display: none; }
+    .v2-aba-pausa[aria-pressed='true'] .v2-ico-seguir { display: block; }
+  }
+</style>
+
+<script>
+  import { rotacion } from '../../../heroe-rotacion';
+  for (const raiz of document.querySelectorAll<HTMLElement>('[data-abanico]')) {
+    const cartas = [...raiz.querySelectorAll<HTMLElement>('.v2-aba-carta')];
+    const n = cartas.length;
+    const sitio = (i: number, frente: number) => { const d = (((i - frente) % n) + n) % n; return d > n / 2 ? d - n : d; };
+    rotacion(raiz, {
+      total: n, intervalo: Number(raiz.dataset.intervalo) || 4500, aleatorio: false,
+      foto: k => cartas[(k + 2) % n]?.querySelector('img'),
+      pintar: frente => cartas.forEach((c, i) => { const s = sitio(i, frente); c.dataset.sitio = Math.abs(s) <= 2 ? String(s) : 'fuera'; }),
+    });
+  }
+</script>
