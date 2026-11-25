@@ -5,6 +5,7 @@
  * invalida las páginas (ver `invalidatedTags` en public-delivery.ts).
  */
 import { resolverTema, temaPorDefecto, type Tema, type TemaResuelto } from './tema';
+import { SUBTITULO_SABLY, TITULO_SABLY } from './caja/sably';
 
 export type VarianteCaja = 'cuenta-clara' | 'cabecera-oscura';
 export type EstiloContador = 'barra' | 'casillas' | 'linea' | 'tique';
@@ -15,7 +16,7 @@ export interface AjustesV2 {
   caja: {
     variante: VarianteCaja;
     contador: EstiloContador;
-    /** Plantilla con {curso}, {lecciones}, {horas}, {pais} y {descuento}; vacía = sin título. */
+    /** Texto del bloque `titulo` del núcleo común: variables {curso} y {escuela} (el creador); sin cifras. Vacío = sin título. */
     titulo: string;
     subtitulo: string;
   };
@@ -29,8 +30,8 @@ export interface TemaDeLaPeticion extends TemaResuelto {
 }
 
 const PREFIJO = 'plugin:sably-operations:settings:';
-export const TITULO_CAJA_POR_DEFECTO = 'Empieza {curso}';
-export const SUBTITULO_CAJA_POR_DEFECTO = '{lecciones} lecciones en vídeo, a tu ritmo.';
+export const TITULO_CAJA_POR_DEFECTO = TITULO_SABLY;
+export const SUBTITULO_CAJA_POR_DEFECTO = SUBTITULO_SABLY;
 
 const uno = <T extends string>(valor: unknown, validos: readonly T[], defecto: T): T =>
   typeof valor === 'string' && (validos as readonly string[]).includes(valor) ? (valor as T) : defecto;

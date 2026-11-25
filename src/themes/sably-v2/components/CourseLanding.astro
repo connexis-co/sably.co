@@ -27,7 +27,8 @@ import CajaCompra from './CajaCompra.astro';
 import BarraFija from './BarraFija.astro';
 import VideoPresentacion from './VideoPresentacion.astro';
 import { cargarFicha, type FichaProps } from '@/lib/ficha';
-import { temaDeLaPeticion, rellenarPlantilla } from '@/lib/ajustes-tema';
+import { temaDeLaPeticion } from '@/lib/ajustes-tema';
+import { mostrarPromedio, notaHotmart } from '@/lib/opiniones';
 import { dividirTexto } from '@/lib/texto-largo';
 import { fechaCorta } from '@/lib/cuenta-atras';
 import { nombresCreadores } from '@/lib/creadores';
@@ -54,12 +55,9 @@ const portada = cmsImageUrl(course.coverImage) ?? courseCover(course.id, categor
 const creador = ajustes.mostrarCreador && creadoresVisibles.length ? nombresCreadores(creadoresVisibles.map(c => c.nombre)) : null;
 const fotoCreador = ajustes.mostrarCreador ? creadoresVisibles.map(c => c.foto).find(fotoPropia) ?? null : null;
 const siglas = creador ? iniciales(creadoresVisibles[0]!.nombre) : '';
-const nota = valoracion ? new Intl.NumberFormat('es-CO', { maximumFractionDigits: 1 }).format(valoracion.rating) : null;
+const nota = notaHotmart(valoracion);
 const whatsapp = buildWhatsAppUrl(country.whatsapp, `Hola, tengo una duda antes de inscribirme en «${course.data.title}»`);
 
-const plantilla = { curso: nombreEnFrase, lecciones: course.data.lessonsCount, horas: course.data.durationHours, pais: country.name, descuento: offer ? `${offer.saving} %` : null };
-const tituloCaja = rellenarPlantilla(ajustes.caja.titulo, plantilla);
-const subtituloCaja = rellenarPlantilla(ajustes.caja.subtitulo, plantilla);
 
 /* Texto largo: el del CMS (rich text) se pliega por altura; el Markdown se corta
    antes de un subtítulo pasadas ~300 palabras. Las dos mitades van en el HTML. */
@@ -128,10 +126,10 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
               <span>Lo dicta {creador}<span class="block text-t13 font-normal text-navy-500 lg:text-white/70">Es el nombre que verás en Hotmart</span></span>
             </p>
           )}
-          {!sinProducto && valoracion && nota && (
+          {!sinProducto && nota && (
             <p class="flex items-center gap-1.5 text-t15 text-navy-700 lg:text-white/80">
               <Icono nombre="star" tamano={16} class="fill-coral-500 text-coral-500" />
-              <strong class="v2-num font-semibold text-navy-950 lg:text-white">{nota}</strong> · {valoracion.total} calificaciones en Hotmart
+              <strong class="v2-num font-semibold text-navy-950 lg:text-white">{nota.cifra}</strong> · {nota.texto}
             </p>
           )}
         </div>
@@ -156,7 +154,7 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
               <Boton variante="whatsapp" completo href={whatsapp} target="_blank" rel="noopener nofollow" class="mt-3">Escríbenos por WhatsApp</Boton>
             </section>
           ) : (
-            <CajaCompra {f} {country} {ajustes} titulo={tituloCaja} subtitulo={subtituloCaja} />
+            <CajaCompra {f} {country} {ajustes} />
           )}
         </div>
         <div class="v2-area-datos mt-8 lg:mt-12">
@@ -244,7 +242,7 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
     </section>
 
     <!-- Quién lo dicta y opiniones propias (solo con tres o más). -->
-    {(creador || verifiedReviews) && (
+    {(creador || !sinProducto) && (
       <section id="creador" class="v2-bloque-tinta scroll-mt-36" aria-labelledby={creador ? 'titulo-creador' : undefined} data-aparece data-cms>
         <div class="v2-contenedor space-y-10 py-16 lg:py-24">
           {creadoresVisibles.length > 0 && ajustes.mostrarCreador && creadoresVisibles.map(c => (
@@ -259,7 +257,8 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
               </div>
             </article>
           ))}
-          <VerifiedReviews data={verifiedReviews} />
+          {/* Con menos de 5 opiniones no se muestra el promedio (widgets-opiniones.md). */}
+          {mostrarPromedio(('rating' in verifiedReviews ? verifiedReviews.rating?.count : 0) ?? 0) && <VerifiedReviews data={verifiedReviews} />}
           {!sinProducto && <ResenasCurso slug={course.id} />}
         </div>
       </section>
@@ -487,6 +486,8 @@ const botonSin = offer ? `Inscribirme · ${conMoneda(baseAmount)}` : undefined;
     .v2-area-caja { align-self: start; position: sticky; top: 88px; margin-top: 56px; z-index: 2; }
   }
   .v2-bloque-tinta { background: var(--color-navy-50); }
+  /* Sin creador visible ni opiniones que mostrar, el bloque no deja un hueco tintado. */
+  #creador:not(:has(article, section)) { display: none; }
   @media (width >= 1024px) { .v2-bloque-tinta { margin-inline: 60px; border-radius: var(--radius-c-xl); } }
 
   /* Pestañas: sin :has() se ven los cuatro paneles seguidos (nada se pierde). */
