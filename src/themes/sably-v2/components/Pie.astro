@@ -72,7 +72,11 @@ const compacto = variante === 'compacto';
       <details class="v2-pie-grupo v2-acordeon border-white/15 max-lg:border-b" open data-pie-grupo>
         <summary class="flex min-h-14 items-center justify-between text-t15 font-semibold text-white lg:min-h-0 lg:text-t13 lg:font-medium lg:text-white/60">Legal y ayuda<Ico nombre="chevron-down" class="v2-giro lg:hidden" /></summary>
         <nav aria-label="Legal y ayuda" class="pb-5 lg:pt-4">
-          <ul role="list">{legal.map(e => <li><a href={e.href} class="v2-pie-enlace">{e.etiqueta}</a></li>)}</ul>
+          <ul role="list">
+            {legal.map(e => <li><a href={e.href} class="v2-pie-enlace">{e.etiqueta}</a></li>)}
+            {/* Reabre el aviso de consentimiento de cookies (#221): el mismo atributo que el pie clásico. */}
+            <li><button type="button" data-sably-consent-open class="v2-pie-enlace cursor-pointer text-left">Preferencias de cookies</button></li>
+          </ul>
         </nav>
       </details>
     </div>
