@@ -4,7 +4,7 @@ interface Props {
   markets: {label:string;href:string}[];
   price: string;
   checkout: string;
-  offer: { price: string; saving: number; coupon: string; name: string; end: number | null } | null;
+  offer: { price: string; saving: number; coupon: string; name: string; end: number | null; hastaPrecio?: number | null } | null;
   /**
    * Los mismos importes en crudo y de dónde salieron. No se pintan: los lee la
    * prueba que compara la ficha con Hotmart (scripts/verificar-precio-hotmart.mjs).
@@ -20,7 +20,7 @@ const endDate = offer?.end ? new Date(offer.end) : null;
 ---
 <section id="compra" tabindex="-1" aria-labelledby="titulo-compra" class="mt-5 scroll-mt-24 rounded-md bg-off-white p-4"
   data-purchase-panel data-base={price} data-reduced={offer?.price} data-original-url={checkout}
-  data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end}
+  data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end} data-precio-hasta={offer ? (offer.hastaPrecio ?? 'nunca') : undefined}
   data-currency={evidence?.currency} data-base-amount={evidence?.base} data-reduced-amount={evidence?.reduced ?? undefined}
   data-quote-source={evidence?.source} data-quote-at={evidence?.at ?? undefined}>
   <h2 id="titulo-compra" class="text-xl font-bold text-primary">Opciones de compra</h2>
@@ -60,7 +60,10 @@ const endDate = offer?.end ? new Date(offer.end) : null;
       toggle.textContent = active ? 'Quitar el cupón' : 'Volver a aplicar el cupón';
       link.href = active ? panel.dataset.discountUrl! : panel.dataset.originalUrl!;
     }
-    const expired = () => deadline > 0 && Date.now() >= deadline;
+    /* El precio rebajado dura lo que dura el tramo con el mismo cupón: si a la hora
+       del cierre empieza otra campaña igual (Black Friday → Cyber Monday), no se retira. */
+    const precioHasta = panel.dataset.precioHasta === 'nunca' ? 0 : Number(panel.dataset.precioHasta ?? deadline);
+    const expired = () => precioHasta > 0 && Date.now() >= precioHasta;
     if (toggle) {
       toggle.hidden = false;
       toggle.addEventListener('click', () => { applied = !applied; render(expired()); });
@@ -68,7 +71,7 @@ const endDate = offer?.end ? new Date(offer.end) : null;
       const clock = panel.querySelector('[data-clock]');
       if (clock && deadline) {
         const tick = () => {
-          if (expired()) { render(true); clearInterval(timer); return; }
+          if (Date.now() >= deadline) { render(expired()); clock.textContent = ''; clearInterval(timer); return; }
           const minutes = Math.ceil((deadline - Date.now()) / 60000);
           clock.textContent = 'Quedan ' + Math.floor(minutes / 1440) + ' d ' + Math.floor(minutes % 1440 / 60) + ' h ' + minutes % 60 + ' min.';
         };
