@@ -11,6 +11,27 @@ const opciones = <const T extends readonly (readonly [string, string])[]>(label:
   ({ type: 'select', label, description, options: ops.map(([value, label]) => ({ value, label })) as { value: T[number][0]; label: string }[], default: def }) as const;
 
 export const BLOG_SETTINGS = {
+  // Portada del blog (/blog/)
+  blogTituloPortada: { type: 'string', label: 'Blog · Título de la portada',
+    description: 'El H1 de /blog/ (hasta 60 caracteres). El título de la pestaña y de Google no cambia. Vacío: el de fábrica. Por defecto: «Guías para empezar un oficio desde cero».',
+    default: 'Guías para empezar un oficio desde cero' },
+  blogEntradillaPortada: { type: 'string', label: 'Blog · Entradilla de la portada',
+    description: 'La frase bajo el título (hasta 200 caracteres). Vacío: la de fábrica. Por defecto: «Guías prácticas para empezar un oficio, entender lo que cuesta y emprender en Latinoamérica.».',
+    default: 'Guías prácticas para empezar un oficio, entender lo que cuesta y emprender en Latinoamérica.' },
+  blogBuscador: sino('Blog · Buscador con sugerencias', 'En la cabeza de la portada: sugiere guías, categorías y cursos al escribir. Sin JavaScript busca en el servidor. Por defecto: encendido.', true),
+  blogDestacado: opciones('Blog · Destacado de la portada', 'Solo en la página 1 y sin filtros. «Destacado y recientes»: el artículo más reciente en grande y los siguientes en «Lo más reciente». Por defecto: Destacado y recientes.',
+    [['destacado-recientes', 'Destacado y «Lo más reciente»'], ['destacado', 'Solo el destacado'], ['ninguno', 'Ninguno (todo en la rejilla)']], 'destacado-recientes'),
+  blogRecientes: opciones('Blog · Cuántos en «Lo más reciente»', 'Por defecto: 3.', [['2', '2'], ['3', '3'], ['4', '4']], '3'),
+  blogFiltrosEstilo: opciones('Blog · Estilo de los filtros de categoría', 'Pastillas con el punto de color de cada área, o pestañas subrayadas. Por defecto: Pastillas.',
+    [['pastillas', 'Pastillas'], ['pestanas', 'Pestañas']], 'pastillas'),
+  blogFiltrosMovil: opciones('Blog · Filtros en móvil', 'Por defecto: Pastillas que se desplazan.', [['desplazables', 'Pastillas que se desplazan'], ['desplegable', 'Desplegable']], 'desplazables'),
+  blogFiltrosCuenta: sino('Blog · Cuántos artículos hay en cada filtro', 'El número junto a cada categoría. Por defecto: encendido.', true),
+  blogPaginacion: opciones('Blog · Paginación', '«Numerada»: 1 · 2 · Siguiente. «Ver más»: un botón que añade la página siguiente sin recargar. En los dos casos cada página tiene su URL (/blog/?pagina=2) y enlaces de verdad. Por defecto: Numerada.',
+    [['numerada', 'Numerada'], ['ver-mas', 'Botón «Ver más»']], 'numerada'),
+  blogVerMasAuto: sino('Blog · Cargar más al llegar al final', 'Solo con «Ver más»: añade la página siguiente al acercarse al final. Nunca con «reducir movimiento». Por defecto: apagado.', false),
+  blogPorPagina: opciones('Blog · Artículos por página', 'En la rejilla (el destacado y «Lo más reciente» van aparte en la página 1). Por defecto: 12.',
+    [['6', '6'], ['9', '9'], ['12', '12'], ['18', '18'], ['24', '24']], '12'),
+  blogBandaCursos: sino('Blog · Banda «De la guía al oficio»', 'Bloque azul con el número real de cursos y un botón a los cursos, tras la segunda fila. Por defecto: encendida.', true),
   // Artículo · cabecera y lectura
   blogCabecera: opciones('Blog · Cabecera del artículo',
     '«Automática»: título primero (B) si el artículo tiene portada propia, mínima (D) si no. A = foto a sangre con el título encima; C = banda azul con la foto montada (la de antes, terminada). El orden del HTML no cambia (un solo H1, primero). Por defecto: Automática.',

@@ -161,6 +161,8 @@ export function AjustesPage() {
       ['Moderación y contactos', 'Opiniones, calificaciones y solicitudes.', `${ADMIN}/plugins/sably-operations/operations`],
     ]} />; break;
     case 'blog': cuerpo = <>
+      {seccion(['blogTituloPortada', 'blogEntradillaPortada', 'blogBuscador', 'blogDestacado', 'blogRecientes', 'blogBandaCursos'], 'Portada del blog')}
+      {seccion(['blogFiltrosEstilo', 'blogFiltrosMovil', 'blogFiltrosCuenta', 'blogPaginacion', 'blogVerMasAuto', 'blogPorPagina'], 'Portada · filtros y paginación')}
       {seccion(['blogCabecera', 'blogEntradillaEstilo', 'blogTamanoTexto', 'blogProgreso', 'blogProgresoMinimo'], 'Artículo · cabecera y lectura')}
       {seccion(['blogIndiceEscritorio', 'blogIndiceProgreso', 'blogIndiceMovil', 'blogIndiceNiveles', 'blogIndiceMinimo', 'blogCarrilDerecho'], 'Artículo · índice')}
       {seccion(['blogCompartirRedes', 'blogCompartirPosiciones', 'blogNarracionFija'], 'Artículo · compartir y narración')}
