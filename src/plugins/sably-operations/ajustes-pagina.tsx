@@ -134,6 +134,7 @@ export function AjustesPage() {
       </section>
       {seccion(['estiloCampo'], 'Formularios')}
       {seccion(['tarjetasColumnasMedio'], 'Tarjetas de cursos')}
+      {seccion(['pieBorde'], 'Pie')}
     </>; break;
     case 'campanas': cuerpo = <>{seccion(['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija'], 'Barra de campaña')}{seccion(CAMPANA_CLAVES, 'Qué enseña cada aviso de campaña')}<Promotions /></>; break;
     case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'], 'Caja de compra')}{seccion(['sobreFotosPestanas', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'], 'Opiniones de la ficha')}{seccion(['fichaMovimiento', 'certificadoAnimacion'], 'Movimiento de la ficha')}{seccion(['temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta'], 'Temario y bloques de la ficha')}<WidgetEditor only="social" /></>; break;
