@@ -28,6 +28,8 @@ const ANTES = {
     estiloCampo: ['select', ['outlined', 'filled', 'underline'], 'outlined'],
     // Clave nueva (26-nov, tarjetas de cursos entre 1024 y 1279 px): se añade, no sustituye a ninguna.
     tarjetasColumnasMedio: ['select', ['tres-completas', 'tres', 'cuatro'], 'tres-completas'],
+    // Clave nueva (26-nov, ciudad en «País y moneda»): se añade, no sustituye a ninguna.
+    selectorCiudad: ['boolean', null, true],
     // Claves nuevas (cuenta, 25-nov): se añaden, no sustituyen a ninguna.
     cuentaActiva: ['boolean', null, true],
     cuentaGoogle: ['boolean', null, true],
@@ -121,6 +123,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     mostrarCreador: true,
     mostrarDocente: true,
     mostrarCiudades: true,
+    selectorCiudad: true,
     estiloCampo: 'outlined',
     columnasTarjetas: 'tres-completas',
     sobreFotos: true,
