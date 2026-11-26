@@ -1,0 +1,31 @@
+---
+/**
+ * Compartir sin scripts de terceros (DISENO §4.8): enlaces normales a WhatsApp, Facebook, X, LinkedIn y correo,
+ * «Copiar enlace» (aviso en role="status") y «Compartir» del sistema solo donde existe y el puntero es táctil.
+ * El comportamiento lo pone articulo.ts. Formas: «circulos» (fila y carril) y «ancha» (bloque final y móvil).
+ */
+import type { Red } from '@/lib/blog-ajustes';
+import Ico from '../Ico.astro';
+interface Props { url: string; titulo: string; redes: Red[]; forma?: 'circulos' | 'ancha'; nativo?: boolean; class?: string; etiqueta?: string }
+const { url, titulo, redes, forma = 'circulos', nativo = true, class: clase, etiqueta = 'Compartir este artículo' } = Astro.props;
+const t = encodeURIComponent(titulo), u = encodeURIComponent(url);
+const enlaces: Partial<Record<Red, { href: string; nombre: string }>> = {
+  whatsapp: { href: `https://wa.me/?text=${encodeURIComponent(`${titulo} ${url}`)}`, nombre: 'Compartir por WhatsApp' },
+  facebook: { href: `https://www.facebook.com/sharer/sharer.php?u=${u}`, nombre: 'Compartir en Facebook' },
+  x: { href: `https://x.com/intent/post?url=${u}&text=${t}`, nombre: 'Compartir en X' },
+  linkedin: { href: `https://www.linkedin.com/sharing/share-offsite/?url=${u}`, nombre: 'Compartir en LinkedIn' },
+  correo: { href: `mailto:?subject=${t}&body=${encodeURIComponent(`${titulo}\n${url}`)}`, nombre: 'Enviar por correo' },
+};
+---
+<nav class:list={['v2-compartir', clase]} data-forma={forma} aria-label={etiqueta} data-compartir={url}>
+  {redes.map(red => red === 'copiar'
+    ? <button type="button" class="v2-compartir-boton" data-red="copiar" data-copiar-enlace={url} aria-label="Copiar el enlace"><Ico nombre="link" tamano={18} /></button>
+    : enlaces[red] && <a class="v2-compartir-boton" data-red={red} href={enlaces[red]!.href} target="_blank" rel="noopener nofollow" aria-label={enlaces[red]!.nombre}>
+        {red === 'whatsapp' && <><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" />{forma === 'ancha' && <span>WhatsApp</span>}</>}
+        {red === 'facebook' && <Ico nombre="facebook" tamano={18} />}
+        {red === 'x' && <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.1l-4.8-6.3L6.6 22H3.5l7.3-8.3L1 2h6.3l4.3 5.7zm-1.1 18.2h1.7L6.3 3.7H4.5z" /></svg>}
+        {red === 'linkedin' && <Ico nombre="linkedin" tamano={18} />}
+        {red === 'correo' && <Ico nombre="mail" tamano={18} />}
+      </a>)}
+  {nativo && <button type="button" class="v2-compartir-boton" data-compartir-nativo hidden aria-label="Compartir con otra aplicación"><Ico nombre="share-2" tamano={18} />{forma === 'ancha' && <span>Compartir</span>}</button>}
+</nav>

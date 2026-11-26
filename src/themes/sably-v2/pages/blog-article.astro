@@ -1,10 +1,12 @@
 ---
 /**
- * Artículo del blog V2. Mismo loader, título, descripción, imagen social,
- * Article (articleSchema/articleMeta) y schemas que la plantilla clásica.
- * Barra de progreso de lectura solo con CSS (línea de tiempo de la vista del
- * artículo); índice plegable en móvil y fijo al lado en escritorio, con el
- * apartado actual resaltado (~0,4 KB). Valoración y comentarios, los de siempre.
+ * Artículo del blog V2 (docs/equipo/2026-11-25/blog/DISENO.md, láminas 04–08, 15–17). Mismo loader, título,
+ * descripción, imagen social, Article y schemas que la plantilla clásica; todo el texto sigue en el HTML inicial.
+ * Orden fijo del HTML (no cambia con la cabecera): migas → etiqueta → H1 → entradilla → metadatos → compartir →
+ * portada → narración → índice al inicio → cuerpo (con el curso relacionado a mitad) → preguntas → valoración →
+ * compartir → comentarios → llamada final → cursos sugeridos → sigue leyendo. Cada pieza se elige en
+ * «Ajustes del sitio → Blog» (src/plugins/sably-operations/ajustes-blog.ts); con los valores de fábrica se ve
+ * como las láminas. JS propio: articulo.ts (~2 KB comprimido).
  */
 import { Image as OptimizedImage } from 'astro:assets';
 import { cmsImageUrl } from '@/lib/cms-media';
@@ -14,130 +16,219 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import ArticleRating from '@/components/ArticleRating.astro';
 import Comentarios from '@/components/Comentarios.astro';
 import Migas from '@/components/v2/Migas.astro';
-import Acordeon from '@/components/v2/Acordeon.astro';
+import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
+import HuecoPublicidad from '@/components/publicidad/HuecoPublicidad.astro';
+import PublicidadEnTexto from '@/components/publicidad/PublicidadEnTexto.astro';
 import Ico from '../components/Ico.astro';
 import Preguntas from '../components/Preguntas.astro';
 import ReproductorAudio from '@/components/v2/ReproductorAudio.astro';
+import EtiquetaCategoria from '../components/blog/EtiquetaCategoria.astro';
+import MetaArticulo from '../components/blog/MetaArticulo.astro';
+import Compartir from '../components/blog/Compartir.astro';
+import IndiceArticulo from '../components/blog/IndiceArticulo.astro';
+import HojaIndice from '../components/blog/HojaIndice.astro';
+import CursoRelacionado from '../components/blog/CursoRelacionado.astro';
+import LlamadaFinal from '../components/blog/LlamadaFinal.astro';
+import TarjetaArticulo from '../components/blog/TarjetaArticulo.astro';
 import { narracionVigente, duracionIso } from '@/lib/narracion';
-import { blogCover } from '@/lib/blog';
+import { blogCover, minutosLectura, oficioDeCurso } from '@/lib/blog';
+import { temaDeLaPeticion } from '@/lib/ajustes-tema';
+import { posicionesCompartir, redesCompartir } from '@/lib/blog-ajustes';
+import { prepareRichContent } from '@/lib/rich-content';
+import { clusterDeCurso, cursosEnlazados, guiasSugeridas } from '@/lib/related-guides';
+import { preciosDeTarjetas } from '@/lib/precio-hoy';
+import { getCategory, type Course, type RichBlock } from '@/lib/emdash-content';
+import { SITE } from '@/lib/site';
 import type { load } from '@/lib/page-loaders/blog-article';
 import '../estilos.css';
+import EstilosBlog from '../components/blog/EstilosBlog.astro';
+import HojaBlog from '../components/blog/HojaBlog.astro';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
-const { post, country, toc, related, minutes, title, schemas, articleSchema: articuloBase, articleMeta } = Astro.props;
-const portada = cmsImageUrl(post.coverImage) ?? blogCover(post.data.category, 'hero');
-// Narración (plugin sably-narracion): solo si su huella coincide con este texto. Nunca en vista previa.
+const { post, country, toc, title, schemas, articleSchema: articuloBase, articleMeta, cms, bodyText } = Astro.props;
+const a = (await temaDeLaPeticion(Astro)).ajustes.blog;
+
+/* ---------- Portada y cabecera ---------- */
+const propia = cmsImageUrl(post.coverImage);
+const portada = propia ?? blogCover(post.data.category, 'hero');
+// A, B y C necesitan foto propia: sin ella, la mínima (D). «Automática» = B con foto, D sin ella.
+const cabecera = !propia ? 'd' : a.blogCabecera === 'automatica' ? 'b' : a.blogCabecera;
+const oscura = cabecera === 'a' || cabecera === 'c';
+
+/* ---------- Narración (plugin sably-narracion): solo si su huella coincide con este texto. Nunca en vista previa. */
 const narracion = post.isPreview ? undefined : await narracionVigente('blog', post.id, {
   title: post.data.title, description: post.data.description, body: post.richBody, faq: post.data.faq,
 });
 const audioUrl = narracion ? new URL(narracion.url, Astro.site ?? Astro.url).href : undefined;
-// Article.audio → AudioObject, solo con narración vigente (mismo audio que suena en la página).
 const articleSchema = narracion && audioUrl && articuloBase ? {
   ...articuloBase,
   audio: { '@type': 'AudioObject', name: `Narración: ${post.data.title}`, description: 'Narración del artículo.',
     contentUrl: audioUrl, encodingFormat: 'audio/mpeg', duration: duracionIso(narracion.segundos), inLanguage: 'es' },
 } : articuloBase;
-const migas = [{ name: 'Inicio', url: '/co/' }, { name: 'Blog', url: '/blog/' }, { name: post.data.title, url: `/blog/${post.id}/` }];
----
-<BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} {articleSchema} {articleMeta} pageType="article" image={portada} temaV2>
-  <div class="v2-lectura">
-    <div class="v2-progreso" role="presentation"></div>
-    <section class="bg-navy-950 text-white">
-      <div class="v2-contenedor grid items-end gap-8 pt-6 pb-10 lg:grid-cols-[minmax(0,1fr)_480px] lg:gap-14 lg:pt-8 lg:pb-16">
-        <div>
-          <Migas items={migas} />
-          <p class="v2-antetitulo mt-8 text-white/80">{post.data.category ?? 'Guía'}</p>
-          <h1 {...post.edit.title} class="mt-4 font-display text-[34px]/[40px] tracking-[-0.01em] !text-white lg:text-d56">{post.data.title}</h1>
-          <p class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-t15 text-white/70">
-            <span>Por el equipo Sably</span><span aria-hidden="true">·</span>
-            <span>{post.data.publishedAt.toLocaleDateString('es-CO', { day: 'numeric', month: 'long', year: 'numeric' })}</span><span aria-hidden="true">·</span>
-            <span>{minutes} min de lectura</span>
-          </p>
-        </div>
-        <div class="overflow-hidden rounded-c-xl bg-navy-900">
-          <OptimizedImage src={portada} alt="" width={800} height={533} fetchpriority="high" sizes="(min-width: 1024px) 480px, 100vw" class="aspect-[3/2] w-full object-cover" />
-        </div>
-      </div>
-    </section>
+const reloj = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
 
-    <div class="v2-contenedor grid gap-12 py-12 lg:grid-cols-[minmax(0,1fr)_260px] lg:gap-16 lg:py-16">
-      <article class="v2-articulo min-w-0 max-w-[720px]">
-        <p class="rounded-c-lg bg-navy-50 p-5 text-t17 text-navy-950">{post.data.description}</p>
-        {narracion && <div class="mt-6"><ReproductorAudio src={narracion.url} segundos={narracion.segundos} titulo={post.data.title} caratula={portada} medioId={`blog:${post.id}`} proveedor={narracion.proveedor} /></div>}
-        {toc.length > 2 && (
-          <Acordeon titulo={`Tabla de contenidos (${toc.length})`} class="mt-6 rounded-c-lg px-5 ring-1 ring-navy-100 lg:hidden" tituloClass="min-h-14 text-t15 font-semibold text-navy-950">
-            <ol class="space-y-1 pb-4" role="list">
-              {toc.map(h => <li class={h.depth === 3 ? 'ml-4' : ''}><a href={`#${h.slug}`} class="inline-flex min-h-9 items-center text-t15 text-navy-700 hover:text-navy-950">{h.text}</a></li>)}
-            </ol>
-          </Acordeon>
-        )}
-        <div class="v2-prosa mt-8" data-cms>
-          {post.richBody ? <CmsRichBody value={post.richBody} /> : <Fragment set:html={renderMarkdown(post.body ?? '')} />}
+/* ---------- Lectura ---------- */
+const palabras = bodyText.trim() ? bodyText.trim().split(/\s+/).length : 0;
+const minutos = minutosLectura(bodyText);
+const conProgreso = a.blogProgreso && palabras >= Number(a.blogProgresoMinimo);
+/* «Actualizado el…» sale del campo editorial `actualizado_el` (PR de opciones por artículo), nunca de la fecha de
+   cualquier guardado: hoy todos los artículos tienen el 3-oct de la migración y lo dirían sin serlo. */
+const actualizado: Date | null = null;
+const conActualizado = false;
+
+/* ---------- Índice ---------- */
+const apartados = a.blogIndiceNiveles === 'h2' ? toc.filter(h => h.depth === 2) : toc;
+const conIndice = apartados.length >= Number(a.blogIndiceMinimo);
+let escritorio = a.blogIndiceEscritorio;
+// Con el curso en el carril derecho, el índice lateral pasa al inicio del texto.
+if (a.blogCarrilDerecho === 'curso' && (escritorio === 'lateral-fija' || escritorio === 'lateral')) escritorio = 'abierto';
+const lateral = conIndice && (escritorio === 'lateral-fija' || escritorio === 'lateral');
+const inicioEscritorio = conIndice && (escritorio === 'plegable' || escritorio === 'abierto' || escritorio === 'tarjeta') ? escritorio : null;
+const inicioMovil = conIndice && a.blogIndiceMovil !== 'ninguno' ? (a.blogIndiceMovil === 'abierto' ? 'abierto' : 'plegable') : null;
+const flotante = conIndice && a.blogIndiceMovil === 'plegable-flotante';
+const unInicio = inicioEscritorio && inicioEscritorio === inicioMovil;
+
+/* ---------- Curso relacionado: el primero que el texto enlaza (relación editorial, no una adivinanza) ---------- */
+const cursos = await cms.getCourses();
+const porId = new Map(cursos.map(c => [c.id, c]));
+const curso: Course | null = cursosEnlazados(post, SITE.url).map(s => porId.get(s)).find(Boolean) ?? null;
+const categoriaCurso = curso ? await getCategory(curso.data.category) : null;
+const nSugeridos = Number(a.blogCursosSugeridos);
+const sugeridos = curso && nSugeridos > 0
+  ? [...new Set([...clusterDeCurso(curso, cursos), ...cursos.filter(c => c.id !== curso.id && c.data.category === curso.data.category).map(c => c.id)])]
+      .map(id => porId.get(id)!).filter(Boolean).slice(0, nSugeridos)
+  : [];
+const { precios, freshUntil } = await preciosDeTarjetas(curso ? [curso, ...sugeridos] : [], country, { url: Astro.url, locals: Astro.locals });
+const precioCurso = curso ? precios.get(curso.id) ?? null : null;
+
+/* Cuerpo partido antes del H2 que deja atrás ~40 % de los apartados, para meter ahí el curso. Los encabezados
+   llevan su id fijado (`anchor`) para que las dos mitades conserven los mismos ids del índice. */
+let mitades: [RichBlock[], RichBlock[]] | null = null;
+if (a.blogCursoMitad && curso && post.richBody && !post.isPreview) {
+  const { blocks } = prepareRichContent(post.richBody);
+  const fijados = blocks.map(b => (b as { sablyHeadingId?: string }).sablyHeadingId ? { ...b, anchor: (b as { sablyHeadingId?: string }).sablyHeadingId } : b) as RichBlock[];
+  const h2 = fijados.flatMap((b, i) => b._type === 'block' && b.style === 'h2' ? [i] : []);
+  const corte = h2.length >= 2 ? h2[Math.max(1, Math.round(h2.length * 0.4))] : undefined;
+  mitades = corte ? [fijados.slice(0, corte), fijados.slice(corte)] : [fijados, []];
+}
+const cursoAlFinalDelTexto = a.blogCursoMitad && curso && !mitades;
+
+/* ---------- Compartir y sugeridos ---------- */
+const url = `${SITE.url}/blog/${post.id}/`;
+const redes = redesCompartir(a);
+const posiciones = posicionesCompartir(a);
+const oficio = curso ? oficioDeCurso(curso.data.title) : null;
+const guias = Number(a.blogArticulosSugeridos) > 0 ? guiasSugeridas(await cms.getBlogPosts(), post, curso?.id ?? null, SITE.url, Number(a.blogArticulosSugeridos)) : [];
+// Las mismas que el BreadcrumbList del JSON-LD (el último eslabón, recortado a una línea en CSS).
+const migas = [{ name: 'Inicio', url: '/co/' }, { name: 'Blog', url: '/blog/' }, { name: post.data.title, url: `/blog/${post.id}/` }];
+const carrilCurso = curso && (a.blogCarrilDerecho === 'curso' || a.blogCarrilDerecho === 'indice-curso');
+---
+<BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} {articleSchema} {articleMeta} pageType="article" image={portada} {freshUntil} temaV2>
+  <EstilosBlog parte="cabeza" />
+  {cabecera === 'a' && <EstilosBlog parte="cabecera-a" />}
+  {cabecera === 'c' && <EstilosBlog parte="cabecera-c" />}
+  <div class="v2-blog-art" style={`--tamano-texto:${a.blogTamanoTexto}px`}>
+    {conProgreso && <div class="v2-progreso" aria-hidden="true" data-progreso></div>}
+
+    <header class:list={['v2-ba-cabeza', { 'v2-sobre-oscuro': oscura }]} data-cabecera={cabecera}>
+      {cabecera === 'a' && <figure class="v2-ba-portada"><OptimizedImage src={portada} alt="" width={1600} height={711} fetchpriority="high" loading="eager" sizes="100vw" /></figure>}
+      <div class:list={[cabecera === 'c' && 'v2-ba-banda']}><div class:list={['v2-contenedor', cabecera === 'c' && 'v2-ba-cuadro']}>
+        <div class="v2-ba-titulos">
+          <div class="v2-ba-migas"><Migas items={migas} oscuro={oscura} class="v2-ba-migas-lista" /></div>
+          <EtiquetaCategoria categoria={post.data.category} estilo={a.blogEtiquetaEstilo} etiqueta="p" class="mt-6" />
+          <h1 {...post.edit.title} class="v2-ba-h1">{post.data.title}</h1>
+          <p class="v2-ba-entradilla" data-estilo={a.blogEntradillaEstilo}>{post.data.description}</p>
+          <MetaArticulo publicado={post.data.publishedAt} actualizado={conActualizado ? actualizado : null} {minutos} duracion={narracion ? reloj(narracion.segundos) : undefined} compartir={posiciones.includes('metadatos')} {url} titulo={post.data.title} {redes} />
         </div>
-        {post.data.faq && post.data.faq.length > 0 && (
-          <div class="mt-14 [&>section]:!px-0"><Preguntas titulo="Preguntas frecuentes" faqs={post.data.faq} id="preguntas-articulo" /></div>
+        {cabecera === 'c' && <figure class="v2-ba-portada"><OptimizedImage src={portada} alt="" width={1160} height={870} fetchpriority="high" loading="eager" sizes="(min-width: 1024px) 580px, 100vw" /></figure>}
+      </div></div>
+      {cabecera === 'b' && (
+        <div class="v2-contenedor"><figure class="v2-ba-portada">
+          <OptimizedImage src={portada} alt="" width={1200} height={600} fetchpriority="high" loading="eager" sizes="(min-width: 1280px) 1200px, calc(100vw - 40px)" />
+        </figure></div>
+      )}
+    </header>
+
+    <HojaBlog />
+    <div class="v2-contenedor"><HuecoPublicidad posicion="articulo-arriba" /></div>
+
+    <div class="v2-contenedor v2-ba-rejilla">
+      <aside class="v2-ba-carril-izq" aria-label="Compartir">{posiciones.includes('carril') && (
+        <div><p class="mb-3 text-t13 text-navy-500" aria-hidden="true">Compartir</p><Compartir {url} titulo={post.data.title} {redes} nativo={false} etiqueta="Compartir (carril)" /></div>
+      )}</aside>
+
+      <div class="v2-ba-columna">
+        {narracion && (
+          <div class="v2-ba-narracion" id="narracion" data-narracion-fija={a.blogNarracionFija || undefined}>
+            <ReproductorAudio src={narracion.url} segundos={narracion.segundos} titulo={post.data.title} caratula={portada} medioId={`blog:${post.id}`} proveedor={narracion.proveedor} />
+            {a.blogNarracionFija && <button type="button" class="v2-ba-narracion-cerrar" data-narracion-cerrar aria-label="Cerrar el reproductor fijo"><Ico nombre="x" tamano={16} /></button>}
+          </div>
         )}
-        <ArticleRating slug={post.id} temaV2 />
-        <aside class="mt-12 rounded-c-xl bg-navy-950 p-8 text-white">
-          <h2 class="font-display text-d28 !text-white">¿Listo para aprender un oficio de verdad?</h2>
-          <p class="mt-2 max-w-md text-t17 text-white/80">Cursos online con constancia de finalización, acceso de por vida y garantía de 7 días.</p>
-          <a href={`/${country.code}/cursos/`} class="v2-btn v2-btn-principal mt-6" data-alto="52">Explorar cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
-        </aside>
-        <Comentarios subject={`blog:${post.id}`} temaV2 />
-      </article>
-      {toc.length > 2 && (
-        <aside class="max-lg:hidden">
-          <nav aria-label="Tabla de contenidos" class="sticky top-24">
-            <p class="text-t13 font-medium text-navy-500">En este artículo</p>
-            <ol class="mt-3 space-y-1 border-l border-navy-100" role="list">
-              {toc.map(h => <li class={h.depth === 3 ? 'pl-6' : 'pl-4'}><a href={`#${h.slug}`} data-toc-link={h.slug} class="-ml-px block border-l-2 border-transparent py-1 text-t15 text-navy-700 hover:text-navy-950 data-[current]:border-coral-600 data-[current]:font-semibold data-[current]:text-navy-950">{h.text}</a></li>)}
-            </ol>
-          </nav>
-        </aside>
+        {unInicio ? <IndiceArticulo {apartados} estilo={inicioEscritorio!} movil />
+          : <>
+              {inicioEscritorio && <IndiceArticulo {apartados} estilo={inicioEscritorio} solo="escritorio" />}
+              {inicioMovil && <IndiceArticulo {apartados} estilo={inicioMovil} solo="movil" movil />}
+            </>}
+
+        <div class="v2-ba-lectura">
+          <div class="v2-prosa" data-cms data-prosa>
+            <PublicidadEnTexto>
+              {mitades
+                ? <><CmsRichBody value={mitades[0]} />{mitades[1].length > 0 && <CursoRelacionado course={curso!} {country} precio={precioCurso} categoriaSlug={categoriaCurso?.slug ?? ''} />}{mitades[1].length > 0 && <CmsRichBody value={mitades[1]} />}</>
+                : post.richBody ? <CmsRichBody value={post.richBody} /> : <Fragment set:html={renderMarkdown(post.body ?? '')} />}
+              {(cursoAlFinalDelTexto || (mitades && mitades[1].length === 0)) && <CursoRelacionado course={curso!} {country} precio={precioCurso} categoriaSlug={categoriaCurso?.slug ?? ''} />}
+            </PublicidadEnTexto>
+          </div>
+          {post.data.faq && post.data.faq.length > 0 && (
+            <div class="[&>section]:!px-0"><Preguntas titulo="Preguntas frecuentes" faqs={post.data.faq} id="preguntas-articulo" cms /></div>
+          )}
+        </div>
+
+        <div class="v2-ba-cierre-pieza"><HuecoPublicidad posicion="articulo-final" /></div>
+        <div class="v2-ba-cierre-pieza"><ArticleRating slug={post.id} temaV2 /></div>
+        {posiciones.includes('final') && (
+          <div class="v2-ba-cierre-pieza v2-ba-cierre">
+            <div>
+              <p class="v2-bc-titulo">{oficio ? `¿Conoces a alguien que quiera aprender ${oficio}?` : '¿Conoces a alguien a quien le sirva esta guía?'}</p>
+              <p class="mt-1 text-t15 text-navy-700">Envíaselo por WhatsApp o copia el enlace.</p>
+              <Compartir {url} titulo={post.data.title} redes={redes.filter(r => r === 'whatsapp' || r === 'copiar')} forma="ancha" class="mt-4" etiqueta="Compartir (final)" />
+            </div>
+          </div>
+        )}
+        <div class="v2-ba-cierre-pieza"><Comentarios subject={`blog:${post.id}`} temaV2 /></div>
+      </div>
+
+      <aside class="v2-ba-carril-der" aria-label="Índice y curso">
+        <div class="v2-ba-pegado" data-fijo={escritorio === 'lateral' ? 'no' : undefined}>
+          {lateral && a.blogCarrilDerecho !== 'curso' && <IndiceArticulo {apartados} estilo="lateral" solo="escritorio" porcentaje={a.blogIndiceProgreso} />}
+          {carrilCurso && <div class:list={[lateral && a.blogCarrilDerecho !== 'curso' && 'mt-8']}><TarjetaCurso course={curso!} {country} precio={precioCurso} /></div>}
+          <HuecoPublicidad posicion="articulo-lateral" fija />
+        </div>
+      </aside>
+    </div>
+
+    <div class="v2-contenedor v2-ba-secciones mt-16 lg:mt-24">
+      {a.blogLlamadaFinal && <LlamadaFinal course={curso} {country} precio={precioCurso} oficio={oficio ?? undefined} />}
+      {sugeridos.length > 0 && (
+        <section aria-labelledby="cursos-sugeridos">
+          <div class="v2-ba-seccion-titulo"><h2 id="cursos-sugeridos">{categoriaCurso ? `Cursos de ${categoriaCurso.name.toLowerCase()}` : 'Cursos relacionados'}</h2>
+            {categoriaCurso && <a href={`/${country.code}/${categoriaCurso.slug}/`} class="v2-enlace text-t15 font-semibold text-coral-700">Ver los cursos de {categoriaCurso.name.toLowerCase()} <Ico nombre="arrow-right" tamano={16} class="v2-flecha" /></a>}</div>
+          <ul class="v2-ba-cursos-carril" role="list" style={`--n:${sugeridos.length}`}>{sugeridos.map(c => <li><TarjetaCurso course={c} {country} precio={precios.get(c.id) ?? null} /></li>)}</ul>
+        </section>
+      )}
+      {guias.length > 0 && (
+        <section aria-labelledby="sigue-titulo">
+          <div class="v2-ba-seccion-titulo"><h2 id="sigue-titulo">Sigue leyendo</h2></div>
+          <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8" role="list">
+            {guias.map(p => <li><TarjetaArticulo post={p} variante={a.blogTarjeta} movil={a.blogTarjetaMovil} leerMas={a.blogTarjetaLeerMas} sinFoto={a.blogPortadaSinFoto} estiloEtiqueta={a.blogEtiquetaEstilo} /></li>)}
+          </ul>
+        </section>
       )}
     </div>
+    {flotante && <HojaIndice {apartados} />}
+    <p class="v2-compartir-aviso" role="status" aria-live="polite" data-aviso></p>
   </div>
-
-  {related.length > 0 && (
-    <section class="v2-contenedor pt-8 lg:pt-12" aria-labelledby="sigue-titulo">
-      <h2 id="sigue-titulo" class="font-display text-d28 lg:text-d40">Sigue leyendo</h2>
-      <ul class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" role="list">
-        {related.map(p => (
-          <li><a href={`/blog/${p.id}/`} class="group block">
-            <div class="aspect-[3/2] overflow-hidden rounded-c-lg bg-navy-50"><OptimizedImage src={cmsImageUrl(p.cardImage) ?? cmsImageUrl(p.coverImage) ?? blogCover(p.data.category, 'card')} alt={p.data.title} width={480} height={320} loading="lazy" sizes="(min-width: 1024px) 380px, 100vw" class="h-full w-full object-cover transition-transform duration-(--t-lento) group-hover:scale-[1.03]" /></div>
-            <p class="mt-3 text-t13 font-medium text-navy-500">{p.data.category ?? 'Guía'}</p>
-            <h3 class="mt-1 font-display text-t20 font-semibold group-hover:underline group-hover:underline-offset-4">{p.data.title}</h3>
-          </a></li>
-        ))}
-      </ul>
-    </section>
-  )}
 </BaseLayout>
-
-<style is:global>
-  @layer components {
-    /* Progreso de lectura solo con CSS: la barra sigue la línea de tiempo de la vista del artículo. */
-    .v2-lectura { timeline-scope: --v2-lectura; }
-    .v2-articulo { view-timeline: --v2-lectura block; }
-    .v2-progreso { position: fixed; inset: 0 0 auto; z-index: 45; height: 3px; background: var(--color-coral-600); transform-origin: 0 50%; scale: 0 1; pointer-events: none; }
-    @supports (animation-timeline: view()) {
-      @keyframes v2-progreso { to { scale: 1 1; } }
-      .v2-progreso { animation-name: v2-progreso; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --v2-lectura; animation-range: contain 0% contain 100%; }
-    }
-    @supports not (animation-timeline: view()) { .v2-progreso { display: none; } }
-  }
-</style>
 <script>
-  // Resalta en el índice el apartado que se está leyendo.
-  const enlaces = [...document.querySelectorAll<HTMLElement>('[data-toc-link]')];
-  if (enlaces.length) {
-    const porId = new Map(enlaces.map(l => [l.dataset.tocLink!, l]));
-    const observador = new IntersectionObserver(entradas => {
-      for (const e of entradas) {
-        if (!e.isIntersecting) continue;
-        enlaces.forEach(l => delete l.dataset.current);
-        porId.get(e.target.id)?.setAttribute('data-current', 'true');
-      }
-    }, { rootMargin: '-96px 0px -70% 0px' });
-    [...porId.keys()].map(id => document.getElementById(id)).forEach(t => t && observador.observe(t));
-  }
+  import { prepararArticulo } from '../components/blog/articulo';
+  prepararArticulo();
 </script>

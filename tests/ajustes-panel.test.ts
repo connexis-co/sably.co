@@ -9,6 +9,7 @@ import { settingsSchema as operaciones, PESTANAS, cambiosAGuardar, AJUSTES_PELIG
 import { settingsSchema as integraciones, readPublic } from '../src/plugins/sably-integrations/model.ts';
 import { createPlugin, PAGINAS } from '../src/plugins/sably-operations/index.ts';
 import { leerAjustesV2 } from '../src/lib/ajustes-tema.ts';
+import { leerAjustesBlog } from '../src/lib/blog-ajustes.ts';
 
 /** Claves, tipos, opciones y valores de fábrica tal como estaban en develop (5b8c4b1) antes de reordenar. */
 const ANTES = {
@@ -58,7 +59,7 @@ const NUEVAS = {
   },
 } as const;
 /** Claves de la portada (25-nov): solo pueden ser nuevas y empezar por «portada». */
-const DE_PORTADA = /^portada[A-Z]/;
+const DE_PORTADA = /^(portada|blog)[A-Z]/;
 
 test('ninguna clave, tipo, opción ni valor de fábrica cambia al reordenar el panel', () => {
   const huellaOperaciones = huella(operaciones);
@@ -75,7 +76,7 @@ test('cada ajuste guardado está en una sola pestaña y todos tienen ayuda', () 
     assert.ok((c as { description?: string }).description, `${k} sin ayuda`);
     assert.doesNotMatch(c.label, /^V2 ·/, `${k} conserva la jerga «V2 ·»`);
   }
-  assert.deepEqual(PESTANAS.map(p => p.titulo), ['Sitio y tema', 'Campañas y cupones', 'Caja de compra', 'Portada', 'Cursos y contenido', 'Medios: audio y vídeo', 'SEO y medición', 'Cuenta', 'Integraciones', 'Avanzado']);
+  assert.deepEqual(PESTANAS.map(p => p.titulo), ['Sitio y tema', 'Campañas y cupones', 'Caja de compra', 'Portada', 'Cursos y contenido', 'Blog', 'Medios: audio y vídeo', 'SEO y medición', 'Cuenta', 'Integraciones', 'Avanzado']);
 });
 
 test('los ajustes guardados en la copia de producción se leen igual', async () => {
@@ -97,6 +98,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
       escenasVariante: 'apiladas',
       valoradosMinimo: 20,
     },
+    blog: leerAjustesBlog({}),
   });
   const prefijo = 'plugin:sably-integrations:settings:';
   const settings = { get: async (k: string) => { const f = filas.find(r => r.name === prefijo + k); return f ? JSON.parse(f.value) : null; } };
@@ -107,6 +109,22 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     if (plugin === 'sably-operations') assert.ok(Object.hasOwn(operaciones, clave!), name);
     if (plugin === 'sably-integrations') assert.ok(Object.hasOwn(integraciones, clave!), name);
   }
+});
+
+test('ajustes del blog: de fábrica el diseño aprobado y nunca un valor fuera de las opciones', async () => {
+  const { leerAjustesBlog: leer, redesCompartir, posicionesCompartir } = await import('../src/lib/blog-ajustes.ts');
+  const fabrica = leer({});
+  assert.equal(fabrica.blogCabecera, 'automatica');
+  assert.equal(fabrica.blogIndiceEscritorio, 'lateral-fija');
+  assert.equal(fabrica.blogTarjeta, 'borde');
+  assert.equal(fabrica.blogProgreso, true);
+  assert.deepEqual(redesCompartir(fabrica), ['whatsapp', 'facebook', 'x', 'correo', 'copiar']);
+  assert.deepEqual(posicionesCompartir(fabrica), ['metadatos', 'carril', 'final']);
+  const raro = leer({ blogCabecera: 'z', blogProgreso: 'no', blogCompartirRedes: ' Copiar, tiktok, whatsapp, copiar ' });
+  assert.equal(raro.blogCabecera, 'automatica');
+  assert.equal(raro.blogProgreso, true);
+  assert.deepEqual(redesCompartir(raro), ['copiar', 'whatsapp']);
+  assert.equal(leer({ blogCabecera: 'd', blogProgreso: false }).blogCabecera, 'd');
 });
 
 test('la página solo guarda lo que cambió, nunca claves ajenas, y el tema exige confirmación', () => {

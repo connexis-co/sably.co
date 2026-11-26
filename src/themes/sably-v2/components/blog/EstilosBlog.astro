@@ -1,0 +1,14 @@
+---
+/**
+ * CSS crítico del blog EN LÍNEA antes del título (es el LCP): solo lo que pinta la cabecera elegida. Las cabeceras A
+ * y C llevan su parte solo cuando están activas. Todo lo demás va en la hoja cacheable (HojaBlog.astro), después de
+ * la cabecera. Sin comentarios ni espacios de sobra; los tokens (colores, radios, movimiento) vienen de v2.css.
+ */
+import cabeza from '../../blog-cabeza.css?raw';
+import cabeceraA from '../../blog-cabecera-a.css?raw';
+import cabeceraC from '../../blog-cabecera-c.css?raw';
+import { minificar } from '../../blog-hoja';
+interface Props { parte: 'cabeza' | 'cabecera-a' | 'cabecera-c' }
+const css = { cabeza, 'cabecera-a': cabeceraA, 'cabecera-c': cabeceraC }[Astro.props.parte];
+---
+<style is:inline set:html={minificar(css)}></style>
