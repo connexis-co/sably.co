@@ -11,12 +11,14 @@ import { CuentaAlmacen, desafioPkce, type IdentidadGoogle } from '../src/lib/cue
 import { canjearGoogle, identidadComprobada, urlGoogle, verificarIdToken } from '../src/lib/cuenta/google.ts';
 import { DIA, SESION_SEGUNDOS, destinoSeguro, enlaceIngresar, iniciales, resumen, tokenAleatorio, RUTA_PRIVADA, CONSENTIMIENTO, codigoAleatorio, limpiarCodigo, enlaceCodigo } from '../src/lib/cuenta/nucleo.ts';
 import { correoCodigo } from '../src/lib/cuenta/correo.ts';
+import { ARGON2_DISPONIBLE, claveFiltrada, hashClave, necesitaRehash, revisarClaveNueva, validarClave, verificarClave } from '../src/lib/cuenta/clave.ts';
+import { createHash } from 'node:crypto';
 import { COOKIE_PISTA, leerFormulario, postValido, tokenCsrf } from '../src/lib/cuenta/http.ts';
 import { leerEstadoCuenta } from '../src/lib/cuenta/ajustes.ts';
 import { canCachePublicPage, sharedPublicRequest } from '../src/lib/public-delivery.ts';
 
 const SECRETO = 'x'.repeat(48);
-const ESQUEMA = ['0011_cuenta.sql', '0013_cuenta_codigo.sql'].map(f => readFileSync(new URL(`../migrations/${f}`, import.meta.url), 'utf8')).join(';\n');
+const ESQUEMA = ['0011_cuenta.sql', '0013_cuenta_codigo.sql', '0014_cuenta_contrasena.sql'].map(f => readFileSync(new URL(`../migrations/${f}`, import.meta.url), 'utf8')).join(';\n');
 const CLIENTE = { id: 'cliente-123.apps.googleusercontent.com', secreto: 'no-es-un-secreto', retorno: 'https://sably.co/ingresar/google/retorno/' };
 const T0 = 1_800_000_000;
 const CONSENT = { ...CONSENTIMIENTO, ip: '203.0.113.7' };
@@ -46,7 +48,7 @@ async function idToken(claims: Record<string, unknown> = {}, opciones: { aud?: s
 test('el esquema de la migración crea todas las tablas de la cuenta', async () => {
   const { db } = await almacen();
   const tablas = db.database.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'account%' ORDER BY name").all().map(r => r.name);
-  assert.deepEqual(tablas, ['account_codes', 'account_consents', 'account_identities', 'account_oauth', 'account_prefs', 'account_profiles', 'account_rates', 'account_saves', 'account_sessions', 'accounts']);
+  assert.deepEqual(tablas, ['account_codes', 'account_consents', 'account_identities', 'account_oauth', 'account_passwords', 'account_pending_passwords', 'account_prefs', 'account_profiles', 'account_rates', 'account_saves', 'account_sessions', 'accounts']);
 });
 
 test('PKCE S256 coincide con el ejemplo del RFC 7636', () => {
@@ -303,9 +305,9 @@ test('caché: las rutas de cuenta nunca se guardan y las cookies de la cuenta no
 test('interruptores: encendidos de fábrica, pero sin clave, o sin Google y sin correo, no hay cuenta', () => {
   const entorno = { SABLY_AUTH_SECRET: SECRETO, SABLY_GOOGLE_ID: 'id', SABLY_GOOGLE_SECRET: 's' };
   const fila = (clave: string, valor: boolean | string) => ({ name: `plugin:sably-operations:settings:${clave}`, value: JSON.stringify(valor) });
-  assert.deepEqual(leerEstadoCuenta([], entorno), { activa: true, google: true, correo: true, disponible: true, acceso: 'ventana' });
-  assert.deepEqual(leerEstadoCuenta([fila('cuentaActiva', false)], entorno), { activa: false, google: false, correo: false, disponible: false, acceso: 'ventana' });
-  assert.deepEqual(leerEstadoCuenta([fila('cuentaGoogle', false)], entorno), { activa: true, google: false, correo: true, disponible: true, acceso: 'ventana' });
+  assert.deepEqual(leerEstadoCuenta([], entorno), { activa: true, google: true, correo: true, clave: true, disponible: true, acceso: 'ventana' });
+  assert.deepEqual(leerEstadoCuenta([fila('cuentaActiva', false)], entorno), { activa: false, google: false, correo: false, clave: false, disponible: false, acceso: 'ventana' });
+  assert.deepEqual(leerEstadoCuenta([fila('cuentaGoogle', false)], entorno), { activa: true, google: false, correo: true, clave: true, disponible: true, acceso: 'ventana' });
   assert.equal(leerEstadoCuenta([{ name: 'plugin:sably-operations:settings:cuentaAcceso', value: '"pagina"' }], entorno).acceso, 'pagina');
   assert.equal(leerEstadoCuenta([], {}).disponible, false, 'producción hoy: sin variables, nada cambia');
   assert.equal(leerEstadoCuenta([], { ...entorno, SABLY_AUTH_SECRET: 'corta' }).disponible, false);
@@ -337,7 +339,7 @@ test('código: la primera vez crea la cuenta; la siguiente entra en la misma; y 
   const fila = db.database.prepare('SELECT email, code FROM account_codes').get() as { email: string; code: string };
   assert.equal(fila.email, 'luz@correo.co');
   assert.ok(!fila.code.includes(pedido.codigo), 'del código solo se guarda su HMAC');
-  assert.deepEqual(await a.codigoPendiente(flujo, T0 + 10), { email: 'luz@correo.co', reenviarEn: 50 });
+  assert.deepEqual(await a.codigoPendiente(flujo, T0 + 10), { email: 'luz@correo.co', reenviarEn: 50, clave: false });
   const v = await a.verificarCodigo(flujo, pedido.codigo, T0 + 30);
   assert.deepEqual(v, { ok: true, email: 'luz@correo.co' });
   assert.equal(contar(db, 'account_codes'), 0, 'un solo uso');
@@ -355,8 +357,8 @@ test('código: la primera vez crea la cuenta; la siguiente entra en la misma; y 
   assert.ok(g.ok);
   const r3 = await a.entrarConCorreo('ana@gmail.com', T0 + 5, CONSENT);
   assert.ok(r3.ok && !r3.nueva && r3.cuenta === g.cuenta);
-  assert.deepEqual(await a.formasDeAcceso(g.cuenta), { google: true });
-  assert.deepEqual(await a.formasDeAcceso(r1.cuenta), { google: false });
+  assert.deepEqual(await a.formasDeAcceso(g.cuenta), { google: true, clave: false });
+  assert.deepEqual(await a.formasDeAcceso(r1.cuenta), { google: false, clave: false });
   // Un Google no autoritativo con el correo de una cuenta existente sigue sin mezclarse: entra con el código.
   assert.deepEqual(await a.entrarConGoogle(cuenta({ email: 'luz@correo.co', sub: 'g-9', autoritativo: false }), T0, CONSENT), { ok: false, aviso: 'google-otra' });
 });
@@ -407,4 +409,98 @@ test('correo del código: asunto con el código, texto y HTML sin imágenes ni e
   assert.match(m.html, /482 915/);
   assert.match(m.text, /Vence en 10 minutos/);
   assert.doesNotMatch(m.html, /<img|<script|https?:\/\/(?!sably\.co)/);
+});
+
+// ---------- Correo y contraseña ----------
+
+test('contraseña: Argon2id donde Node lo trae, scrypt si no; el hash dice su algoritmo y se rehace', async () => {
+  const s = await hashClave('una frase larga de prueba', false);
+  assert.match(s, /^\$scrypt\$ln=17,r=8,p=1\$[A-Za-z0-9+/]{22}\$[A-Za-z0-9+/]{43}$/);
+  assert.equal(await verificarClave('una frase larga de prueba', s), true);
+  assert.equal(await verificarClave('una frase larga de pruebA', s), false);
+  assert.equal(await verificarClave('una frase larga de prueba', '$md5$x$y'), false, 'formato ajeno no vale');
+  assert.equal(necesitaRehash(s), ARGON2_DISPONIBLE, 'scrypt se rehace solo donde hay Argon2');
+  assert.notEqual(await hashClave('una frase larga de prueba', false), s, 'sal aleatoria');
+  if (ARGON2_DISPONIBLE) {
+    const a = await hashClave('una frase larga de prueba');
+    assert.match(a, /^\$argon2id\$v=19\$m=19456,t=2,p=1\$/);
+    assert.equal(await verificarClave('una frase larga de prueba', a), true);
+    assert.equal(await verificarClave('otra frase larga distinta', a), false);
+    assert.equal(necesitaRehash(a), false);
+  }
+});
+
+test('contraseña: de 10 a 128 caracteres, distinta del correo; filtradas por k-anonimato sin enviarla', async () => {
+  assert.equal(validarClave('corta', 'a@b.co'), 'clave-corta');
+  assert.equal(validarClave('x'.repeat(129), 'a@b.co'), 'clave-larga');
+  assert.equal(validarClave('luz@correo.co', 'luz@correo.co'), 'clave-correo');
+  assert.equal(validarClave('ñandú con café', 'a@b.co'), null, '14 caracteres con tildes');
+  const clave = 'contraseña filtrada 123';
+  const sha1 = createHash('sha1').update(clave).digest('hex').toUpperCase();
+  const pedidas: string[] = [];
+  const falso = (lineas: string, estado = 200) => (async (url: string | URL | Request, init?: RequestInit) => {
+    pedidas.push(String(url));
+    assert.equal(new Headers(init?.headers).get('Add-Padding'), 'true');
+    return new Response(lineas, { status: estado });
+  }) as typeof fetch;
+  assert.equal(await claveFiltrada(clave, falso(`0000000000000000000000000000000000A:0\r\n${sha1.slice(5)}:42\r\n`)), true);
+  assert.equal(pedidas[0], `https://api.pwnedpasswords.com/range/${sha1.slice(0, 5)}`, 'solo viajan 5 caracteres del SHA-1');
+  assert.ok(!pedidas[0]!.includes(sha1.slice(5)) && !pedidas[0]!.includes('filtrada'));
+  assert.equal(await claveFiltrada(clave, falso(`${sha1.slice(5)}:0\r\n`)), false, 'una línea de relleno no cuenta');
+  assert.equal(await claveFiltrada(clave, falso('', 503)), null, 'si el servicio falla no se bloquea a nadie');
+  assert.equal(await revisarClaveNueva(clave, 'a@b.co', falso(`${sha1.slice(5)}:3`)), 'clave-filtrada');
+  assert.equal(await revisarClaveNueva(clave, 'a@b.co', falso('')), null);
+});
+
+test('contraseña: alta por código, entrada, cambio con cierre de las demás sesiones y borrado en cascada', async () => {
+  const { db, a } = await almacen();
+  const hash = await hashClave('mi frase de acceso', false);
+  // Alta: el código espera la contraseña en el mismo navegador.
+  const flujo = tokenAleatorio();
+  const p = await a.pedirCodigo(flujo, 'sol@correo.co', ip, T0, hash);
+  assert.ok(p.ok);
+  assert.equal((await a.codigoPendiente(flujo, T0))?.clave, true);
+  assert.ok((await a.verificarCodigo(flujo, p.codigo, T0 + 5)).ok);
+  assert.equal(await a.tomarClavePendiente(tokenAleatorio(), T0 + 5), null, 'otro navegador no la toma');
+  assert.equal(await a.tomarClavePendiente(flujo, T0 + 5), hash);
+  assert.equal(await a.tomarClavePendiente(flujo, T0 + 5), null, 'un solo uso');
+  const r = await a.entrarConCorreo('sol@correo.co', T0 + 5, CONSENT);
+  assert.ok(r.ok);
+  await a.fijarClave(r.cuenta, hash, T0 + 5, r.token);
+  const registro = await a.claveDe(' SOL@correo.co ');
+  assert.equal(registro?.cuenta, r.cuenta);
+  assert.equal(await verificarClave('mi frase de acceso', registro!.hash), true);
+  assert.deepEqual(await a.formasDeAcceso(r.cuenta), { google: false, clave: true });
+  assert.equal(await a.claveDe('nadie@correo.co'), null);
+  // Dos sesiones más; cambiar la contraseña conserva solo la de este navegador.
+  const otra = await a.sesionNueva(r.cuenta, T0 + 10);
+  const esta = await a.sesionNueva(r.cuenta, T0 + 11);
+  await a.fijarClave(r.cuenta, await hashClave('otra frase de acceso', false), T0 + 12, esta);
+  assert.ok(await a.cuenta(esta, T0 + 13), 'la de este navegador sigue');
+  assert.equal(await a.cuenta(otra, T0 + 13), null, 'las demás se cierran');
+  assert.equal(await a.cuenta(r.token, T0 + 13), null);
+  // Rehacer el hash (scrypt → Argon2id) no cierra sesiones.
+  await a.fijarClave(r.cuenta, hash, T0 + 14, undefined, false);
+  assert.ok(await a.cuenta(esta, T0 + 15));
+  // Un código normal en el mismo navegador descarta una contraseña pendiente anterior.
+  const f2 = tokenAleatorio();
+  assert.ok((await a.pedirCodigo(f2, 'sol@correo.co', ip, T0 + 100, hash)).ok);
+  assert.ok((await a.pedirCodigo(f2, 'sol@correo.co', ip, T0 + 200)).ok);
+  assert.equal((await a.codigoPendiente(f2, T0 + 200))?.clave, false);
+  // Una cuenta de Google puede añadir contraseña tras el código.
+  const g = await a.entrarConGoogle(cuenta(), T0, CONSENT);
+  assert.ok(g.ok);
+  await a.fijarClave(g.cuenta, hash, T0 + 1, g.token);
+  assert.deepEqual(await a.formasDeAcceso(g.cuenta), { google: true, clave: true });
+  await a.borrarCuenta(r.cuenta);
+  assert.equal(await a.claveDe('sol@correo.co'), null);
+  assert.equal(Number(db.database.prepare('SELECT count(*) AS n FROM account_passwords WHERE account = ?').get(r.cuenta)!.n), 0, 'borrado en cascada');
+});
+
+test('interruptor de contraseña: encendido de fábrica, pero necesita el correo', () => {
+  const entorno = { SABLY_AUTH_SECRET: SECRETO, SABLY_GOOGLE_ID: 'id', SABLY_GOOGLE_SECRET: 's' };
+  const fila = (clave: string, valor: boolean) => ({ name: `plugin:sably-operations:settings:${clave}`, value: JSON.stringify(valor) });
+  assert.equal(leerEstadoCuenta([], entorno).clave, true);
+  assert.equal(leerEstadoCuenta([fila('cuentaClave', false)], entorno).clave, false);
+  assert.equal(leerEstadoCuenta([fila('cuentaCorreo', false)], entorno).clave, false, 'sin correo no hay contraseña');
 });
