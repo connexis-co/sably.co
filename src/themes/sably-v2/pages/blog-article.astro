@@ -33,6 +33,7 @@ import Valoracion from '../components/blog/Valoracion.astro';
 import EstrellasArticulo from '../components/blog/EstrellasArticulo.astro';
 import ComentariosV2 from '../components/blog/ComentariosV2.astro';
 import { pulsoDeArticulos } from '@/lib/blog-pulso';
+import { duracionesNarradas } from '@/lib/narracion';
 import { narracionVigente, duracionIso } from '@/lib/narracion';
 import { blogCover, minutosLectura, oficioDeCurso, tonoDeCategoria } from '@/lib/blog';
 import { cabeceraElegida } from '@/lib/blog-presentacion';
@@ -156,6 +157,7 @@ const carrilCurso = curso && (a.blogCarrilDerecho === 'curso' || a.blogCarrilDer
 const conComentarios = a.blogComentarios !== 'apagados';
 const pulsos = a.blogValoracion || conComentarios ? await pulsoDeArticulos([post.id, ...guias.map(g => g.id)]) : new Map();
 const pulso = pulsos.get(post.id);
+const narradas = guias.length ? await duracionesNarradas('blog') : new Map<string, number>();
 const conCierre = a.blogValoracion || posiciones.includes('final');
 ---
 <BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} {articleSchema} {articleMeta} pageType="article" image={portada} {freshUntil} temaV2>
@@ -272,7 +274,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
         <section aria-labelledby="sigue-titulo">
           <div class="v2-ba-seccion-titulo"><h2 id="sigue-titulo">Sigue leyendo</h2></div>
           <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8" role="list">
-            {guias.map(p => <li><TarjetaArticulo post={p} variante={a.blogTarjeta} movil={a.blogTarjetaMovil} leerMas={a.blogTarjetaLeerMas} sinFoto={a.blogPortadaSinFoto} estiloEtiqueta={a.blogEtiquetaEstilo} pulso={pulsos.get(p.id)} estrellas={a.blogValoracion && a.blogTarjetaEstrellas} comentarios={conComentarios && a.blogTarjetaComentarios} /></li>)}
+            {guias.map(p => <li><TarjetaArticulo post={p} variante={a.blogTarjeta} movil={a.blogTarjetaMovil} leerMas={a.blogTarjetaLeerMas} sinFoto={a.blogPortadaSinFoto} estiloEtiqueta={a.blogEtiquetaEstilo} pulso={pulsos.get(p.id)} narrado={narradas.get(p.id)} estrellas={a.blogValoracion && a.blogTarjetaEstrellas} comentarios={conComentarios && a.blogTarjetaComentarios} /></li>)}
           </ul>
         </section>
       )}

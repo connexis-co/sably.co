@@ -41,7 +41,7 @@ export function prepararArticulo() {
   const barra = $('[data-progreso]');
   const porcentaje = $('[data-porcentaje]');
   const progresoIndice = $('[data-progreso-indice]');
-  const sinLinea = !CSS.supports('animation-timeline: view()');
+  const sinLinea = !CSS.supports('animation-timeline: view()') && !matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- Progreso y porcentaje ---------- */
   if (lectura && (barra || porcentaje || progresoIndice)) {

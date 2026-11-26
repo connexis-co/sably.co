@@ -6,8 +6,9 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { COUNTRIES, getCountry } from '@/lib/countries';
 import { getCourses } from '@/lib/emdash-content';
-import { aplicarCabecerasPrivadas, cuentaActual, cuentaServidor, tokenCsrf, redirigir } from '@/lib/cuenta/http';
-import { AVISOS, RUTAS, enlaceIngresar, iniciales } from '@/lib/cuenta/nucleo';
+import { aplicarCabecerasPrivadas, cookieFlujo, cuentaActual, cuentaServidor, tokenCsrf, redirigir } from '@/lib/cuenta/http';
+import { CLAVE_MIN, CLAVE_MAX } from '@/lib/cuenta/clave';
+import { AVISOS, RUTAS, ahora, enlaceIngresar, iniciales } from '@/lib/cuenta/nucleo';
 import Bandera from '@/components/v2/Bandera.astro';
 import '@/themes/sably-v2/estilos.css';
 
@@ -24,9 +25,15 @@ const country = pais ?? getCountry('co');
 const titulos = guardados.length ? new Map((await getCourses().catch(() => [])).map(c => [c.id, c.data.title])) : new Map<string, string>();
 const cursos = guardados.map(item => item.slice('curso:'.length)).filter(slug => titulos.has(slug));
 const codigoAviso = Astro.url.searchParams.get('aviso') ?? '';
+// Avisos de la sección de contraseña: se pintan dentro de ella.
+const avisoClave = codigoAviso.startsWith('clave-') || ['espera', 'correo-espera', 'correo-envio'].includes(codigoAviso)
+  ? (Object.hasOwn(AVISOS, codigoAviso) ? { texto: AVISOS[codigoAviso], ok: codigoAviso === 'clave-cambiada' } : null) : null;
 const aviso = codigoAviso === 'guardado' ? AVISOS.guardado : null;
 const nombre = cuenta.nombre || cuenta.email;
 const formas = await servidor.almacen.formasDeAcceso(cuenta.id);
+// Contraseña: solo con el correo listo (la primera se confirma con un código).
+const claveDisponible = servidor.estado.clave && !!(await servidor.correo());
+const codigoClave = Astro.url.searchParams.get('paso') === 'codigo' ? await servidor.almacen.codigoPendiente(cookieFlujo(Astro), ahora()) : null;
 ---
 <BaseLayout title="Mi cuenta | Sably" description="Tu cuenta de Sably: datos, preferencias y sesión." {country} pathAfterCountry="/" pageType="cuenta" noindex temaV2>
   <section class="v2-contenedor py-10 lg:py-16">
@@ -49,7 +56,7 @@ const formas = await servidor.almacen.formasDeAcceso(cuenta.id);
           <dl class="mt-4 grid gap-3 text-t15 sm:grid-cols-[160px_1fr]">
             <dt class="text-navy-500">Nombre</dt><dd class="text-navy-950">{cuenta.nombre || '—'}</dd>
             <dt class="text-navy-500">Correo</dt><dd class="break-all text-navy-950">{cuenta.email}</dd>
-            <dt class="text-navy-500">Formas de acceso</dt><dd class="text-navy-950">{formas.google ? 'Google y código por correo' : 'Código por correo'}</dd>
+            <dt class="text-navy-500">Formas de acceso</dt><dd class="text-navy-950">{[formas.google && 'Google', 'código por correo', formas.clave && 'contraseña'].filter(Boolean).join(', ').replace(/^./, c => c.toUpperCase())}</dd>
           </dl>
           <p class="mt-4 text-t13 text-navy-500">{formas.google ? 'Nombre y foto vienen de tu cuenta de Google: si los cambias allí, aquí se actualizan la próxima vez que entres con Google. ' : ''}Con tu correo puedes entrar siempre: te enviamos un código.</p>
         </section>
@@ -85,6 +92,34 @@ const formas = await servidor.almacen.formasDeAcceso(cuenta.id);
           <p class="mt-3 text-t15 text-navy-700">Los cursos se pagan y se ven en Hotmart, con el correo que usaste al comprar.</p>
           <a href="https://consumer.hotmart.com/" target="_blank" rel="noopener nofollow" class="v2-enlace mt-3 inline-flex text-coral-700">Ir a mis compras en Hotmart</a>
         </section>
+
+        {claveDisponible && (
+          <section id="cuenta-clave" class="rounded-c-lg p-6 ring-1 ring-navy-100" aria-labelledby="cuenta-clave-titulo">
+            <h2 id="cuenta-clave-titulo" class="font-display text-t20 font-semibold text-navy-950">Contraseña</h2>
+            {avisoClave && <p role={avisoClave.ok ? 'status' : 'alert'} class:list={['mt-3 rounded-c-md px-4 py-3 text-t15', avisoClave.ok ? 'bg-navy-50 text-navy-900' : 'bg-coral-50 text-coral-700']}>{avisoClave.texto}</p>}
+            {codigoClave?.clave ? (
+              <form method="post" action={RUTAS.correoVerificar} class="mt-3 grid gap-3">
+                <input type="hidden" name="csrf" value={csrf} />
+                <input type="hidden" name="volver" value={RUTAS.cuenta} />
+                <p class="text-t15 text-navy-700">Escribe el código de 6 dígitos que enviamos a <strong class="text-navy-950">{codigoClave.email}</strong>. Al confirmarlo guardamos tu contraseña y cerramos la sesión en tus otros dispositivos.</p>
+                <label for="cuenta-codigo" class="sr-only">Código de 6 dígitos</label>
+                <input id="cuenta-codigo" name="codigo" class="h-14 w-full rounded-c-md text-center font-display text-[26px] font-semibold tracking-[0.35em] ring-[1.5px] ring-navy-300 ring-inset focus:outline-none focus:ring-coral-600" inputmode="numeric" autocomplete="one-time-code" pattern="\s*\d{3}\s?\d{3}\s*" maxlength="7" required />
+                <button type="submit" class="v2-btn v2-btn-principal w-full" data-alto="48">Verificar y guardar</button>
+              </form>
+            ) : (
+              <form method="post" action={RUTAS.cuentaClave} class="mt-3 grid gap-3">
+                <input type="hidden" name="csrf" value={csrf} />
+                <input type="text" name="email" value={cuenta.email} autocomplete="username" hidden />
+                <p class="text-t15 text-navy-700">{formas.clave ? 'Cámbiala cuando quieras. Al guardarla cerramos tu sesión en los demás dispositivos.' : 'Crea una contraseña para entrar también con tu correo y contraseña. Te enviaremos un código para confirmarlo.'}</p>
+                {formas.clave && (
+                  <div class="v2-campo"><input id="cuenta-clave-actual" name="actual" type="password" placeholder=" " required autocomplete="current-password" maxlength={CLAVE_MAX} /><label for="cuenta-clave-actual">Contraseña actual</label></div>
+                )}
+                <div class="v2-campo"><input id="cuenta-clave-nueva" name="nueva" type="password" placeholder=" " required autocomplete="new-password" minlength={CLAVE_MIN} maxlength={CLAVE_MAX} aria-describedby="cuenta-clave-nueva-ayuda" /><label for="cuenta-clave-nueva">Contraseña nueva</label><span id="cuenta-clave-nueva-ayuda" class="v2-campo-ayuda">Al menos 10 caracteres. Mejor una frase que no uses en otros sitios.</span></div>
+                <button type="submit" class="v2-btn v2-btn-principal w-full" data-alto="48">{formas.clave ? 'Guardar la contraseña nueva' : 'Crear contraseña'}</button>
+              </form>
+            )}
+          </section>
+        )}
 
         <section class="rounded-c-lg p-6 ring-1 ring-navy-100" aria-labelledby="cuenta-sesion">
           <h2 id="cuenta-sesion" class="font-display text-t20 font-semibold text-navy-950">Sesión</h2>

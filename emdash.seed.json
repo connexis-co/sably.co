@@ -61,7 +61,7 @@
             {
               "_type": "span",
               "_key": "description-text",
-              "text": "Habilidades prácticas que la inteligencia artificial no puede reemplazar: panadería, costura, electricidad, barbería y más. Con constancia de finalización y acceso de por vida.",
+              "text": "Habilidades prácticas que la inteligencia artificial no puede reemplazar: panadería, costura, electricidad, barbería y más. Con certificado de finalización y acceso de por vida.",
               "marks": []
             }
           ]
@@ -429,7 +429,7 @@
             {
               "_type": "span",
               "_key": "benefit-1-text",
-              "text": "📜 Constancia al terminar",
+              "text": "📜 Certificado al terminar",
               "marks": []
             }
           ]
@@ -443,7 +443,7 @@
             {
               "_type": "span",
               "_key": "benefit-1-body-text",
-              "text": "Al completar un curso, Hotmart emite una constancia digital de finalización con tu nombre.",
+              "text": "Al completar un curso, Hotmart emite un certificado digital de finalización con tu nombre.",
               "marks": []
             }
           ]
@@ -755,7 +755,7 @@
             {
               "_type": "span",
               "_key": "q2-text",
-              "text": "¿Recibo una constancia al terminar?",
+              "text": "¿Recibo un certificado al terminar?",
               "marks": []
             }
           ]
@@ -769,7 +769,7 @@
             {
               "_type": "span",
               "_key": "a2-text",
-              "text": "Sí. Al completar un curso, Hotmart emite una constancia digital de finalización con tu nombre y el del curso.",
+              "text": "Sí. Al completar un curso, Hotmart emite un certificado digital de finalización con tu nombre y el del curso.",
               "marks": []
             }
           ]
@@ -2615,7 +2615,7 @@
               "slug": "help_text",
               "label": "Texto de ayuda",
               "type": "text",
-              "defaultValue": "Muchas dudas ya están resueltas en la ficha de cada curso: qué incluye, cuántas horas son, cómo se recibe la constancia y cómo se paga."
+              "defaultValue": "Muchas dudas ya están resueltas en la ficha de cada curso: qué incluye, cuántas horas son, cómo se recibe el certificado y cómo se paga."
             },
             {
               "slug": "help_button_label",
