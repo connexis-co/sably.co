@@ -50,6 +50,10 @@ export interface AjustesV2 {
   sobreFotos: boolean;
   /** C6: movimiento de la ficha al bajar y animación del certificado (nunca con menos movimiento). */
   movimientoFicha: { ficha: 'sobrio' | 'minimo' | 'ninguno'; certificado: 'destello' | 'entrada' | 'ninguna' };
+  /** Barra fija de la ficha desde 1024 px: menú solo arriba + compra abajo (de fábrica), las dos completas, solo arriba o solo abajo. */
+  barraEscritorio: 'menu-abajo' | 'ambas' | 'arriba' | 'abajo';
+  /** Alineación del menú interno cuando va solo arriba («menu-abajo»). */
+  menuAlineacion: 'centro' | 'izquierda' | 'derecha';
   /** Temario y bloques de la ficha (paquete 2 del pulido: C7, C10a, C10b). */
   bloquesFicha: {
     /** `enfoca`: abrir un módulo cierra el anterior y lo encuadra; `encuadra`: solo lo encuadra; `nada`: acordeón libre. */
@@ -160,6 +164,8 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       ficha: uno(v.fichaMovimiento, ['sobrio', 'minimo', 'ninguno'] as const, 'sobrio'),
       certificado: uno(v.certificadoAnimacion, ['destello', 'entrada', 'ninguna'] as const, 'destello'),
     },
+    barraEscritorio: uno(v.barraCompraEscritorio, ['menu-abajo', 'ambas', 'arriba', 'abajo'] as const, 'menu-abajo'),
+    menuAlineacion: uno(v.menuInternoAlineacion, ['centro', 'izquierda', 'derecha'] as const, 'centro'),
     bloquesFicha: {
       temario: uno(v.temarioEnfoque, ['enfoca', 'encuadra', 'nada'] as const, 'enfoca'),
       queIncluye: v.fichaQueIncluye !== false,

@@ -3,10 +3,16 @@
  * Aparece cuando el botón de la caja sale de la pantalla y se va al volver o al
  * llegar al cierre. En móvil, dos piezas: pestañas de secciones de 48 px bajo la
  * cabecera y barra inferior de 72 px (precio, WhatsApp e «Inscribirme»); en
- * escritorio, una sola subnavegación bajo la cabecera con las secciones, el
- * precio y el botón. El precio y el enlace los actualiza la caja
- * al quitar o reaplicar el cupón (data-pago, data-precio-fijo).
+ * escritorio, la subnavegación bajo la cabecera con las secciones, el
+ * precio y el botón (o solo las secciones, centradas: «menu-abajo», de fábrica) y, además
+ * (panel: barraCompraEscritorio),
+ * una barra flotante abajo con el curso, el precio de hoy (el normal tachado si hay
+ * campaña) y el mismo botón de pago. La flotante es una píldora centrada que deja
+ * libres las esquinas: WhatsApp y el botón de subir (derecha) y el icono de cookies
+ * (izquierda). El precio y el enlace los actualiza la caja al quitar o reaplicar
+ * el cupón (data-pago, data-precio-fijo, data-cierre-promo).
  */
+import { Image } from 'astro:assets';
 import Boton from '@/components/v2/Boton.astro';
 import type { Importe } from '@/lib/presentacion-v2';
 interface Props {
@@ -17,10 +23,23 @@ interface Props {
   href: string;
   boton: string;
   whatsapp: string;
+  /** Título del curso, para la barra flotante de escritorio. */
+  curso: string;
+  /** Precio normal con campaña (se tacha si la caja lo tacha); null sin campaña. */
+  precioNormal: Importe | null;
+  tachado: boolean;
+  /** Portada del curso: miniatura circular de la barra flotante. */
+  imagen: string;
+  /** Con campaña: % de ahorro y los textos del botón con y sin cupón (los cambia la caja, como en el cierre). */
+  campana: { pct: number; botonCon: string; botonSin: string; botonSinHablado: string } | null;
+  /** Escritorio (≥ 1024 px): barra de secciones arriba, flotante abajo o las dos. */
+  escritorio: 'menu-abajo' | 'ambas' | 'arriba' | 'abajo';
+  /** Alineación del menú cuando va solo arriba. */
+  alineacion: 'centro' | 'izquierda' | 'derecha';
 }
-const { secciones, precio, moneda, nota, href, boton, whatsapp } = Astro.props;
+const { secciones, precio, moneda, nota, href, boton, whatsapp, curso, precioNormal, tachado, imagen, campana, escritorio, alineacion } = Astro.props;
 ---
-<div class="v2-fija" data-barra-fija data-oculta inert>
+<div class="v2-fija" data-barra-fija data-escritorio={escritorio} data-alineacion={alineacion} data-oculta inert>
   <div class="v2-contenedor v2-fija-fila">
     <nav aria-label="Secciones de la ficha" class="v2-fija-nav">
       <ul class="v2-fija-lista">
@@ -39,8 +58,23 @@ const { secciones, precio, moneda, nota, href, boton, whatsapp } = Astro.props;
     </div>
   </div>
 </div>
+{escritorio !== 'arriba' && (
+  <div class="v2-fija-abajo" data-barra-abajo data-oculta inert>
+    <Image src={imagen} alt="" width={80} height={80} loading="lazy" decoding="async" class="v2-fija-abajo-foto" />
+    <p class="v2-fija-abajo-curso">{curso}</p>
+    {precio && (
+      <p class="v2-fija-abajo-precio">
+        {campana && <span class="v2-fija-abajo-ahorro" data-cierre-promo>Ahorras {campana.pct} %</span>}
+        <span class="v2-num font-display text-t20 leading-tight font-semibold whitespace-nowrap text-navy-950"><span aria-hidden="true"><span data-precio-fijo>{precio.visible}</span> <span class="text-t13 font-medium">{moneda}</span></span><span class="sr-only" data-precio-fijo-hablado>{precio.hablado}</span></span>
+        {precioNormal && <span class="v2-num text-t13 whitespace-nowrap text-navy-500" data-cierre-promo><span class="sr-only">antes </span><span class:list={[tachado && 'line-through']}>{precioNormal.visible}</span></span>}
+      </p>
+    )}
+    <Boton variante="principal" alto={48} href={href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="barra-abajo" data-pago data-btn-con={campana?.botonCon} data-btn-sin={campana?.botonSin} data-btn-sin-hablado={campana?.botonSinHablado} class="flex-none">{campana?.botonCon ?? boton}</Boton>
+  </div>
+)}
 <script>
   const barra = document.querySelector<HTMLElement>('div[data-barra-fija]');
+  const abajo = document.querySelector<HTMLElement>('div[data-barra-abajo]');
   const boton = document.querySelector('#compra a[data-pago]');
   const cierre = document.querySelector('[data-cierre]');
   if (barra && boton) {
@@ -49,6 +83,7 @@ const { secciones, precio, moneda, nota, href, boton, whatsapp } = Astro.props;
       const visible = fueraCaja && !enCierre;
       barra.toggleAttribute('data-oculta', !visible);
       barra.inert = !visible;
+      if (abajo) { abajo.toggleAttribute('data-oculta', !visible); abajo.inert = !visible; }
       document.body.toggleAttribute('data-con-barra', visible);
     };
     new IntersectionObserver(([e]) => { fueraCaja = !e!.isIntersecting && e!.boundingClientRect.top < 0; actualizar(); }).observe(boton);

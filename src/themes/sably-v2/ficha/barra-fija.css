@@ -48,3 +48,40 @@
   .v2-fija-pestana { padding: 20px 0; font-size: 15px; }
   .v2-fija-compra { display: contents; }
 }
+
+/* Barra flotante de escritorio (panel: barraCompraEscritorio). En el celular no existe:
+   allí la compra ya va abajo dentro de .v2-fija. Píldora centrada de 64 px a 16 px del
+   borde, con 104 px libres a cada lado: a la derecha caben WhatsApp (56 px) y el botón de
+   subir; a la izquierda, el icono de cookies (40 px). El aviso de cookies y «Seguir
+   escuchando», más anchos, suben por encima con `translate` (sin CLS). */
+.v2-fija-abajo { display: none; }
+@media (width >= 1024px) {
+  .v2-fija[data-escritorio='abajo'] { display: none; }
+  /* De fábrica (26-nov, JP): arriba solo el menú interno, centrado; la compra va en la flotante. */
+  .v2-fija[data-escritorio='menu-abajo'] .v2-fija-compra { display: none; }
+  .v2-fija[data-escritorio='menu-abajo'] .v2-fija-lista { justify-content: safe center; }
+  .v2-fija[data-escritorio='menu-abajo'][data-alineacion='izquierda'] .v2-fija-lista { justify-content: flex-start; }
+  .v2-fija[data-escritorio='menu-abajo'][data-alineacion='derecha'] .v2-fija-lista { justify-content: safe flex-end; }
+  .v2-fija-abajo {
+    position: fixed; z-index: 40; left: 50%; bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    width: min(960px, calc(100vw - 208px)); height: 64px; padding-inline: 24px 8px;
+    display: flex; align-items: center; gap: 20px;
+    background: #fff; border-radius: 999px; box-shadow: 0 0 0 1px var(--color-navy-100), 0 24px 56px -12px rgb(27 27 58 / 0.3);
+    translate: -50% calc(100% + 24px); visibility: hidden;
+    transition: translate var(--t-base) var(--e-sale), visibility 0s linear var(--t-base);
+  }
+  .v2-fija-abajo:not([data-oculta]) { translate: -50% 0; visibility: visible; transition-delay: 0s; }
+  .v2-fija-abajo { padding-left: 8px; gap: 16px; }
+  .v2-fija-abajo-foto { flex: none; width: 48px; height: 48px; border-radius: 999px; object-fit: cover; background: var(--color-navy-100); }
+  .v2-fija-abajo-ahorro {
+    align-self: center; padding: 2px 10px; border-radius: 999px; background: var(--color-coral-50, #fff1f2);
+    color: var(--color-coral-700, #be123c); font-size: var(--text-t13); font-weight: 600; white-space: nowrap;
+  }
+  .v2-fija-abajo-curso {
+    flex: 1; min-width: 0; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    font-size: var(--text-t15); font-weight: 600; color: var(--color-navy-950);
+  }
+  .v2-fija-abajo-precio { display: flex; flex: none; align-items: baseline; gap: 8px; margin: 0; }
+  body:has(.v2-fija-abajo:not([data-oculta])) :is(#sbc, .v2-seguir) { translate: 0 -80px; }
+}
+@media (prefers-reduced-motion: reduce) { .v2-fija-abajo { transition: none; } }
