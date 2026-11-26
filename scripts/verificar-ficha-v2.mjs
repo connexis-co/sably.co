@@ -74,7 +74,7 @@ const textoMain = (page) => page.evaluate(() => {
  * un elemento con `visibility: visible` dentro de un padre `hidden` se ve igual, así que se mira la
  * visibilidad calculada de cada pieza, no la de su contenedor.
  */
-const PIEZAS = { cabecera: '[data-cabecera]', campana: '[data-promo-v2="barra"]', barra: '[data-barra-fija]', navInterna: '.v2-fija-nav', compra: '.v2-fija-compra', whatsapp: '#sably-whatsapp, [data-wa-float]' };
+const PIEZAS = { cabecera: '[data-cabecera]', campana: '[data-promo-v2="barra"]', barra: '[data-barra-fija]', navInterna: '.v2-fija-nav', compra: '.v2-fija-compra', whatsapp: '#sably-whatsapp, [data-wa-float]', compraAbajo: '.v2-fija-abajo:not([data-oculta])' };
 const medirSolapes = (page) => page.evaluate((PIEZAS) => {
   const caja = (el) => {
     if (!el) return null;

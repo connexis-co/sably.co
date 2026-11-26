@@ -177,6 +177,21 @@ export const settingsSchema = {
     options: [{ value: 'arma', label: 'Armado' }, { value: 'lateral', label: 'Lateral' }, { value: 'revela', label: 'Revela' }, { value: 'destello', label: 'Destello' }, { value: 'entrada', label: 'Entrada' }, { value: 'ninguna', label: 'Ninguna' }],
     default: 'arma',
   },
+  // Barra de compra fija en escritorio (26-nov-2026, decisión de JP: «arriba y abajo», como en el celular)
+  barraCompraEscritorio: {
+    type: 'select',
+    label: 'Ficha · Barra de compra en escritorio',
+    description: 'Desde 1024 px de ancho, al pasar la caja de compra. «Menú arriba y compra abajo»: arriba solo el menú interno (Sobre este curso, Temario…), centrado, y abajo una barra flotante con la foto del curso, el ahorro, el precio de hoy y el botón de pago. «Arriba y abajo»: el menú de arriba lleva además precio y botón, y sigue la barra de abajo. «Solo arriba»: menú con precio y botón, sin barra abajo (como antes del 26-nov). «Solo abajo»: sin menú arriba. Todo se oculta al volver a la caja o al llegar al cierre de la ficha. En el celular no cambia nada. Por defecto: Menú arriba y compra abajo.',
+    options: [{ value: 'menu-abajo', label: 'Menú arriba y compra abajo' }, { value: 'ambas', label: 'Arriba y abajo' }, { value: 'arriba', label: 'Solo arriba' }, { value: 'abajo', label: 'Solo abajo' }],
+    default: 'menu-abajo',
+  },
+  menuInternoAlineacion: {
+    type: 'select',
+    label: 'Ficha · Alineación del menú interno en escritorio',
+    description: 'Dónde van las secciones (Sobre este curso, Temario…) en el menú fijo de arriba cuando va solo, sin precio ni botón («Menú arriba y compra abajo»). Centrado equilibra la barra con la cabecera y con la píldora de compra de abajo, que también va centrada. Por defecto: Centrado.',
+    options: [{ value: 'centro', label: 'Centrado' }, { value: 'izquierda', label: 'A la izquierda' }, { value: 'derecha', label: 'A la derecha' }],
+    default: 'centro',
+  },
   // Temario y bloques de la ficha (26-nov-2026, paquete 2 del pulido: C7, C10a, C10b)
   temarioEnfoque: {
     type: 'select',
@@ -532,7 +547,7 @@ export const NOSOTROS_CLAVES: ClaveAjuste[] = ['nosotrosDiseno', 'nosotrosCifras
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo', 'tarjetasColumnasMedio', 'pieBorde'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', 'barraCampanaBoton', 'barraCampanaBotonTexto', 'barraCampanaBotonDestino', 'barraCampanaBotonFicha', ...CAMPANA_CLAVES] },
-  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
+  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'barraCompraEscritorio', 'menuInternoAlineacion', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación, y el diseño de la página «Nosotros».', claves: NOSOTROS_CLAVES },
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },
