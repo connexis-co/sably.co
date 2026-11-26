@@ -51,6 +51,7 @@ const ANTES = {
     fichaQueIncluye: ['boolean', null, true],
     relacionadosTarjeta: ['select', ['placa', 'precio'], 'placa'],
     opinionesExtractosMinimo: ['select', ['1', '2', '3'], '1'],
+    opinionesExtractosMaximo: ['select', ['2', '3', '4'], '4'],
     opinionesPerfilNombre: ['string', null, ''],
     opinionesPerfilUrl: ['string', null, ''],
     // Claves nuevas (26-nov, barra de campaña V2, C7): se añaden, no sustituyen a ninguna.
@@ -117,7 +118,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     sobreFotos: true,
     movimientoFicha: { ficha: 'sobrio', certificado: 'destello' },
     bloquesFicha: { temario: 'enfoca', queIncluye: true, relacionados: 'placa' },
-    opiniones: { estilo: 'lista', minimoExtractos: 1, perfil: null },
+    opiniones: { estilo: 'lista', minimoExtractos: 1, maximoExtractos: 4, perfil: null },
     barraCampana: { cierre: 'sesion', enFicha: true },
     portada: {
       bloques: ['cifras', 'categorias', 'convergen', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],

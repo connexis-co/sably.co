@@ -58,9 +58,20 @@ export function resenasPropias<T extends ResenaPublica>(reviews: readonly T[], s
  * `resenasPropias`, el mínimo lo pone el panel (`opinionesExtractosMinimo`): cada extracto va rotulado como
  * «Extracto publicado en Hotmart» junto a la nota con todas sus calificaciones, no como «lo que dicen los compradores».
  */
-export function extractosDelCurso<T extends ResenaPublica>(reviews: readonly T[], slug: string, minimo = 1): T[] {
+export function extractosDelCurso<T extends ResenaPublica & { id?: string }>(reviews: readonly T[], slug: string, minimo = 1, maximo = MAX_EXTRACTOS): T[] {
   const propias = reviews
     .filter((r) => r.source === 'hotmart-public' && r.slug === slug && r.texto.trim().length >= 12)
-    .map((r) => ({ ...r, nombre: nombreLegible(r.nombre), texto: citaSinCortar(r.texto) }));
-  return propias.length >= Math.max(1, minimo) ? propias.slice(0, MAX_RESENAS) : [];
+    .sort((a, b) => Number(esExtractoEntero(b)) - Number(esExtractoEntero(a)))
+    .map((r) => ({ ...r, nombre: nombreLegible(r.nombre), texto: esExtractoEntero(r) ? r.texto.replace(/\s+/g, ' ').trim() : citaSinCortar(r.texto) }));
+  return propias.length >= Math.max(1, minimo) ? propias.slice(0, Math.max(1, maximo)) : [];
 }
+
+/** Tope de extractos de la lista de opiniones (JP, 26-nov: 3–4); el panel lo puede bajar. */
+export const MAX_EXTRACTOS = 4;
+
+/**
+ * Extractos de la captura del 26-nov (`scripts/hotmart-opiniones.mjs`, id `hotmart-ask-…`): llegan ya cortados en
+ * una frase o palabra completa a partir del texto entero de la evaluación, así que no se vuelven a cortar. Los de la
+ * captura del checkout (120 caracteres como mucho) siguen pasando por `citaSinCortar`, y van después.
+ */
+export const esExtractoEntero = (r: { id?: string }) => typeof r.id === 'string' && r.id.startsWith('hotmart-ask-');

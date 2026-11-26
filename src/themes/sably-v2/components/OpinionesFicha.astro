@@ -29,7 +29,7 @@ interface Props {
 const { slug, rating, nota, ajustes, sinPropias } = Astro.props;
 const db = (env as unknown as { SABLY_DB: D1Database }).SABLY_DB;
 const extractos = ajustes.estilo === 'lista'
-  ? extractosDelCurso(await readPublicReviews(db, slug).catch(() => []), slug, ajustes.minimoExtractos)
+  ? extractosDelCurso(await readPublicReviews(db, slug).catch(() => []), slug, ajustes.minimoExtractos, ajustes.maximoExtractos)
   : [];
 const perfil = ajustes.perfil;
 ---
