@@ -4,12 +4,15 @@
   .v2-medio-video > video { object-fit: contain; background: #000; }
   .v2-medio-video .v2-medio-controles {
     position: absolute; inset-inline: 0; inset-block-end: 0; padding: 32px 12px 10px;
-    background: linear-gradient(to top, rgb(0 0 0 / 0.7), transparent);
+    background: linear-gradient(to top, rgb(0 0 0 / 0.8), rgb(0 0 0 / 0.45) 60%, transparent);
     transition: opacity var(--t-rapido) var(--e-sale);
   }
   .v2-medio-video .v2-medio-boton { background: rgb(255 255 255 / 0.16); }
   .v2-medio-video .v2-medio-principal { background: var(--medio-acento); }
-  .v2-medio-video .v2-medio-tiempo { color: rgb(255 255 255 / 0.85); }
+  /* El tiempo lleva su propio fondo: así se lee aunque el vídeo tenga un rótulo claro quemado debajo. */
+  .v2-medio-video .v2-medio-tiempo {
+    color: #fff; text-align: center; padding: 2px 6px; border-radius: var(--radius-c-sm); background: rgb(0 0 0 / 0.6);
+  }
   .v2-medio-video .v2-medio-boton:focus-visible, .v2-medio-video .v2-medio-barra:focus-visible { outline-color: #fff; }
   /* Mientras suena y sin interacción, los controles se apartan; vuelven con el puntero, el foco o la pausa. */
   .v2-medio-video[data-sonando="true"]:not(:hover):not(:focus-within) .v2-medio-controles { opacity: 0; }
