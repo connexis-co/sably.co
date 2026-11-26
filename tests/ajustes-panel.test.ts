@@ -30,6 +30,8 @@ const ANTES = {
     tarjetasColumnasMedio: ['select', ['tres-completas', 'tres', 'cuatro'], 'tres-completas'],
     // Clave nueva (26-nov, reborde coral del pie).
     pieBorde: ['select', ['escalonado', 'inverso', 'anchas', 'finas', 'tenue', 'ninguno'], 'escalonado'],
+    // Clave nueva (26-nov, ciudad en «País y moneda»): se añade, no sustituye a ninguna.
+    selectorCiudad: ['boolean', null, true],
     // Claves nuevas (cuenta, 25-nov): se añaden, no sustituyen a ninguna.
     cuentaActiva: ['boolean', null, true],
     cuentaGoogle: ['boolean', null, true],
@@ -130,6 +132,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     mostrarCreador: true,
     mostrarDocente: true,
     mostrarCiudades: true,
+    selectorCiudad: true,
     estiloCampo: 'outlined',
     columnasTarjetas: 'tres-completas',
     pieBorde: 'escalonado',

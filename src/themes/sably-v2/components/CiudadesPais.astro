@@ -15,13 +15,14 @@
 import type { Country } from '@/lib/countries';
 interface Props { country: Country; mostrar: boolean; class?: string }
 const { country, mostrar, class: clase } = Astro.props;
-const ciudades = [...new Map((country.cities ?? []).map(c => [c.name.trim().toLowerCase(), c.name.trim()])).values()].filter(Boolean);
+// [slug, nombre], cada ciudad una vez. El slug solo marca la ciudad que el visitante eligió (SelectorCiudad.astro).
+const ciudades = [...new Map((country.cities ?? []).map(c => [c.name.trim().toLowerCase(), [c.slug, c.name.trim()] as const])).values()].filter(([, n]) => n);
 ---
 {mostrar && ciudades.length > 0 && (
   <div class:list={['v2-ciudades', clase]} role="group" aria-labelledby="titulo-ciudades" data-ciudades={country.code}>
     <p id="titulo-ciudades" class="text-t15 font-semibold text-navy-950">Disponible online en {country.name}</p>
     <ul class="mt-3 flex flex-wrap gap-2" role="list">
-      {ciudades.map(nombre => <li class="rounded-full bg-white px-3 py-1 text-t13 font-medium text-navy-700 ring-1 ring-navy-100">{nombre}</li>)}
+      {ciudades.map(([slug, nombre]) => <li class="relative rounded-full bg-white px-3 py-1 text-t13 font-medium text-navy-700 ring-1 ring-navy-100" data-ciudad-slug={slug}>{nombre}</li>)}
     </ul>
   </div>
 )}

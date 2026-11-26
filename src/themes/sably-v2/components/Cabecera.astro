@@ -23,9 +23,12 @@ import ContadorCampana from './ContadorCampana.astro';
 import CuentaCabecera from '@/components/cuenta/CuentaCabecera.astro';
 import CuentaHoja from '@/components/cuenta/CuentaHoja.astro';
 import { estadoCuenta } from '@/lib/cuenta/ajustes';
+import { temaDeLaPeticion } from '@/lib/ajustes-tema';
+import SelectorCiudad from './SelectorCiudad.astro';
 import '../estilos.css';
 interface Props { country: Country; pathAfterCountry: string; nav: DatosNavegacion; promo: PromoV2 | null }
 const { country, pathAfterCountry, nav, promo } = Astro.props;
+const { ajustes } = await temaDeLaPeticion(Astro);
 const { base, areas, externas, destacados } = nav;
 const ruta = Astro.url.pathname;
 const actual = (href: string) => href !== '/' && (ruta === href || (href.length > 4 && ruta.startsWith(href)));
@@ -134,7 +137,7 @@ const cuenta = await estadoCuenta(Astro.locals);
     {nav.paises.map(p => (
       <li><a href={`/${p.code}${pathAfterCountry}`} class="v2-pais-fila" data-geo-country={p.code} aria-current={p.code === country.code ? 'true' : undefined} hreflang={undefined}>
         <Bandera codigo={p.code} />{p.nombre}<span class="ml-auto text-t13 font-medium text-navy-500">{p.moneda}</span>{p.code === country.code && <Ico nombre="check" tamano={18} class="text-coral-600" />}
-      </a></li>
+      </a>{p.code === country.code && ajustes.selectorCiudad && <SelectorCiudad {country} />}</li>
     ))}
   </ul>
 </div>
@@ -165,7 +168,7 @@ const cuenta = await estadoCuenta(Astro.locals);
     </nav>
   </div>
   <div class="flex flex-none items-center gap-3 bg-navy-50 px-5 py-4">
-    <button type="button" popovertarget="v2-pais" class="flex min-h-12 flex-1 items-center gap-3 rounded-c-md bg-white px-4 text-t15 font-medium ring-1 ring-navy-100"><Bandera codigo={country.code} />{country.name} · {country.currency}<Ico nombre="chevron-down" tamano={18} class="ml-auto" /></button>
+    <button type="button" popovertarget="v2-pais" class="flex min-h-12 flex-1 items-center gap-3 rounded-c-md bg-white px-4 text-t15 font-medium ring-1 ring-navy-100"><Bandera codigo={country.code} /><span data-pais-texto>{country.name}</span> · {country.currency}<Ico nombre="chevron-down" tamano={18} class="ml-auto" /></button>
     <a href={nav.whatsapp} target="_blank" rel="noopener nofollow" class="v2-icono-boton size-12" aria-label="Escríbenos por WhatsApp"><img src="/v2/logos/whatsapp.svg" alt="" width="22" height="22" /></a>
   </div>
 </div>

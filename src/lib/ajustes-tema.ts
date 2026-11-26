@@ -46,6 +46,8 @@ export interface AjustesV2 {
   mostrarDocente: boolean;
   /** «Disponible online en {país}» con las ciudades del país, en texto y sin enlaces. */
   mostrarCiudades: boolean;
+  /** «Tu ciudad (opcional)» en el diálogo «País y moneda»: preferencia solo del navegador (selector-ciudad/PROPUESTA.md). */
+  selectorCiudad: boolean;
   estiloCampo: EstiloCampo;
   /** Tarjetas de cursos entre 1024 y 1279 px: 3 columnas sin fila a medias (de fábrica), 3 con todas o 4. */
   columnasTarjetas: ColumnasTarjetas;
@@ -170,6 +172,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     mostrarCreador: v.mostrarCreador !== false,
     mostrarDocente: v.mostrarDocente !== false,
     mostrarCiudades: v.mostrarCiudades !== false,
+    selectorCiudad: v.selectorCiudad !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
     columnasTarjetas: uno(v.tarjetasColumnasMedio, ['tres-completas', 'tres', 'cuatro'] as const, 'tres-completas'),
     pieBorde: uno(v.pieBorde, ['escalonado', 'inverso', 'anchas', 'finas', 'tenue', 'ninguno'] as const, 'escalonado'),

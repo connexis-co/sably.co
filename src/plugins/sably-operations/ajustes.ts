@@ -33,6 +33,12 @@ export const settingsSchema = {
     options: [{ value: 'escalonado', label: 'Escalonado' }, { value: 'inverso', label: 'Inverso' }, { value: 'anchas', label: 'Dos anchas' }, { value: 'finas', label: 'Cuatro finas' }, { value: 'tenue', label: 'Tenue' }, { value: 'ninguno', label: 'Sin reborde' }],
     default: 'escalonado',
   },
+  selectorCiudad: {
+    type: 'boolean',
+    label: 'Sitio y tema · Ciudad en «País y moneda»',
+    description: 'Debajo del país, «Tu ciudad (opcional)» con las ciudades del país y «Solo el país». La elección se guarda solo en el navegador del visitante: escribe la ciudad en los mensajes de WhatsApp, la marca en «Disponible online en {país}» y la manda en el evento select_country. No crea páginas ni cambia lo que ven los buscadores. Apagado no deja nada en la página. Por defecto: encendido.',
+    default: true,
+  },
   tarjetasColumnasMedio: {
     type: 'select',
     label: 'Sitio y tema · Tarjetas de cursos entre 1024 y 1279 px',
@@ -551,7 +557,7 @@ export const NOSOTROS_CLAVES: ClaveAjuste[] = ['nosotrosDiseno', 'nosotrosCifras
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
-  { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo', 'tarjetasColumnasMedio', 'pieBorde'] },
+  { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo', 'tarjetasColumnasMedio', 'pieBorde', 'selectorCiudad'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', 'barraCampanaBoton', 'barraCampanaBotonTexto', 'barraCampanaBotonDestino', 'barraCampanaBotonFicha', ...CAMPANA_CLAVES] },
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'barraCompraEscritorio', 'menuInternoAlineacion', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
