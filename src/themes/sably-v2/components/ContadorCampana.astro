@@ -4,6 +4,7 @@
  * El servidor pinta los valores del momento (mismo ancho, cifras tabulares: sin salto al empezar a correr) y
  * src/lib/promo-cliente.ts lo actualiza cada segundo y retira el aviso al vencer. Nunca se reinicia.
  * `role="timer"` no se anuncia cada segundo; la etiqueta da la fecha de fin.
+ * Sus estilos (contador.css) los pone BaseLayout una sola vez en el <head>, solo si algún aviso lleva contador.
  */
 import { formatCountdown } from '@/lib/promo';
 interface Props { finMs: number; fin: string | null; tono?: 'oscuro' | 'claro'; tamano?: 'mini' | 'grande'; class?: string }

@@ -13,21 +13,23 @@ interface Props {
   promo: PromoV2 | null;
   /** Ajuste del panel: la × la oculta durante la sesión (de fábrica) o solo en esta vista. */
   cierre?: 'sesion' | 'vista';
+  /** En la ficha la caja de compra ya lleva su propio reloj con segundero: aquí, la fecha en texto (un solo reloj). */
+  sinReloj?: boolean;
 }
-const { promo, cierre = 'sesion' } = Astro.props;
+const { promo, cierre = 'sesion', sinReloj = false } = Astro.props;
 const muestra = promo?.muestra.barra ?? 'contador';
 const conCupon = !promo || muestra === 'cupon' || muestra === 'ambos';
-const conReloj = !!promo?.finMs && (muestra === 'contador' || muestra === 'ambos');
+const conReloj = !sinReloj && !!promo?.finMs && (muestra === 'contador' || muestra === 'ambos');
 const conFecha = !conReloj && muestra !== 'cupon';
 ---
 <div data-promo-v2="barra" data-promo-ssr={promo?.ssr} data-al-cerrar={cierre} hidden={!promo} class="v2-barra-campana relative z-50 bg-navy-950 text-white" role="region" aria-label="Promoción vigente">
-  <div class="v2-contenedor flex min-h-12 flex-wrap items-center gap-x-4 gap-y-1.5 py-1.5 max-lg:pr-12">
+  <div class="v2-contenedor flex min-h-12 flex-wrap items-center gap-x-4 gap-y-1.5 py-1.5 max-lg:pr-10">
     <p class:list={['flex min-w-0 flex-wrap items-center gap-x-3 gap-y-0.5 text-t13 lg:text-t15', conReloj && 'max-sm:w-full']}>
       <span class="flex items-center gap-2 font-semibold"><span class="size-1.5 flex-none rounded-full bg-coral-500" aria-hidden="true"></span><span data-promo-gorro>{promo?.etiqueta}</span></span>
       <span class="text-white/85"><span data-promo-pct-v2>{promo ? `${promo.pct} %` : ''}</span> {conCupon ? <><span class="max-sm:hidden">en cursos seleccionados </span>con el cupón</> : 'en cursos seleccionados'}</span>
     </p>
     {conReloj && promo?.finMs && (
-      <p class="flex items-center gap-2.5 text-t13 text-white/75"><span class="max-[359px]:hidden">Termina en</span><ContadorCampana finMs={promo.finMs} fin={promo.fin} /></p>
+      <p class="flex items-center gap-2.5 text-t13 text-white/75"><span class="v2-reloj-rotulo">Termina en</span><ContadorCampana finMs={promo.finMs} fin={promo.fin} /></p>
     )}
     {conCupon && (
       <button type="button" data-promo-cupon class="v2-tique-mini group flex-none" aria-label={promo ? `Copiar el cupón ${promo.cupon}` : 'Copiar el cupón'}>

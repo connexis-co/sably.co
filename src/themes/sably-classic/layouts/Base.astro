@@ -28,6 +28,8 @@ import BuscadorV2 from '@/themes/sably-v2/components/Buscador.astro';
 import PieV2, { type VariantePie } from '@/themes/sably-v2/components/Pie.astro';
 import { datosNavegacion } from '@/themes/sably-v2/navegacion';
 import { promoDeLaPagina } from '@/themes/sably-v2/promo-v2';
+import cssContador from '@/themes/sably-v2/components/contador.css?raw';
+import { minificar } from '@/themes/sably-v2/blog-hoja';
 
 export interface Props {
   title: string;
@@ -156,6 +158,8 @@ const pageContext = { ...createPublicPageContext({
   articleMeta,
   seo: { robots: development ? 'noindex, nofollow, noarchive' : noindex || temaForzado ? 'noindex, follow' : seo.robots || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
 }), ...(articleSchema ? { sablyArticle: articleSchema } : {}) };
+/* CSS del contador de campaña (contador.css): una vez y solo si algún aviso de la campaña lleva contador. */
+const cssReloj = promoV2?.finMs && Object.values(promoV2.muestra).some(m => m === 'contador' || m === 'ambos') ? minificar(cssContador) : '';
 ---
 
 <!doctype html>
@@ -171,6 +175,7 @@ const pageContext = { ...createPublicPageContext({
     <meta name="generator" content={Astro.generator} />
     <Seo title={seo.title} page={pageContext} {alternates} schemas={allSchemas} {noindexGoogle} {ogLocale} />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    {cssReloj && <style is:inline set:html={cssReloj}></style>}
     {/* Navegación casi instantánea: el navegador pide la página de un enlace interno al pasar el
         cursor o empezar a tocarlo, y la respuesta sale de la caché del borde. Speed Brain de
         Cloudflare solo precarga con el clic ya iniciado. */}
@@ -210,7 +215,7 @@ const pageContext = { ...createPublicPageContext({
     </a>
     {navV2 ? (
       <>
-        <BarraCampanaV2 promo={promoV2} cierre={temaPeticion.ajustes.barraCampana.cierre} />
+        <BarraCampanaV2 promo={promoV2} cierre={temaPeticion.ajustes.barraCampana.cierre} sinReloj={pageType === 'course'} />
         <CabeceraV2 {country} {pathAfterCountry} nav={navV2} promo={promoV2} />
       </>
     ) : (
