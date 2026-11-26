@@ -271,6 +271,32 @@ export const settingsSchema = {
     options: [{ value: '7000', label: '7 segundos' }, { value: '9000', label: '9 segundos' }, { value: '12000', label: '12 segundos' }],
     default: '9000',
   },
+  portadaBeneficiosModo: {
+    type: 'select',
+    label: 'Portada · «¿Por qué Sably?»: ¿avanza solo?',
+    description: '«Automático»: los cuatro puntos se encienden uno tras otro (una barra coral marca el tiempo, 6 s cada uno) y las dos fotos cambian con el punto activo; se para al pasar el cursor, con el foco dentro, fuera de pantalla o con la pestaña oculta, y nunca avanza con «reducir movimiento». Siempre se puede elegir un punto a mano. «Estático»: solo cambia al pulsar un punto. Los textos son los de Secciones → sably-home-benefits. Por defecto: Automático.',
+    options: [{ value: 'automatico', label: 'Automático' }, { value: 'estatico', label: 'Estático (solo al pulsar)' }],
+    default: 'automatico',
+  },
+  nosotrosDiseno: {
+    type: 'select',
+    label: 'Nosotros · Diseño de la página',
+    description: '«Narrativo»: cabecera propia con fotos y borde en arco, cifras reales del catálogo, «Cómo funciona» en tarjetas apiladas que se quedan pegadas al bajar, una franja de fotos de oficios y bloques que entran escalonados. «Sencillo»: la cabecera y los bloques de las demás páginas. El texto es el mismo en los dos (Contenido → Páginas → nosotros). Por defecto: Narrativo.',
+    options: [{ value: 'narrativo', label: 'Narrativo' }, { value: 'sencillo', label: 'Sencillo' }],
+    default: 'narrativo',
+  },
+  nosotrosCifras: {
+    type: 'boolean',
+    label: 'Nosotros · Cifras reales del catálogo',
+    description: 'Cursos con inscripción abierta, áreas, países y guías publicadas, contados en cada render desde el catálogo (nunca escritos a mano), con la fecha. Van junto al bloque «Sably en datos» o, si no está, bajo la cabecera. Solo en el diseño narrativo. Por defecto: encendido.',
+    default: true,
+  },
+  nosotrosMovimiento: {
+    type: 'boolean',
+    label: 'Nosotros · Movimiento',
+    description: 'Bloques que entran escalonados al bajar, cifras que cuentan desde 0 una vez, fotos de la cabecera que entran y franja de fotos con paralaje. Solo opacity y translate; con «reducir movimiento», sin JavaScript o apagado, todo quieto y visible (las tarjetas apiladas se siguen pegando). Por defecto: encendido.',
+    default: true,
+  },
   portadaGuiasVariante: {
     type: 'select',
     label: 'Portada · Bloque de guías del blog',
@@ -314,7 +340,10 @@ export type ValorAjuste = string | boolean;
 export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'blog' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
-export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaHeroeMovil', 'portadaOficioModo', 'portadaOficioIntervalo', 'portadaGuiasVariante', 'portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
+export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaHeroeMovil', 'portadaOficioModo', 'portadaOficioIntervalo', 'portadaBeneficiosModo', 'portadaGuiasVariante', 'portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
+
+/** Ajustes de la página «Nosotros» (pestaña «Cursos y contenido»). */
+export const NOSOTROS_CLAVES: ClaveAjuste[] = ['nosotrosDiseno', 'nosotrosCifras', 'nosotrosMovimiento'];
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
@@ -322,7 +351,7 @@ export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves:
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, y la barra de arriba.', claves: ['barraCampanaCierre', 'barraCampanaFicha'] },
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
-  { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
+  { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación, y el diseño de la página «Nosotros».', claves: NOSOTROS_CLAVES },
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },
   { id: 'medios', titulo: 'Medios: audio y vídeo', resumen: 'Vídeo de presentación; narraciones y reproductor, cuando lleguen.', claves: [] },
   { id: 'seo', titulo: 'SEO y medición', resumen: 'Medición, conversiones y auditoría SEO.', claves: [] },
