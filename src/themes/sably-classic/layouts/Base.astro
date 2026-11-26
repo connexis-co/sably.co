@@ -209,7 +209,7 @@ const pageContext = { ...createPublicPageContext({
     </a>
     {navV2 ? (
       <>
-        <BarraCampanaV2 promo={promoV2} cierre={temaPeticion.ajustes.barraCampana.cierre} />
+        <BarraCampanaV2 promo={promoV2} cierre={temaPeticion.ajustes.barraCampana.cierre} fija={temaPeticion.ajustes.barraCampana.fija} />
         <CabeceraV2 {country} {pathAfterCountry} nav={navV2} promo={promoV2} />
       </>
     ) : (

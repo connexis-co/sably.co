@@ -39,6 +39,12 @@ export const settingsSchema = {
     description: 'Solo en los cursos cuyo creador acepta el cupón de la campaña (en los demás nunca sale, para no anunciar un descuento que el pago no aplica). La caja de compra sigue llevando su propio cupón. Por defecto: encendido.',
     default: true,
   },
+  barraCampanaFija: {
+    type: 'boolean',
+    label: 'Campañas · Barra de campaña fija al desplazarse',
+    description: 'La barra de arriba se queda pegada encima de la cabecera mientras se baja por la página, hasta que alguien la cierre con la ×. Apagado: se va con el resto de la página al bajar. Por defecto: encendido.',
+    default: true,
+  },
   // Caja de compra
   cajaVariante: {
     type: 'select',
@@ -348,7 +354,7 @@ export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
-  { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', ...CAMPANA_CLAVES] },
+  { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', ...CAMPANA_CLAVES] },
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
