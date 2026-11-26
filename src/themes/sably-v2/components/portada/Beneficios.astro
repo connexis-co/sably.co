@@ -58,7 +58,7 @@ const formato = (n: number) => n.toLocaleString('es-CO');
           <span><strong class="v2-num inline-block font-semibold text-navy-950" data-cuenta={cifras.cursos}>{formato(cifras.cursos)}</strong> cursos con inscripción abierta</span>
           <span><strong class="v2-num font-semibold text-navy-950">{cifras.paises}</strong> países con su precio</span>
           {cifras.calificaciones > 0 && <span><strong class="v2-num inline-block font-semibold text-navy-950" data-cuenta={cifras.calificaciones}>{formato(cifras.calificaciones)}</strong> valoraciones en Hotmart{cifras.mediaTexto && <> ({cifras.mediaTexto} de media)</>}</span>}
-          <span class="w-full text-t13 text-navy-500">Catálogo a {cifras.hoy}{cifras.leidas && <>; valoraciones leídas en Hotmart el {cifras.leidas}</>}.</span>
+          <span class="w-full text-t13 text-navy-500">Cursos contados el {cifras.hoy}{cifras.leidas && <>; valoraciones leídas en Hotmart el {cifras.leidas}</>}.</span>
         </p>
       )}
     </div>

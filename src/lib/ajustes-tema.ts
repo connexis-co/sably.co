@@ -14,6 +14,9 @@ export type EstiloContador = 'barra' | 'casillas' | 'linea' | 'tique';
 export type EstiloCampo = 'outlined' | 'filled' | 'underline';
 /** Rejillas de tarjetas de cursos entre 1024 y 1279 px (portada y ficha): ver themes/sably-v2/rejilla-tarjetas.ts. */
 export type ColumnasTarjetas = 'tres-completas' | 'tres' | 'cuatro';
+/** Dónde va el muro del héroe por debajo de 1024 px (panel → Portada · Muro del héroe en el celular). */
+export const HEROE_MOVIL = ['tras-titular', 'franja', 'tras-buscador', 'tras-botones', 'final'] as const;
+export type HeroeMovil = (typeof HEROE_MOVIL)[number];
 
 export { VARIANTES_HEROE, VARIANTES_HEROE_AB, leerPruebaHeroe, type PruebaHeroe, type VarianteHeroe } from './prueba-heroe';
 import { VARIANTES_HEROE, leerPruebaHeroe, type PruebaHeroe, type VarianteHeroe } from './prueba-heroe';
@@ -43,6 +46,8 @@ export interface AjustesV2 {
   mostrarDocente: boolean;
   /** «Disponible online en {país}» con las ciudades del país, en texto y sin enlaces. */
   mostrarCiudades: boolean;
+  /** «Tu ciudad (opcional)» en el diálogo «País y moneda»: preferencia solo del navegador (selector-ciudad/PROPUESTA.md). */
+  selectorCiudad: boolean;
   estiloCampo: EstiloCampo;
   /** Tarjetas de cursos entre 1024 y 1279 px: 3 columnas sin fila a medias (de fábrica), 3 con todas o 4. */
   columnasTarjetas: ColumnasTarjetas;
@@ -76,6 +81,15 @@ export interface AjustesV2 {
     /** Perfil público de la fuente (Google u otra), si se configuró con una URL https válida. */
     perfil: { nombre: string; url: string } | null;
   };
+  /** Cabeza de la ficha en celular y tableta (26-nov): descripción corta antes de la caja, recorte y «Leer más». */
+  cabezaFicha: {
+    /** `descripcion`: la descripción corta va entre las estrellas y la caja; `titulo`: solo título y valoración (va tras la caja). */
+    estilo: 'descripcion' | 'titulo';
+    /** Líneas visibles antes de «Leer más» (recorte con line-clamp, el texto entero en el HTML) o `completo`. */
+    lineas: '1' | '2' | '3' | 'completo';
+    /** `si-recorta`: «Leer más» solo cuando el texto no cabe; `nunca`: recorte sin enlace. */
+    leerMas: 'si-recorta' | 'nunca';
+  };
   /** Barra de campaña V2 («Ajustes del sitio → Campañas y cupones»). */
   barraCampana: {
     /** `sesion`: cerrada, no vuelve hasta cerrar la pestaña; `vista`: vuelve en la página siguiente. */
@@ -98,7 +112,7 @@ export interface AjustesV2 {
     pruebaHeroe: PruebaHeroe | null;
     categoriasVariante: 'fotos' | 'pila' | 'filas';
     comoFuncionaAnimado: boolean;
-    heroeMovil: 'tras-botones' | 'final';
+    heroeMovil: HeroeMovil;
     oficioModo: 'automatico' | 'estatico';
     oficioIntervalo: number;
     guiasVariante: 'tarjetas' | 'lista';
@@ -167,6 +181,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     mostrarCreador: v.mostrarCreador !== false,
     mostrarDocente: v.mostrarDocente !== false,
     mostrarCiudades: v.mostrarCiudades !== false,
+    selectorCiudad: v.selectorCiudad !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
     columnasTarjetas: uno(v.tarjetasColumnasMedio, ['tres-completas', 'tres', 'cuatro'] as const, 'tres-completas'),
     pieBorde: uno(v.pieBorde, ['escalonado', 'inverso', 'anchas', 'finas', 'tenue', 'ninguno'] as const, 'escalonado'),
@@ -187,6 +202,11 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       minimoExtractos: Number(uno(v.opinionesExtractosMinimo, ['1', '2', '3'] as const, '1')),
       maximoExtractos: Number(uno(v.opinionesExtractosMaximo, ['2', '3', '4'] as const, '4')),
       perfil: perfilOpiniones(texto('opinionesPerfilNombre', ''), texto('opinionesPerfilUrl', '')),
+    },
+    cabezaFicha: {
+      estilo: uno(v.fichaCabezaMovil, ['descripcion', 'titulo'] as const, 'descripcion'),
+      lineas: uno(v.fichaDescripcionLineas, ['1', '2', '3', 'completo'] as const, '2'),
+      leerMas: uno(v.fichaLeerMas, ['si-recorta', 'nunca'] as const, 'si-recorta'),
     },
     barraCampana: {
       cierre: uno(v.barraCampanaCierre, ['sesion', 'vista'] as const, 'sesion'),
@@ -220,7 +240,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       pruebaHeroe: leerPruebaHeroe(v.portadaHeroeAB, v.portadaHeroeABVariantes ?? 'muro, buscador', v.portadaHeroeABReparto, v.portadaHeroeABInicio),
       categoriasVariante: uno(v.portadaCategoriasVariante, ['fotos', 'pila', 'filas'] as const, 'fotos'),
       comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
-      heroeMovil: uno(v.portadaHeroeMovil, ['tras-botones', 'final'] as const, 'tras-botones'),
+      heroeMovil: uno(v.portadaHeroeMovil, HEROE_MOVIL, 'tras-buscador'),
       oficioModo: uno(v.portadaOficioModo, ['automatico', 'estatico'] as const, 'automatico'),
       oficioIntervalo: Number(uno(v.portadaOficioIntervalo, ['7000', '9000', '12000'] as const, '9000')),
       guiasVariante: uno(v.portadaGuiasVariante, ['tarjetas', 'lista'] as const, 'tarjetas'),

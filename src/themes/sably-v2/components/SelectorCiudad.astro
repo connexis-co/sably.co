@@ -1,0 +1,154 @@
+---
+/**
+ * «Tu ciudad (opcional)» dentro del diálogo «País y moneda» (docs/equipo/2026-11-26/selector-ciudad/PROPUESTA.md).
+ * La ciudad es una preferencia del navegador (`localStorage['sably:ciudad'] = {p, c, n}`) que no navega ni cambia el
+ * HTML que sirve el servidor: el mismo para todos, con las ciudades del país (`country.cities`, las de «Disponible
+ * online en {país}»). En el cliente solo toca lo que no mueve nada al cargar:
+ *  - el texto de los mensajes de WhatsApp de Sably (`wa.me/<número>?text=…`): «Escribo desde Medellín, Colombia.»;
+ *  - la pastilla de su ciudad en «Disponible online en {país}» (`[data-ciudad-slug]`), con «tu ciudad» para el lector;
+ *  - el botón del país (nombre accesible y la hoja del menú móvil, que no se ve al cargar);
+ *  - el evento `select_country` de GTM, que ya traía un campo `city`.
+ * Sin JS no aparece (`hidden`). Los estilos los pone el guion: ni la hoja común ni el primer pintado los llevan.
+ * Tras pulsar otro país (es un enlace), la página nueva reabre el diálogo una sola vez con el foco en la ciudad.
+ */
+import type { Country } from '@/lib/countries';
+interface Props { country: Country }
+const { country } = Astro.props;
+const ciudades = [...new Map((country.cities ?? []).map(c => [c.slug, c.name.trim()])).entries()].filter(([, n]) => n);
+---
+{ciudades.length > 0 && (
+  <div class="v2-ciudad" data-ciudad-panel data-pais={country.code} data-pais-nombre={country.name} hidden>
+    <p class="v2-ciudad-titulo" id="v2-ciudad-titulo">Tu ciudad <span>(opcional)</span></p>
+    <p class="v2-ciudad-nota" id="v2-ciudad-nota">Se guarda solo en este navegador. No cambia precios ni cursos.</p>
+    <div class="v2-ciudad-lista" role="radiogroup" aria-labelledby="v2-ciudad-titulo" aria-describedby="v2-ciudad-nota">
+      <button type="button" role="radio" aria-checked="true" tabindex="0" data-ciudad="">Solo el país</button>
+      {ciudades.map(([slug, nombre]) => <button type="button" role="radio" aria-checked="false" tabindex="-1" data-ciudad={slug}>{nombre}</button>)}
+    </div>
+    <p class="v2-ciudad-aviso" role="status" data-ciudad-aviso></p>
+  </div>
+)}
+<script>
+  type Eleccion = { p: string; c: string; n: string };
+  const CLAVE = 'sably:ciudad';
+  const ABRIR = 'sably:ciudad-abrir';
+  const panel = document.querySelector<HTMLElement>('[data-ciudad-panel]');
+  const leer = (): Eleccion | null => {
+    try {
+      const d = JSON.parse(localStorage.getItem(CLAVE) ?? 'null');
+      return d && typeof d.p === 'string' && typeof d.c === 'string' && typeof d.n === 'string' ? d : null;
+    } catch { return null; }
+  };
+  if (panel) {
+    const pais = panel.dataset.pais ?? '';
+    const paisNombre = panel.dataset.paisNombre ?? '';
+    const opciones = [...panel.querySelectorAll<HTMLButtonElement>('[data-ciudad]')];
+    const aviso = panel.querySelector<HTMLElement>('[data-ciudad-aviso]');
+    // La ciudad solo vale en su país y si sigue en la lista.
+    const vigente = (): Eleccion | null => {
+      const e = leer();
+      return e && e.p === pais && opciones.some(o => o.dataset.ciudad === e.c) ? e : null;
+    };
+
+    const estilo = document.createElement('style');
+    estilo.textContent = '.v2-pais-panel{max-height:calc(100dvh - 16px);overflow-y:auto;overscroll-behavior:contain}'
+      + '.v2-ciudad{margin:4px 0 8px;padding:12px;border-radius:12px;background:var(--color-navy-50)}'
+      + '.v2-ciudad-titulo{font:600 15px/22px var(--font-sans);color:var(--color-navy-950)}.v2-ciudad-titulo span{font-weight:500;color:var(--color-navy-500)}'
+      + '.v2-ciudad-nota{margin-top:2px;font:400 13px/18px var(--font-sans);color:var(--color-navy-500)}'
+      + '.v2-ciudad-lista{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}'
+      + '.v2-ciudad-lista button{min-height:40px;padding:0 14px;border:0;border-radius:999px;background:#fff;color:var(--color-navy-700);font:500 14px/20px var(--font-sans);box-shadow:inset 0 0 0 1px var(--color-navy-100);cursor:pointer}'
+      + '.v2-ciudad-lista button[aria-checked=true]{background:var(--color-navy-950);color:#fff;box-shadow:none}'
+      + '.v2-ciudad-lista button:focus-visible{outline:3px solid var(--color-coral-600);outline-offset:2px}'
+      + '@media (hover:hover) and (pointer:fine){.v2-ciudad-lista button[aria-checked=false]:hover{box-shadow:inset 0 0 0 1px var(--color-navy-300)}}'
+      + '.v2-ciudad-aviso{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}'
+      + '.v2-ciudades li[data-tu-ciudad]{color:var(--color-navy-950);box-shadow:inset 0 0 0 2px var(--color-coral-600)}'
+      + '.v2-ciudades li .v2-ciudad-tuya{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}';
+    document.head.appendChild(estilo);
+    panel.hidden = false;
+
+    function pintar() {
+      const e = vigente();
+      for (const o of opciones) {
+        const si = (o.dataset.ciudad ?? '') === (e?.c ?? '');
+        o.setAttribute('aria-checked', String(si));
+        o.tabIndex = si ? 0 : -1;
+      }
+      // Botones del país: nombre accesible (cabecera) y texto de la hoja del menú móvil (no se ve al cargar).
+      document.querySelectorAll<HTMLElement>('[popovertarget="v2-pais"][aria-label^="País:"]').forEach(b => {
+        b.dataset.etiquetaBase ??= b.getAttribute('aria-label') ?? '';
+        b.setAttribute('aria-label', e ? b.dataset.etiquetaBase.replace(`País: ${paisNombre}.`, `País: ${paisNombre}, ${e.n}.`) : b.dataset.etiquetaBase);
+      });
+      document.querySelectorAll<HTMLElement>('[data-pais-texto]').forEach(t => {
+        t.dataset.textoBase ??= t.textContent ?? '';
+        t.textContent = e ? `${paisNombre} · ${e.n}` : t.dataset.textoBase;
+      });
+      // «Disponible online en {país}»: su ciudad marcada (solo estilo y un texto oculto, sin cambiar el ancho).
+      document.querySelectorAll<HTMLElement>('.v2-ciudades [data-ciudad-slug]').forEach(li => {
+        const tuya = Boolean(e && li.dataset.ciudadSlug === e.c);
+        li.toggleAttribute('data-tu-ciudad', tuya);
+        li.querySelector('.v2-ciudad-tuya')?.remove();
+        if (tuya) li.insertAdjacentHTML('beforeend', '<span class="v2-ciudad-tuya"> (tu ciudad)</span>');
+      });
+    }
+
+    function elegir(o: HTMLButtonElement, foco = true) {
+      const c = o.dataset.ciudad ?? '';
+      const n = c ? (o.textContent ?? '').trim() : '';
+      try { if (c) localStorage.setItem(CLAVE, JSON.stringify({ p: pais, c, n })); else localStorage.removeItem(CLAVE); } catch { /* sin almacenamiento */ }
+      pintar();
+      if (foco) o.focus();
+      if (aviso) aviso.textContent = c ? `Ciudad: ${n}. La escribiremos en tus mensajes de WhatsApp.` : `Solo el país: ${paisNombre}.`;
+      (window as unknown as { dataLayer?: unknown[] }).dataLayer ??= [];
+      (window as unknown as { dataLayer: unknown[] }).dataLayer.push({ event: 'select_country', country_code: pais, city: c || 'all' });
+    }
+
+    for (const o of opciones) o.addEventListener('click', () => elegir(o));
+    panel.addEventListener('keydown', (ev) => {
+      const i = opciones.indexOf(document.activeElement as HTMLButtonElement);
+      if (i < 0) return;
+      const destino = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: opciones.length - 1 }[ev.key];
+      if (destino === undefined) return;
+      ev.preventDefault();
+      elegir(opciones[(destino + opciones.length) % opciones.length]!);
+    });
+
+    // WhatsApp de Sably (número en la ruta; el «compartir» sin número queda igual): la ciudad va en el mensaje.
+    document.addEventListener('click', (ev) => {
+      const e = vigente();
+      const a = (ev.target as Element | null)?.closest?.<HTMLAnchorElement>('a[href*="wa.me/"]');
+      if (!e || !a) return;
+      try {
+        const url = new URL(a.href);
+        if (url.hostname !== 'wa.me' || !/^\/\d+/.test(url.pathname)) return;
+        const frase = `Escribo desde ${e.n}, ${paisNombre}.`;
+        const texto = url.searchParams.get('text') ?? '';
+        if (texto.includes(frase)) return;
+        url.searchParams.set('text', texto ? `${texto}\n\n${frase}` : frase);
+        a.href = url.href;
+      } catch { /* enlace raro: se deja igual */ }
+    }, true);
+
+    // Pulsar otro país es un enlace: la página nueva reabre el diálogo una vez, con el foco en la ciudad.
+    document.querySelectorAll<HTMLElement>('[data-geo-country]').forEach(a => a.addEventListener('click', () => {
+      if (a.dataset.geoCountry && a.dataset.geoCountry !== pais) { try { sessionStorage.setItem(ABRIR, a.dataset.geoCountry); } catch { /* sin almacenamiento */ } }
+    }));
+    // Llegada por una URL de ciudad antigua: el 301 trae `#ciudad=<slug>` (city-redirect.ts). Se guarda como su
+    // elección, si es de este país, y se quita el fragmento de la barra sin recargar.
+    const desdeRedireccion = /^#ciudad=([a-z0-9-]+)$/.exec(location.hash)?.[1];
+    if (desdeRedireccion) {
+      const o = opciones.find(x => x.dataset.ciudad === desdeRedireccion);
+      if (o) { try { localStorage.setItem(CLAVE, JSON.stringify({ p: pais, c: desdeRedireccion, n: (o.textContent ?? '').trim() })); } catch { /* sin almacenamiento */ } }
+      history.replaceState(history.state, '', location.pathname + location.search);
+    }
+    let abrir = '';
+    try { abrir = sessionStorage.getItem(ABRIR) ?? ''; sessionStorage.removeItem(ABRIR); } catch { /* sin almacenamiento */ }
+    pintar();
+    const dialogo = document.getElementById('v2-pais');
+    if (abrir === pais && dialogo && 'showPopover' in dialogo) {
+      try {
+        dialogo.showPopover();
+        panel.scrollIntoView({ block: 'nearest' });
+        opciones.find(o => o.tabIndex === 0)?.focus({ preventScroll: true });
+      } catch { /* ya abierto o sin popover */ }
+    }
+  }
+</script>

@@ -9,7 +9,7 @@
  *  - Compartir: copiar enlace con aviso en role="status"; «Compartir» del sistema solo con puntero táctil.
  *  - Ancla «#» junto a cada apartado, ayuda «Desliza…» en tablas que desbordan, «Escuchar» que lleva al reproductor.
  *  - Narración fija: mientras suena y el reproductor salió por arriba, queda abajo (barra en móvil, píldora en
- *    escritorio); en móvil escribe --fijo-inferior para que lo demás suba con ella.
+ *    escritorio); escribe --fijo-inferior para que lo demás (cookie, WhatsApp, índice, avisos) suba con ella.
  */
 const $ = <T extends Element = HTMLElement>(s: string, r: Document | HTMLElement = document) => r.querySelector<T>(s);
 const $$ = <T extends Element = HTMLElement>(s: string, r: Document | HTMLElement = document) => [...r.querySelectorAll<T>(s)];
@@ -211,14 +211,24 @@ export function prepararArticulo() {
   const caja = $('[data-narracion-fija]');
   const audio = caja && $<HTMLAudioElement>('audio', caja);
   if (caja && audio) {
-    let fuera = false, cerrado = false;
-    const reproductor = caja.firstElementChild as HTMLElement;
+    let fuera = false, cerrado = false, puesto = false;
+    // El primer hijo es el <style> en línea del reproductor: se mide la caja .v2-medio.
+    const reproductor = $('.v2-medio', caja) ?? caja;
     const pintar = () => {
       const fija = fuera && !audio.paused && !cerrado;
       if (fija && !caja.hasAttribute('data-fija')) caja.style.setProperty('--alto-narracion', `${caja.offsetHeight}px`);
       caja.toggleAttribute('data-fija', fija);
+      // --fijo-inferior: lo que ocupa abajo (en escritorio, la cápsula y su margen). Solo se quita si lo puso este script.
       const movil = matchMedia('(width < 768px)').matches;
-      document.documentElement.style.setProperty('--fijo-inferior', fija && movil ? `${reproductor.offsetHeight}px` : '0px');
+      const raiz = document.documentElement.style;
+      if (fija) { raiz.setProperty('--fijo-inferior', `${reproductor.offsetHeight + (movil ? 0 : 16)}px`); puesto = true; }
+      else if (puesto) { raiz.removeProperty('--fijo-inferior'); puesto = false; }
+      // Lo que flota abajo y no sube solo con --fijo-inferior: se mide sin el empuje y se marca si la barra lo tapa.
+      const tope = fija && movil ? reproductor.getBoundingClientRect().top : Infinity;
+      for (const el of document.querySelectorAll<HTMLElement>('#sbc-ico, #sably-whatsapp')) {
+        el.toggleAttribute('data-sube-narracion', false);
+        if (el.getBoundingClientRect().bottom > tope) el.toggleAttribute('data-sube-narracion', true);
+      }
     };
     new IntersectionObserver(([e]) => { fuera = !e!.isIntersecting && e!.boundingClientRect.top < 0; pintar(); }).observe(caja);
     audio.addEventListener('play', () => { cerrado = false; pintar(); });

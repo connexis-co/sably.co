@@ -29,6 +29,7 @@ import NotaFuente from '@/components/v2/NotaFuente.astro';
 import CajaCompra from './CajaCompra.astro';
 import BarraFija from './BarraFija.astro';
 import VideoPresentacion from './VideoPresentacion.astro';
+import DescripcionCabeza from './DescripcionCabeza.astro';
 import Docente from './Docente.astro';
 import { docenteReal } from '@/lib/docente';
 import CiudadesPais from './CiudadesPais.astro';
@@ -184,7 +185,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
           <Migas items={breadcrumb} oscuro class="v2-migas" />
           <h1 id="titulo-curso" {...(locale?.edit.h1 ?? course.edit.title)} class="mt-3 font-display text-[28px] leading-[32px] font-semibold tracking-[-0.01em] text-balance text-navy-950 lg:mt-5 lg:text-[48px] lg:leading-[54px] lg:tracking-[-0.015em] lg:!text-white">{h1}</h1>
         </div>
-        {subtitulo && <p class="v2-area-promesa max-w-[560px] text-t17 text-navy-700 lg:mt-5 lg:text-t20 lg:text-white/80">{subtitulo}</p>}
+        {subtitulo && <DescripcionCabeza texto={subtitulo} ajustes={ajustes.cabezaFicha} />}
         <div class="v2-area-meta flex flex-col gap-3 lg:mt-6">
           {/* Sin docente con fuente, la cabeza no nombra a nadie: la marca del creador va junto al pago y en su bloque. */}
           <Docente instructor={course.data.instructor} lugar="cabeza" mostrar={ajustes.mostrarDocente} {sinProducto} />
