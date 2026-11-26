@@ -47,10 +47,14 @@ const DURACION = [30, 36, 33, 39];
     .v2-muro-pista { display: flex; gap: 12px; width: max-content; margin: 0; padding: 0; list-style: none; }
     .v2-muro-tar { position: relative; flex: none; z-index: 1; }
     @media (max-width: 1023.98px) {
-      /* «Tras los botones» (panel → Portada): el muro, más bajo, va entre los botones y la línea de valoraciones; así
-         asoma en la primera pantalla. Las reglas que abren la caja y el texto van en Heroe.astro, ANTES del texto. */
-      [data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-muro { order: 1; height: 236px; margin-top: 18px; }
-      [data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-muro-tar > a { width: 132px; }
+      /* Dentro del texto (panel → Portada · Muro del héroe en el celular: todo menos «Al final»): el muro, más bajo,
+         toma `order: 1` y el texto que va tras él, 2. Las reglas que abren la caja y el texto van en Heroe.astro,
+         ANTES del texto. «Franja»: aún más baja, entre la descripción y el buscador. */
+      [data-heroe='muro']:not([data-heroe-movil='final']) .v2-muro { order: 1; height: 236px; margin-top: 18px; }
+      [data-heroe='muro']:not([data-heroe-movil='final']) .v2-muro-tar > a { width: 132px; }
+      [data-heroe='muro']:is([data-heroe-movil='franja'], [data-heroe-movil='tras-buscador']) .v2-muro { height: 196px; margin-top: 14px; }
+      [data-heroe='muro']:is([data-heroe-movil='franja'], [data-heroe-movil='tras-buscador']) .v2-muro-tar > a { width: 120px; }
+      [data-heroe='muro']:is([data-heroe-movil='franja'], [data-heroe-movil='tras-buscador']) .v2-muro-pausa { min-height: 36px; padding: 0 12px; font-size: 13px; }
       .v2-muro { mask-image: linear-gradient(90deg, transparent, #000 18px, #000 calc(100% - 18px), transparent); }
       [data-heroe='muro'] .v2-heroe-caja { padding-bottom: 20px; }
     }

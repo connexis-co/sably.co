@@ -18,13 +18,16 @@ const nav = { areas: { length: total } };
   <ul data-entra="grupo" class="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] lg:grid lg:grid-cols-6 lg:overflow-visible" role="list">
     {conFoto.map(a => (
       <li class="w-[44%] flex-none snap-start lg:w-auto">
-        <a href={`${base}/cursos/${a.slug}/`} class="group block">
-          <span class="block aspect-[4/5] overflow-hidden rounded-c-lg bg-navy-50">
-            {a.foto ? <Foto nombre={a.foto} sizes="(min-width: 1024px) 180px, 44vw" decorativa class="h-full w-full object-cover transition-transform duration-(--t-lento) ease-(--e-sale) group-hover:scale-[1.03]" />
-              : a.fotoCms && <img src={a.fotoCms} alt="" width="480" height="600" loading="lazy" decoding="async" class="h-full w-full object-cover" />}
+        <a href={`${base}/cursos/${a.slug}/`} class="v2-cat group relative block overflow-hidden rounded-c-lg bg-navy-50 ring-1 ring-navy-100">
+          <span class="block aspect-[4/5]">
+            {a.foto ? <Foto nombre={a.foto} sizes="(min-width: 1024px) 180px, 44vw" decorativa class="v2-cat-foto h-full w-full object-cover" />
+              : a.fotoCms && <img src={a.fotoCms} alt="" width="480" height="600" loading="lazy" decoding="async" class="v2-cat-foto h-full w-full object-cover" />}
           </span>
-          <span class="mt-3 flex items-center justify-between gap-2 text-t17 font-semibold text-navy-950">{a.nombre}<Ico nombre="arrow-right" tamano={18} class="transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" /></span>
-          <span class="text-t13 text-navy-500">{a.total === 1 ? '1 curso' : `${a.total} cursos`}</span>
+          <span class="v2-cat-cuenta absolute top-2.5 left-2.5 rounded-full bg-white/92 px-2.5 py-0.5 text-t13 font-semibold text-navy-950">{a.total === 1 ? '1 curso' : `${a.total} cursos`}</span>
+          <span class="v2-cat-pie absolute inset-x-0 bottom-0 flex items-end justify-between gap-2 p-3 pt-12 text-white">
+            <span class="text-t17 leading-5 font-semibold text-balance">{a.nombre}</span>
+            <span class="v2-cat-flecha" aria-hidden="true"><Ico nombre="arrow-right" tamano={16} /></span>
+          </span>
         </a>
       </li>
     ))}
@@ -38,3 +41,17 @@ const nav = { areas: { length: total } };
     <a href={`${base}/cursos/`} class="v2-enlace ml-auto min-h-11">Ver las {nav.areas.length} áreas <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
   </div>
 </section>
+
+<style is:global>
+  /* Áreas con foto (E1, ronda 5): nombre y flecha sobre la foto con un degradado que asegura el contraste, recuento en
+     una pastilla y la misma flecha en círculo de marca que las tarjetas de curso. Solo `scale` y colores al pasar. */
+  .v2-cat-pie { background: linear-gradient(0deg, rgb(27 27 58 / .88) 0, rgb(27 27 58 / .55) 55%, rgb(27 27 58 / 0)); }
+  .v2-cat-flecha { display: grid; flex: none; place-items: center; width: 32px; height: 32px; border-radius: 999px; background: var(--color-coral-600); color: #fff; }
+  .v2-cat:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+  @media (prefers-reduced-motion: no-preference) {
+    .v2-cat-foto { transition: scale var(--t-lento) var(--e-sale); }
+    .v2-cat-flecha svg { transition: translate var(--t-rapido) var(--e-sale); }
+    .v2-cat:is(:hover, :focus-visible) .v2-cat-foto { scale: 1.04; }
+    .v2-cat:is(:hover, :focus-visible) .v2-cat-flecha svg { translate: 2px 0; }
+  }
+</style>

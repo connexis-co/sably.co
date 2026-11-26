@@ -24,13 +24,13 @@ import Cintas from './heroe/Cintas.astro';
 import Orbita from './heroe/Orbita.astro';
 import Anillo3d from './heroe/Anillo3d.astro';
 import Aurora from './heroe/Aurora.astro';
-import type { PruebaHeroe, VarianteHeroe } from '@/lib/ajustes-tema';
+import type { HeroeMovil, PruebaHeroe, VarianteHeroe } from '@/lib/ajustes-tema';
 import type { ExtraBusqueda } from '../../buscar-sugerencias';
 
 export interface OficioMosaico { id: string; titulo: string; foto: NombreFoto; precio: PrecioTarjeta | null; nota: { cifra: string; texto: string } | null }
 interface Props {
   /** Muro en el celular: tras los botones (asoma en la primera pantalla) o al final del héroe. */
-  movil?: 'tras-botones' | 'final';
+  movil?: HeroeMovil;
   textos: { eyebrow: string; title: string; accent: string; description: string; button: string; secondary: string };
   base: string;
   locale: string;
@@ -51,7 +51,7 @@ interface Props {
   /** Áreas y guías para las sugerencias del buscador. */
   extra?: ExtraBusqueda[];
 }
-const { textos, base, locale, areas, celdas, oficios, rotacion, variante: elegida = 'collage', fondo = 'liso', botones = 'dos', tachar = true, prueba = null, extra = [], pruebaAB = null, movil = 'tras-botones' } = Astro.props;
+const { textos, base, locale, areas, celdas, oficios, rotacion, variante: elegida = 'collage', fondo = 'liso', botones = 'dos', tachar = true, prueba = null, extra = [], pruebaAB = null, movil = 'tras-buscador' } = Astro.props;
 const ab = pruebaAB;
 /* Con la prueba encendida, la de control (la primera) es la que llevan el HTML y los bots; el guion en línea la cambia. */
 const variante: VarianteHeroe = ab ? ab.variantes[0]! : elegida;
@@ -66,6 +66,22 @@ const rotaLista = rotacion.rota && oficios.length > 1;
 const props = { oficios, base, locale, tachar, rota: rotaLista, intervalo: rotacion.intervalo, aleatorio: rotacion.orden === 'aleatorio' };
 const sinPrefijo = (t: string) => t.replace(/^\p{Extended_Pictographic}️?\s*/u, '');
 const rota = rotacion.rota && celdas.some(c => c.length > 1);
+/* Muro en el celular (panel → Portada · Muro del héroe en el celular): la caja pasa a columna flex y el texto a
+   `display: contents`; el muro toma `order: 1` y lo que va después de él en el texto, `order: 2`. La línea de
+   valoraciones queda siempre al final (3). Va en línea ANTES del texto: si llegara con el muro, con el HTML a trozos
+   el texto ya pintado saltaría (CLS 0,45 a 390, 26-nov). */
+const TRAS_MURO: Record<Exclude<HeroeMovil, 'final'>, string[]> = {
+  'tras-titular': ['desc', 'buscar', 'empezar', 'botones'],
+  franja: ['buscar', 'empezar', 'botones'],
+  'tras-buscador': ['empezar', 'botones'],
+  'tras-botones': [],
+};
+const cssMuroMovil = (m: HeroeMovil) => {
+  if (m === 'final') return '';
+  const r = `[data-heroe='muro'][data-heroe-movil='${m}']`;
+  const despues = TRAS_MURO[m].map(c => `${r} .v2-heroe-${c}`).join(',');
+  return `@layer components{@media (max-width:1023.98px){${r} .v2-heroe-caja{display:flex;flex-direction:column;gap:0}${r} .v2-heroe-texto{display:contents}${despues ? `${despues}{order:2}` : ''}${r} .v2-heroe-prueba{order:3}}}`;
+};
 const SIZES = ['(min-width: 1024px) 300px, 92vw', '(min-width: 1024px) 228px, 45vw', '(min-width: 1024px) 228px, 45vw'];
 /* Nota corta para el rótulo: «4,8 · 312 en Hotmart». */
 /* En las celdas pequeñas sobra «Curso de»: «Barbería desde Cero». */
@@ -95,15 +111,15 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
   {/* Muro «tras los botones» en el celular: la caja pasa a columna flex y el texto a `display: contents`, para que el
      muro (order 1) quede entre los botones y la línea de valoraciones (order 2). Va aquí, antes del texto: si llegara
      con el muro (que va después), con el HTML a trozos el texto ya pintado saltaría (CLS 0,45 a 390). */}
-  {nueva && oficios.length > 0 && ramas.includes('muro') && movil === 'tras-botones' && <style is:inline set:html={"@layer components{@media (max-width:1023.98px){[data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-caja{display:flex;flex-direction:column;gap:0}[data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-texto{display:contents}[data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-prueba{order:2}}}"}></style>}
+  {nueva && oficios.length > 0 && ramas.includes('muro') && movil !== 'final' && <style is:inline set:html={cssMuroMovil(movil)}></style>}
   {conAurora && <div class="v2-heroe-fondo" aria-hidden="true"><Aurora /></div>}
   <div class="v2-heroe-caja v2-contenedor grid items-center gap-10 pt-10 pb-14 lg:gap-14 lg:pt-24 lg:pb-24">
     <div class="v2-heroe-texto">
       <p class="v2-antetitulo v2-ht-suave">{sinPrefijo(textos.eyebrow)}</p>
-      <h1 class="v2-heroe-h1 mt-5 font-display text-[40px]/[44px] tracking-[-0.015em] lg:text-d72">{textos.title}<br /><span class="v2-ht-acento">{textos.accent}</span></h1>
-      <p class="v2-ht-suave mt-5 max-w-[560px] text-t17 lg:text-t20">{textos.description}</p>
-      <Buscar base={base} id="buscar-heroe" class="mt-8 max-w-[600px]" {extra} />
-      <p class="v2-ht-tenue mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-t15">Para empezar:
+      <h1 class="v2-heroe-h1 mt-5 font-display text-[34px]/[38px] tracking-[-0.015em] sm:text-[40px]/[44px] lg:text-d72">{textos.title}<br /><span class="v2-ht-acento">{textos.accent}</span></h1>
+      <p class="v2-heroe-desc v2-ht-suave mt-5 max-w-[560px] text-t17 lg:text-t20">{textos.description}</p>
+      <Buscar base={base} id="buscar-heroe" class="v2-heroe-buscar mt-8 max-w-[600px]" {extra} />
+      <p class="v2-heroe-empezar v2-ht-tenue mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-t15">Para empezar:
         {areas.slice(0, 4).map(a => <a href={`${base}/cursos/${a.slug}/`} class="v2-ht-enlace underline underline-offset-4">{a.nombre.toLowerCase()}</a>)}
       </p>
       {nueva ? (

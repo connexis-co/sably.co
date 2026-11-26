@@ -18,8 +18,12 @@ const { cifras, country } = Astro.props;
     )}
   </dl>
   <NotaFuente class="mt-4">Cursos y países contados el {cifras.hoy}.{cifras.leidas && ` Valoraciones leídas en Hotmart el ${cifras.leidas}: son las que Hotmart publica en la página de cada curso.`}</NotaFuente>
-  <div class="mt-8 flex flex-wrap items-center justify-between gap-x-8 gap-y-4 border-t border-navy-100 pt-6">
-    <p class="flex items-center gap-2 text-t15 text-navy-700">Pagas en <LogoHotmart alto={20} /></p>
-    <LogosPago pais={country.code} alto={22} />
+  <!-- Cómo se paga (E2, ronda 5): compacto, logotipos en fichas iguales, y los medios locales verificados del país. -->
+  <div class="mt-8 grid gap-4 rounded-c-lg bg-navy-50 p-4 sm:p-5 lg:grid-cols-[auto_minmax(0,1fr)] lg:items-center lg:gap-8">
+    <div>
+      <p class="flex items-center gap-2 text-t15 font-semibold text-navy-950">Pagas seguro en <LogoHotmart alto={20} /></p>
+      <p class="mt-1 text-t13 text-navy-700">Tarjeta, PayPal y los medios de {country.name} que tenga activados cada curso.</p>
+    </div>
+    <LogosPago pais={country.code} alto={22} fichas class="lg:justify-end" />
   </div>
 </section>
