@@ -101,7 +101,7 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
         {areas.slice(0, 4).map(a => <a href={`${base}/cursos/${a.slug}/`} class="v2-ht-enlace underline underline-offset-4">{a.nombre.toLowerCase()}</a>)}
       </p>
       {nueva ? (
-        <p class="mt-6 flex flex-wrap items-center gap-3">
+        <p class="v2-heroe-botones mt-6 flex flex-wrap items-center gap-3 max-sm:gap-2">
           <a href={`${base}/cursos/`} class="v2-btn v2-btn-principal" data-alto="52">{textos.button} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
           {botones === 'dos' && <a href="/homologaciones/" class="v2-btn v2-heroe-secundario" data-alto="52">Homologaciones</a>}
         </p>
@@ -167,6 +167,12 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
       .v2-heroe-caja { grid-template-columns: minmax(0, 1fr) minmax(0, 540px); }
       [data-heroe='vitrina'] .v2-heroe-caja { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
       [data-heroe='vitrina'] .v2-heroe-h1 { font-size: 56px !important; line-height: 60px !important; }
+    }
+    /* Móvil: los dos botones en una fila (desde 360 px), para que «Homologaciones» no baje a la franja del icono de
+       cookies, fijo abajo a la izquierda. */
+    @media (max-width: 639.98px) {
+      .v2-heroe-botones > .v2-btn { padding-inline: 14px; font-size: 15px; }
+      .v2-heroe-botones .v2-flecha { display: none; }
     }
     .v2-heroe-fondo { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
     [data-heroe='collage'] .v2-heroe-fondo { display: none; }
