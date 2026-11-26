@@ -8,7 +8,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { api, CSS_SO, Notice, Promotions, WidgetEditor } from './admin-comun';
 import { bloquesParaElPanel, ORDEN_DE_FABRICA } from '../../lib/portada-bloques';
 import { leerPruebaHeroe } from '../../lib/prueba-heroe';
-import { AJUSTES_PELIGROSOS, PESTANAS, cambiosAGuardar, settingsSchema, textoDeValor, valorDeFabrica, type ClaveAjuste, type IdPestana } from './ajustes';
+import { AJUSTES_PELIGROSOS, CAMPANA_CLAVES, PESTANAS, cambiosAGuardar, settingsSchema, textoDeValor, valorDeFabrica, type ClaveAjuste, type IdPestana } from './ajustes';
 
 const NATIVA = '/_emdash/api/admin/plugins/sably-operations/settings';
 const ADMIN = '/_emdash/admin';
@@ -134,7 +134,7 @@ export function AjustesPage() {
       </section>
       {seccion(['estiloCampo'], 'Formularios')}
     </>; break;
-    case 'campanas': cuerpo = <Promotions />; break;
+    case 'campanas': cuerpo = <>{seccion(CAMPANA_CLAVES, 'Qué enseña cada aviso de campaña')}<Promotions /></>; break;
     case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'], 'Caja de compra')}<WidgetEditor only="social" /></>; break;
     case 'portada': cuerpo = <>
       <section className="so-editor">

@@ -171,9 +171,10 @@ function pintar(el: HTMLElement, promo: Pintable): void {
   // La barra V2 que se cerró en esta sesión no vuelve a salir en cada página.
   el.hidden = v2 && el.dataset.promoV2 === 'barra' && cerradaEnSesion(promo.id);
   if (v2) {
-    // Sin segundos ni reloj que corre: la fecha de fin va en texto. Al llegar, se retira sola.
+    // Al llegar la fecha de fin, se retira sola. Si el aviso lleva contador (panel → Campañas y cupones), corre
+    // con el mismo reloj del clásico; si no, la fecha va en texto y aquí termina.
     if (promo.endsAt && Number.isFinite(vence) && vence < 2 ** 31) setTimeout(() => { el.hidden = true; }, vence);
-    return;
+    if (!el.querySelector('[data-u]')) return;
   }
 
   const reloj = el.querySelector<HTMLElement>('[data-promo-reloj]');
