@@ -41,19 +41,19 @@ const resumen = resumenTarjeta(course.data.shortDescription);
 /* Para las tarjetas más estrechas (cuatro columnas a 1024–1279 en la portada): dos líneas de ~18 a 24 caracteres (contenido de 178 a 250 px). */
 const resumenCorto = resumenTarjeta(course.data.shortDescription, 34);
 ---
-<article data-fila-movil={filaEnMovil || undefined} data-tarjeta-curso={course.id} class="group relative flex h-full flex-col overflow-hidden rounded-c-lg bg-white ring-1 ring-navy-100 transition-shadow duration-(--t-lento) ease-(--e-sale) hover:shadow-s2 hover:ring-transparent">
+<article data-fila-movil={filaEnMovil || undefined} data-tarjeta-curso={course.id} class="v2-tc group relative flex h-full flex-col rounded-c-lg bg-white ring-1 ring-navy-100">
   <div class="v2-tc-foto relative aspect-[4/3] overflow-hidden bg-navy-50">
     <OptimizedImage
       src={cmsImageUrl(course.cardImage) ?? cmsImageUrl(course.coverImage) ?? courseCover(course.id, cat.slug, 'card')}
       alt={course.data.title} width={480} height={360}
       sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
       loading={eager ? 'eager' : 'lazy'} decoding="async"
-      class="h-full w-full object-cover transition-transform duration-(--t-lento) ease-(--e-sale) group-hover:scale-[1.03]" />
+      class="h-full w-full object-cover transition-transform duration-(--t-base) ease-(--e-sale) group-hover:scale-[1.03]" />
     <span class="v2-tc-placa absolute top-3 left-3 rounded-full bg-navy-950/85 px-3 py-1 text-t13 font-medium text-white">{cat.name}</span>
   </div>
-  <div class="v2-tc-cuerpo flex flex-1 flex-col p-5">
+  <div class="v2-tc-cuerpo @container flex flex-1 flex-col p-5">
     <h3 class="v2-tc-titulo line-clamp-2 min-h-[2lh] text-t17 leading-6 font-semibold text-balance text-navy-950"><a href={url} class="after:absolute after:inset-0 focus-visible:outline-none">{course.data.title}</a></h3>
-    <p class="v2-tc-desc mt-1.5 line-clamp-2 min-h-[2lh] text-t15 leading-[22px] text-navy-700">{resumenCorto === resumen ? resumen : <><span class="v2-tc-r-largo">{resumen}</span><span class="v2-tc-r-corto">{resumenCorto}</span></>}</p>
+    <p class="v2-tc-desc mt-1.5 line-clamp-2 min-h-[2lh] text-t15 leading-[22px] text-navy-700">{resumenCorto === resumen ? resumen : <><span class="v2-tc-r-largo">{resumen}</span><span class="v2-tc-r-corto hidden">{resumenCorto}</span></>}</p>
     <p class="v2-tc-meta mt-3 truncate text-t13 leading-5 text-navy-500">{course.data.durationHours} h · {course.data.level}</p>
     {nota
       ? <p class="v2-tc-nota mt-1 flex h-5 items-center gap-1.5 text-t13 text-navy-500" title={nota.accesible}><Estrellas nota={valoracion!.rating} tamano={13} class="flex-none" /><span aria-hidden="true"><span class="font-semibold text-navy-950">{nota.cifra}</span> · {nota.numero}</span><span class="sr-only">{nota.accesible}</span></p>
@@ -65,41 +65,50 @@ const resumenCorto = resumenTarjeta(course.data.shortDescription, 34);
           {precio.normal !== null && <span class="v2-tc-normal text-t13 font-normal text-navy-500"><span class="sr-only">Precio normal: </span><Precio valor={precio.normal} moneda={precio.moneda} locale={country.hreflang} class="line-through decoration-[1.5px]" codigoClass="text-t13" /></span>}
         </span>
       ) : <span />}
-      <Icono nombre="arrow-right" class="v2-tc-flecha flex-none text-navy-950 transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" />
+      <Icono nombre="arrow-right" class="v2-tc-flecha flex-none text-navy-950 transition-transform duration-(--t-rapido) ease-(--e-sale) group-hover:translate-x-[3px]" />
     </p>
   </div>
 </article>
-<style>
-  article:has(a:focus-visible) { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+<style is:global>
+  /* Sin ámbito de Astro: los selectores cuelgan de `.v2-tc`, de clases v2-tc-* o de data-fila-movil, que solo existen aquí; así la
+     hoja común no repite el atributo data-astro-cid en cada regla. */
+  .v2-tc:has(a:focus-visible) { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+  /* Cursor (C9, juez pieza 31): la sombra s2 vive en un ::after y solo cambia su opacidad (composición, 240 ms),
+     en vez de animar `box-shadow` 380 ms en la tarjeta. La foto recorta con su propio radio superior, así que la
+     tarjeta ya no necesita `overflow: hidden`, que habría cortado la sombra. */
+  .v2-tc-foto { border-radius: var(--radius-c-lg) var(--radius-c-lg) 0 0; }
+  .v2-tc::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    box-shadow: var(--shadow-s2); opacity: 0; transition: opacity var(--t-base) var(--e-sale);
+  }
+  /* Al pasar el cursor y con el foco de teclado. Sin @media (hover): en el celular tocar la tarjeta ya navega. */
+  .v2-tc:is(:hover, :has(a:focus-visible))::after { opacity: 1; }
   /* El precio de hoy y el normal tachado van siempre juntos en una línea: en las tarjetas estrechas
      (4 columnas a 1280–1440, 2 columnas a 640) la flecha, que es decorativa, cede su sitio.
-     Ojo: el contenedor mide la caja de contenido, sin los 20 px de relleno de cada lado. */
-  .v2-tc-cuerpo { container-type: inline-size; }
-  @container (width < 265px) { .v2-tc-precio:has([data-normal]) :global(.v2-tc-flecha) { display: none; } }
-  .v2-tc-r-corto { display: none; }
+     Ojo: el contenedor (`@container` en .v2-tc-cuerpo) mide la caja de contenido, sin los 20 px de relleno de cada lado. */
+  @container (width < 265px) { .v2-tc-precio:has([data-normal]) .v2-tc-flecha { display: none; } }
+  /* El resumen corto llega oculto (`hidden`) y esta regla, fuera de capas, le gana a la utilidad. */
   @container (width < 252px) { .v2-tc-r-largo { display: none; } .v2-tc-r-corto { display: inline; } }
   @container (width < 220px) {
-    /* Cuatro columnas a 1024–1279 (portada, relacionados): «$ 600.30 MXN $ 1,200.60 MXN» no cabe en una línea
-       legible. El tachado pasa a una línea pequeña encima, con su hueco reservado en todas las tarjetas, para que
-       el precio de hoy quede a la misma altura en toda la fila. */
+    /* Cuatro columnas a 1024–1279 (opción «4» del panel) o un carril estrecho: «$ 600.30 MXN $ 1,200.60 MXN» no cabe
+       en una línea legible. El tachado pasa a una línea pequeña encima, con su hueco reservado en todas las tarjetas,
+       para que el precio de hoy quede a la misma altura en toda la fila. */
     .v2-tc-precio { min-height: 62px; align-items: flex-end; }
-    [data-tc-precio] { flex-wrap: wrap; }
+    .v2-tc-precio [data-tc-precio] { flex-wrap: wrap; }
     .v2-tc-normal { order: -1; flex-basis: 100%; line-height: 18px; }
   }
   @media (width < 640px) {
-    article[data-fila-movil] { display: grid; grid-template-columns: 112px minmax(0, 1fr); align-items: start; gap: 0 14px; padding: 14px 0; overflow: visible; border-radius: 0; background: transparent; box-shadow: none; }
-    article[data-fila-movil]:hover { box-shadow: none; }
-    article[data-fila-movil] .v2-tc-foto { border-radius: 12px; }
-    article[data-fila-movil] :is(.v2-tc-placa, .v2-tc-desc) { display: none; }
-    article[data-fila-movil] .v2-tc-cuerpo { padding: 0; }
-    article[data-fila-movil] .v2-tc-titulo { min-height: 0; }
-    article[data-fila-movil] .v2-tc-meta { margin-top: 4px; }
-    article[data-fila-movil] .v2-tc-nota[data-sin-nota] { display: none; }
-    article[data-fila-movil] .v2-tc-precio { padding-top: 6px; min-height: 0; }
+    [data-fila-movil] { display: grid; grid-template-columns: 112px minmax(0, 1fr); align-items: start; gap: 0 14px; padding: 14px 0; border-radius: 0; background: transparent; box-shadow: none; }
+    /* (box-shadow: none quita el anillo ring-1, que es una sombra.) Sin sombra al pasar, placa, descripción, hueco de la nota ni flecha (toda la fila es el enlace; el precio de hoy y el
+       tachado caben juntos sin la flecha). */
+    [data-fila-movil]::after, [data-fila-movil] :is(.v2-tc-placa, .v2-tc-desc, .v2-tc-nota[data-sin-nota], .v2-tc-flecha) { display: none; }
+    [data-fila-movil] .v2-tc-foto { border-radius: 12px; }
+    [data-fila-movil] .v2-tc-cuerpo { padding: 0; }
+    [data-fila-movil] .v2-tc-titulo { min-height: 0; }
+    [data-fila-movil] .v2-tc-meta { margin-top: 4px; }
+    [data-fila-movil] .v2-tc-precio { padding-top: 6px; min-height: 0; }
     /* MXN y CLP son más anchos («$1,191.32 MXN»): en la fila, hoy a 14 px y el normal a 12 px (ARS lleva decimales: «$ 96.862,00 ARS»), siempre juntos. */
-    article[data-fila-movil] [data-tc-precio] { font-size: 14px; column-gap: 4px; }
-    article[data-fila-movil] .v2-tc-normal, article[data-fila-movil] .v2-tc-normal :global(*) { font-size: 12px; }
-    /* En la fila el precio de hoy y el tachado caben juntos sin la flecha (toda la fila es el enlace). */
-    article[data-fila-movil] :global(.v2-tc-flecha) { display: none; }
+    [data-fila-movil] [data-tc-precio] { font-size: 14px; column-gap: 4px; }
+    [data-fila-movil] :is(.v2-tc-normal, .v2-tc-normal *) { font-size: 12px; }
   }
 </style>
