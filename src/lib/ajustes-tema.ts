@@ -48,10 +48,16 @@ export interface AjustesV2 {
   estiloCampo: EstiloCampo;
   /** Tarjetas de cursos entre 1024 y 1279 px: 3 columnas sin fila a medias (de fábrica), 3 con todas o 4. */
   columnasTarjetas: ColumnasTarjetas;
+  /** Reborde del pie: bandas de coral sobre el corte redondeado (de fábrica, escalonado). */
+  pieBorde: 'escalonado' | 'inverso' | 'anchas' | 'finas' | 'tenue' | 'ninguno';
   /** C5: en «Sobre este curso», una foto por pestaña con fundido (de fábrica). */
   sobreFotos: boolean;
   /** C6: movimiento de la ficha al bajar y animación del certificado (nunca con menos movimiento). */
-  movimientoFicha: { ficha: 'sobrio' | 'minimo' | 'ninguno'; certificado: 'destello' | 'entrada' | 'ninguna' };
+  movimientoFicha: { ficha: 'sobrio' | 'minimo' | 'ninguno'; certificado: 'arma' | 'lateral' | 'revela' | 'destello' | 'entrada' | 'ninguna' };
+  /** Barra fija de la ficha desde 1024 px: menú solo arriba + compra abajo (de fábrica), las dos completas, solo arriba o solo abajo. */
+  barraEscritorio: 'menu-abajo' | 'ambas' | 'arriba' | 'abajo';
+  /** Alineación del menú interno cuando va solo arriba («menu-abajo»). */
+  menuAlineacion: 'centro' | 'izquierda' | 'derecha';
   /** Temario y bloques de la ficha (paquete 2 del pulido: C7, C10a, C10b). */
   bloquesFicha: {
     /** `enfoca`: abrir un módulo cierra el anterior y lo encuadra; `encuadra`: solo lo encuadra; `nada`: acordeón libre. */
@@ -80,6 +86,8 @@ export interface AjustesV2 {
     enFicha: boolean;
     /** Pegada encima de la cabecera al desplazarse mientras esté abierta (E3). */
     fija: boolean;
+    /** Botón a los cursos de la campaña. `texto` lleva {pct}; `destino` vacío = listado filtrado del país; `ficha`: qué lleva en la ficha. */
+    boton: { activo: boolean; texto: string; destino: string; ficha: 'nada' | 'enlace' };
   };
   /** Qué enseña cada aviso de campaña («Campañas y cupones»): contador con segundero, cupón para copiar, ambos o la fecha. */
   campana: Record<'barra' | 'banda' | 'megamenu' | 'listado', MuestraCampana>;
@@ -133,6 +141,12 @@ function decodificar(valor: string): unknown {
 
 /** Puro: filas de `options` (+ variable de entorno) → ajustes con sus valores por defecto. */
 const MUESTRAS = ['contador', 'cupon', 'ambos', 'fecha'] as const;
+
+/** Botón de la barra de campaña: el texto lleva {pct} (el de la campaña vigente) y cabe en una línea. */
+export const BOTON_BARRA_POR_DEFECTO = 'Ver cursos con {pct}';
+const textoBoton = (t: string) => (t && t.length <= 32 ? t : BOTON_BARRA_POR_DEFECTO);
+/** Solo rutas propias («/…», no «//dominio»); cualquier otra cosa cae al listado filtrado (''). */
+const destinoBoton = (d: string) => (/^\/(?!\/)[^\s"'<>]*$/.test(d) && d.length <= 200 ? d : '');
 export type MuestraCampana = (typeof MUESTRAS)[number];
 
 export function leerAjustesV2(filas: { name: string; value: string }[], entornoTema?: string): AjustesV2 {
@@ -158,11 +172,14 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     selectorCiudad: v.selectorCiudad !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
     columnasTarjetas: uno(v.tarjetasColumnasMedio, ['tres-completas', 'tres', 'cuatro'] as const, 'tres-completas'),
+    pieBorde: uno(v.pieBorde, ['escalonado', 'inverso', 'anchas', 'finas', 'tenue', 'ninguno'] as const, 'escalonado'),
     sobreFotos: v.sobreFotosPestanas !== false,
     movimientoFicha: {
       ficha: uno(v.fichaMovimiento, ['sobrio', 'minimo', 'ninguno'] as const, 'sobrio'),
-      certificado: uno(v.certificadoAnimacion, ['destello', 'entrada', 'ninguna'] as const, 'destello'),
+      certificado: uno(v.certificadoAnimacion, ['arma', 'lateral', 'revela', 'destello', 'entrada', 'ninguna'] as const, 'arma'),
     },
+    barraEscritorio: uno(v.barraCompraEscritorio, ['menu-abajo', 'ambas', 'arriba', 'abajo'] as const, 'menu-abajo'),
+    menuAlineacion: uno(v.menuInternoAlineacion, ['centro', 'izquierda', 'derecha'] as const, 'centro'),
     bloquesFicha: {
       temario: uno(v.temarioEnfoque, ['enfoca', 'encuadra', 'nada'] as const, 'enfoca'),
       queIncluye: v.fichaQueIncluye !== false,
@@ -178,6 +195,12 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       cierre: uno(v.barraCampanaCierre, ['sesion', 'vista'] as const, 'sesion'),
       enFicha: v.barraCampanaFicha !== false,
       fija: v.barraCampanaFija !== false,
+      boton: {
+        activo: v.barraCampanaBoton !== false,
+        texto: textoBoton(texto('barraCampanaBotonTexto', BOTON_BARRA_POR_DEFECTO)),
+        destino: destinoBoton(texto('barraCampanaBotonDestino', '')),
+        ficha: uno(v.barraCampanaBotonFicha, ['nada', 'enlace'] as const, 'nada'),
+      },
     },
     campana: {
       barra: uno(v.campanaBarra, MUESTRAS, 'contador'),

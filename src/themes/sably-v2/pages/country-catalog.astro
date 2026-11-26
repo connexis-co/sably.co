@@ -6,7 +6,8 @@
  * chips por área que son enlaces a cada categoría, orden y «Ver más» con CSS,
  * franja de promoción intercalada y estado sin resultados útil. Debajo, el
  * directorio de áreas (con su descripción) y los creadores, como en el clásico.
- * Con `?q=` la página filtra en el servidor y no se indexa (canónica limpia).
+ * Con `?q=` la página filtra en el servidor y no se indexa (canónica limpia). Con `?oferta=1` (botón de la
+ * barra de campaña) enseña solo los cursos de la campaña vigente: misma canónica, `noindex, follow`.
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { relDe } from '@/lib/enlaces-propios';
@@ -18,7 +19,7 @@ import { monedasCobradas } from '@/lib/moneda-catalogo';
 import { SITE } from '@/lib/site';
 import { datosNavegacion, nombreArea } from '../navegacion';
 import { promoDeLaPagina } from '../promo-v2';
-import { filtrarCursos, ordenesDeCursos } from '../listado';
+import { cursosDeLaCampana, filtrarCursos, ordenesDeCursos } from '../listado';
 import type { load } from '@/lib/page-loaders/country-catalog';
 import '../estilos.css';
 import '../sugerencias.css';
@@ -39,7 +40,10 @@ const ordenAreas = new Map(nav.areas.map((a, i) => [a.slug, i]));
 const enOrden = byCategory.flatMap(g => g.courses).sort((a, b) =>
   (ordenAreas.get(a.data.category) ?? 99) - (ordenAreas.get(b.data.category) ?? 99) || Number(b.data.featured) - Number(a.data.featured));
 const ordenes = await ordenesDeCursos(enOrden, country, slug => nav.nombreDeArea.get(slug) ?? slug, { url: Astro.url, locals: Astro.locals });
-const encontrados = q ? filtrarCursos(enOrden, q, ordenes.buscable) : enOrden;
+/* `?oferta=1`: solo los cursos de la campaña vigente. Sin campaña (venció) se ve el listado entero con un aviso. */
+const oferta = Astro.url.searchParams.get('oferta') === '1';
+const deCampana = oferta && promo ? await cursosDeLaCampana(enOrden, country, promo.id, { url: Astro.url, locals: Astro.locals }) : enOrden;
+const encontrados = q ? filtrarCursos(deCampana, q, ordenes.buscable) : deCampana;
 const externas = CATEGORIES.filter(c => c.externalUrl);
 /* Sugerencias del buscador (I3): además de los cursos, las áreas y las guías del blog, como en el héroe. */
 const extraBusqueda: ExtraBusqueda[] = [
@@ -49,7 +53,7 @@ const extraBusqueda: ExtraBusqueda[] = [
 const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos', url: `${SITE.url}${base}/cursos/` }];
 ---
 
-<BaseLayout {title} {description} {country} pathAfterCountry="/cursos/" alternates={await countryAlternates('/cursos/')} {schemas} pageType="catalog" noindex={!!q} freshUntil={ordenes.freshUntil} temaV2>
+<BaseLayout {title} {description} {country} pathAfterCountry="/cursos/" alternates={await countryAlternates('/cursos/')} {schemas} pageType="catalog" noindex={!!q || oferta} freshUntil={ordenes.freshUntil} temaV2>
   <section class="border-b border-navy-100 bg-white">
     <div class="v2-contenedor pt-6 pb-8 lg:pt-8 lg:pb-10">
       <Migas items={migas} oscuro={false} />
@@ -64,7 +68,7 @@ const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos',
       </form>
       <nav aria-label="Cursos por área" class="v2-fundido-x -mx-5 mt-5 overflow-x-auto px-5 [scrollbar-width:none] lg:mx-0 lg:px-0 lg:[mask-image:none]">
         <ul class="flex gap-2 lg:flex-wrap" role="list">
-          <li class="flex-none"><a href={`${base}/cursos/`} class="v2-chip gap-2" aria-current={q ? undefined : 'page'}>{!q && <span class="size-1.5 rounded-full bg-coral-500" aria-hidden="true"></span>}Todos</a></li>
+          <li class="flex-none"><a href={`${base}/cursos/`} class="v2-chip gap-2" aria-current={q || oferta ? undefined : 'page'}>{!q && !oferta && <span class="size-1.5 rounded-full bg-coral-500" aria-hidden="true"></span>}Todos</a></li>
           {nav.areas.map(a => <li class="flex-none"><a href={`${base}/cursos/${a.slug}/`} class="v2-chip">{a.nombre}</a></li>)}
         </ul>
       </nav>
@@ -74,6 +78,16 @@ const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos',
   {/* data-cms: las tarjetas pintan el título y la descripción corta de cada curso, que son del CMS. */}
   <section class="v2-contenedor pt-8 pb-4" aria-labelledby="lista-titulo" data-cms>
     <h2 id="lista-titulo" class="sr-only">{q ? `Resultados de «${q}»` : `Los ${courses.length} cursos`}</h2>
+    {oferta && (
+      <div class="mb-6 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 rounded-c-lg bg-navy-950 px-5 py-4 text-white" data-oferta-filtro>
+        {promo ? (
+          <p class="text-t15 lg:text-t17"><strong class="font-semibold">{promo.etiqueta} · {promo.pct} %</strong> en {deCampana.length === 1 ? '1 curso' : `${deCampana.length} cursos`}{promo.fin && <span class="text-white/75">. Termina el {promo.fin} (hora de Colombia)</span>}</p>
+        ) : (
+          <p class="text-t15 lg:text-t17">Ahora no hay una campaña vigente en {country.name}: estos son todos los cursos.</p>
+        )}
+        <a href={`${base}/cursos/`} class="inline-flex items-center gap-1.5 text-t15 font-semibold underline underline-offset-4"><Ico nombre="x" tamano={16} />Quitar el filtro y ver todos</a>
+      </div>
+    )}
     {q && encontrados.length > 0 && <p class="text-t17 text-navy-700"><strong class="text-navy-950">{encontrados.length}</strong> {encontrados.length === 1 ? 'curso coincide' : 'cursos coinciden'} con «{q}». <a href={`${base}/cursos/`} class="font-semibold text-navy-950 underline underline-offset-4">Ver todos</a></p>}
     {encontrados.length === 0 ? (
       <div class="max-w-[640px] py-10">
@@ -87,7 +101,7 @@ const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos',
         </div>
       </div>
     ) : (
-      <RejillaCursos id="cursos" cursos={encontrados} {country} {promo} {base} ordenNota={ordenes.ordenNota} ordenPrecio={ordenes.ordenPrecio} precios={ordenes.precios} buscable={ordenes.buscable} filtrable visibles={q ? encontrados.length : 24} />
+      <RejillaCursos id="cursos" cursos={encontrados} {country} {promo} {base} ordenNota={ordenes.ordenNota} ordenPrecio={ordenes.ordenPrecio} precios={ordenes.precios} buscable={ordenes.buscable} filtrable visibles={q || (oferta && promo) ? encontrados.length : 24} />
     )}
   </section>
 
@@ -98,8 +112,8 @@ const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos',
       {byCategory.map(({ cat, courses: delArea }) => (
         <li id={cat.slug} class="scroll-mt-28 border-b border-navy-100">
           <a href={`${base}/cursos/${cat.slug}/`} class="group flex h-full items-start justify-between gap-4 py-5">
-            <span>
-              <span class="flex items-baseline gap-2"><strong class="font-display text-t20 font-semibold text-navy-950 group-hover:underline group-hover:underline-offset-4">{nombreArea(cat.name)}</strong><span class="text-t13 text-navy-500">{delArea.length === 1 ? '1 curso' : `${delArea.length} cursos`}</span></span>
+            <span class="min-w-0">
+              <span class="flex flex-wrap items-baseline gap-x-2"><strong class="font-display text-t20 font-semibold text-navy-950 group-hover:underline group-hover:underline-offset-4">{nombreArea(cat.name)}</strong><span class="text-t13 text-navy-500">{delArea.length === 1 ? '1 curso' : `${delArea.length} cursos`}</span></span>
               <span class="mt-1 block text-t15 text-navy-700">{cat.description}</span>
             </span>
             <span class="flex flex-none items-center gap-1 pt-1 text-t13 font-semibold text-navy-950">Ver categoría<Ico nombre="arrow-right" tamano={16} class="transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" /></span>

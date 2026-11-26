@@ -27,6 +27,15 @@
   .v2-pestanas:has(#pestana-estudia:checked) .v2-sobre-foto[data-foto='estudia'] { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .v2-sobre-foto { transition: none !important; } }
+/* I1: el texto de la pestaña elegida entra con un fundido corto, al mismo ritmo que su foto (antes cambiaba en seco).
+   `display` pasa de none a block, así que la animación corre cada vez que se muestra el panel. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes v2-panel-entra { from { opacity: 0; transform: translateY(8px); } }
+  .v2-pestanas .v2-panel { animation: v2-panel-entra 280ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  /* I1: al llegar desde la navegación interna, el título del apartado se señala una vez (BarraFija pone data-llega). */
+  @keyframes v2-llega { 0% { opacity: 0.25; transform: translateX(-14px); } 100% { opacity: 1; transform: none; } }
+  [data-llega] { animation: v2-llega 560ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+}
 
 /* Texto largo. */
 .v2-prosa[data-texto-largo] { color: var(--color-navy-700); font-size: 17px; line-height: 28px; }
@@ -76,6 +85,32 @@
     }
     .v2-cert-escena[data-cert='destello'] .v2-const-qr { animation-name: v2-cert-sello; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --v2-cert; animation-range: entry 75% contain 15%; }
   }
+}
+
+/* C6 · certificado que se dispara una vez (CourseLanding pone data-listo al cargar si aún no se ve y data-visto al
+   asomar). Solo opacity y transform. Sin data-listo (sin JS o con «reducir movimiento») todo queda quieto y visible. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Armado: el marco, la banda oscura que entra por la izquierda, el texto línea a línea, el talón y el QR como sello. */
+  .v2-cert-escena[data-cert='arma'][data-listo]:not([data-visto]) :is(.v2-const, .v2-const-centro > p, .v2-const-centro > div > p, .v2-const-centro > dl, .v2-const-talon > :not(.v2-const-qr), .v2-const-qr) { opacity: 0; }
+  .v2-cert-escena[data-cert='arma'][data-listo]:not([data-visto]) .v2-const { transform: translateY(18px) scale(0.97); }
+  .v2-cert-escena[data-cert='arma'][data-listo]:not([data-visto]) .v2-const-panel { transform: translateX(-102%); }
+  .v2-cert-escena[data-cert='arma'][data-listo]:not([data-visto]) :is(.v2-const-centro > p, .v2-const-centro > div > p, .v2-const-centro > dl) { transform: translateY(10px); }
+  .v2-cert-escena[data-cert='arma'][data-listo]:not([data-visto]) .v2-const-talon > :not(.v2-const-qr) { transform: translateX(16px); }
+  .v2-cert-escena[data-cert='arma'][data-listo]:not([data-visto]) .v2-const-qr { transform: scale(0.35) rotate(-16deg); }
+  .v2-cert-escena[data-cert='arma'][data-visto] .v2-const { transition: opacity 360ms ease-out, transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .v2-cert-escena[data-cert='arma'][data-visto] .v2-const-panel { transition: transform 620ms cubic-bezier(0.2, 0.8, 0.2, 1) 220ms; }
+  .v2-cert-escena[data-cert='arma'][data-visto] :is(.v2-const-centro > p, .v2-const-centro > div > p, .v2-const-centro > dl) { transition: opacity 380ms ease-out, transform 480ms cubic-bezier(0.2, 0.8, 0.2, 1); transition-delay: calc(480ms + var(--i, 0) * 110ms); }
+  .v2-cert-escena[data-cert='arma'][data-visto] .v2-const-talon > :not(.v2-const-qr) { transition: opacity 380ms ease-out 1100ms, transform 480ms cubic-bezier(0.2, 0.8, 0.2, 1) 1100ms; }
+  .v2-cert-escena[data-cert='arma'][data-visto] .v2-const-qr { transition: opacity 200ms ease-out 1350ms, transform 560ms cubic-bezier(0.3, 1.6, 0.5, 1) 1350ms; }
+  /* Lateral: entra desde la izquierda con un leve giro y se asienta. */
+  .v2-cert-escena[data-cert='lateral'][data-listo]:not([data-visto]) .v2-cert-hoja { opacity: 0; transform: translateX(-16%) rotate(-5deg); }
+  .v2-cert-escena[data-cert='lateral'][data-visto] .v2-cert-hoja { transition: opacity 420ms ease-out, transform 900ms cubic-bezier(0.2, 0.9, 0.25, 1.08); }
+  /* Revela: una cortina del color del fondo se recoge hacia la derecha y el certificado se asienta debajo. */
+  .v2-cert-escena[data-cert='revela'] .v2-cert-hoja::after { content: ''; position: absolute; z-index: 2; inset: -2px; background: var(--color-navy-50); transform-origin: 100% 50%; transform: scaleX(0); pointer-events: none; }
+  .v2-cert-escena[data-cert='revela'][data-listo]:not([data-visto]) .v2-cert-hoja::after { transform: scaleX(1); }
+  .v2-cert-escena[data-cert='revela'][data-listo]:not([data-visto]) .v2-const { transform: scale(1.05); }
+  .v2-cert-escena[data-cert='revela'][data-visto] .v2-cert-hoja::after { transition: transform 1000ms cubic-bezier(0.75, 0, 0.2, 1) 120ms; }
+  .v2-cert-escena[data-cert='revela'][data-visto] .v2-const { transition: transform 1400ms cubic-bezier(0.2, 0.8, 0.2, 1); }
 }
 
 /* C7: el módulo que se cierra arriba al abrir otro lo hace sin animar (el script compensa el desplazamiento). */

@@ -90,6 +90,9 @@ const titulo = varios ? 'Empieza con uno de los cursos de esta guía' : principa
       const estado = () => {
         atras.disabled = pista.scrollLeft <= 2;
         adelante.disabled = pista.scrollLeft + pista.clientWidth >= pista.scrollWidth - 2;
+        // Fundido en los bordes con cursos por ver (CSS en blog.css).
+        pista.toggleAttribute('data-antes', !atras.disabled);
+        pista.toggleAttribute('data-despues', !adelante.disabled);
       };
       atras.addEventListener('click', () => pista.scrollBy({ left: -(paso() + 16), behavior: suave() }));
       adelante.addEventListener('click', () => pista.scrollBy({ left: paso() + 16, behavior: suave() }));
