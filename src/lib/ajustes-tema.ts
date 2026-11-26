@@ -24,6 +24,16 @@ export interface AjustesV2 {
     /** Texto del bloque `titulo` del núcleo común: variables {curso} y {escuela} (el creador); sin cifras. Vacío = sin título. */
     titulo: string;
     subtitulo: string;
+    /** C4: contorno, sombra honda y filete coral para que la caja destaque del fondo (de fábrica). */
+    resaltada: boolean;
+    /** C8: título y subtítulo centrados con una línea corta debajo (de fábrica). */
+    tituloCentrado: boolean;
+    /** C9: «Precio normal» tachado con campaña (de fábrica) o sin tachar. */
+    precioNormal: 'tachado' | 'sin-tachar';
+    /** C10: fila «Precio para {país}» (de fábrica, oculta). */
+    pais: boolean;
+    /** C11: el reloj late, el segundero corre y la barra brilla (de fábrica; nunca con menos movimiento). */
+    movimiento: boolean;
   };
   /** «Lo dicta …» en la cabeza y en la caja. */
   mostrarCreador: boolean;
@@ -32,6 +42,28 @@ export interface AjustesV2 {
   /** «Disponible online en {país}» con las ciudades del país, en texto y sin enlaces. */
   mostrarCiudades: boolean;
   estiloCampo: EstiloCampo;
+  /** C5: en «Sobre este curso», una foto por pestaña con fundido (de fábrica). */
+  sobreFotos: boolean;
+  /** C6: movimiento de la ficha al bajar y animación del certificado (nunca con menos movimiento). */
+  movimientoFicha: { ficha: 'sobrio' | 'minimo' | 'ninguno'; certificado: 'destello' | 'entrada' | 'ninguna' };
+  /** Temario y bloques de la ficha (paquete 2 del pulido: C7, C10a, C10b). */
+  bloquesFicha: {
+    /** `enfoca`: abrir un módulo cierra el anterior y lo encuadra; `encuadra`: solo lo encuadra; `nada`: acordeón libre. */
+    temario: 'enfoca' | 'encuadra' | 'nada';
+    /** «Qué incluye el curso» (lámina `jYRD5`): cifras reales de la ficha como titular. */
+    queIncluye: boolean;
+    /** Tarjeta de «Cursos relacionados»: `placa` que crece sobre la foto (`fEaNY` · 6, sin precio) o la de listado con precio. */
+    relacionados: 'placa' | 'precio';
+  };
+  /** Bloque de opiniones de la ficha V2 (ronda 2 de JP, C1 y C3). */
+  opiniones: {
+    /** `lista`: nota grande y extractos reales en lista editorial (`HVAlI`); `compacto`: una sola fila con la nota. */
+    estilo: 'lista' | 'compacto';
+    /** Extractos de Hotmart que hacen falta para enseñar la lista (con menos, estado honesto sin citas). */
+    minimoExtractos: number;
+    /** Perfil público de la fuente (Google u otra), si se configuró con una URL https válida. */
+    perfil: { nombre: string; url: string } | null;
+  };
   /** Barra de campaña V2 («Ajustes del sitio → Campañas y cupones»). */
   barraCampana: {
     /** `sesion`: cerrada, no vuelve hasta cerrar la pestaña; `vista`: vuelve en la página siguiente. */
@@ -67,6 +99,12 @@ export const SUBTITULO_CAJA_POR_DEFECTO = SUBTITULO_SABLY;
 const uno = <T extends string>(valor: unknown, validos: readonly T[], defecto: T): T =>
   typeof valor === 'string' && (validos as readonly string[]).includes(valor) ? (valor as T) : defecto;
 
+/** Solo una URL https con su nombre: un perfil a medio configurar no se enseña. */
+function perfilOpiniones(nombre: string, url: string): { nombre: string; url: string } | null {
+  if (!nombre || !url) return null;
+  try { return new URL(url).protocol === 'https:' ? { nombre: nombre.slice(0, 40), url } : null; } catch { return null; }
+}
+
 function decodificar(valor: string): unknown {
   try { return JSON.parse(valor); } catch { return valor; }
 }
@@ -83,11 +121,31 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       contador: uno(v.cajaContador, ['barra', 'casillas', 'linea', 'tique'] as const, 'barra'),
       titulo: texto('cajaTitulo', TITULO_CAJA_POR_DEFECTO),
       subtitulo: texto('cajaSubtitulo', SUBTITULO_CAJA_POR_DEFECTO),
+      resaltada: v.cajaResaltada !== false,
+      tituloCentrado: v.cajaTituloCentrado !== false,
+      precioNormal: uno(v.cajaPrecioNormal, ['tachado', 'sin-tachar'] as const, 'tachado'),
+      pais: v.cajaPais === true,
+      movimiento: v.cajaMovimiento !== false,
     },
     mostrarCreador: v.mostrarCreador !== false,
     mostrarDocente: v.mostrarDocente !== false,
     mostrarCiudades: v.mostrarCiudades !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
+    sobreFotos: v.sobreFotosPestanas !== false,
+    movimientoFicha: {
+      ficha: uno(v.fichaMovimiento, ['sobrio', 'minimo', 'ninguno'] as const, 'sobrio'),
+      certificado: uno(v.certificadoAnimacion, ['destello', 'entrada', 'ninguna'] as const, 'destello'),
+    },
+    bloquesFicha: {
+      temario: uno(v.temarioEnfoque, ['enfoca', 'encuadra', 'nada'] as const, 'enfoca'),
+      queIncluye: v.fichaQueIncluye !== false,
+      relacionados: uno(v.relacionadosTarjeta, ['placa', 'precio'] as const, 'placa'),
+    },
+    opiniones: {
+      estilo: uno(v.opinionesEstilo, ['lista', 'compacto'] as const, 'lista'),
+      minimoExtractos: Number(uno(v.opinionesExtractosMinimo, ['1', '2', '3'] as const, '1')),
+      perfil: perfilOpiniones(texto('opinionesPerfilNombre', ''), texto('opinionesPerfilUrl', '')),
+    },
     barraCampana: {
       cierre: uno(v.barraCampanaCierre, ['sesion', 'vista'] as const, 'sesion'),
       enFicha: v.barraCampanaFicha !== false,

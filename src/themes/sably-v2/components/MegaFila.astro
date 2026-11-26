@@ -10,7 +10,7 @@ const { curso, base, area } = Astro.props;
     <strong class="block truncate text-t15 font-semibold text-navy-950">{curso.titulo}</strong>
     <span class="flex items-center gap-1 text-t13 text-navy-500">
       {curso.nota
-        ? <><Ico nombre="star" tamano={13} class="text-[#B87300]" /><span class="font-medium text-navy-700">{curso.nota.cifra}</span> · {curso.nota.texto.replace(/, leídas.*$/, '')}</>
+        ? <><Ico nombre="star" tamano={13} class="text-[#B87300]" /><span class="font-medium text-navy-700">{curso.nota.cifra}</span> · {curso.nota.numero}<span class="sr-only"> calificaciones en Hotmart</span></>
         : area}
     </span>
   </span>

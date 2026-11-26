@@ -13,11 +13,11 @@ import { Image as OptimizedImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { VerifiedReviews } from '@/themes';
 import ResenasCurso from '@/components/ResenasCurso.astro';
+import OpinionesFicha from './OpinionesFicha.astro';
 import CmsRichBody from '@/components/CmsRichBody.astro';
 import LeadModal from '@/components/LeadModal.astro';
 import Icono from '@/components/v2/Icono.astro';
 import Estrellas from '@/components/v2/Estrellas.astro';
-import LogoHotmart from '@/components/v2/LogoHotmart.astro';
 import Boton from '@/components/v2/Boton.astro';
 import Migas from '@/components/v2/Migas.astro';
 import FilaDatos from '@/components/v2/FilaDatos.astro';
@@ -31,6 +31,10 @@ import BarraFija from './BarraFija.astro';
 import VideoPresentacion from './VideoPresentacion.astro';
 import Docente from './Docente.astro';
 import CiudadesPais from './CiudadesPais.astro';
+import GuiasFicha from './GuiasFicha.astro';
+import QueIncluye from './QueIncluye.astro';
+import TarjetaPlaca from './TarjetaPlaca.astro';
+import { prepareRichContent } from '@/lib/rich-content';
 import { cargarFicha, type FichaProps } from '@/lib/ficha';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import { mostrarPromedio, notaHotmart } from '@/lib/opiniones';
@@ -41,6 +45,7 @@ import { importe, fotoPropia, iniciales } from '@/lib/presentacion-v2';
 import Precio from '@/components/v2/Precio.astro';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { courseCover } from '@/lib/categories';
+import { fotoDeCurso, srcFoto } from '../fotos';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { plazoMasCorto, preciosDeTarjetas } from '@/lib/precio-hoy';
 
@@ -67,7 +72,9 @@ const nota = notaHotmart(valoracion);
 /* Tarjetas de especializaciones y relacionados: el precio de SU ficha, con la misma
    función que esta (src/lib/precio-hoy.ts). La página no vive en caché más que la
    cotización más corta que pinta. */
-const tarjetas = await preciosDeTarjetas([...satellites.slice(0, 8), ...related], country, { url: Astro.url, locals: Astro.locals });
+/* Con la placa (C10b, sin precio) los relacionados no piden cotización. */
+const relacionadosConPrecio = ajustes.bloquesFicha.relacionados === 'precio';
+const tarjetas = await preciosDeTarjetas([...satellites.slice(0, 8), ...(relacionadosConPrecio ? related : [])], country, { url: Astro.url, locals: Astro.locals });
 const vigencia = plazoMasCorto(freshUntil, tarjetas.freshUntil);
 const whatsapp = buildWhatsAppUrl(country.whatsapp, `Hola, tengo una duda antes de inscribirme en «${course.data.title}»`);
 
@@ -76,6 +83,15 @@ const whatsapp = buildWhatsAppUrl(country.whatsapp, `Hola, tengo una duda antes 
    antes de un subtítulo pasadas ~300 palabras. Las dos mitades van en el HTML. */
 const textoHtml = content.richBody ? null : (localeHtml ?? courseHtml ?? '');
 const texto = textoHtml ? dividirTexto(textoHtml, 300) : null;
+/* C10d: índice «En este texto» también cuando el texto viene del panel (rich text), con los mismos id que pinta
+   CmsRichBody (prepareRichContent). Solo el nivel más alto que aparezca, y solo con dos títulos o más. */
+const titulosPanel = (() => {
+  if (!content.richBody) return [];
+  const todos = prepareRichContent(content.richBody).headings.filter(h => h.depth >= 2 && h.depth <= 3 && h.text.trim());
+  const nivel = Math.min(...todos.map(h => h.depth));
+  return todos.filter(h => h.depth === nivel).map(h => ({ id: h.slug, texto: h.text.trim() }));
+})();
+const indiceTexto = texto ? texto.titulos : titulosPanel;
 
 const datos = [
   { icono: 'circle-play' as const, etiqueta: 'Lecciones', valor: `${course.data.lessonsCount} en vídeo` },
@@ -83,6 +99,32 @@ const datos = [
   { icono: 'signal' as const, etiqueta: 'Nivel', valor: course.data.level },
   { icono: 'infinity' as const, etiqueta: 'Ritmo', valor: 'A tu ritmo' },
 ];
+/* Fotos de las otras pestañas de «Sobre este curso» (C5). Solo fotos del MISMO oficio o neutras: la de tarjeta del
+   curso si es distinta de la portada, la foto propia del oficio (solo por coincidencia del curso, no la del área: un
+   electricista no ilustra un curso de plomería) y, para cerrar, fotos de estudiar con el celular, que valen para
+   cualquier curso. Sin candidata, la pestaña conserva la portada. */
+/* C6: movimiento al bajar (panel → Caja de compra → Movimiento de la ficha). «Ninguno» quita también la aparición de
+   los bloques; «sobrio» añade la cascada de las listas. El CSS solo actúa sin «reducir movimiento». */
+const aparece = ajustes.movimientoFicha.ficha === 'ninguno' ? undefined : '';
+const cascada = ajustes.movimientoFicha.ficha === 'sobrio';
+const fotoTarjeta = cmsImageUrl(course.cardImage);
+const fotoOficio = fotoDeCurso(course.id, '');
+/* C10a: foto de «Qué incluye»: la del oficio si existe; si no, estudiar con el celular (la otra va en «Más sobre»). */
+const fotoIncluye = fotoOficio ? srcFoto(fotoOficio) : srcFoto('foto-estudiar-celular-1');
+const fotoIncluyeAlt = fotoOficio ? '' : 'Una mujer mira una lección en el celular mientras viaja en bus';
+const fotoIncluyePie = fotoOficio ? `${category.name}. Foto ilustrativa del oficio.` : 'Las lecciones se ven desde el celular o el computador. Foto ilustrativa.';
+/* C7: temario que enfoca (panel: temarioEnfoque). Con «enfoca», `<details name>` deja un solo módulo abierto aun sin JS. */
+const modoTemario = ajustes.bloquesFicha.temario;
+const candidatasSobre = [...new Set([
+  fotoTarjeta && fotoTarjeta !== portada ? fotoTarjeta : null,
+  fotoOficio ? srcFoto(fotoOficio) : null,
+  srcFoto('foto-estudiar-celular-2'),
+].filter((f): f is string => Boolean(f)))];
+const fotosSobre = [
+  { id: 'para-quien', src: candidatasSobre[0] },
+  { id: 'necesitas', src: candidatasSobre[1] },
+  { id: 'estudia', src: srcFoto('foto-estudiar-celular-1') },
+].filter((f): f is { id: string; src: string } => Boolean(f.src));
 const pestanas = [
   { id: 'aprende', etiqueta: 'Qué aprenderás' },
   { id: 'para-quien', etiqueta: 'Para quién es' },
@@ -142,9 +184,13 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
           )}
           <Docente instructor={course.data.instructor} lugar="cabeza" mostrar={ajustes.mostrarDocente} {sinProducto} />
           {!sinProducto && nota && (
-            <p class="flex items-center gap-1.5 text-t15 text-navy-700 lg:text-white/80">
-              <Estrellas nota={valoracion!.rating} />
-              <strong class="v2-num ml-1 font-semibold text-navy-950 lg:text-white">{nota.cifra}</strong> · {nota.texto}
+            <p class="text-t15 text-navy-700 lg:text-white/80">
+              {/* C1: las estrellas llevan al bloque de opiniones (desplazamiento suave y foco: OpinionesFicha). */}
+              <a href="#opiniones" class="v2-nota-cabeza group/nota -my-2 inline-flex min-h-11 items-center gap-1.5 whitespace-nowrap" title={nota.accesible}>
+                <Estrellas nota={valoracion!.rating} class="flex-none" />
+                <span aria-hidden="true"><strong class="v2-num ml-1 font-semibold text-navy-950 lg:text-white">{nota.cifra}</strong> · <span class="underline decoration-navy-300 decoration-1 underline-offset-4 group-hover/nota:decoration-current lg:decoration-white/40">{nota.corto}</span></span>
+                <span class="sr-only">{nota.accesible}. Ir a las opiniones</span>
+              </a>
             </p>
           )}
         </div>
@@ -180,12 +226,15 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
     </section>
 
     <!-- Sobre este curso: pestañas de píldora sobre la foto; los cuatro paneles están en el HTML. -->
-    <section id="sobre" class="v2-bloque-tinta scroll-mt-36" aria-labelledby="titulo-sobre" data-aparece>
+    <section id="sobre" class="v2-bloque-tinta scroll-mt-36" aria-labelledby="titulo-sobre" data-aparece={aparece}>
       <div class="v2-contenedor py-16 lg:py-24">
         <h2 id="titulo-sobre" class="font-display text-d28 lg:text-d40">Sobre este curso</h2>
         <div class="v2-pestanas mt-8 grid gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-12">
           <div class="relative self-start">
-            <OptimizedImage src={portada} alt={`${category.name}: ${course.data.title}`} width={600} height={600} sizes="(min-width: 1024px) 600px, 100vw" loading="lazy" decoding="async" class="aspect-[4/5] w-full rounded-c-xl object-cover lg:aspect-square" />
+            <OptimizedImage src={portada} alt={`${category.name}: ${course.data.title}`} width={600} height={600} sizes="(min-width: 1024px) 600px, 100vw" loading="lazy" decoding="async" class="v2-sobre-foto aspect-[4/5] w-full rounded-c-xl object-cover lg:aspect-square" data-foto="aprende" />
+            {/* C5 (ronda 2 de JP): una foto por pestaña, con fundido. Todas están en el HTML y cargan con la sección,
+                así el cambio no espera a la red. Las de serie son decorativas (alt vacío): el texto está en el panel. */}
+            {ajustes.sobreFotos && fotosSobre.map(f => <img src={f.src} alt="" width="600" height="600" loading="lazy" decoding="async" class="v2-sobre-foto absolute inset-0 h-full w-full rounded-c-xl object-cover" data-foto={f.id} />)}
             <fieldset class="absolute inset-x-3 bottom-3 flex min-w-0 justify-center">
               <legend class="sr-only">Apartados de «Sobre este curso»</legend>
               <div class="v2-pildoras">
@@ -197,7 +246,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
             <div id="panel-aprende" class="v2-panel" role="region" aria-labelledby="titulo-aprende">
               <h3 id="titulo-aprende" class="font-display text-d28">{`Qué aprenderás en ${nombreEnFrase}`}</h3>
               <ol class="mt-6 divide-y divide-navy-100 border-y border-navy-100">
-                {learnings.map((item, i) => <li class="flex gap-6 py-4 text-t17 text-navy-950"><span class="v2-num w-8 flex-none font-display text-d28 leading-none text-navy-300" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><span>{item}</span></li>)}
+                {learnings.map((item, i) => <li class:list={['flex gap-6 py-4 text-t17 text-navy-950', cascada && 'v2-cascada']}><span class="v2-num w-8 flex-none font-display text-d28 leading-none text-navy-300" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span><span>{item}</span></li>)}
               </ol>
             </div>
             <div id="panel-para-quien" class="v2-panel" role="region" aria-labelledby="titulo-para-quien">
@@ -228,7 +277,14 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
         </div>
         {!sinProducto && (
           <div class="mt-12 grid gap-6 lg:mt-16 lg:grid-cols-[minmax(0,620px)_1fr] lg:items-center lg:gap-12">
-            <Constancia curso={course.data.title} creador={creador} class="[--constancia-fondo:var(--color-navy-50)]" />
+            {/* C6: el certificado de ejemplo se endereza, lo cruza un brillo y el QR entra como un sello, ligado al
+                desplazamiento (panel: certificadoAnimacion). La escena da la perspectiva y la línea de tiempo. */}
+            <div class="v2-cert-escena" data-cert={ajustes.movimientoFicha.certificado}>
+              <div class="v2-cert-hoja relative">
+                <Constancia curso={course.data.title} creador={creador} class="[--constancia-fondo:var(--color-navy-50)]" />
+                {ajustes.movimientoFicha.certificado === 'destello' && <span class="v2-cert-brillo" aria-hidden="true"></span>}
+              </div>
+            </div>
             <div class="max-w-[420px]">
               <h3 class="font-display text-d28">Lo que acredita tu certificado</h3>
               <p class="mt-3 text-t17">Este documento es una ilustración con datos de ejemplo. El certificado real lo emite Hotmart, con su propio diseño, cuando completas el 100 % de las lecciones.</p>
@@ -238,17 +294,23 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
       </div>
     </section>
 
-    <!-- Temario: el primer módulo abierto; todas las lecciones en el HTML. -->
-    <section id="temario" class="scroll-mt-36" aria-labelledby="titulo-temario" data-aparece>
+    {ajustes.bloquesFicha.queIncluye && (
+      <QueIncluye lecciones={course.data.lessonsCount} horas={course.data.durationHours} modulos={course.data.modules}
+        foto={fotoIncluye} fotoAlt={fotoIncluyeAlt} fotoPie={fotoIncluyePie} {cascada} {aparece} />
+    )}
+
+    <!-- Temario: el primer módulo abierto; todas las lecciones en el HTML. C7: abrir un módulo lo encuadra bajo la
+         cabecera y la navegación (y con «enfoca», cierra el anterior: `<details name>`). -->
+    <section id="temario" class="scroll-mt-36" aria-labelledby="titulo-temario" data-aparece={aparece}>
       <div class="v2-contenedor py-16 lg:py-24">
         <div class="max-w-[880px]">
           <div class="flex flex-wrap items-end justify-between gap-3 border-b border-navy-100 pb-6">
             <h2 id="titulo-temario" class="font-display text-d28 lg:text-d40">{`Temario ${deNombre}`}</h2>
             <p class="v2-num text-t15 text-navy-700">{course.data.modules.length} módulos · {course.data.lessonsCount} lecciones · {course.data.durationHours} horas</p>
           </div>
-          <div class="divide-y divide-navy-100 border-b border-navy-100">
+          <div class="divide-y divide-navy-100 border-b border-navy-100" data-temario={modoTemario}>
             {course.data.modules.map((mod, i) => (
-              <details class="v2-acordeon v2-modulo group" open={i === 0}>
+              <details class:list={['v2-acordeon v2-modulo group', cascada && 'v2-cascada']} open={i === 0} name={modoTemario === 'enfoca' ? 'temario' : undefined}>
                 <summary class="flex min-h-[72px] items-center gap-4 py-3">
                   <span class="v2-num grid size-10 flex-none place-items-center rounded-c-sm bg-navy-50 text-t15 font-semibold text-navy-950 group-open:bg-navy-950 group-open:text-white">{i + 1}</span>
                   <span class="flex-1 text-t17 font-semibold text-navy-950 lg:text-t20">{mod.title}</span>
@@ -267,7 +329,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
 
     <!-- Quién lo dicta y opiniones propias (solo con tres o más). -->
     {(creador || !sinProducto) && (
-      <section id="creador" class="v2-bloque-tinta scroll-mt-36" aria-labelledby={creador ? 'titulo-creador' : undefined} data-aparece data-cms>
+      <section id="creador" class="v2-bloque-tinta scroll-mt-36" aria-labelledby={creador ? 'titulo-creador' : undefined} data-aparece={aparece} data-cms>
         <div class="v2-contenedor space-y-10 py-16 lg:py-24">
           {creadoresVisibles.length > 0 && ajustes.mostrarCreador && creadoresVisibles.map(c => (
             <article class="flex flex-col gap-6 rounded-c-lg bg-white p-6 sm:flex-row sm:items-center lg:p-10">
@@ -283,39 +345,30 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
             </article>
           ))}
           <Docente instructor={course.data.instructor} lugar="ficha" mostrar={ajustes.mostrarDocente} {sinProducto} />
-          {/* Opiniones de hoy (lámina z2Zai, «sin opiniones suficientes»): la nota de Hotmart con su fuente
-              y su fecha, y lo que todavía no hay. Con menos de 5 calificaciones no se pinta. */}
-          {!sinProducto && nota && (
-            <section id="opiniones" aria-labelledby="titulo-opiniones" class="flex flex-col gap-4 rounded-c-lg bg-white p-6 sm:flex-row sm:items-center lg:px-10">
-              <h2 id="titulo-opiniones" class="font-display text-t20 font-semibold sm:w-36 sm:flex-none">Opiniones</h2>
-              <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
-                <LogoHotmart alto={16} />
-                <span class="flex items-center gap-2"><Estrellas nota={valoracion!.rating} tamano={18} /><strong class="v2-num text-t20 font-semibold text-navy-950">{nota.cifra} de 5</strong></span>
-              </div>
-              <p class="text-t13 text-navy-700 sm:ml-auto sm:text-right">{nota.texto}<span class="block text-navy-500">{verifiedReviews.reviews.length ? '' : 'Aún no hay opiniones de compradores publicadas en Sably.'}</span></p>
-            </section>
-          )}
+          {/* Opiniones (ronda 2 de JP, C3): nota de Hotmart con su fuente y su fecha, y extractos reales en lista
+              editorial, o la fila compacta, según el panel. Con menos de 5 calificaciones no se pinta. */}
+          {!sinProducto && nota && <OpinionesFicha slug={course.id} rating={valoracion!.rating} {nota} ajustes={ajustes.opiniones} sinPropias={!verifiedReviews.reviews.length} />}
           {/* Con menos de 5 opiniones no se muestra el promedio (widgets-opiniones.md). */}
           {mostrarPromedio(('rating' in verifiedReviews ? verifiedReviews.rating?.count : 0) ?? 0) && <VerifiedReviews data={verifiedReviews} />}
-          {!sinProducto && <ResenasCurso slug={course.id} />}
+          {!sinProducto && ajustes.opiniones.estilo === 'compacto' && <ResenasCurso slug={course.id} />}
         </div>
       </section>
     )}
 
     <!-- Más sobre el curso: ~300 palabras visibles; el resto plegado pero en el HTML. -->
     {(texto || content.richBody) && (
-      <section id="mas" class="scroll-mt-36" aria-labelledby="titulo-mas" data-aparece data-cms>
+      <section id="mas" class="scroll-mt-36" aria-labelledby="titulo-mas" data-aparece={aparece} data-cms>
         <div class="v2-contenedor grid gap-10 py-16 lg:grid-cols-[480px_1fr] lg:gap-24 lg:py-24">
           <div class="hidden lg:block">
             <figure class="m-0">
               <img src="/v2/fotos/foto-estudiar-celular-2.webp" alt="Una joven estudia en la mesa de la cocina con el celular apoyado y un cuaderno" width="480" height="600" loading="lazy" decoding="async" class="aspect-[4/5] w-full rounded-c-xl object-cover" />
               <figcaption class="mt-3 text-t13 text-navy-500">Las lecciones se ven desde el celular o el computador. Foto ilustrativa.</figcaption>
             </figure>
-            {texto && texto.titulos.length > 1 && (
-              <nav aria-label="En este texto" class="sticky top-40 mt-10">
+            {indiceTexto.length > 1 && (
+              <nav aria-label="En este texto" class="sticky top-40 mt-10" data-indice-texto>
                 <p class="text-t13 font-semibold text-navy-500">En este texto</p>
                 <ul class="mt-3 border-l border-navy-100">
-                  {texto.titulos.map(t => <li><a href={`#${t.id}`} class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-t15 text-navy-700 hover:border-coral-600 hover:text-navy-950" data-indice>{t.texto}</a></li>)}
+                  {indiceTexto.map(t => <li><a href={`#${t.id}`} class="v2-indice-enlace block border-l-2 border-transparent py-2 pl-4 -ml-px text-t15 text-navy-700 hover:border-coral-600 hover:text-navy-950" data-indice>{t.texto}</a></li>)}
                 </ul>
               </nav>
             )}
@@ -342,7 +395,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
 
     <!-- Garantía y cómo funciona Sably. -->
     {!sinProducto && (
-      <section class="v2-bloque-tinta" aria-labelledby="titulo-funciona" data-aparece>
+      <section class="v2-bloque-tinta" aria-labelledby="titulo-funciona" data-aparece={aparece}>
         <div class="v2-contenedor grid gap-10 py-16 lg:grid-cols-[1fr_480px] lg:gap-20 lg:py-24">
           <div>
             <h2 id="titulo-funciona" class="font-display text-d28 lg:text-d40">Cómo funciona Sably</h2>
@@ -371,7 +424,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
     )}
 
     <!-- Preguntas frecuentes: una columna, el título arriba. Las mismas del FAQPage. -->
-    <section id="preguntas" class="scroll-mt-36" aria-labelledby="titulo-preguntas" data-aparece data-cms>
+    <section id="preguntas" class="scroll-mt-36" aria-labelledby="titulo-preguntas" data-aparece={aparece} data-cms>
       <div class="mx-auto max-w-[800px] px-5 py-16 lg:py-24">
         <h2 id="titulo-preguntas" class="font-display text-d28 lg:text-d40">{`Preguntas frecuentes sobre ${nombreEnFrase}`}</h2>
         <p class="mt-3 flex items-center gap-2 text-t15 text-navy-700"><img src="/v2/logos/whatsapp.svg" alt="" width="18" height="18" />¿Otra duda? <a href={whatsapp} target="_blank" rel="noopener nofollow" class="font-semibold text-navy-950 underline underline-offset-4">Escríbenos por WhatsApp</a></p>
@@ -385,25 +438,11 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
       </div>
     </section>
 
-    {guides.length > 0 && (
-      <section class="py-16" aria-labelledby="titulo-guias" data-aparece>
-        <div class="v2-contenedor">
-          <h2 id="titulo-guias" class="font-display text-d28 lg:text-d40">Guías para seguir aprendiendo</h2>
-          <div class="mt-8 grid gap-6 sm:grid-cols-2">
-            {guides.map(post => (
-              <a href={`/blog/${post.id}/`} class="group flex flex-col rounded-c-lg p-6 ring-1 ring-navy-100 transition-shadow duration-(--t-base) hover:shadow-s2 hover:ring-transparent">
-                <h3 class="text-t20 font-semibold text-navy-950">{post.data.title}</h3>
-                <p class="mt-2 text-t15 text-navy-700">{post.data.description}</p>
-                <span class="v2-enlace mt-4">Leer la guía <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
+    <!-- C8: guías del blog con foto, categoría y «Escúchalo» si están narradas; se ve bien con una, dos o tres. -->
+    <GuiasFicha guias={guides} {aparece} />
 
     {satellites.length > 0 && (
-      <section class="py-16" aria-labelledby="titulo-especializate" data-aparece data-cms>
+      <section class="py-16" aria-labelledby="titulo-especializate" data-aparece={aparece} data-cms>
         <div class="v2-contenedor">
           <h2 id="titulo-especializate" class="font-display text-d28 lg:text-d40">Especialízate después de este curso</h2>
           <p class="mt-3 max-w-2xl text-t17 text-navy-700">Este es el curso general. Cuando domines la base, estas especializaciones te dejan cobrar más por servicio.</p>
@@ -428,7 +467,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
     )}
 
     {related.length > 0 && (
-      <section class="py-16 lg:py-24" aria-labelledby="titulo-relacionados" data-aparece data-cms>
+      <section class="py-16 lg:py-24" aria-labelledby="titulo-relacionados" data-aparece={aparece} data-cms>
         <div class="v2-contenedor">
           <div class="flex flex-wrap items-end justify-between gap-4">
             <div>
@@ -437,7 +476,9 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
             </div>
             <a href={`/${country.code}/cursos/${category.slug}/`} class="v2-enlace">Ver los cursos de {category.name} <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></a>
           </div>
-          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{related.map(c => <TarjetaCurso course={c} {country} precio={tarjetas.precios.get(c.id) ?? null} />)}</div>
+          {relacionadosConPrecio
+            ? <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{related.map(c => <TarjetaCurso course={c} {country} precio={tarjetas.precios.get(c.id) ?? null} />)}</div>
+            : <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-relacionados-placa>{related.map(c => <TarjetaPlaca course={c} {country} />)}</div>}
         </div>
       </section>
     )}
@@ -551,7 +592,13 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
     .v2-pestanas:has(#pestana-necesitas:checked) label[data-paso='necesitas'] { display: inline-flex; }
     .v2-pestanas:has(#pestana-estudia:checked) #panel-estudia { display: block; }
     .v2-pestanas:has(#pestana-estudia:checked) span[data-paso='estudia'] { display: inline; }
+    /* C5: la foto de la pestaña elegida aparece sobre la anterior con un fundido (solo opacidad). */
+    .v2-sobre-foto[data-foto]:not([data-foto='aprende']) { opacity: 0; transition: opacity 250ms var(--e-sale, ease-out); }
+    .v2-pestanas:has(#pestana-para-quien:checked) .v2-sobre-foto[data-foto='para-quien'],
+    .v2-pestanas:has(#pestana-necesitas:checked) .v2-sobre-foto[data-foto='necesitas'],
+    .v2-pestanas:has(#pestana-estudia:checked) .v2-sobre-foto[data-foto='estudia'] { opacity: 1; }
   }
+  @media (prefers-reduced-motion: reduce) { .v2-sobre-foto { transition: none !important; } }
 
   /* Texto largo. */
   .v2-prosa { color: var(--color-navy-700); font-size: 17px; line-height: 28px; }
@@ -575,6 +622,51 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
   .peer:checked ~ .v2-leer :global(.v2-giro) { rotate: 180deg; }
   .peer:focus-visible ~ .v2-leer label { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
   @media print { .v2-plegado { display: block; } .v2-prosa-altura { max-height: none; } }
+
+  /* C6 (ronda 2 de JP). Solo transform y opacity, ligados al desplazamiento; sin soporte o con «reducir movimiento»,
+     todo queda quieto y visible. Longhands y `animation-timeline` DESPUÉS de las demás: el minificador funde las
+     sueltas en la abreviada `animation` y la abreviada reinicia la línea de tiempo (se perdió así una vez).
+     El certificado usa la línea de tiempo con nombre de su escena: la constancia tiene `overflow: hidden` y un
+     `view()` dentro de ella se ataría a ella y no a la página. */
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes v2-cascada { from { opacity: 0; transform: translateY(14px); } }
+      .v2-cascada { animation-name: v2-cascada; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% entry 80%; }
+
+      .v2-cert-escena { perspective: 1400px; view-timeline-name: --v2-cert; view-timeline-axis: block; }
+      @keyframes v2-cert-endereza { from { opacity: 0.35; transform: translateY(64px) rotateX(24deg) scale(0.9); } to { opacity: 1; transform: none; } }
+      @keyframes v2-cert-sube { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
+      @keyframes v2-cert-brillo { from { transform: translateX(-160%) skewX(-14deg); } to { transform: translateX(420%) skewX(-14deg); } }
+      @keyframes v2-cert-sello { 0% { opacity: 0; transform: scale(0.35) rotate(-14deg); } 70% { opacity: 1; transform: scale(1.1) rotate(3deg); } 100% { opacity: 1; transform: none; } }
+      .v2-cert-escena[data-cert='destello'] .v2-cert-hoja { transform-origin: 50% 100%; animation-name: v2-cert-endereza; animation-duration: auto; animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1); animation-fill-mode: both; animation-timeline: --v2-cert; animation-range: entry 0% entry 100%; }
+      .v2-cert-escena[data-cert='entrada'] .v2-cert-hoja { animation-name: v2-cert-sube; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --v2-cert; animation-range: entry 0% entry 90%; }
+      .v2-cert-brillo { position: absolute; inset: 0; z-index: 1; overflow: clip; border-radius: var(--radius-c-lg); pointer-events: none; }
+      .v2-cert-brillo::before {
+        content: ''; position: absolute; inset: -10% auto -10% 0; width: 30%;
+        background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.7) 50%, transparent);
+        animation-name: v2-cert-brillo; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --v2-cert; animation-range: contain 5% contain 45%;
+      }
+      .v2-cert-escena[data-cert='destello'] :global(.v2-const-qr) { animation-name: v2-cert-sello; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --v2-cert; animation-range: entry 75% contain 15%; }
+    }
+  }
+
+  /* C7: el módulo que se cierra arriba al abrir otro lo hace sin animar (el script compensa el desplazamiento). */
+  .v2-modulo[data-sin-animar]::details-content { transition: none; }
+  /* Señal de «aquí está lo que abriste»: el número se tiñe un momento (color, no movimiento). */
+  .v2-modulo[data-recien] > summary > span:first-child { box-shadow: 0 0 0 3px var(--color-coral-100, #fbd9e2); }
+  /* C10b: en el celular las placas (416 px) van en un carril deslizable, no apiladas: cuatro seguidas alargaban la
+     ficha casi 1.800 px. Se asoma la siguiente para que se note que hay más. */
+  @media (width < 640px) {
+    [data-relacionados-placa] {
+      grid-auto-flow: column; grid-auto-columns: 82%; grid-template-columns: none; gap: 12px; overflow-x: auto;
+      margin-inline: -20px; padding: 4px 20px 8px; scroll-padding-inline: 20px; scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain; scrollbar-width: none;
+    }
+    [data-relacionados-placa]::-webkit-scrollbar { display: none; }
+    [data-relacionados-placa] > :global(*) { scroll-snap-align: start; }
+  }
+  /* C10d: el apartado en lectura se marca en el índice. */
+  .v2-indice-enlace[aria-current='true'] { border-color: var(--color-coral-600); color: var(--color-navy-950); font-weight: 600; }
 
   /* Cierre: el «50» como ilustración tipográfica recortada por el borde. */
   .v2-cierre-cifra {
@@ -614,6 +706,98 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
   }
   document.querySelectorAll<HTMLAnchorElement>('[data-cta-hotmart]').forEach(cta =>
     cta.addEventListener('click', () => trackEvent('click_cta_hotmart', { page: location.pathname, cta_position: cta.dataset.ctaPosition ?? 'unknown' })));
+  const reducido = matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* C7 · Temario que enfoca (prototipo 04 del estudio de animación). Solo se encuadra lo que abrió la persona (clic,
+     Enter o Espacio), nunca al cargar ni por un #ancla, y el foco se queda en el título del módulo. */
+  const temario = document.querySelector<HTMLElement>('[data-temario]');
+  const modo = temario?.dataset.temario;
+  if (temario && (modo === 'enfoca' || modo === 'encuadra')) {
+    const modulos = [...temario.querySelectorAll<HTMLDetailsElement>('details.v2-modulo')];
+    /* Lo fijo arriba (cabecera y pestañas de secciones) y abajo (barra de compra del celular), medido al momento. */
+    const tapaArriba = () => {
+      let borde = 0;
+      for (const el of document.querySelectorAll<HTMLElement>('[data-cabecera], .v2-fija-nav, div[data-barra-fija]')) {
+        const r = el.getBoundingClientRect();
+        if (r.height > 0 && r.top < 200 && getComputedStyle(el).visibility !== 'hidden') borde = Math.max(borde, r.bottom);
+      }
+      return borde + 16;
+    };
+    const tapaAbajo = () => {
+      const compra = document.querySelector<HTMLElement>('div[data-barra-fija]:not([data-oculta]) .v2-fija-compra');
+      const r = compra?.getBoundingClientRect();
+      return (r && r.height > 0 && r.top < innerHeight ? innerHeight - r.top : 0) + 16;
+    };
+    let pedido: HTMLDetailsElement | null = null;
+    temario.addEventListener('click', e => {
+      const summary = (e.target as Element).closest('summary');
+      if (!summary) return;
+      const nuevo = summary.parentElement as HTMLDetailsElement;
+      pedido = nuevo;
+      if (modo !== 'enfoca' || nuevo.open) return;
+      /* Si el abierto está ARRIBA, `<details name>` lo cerraría y el título pulsado saltaría hacia arriba: lo
+         cerramos nosotros sin animar, en el mismo fotograma, y compensamos el desplazamiento. */
+      const abierto = modulos.find(m => m.open && m !== nuevo);
+      if (abierto && modulos.indexOf(abierto) < modulos.indexOf(nuevo)) {
+        e.preventDefault();
+        const antes = summary.getBoundingClientRect().top;
+        abierto.setAttribute('data-sin-animar', '');
+        abierto.open = false;
+        nuevo.open = true;
+        window.scrollBy({ top: summary.getBoundingClientRect().top - antes, behavior: 'instant' });
+        requestAnimationFrame(() => requestAnimationFrame(() => abierto.removeAttribute('data-sin-animar')));
+      }
+    });
+    for (const m of modulos) m.addEventListener('toggle', () => {
+      if (!m.open || pedido !== m) return;
+      pedido = null;
+      m.setAttribute('data-recien', '');
+      setTimeout(() => m.removeAttribute('data-recien'), 700);
+      /* Esperar a que la altura termine de crecer (::details-content con interpolate-size), si la hay. */
+      const espera = reducido.matches || !CSS.supports('interpolate-size', 'allow-keywords') ? 0 : 260;
+      setTimeout(() => {
+        const r = m.getBoundingClientRect(), arriba = tapaArriba(), abajo = innerHeight - tapaAbajo();
+        let delta = 0;
+        if (r.top < arriba) delta = r.top - arriba;                                     // título tapado
+        else if (r.bottom > abajo) delta = Math.min(r.bottom - abajo, r.top - arriba);  // cabe: lo justo; si no, título arriba
+        if (Math.abs(delta) > 4) window.scrollBy({ top: delta, behavior: reducido.matches ? 'instant' : 'smooth' });
+      }, espera);
+    });
+  }
+
+  /* C10d · Índice «En este texto»: un enlace a un apartado plegado despliega antes el texto, y el apartado en lectura
+     queda marcado. */
+  const indice = document.querySelector<HTMLElement>('[data-indice-texto]');
+  const leerTodo = document.querySelector<HTMLInputElement>('#leer-todo');
+  if (indice) {
+    const enlaces = [...indice.querySelectorAll<HTMLAnchorElement>('a[data-indice]')];
+    for (const a of enlaces) a.addEventListener('click', e => {
+      const destino = document.getElementById(decodeURIComponent(a.hash.slice(1)));
+      if (!destino || !leerTodo || leerTodo.checked) return;
+      if (destino.closest('.v2-plegado, .v2-prosa-altura')) {
+        const caja = destino.closest('.v2-prosa-altura');
+        const oculto = destino.closest('.v2-plegado') || (caja && destino.getBoundingClientRect().top > caja.getBoundingClientRect().bottom - 8);
+        if (oculto) {
+          e.preventDefault();
+          leerTodo.checked = true;
+          destino.scrollIntoView({ behavior: reducido.matches ? 'instant' : 'smooth', block: 'start' });
+          history.replaceState(null, '', a.hash);
+        }
+      }
+    });
+    const porId = new Map(enlaces.map(a => [decodeURIComponent(a.hash.slice(1)), a]));
+    const visibles = new Set<string>();
+    const marcar = () => {
+      const actual = enlaces.map(a => decodeURIComponent(a.hash.slice(1))).filter(id => visibles.has(id))[0];
+      if (actual) for (const a of enlaces) a.setAttribute('aria-current', String(porId.get(actual) === a));
+    };
+    const io = new IntersectionObserver(entradas => {
+      for (const en of entradas) en.isIntersecting ? visibles.add(en.target.id) : visibles.delete(en.target.id);
+      marcar();
+    }, { rootMargin: '-140px 0px -55% 0px' });
+    for (const id of porId.keys()) { const t = document.getElementById(id); if (t) io.observe(t); }
+  }
+
   const marcas = [25, 50, 75, 100], hechas = new Set<number>();
   addEventListener('scroll', () => {
     const profundidad = ((scrollY + innerHeight) / document.body.scrollHeight) * 100;

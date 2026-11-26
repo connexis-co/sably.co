@@ -67,3 +67,30 @@ export function importe(valor: number, moneda: string, locale: string): Importe 
   const hablado = (valor < 0 ? 'menos ' : '') + new Intl.NumberFormat(locale, { ...base, currencyDisplay: 'name' }).format(Math.abs(valor));
   return { simbolo, visible, codigo: moneda, texto: `${visible} ${moneda}`, hablado };
 }
+
+/** Palabras que no pueden cerrar un resumen cortado («… y el…»). */
+const SUELTAS = new Set(['a', 'al', 'con', 'de', 'del', 'desde', 'e', 'el', 'en', 'la', 'las', 'lo', 'los', 'o', 'para', 'por', 'que', 'se', 'sin', 'su', 'sus', 'tu', 'tus', 'u', 'un', 'una', 'y']);
+
+/**
+ * Descripción de la tarjeta de curso en dos líneas, sin cortar a mitad de palabra (ronda 2 de JP, B).
+ * Si la primera frase solo repite el título («Curso de peluquería online de básico a avanzado.»), se usa lo
+ * que sigue, que dice qué se aprende. Si no cabe en `max` caracteres (dos líneas de la tarjeta más estrecha,
+ * 250 px a 15 px), se corta en el último espacio, sin dejar al final una palabra suelta, y se cierra con «…».
+ */
+export function resumenTarjeta(descripcion: string | null | undefined, max = 56): string {
+  const texto = (descripcion ?? '').replace(/\s+/g, ' ').trim();
+  if (!texto) return '';
+  // «Curso de barbería online desde cero: máquina, fades…» → «Máquina, fades…».
+  const trasDosPuntos = texto.match(/^curso de [^:.]{0,80}:\s*(.{24,})$/iu)?.[1];
+  const frases = texto.split(/(?<=[.!?])\s+(?=\p{Lu})/u);
+  const resto = frases.slice(1).join(' ');
+  const util = trasDosPuntos ? trasDosPuntos[0]!.toLocaleUpperCase('es') + trasDosPuntos.slice(1)
+    : /^curso de\b/i.test(frases[0]!) && resto.length >= 24 ? resto : texto;
+  if (util.length <= max) return util;
+  const palabras = util.slice(0, max + 1).split(' ').slice(0, -1);
+  // Si una frase entera cabe en más de la mitad, se termina en su punto («…con navaja.»), sin «Incluye…».
+  const punto = palabras.join(' ').lastIndexOf('. ');
+  if (punto > max / 2) return palabras.join(' ').slice(0, punto + 1);
+  while (palabras.length > 1 && SUELTAS.has(palabras.at(-1)!.toLowerCase().replace(/[^\p{L}]/gu, ''))) palabras.pop();
+  return `${palabras.join(' ').replace(/[\s,;:.·—–-]+$/u, '')}…`;
+}

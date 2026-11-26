@@ -87,7 +87,8 @@ const tituloId = 'titulo-compra';
   data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end} data-precio-hasta={offer ? (offer.hastaPrecio ?? 'nunca') : undefined}
   data-currency={currency} data-base-amount={conPrecio ? baseAmount : undefined} data-reduced-amount={reducido ?? undefined}
   data-quote-source={quote?.fuente ?? 'respaldo'} data-quote-at={quote?.at ?? undefined}
-  data-estado={estado} data-cupon={offer ? 'aplicado' : undefined} data-variante={variante}
+  data-estado={estado} data-cupon={offer ? 'aplicado' : undefined} data-variante={variante} data-resaltada={ajustes.caja.resaltada ? '' : undefined}
+  data-precio-normal={ajustes.caja.precioNormal}
   data-codigo={offer?.coupon} data-pct={offer?.saving} data-campana={campana ?? undefined} data-preajuste={zona.preajuste}>
 
   {variante === 'cabecera-oscura' && offer ? (
@@ -100,7 +101,7 @@ const tituloId = 'titulo-compra';
           {campana && <p class="text-t13 font-semibold text-coral-500">{campana}</p>}
           <p class="v2-num font-display text-d40 font-semibold">{offer.saving} % <span class="text-t15 font-normal text-white/75">menos</span></p>
         </div>
-        {offer.end && reloj && <Contador hasta={offer.end} desde={promoRow?.desde} estilo="casillas" oscuro class="[&_p]:hidden" />}
+        {offer.end && reloj && <Contador hasta={offer.end} desde={promoRow?.desde} estilo="casillas" oscuro vivo={ajustes.caja.movimiento} class="[&_p]:hidden" />}
       </div>
       {bloque('cupon') && <p class="mt-3 flex items-center gap-2 text-t13 font-semibold" data-bloque="cupon"><Icono nombre="circle-check" tamano={16} class="text-whatsapp" /><span data-cupon-texto>Cupón {offer.coupon} aplicado</span>
         <button type="button" data-toggle class="ml-auto min-h-9 font-medium text-white underline underline-offset-4">Quitar</button></p>}
@@ -108,15 +109,18 @@ const tituloId = 'titulo-compra';
     </div>
   ) : (
     (titulo || subtitulo) ? (
-      <div class="v2-caja-titulo px-6 pt-6" data-bloque="titulo">
-        {titulo ? <h2 id={tituloId} class="text-t20 font-semibold">{titulo}</h2> : <h2 id={tituloId} class="sr-only">Inscripción al curso</h2>}
+      <div class:list={['v2-caja-titulo px-6 pt-6', ajustes.caja.tituloCentrado && 'v2-caja-titulo-centro text-center']} data-bloque="titulo">
+        {titulo ? <h2 id={tituloId} class="text-t20 font-semibold text-balance">{titulo}</h2> : <h2 id={tituloId} class="sr-only">Inscripción al curso</h2>}
         {subtitulo && <p class="mt-1 text-t15 text-navy-700 max-lg:hidden">{subtitulo}</p>}
+        {/* C8 (añadido de JP a la ronda 2): línea corta y centrada bajo el subtítulo, del 45 % del ancho. */}
+        {ajustes.caja.tituloCentrado && (titulo || subtitulo) && <span class="v2-caja-filete mx-auto mt-4 block h-0.5 w-[45%] rounded-full bg-navy-100" aria-hidden="true"></span>}
       </div>
     ) : <h2 id={tituloId} class="sr-only">Inscripción al curso</h2>
   )}
 
   <div class="v2-caja-cuerpo px-6 pt-5 pb-6">
-    <p class="flex items-center gap-2 text-t13 text-navy-700" data-bloque="pais"><Bandera codigo={country.code} />Precio para {country.name}</p>
+    {/* C10: la fila del país, de fábrica oculta (el país y la moneda siguen en «País y moneda» y en la cabecera). */}
+    {ajustes.caja.pais && <p class="flex items-center gap-2 text-t13 text-navy-700" data-bloque="pais"><Bandera codigo={country.code} />Precio para {country.name}</p>}
 
     {estado === 'campana' && variante === 'cuenta-clara' && descuento && (
       <dl class="mt-4 space-y-2 border-b border-navy-100 pb-4 text-t15" data-bloque="precio">
@@ -146,7 +150,7 @@ const tituloId = 'titulo-compra';
     </div>
 
     {estado === 'campana' && variante === 'cuenta-clara' && reloj && offer?.end && (
-      <Contador hasta={offer.end} desde={promoRow?.desde} estilo={ajustes.caja.contador === 'tique' ? 'linea' : ajustes.caja.contador} campana={campana} despues={despues} sigueOtra={Boolean(promoSiguiente)} cupon={offer.coupon} class="mt-4" />
+      <Contador hasta={offer.end} desde={promoRow?.desde} estilo={ajustes.caja.contador === 'tique' ? 'linea' : ajustes.caja.contador} campana={campana} despues={despues} sigueOtra={Boolean(promoSiguiente)} cupon={offer.coupon} vivo={ajustes.caja.movimiento} class="mt-4" />
     )}
     {offer && (
       <p class="mt-4 hidden rounded-c-md bg-navy-50 p-3 text-t13 text-navy-700" data-aviso-fin>
@@ -172,7 +176,7 @@ const tituloId = 'titulo-compra';
       </div>
     )}
 
-    {nota && <p class="mt-5 flex items-center gap-1.5 text-t13 text-navy-700" data-bloque="calificacion"><Estrellas nota={valoracion!.rating} /><strong class="v2-num ml-1 font-semibold text-navy-950">{nota.cifra}</strong> · {nota.texto}</p>}
+    {nota && <p class="mt-5 flex items-center gap-1.5 text-t13 text-navy-700" data-bloque="calificacion"><Estrellas nota={valoracion!.rating} /><strong class="v2-num ml-1 font-semibold text-navy-950">{nota.cifra}</strong> · {nota.numero} calificaciones en Hotmart</p>}
 
     <ul class="mt-5 space-y-3 border-t border-navy-100 pt-5 text-t15 text-navy-950" data-bloque="confianza">
       {hijo('confianza', 'garantia') && <li class="flex items-center gap-3" data-item="garantia"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="shield-check" tamano={18} /></span>7 días para pedir reembolso</li>}
@@ -229,11 +233,21 @@ const tituloId = 'titulo-compra';
 </section>
 
 <style>
-  .v2-tachado { text-decoration: line-through; text-decoration-thickness: 1.5px; }
+  /* C9: «Precio normal» tachado con campaña. La clase va al componente Precio, que está en otro ámbito de estilos:
+     por eso `:global` (antes la regla no lo alcanzaba y el precio de antes salía sin tachar). */
+  .v2-caja :global(.v2-tachado) { text-decoration: line-through; text-decoration-thickness: 1.5px; text-decoration-color: var(--color-coral-600); }
+  .v2-caja[data-precio-normal='sin-tachar'] [data-tachado] :global(.v2-tachado) { text-decoration: none; }
+  /* C4 (ronda 2 de JP): en móvil la caja blanca se fundía con el fondo. Resaltada (ajuste `cajaResaltada`, de
+     fábrica): contorno navy, sombra más honda y un filete coral arriba que la ata al botón. Vale para las dos
+     variantes: en «cabecera oscura» el filete queda sobre la cabecera. */
+  .v2-caja[data-resaltada] {
+    border-top: 4px solid var(--color-coral-600);
+    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-navy-300) 70%, transparent), 0 24px 48px -20px rgb(27 27 58 / 0.32), 0 4px 10px -2px rgb(27 27 58 / 0.08);
+  }
   .v2-caja[data-cupon='retirado'] [data-cupon-icono] { opacity: 0.4; }
   .v2-caja[data-cupon='retirado'] [data-cupon-cifra] { color: var(--color-navy-500); font-weight: 400; }
   .v2-caja:not([data-cupon='retirado']) [data-sin-cupon], .v2-caja[data-cupon='retirado'] [data-con-cupon] { display: none; }
-  .v2-caja[data-cupon='retirado'] .v2-tachado { text-decoration: none; }
+  .v2-caja[data-cupon='retirado'] :global(.v2-tachado) { text-decoration: none; }
   .v2-caja[data-cupon='retirado'] :global([data-contador-despues]) { display: none; }
   .v2-caja[data-cupon='retirado'] :global([data-contador-sigue]) { display: inline; }
   .v2-caja[data-estado='vencida'] :global(:is([data-bloque='cupon'], [data-contador], [data-savings])) { display: none; }
