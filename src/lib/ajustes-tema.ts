@@ -26,6 +26,14 @@ export interface AjustesV2 {
     subtitulo: string;
     /** C4: contorno, sombra honda y filete coral para que la caja destaque del fondo (de fábrica). */
     resaltada: boolean;
+    /** C8: título y subtítulo centrados con una línea corta debajo (de fábrica). */
+    tituloCentrado: boolean;
+    /** C9: «Precio normal» tachado con campaña (de fábrica) o sin tachar. */
+    precioNormal: 'tachado' | 'sin-tachar';
+    /** C10: fila «Precio para {país}» (de fábrica, oculta). */
+    pais: boolean;
+    /** C11: el reloj late, el segundero corre y la barra brilla (de fábrica; nunca con menos movimiento). */
+    movimiento: boolean;
   };
   /** «Lo dicta …» en la cabeza y en la caja. */
   mostrarCreador: boolean;
@@ -96,6 +104,10 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       titulo: texto('cajaTitulo', TITULO_CAJA_POR_DEFECTO),
       subtitulo: texto('cajaSubtitulo', SUBTITULO_CAJA_POR_DEFECTO),
       resaltada: v.cajaResaltada !== false,
+      tituloCentrado: v.cajaTituloCentrado !== false,
+      precioNormal: uno(v.cajaPrecioNormal, ['tachado', 'sin-tachar'] as const, 'tachado'),
+      pais: v.cajaPais === true,
+      movimiento: v.cajaMovimiento !== false,
     },
     mostrarCreador: v.mostrarCreador !== false,
     mostrarDocente: v.mostrarDocente !== false,

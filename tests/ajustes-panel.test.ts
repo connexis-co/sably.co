@@ -37,6 +37,11 @@ const ANTES = {
     cajaResaltada: ['boolean', null, true],
     // Clave nueva (26-nov, foto por pestaña en «Sobre este curso», C5).
     sobreFotosPestanas: ['boolean', null, true],
+    // Claves nuevas (26-nov, caja de compra, C8 a C11).
+    cajaTituloCentrado: ['boolean', null, true],
+    cajaPrecioNormal: ['select', ['tachado', 'sin-tachar'], 'tachado'],
+    cajaPais: ['boolean', null, false],
+    cajaMovimiento: ['boolean', null, true],
     opinionesExtractosMinimo: ['select', ['1', '2', '3'], '1'],
     opinionesPerfilNombre: ['string', null, ''],
     opinionesPerfilUrl: ['string', null, ''],
@@ -93,7 +98,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
   const { filas } = JSON.parse(readFileSync(new URL('./fixtures/opciones-produccion-2026-11-25.json', import.meta.url), 'utf8')) as { filas: { name: string; value: string }[] };
   assert.deepEqual(leerAjustesV2(filas, 'clasico'), {
     temaPorDefecto: 'v2',
-    caja: { variante: 'cuenta-clara', contador: 'barra', titulo: 'Empieza {curso}', subtitulo: 'Lecciones en vídeo, a tu ritmo.', resaltada: true },
+    caja: { variante: 'cuenta-clara', contador: 'barra', titulo: 'Empieza {curso}', subtitulo: 'Lecciones en vídeo, a tu ritmo.', resaltada: true, tituloCentrado: true, precioNormal: 'tachado', pais: false, movimiento: true },
     mostrarCreador: true,
     mostrarDocente: true,
     mostrarCiudades: true,

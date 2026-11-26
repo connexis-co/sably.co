@@ -135,7 +135,7 @@ export function AjustesPage() {
       {seccion(['estiloCampo'], 'Formularios')}
     </>; break;
     case 'campanas': cuerpo = <Promotions />; break;
-    case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaResaltada', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'], 'Caja de compra')}{seccion(['sobreFotosPestanas', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'], 'Opiniones de la ficha')}<WidgetEditor only="social" /></>; break;
+    case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'], 'Caja de compra')}{seccion(['sobreFotosPestanas', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'], 'Opiniones de la ficha')}<WidgetEditor only="social" /></>; break;
     case 'portada': cuerpo = <>
       <section className="so-editor">
         <h3>Bloques</h3>
