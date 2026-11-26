@@ -125,8 +125,11 @@ export function importesConMoneda(texto) {
  * la vista: `hoy` y, si la hay, la tachada (`normal`). `precio: null` = sin cifra.
  */
 export function leerTarjetas(html, pais) {
+  /* Solo códigos de país de dos letras: el país entra en expresiones regulares (CodeQL, inyección de RegExp). */
+  if (!/^[a-z]{2}$/.test(pais)) throw new Error(`País no válido: ${pais}`);
+  const pp = pais.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const tarjetas = [];
-  const ruta = new RegExp(`href="/${pais}/([a-z0-9-]+)/"`);
+  const ruta = new RegExp(`href="/${pp}/([a-z0-9-]+)/"`);
   const agregar = (slug, trozo, lugar) => {
     /* El chip del muro del héroe repite el precio de hoy de la ficha que lleva delante: se lee solo la ficha. */
     const chip = trozo.indexOf('v2-muro-chip');
@@ -143,10 +146,10 @@ export function leerTarjetas(html, pais) {
     if (slug) agregar(slug, m[0], 'tarjeta');
   }
   /* Tarjeta flotante del héroe de la portada V2 (un enlace, no un <article>). */
-  const heroe = html.match(new RegExp(`<a href="/${pais}/([a-z0-9-]+)/"[^>]*(?:data-tarjeta-heroe|class="relative -mt-10)[^>]*>([\\s\\S]*?)</a>`));
+  const heroe = html.match(new RegExp(`<a href="/${pp}/([a-z0-9-]+)/"[^>]*(?:data-tarjeta-heroe|class="relative -mt-10)[^>]*>([\\s\\S]*?)</a>`));
   if (heroe) agregar(heroe[1], heroe[2], 'héroe');
   /* Oficios del mosaico del héroe de la portada V2: todos, también los que esperan turno (están en el HTML). */
-  for (const o of html.matchAll(new RegExp(`<a href="/${pais}/([a-z0-9-]+)/" class="v2-(?:mos-oficio|heroe-curso)[^"]*"[^>]*>([\\s\\S]*?)</a>`, 'g'))) agregar(o[1], o[2], 'mosaico');
+  for (const o of html.matchAll(new RegExp(`<a href="/${pp}/([a-z0-9-]+)/" class="v2-(?:mos-oficio|heroe-curso)[^"]*"[^>]*>([\\s\\S]*?)</a>`, 'g'))) agregar(o[1], o[2], 'mosaico');
   return tarjetas;
 }
 

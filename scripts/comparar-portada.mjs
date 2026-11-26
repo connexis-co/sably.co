@@ -20,7 +20,7 @@ const REF = opcion('referencia', 'https://sably.co').replace(/\/$/, '');
 const PAISES = opciones('pais').length ? opciones('pais') : ['co', 'mx', 'ar', 'cl', 'pe', 'ec', 'us', 'es'];
 const UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36';
 
-const sinEtiquetas = h => h.replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>|<template[\s\S]*?<\/template>/gi, ' ').replace(/<[^>]+>/g, ' ')
+const sinEtiquetas = h => h.replace(/<script\b[\s\S]*?<\/script[^>]*>|<style\b[\s\S]*?<\/style[^>]*>|<template\b[\s\S]*?<\/template[^>]*>/gi, ' ').replace(/<[^>]+>/g, ' ')
   .replace(/&nbsp;/g, ' ').replace(/&[a-z#0-9]+;/gi, ' ');
 
 export function medir(html, origen) {
