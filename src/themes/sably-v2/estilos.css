@@ -23,6 +23,13 @@
 .v2-tique-mini:focus-visible { outline: 3px solid var(--color-coral-500); outline-offset: 3px; }
 @media (hover: hover) and (pointer: fine) { .v2-tique-mini:hover > span + span { background: #fff; } }
 
+/* ---------- Lo fijo arriba: UNA variable ----------
+   --fijo-superior = alto ocupado arriba por lo fijo (cabecera compacta y, si está abierta, la barra de campaña,
+   que la sube con su alto real en barra-campana.css). Todo lo pegado (sticky), las anclas y el scroll narrativo
+   cuelgan de ella; nunca de un número a mano. Cambia sola al cerrar la barra y por punto de corte. */
+:root { --fijo-superior: 56px; }
+@media (width >= 1024px) { :root { --fijo-superior: 60px; } }
+
 /* ---------- Cabecera «Clásica»: 72 px; compacta (60) al desplazar ---------- */
 .v2-cabecera { position: sticky; top: -12px; z-index: 40; background: #fff; box-shadow: inset 0 -1px 0 var(--color-navy-100); }
 .v2-cabecera-fila { height: 72px; }
@@ -211,8 +218,8 @@ html[data-mega-abierto] { overflow: hidden; }
 @media (hover: hover) and (pointer: fine) { .v2-subrayado:hover { text-decoration-color: currentColor; } }
 .v2-prosa { color: var(--color-navy-700); font: 400 17px/28px var(--font-sans); }
 .v2-prosa > * + * { margin-top: 1.1em; }
-.v2-prosa :is(h2) { margin-top: 2em; font: 600 28px/34px var(--font-display); color: var(--color-navy-950); scroll-margin-top: 96px; }
-.v2-prosa :is(h3) { margin-top: 1.6em; font: 600 20px/28px var(--font-display); color: var(--color-navy-950); scroll-margin-top: 96px; }
+.v2-prosa :is(h2) { margin-top: 2em; font: 600 28px/34px var(--font-display); color: var(--color-navy-950); scroll-margin-top: calc(var(--fijo-superior) + 36px); }
+.v2-prosa :is(h3) { margin-top: 1.6em; font: 600 20px/28px var(--font-display); color: var(--color-navy-950); scroll-margin-top: calc(var(--fijo-superior) + 36px); }
 .v2-prosa a { color: var(--color-coral-700); text-decoration: underline; text-underline-offset: 3px; }
 .v2-prosa :is(ul, ol) { padding-left: 1.25em; }
 .v2-prosa ul > li { list-style: disc; }

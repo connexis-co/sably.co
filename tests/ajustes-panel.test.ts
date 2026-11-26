@@ -62,6 +62,10 @@ const ANTES = {
     barraCampanaCierre: ['select', ['sesion', 'vista'], 'sesion'],
     barraCampanaFicha: ['boolean', null, true],
     barraCampanaFija: ['boolean', null, true],
+    barraCampanaBoton: ['boolean', null, true],
+    barraCampanaBotonTexto: ['string', null, 'Ver cursos con {pct}'],
+    barraCampanaBotonDestino: ['string', null, ''],
+    barraCampanaBotonFicha: ['select', ['nada', 'enlace'], 'nada'],
     // Claves nuevas (26-nov, página «Nosotros»): se añaden, no sustituyen a ninguna.
     nosotrosDiseno: ['select', ['narrativo', 'sencillo'], 'narrativo'],
     nosotrosCifras: ['boolean', null, true],
@@ -130,7 +134,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     movimientoFicha: { ficha: 'sobrio', certificado: 'destello' },
     bloquesFicha: { temario: 'enfoca', queIncluye: true, relacionados: 'placa' },
     opiniones: { estilo: 'lista', minimoExtractos: 1, maximoExtractos: 4, perfil: null },
-    barraCampana: { cierre: 'sesion', enFicha: true, fija: true },
+    barraCampana: { cierre: 'sesion', enFicha: true, fija: true, boton: { activo: true, texto: 'Ver cursos con {pct}', destino: '', ficha: 'nada' } },
     campana: { barra: 'contador', banda: 'contador', megamenu: 'contador', listado: 'contador' },
     portada: {
       bloques: ['cifras', 'categorias', 'convergen', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],

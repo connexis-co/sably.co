@@ -39,11 +39,13 @@ import { minificar } from '../../blog-hoja';
         const x = Math.min(1, (t - t0) / 1100);
         el.textContent = formato.format(Math.round(fin * (1 - (1 - x) ** 3)));
         if (x < 1) requestAnimationFrame(paso);
+        else el.style.minWidth = ''; // suelta el ancho fijo: si luego se gira o estrecha la ventana, no desborda
       };
       requestAnimationFrame(paso);
     };
-    // Ancho fijo antes de bajar a 0: las vecinas no se mueven mientras cuenta.
-    for (const c of cifras) { c.style.minWidth = `${c.getBoundingClientRect().width}px`; c.textContent = '0'; }
+    // Ancho fijo antes de bajar a 0: las vecinas no se mueven mientras cuenta. En `ch` y no en px: escala con la letra
+    // de cada ancho, y si se gira o estrecha la pantalla antes de verlas no desborda (ronda 5).
+    for (const c of cifras) { c.style.minWidth = `${c.textContent?.trim().length ?? 1}ch`; c.textContent = '0'; }
 
     const io = new IntersectionObserver(entradas => {
       for (const e of entradas) {

@@ -60,6 +60,31 @@ export const settingsSchema = {
     description: 'La barra de arriba se queda pegada encima de la cabecera mientras se baja por la página, hasta que alguien la cierre con la ×. Apagado: se va con el resto de la página al bajar. Por defecto: encendido.',
     default: true,
   },
+  barraCampanaBoton: {
+    type: 'boolean',
+    label: 'Campañas · Botón «Ver cursos» en la barra',
+    description: 'Un botón en la barra de arriba que lleva a los cursos a los que aplica la campaña vigente, en el listado del país del visitante. En escritorio va en la misma línea que el contador; en móvil, debajo del nombre de la campaña junto al contador (a 360 px, debajo a todo el ancho). El clic se mide en GA4 como select_promotion. Por defecto: encendido.',
+    default: true,
+  },
+  barraCampanaBotonTexto: {
+    type: 'string',
+    label: 'Campañas · Texto del botón de la barra',
+    description: 'Variable {pct}: el porcentaje de la campaña vigente (sale de la campaña, nunca va fijo). Hasta 32 caracteres; si se pasa o va vacío, se usa el de fábrica. Por defecto: «Ver cursos con {pct}».',
+    default: 'Ver cursos con {pct}',
+  },
+  barraCampanaBotonDestino: {
+    type: 'string',
+    label: 'Campañas · Destino del botón de la barra',
+    description: 'Ruta del sitio que empieza por / (nada de dominios externos). Variable {pais}: el país de la página (co, mx…). Si la página trae ?promo=<clave> se conserva. Vacío: el listado del país filtrado a los cursos de la campaña, /{pais}/cursos/?oferta=1 (no se indexa y su canónica es el listado normal). Por defecto: vacío.',
+    default: '',
+  },
+  barraCampanaBotonFicha: {
+    type: 'select',
+    label: 'Campañas · Botón de la barra en la ficha del curso',
+    description: 'En la ficha el botón de pago manda: llevar a otros cursos le quita foco. «Nada»: la barra de la ficha no lleva botón. «Enlace discreto»: un enlace de texto pequeño, sin forma de botón (solo desde 640 px: en el celular no sale). Por defecto: Nada.',
+    options: [{ value: 'nada', label: 'Nada' }, { value: 'enlace', label: 'Enlace discreto' }],
+    default: 'nada',
+  },
   // Caja de compra
   cajaVariante: {
     type: 'select',
@@ -506,7 +531,7 @@ export const NOSOTROS_CLAVES: ClaveAjuste[] = ['nosotrosDiseno', 'nosotrosCifras
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo', 'tarjetasColumnasMedio', 'pieBorde'] },
-  { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', ...CAMPANA_CLAVES] },
+  { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', 'barraCampanaBoton', 'barraCampanaBotonTexto', 'barraCampanaBotonDestino', 'barraCampanaBotonFicha', ...CAMPANA_CLAVES] },
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación, y el diseño de la página «Nosotros».', claves: NOSOTROS_CLAVES },

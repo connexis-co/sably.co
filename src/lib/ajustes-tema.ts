@@ -80,6 +80,8 @@ export interface AjustesV2 {
     enFicha: boolean;
     /** Pegada encima de la cabecera al desplazarse mientras esté abierta (E3). */
     fija: boolean;
+    /** Botón a los cursos de la campaña. `texto` lleva {pct}; `destino` vacío = listado filtrado del país; `ficha`: qué lleva en la ficha. */
+    boton: { activo: boolean; texto: string; destino: string; ficha: 'nada' | 'enlace' };
   };
   /** Qué enseña cada aviso de campaña («Campañas y cupones»): contador con segundero, cupón para copiar, ambos o la fecha. */
   campana: Record<'barra' | 'banda' | 'megamenu' | 'listado', MuestraCampana>;
@@ -133,6 +135,12 @@ function decodificar(valor: string): unknown {
 
 /** Puro: filas de `options` (+ variable de entorno) → ajustes con sus valores por defecto. */
 const MUESTRAS = ['contador', 'cupon', 'ambos', 'fecha'] as const;
+
+/** Botón de la barra de campaña: el texto lleva {pct} (el de la campaña vigente) y cabe en una línea. */
+export const BOTON_BARRA_POR_DEFECTO = 'Ver cursos con {pct}';
+const textoBoton = (t: string) => (t && t.length <= 32 ? t : BOTON_BARRA_POR_DEFECTO);
+/** Solo rutas propias («/…», no «//dominio»); cualquier otra cosa cae al listado filtrado (''). */
+const destinoBoton = (d: string) => (/^\/(?!\/)[^\s"'<>]*$/.test(d) && d.length <= 200 ? d : '');
 export type MuestraCampana = (typeof MUESTRAS)[number];
 
 export function leerAjustesV2(filas: { name: string; value: string }[], entornoTema?: string): AjustesV2 {
@@ -178,6 +186,12 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       cierre: uno(v.barraCampanaCierre, ['sesion', 'vista'] as const, 'sesion'),
       enFicha: v.barraCampanaFicha !== false,
       fija: v.barraCampanaFija !== false,
+      boton: {
+        activo: v.barraCampanaBoton !== false,
+        texto: textoBoton(texto('barraCampanaBotonTexto', BOTON_BARRA_POR_DEFECTO)),
+        destino: destinoBoton(texto('barraCampanaBotonDestino', '')),
+        ficha: uno(v.barraCampanaBotonFicha, ['nada', 'enlace'] as const, 'nada'),
+      },
     },
     campana: {
       barra: uno(v.campanaBarra, MUESTRAS, 'contador'),

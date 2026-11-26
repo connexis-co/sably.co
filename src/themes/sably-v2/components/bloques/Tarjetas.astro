@@ -17,7 +17,7 @@ const cards = value.cards ?? [];
 ---
 <section class="v2-contenedor py-14 lg:py-20" data-cms>
   <div class:list={[value.background === 'soft' && 'rounded-c-xl bg-navy-50 p-6 lg:p-14', fija && 'lg:grid lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] lg:gap-16']}>
-    <div class:list={[fija && 'lg:sticky lg:top-44 lg:self-start']}>
+    <div class:list={[fija && 'lg:sticky lg:top-[calc(var(--fijo-superior)+116px)] lg:self-start']}>
       {value.eyebrow && <p class="v2-antetitulo text-navy-700">{value.eyebrow}</p>}
       {value.title && <h2 class:list={['max-w-[760px] font-display text-d28 lg:text-d40', value.eyebrow && 'mt-3']}>{value.title}</h2>}
     </div>
