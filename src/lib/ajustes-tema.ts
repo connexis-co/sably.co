@@ -38,7 +38,11 @@ export interface AjustesV2 {
     cierre: 'sesion' | 'vista';
     /** En la ficha, solo si el curso tiene la oferta de la campaña (su creador acepta el cupón). */
     enFicha: boolean;
+    /** Pegada encima de la cabecera al desplazarse mientras esté abierta (E3). */
+    fija: boolean;
   };
+  /** Qué enseña cada aviso de campaña («Campañas y cupones»): contador con segundero, cupón para copiar, ambos o la fecha. */
+  campana: Record<'barra' | 'banda' | 'megamenu' | 'listado', MuestraCampana>;
   /** Portada de país V2 («Ajustes del sitio → Portada»). */
   portada: {
     /** Bloques visibles, en orden (el héroe va siempre primero y no está aquí). */
@@ -48,10 +52,20 @@ export interface AjustesV2 {
     pruebaHeroe: PruebaHeroe | null;
     categoriasVariante: 'fotos' | 'pila' | 'filas';
     comoFuncionaAnimado: boolean;
+    heroeMovil: 'tras-botones' | 'final';
+    oficioModo: 'automatico' | 'estatico';
+    oficioIntervalo: number;
+    guiasVariante: 'tarjetas' | 'lista';
+    beneficiosModo: 'automatico' | 'estatico';
+    aparicion: boolean;
+    cifrasCuentan: boolean;
+    paralaje: boolean;
     escenasAtenuar: boolean;
     escenasVariante: 'apiladas' | 'foto-fija';
     valoradosMinimo: number;
   };
+  /** Página «Nosotros» V2 («Ajustes del sitio → Cursos y contenido»). */
+  nosotros: { diseno: 'narrativo' | 'sencillo'; cifras: boolean; movimiento: boolean };
   /** Blog V2 («Ajustes del sitio → Blog»): claves `blog*` con sus valores de fábrica. */
   blog: AjustesBlog;
 }
@@ -72,6 +86,9 @@ function decodificar(valor: string): unknown {
 }
 
 /** Puro: filas de `options` (+ variable de entorno) → ajustes con sus valores por defecto. */
+const MUESTRAS = ['contador', 'cupon', 'ambos', 'fecha'] as const;
+export type MuestraCampana = (typeof MUESTRAS)[number];
+
 export function leerAjustesV2(filas: { name: string; value: string }[], entornoTema?: string): AjustesV2 {
   const v: Record<string, unknown> = {};
   for (const fila of filas) if (fila.name.startsWith(PREFIJO)) v[fila.name.slice(PREFIJO.length)] = decodificar(fila.value);
@@ -91,6 +108,13 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     barraCampana: {
       cierre: uno(v.barraCampanaCierre, ['sesion', 'vista'] as const, 'sesion'),
       enFicha: v.barraCampanaFicha !== false,
+      fija: v.barraCampanaFija !== false,
+    },
+    campana: {
+      barra: uno(v.campanaBarra, MUESTRAS, 'contador'),
+      banda: uno(v.campanaBanda, MUESTRAS, 'contador'),
+      megamenu: uno(v.campanaMegamenu, MUESTRAS, 'contador'),
+      listado: uno(v.campanaListado, MUESTRAS, 'contador'),
     },
     portada: {
       bloques: bloquesVisibles(v.portadaOrden, v.portadaOcultos),
@@ -107,9 +131,22 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       pruebaHeroe: leerPruebaHeroe(v.portadaHeroeAB, v.portadaHeroeABVariantes ?? 'muro, buscador', v.portadaHeroeABReparto, v.portadaHeroeABInicio),
       categoriasVariante: uno(v.portadaCategoriasVariante, ['fotos', 'pila', 'filas'] as const, 'fotos'),
       comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
+      heroeMovil: uno(v.portadaHeroeMovil, ['tras-botones', 'final'] as const, 'tras-botones'),
+      oficioModo: uno(v.portadaOficioModo, ['automatico', 'estatico'] as const, 'automatico'),
+      oficioIntervalo: Number(uno(v.portadaOficioIntervalo, ['7000', '9000', '12000'] as const, '9000')),
+      guiasVariante: uno(v.portadaGuiasVariante, ['tarjetas', 'lista'] as const, 'tarjetas'),
+      beneficiosModo: uno(v.portadaBeneficiosModo, ['automatico', 'estatico'] as const, 'automatico'),
+      aparicion: v.portadaAparicion !== false,
+      cifrasCuentan: v.portadaCifrasCuentan !== false,
+      paralaje: v.portadaParalaje !== false,
       escenasAtenuar: v.portadaEscenasAtenuar !== false,
       escenasVariante: uno(v.portadaEscenasVariante, ['apiladas', 'foto-fija'] as const, 'apiladas'),
       valoradosMinimo: Number(uno(v.portadaValoradosMinimo, ['10', '20', '50'] as const, '20')),
+    },
+    nosotros: {
+      diseno: uno(v.nosotrosDiseno, ['narrativo', 'sencillo'] as const, 'narrativo'),
+      cifras: v.nosotrosCifras !== false,
+      movimiento: v.nosotrosMovimiento !== false,
     },
     blog: leerAjustesBlog(v),
   };

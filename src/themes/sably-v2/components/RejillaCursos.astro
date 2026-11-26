@@ -6,9 +6,13 @@
  * HTML (los buscadores y los asistentes ven todos los enlaces). La franja de
  * promoción va después de la duodécima tarjeta (fila completa con 2, 3 o 4 columnas). Con `filtrable`, el campo de
  * búsqueda de la página filtra las tarjetas al escribir (~0,5 KB).
+ * Movimiento (I1): cambiar el orden mantiene los mismos 24 visibles —los primeros de ese orden (`data-mas-nota`,
+ * `data-mas-precio`)— y funde con una View Transition; «Ver más» hace aparecer las nuevas con un fundido corto y
+ * lleva el foco a la primera; el filtro funde al escribir. Sin View Transitions o con `reduce`, el mismo cambio en seco.
  */
 import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
 import Ico from './Ico.astro';
+import ContadorCampana from './ContadorCampana.astro';
 import type { Course } from '@/lib/emdash-content';
 import type { Country } from '@/lib/countries';
 import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
@@ -31,12 +35,19 @@ interface Props {
   filtrable?: boolean;
 }
 const { id, cursos, country, ordenNota, ordenPrecio, precios, buscable, promo = null, base, visibles = 24, conOrden = true, filtrable = false } = Astro.props;
+// Puesto de cada curso dentro de ESTA rejilla en cada orden (los mapas pueden venir del catálogo entero, como en
+// las categorías): con él se marca qué tarjetas quedan tras «Ver más» al ordenar por nota o por precio.
+const puestoLocal = (orden: Map<string, number>) => new Map(
+  cursos.map((c, i) => [c.id, orden.get(c.id) ?? i] as const).sort((x, y) => x[1] - y[1]).map(([id], puesto) => [id, puesto]),
+);
+const puestoNota = puestoLocal(ordenNota);
+const puestoPrecio = puestoLocal(ordenPrecio);
 const ocultos = Math.max(0, cursos.length - visibles);
 const conFranja = !!promo && cursos.length > 12;
 ---
 <div class="v2-rejilla-raiz" data-rejilla={filtrable ? id : undefined}>
   {conOrden && cursos.length > 2 && (
-    <fieldset class="v2-orden -mx-5 flex min-w-0 items-center gap-2 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 [&>label]:flex-none">
+    <fieldset class="v2-orden v2-fundido-x -mx-5 flex min-w-0 items-center gap-2 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 sm:[mask-image:none] [&>label]:flex-none">
       <legend class="sr-only">Ordenar los cursos</legend>
       <span class="mr-1 flex items-center gap-1.5 text-t15 text-navy-500" aria-hidden="true"><Ico nombre="arrow-up-down" tamano={16} />Ordenar</span>
       <input type="radio" name={`${id}-orden`} id={`${id}-rec`} value="rec" checked class="peer/rec sr-only" /><label for={`${id}-rec`} class="v2-chip">Recomendados</label>
@@ -46,7 +57,7 @@ const conFranja = !!promo && cursos.length > 12;
   )}
   <ul class="v2-rejilla mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" role="list" id={id}>
     {cursos.map((course, i) => (
-      <li class="v2-celda" style={`--o-rec:${i * 2};--o-nota:${(ordenNota.get(course.id) ?? i) * 2};--o-precio:${(ordenPrecio.get(course.id) ?? i) * 2}`} data-mas={i >= visibles ? '' : undefined} data-buscar={filtrable ? buscable.get(course.id) : undefined}>
+      <li class="v2-celda" style={`--o-rec:${i * 2};--o-nota:${(ordenNota.get(course.id) ?? i) * 2};--o-precio:${(ordenPrecio.get(course.id) ?? i) * 2}`} data-mas={i >= visibles ? '' : undefined} data-mas-nota={puestoNota.get(course.id)! >= visibles ? '' : undefined} data-mas-precio={puestoPrecio.get(course.id)! >= visibles ? '' : undefined} data-buscar={filtrable ? buscable.get(course.id) : undefined}>
         <TarjetaCurso {course} {country} precio={precios.get(course.id) ?? null} filaEnMovil />
       </li>
     ))}
@@ -55,13 +66,15 @@ const conFranja = !!promo && cursos.length > 12;
         <div class="flex flex-wrap items-center gap-x-8 gap-y-3 rounded-c-lg bg-coral-50 px-6 py-5 ring-1 ring-coral-100">
           <p class="font-display text-d40 font-semibold text-coral-600"><span data-promo-pct-v2>{promo.pct} %</span></p>
           <div class="min-w-0 flex-1">
-            <p class="text-t17 font-semibold text-navy-950">Con el cupón <span data-promo-codigo>{promo.cupon}</span>, en cursos seleccionados</p>
-            {promo.fin && <p data-promo-fin class="text-t13 text-navy-500">Hasta el <span data-promo-fecha>{promo.fin}</span> (hora de Colombia). El precio de cada ficha ya lo indica.</p>}
+            <p class="text-t17 font-semibold text-navy-950">{(promo.muestra.listado === 'cupon' || promo.muestra.listado === 'ambos') ? <>Con el cupón <span data-promo-codigo>{promo.cupon}</span>, en cursos seleccionados</> : 'En cursos seleccionados: el precio de cada ficha ya lleva el descuento'}</p>
+            {(promo.muestra.listado === 'contador' || promo.muestra.listado === 'ambos') && promo.finMs ? <p class="mt-2 flex flex-wrap items-center gap-2.5 text-t13 text-navy-500">Termina en <ContadorCampana finMs={promo.finMs} fin={promo.fin} tono="claro" /></p> : promo.fin && <p data-promo-fin class="text-t13 text-navy-500">Hasta el <span data-promo-fecha>{promo.fin}</span> (hora de Colombia). El precio de cada ficha ya lo indica.</p>}
           </div>
-          <button type="button" data-promo-cupon class="v2-tique-mini bg-white" aria-label={`Copiar el cupón ${promo.cupon}`}>
-            <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{promo.cupon}</span>
-            <span class="gap-1 font-semibold text-coral-700"><Ico nombre="copy" tamano={14} /><span data-promo-copiar-texto>Copiar</span></span>
-          </button>
+          {(promo.muestra.listado === 'cupon' || promo.muestra.listado === 'ambos') && (
+            <button type="button" data-promo-cupon class="v2-tique-mini bg-white" aria-label={`Copiar el cupón ${promo.cupon}`}>
+              <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{promo.cupon}</span>
+              <span class="gap-1 font-semibold text-coral-700"><Ico nombre="copy" tamano={14} /><span data-promo-copiar-texto>Copiar</span></span>
+            </button>
+          )}
         </div>
       </li>
     )}
@@ -77,28 +90,65 @@ const conFranja = !!promo && cursos.length > 12;
   )}
 </div>
 
-{filtrable && (
-  <script>
-    // Filtro al escribir: oculta las tarjetas que no coinciden. Sin JavaScript, el formulario GET filtra en el servidor.
-    document.querySelectorAll<HTMLElement>('[data-rejilla]').forEach(raiz => {
-      const campo = document.querySelector<HTMLInputElement>(`[data-filtra="${raiz.dataset.rejilla}"]`);
-      if (!campo) return;
-      const celdas = [...raiz.querySelectorAll<HTMLElement>('[data-buscar]')];
-      const vacia = raiz.querySelector<HTMLElement>('[data-rejilla-vacia]');
-      const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-      const filtrar = () => {
-        const q = norm(campo.value.trim());
-        const terminos = q.split(/\s+/).filter(Boolean);
-        let n = 0;
-        for (const c of celdas) { const ok = q.length < 2 || terminos.every(t => c.dataset.buscar!.includes(t)); c.hidden = !ok; if (ok) n++; }
-        raiz.toggleAttribute('data-filtrando', q.length >= 2);
-        if (vacia) { vacia.hidden = n > 0; vacia.querySelector('[data-rejilla-termino]')!.textContent = campo.value.trim(); }
-      };
-      campo.addEventListener('input', filtrar);
-      filtrar();
+<script>
+  type ConTransicion = Document & { startViewTransition?: (f: () => void) => { skipTransition(): void; finished: Promise<void> } };
+  const reducido = matchMedia('(prefers-reduced-motion: reduce)');
+  let enCurso: { skipTransition(): void } | null = null;
+  // Cambio de contenido con fundido: View Transition donde exista y sin `reduce`; si no, en seco.
+  const suave = (fn: () => void) => {
+    const d = document as ConTransicion;
+    if (!d.startViewTransition || reducido.matches) { fn(); return; }
+    enCurso?.skipTransition();
+    const t = d.startViewTransition(fn);
+    enCurso = t;
+    t.finished.finally(() => { if (enCurso === t) enCurso = null; });
+  };
+  const ordenVisual = (li: HTMLElement) => Number(getComputedStyle(li).order) || 0;
+  document.querySelectorAll<HTMLElement>('.v2-rejilla-raiz').forEach(raiz => {
+    // Orden: el clic se anula y se repite dentro de la transición, para que funda el antes y el después.
+    const radios = [...raiz.querySelectorAll<HTMLInputElement>('.v2-orden input[type="radio"]')];
+    let actual = radios.find(r => r.checked) ?? null;
+    for (const r of radios) r.addEventListener('click', (e) => {
+      if (r === actual) return;
+      e.preventDefault();
+      suave(() => { r.checked = true; actual = r; });
     });
-  </script>
-)}
+    // «Ver más»: el foco pasa a la primera tarjeta nueva (el botón desaparece al pulsarlo).
+    const mas = raiz.querySelector<HTMLInputElement>('.v2-ver-mas input[type="checkbox"]');
+    mas?.addEventListener('change', () => {
+      if (!mas.checked) return;
+      const attr = actual?.value === 'nota' ? 'data-mas-nota' : actual?.value === 'precio' ? 'data-mas-precio' : 'data-mas';
+      const nuevas = [...raiz.querySelectorAll<HTMLElement>(`.v2-rejilla > li[${attr}]:not([hidden])`)].sort((a, b) => ordenVisual(a) - ordenVisual(b));
+      nuevas[0]?.querySelector<HTMLAnchorElement>('a[href]')?.focus();
+    });
+    // Filtro al escribir: oculta las tarjetas que no coinciden. Sin JavaScript, el formulario GET filtra en el servidor.
+    if (!raiz.dataset.rejilla) return;
+    const campo = document.querySelector<HTMLInputElement>(`[data-filtra="${raiz.dataset.rejilla}"]`);
+    if (!campo) return;
+    const celdas = [...raiz.querySelectorAll<HTMLElement>('[data-buscar]')];
+    const vacia = raiz.querySelector<HTMLElement>('[data-rejilla-vacia]');
+    const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+    let ultimo = '';
+    const filtrar = () => {
+      const q = norm(campo.value.trim());
+      const terminos = q.split(/\s+/).filter(Boolean);
+      let n = 0;
+      for (const c of celdas) { const ok = q.length < 2 || terminos.every(t => c.dataset.buscar!.includes(t)); c.hidden = !ok; if (ok) n++; }
+      raiz.toggleAttribute('data-filtrando', q.length >= 2);
+      if (vacia) { vacia.hidden = n > 0; vacia.querySelector('[data-rejilla-termino]')!.textContent = campo.value.trim(); }
+    };
+    // Solo funde cuando cambia el resultado efectivo (≥ 2 letras), no en cada tecla que no filtra.
+    campo.addEventListener('input', () => {
+      const q = norm(campo.value.trim());
+      const clave = q.length < 2 ? '' : q;
+      if (clave === ultimo) { filtrar(); return; }
+      ultimo = clave;
+      suave(filtrar);
+    });
+    ultimo = norm(campo.value.trim()).length < 2 ? '' : norm(campo.value.trim());
+    filtrar();
+  });
+</script>
 
 <style is:global>
   @layer components {
@@ -106,20 +156,31 @@ const conFranja = !!promo && cursos.length > 12;
     .v2-rejilla-raiz:has(input[value='nota']:checked) .v2-rejilla > li { order: var(--o-nota); }
     .v2-rejilla-raiz:has(input[value='precio']:checked) .v2-rejilla > li { order: var(--o-precio); }
     /* «Ver más»: ocultos hasta marcar la casilla; con otro orden o filtrando se ven todos. */
+    /* «Ver más»: con cada orden se ven sus primeros `visibles` (data-mas, -nota, -precio); con la casilla
+       marcada o filtrando, todas. Cambiar el orden ya no despliega las 120 de golpe. */
     .v2-rejilla > li[data-mas] { display: none; }
-    .v2-rejilla-raiz:has(.v2-ver-mas input:checked) .v2-rejilla > li[data-mas],
     .v2-rejilla-raiz:has(input[value='nota']:checked) .v2-rejilla > li[data-mas],
-    .v2-rejilla-raiz:has(input[value='precio']:checked) .v2-rejilla > li[data-mas],
-    .v2-rejilla-raiz[data-filtrando] .v2-rejilla > li[data-mas] { display: list-item; }
+    .v2-rejilla-raiz:has(input[value='precio']:checked) .v2-rejilla > li[data-mas] { display: list-item; }
+    .v2-rejilla-raiz:has(input[value='nota']:checked) .v2-rejilla > li[data-mas-nota],
+    .v2-rejilla-raiz:has(input[value='precio']:checked) .v2-rejilla > li[data-mas-precio] { display: none; }
+    .v2-rejilla-raiz:has(.v2-ver-mas input:checked) .v2-rejilla > li:is([data-mas], [data-mas-nota], [data-mas-precio]),
+    .v2-rejilla-raiz[data-filtrando] .v2-rejilla > li:is([data-mas], [data-mas-nota], [data-mas-precio]) { display: list-item; }
     .v2-rejilla > li[hidden] { display: none !important; }
     .v2-rejilla-raiz:has(.v2-ver-mas input:checked) .v2-ver-mas,
-    .v2-rejilla-raiz:has(input[value='nota']:checked) .v2-ver-mas,
-    .v2-rejilla-raiz:has(input[value='precio']:checked) .v2-ver-mas,
     .v2-rejilla-raiz[data-filtrando] :is(.v2-ver-mas, .v2-franja) { display: none; }
-    @supports not selector(:has(*)) { .v2-rejilla > li[data-mas] { display: list-item; } .v2-ver-mas, .v2-orden { display: none; } }
+    @supports not selector(:has(*)) { .v2-rejilla > li:is([data-mas], [data-mas-nota], [data-mas-precio]) { display: list-item; } .v2-ver-mas, .v2-orden { display: none; } }
     .v2-orden input:checked + label { background: var(--color-navy-950); color: #fff; box-shadow: none; font-weight: 600; }
     .v2-orden input:focus-visible + label { outline: 3px solid var(--color-coral-600); outline-offset: 2px; }
     .v2-ver-mas input:focus-visible + label { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+  }
+  /* Las tarjetas que «Ver más» descubre entran con un fundido corto (solo opacidad y desplazamiento). */
+  @media (prefers-reduced-motion: no-preference) {
+    .v2-rejilla-raiz:has(.v2-ver-mas input:checked) .v2-rejilla > li:is([data-mas], [data-mas-nota], [data-mas-precio]) {
+      transition: opacity var(--t-base) var(--e-sale), translate var(--t-base) var(--e-sale);
+    }
+    @starting-style {
+      .v2-rejilla-raiz:has(.v2-ver-mas input:checked) .v2-rejilla > li:is([data-mas], [data-mas-nota], [data-mas-precio]) { opacity: 0; translate: 0 8px; }
+    }
   }
   /* Móvil: la tarjeta pasa a fila (`filaEnMovil` del kit); aquí solo el separador entre filas. */
     @media (width < 640px) {

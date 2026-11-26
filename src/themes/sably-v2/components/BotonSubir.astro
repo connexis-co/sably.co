@@ -1,0 +1,80 @@
+---
+/**
+ * Botón «Volver arriba» (I4). Aparece tras bajar algo más de pantalla y media, en la columna derecha, y se coloca
+ * siempre por encima de lo que ya flota abajo a la derecha: la burbuja de WhatsApp (plugin sably-whatsapp, que
+ * se puede poner a la izquierda o esconder), el aviso de cookies y su icono, y la barra de compra fija del móvil.
+ * El hueco se mide al aparecer, al desplazarse y tras cada clic (cookies), y se aplica con `translate` (no cuenta como CLS).
+ * Al pulsarlo sube (suave salvo `reduce`) y lleva el foco al contenido, como el enlace «Saltar al contenido».
+ */
+---
+<button type="button" class="v2-subir" data-subir aria-label="Volver arriba" hidden>
+  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5" /><path d="m5 12 7-7 7 7" /></svg>
+</button>
+<style is:global>
+  .v2-subir {
+    position: fixed; z-index: 39; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 999px;
+    background: #fff; color: var(--color-navy-950); cursor: pointer;
+    box-shadow: 0 0 0 1px var(--color-navy-100), 0 8px 20px -10px rgb(27 27 58 / 0.45);
+    translate: var(--subir-x, 0px) calc(-1 * var(--subir-y, 0px));
+  }
+  .v2-subir[hidden] { display: none; }
+  .v2-subir:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+  @media (hover: hover) and (pointer: fine) { .v2-subir:hover { background: var(--color-navy-50); } }
+  @media print { .v2-subir { display: none !important; } }
+  @media (prefers-reduced-motion: no-preference) {
+    .v2-subir { transition: opacity var(--t-base) var(--e-sale), scale var(--t-base) var(--e-sale), display var(--t-base) allow-discrete; }
+    .v2-subir[hidden] { opacity: 0; scale: 0.9; }
+    @starting-style { .v2-subir:not([hidden]) { opacity: 0; scale: 0.9; } }
+  }
+</style>
+<script>
+  const boton = document.querySelector<HTMLButtonElement>('[data-subir]');
+  if (boton) {
+    const SEPARACION = 12;
+    const visible = (el: Element | null): el is HTMLElement => {
+      if (!(el instanceof HTMLElement) || el.hidden) return false;
+      const cs = getComputedStyle(el);
+      if (cs.display === 'none' || cs.visibility === 'hidden' || Number(cs.opacity) === 0) return false;
+      const r = el.getBoundingClientRect();
+      return r.width > 0 && r.height > 0;
+    };
+    // Lo que flota abajo: el botón se pone encima de lo que ocupe su columna (los 76 px de la derecha).
+    const OBSTACULOS = '#sably-whatsapp, [data-wa-float], #sbc, #sbc-ico, [data-barra-fija]:not([data-oculta]), .v2-fija-compra, [data-sticky-cta]:not([data-oculta]), [data-prueba-social]:not([hidden]), .v2-seguir';
+    const colocar = () => {
+      const ancho = innerWidth, alto = innerHeight;
+      const base = alto - 16; // borde inferior del botón sin desplazar (16 px; el área segura la suma el CSS)
+      let tope = base, dx = 0;
+      for (const el of document.querySelectorAll(OBSTACULOS)) {
+        if (!visible(el)) continue;
+        const r = el.getBoundingClientRect();
+        if (r.right < ancho - 76 || r.top > alto || r.bottom < alto - 240) continue; // no está en su columna ni abajo
+        if (el.id === 'sably-whatsapp' || el.matches('[data-wa-float]')) dx = -((ancho - r.right) + r.width / 2 - 16 - 22); // centrado con la burbuja
+        tope = Math.min(tope, r.top - SEPARACION);
+      }
+      const y = `${Math.max(0, Math.round(base - tope))}px`, x = `${Math.round(dx)}px`;
+      if (y !== ultimoY) { ultimoY = y; boton.style.setProperty('--subir-y', y); }
+      if (x !== ultimoX) { ultimoX = x; boton.style.setProperty('--subir-x', x); }
+    };
+    let ultimoY = '', ultimoX = '';
+    let pendiente = false, mostrado = false;
+    const revisar = () => {
+      pendiente = false;
+      const debe = scrollY > innerHeight * 1.5;
+      if (debe !== mostrado) { mostrado = debe; if (debe) colocar(); boton.hidden = !debe; }
+      else if (debe) colocar();
+    };
+    const pedir = () => { if (!pendiente) { pendiente = true; requestAnimationFrame(revisar); } };
+    addEventListener('scroll', pedir, { passive: true });
+    addEventListener('resize', pedir, { passive: true });
+    // La barra fija aparece y se va con el desplazamiento, y el aviso de cookies con un clic: ambos llegan aquí.
+    addEventListener('click', pedir, { passive: true });
+    boton.addEventListener('click', () => {
+      const suave = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+      scrollTo({ top: 0, behavior: suave ? 'smooth' : 'auto' });
+      const main = document.getElementById('main');
+      if (main) { if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1'); main.focus({ preventScroll: true }); }
+    });
+    revisar();
+  }
+</script>

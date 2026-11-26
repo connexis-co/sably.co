@@ -76,6 +76,9 @@
   .v2-num { font-variant-numeric: tabular-nums; }
   .v2-contenedor { width: 100%; max-width: 1200px; margin-inline: auto; padding-inline: 20px; }
   @media (width >= 1024px) { .v2-contenedor { padding-inline: 0; width: calc(100% - 80px); } }
+  /* Carriles horizontales: fundido tenue en los bordes (I2). El ancho del fundido coincide con el
+     relleno lateral del carril (20 px), así que al inicio y al final nada queda velado. */
+  .v2-fundido-x { mask-image: linear-gradient(90deg, transparent, #000 var(--fundido, 20px), #000 calc(100% - var(--fundido, 20px)), transparent); }
 
   /* ---------- Botones ---------- */
   .v2-btn {
