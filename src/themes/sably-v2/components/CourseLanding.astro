@@ -46,7 +46,7 @@ import { importe, fotoPropia, iniciales } from '@/lib/presentacion-v2';
 import Precio from '@/components/v2/Precio.astro';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { courseCover } from '@/lib/categories';
-import { fotoDeCurso, srcFoto } from '../fotos';
+import { fotoDeCurso, fotoDePestana, srcFoto } from '../fotos';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { plazoMasCorto, preciosDeTarjetas } from '@/lib/precio-hoy';
 import { CSS_CABEZA, RUTA_HOJA_FICHA } from '../ficha-hoja';
@@ -130,7 +130,10 @@ const fotosSobre = [
   { id: 'para-quien', src: candidatasSobre[0] },
   { id: 'necesitas', src: candidatasSobre[1] },
   { id: 'estudia', src: srcFoto('foto-estudiar-celular-1') },
-].filter((f): f is { id: string; src: string } => Boolean(f.src));
+]
+  /* «Qué necesitas» y «Cómo se estudia» con la foto propia del curso cuando existe; si no, la de arriba. */
+  .map(f => ({ ...f, propia: fotoDePestana(course.id, f.id) }))
+  .filter(f => f.propia || f.src);
 const pestanas = [
   { id: 'aprende', etiqueta: 'Qué aprenderás' },
   { id: 'para-quien', etiqueta: 'Para quién es' },
@@ -239,7 +242,12 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
             <OptimizedImage src={portada} alt={`${category.name}: ${course.data.title}`} width={600} height={600} sizes="(min-width: 1024px) 600px, 100vw" loading="lazy" decoding="async" class="v2-sobre-foto aspect-[4/5] w-full rounded-c-xl object-cover lg:aspect-square" data-foto="aprende" />
             {/* C5 (ronda 2 de JP): una foto por pestaña, con fundido. Todas están en el HTML y cargan con la sección,
                 así el cambio no espera a la red. Las de serie son decorativas (alt vacío): el texto está en el panel. */}
-            {ajustes.sobreFotos && fotosSobre.map(f => <img src={f.src} alt="" width="600" height="600" loading="lazy" decoding="async" class="v2-sobre-foto absolute inset-0 h-full w-full rounded-c-xl object-cover" data-foto={f.id} />)}
+            {ajustes.sobreFotos && fotosSobre.map(f => f.propia
+              ? <picture style="display: contents">
+                  <source type="image/avif" srcset={f.propia.avif} sizes="(min-width: 1024px) 600px, 100vw" />
+                  <img src={f.propia.src} srcset={f.propia.webp} sizes="(min-width: 1024px) 600px, 100vw" alt={f.propia.alt} width="960" height="1200" loading="lazy" decoding="async" class="v2-sobre-foto absolute inset-0 h-full w-full rounded-c-xl object-cover" data-foto={f.id} />
+                </picture>
+              : <img src={f.src} alt="" width="600" height="600" loading="lazy" decoding="async" class="v2-sobre-foto absolute inset-0 h-full w-full rounded-c-xl object-cover" data-foto={f.id} />)}
             <fieldset class="absolute inset-x-3 bottom-3 flex min-w-0 justify-center">
               <legend class="sr-only">Apartados de «Sobre este curso»</legend>
               <div class="v2-pildoras">
