@@ -134,7 +134,7 @@ export function AjustesPage() {
       </section>
       {seccion(['estiloCampo'], 'Formularios')}
     </>; break;
-    case 'campanas': cuerpo = <Promotions />; break;
+    case 'campanas': cuerpo = <>{seccion(['barraCampanaCierre', 'barraCampanaFicha'], 'Barra de campaña')}<Promotions /></>; break;
     case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'], 'Caja de compra')}{seccion(['sobreFotosPestanas', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'], 'Opiniones de la ficha')}{seccion(['fichaMovimiento', 'certificadoAnimacion'], 'Movimiento de la ficha')}<WidgetEditor only="social" /></>; break;
     case 'portada': cuerpo = <>
       <section className="so-editor">
@@ -183,7 +183,7 @@ export function AjustesPage() {
       ['Redirecciones', 'Direcciones viejas que llevan a las nuevas.', `${ADMIN}/redirects`],
     ]} />; break;
     case 'cuenta': cuerpo = <>
-      {seccion(['cuentaActiva', 'cuentaGoogle', 'cuentaCorreo', 'cuentaAcceso'], 'Cuenta')}
+      {seccion(['cuentaActiva', 'cuentaGoogle', 'cuentaCorreo', 'cuentaClave', 'cuentaAcceso'], 'Cuenta')}
       <div className="so-hueco"><strong>Claves del servidor</strong><p>El identificador y la clave del cliente OAuth de Google y la clave de sesión no se escriben aquí: van en el entorno del servidor (<code>SABLY_GOOGLE_ID</code>, <code>SABLY_GOOGLE_SECRET</code>, <code>SABLY_AUTH_SECRET</code>). Sin ellas, la cuenta no aparece aunque esté encendida. El código por correo usa el proveedor de Ajustes → Correo (Sably · Brevo con su clave API). Detalle en docs/equipo/2026-11-25/cuenta/IMPLEMENTACION.md.</p></div>
     </>; break;
     case 'integraciones': cuerpo = <>

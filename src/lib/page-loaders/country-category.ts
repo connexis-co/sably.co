@@ -62,8 +62,8 @@ const faqs = [
     a: `Sí. Los cursos de ${catName.toLowerCase()} de Sably son 100% online, con clases en video paso a paso que puedes ver a tu ritmo desde cualquier ciudad de ${country.name}.`,
   },
   {
-    q: '¿Los cursos incluyen constancia?',
-    a: 'Sí. Al completar cada curso, Hotmart emite una constancia digital de finalización.',
+    q: '¿Los cursos incluyen certificado?',
+    a: 'Sí. Al completar cada curso, Hotmart emite un certificado digital de finalización.',
   },
   {
     q: '¿Cuánto cuestan los cursos?',
@@ -80,7 +80,7 @@ const title = conciseTitle(`Cursos de ${catName} Online en ${country.name}`, [
   `Cursos de ${catName} en ${country.name}`,
 ]);
 
-const description = `${category.description} Cursos online con constancia de finalización para ${country.name}, con acceso de por vida.`;
+const description = `${category.description} Cursos online con certificado de finalización para ${country.name}, con acceso de por vida.`;
 
 
 const schemas = [

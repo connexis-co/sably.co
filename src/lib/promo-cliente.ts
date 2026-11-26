@@ -81,7 +81,10 @@ export function iniciarPromos(): void {
       const pieza = cerrar.closest<HTMLElement>('[data-promo-v2]');
       if (pieza) {
         pieza.hidden = true;
-        try { sessionStorage.setItem(CLAVE_CERRADA, pintada(pieza)?.id ?? ''); } catch { /* sin almacenamiento: solo esta vista */ }
+        // `data-cierre="vista"` (ajuste del panel): vuelve en la página siguiente.
+        if (pieza.dataset.cierre !== 'vista') {
+          try { sessionStorage.setItem(CLAVE_CERRADA, pintada(pieza)?.id ?? ''); } catch { /* sin almacenamiento: solo esta vista */ }
+        }
       }
       return;
     }
@@ -149,7 +152,9 @@ function pintar(el: HTMLElement, promo: Pintable): void {
   // la ficha de curso: este código vive en el layout, así que también cubre las
   // páginas de homologaciones, que no llevan la ficha y por tanto se quedaban
   // sin cupón mientras el banner lo anunciaba.
-  document.querySelectorAll<HTMLAnchorElement>('a[data-cta-hotmart]').forEach((a) => {
+  /* Salvo en la ficha V2 (`data-cupon-propio`): su caja de compra pone y quita el cupón
+     de sus enlaces, y la barra no debe reponerlo si el comprador lo quitó. */
+  if (!document.body.hasAttribute('data-cupon-propio')) document.querySelectorAll<HTMLAnchorElement>('a[data-cta-hotmart]').forEach((a) => {
     try {
       const url = new URL(a.href);
       /* Solo enlaces de pago de Hotmart: las homologaciones marcan con data-cta-hotmart
@@ -169,7 +174,7 @@ function pintar(el: HTMLElement, promo: Pintable): void {
   const v2 = el.dataset.promoV2 !== undefined;
   if (vence <= 0) { el.hidden = true; return; }
   // La barra V2 que se cerró en esta sesión no vuelve a salir en cada página.
-  el.hidden = v2 && el.dataset.promoV2 === 'barra' && cerradaEnSesion(promo.id);
+  el.hidden = v2 && el.dataset.promoV2 === 'barra' && el.dataset.cierre !== 'vista' && cerradaEnSesion(promo.id);
   if (v2) {
     // Sin segundos ni reloj que corre: la fecha de fin va en texto. Al llegar, se retira sola.
     if (promo.endsAt && Number.isFinite(vence) && vence < 2 ** 31) setTimeout(() => { el.hidden = true; }, vence);

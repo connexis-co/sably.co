@@ -3,7 +3,7 @@
  * Caja de compra V2 (lámina RGZQ7). Variante E «Cuenta clara» por defecto y B
  * «Cabecera oscura» desde el panel. Nombres de bloque según el módulo común con
  * la academia (contrato-ia-caja.md): titulo, subtitulo, promocion, precio,
- * cupon, boton, confianza (pago-seguro, garantia, constancia, medios),
+ * cupon, boton, confianza (pago-seguro, garantia, constancia = certificado, medios),
  * acordeon, pais, whatsapp, nota_legal.
  *
  * Reutiliza lo ya verificado de PurchasePanel.astro: el servidor pinta el
@@ -180,7 +180,7 @@ const tituloId = 'titulo-compra';
 
     <ul class="mt-5 space-y-3 border-t border-navy-100 pt-5 text-t15 text-navy-950" data-bloque="confianza">
       {hijo('confianza', 'garantia') && <li class="flex items-center gap-3" data-item="garantia"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="shield-check" tamano={18} /></span>7 días para pedir reembolso</li>}
-      <li class="flex items-center gap-3" data-item="constancia"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="award" tamano={18} /></span>Constancia de finalización</li>
+      <li class="flex items-center gap-3" data-item="constancia"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="award" tamano={18} /></span>Certificado de finalización</li>
       {hijo('confianza', 'medios') && <li class="flex items-center gap-3" data-item="medios"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="credit-card" tamano={18} /></span>Tarjeta o PayPal</li>}
     </ul>
     {hijo('confianza', 'medios') && <LogosPago pais={country.code} locales={false} class="mt-3 pl-11" />}
@@ -193,7 +193,7 @@ const tituloId = 'titulo-compra';
             <li>Pagas ahí; Sably no ve ni guarda tus datos de pago.</li>
             <li>Hotmart te manda por correo el acceso a las lecciones.</li>
             <li>Tienes 7 días para pedir el reembolso desde Hotmart.</li>
-            <li>Al terminar el 100 % de las lecciones, Hotmart emite tu constancia de finalización.</li>
+            <li>Al terminar el 100 % de las lecciones, Hotmart emite tu certificado de finalización.</li>
           </ol>
         </Acordeon>
       ) : p.tipo === 'medios' ? (

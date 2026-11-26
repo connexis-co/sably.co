@@ -137,7 +137,8 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
   image={portada}
   noindex={sinProducto}
   freshUntil={vigencia}
-  sinCupon={true}
+  sinCupon={!offer || !ajustes.barraCampana.enFicha}
+  cuponPropio
   {proveedor}
   whatsappContext={course.data.title}
   canonical={city ? `${f.canonicalUrl}` : undefined}
@@ -244,7 +245,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
               <ul class="mt-6 divide-y divide-navy-100 border-y border-navy-100 text-t17 text-navy-950">
                 <li class="flex gap-4 py-4"><Icono nombre="circle-play" class="mt-1 flex-none text-navy-500" />{course.data.lessonsCount} lecciones en vídeo, unas {course.data.durationHours} horas, que ves a tu ritmo desde el celular o el computador.</li>
                 {!sinProducto && <li class="flex gap-4 py-4"><Icono nombre="infinity" class="mt-1 flex-none text-navy-500" />Acceso de por vida, 24/7.</li>}
-                {!sinProducto && <li class="flex gap-4 py-4" data-constancia><Icono nombre="award" class="mt-1 flex-none text-navy-500" /><span><strong class="font-semibold">Constancia.</strong> Al completar el 100 % de las lecciones, Hotmart emite una constancia digital de finalización con tu nombre y el del curso.</span></li>}
+                {!sinProducto && <li class="flex gap-4 py-4" data-constancia><Icono nombre="award" class="mt-1 flex-none text-navy-500" /><span><strong class="font-semibold">Certificado.</strong> Al completar el 100 % de las lecciones, Hotmart emite un certificado digital de finalización con tu nombre y el del curso.</span></li>}
               </ul>
             </div>
             <div class="v2-siguiente mt-6 flex items-center justify-between text-t13 text-navy-500" aria-hidden="true">
@@ -264,8 +265,8 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
               </div>
             </div>
             <div class="max-w-[420px]">
-              <h3 class="font-display text-d28">Lo que acredita tu constancia</h3>
-              <p class="mt-3 text-t17">Este documento es una ilustración con datos de ejemplo. La constancia real la emite Hotmart, con su propio diseño, cuando completas el 100 % de las lecciones.</p>
+              <h3 class="font-display text-d28">Lo que acredita tu certificado</h3>
+              <p class="mt-3 text-t17">Este documento es una ilustración con datos de ejemplo. El certificado real lo emite Hotmart, con su propio diseño, cuando completas el 100 % de las lecciones.</p>
             </div>
           </div>
         )}

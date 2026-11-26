@@ -55,6 +55,13 @@ export interface AjustesV2 {
     /** Perfil público de la fuente (Google u otra), si se configuró con una URL https válida. */
     perfil: { nombre: string; url: string } | null;
   };
+  /** Barra de campaña V2 («Ajustes del sitio → Campañas y cupones»). */
+  barraCampana: {
+    /** `sesion`: cerrada, no vuelve hasta cerrar la pestaña; `vista`: vuelve en la página siguiente. */
+    cierre: 'sesion' | 'vista';
+    /** En la ficha, solo si el curso tiene la oferta de la campaña (su creador acepta el cupón). */
+    enFicha: boolean;
+  };
   /** Portada de país V2 («Ajustes del sitio → Portada»). */
   portada: {
     /** Bloques visibles, en orden (el héroe va siempre primero y no está aquí). */
@@ -124,6 +131,10 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       estilo: uno(v.opinionesEstilo, ['lista', 'compacto'] as const, 'lista'),
       minimoExtractos: Number(uno(v.opinionesExtractosMinimo, ['1', '2', '3'] as const, '1')),
       perfil: perfilOpiniones(texto('opinionesPerfilNombre', ''), texto('opinionesPerfilUrl', '')),
+    },
+    barraCampana: {
+      cierre: uno(v.barraCampanaCierre, ['sesion', 'vista'] as const, 'sesion'),
+      enFicha: v.barraCampanaFicha !== false,
     },
     portada: {
       bloques: bloquesVisibles(v.portadaOrden, v.portadaOcultos),
