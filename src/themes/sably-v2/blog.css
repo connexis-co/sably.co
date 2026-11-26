@@ -272,6 +272,10 @@ body:has(#sbc-ico:not([hidden])) .v2-indice-pildora { left: 68px; }
 .v2-lf-flecha:focus-visible, .v2-lf-pista:focus-visible { outline: 3px solid var(--color-coral-500); outline-offset: 2px; }
 .v2-lf-pista { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(260px, 82%); gap: 16px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scroll-padding-inline: 0; padding-bottom: 4px; scrollbar-width: none; border-radius: 20px; }
 .v2-lf-pista::-webkit-scrollbar { display: none; }
+/* I2: fundido tenue solo en el borde donde quedan cursos por ver (LlamadaFinal marca data-antes y data-despues). */
+.v2-lf-pista[data-despues] { mask-image: linear-gradient(90deg, #000 calc(100% - 32px), transparent); }
+.v2-lf-pista[data-antes] { mask-image: linear-gradient(90deg, transparent, #000 32px); }
+.v2-lf-pista[data-antes][data-despues] { mask-image: linear-gradient(90deg, transparent, #000 32px, #000 calc(100% - 32px), transparent); }
 .v2-lf-pista > li { scroll-snap-align: start; display: flex; }
 .v2-lf-pista > li > * { width: 100%; }
 @media (width >= 640px) { .v2-lf-pista { grid-auto-columns: calc((100% - 16px) / 2); } }
@@ -286,6 +290,8 @@ body:has(#sbc-ico:not([hidden])) .v2-indice-pildora { left: 68px; }
 }
 .v2-ba-cursos-carril { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(260px, 80%); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; scrollbar-width: thin; }
 .v2-ba-cursos-carril > li { scroll-snap-align: start; }
+/* I2: en el celular el carril se asoma con un fundido tenue en el borde derecho, como las fichas del artículo. */
+@media (width < 640px) { .v2-ba-cursos-carril { mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent); } }
 @media (width >= 640px) { .v2-ba-cursos-carril { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); overflow: visible; } }
 @media (width >= 1024px) { .v2-ba-cursos-carril { grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); } }
 .v2-ba-seccion-titulo { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-bottom: 24px; }
