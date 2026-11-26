@@ -18,6 +18,7 @@ import TarjetaArticulo from '../components/blog/TarjetaArticulo.astro';
 import EtiquetaCategoria from '../components/blog/EtiquetaCategoria.astro';
 import BuscadorBlog from '../components/blog/BuscadorBlog.astro';
 import { pulsoDeArticulos } from '@/lib/blog-pulso';
+import { duracionesNarradas } from '@/lib/narracion';
 import { Image as OptimizedImage } from 'astro:assets';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { blogCover, fechaCorta, minutosLectura, slugCategoria, titularPortada, tonoDeCategoria } from '@/lib/blog';
@@ -82,6 +83,8 @@ const ultima = posts[0]?.data.publishedAt;
 const nCursos = a.blogBandaCursos ? (await cms.getCourses()).length : 0;
 const minutos = (p: (typeof posts)[number]) => minutosLectura(p.richBody ? richText(p.richBody) : p.body ?? '');
 const conComentarios = a.blogComentarios !== 'apagados';
+/* Distintivo «Escúchalo · N min» (DISENO §12.11): segundos de las narraciones publicadas, en una consulta. */
+const narradas = await duracionesNarradas('blog');
 const pulsos = a.blogValoracion || conComentarios ? await pulsoDeArticulos([...recientes, ...enPagina].map(p => p.id)) : new Map();
 const tarjeta = { estrellas: a.blogValoracion && a.blogTarjetaEstrellas, comentarios: conComentarios && a.blogTarjetaComentarios, variante: a.blogTarjeta, movil: a.blogTarjetaMovil, leerMas: a.blogTarjetaLeerMas, sinFoto: a.blogPortadaSinFoto, estiloEtiqueta: a.blogEtiquetaEstilo } as const;
 const filaBanda = (Math.min(enPagina.length, 6)) - 1;
@@ -117,7 +120,7 @@ const migas = [{ name: 'Inicio', url: `/${country.code}/` }, { name: 'Blog', url
                 ? <OptimizedImage src={fotoDestacado} alt="" width={1140} height={720} fetchpriority="high" loading="eager" sizes="(min-width: 1024px) 760px, 100vw" />
                 : <div class="v2-portada-tipo" data-tono={tonoDeCategoria(destacado.data.category)} aria-hidden="true"><b>{titularPortada(destacado.data.title)}</b><span>{destacado.data.category}</span></div>}
             </div>
-            <p class="v2-bp-fila"><EtiquetaCategoria categoria={destacado.data.category} estilo={a.blogEtiquetaEstilo} /><span>Destacado</span></p>
+            <p class="v2-bp-fila"><EtiquetaCategoria categoria={destacado.data.category} estilo={a.blogEtiquetaEstilo} /><span>Destacado</span>{destacado && narradas.get(destacado.id) && <span class="v2-narrado"><Ico nombre="headphones" tamano={14} />Escúchalo · {Math.max(1, Math.round(narradas.get(destacado.id)! / 60))} min</span>}</p>
             <h2>{destacado.data.title}</h2>
             <p>{destacado.data.description}</p>
             <p class="v2-bp-meta"><time datetime={destacado.data.publishedAt.toISOString()}>{fechaCorta(destacado.data.publishedAt)}</time> · {minutos(destacado)} min de lectura</p>
@@ -125,7 +128,7 @@ const migas = [{ name: 'Inicio', url: `/${country.code}/` }, { name: 'Blog', url
           {recientes.length > 0 && (
             <div class="v2-bp-recientes">
               <h2>Lo más reciente</h2>
-              <ul role="list">{recientes.map(p => <li><TarjetaArticulo post={p} {...tarjeta} pulso={pulsos.get(p.id)} variante="horizontal" leerMas={false} sizes="120px" /></li>)}</ul>
+              <ul role="list">{recientes.map(p => <li><TarjetaArticulo post={p} {...tarjeta} pulso={pulsos.get(p.id)} narrado={narradas.get(p.id)} variante="horizontal" leerMas={false} sizes="120px" /></li>)}</ul>
             </div>
           )}
         </section>
@@ -157,7 +160,7 @@ const migas = [{ name: 'Inicio', url: `/${country.code}/` }, { name: 'Blog', url
           <ul class="v2-bp-rejilla" role="list" data-blog-rejilla data-movil={a.blogTarjetaMovil}>
             {enPagina.map((p, i) => (
               <>
-                <li style={`view-transition-name:t-${p.id}`}><TarjetaArticulo post={p} {...tarjeta} pulso={pulsos.get(p.id)} eager={!verDestacado && i < 2} /></li>
+                <li style={`view-transition-name:t-${p.id}`}><TarjetaArticulo post={p} {...tarjeta} pulso={pulsos.get(p.id)} narrado={narradas.get(p.id)} eager={!verDestacado && i < 2} /></li>
                 <HuecoPublicidad posicion="blog-rejilla" indice={i} etiqueta="li" />
                 {a.blogBandaCursos && nCursos > 0 && i === filaBanda && (
                   <li class="v2-bp-ancho" data-banda>
