@@ -36,6 +36,10 @@ const ANTES = {
     barraCampanaCierre: ['select', ['sesion', 'vista'], 'sesion'],
     barraCampanaFicha: ['boolean', null, true],
     barraCampanaFija: ['boolean', null, true],
+    // Claves nuevas (26-nov, página «Nosotros»): se añaden, no sustituyen a ninguna.
+    nosotrosDiseno: ['select', ['narrativo', 'sencillo'], 'narrativo'],
+    nosotrosCifras: ['boolean', null, true],
+    nosotrosMovimiento: ['boolean', null, true],
   },
   integraciones: {
     browserMode: ['select', ['off', 'gtm', 'direct'], 'off'],
@@ -102,10 +106,19 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
       pruebaHeroe: null,
       categoriasVariante: 'fotos',
       comoFuncionaAnimado: true,
+      heroeMovil: 'tras-botones',
+      oficioModo: 'automatico',
+      oficioIntervalo: 9000,
+      guiasVariante: 'tarjetas',
+      beneficiosModo: 'automatico',
+      aparicion: true,
+      cifrasCuentan: true,
+      paralaje: true,
       escenasAtenuar: true,
       escenasVariante: 'apiladas',
       valoradosMinimo: 20,
     },
+    nosotros: { diseno: 'narrativo', cifras: true, movimiento: true },
     blog: leerAjustesBlog({}),
   });
   const prefijo = 'plugin:sably-integrations:settings:';

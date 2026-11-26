@@ -52,10 +52,20 @@ export interface AjustesV2 {
     pruebaHeroe: PruebaHeroe | null;
     categoriasVariante: 'fotos' | 'pila' | 'filas';
     comoFuncionaAnimado: boolean;
+    heroeMovil: 'tras-botones' | 'final';
+    oficioModo: 'automatico' | 'estatico';
+    oficioIntervalo: number;
+    guiasVariante: 'tarjetas' | 'lista';
+    beneficiosModo: 'automatico' | 'estatico';
+    aparicion: boolean;
+    cifrasCuentan: boolean;
+    paralaje: boolean;
     escenasAtenuar: boolean;
     escenasVariante: 'apiladas' | 'foto-fija';
     valoradosMinimo: number;
   };
+  /** Página «Nosotros» V2 («Ajustes del sitio → Cursos y contenido»). */
+  nosotros: { diseno: 'narrativo' | 'sencillo'; cifras: boolean; movimiento: boolean };
   /** Blog V2 («Ajustes del sitio → Blog»): claves `blog*` con sus valores de fábrica. */
   blog: AjustesBlog;
 }
@@ -121,9 +131,22 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       pruebaHeroe: leerPruebaHeroe(v.portadaHeroeAB, v.portadaHeroeABVariantes ?? 'muro, buscador', v.portadaHeroeABReparto, v.portadaHeroeABInicio),
       categoriasVariante: uno(v.portadaCategoriasVariante, ['fotos', 'pila', 'filas'] as const, 'fotos'),
       comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
+      heroeMovil: uno(v.portadaHeroeMovil, ['tras-botones', 'final'] as const, 'tras-botones'),
+      oficioModo: uno(v.portadaOficioModo, ['automatico', 'estatico'] as const, 'automatico'),
+      oficioIntervalo: Number(uno(v.portadaOficioIntervalo, ['7000', '9000', '12000'] as const, '9000')),
+      guiasVariante: uno(v.portadaGuiasVariante, ['tarjetas', 'lista'] as const, 'tarjetas'),
+      beneficiosModo: uno(v.portadaBeneficiosModo, ['automatico', 'estatico'] as const, 'automatico'),
+      aparicion: v.portadaAparicion !== false,
+      cifrasCuentan: v.portadaCifrasCuentan !== false,
+      paralaje: v.portadaParalaje !== false,
       escenasAtenuar: v.portadaEscenasAtenuar !== false,
       escenasVariante: uno(v.portadaEscenasVariante, ['apiladas', 'foto-fija'] as const, 'apiladas'),
       valoradosMinimo: Number(uno(v.portadaValoradosMinimo, ['10', '20', '50'] as const, '20')),
+    },
+    nosotros: {
+      diseno: uno(v.nosotrosDiseno, ['narrativo', 'sencillo'] as const, 'narrativo'),
+      cifras: v.nosotrosCifras !== false,
+      movimiento: v.nosotrosMovimiento !== false,
     },
     blog: leerAjustesBlog(v),
   };

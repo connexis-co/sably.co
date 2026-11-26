@@ -142,14 +142,17 @@ export function AjustesPage() {
         <OrdenPortada orden={borrador.portadaOrden} ocultos={borrador.portadaOcultos} onChange={(orden, ocultos) => setBorrador(b => ({ ...b, portadaOrden: orden, portadaOcultos: ocultos }))} />
         <button className="so-primary" disabled={ocupado} onClick={() => void guardar(['portadaOrden', 'portadaOcultos'])}>{ocupado ? 'Guardando…' : 'Guardar bloques'}</button>
       </section>
-      {seccion(['portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios'], 'Héroe')}
+      {seccion(['portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeMovil'], 'Héroe')}
       {seccion(['portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio'], 'Prueba A/B del héroe', <EstadoPruebaAB valores={actuales} />)}
       {seccion(['portadaCategoriasVariante'], 'Categorías')}
-      {seccion(['portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar'], 'Movimiento de los bloques')}
+      {seccion(['portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar'], 'Movimiento de los bloques')}
+      {seccion(['portadaOficioModo', 'portadaOficioIntervalo'], 'Oficio destacado')}
+      {seccion(['portadaBeneficiosModo'], '¿Por qué Sably?')}
       {seccion(['portadaValoradosMinimo'], 'Los mejor valorados')}
+      {seccion(['portadaGuiasVariante'], 'Guías del blog')}
       <Enlaces items={[['Textos de la portada', 'Titular, entradilla y textos de cada bloque (secciones sably-home-*).', `${ADMIN}/sections`]]} />
     </>; break;
-    case 'contenido': cuerpo = <Enlaces items={[
+    case 'contenido': cuerpo = <>{seccion(['nosotrosDiseno', 'nosotrosCifras', 'nosotrosMovimiento'], 'Página «Nosotros»')}<Enlaces items={[
       ['Cursos', 'Ficha general de cada curso.', `${ADMIN}/content/courses`],
       ['Cursos por país', 'Precio, enlace de compra y texto por país.', `${ADMIN}/content/course_locales`],
       ['Categorías', 'Oficios y su orden.', `${ADMIN}/content/categories`],
@@ -159,7 +162,7 @@ export function AjustesPage() {
       ['Artículos', 'Blog.', `${ADMIN}/content/blog`],
       ['Menús', 'Cabecera y pie.', `${ADMIN}/menus`],
       ['Moderación y contactos', 'Opiniones, calificaciones y solicitudes.', `${ADMIN}/plugins/sably-operations/operations`],
-    ]} />; break;
+    ]} /></>; break;
     case 'blog': cuerpo = <>
       {seccion(['blogTituloPortada', 'blogEntradillaPortada', 'blogBuscador', 'blogDestacado', 'blogRecientes', 'blogBandaCursos'], 'Portada del blog')}
       {seccion(['blogFiltrosEstilo', 'blogFiltrosMovil', 'blogFiltrosCuenta', 'blogPaginacion', 'blogVerMasAuto', 'blogPorPagina'], 'Portada · filtros y paginación')}

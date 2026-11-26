@@ -1,0 +1,25 @@
+---
+/** Cifras del catálogo de «Nosotros», contadas en cada render (las pasa Nosotros.astro). Cuentan al entrar con `data-cuenta` (Movimiento.astro). */
+interface Props { cifras: { valor: number; texto: string; href?: string }[]; hoy: string }
+const { cifras, hoy } = Astro.props;
+const formato = (n: number) => n.toLocaleString('es-CO');
+---
+<section class="v2-contenedor pt-6 lg:pt-4" aria-label="Sably en cifras">
+  <dl class="v2-nos-cifras" data-entra="grupo">
+    {cifras.map(x => (
+      <div>
+        <dt>{x.href ? <a href={x.href} class="underline-offset-4 hover:text-coral-700 hover:underline">{x.texto}</a> : x.texto}</dt>
+        <dd class="v2-num" data-cuenta={x.valor}>{formato(x.valor)}</dd>
+      </div>
+    ))}
+  </dl>
+  <p class="mt-4 text-t13 text-navy-500">Contadas en el catálogo de Sably el {hoy}.</p>
+</section>
+
+<style>
+  .v2-nos-cifras { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; border-top: 1px solid var(--color-navy-100); padding-top: 24px; }
+  .v2-nos-cifras > div { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 4px; }
+  .v2-nos-cifras dd { font-family: var(--font-display); font-size: 44px; line-height: 1; letter-spacing: -0.02em; color: var(--color-navy-950); }
+  .v2-nos-cifras dt { font-size: 15px; line-height: 22px; color: var(--color-navy-700); }
+  @media (min-width: 768px) { .v2-nos-cifras { grid-template-columns: repeat(4, minmax(0, 1fr)); } .v2-nos-cifras dd { font-size: 64px; } }
+</style>

@@ -1,0 +1,50 @@
+/* Estilos de Oficio.astro (solo portada). Van en línea antes de su marcado y no en la hoja común de todo el
+   sitio: un <style is:global> de componente acaba en la hoja que cargan todas las páginas. */
+@layer components {
+  /* Móvil: foto 4:3 arriba y la pila de tarjetas debajo, montada 64 px sobre la foto. */
+  /* Sin overflow-clip-margin: lo que asoma fuera del recorte cuenta como ancho desplazable (la página se ensanchaba
+     4 px en el celular). La sombra de abajo cabe en el relleno inferior. */
+  .v2-ofi { position: relative; overflow: clip; padding-bottom: 24px; margin-bottom: -24px; touch-action: pan-y; }
+  .v2-ofi-fotos { display: grid; overflow: hidden; border-radius: var(--radius-c-xl); aspect-ratio: 4 / 3; background: var(--color-navy-100); }
+  .v2-ofi-foto { grid-area: 1 / 1; opacity: 0; }
+  .v2-ofi-foto[data-activa] { opacity: 1; z-index: 2; }
+  .v2-ofi-foto[data-saliente] { opacity: 1; z-index: 1; }
+  .v2-ofi-foto picture { display: block; height: 100%; }
+  .v2-ofi-pila { position: relative; z-index: 3; display: grid; margin: -64px 12px 0; }
+  .v2-ofi-tar {
+    grid-area: 1 / 1; display: flex; flex-direction: column; padding: 24px;
+    border-radius: var(--radius-c-xl); background: var(--color-navy-950); color: #fff; box-shadow: var(--shadow-s3);
+    transform-origin: 100% 0;
+  }
+  .v2-ofi-tar[data-estado='cayo'] { translate: 0 125%; rotate: 9deg; opacity: 0; visibility: hidden; }
+  .v2-ofi-tar[data-estado='debajo'] { visibility: hidden; }
+  .v2-ofi-flecha { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 999px; color: #fff; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .4); cursor: pointer; transition: box-shadow var(--t-rapido) var(--e-sale), background-color var(--t-rapido) var(--e-sale); }
+  .v2-ofi-flecha:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+  .v2-ofi-pausa .v2-ico-seguir, .v2-ofi-pausa[aria-pressed='true'] .v2-ico-pausa { display: none; }
+  .v2-ofi-pausa[aria-pressed='true'] .v2-ico-seguir { display: block; }
+  @media (prefers-reduced-motion: reduce) { .v2-ofi-pausa { display: none; } }
+  @media (hover: hover) { .v2-ofi-flecha:hover { box-shadow: inset 0 0 0 1px #fff; background: rgb(255 255 255 / .08); } }
+
+  /* Escritorio: foto a todo el contenedor y la tarjeta dentro, abajo a la izquierda (como visitvalle). */
+  @media (min-width: 1024px) {
+    .v2-ofi { border-radius: var(--radius-c-xl); overflow: hidden; padding-bottom: 0; margin-bottom: 0; }
+    .v2-ofi-fotos { aspect-ratio: 1200 / 660; }
+    /* Cada tarjeta va del lado libre de su foto (FOTOS[…].tarjeta), para no tapar la cara ni las manos. */
+    .v2-ofi-pila { position: absolute; inset: 40px; margin: 0; pointer-events: none; }
+    .v2-ofi-tar { width: 448px; padding: 32px; justify-self: start; pointer-events: auto; }
+    .v2-ofi-tar[data-lado='derecha'] { justify-self: end; transform-origin: 0 0; }
+    .v2-ofi-tar[data-lado='derecha'][data-estado='cayo'] { rotate: -9deg; }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Caída: gira desde la esquina superior derecha y baja fuera del marco; al volver, sube por el mismo camino. */
+    .v2-ofi-tar { transition: translate 720ms cubic-bezier(.55, 0, .7, .2), rotate 720ms cubic-bezier(.55, 0, .7, .2), opacity 300ms linear 420ms, visibility 0s linear 720ms; }
+    .v2-ofi-tar[data-estado='activa'] { transition: translate 640ms cubic-bezier(.2, .8, .25, 1), rotate 640ms cubic-bezier(.2, .8, .25, 1), opacity 160ms linear, visibility 0s; }
+    .v2-ofi-tar[data-estado='debajo'] { transition: visibility 0s linear 720ms; }
+    /* Piezas de la tarjeta que queda arriba: entran en cascada, 75 ms entre una y otra. */
+    .v2-ofi[data-cascada] .v2-ofi-tar[data-estado='activa'] .v2-ofi-pieza { animation: v2-ofi-pieza 520ms cubic-bezier(.2, .8, .25, 1) both; animation-delay: calc(160ms + var(--k) * 75ms); }
+    @keyframes v2-ofi-pieza { from { opacity: 0; translate: 0 18px; } }
+    .v2-ofi-foto { transition: opacity 700ms ease; }
+    .v2-ofi-foto[data-saliente] { transition: none; }
+  }
+}

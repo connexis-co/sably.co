@@ -1,0 +1,31 @@
+---
+/**
+ * Franja de fotos de oficios de «Nosotros»: seis fotos aprobadas en fila que derivan en horizontal mientras la
+ * franja cruza la pantalla (animation-timeline: view(), solo `translate`). Decorativa (`aria-hidden`): el texto de
+ * la página ya lo dice. Sin soporte, con «reducir movimiento» o con el movimiento apagado en el panel, quieta.
+ * `overflow: clip` en la sección: nunca crea scroll horizontal.
+ */
+import Foto from '../Foto.astro';
+import type { NombreFoto } from '../../fotos';
+const FOTOS: NombreFoto[] = ['foto-oficio-barberia', 'foto-oficio-modisteria', 'foto-oficio-electricidad', 'foto-oficio-ceviche', 'foto-oficio-unas', 'foto-oficio-canina', 'foto-oficio-celulares'];
+---
+<section class="v2-nos-franja py-6 lg:py-10" aria-hidden="true">
+  <div class="v2-nos-franja-fila">
+    {FOTOS.map((f, i) => <div class:list={['v2-nos-franja-foto', i % 2 ? 'v2-nos-baja' : '']}><Foto nombre={f} sizes="(min-width: 1024px) 300px, 46vw" decorativa class="h-full w-full object-cover" /></div>)}
+  </div>
+</section>
+
+<style>
+  .v2-nos-franja { overflow: clip; }
+  .v2-nos-franja-fila { display: flex; gap: 12px; width: max-content; margin-left: -6vw; }
+  .v2-nos-franja-foto { flex: none; width: 46vw; max-width: 300px; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius-c-lg); background: var(--color-navy-50); }
+  .v2-nos-franja-foto :global(picture) { display: block; height: 100%; }
+  .v2-nos-baja { margin-top: 28px; }
+  @media (min-width: 1024px) { .v2-nos-franja-fila { gap: 20px; } .v2-nos-baja { margin-top: 48px; } }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      @keyframes v2-nos-deriva { from { translate: 2% 0; } to { translate: -18% 0; } }
+      :global([data-nos-movimiento]) .v2-nos-franja-fila { animation-name: v2-nos-deriva; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+    }
+  }
+</style>

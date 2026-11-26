@@ -9,6 +9,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import CmsRichBody from '@/components/CmsRichBody.astro';
 import CabezaPagina from '../components/CabezaPagina.astro';
 import BloquesPagina from '../components/BloquesPagina.astro';
+import Nosotros from '../components/nosotros/Nosotros.astro';
+import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import type { CmsPage, CmsCountry } from '@/lib/emdash-content';
 import type { BlockValue } from 'emdash/ui';
 import { breadcrumbSchema } from '@/lib/seo';
@@ -24,10 +26,15 @@ const nombre = page.heroLabel || page.heroHeading;
 const schemas = [breadcrumbSchema([{ name: 'Inicio', url: `${SITE.url}/${country.code}/` }, { name: nombre, url: new URL(page.path, SITE.url).href }]), { '@context': 'https://schema.org', '@type': kind, name: page.title, description: page.description, url: new URL(page.path, SITE.url).href, inLanguage: 'es', about: { '@id': `${SITE.url}/#organization` } }];
 const migas = [{ name: 'Inicio', url: `/${country.code}/` }, { name: nombre, url: page.path }];
 const legal = page.path.startsWith('/legal/');
+/* «Nosotros» narrativo (panel → Cursos y contenido): plantilla propia con el mismo texto del CMS. */
+const { ajustes } = await temaDeLaPeticion(Astro);
+const narrativo = page.path === '/nosotros/' && page.layout.length > 0 && ajustes.nosotros.diseno === 'narrativo';
 ---
 <BaseLayout title={page.title} description={page.description} {country} {schemas} pageType="page" temaV2>
+  {narrativo ? <Nosotros {page} {country} {migas} cifras={ajustes.nosotros.cifras} movimiento={ajustes.nosotros.movimiento} /> : <>
   <CabezaPagina titulo={page.heroHeading} antetitulo={page.heroLabel || undefined} entradilla={page.heroText || undefined} {migas} editarTitulo={page.edit.hero_heading} editarEntradilla={page.edit.hero_text} editarAntetitulo={page.edit.hero_label} clara={legal} />
   {page.layout.length
     ? <BloquesPagina value={page.layout as unknown as BlockValue[]} />
     : <section class="v2-contenedor py-12 lg:py-16" data-cms><div class="v2-prosa mx-auto max-w-[720px]"><CmsRichBody value={page.richBody ?? []} /></div></section>}
+  </>}
 </BaseLayout>

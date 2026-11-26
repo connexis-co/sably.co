@@ -266,6 +266,78 @@ export const settingsSchema = {
     description: 'Los números de los pasos se encienden al bajar y un carril coral avanza hasta el paso que lees. Con «reducir movimiento», sin desplazamientos. Apagado: los cuatro pasos encendidos y quietos. Por defecto: encendido.',
     default: true,
   },
+  portadaAparicion: {
+    type: 'boolean',
+    label: 'Portada · Bloques que entran al bajar',
+    description: 'Las cifras, las áreas, los cursos destacados y mejor valorados, las ventajas, los vídeos, las guías y las preguntas entran escalonados (fundido y 22 px hacia arriba) la primera vez que aparecen; lo que ya se ve al cargar no se mueve. Al abrir una pregunta, la respuesta entra con fundido. Con «reducir movimiento» o sin JavaScript, todo quieto y visible. Por defecto: encendido.',
+    default: true,
+  },
+  portadaCifrasCuentan: {
+    type: 'boolean',
+    label: 'Portada · Cifras que cuentan',
+    description: 'Los cursos con inscripción abierta y las valoraciones de Hotmart cuentan desde 0 hasta la cifra real una sola vez, al entrar en pantalla (1,1 s). En el HTML va la cifra final. Con «reducir movimiento», quietas. Por defecto: encendido.',
+    default: true,
+  },
+  portadaParalaje: {
+    type: 'boolean',
+    label: 'Portada · Paralaje suave',
+    description: 'Las dos fotos de «¿Por qué Sably?» se desplazan a distinta velocidad al bajar (24 y 40 px). Solo `translate`; con «reducir movimiento» o sin soporte, quietos. Por defecto: encendido.',
+    default: true,
+  },
+  portadaHeroeMovil: {
+    type: 'select',
+    label: 'Portada · Muro del héroe en el celular',
+    description: '«Tras los botones»: en el celular el muro (dos filas más bajas) va justo debajo de «Explorar cursos», antes de la línea de valoraciones, para que asome en la primera pantalla sin tapar el titular ni el buscador. «Al final»: debajo de todo el texto, como estaba. Solo afecta al muro y por debajo de 1024 px. Por defecto: Tras los botones.',
+    options: [{ value: 'tras-botones', label: 'Tras los botones (asoma en la primera pantalla)' }, { value: 'final', label: 'Al final del héroe' }],
+    default: 'tras-botones',
+  },
+  portadaOficioModo: {
+    type: 'select',
+    label: 'Portada · «Oficio destacado»: ¿rueda solo?',
+    description: '«Automático»: cada cierto tiempo la tarjeta cae y entra la siguiente, muy suave, con un botón visible para pausar o seguir; se para al pasar el cursor, con el foco dentro, fuera de pantalla o con la pestaña oculta, y nunca rueda con «reducir movimiento». «Estático»: solo cambia con las flechas, el teclado o el dedo. Por defecto: Automático (lo pidió JP el 26-nov).',
+    options: [{ value: 'automatico', label: 'Automático' }, { value: 'estatico', label: 'Estático (solo flechas)' }],
+    default: 'automatico',
+  },
+  portadaOficioIntervalo: {
+    type: 'select',
+    label: 'Portada · «Oficio destacado»: cada cuánto cambia',
+    description: 'Solo en modo automático. Da tiempo a leer el título y el texto de la tarjeta (unas 40 palabras). Por defecto: 9 segundos.',
+    options: [{ value: '7000', label: '7 segundos' }, { value: '9000', label: '9 segundos' }, { value: '12000', label: '12 segundos' }],
+    default: '9000',
+  },
+  portadaBeneficiosModo: {
+    type: 'select',
+    label: 'Portada · «¿Por qué Sably?»: ¿avanza solo?',
+    description: '«Automático»: los cuatro puntos se encienden uno tras otro (una barra coral marca el tiempo, 6 s cada uno) y las dos fotos cambian con el punto activo; se para al pasar el cursor, con el foco dentro, fuera de pantalla o con la pestaña oculta, y nunca avanza con «reducir movimiento». Siempre se puede elegir un punto a mano. «Estático»: solo cambia al pulsar un punto. Los textos son los de Secciones → sably-home-benefits. Por defecto: Automático.',
+    options: [{ value: 'automatico', label: 'Automático' }, { value: 'estatico', label: 'Estático (solo al pulsar)' }],
+    default: 'automatico',
+  },
+  nosotrosDiseno: {
+    type: 'select',
+    label: 'Nosotros · Diseño de la página',
+    description: '«Narrativo»: cabecera propia con fotos y borde en arco, cifras reales del catálogo, «Cómo funciona» en tarjetas apiladas que se quedan pegadas al bajar, una franja de fotos de oficios y bloques que entran escalonados. «Sencillo»: la cabecera y los bloques de las demás páginas. El texto es el mismo en los dos (Contenido → Páginas → nosotros). Por defecto: Narrativo.',
+    options: [{ value: 'narrativo', label: 'Narrativo' }, { value: 'sencillo', label: 'Sencillo' }],
+    default: 'narrativo',
+  },
+  nosotrosCifras: {
+    type: 'boolean',
+    label: 'Nosotros · Cifras reales del catálogo',
+    description: 'Cursos con inscripción abierta, áreas, países y guías publicadas, contados en cada render desde el catálogo (nunca escritos a mano), con la fecha. Van junto al bloque «Sably en datos» o, si no está, bajo la cabecera. Solo en el diseño narrativo. Por defecto: encendido.',
+    default: true,
+  },
+  nosotrosMovimiento: {
+    type: 'boolean',
+    label: 'Nosotros · Movimiento',
+    description: 'Bloques que entran escalonados al bajar, cifras que cuentan desde 0 una vez, fotos de la cabecera que entran y franja de fotos con paralaje. Solo opacity y translate; con «reducir movimiento», sin JavaScript o apagado, todo quieto y visible (las tarjetas apiladas se siguen pegando). Por defecto: encendido.',
+    default: true,
+  },
+  portadaGuiasVariante: {
+    type: 'select',
+    label: 'Portada · Bloque de guías del blog',
+    description: '«Tarjetas»: las guías destacadas con su foto, la categoría con su color y «Escúchalo» si tienen narración; el resto, en lista. «Lista»: solo texto, como antes. Los enlaces son los mismos en las dos. Por defecto: Tarjetas.',
+    options: [{ value: 'tarjetas', label: 'Tarjetas con foto' }, { value: 'lista', label: 'Lista de texto' }],
+    default: 'tarjetas',
+  },
   portadaEscenasVariante: {
     type: 'select',
     label: 'Portada · Cómo se recorre «De la primera clase a tu primer encargo»',
@@ -303,7 +375,10 @@ export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' 
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
 export const CAMPANA_CLAVES: ClaveAjuste[] = ['campanaBarra', 'campanaBanda', 'campanaMegamenu', 'campanaListado'];
-export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
+export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaHeroeMovil', 'portadaOficioModo', 'portadaOficioIntervalo', 'portadaBeneficiosModo', 'portadaGuiasVariante', 'portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
+
+/** Ajustes de la página «Nosotros» (pestaña «Cursos y contenido»). */
+export const NOSOTROS_CLAVES: ClaveAjuste[] = ['nosotrosDiseno', 'nosotrosCifras', 'nosotrosMovimiento'];
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
@@ -311,7 +386,7 @@ export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves:
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', ...CAMPANA_CLAVES] },
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
-  { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
+  { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación, y el diseño de la página «Nosotros».', claves: NOSOTROS_CLAVES },
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },
   { id: 'medios', titulo: 'Medios: audio y vídeo', resumen: 'Vídeo de presentación; narraciones y reproductor, cuando lleguen.', claves: [] },
   { id: 'seo', titulo: 'SEO y medición', resumen: 'Medición, conversiones y auditoría SEO.', claves: [] },
