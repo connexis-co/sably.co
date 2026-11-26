@@ -10,7 +10,7 @@ import { SqliteD1Database } from '../src/lib/node/d1-sqlite.ts';
 import { CuentaAlmacen, desafioPkce, type IdentidadGoogle } from '../src/lib/cuenta/almacen.ts';
 import { canjearGoogle, identidadComprobada, urlGoogle, verificarIdToken } from '../src/lib/cuenta/google.ts';
 import { DIA, SESION_SEGUNDOS, destinoSeguro, enlaceIngresar, iniciales, resumen, tokenAleatorio, RUTA_PRIVADA, CONSENTIMIENTO, codigoAleatorio, limpiarCodigo, enlaceCodigo } from '../src/lib/cuenta/nucleo.ts';
-import { correoCodigo } from '../src/lib/cuenta/correo.ts';
+import { correoCodigo, secretoPuesto } from '../src/lib/cuenta/correo.ts';
 import { ARGON2_DISPONIBLE, claveFiltrada, hashClave, necesitaRehash, revisarClaveNueva, validarClave, verificarClave } from '../src/lib/cuenta/clave.ts';
 import { createHash } from 'node:crypto';
 import { COOKIE_PISTA, leerFormulario, postValido, tokenCsrf } from '../src/lib/cuenta/http.ts';
@@ -503,4 +503,11 @@ test('interruptor de contraseña: encendido de fábrica, pero necesita el correo
   assert.equal(leerEstadoCuenta([], entorno).clave, true);
   assert.equal(leerEstadoCuenta([fila('cuentaClave', false)], entorno).clave, false);
   assert.equal(leerEstadoCuenta([fila('cuentaCorreo', false)], entorno).clave, false, 'sin correo no hay contraseña');
+});
+
+test('la clave de Brevo cuenta como puesta cuando EmDash la guarda cifrada', () => {
+  // Así queda en `options` un ajuste de tipo `secret` guardado desde el panel.
+  assert.equal(secretoPuesto({ $emdash: 'secret', v: 1, kid: 'k1', iv: 'aaaa', ciphertext: 'bbbb' }), true);
+  assert.equal(secretoPuesto('xkeysib-ejemplo'), true);
+  for (const vacio of [undefined, null, '', '   ', {}, { ciphertext: '' }, 0, []]) assert.equal(secretoPuesto(vacio), false);
 });
