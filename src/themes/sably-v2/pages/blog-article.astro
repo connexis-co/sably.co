@@ -48,6 +48,7 @@ import { preciosDeTarjetas } from '@/lib/precio-hoy';
 import { fijarPaisDeBloques } from '@/lib/bloques-contexto';
 import { getCategory, type Course, type RichBlock } from '@/lib/emdash-content';
 import { SITE, CDN_URL } from '@/lib/site';
+import { promoDeLaPagina } from '../promo-v2';
 import type { load } from '@/lib/page-loaders/blog-article';
 import '../estilos.css';
 import EstilosBlog from '../components/blog/EstilosBlog.astro';
@@ -101,16 +102,22 @@ const barraIndice = conIndice && a.blogIndiceMovil === 'plegable-barra';
 /* ---------- Curso relacionado: el primero que el texto enlaza (relación editorial, no una adivinanza) ---------- */
 const cursos = await cms.getCourses();
 const porId = new Map(cursos.map(c => [c.id, c]));
+const enlazados = [...new Set(cursosEnlazados(post, SITE.url))].map(s => porId.get(s)).filter((c): c is Course => Boolean(c));
 /* El del campo «Curso relacionado» del editor si existe; si no, el primero que el texto enlaza. */
-const curso: Course | null = (post.presentacion?.cursoRelacionado ? porId.get(post.presentacion.cursoRelacionado) : undefined)
-  ?? cursosEnlazados(post, SITE.url).map(s => porId.get(s)).find(Boolean) ?? null;
+const elegido = post.presentacion?.cursoRelacionado ? porId.get(post.presentacion.cursoRelacionado) : undefined;
+const curso: Course | null = elegido ?? enlazados[0] ?? null;
+/* «Siguiente paso»: el curso relacionado y los que el artículo enlaza (hasta 8), en su orden; con varios, carrusel. */
+const enLlamada = a.blogLlamadaFinal
+  ? [...(elegido ? [elegido] : []), ...enlazados.filter(c => c !== elegido)].slice(0, 8)
+  : [];
 const categoriaCurso = curso ? await getCategory(curso.data.category) : null;
 const nSugeridos = Number(a.blogCursosSugeridos);
 const sugeridos = curso && nSugeridos > 0
   ? [...new Set([...clusterDeCurso(curso, cursos), ...cursos.filter(c => c.id !== curso.id && c.data.category === curso.data.category).map(c => c.id)])]
-      .map(id => porId.get(id)!).filter(Boolean).slice(0, nSugeridos)
+      .map(id => porId.get(id)!).filter(Boolean).filter(c => !enLlamada.includes(c)).slice(0, nSugeridos)
   : [];
-const { precios, freshUntil } = await preciosDeTarjetas(curso ? [curso, ...sugeridos] : [], country, { url: Astro.url, locals: Astro.locals });
+const { precios, freshUntil } = await preciosDeTarjetas([...new Set([...enLlamada, ...(curso ? [curso] : []), ...sugeridos])], country, { url: Astro.url, locals: Astro.locals });
+const promo = enLlamada.length ? await promoDeLaPagina(Astro, { pais: country.code }) : null;
 const precioCurso = curso ? precios.get(curso.id) ?? null : null;
 
 /* ---------- Cabecera: la del artículo (campo «Cabecera» del editor) o la del panel; ver cabeceraElegida ---------- */
@@ -266,7 +273,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
     </div>
 
     <div class="v2-contenedor v2-ba-secciones mt-16 lg:mt-24">
-      {a.blogLlamadaFinal && <LlamadaFinal course={curso} {country} precio={precioCurso} oficio={oficio ?? undefined} />}
+      {a.blogLlamadaFinal && <LlamadaFinal cursos={enLlamada.map(c => ({ course: c, precio: precios.get(c.id) ?? null }))} {country} oficio={oficio ?? undefined} {promo} />}
       {sugeridos.length > 0 && (
         <section aria-labelledby="cursos-sugeridos">
           <div class="v2-ba-seccion-titulo"><h2 id="cursos-sugeridos">{categoriaCurso ? `Cursos de ${categoriaCurso.name.toLowerCase()}` : 'Cursos relacionados'}</h2>

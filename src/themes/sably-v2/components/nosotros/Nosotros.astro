@@ -1,0 +1,129 @@
+---
+/**
+ * «Nosotros» V2, diseño narrativo (G de las rondas 1 y 2; panel → Cursos y contenido → Página «Nosotros»).
+ * El texto es SIEMPRE el del CMS (Contenido → Páginas → nosotros): cabecera (hero_label, hero_heading, hero_text)
+ * y bloques `layout` en su orden. Esta plantilla solo decide cómo se presentan:
+ *
+ * - Cabecera propia: banda azul noche con el borde inferior en arco suave y un collage de tres fotos aprobadas,
+ *   más pequeñas que el titular para que el LCP siga siendo el texto.
+ * - Cifras reales (`nosotrosCifras`): cursos con inscripción abierta, áreas, países y guías publicadas, contadas en
+ *   cada render. Van dentro del bloque de datos del CMS (clave `*figures*` o antetítulo con «datos»/«cifras») o,
+ *   si no lo hay, bajo la cabecera.
+ * - `sably_story`: la foto del CMS con una segunda foto que la solapa.
+ * - Bloque de pasos (clave `*steps*` o antetítulo con «paso»): tarjetas apiladas que se pegan arriba al bajar
+ *   (prototipo 09 de docs/equipo/2026-11-25/animacion), una foto de la serie por paso.
+ * - Tras la historia, una franja de fotos de oficios que deriva en horizontal con el scroll (scroll-driven, solo
+ *   `translate`; quieta sin soporte).
+ * - Los demás `sably_cards` van en lista editorial; los de fondo blanco, con el título fijo a la izquierda.
+ * - Lo demás (preguntas, llamada, contacto…) con los bloques V2 de siempre.
+ *
+ * Movimiento (`nosotrosMovimiento`): se reutiliza el de la portada (Movimiento.astro: grupos `data-entra` que entran
+ * escalonados, `data-cuenta` que cuenta una vez, `.v2-paralaje`); lo que ya se ve al cargar no se mueve. Con
+ * «reducir movimiento» o sin JavaScript, todo quieto y visible.
+ */
+import type { CmsPage, CmsCountry } from '@/lib/emdash-content';
+import { getContentRepository } from '@/lib/emdash-content';
+import type { BlockValue } from 'emdash/ui';
+import Migas from '@/components/v2/Migas.astro';
+import BloquesPagina from '../BloquesPagina.astro';
+import Tarjetas from '../bloques/Tarjetas.astro';
+import Movimiento from '../portada/Movimiento.astro';
+import Foto from '../Foto.astro';
+import Historia from './Historia.astro';
+import Pila from './Pila.astro';
+import Franja from './Franja.astro';
+import Cifras from './Cifras.astro';
+import { cifrasPortada } from '../../cifras';
+import { comprable } from '../../navegacion';
+
+interface Props {
+  page: CmsPage;
+  country: CmsCountry;
+  migas: { name: string; url: string }[];
+  cifras: boolean;
+  movimiento: boolean;
+}
+const { page, country, migas, cifras: conCifras, movimiento } = Astro.props;
+type Bloque = BlockValue & { _key?: string; eyebrow?: string; title?: string; background?: string; cards?: { title?: string; text?: string; button_label?: string; button_url?: string }[] };
+const bloques = page.layout as unknown as Bloque[];
+
+const esDatos = (b: Bloque) => b._type === 'sably_cards' && (/figures|cifras|datos/i.test(b._key ?? '') || /dato|cifra/i.test(b.eyebrow ?? ''));
+const esPasos = (b: Bloque) => b._type === 'sably_cards' && (/steps|pasos/i.test(b._key ?? '') || /paso/i.test(b.eyebrow ?? '')) && (b.cards?.length ?? 0) >= 2;
+const iDatos = bloques.findIndex(esDatos);
+const iPasos = bloques.findIndex(esPasos);
+const iHistoria = bloques.findIndex(b => b._type === 'sably_story');
+
+/* Cifras del catálogo en este render (nunca a mano). */
+let cifras: { valor: number; texto: string; href?: string }[] = [];
+let hoy = '';
+if (conCifras) {
+  const cms = await getContentRepository();
+  const [c, cursos, categorias, guias] = await Promise.all([cifrasPortada(Astro.locals), cms.getCourses(), cms.getCategories(), cms.getBlogPosts().catch(() => [])]);
+  const abiertos = cursos.filter(comprable);
+  const areas = categorias.filter(cat => abiertos.some(cu => cu.data.category === cat.slug)).length;
+  hoy = c.hoy;
+  const base = `/${country.code}`;
+  cifras = [
+    { valor: c.cursos, texto: 'cursos con inscripción abierta', href: `${base}/cursos/` },
+    { valor: areas, texto: 'áreas de oficios', href: `${base}/cursos/` },
+    { valor: c.paises, texto: 'países, cada uno con su precio' },
+    { valor: guias.length, texto: 'guías gratuitas en el blog', href: '/blog/' },
+  ].filter(x => x.valor > 0);
+}
+---
+<div class="contents" data-portada-bloques data-nosotros data-aparicion={movimiento ? '' : undefined} data-cifras-cuentan={movimiento ? '' : undefined} data-paralaje={movimiento ? '' : undefined} data-nos-movimiento={movimiento ? '' : undefined}>
+  <section class="v2-nos-cabeza bg-navy-950 text-white">
+    <div class="v2-contenedor grid gap-10 pt-6 pb-20 lg:grid-cols-[minmax(0,1fr)_minmax(0,340px)] lg:items-center lg:gap-16 lg:pt-8 lg:pb-32">
+      <div>
+        <Migas items={migas} oscuro />
+        {page.heroLabel && <p class="v2-antetitulo mt-8 text-white/80" {...page.edit.hero_label}>{page.heroLabel}</p>}
+        <h1 class:list={['max-w-[760px] font-display text-[34px]/[40px] tracking-[-0.01em] !text-white lg:text-d56', page.heroLabel ? 'mt-4' : 'mt-6']} {...page.edit.hero_heading}>{page.heroHeading}</h1>
+        {page.heroText && <p class="mt-5 max-w-[620px] text-t17 whitespace-pre-line text-white/80 lg:text-t20" {...page.edit.hero_text}>{page.heroText}</p>}
+      </div>
+      <div class="v2-nos-collage">
+        <div class="v2-nos-c1"><Foto nombre="foto-heroe-2" sizes="(min-width: 1024px) 210px, 30vw" class="h-full w-full object-cover" /></div>
+        <div class="v2-nos-c2"><Foto nombre="foto-oficio-pasteleria" sizes="(min-width: 1024px) 160px, 30vw" class="h-full w-full object-cover" /></div>
+        <div class="v2-nos-c3"><Foto nombre="foto-oficio-globos" sizes="(min-width: 1024px) 160px, 30vw" class="h-full w-full object-cover" /></div>
+      </div>
+    </div>
+  </section>
+
+  {cifras.length > 0 && iDatos < 0 && <Cifras {cifras} {hoy} />}
+
+  {bloques.map((b, i) => (
+    i === iDatos ? (
+      <>
+        {cifras.length > 0 && <Cifras {cifras} {hoy} />}
+        <Tarjetas value={b} entra />
+      </>
+    )
+    : i === iPasos ? <Pila value={b as never} />
+    : i === iHistoria ? <><Historia value={b as never} /><Franja /></>
+    : b._type === 'sably_cards' ? <Tarjetas value={b} entra fija={b.background !== 'soft'} />
+    : <BloquesPagina value={[b]} />
+  ))}
+</div>
+{movimiento && <Movimiento />}
+
+<style>
+  /* Corte propio (JP 26-nov: nada de diagonales): el borde inferior es un arco amplio y suave, no un rectángulo. */
+  .v2-nos-cabeza { position: relative; border-bottom-left-radius: 50% 28px; border-bottom-right-radius: 50% 28px; }
+  @media (min-width: 1024px) { .v2-nos-cabeza { border-bottom-left-radius: 50% 72px; border-bottom-right-radius: 50% 72px; } }
+  /* Fotos más pequeñas que el titular a todos los anchos: el LCP sigue siendo el texto (con la foto grande, +250 ms). */
+  .v2-nos-collage { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; max-width: 420px; }
+  .v2-nos-collage > div { overflow: hidden; border-radius: var(--radius-c-lg); background: var(--color-navy-900); aspect-ratio: 4 / 5; }
+  .v2-nos-collage :global(picture) { display: block; height: 100%; }
+  .v2-nos-c2 { translate: 0 14px; }
+  @media (min-width: 1024px) {
+    .v2-nos-collage { grid-template-columns: 1.3fr 1fr; grid-template-rows: 1fr 1fr; gap: 14px; width: 100%; max-width: 340px; justify-self: end; aspect-ratio: 340 / 310; }
+    .v2-nos-collage > div { aspect-ratio: auto; }
+    .v2-nos-c1 { grid-row: 1 / 3; }
+    .v2-nos-c2 { translate: 0 0; margin-top: 28px; }
+    .v2-nos-c3 { margin-bottom: 28px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    [data-nos-movimiento] .v2-nos-c2, [data-nos-movimiento] .v2-nos-c3 { animation: v2-nos-entra 760ms cubic-bezier(.2, .7, .3, 1) both; animation-delay: 160ms; }
+    [data-nos-movimiento] .v2-nos-c3 { animation-delay: 300ms; }
+    @keyframes v2-nos-entra { from { opacity: 0; translate: 0 28px; } }
+  }
+</style>
