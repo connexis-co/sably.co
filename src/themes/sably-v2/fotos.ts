@@ -115,13 +115,13 @@ export const FOTOS: Record<NombreFoto, Foto> = {
   'foto-unas-acrilicas-vertical-1': { ancho: 1200, alto: 1600, alt: 'Manos con guantes negros que aplican acrílico con pincel sobre un molde de uña' },
   'foto-motos-1': { ancho: 1600, alto: 1200, alt: 'Mecánico que ajusta la cadena de una moto en un taller abierto a la calle' },
   'foto-motos-vertical-1': { ancho: 1200, alto: 1600, alt: 'Mecánico que ajusta la cadena de una moto en un taller abierto a la calle' },
-  'foto-curso-reposteria-mascotas': { ancho: 480, alto: 321, alt: 'Repostera que rellena una manga pastelera para decorar galletas de hueso para perros, con un golden retriever mirando desde la esquina de la mesa' },
+  'foto-curso-reposteria-mascotas': { ancho: 480, alto: 321, alt: 'Pastelera llena con una cuchara un molde de huesitos para galletas de mascotas sobre una bandeja.' },
   'foto-curso-cejas-pestanas': { ancho: 480, alto: 321, alt: 'Técnica que practica la colocación de extensiones de pestañas con pinzas sobre una cabeza de maniquí, con el estuche de pestañas y los cepillos al lado' },
   'foto-curso-drenaje-linfatico': { ancho: 480, alto: 321, alt: 'Terapeuta que trabaja con ambas manos la pantorrilla de una persona recostada en una camilla, con aceites y helechos junto a la ventana' },
   'foto-curso-decoracion-globos': { ancho: 480, alto: 321, alt: 'Decoradora que tuerce globos largos color terracota para armar una guirnalda en una mesa con inflador, cuaderno de bocetos y globos sueltos' },
   'foto-curso-macrame': { ancho: 480, alto: 321, alt: 'Mujer que anuda cuerda de algodón en un tapiz de macramé sobre una mesa de madera, con un cuaderno de patrones, tijeras y madejas' },
   'foto-curso-mecanica-motos': { ancho: 480, alto: 321, alt: 'Mecánico que desarma un carburador sobre un banco de taller con llaves y manuales, con el chasis de una moto al fondo' },
-  'foto-curso-mecanica-bicicletas': { ancho: 480, alto: 321, alt: 'Mecánico que revisa la horquilla de una bicicleta de montaña en un soporte de taller, con herramientas colgadas en el tablero' },
+  'foto-curso-mecanica-bicicletas': { ancho: 480, alto: 321, alt: 'Mecánica infla la llanta trasera de una bicicleta sujeta en el soporte de reparación.' },
   'foto-curso-desayunos-sorpresa': { ancho: 480, alto: 320, alt: 'Mujer con delantal que arma una canasta de desayuno sorpresa con croissants, fresas, jugo de naranja y una tarjeta, en una cocina con azulejos' },
 };
 
