@@ -300,3 +300,50 @@ test('configured production tracking uses the Sably origin and recovery links st
   assert.equal(emails[0]?.cc,undefined);assert.equal(requests.length,2);
   assert.doesNotMatch(JSON.stringify(requests), /academiadebelleza|1711030209407213|G-G7HV230BFJ/);
 });
+
+test('approved purchases reach the OpenAI Conversions API with the ChatGPT click and hashed buyer data', async (t) => {
+  const requests: { url: string; init?: RequestInit }[] = [];
+  t.mock.method(globalThis, 'fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
+    requests.push({ url: String(input), init });
+    return Response.json({ accepted_events: 1 });
+  });
+  const legacy = database();
+  const response = await dispatchLegacyApi(productionRequest('hotmart-webhook', 'POST', {
+    event: 'PURCHASE_APPROVED',
+    data: {
+      buyer: { email: ' Persona@Example.invalid ', name: 'José Pérez', checkout_phone: '3001234567' },
+      product: { id: 123, name: 'Curso sintético' },
+      purchase: {
+        transaction: 'HP-FIXTURE', status: 'APPROVED', approved_date: Date.now() - 60_000,
+        price: { value: 187430, currency_value: 'COP' }, checkout_country: { iso: 'CO', name: 'Colombia' },
+        tracking: { source_sck: 'opp~oppref_fixture|obr~obref-fixture|cid~1.2' },
+      },
+    },
+  }, { 'x-hotmart-hottok': 'hottok-fixture' }), {
+    ...productionBindings(legacy.db), SABLY_HOTMART_HOTTOK: 'hottok-fixture',
+    SABLY_OPENAI_PIXEL_ID: 'Q4xWyKhiMTwnc1PFCmKg7q', SABLY_OPENAI_CAPI_KEY: 'capi-fixture',
+  }, 'hotmart-webhook');
+  assert.equal(response.status, 200);
+  const payload = await response.json() as { results: { openai: string; attribution: string } };
+  assert.equal(payload.results.openai, 'ok:1:oppref');
+  assert.equal(payload.results.attribution, 'opp,obr,cid');
+  assert.equal(requests.length, 1);
+  const url = new URL(requests[0]!.url);
+  assert.equal(url.origin + url.pathname, 'https://bzr.openai.com/v1/events');
+  assert.equal(url.searchParams.get('pid'), 'Q4xWyKhiMTwnc1PFCmKg7q');
+  assert.equal((requests[0]!.init!.headers as Record<string, string>).authorization, 'Bearer capi-fixture');
+  const body = JSON.parse(requests[0]!.init!.body as string);
+  const event = body.events[0];
+  assert.equal(event.id, 'hotmart.HP-FIXTURE');
+  assert.equal(event.type, 'order_created');
+  assert.equal(event.oppref, 'oppref_fixture');
+  assert.equal(event.user.obref, 'obref-fixture');
+  assert.deepEqual(event.data.amount, 18743000);
+  assert.equal(event.data.currency, 'COP');
+  assert.deepEqual(event.user.countries, ['CO']);
+  assert.match(event.user.emails_sha256[0], /^[0-9a-f]{64}$/);
+  assert.match(event.user.phone_numbers_sha256[0], /^[0-9a-f]{64}$/);
+  assert.doesNotMatch(JSON.stringify(body), /Persona|example\.invalid|3001234567|José/);
+  assert.ok(legacy.calls.some(query => query.sql.includes('hotmart_atribucion')));
+  assert.ok(legacy.calls.some(query => query.sql.includes('hotmart_eventos')));
+});

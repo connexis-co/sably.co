@@ -10,6 +10,7 @@ declare global {
     dataLayer?: Record<string, unknown>[];
     gtag?: (...args: unknown[]) => void;
     fbq?: (...args: unknown[]) => void;
+    oaiq?: (...args: unknown[]) => void;
   }
 }
 
@@ -33,12 +34,26 @@ export function varianteHeroeAB(): { experiment_id: string; variant_id: string }
   } catch { return null; }
 }
 
+/**
+ * Eventos propios → evento estándar del píxel de ChatGPT Ads (`oaiq`, lo instala Sably · integraciones). La compra
+ * (order_created) no sale del navegador: se cierra en Hotmart y la envía el webhook por la Conversions API.
+ */
+function openaiMeasure(event: string, params: EventParams): void {
+  const oaiq = window.oaiq;
+  if (!oaiq) return;
+  const id = String(params.course_slug ?? params.page ?? location.pathname);
+  if (event === 'click_cta_hotmart') oaiq('measure', 'checkout_started', { type: 'contents', contents: [{ id, content_type: 'product' }] });
+  else if (event === 'view_course') oaiq('measure', 'contents_viewed', { type: 'contents', contents: [{ id, content_type: 'product' }] });
+  else if (event === 'submit_lead_form') oaiq('measure', 'lead_created', { type: 'customer_action' });
+}
+
 export function trackEvent(event: string, params: EventParams = {}): void {
   if (typeof window === 'undefined') return;
   const ab = varianteHeroeAB();
   if (ab) params = { ...ab, ...params };
   window.dataLayer ??= [];
   window.dataLayer.push({ event, ...params });
+  try { openaiMeasure(event, params); } catch { /* el píxel nunca rompe la página */ }
   if (window.sablyTrackingMode !== 'direct') return;
   window.gtag?.('event', event, params);
   const metaEvent = META_MAP[event];

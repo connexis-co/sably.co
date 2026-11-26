@@ -36,6 +36,9 @@ const ANTES = {
     gtmDelay: ['boolean', null, true],
     ga4Id: ['string', null, ''],
     metaPixelId: ['string', null, ''],
+    // Claves nuevas (25-nov, ChatGPT Ads): se añaden, no sustituyen a ninguna.
+    openaiPixelId: ['string', null, ''],
+    openaiCapiKey: ['secret', null, undefined],
     serverConversions: ['boolean', null, false],
     ga4ApiSecret: ['secret', null, undefined],
     metaCapiToken: ['secret', null, undefined],
@@ -97,7 +100,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
   });
   const prefijo = 'plugin:sably-integrations:settings:';
   const settings = { get: async (k: string) => { const f = filas.find(r => r.name === prefijo + k); return f ? JSON.parse(f.value) : null; } };
-  assert.deepEqual(await readPublic(settings as never), { browserMode: 'gtm', gtmId: 'GTM-56LHZGMK', gtmDelay: true, ga4Id: 'G-RZF4MSX5B7', metaPixelId: '1711030209407213', serverConversions: false, consentNotice: 'discreto', consentEurope: true });
+  assert.deepEqual(await readPublic(settings as never), { browserMode: 'gtm', gtmId: 'GTM-56LHZGMK', gtmDelay: true, ga4Id: 'G-RZF4MSX5B7', metaPixelId: '1711030209407213', openaiPixelId: '', serverConversions: false, consentNotice: 'discreto', consentEurope: true });
   // Todas las claves guardadas de estos dos plugins siguen existiendo en su esquema.
   for (const { name } of filas) {
     const [, plugin, , clave] = name.split(':');
