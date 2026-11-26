@@ -52,7 +52,7 @@ const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos',
         <input id="buscar-cursos" name="q" type="search" value={q || undefined} placeholder={`Buscar entre los ${courses.length} cursos`} autocomplete="off" enterkeyhint="search" data-filtra="cursos" class="h-11 min-w-0 flex-1 bg-transparent text-t17 text-navy-950 outline-none placeholder:text-navy-500" />
         <button type="submit" class="v2-btn v2-btn-principal" data-alto="48">Buscar</button>
       </form>
-      <nav aria-label="Cursos por área" class="-mx-5 mt-5 overflow-x-auto px-5 [scrollbar-width:none] lg:mx-0 lg:px-0">
+      <nav aria-label="Cursos por área" class="v2-fundido-x -mx-5 mt-5 overflow-x-auto px-5 [scrollbar-width:none] lg:mx-0 lg:px-0 lg:[mask-image:none]">
         <ul class="flex gap-2 lg:flex-wrap" role="list">
           <li class="flex-none"><a href={`${base}/cursos/`} class="v2-chip gap-2" aria-current={q ? undefined : 'page'}>{!q && <span class="size-1.5 rounded-full bg-coral-500" aria-hidden="true"></span>}Todos</a></li>
           {nav.areas.map(a => <li class="flex-none"><a href={`${base}/cursos/${a.slug}/`} class="v2-chip">{a.nombre}</a></li>)}

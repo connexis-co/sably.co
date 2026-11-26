@@ -26,6 +26,7 @@ import BarraCampanaV2 from '@/themes/sably-v2/components/BarraCampana.astro';
 import SeguirEscuchando from '@/components/v2/medios/SeguirEscuchando.astro';
 import BuscadorV2 from '@/themes/sably-v2/components/Buscador.astro';
 import PieV2, { type VariantePie } from '@/themes/sably-v2/components/Pie.astro';
+import BotonSubirV2 from '@/themes/sably-v2/components/BotonSubir.astro';
 import { datosNavegacion } from '@/themes/sably-v2/navegacion';
 import { promoDeLaPagina } from '@/themes/sably-v2/promo-v2';
 import cssContador from '@/themes/sably-v2/components/contador.css?raw';
@@ -235,6 +236,7 @@ const cssBarra = promoV2 ? minificar(cssBarraCampana) : '';
     <WidgetArea name="footer_after" />
     <PruebaSocial temaV2={!!navV2} />
     {navV2 && <SeguirEscuchando />}
+    {navV2 && <BotonSubirV2 />}
     {navV2 ? <BuscadorV2 nav={navV2} /> : (
       <>
         <GeoDialog {pathAfterCountry} />
