@@ -22,51 +22,7 @@ const cintas = [oficios.slice(0, medio).map((o, i) => ({ o, i })), oficios.slice
 const juegos = [true, false, true]; // true = copia decorativa (aria-hidden)
 const primero = oficios[0];
 ---
-{primero && (
-<div class="v2-cin" data-cintas role="group" aria-label="Cursos para empezar">
-  <div class="v2-cin-escena">
-    <span class="v2-cin-arco" aria-hidden="true"><Foto nombre={primero.foto} sizes="(min-width: 1024px) 320px, 160px" prioridad={false} decorativa class="h-full w-full object-cover" /></span>
-    {cintas.map((cinta, k) => (
-      <div class="v2-cin-cinta" data-cinta={k}>
-        <span class="v2-cin-empuje">
-          <ul class="v2-cin-pista" role="list" aria-label={k === 0 ? 'Oficios' : 'Más oficios'}>
-            {juegos.map(copia => cinta.map(({ o, i }) => (
-              <li aria-hidden={copia ? 'true' : undefined} data-copia={copia ? '' : undefined}>
-                <a href={`${base}/${o.id}/`} class="v2-cin-link" data-i={i} tabindex={copia ? -1 : undefined}>{corto(o.titulo)}</a>
-                <span class="v2-cin-marca" aria-hidden="true">✱</span>
-              </li>
-            )))}
-          </ul>
-        </span>
-      </div>
-    ))}
-    <button type="button" class="v2-cin-pausa" data-cin-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={16} class="v2-ico-pausa" /><Ico nombre="play" tamano={16} class="v2-ico-seguir" /><span class="sr-only" data-cin-pausa-texto>Pausar las cintas en movimiento</span></button>
-  </div>
-
-  <ul class="v2-cin-lista" role="list" aria-label="Precio de hoy de cada curso">
-    {oficios.map(o => (
-      <li>
-        <a href={`${base}/${o.id}/`} class="v2-heroe-curso v2-cin-chip">
-          <strong class="line-clamp-1 text-t13 font-semibold">{corto(o.titulo)}</strong>
-          <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t15" />
-        </a>
-      </li>
-    ))}
-  </ul>
-
-  <div class="v2-cin-vista" data-cin-vista aria-hidden="true">
-    {oficios.map((o, i) => (
-      <div class="v2-cin-ficha" data-i={i} hidden>
-        <span class="v2-cin-ficha-foto"><Foto nombre={o.foto} sizes="240px" prioridad={false} decorativa class="h-full w-full object-cover" /></span>
-        <strong class="mt-2 line-clamp-2 block text-t15 font-semibold">{corto(o.titulo)}</strong>
-        {o.nota && <span class="mt-0.5 flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
-        <PrecioOficio precio={o.precio} {locale} {tachar} class="mt-0.5 text-t15" />
-      </div>
-    ))}
-  </div>
-</div>
-)}
-
+<!-- CSS antes del HTML: si va después, con la CPU lenta se pinta sin él y luego salta (CLS de 0,45 a 390 y 0,75 a 1440 con el muro, 26-nov). -->
 <style is:inline>
   @layer components {
     .v2-cin { position: relative; min-width: 0; }
@@ -146,6 +102,51 @@ const primero = oficios[0];
     .v2-cin-ficha-foto picture { display: contents; }
   }
 </style>
+{primero && (
+<div class="v2-cin" data-cintas role="group" aria-label="Cursos para empezar">
+  <div class="v2-cin-escena">
+    <span class="v2-cin-arco" aria-hidden="true"><Foto nombre={primero.foto} sizes="(min-width: 1024px) 320px, 160px" prioridad={false} decorativa class="h-full w-full object-cover" /></span>
+    {cintas.map((cinta, k) => (
+      <div class="v2-cin-cinta" data-cinta={k}>
+        <span class="v2-cin-empuje">
+          <ul class="v2-cin-pista" role="list" aria-label={k === 0 ? 'Oficios' : 'Más oficios'}>
+            {juegos.map(copia => cinta.map(({ o, i }) => (
+              <li aria-hidden={copia ? 'true' : undefined} data-copia={copia ? '' : undefined}>
+                <a href={`${base}/${o.id}/`} class="v2-cin-link" data-i={i} tabindex={copia ? -1 : undefined}>{corto(o.titulo)}</a>
+                <span class="v2-cin-marca" aria-hidden="true">✱</span>
+              </li>
+            )))}
+          </ul>
+        </span>
+      </div>
+    ))}
+    <button type="button" class="v2-cin-pausa" data-cin-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={16} class="v2-ico-pausa" /><Ico nombre="play" tamano={16} class="v2-ico-seguir" /><span class="sr-only" data-cin-pausa-texto>Pausar las cintas en movimiento</span></button>
+  </div>
+
+  <ul class="v2-cin-lista" role="list" aria-label="Precio de hoy de cada curso">
+    {oficios.map(o => (
+      <li>
+        <a href={`${base}/${o.id}/`} class="v2-heroe-curso v2-cin-chip">
+          <strong class="line-clamp-1 text-t13 font-semibold">{corto(o.titulo)}</strong>
+          <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t15" />
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <div class="v2-cin-vista" data-cin-vista aria-hidden="true">
+    {oficios.map((o, i) => (
+      <div class="v2-cin-ficha" data-i={i} hidden>
+        <span class="v2-cin-ficha-foto"><Foto nombre={o.foto} sizes="240px" prioridad={false} decorativa class="h-full w-full object-cover" /></span>
+        <strong class="mt-2 line-clamp-2 block text-t15 font-semibold">{corto(o.titulo)}</strong>
+        {o.nota && <span class="mt-0.5 flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
+        <PrecioOficio precio={o.precio} {locale} {tachar} class="mt-0.5 text-t15" />
+      </div>
+    ))}
+  </div>
+</div>
+)}
+
 
 <script>
   for (const raiz of document.querySelectorAll<HTMLElement>('[data-cintas]')) {
