@@ -1,0 +1,25 @@
+---
+/**
+ * Índice del móvil en barra superior (DISENO §12.8): franja de 44 px bajo la cabecera (y bajo la barra de progreso,
+ * si la hay) con el apartado actual y un chevron. Aparece cuando el índice del inicio sale por arriba, desaparece al
+ * subir (la página vuelve a quedar despejada) y al tocarla despliega la lista. Solo apartados principales; la lista
+ * se pinta en el servidor y sin JavaScript sigue estando el índice plegable del inicio.
+ */
+import Ico from '../Ico.astro';
+import type { Apartado } from '@/lib/blog';
+interface Props { apartados: Apartado[] }
+const principales = Astro.props.apartados.filter(a => a.depth === 2);
+const primero = principales[0];
+---
+{primero && (
+  <div class="v2-indice-barra" data-indice-barra inert>
+    <button type="button" class="v2-ib-boton" aria-expanded="false" aria-controls="indice-barra-lista" data-indice-barra-boton>
+      <span class="v2-ib-n" data-barra-n aria-hidden="true">1/{principales.length}</span>
+      <span class="v2-ib-texto"><span class="sr-only">En este artículo: </span><span data-barra-texto>{primero.text}</span></span>
+      <Ico nombre="chevron-down" tamano={20} class="v2-giro" />
+    </button>
+    <nav id="indice-barra-lista" class="v2-ib-lista" aria-label="En este artículo" hidden data-indice-barra-lista>
+      <ol class="v2-indice-lista" role="list">{principales.map(a => <li><a href={`#${a.slug}`} data-indice-enlace={a.slug}>{a.text}</a></li>)}</ol>
+    </nav>
+  </div>
+)}

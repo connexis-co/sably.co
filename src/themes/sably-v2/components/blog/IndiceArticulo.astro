@@ -2,7 +2,8 @@
 /**
  * Índice del artículo (DISENO §4.4 y §12.8). Los enlaces salen del servidor (ids de los encabezados) y el script
  * del artículo marca el apartado activo con aria-current="location". Estilos:
- *   lateral   → carril derecho con cabeza «En este artículo», porcentaje leído e indicador coral que se desliza
+ *   lateral   → carril derecho con cabeza «En este artículo», porcentaje leído, línea de progreso vertical e indicador
+ *               coral que se desliza
  *   plegable  → <details> cerrado al inicio del texto (la lista sigue en el HTML)
  *   abierto   → <details open>
  *   tarjeta   → tarjeta navy-50 numerada, siempre abierta
@@ -16,7 +17,7 @@ const principales = apartados.filter(a => a.depth === 2).length || apartados.len
 {estilo === 'lateral' && (
   <nav class="v2-indice-lateral" aria-labelledby="indice-lateral-titulo" data-indice-lateral data-indice-solo={solo}>
     <p class="v2-il-cabeza"><span id="indice-lateral-titulo">En este artículo</span>{porcentaje && <span data-porcentaje aria-hidden="true">0 %</span>}</p>
-    <ol class="v2-indice-lista" role="list">{apartados.map(a => <li data-nivel={a.depth}><a href={`#${a.slug}`} data-indice-enlace={a.slug}>{a.text}</a></li>)}<span data-indicador aria-hidden="true"></span></ol>
+    <ol class="v2-indice-lista" role="list">{apartados.map(a => <li data-nivel={a.depth}><a href={`#${a.slug}`} data-indice-enlace={a.slug}>{a.text}</a></li>)}{porcentaje && <span data-progreso-indice aria-hidden="true"></span>}<span data-indicador aria-hidden="true"></span></ol>
     <a href="#main" class="v2-il-subir"><Ico nombre="arrow-up" tamano={16} />Volver arriba</a>
   </nav>
 )}

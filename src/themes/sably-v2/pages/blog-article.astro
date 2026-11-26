@@ -25,6 +25,7 @@ import MetaArticulo from '../components/blog/MetaArticulo.astro';
 import Compartir from '../components/blog/Compartir.astro';
 import IndiceArticulo from '../components/blog/IndiceArticulo.astro';
 import HojaIndice from '../components/blog/HojaIndice.astro';
+import BarraIndice from '../components/blog/BarraIndice.astro';
 import CursoRelacionado from '../components/blog/CursoRelacionado.astro';
 import LlamadaFinal from '../components/blog/LlamadaFinal.astro';
 import TarjetaArticulo from '../components/blog/TarjetaArticulo.astro';
@@ -88,6 +89,7 @@ let lateral = conIndice && (escritorio === 'lateral-fija' || escritorio === 'lat
 let inicioEscritorio = conIndice && (escritorio === 'plegable' || escritorio === 'abierto' || escritorio === 'tarjeta') ? escritorio : null;
 let inicioMovil: 'abierto' | 'plegable' | null = conIndice && a.blogIndiceMovil !== 'ninguno' ? (a.blogIndiceMovil === 'abierto' ? 'abierto' : 'plegable') : null;
 const flotante = conIndice && a.blogIndiceMovil === 'plegable-flotante';
+const barraIndice = conIndice && a.blogIndiceMovil === 'plegable-barra';
 
 /* ---------- Curso relacionado: el primero que el texto enlaza (relación editorial, no una adivinanza) ---------- */
 const cursos = await cms.getCourses();
@@ -153,7 +155,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
   {cabecera === 'a' && <EstilosBlog parte="cabecera-a" />}
   {cabecera === 'c' && <EstilosBlog parte="cabecera-c" />}
   {(cabecera === 'e' || cabecera === 'f' || cabecera === 'g' || cabecera === 'h' || cabecera === 'j') && <EstilosBlog parte={`cabecera-${cabecera}`} />}
-  <div class="v2-blog-art" style={`--tamano-texto:${a.blogTamanoTexto}px`}>
+  <div class="v2-blog-art" style={`--tamano-texto:${a.blogTamanoTexto}px${conProgreso ? ';--alto-progreso:3px' : ''}`} data-con-barra-indice={barraIndice && !indiceEnCabecera ? '' : undefined}>
     {conProgreso && <div class="v2-progreso" aria-hidden="true" data-progreso></div>}
 
     <header class:list={['v2-ba-cabeza', { 'v2-sobre-oscuro': oscura }]} data-cabecera={cabecera} data-tono={cabecera === 'h' ? tonoDeCategoria(post.data.category) : undefined}>
@@ -268,6 +270,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
       )}
     </div>
     {flotante && <HojaIndice {apartados} />}
+    {barraIndice && !indiceEnCabecera && <BarraIndice {apartados} />}
     <p class="v2-compartir-aviso" role="status" aria-live="polite" data-aviso></p>
   </div>
 </BaseLayout>

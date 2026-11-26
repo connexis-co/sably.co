@@ -114,6 +114,8 @@
 .v2-indice-lateral .v2-indice-lista li[data-nivel='3'] a { padding-left: 30px; font: 400 13px/18px var(--font-sans); }
 .v2-indice-lateral [data-indicador] { position: absolute; left: 0; top: 0; width: 2px; height: var(--alto, 32px); background: var(--color-coral-600); translate: 0 var(--y, 0); opacity: 0; transition: translate var(--t-base) var(--e-sale), height var(--t-base) var(--e-sale), opacity var(--t-rapido); }
 .v2-indice-lateral[data-activo] [data-indicador] { opacity: 1; }
+/* Progreso vertical (§12.8): la línea de la lista se llena de coral claro con la lectura; el activo sigue encima. */
+.v2-indice-lateral [data-progreso-indice] { position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: color-mix(in oklab, var(--color-coral-600) 40%, #fff); transform-origin: 50% 0; scale: 1 var(--avance-indice, 0); }
 .v2-indice-lateral .v2-il-subir { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin-top: 8px; font: 500 13px/18px var(--font-sans); color: var(--color-navy-700); text-decoration: none; }
 /* 2/3 · al inicio (plegable o abierto) */
 .v2-indice-inicio { border-radius: 16px; box-shadow: inset 0 0 0 1px var(--color-navy-100); background: #fff; }
@@ -156,6 +158,21 @@ body:has(#sbc-ico:not([hidden])) .v2-indice-pildora { left: 68px; }
 .v2-indice-hoja .v2-indice-lista { padding: 0 12px 24px; }
 .v2-indice-hoja .v2-indice-lista a { padding: 12px 8px; border-radius: 12px; font: 500 16px/24px var(--font-sans); }
 .v2-indice-hoja .v2-indice-lista a[aria-current] { background: var(--color-navy-50); }
+/* Barra superior del índice en móvil (§12.8): franja de 44 bajo la cabecera y la barra de progreso; sale al bajar
+   pasado el índice del inicio y se esconde al subir. Solo transform y opacity. */
+.v2-indice-barra { position: fixed; inset-inline: 0; top: calc(var(--fijo-superior) + var(--alto-progreso, 0px)); z-index: 40; background: #fff; box-shadow: inset 0 -1px 0 var(--color-navy-100), var(--shadow-s1); opacity: 0; translate: 0 -8px; pointer-events: none; transition: opacity var(--t-base) var(--e-sale), translate var(--t-base) var(--e-sale); }
+.v2-indice-barra[data-visible] { opacity: 1; translate: 0 0; pointer-events: auto; }
+.v2-indice-barra .v2-ib-boton { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; padding: 0 16px; border: 0; background: none; color: var(--color-navy-950); font: 600 14px/20px var(--font-sans); text-align: left; cursor: pointer; }
+.v2-indice-barra .v2-ib-boton:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: -3px; }
+.v2-indice-barra .v2-ib-n { flex: none; min-width: 32px; font: 600 13px/18px var(--font-sans); color: var(--color-coral-700); font-variant-numeric: tabular-nums; }
+.v2-indice-barra .v2-ib-texto { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.v2-indice-barra .v2-giro { flex: none; transition: rotate var(--t-base) var(--e-sale); }
+.v2-indice-barra .v2-ib-boton[aria-expanded='true'] .v2-giro { rotate: 180deg; }
+.v2-indice-barra .v2-ib-lista { max-height: min(60vh, 420px); overflow-y: auto; overscroll-behavior: contain; padding: 4px 8px 12px; box-shadow: inset 0 1px 0 var(--color-navy-100); }
+.v2-indice-barra .v2-indice-lista a { padding: 10px 8px; border-radius: 12px; font: 500 15px/22px var(--font-sans); }
+.v2-indice-barra .v2-indice-lista a[aria-current] { background: var(--color-navy-50); }
+@media (width >= 1100px) { .v2-indice-barra { display: none; } }
+@media (width < 1100px) { .v2-blog-art[data-con-barra-indice] :is(.v2-prosa h2, .v2-prosa h3) { scroll-margin-top: calc(var(--fijo-superior) + var(--alto-progreso, 0px) + 68px); } }
 
 /* ---------- Narración: versión fija mientras suena y el reproductor está fuera de la pantalla ----------
    El contenedor conserva su alto (lo mide el script) y el reproductor sale de él: nada se mueve en el texto. */
