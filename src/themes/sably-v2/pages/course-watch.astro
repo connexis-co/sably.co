@@ -11,6 +11,7 @@ import ReproductorVideo from '@/components/v2/ReproductorVideo.astro';
 import { breadcrumbSchema, videoSchema } from '@/lib/seo';
 import { conciseTitle } from '@/lib/seo-title';
 import { SITE } from '@/lib/site';
+import { esFotoAntigua, ogEstatica } from '@/lib/og';
 import type { load } from '@/lib/page-loaders/course-watch';
 import '../estilos.css';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
@@ -19,7 +20,7 @@ const title = conciseTitle(video.title);
 const schema = videoSchema({ name: video.title, description: video.description, thumbnailUrl: video.thumbnail, uploadDate: video.uploadedAt, duration: video.duration, contentUrl: video.contentUrl, pageUrl: video.url });
 const breadcrumbs = [{ name: 'Inicio', url: `${SITE.url}/${country.code}/` }, { name: video.title, url: video.url }];
 ---
-<BaseLayout {country} {title} description={video.description} canonical={video.url} image={video.thumbnail} pageType="video" schemas={[schema, breadcrumbSchema(breadcrumbs)]} temaV2>
+<BaseLayout {country} {title} description={video.description} canonical={video.url} ogImagen={video.thumbnail && !esFotoAntigua(video.thumbnail) ? { url: video.thumbnail, alt: video.title } : ogEstatica('videos')} pageType="video" schemas={[schema, breadcrumbSchema(breadcrumbs)]} temaV2>
   <section class="bg-navy-950 text-white">
     <div class="v2-contenedor max-w-[1000px] pt-6 pb-12 lg:pt-8 lg:pb-16">
       <Migas items={breadcrumbs} />

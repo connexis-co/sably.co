@@ -53,6 +53,7 @@ import type { load } from '@/lib/page-loaders/blog-article';
 import '../estilos.css';
 import EstilosBlog from '../components/blog/EstilosBlog.astro';
 import HojaBlog from '../components/blog/HojaBlog.astro';
+import { ogDeCms, ogEstatica } from '@/lib/og';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
 const { post, country, toc, title, schemas, articleSchema: articuloBase, articleMeta, cms, bodyText } = Astro.props;
 const a = (await temaDeLaPeticion(Astro)).ajustes.blog;
@@ -171,7 +172,7 @@ const articleSchemaFinal = conMarcado ? { ...articleSchema, aggregateRating: { '
 const narradas = guias.length ? await duracionesNarradas('blog') : new Map<string, number>();
 const conCierre = a.blogValoracion || posiciones.includes('final');
 ---
-<BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} articleSchema={articleSchemaFinal} {articleMeta} pageType="article" image={portada} {freshUntil} temaV2>
+<BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} articleSchema={articleSchemaFinal} {articleMeta} pageType="article" ogImagen={ogDeCms(post.coverImage, post.data.title) ?? ogEstatica('blog')} {freshUntil} temaV2>
   <EstilosBlog parte="cabeza" />
   {cabecera === 'a' && <EstilosBlog parte="cabecera-a" />}
   {cabecera === 'c' && <EstilosBlog parte="cabecera-c" />}

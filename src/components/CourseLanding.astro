@@ -3,6 +3,7 @@ import { Image as OptimizedImage } from 'astro:assets';
 import {RelatedGuides,VerifiedReviews} from '@/themes';
 import {nombresCreadores} from '@/lib/creadores';
 import { cmsImageUrl } from '@/lib/cms-media';
+import { ogCategoria, ogDeCms } from '@/lib/og';
 import ResenasCurso from '@/components/ResenasCurso.astro';
 import CmsRichBody from '@/components/CmsRichBody.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -38,7 +39,7 @@ const {
   {alternates}
   {schemas}
   pageType={city ? 'course_city' : 'course'}
-  image={cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug)}
+  ogImagen={ogDeCms(course.coverImage, `${category.name}: ${course.data.title}`) ?? ogCategoria(category.slug)}
   noindex={sinProducto}
   {freshUntil}
   sinCupon={true}

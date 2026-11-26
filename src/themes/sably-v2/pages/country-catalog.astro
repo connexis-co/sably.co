@@ -17,6 +17,7 @@ import RejillaCursos from '../components/RejillaCursos.astro';
 import { countryAlternates } from '@/lib/seo';
 import { monedasCobradas } from '@/lib/moneda-catalogo';
 import { SITE } from '@/lib/site';
+import { ogEstatica } from '@/lib/og';
 import { datosNavegacion, nombreArea } from '../navegacion';
 import { promoDeLaPagina } from '../promo-v2';
 import { cursosDeLaCampana, filtrarCursos, ordenesDeCursos } from '../listado';
@@ -53,7 +54,7 @@ const extraBusqueda: ExtraBusqueda[] = [
 const migas = [{ name: 'Inicio', url: `${SITE.url}${base}/` }, { name: 'Cursos', url: `${SITE.url}${base}/cursos/` }];
 ---
 
-<BaseLayout {title} {description} {country} pathAfterCountry="/cursos/" alternates={await countryAlternates('/cursos/')} {schemas} pageType="catalog" noindex={!!q || oferta} freshUntil={ordenes.freshUntil} temaV2>
+<BaseLayout {title} {description} {country} pathAfterCountry="/cursos/" alternates={await countryAlternates('/cursos/')} {schemas} pageType="catalog" ogImagen={oferta ? ogEstatica('ofertas') : undefined} noindex={!!q || oferta} freshUntil={ordenes.freshUntil} temaV2>
   <section class="border-b border-navy-100 bg-white">
     <div class="v2-contenedor pt-6 pb-8 lg:pt-8 lg:pb-10">
       <Migas items={migas} oscuro={false} />

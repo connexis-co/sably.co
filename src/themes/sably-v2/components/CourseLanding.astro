@@ -52,6 +52,7 @@ import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { plazoMasCorto, preciosDeTarjetas } from '@/lib/precio-hoy';
 import { CSS_CABEZA, RUTA_HOJA_FICHA } from '../ficha-hoja';
 import { rejillaTarjetas } from '../rejilla-tarjetas';
+import { ogCategoria, ogDeCms } from '@/lib/og';
 
 type Props = FichaProps;
 const { country, city, content } = Astro.props;
@@ -165,7 +166,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
   {alternates}
   {schemas}
   pageType={city ? 'course_city' : 'course'}
-  image={portada}
+  ogImagen={ogDeCms(course.coverImage, `${category.name}: ${course.data.title}`) ?? ogCategoria(category.slug)}
   noindex={sinProducto}
   freshUntil={vigencia}
   sinCupon={!offer || !ajustes.barraCampana.enFicha}
