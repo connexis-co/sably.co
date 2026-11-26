@@ -48,6 +48,7 @@ import { courseCover } from '@/lib/categories';
 import { fotoDeCurso, srcFoto } from '../fotos';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { plazoMasCorto, preciosDeTarjetas } from '@/lib/precio-hoy';
+import { CSS_CABEZA, RUTA_HOJA_FICHA } from '../ficha-hoja';
 
 type Props = FichaProps;
 const { country, city, content } = Astro.props;
@@ -166,7 +167,9 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
   temaV2
 >
   <div class="v2-ficha" data-content-source={content.source} data-content-locale-source={content.localeSource}>
-    <!-- Cabeza: migas, H1, promesa, quién lo dicta, nota; vídeo; caja a la derecha. -->
+    <!-- Cabeza: migas, H1, promesa, quién lo dicta, nota; vídeo; caja a la derecha. Su CSS va en línea delante
+         (ficha-hoja.ts): la hoja común no lo lleva y la propia de la ficha llega después de la cabeza. -->
+    <style is:inline set:html={CSS_CABEZA}></style>
     <section class="v2-cabeza pb-12 lg:pb-16" aria-labelledby="titulo-curso">
       <div class="v2-contenedor v2-cabeza-rejilla">
         <div class="v2-area-titulo pt-6 lg:pt-14">
@@ -224,6 +227,9 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
       </div>
       <div id="hero-sentinel" aria-hidden="true"></div>
     </section>
+    <!-- Resto de la ficha (pestañas, temario, certificado, opiniones, guías, relacionados, barra fija): hoja propia
+         cacheable. Enlazada aquí, detrás de la cabeza, no retrasa el H1; lo que va después espera a la hoja, sin saltos. -->
+    <link rel="stylesheet" href={RUTA_HOJA_FICHA} />
 
     <!-- Sobre este curso: pestañas de píldora sobre la foto; los cuatro paneles están en el HTML. -->
     <section id="sobre" class="v2-bloque-tinta scroll-mt-36" aria-labelledby="titulo-sobre" data-aparece={aparece}>
@@ -527,167 +533,6 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
   <LeadModal {country} courseTitle={course.data.title} courseSlug={course.id} />
 </BaseLayout>
 
-<style>
-  /* Cabeza: en móvil, el vídeo a sangre arriba y la caja dentro del primer
-     pantallazo; en escritorio, banda azul noche hasta la mitad del vídeo y la
-     caja fija a la derecha (sticky, botón por encima de 640 px). */
-  .v2-cabeza-rejilla {
-    display: grid;
-    grid-template-areas: 'media' 'titulo' 'meta' 'caja' 'promesa' 'ver' 'datos';
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 16px;
-  }
-  .v2-area-titulo { grid-area: titulo; }
-  .v2-area-promesa { grid-area: promesa; margin-top: 8px; }
-  .v2-area-meta { grid-area: meta; }
-  .v2-area-media { grid-area: media; }
-  .v2-area-caja { grid-area: caja; margin-top: 8px; }
-  .v2-area-datos { grid-area: datos; }
-  .v2-area-ver { grid-area: ver; }
-  .v2-area-titulo { padding-top: 8px; }
-  @media (width < 1024px) {
-    .v2-area-titulo :global(.v2-migas) { display: none; }
-  }
-  @media (width >= 1024px) {
-    /* Banda azul noche hasta la mitad del vídeo, sin JavaScript: un
-       pseudo-elemento del vídeo a sangre, recortado por la sección
-       (overflow: clip no crea contenedor de scroll, la caja sigue fija). */
-    .v2-cabeza { position: relative; isolation: isolate; overflow: clip; }
-    .v2-area-media { position: relative; }
-    .v2-area-media::before {
-      content: ''; position: absolute; z-index: -1; left: -100vw; right: -100vw; top: -2000px; bottom: 50%;
-      background: var(--color-navy-950);
-    }
-    .v2-cabeza-rejilla {
-      grid-template-columns: minmax(0, 1fr) 400px;
-      grid-template-areas: 'titulo caja' 'promesa caja' 'meta caja' 'media caja' 'ver caja' 'datos caja';
-      grid-template-rows: auto auto auto auto auto 1fr;
-      column-gap: 40px; row-gap: 0;
-    }
-    /* Pegada bajo la cabecera (60 px al bajar) y la barra de secciones (65 px), no debajo de ellas:
-       con 88 px el título de la caja quedaba tapado al saltar al temario (juez UX, M4). Si la caja no
-       cabe entera en la ventana, no se pega (data-sin-pegar, script de abajo): no se cortaría su pie. */
-    .v2-area-caja { --caja-top: 133px; align-self: start; position: sticky; top: var(--caja-top); margin-top: 24px; z-index: 2; }
-    .v2-area-caja[data-sin-pegar] { position: relative; top: auto; }
-  }
-  .v2-bloque-tinta { background: var(--color-navy-50); }
-  /* Sin creador visible ni opiniones que mostrar, el bloque no deja un hueco tintado. */
-  #creador:not(:has(article, section)) { display: none; }
-  @media (width >= 1024px) { .v2-bloque-tinta { margin-inline: 60px; border-radius: var(--radius-c-xl); } }
-
-  /* Pestañas: sin :has() se ven los cuatro paneles seguidos (nada se pierde). */
-  .v2-panel + .v2-panel { margin-top: 40px; }
-  .v2-paso { display: none; }
-  @supports selector(:has(*)) {
-    .v2-panel { display: none; }
-    .v2-panel + .v2-panel { margin-top: 0; }
-    .v2-pestanas:has(#pestana-aprende:checked) #panel-aprende { display: block; }
-    .v2-pestanas:has(#pestana-aprende:checked) span[data-paso='aprende'] { display: inline; }
-    .v2-pestanas:has(#pestana-aprende:checked) label[data-paso='aprende'] { display: inline-flex; }
-    .v2-pestanas:has(#pestana-para-quien:checked) #panel-para-quien { display: block; }
-    .v2-pestanas:has(#pestana-para-quien:checked) span[data-paso='para-quien'] { display: inline; }
-    .v2-pestanas:has(#pestana-para-quien:checked) label[data-paso='para-quien'] { display: inline-flex; }
-    .v2-pestanas:has(#pestana-necesitas:checked) #panel-necesitas { display: block; }
-    .v2-pestanas:has(#pestana-necesitas:checked) span[data-paso='necesitas'] { display: inline; }
-    .v2-pestanas:has(#pestana-necesitas:checked) label[data-paso='necesitas'] { display: inline-flex; }
-    .v2-pestanas:has(#pestana-estudia:checked) #panel-estudia { display: block; }
-    .v2-pestanas:has(#pestana-estudia:checked) span[data-paso='estudia'] { display: inline; }
-    /* C5: la foto de la pestaña elegida aparece sobre la anterior con un fundido (solo opacidad). */
-    .v2-sobre-foto[data-foto]:not([data-foto='aprende']) { opacity: 0; transition: opacity 250ms var(--e-sale, ease-out); }
-    .v2-pestanas:has(#pestana-para-quien:checked) .v2-sobre-foto[data-foto='para-quien'],
-    .v2-pestanas:has(#pestana-necesitas:checked) .v2-sobre-foto[data-foto='necesitas'],
-    .v2-pestanas:has(#pestana-estudia:checked) .v2-sobre-foto[data-foto='estudia'] { opacity: 1; }
-  }
-  @media (prefers-reduced-motion: reduce) { .v2-sobre-foto { transition: none !important; } }
-
-  /* Texto largo. */
-  .v2-prosa { color: var(--color-navy-700); font-size: 17px; line-height: 28px; }
-  .v2-prosa :global(:where(p, ul, ol, blockquote, figure, h2, h3, h4) + :where(p, ul, ol, blockquote, figure)) { margin-top: 16px; }
-  .v2-prosa :global(p:first-child) { font-size: 20px; line-height: 30px; color: var(--color-navy-950); }
-  .v2-prosa :global(:is(h2, h3)) { margin-top: 40px; margin-bottom: -4px; font-family: var(--font-sans); font-size: 20px; line-height: 30px; font-weight: 600; color: var(--color-navy-950); scroll-margin-top: 150px; }
-  .v2-prosa :global(h4) { margin-top: 28px; margin-bottom: -8px; font-size: 17px; font-weight: 600; color: var(--color-navy-950); }
-  .v2-prosa :global(ul), .v2-prosa :global(ol) { padding-left: 22px; }
-  .v2-prosa :global(ul > li) { list-style: disc; }
-  .v2-prosa :global(ol > li) { list-style: decimal; }
-  .v2-prosa :global(li + li) { margin-top: 6px; }
-  .v2-prosa :global(strong) { color: var(--color-navy-950); }
-  .v2-prosa :global(blockquote) { border-left: 2px solid var(--color-coral-600); padding-left: 22px; font-family: var(--font-display); font-size: 28px; line-height: 34px; color: var(--color-navy-950); }
-  .v2-plegado { display: none; }
-  .v2-prosa-altura { max-height: 46rem; overflow: hidden; }
-  .peer:checked ~ .v2-prosa .v2-plegado { display: block; }
-  .peer:checked ~ .v2-prosa .v2-prosa-altura { max-height: none; }
-  .v2-leer-menos { display: none; }
-  .peer:checked ~ .v2-leer .v2-leer-mas, .peer:checked ~ .v2-leer .v2-leer-aviso { display: none; }
-  .peer:checked ~ .v2-leer .v2-leer-menos { display: inline; }
-  .peer:checked ~ .v2-leer :global(.v2-giro) { rotate: 180deg; }
-  .peer:focus-visible ~ .v2-leer label { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
-  @media print { .v2-plegado { display: block; } .v2-prosa-altura { max-height: none; } }
-
-  /* C6 (ronda 2 de JP). Solo transform y opacity, ligados al desplazamiento; sin soporte o con «reducir movimiento»,
-     todo queda quieto y visible. Longhands y `animation-timeline` DESPUÉS de las demás: el minificador funde las
-     sueltas en la abreviada `animation` y la abreviada reinicia la línea de tiempo (se perdió así una vez).
-     El certificado usa la línea de tiempo con nombre de su escena: la constancia tiene `overflow: hidden` y un
-     `view()` dentro de ella se ataría a ella y no a la página. */
-  @supports (animation-timeline: view()) {
-    @media (prefers-reduced-motion: no-preference) {
-      @keyframes v2-cascada { from { opacity: 0; transform: translateY(14px); } }
-      .v2-cascada { animation-name: v2-cascada; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% entry 80%; }
-
-      .v2-cert-escena { perspective: 1400px; view-timeline-name: --v2-cert; view-timeline-axis: block; }
-      @keyframes v2-cert-endereza { from { opacity: 0.35; transform: translateY(64px) rotateX(24deg) scale(0.9); } to { opacity: 1; transform: none; } }
-      @keyframes v2-cert-sube { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: none; } }
-      @keyframes v2-cert-brillo { from { transform: translateX(-160%) skewX(-14deg); } to { transform: translateX(420%) skewX(-14deg); } }
-      @keyframes v2-cert-sello { 0% { opacity: 0; transform: scale(0.35) rotate(-14deg); } 70% { opacity: 1; transform: scale(1.1) rotate(3deg); } 100% { opacity: 1; transform: none; } }
-      .v2-cert-escena[data-cert='destello'] .v2-cert-hoja { transform-origin: 50% 100%; animation-name: v2-cert-endereza; animation-duration: auto; animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1); animation-fill-mode: both; animation-timeline: --v2-cert; animation-range: entry 0% entry 100%; }
-      .v2-cert-escena[data-cert='entrada'] .v2-cert-hoja { animation-name: v2-cert-sube; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --v2-cert; animation-range: entry 0% entry 90%; }
-      .v2-cert-brillo { position: absolute; inset: 0; z-index: 1; overflow: clip; border-radius: var(--radius-c-lg); pointer-events: none; }
-      .v2-cert-brillo::before {
-        content: ''; position: absolute; inset: -10% auto -10% 0; width: 30%;
-        background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.7) 50%, transparent);
-        animation-name: v2-cert-brillo; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --v2-cert; animation-range: contain 5% contain 45%;
-      }
-      .v2-cert-escena[data-cert='destello'] :global(.v2-const-qr) { animation-name: v2-cert-sello; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --v2-cert; animation-range: entry 75% contain 15%; }
-    }
-  }
-
-  /* C7: el módulo que se cierra arriba al abrir otro lo hace sin animar (el script compensa el desplazamiento). */
-  .v2-modulo[data-sin-animar]::details-content { transition: none; }
-  /* Señal de «aquí está lo que abriste»: el número se tiñe un momento (color, no movimiento). */
-  .v2-modulo[data-recien] > summary > span:first-child { box-shadow: 0 0 0 3px var(--color-coral-100, #fbd9e2); }
-  /* C10b: en el celular las placas (416 px) van en un carril deslizable, no apiladas: cuatro seguidas alargaban la
-     ficha casi 1.800 px. Se asoma la siguiente para que se note que hay más. */
-  @media (width < 640px) {
-    [data-relacionados-placa] {
-      grid-auto-flow: column; grid-auto-columns: 82%; grid-template-columns: none; gap: 12px; overflow-x: auto;
-      margin-inline: -20px; padding: 4px 20px 8px; scroll-padding-inline: 20px; scroll-snap-type: x mandatory;
-      overscroll-behavior-x: contain; scrollbar-width: none;
-    }
-    [data-relacionados-placa]::-webkit-scrollbar { display: none; }
-    [data-relacionados-placa] > :global(*) { scroll-snap-align: start; }
-  }
-  /* C10d: el apartado en lectura se marca en el índice. */
-  .v2-indice-enlace[aria-current='true'] { border-color: var(--color-coral-600); color: var(--color-navy-950); font-weight: 600; }
-
-  /* Cierre: el «50» como ilustración tipográfica recortada por el borde. */
-  .v2-cierre-cifra {
-    position: absolute; right: -40px; bottom: -110px; font: 600 360px/1 var(--font-display); color: var(--color-navy-900);
-    letter-spacing: -0.04em; pointer-events: none; user-select: none;
-  }
-  @media (width < 1024px) { .v2-cierre-cifra { font-size: 220px; bottom: -60px; } }
-
-  /* La barra fija no tapa el pie ni el último botón en móvil. */
-  @media (width < 1024px) {
-    :global(body[data-con-barra]) { padding-bottom: 72px; }
-    /* Lo que se enfoca o se desplaza solo no queda debajo de la barra fija. */
-    :global(html:has(body[data-con-barra])) { scroll-padding-bottom: 88px; scroll-padding-top: 112px; }
-    /* La caja y la barra ya traen WhatsApp: el botón flotante sobraba y en 390 tapaba la
-       flecha de «Inscribirme» en el primer pantallazo. Hoy la burbuja la pinta el plugin
-       sably-whatsapp (#sably-whatsapp), no WhatsAppFloat: con solo [data-wa-float] seguía a
-       la vista y se montaba 14 px sobre la barra de compra (25-nov). */
-    /* `body #…` para ganar al `#sably-whatsapp{display:flex}` del plugin, que va después. */
-    :global([data-wa-float]), :global(body #sably-whatsapp) { display: none; }
-  }
-</style>
 
 <script>
   import { trackEvent } from '@/lib/analytics';

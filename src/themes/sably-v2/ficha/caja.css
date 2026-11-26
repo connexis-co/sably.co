@@ -1,0 +1,53 @@
+/* Ficha · caja de compra y su contador (primera pantalla en el celular): EN LÍNEA al abrir la caja (CajaCompra.astro). */
+/* C9: «Precio normal» tachado con campaña. La clase va al componente Precio, que está en otro ámbito de estilos:
+   por eso `:global` (antes la regla no lo alcanzaba y el precio de antes salía sin tachar). */
+.v2-caja .v2-tachado { text-decoration: line-through; text-decoration-thickness: 1.5px; text-decoration-color: var(--color-coral-600); }
+.v2-caja[data-precio-normal='sin-tachar'] [data-tachado] .v2-tachado { text-decoration: none; }
+/* C4 (ronda 2 de JP): en móvil la caja blanca se fundía con el fondo. Resaltada (ajuste `cajaResaltada`, de
+   fábrica): contorno navy, sombra más honda y un filete coral arriba que la ata al botón. Vale para las dos
+   variantes: en «cabecera oscura» el filete queda sobre la cabecera. */
+.v2-caja[data-resaltada] {
+  border-top: 4px solid var(--color-coral-600);
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-navy-300) 70%, transparent), 0 24px 48px -20px rgb(27 27 58 / 0.32), 0 4px 10px -2px rgb(27 27 58 / 0.08);
+}
+.v2-caja[data-cupon='retirado'] [data-cupon-icono] { opacity: 0.4; }
+.v2-caja[data-cupon='retirado'] [data-cupon-cifra] { color: var(--color-navy-500); font-weight: 400; }
+.v2-caja:not([data-cupon='retirado']) [data-sin-cupon], .v2-caja[data-cupon='retirado'] [data-con-cupon] { display: none; }
+.v2-caja[data-cupon='retirado'] .v2-tachado { text-decoration: none; }
+.v2-caja[data-cupon='retirado'] [data-contador-despues] { display: none; }
+.v2-caja[data-cupon='retirado'] [data-contador-sigue] { display: inline; }
+.v2-caja[data-estado='vencida'] :is([data-bloque='cupon'], [data-contador], [data-savings]) { display: none; }
+.v2-caja[data-estado='vencida'] [data-aviso-fin] { display: block; }
+/* Móvil: precio y botón primero (dentro de los primeros 844 px); la cuenta y el contador, después. */
+@media (width < 1024px) {
+  .v2-caja-cuerpo { display: flex; flex-direction: column; }
+  .v2-caja-cuerpo > * { order: 5; }
+  .v2-caja-cuerpo > [data-bloque='pais'] { order: 0; }
+  .v2-caja-cuerpo > [data-bloque='importe'] { order: 1; }
+  .v2-caja-cuerpo > [data-bloque='boton'] { order: 2; }
+  .v2-caja-cuerpo > [data-bloque='precio'] { order: 3; margin-top: 20px; border-top: 1px solid var(--color-navy-100); padding-top: 16px; }
+  .v2-caja-cuerpo > :is([data-contador], [data-aviso-fin]) { order: 4; }
+  /* El H1 ya está encima: en móvil el título de la caja solo lo leen los lectores de pantalla. */
+  .v2-caja-titulo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .v2-caja-titulo + .v2-caja-cuerpo { padding-top: 24px; }
+}
+[data-amount-cifra].cambia { animation: v2-cambia var(--t-base) var(--e-sale); }
+@keyframes v2-cambia { from { opacity: 0.2; translate: 0 0.25em; } }
+
+/* Contador (components/v2/Contador.astro), solo lo usa la caja. */
+/* C11. Quieto por defecto; vivo solo si el panel lo pide y nadie pidió menos movimiento. */
+.v2-contador-vivo { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  [data-vivo] .v2-contador-quieto { display: none; }
+  [data-vivo] .v2-contador-vivo { display: inline; }
+  [data-vivo] .v2-contador-icono { animation: v2-contador-late 2s var(--e-sale, ease-out) infinite; transform-origin: 50% 55%; }
+  [data-vivo] .v2-contador-seg { display: inline-block; color: var(--color-coral-700); }
+  [data-vivo] .v2-contador-brillo { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+  [data-vivo] .v2-contador-brillo::before {
+    content: ''; position: absolute; inset: 0 auto 0 0; width: 40%;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.7), transparent);
+    animation: v2-contador-brillo 2.8s ease-in-out infinite;
+  }
+}
+@keyframes v2-contador-late { 0%, 60%, 100% { transform: scale(1); } 15% { transform: scale(1.18) rotate(-8deg); } 30% { transform: scale(1) rotate(0); } }
+@keyframes v2-contador-brillo { from { transform: translateX(-100%); } to { transform: translateX(260%); } }

@@ -58,35 +58,3 @@ const n = modulos.length;
     </div>
   </div>
 </section>
-<style>
-  /* Celular: título, foto (16:10) y lista; escritorio: foto a la izquierda y título + lista a la derecha. */
-  .v2-incluye-rejilla { display: grid; grid-template-areas: 'titulo' 'foto' 'cuerpo'; row-gap: 24px; }
-  .v2-incluye-titulo { grid-area: titulo; }
-  .v2-incluye-foto { grid-area: foto; }
-  .v2-incluye-cuerpo { grid-area: cuerpo; }
-  @media (width >= 1024px) {
-    .v2-incluye-rejilla { grid-template-columns: minmax(0, 480px) minmax(0, 1fr); grid-template-areas: 'foto titulo' 'foto cuerpo'; grid-template-rows: auto 1fr; column-gap: 96px; row-gap: 0; align-items: start; }
-  }
-  .v2-incluye { margin: 0; }
-  .v2-incluye-fila { display: grid; grid-template-columns: 72px minmax(0, 1fr); column-gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--color-navy-100); }
-  @media (width >= 1024px) { .v2-incluye-fila { grid-template-columns: 152px minmax(0, 1fr); padding: 26px 0; } }
-  /* El <dt> se reparte en dos celdas (cifra | hecho) con `display: contents`; el <dd> va bajo el hecho. */
-  .v2-incluye-fila > dt:not(.sr-only) { display: contents; }
-  .v2-incluye-cifra { grid-row: span 2; font: 600 28px/1 var(--font-display); color: var(--color-navy-950); letter-spacing: -0.01em; white-space: nowrap; }
-  .v2-incluye-cifra small { margin-left: 4px; font: 600 15px/1 var(--font-sans); color: var(--color-navy-700); }
-  @media (width >= 1024px) { .v2-incluye-cifra { font-size: 40px; } }
-  .v2-incluye-hecho { font: 600 17px/24px var(--font-sans); color: var(--color-navy-950); }
-  .v2-incluye-fila > dd { grid-column: 2; margin: 4px 0 0; font-size: 15px; line-height: 22px; color: var(--color-navy-700); }
-
-  /* Fila de módulos: el <summary> ocupa las dos columnas (cifra | hecho + signo). */
-  .v2-incluye-fila > .v2-incluye-dd-modulos { grid-column: 1 / -1; margin: 0; }
-  .v2-incluye-modulos > summary { display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; column-gap: 16px; align-items: start; min-height: 44px; }
-  @media (width >= 1024px) { .v2-incluye-modulos > summary { grid-template-columns: 152px minmax(0, 1fr) auto; } }
-  .v2-incluye-modulos .v2-incluye-cifra { grid-row: auto; }
-  .v2-incluye-ayuda { display: block; margin-top: 4px; font: 400 15px/22px var(--font-sans); color: var(--color-navy-500); }
-  .v2-incluye-signo { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 99px; background: var(--color-navy-50); color: var(--color-navy-950); }
-  .v2-incluye-lista { margin: 16px 0 0; padding: 0 0 0 88px; list-style: none; }
-  @media (width >= 1024px) { .v2-incluye-lista { padding-left: 168px; } }
-  .v2-incluye-lista li { display: flex; gap: 12px; padding: 8px 0; font-size: 15px; line-height: 22px; color: var(--color-navy-950); }
-  .v2-incluye-lista li span { flex: none; width: 2ch; color: var(--color-navy-300); }
-</style>

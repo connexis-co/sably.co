@@ -39,58 +39,6 @@ const { secciones, precio, moneda, nota, href, boton, whatsapp } = Astro.props;
     </div>
   </div>
 </div>
-<style>
-  /* Móvil: dos piezas fijas e independientes. Las pestañas cuelgan bajo la cabecera
-     (56 px) y la barra de compra va abajo (72 px); no se pisan. El contenedor
-     no pinta nada (display: contents) para que `position: fixed` no dependa de un
-     ancestro con transform. */
-  .v2-fija, .v2-fija-fila { display: contents; }
-  .v2-fija-nav {
-    position: fixed; inset: 56px 0 auto 0; z-index: 39; height: 48px; background: #fff;
-    box-shadow: inset 0 -1px 0 var(--color-navy-100), 0 12px 24px -16px rgb(27 27 58 / 0.22);
-    translate: 0 -100%; visibility: hidden;
-    transition: translate var(--t-base) var(--e-sale), visibility 0s linear var(--t-base);
-  }
-  .v2-fija:not([data-oculta]) .v2-fija-nav { translate: 0 0; visibility: visible; transition-delay: 0s; }
-  .v2-fija-lista {
-    display: flex; gap: 8px; height: 100%; padding-inline: 12px 20px; margin: 0; list-style: none;
-    overflow-x: auto; overscroll-behavior-x: contain; scrollbar-width: none; -webkit-overflow-scrolling: touch;
-  }
-  .v2-fija-lista::-webkit-scrollbar { display: none; }
-  .v2-fija-pestana {
-    display: flex; height: 100%; align-items: center; padding-inline: 8px; white-space: nowrap;
-    border-bottom: 3px solid transparent; font-size: var(--text-t15); font-weight: 500; color: var(--color-navy-700);
-    transition: color var(--t-rapido) ease, border-color var(--t-rapido) ease;
-  }
-  .v2-fija-pestana:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: -3px; border-radius: 4px; }
-  .v2-fija-pestana[aria-current='true'] { color: var(--color-navy-950); border-color: var(--color-coral-600); font-weight: 600; }
-  .v2-fija-compra {
-    position: fixed; inset: auto 0 0 0; z-index: 40; height: 72px; padding-inline: 20px; display: flex; align-items: center; gap: 16px;
-    background: #fff; box-shadow: 0 -24px 56px -12px rgb(27 27 58 / 0.3);
-    translate: 0 100%; visibility: hidden;
-    transition: translate var(--t-base) var(--e-sale), visibility 0s linear var(--t-base);
-  }
-  .v2-fija:not([data-oculta]) .v2-fija-compra { translate: 0 0; visibility: visible; transition-delay: 0s; }
-  @media (prefers-reduced-motion: reduce) {
-    .v2-fija-nav, .v2-fija-compra, .v2-fija-pestana { transition: none; }
-  }
-  @media (width >= 1024px) {
-    .v2-fija {
-      display: block; position: fixed; inset: 60px 0 auto 0; z-index: 45; background: #fff; box-shadow: var(--shadow-s2); border-top: 1px solid var(--color-navy-100);
-      translate: 0 -100%; visibility: hidden;
-      transition: translate var(--t-base) var(--e-sale), visibility 0s linear var(--t-base);
-    }
-    .v2-fija:not([data-oculta]) { translate: 0 0; visibility: visible; transition-delay: 0s; }
-    .v2-fija-fila { display: flex; height: 64px; align-items: center; gap: 16px; }
-    /* `inherit`, nunca `visible`: un hijo con `visibility: visible` se pinta aunque la barra
-       esté oculta, y la barra oculta queda subida (−100 %) justo encima de la cabecera. Así
-       estuvieron las pestañas pintadas sobre el logo y el menú hasta el 25-nov. */
-    .v2-fija-nav { position: static; z-index: auto; height: auto; min-width: 0; flex: 1; background: none; box-shadow: none; translate: none; visibility: inherit; transition: none; }
-    .v2-fija-lista { gap: 28px; padding-inline: 0; }
-    .v2-fija-pestana { padding: 20px 0; font-size: 15px; }
-    .v2-fija-compra { display: contents; }
-  }
-</style>
 <script>
   const barra = document.querySelector<HTMLElement>('div[data-barra-fija]');
   const boton = document.querySelector('#compra a[data-pago]');

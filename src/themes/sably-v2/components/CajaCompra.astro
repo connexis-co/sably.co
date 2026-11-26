@@ -30,6 +30,7 @@ import { docConAjustes } from '@/lib/caja/sably';
 import { resolverZona } from '@/lib/caja/resolver';
 import type { Bloque, Condicion } from '@/lib/caja/model';
 import { notaHotmart } from '@/lib/opiniones';
+import { CSS_CAJA } from '../ficha-hoja';
 import type { Ficha } from '@/lib/ficha';
 import type { Country } from '@/lib/countries';
 
@@ -80,6 +81,8 @@ const nota = bloque('calificacion') ? notaHotmart(valoracion) : null;
 const preguntas = hijos('acordeon');
 const tituloId = 'titulo-compra';
 ---
+{/* CSS de la caja y su contador, en línea al abrirla (primera pantalla en el celular): ficha-hoja.ts. */}
+<style is:inline set:html={CSS_CAJA}></style>
 <section id="compra" tabindex="-1" aria-labelledby={tituloId}
   class:list={['v2-caja scroll-mt-28 overflow-hidden rounded-c-lg bg-white shadow-s2 outline-none', variante === 'cabecera-oscura' && 'v2-caja-oscura']}
   data-purchase-panel data-base={conPrecio ? conMoneda(baseAmount) : undefined} data-reduced={reducido ? conMoneda(reducido) : undefined}
@@ -232,42 +235,6 @@ const tituloId = 'titulo-compra';
   </div>
 </section>
 
-<style>
-  /* C9: «Precio normal» tachado con campaña. La clase va al componente Precio, que está en otro ámbito de estilos:
-     por eso `:global` (antes la regla no lo alcanzaba y el precio de antes salía sin tachar). */
-  .v2-caja :global(.v2-tachado) { text-decoration: line-through; text-decoration-thickness: 1.5px; text-decoration-color: var(--color-coral-600); }
-  .v2-caja[data-precio-normal='sin-tachar'] [data-tachado] :global(.v2-tachado) { text-decoration: none; }
-  /* C4 (ronda 2 de JP): en móvil la caja blanca se fundía con el fondo. Resaltada (ajuste `cajaResaltada`, de
-     fábrica): contorno navy, sombra más honda y un filete coral arriba que la ata al botón. Vale para las dos
-     variantes: en «cabecera oscura» el filete queda sobre la cabecera. */
-  .v2-caja[data-resaltada] {
-    border-top: 4px solid var(--color-coral-600);
-    box-shadow: 0 0 0 1px color-mix(in oklab, var(--color-navy-300) 70%, transparent), 0 24px 48px -20px rgb(27 27 58 / 0.32), 0 4px 10px -2px rgb(27 27 58 / 0.08);
-  }
-  .v2-caja[data-cupon='retirado'] [data-cupon-icono] { opacity: 0.4; }
-  .v2-caja[data-cupon='retirado'] [data-cupon-cifra] { color: var(--color-navy-500); font-weight: 400; }
-  .v2-caja:not([data-cupon='retirado']) [data-sin-cupon], .v2-caja[data-cupon='retirado'] [data-con-cupon] { display: none; }
-  .v2-caja[data-cupon='retirado'] :global(.v2-tachado) { text-decoration: none; }
-  .v2-caja[data-cupon='retirado'] :global([data-contador-despues]) { display: none; }
-  .v2-caja[data-cupon='retirado'] :global([data-contador-sigue]) { display: inline; }
-  .v2-caja[data-estado='vencida'] :global(:is([data-bloque='cupon'], [data-contador], [data-savings])) { display: none; }
-  .v2-caja[data-estado='vencida'] :global([data-aviso-fin]) { display: block; }
-  /* Móvil: precio y botón primero (dentro de los primeros 844 px); la cuenta y el contador, después. */
-  @media (width < 1024px) {
-    .v2-caja-cuerpo { display: flex; flex-direction: column; }
-    .v2-caja-cuerpo > :global(*) { order: 5; }
-    .v2-caja-cuerpo > :global([data-bloque='pais']) { order: 0; }
-    .v2-caja-cuerpo > :global([data-bloque='importe']) { order: 1; }
-    .v2-caja-cuerpo > :global([data-bloque='boton']) { order: 2; }
-    .v2-caja-cuerpo > :global([data-bloque='precio']) { order: 3; margin-top: 20px; border-top: 1px solid var(--color-navy-100); padding-top: 16px; }
-    .v2-caja-cuerpo > :global(:is([data-contador], [data-aviso-fin])) { order: 4; }
-    /* El H1 ya está encima: en móvil el título de la caja solo lo leen los lectores de pantalla. */
-    .v2-caja-titulo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-    .v2-caja-titulo + .v2-caja-cuerpo { padding-top: 24px; }
-  }
-  [data-amount-cifra].cambia { animation: v2-cambia var(--t-base) var(--e-sale); }
-  @keyframes v2-cambia { from { opacity: 0.2; translate: 0 0.25em; } }
-</style>
 
 <script>
   import { trackEvent } from '@/lib/analytics';

@@ -10,6 +10,7 @@
  * («4 d 00:12:05») corre con la cifra de los segundos que rueda y un brillo recorre la barra.
  * Solo `transform` y `opacity`. Las dos versiones (quieta y viva) van en el HTML y el CSS
  * elige: con `prefers-reduced-motion: reduce` se ve la quieta, sin saltos al arrancar.
+ * Sus estilos viven en themes/sably-v2/ficha/caja.css (en línea con la caja, su único uso), no en la hoja común.
  * La fecha es la misma de siempre: la real del panel.
  */
 import Icono from './Icono.astro';
@@ -92,11 +93,13 @@ const reloj = { dias: Math.floor(s / 86400), hms: `${dos(Math.floor((s % 86400) 
   }
   if (contadores.length) { pintar(); setInterval(pintar, 30_000); }
 
-  /* C11: segundero de los contadores vivos. Cada segundo, la cifra de los segundos rueda (clase que reinicia la
-     animación). Corre aunque se pida menos movimiento, pero entonces el CSS enseña la versión quieta. */
+  /* C11: segundero de los contadores vivos. Cada segundo, la cifra de los segundos rueda. Corre aunque se pida menos
+     movimiento, pero entonces el CSS enseña la versión quieta. */
   const vivos = contadores.filter(c => c.hasAttribute('data-vivo'));
   const dos = (n: number) => String(n).padStart(2, '0');
-  function segundero() {
+  const quieto = matchMedia('(prefers-reduced-motion: reduce)');
+  const RUEDA: Keyframe[] = [{ transform: 'translateY(-55%)', opacity: 0 }, { transform: 'none', opacity: 1 }];
+  function segundero(rodar = true) {
     const ahora = Date.now();
     for (const c of vivos) {
       const s = Math.floor((Number(c.dataset.hasta) - ahora) / 1000);
@@ -108,30 +111,15 @@ const reloj = { dias: Math.floor(s / 86400), hms: `${dos(Math.floor((s % 86400) 
         const hms = r.querySelector<HTMLElement>('[data-r="hms"]');
         if (hms) hms.textContent = `${dos(Math.floor((s % 86400) / 3600))}:${dos(Math.floor((s % 3600) / 60))}:`;
         const seg = r.querySelector<HTMLElement>('[data-r="s"]');
-        if (seg && seg.textContent !== dos(s % 60)) { seg.textContent = dos(s % 60); seg.classList.remove('rueda'); void seg.offsetWidth; seg.classList.add('rueda'); }
+        if (seg && seg.textContent !== dos(s % 60)) {
+          seg.textContent = dos(s % 60);
+          /* La cifra rueda con la Web Animations API: reiniciar una clase obligaba a recalcular el diseño de toda la
+             página cada segundo (`offsetWidth`), también en el primer fotograma. Sin movimiento si se pidió menos. */
+          if (rodar && !quieto.matches) seg.animate(RUEDA, { duration: 360, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)' });
+        }
       });
     }
   }
-  if (vivos.length) { segundero(); setInterval(segundero, 1000); }
+  /* La primera pasada solo corrige la cifra que pintó el servidor (sin animar, nada en el primer fotograma). */
+  if (vivos.length) { segundero(false); setInterval(() => segundero(), 1000); }
 </script>
-
-<style>
-  /* C11. Quieto por defecto; vivo solo si el panel lo pide y nadie pidió menos movimiento. */
-  .v2-contador-vivo { display: none; }
-  @media (prefers-reduced-motion: no-preference) {
-    [data-vivo] .v2-contador-quieto { display: none; }
-    [data-vivo] .v2-contador-vivo { display: inline; }
-    [data-vivo] .v2-contador-icono { animation: v2-contador-late 2s var(--e-sale, ease-out) infinite; transform-origin: 50% 55%; }
-    [data-vivo] .v2-contador-seg { display: inline-block; color: var(--color-coral-700); }
-    [data-vivo] .v2-contador-seg.rueda { animation: v2-contador-rueda 360ms var(--e-sale, ease-out); }
-    [data-vivo] .v2-contador-brillo { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
-    [data-vivo] .v2-contador-brillo::before {
-      content: ''; position: absolute; inset: 0 auto 0 0; width: 40%;
-      background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.7), transparent);
-      animation: v2-contador-brillo 2.8s ease-in-out infinite;
-    }
-  }
-  @keyframes v2-contador-late { 0%, 60%, 100% { transform: scale(1); } 15% { transform: scale(1.18) rotate(-8deg); } 30% { transform: scale(1) rotate(0); } }
-  @keyframes v2-contador-rueda { from { transform: translateY(-55%); opacity: 0; } to { transform: none; opacity: 1; } }
-  @keyframes v2-contador-brillo { from { transform: translateX(-100%); } to { transform: translateX(260%); } }
-</style>
