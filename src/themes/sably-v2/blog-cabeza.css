@@ -57,39 +57,6 @@
   .v2-ba-cabeza[data-cabecera='d'] .v2-ba-entradilla { margin-inline: auto; }
   .v2-ba-cabeza[data-cabecera='d'] .v2-ba-meta { border-top: 0; }
 }
-/* A · foto a sangre con velo plano */
-.v2-ba-cabeza[data-cabecera='a'] { position: relative; padding: 0; display: grid; }
-.v2-ba-cabeza[data-cabecera='a'] > * { grid-area: 1 / 1; }
-.v2-ba-cabeza[data-cabecera='a'] .v2-ba-portada { margin: 0; max-width: none; }
-.v2-ba-cabeza[data-cabecera='a'] .v2-ba-portada img { border-radius: 0; aspect-ratio: 3 / 4; max-height: 640px; }
-.v2-ba-cabeza[data-cabecera='a'] .v2-ba-portada figcaption { display: none; }
-.v2-ba-cabeza[data-cabecera='a'] .v2-ba-portada::after { content: ''; position: absolute; inset: 0; background: rgb(27 27 58 / 0.55); }
-.v2-ba-cabeza[data-cabecera='a'] .v2-ba-portada { position: relative; }
-.v2-ba-cabeza[data-cabecera='a'] .v2-ba-titulos { position: relative; z-index: 1; align-self: end; width: 100%; max-width: 960px; padding: 32px 20px; }
-.v2-ba-cabeza[data-cabecera='a'] :is(.v2-ba-h1, .v2-ba-autor a) { color: #fff; }
-.v2-ba-cabeza[data-cabecera='a'] :is(.v2-ba-entradilla, .v2-ba-fechas, .v2-ba-datos) { color: rgb(255 255 255 / 0.85); }
-.v2-ba-cabeza[data-cabecera='a'] .v2-ba-meta { border-color: rgb(255 255 255 / 0.2); }
-@media (width >= 1024px) { .v2-ba-cabeza[data-cabecera='a'] .v2-ba-portada img { aspect-ratio: 9 / 4; } .v2-ba-cabeza[data-cabecera='a'] .v2-ba-titulos { padding: 56px 0; margin-left: max(40px, calc((100% - 1200px) / 2)); } .v2-ba-cabeza[data-cabecera='a'] .v2-ba-h1 { font-size: 64px; line-height: 67px; } }
-/* C · banda azul con la foto montada */
-.v2-ba-cabeza[data-cabecera='c'] { padding: 0; }
-.v2-ba-cabeza[data-cabecera='c'] .v2-ba-banda { background: var(--color-navy-950); padding: 24px 0; }
-.v2-ba-cabeza[data-cabecera='c'] .v2-ba-titulos { max-width: none; }
-.v2-ba-cabeza[data-cabecera='c'] :is(.v2-ba-h1, .v2-ba-autor a) { color: #fff; }
-.v2-ba-cabeza[data-cabecera='c'] :is(.v2-ba-entradilla, .v2-ba-fechas, .v2-ba-datos) { color: rgb(255 255 255 / 0.8); }
-.v2-ba-cabeza[data-cabecera='c'] .v2-ba-meta { border-color: rgb(255 255 255 / 0.16); }
-.v2-ba-cabeza[data-cabecera='c'] .v2-ba-sello { background: #fff; color: var(--color-navy-950); }
-.v2-ba-cabeza[data-cabecera='c'] .v2-ba-portada { margin-top: 24px; }
-.v2-ba-cabeza[data-cabecera='c'] .v2-ba-meta { border-bottom: 0; }
-.v2-ba-cabeza[data-cabecera='c'] .v2-ba-portada img { box-shadow: var(--shadow-s3); }
-@media (width >= 1024px) {
-  .v2-ba-cabeza[data-cabecera='c'] .v2-ba-banda { padding: 32px 0 64px; }
-  .v2-ba-cabeza[data-cabecera='c'] .v2-ba-cuadro { display: grid; grid-template-columns: minmax(0, 620px) 580px; justify-content: space-between; align-items: start; gap: 40px; }
-  .v2-ba-cabeza[data-cabecera='c'] .v2-ba-h1 { font-size: 52px; line-height: 56px; }
-  .v2-ba-cabeza[data-cabecera='c'] .v2-ba-portada { margin: 40px 0 -120px; padding: 0; }
-  .v2-ba-cabeza[data-cabecera='c'] .v2-ba-portada img { aspect-ratio: 4 / 3; }
-  .v2-ba-cabeza[data-cabecera='c'] .v2-ba-portada figcaption { display: none; }
-  .v2-ba-cabeza[data-cabecera='c'] ~ .v2-ba-rejilla { padding-top: 160px; }
-}
 /* Migas: el último eslabón (el título) en una línea */
 .v2-ba-migas li:last-child { min-width: 0; max-width: min(60vw, 36ch); }
 .v2-ba-migas li:last-child > span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

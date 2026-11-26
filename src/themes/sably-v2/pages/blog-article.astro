@@ -42,6 +42,7 @@ import { SITE } from '@/lib/site';
 import type { load } from '@/lib/page-loaders/blog-article';
 import '../estilos.css';
 import EstilosBlog from '../components/blog/EstilosBlog.astro';
+import HojaBlog from '../components/blog/HojaBlog.astro';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
 const { post, country, toc, title, schemas, articleSchema: articuloBase, articleMeta, cms, bodyText } = Astro.props;
 const a = (await temaDeLaPeticion(Astro)).ajustes.blog;
@@ -123,6 +124,8 @@ const carrilCurso = curso && (a.blogCarrilDerecho === 'curso' || a.blogCarrilDer
 ---
 <BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} {articleSchema} {articleMeta} pageType="article" image={portada} {freshUntil} temaV2>
   <EstilosBlog parte="cabeza" />
+  {cabecera === 'a' && <EstilosBlog parte="cabecera-a" />}
+  {cabecera === 'c' && <EstilosBlog parte="cabecera-c" />}
   <div class="v2-blog-art" style={`--tamano-texto:${a.blogTamanoTexto}px`}>
     {conProgreso && <div class="v2-progreso" aria-hidden="true" data-progreso></div>}
 
@@ -145,7 +148,7 @@ const carrilCurso = curso && (a.blogCarrilDerecho === 'curso' || a.blogCarrilDer
       )}
     </header>
 
-    <EstilosBlog parte="cuerpo" />
+    <HojaBlog />
     <div class="v2-contenedor"><HuecoPublicidad posicion="articulo-arriba" /></div>
 
     <div class="v2-contenedor v2-ba-rejilla">

@@ -1,14 +1,14 @@
 ---
 /**
- * CSS del blog en línea, solo en la portada del blog y en los artículos. Importado como hoja entraría en el CSS
- * común que descargan todas las páginas del sitio (+30 KB). Va en dos partes: «cabeza» antes del título (lo justo
- * para pintarlo pronto: es el LCP en móvil) y «cuerpo» después de la cabecera. Sin comentarios ni espacios de
- * sobra; los tokens (colores, radios, movimiento) vienen de v2.css.
+ * CSS crítico del blog EN LÍNEA antes del título (es el LCP): solo lo que pinta la cabecera elegida. Las cabeceras A
+ * y C llevan su parte solo cuando están activas. Todo lo demás va en la hoja cacheable (HojaBlog.astro), después de
+ * la cabecera. Sin comentarios ni espacios de sobra; los tokens (colores, radios, movimiento) vienen de v2.css.
  */
 import cabeza from '../../blog-cabeza.css?raw';
-import cuerpo from '../../blog.css?raw';
-interface Props { parte: 'cabeza' | 'cuerpo' }
-const css = Astro.props.parte === 'cabeza' ? cabeza : cuerpo;
-const estilos = css.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').replace(/\s*([{};,>])\s*/g, '$1').replace(/:\s+/g, ':').replace(/;}/g, '}').trim();
+import cabeceraA from '../../blog-cabecera-a.css?raw';
+import cabeceraC from '../../blog-cabecera-c.css?raw';
+import { minificar } from '../../blog-hoja';
+interface Props { parte: 'cabeza' | 'cabecera-a' | 'cabecera-c' }
+const css = { cabeza, 'cabecera-a': cabeceraA, 'cabecera-c': cabeceraC }[Astro.props.parte];
 ---
-<style is:inline set:html={estilos}></style>
+<style is:inline set:html={minificar(css)}></style>
