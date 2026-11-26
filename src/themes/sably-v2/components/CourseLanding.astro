@@ -488,7 +488,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
     )}
 
     <!-- Cierre: botón de pago real (no un ancla), precio y garantía. -->
-    <section class="px-0 pb-16 lg:px-[60px] lg:pb-24" aria-labelledby="titulo-cierre" data-cierre>
+    <section class="px-0 pb-16 lg:px-[60px] lg:pb-24" aria-labelledby="titulo-cierre" data-cierre data-aparece={aparece}>
       <div class="v2-cierre relative overflow-hidden bg-navy-950 px-5 py-14 text-white lg:rounded-c-xl lg:px-[60px] lg:py-20">
         {offer && <span class="v2-cierre-cifra" aria-hidden="true">{offer.saving}</span>}
         <div class="relative grid gap-10 lg:grid-cols-[1fr_384px] lg:items-center">

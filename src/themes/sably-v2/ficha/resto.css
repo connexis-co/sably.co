@@ -27,6 +27,15 @@
   .v2-pestanas:has(#pestana-estudia:checked) .v2-sobre-foto[data-foto='estudia'] { opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .v2-sobre-foto { transition: none !important; } }
+/* I1: el texto de la pestaña elegida entra con un fundido corto, al mismo ritmo que su foto (antes cambiaba en seco).
+   `display` pasa de none a block, así que la animación corre cada vez que se muestra el panel. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes v2-panel-entra { from { opacity: 0; transform: translateY(8px); } }
+  .v2-pestanas .v2-panel { animation: v2-panel-entra 280ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+  /* I1: al llegar desde la navegación interna, el título del apartado se señala una vez (BarraFija pone data-llega). */
+  @keyframes v2-llega { 0% { opacity: 0.25; transform: translateX(-14px); } 100% { opacity: 1; transform: none; } }
+  [data-llega] { animation: v2-llega 560ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+}
 
 /* Texto largo. */
 .v2-prosa[data-texto-largo] { color: var(--color-navy-700); font-size: 17px; line-height: 28px; }
