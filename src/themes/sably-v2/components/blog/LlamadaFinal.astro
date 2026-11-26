@@ -20,7 +20,15 @@ interface Props { cursos: { course: Course; precio: PrecioTarjeta | null }[]; co
 const { cursos, country, oficio, promo } = Astro.props;
 const principal = cursos[0];
 const varios = cursos.length > 1;
-const cubre = principal?.course.data.shortDescription?.trim();
+/* Hechos comunes (certificado, garantía, acceso): las descripciones del CMS los repiten en cada curso. Para no decirlos
+   varias veces en la página (regla `v2-hecho-repetido` de seo-onpage, que tumbó la tanda 12): las tarjetas del
+   carrusel llevan la descripción sin esas frases y el bloque dice una sola vez los que declaran TODOS sus cursos. Con
+   un solo curso, el texto del bloque no repite lo que ya dice su tarjeta. */
+const HECHOS = [['certificado', /certificado|constancia/i], ['garantía de 7 días', /garant[ií]a|reembolso/i], ['acceso de por vida', /acceso de por vida/i]] as const;
+const sinHechos = (t: string | undefined) => (t ?? '').trim().split(/(?<=[.!?])\s+/).filter(f => !HECHOS.some(([, re]) => re.test(f))).join(' ').trim();
+const comunes = cursos.length > 1 ? HECHOS.filter(([, re]) => cursos.every(c => re.test(c.course.data.shortDescription ?? ''))).map(([n]) => n) : [];
+const enCarrusel = cursos.map(c => ({ ...c, course: { ...c.course, data: { ...c.course.data, shortDescription: sinHechos(c.course.data.shortDescription) } } as Course }));
+const cubre = sinHechos(principal?.course.data.shortDescription);
 const p = principal?.precio;
 /* La campaña se enseña solo si su cupón es el que rebaja el curso principal (si no, anunciaría un descuento que ese
    curso no tiene: otro creador, otro país o un curso excluido). */
@@ -31,7 +39,8 @@ const titulo = varios ? 'Empieza con uno de los cursos de esta guía' : principa
   <div class="v2-lf-texto-col">
     <p class="v2-lf-ante">Siguiente paso</p>
     <h2 id="siguiente-paso" class="mt-3">{titulo}</h2>
-    <p class="v2-lf-texto mt-3">{principal && !varios ? (cubre || 'Lecciones en vídeo, a tu ritmo y con certificado de finalización.') : 'Cursos en vídeo para aprender a tu ritmo, con certificado de finalización. Pagas en tu moneda.'}</p>
+    <p class="v2-lf-texto mt-3">{principal && !varios ? (cubre || 'Lecciones en vídeo, a tu ritmo.') : varios ? 'Cursos en vídeo para aprender a tu ritmo. Pagas en tu moneda.' : 'Cursos en vídeo para aprender a tu ritmo, con certificado de finalización. Pagas en tu moneda.'}</p>
+    {comunes.length > 0 && <p class="v2-lf-comunes mt-3">{cursos.length === 2 ? 'Los dos incluyen' : 'Todos incluyen'} {comunes.join(' y ')}.</p>}
     {campana && p && (
       <div class="v2-lf-campana" data-promo-v2="llamada" data-promo-ssr={campana.ssr}>
         <p class="v2-lf-campana-gorro"><span class="v2-lf-punto" aria-hidden="true"></span><span data-promo-gorro>{campana.etiqueta}</span>
@@ -63,7 +72,7 @@ const titulo = varios ? 'Empieza con uno de los cursos de esta guía' : principa
         </div>
       </div>
       <ul class="v2-lf-pista" id="siguiente-paso-lista" role="list" aria-labelledby="siguiente-paso-cursos" tabindex="0" data-carrusel-pista>
-        {cursos.map(c => <li><TarjetaCurso course={c.course} {country} precio={c.precio} /></li>)}
+        {enCarrusel.map(c => <li><TarjetaCurso course={c.course} {country} precio={c.precio} /></li>)}
       </ul>
     </div>
   )}

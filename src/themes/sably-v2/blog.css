@@ -242,6 +242,7 @@ body:has(#sbc-ico:not([hidden])) .v2-indice-pildora { left: 68px; }
 .v2-llamada-final h2 { font: 600 28px/34px var(--font-display); color: #fff; letter-spacing: -0.01em; }
 .v2-llamada-final .v2-lf-ante { font: 600 12px/16px var(--font-sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-coral-500); }
 .v2-llamada-final .v2-lf-texto { font: 400 17px/27px var(--font-sans); color: rgb(255 255 255 / 0.8); }
+.v2-llamada-final .v2-lf-comunes { font: 500 15px/22px var(--font-sans); color: #fff; }
 .v2-llamada-final .v2-lf-tarjeta { color: var(--color-navy-950); }
 .v2-lf-todos { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font: 600 15px/22px var(--font-sans); color: #fff; text-decoration: underline; text-underline-offset: 4px; }
 .v2-lf-todos:focus-visible { outline: 3px solid var(--color-coral-500); outline-offset: 2px; border-radius: 4px; }
