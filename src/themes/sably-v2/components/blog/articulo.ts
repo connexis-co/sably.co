@@ -223,6 +223,12 @@ export function prepararArticulo() {
       const raiz = document.documentElement.style;
       if (fija) { raiz.setProperty('--fijo-inferior', `${reproductor.offsetHeight + (movil ? 0 : 16)}px`); puesto = true; }
       else if (puesto) { raiz.removeProperty('--fijo-inferior'); puesto = false; }
+      // Lo que flota abajo y no sube solo con --fijo-inferior: se mide sin el empuje y se marca si la barra lo tapa.
+      const tope = fija && movil ? reproductor.getBoundingClientRect().top : Infinity;
+      for (const el of document.querySelectorAll<HTMLElement>('#sbc-ico, #sably-whatsapp')) {
+        el.toggleAttribute('data-sube-narracion', false);
+        if (el.getBoundingClientRect().bottom > tope) el.toggleAttribute('data-sube-narracion', true);
+      }
     };
     new IntersectionObserver(([e]) => { fuera = !e!.isIntersecting && e!.boundingClientRect.top < 0; pintar(); }).observe(caja);
     audio.addEventListener('play', () => { cerrado = false; pintar(); });
