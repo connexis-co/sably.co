@@ -294,7 +294,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
     </section>
 
     {ajustes.bloquesFicha.queIncluye && (
-      <QueIncluye lecciones={course.data.lessonsCount} horas={course.data.durationHours} modulos={course.data.modules} vendible={!sinProducto}
+      <QueIncluye lecciones={course.data.lessonsCount} horas={course.data.durationHours} modulos={course.data.modules}
         foto={fotoIncluye} fotoAlt={fotoIncluyeAlt} fotoPie={fotoIncluyePie} {cascada} {aparece} />
     )}
 
@@ -653,6 +653,17 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
   .v2-modulo[data-sin-animar]::details-content { transition: none; }
   /* Señal de «aquí está lo que abriste»: el número se tiñe un momento (color, no movimiento). */
   .v2-modulo[data-recien] > summary > span:first-child { box-shadow: 0 0 0 3px var(--color-coral-100, #fbd9e2); }
+  /* C10b: en el celular las placas (416 px) van en un carril deslizable, no apiladas: cuatro seguidas alargaban la
+     ficha casi 1.800 px. Se asoma la siguiente para que se note que hay más. */
+  @media (width < 640px) {
+    [data-relacionados-placa] {
+      grid-auto-flow: column; grid-auto-columns: 82%; grid-template-columns: none; gap: 12px; overflow-x: auto;
+      margin-inline: -20px; padding: 4px 20px 8px; scroll-padding-inline: 20px; scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain; scrollbar-width: none;
+    }
+    [data-relacionados-placa]::-webkit-scrollbar { display: none; }
+    [data-relacionados-placa] > :global(*) { scroll-snap-align: start; }
+  }
   /* C10d: el apartado en lectura se marca en el índice. */
   .v2-indice-enlace[aria-current='true'] { border-color: var(--color-coral-600); color: var(--color-navy-950); font-weight: 600; }
 

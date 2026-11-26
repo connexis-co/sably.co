@@ -128,7 +128,7 @@ export const settingsSchema = {
   fichaQueIncluye: {
     type: 'boolean',
     label: 'Ficha · Bloque «Qué incluye el curso»',
-    description: 'Cifras reales de la ficha como titular: lecciones, horas, módulos (con su lista), los 7 días de garantía de Hotmart y el certificado. Va antes del temario. Por defecto: encendido.',
+    description: 'Cifras reales de la ficha como titular: lecciones, horas y módulos (con su lista desplegable), junto a una foto del oficio. Va antes del temario. Por defecto: encendido.',
     default: true,
   },
   relacionadosTarjeta: {
