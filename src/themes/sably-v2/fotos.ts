@@ -185,6 +185,17 @@ export function fotoDeCurso(slug: string, area: string): NombreFoto | null {
  */
 export type PestanaConFoto = 'necesitas' | 'estudia';
 export const FOTOS_PESTANA: Readonly<Record<string, Partial<Record<PestanaConFoto, string>>>> = {
+  'curso-de-automaquillaje': {
+    necesitas: 'Neceser de tela abierto, base líquida, brochas, rímel, lápiz delineador y bálsamo en lata sobre un tocador blanco',
+    estudia: 'Mujer que se aplica rímel sosteniendo un espejo de mano frente a la ventana',
+  },
+  'curso-de-barberia': {
+    necesitas: 'Máquina de cortar, patillera, tijeras de corte y de entresacar, peine, brocha de afeitar y capa negra doblada sobre una mesa de madera',
+  },
+  'curso-de-cejas-y-pestanas': {
+    necesitas: 'Pinzas, cepillos para cejas, tijeras pequeñas, lápiz, henna con pincel, lámina de silicona y bastoncillos sobre un paño rosado',
+    estudia: 'Mujer que dibuja cejas de práctica con lápiz sobre una lámina de silicona en su mesa',
+  },
   'curso-de-decoracion-con-globos': {
     necesitas: 'Globos de látex crema, terracota y verde salvia, inflador eléctrico, tijeras, cinta para guirnaldas y carrete de hilo sobre un piso de madera',
     estudia: 'Mujer que anuda un globo verde salvia junto a una guirnalda de globos crema y terracota en la mesa del comedor',
@@ -193,9 +204,16 @@ export const FOTOS_PESTANA: Readonly<Record<string, Partial<Record<PestanaConFot
     necesitas: 'Calentador de cera, bandas de tela, talco, loción, espátulas de madera y toalla sobre una mesa cubierta con una toalla blanca',
     estudia: 'Mujer que extiende cera tibia con una espátula sobre su antebrazo apoyado en una toalla',
   },
+  'curso-de-estetica-canina': {
+    necesitas: 'Carda, peine metálico, tijeras, máquina de corte, toalla, cortaúñas y frasco de champú sin etiqueta sobre una bandeja gris',
+    estudia: 'Joven que cepilla el costado de su perro con una carda sobre una mesa en su casa',
+  },
   'curso-de-extensiones-de-cabello': {
     necesitas: 'Mechones de cabello castaño, pinzas separadoras, peine de cola, aguja curva con hilo, microanillos y gancho de enhebrar sobre un mantel gris',
     estudia: 'Mujer que separa mechones con un peine de cola en una cabeza de maniquí sujeta a la mesa de su sala',
+  },
+  'curso-de-limpieza-facial': {
+    estudia: 'Mujer que aplica una mascarilla de arcilla con brocha sobre una cabeza de práctica en la mesa de su casa',
   },
   'curso-de-manicure-y-pedicure': {
     necesitas: 'Cuenco con agua, toalla, limas, alicate y empujador de cutícula, separadores de dedos, esmaltes sin etiqueta y discos de algodón sobre una mesa blanca',
@@ -212,13 +230,33 @@ export const FOTOS_PESTANA: Readonly<Record<string, Partial<Record<PestanaConFot
     necesitas: 'Llaves combinadas, trinquete con copas, dos destornilladores, alicate y una bujía ordenados sobre un banco de madera',
     estudia: 'Joven arrodillado que ajusta con una llave la tuerca del eje trasero de su moto en el garaje de su casa',
   },
+  'curso-de-pasteleria': {
+    necesitas: 'Batidor, dos moldes redondos, manga pastelera con boquillas, espátula, huevos, harina, mantequilla y fresas sobre un mesón de mármol',
+    estudia: 'Mujer que alisa la crema blanca de una torta con espátula sobre un plato giratorio en su cocina',
+  },
   'curso-de-pestanas-volumen-ruso': {
     necesitas: 'Pinzas rectas y curvas, bandeja de pestañas, cepillos, microaplicadores, adhesivo, parches de gel y piedra de jade sobre un mantel claro',
     estudia: 'Mujer con tapabocas que coloca extensiones de pestañas con dos pinzas en una cabeza de práctica sobre la mesa de su casa',
   },
+  'curso-de-porcelana-fria': {
+    necesitas: 'Masa de porcelana fría, pinturas, rodillo pequeño, estecas, pinceles, cortadores y dos flores modeladas sobre una mesa de madera',
+    estudia: 'Mujer mayor que modela una flor de porcelana fría entre los dedos en la mesa de su casa',
+  },
+  'curso-de-reparacion-de-celulares': {
+    necesitas: 'Destornilladores de precisión, pinzas, palancas plásticas, ventosa, cautín en su base y un celular abierto sobre una alfombrilla gris',
+    estudia: 'Mujer joven que abre la tapa de un celular con una púa plástica sobre una alfombrilla azul',
+  },
+  'curso-de-reposteria-para-mascotas': {
+    necesitas: 'Rodillo, avena, zanahorias, puré de calabaza, huevos, cortadores de hueso y de huella y galletas en forma de hueso sobre una tabla de madera',
+    estudia: 'Hombre que corta galletas en forma de hueso en su cocina mientras su perro mira',
+  },
   'curso-de-unas': {
     necesitas: 'Esmaltes sin etiqueta, limas, bloque pulidor, empujador, alicate y cortaúñas, discos de algodón y una lámpara pequeña para uñas sobre una toalla blanca',
     estudia: 'Mujer que pinta con un pincel fino un tip de uña montado en un palito mientras sigue la lección en el celular',
+  },
+  'curso-de-unas-acrilicas': {
+    necesitas: 'Polvos acrílicos, vasito para monómero, pincel, rollo de moldes, caja de tips, lima y toallitas sobre una mesa blanca',
+    estudia: 'Mujer joven con tapabocas que esculpe acrílico rosado con pincel sobre un tip de práctica',
   },
   'curso-de-velas-artesanales-y-aromaticas': {
     necesitas: 'Cera en escamas, mechas con base metálica, frascos de vidrio, jarra de acero, palitos de madera, goteros ámbar y lavanda seca sobre una mesa de madera',
