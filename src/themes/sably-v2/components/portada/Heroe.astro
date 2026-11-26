@@ -160,7 +160,9 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
     .v2-ht-suave { color: var(--ht-suave); }
     .v2-ht-tenue { color: var(--ht-tenue); }
     .v2-ht-acento { color: var(--ht-acento); }
-    .v2-ht-enlace { color: var(--ht-tinta); text-decoration-color: var(--ht-linea); }
+    /* Objetivo táctil de 34 px sin mover el texto (relleno y margen negativo iguales). */
+    .v2-ht-enlace { display: inline-block; padding-block: 6px; margin-block: -6px; color: var(--ht-tinta); text-decoration-color: var(--ht-linea); }
+    .v2-ht-enlace:focus-visible { outline: 3px solid var(--color-coral-500); outline-offset: 2px; border-radius: 4px; }
     .v2-ht-enlace:hover { text-decoration-color: currentColor; }
     .v2-heroe-caja, .v2-heroe-texto { position: relative; z-index: 1; }
     @media (min-width: 1024px) {
