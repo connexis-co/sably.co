@@ -191,12 +191,14 @@ export const FOTOS_PESTANA: Readonly<Record<string, Partial<Record<PestanaConFot
   },
   'curso-de-depilacion': {
     necesitas: 'Calentador de cera, bandas de tela, talco, loción, espátulas de madera y toalla sobre una mesa cubierta con una toalla blanca',
+    estudia: 'Mujer que extiende cera tibia con una espátula sobre su antebrazo apoyado en una toalla',
   },
   'curso-de-extensiones-de-cabello': {
     necesitas: 'Mechones de cabello castaño, pinzas separadoras, peine de cola, aguja curva con hilo, microanillos y gancho de enhebrar sobre un mantel gris',
     estudia: 'Mujer que separa mechones con un peine de cola en una cabeza de maniquí sujeta a la mesa de su sala',
   },
   'curso-de-manicure-y-pedicure': {
+    necesitas: 'Cuenco con agua, toalla, limas, alicate y empujador de cutícula, separadores de dedos, esmaltes sin etiqueta y discos de algodón sobre una mesa blanca',
     estudia: 'Mujer que se lima las uñas sobre una toalla doblada, con un cuenco de agua al lado y la lección en el celular',
   },
   'curso-de-maquillaje': {
@@ -206,8 +208,13 @@ export const FOTOS_PESTANA: Readonly<Record<string, Partial<Record<PestanaConFot
   'curso-de-masajes': {
     necesitas: 'Camilla de masaje con toallas enrolladas, frascos de aceite sin etiqueta, cojín cilíndrico, piedras de masaje y un cuenco',
   },
+  'curso-de-mecanica-de-motos': {
+    necesitas: 'Llaves combinadas, trinquete con copas, dos destornilladores, alicate y una bujía ordenados sobre un banco de madera',
+    estudia: 'Joven arrodillado que ajusta con una llave la tuerca del eje trasero de su moto en el garaje de su casa',
+  },
   'curso-de-pestanas-volumen-ruso': {
     necesitas: 'Pinzas rectas y curvas, bandeja de pestañas, cepillos, microaplicadores, adhesivo, parches de gel y piedra de jade sobre un mantel claro',
+    estudia: 'Mujer con tapabocas que coloca extensiones de pestañas con dos pinzas en una cabeza de práctica sobre la mesa de su casa',
   },
   'curso-de-unas': {
     necesitas: 'Esmaltes sin etiqueta, limas, bloque pulidor, empujador, alicate y cortaúñas, discos de algodón y una lámpara pequeña para uñas sobre una toalla blanca',
@@ -215,6 +222,7 @@ export const FOTOS_PESTANA: Readonly<Record<string, Partial<Record<PestanaConFot
   },
   'curso-de-velas-artesanales-y-aromaticas': {
     necesitas: 'Cera en escamas, mechas con base metálica, frascos de vidrio, jarra de acero, palitos de madera, goteros ámbar y lavanda seca sobre una mesa de madera',
+    estudia: 'Mujer que vierte cera derretida desde una jarra de acero en un vaso con mecha en la cocina de su casa',
   },
 };
 
