@@ -71,6 +71,8 @@
 .v2-ba-lectura { view-timeline: --v2-lectura block; }
 .v2-progreso { position: fixed; inset-inline: 0; top: var(--fijo-superior); z-index: 41; height: 3px; pointer-events: none; }
 .v2-progreso::before { content: ''; position: absolute; inset: 0; background: var(--color-coral-600); transform-origin: 0 50%; scale: var(--avance, 0) 1; }
+/* Con «reducir movimiento» la barra no se mueve con el desplazamiento: no se pinta (el porcentaje sigue en el índice). */
+@media (prefers-reduced-motion: reduce) { .v2-progreso { display: none; } }
 @supports ((animation-timeline: view()) and (animation-range: contain)) {
   @keyframes v2-avanza { from { scale: 0 1; } to { scale: 1 1; } }
   /* animation-timeline va DESPUÉS de las propiedades sueltas: la abreviada `animation` la reiniciaría. */
