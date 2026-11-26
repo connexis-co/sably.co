@@ -8,6 +8,9 @@
  * Al copiar, una marca ✓ aparece sobre el icono y se va (E1). Con `fija` (de fábrica) queda pegada encima de la
  * cabecera al desplazarse (E3); su alto va en `--v2-barra-alto` para que la cabecera y lo que cuelga de
  * `--fijo-superior` se pongan debajo. Al cerrarla, la cabecera sube sin salto (E4, src/lib/barra-cierre.ts).
+ * `boton` (panel: «Botón "Ver cursos" en la barra»): lleva a los cursos de la campaña. Todo va centrado: en escritorio
+ * en una línea; en móvil, la campaña como título (con la × a su altura) y debajo el contador y el botón en línea, o el
+ * botón debajo a todo el ancho si no cabe (barra-campana.css). En la ficha, enlace discreto u omitido (panel).
  */
 import Ico from './Ico.astro';
 import ContadorCampana from './ContadorCampana.astro';
@@ -20,31 +23,42 @@ interface Props {
   sinReloj?: boolean;
   /** Ajuste del panel: pegada encima de la cabecera al desplazarse mientras esté abierta (de fábrica). */
   fija?: boolean;
+  /** Botón a los cursos de la campaña; `texto` lleva {pct}. `discreto`: enlace de texto (ficha), sin flecha en móvil. */
+  boton?: { texto: string; href: string; discreto: boolean };
 }
-const { promo, cierre = 'sesion', sinReloj = false, fija = true } = Astro.props;
+const { promo, cierre = 'sesion', sinReloj = false, fija = true, boton } = Astro.props;
+const [antesPct, despuesPct] = boton?.texto.includes('{pct}') ? boton.texto.split('{pct}', 2) as [string, string] : [boton?.texto ?? '', null];
 const muestra = promo?.muestra.barra ?? 'contador';
 const conCupon = !promo || muestra === 'cupon' || muestra === 'ambos';
 const conReloj = !sinReloj && !!promo?.finMs && (muestra === 'contador' || muestra === 'ambos');
 const conFecha = !conReloj && muestra !== 'cupon';
 ---
 <div data-promo-v2="barra" data-promo-ssr={promo?.ssr} data-al-cerrar={cierre} data-fija={fija ? '' : undefined} hidden={!promo} class="v2-barra-campana z-50 bg-navy-950 text-white" role="region" aria-label="Promoción vigente">
-  <div class="v2-contenedor flex min-h-12 flex-wrap items-center gap-x-4 gap-y-1.5 py-1.5 max-lg:pr-10">
-    <p class:list={['flex min-w-0 flex-wrap items-center gap-x-3 gap-y-0.5 text-t13 lg:text-t15', conReloj && 'max-sm:w-full']}>
-      <span class="flex items-center gap-2 font-semibold"><span class="size-1.5 flex-none rounded-full bg-coral-500" aria-hidden="true"></span><span data-promo-gorro>{promo?.etiqueta}</span></span>
+  <div class="v2-barra-fila v2-contenedor flex min-h-12 flex-wrap items-center justify-center gap-x-4 gap-y-1.5 py-1.5">
+    <p class="v2-barra-titulo flex min-w-0 flex-wrap items-center justify-center gap-x-2 gap-y-0.5 text-center text-t13 lg:gap-x-3 lg:text-t15">
+      <span class="flex items-center gap-2 font-semibold text-white"><span class="size-1.5 flex-none rounded-full bg-coral-500" aria-hidden="true"></span><span data-promo-gorro>{promo?.etiqueta}</span></span>
       <span class="text-white/85"><span data-promo-pct-v2>{promo ? `${promo.pct} %` : ''}</span> {conCupon ? <><span class="max-sm:hidden">en cursos seleccionados </span>con el cupón</> : 'en cursos seleccionados'}</span>
     </p>
     {conReloj && promo?.finMs && (
-      <p class="flex items-center gap-2.5 text-t13 text-white/75"><span class="v2-reloj-rotulo">Termina en</span><ContadorCampana finMs={promo.finMs} fin={promo.fin} /></p>
+      <p class="flex items-center gap-2.5 text-t13 text-white/75"><span class="v2-reloj-rotulo max-lg:sr-only">Termina en</span><ContadorCampana finMs={promo.finMs} fin={promo.fin} /></p>
     )}
     {conCupon && (
-      <button type="button" data-promo-cupon class="v2-tique-mini group flex-none" aria-label={promo ? `Copiar el cupón ${promo.cupon}` : 'Copiar el cupón'}>
+      <button type="button" data-promo-cupon class="v2-tique-mini group relative z-10 flex-none" aria-label={promo ? `Copiar el cupón ${promo.cupon}` : 'Copiar el cupón'}>
         <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{promo?.cupon}</span>
         <span class="flex items-center gap-1 font-semibold text-coral-700"><span class="v2-tique-icono" aria-hidden="true"><Ico nombre="copy" tamano={14} class="v2-tique-copiar" /><Ico nombre="check" tamano={14} trazo={2.5} class="v2-tique-ok" /></span><span data-promo-copiar-texto>Copiar</span></span>
       </button>
     )}
+    {boton && promo && (boton.discreto ? (
+      <a href={boton.href} data-promo-ir class="text-t13 font-semibold text-white/85 underline underline-offset-4 hover:text-white max-sm:hidden">{antesPct}{despuesPct !== null && <span data-promo-pct-v2>{`${promo.pct} %`}</span>}{despuesPct}</a>
+    ) : (
+      <a href={boton.href} data-promo-ir class="v2-barra-ir">
+        <span>{antesPct}{despuesPct !== null && <span data-promo-pct-v2>{`${promo.pct} %`}</span>}{despuesPct}</span>
+        <Ico nombre="chevron-right" tamano={16} trazo={2.5} class="flex-none" />
+      </a>
+    ))}
     <span class="sr-only" aria-live="polite" data-promo-aviso-vivo></span>
     {conFecha && <p data-promo-fin hidden={!promo?.fin} class="text-t13 text-white/70 max-lg:hidden">Termina el <span data-promo-fecha>{promo?.fin}</span> (hora de Colombia)</p>}
-    <button type="button" data-promo-cerrar class="absolute right-2 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full text-white/80 hover:text-white lg:right-[max(8px,calc((100%-1200px)/2-48px))]" aria-label="Cerrar el aviso de la promoción">
+    <button type="button" data-promo-cerrar class="absolute right-2 top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full text-white/80 hover:text-white lg:right-[max(8px,calc((100%-1200px)/2-48px))]" aria-label="Cerrar el aviso de la promoción">
       <Ico nombre="x" tamano={18} />
     </button>
   </div>
@@ -63,6 +77,13 @@ const conFecha = !conReloj && muestra !== 'cupon';
      ficha (25-nov). En la ficha (`data-sin-cupon`) la caja de compra lleva su propio cupón. */
   import { iniciarPromos } from '@/lib/promo-cliente';
   iniciarPromos();
+  /* Clic en «Ver cursos con N %»: GA4 select_promotion por el mismo trackEvent que los clics de pago. */
+  import { trackEvent } from '@/lib/analytics';
+  document.querySelector<HTMLAnchorElement>('[data-promo-v2="barra"] [data-promo-ir]')?.addEventListener('click', (e) => {
+    let c: { id?: string; label?: string } = {};
+    try { c = JSON.parse((e.currentTarget as HTMLElement).closest<HTMLElement>('[data-promo-v2]')?.dataset.promoSsr ?? '{}'); } catch { /* sin datos */ }
+    trackEvent('select_promotion', { promotion_id: c.id, promotion_name: c.label, creative_slot: 'barra_campana', page_type: document.body.dataset.pageType ?? 'unknown' });
+  });
   /* Barra fija (E3): su alto real (una o dos líneas según el ancho) para colocar la cabecera debajo. */
   const barra = document.querySelector<HTMLElement>('[data-promo-v2="barra"][data-fija]');
   if (barra && 'ResizeObserver' in window) {

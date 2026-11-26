@@ -6,7 +6,9 @@
  * nunca para mostrarse; un curso sin precio va al final.
  */
 import { env } from 'virtual:sably-runtime';
-import { readOperationalRatings } from '@/plugins/sably-operations/public';
+import { readActivePromosForRequest, readOperationalRatings } from '@/plugins/sably-operations/public';
+import { mejorPromocion } from '@/lib/promo';
+import { aceptaCupon, proveedorDe } from '@/lib/proveedores';
 import { preciosDeTarjetas, type ContextoPrecio } from '@/lib/precio-hoy';
 import { importeParaOrdenar } from '@/lib/precio-tarjeta';
 import { mostrarPromedio } from '@/lib/opiniones';
@@ -39,4 +41,20 @@ export function filtrarCursos(cursos: Course[], q: string, buscable: Map<string,
   const terminos = normalizar(q).split(/\s+/).filter(t => t.length > 1);
   if (!terminos.length) return cursos;
   return cursos.filter(c => terminos.every(t => buscable.get(c.id)?.includes(t)));
+}
+
+/**
+ * `?oferta=1` (botón de la barra de campaña): los cursos a los que aplica la campaña vigente de la página
+ * (`promoId` = PromoV2.id, «promo-<id>»), con la misma regla que pone el cupón en su enlace de pago
+ * (src/lib/precio-hoy.ts): proveedor que acepta cupón y la promoción de más prioridad para ese curso.
+ */
+export async function cursosDeLaCampana(cursos: Course[], country: Country, promoId: string, ctx: ContextoPrecio): Promise<Course[]> {
+  const db = (env as unknown as { SABLY_DB: D1Database }).SABLY_DB;
+  const promos = await readActivePromosForRequest(db, ctx.locals).catch(() => []);
+  const urlKey = ctx.url.searchParams.get('promo');
+  return cursos.filter(c => {
+    if (!aceptaCupon(c.data.proveedor)) return false;
+    const p = mejorPromocion(promos, { countryCode: country.code, proveedor: proveedorDe(c.data.proveedor), courseSlug: c.id, urlKey });
+    return !!p && `promo-${p.id}` === promoId;
+  });
 }
