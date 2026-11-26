@@ -81,6 +81,8 @@ export function prepararMedio(raiz: HTMLElement) {
   }
 
   function nativo() {
+    // Mientras el reproductor cambia a su fuente de respaldo (HLS → MP4), el fallo no es definitivo.
+    if (raiz.dataset.medioRespaldo === 'pendiente') return;
     controles.hidden = true;
     medio.controls = true;
     avisar('Puedes usar el reproductor del navegador.');

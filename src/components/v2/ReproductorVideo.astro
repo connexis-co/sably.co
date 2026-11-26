@@ -11,7 +11,12 @@ import { getImage } from 'astro:assets';
 import Icono from '@/components/v2/Icono.astro';
 import cssFachada from './medios/video-fachada.css?raw';
 interface Props {
+  /** MP4 que siempre funciona (R2, o el 720p del proveedor). */
   src: string;
+  /** HLS adaptativo (Mux). Se usa solo si el navegador lo reproduce de forma nativa (Safari, Chrome ≥ 142…). */
+  hls?: string;
+  /** Subtítulos WebVTT del proveedor; solo se cargan junto con el HLS (mismo origen con CORS). */
+  subtitulos?: string;
   poster: string;
   titulo: string;
   /** Texto alternativo del póster cuando no hay vídeo; con vídeo el póster es decorativo. */
@@ -25,7 +30,7 @@ interface Props {
   rotulo?: string;
   class?: string;
 }
-const { src, poster, titulo, segundos = 0, medioId, proveedor = 'r2', prioritario = false, rotulo = 'Presentación', class: clase } = Astro.props;
+const { src, hls, subtitulos, poster, titulo, segundos = 0, medioId, proveedor = 'r2', prioritario = false, rotulo = 'Presentación', class: clase } = Astro.props;
 const anchos = [480, 780, 1200];
 const imagenes = await Promise.all(anchos.map(width => getImage({ src: poster, width, height: Math.round(width * 9 / 16) }).catch(() => null)));
 const principal = imagenes[1] ?? imagenes[0];
@@ -45,7 +50,9 @@ const reloj = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60))
     <span class="v2-medio-rotulo"><Icono nombre="circle-play" tamano={16} />{rotulo}{segundos > 0 && <span class="v2-num"> · {reloj(segundos)}</span>}</span>
   </a>
   <template data-medio-plantilla>
-    <video data-medio-elemento playsinline preload="metadata" src={src} aria-label={titulo}></video>
+    <video data-medio-elemento playsinline preload="metadata" src={src} data-hls={hls} aria-label={titulo}>
+      {hls && subtitulos && <track kind="subtitles" srclang="es" label="Español" src={subtitulos} data-medio-pista />}
+    </video>
     <div class="v2-medio-controles" data-medio-controles role="group" aria-label="Controles del vídeo" hidden>
       <button type="button" class="v2-medio-boton v2-medio-principal" data-medio-alternar aria-label="Reproducir el vídeo">
         <svg class="v2-medio-play" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" focusable="false"><path d="M6 3.5 16.5 10 6 16.5z" /></svg>
@@ -79,6 +86,29 @@ const reloj = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60))
       raiz.dataset.medio = '';
       const [{ prepararMedio }] = await cargar();
       raiz.appendChild(plantilla.content.cloneNode(true));
+      // HLS solo donde el navegador lo reproduce solo (sin motor en JS); si no, el MP4. Los subtítulos van con el HLS.
+      const video = raiz.querySelector<HTMLVideoElement>('video');
+      if (video?.dataset.hls && video.canPlayType('application/vnd.apple.mpegurl')) {
+        const mp4 = video.src;
+        video.crossOrigin = 'anonymous';
+        video.src = video.dataset.hls;
+        // Si el HLS falla (copia borrada, proveedor caído), una vez al MP4 antes de que el controlador lo dé por perdido.
+        video.addEventListener('error', (ev) => {
+          ev.stopImmediatePropagation();
+          raiz.dataset.medioRespaldo = 'pendiente';
+          const fin = () => { delete raiz.dataset.medioRespaldo; };
+          video.addEventListener('playing', fin, { once: true });
+          setTimeout(fin, 5000);
+          video.querySelector('[data-medio-pista]')?.remove();
+          video.removeAttribute('crossorigin');
+          raiz.dataset.medioProveedor = 'r2';
+          video.src = mp4;
+          void video.play().catch(() => {});
+        }, { once: true });
+      } else {
+        video?.querySelector('[data-medio-pista]')?.remove();
+        if (video && new URL(video.src).hostname === 'cdn.sably.co') raiz.dataset.medioProveedor = 'r2';
+      }
       prepararMedio(raiz);
       abrir.hidden = true;
       raiz.querySelector<HTMLButtonElement>('[data-medio-alternar]')?.click();

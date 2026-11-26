@@ -7,8 +7,8 @@
 import { getImage } from 'astro:assets';
 import ReproductorVideo from '@/components/v2/ReproductorVideo.astro';
 import { COURSE_VIDEOS } from '@/lib/course-videos';
-interface Props { src: string | null; poster: string; titulo: string; alt: string; courseId: string; pie?: string | null }
-const { src, poster, titulo, alt, courseId, pie } = Astro.props;
+interface Props { src: string | null; hls?: string | null; subtitulos?: string | null; proveedor?: string; poster: string; titulo: string; alt: string; courseId: string; pie?: string | null }
+const { src, hls, subtitulos, proveedor = 'r2', poster, titulo, alt, courseId, pie } = Astro.props;
 const anchos = [480, 780, 1200];
 const imagenes = src ? [] : await Promise.all(anchos.map(width => getImage({ src: poster, width, height: Math.round(width * 9 / 16) }).catch(() => null)));
 const principal = imagenes[1] ?? imagenes[0];
@@ -16,7 +16,7 @@ const srcset = imagenes.map((img, i) => img && `${img.src} ${anchos[i]}w`).filte
 ---
 <figure class="v2-video m-0" data-course-video={courseId}>
   {src ? (
-    <ReproductorVideo {src} {poster} {titulo} medioId={`curso:${courseId}`} segundos={COURSE_VIDEOS[courseId]?.segundos} prioritario class="lg:shadow-s3" />
+    <ReproductorVideo {src} hls={hls ?? undefined} subtitulos={subtitulos ?? undefined} {proveedor} {poster} {titulo} medioId={`curso:${courseId}`} segundos={COURSE_VIDEOS[courseId]?.segundos} prioritario class="lg:shadow-s3" />
   ) : (
     <div class="relative aspect-video overflow-hidden bg-navy-900 lg:rounded-c-xl lg:shadow-s3">
       <img src={principal?.src ?? poster} srcset={srcset || undefined} sizes="(min-width: 1024px) 780px, 100vw" alt={alt}
