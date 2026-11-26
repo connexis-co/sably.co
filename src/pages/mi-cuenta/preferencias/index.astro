@@ -1,0 +1,226 @@
+---
+/**
+ * Mi cuenta · Preferencias (diseño «C1», marco fhG4J): una página con índice lateral y un bloque por ajuste que
+ * existe: perfil (solo lectura), país y moneda, contraseña, sesiones y formas de acceso, cookies y borrado.
+ * Idioma, tema, notificaciones, accesibilidad, foto y descarga de datos del diseño no existen: no se dibujan.
+ * Los formularios y sus rutas son los de siempre. Privada: `no-store`, `noindex`, fuera de los sitemaps.
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { COUNTRIES, getCountry } from '@/lib/countries';
+import { aplicarCabecerasPrivadas, cookieFlujo, cuentaActual, cuentaServidor, tokenCsrf, redirigir } from '@/lib/cuenta/http';
+import { CLAVE_MIN, CLAVE_MAX } from '@/lib/cuenta/clave';
+import { AVISOS, RUTAS, ahora, enlaceIngresar, iniciales } from '@/lib/cuenta/nucleo';
+import AreaPersonal from '@/components/cuenta/AreaPersonal.astro';
+import Avatar from '@/components/cuenta/Avatar.astro';
+import Bandera from '@/components/v2/Bandera.astro';
+import Ico, { type NombreIco } from '@/themes/sably-v2/components/Ico.astro';
+import '@/themes/sably-v2/estilos.css';
+
+export const prerender = false;
+aplicarCabecerasPrivadas(Astro.response.headers);
+const servidor = await cuentaServidor(Astro);
+if (!servidor) return new Response('Not found', { status: 404 }); // igual que hoy sin cuenta
+const cuenta = await cuentaActual(Astro, servidor.almacen);
+if (!cuenta) return redirigir(enlaceIngresar(RUTAS.cuentaPreferencias));
+const [prefs, formas, sesiones] = await Promise.all([
+  servidor.almacen.preferencias(cuenta.id), servidor.almacen.formasDeAcceso(cuenta.id), servidor.almacen.sesionesAbiertas(cuenta.id, ahora()),
+]);
+const csrf = tokenCsrf(Astro, servidor.secreto);
+const pais = prefs.pais && COUNTRIES.some(c => c.code === prefs.pais) ? getCountry(prefs.pais) : null;
+const country = pais ?? getCountry('co');
+const codigoAviso = Astro.url.searchParams.get('aviso') ?? '';
+// Avisos de la contraseña y de su código: se pintan dentro de ese bloque.
+const avisoClave = /^(?:clave|codigo|correo)-/.test(codigoAviso) || codigoAviso === 'espera'
+  ? (Object.hasOwn(AVISOS, codigoAviso) ? { texto: AVISOS[codigoAviso], ok: codigoAviso === 'clave-cambiada' } : null) : null;
+// Contraseña: solo con el correo listo (la primera se confirma con un código).
+const correoListo = !!(await servidor.correo());
+const claveDisponible = servidor.estado.clave && correoListo;
+const codigoClave = Astro.url.searchParams.get('paso') === 'codigo' ? await servidor.almacen.codigoPendiente(cookieFlujo(Astro), ahora()) : null;
+const indice = ([
+  ['cuenta-perfil', 'user', 'Perfil'],
+  ['cuenta-pais-moneda', 'globe', 'País y moneda'],
+  claveDisponible && ['cuenta-clave', 'lock', 'Contraseña'],
+  ['cuenta-sesion', 'smartphone', 'Sesiones y acceso'],
+  ['cuenta-cookies', 'shield-check', 'Privacidad y cookies'],
+  ['cuenta-datos', 'file-text', 'Tus datos'],
+] as (false | [string, NombreIco, string])[]).filter(s => !!s);
+---
+<BaseLayout title="Preferencias de tu cuenta | Sably" description="Tus datos, país, contraseña, sesiones y borrado de tu cuenta de Sably." {country} pathAfterCountry="/" pageType="cuenta" noindex temaV2>
+  <AreaPersonal nombre={cuenta.nombre} email={cuenta.email} foto={cuenta.foto} activa="preferencias">
+    <div class="v2-contenedor cu-cuerpo cu-prefs">
+      <nav class="cu-indice" aria-label="Secciones de preferencias" data-cuenta-indice>
+        {indice.map(([id, icono, texto], i) => <a href={`#${id}`} aria-current={i === 0 ? 'true' : undefined}><Ico nombre={icono} tamano={18} />{texto}</a>)}
+      </nav>
+
+      <div class="cu-bloques">
+        <header>
+          <h1 class="cu-h1">Preferencias</h1>
+          <p class="cu-bajada">Tus datos, tu país y la seguridad de tu cuenta.</p>
+        </header>
+
+        <section id="cuenta-perfil" class="cu-bloque" aria-labelledby="cuenta-perfil-titulo">
+          <div class="cu-bloque-cabeza"><h2 id="cuenta-perfil-titulo" class="cu-h2">Perfil</h2></div>
+          <div class="cu-perfil">
+            <Avatar foto={cuenta.foto} iniciales={iniciales(cuenta.nombre, cuenta.email)} />
+            <dl class="cu-filas">
+              <div><dt>Nombre</dt><dd>{cuenta.nombre || 'Sin nombre'}</dd></div>
+              <div><dt>Correo de acceso</dt><dd>{cuenta.email}</dd></div>
+            </dl>
+          </div>
+          {formas.google && <p class="cu-nota">Nombre y foto vienen de tu cuenta de Google: si los cambias allí, aquí se actualizan la próxima vez que entres con Google.</p>}
+        </section>
+
+        <section id="cuenta-pais-moneda" class="cu-bloque" aria-labelledby="cuenta-preferencias">
+          <div class="cu-bloque-cabeza">
+            <h2 id="cuenta-preferencias" class="cu-h2">País y moneda</h2>
+            {codigoAviso === 'guardado' && <p role="status" class="cu-guardado"><Ico nombre="check" tamano={16} />{AVISOS.guardado}</p>}
+          </div>
+          <p class="cu-texto">Cada país tiene sus fichas y sus precios en su moneda. Elegir un país no te cambia de página por sí solo.</p>
+          <form method="post" action={RUTAS.preferencias} class="cu-formulario">
+            <input type="hidden" name="csrf" value={csrf} />
+            <div class="v2-campo">
+              <select id="cuenta-pais" name="pais">
+                <option value="" selected={!pais}>Automático (el de la página que visites)</option>
+                {COUNTRIES.map(c => <option value={c.code} selected={pais?.code === c.code}>{c.name} · {c.currency}</option>)}
+              </select>
+              <label for="cuenta-pais">País preferido</label>
+            </div>
+            <button type="submit" class="v2-btn v2-btn-principal" data-alto="48">Guardar</button>
+          </form>
+          {pais && <a href={`/${pais.code}/cursos/`} class="cu-enlace"><Bandera codigo={pais.code} />Ver los cursos en {pais.name} ({pais.currency})</a>}
+        </section>
+
+        {claveDisponible && (
+          <section id="cuenta-clave" class="cu-bloque" aria-labelledby="cuenta-clave-titulo">
+            <div class="cu-bloque-cabeza"><h2 id="cuenta-clave-titulo" class="cu-h2">Contraseña</h2></div>
+            {avisoClave && <p role={avisoClave.ok ? 'status' : 'alert'} class:list={['cu-aviso', { 'cu-aviso-error': !avisoClave.ok }]}>{avisoClave.texto}</p>}
+            {codigoClave?.clave ? (
+              <form method="post" action={RUTAS.correoVerificar} class="cu-formulario">
+                <input type="hidden" name="csrf" value={csrf} />
+                <input type="hidden" name="volver" value={RUTAS.cuentaPreferencias} />
+                <p class="cu-texto">Escribe el código de 6 dígitos que enviamos a <strong>{codigoClave.email}</strong>. Al confirmarlo guardamos tu contraseña y cerramos la sesión en tus otros dispositivos.</p>
+                <label for="cuenta-codigo" class="sr-only">Código de 6 dígitos</label>
+                <input id="cuenta-codigo" name="codigo" class="cu-codigo" inputmode="numeric" autocomplete="one-time-code" pattern="\s*\d{3}\s?\d{3}\s*" maxlength="7" required />
+                <button type="submit" class="v2-btn v2-btn-principal" data-alto="48">Verificar y guardar</button>
+              </form>
+            ) : (
+              <form method="post" action={RUTAS.cuentaClave} class="cu-formulario">
+                <input type="hidden" name="csrf" value={csrf} />
+                <input type="text" name="email" value={cuenta.email} autocomplete="username" hidden />
+                <p class="cu-texto">{formas.clave ? 'Cámbiala cuando quieras. Al guardarla cerramos tu sesión en los demás dispositivos.' : 'Crea una contraseña para entrar también con tu correo y contraseña. Te enviaremos un código para confirmarlo.'}</p>
+                {formas.clave && (
+                  <div class="v2-campo"><input id="cuenta-clave-actual" name="actual" type="password" placeholder=" " required autocomplete="current-password" maxlength={CLAVE_MAX} /><label for="cuenta-clave-actual">Contraseña actual</label></div>
+                )}
+                <div class="v2-campo"><input id="cuenta-clave-nueva" name="nueva" type="password" placeholder=" " required autocomplete="new-password" minlength={CLAVE_MIN} maxlength={CLAVE_MAX} aria-describedby="cuenta-clave-nueva-ayuda" /><label for="cuenta-clave-nueva">Contraseña nueva</label><span id="cuenta-clave-nueva-ayuda" class="v2-campo-ayuda">Al menos 10 caracteres. Mejor una frase que no uses en otros sitios.</span></div>
+                <button type="submit" class="v2-btn v2-btn-principal" data-alto="48">{formas.clave ? 'Guardar la contraseña nueva' : 'Crear contraseña'}</button>
+              </form>
+            )}
+          </section>
+        )}
+
+        <section id="cuenta-sesion" class="cu-bloque" aria-labelledby="cuenta-sesion-titulo">
+          <div class="cu-bloque-cabeza"><h2 id="cuenta-sesion-titulo" class="cu-h2">Sesiones y acceso</h2></div>
+          <p class="cu-texto">{sesiones > 1 ? `Tu cuenta tiene ${sesiones} sesiones abiertas, contando esta.` : 'Tu cuenta solo está abierta aquí.'}</p>
+          <div class="cu-botones">
+            <form method="post" action={RUTAS.salir}>
+              <input type="hidden" name="csrf" value={csrf} />
+              <button type="submit" class="v2-btn v2-btn-secundario" data-alto="48"><Ico nombre="log-out" tamano={18} />Cerrar sesión</button>
+            </form>
+            <form method="post" action={RUTAS.salir}>
+              <input type="hidden" name="csrf" value={csrf} />
+              <input type="hidden" name="todas" value="1" />
+              <button type="submit" class="v2-btn v2-btn-secundario" data-alto="48">Cerrar en todos los dispositivos</button>
+            </form>
+          </div>
+          <h3 class="cu-h3">Formas de acceso</h3>
+          <ul class="cu-lista" role="list">
+            {/* Sin conectar solo se ofrece con Gmail: otro dominio con cuenta ya creada no se enlaza (núcleo de la cuenta). */}
+            {(formas.google || (servidor.google && cuenta.email.endsWith('@gmail.com'))) && (
+              <li>
+                <span class="cu-icono"><svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span>
+                <span class="cu-lista-texto"><strong>Google</strong><span>{formas.google ? 'Entras con un toque' : 'Se conecta al entrar con Google con este mismo correo'}</span></span>
+                <span class="cu-estado">{formas.google ? 'Conectado' : 'Sin conectar'}</span>
+              </li>
+            )}
+            {servidor.estado.correo && correoListo && (
+              <li>
+                <span class="cu-icono"><Ico nombre="mail" tamano={18} /></span>
+                <span class="cu-lista-texto"><strong>Correo con código</strong><span>{cuenta.email} · código de 6 dígitos</span></span>
+                <span class="cu-estado">Disponible</span>
+              </li>
+            )}
+            {claveDisponible && (
+              <li>
+                <span class="cu-icono"><Ico nombre="lock" tamano={18} /></span>
+                <span class="cu-lista-texto"><strong>Contraseña</strong><span>{formas.clave ? 'Con tu correo y tu contraseña' : 'Todavía no has creado una'}</span></span>
+                {formas.clave ? <span class="cu-estado">Activa</span> : <a href="#cuenta-clave" class="cu-enlace">Crearla</a>}
+              </li>
+            )}
+          </ul>
+        </section>
+
+        <section id="cuenta-cookies" class="cu-bloque" aria-labelledby="cuenta-cookies-titulo">
+          <div class="cu-bloque-cabeza"><h2 id="cuenta-cookies-titulo" class="cu-h2">Privacidad y cookies</h2></div>
+          <p class="cu-texto">Revisa qué cookies aceptas en este dispositivo.</p>
+          <div class="cu-botones">
+            <button type="button" data-sably-consent-open class="v2-btn v2-btn-secundario" data-alto="48">Preferencias de cookies</button>
+          </div>
+          <a href="/legal/privacidad/" class="cu-enlace">Política de privacidad</a>
+        </section>
+
+        <section id="cuenta-datos" class="cu-bloque" aria-labelledby="cuenta-datos-titulo">
+          <div class="cu-bloque-cabeza"><h2 id="cuenta-datos-titulo" class="cu-h2">Tus datos</h2></div>
+          <div class="cu-fila-peligro">
+            <div>
+              <h3 class="cu-h3">Eliminar mi cuenta</h3>
+              <p class="cu-texto">Borra tu cuenta de Sably y lo que guarda. Tus cursos comprados siguen en Hotmart.</p>
+            </div>
+            <button type="button" class="v2-btn cu-btn-peligro" data-alto="48" popovertarget="cuenta-borrar" aria-haspopup="dialog">Eliminar cuenta…</button>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <dialog id="cuenta-borrar" popover class="cu-dialogo" aria-labelledby="cuenta-borrar-titulo">
+      <div class="cu-dialogo-cuerpo">
+        <h2 id="cuenta-borrar-titulo" class="cu-h2">¿Eliminar tu cuenta?</h2>
+        <p class="cu-texto">Se borran tu cuenta, tus preferencias, tus cursos guardados y la constancia de tu consentimiento. No afecta a tus compras en Hotmart. No se puede deshacer.</p>
+        <form method="post" action={RUTAS.borrar} class="cu-formulario">
+          <input type="hidden" name="csrf" value={csrf} />
+          <label class="cu-casilla"><input type="checkbox" name="confirmar" value="si" required />Entiendo que mi cuenta se borra para siempre.</label>
+          <div class="cu-botones">
+            <button type="submit" class="v2-btn cu-btn-borrar" data-alto="48">Borrar mi cuenta</button>
+            <button type="button" class="v2-btn v2-btn-secundario" data-alto="48" popovertarget="cuenta-borrar" popovertargetaction="hide" data-cuenta-cancelar autofocus>Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+  </AreaPersonal>
+  <script is:inline>
+    (() => {
+      // Confirmación de borrado: sin JavaScript se abre como `popover`; con él, como diálogo modal (foco atrapado).
+      const dialogo = document.getElementById('cuenta-borrar'), abrir = document.querySelector('[popovertarget="cuenta-borrar"]:not([data-cuenta-cancelar])');
+      if (dialogo && abrir && dialogo.showModal) {
+        dialogo.removeAttribute('popover'); abrir.removeAttribute('popovertarget');
+        abrir.addEventListener('click', () => dialogo.showModal());
+        const cancelar = dialogo.querySelector('[data-cuenta-cancelar]');
+        cancelar.removeAttribute('popovertarget'); cancelar.addEventListener('click', () => dialogo.close());
+      }
+      // El índice lateral marca el bloque que se está viendo.
+      const enlaces = [...document.querySelectorAll('[data-cuenta-indice] a')];
+      const bloques = enlaces.map(a => document.getElementById(a.hash.slice(1)));
+      let pendiente = false;
+      const marcar = () => {
+        pendiente = false;
+        const fondo = innerHeight + scrollY >= document.documentElement.scrollHeight - 4;
+        let activo = 0;
+        bloques.forEach((b, i) => { if (b && b.getBoundingClientRect().top <= 160) activo = i; });
+        const ancla = bloques.findIndex(b => b && '#' + b.id === location.hash && b.getBoundingClientRect().top < innerHeight);
+        if (fondo) activo = ancla >= 0 ? ancla : enlaces.length - 1;
+        enlaces.forEach((a, i) => i === activo ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current'));
+      };
+      const pedir = () => { if (!pendiente) { pendiente = true; requestAnimationFrame(marcar); } };
+      addEventListener('scroll', pedir, { passive: true }); addEventListener('hashchange', pedir); pedir();
+    })();
+  </script>
+</BaseLayout>

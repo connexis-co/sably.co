@@ -29,5 +29,6 @@ export const POST: APIRoute = async (ctx) => {
   if (claveNueva) await servidor.almacen.fijarClave(resultado.cuenta, claveNueva, t, resultado.token);
   await abrirSesion(ctx, servidor.almacen, resultado.token, SESION_SEGUNDOS);
   const destino = destinoSeguro(volver);
-  return redirigir(claveNueva && destino === RUTAS.cuenta ? `${RUTAS.cuenta}?aviso=clave-cambiada` : destino);
+  const desdeCuenta = destino === RUTAS.cuenta || destino === RUTAS.cuentaPreferencias;
+  return redirigir(claveNueva && desdeCuenta ? `${RUTAS.cuentaPreferencias}?aviso=clave-cambiada#cuenta-clave` : destino);
 };
