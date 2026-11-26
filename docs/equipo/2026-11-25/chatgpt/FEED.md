@@ -121,7 +121,23 @@ Sin `--upload` solo genera el CSV y lista lo que queda fuera.
 
 ## 6 · Resultado de la primera subida
 
-(ver abajo)
+`sftp_8a843f3ea5884ce5850d41c929345ae3`, subida 26-nov 01:00:30 UTC, **`completed` a las 01:08:00**:
+**112 filas aceptadas, 112 aptas para anuncios, 0 rechazadas, sin diagnósticos.** Colombia y COP se aceptan.
+
+Justo después, `items/query` y `products/query` devolvían 0 productos (la indexación va por detrás del procesamiento)
+y la consulta de revisión respondió `403 product_feed_approval_status_api_disabled`: **esta cuenta no puede ver por
+API si cada curso quedó aprobado**; eso se mira en Ads Manager (Feeds) o en el `serving_issues` del anuncio cuando
+exista la campaña.
+
+Permisos de la cuenta comprobados el 26-nov:
+
+| Función | Estado |
+|---|---|
+| Crear feed, SFTP, historial de subidas, `items/query`, `products/query` | Funciona |
+| Reemplazo completo (`is_full_refresh`) | 403 «not enabled» |
+| URL alojada | 403 `product_feed_hosted_url_api_disabled` |
+| Estado de revisión por producto | 403 `product_feed_approval_status_api_disabled` |
+| Delta API | Ver la nota de indexación al final |
 
 ## 7 · Cuando se decida la campaña de feed (no creada)
 
