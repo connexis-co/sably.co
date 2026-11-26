@@ -55,7 +55,7 @@ export class CuentaAlmacen {
   /** Crea las tablas si faltan (todo IF NOT EXISTS): el servidor Node no aplica migraciones de D1. */
   async asegurarEsquema(): Promise<void> {
     if (!this.esquema) return;
-    if (await this.db.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name='account_codes'").first()) return;
+    if (await this.db.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name='account_pending_passwords'").first()) return;
     // El esquema no lleva «;» dentro de textos: se parte por sentencias y va en un solo lote.
     const sentencias = this.esquema.replace(/--[^\n]*/g, '').split(';').map(s => s.trim()).filter(Boolean);
     await this.db.batch(sentencias.map(s => this.db.prepare(s)));
@@ -188,7 +188,7 @@ export class CuentaAlmacen {
    * la cuenta se crea al validar el primer código. Espera de 60 s entre envíos en el mismo navegador y
    * límites por hora: 4 por correo, 20 por IP y 160 en el sitio.
    */
-  async pedirCodigo(flujo: string, email: string, ip: string, ahora: number): Promise<ResultadoCodigo> {
+  async pedirCodigo(flujo: string, email: string, ip: string, ahora: number, claveHash?: string): Promise<ResultadoCodigo> {
     const correo = normalizarCorreo(email);
     if (!tokenValido(flujo) || !correo) throw new Error('Petición de código inválida.');
     const clave = this.h('codigo-flujo', flujo);
@@ -202,21 +202,74 @@ export class CuentaAlmacen {
       this.db.prepare('DELETE FROM account_codes WHERE expires <= ?').bind(ahora),
       this.db.prepare('INSERT OR REPLACE INTO account_codes (flow, email, code, expires, attempts, sent) VALUES (?, ?, ?, ?, 0, ?)')
         .bind(clave, correo, this.h('codigo', `${flujo}\0${correo}\0${codigo}`), ahora + CODIGO_SEGUNDOS, ahora),
+      this.db.prepare('DELETE FROM account_pending_passwords WHERE flow = ? OR expires <= ?').bind(clave, ahora),
+      // Alta u «olvidé mi contraseña»: la contraseña nueva espera al código en este mismo navegador.
+      ...(claveHash ? [this.db.prepare('INSERT INTO account_pending_passwords (flow, hash, expires) VALUES (?, ?, ?)').bind(clave, claveHash, ahora + CODIGO_SEGUNDOS)] : []),
     ]);
     return { ok: true, codigo };
   }
 
   /** Si el correo no salió, el código se descarta para poder pedir otro sin esperar. */
   async olvidarCodigo(flujo: string): Promise<void> {
-    if (tokenValido(flujo)) await this.db.prepare('DELETE FROM account_codes WHERE flow = ?').bind(this.h('codigo-flujo', flujo)).run();
+    if (!tokenValido(flujo)) return;
+    const clave = this.h('codigo-flujo', flujo);
+    await this.db.batch([
+      this.db.prepare('DELETE FROM account_codes WHERE flow = ?').bind(clave),
+      this.db.prepare('DELETE FROM account_pending_passwords WHERE flow = ?').bind(clave),
+    ]);
   }
 
   /** El código pendiente de este navegador: a qué correo se envió y cuánto falta para poder reenviar. */
-  async codigoPendiente(flujo: string, ahora: number): Promise<{ email: string; reenviarEn: number } | null> {
+  async codigoPendiente(flujo: string, ahora: number): Promise<{ email: string; reenviarEn: number; clave: boolean } | null> {
     if (!tokenValido(flujo)) return null;
-    const r = fila<{ email: string; expires: number; sent: number }>(await this.db.prepare('SELECT email, expires, sent FROM account_codes WHERE flow = ?')
-      .bind(this.h('codigo-flujo', flujo)).first());
-    return r && r.expires > ahora ? { email: r.email, reenviarEn: Math.max(0, r.sent + CODIGO_ESPERA - ahora) } : null;
+    const r = fila<{ email: string; expires: number; sent: number; clave: number }>(await this.db.prepare(
+      'SELECT c.email, c.expires, c.sent, EXISTS (SELECT 1 FROM account_pending_passwords p WHERE p.flow = c.flow) AS clave FROM account_codes c WHERE c.flow = ?',
+    ).bind(this.h('codigo-flujo', flujo)).first());
+    return r && r.expires > ahora ? { email: r.email, reenviarEn: Math.max(0, r.sent + CODIGO_ESPERA - ahora), clave: !!r.clave } : null;
+  }
+
+  /** La contraseña que esperaba al código de este navegador (un solo uso). */
+  async tomarClavePendiente(flujo: string, ahora: number): Promise<string | null> {
+    if (!tokenValido(flujo)) return null;
+    const r = fila<{ hash: string }>(await this.db.prepare('DELETE FROM account_pending_passwords WHERE flow = ? AND expires > ? RETURNING hash')
+      .bind(this.h('codigo-flujo', flujo), ahora).first());
+    return r?.hash ?? null;
+  }
+
+  /** Cuenta y hash de la contraseña de un correo (null si no hay cuenta o no tiene contraseña). */
+  async claveDe(email: string): Promise<{ cuenta: number; status: string; hash: string } | null> {
+    const r = fila<{ cuenta: number; status: string; hash: string }>(await this.db.prepare(
+      'SELECT a.id AS cuenta, a.status, p.hash FROM accounts a JOIN account_passwords p ON p.account = a.id WHERE a.email = ?',
+    ).bind(normalizarCorreo(email)).first());
+    return r ? { cuenta: Number(r.cuenta), status: r.status, hash: r.hash } : null;
+  }
+
+  async hashDeCuenta(cuenta: number): Promise<string | null> {
+    return fila<{ hash: string }>(await this.db.prepare('SELECT hash FROM account_passwords WHERE account = ?').bind(cuenta).first())?.hash ?? null;
+  }
+
+  /**
+   * Guarda la contraseña y cierra todas las sesiones de la cuenta salvo `conservar` (la de este navegador,
+   * ya rotada). Para rehacer un hash antiguo sin cambiar la contraseña, `cerrarSesiones` = false.
+   */
+  async fijarClave(cuenta: number, hash: string, ahora: number, conservar?: string, cerrarSesiones = true): Promise<void> {
+    const sentencias = [this.db.prepare('INSERT INTO account_passwords (account, hash, updated) VALUES (?, ?, ?) ON CONFLICT(account) DO UPDATE SET hash = excluded.hash, updated = excluded.updated')
+      .bind(cuenta, hash, ahora)];
+    if (cerrarSesiones) sentencias.push(conservar && tokenValido(conservar)
+      ? this.db.prepare('DELETE FROM account_sessions WHERE account = ? AND token <> ?').bind(cuenta, this.h('sesion', conservar))
+      : this.db.prepare('DELETE FROM account_sessions WHERE account = ?').bind(cuenta));
+    await this.db.batch(sentencias);
+  }
+
+  /** Sesión nueva para una cuenta existente (entrada con contraseña o tras cambiarla). */
+  async sesionNueva(cuenta: number, ahora: number): Promise<string> {
+    const sesion = this.nuevaSesion(cuenta, ahora);
+    await this.db.batch([
+      this.db.prepare('UPDATE accounts SET last_login = ? WHERE id = ?').bind(ahora, cuenta),
+      this.db.prepare('DELETE FROM account_sessions WHERE account = ? AND expires <= ?').bind(cuenta, ahora),
+      sesion.sentencia,
+    ]);
+    return sesion.token;
   }
 
   /** Cinco intentos por código; al acertar, el código se borra (un solo uso). Comparación en tiempo constante. */
@@ -253,18 +306,16 @@ export class CuentaAlmacen {
     if (!existente) return this.crear(correo, ahora, consentimiento, pais, () => []);
     if (existente.status === 'blocked') return { ok: false, aviso: 'bloqueada' };
     const cuenta = Number(existente.id);
-    const sesion = this.nuevaSesion(cuenta, ahora);
-    await this.db.batch([
-      this.db.prepare('UPDATE accounts SET last_login = ? WHERE id = ?').bind(ahora, cuenta),
-      this.db.prepare('DELETE FROM account_sessions WHERE account = ? AND expires <= ?').bind(cuenta, ahora),
-      sesion.sentencia,
-    ]);
-    return { ok: true, token: sesion.token, nueva: false, cuenta };
+    return { ok: true, token: await this.sesionNueva(cuenta, ahora), nueva: false, cuenta };
   }
 
-  /** Formas de acceso de la cuenta: el correo siempre; Google si hay identidad enlazada. */
-  async formasDeAcceso(cuenta: number): Promise<{ google: boolean }> {
-    return { google: !!(await this.db.prepare("SELECT 1 FROM account_identities WHERE account = ? AND provider = 'google'").bind(cuenta).first()) };
+  /** Formas de acceso de la cuenta: el correo siempre; Google si hay identidad enlazada; contraseña si tiene. */
+  async formasDeAcceso(cuenta: number): Promise<{ google: boolean; clave: boolean }> {
+    const [google, clave] = await Promise.all([
+      this.db.prepare("SELECT 1 FROM account_identities WHERE account = ? AND provider = 'google'").bind(cuenta).first(),
+      this.db.prepare('SELECT 1 FROM account_passwords WHERE account = ?').bind(cuenta).first(),
+    ]);
+    return { google: !!google, clave: !!clave };
   }
 
   /** La cuenta de una sesión vigente; renueva a 30 días si quedan menos de 15, sin pasar del tope de 90. */

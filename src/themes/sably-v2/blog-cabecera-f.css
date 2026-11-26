@@ -1,0 +1,14 @@
+/* Cabecera F del artículo (vídeo protagonista): en línea solo cuando está elegida. DISENO.md §12.3, lámina 12. */
+@layer components {
+.v2-ba-cabeza[data-cabecera='f'] .v2-ba-video { max-width: 1200px; margin-inline: auto; }
+.v2-ba-cabeza[data-cabecera='f'] .v2-ba-video .v2-video > * { border-radius: 16px; overflow: hidden; }
+.v2-ba-video-pie { margin-top: 12px; font: 400 13px/18px var(--font-sans); color: var(--color-navy-500); }
+.v2-ba-video-pie a { color: var(--color-navy-700); text-decoration: underline; text-underline-offset: 3px; }
+.v2-ba-video-pie a:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 2px; border-radius: 4px; }
+.v2-ba-cabeza[data-cabecera='f'] .v2-ba-titulos { margin-top: 24px; }
+@media (width >= 1024px) {
+  .v2-ba-cabeza[data-cabecera='f'] .v2-ba-video .v2-video > * { border-radius: 24px; }
+  .v2-ba-cabeza[data-cabecera='f'] .v2-ba-titulos { margin-top: 40px; }
+  .v2-ba-cabeza[data-cabecera='f'] .v2-ba-h1 { font-size: 48px; line-height: 52px; }
+}
+}
