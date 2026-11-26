@@ -23,7 +23,7 @@ async function nativa<T>(method: 'GET' | 'PUT', body?: unknown): Promise<T> {
 
 /** Estado de la prueba A/B del héroe con lo guardado (no con el borrador). */
 function EstadoPruebaAB({ valores }: { valores: Valores }) {
-  const p = leerPruebaHeroe(valores.portadaHeroeAB, valores.portadaHeroeABVariantes ?? 'collage, buscador', valores.portadaHeroeABReparto, valores.portadaHeroeABInicio);
+  const p = leerPruebaHeroe(valores.portadaHeroeAB, valores.portadaHeroeABVariantes ?? 'muro, buscador', valores.portadaHeroeABReparto, valores.portadaHeroeABInicio);
   if (valores.portadaHeroeAB !== true) return <p>Estado: <strong>apagada</strong>. Manda «Variante del héroe». Primera prueba propuesta: collage contra buscador primero (14 contra 06), 14 días como mínimo.</p>;
   if (!p) return <p role="alert">Estado: <strong>encendida pero sin efecto</strong>: hacen falta dos o tres variantes válidas (el mosaico no entra). Mientras tanto manda «Variante del héroe».</p>;
   const dias = p.inicio ? Math.floor((Date.now() - Date.parse(`${p.inicio}T00:00:00Z`)) / 86_400_000) : null;

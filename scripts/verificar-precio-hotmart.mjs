@@ -128,6 +128,9 @@ export function leerTarjetas(html, pais) {
   const tarjetas = [];
   const ruta = new RegExp(`href="/${pais}/([a-z0-9-]+)/"`);
   const agregar = (slug, trozo, lugar) => {
+    /* El chip del muro del héroe repite el precio de hoy de la ficha que lleva delante: se lee solo la ficha. */
+    const chip = trozo.indexOf('v2-muro-chip');
+    if (chip >= 0) trozo = trozo.slice(0, chip);
     const desde = ['data-tc-precio', 'v2-tc-precio', 'mt-auto flex items-baseline'].map((m) => trozo.indexOf(m)).find((i) => i >= 0) ?? 0;
     const importes = importesConMoneda(sinEtiquetas(trozo.slice(desde)));
     tarjetas.push({ slug, lugar, precio: importes.length ? { hoy: importes[0].valor, moneda: importes[0].moneda, normal: importes[1]?.valor ?? null } : null });

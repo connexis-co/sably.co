@@ -84,7 +84,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     portada: {
       bloques: bloquesVisibles(v.portadaOrden, v.portadaOcultos),
       heroe: {
-        variante: uno(v.portadaHeroeVariante, VARIANTES_HEROE, 'collage'),
+        variante: uno(v.portadaHeroeVariante, VARIANTES_HEROE, 'muro'),
         fondo: uno(v.portadaHeroeFondo, ['liso', 'aurora'] as const, 'liso'),
         botones: uno(v.portadaHeroeBotones, ['dos', 'uno'] as const, 'dos'),
         tachar: v.portadaHeroeTachado !== false,
@@ -93,7 +93,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
         orden: uno(v.portadaHeroeOrden, ['aleatorio', 'fijo'] as const, 'aleatorio'),
         cursos: listaDeTexto(v.portadaHeroeOficios).slice(0, 12),
       },
-      pruebaHeroe: leerPruebaHeroe(v.portadaHeroeAB, v.portadaHeroeABVariantes ?? 'collage, buscador', v.portadaHeroeABReparto, v.portadaHeroeABInicio),
+      pruebaHeroe: leerPruebaHeroe(v.portadaHeroeAB, v.portadaHeroeABVariantes ?? 'muro, buscador', v.portadaHeroeABReparto, v.portadaHeroeABInicio),
       categoriasVariante: uno(v.portadaCategoriasVariante, ['fotos', 'pila', 'filas'] as const, 'fotos'),
       comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
       escenasAtenuar: v.portadaEscenasAtenuar !== false,
