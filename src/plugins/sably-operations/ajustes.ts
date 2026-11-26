@@ -76,6 +76,12 @@ export const settingsSchema = {
     description: 'Contorno, sombra más honda y un filete coral arriba para que el pago destaque del fondo, sobre todo en el celular. Sirve con las dos variantes. Apagado: la caja blanca con sombra suave de antes. Por defecto: encendido.',
     default: true,
   },
+  sobreFotosPestanas: {
+    type: 'boolean',
+    label: 'Ficha · Foto distinta en cada pestaña de «Sobre este curso»',
+    description: 'Al cambiar de pestaña (Qué aprenderás, Para quién es, Qué necesitas, Cómo se estudia) la foto cambia con un fundido corto. Apagado: queda la portada del curso en las cuatro. Por defecto: encendido.',
+    default: true,
+  },
   // Opiniones de la ficha V2 (26-nov-2026, ronda 2 de JP: C1 y C3)
   opinionesEstilo: {
     type: 'select',
@@ -286,7 +292,7 @@ export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos.', claves: [] },
-  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaResaltada', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
+  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaResaltada', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },

@@ -34,6 +34,8 @@ export interface AjustesV2 {
   /** «Disponible online en {país}» con las ciudades del país, en texto y sin enlaces. */
   mostrarCiudades: boolean;
   estiloCampo: EstiloCampo;
+  /** C5: en «Sobre este curso», una foto por pestaña con fundido (de fábrica). */
+  sobreFotos: boolean;
   /** Bloque de opiniones de la ficha V2 (ronda 2 de JP, C1 y C3). */
   opiniones: {
     /** `lista`: nota grande y extractos reales en lista editorial (`HVAlI`); `compacto`: una sola fila con la nota. */
@@ -99,6 +101,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     mostrarDocente: v.mostrarDocente !== false,
     mostrarCiudades: v.mostrarCiudades !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
+    sobreFotos: v.sobreFotosPestanas !== false,
     opiniones: {
       estilo: uno(v.opinionesEstilo, ['lista', 'compacto'] as const, 'lista'),
       minimoExtractos: Number(uno(v.opinionesExtractosMinimo, ['1', '2', '3'] as const, '1')),

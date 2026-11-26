@@ -41,6 +41,7 @@ import { importe, fotoPropia, iniciales } from '@/lib/presentacion-v2';
 import Precio from '@/components/v2/Precio.astro';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { courseCover } from '@/lib/categories';
+import { fotoDeCurso, srcFoto } from '../fotos';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { plazoMasCorto, preciosDeTarjetas } from '@/lib/precio-hoy';
 
@@ -83,6 +84,22 @@ const datos = [
   { icono: 'signal' as const, etiqueta: 'Nivel', valor: course.data.level },
   { icono: 'infinity' as const, etiqueta: 'Ritmo', valor: 'A tu ritmo' },
 ];
+/* Fotos de las otras pestañas de «Sobre este curso» (C5). Solo fotos del MISMO oficio o neutras: la de tarjeta del
+   curso si es distinta de la portada, la foto propia del oficio (solo por coincidencia del curso, no la del área: un
+   electricista no ilustra un curso de plomería) y, para cerrar, fotos de estudiar con el celular, que valen para
+   cualquier curso. Sin candidata, la pestaña conserva la portada. */
+const fotoTarjeta = cmsImageUrl(course.cardImage);
+const fotoOficio = fotoDeCurso(course.id, '');
+const candidatasSobre = [...new Set([
+  fotoTarjeta && fotoTarjeta !== portada ? fotoTarjeta : null,
+  fotoOficio ? srcFoto(fotoOficio) : null,
+  srcFoto('foto-estudiar-celular-2'),
+].filter((f): f is string => Boolean(f)))];
+const fotosSobre = [
+  { id: 'para-quien', src: candidatasSobre[0] },
+  { id: 'necesitas', src: candidatasSobre[1] },
+  { id: 'estudia', src: srcFoto('foto-estudiar-celular-1') },
+].filter((f): f is { id: string; src: string } => Boolean(f.src));
 const pestanas = [
   { id: 'aprende', etiqueta: 'Qué aprenderás' },
   { id: 'para-quien', etiqueta: 'Para quién es' },
@@ -188,7 +205,10 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
         <h2 id="titulo-sobre" class="font-display text-d28 lg:text-d40">Sobre este curso</h2>
         <div class="v2-pestanas mt-8 grid gap-10 lg:mt-12 lg:grid-cols-2 lg:gap-12">
           <div class="relative self-start">
-            <OptimizedImage src={portada} alt={`${category.name}: ${course.data.title}`} width={600} height={600} sizes="(min-width: 1024px) 600px, 100vw" loading="lazy" decoding="async" class="aspect-[4/5] w-full rounded-c-xl object-cover lg:aspect-square" />
+            <OptimizedImage src={portada} alt={`${category.name}: ${course.data.title}`} width={600} height={600} sizes="(min-width: 1024px) 600px, 100vw" loading="lazy" decoding="async" class="v2-sobre-foto aspect-[4/5] w-full rounded-c-xl object-cover lg:aspect-square" data-foto="aprende" />
+            {/* C5 (ronda 2 de JP): una foto por pestaña, con fundido. Todas están en el HTML y cargan con la sección,
+                así el cambio no espera a la red. Las de serie son decorativas (alt vacío): el texto está en el panel. */}
+            {ajustes.sobreFotos && fotosSobre.map(f => <img src={f.src} alt="" width="600" height="600" loading="lazy" decoding="async" class="v2-sobre-foto absolute inset-0 h-full w-full rounded-c-xl object-cover" data-foto={f.id} />)}
             <fieldset class="absolute inset-x-3 bottom-3 flex min-w-0 justify-center">
               <legend class="sr-only">Apartados de «Sobre este curso»</legend>
               <div class="v2-pildoras">
@@ -545,7 +565,13 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
     .v2-pestanas:has(#pestana-necesitas:checked) label[data-paso='necesitas'] { display: inline-flex; }
     .v2-pestanas:has(#pestana-estudia:checked) #panel-estudia { display: block; }
     .v2-pestanas:has(#pestana-estudia:checked) span[data-paso='estudia'] { display: inline; }
+    /* C5: la foto de la pestaña elegida aparece sobre la anterior con un fundido (solo opacidad). */
+    .v2-sobre-foto[data-foto]:not([data-foto='aprende']) { opacity: 0; transition: opacity 250ms var(--e-sale, ease-out); }
+    .v2-pestanas:has(#pestana-para-quien:checked) .v2-sobre-foto[data-foto='para-quien'],
+    .v2-pestanas:has(#pestana-necesitas:checked) .v2-sobre-foto[data-foto='necesitas'],
+    .v2-pestanas:has(#pestana-estudia:checked) .v2-sobre-foto[data-foto='estudia'] { opacity: 1; }
   }
+  @media (prefers-reduced-motion: reduce) { .v2-sobre-foto { transition: none !important; } }
 
   /* Texto largo. */
   .v2-prosa { color: var(--color-navy-700); font-size: 17px; line-height: 28px; }

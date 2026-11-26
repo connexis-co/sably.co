@@ -35,6 +35,8 @@ const ANTES = {
     opinionesEstilo: ['select', ['lista', 'compacto'], 'lista'],
     // Clave nueva (26-nov, caja con contraste, C4).
     cajaResaltada: ['boolean', null, true],
+    // Clave nueva (26-nov, foto por pestaña en «Sobre este curso», C5).
+    sobreFotosPestanas: ['boolean', null, true],
     opinionesExtractosMinimo: ['select', ['1', '2', '3'], '1'],
     opinionesPerfilNombre: ['string', null, ''],
     opinionesPerfilUrl: ['string', null, ''],
@@ -96,6 +98,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     mostrarDocente: true,
     mostrarCiudades: true,
     estiloCampo: 'outlined',
+    sobreFotos: true,
     opiniones: { estilo: 'lista', minimoExtractos: 1, perfil: null },
     portada: {
       bloques: ['cifras', 'categorias', 'convergen', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],
