@@ -11,7 +11,7 @@
  */
 import type { Faq } from './faq-honestas';
 
-const LOCALES: Record<string, string[]> = {
+export const LOCALES: Record<string, string[]> = {
   co: ['PSE', 'Nequi', 'Bancolombia', 'Efecty'],
   mx: ['OXXO', 'SPEI', 'Mercado Pago', 'Kueski'],
   pe: ['Yape', 'PagoEfectivo'],

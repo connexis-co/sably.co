@@ -14,6 +14,9 @@ export type EstiloContador = 'barra' | 'casillas' | 'linea' | 'tique';
 export type EstiloCampo = 'outlined' | 'filled' | 'underline';
 /** Rejillas de tarjetas de cursos entre 1024 y 1279 px (portada y ficha): ver themes/sably-v2/rejilla-tarjetas.ts. */
 export type ColumnasTarjetas = 'tres-completas' | 'tres' | 'cuatro';
+/** Dónde va el muro del héroe por debajo de 1024 px (panel → Portada · Muro del héroe en el celular). */
+export const HEROE_MOVIL = ['tras-titular', 'franja', 'tras-buscador', 'tras-botones', 'final'] as const;
+export type HeroeMovil = (typeof HEROE_MOVIL)[number];
 
 export { VARIANTES_HEROE, VARIANTES_HEROE_AB, leerPruebaHeroe, type PruebaHeroe, type VarianteHeroe } from './prueba-heroe';
 import { VARIANTES_HEROE, leerPruebaHeroe, type PruebaHeroe, type VarianteHeroe } from './prueba-heroe';
@@ -98,7 +101,7 @@ export interface AjustesV2 {
     pruebaHeroe: PruebaHeroe | null;
     categoriasVariante: 'fotos' | 'pila' | 'filas';
     comoFuncionaAnimado: boolean;
-    heroeMovil: 'tras-botones' | 'final';
+    heroeMovil: HeroeMovil;
     oficioModo: 'automatico' | 'estatico';
     oficioIntervalo: number;
     guiasVariante: 'tarjetas' | 'lista';
@@ -220,7 +223,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       pruebaHeroe: leerPruebaHeroe(v.portadaHeroeAB, v.portadaHeroeABVariantes ?? 'muro, buscador', v.portadaHeroeABReparto, v.portadaHeroeABInicio),
       categoriasVariante: uno(v.portadaCategoriasVariante, ['fotos', 'pila', 'filas'] as const, 'fotos'),
       comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
-      heroeMovil: uno(v.portadaHeroeMovil, ['tras-botones', 'final'] as const, 'tras-botones'),
+      heroeMovil: uno(v.portadaHeroeMovil, HEROE_MOVIL, 'tras-buscador'),
       oficioModo: uno(v.portadaOficioModo, ['automatico', 'estatico'] as const, 'automatico'),
       oficioIntervalo: Number(uno(v.portadaOficioIntervalo, ['7000', '9000', '12000'] as const, '9000')),
       guiasVariante: uno(v.portadaGuiasVariante, ['tarjetas', 'lista'] as const, 'tarjetas'),

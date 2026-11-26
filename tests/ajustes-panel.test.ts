@@ -147,7 +147,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
       pruebaHeroe: null,
       categoriasVariante: 'fotos',
       comoFuncionaAnimado: true,
-      heroeMovil: 'tras-botones',
+      heroeMovil: 'tras-buscador', // valor de fábrica desde la ronda 5 (no está guardado en producción)
       oficioModo: 'automatico',
       oficioIntervalo: 9000,
       guiasVariante: 'tarjetas',

@@ -9,7 +9,7 @@
 export const BLOQUES_PORTADA = [
   { id: 'cifras', nombre: 'Sably en cifras y medios de pago' },
   { id: 'categorias', nombre: 'Áreas con foto' },
-  { id: 'convergen', nombre: 'Los oficios se juntan en el catálogo (scroll)' },
+  { id: 'convergen', nombre: 'Los oficios se juntan en la rejilla (scroll)' },
   { id: 'destacados', nombre: 'Cursos destacados' },
   { id: 'promo', nombre: 'Banda de la campaña' },
   { id: 'como-funciona', nombre: 'Cómo funciona Sably' },

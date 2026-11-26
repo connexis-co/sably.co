@@ -450,9 +450,15 @@ export const settingsSchema = {
   portadaHeroeMovil: {
     type: 'select',
     label: 'Portada · Muro del héroe en el celular',
-    description: '«Tras los botones»: en el celular el muro (dos filas más bajas) va justo debajo de «Explorar cursos», antes de la línea de valoraciones, para que asome en la primera pantalla sin tapar el titular ni el buscador. «Al final»: debajo de todo el texto, como estaba. Solo afecta al muro y por debajo de 1024 px. Por defecto: Tras los botones.',
-    options: [{ value: 'tras-botones', label: 'Tras los botones (asoma en la primera pantalla)' }, { value: 'final', label: 'Al final del héroe' }],
-    default: 'tras-botones',
+    description: 'Dónde va el muro deslizable por debajo de 1024 px. «Tras el buscador» (de fábrica): a 390 × 844 se ven en la primera pantalla el titular, el buscador y el muro (dos filas más bajas); los botones quedan justo debajo. «Tras el titular»: el muro sube bajo el titular y empuja descripción y buscador. «Franja bajo la descripción»: una franja más baja entre la descripción y el buscador. «Tras los botones»: entre «Explorar cursos» y la línea de valoraciones. «Al final»: debajo de todo el texto. Solo afecta al muro.',
+    options: [
+      { value: 'tras-buscador', label: 'Tras el buscador (titular, buscador y muro a la vista)' },
+      { value: 'tras-titular', label: 'Tras el titular' },
+      { value: 'franja', label: 'Franja baja bajo la descripción' },
+      { value: 'tras-botones', label: 'Tras los botones' },
+      { value: 'final', label: 'Al final del héroe' },
+    ],
+    default: 'tras-buscador',
   },
   portadaOficioModo: {
     type: 'select',
