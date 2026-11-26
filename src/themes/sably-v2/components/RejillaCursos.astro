@@ -9,6 +9,7 @@
  */
 import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
 import Ico from './Ico.astro';
+import ContadorCampana from './ContadorCampana.astro';
 import type { Course } from '@/lib/emdash-content';
 import type { Country } from '@/lib/countries';
 import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
@@ -55,13 +56,15 @@ const conFranja = !!promo && cursos.length > 12;
         <div class="flex flex-wrap items-center gap-x-8 gap-y-3 rounded-c-lg bg-coral-50 px-6 py-5 ring-1 ring-coral-100">
           <p class="font-display text-d40 font-semibold text-coral-600"><span data-promo-pct-v2>{promo.pct} %</span></p>
           <div class="min-w-0 flex-1">
-            <p class="text-t17 font-semibold text-navy-950">Con el cupón <span data-promo-codigo>{promo.cupon}</span>, en cursos seleccionados</p>
-            {promo.fin && <p data-promo-fin class="text-t13 text-navy-500">Hasta el <span data-promo-fecha>{promo.fin}</span> (hora de Colombia). El precio de cada ficha ya lo indica.</p>}
+            <p class="text-t17 font-semibold text-navy-950">{(promo.muestra.listado === 'cupon' || promo.muestra.listado === 'ambos') ? <>Con el cupón <span data-promo-codigo>{promo.cupon}</span>, en cursos seleccionados</> : 'En cursos seleccionados: el precio de cada ficha ya lleva el descuento'}</p>
+            {(promo.muestra.listado === 'contador' || promo.muestra.listado === 'ambos') && promo.finMs ? <p class="mt-2 flex flex-wrap items-center gap-2.5 text-t13 text-navy-500">Termina en <ContadorCampana finMs={promo.finMs} fin={promo.fin} tono="claro" /></p> : promo.fin && <p data-promo-fin class="text-t13 text-navy-500">Hasta el <span data-promo-fecha>{promo.fin}</span> (hora de Colombia). El precio de cada ficha ya lo indica.</p>}
           </div>
-          <button type="button" data-promo-cupon class="v2-tique-mini bg-white" aria-label={`Copiar el cupón ${promo.cupon}`}>
-            <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{promo.cupon}</span>
-            <span class="gap-1 font-semibold text-coral-700"><Ico nombre="copy" tamano={14} /><span data-promo-copiar-texto>Copiar</span></span>
-          </button>
+          {(promo.muestra.listado === 'cupon' || promo.muestra.listado === 'ambos') && (
+            <button type="button" data-promo-cupon class="v2-tique-mini bg-white" aria-label={`Copiar el cupón ${promo.cupon}`}>
+              <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{promo.cupon}</span>
+              <span class="gap-1 font-semibold text-coral-700"><Ico nombre="copy" tamano={14} /><span data-promo-copiar-texto>Copiar</span></span>
+            </button>
+          )}
         </div>
       </li>
     )}
