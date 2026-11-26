@@ -69,6 +69,9 @@ export function montarComentarios(seccion: HTMLElement): void {
     const li = frag.querySelector('li')!;
 
     li.querySelector<HTMLElement>('[data-autor]')!.textContent = c.author_name;
+    // Inicial del avatar (solo en el tema V2, que la pinta; el clásico no lleva el hueco).
+    const inicial = li.querySelector<HTMLElement>('[data-inicial]');
+    if (inicial) inicial.textContent = c.author_name.trim().charAt(0).toLocaleUpperCase('es');
     const t = li.querySelector<HTMLTimeElement>('[data-fecha]')!;
     t.textContent = fecha(c.created_at);
     t.dateTime = new Date(c.created_at * 1000).toISOString();

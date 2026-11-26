@@ -315,7 +315,31 @@ body:has(#sbc-ico:not([hidden])) .v2-indice-pildora { left: 68px; }
 .v2-com-accion { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 18px; border-radius: 99px; box-shadow: inset 0 0 0 1.5px var(--color-coral-600); font: 600 15px/22px var(--font-sans); color: var(--color-coral-700); transition: background-color var(--t-rapido) var(--e-sale); }
 @media (hover: hover) and (pointer: fine) { .v2-comentarios > summary:hover .v2-com-accion { background: var(--color-coral-50); } }
 .v2-comentarios[open] .v2-com-accion { display: none; }
-@media (width < 640px) { .v2-com-accion { width: 100%; justify-content: center; background: var(--color-coral-50); box-shadow: none; } }
+/* Móvil: la fila plegada es un solo botón ancho (56) «Comentarios (N) · Escribir uno» con chevron (lámina 13). */
+.v2-com-movil { display: none; }
+@media (width < 640px) {
+  .v2-comentarios > summary { padding: 0; min-height: 0; }
+  .v2-comentarios > summary > :is(.v2-com-titulo, .v2-com-accion) { display: none; }
+  .v2-com-movil { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 56px; padding: 0 16px; border-radius: 16px; background: var(--color-coral-50); color: var(--color-coral-700); font: 600 15px/22px var(--font-sans); }
+  .v2-com-movil > span { flex: 1; }
+  .v2-com-movil .v2-giro { transition: rotate var(--t-base) var(--e-sale); }
+  .v2-comentarios[open] .v2-com-movil { background: transparent; color: var(--color-navy-950); }
+  .v2-comentarios[open] .v2-com-movil .v2-giro { rotate: 180deg; }
+}
+/* Hilo (lámina 13): inicial en círculo, respuestas sangradas 48 con una línea de 2 px que nace bajo el avatar. */
+.v2-com-inicial { display: inline-grid; place-items: center; flex: none; width: 36px; height: 36px; margin-right: 6px; align-self: center; border-radius: 99px; background: var(--color-navy-100); color: var(--color-navy-950); font: 600 15px/1 var(--font-display); }
+.v2-comentarios [data-lista] > li { padding: 20px !important; }
+.v2-comentarios [data-lista] > li > div:first-child, .v2-comentarios [data-lista] li > div:first-child { align-items: center !important; }
+.v2-comentarios [data-lista] :is([data-cuerpo], li > p) { font-size: 16px !important; line-height: 26px !important; color: var(--color-navy-900) !important; }
+.v2-comentarios [data-lista] li ol { margin: 16px 0 0 17px !important; padding-left: 29px !important; border-left: 2px solid var(--color-navy-100) !important; }
+.v2-comentarios [data-lista] li ol > li { padding: 4px 0 8px !important; }
+.v2-comentarios [data-lista] li ol .v2-com-inicial { width: 32px; height: 32px; font-size: 14px; background: var(--color-coral-50); color: var(--color-coral-700); }
+.v2-comentarios [data-util] { min-height: 40px; padding: 0 14px !important; border-radius: 99px !important; border-color: var(--color-navy-300) !important; color: var(--color-navy-700) !important; font: 500 13px/18px var(--font-sans) !important; }
+.v2-comentarios [data-util][aria-pressed='true'] { border-color: var(--color-coral-600) !important; color: var(--color-coral-700) !important; background: var(--color-coral-50); }
+.v2-comentarios [data-responder] { display: inline-flex; align-items: center; min-height: 40px; padding: 0 8px !important; font: 600 14px/20px var(--font-sans) !important; color: var(--color-coral-700) !important; text-decoration: none !important; border-radius: 8px; }
+.v2-comentarios [data-responder]::before { content: '↩'; margin-right: 6px; font-weight: 400; }
+@media (hover: hover) and (pointer: fine) { .v2-comentarios [data-responder]:hover { text-decoration: underline !important; text-underline-offset: 3px; } }
+.v2-comentarios :is([data-util], [data-responder], [data-cancelar-respuesta]):focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 2px; }
 .v2-comentarios > section { margin: 0 !important; padding: 0 20px 24px !important; border: 0 !important; }
 .v2-comentarios > section > h2 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .v2-comentarios[data-modo='lectura'] [data-form] { display: none; }
