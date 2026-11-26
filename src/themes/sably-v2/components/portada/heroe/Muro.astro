@@ -22,38 +22,7 @@ const filas = Array.from({ length: FILAS }, (_, f) => oficios.filter((_, i) => i
 const copiasDe = (n: number) => Math.max(4, Math.ceil(12 / n));
 const DURACION = [30, 36, 33, 39];
 ---
-<div class="v2-muro" data-muro role="group" aria-label="Muro de cursos: pasa el cursor o enfoca para ver el precio; arrástralo para moverlo">
-  <div class="v2-muro-giro">
-    {filas.map((fila, f) => (
-      <div class="v2-muro-fila" data-fila={f}>
-        <ul class="v2-muro-pista" role="list" style={`--c: ${copiasDe(fila.length)}; --d: ${DURACION[f % DURACION.length]}s`}>
-          {Array.from({ length: copiasDe(fila.length) }, (_, copia) => fila.map(o => (
-            <li class="v2-muro-tar" aria-hidden={copia ? 'true' : undefined} data-copia={copia ? '' : undefined}>
-              <a href={`${base}/${o.id}/`} class="v2-heroe-curso" tabindex={copia ? '-1' : undefined} draggable="false">
-                <Foto nombre={o.foto} sizes="(min-width: 1024px) 250px, 150px" decorativa class="v2-muro-foto" />
-                <span class="v2-muro-rot">{corto(o.titulo)}</span>
-                <span class="v2-muro-ficha">
-                  <span class="v2-muro-det">
-                    <strong class="line-clamp-2 text-t15 font-semibold">{corto(o.titulo)}</strong>
-                    {o.nota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
-                  </span>
-                  <PrecioOficio precio={o.precio} {locale} {tachar} class="v2-muro-precio text-t15 text-navy-950" />
-                </span>
-                {/* Chip de precio siempre visible en escritorio (va detrás de la ficha: el verificador lee la primera cifra). */}
-                <PrecioOficio precio={o.precio} {locale} tachar={false} class="v2-muro-chip" />
-              </a>
-            </li>
-          )))}
-        </ul>
-      </div>
-    ))}
-  </div>
-  <button type="button" class="v2-muro-pausa" data-muro-pausa aria-pressed="false">
-    <Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" />
-    <span data-muro-pausa-texto>Pausar el muro</span>
-  </button>
-</div>
-
+<!-- CSS antes del HTML: si va después, con la CPU lenta se pinta sin él y luego salta (CLS de 0,45 a 390 y 0,75 a 1440 con el muro, 26-nov). -->
 <style is:inline>
   @layer components {
     /* ── Maqueta de la banda: el muro es una capa a la derecha y el texto queda encima ── */
@@ -144,6 +113,38 @@ const DURACION = [30, 36, 33, 39];
     }
   }
 </style>
+<div class="v2-muro" data-muro role="group" aria-label="Muro de cursos: pasa el cursor o enfoca para ver el precio; arrástralo para moverlo">
+  <div class="v2-muro-giro">
+    {filas.map((fila, f) => (
+      <div class="v2-muro-fila" data-fila={f}>
+        <ul class="v2-muro-pista" role="list" style={`--c: ${copiasDe(fila.length)}; --d: ${DURACION[f % DURACION.length]}s`}>
+          {Array.from({ length: copiasDe(fila.length) }, (_, copia) => fila.map(o => (
+            <li class="v2-muro-tar" aria-hidden={copia ? 'true' : undefined} data-copia={copia ? '' : undefined}>
+              <a href={`${base}/${o.id}/`} class="v2-heroe-curso" tabindex={copia ? '-1' : undefined} draggable="false">
+                <Foto nombre={o.foto} sizes="(min-width: 1024px) 250px, 150px" decorativa class="v2-muro-foto" />
+                <span class="v2-muro-rot">{corto(o.titulo)}</span>
+                <span class="v2-muro-ficha">
+                  <span class="v2-muro-det">
+                    <strong class="line-clamp-2 text-t15 font-semibold">{corto(o.titulo)}</strong>
+                    {o.nota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
+                  </span>
+                  <PrecioOficio precio={o.precio} {locale} {tachar} class="v2-muro-precio text-t15 text-navy-950" />
+                </span>
+                {/* Chip de precio siempre visible en escritorio (va detrás de la ficha: el verificador lee la primera cifra). */}
+                <PrecioOficio precio={o.precio} {locale} tachar={false} class="v2-muro-chip" />
+              </a>
+            </li>
+          )))}
+        </ul>
+      </div>
+    ))}
+  </div>
+  <button type="button" class="v2-muro-pausa" data-muro-pausa aria-pressed="false">
+    <Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" />
+    <span data-muro-pausa-texto>Pausar el muro</span>
+  </button>
+</div>
+
 
 <script>
   for (const raiz of document.querySelectorAll<HTMLElement>('[data-muro]')) {
