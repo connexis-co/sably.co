@@ -31,6 +31,11 @@ const ANTES = {
     cuentaGoogle: ['boolean', null, true],
     cuentaCorreo: ['boolean', null, true],
     cuentaAcceso: ['select', ['ventana', 'pagina'], 'ventana'],
+    // Claves nuevas (26-nov, opiniones de la ficha V2, C1 y C3): se añaden, no sustituyen a ninguna.
+    opinionesEstilo: ['select', ['lista', 'compacto'], 'lista'],
+    opinionesExtractosMinimo: ['select', ['1', '2', '3'], '1'],
+    opinionesPerfilNombre: ['string', null, ''],
+    opinionesPerfilUrl: ['string', null, ''],
   },
   integraciones: {
     browserMode: ['select', ['off', 'gtm', 'direct'], 'off'],
@@ -89,6 +94,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     mostrarDocente: true,
     mostrarCiudades: true,
     estiloCampo: 'outlined',
+    opiniones: { estilo: 'lista', minimoExtractos: 1, perfil: null },
     portada: {
       bloques: ['cifras', 'categorias', 'convergen', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],
       heroe: { variante: 'muro', fondo: 'liso', botones: 'dos', tachar: true, rota: true, intervalo: 4500, orden: 'aleatorio', cursos: [] },

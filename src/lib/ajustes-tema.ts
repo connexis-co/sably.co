@@ -32,6 +32,15 @@ export interface AjustesV2 {
   /** «Disponible online en {país}» con las ciudades del país, en texto y sin enlaces. */
   mostrarCiudades: boolean;
   estiloCampo: EstiloCampo;
+  /** Bloque de opiniones de la ficha V2 (ronda 2 de JP, C1 y C3). */
+  opiniones: {
+    /** `lista`: nota grande y extractos reales en lista editorial (`HVAlI`); `compacto`: una sola fila con la nota. */
+    estilo: 'lista' | 'compacto';
+    /** Extractos de Hotmart que hacen falta para enseñar la lista (con menos, estado honesto sin citas). */
+    minimoExtractos: number;
+    /** Perfil público de la fuente (Google u otra), si se configuró con una URL https válida. */
+    perfil: { nombre: string; url: string } | null;
+  };
   /** Portada de país V2 («Ajustes del sitio → Portada»). */
   portada: {
     /** Bloques visibles, en orden (el héroe va siempre primero y no está aquí). */
@@ -60,6 +69,12 @@ export const SUBTITULO_CAJA_POR_DEFECTO = SUBTITULO_SABLY;
 const uno = <T extends string>(valor: unknown, validos: readonly T[], defecto: T): T =>
   typeof valor === 'string' && (validos as readonly string[]).includes(valor) ? (valor as T) : defecto;
 
+/** Solo una URL https con su nombre: un perfil a medio configurar no se enseña. */
+function perfilOpiniones(nombre: string, url: string): { nombre: string; url: string } | null {
+  if (!nombre || !url) return null;
+  try { return new URL(url).protocol === 'https:' ? { nombre: nombre.slice(0, 40), url } : null; } catch { return null; }
+}
+
 function decodificar(valor: string): unknown {
   try { return JSON.parse(valor); } catch { return valor; }
 }
@@ -81,6 +96,11 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     mostrarDocente: v.mostrarDocente !== false,
     mostrarCiudades: v.mostrarCiudades !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
+    opiniones: {
+      estilo: uno(v.opinionesEstilo, ['lista', 'compacto'] as const, 'lista'),
+      minimoExtractos: Number(uno(v.opinionesExtractosMinimo, ['1', '2', '3'] as const, '1')),
+      perfil: perfilOpiniones(texto('opinionesPerfilNombre', ''), texto('opinionesPerfilUrl', '')),
+    },
     portada: {
       bloques: bloquesVisibles(v.portadaOrden, v.portadaOcultos),
       heroe: {

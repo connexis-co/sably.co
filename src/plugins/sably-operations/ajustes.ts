@@ -70,6 +70,33 @@ export const settingsSchema = {
     description: 'Las ciudades del país en texto, sin enlaces ni páginas propias, dentro de «Cómo funciona Sably». Ayuda a ChatGPT a ver que el curso se estudia desde cualquier ciudad. Apagado no deja hueco. Por defecto: encendido.',
     default: true,
   },
+  // Opiniones de la ficha V2 (26-nov-2026, ronda 2 de JP: C1 y C3)
+  opinionesEstilo: {
+    type: 'select',
+    label: 'Ficha · Estilo del bloque de opiniones',
+    description: '«Lista editorial»: la nota de Hotmart en grande y, al lado, extractos reales de opiniones publicadas en Hotmart con el nombre de quien las escribió. «Compacto»: una sola fila con la nota. Las estrellas de la cabeza de la ficha llevan a este bloque. Por defecto: Lista editorial.',
+    options: [{ value: 'lista', label: 'Lista editorial' }, { value: 'compacto', label: 'Compacto' }],
+    default: 'lista',
+  },
+  opinionesExtractosMinimo: {
+    type: 'select',
+    label: 'Ficha · Extractos de Hotmart para enseñar la lista',
+    description: 'Cuántos extractos reales hacen falta para enseñarlos. Con menos, el bloque dice que aún no hay opiniones escritas que citar. Hoy hay 1 o 2 por curso. Por defecto: 1.',
+    options: [{ value: '1', label: '1' }, { value: '2', label: '2' }, { value: '3', label: '3' }],
+    default: '1',
+  },
+  opinionesPerfilNombre: {
+    type: 'string',
+    label: 'Ficha · Opiniones: nombre del perfil público',
+    description: 'Por ejemplo «Google». Con nombre y URL, el bloque de opiniones enlaza a ese perfil («Ver las opiniones en Google»). No cambia la nota, que sigue siendo la de Hotmart. Vacío = sin enlace.',
+    default: '',
+  },
+  opinionesPerfilUrl: {
+    type: 'string',
+    label: 'Ficha · Opiniones: URL del perfil público',
+    description: 'Dirección https del perfil (ficha de Google Business u otra). Sin nombre o sin https no se enseña.',
+    default: '',
+  },
   // Cuenta (src/lib/cuenta): claves nuevas del 25-nov-2026, encendidas de fábrica.
   cuentaActiva: {
     type: 'boolean',
@@ -253,7 +280,7 @@ export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos.', claves: [] },
-  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'] },
+  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },

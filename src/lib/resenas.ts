@@ -51,3 +51,16 @@ export function resenasPropias<T extends ResenaPublica>(reviews: readonly T[], s
     .map((r) => ({ ...r, nombre: nombreLegible(r.nombre), texto: citaSinCortar(r.texto) }));
   return propias.length >= MIN_RESENAS ? propias.slice(0, MAX_RESENAS) : [];
 }
+
+/**
+ * Extractos para la lista editorial de opiniones de la ficha V2 (ronda 2 de JP, C3): las reseñas públicas de
+ * Hotmart de ESTE curso, con el nombre legible y la cita sin cortar a media palabra. A diferencia de
+ * `resenasPropias`, el mínimo lo pone el panel (`opinionesExtractosMinimo`): cada extracto va rotulado como
+ * «Extracto publicado en Hotmart» junto a la nota con todas sus calificaciones, no como «lo que dicen los compradores».
+ */
+export function extractosDelCurso<T extends ResenaPublica>(reviews: readonly T[], slug: string, minimo = 1): T[] {
+  const propias = reviews
+    .filter((r) => r.source === 'hotmart-public' && r.slug === slug && r.texto.trim().length >= 12)
+    .map((r) => ({ ...r, nombre: nombreLegible(r.nombre), texto: citaSinCortar(r.texto) }));
+  return propias.length >= Math.max(1, minimo) ? propias.slice(0, MAX_RESENAS) : [];
+}
