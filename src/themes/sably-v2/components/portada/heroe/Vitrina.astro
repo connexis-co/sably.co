@@ -15,51 +15,7 @@ interface Props { oficios: OficioMosaico[]; base: string; locale: string; tachar
 const { oficios, base, locale, tachar, rota, intervalo, aleatorio } = Astro.props;
 const filas = [oficios.filter((_, i) => i % 2 === 0), oficios.filter((_, i) => i % 2 === 1)];
 ---
-<div class="v2-vitrina" data-vitrina={rota ? '' : undefined} data-intervalo={intervalo} data-orden={aleatorio ? 'aleatorio' : 'fijo'} role="group" aria-roledescription="vitrina" aria-label="Cursos para empezar">
-  <ul class="v2-vit-bento" role="list">
-    <li class="v2-vit-grande">
-      {oficios.map((o, i) => (
-        <a href={`${base}/${o.id}/`} class="v2-heroe-curso v2-rota-item" data-i={i} data-visible={i === 0 ? '' : undefined} tabindex="-1" aria-hidden="true">
-          <Foto nombre={o.foto} sizes="(min-width: 1024px) 300px, 1px" decorativa class="v2-vit-foto" />
-          <span class="v2-vit-pie">
-            <strong class="line-clamp-2 text-t15 font-semibold">{o.titulo}</strong>
-            {o.nota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
-            <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t15 text-navy-950" />
-          </span>
-        </a>
-      ))}
-    </li>
-    {oficios.map((o, i) => (
-      <li class="v2-vit-celda" data-i={i} data-on={i === 0 ? '' : undefined}>
-        <a href={`${base}/${o.id}/`} class="v2-heroe-curso" data-i={i}>
-          <Foto nombre={o.foto} sizes="(min-width: 1024px) 150px, 1px" decorativa class="v2-vit-mini" />
-          <span class="v2-vit-txt"><b class="line-clamp-2">{corto(o.titulo)}</b><PrecioOficio precio={o.precio} {locale} tachar={false} class="text-t13" /></span>
-        </a>
-      </li>
-    ))}
-  </ul>
-  {rota && <span class="v2-vit-progreso" aria-hidden="true" hidden data-rota-progreso><span data-rota-reloj></span></span>}
-  {rota && <button type="button" class="v2-vit-pausa" data-rota-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" /><span class="sr-only" data-rota-pausa-texto>Pausar los cursos que cambian</span></button>}
-
-  <div class="v2-vit-carriles" data-carriles>
-    {filas.map((fila, f) => (
-      <div class="v2-vit-carril">
-        <ul class="v2-vit-pista" role="list" style={`--dur: ${f ? 56 : 48}s`}>
-          {[0, 1].map(copia => fila.map(o => (
-            <li aria-hidden={copia ? 'true' : undefined}>
-              <a href={`${base}/${o.id}/`} class="v2-vit-chip" tabindex={copia ? '-1' : undefined}>
-                <Foto nombre={o.foto} sizes="56px" decorativa class="v2-vit-chip-foto" />
-                <span class="min-w-0"><b class="line-clamp-2 text-t15 font-semibold leading-5">{corto(o.titulo)}</b><PrecioOficio precio={o.precio} {locale} tachar={false} class="text-t13" /></span>
-              </a>
-            </li>
-          )))}
-        </ul>
-      </div>
-    ))}
-    <button type="button" class="v2-vit-quieto" data-carriles-pausa aria-pressed="false">Pausar el movimiento</button>
-  </div>
-</div>
-
+<!-- CSS antes del HTML: si va después, con la CPU lenta se pinta sin él y luego salta (CLS). -->
 <style is:inline>
   @layer components {
     .v2-vitrina { position: relative; }
@@ -113,6 +69,51 @@ const filas = [oficios.filter((_, i) => i % 2 === 0), oficios.filter((_, i) => i
     }
   }
 </style>
+<div class="v2-vitrina" data-vitrina={rota ? '' : undefined} data-intervalo={intervalo} data-orden={aleatorio ? 'aleatorio' : 'fijo'} role="group" aria-roledescription="vitrina" aria-label="Cursos para empezar">
+  <ul class="v2-vit-bento" role="list">
+    <li class="v2-vit-grande">
+      {oficios.map((o, i) => (
+        <a href={`${base}/${o.id}/`} class="v2-heroe-curso v2-rota-item" data-i={i} data-visible={i === 0 ? '' : undefined} tabindex="-1" aria-hidden="true">
+          <Foto nombre={o.foto} sizes="(min-width: 1024px) 300px, 1px" decorativa class="v2-vit-foto" />
+          <span class="v2-vit-pie">
+            <strong class="line-clamp-2 text-t15 font-semibold">{o.titulo}</strong>
+            {o.nota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
+            <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t15 text-navy-950" />
+          </span>
+        </a>
+      ))}
+    </li>
+    {oficios.map((o, i) => (
+      <li class="v2-vit-celda" data-i={i} data-on={i === 0 ? '' : undefined}>
+        <a href={`${base}/${o.id}/`} class="v2-heroe-curso" data-i={i}>
+          <Foto nombre={o.foto} sizes="(min-width: 1024px) 150px, 1px" decorativa class="v2-vit-mini" />
+          <span class="v2-vit-txt"><b class="line-clamp-2">{corto(o.titulo)}</b><PrecioOficio precio={o.precio} {locale} tachar={false} class="text-t13" /></span>
+        </a>
+      </li>
+    ))}
+  </ul>
+  {rota && <span class="v2-vit-progreso" aria-hidden="true" hidden data-rota-progreso><span data-rota-reloj></span></span>}
+  {rota && <button type="button" class="v2-vit-pausa" data-rota-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" /><span class="sr-only" data-rota-pausa-texto>Pausar los cursos que cambian</span></button>}
+
+  <div class="v2-vit-carriles" data-carriles>
+    {filas.map((fila, f) => (
+      <div class="v2-vit-carril">
+        <ul class="v2-vit-pista" role="list" style={`--dur: ${f ? 56 : 48}s`}>
+          {[0, 1].map(copia => fila.map(o => (
+            <li aria-hidden={copia ? 'true' : undefined}>
+              <a href={`${base}/${o.id}/`} class="v2-vit-chip" tabindex={copia ? '-1' : undefined}>
+                <Foto nombre={o.foto} sizes="56px" decorativa class="v2-vit-chip-foto" />
+                <span class="min-w-0"><b class="line-clamp-2 text-t15 font-semibold leading-5">{corto(o.titulo)}</b><PrecioOficio precio={o.precio} {locale} tachar={false} class="text-t13" /></span>
+              </a>
+            </li>
+          )))}
+        </ul>
+      </div>
+    ))}
+    <button type="button" class="v2-vit-quieto" data-carriles-pausa aria-pressed="false">Pausar el movimiento</button>
+  </div>
+</div>
+
 
 <script>
   import { rotacion } from '../../../heroe-rotacion';

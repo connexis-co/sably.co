@@ -18,35 +18,7 @@ interface Props { oficios: OficioMosaico[]; base: string; locale: string; tachar
 const { oficios, base, locale, tachar } = Astro.props;
 const n = oficios.length;
 ---
-<div class="v2-ani" data-anillo role="group" aria-roledescription="anillo de cursos" aria-label="Cursos para empezar">
-  <div class="v2-ani-escena">
-    <div class="v2-ani-suelo" aria-hidden="true"></div>
-    <div class="v2-ani-inclina">
-      <div class="v2-ani-scroll">
-        <ul class="v2-ani-gira" role="list" style={`--p: ${360 / n}deg`}>
-          {oficios.map((o: OficioMosaico, i: number) => (
-            <li class="v2-ani-carta" data-i={i} style={`--i: ${i}`}>
-              <a href={`${base}/${o.id}/`} class="v2-heroe-curso" draggable="false">
-                <span class="v2-ani-foto"><Foto nombre={o.foto} sizes="(min-width: 1024px) 180px, 220px" decorativa class="h-full w-full object-cover" /></span>
-                <span class="v2-ani-pie">
-                  <strong class="line-clamp-2 text-t15 font-semibold">{corto(o.titulo)}</strong>
-                  {o.nota && <span class="v2-ani-nota flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
-                  <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t13 text-navy-950" />
-                </span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-    <p class="v2-ani-ayuda" aria-hidden="true">Arrastra para girar · pasa el cursor para pausar</p>
-  </div>
-  <button type="button" class="v2-ani-pausa" data-ani-pausa aria-pressed="false" hidden>
-    <Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" />
-    <span class="sr-only" data-ani-pausa-texto>Pausar el anillo de cursos</span>
-  </button>
-</div>
-
+<!-- CSS antes del HTML: si va después, con la CPU lenta se pinta sin él y luego salta (CLS). -->
 <style is:inline>
   @layer components {
     .v2-ani { position: relative; min-width: 0; }
@@ -99,6 +71,35 @@ const n = oficios.length;
     }
   }
 </style>
+<div class="v2-ani" data-anillo role="group" aria-roledescription="anillo de cursos" aria-label="Cursos para empezar">
+  <div class="v2-ani-escena">
+    <div class="v2-ani-suelo" aria-hidden="true"></div>
+    <div class="v2-ani-inclina">
+      <div class="v2-ani-scroll">
+        <ul class="v2-ani-gira" role="list" style={`--p: ${360 / n}deg`}>
+          {oficios.map((o: OficioMosaico, i: number) => (
+            <li class="v2-ani-carta" data-i={i} style={`--i: ${i}`}>
+              <a href={`${base}/${o.id}/`} class="v2-heroe-curso" draggable="false">
+                <span class="v2-ani-foto"><Foto nombre={o.foto} sizes="(min-width: 1024px) 180px, 220px" decorativa class="h-full w-full object-cover" /></span>
+                <span class="v2-ani-pie">
+                  <strong class="line-clamp-2 text-t15 font-semibold">{corto(o.titulo)}</strong>
+                  {o.nota && <span class="v2-ani-nota flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
+                  <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t13 text-navy-950" />
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <p class="v2-ani-ayuda" aria-hidden="true">Arrastra para girar · pasa el cursor para pausar</p>
+  </div>
+  <button type="button" class="v2-ani-pausa" data-ani-pausa aria-pressed="false" hidden>
+    <Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" />
+    <span class="sr-only" data-ani-pausa-texto>Pausar el anillo de cursos</span>
+  </button>
+</div>
+
 
 <script>
   for (const raiz of document.querySelectorAll<HTMLElement>('[data-anillo]')) {

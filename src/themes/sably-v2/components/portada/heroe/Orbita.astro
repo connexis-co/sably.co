@@ -21,36 +21,7 @@ const mitad = Math.ceil(oficios.length / 2);
 const orbitas = [oficios.slice(0, mitad), oficios.slice(mitad)].filter(l => l.length > 0);
 const DURACION = [90, 120];
 ---
-<div class="v2-orb" data-orbita role="group" aria-label="Cursos para empezar">
-  <button type="button" class="v2-orb-pausa" data-orb-pausa aria-pressed="false" hidden>
-    <Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" />
-    <span class="sr-only" data-orb-pausa-texto>Pausar las órbitas de cursos</span>
-  </button>
-  <div class="v2-orb-escena">
-    <div class="v2-orb-giro" data-orb-giro>
-      {orbitas.map((lista, k) => (
-        <div class={`v2-orb-orbita v2-orb-o${k + 1}`} style={`--d: ${DURACION[k]}s`}>
-          <div class="v2-orb-rueda" role="list">
-            {lista.map((o: OficioMosaico, i: number) => (
-              <div class="v2-orb-sat" role="listitem" style={`--a: ${(i * 360) / lista.length + (k ? 45 : 15)}deg`}>
-                <span class="v2-orb-sat-in">
-                  <a href={`${base}/${o.id}/`} class="v2-heroe-curso">
-                    <span class="v2-orb-foto"><Foto nombre={o.foto} sizes="(min-width: 1024px) 88px, 64px" decorativa class="h-full w-full object-cover" /></span>
-                    <span class="v2-orb-et">
-                      <span class="v2-orb-nom">{corto(o.titulo)}</span>
-                      <PrecioOficio precio={o.precio} {locale} {tachar} class="v2-orb-precio text-t13" />
-                    </span>
-                  </a>
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</div>
-
+<!-- CSS antes del HTML: si va después, con la CPU lenta se pinta sin él y luego salta (CLS). -->
 <style is:inline>
   @layer components {
     /* ── Maqueta de la banda: una columna centrada; el texto por encima del halo y de las órbitas ── */
@@ -125,6 +96,36 @@ const DURACION = [90, 120];
     }
   }
 </style>
+<div class="v2-orb" data-orbita role="group" aria-label="Cursos para empezar">
+  <button type="button" class="v2-orb-pausa" data-orb-pausa aria-pressed="false" hidden>
+    <Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" />
+    <span class="sr-only" data-orb-pausa-texto>Pausar las órbitas de cursos</span>
+  </button>
+  <div class="v2-orb-escena">
+    <div class="v2-orb-giro" data-orb-giro>
+      {orbitas.map((lista, k) => (
+        <div class={`v2-orb-orbita v2-orb-o${k + 1}`} style={`--d: ${DURACION[k]}s`}>
+          <div class="v2-orb-rueda" role="list">
+            {lista.map((o: OficioMosaico, i: number) => (
+              <div class="v2-orb-sat" role="listitem" style={`--a: ${(i * 360) / lista.length + (k ? 45 : 15)}deg`}>
+                <span class="v2-orb-sat-in">
+                  <a href={`${base}/${o.id}/`} class="v2-heroe-curso">
+                    <span class="v2-orb-foto"><Foto nombre={o.foto} sizes="(min-width: 1024px) 88px, 64px" decorativa class="h-full w-full object-cover" /></span>
+                    <span class="v2-orb-et">
+                      <span class="v2-orb-nom">{corto(o.titulo)}</span>
+                      <PrecioOficio precio={o.precio} {locale} {tachar} class="v2-orb-precio text-t13" />
+                    </span>
+                  </a>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+
 
 <script>
   for (const raiz of document.querySelectorAll<HTMLElement>('[data-orbita]')) {

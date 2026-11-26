@@ -8,6 +8,11 @@
  * Móvil: dos filas BAJO los botones, con el precio siempre a la vista; un toque abre el curso.
  * Con «reducir movimiento»: filas quietas, sin copias, sin botón de pausa y sin giro animado.
  * Los 12 cursos van enlazados en el HTML (primera copia de cada pista); las copias del bucle son aria-hidden.
+ * Orden aleatorio (D1, ajuste «Orden» de la portada, de fábrica): lo decide el navegador, no el servidor, para que la
+ * página siga siendo la misma en la caché del borde. Un script en línea, justo tras el muro y antes de pintarlo,
+ * baraja las tarjetas dentro de cada fila (igual en todas sus copias, para que el bucle siga sin costura), baraja las
+ * filas y da a cada una un punto de arranque al azar. Hasta entonces el muro está oculto (`visibility`, sin
+ * ocupar otro sitio): ni salto ni CLS. Sin JavaScript se ve en el orden fijo del HTML.
  */
 import Foto from '../../Foto.astro';
 import Ico from '../../Ico.astro';
@@ -15,46 +20,18 @@ import PrecioOficio from './PrecioOficio.astro';
 import { corto, notaCorta } from './comun';
 import type { OficioMosaico } from '../Heroe.astro';
 interface Props { oficios: OficioMosaico[]; base: string; locale: string; tachar: boolean; rota: boolean; intervalo: number; aleatorio: boolean }
-const { oficios, base, locale, tachar } = Astro.props;
+const { oficios, base, locale, tachar, aleatorio } = Astro.props;
 const FILAS = 4;
 const filas = Array.from({ length: FILAS }, (_, f) => oficios.filter((_, i) => i % FILAS === f)).filter(f => f.length > 0);
 /* Copias de cada pista: bastan para cubrir el muro entero aunque se arrastre (la primera es la de los enlaces). */
 const copiasDe = (n: number) => Math.max(4, Math.ceil(12 / n));
 const DURACION = [30, 36, 33, 39];
 ---
-<div class="v2-muro" data-muro role="group" aria-label="Muro de cursos: pasa el cursor o enfoca para ver el precio; arrástralo para moverlo">
-  <div class="v2-muro-giro">
-    {filas.map((fila, f) => (
-      <div class="v2-muro-fila" data-fila={f}>
-        <ul class="v2-muro-pista" role="list" style={`--c: ${copiasDe(fila.length)}; --d: ${DURACION[f % DURACION.length]}s`}>
-          {Array.from({ length: copiasDe(fila.length) }, (_, copia) => fila.map(o => (
-            <li class="v2-muro-tar" aria-hidden={copia ? 'true' : undefined} data-copia={copia ? '' : undefined}>
-              <a href={`${base}/${o.id}/`} class="v2-heroe-curso" tabindex={copia ? '-1' : undefined} draggable="false">
-                <Foto nombre={o.foto} sizes="(min-width: 1024px) 250px, 150px" decorativa class="v2-muro-foto" />
-                <span class="v2-muro-rot">{corto(o.titulo)}</span>
-                <span class="v2-muro-ficha">
-                  <span class="v2-muro-det">
-                    <strong class="line-clamp-2 text-t15 font-semibold">{corto(o.titulo)}</strong>
-                    {o.nota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
-                  </span>
-                  <PrecioOficio precio={o.precio} {locale} {tachar} class="v2-muro-precio text-t15 text-navy-950" />
-                </span>
-                {/* Chip de precio siempre visible en escritorio (va detrás de la ficha: el verificador lee la primera cifra). */}
-                <PrecioOficio precio={o.precio} {locale} tachar={false} class="v2-muro-chip" />
-              </a>
-            </li>
-          )))}
-        </ul>
-      </div>
-    ))}
-  </div>
-  <button type="button" class="v2-muro-pausa" data-muro-pausa aria-pressed="false">
-    <Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" />
-    <span data-muro-pausa-texto>Pausar el muro</span>
-  </button>
-</div>
-
+<!-- El CSS va antes del muro: si llegara después, con la CPU lenta el navegador pinta el muro sin él y luego lo
+     recoloca (CLS de 0,45 a 390 y 0,75 a 1440 en cada carga, medido el 26-nov). -->
 <style is:inline>
+  /* Orden aleatorio: oculto (sin cambiar de tamaño) hasta que el script en línea lo baraja. Sin JS, visible. */
+  @media (scripting: enabled) { .v2-muro[data-muro-aleatorio]:not([data-ordenado]) .v2-muro-giro { visibility: hidden; } }
   @layer components {
     /* ── Maqueta de la banda: el muro es una capa a la derecha y el texto queda encima ── */
     @media (min-width: 1024px) {
@@ -151,6 +128,65 @@ const DURACION = [30, 36, 33, 39];
     }
   }
 </style>
+<div class="v2-muro" data-muro data-muro-aleatorio={aleatorio ? '' : undefined} role="group" aria-label="Muro de cursos: pasa el cursor o enfoca para ver el precio; arrástralo para moverlo">
+  <div class="v2-muro-giro">
+    {filas.map((fila, f) => (
+      <div class="v2-muro-fila" data-fila={f}>
+        <ul class="v2-muro-pista" role="list" style={`--c: ${copiasDe(fila.length)}; --d: ${DURACION[f % DURACION.length]}s`}>
+          {Array.from({ length: copiasDe(fila.length) }, (_, copia) => fila.map(o => (
+            <li class="v2-muro-tar" aria-hidden={copia ? 'true' : undefined} data-copia={copia ? '' : undefined}>
+              <a href={`${base}/${o.id}/`} class="v2-heroe-curso" tabindex={copia ? '-1' : undefined} draggable="false">
+                <Foto nombre={o.foto} sizes="(min-width: 1024px) 250px, 150px" decorativa class="v2-muro-foto" />
+                <span class="v2-muro-rot">{corto(o.titulo)}</span>
+                <span class="v2-muro-ficha">
+                  <span class="v2-muro-det">
+                    <strong class="line-clamp-2 text-t15 font-semibold">{corto(o.titulo)}</strong>
+                    {o.nota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
+                  </span>
+                  <PrecioOficio precio={o.precio} {locale} {tachar} class="v2-muro-precio text-t15 text-navy-950" />
+                </span>
+                {/* Chip de precio siempre visible en escritorio (va detrás de la ficha: el verificador lee la primera cifra). */}
+                <PrecioOficio precio={o.precio} {locale} tachar={false} class="v2-muro-chip" />
+              </a>
+            </li>
+          )))}
+        </ul>
+      </div>
+    ))}
+  </div>
+  <button type="button" class="v2-muro-pausa" data-muro-pausa aria-pressed="false">
+    <Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" />
+    <span data-muro-pausa-texto>Pausar el muro</span>
+  </button>
+</div>
+{aleatorio && (
+  <script is:inline>
+    (function () {
+      var raiz = document.currentScript && document.currentScript.previousElementSibling;
+      if (!raiz || !raiz.matches('[data-muro-aleatorio]')) return;
+      try {
+        var barajar = function (a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; };
+        var filas = [].slice.call(raiz.querySelectorAll('.v2-muro-fila'));
+        var pistas = filas.map(function (f) { return f.querySelector('.v2-muro-pista'); });
+        // Las filas intercambian su pista entera (cada una con su número de copias y su duración).
+        barajar(pistas.slice()).forEach(function (pista, i) { filas[i].appendChild(pista); });
+        pistas.forEach(function (pista) {
+          var tarjetas = [].slice.call(pista.children);
+          var copias = Number(pista.style.getPropertyValue('--c')) || 1;
+          var n = Math.round(tarjetas.length / copias);
+          if (n < 2 || n * copias !== tarjetas.length) return;
+          var orden = barajar(Array.from({ length: n }, function (_, k) { return k; }));
+          for (var c = 0; c < copias; c++) orden.forEach(function (k) { pista.appendChild(tarjetas[c * n + k]); });
+          // Punto de arranque al azar dentro de su vuelta (solo cambia en qué tarjeta empieza la marquesina).
+          var d = parseFloat(pista.style.getPropertyValue('--d')) || 0;
+          if (d) pista.style.animationDelay = (-Math.random() * d).toFixed(2) + 's';
+        });
+      } catch (e) { /* si algo falla, el orden fijo del HTML */ }
+      raiz.setAttribute('data-ordenado', '');
+    })();
+  </script>
+)}
+
 
 <script>
   for (const raiz of document.querySelectorAll<HTMLElement>('[data-muro]')) {

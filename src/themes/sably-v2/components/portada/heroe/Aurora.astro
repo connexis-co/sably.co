@@ -8,8 +8,7 @@
  * pausa a mano y con menos coste), y allí sobra la tercera mancha.
  */
 ---
-<div class="v2-aur" aria-hidden="true" data-aurora><i></i><i></i><i></i></div>
-
+<!-- CSS antes del HTML: si va después, con la CPU lenta se pinta sin él y luego salta (CLS). -->
 <style is:inline>
   @layer components {
     .v2-aur { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: clip; }
@@ -29,6 +28,8 @@
     }
   }
 </style>
+<div class="v2-aur" aria-hidden="true" data-aurora><i></i><i></i><i></i></div>
+
 
 <script>
   for (const aurora of document.querySelectorAll<HTMLElement>('[data-aurora]')) {

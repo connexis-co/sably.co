@@ -54,69 +54,7 @@ const sobran = oficios.filter(o => !usados.has(o.id));
 const IZQUIERDA = new Set([4, 10]);
 const SIZES = '(min-width: 1024px) 250px, 36vw';
 ---
-<div class="v2-col" data-collage role="group" aria-roledescription="collage de cursos" aria-label="Cursos para empezar">
-  <ul class="v2-col-mesa" role="list">
-    {puestos.map(({ o, p, m }) => {
-      const [, forma, x, y, w, z, r, f, dx, dy, peg] = p;
-      const vars = `--xd:${x};--yd:${y};--wd:${w};--zd:${z};--rd:${r};--fd:${f};--dxd:${dx};--dyd:${dy};`
-        + (m ? `--xm:${m[0]};--ym:${m[1]};--wm:${m[2]};--zm:${m[3]};--rm:${m[4]};--fm:${m[5]};--dxm:${m[6]};--dym:${m[7]};` : '');
-      const pr = o.precio;
-      return (
-        <li class:list={['v2-col-rec', `v2-col-${forma}`, !m && 'max-lg:hidden', IZQUIERDA.has(p[0]) && 'v2-col-pega-izq']} style={vars}>
-          <div class="v2-col-par" data-capa={z}>
-            <a href={`${base}/${o.id}/`} class="v2-heroe-curso">
-              <span class="v2-col-foto"><Foto nombre={o.foto} sizes={SIZES} decorativa class="v2-col-img" /></span>
-              <span class="v2-col-cinta">
-                <span class="v2-col-titulo">{corto(o.titulo)}</span>
-                {(o.nota || (pr && !peg)) && (
-                  <span class="v2-col-mas">
-                    {o.nota && <span> · ★ {o.nota.cifra}</span>}
-                    {pr && !peg && <span data-tc-precio data-moneda={pr.moneda} data-hoy={pr.hoy} data-normal={pr.normal ?? undefined}> · <Precio valor={pr.hoy} moneda={pr.moneda} locale={locale} class="font-semibold" codigoClass="text-[11px] font-medium" />{tachar && pr.normal !== null && <> <span class="sr-only">Precio normal: </span><Precio valor={pr.normal} moneda={pr.moneda} locale={locale} class="font-medium line-through opacity-70" codigoClass="text-[11px]" /></>}</span>}
-                  </span>
-                )}
-              </span>
-              {pr && peg && (
-                <span class="v2-col-pega v2-col-pega-texto" data-tc-precio data-moneda={pr.moneda} data-hoy={pr.hoy} data-normal={pr.normal ?? undefined}>
-                  <span class="v2-col-pega-hoy">hoy</span>
-                  <Precio valor={pr.hoy} moneda={pr.moneda} locale={locale} class="v2-col-pega-precio font-semibold" codigoClass="v2-col-pega-cod font-medium" />
-                  {tachar && pr.normal !== null && <span class="v2-col-pega-antes"><span class="sr-only">Precio normal: </span><Precio valor={pr.normal} moneda={pr.moneda} locale={locale} class="line-through decoration-[1.5px]" codigoClass="v2-col-pega-cod" /></span>}
-                </span>
-              )}
-            </a>
-          </div>
-        </li>
-      );
-    })}
-  </ul>
-  {/* Las insignias de precio, calcadas en una capa por encima de todos los recortes: dentro de su recorte, la tarjeta
-      vecina de capa más alta las tapaba. Cada calco ocupa el mismo sitio, flota y se dispersa igual y recibe el mismo
-      paralaje (misma clase `v2-col-par` y `data-capa`); es decorativo: el precio real está en el enlace. */}
-  <ul class="v2-col-mesa v2-col-pegas" aria-hidden="true">
-    {puestos.filter(({ o, p }) => o.precio && p[10]).map(({ o, p, m }) => {
-      const [, forma, x, y, w, z, r, f, dx, dy] = p;
-      const vars = `--xd:${x};--yd:${y};--wd:${w};--zd:${z};--rd:${r};--fd:${f};--dxd:${dx};--dyd:${dy};`
-        + (m ? `--xm:${m[0]};--ym:${m[1]};--wm:${m[2]};--zm:${m[3]};--rm:${m[4]};--fm:${m[5]};--dxm:${m[6]};--dym:${m[7]};` : '');
-      const pr = o.precio!;
-      return (
-        <li class:list={['v2-col-rec', 'v2-col-calco', `v2-col-${forma}`, !m && 'max-lg:hidden', IZQUIERDA.has(p[0]) && 'v2-col-pega-izq']} style={vars}>
-          <div class="v2-col-par" data-capa={z}>
-            <span class="v2-col-a">
-              <span class="v2-col-foto v2-col-hueco"></span>
-              <span class="v2-col-pega">
-                <span class="v2-col-pega-hoy">hoy</span>
-                <Precio valor={pr.hoy} moneda={pr.moneda} locale={locale} class="v2-col-pega-precio font-semibold" codigoClass="v2-col-pega-cod font-medium" />
-                {tachar && pr.normal !== null && <span class="v2-col-pega-antes"><Precio valor={pr.normal} moneda={pr.moneda} locale={locale} class="line-through decoration-[1.5px]" codigoClass="v2-col-pega-cod" /></span>}
-              </span>
-            </span>
-          </div>
-        </li>
-      );
-    })}
-  </ul>
-  {sobran.length > 0 && <ul hidden>{sobran.map(o => <li><a href={`${base}/${o.id}/`}>{o.titulo}</a></li>)}</ul>}
-  <button type="button" class="v2-col-pausa" data-col-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={16} class="v2-ico-pausa" /><Ico nombre="play" tamano={16} class="v2-ico-seguir" /><span class="sr-only" data-col-pausa-texto>Pausar el movimiento de los cursos</span></button>
-</div>
-
+<!-- CSS antes del HTML: si va después, con la CPU lenta se pinta sin él y luego salta (CLS). -->
 <style is:inline>
   @layer components {
     /* Maqueta del contenedor: texto a la izquierda, collage que se sale por la derecha. */
@@ -210,6 +148,69 @@ const SIZES = '(min-width: 1024px) 250px, 36vw';
     @media (prefers-reduced-motion: reduce) { .v2-col-pausa { display: none; } }
   }
 </style>
+<div class="v2-col" data-collage role="group" aria-roledescription="collage de cursos" aria-label="Cursos para empezar">
+  <ul class="v2-col-mesa" role="list">
+    {puestos.map(({ o, p, m }) => {
+      const [, forma, x, y, w, z, r, f, dx, dy, peg] = p;
+      const vars = `--xd:${x};--yd:${y};--wd:${w};--zd:${z};--rd:${r};--fd:${f};--dxd:${dx};--dyd:${dy};`
+        + (m ? `--xm:${m[0]};--ym:${m[1]};--wm:${m[2]};--zm:${m[3]};--rm:${m[4]};--fm:${m[5]};--dxm:${m[6]};--dym:${m[7]};` : '');
+      const pr = o.precio;
+      return (
+        <li class:list={['v2-col-rec', `v2-col-${forma}`, !m && 'max-lg:hidden', IZQUIERDA.has(p[0]) && 'v2-col-pega-izq']} style={vars}>
+          <div class="v2-col-par" data-capa={z}>
+            <a href={`${base}/${o.id}/`} class="v2-heroe-curso">
+              <span class="v2-col-foto"><Foto nombre={o.foto} sizes={SIZES} decorativa class="v2-col-img" /></span>
+              <span class="v2-col-cinta">
+                <span class="v2-col-titulo">{corto(o.titulo)}</span>
+                {(o.nota || (pr && !peg)) && (
+                  <span class="v2-col-mas">
+                    {o.nota && <span> · ★ {o.nota.cifra}</span>}
+                    {pr && !peg && <span data-tc-precio data-moneda={pr.moneda} data-hoy={pr.hoy} data-normal={pr.normal ?? undefined}> · <Precio valor={pr.hoy} moneda={pr.moneda} locale={locale} class="font-semibold" codigoClass="text-[11px] font-medium" />{tachar && pr.normal !== null && <> <span class="sr-only">Precio normal: </span><Precio valor={pr.normal} moneda={pr.moneda} locale={locale} class="font-medium line-through opacity-70" codigoClass="text-[11px]" /></>}</span>}
+                  </span>
+                )}
+              </span>
+              {pr && peg && (
+                <span class="v2-col-pega v2-col-pega-texto" data-tc-precio data-moneda={pr.moneda} data-hoy={pr.hoy} data-normal={pr.normal ?? undefined}>
+                  <span class="v2-col-pega-hoy">hoy</span>
+                  <Precio valor={pr.hoy} moneda={pr.moneda} locale={locale} class="v2-col-pega-precio font-semibold" codigoClass="v2-col-pega-cod font-medium" />
+                  {tachar && pr.normal !== null && <span class="v2-col-pega-antes"><span class="sr-only">Precio normal: </span><Precio valor={pr.normal} moneda={pr.moneda} locale={locale} class="line-through decoration-[1.5px]" codigoClass="v2-col-pega-cod" /></span>}
+                </span>
+              )}
+            </a>
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+  {/* Las insignias de precio, calcadas en una capa por encima de todos los recortes: dentro de su recorte, la tarjeta
+      vecina de capa más alta las tapaba. Cada calco ocupa el mismo sitio, flota y se dispersa igual y recibe el mismo
+      paralaje (misma clase `v2-col-par` y `data-capa`); es decorativo: el precio real está en el enlace. */}
+  <ul class="v2-col-mesa v2-col-pegas" aria-hidden="true">
+    {puestos.filter(({ o, p }) => o.precio && p[10]).map(({ o, p, m }) => {
+      const [, forma, x, y, w, z, r, f, dx, dy] = p;
+      const vars = `--xd:${x};--yd:${y};--wd:${w};--zd:${z};--rd:${r};--fd:${f};--dxd:${dx};--dyd:${dy};`
+        + (m ? `--xm:${m[0]};--ym:${m[1]};--wm:${m[2]};--zm:${m[3]};--rm:${m[4]};--fm:${m[5]};--dxm:${m[6]};--dym:${m[7]};` : '');
+      const pr = o.precio!;
+      return (
+        <li class:list={['v2-col-rec', 'v2-col-calco', `v2-col-${forma}`, !m && 'max-lg:hidden', IZQUIERDA.has(p[0]) && 'v2-col-pega-izq']} style={vars}>
+          <div class="v2-col-par" data-capa={z}>
+            <span class="v2-col-a">
+              <span class="v2-col-foto v2-col-hueco"></span>
+              <span class="v2-col-pega">
+                <span class="v2-col-pega-hoy">hoy</span>
+                <Precio valor={pr.hoy} moneda={pr.moneda} locale={locale} class="v2-col-pega-precio font-semibold" codigoClass="v2-col-pega-cod font-medium" />
+                {tachar && pr.normal !== null && <span class="v2-col-pega-antes"><Precio valor={pr.normal} moneda={pr.moneda} locale={locale} class="line-through decoration-[1.5px]" codigoClass="v2-col-pega-cod" /></span>}
+              </span>
+            </span>
+          </div>
+        </li>
+      );
+    })}
+  </ul>
+  {sobran.length > 0 && <ul hidden>{sobran.map(o => <li><a href={`${base}/${o.id}/`}>{o.titulo}</a></li>)}</ul>}
+  <button type="button" class="v2-col-pausa" data-col-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={16} class="v2-ico-pausa" /><Ico nombre="play" tamano={16} class="v2-ico-seguir" /><span class="sr-only" data-col-pausa-texto>Pausar el movimiento de los cursos</span></button>
+</div>
+
 
 <script>
   for (const raiz of document.querySelectorAll<HTMLElement>('[data-collage]')) {
