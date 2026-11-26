@@ -144,7 +144,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
           <EtiquetaCategoria categoria={post.data.category} estilo={a.blogEtiquetaEstilo} etiqueta="p" class="mt-6" />
           <h1 {...post.edit.title} class="v2-ba-h1">{post.data.title}</h1>
           <p class="v2-ba-entradilla" data-estilo={a.blogEntradillaEstilo}>{post.data.description}</p>
-          {a.blogValoracion && a.blogEstrellasCabecera && <EstrellasArticulo {pulso} />}
+          {a.blogValoracion && a.blogEstrellasCabecera && <EstrellasArticulo {pulso} slug={post.id} />}
           <MetaArticulo publicado={post.data.publishedAt} actualizado={conActualizado ? actualizado : null} {minutos} duracion={narracion ? reloj(narracion.segundos) : undefined} compartir={posiciones.includes('metadatos')} {url} titulo={post.data.title} {redes} />
         </div>
         {cabecera === 'c' && <figure class="v2-ba-portada"><OptimizedImage src={portada} alt="" width={1160} height={870} fetchpriority="high" loading="eager" sizes="(min-width: 1024px) 580px, 100vw" /></figure>}
