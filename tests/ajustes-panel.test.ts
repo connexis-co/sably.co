@@ -86,7 +86,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     estiloCampo: 'outlined',
     portada: {
       bloques: ['cifras', 'categorias', 'convergen', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],
-      heroe: { variante: 'collage', fondo: 'liso', botones: 'dos', tachar: true, rota: true, intervalo: 4500, orden: 'aleatorio', cursos: [] },
+      heroe: { variante: 'muro', fondo: 'liso', botones: 'dos', tachar: true, rota: true, intervalo: 4500, orden: 'aleatorio', cursos: [] },
       pruebaHeroe: null,
       categoriasVariante: 'fotos',
       comoFuncionaAnimado: true,

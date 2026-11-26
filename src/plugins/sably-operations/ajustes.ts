@@ -105,10 +105,10 @@ export const settingsSchema = {
   portadaHeroeVariante: {
     type: 'select',
     label: 'Portada · Variante del héroe',
-    description: 'Solo cambia el escaparate de cursos junto al titular: el H1, el buscador con sugerencias, los botones y los 12 cursos enlazados son los mismos en todas (lo que leen Google y ChatGPT no cambia). «Collage»: recortes de foto con cinta y pegatina de precio sobre fondo arena; se dispersan al bajar. «Muro inclinado»: cuatro filas de tarjetas que se deslizan; al pasar el cursor la tarjeta se endereza con su precio (idea de gurwi.com). «Cintas»: dos cintas diagonales con los oficios. «Órbita»: el buscador al centro y los oficios girando alrededor, con fondo aurora. «Anillo 3D»: cilindro de cursos en 3D (en móvil, carril plano). «Vitrina viva», «Buscador primero», «Abanico» y «Mosaico»: las de la ronda anterior. Todas se quedan quietas con «reducir movimiento» y llevan botón de pausa. Si la prueba A/B del héroe está encendida, manda la prueba. Por defecto: Collage.',
+    description: 'Solo cambia el escaparate de cursos junto al titular: el H1, el buscador con sugerencias, los botones y los 12 cursos enlazados son los mismos en todas (lo que leen Google y ChatGPT no cambia). «Collage»: recortes de foto con cinta y pegatina de precio sobre fondo arena; se dispersan al bajar. «Muro inclinado»: cuatro filas de tarjetas que se deslizan; al pasar el cursor la tarjeta se endereza con su precio (idea de gurwi.com). «Cintas»: dos cintas diagonales con los oficios. «Órbita»: el buscador al centro y los oficios girando alrededor, con fondo aurora. «Anillo 3D»: cilindro de cursos en 3D (en móvil, carril plano). «Vitrina viva», «Buscador primero», «Abanico» y «Mosaico»: las de la ronda anterior. Todas se quedan quietas con «reducir movimiento» y llevan botón de pausa. Si la prueba A/B del héroe está encendida, manda la prueba. Por defecto: Muro inclinado (elegido el 25-nov en la tercera ronda: el más cercano a gurwi.com y con el precio a la vista).',
     options: [
-      { value: 'collage', label: 'Collage (cuaderno del oficio)' },
       { value: 'muro', label: 'Muro inclinado interactivo' },
+      { value: 'collage', label: 'Collage (cuaderno del oficio)' },
       { value: 'cintas', label: 'Cintas cinéticas' },
       { value: 'orbita', label: 'Órbita alrededor del buscador (fondo aurora)' },
       { value: 'anillo3d', label: 'Anillo 3D' },
@@ -117,7 +117,7 @@ export const settingsSchema = {
       { value: 'abanico', label: 'Abanico de cursos' },
       { value: 'mosaico', label: 'Mosaico de tres fotos' },
     ],
-    default: 'collage',
+    default: 'muro',
   },
   portadaHeroeFondo: {
     type: 'select',
@@ -174,8 +174,8 @@ export const settingsSchema = {
   portadaHeroeABVariantes: {
     type: 'string',
     label: 'Portada · Variantes de la prueba A/B',
-    description: 'Dos o tres valores separados por comas, de entre: collage, muro, cintas, orbita, anillo3d, vitrina, buscador, abanico (el mosaico no entra: cambia los botones). La primera es la de control y la que ven bots y navegadores sin JavaScript. Por defecto: collage, buscador (14 contra 06).',
-    default: 'collage, buscador',
+    description: 'Dos o tres valores separados por comas, de entre: collage, muro, cintas, orbita, anillo3d, vitrina, buscador, abanico (el mosaico no entra: cambia los botones). La primera es la de control y la que ven bots y navegadores sin JavaScript. Por defecto: muro, buscador (el muro de fábrica contra el buscador, el mejor del juez en móvil).',
+    default: 'muro, buscador',
   },
   portadaHeroeABReparto: {
     type: 'select',
