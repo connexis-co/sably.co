@@ -1,0 +1,97 @@
+{
+  "slug": "curso-de-reparacion-de-celulares",
+  "estado": "piloto",
+  "fuentes": [
+    "Hotmart, checkout público del producto F56098099R «Reparación de Celulares Xpert» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: «servicio técnico de celulares (hardware)», ensamblar y desensamblar, mantenimiento correctivo y preventivo, sustituir componentes, diagnosticar fallas de hardware en celulares, smartphones y tablets",
+    "CMS: durationHours 14 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de reparación de celulares», 590 CO / 1.900 MX); canibalización C16 y C34 («curso de celulares» se queda en reparación)",
+    "Preguntas: faq-nuevas.csv (PAA de CO, MX, PE, EC, CL, AR, ES)",
+    "Hotmart, checkout de los tres productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "El temario del CMS tiene un módulo «Software y datos» (flasheo, recuperación de datos, «cuentas, patrones y desbloqueo») y lecciones de equipos mojados y microsoldadura. Hotmart describe el curso como hardware y no menciona nada de eso. El texto nuevo no lo promete; el temario hay que cotejarlo con el área de miembros. Ojo con «desbloqueo»: saltarse cuentas ajenas tiene riesgo legal.",
+    "Hotmart promete «excelentes ingresos»: no se repite.",
+    "Revisión adversaria 25-nov: sin orden de lecciones inventado; aviso de batería de litio con calor.",
+    "Pregunta de compra (pago único, acceso sin vencimiento, garantía de 7 días) conservada a pedido de la orquestadora: «acceso sin vencimiento» es lo que el sitio ya afirma en «Cómo se estudia»; Hotmart no lo dice en el checkout (producto tipo membership)."
+  ],
+  "base": {
+    "h1": "Curso de reparación de celulares online en {pais}",
+    "subtitulo": "Aprendes a desarmar y armar un celular, hacerle mantenimiento, diagnosticar fallas de hardware y cambiar las piezas que fallan.",
+    "beneficios": [
+      "Desarmar y volver a armar distintos modelos sin dañarlos",
+      "Mantenimiento preventivo y correctivo de celulares y tablets",
+      "Diagnosticar fallas de hardware antes de cambiar piezas",
+      "Sustituir componentes defectuosos o en mal estado",
+      "Reparaciones sencillas desde las primeras clases",
+      "Cómo funciona por dentro un smartphone"
+    ],
+    "para_quien": [
+      "Te gusta la tecnología y quieres entender cómo se arregla un celular",
+      "Empiezas de cero, sin saber electrónica",
+      "Ya reparas por tu cuenta y quieres ordenar el diagnóstico",
+      "No es para ti si buscas un título técnico oficial"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Destornilladores (desarmadores) de precisión, púas plásticas y ventosa",
+      "Pinzas y pulsera o tapete antiestático",
+      "Un celular viejo o dañado para practicar"
+    ],
+    "cuerpo": "El curso de reparación de celulares online de MasterClasses.La se centra en el hardware: lo que hay dentro del teléfono y cómo se arregla. Incluye desarmar y volver a armar un equipo sin dañarlo, el mantenimiento preventivo y correctivo, el diagnóstico de fallas y el cambio de componentes defectuosos. Aplica a teléfonos y tablets.\n\nLo ves en video y a tu ritmo. Las primeras clases son de reparaciones sencillas, así que no hace falta saber electrónica para arrancar.\n\n## Desarmar sin romper\n\nMuchos daños de principiante pasan al abrir el equipo: una púa metálica que raya la placa, un flex que se rompe por levantar la pantalla de golpe, un tornillo largo puesto donde iba uno corto. Por eso el curso trabaja el ensamblaje y desensamblaje de distintos modelos.\n\n## Diagnosticar antes de cambiar piezas\n\nEl curso enseña a diagnosticar y anticipar fallas de hardware. Un ejemplo típico: si el teléfono no carga, puede ser la batería, el conector de carga o la placa, y cada caso se comprueba de forma distinta. Ese razonamiento te evita gastar en piezas que no hacían falta y quedar mal con el cliente.\n\n## Mantenimiento y cambio de componentes\n\nEl trabajo de un técnico en celulares se divide en dos. El mantenimiento preventivo es limpiar por dentro, revisar conectores y detectar desgaste antes de que algo falle. El correctivo llega cuando una pieza ya falló y hay que sustituirla. En un taller, las piezas que más se cambian suelen ser la pantalla, la batería y el conector de carga.\n\n## Herramientas para empezar\n\nPara las primeras prácticas basta un kit de destornilladores (desarmadores) de precisión (Phillips, pentalobe y tri-wing), púas y espátulas plásticas, una ventosa, pinzas antiestáticas, una pulsera o un tapete antiestático, alcohol isopropílico y un cepillo suave. Más adelante se suman el multímetro y una pistola de calor o una separadora de pantallas. Con calor, cuidado con la batería: una batería de litio no se calienta, no se dobla ni se perfora. La microsoldadura, que cambia componentes diminutos de la placa, es otro nivel: pide estación de soldadura y microscopio.\n\nPara practicar, consigue teléfonos viejos o dañados que ya nadie use. Te dejan equivocarte sin riesgo antes de abrir el equipo de un cliente.\n\n## Qué esperar al terminar\n\nEs un curso libre online. Al terminarlo tienes la técnica y una constancia de finalización, no un título de técnico. No promete ingresos: lo que hagas con el oficio depende de la práctica y de cómo te organices. Si también te interesan los equipos de escritorio, mira el [curso de reparación de computadoras](/{cc}/curso-de-reparacion-de-computadoras/), y el resto de opciones del área están en [cursos de oficios](/{cc}/cursos/oficios/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de reparación de celulares?",
+        "a": "Son unas 14 horas de video que ves a tu ritmo. Cuánto tardas en aprender a reparar celulares depende sobre todo de la práctica: las reparaciones sencillas salen pronto, pero el diagnóstico fino se gana abriendo muchos equipos. Conviene practicar con teléfonos viejos mientras avanzas en las clases."
+      },
+      {
+        "q": "¿Qué se necesita estudiar para reparar celulares?",
+        "a": "Para este curso no necesitas estudios previos ni saber electrónica: empieza por cómo es un celular por dentro y por desarmarlo y armarlo sin dañarlo. Después vienen el mantenimiento, el diagnóstico de fallas de hardware y el cambio de componentes. Lo que más ayuda es tener paciencia, buen pulso y un equipo viejo para practicar."
+      },
+      {
+        "q": "¿El curso de reparación de celulares da certificado?",
+        "a": "Cuando terminas el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La), el creador. Sirve para mostrar que hiciste la formación, por ejemplo a un taller donde quieras trabajar. No es un título de técnico ni un documento oficial."
+      },
+      {
+        "q": "¿Qué herramientas necesito para empezar?",
+        "a": "Un kit de destornilladores (desarmadores) de precisión con puntas Phillips, pentalobe y tri-wing, púas y espátulas plásticas, una ventosa, pinzas antiestáticas, una pulsera o tapete antiestático, alcohol isopropílico y un cepillo suave. Con eso haces las primeras prácticas. El multímetro y la pistola de calor llegan después."
+      },
+      {
+        "q": "¿Qué tan difícil es aprender a reparar celulares?",
+        "a": "Lo más difícil al principio es abrir el equipo sin romper nada, y eso se aprende con orden y la herramienta correcta. El curso empieza justo por ahí y por reparaciones sencillas. Lo que cuesta más tiempo es el diagnóstico: saber qué pieza falla antes de cambiarla, y eso mejora con cada equipo que abres."
+      },
+      {
+        "q": "¿Sirve para tablets y para cualquier marca?",
+        "a": "Según la descripción del creador, el curso aplica a teléfonos y tablets, y enseña a ensamblar y desensamblar distintos tipos de equipo. Cada modelo tiene sus tornillos y su orden de apertura, así que lo que aprendes es el método para abrir, diagnosticar y cambiar piezas, más que el paso a paso de una sola marca."
+      },
+      {
+        "q": "¿El curso de reparación de celulares es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Técnico separando la pantalla de un celular con una ventosa y una púa plástica",
+      "Celular abierto sobre un tapete antiestático con destornilladores de precisión al lado"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de reparación de computadoras",
+        "url": "/{cc}/curso-de-reparacion-de-computadoras/",
+        "motivo": "misma subcategoría (electrónica)"
+      },
+      {
+        "ancla": "cursos de oficios",
+        "url": "/{cc}/cursos/oficios/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar todas las lecciones recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título de técnico.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de reparación de celulares online centrado en el hardware: desarmar y armar equipos, mantenimiento, diagnóstico de fallas y cambio de piezas.",
+      "meta_title": "Curso de reparación de celulares: hardware y diagnóstico"
+    }
+  },
+  "paises": {},
+  "variantes": false,
+  "nota_variantes": "En el CMS no hay course_locales de este curso (la ficha sale con X-Sably-Locale-Source: emdash-generic en los 8 países). El texto va al documento del curso: sin H1 por país, sin enlaces por país (la plantilla ya pinta los relacionados) y sin la pregunta de «gratis» (la plantilla suma 4 preguntas fijas)."
+}

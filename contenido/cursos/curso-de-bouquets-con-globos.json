@@ -1,0 +1,108 @@
+{
+  "slug": "curso-de-bouquets-con-globos",
+  "estado": "borrador",
+  "fuentes": [
+    "Hotmart, checkout público del producto G56852236M «Bouquet de Globos para Eventos y Fiestas» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: lista «¿Qué vas a lograr?»",
+    "CMS: durationHours 8 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «cursos de arreglos de globos», 10 CO / 70 MX; variación «curso de bouquet de globos»); canibalización C18 y C19 (esta ficha es dueña de «arreglos de globos»; la decoración es de curso-de-decoracion-con-globos)",
+    "Preguntas: faq-nuevas.csv (PAA de CO y MX: cómo se llama el curso de arreglos, cuánto cobrar, materiales)",
+    "Hotmart, checkout de los tres productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "El temario del CMS (bouquets por ocasión, vinilo, relleno de confeti, costeo, WhatsApp) no sale de Hotmart, que habla de inflado, materiales de pegado, base estable, tendencias, estructuras de 2 m y ahorro de materiales. El texto no lo promete.",
+    "El metaTitle del .mdx lleva «con Certificado»: los meta_title nuevos no.",
+    "El volumen del principal es muy bajo (10 CO / 70 MX): el H1 usa «bouquets y arreglos de globos» para sumar las dos formas de buscarlo sin pisar «decoración con globos».",
+    "Hotmart promete «negocio de alto crecimiento y rentabilidad» y mejorar la situación económica: no se repite."
+  ],
+  "base": {
+    "h1": "Curso de bouquets y arreglos de globos online en {pais}",
+    "subtitulo": "Aprendes a inflar y calibrar los globos, a armar una base de bouquet estable y a juntar globos en estructuras de 2 metros o más.",
+    "beneficios": [
+      "Inflar los globos correctamente",
+      "Identificar los materiales para pegar y dar estabilidad",
+      "Armar una base de bouquet estable",
+      "Calibrar, amarrar y sujetar con la técnica correcta",
+      "Elegir los colores y figuras con globos en tendencia",
+      "Juntar globos en proporción para estructuras de 2 metros o más"
+    ],
+    "para_quien": [
+      "Quieres armar bouquets y arreglos de globos desde cero",
+      "Ya decoras fiestas y quieres sumar estructuras de globos",
+      "Quieres responder a la temática que pida cada cliente",
+      "No es para ti si buscas un título técnico oficial"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Globos de látex de varios tamaños y una base con peso",
+      "Inflador, cinta o hilo, tijeras y materiales de pegado",
+      "Un espacio amplio para armar y revisar la estructura"
+    ],
+    "cuerpo": "El curso de bouquets y arreglos de globos online de MasterClasses.La enseña a armar estructuras de globos para reuniones y fiestas, desde inflar el primer globo hasta una base de bouquet estable. El creador describe como meta juntar los globos en proporción para estructuras de 2 metros de alto o más, firmes y seguras de transportar.\n\nSon unas 8 horas de video que ves a tu ritmo. No hace falta saber de globos para empezar.\n\n## Qué es un bouquet de globos\n\nUn bouquet, o ballon bouquet, es una estructura de globos que se arma sobre una base y se ve desde varios lados. En muchos lugares se le dice simplemente arreglo de globos. Si buscas un curso de arreglos de globos, es de esto de lo que se trata.\n\n## Inflar, amarrar, calibrar y sujetar\n\nEl curso enseña la forma técnica: inflar, amarrar, calibrar y sujetar los globos. Un bouquet depende de que los globos tengan el mismo tamaño. Si uno queda más grande, la estructura se tuerce y no se corrige al final, por eso el calibrado va antes del armado.\n\n## Materiales, pegado y base\n\nAprendes a identificar los materiales correctos para el pegado y la estabilidad, y la técnica de una base de bouquet estable. En una estructura alta casi todo se juega en la base: si no tiene peso o no está bien sujeta, el resto da igual. Antes de entregarla, muévela suavemente y comprueba que no se incline.\n\n## Proporción, color y figuras\n\nSegún el creador, el curso muestra cómo juntar globos con proporción, y cuáles son los colores y figuras con globos en tendencia. Cada cliente pide su temática, y con la técnica completa puedes responder a esa idea sin partir de cero.\n\n## Errores y ahorro de materiales\n\nEl curso parte de que los errores son parte normal de aprender, que se pueden evitar y que de ellos sale lo que más hay que reforzar. Incluye también tips para ahorrar materiales.\n\n## Qué necesitas para practicar\n\nGlobos de látex de varios tamaños, un inflador, cinta o hilo, tijeras y los materiales de pegado que indique la clase. Para la base, algo con peso suficiente para sostener la altura. Practica primero con estructuras pequeñas.\n\n## Bouquets y decoración\n\nSi buscas la base general de la decoración con globos, con inflado, atado, encintado y calibrado, mira el [curso de decoración con globos](/{cc}/curso-de-decoracion-con-globos/). Este se centra en bouquets. Es un curso libre online: al terminar recibes una constancia de finalización, no un título, y no hay promesa de resultados. Otros oficios para hacer con las manos están en [cursos de manualidades](/{cc}/cursos/manualidades/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de bouquets con globos?",
+        "a": "Son unas 8 horas de video que ves a tu ritmo, sin horarios fijos. Armar una base estable y calibrar los globos pide práctica: lo normal es repetir varias veces el mismo bouquet, con estructuras pequeñas primero, hasta que quede parejo y no se incline."
+      },
+      {
+        "q": "¿El curso de bouquets con globos da certificado?",
+        "a": "Al terminar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La), el creador. Sirve para mostrar que hiciste la formación. No es un título oficial ni un registro profesional, así que no es un título de decorador."
+      },
+      {
+        "q": "¿Cómo se llama el curso de arreglos de globos?",
+        "a": "Según el país se dice curso de bouquets de globos, de balloon bouquets o de arreglos de globos. Todos hablan de lo mismo: estructuras de globos armadas sobre una base para fiestas y reuniones. Esta formación enseña desde inflar y calibrar hasta la base y las proporciones de la estructura."
+      },
+      {
+        "q": "¿Qué materiales necesito para armar un bouquet de globos?",
+        "a": "Globos de látex en varios tamaños, un inflador, cinta o hilo, tijeras, los materiales de pegado que indique la clase y una base con peso para sostener la estructura. El curso enseña a identificar los materiales correctos para pegado y estabilidad, así que no hace falta comprar todo antes de empezar."
+      },
+      {
+        "q": "¿Cuánto se cobra por un arreglo con globos?",
+        "a": "No hay una tarifa única. Depende de cuántos globos lleva, del tamaño de la estructura, del tiempo que tardas, de si hay entrega y de lo que cobren en tu ciudad. Suma el costo de los materiales y tu trabajo, y compara con lo que ofrecen otros. Hotmart aclara que el curso no garantiza resultados."
+      },
+      {
+        "q": "¿Qué altura puede tener un bouquet de globos?",
+        "a": "Según el creador, el curso enseña a juntar los globos en proporción para estructuras de 2 metros de alto o más, estables y seguras de transportar. En el oficio, lo habitual es llevarlas armadas con la base bien sujeta o armarlas en el lugar del evento, según el tamaño."
+      },
+      {
+        "q": "¿El curso de bouquets con globos es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Bouquet de globos de varios tamaños armado sobre una base con peso",
+      "Manos sujetando globos calibrados antes de unirlos a la estructura"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de decoración con globos",
+        "url": "/{cc}/curso-de-decoracion-con-globos/",
+        "motivo": "C18: decoración es de la ficha dueña"
+      },
+      {
+        "ancla": "cursos de manualidades",
+        "url": "/{cc}/cursos/manualidades/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar todas las lecciones recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de bouquets y arreglos de globos online: inflado, calibrado, base estable, materiales de pegado y estructuras de 2 metros o más.",
+      "meta_title": "Curso de bouquets y arreglos de globos: base estable"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {},
+      "meta_title": "Curso de bouquets y arreglos de globos: base estable",
+      "meta_description": "Curso de bouquets y arreglos de globos online: inflado, calibrado, materiales de pegado y estructuras de 2 metros o más. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {},
+      "meta_title": "Curso de bouquets y arreglos de globos: 8 horas en video",
+      "meta_description": "Curso de arreglos de globos y bouquets: inflado, calibrado, base estable y estructuras de 2 metros o más en 8 horas. Pagas en MXN y recibes constancia."
+    }
+  }
+}

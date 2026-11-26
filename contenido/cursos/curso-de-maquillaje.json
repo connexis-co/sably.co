@@ -1,0 +1,127 @@
+{
+  "slug": "curso-de-maquillaje",
+  "estado": "borrador",
+  "fuentes": [
+    "Hotmart, checkout público del producto N41531652U «Maquillaje Social» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: lista «¿Qué vas a lograr?»: implementos y su uso, historia del maquillaje, cuidado y desinfección de herramientas, tipos de brochas, limpieza y preparación del rostro, combinación de colores, correcciones, errores frecuentes, ojos, cejas y labios, técnicas por ocasión, tendencias del maquillaje social",
+    "CMS: durationHours 18 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de maquillaje», 1.000 CO / 1.600 MX; variación «curso de maquillaje profesional» 260 / 1.300)",
+    "Canibalización C04 (dueña de «curso de maquillaje» y «maquillaje profesional»; enlaza a novias, fantasía y permanente con su principal) y C05 (el automaquillaje es de curso-de-automaquillaje)",
+    "Preguntas: faq-nuevas.csv (PAA de CO y MX)",
+    "Hotmart, checkout de los tres productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "Hotmart abre con «incrementar tus ganancias enormemente» y «transformar una pasión en un excelente negocio»: no se repite. «Últimas técnicas» y «últimas tendencias» se dejaron como «tendencias del maquillaje social» sin detalle.",
+    "El título de hoy dice «profesional» pero la fuente habla de maquillaje social (día a día y eventos). Se conserva «profesional» por C04 y porque Hotmart usa «maquillador profesional»; decidir si se aclara más.",
+    "El .mdx puede traer un temario (aplicación de base, labios y acabado) que Hotmart no cubre con ese detalle: cotejar con el área de miembros."
+  ],
+  "base": {
+    "h1": "Curso de maquillaje profesional online en {pais}",
+    "subtitulo": "Aprendes a preparar y corregir el rostro, combinar colores y maquillar ojos, cejas y labios según la ocasión, con tus herramientas siempre limpias.",
+    "beneficios": [
+      "Implementos de trabajo y su uso para un acabado de calidad",
+      "Cuidado y desinfección de tus elementos de trabajo",
+      "Tipos de brochas y su cuidado según el tipo de piel",
+      "Limpiar y preparar el rostro antes de maquillar",
+      "Corregir el rostro y combinar colores con criterio",
+      "Maquillar ojos, cejas y labios según la ocasión"
+    ],
+    "para_quien": [
+      "Quieres aprender maquillaje social desde cero",
+      "Ya maquillas a conocidas y quieres ordenar técnica y herramientas",
+      "Piensas atender a domicilio, en un salón o para una marca",
+      "No es para ti si buscas un título técnico oficial"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Un kit básico: base, corrector, sombras, labiales y brochas",
+      "Desinfectante para brochas e implementos de trabajo",
+      "Una persona de confianza que se deje maquillar, y buena luz"
+    ],
+    "cuerpo": "El curso de maquillaje profesional online de MasterClasses.La enseña maquillaje social desde cero: el que se hace para el día a día y para eventos. Va de los implementos y su cuidado a la preparación del rostro, el color y la técnica para ojos, cejas y labios. Son unas 18 horas de video que ves a tu ritmo, desde el celular o un {computador}.\n\n## Implementos y brochas\n\nEl curso explica qué implementos necesita quien maquilla y cómo usarlos para un acabado de calidad. Incluye los tipos de brochas y su cuidado según los tipos de piel, además de la limpieza y desinfección de tus elementos de trabajo. En el oficio esto se toma en serio: una brocha sucia pasa grasa y bacterias de una cara a otra, por eso se desinfecta entre clientas.\n\n## Preparar y corregir el rostro\n\nAntes de poner color viene la limpieza y preparación del rostro, porque el maquillaje se asienta mejor sobre una piel limpia y pareja. Después, las correcciones que conviene hacer antes de iniciar el maquillaje: lo que se cubre, lo que se ilumina y lo que se equilibra según el rostro de cada persona. El curso también repasa los errores y aciertos más frecuentes al maquillar, que es donde más se aprende.\n\n## Ojos, cejas y labios\n\nCada tipo de ojo, de ceja y de labio pide un trabajo distinto. Aquí entran las combinaciones de colores y su efecto, y cómo maquillar los distintos tipos de ojos, cejas y labios. Una regla práctica del oficio: elige un punto de atención, ojos o labios, y deja el otro más suave.\n\n## Técnicas según la ocasión\n\nUn maquillaje para el trabajo, para una fiesta o para una foto no es el mismo: cambian la intensidad, la duración y los colores. El curso trabaja distintas técnicas según la ocasión y repasa las tendencias del maquillaje social, desde los conocimientos básicos hasta las técnicas más recientes. También cuenta la historia y el origen del maquillaje, como contexto del oficio.\n\n## Para quién es y qué no incluye\n\nFunciona tanto si maquillas a domicilio, en tu propio salón o para una marca. Es un curso libre online: al terminar tienes la técnica y una constancia de finalización, no un título técnico. Si vas a maquillarte solo a ti, el [curso de automaquillaje](/{cc}/curso-de-automaquillaje/) es más corto y va directo a eso. Para ocasiones concretas están el [maquillaje de novias](/{cc}/curso-de-maquillaje-profesional-de-novias/), el [maquillaje artístico y de fantasía](/{cc}/curso-de-maquillaje-de-fantasia/) y la [micropigmentación](/{cc}/curso-de-maquillaje-permanente/). El resto está en [cursos de belleza](/{cc}/cursos/belleza-online/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de maquillaje profesional?",
+        "a": "Son unas 18 horas de video que ves a tu ritmo. Una carrera técnica de maquillaje dura meses o años; este es un curso libre online que puedes terminar en pocas semanas. Lo que más tiempo pide es practicar: los degradados y el control del color mejoran repitiendo."
+      },
+      {
+        "q": "¿El curso de maquillaje da certificado?",
+        "a": "Recibes una constancia digital de finalización cuando terminas el curso. La avalan Hotmart y Seminarios Online (MasterClasses.La), que es el creador. Sirve como prueba de que hiciste la formación y puedes mostrarla a quien te contrate o a tus clientas, pero no es un título oficial."
+      },
+      {
+        "q": "¿Qué se aprende en un curso de maquillaje profesional?",
+        "a": "Los implementos y su uso, el cuidado y la desinfección de tus herramientas, los tipos de brochas, la limpieza y preparación del rostro, las combinaciones de color, las correcciones, cómo maquillar ojos, cejas y labios, las técnicas según la ocasión y las tendencias del maquillaje social."
+      },
+      {
+        "q": "¿Puedo aprender maquillaje profesional desde cero?",
+        "a": "Sí, el creador lo plantea desde cero, desde los conocimientos básicos. Conviene practicar primero en ti o en alguien de confianza, con buena luz, y repasar el video cuando algo no salga. La soltura con el color llega con las repeticiones, no con la teoría sola."
+      },
+      {
+        "q": "¿Qué necesito para practicar maquillaje?",
+        "a": "Un kit básico con base, corrector, sombras, labiales y algunas brochas, desinfectante para las herramientas y a alguien que se deje maquillar. Con luz natural se corrige mejor el tono. No hace falta comprar todo junto: empieza con lo esencial y amplía cuando sepas qué usas más."
+      },
+      {
+        "q": "¿Dónde estudiar maquillaje profesional online?",
+        "a": "Aquí puedes hacerlo en video y a tu ritmo, desde tu casa. Lo que no entrega es un título técnico oficial: recibes una constancia de finalización. Si buscas un título, hay que mirar academias o institutos con programa registrado, que suelen durar más."
+      },
+      {
+        "q": "¿El curso de maquillaje es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Maquilladora difuminando sombra en el párpado de una clienta con una brocha",
+      "Brochas de maquillaje limpias y ordenadas junto a una paleta y desinfectante"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de automaquillaje",
+        "url": "/{cc}/curso-de-automaquillaje/",
+        "motivo": "C05: automaquillaje es de curso-de-automaquillaje"
+      },
+      {
+        "ancla": "maquillaje de novias",
+        "url": "/{cc}/curso-de-maquillaje-profesional-de-novias/",
+        "motivo": "C04: novias con su principal"
+      },
+      {
+        "ancla": "maquillaje artístico y de fantasía",
+        "url": "/{cc}/curso-de-maquillaje-de-fantasia/",
+        "motivo": "C04: fantasía con su principal"
+      },
+      {
+        "ancla": "micropigmentación",
+        "url": "/{cc}/curso-de-maquillaje-permanente/",
+        "motivo": "C04: permanente con su principal"
+      },
+      {
+        "ancla": "cursos de belleza",
+        "url": "/{cc}/cursos/belleza-online/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de maquillaje profesional online: implementos y brochas, preparación y corrección del rostro, ojos, cejas y labios, y técnicas por ocasión.",
+      "meta_title": "Curso de Maquillaje Profesional Online | Sably"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador"
+      },
+      "meta_title": "Curso de maquillaje profesional online: brochas y técnicas",
+      "meta_description": "Curso de maquillaje profesional online: implementos, brochas, preparación del rostro, color y técnicas por ocasión. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora"
+      },
+      "meta_title": "Curso de maquillaje online: ojos, cejas, labios y color",
+      "meta_description": "Curso de maquillaje profesional en video: preparación y corrección del rostro, ojos, cejas, labios y tendencias. Pagas en MXN y recibes constancia."
+    }
+  }
+}

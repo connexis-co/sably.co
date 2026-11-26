@@ -1,0 +1,114 @@
+{
+  "slug": "curso-de-automaquillaje",
+  "estado": "revisado",
+  "fuentes": [
+    "Hotmart, checkout público del producto S42624359I «AutoMaquillaje» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: cuidado facial y autoestima, conocimiento de la piel del rostro, clasificación de productos de maquillaje, técnicas de aplicación de cosméticos, trucos de profesionales para un maquillaje natural, elección de cosméticos según color y tipo de piel",
+    "CMS: durationHours 8 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de automaquillaje», 260 CO / 720 MX; se queda «maquillaje para principiantes/básico»)",
+    "Canibalización C05 (automaquillaje es la dueña; enlaza a maquillaje con «curso de maquillaje profesional») y C04",
+    "Preguntas: faq-nuevas.csv (PAA de CO y MX)",
+    "Hotmart, checkout del producto (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "Hotmart es muy corto (cinco temas y una introducción). El texto se queda en esos temas y en consejos generales del oficio; no inventa módulos ni un orden.",
+    "Hotmart promete «ser el centro de atención y la envidia de tus amigas»: no se repite. «Conocimiento dermatológico» se dejó como «conocer tu piel» y con aviso de que no reemplaza al dermatólogo.",
+    "El .mdx puede traer un temario más detallado (sombra difuminada, etc.) que Hotmart no menciona: cotejar con el área de miembros.",
+    "Decisión de JP: el clúster «maquillarse como zombie» (390 CO / 1.600 MX) no encaja en esta ficha (es de fantasía); no se trató.",
+    "Revisión adversaria 25-nov: corregido el consejo del polvo (no «apaga» la piel grasa; se cuartea en la seca), quitado «el centro del curso» (énfasis sin fuente) y la constancia «para tus clientas» (el curso es para maquillarte tú)."
+  ],
+  "base": {
+    "h1": "Curso de automaquillaje online en {pais}",
+    "subtitulo": "Aprendes a reconocer tu tipo de piel, elegir los cosméticos que le convienen y aplicarlos con las técnicas que usan las maquilladoras.",
+    "beneficios": [
+      "Conocer tu piel y sus características antes de comprar",
+      "Elegir cosméticos según tu color y tu tipo de piel",
+      "Clasificar los productos que se usan para maquillarse",
+      "Técnicas correctas de aplicación de cada cosmético",
+      "Trucos de profesionales para un maquillaje natural",
+      "Cuidado facial y su relación con la autoestima"
+    ],
+    "para_quien": [
+      "Quieres aprender a maquillarte y los tutoriales te confunden",
+      "Compras cosméticos y no sabes cuáles van con tu piel",
+      "Buscas un maquillaje natural para el día a día",
+      "No es para ti si buscas maquillar clientas como oficio"
+    ],
+    "requisitos": [
+      "Tus cosméticos de siempre, para practicar con lo que ya tienes",
+      "Brochas y esponjas limpias, aunque sean pocas",
+      "Un espejo y buena luz, de preferencia natural",
+      "Celular o {computador} con internet"
+    ],
+    "cuerpo": "El curso de automaquillaje online de MasterClasses.La es para quien quiere aprender a maquillarse y entender qué hace cada producto antes de comprarlo. Parte de la piel: sus características, cómo reconocer la tuya y qué cosméticos van con tu color y tu tipo de piel. Sobre esa base trabaja las técnicas de aplicación y los trucos que usan los profesionales para lograr un maquillaje natural.\n\nSon unas 8 horas de video que ves a tu ritmo, desde el celular o el {computador}. El creador lo presenta como un programa que pone la piel antes que el maquillaje.\n\n## Empezar por tu piel\n\nCuando un maquillaje sale mal, a menudo el problema es el producto: una base de otro tono, o un polvo que se cuartea sobre la piel seca. Por eso el curso incluye el cuidado facial y el conocimiento de tu rostro y de sus características, para que sepas qué mirar al elegir. Es una base para maquillarte mejor, no un diagnóstico: si tienes acné, manchas o una reacción a un producto, eso lo ve un dermatólogo.\n\n## Qué productos existen y para qué sirve cada uno\n\nEntre bases, correctores, polvos, rubores, sombras, delineadores y labiales, la variedad de marcas y colores confunde. El curso clasifica los productos que se usan para el maquillaje, y una forma habitual de ordenarlos es por zona del rostro: piel, ojos, cejas y labios. Con ese mapa decides qué comprar primero y qué puede esperar. Una pregunta útil antes de cada compra: ¿este producto resuelve algo que ya me pasa, o solo me gusta el color?\n\n## Técnicas de aplicación y trucos de profesionales\n\nEl curso enseña la forma correcta de aplicar cada cosmético y los trucos con los que una maquilladora consigue un acabado natural. En el oficio ayudan unas costumbres simples: aplicar en capas finas, difuminar los bordes y revisar el resultado con luz de día, porque la luz del baño engaña.\n\n## Maquillaje básico para principiantes\n\nSi empiezas desde cero, no necesitas un kit completo: con saber qué piel tienes y qué productos de maquillaje básico te sirven, puedes practicar con lo que ya tengas en casa. Conviene practicar el mismo maquillaje varios días seguidos, con la misma luz, para ver qué cambia de verdad cuando cambias un solo producto.\n\n## Automaquillaje o maquillaje profesional\n\nEste curso es para maquillarte a ti. Si piensas maquillar a otras personas, con herramientas, desinfección y técnicas por ocasión, el [curso de maquillaje profesional](/{cc}/curso-de-maquillaje/) es el que corresponde. También puedes mirar el resto en [cursos de belleza](/{cc}/cursos/belleza-online/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de automaquillaje?",
+        "a": "Son unas 8 horas de video que ves a tu ritmo, en el orden que quieras repasarlas. No es una carrera técnica: es un curso libre online. Lo que más tiempo pide después es la práctica frente al espejo, porque difuminar y elegir el tono se afinan repitiendo."
+      },
+      {
+        "q": "¿El curso de automaquillaje da certificado?",
+        "a": "Recibes una constancia digital de finalización cuando terminas el curso. La avalan Hotmart y Seminarios Online (MasterClasses.La), que es el creador. Sirve como prueba de que hiciste la formación, pero no es un título oficial ni te habilita como maquilladora profesional. El curso está pensado para que te maquilles tú."
+      },
+      {
+        "q": "¿Qué se enseña en un curso de automaquillaje?",
+        "a": "Según la descripción del creador: el cuidado facial y su relación con la autoestima, conocer tu piel y sus características, clasificar los productos de maquillaje, elegir cosméticos según tu color y tipo de piel, las técnicas correctas de aplicación y los trucos de los profesionales para un maquillaje natural."
+      },
+      {
+        "q": "¿Puedo aprender a maquillarme desde cero?",
+        "a": "Sí. El curso parte de conocer tu piel y los productos antes de aplicar nada, así que sirve si hoy los tutoriales te parecen confusos o no sabes qué comprar. Conviene practicar con tus propios cosméticos, en capas finas, y repasar los videos cuando algo no te salga."
+      },
+      {
+        "q": "¿Qué necesito para empezar a maquillarme?",
+        "a": "Para practicar bastan los cosméticos que ya tienes, brochas y esponjas limpias, un espejo y buena luz, de preferencia natural. No hace falta comprar un kit completo: el curso te ayuda a decidir qué comprar según tu piel, y así no gastas en productos que no te favorecen."
+      },
+      {
+        "q": "¿Sirve para maquillar a otras personas?",
+        "a": "Está pensado para que te maquilles tú. Si quieres atender clientas, con brochas, desinfección de herramientas y técnicas por ocasión, el camino es el curso de maquillaje profesional de esta misma plataforma. El creador menciona que también ayudarás a tus amigas a verse mejor, pero el enfoque es tu propio rostro."
+      },
+      {
+        "q": "¿El curso de automaquillaje es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Mujer difuminando la base de maquillaje en la mejilla con una esponja frente a un espejo",
+      "Paleta de sombras, brochas y labiales ordenados sobre una mesa con luz natural"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de maquillaje profesional",
+        "url": "/{cc}/curso-de-maquillaje/",
+        "motivo": "C04/C05: maquillaje profesional es de curso-de-maquillaje"
+      },
+      {
+        "ancla": "cursos de belleza",
+        "url": "/{cc}/cursos/belleza-online/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de automaquillaje online: conoce tu piel, elige los cosméticos adecuados y aprende técnicas de aplicación y trucos para un maquillaje natural.",
+      "meta_title": "Curso de Automaquillaje Online | Sably"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador"
+      },
+      "meta_title": "Curso de automaquillaje online: tu piel y tus cosméticos",
+      "meta_description": "Curso de automaquillaje online: conoce tu piel, elige tus cosméticos y aprende las técnicas de aplicación en video. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora"
+      },
+      "meta_title": "Curso de automaquillaje: maquillaje natural paso a paso",
+      "meta_description": "Curso de automaquillaje en video: tipos de piel, clasificación de productos y trucos de maquillaje natural. Pagas en MXN y recibes constancia al terminar."
+    }
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "slug": "curso-de-manicure-y-pedicure",
+  "estado": "revisado",
+  "fuentes": [
+    "Hotmart, checkout público del producto A60343346C «Manicure y Pedicure como Negocio a Domicilio» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: lista «¿Qué vas a lograr?»",
+    "CMS: durationHours 8 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de manicure», 390 CO / 210 MX; «curso de manicura y pedicura» como variante); canibalización C01 (quitar «uñas» del H1; «curso de uñas» es de curso-de-unas) y C02 («curso de manicure» es de esta ficha)",
+    "Preguntas: faq-nuevas.csv (PAA: qué aprende primero una manicurista, requisitos, gratis, duración)",
+    "Hotmart, checkout del producto (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "El temario del CMS (esterilización, esmaltado semipermanente, talones agrietados, combos mensuales, precios y rutas, WhatsApp) no está en Hotmart; el texto no lo promete. Hotmart sí menciona uñero, masaje de manos y pies, etiqueta y protocolo, página de Facebook, publicidad y diseños.",
+    "Los title actuales del CMS usan «uñas encarnadas»; Hotmart dice «uñero». El texto usa «uñero (uña encarnada)». Los title nuevos no lo usan.",
+    "«No necesitas experiencia previa» (requisitos y FAQ) viene del temario y de la lógica del curso, no de Hotmart: confirmar en el área de miembros.",
+    "Hotmart promete «emprendimiento rentable»: no se repite. «Certificado» de Hotmart se escribe «constancia».",
+    "Decisión de JP (C02): este es el dueño de «curso de manicure»; curso-de-unas (base, co) y decoración (es) deben sacarlo de sus title.",
+    "Revisión adversaria 25-nov: «paso a paso» se movió al masaje (es lo que dice Hotmart), fuera la frase de palabra clave en la FAQ manicure/manicura, «alicate o pinza» (neutro para MX). Salud: el uñero lleva aviso de derivar si hay infección, diabetes o mala circulación, y hongos = no atender. JP: «sacar un uñero» es contenido de Hotmart, pero en algunos países es acto de podología; valorar si se deja como viñeta.",
+    "Pregunta de experiencia previa conservada (existía en la ficha): Hotmart no la menciona; la respuesta lo dice así."
+  ],
+  "base": {
+    "h1": "Curso de manicure y pedicure online en {pais}",
+    "subtitulo": "Aprendes las técnicas de manicura y pedicura, el masaje de manos y pies y cómo atender a tus clientes en su propia casa.",
+    "beneficios": [
+      "Técnicas de manicura y de pedicura",
+      "Masaje para manos y pies, paso a paso",
+      "La manera correcta de sacar un uñero",
+      "Etiqueta y protocolo para atender un negocio a domicilio",
+      "Crear tu página de Facebook y hacer publicidad",
+      "Diseños variados para ofrecer a tus clientes"
+    ],
+    "para_quien": [
+      "Quieres atender manicure y pedicure en la casa de tus clientes",
+      "Empiezas de cero y quieres aprender las técnicas con orden",
+      "Ya haces uñas y quieres sumar pedicure, masaje y protocolo de atención",
+      "No es para ti si buscas un título técnico oficial"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Alicate o pinza de cutícula, empujador, limas y pulidor",
+      "Esmaltes con base y acabado, toallas y crema o aceite",
+      "Un recipiente para remojar los pies y un maletín para trasladar todo"
+    ],
+    "cuerpo": "El curso de manicure y pedicure online de MasterClasses.La está planteado para atender a domicilio: aprendes las técnicas de manicura y pedicura, el masaje de manos y pies y cómo tratar al cliente en su propia casa. Son unas 8 horas de video que ves a tu ritmo. La descripción del creador no lista las clases una por una, así que aquí va lo que sí dice y, aparte, lo que en el oficio conviene saber.\n\n## Manicure y pedicure: qué cubre cada servicio\n\nEl manicure trabaja manos y uñas: limar, dar forma, tratar la cutícula y esmaltar. El pedicure añade el cuidado del pie y del talón, y suele empezar con un remojo. Manicure y manicura, pedicure y pedicura son dos nombres para el mismo servicio, según el país. Quien aprende los dos puede ofrecer el servicio completo en una sola visita. Si lo que más te atrae es el trabajo sobre la uña misma, el [curso de uñas desde cero](/{cc}/curso-de-unas/) cubre esa parte del oficio.\n\n## Masaje de manos y pies\n\nEl curso incluye las técnicas de masaje para manos y pies, la parte que convierte el arreglo en un rato de descanso para el cliente. En el oficio se trabaja con crema o aceite y presión suave. Antes de empezar conviene preguntar por heridas o molestias. Si ves hongos o una infección, lo prudente es no atender ese pie o esa mano y sugerir que consulte a un médico.\n\n## El uñero\n\nEl uñero, o uña encarnada, es el borde de la uña clavado en la piel. El curso enseña la manera correcta de sacarlo. Como criterio general del oficio, si hay pus, enrojecimiento que se extiende o dolor fuerte, o si el cliente tiene diabetes o mala circulación, el caso ya no es de manicura: lo prudente es enviarlo a un médico o a un podólogo.\n\n## Atender a domicilio\n\nIr a la casa del cliente pide una forma de trabajar propia. El curso trata la etiqueta y el protocolo del negocio, y enseña a crear tu propia página de Facebook y a hacer publicidad para conseguir clientes. Además trae una cantidad variable de diseños para ofrecer. Aparte de lo que enseñe el curso, en el oficio las herramientas metálicas se limpian y se desinfectan entre un cliente y el siguiente, y las limas de cartón se usan una sola vez. Para ir más a fondo en decoración, mira el [curso de decoración de uñas](/{cc}/curso-de-decoracion-de-unas/).\n\n## Qué necesitas para practicar\n\nUn alicate o pinza de cutícula, un empujador, limas y bloque pulidor, esmaltes con base y acabado, toallas, crema o aceite para el masaje y un recipiente para remojar los pies. Practica primero con alguien de confianza, y si vas a trabajar a domicilio suma un maletín donde cargar todo. Más opciones del área, en [cursos de belleza](/{cc}/cursos/belleza-online/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de manicure y pedicure?",
+        "a": "Son unas 8 horas de video que ves a tu ritmo. Es un curso libre online, no una carrera técnica, así que puedes terminarlo en pocas semanas. Lo que más tiempo pide es la práctica: limar parejo, trabajar la cutícula y dar el masaje con soltura sale después de repetir con varias personas."
+      },
+      {
+        "q": "¿El curso de manicure y pedicure da certificado?",
+        "a": "Recibes una constancia digital de finalización cuando terminas el curso. La avalan Hotmart y Seminarios Online (MasterClasses.La), que es el creador. Sirve como prueba de que hiciste la formación y puedes mostrarla a quien te contrate o a tus clientes, pero no es un título oficial."
+      },
+      {
+        "q": "¿Qué es lo primero que debe aprender una manicurista?",
+        "a": "Lo primero es la higiene: limpiar y desinfectar las herramientas y reconocer la uña y la piel de manos y pies. Sobre esa base se aprende a limar, a trabajar la cutícula sin cortar de más y a esmaltar. El curso de MasterClasses.La cubre las técnicas de manicura y pedicura y el protocolo de atención."
+      },
+      {
+        "q": "¿Qué se necesita para hacer manicure y pedicure?",
+        "a": "No necesitas experiencia previa para empezar. Sí necesitas herramientas básicas: alicate o pinza de cutícula, empujador, limas, bloque pulidor, esmaltes, toallas y un recipiente para remojar los pies. Para practicar sin presión, pide a un familiar que te preste las manos y los pies."
+      },
+      {
+        "q": "¿Puedo atender a domicilio con este curso?",
+        "a": "El curso está planteado para eso: la descripción habla de atender a tus clientes en su propia casa y trata la etiqueta y el protocolo del negocio. Aun así, según tu ciudad pueden pedirte requisitos sanitarios o comerciales para trabajar, y conviene averiguarlos antes de empezar."
+      },
+      {
+        "q": "¿Qué diferencia hay entre manicure y manicura?",
+        "a": "Ninguna en el servicio: son dos nombres para lo mismo, y se usa uno u otro según el país. Pasa igual con pedicure y pedicura. En muchos países conviven las dos formas, y las técnicas, las herramientas y el protocolo de atención son los mismos se llame como se llame."
+      },
+      {
+        "q": "¿Necesito experiencia previa para tomar el curso?",
+        "a": "La descripción del creador no pide estudios ni experiencia previa. El curso recorre las técnicas de manicura y pedicura y, paso a paso, el masaje de manos y pies. Si empiezas de cero, conviene practicar primero en tus propias manos o con alguien de confianza antes de atender clientes a domicilio."
+      },
+      {
+        "q": "¿El curso de manicure y pedicure es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Manos de una manicurista limando la uña de una clienta sentada en su sala",
+      "Pies en un recipiente con agua tibia sobre una toalla durante un pedicure"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de uñas desde cero",
+        "url": "/{cc}/curso-de-unas/",
+        "motivo": "C01: «curso de uñas» es de curso-de-unas"
+      },
+      {
+        "ancla": "curso de decoración de uñas",
+        "url": "/{cc}/curso-de-decoracion-de-unas/",
+        "motivo": "C01: nail art a decoración"
+      },
+      {
+        "ancla": "cursos de belleza",
+        "url": "/{cc}/cursos/belleza-online/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de manicure y pedicure online: técnicas de manicura y pedicura, masaje de manos y pies, uñero y atención a domicilio.",
+      "meta_title": "Curso de Manicure y Pedicure Online | Sably"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {},
+      "meta_title": "Curso de manicure y pedicure online a domicilio",
+      "meta_description": "Curso de manicure y pedicure online: técnicas de manicura y pedicura, masaje de manos y pies, uñero y atención a domicilio. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {},
+      "meta_title": "Curso de manicure y pedicure: técnicas y masaje",
+      "meta_description": "Curso de manicura y pedicura en video: masaje de manos y pies, cómo sacar un uñero, etiqueta del servicio y publicidad. Pagas en MXN y recibes constancia."
+    }
+  }
+}

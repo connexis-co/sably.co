@@ -1,0 +1,99 @@
+{
+  "slug": "curso-de-reposteria-para-mascotas",
+  "estado": "piloto",
+  "fuentes": [
+    "Hotmart, checkout público del producto L39108716M «Pastelería Canina y Felina» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: ingredientes de casa, preparaciones poco procesadas, recetas revisadas por un veterinario experto en nutrición (según el creador), alimentación diaria, industria de alimentos para mascotas, lectura de etiquetas de concentrados",
+    "CMS: durationHours 10 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de pastelería canina y felina», 10 CO / 10 MX; «curso de repostería para mascotas» como variación); canibalización C08 (repostería para mascotas sin cambio de H1)",
+    "Preguntas: faq-nuevas.csv (PAA de AR; las de rentabilidad se responden sin cifras)",
+    "Hotmart, checkout de los productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "H1: el principal del CSV (pastelería canina y felina, 10 búsquedas) es el nombre de Hotmart, pero C08 deja «repostería para mascotas» sin cambio de H1 (79 sesiones, 3 ventas) y «Curso de pastelería…» contiene la frase de la ficha pastelería. Revisión adversaria 25-nov: base.h1, primer párrafo y short_description vuelven a «repostería para mascotas»; «pastelería canina y felina» queda en beneficios y FAQ.",
+    "Hotmart incluye cifras de salud (85 % de enfermedades graves por mala alimentación, snacks procesados «nocivos») y «más de 2 años testeado en el mercado»: no se repiten; solo se atribuye al creador la revisión por un veterinario experto en nutrición.",
+    "El temario del CMS (módulo «Del horno al negocio pet», snacks deshidratados de pollo e hígado, pedidos de cumpleaños) no está en Hotmart; el texto no promete negocio ni esas recetas.",
+    "Hotmart no menciona constancia ni certificado; la FAQ sigue el patrón de los pilotos. Confirmar.",
+    "Lista de alimentos prohibidos y regla del 10 % de calorías: consejo general del oficio; conviene que un veterinario la revise.",
+    "Revisión adversaria 25-nov: «ajustó sus proporciones» pasa a «revisó y aprobó» (literal de Hotmart); se quitó «nevera» (CO) del texto neutro; FAQ de duración cambiada: «repetirla con tu perro» no se entendía, ahora aconseja porción mínima de prueba."
+  ],
+  "base": {
+    "h1": "Curso de repostería para mascotas online en {pais}",
+    "subtitulo": "Aprendes a preparar snacks y pasteles para perros y gatos con ingredientes de casa y a leer las etiquetas de los concentrados.",
+    "beneficios": [
+      "Elegir ingredientes de casa para snacks de perros y gatos",
+      "Preparar recetas poco procesadas de pastelería canina y felina",
+      "Ingredientes: qué aporta cada uno a tu mascota",
+      "Leer las etiquetas de los concentrados",
+      "Entender cómo funciona la industria de alimentos para mascotas",
+      "Revisar la alimentación diaria de perros y gatos"
+    ],
+    "para_quien": [
+      "Tienes perro o gato y quieres prepararle snacks en casa",
+      "Te interesa la pastelería canina y felina como oficio",
+      "Quieres entender qué dicen las etiquetas de los concentrados",
+      "No es para ti si buscas una dieta médica o tratar una enfermedad"
+    ],
+    "requisitos": [
+      "No se piden estudios previos",
+      "Cocina, horno y utensilios básicos de repostería",
+      "Ingredientes de casa; la lista cambia con cada receta",
+      "Moldes pequeños y una báscula de cocina"
+    ],
+    "cuerpo": "El curso de repostería para mascotas de MasterClasses.La, que en Hotmart se llama Pastelería Canina y Felina, enseña a preparar snacks y pasteles para perros y gatos con ingredientes que ya tienes en casa y con pocos procesos. Además mira la alimentación diaria, la industria de los alimentos para mascotas y cómo leer las etiquetas de los concentrados. Son unas 10 horas de video que ves a tu ritmo.\n\n## Recetas con ingredientes de casa\n\nSegún el creador, las recetas del curso las revisó en sus proporciones y las aprobó un veterinario experto en nutrición. Ese dato pesa en este oficio, porque una receta de galletas para perros no se mide como una de personas: lo que a nosotros nos sirve para el postre puede ser dañino para ellos.\n\n## Lo que no se les da\n\nEsto es consejo general del oficio, no contenido del curso. A perros y gatos no se les dan chocolate, uvas ni pasas, cebolla, ajo, nueces de macadamia, café ni alcohol. Tampoco golosinas con xilitol, un edulcorante que es tóxico para los perros, ni huesos cocidos. A muchos gatos adultos la leche les cae mal. Ante cualquier duda, pregunta primero a tu veterinario.\n\n## Un premio, no una comida\n\nLos snacks y los pasteles se dan en porciones pequeñas. Una regla muy usada es que los premios no pasen del 10 % de lo que come el animal en el día. Si tu perro o gato tiene alergias, diabetes o una enfermedad renal, la receta debe indicarla su veterinario, no un curso.\n\n## Leer etiquetas\n\nUna parte del curso enseña a leer las etiquetas de los concentrados y a ubicar los ingredientes poco saludables que contienen algunos. En la mayoría de los países los ingredientes aparecen de mayor a menor peso, así que los primeros de la lista son los que más pesan en la fórmula. Ojo con la carne fresca: encabeza la lista con el agua que trae.\n\n## Qué necesitas para practicar\n\nUn horno, una cocina con espacio limpio, moldes pequeños, una báscula y los ingredientes de cada receta. Prepara cantidades pequeñas al principio y guarda lo que sobre refrigerado y bien tapado, porque los snacks sin conservantes se echan a perder pronto.\n\n## Qué esperar\n\nEs un curso libre online, no una guía de nutrición clínica. No promete ingresos: si piensas vender, averigua antes las normas sanitarias de tu ciudad para alimentos de mascotas. Si te interesa el cuidado animal desde otro lado, mira el [curso de primeros auxilios para mascotas](/{cc}/curso-de-primeros-auxilios-para-mascotas/) o el resto de [cursos de cuidado animal](/{cc}/cursos/cuidado-animal/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de repostería para mascotas?",
+        "a": "Son unas 10 horas de video que ves a tu ritmo, sin horarios ni fechas de entrega. Las clases se pueden terminar en pocos días; lo que más tiempo pide es cocinar. Con cada receta nueva, conviene empezar por una tanda pequeña y darle a tu perro o tu gato una porción mínima para ver cómo le cae."
+      },
+      {
+        "q": "¿El curso de repostería para mascotas da certificado?",
+        "a": "Al terminar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La), el creador. Sirve para mostrar que hiciste la formación. No es un título oficial ni de nutrición animal, y no reemplaza la consulta con un veterinario."
+      },
+      {
+        "q": "¿Necesito experiencia previa en repostería?",
+        "a": "No. El curso parte de ingredientes que ya tienes en casa y de recetas con pocos procesos para perros y gatos. También explica qué aporta cada ingrediente, revisa la alimentación diaria y enseña a leer las etiquetas de los concentrados. Según el creador, las recetas las revisó y aprobó un veterinario experto en nutrición."
+      },
+      {
+        "q": "¿Qué no se le puede dar a un perro o a un gato?",
+        "a": "Como consejo general: chocolate, uvas y pasas, cebolla, ajo, nueces de macadamia, café, alcohol y cualquier golosina con xilitol, que es tóxico para los perros. A muchos gatos adultos la leche les cae mal. Si tu mascota comió algo de esto, llama a tu veterinario de inmediato."
+      },
+      {
+        "q": "¿Los snacks caseros reemplazan el concentrado?",
+        "a": "No. Los snacks son premios, y una regla muy usada es que no pasen del 10 % de lo que come el animal al día. El curso también mira la alimentación diaria, pero cambiar la dieta de tu perro o gato, sobre todo si tiene alguna enfermedad, es una decisión que debe tomar tu veterinario."
+      },
+      {
+        "q": "¿Sirve para vender snacks para mascotas?",
+        "a": "El curso se centra en las recetas, los ingredientes y la lectura de etiquetas, y no promete ingresos. Si quieres vender, depende de tu ciudad, de tu tarifa y de las normas sanitarias para alimentos de mascotas, que conviene consultar con la autoridad local antes de empezar."
+      },
+      {
+        "q": "¿El curso de repostería para mascotas es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Galletas con forma de hueso recién horneadas sobre una rejilla, junto a un tazón de avena",
+      "Manos leyendo la lista de ingredientes en la etiqueta de un paquete de concentrado"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de primeros auxilios para mascotas",
+        "url": "/{cc}/curso-de-primeros-auxilios-para-mascotas/",
+        "motivo": "misma categoría (cuidado animal)"
+      },
+      {
+        "ancla": "cursos de cuidado animal",
+        "url": "/{cc}/cursos/cuidado-animal/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar todas las lecciones recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial ni de nutrición animal.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de repostería para mascotas online: snacks y pasteles para perros y gatos con ingredientes de casa, y cómo leer etiquetas de concentrados.",
+      "meta_title": "Curso de repostería para mascotas: perros y gatos"
+    }
+  },
+  "paises": {},
+  "variantes": false,
+  "nota_variantes": "En el CMS no hay course_locales de este curso (la ficha sale con X-Sably-Locale-Source: emdash-generic en los 8 países). El texto va al documento del curso: sin H1 por país y sin enlaces por país."
+}

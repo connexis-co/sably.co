@@ -1,0 +1,122 @@
+{
+  "slug": "curso-de-unas-acrilicas",
+  "estado": "piloto",
+  "fuentes": [
+    "Hotmart, checkout público del producto C55918118T «Master en Uñas Acrílicas» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: lista «¿Qué vas a lograr?»",
+    "CMS: durationHours 13 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de uñas acrílicas», 90 CO / 320 MX); canibalización C01 («curso de uñas» es de curso-de-unas)",
+    "Preguntas: faq-nuevas.csv (PAA de CO, MX, PE, EC, AR, ES)",
+    "Hotmart, checkout de los tres productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "El temario del CMS incluye rellenos, encapsulados, baby boomer y un módulo «Convierte el acrílico en ingresos» con la lección «Agenda llena y clientas que vuelven a cada relleno» (frase vetada). Hotmart no menciona rellenos ni esas técnicas. El texto nuevo no las promete.",
+    "hotmart-map.json dice que curso-de-unas usa el mismo producto C55918118T: confirmar, porque dos fichas venderían el mismo curso.",
+    "Revisión adversaria 25-nov: orden técnico de preparación corregido (deshidratador, tip, primer solo en uña natural, perla); «cubrebocas» en MX.",
+    "Pregunta de compra (pago único, acceso sin vencimiento, garantía de 7 días) conservada a pedido de la orquestadora: «acceso sin vencimiento» es lo que el sitio ya afirma en «Cómo se estudia»; Hotmart no lo dice en el checkout (producto tipo membership)."
+  ],
+  "base": {
+    "h1": "Curso de uñas acrílicas online en {pais}",
+    "subtitulo": "Aprendes a preparar la uña natural, esculpir en acrílico o con tips, dar forma con la lima y retirar el acrílico cuando toca.",
+    "beneficios": [
+      "Anatomía de la uña natural y de la uña artificial",
+      "Preparar y limpiar la uña antes de aplicar acrílico",
+      "Esculpir uñas acrílicas y trabajar con tips",
+      "Tipos de punta, limados y formas para un acabado parejo",
+      "Colocar y retirar el acrílico sin forzar la uña natural",
+      "Nail art: colores, acabados y diseños sobre acrílico"
+    ],
+    "para_quien": [
+      "Nunca has hecho uñas y quieres empezar por el acrílico",
+      "Haces manicure y quieres sumar uñas esculpidas y con tips",
+      "Quieres ordenar tu mesa de trabajo y montar uñas más rápido",
+      "No es para ti si buscas solo esmaltado semipermanente"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Monómero, polímero, pincel para acrílico, moldes y tips",
+      "Limas, bloque pulidor, primer y una mano de práctica",
+      "Un lugar ventilado y {tapabocas} para trabajar"
+    ],
+    "cuerpo": "El curso de uñas acrílicas online de MasterClasses.La parte de cero: cómo es la uña natural, qué tipos de uñas artificiales existen y qué materiales y herramientas vas a usar. Incluye esculpir uñas acrílicas, trabajar con tips, darles forma con la lima y retirarlas, además de diseño y nail art sobre acrílico.\n\nLo ves en video y a tu ritmo. No hace falta haber hecho uñas antes, aunque si ya haces manicure vas a avanzar más rápido.\n\n## Primero, la uña natural\n\nEl acrílico se sostiene sobre una uña bien preparada. Por eso el curso incluye la anatomía de la uña natural y de la artificial, y con la limpieza y preparación antes de aplicar producto. Cuando un acrílico se levanta a los pocos días, muchas veces el problema empezó aquí: restos de cutícula, grasa o humedad sobre la uña.\n\n## Uñas esculpidas o con tips\n\nVas a practicar las dos técnicas. En la uña esculpida el largo se construye con acrílico sobre un molde. Con tips, se pega una punta prefabricada y el acrílico la cubre y la une a la uña natural. El curso explica los tipos de punta, cómo se usa cada material y cómo trabajar la mezcla de líquido (monómero) y polvo (polímero) que se recoge con el pincel; en el oficio a esa bolita se le llama perla.\n\n## Limado, formas y acabado\n\nUna uña acrílica bien hecha se nota en el limado: grosor parejo, buena curva y una punta con la forma que pidió la clienta. Ves los tipos de limado y de forma, y el uso de cada herramienta para dejar un acabado limpio. También hay consejos para montar las uñas más rápido y para organizar el espacio de trabajo.\n\n## Retiro y nail art\n\nEl curso enseña a crear, colocar y retirar las uñas. Arrancar o forzar el acrílico maltrata la uña natural; por eso el retiro se aprende con el mismo cuidado que la colocación. La última parte es nail art sobre acrílico: colores, acabados y diseños. Si lo tuyo es sobre todo la decoración, el [curso de decoración de uñas](/{cc}/curso-de-decoracion-de-unas/) va más a fondo.\n\n## Qué necesitas para practicar\n\nMonómero y polímero acrílico, un pincel para acrílico, moldes y tips, limas de distinto grano, bloque pulidor, primer, un empujador de cutícula y un dappen, el vasito donde va el líquido. Para practicar sin clienta sirven una mano de práctica o tips sueltos. Trabaja en un lugar ventilado y con {tapabocas}: el monómero tiene un olor fuerte y el polvo del limado no conviene respirarlo. Evita también que el líquido toque la piel, porque los acrilatos pueden causar alergia.\n\n## Acrílico, semipermanente y manicure\n\nQuien busca un curso de uñas suele mezclar técnicas. Este es de acrílico. Si quieres esmaltado semipermanente o una base general del oficio, el [curso de uñas desde cero](/{cc}/curso-de-unas/) es el punto de partida, y para el cuidado de manos y pies está el [curso de manicure y pedicure](/{cc}/curso-de-manicure-y-pedicure/). El resto de opciones están en [cursos de belleza](/{cc}/cursos/belleza-online/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de uñas acrílicas?",
+        "a": "Son unas 13 horas de video que ves a tu ritmo. Una carrera técnica de uñas lleva meses o años; este es un curso libre online enfocado en el sistema acrílico, que puedes terminar en pocas semanas. Lo que más tiempo pide es la práctica: la perla y el limado salen parejos después de muchas repeticiones."
+      },
+      {
+        "q": "¿El curso de uñas acrílicas da certificado?",
+        "a": "Recibes una constancia digital de finalización cuando terminas el curso. La avalan Hotmart y Seminarios Online (MasterClasses.La), que es el creador. Sirve como prueba de que hiciste la formación y puedes mostrarla a quien te contrate o a tus clientas, pero no es un título oficial."
+      },
+      {
+        "q": "¿Qué materiales necesito para empezar con uñas acrílicas?",
+        "a": "Monómero y polímero acrílico, un pincel para acrílico, moldes, tips, limas de distinto grano, bloque pulidor, deshidratador, primer, empujador de cutícula y un dappen para el líquido. Para practicar sin clienta, una mano de práctica o tips sueltos. Suma {tapabocas} y un lugar ventilado, porque el monómero tiene un olor fuerte."
+      },
+      {
+        "q": "¿Qué es lo primero que se pone en las uñas acrílicas?",
+        "a": "Lo primero es preparar la uña: empujar la cutícula, quitar el brillo con la lima, limpiar el polvo y pasar el deshidratador. Si vas a usar tip, se pega y se ajusta en ese momento. Después va el primer, solo sobre la uña natural, y al final la primera perla de acrílico. El curso trata esa preparación en detalle."
+      },
+      {
+        "q": "¿Qué daña más las uñas, el acrílico o el gel?",
+        "a": "Bien aplicados y bien retirados, ni el acrílico ni el gel deberían dejar la uña maltratada. Los daños suelen venir de limar de más al preparar y de arrancar el producto en vez de retirarlo. Otro cuidado: que el monómero no toque la piel, porque los acrilatos pueden causar alergia."
+      },
+      {
+        "q": "¿Puedo aprender uñas acrílicas sin experiencia?",
+        "a": "Sí. El curso empieza por la anatomía de la uña, los materiales y la preparación, y avanza hasta esculpir, limar y retirar. Conviene practicar primero en tips sueltos o en una mano de práctica, y pasar a una persona cuando la perla y el limado ya te salgan parejos."
+      },
+      {
+        "q": "¿El curso de uñas acrílicas es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Pincel colocando una perla de acrílico rosa sobre un molde en el dedo índice",
+      "Lima dando forma almendra a una uña acrílica recién esculpida"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de uñas",
+        "url": "/{cc}/curso-de-unas/",
+        "motivo": "C01: «curso de uñas» y semipermanente son de curso-de-unas"
+      },
+      {
+        "ancla": "curso de manicure y pedicure",
+        "url": "/{cc}/curso-de-manicure-y-pedicure/",
+        "motivo": "C01: manicure a su curso"
+      },
+      {
+        "ancla": "curso de decoración de uñas",
+        "url": "/{cc}/curso-de-decoracion-de-unas/",
+        "motivo": "C01: nail art a decoración"
+      },
+      {
+        "ancla": "cursos de belleza",
+        "url": "/{cc}/cursos/belleza-online/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar todas las lecciones recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de uñas acrílicas online: preparación de la uña natural, uñas esculpidas y con tips, limado, retiro y nail art sobre acrílico.",
+      "meta_title": "Curso de Uñas Acrílicas Online | Sably"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "tapabocas": "tapabocas"
+      },
+      "meta_title": "Curso de uñas acrílicas online: esculpidas y con tips",
+      "meta_description": "Curso de uñas acrílicas online: preparación de la uña, esculpidas y con tips, limado, retiro y nail art en video. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "tapabocas": "cubrebocas"
+      },
+      "meta_title": "Curso de uñas acrílicas online: de la preparación al retiro",
+      "meta_description": "Curso de uñas acrílicas en video: anatomía de la uña, uñas esculpidas y con tips, tipos de limado, retiro y nail art. Pagas en MXN y recibes constancia."
+    }
+  }
+}

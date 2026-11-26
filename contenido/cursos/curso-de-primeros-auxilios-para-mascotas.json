@@ -1,0 +1,104 @@
+{
+  "slug": "curso-de-primeros-auxilios-para-mascotas",
+  "estado": "revisado",
+  "fuentes": [
+    "Hotmart, checkout público del producto T58086799J «Primeros Auxilios para Perros y Gatos» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: accidente por atropellamiento, envenenamiento, hemorragia; inmovilizar una extremidad; heridas; reanimación cardiovascular; intoxicaciones; botiquín; parto de perra o gata; golpe de calor; qué revisar primero; constancia avalada por Hotmart y Seminarios Online",
+    "CMS: durationHours 9 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso primeros auxilios animales», 10 CO / 10 MX; caninos y veterinarios como variaciones); canibalización C17 (sin cambio de H1)",
+    "Preguntas: faq-nuevas.csv (PAA de CO y MX)",
+    "Hotmart, checkout de los productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "El H1 usa «para mascotas» (nombre de la ficha, C17 sin cambio de H1) y no el principal del CSV, «curso primeros auxilios animales» (10 búsquedas, mal formado); «para animales» aparece una vez en el cuerpo, dentro de una frase propia.",
+    "Salud animal: los consejos del cuerpo y de las preguntas (presión directa, no provocar el vómito, agua fresca y no helada, no medicamentos humanos, bozal prudente, botiquín) son generales y prudentes, pero conviene que un veterinario los revise antes de publicar. No se describen pasos de reanimación a propósito.",
+    "Hotmart promete «salvarás a tu mascota», estabilizar una «muerte inminente» y ayudar a animales callejeros: no se repiten como promesa; la ficha insiste en llamar al veterinario.",
+    "El temario del CMS (módulo «Convierte lo aprendido en servicio», RCP en gatos, intoxicaciones por alimentos) no cuadra del todo con Hotmart; el texto solo usa Hotmart.",
+    "PAA de «auxiliar de veterinaria»: la ficha aclara que no es esa formación, sin enlazar a otra.",
+    "Revisión adversaria 25-nov: quitada la frase de relleno «si lo buscas como… es el mismo curso»; añadido el enlace de C17 hacia el curso de primeros auxilios para personas (en el documento del curso se publica sin enlace)."
+  ],
+  "base": {
+    "h1": "Curso de primeros auxilios para mascotas online en {pais}",
+    "subtitulo": "Aprendes qué hacer ante un accidente, un envenenamiento o una hemorragia de tu perro o gato, para estabilizarlo mientras llega al veterinario.",
+    "beneficios": [
+      "Primeros auxilios ante atropellamiento, envenenamiento o hemorragia",
+      "Distintos tipos de intoxicación en perros y gatos",
+      "Botiquín: qué debe tener y por qué",
+      "Manejo de heridas y cómo inmovilizar una extremidad",
+      "Golpe de calor y qué razas lo sufren más",
+      "Reanimación cardiovascular y atención de un parto"
+    ],
+    "para_quien": [
+      "Tienes perro o gato y quieres saber cómo actuar en una emergencia",
+      "Trabajas con mascotas y quieres saber qué hacer antes del veterinario",
+      "Quieres ayudar a un animal callejero herido",
+      "No es para ti si buscas formarte como auxiliar o técnico veterinario"
+    ],
+    "requisitos": [
+      "No se piden estudios previos",
+      "Celular o {computador} con internet",
+      "Un botiquín básico, que puedes armar a medida que avanzas",
+      "Teléfono de tu veterinario y de una clínica de urgencias"
+    ],
+    "cuerpo": "El curso de primeros auxilios para mascotas online de MasterClasses.La (en Hotmart, «Primeros Auxilios para Perros y Gatos») enseña qué hacer cuando un perro o un gato sufre un accidente por atropellamiento, un envenenamiento o una hemorragia, para estabilizarlo hasta llegar al veterinario. Son unas 9 horas de video que ves a tu ritmo.\n\nLo que aprendes sirve para que el animal llegue al veterinario en mejores condiciones; no lo reemplaza. Ante una emergencia lo primero es llamar a tu veterinario o a una clínica de urgencias, y el propio creador plantea ganar tiempo hasta llegar a ella.\n\n## Qué cubre\n\nSegún la descripción: accidentes por atropellamiento, intoxicaciones de distintos tipos, hemorragias y heridas, cómo inmovilizar una extremidad, el golpe de calor y qué razas son más susceptibles, qué revisar primero en el animal tras una situación crítica, la reanimación cardiovascular, el botiquín y cómo afrontar el parto de una perra o una gata.\n\n## Antes de tocar al animal\n\nSon consejos generales, no contenido del curso. Un animal asustado o con dolor puede morder o arañar, incluso a quien lo quiere. Acércate despacio, habla con calma y, si hace falta, usa un bozal improvisado, pero no si vomita o le cuesta respirar. Si hay que moverlo tras un golpe, una manta o una tabla sirve de camilla, sosteniendo cuello y espalda.\n\n## Mientras llegas al veterinario\n\nEn una hemorragia, lo habitual es presionar de forma directa con una gasa o una tela limpia. En una intoxicación, llama de inmediato, ten a mano el envase o el nombre de lo que comió y no le provoques el vómito ni le des remedios caseros, salvo que el veterinario lo indique. En un golpe de calor, llévalo a la sombra, mójalo con agua fresca, no helada, y ve a urgencias cuanto antes; las razas de hocico corto, como el bulldog o el pug, sufren más. Nunca le des medicamentos de uso humano: algunos, como el paracetamol o el ibuprofeno, son tóxicos para perros y gatos.\n\n## El botiquín\n\nConviene armarlo antes de la emergencia: gasas estériles, venda elástica, suero fisiológico, tijeras de punta roma, guantes, pinzas, un termómetro digital y, pegados por fuera, los teléfonos de tu veterinario y de una clínica de urgencias.\n\n## La reanimación\n\nEs una maniobra que se aprende viendo paso a paso, y que conviene practicar con un muñeco si puedes. No la improvises a partir de un párrafo escrito: por eso está en video dentro del curso.\n\n## Qué es y qué no es\n\nEs un curso básico de primeros auxilios para animales de compañía, sobre todo perros y gatos. No forma auxiliares ni técnicos veterinarios y la constancia que recibes no es un título. Tampoco trata la atención de personas: para eso está el [curso de primeros auxilios para personas](/{cc}/curso-de-primeros-auxilios/). Si te interesa el resto del área, mira el [curso de estética canina](/{cc}/curso-de-estetica-canina/) o los [cursos de cuidado animal](/{cc}/cursos/cuidado-animal/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de primeros auxilios para mascotas?",
+        "a": "Son unas 9 horas de video que ves a tu ritmo, sin horarios ni fechas de entrega. Se pueden terminar en pocos días, pero conviene repasar las clases cada cierto tiempo y tener a mano el botiquín y los teléfonos de tu veterinario, para no empezar a buscar en medio de la emergencia."
+      },
+      {
+        "q": "¿El curso de primeros auxilios para mascotas da certificado?",
+        "a": "Al terminar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La), el creador. Sirve para mostrar que hiciste la formación. No es un título oficial ni de veterinaria, y no te habilita para ejercer ni para tratar animales de otras personas."
+      },
+      {
+        "q": "¿Qué se hace en el curso de primeros auxilios para mascotas?",
+        "a": "Según la descripción del creador, ves qué hacer ante atropellamientos, envenenamientos y hemorragias, cómo inmovilizar una extremidad, el manejo de heridas, la reanimación cardiovascular y el golpe de calor. También los tipos de intoxicación, el botiquín, el parto de perras y gatas y qué revisar primero en el animal."
+      },
+      {
+        "q": "¿Cómo darle primeros auxilios a un perro?",
+        "a": "Primero tu seguridad: un perro con dolor puede morder. Llama a tu veterinario o a una clínica de urgencias y, mientras tanto, comprueba si respira y si sangra; un sangrado se contiene presionando con una gasa limpia. No le des medicamentos humanos ni le provoques el vómito sin indicación. Después, traslado inmediato."
+      },
+      {
+        "q": "¿Reemplaza al veterinario o sirve para ser auxiliar de veterinaria?",
+        "a": "No a ninguna de las dos cosas. Es un curso básico para estabilizar a un perro o un gato mientras llegas al veterinario, y la atención de un animal en peligro siempre debe seguir en una clínica. Para trabajar como auxiliar veterinario necesitas una formación específica, que este curso no ofrece."
+      },
+      {
+        "q": "¿Qué debe tener un botiquín para mascotas?",
+        "a": "Como consejo general: gasas estériles, venda elástica, suero fisiológico, tijeras de punta roma, guantes, pinzas, un termómetro digital y los teléfonos de tu veterinario y de una clínica de urgencias. Sin medicamentos de uso humano. El curso dedica una parte a la importancia del botiquín y a lo que debe llevar."
+      },
+      {
+        "q": "¿El curso de primeros auxilios para mascotas es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Botiquín abierto con gasas, venda y suero fisiológico sobre una mesa, junto a la correa de un perro",
+      "Persona sosteniendo con calma a un perro mientras le revisa la pata"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de primeros auxilios para personas",
+        "url": "/{cc}/curso-de-primeros-auxilios/",
+        "motivo": "C17: el genérico «curso de primeros auxilios» es de esa ficha"
+      },
+      {
+        "ancla": "curso de estética canina",
+        "url": "/{cc}/curso-de-estetica-canina/",
+        "motivo": "misma categoría (cuidado animal)"
+      },
+      {
+        "ancla": "cursos de cuidado animal",
+        "url": "/{cc}/cursos/cuidado-animal/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar todas las lecciones recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial ni de veterinaria.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de primeros auxilios para mascotas online: accidentes, intoxicaciones, hemorragias, heridas, golpe de calor y botiquín para perros y gatos.",
+      "meta_title": "Curso de primeros auxilios para mascotas: perros y gatos"
+    }
+  },
+  "paises": {},
+  "variantes": false,
+  "nota_variantes": "En el CMS no hay course_locales de este curso salvo es (la ficha sale con X-Sably-Locale-Source: emdash-generic en los demás países). El texto va al documento del curso: sin H1 por país y sin enlaces por país."
+}

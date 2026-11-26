@@ -1,0 +1,124 @@
+{
+  "slug": "curso-de-pasteleria",
+  "estado": "borrador",
+  "fuentes": [
+    "Hotmart, checkout público del producto N61635687U «Pastelería Desde Cero Para Emprender Desde Casa» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: recetas prácticas, bizcochos, postres fríos, galletas, clases paso a paso, clase en vivo cada mes",
+    "CMS: durationHours 15 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «cursos de repostería», 880 CO / 2.900 MX; «curso de pastelería» 260/320, dominante en AR); canibalización C08 (esta es la dueña de «curso de repostería desde cero»; no pisar «repostería fina» ni «postres gourmet», que son de curso-de-reposteria)",
+    "Preguntas: faq-nuevas.csv (PAA de CO y MX: cuánto dura, qué incluye, repostería virtual, gratis)",
+    "Hotmart, checkout de los tres productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "Decisión 6.d de JP pendiente: la demanda de CO y MX es «repostería» (880 y 2.900 frente a 260 y 320 de «pastelería»), pero la ficha se llama pastelería. El H1 se queda en «Curso de pastelería»; title, description y texto usan «repostería». Si JP decide renombrar, cambia el slug y el H1.",
+    "El temario del CMS (masas quebradas, pionono, ganache, crema pastelera, cheesecakes, tres leches, costeo y WhatsApp) no sale de Hotmart, que solo dice bizcochos, postres fríos, galletas y más recetas. El texto no promete ninguna receta concreta.",
+    "Hotmart promete «negocio altamente rentable» y «muchas ganancias»: no se repite. La clase en vivo mensual no se puede cotejar sin el área de miembros.",
+    "El metaTitle del .mdx lleva «con Certificado»: los meta_title nuevos no."
+  ],
+  "base": {
+    "h1": "Curso de pastelería online en {pais}",
+    "subtitulo": "Aprendes a preparar bizcochos, postres fríos y galletas con recetas prácticas explicadas paso a paso, y tienes una clase en vivo cada mes.",
+    "beneficios": [
+      "Hornear distintos tipos de bizcochos paso a paso",
+      "Preparar postres fríos con recetas prácticas",
+      "Hacer una variedad de galletas",
+      "Seguir recetas explicadas para repetirlas en casa enseguida",
+      "Asistir a una clase en vivo cada mes",
+      "Conocer las nuevas tendencias de pastelería"
+    ],
+    "para_quien": [
+      "Quieres aprender pastelería desde cero, en casa",
+      "Ya horneas y quieres sumar bizcochos, postres fríos y galletas",
+      "Prefieres clases 100 % prácticas, con cada receta paso a paso",
+      "No es para ti si buscas un título de gastronomía"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Horno, batidora y báscula de cocina",
+      "Moldes, espátulas, boles y mangas pasteleras",
+      "Espacio en la {nevera} para los postres fríos"
+    ],
+    "cuerpo": "El curso de pastelería online de MasterClasses.La es un programa de recetas prácticas para aprender repostería desde casa. Según la descripción del creador, las clases son 100 % prácticas y cada una se explica paso a paso, para que puedas hacer la receta enseguida: distintos tipos de bizcochos, postres fríos, variedad de galletas y más recetas.\n\nSon unas 15 horas de video que ves a tu ritmo. El creador menciona además una clase en vivo cada mes para seguir con las nuevas tendencias.\n\n## Pastelería y repostería\n\nEn muchos países las dos palabras se usan casi como sinónimos. Con pastelería se piensa sobre todo en {pasteles} y bizcochos, y con repostería en el conjunto más amplio de dulces, postres y galletas. Este curso toca ambos lados, así que sirve tanto si buscas clases de repostería como si lo tuyo son los pasteles.\n\n## Bizcochos\n\nEl bizcocho es la base de {pasteles} con relleno. El curso incluye distintos tipos. Un bizcocho sale parejo cuando pesas los ingredientes en una báscula, precalientas el horno antes de meter el molde y no lo abres durante los primeros minutos de horneado.\n\n## Postres fríos\n\nLos postres fríos se arman y se dejan reposar en la {nevera}. Las cremas, la gelatina y el queso necesitan horas para tomar cuerpo, así que se preparan con tiempo, y se guardan refrigerados hasta el momento de servir. Si los llevas a una reunión, transpórtalos en frío y sácalos de la {nevera} poco antes de servirlos.\n\n## Galletas\n\nLa descripción habla de una variedad de galletas. En galletas pesan el grosor de la masa, el tiempo de reposo y la temperatura del horno: un par de milímetros de diferencia cambian el resultado, y por eso conviene hornear una tanda de prueba antes de la completa. Deja enfriar las galletas sobre una rejilla antes de guardarlas en un recipiente cerrado, para que no se ablanden.\n\n## Si piensas vender desde casa\n\nEl producto se plantea para emprender desde casa, con recetas que se pueden empezar a vender. No hay promesa de ingresos: Hotmart aclara que no garantiza resultados. Antes de vender alimentos, revisa qué permisos sanitarios piden en tu ciudad; el curso no reemplaza ese trámite.\n\n## Otras opciones\n\nSi quieres ir a la repostería fina, el [curso de postres gourmet y repostería fina](/{cc}/curso-de-reposteria/) se enfoca en eso. Para decorar, están el [curso de tortas decoradas](/{cc}/curso-de-tortas-decoradas-desde-cero/) y el [curso de cupcakes](/{cc}/curso-de-cupcakes/). Este es un curso libre online: al terminar recibes una constancia de finalización, no un título. El resto del área está en [cursos de panadería y pastelería](/{cc}/cursos/panaderia-y-pasteleria/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de pastelería?",
+        "a": "Son unas 15 horas de video que ves a tu ritmo, sin horarios. Una carrera técnica o un diplomado dura meses; este es un curso libre online. El tiempo real lo marca la práctica: conviene repetir cada receta hasta que salga igual dos veces seguidas. Además hay una clase en vivo cada mes, según el creador."
+      },
+      {
+        "q": "¿El curso de pastelería da certificado?",
+        "a": "Al terminar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La), el creador. Sirve para mostrar que hiciste la formación. No es un título oficial ni un registro profesional, así que no es un título de gastronomía."
+      },
+      {
+        "q": "¿Qué incluye un curso de pastelería?",
+        "a": "Según la descripción del creador, recetas prácticas de distintos tipos de bizcochos, postres fríos y variedad de galletas, con cada clase explicada paso a paso, y una clase en vivo cada mes sobre nuevas tendencias. Si buscas una receta concreta, escríbenos por WhatsApp antes de comprar y te decimos si está incluida."
+      },
+      {
+        "q": "¿Qué materiales necesito para empezar?",
+        "a": "Horno, batidora, báscula de cocina, moldes, espátulas, boles y mangas pasteleras, además de los ingredientes de cada receta: harina, azúcar, huevos, mantequilla. Para los postres fríos necesitas espacio en la {nevera}. No hace falta comprar todo el primer día: muchas recetas se hacen con lo que ya tienes en la cocina."
+      },
+      {
+        "q": "¿Se puede estudiar repostería virtual?",
+        "a": "Sí. Este curso es 100 % online: ves los videos cuando quieras y repites cada clase las veces que necesites. Lo que no es: una carrera con título ni una clase presencial donde alguien corrija tus manos. Por eso conviene fijarte en cómo queda cada receta y ajustar de a poco."
+      },
+      {
+        "q": "¿Sirve para vender postres desde casa?",
+        "a": "El producto se plantea para emprender desde casa, y las recetas son prácticas para repetirlas. No promete ventas ni ingresos: Hotmart aclara que no garantiza resultados. Antes de vender alimentos, revisa los permisos sanitarios que piden en tu ciudad, porque el curso no reemplaza ese trámite."
+      },
+      {
+        "q": "¿El curso de pastelería es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Bizcocho recién horneado enfriándose sobre una rejilla junto a una espátula",
+      "Bandeja de galletas caseras sobre papel de horno con una manga pastelera al lado"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de postres gourmet y repostería fina",
+        "url": "/{cc}/curso-de-reposteria/",
+        "motivo": "C08: repostería fina es de curso-de-reposteria"
+      },
+      {
+        "ancla": "curso de tortas decoradas",
+        "url": "/{cc}/curso-de-tortas-decoradas-desde-cero/",
+        "motivo": "decoración"
+      },
+      {
+        "ancla": "curso de cupcakes",
+        "url": "/{cc}/curso-de-cupcakes/",
+        "motivo": "misma subcategoría"
+      },
+      {
+        "ancla": "cursos de panadería y pastelería",
+        "url": "/{cc}/cursos/panaderia-y-pasteleria/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar todas las lecciones recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de pastelería y repostería online: bizcochos, postres fríos y galletas con recetas prácticas paso a paso y una clase en vivo cada mes.",
+      "meta_title": "Curso de pastelería y repostería desde casa | Sably"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "pasteles": "tortas",
+        "nevera": "nevera"
+      },
+      "meta_title": "Curso de pastelería y repostería online: bizcochos y más",
+      "meta_description": "Curso de pastelería y repostería online: bizcochos, postres fríos y galletas con recetas paso a paso y clase en vivo. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "pasteles": "pasteles",
+        "nevera": "refrigerador"
+      },
+      "meta_title": "Curso de repostería y pastelería: recetas paso a paso",
+      "meta_description": "Curso de repostería y pastelería en video: bizcochos, postres fríos, galletas y una clase en vivo cada mes. Pagas en MXN y recibes constancia."
+    }
+  }
+}

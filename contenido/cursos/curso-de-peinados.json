@@ -1,0 +1,119 @@
+{
+  "slug": "curso-de-peinados",
+  "estado": "borrador",
+  "fuentes": [
+    "Hotmart, checkout público del producto Y66385340K «El Negocio de los Peinados A Domicilio» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: técnicas de peinado, planchado y ondulado, manera correcta de planchar, etiqueta y protocolo del negocio, distintos tipos de peinados, variedad de diseños, tendencias de la industria",
+    "CMS: durationHours 14 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de peinados», 170 CO / 170 MX; variación «curso de peinado profesional» 10 / 210)",
+    "Canibalización C26 (curso-de-peinados se queda «curso de peinados»; enlaza a trenzas con «curso de trenzas»)",
+    "Preguntas: faq-nuevas.csv (PAA de CO y MX)",
+    "Conocimiento general del oficio (planchado, ondulado), siempre como consejo",
+    "Hotmart, checkout de los tres productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "Hotmart es corto y no nombra ningún peinado concreto. El .mdx habla de recogidos, ondas, peinados de novia y quinceañera, moños: nada de eso está en la fuente y el texto no lo promete. Cotejar con el área de miembros. Por eso la ficha dice que no se detallan peinados de novia ni infantiles.",
+    "Hotmart promete «emprendimiento rentable» y «uno de los negocios más rentables»: no se repite.",
+    "Precio falso detectado en el clúster (el .mdx cita 38 USD y otras fichas 150 y 63): no se usa ninguna cifra.",
+    "Decisión de JP: «curso de peinados para niñas» (110 CO / 70 MX) no tiene respaldo en Hotmart; se trata solo como pregunta frecuente."
+  ],
+  "base": {
+    "h1": "Curso de peinados online en {pais}",
+    "subtitulo": "Aprendes técnicas de peinado, planchado y ondulado y cómo llevar el negocio de peinados a domicilio.",
+    "beneficios": [
+      "Técnicas de peinado para distintos tipos de peinados",
+      "Planchado correcto del cabello",
+      "Técnicas de ondulado para dar forma al cabello",
+      "Etiqueta y protocolo del negocio de peinados a domicilio",
+      "Variedad de diseños para ofrecer a cada cliente",
+      "Tendencias actuales de la industria de los peinados"
+    ],
+    "para_quien": [
+      "Quieres aprender distintos tipos de peinados",
+      "Piensas peinar a domicilio y quieres organizar el servicio",
+      "Ya peinas y quieres afinar el planchado y el ondulado",
+      "No es para ti si buscas un título de peluquería"
+    ],
+    "requisitos": [
+      "Plancha de cabello, cepillos, peines y pinzas para seccionar",
+      "Laca y productos de fijación",
+      "Una cabeza de práctica o alguien que se deje peinar",
+      "Celular o {computador} con internet"
+    ],
+    "cuerpo": "El curso de peinados online de MasterClasses.La está planteado como un negocio de peinados a domicilio. Enseña técnicas de peinado, el planchado y el ondulado, y la etiqueta y el protocolo para atender clientas en su casa. Son unas 14 horas de video que ves a tu ritmo, desde el celular o un {computador}.\n\n## Planchado y ondulado\n\nLa descripción oficial dedica dos puntos al planchado y al ondulado, y uno de ellos a la manera correcta de planchar. En el oficio se empieza con el cabello limpio y completamente seco, se aplica un protector térmico, se trabaja por secciones delgadas y se ajusta la temperatura al tipo de cabello: más baja en el fino o el teñido, más alta en el grueso. La plancha también sirve para ondular, y el sentido en que giras la plancha cambia la forma de la onda.\n\n## Distintos tipos de peinados\n\nEl curso muestra distintos tipos de peinados y una variedad de diseños para ofrecerle a cada cliente. Hotmart no detalla cuáles son. Si buscas uno específico, como peinados de novia, recogidos o peinados para niñas, escríbenos por WhatsApp antes de comprar y te decimos qué sabemos.\n\n## El negocio a domicilio\n\nLa otra parte es de oficio: la etiqueta y el protocolo del negocio. Quien peina a domicilio trabaja en casa ajena, así que cuentan la puntualidad, llevar el kit completo y dejar el espacio como estaba. Conviene además acordar de antemano el precio y la hora del servicio. El curso también repasa las tendencias de la industria de los peinados, para que sepas qué se pide hoy. No promete ingresos: lo que ganes depende de tu ciudad, tu tarifa y cuántas clientas atiendas.\n\n## Qué necesitas para practicar\n\nUna plancha de cabello, cepillos, peines y pinzas para seccionar, laca y productos de fijación. Practica en una cabeza de práctica o con alguien de confianza, y cuida la punta de la plancha cerca de la piel y de las orejas. Cuando practiques, fotografía cada resultado desde atrás y de lado, que es como lo verá la clienta, y anota la temperatura y el tiempo que usaste. Si buscas un curso de peinado profesional con título, este no lo es: recibes una constancia de finalización, no un título técnico.\n\n## Peinados, trenzas y peluquería\n\nEste curso cubre peinados en general. Para trenzas, el [curso de trenzas](/{cc}/curso-de-trenzas-y-peinados/) va más a fondo. Si necesitas una base más amplia del oficio, con corte y color, mira el [curso de peluquería](/{cc}/curso-de-peluqueria/). Y si lo tuyo es ver todas las opciones del área, están en [cursos de belleza](/{cc}/cursos/belleza-online/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de peinados?",
+        "a": "Son unas 14 horas de video que ves a tu ritmo. Una carrera técnica de peluquería dura meses o años; este es un curso libre online sobre peinados, que puedes terminar en pocas semanas. Lo que más tiempo pide es practicar el planchado y el ondulado hasta que salgan parejos."
+      },
+      {
+        "q": "¿El curso de peinados da certificado?",
+        "a": "Recibes una constancia digital de finalización cuando terminas el curso. La avalan Hotmart y Seminarios Online (MasterClasses.La), que es el creador. Sirve como prueba de que hiciste la formación y puedes mostrarla a quien te contrate o a tus clientas, pero no es un título oficial."
+      },
+      {
+        "q": "¿Qué se estudia para hacer peinados?",
+        "a": "Según la descripción del creador: técnicas de peinado, planchado y ondulado, la manera correcta de planchar, los distintos tipos de peinados y diseños, y la etiqueta y el protocolo del negocio de peinados a domicilio. No incluye corte ni color: para eso está el curso de peluquería."
+      },
+      {
+        "q": "¿Cómo aprender a hacer peinados?",
+        "a": "Con técnica y práctica: cabello limpio y seco, secciones delgadas, protector térmico y una cabeza de práctica para repetir. El curso te muestra las técnicas en video y puedes repasarlas cuando quieras. Pasa a una persona cuando el planchado y el ondulado ya te salgan parejos."
+      },
+      {
+        "q": "¿Incluye peinados de novia o para niñas?",
+        "a": "La descripción oficial habla de distintos tipos de peinados y de una variedad de diseños, pero no los nombra, así que no podemos asegurarte peinados de novia ni infantiles. Si necesitas uno en particular, escríbenos por WhatsApp antes de comprar y te decimos qué sabemos del curso."
+      },
+      {
+        "q": "¿Necesito plancha y otros materiales para el curso?",
+        "a": "Para practicar lo que se enseña de planchado y ondulado necesitas una plancha de cabello, cepillos, peines y pinzas para seccionar, laca y productos de fijación. Lo ideal es una cabeza de práctica; si no, alguien de confianza. Empieza con lo básico y suma materiales según lo que practiques."
+      },
+      {
+        "q": "¿El curso de peinados es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Estilista alisando una sección de cabello con plancha en casa de una clienta",
+      "Cabeza de práctica con ondas hechas con plancha, pinzas y laca sobre la mesa"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de trenzas",
+        "url": "/{cc}/curso-de-trenzas-y-peinados/",
+        "motivo": "C26: trenzas con su principal «curso de trenzas»"
+      },
+      {
+        "ancla": "curso de peluquería",
+        "url": "/{cc}/curso-de-peluqueria/",
+        "motivo": "base del oficio"
+      },
+      {
+        "ancla": "cursos de belleza",
+        "url": "/{cc}/cursos/belleza-online/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de peinados online: técnicas de peinado, planchado y ondulado, distintos tipos de peinados y cómo llevar el negocio a domicilio.",
+      "meta_title": "Curso de Peinados Online | Sably"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador"
+      },
+      "meta_title": "Curso de peinados online: planchado, ondulado y diseños",
+      "meta_description": "Curso de peinados online: técnicas de peinado, planchado, ondulado y cómo llevar el negocio a domicilio, en video. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora"
+      },
+      "meta_title": "Curso de peinado profesional online: técnicas y negocio",
+      "meta_description": "Curso de peinados en video: planchado, ondulado, distintos tipos de peinados y etiqueta del servicio a domicilio. Pagas en MXN y recibes constancia."
+    }
+  }
+}

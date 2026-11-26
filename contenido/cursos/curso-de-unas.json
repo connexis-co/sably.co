@@ -1,0 +1,108 @@
+{
+  "slug": "curso-de-unas",
+  "estado": "borrador",
+  "fuentes": [
+    "Hotmart, checkout público del producto C55918118T «Master en Uñas»; texto «Aprende el negocio de las uñas» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: lista «¿Qué vas a lograr?»; en hotmart-map.json el slug apunta al mismo producto que curso-de-unas-acrilicas (confirmar)",
+    "CMS: durationHours 12 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de uñas», 1.300 CO / 4.400 MX; variaciones: academia de uñas, clases de uñas, curso para hacer uñas, semipermanente); canibalización C01 (dueño de «curso de uñas», «curso de uñas desde cero» y semipermanente)",
+    "Preguntas: faq-nuevas.csv (PAA: cuántos meses dura, certificado, SEP)",
+    "Hotmart, checkout de los tres productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "Hotmart no menciona esmaltado semipermanente ni manicura clásica por nombre; solo «todas las técnicas del arreglo de uñas» y «técnicas en tendencia». El temario del CMS sí los trae (semipermanente, torno y fresas, nail art, WhatsApp Business), pero no es fuente. El texto presenta el semipermanente como conocimiento del oficio y lo deja en una pregunta que remite a WhatsApp. Decisión de JP: C01 da el semipermanente a esta ficha; conviene confirmar en el área de miembros que el curso lo enseña antes de ponerlo en title/H1.",
+    "Hotmart dice «todas las técnicas» y «altos ingresos» (no se repite). Hotmart no dice si es para quien parte de cero: «No necesitas experiencia previa» sale del temario, confirmar.",
+    "hotmart-map.json: este slug y curso-de-unas-acrilicas comparten producto C55918118T; si es así son dos fichas del mismo curso (y el texto de acrílicas describe cosas que Hotmart no dice).",
+    "Solo variante CO. MX usa el documento del curso; el título MX actual del CSV («en México») no se carga.",
+    "El grupo privado de Facebook y el material descargable sí están en Hotmart; no hay promesa de comunidad activa."
+  ],
+  "base": {
+    "h1": "Curso de uñas online en {pais}",
+    "subtitulo": "Aprendes las técnicas del arreglo de uñas, combinas formas y colores, creas diseños y organizas tu propio negocio de uñas.",
+    "beneficios": [
+      "Las técnicas del arreglo de uñas",
+      "Combinar formas y colores de manera adecuada",
+      "Diseños y técnicas que están en tendencia",
+      "Elegir materiales y herramientas de buena calidad",
+      "Conocer el mercado donde ofrecerás tus servicios",
+      "Habilidades digitales para dar a conocer tu negocio y conseguir clientas"
+    ],
+    "para_quien": [
+      "Quieres aprender el oficio de uñas con una base completa",
+      "Haces uñas en casa y quieres ordenar la técnica y los materiales",
+      "Piensas montar tu propio negocio de uñas y buscar clientas",
+      "No es para ti si buscas un título técnico oficial"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Limas, bloque pulidor, empujador de cutícula y alicate",
+      "Esmaltes de práctica, con base y acabado",
+      "Una mano de práctica o alguien que te preste las uñas"
+    ],
+    "cuerpo": "El curso de uñas online de MasterClasses.La reúne las técnicas del arreglo de uñas y lo necesario para armar tu propio negocio: materiales y herramientas, diseños, combinaciones de formas y colores, y habilidades digitales para conseguir clientas. Son unas 12 horas de video que ves a tu ritmo, con material de apoyo descargable debajo de los videos y un grupo privado de Facebook con otras alumnas del programa.\n\n## Un curso de uñas desde cero\n\nLa descripción del creador habla de aprender todas las técnicas del arreglo de uñas, sin lista por nombre. Por eso conviene separar lo que dice el curso de lo que es el oficio. Un arreglo de uñas básico sigue una rutina conocida: limpiar la uña, empujar la cutícula, limar, dar forma y esmaltar. Sobre esa base se agregan las demás técnicas.\n\n## Manicura y esmaltado semipermanente\n\nEl esmaltado semipermanente es un esmalte que se cura bajo una lámpara UV o LED y dura semanas sin saltarse, y es de los servicios más pedidos en un salón. Es parte habitual de cualquier curso de uñas y de la manicura moderna. La descripción del creador no lo nombra de forma expresa; si es lo que más te importa, escríbenos por WhatsApp antes de comprar y te confirmamos.\n\n## Formas, colores y diseños\n\nEl curso trabaja las combinaciones adecuadas de formas y colores y las técnicas que están en tendencia. En el oficio, la forma de la uña (cuadrada, ovalada, almendra) se elige según el largo y los dedos de la clienta, y el color según el tono de piel y la ocasión. Un diseño sencillo y parejo se nota más que uno recargado y torcido.\n\n## Materiales y herramientas\n\nUna parte del curso es conocer los materiales y las herramientas adecuados y de buena calidad. Para empezar, en el oficio se usan limas de distinto grano, un bloque pulidor, un empujador de cutícula, un alicate, esmaltes con su base y su acabado, y algodón y acetona para limpiar. La lámpara y los esmaltes semipermanentes se suman después, cuando ya manejas la técnica.\n\n## Del curso al negocio\n\nEl creador incluye las herramientas para crear tu negocio: conocer el mercado donde vas a ofrecer el servicio y las habilidades digitales para darte a conocer y conseguir clientas. La descripción no promete resultados y este texto tampoco.\n\n## Si buscas algo más específico\n\nPara uñas esculpidas con tips y acrílico está el [curso de uñas acrílicas](/{cc}/curso-de-unas-acrilicas/). Si te interesa el cuidado de manos y pies, el [curso de manicure y pedicure](/{cc}/curso-de-manicure-y-pedicure/) es el indicado, y el resto de opciones del área están en [cursos de belleza](/{cc}/cursos/belleza-online/).",
+    "faqs": [
+      {
+        "q": "¿Cuántos meses dura un curso de uñas?",
+        "a": "Este curso son unas 12 horas de video que ves a tu ritmo, así que puedes terminarlo en pocas semanas. Es un curso libre online, no una carrera técnica, que sí lleva meses o años. Lo que más tiempo pide es la práctica: el pulso, el limado y la pintura salen parejos después de muchas repeticiones."
+      },
+      {
+        "q": "¿El curso de uñas da certificado?",
+        "a": "Recibes una constancia digital de finalización cuando terminas el curso. La avalan Hotmart y Seminarios Online (MasterClasses.La), que es el creador. Sirve como prueba de que hiciste la formación y puedes mostrarla a quien te contrate o a tus clientes, pero no es un título oficial."
+      },
+      {
+        "q": "¿El curso de uñas enseña esmaltado semipermanente?",
+        "a": "La descripción del creador habla de todas las técnicas del arreglo de uñas y de técnicas en tendencia, sin nombrarlas una por una. El esmaltado semipermanente es parte habitual del oficio, pero si es lo que más te importa, escríbenos por WhatsApp antes de comprar y te confirmamos qué trae el curso."
+      },
+      {
+        "q": "¿Qué materiales necesito para empezar a hacer uñas?",
+        "a": "Limas de distinto grano, bloque pulidor, empujador de cutícula, alicate, esmaltes con base y acabado, algodón y acetona. Para practicar sin clienta sirve una mano de práctica o una persona de confianza. La lámpara UV o LED solo hace falta si vas a trabajar esmaltado semipermanente."
+      },
+      {
+        "q": "¿Qué trae el curso además de los videos?",
+        "a": "Según la descripción del creador, tienes material de apoyo descargable debajo de los videos y acceso a un grupo privado de Facebook con otras alumnas del programa. También hay una constancia de finalización al terminar. El resto del contenido se ve en video, a tu ritmo, desde Hotmart."
+      },
+      {
+        "q": "¿Puedo aprender uñas sin estudios previos?",
+        "a": "El curso está pensado para aprender el oficio del arreglo de uñas y armar tu negocio. No necesitas un título para empezar. Conviene practicar primero con una mano de práctica o con una persona de confianza antes de atender a una clienta, y escribirnos por WhatsApp si tienes dudas sobre el nivel."
+      },
+      {
+        "q": "¿El curso de uñas es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Manos de una manicurista limando la uña de una clienta en una mesa de trabajo",
+      "Mesa con limas, esmaltes, empujador de cutícula y una paleta de colores"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de uñas acrílicas",
+        "url": "/{cc}/curso-de-unas-acrilicas/",
+        "motivo": "C01: acrílico a su ficha"
+      },
+      {
+        "ancla": "curso de manicure y pedicure",
+        "url": "/{cc}/curso-de-manicure-y-pedicure/",
+        "motivo": "C02: manicure a su ficha"
+      },
+      {
+        "ancla": "cursos de belleza",
+        "url": "/{cc}/cursos/belleza-online/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de uñas online: técnicas del arreglo de uñas, formas y colores, diseños en tendencia, materiales y herramientas para tu negocio.",
+      "meta_title": "Curso de Uñas Online: Técnicas y Diseños | Sably"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {},
+      "meta_title": "Curso de uñas online: técnicas, diseños y negocio",
+      "meta_description": "Curso de uñas online: técnicas del arreglo de uñas, formas y colores, diseños en tendencia y herramientas para tu negocio. Pagas en COP y recibes constancia."
+    }
+  }
+}

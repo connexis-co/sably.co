@@ -1,0 +1,121 @@
+{
+  "slug": "curso-de-estetica-canina",
+  "estado": "revisado",
+  "fuentes": [
+    "Hotmart, checkout público del producto V42089784L «Estética Canina» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: herramientas y su uso correcto, evitar lesiones e infecciones por un mal baño, bañar, cepillar, cortar uñas, secar con distintas técnicas, planear el corte, competencias de belleza canina",
+    "CMS: durationHours 14 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de peluquería canina», 480 CO / 90 MX; «curso de estética canina», 40 CO / 720 MX); canibalización C09",
+    "Preguntas: faq-nuevas.csv (PAA de CO, MX, CL, PE, EC, AR, ES)",
+    "Hotmart, checkout de los productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "C09 está pendiente de JP: estética canina y peluquería-canina-profesional tienen el mismo temario en el CMS (cursos.csv), aunque son productos de Hotmart distintos (1090646 y 1100847; el segundo con hotmartUrl PENDIENTE). ¿Se deja de vender una? Por eso la ficha no enlaza a peluquería canina profesional.",
+    "H1 por país vía hueco {estetica}: CO «Curso de estética y peluquería canina online en Colombia», MX «Curso de estética canina online en México». Si JP resuelve C09 a favor de «peluquería canina» en CO, solo cambia el vocabulario.",
+    "El temario del CMS (corte a máquina y tijera, estilos por raza, «monta tu peluquería») y los títulos previos (corte higiénico de patas, poodle) no están en Hotmart. El texto solo promete planear el corte y dice que no detalla estilos por raza.",
+    "Hotmart no menciona constancia ni certificado para este curso; la FAQ sigue el patrón de los pilotos (constancia avalada por Hotmart y Seminarios Online). Confirmar en el área de miembros.",
+    "Hotmart habla de competencias y premios: se cita como posibilidad que menciona el creador, sin promesa.",
+    "Revisión adversaria 25-nov: corregida la duda que decía «misma fuente en Hotmart» (son dos productos); «en unos países se llama peluquería canina y en otros grooming» no era cierto y pasa a «también se le llama».",
+    "Pregunta de experiencia previa conservada (existía en la ficha): Hotmart no la menciona; la respuesta lo dice así."
+  ],
+  "base": {
+    "h1": "Curso de {estetica} online en {pais}",
+    "subtitulo": "Aprendes a bañar, cepillar y secar a un perro sin lastimarlo, a cortarle las uñas y a planear su corte, con las herramientas correctas.",
+    "beneficios": [
+      "Herramientas de estética canina y su uso correcto",
+      "Bañar al perro evitando lesiones e infecciones",
+      "Cepillar al perro con las técnicas adecuadas",
+      "Cortar las uñas con seguridad",
+      "Secar con distintas técnicas",
+      "Planear el corte antes de empezar"
+    ],
+    "para_quien": [
+      "Tienes perro y quieres bañarlo y arreglarlo en casa",
+      "Empiezas en la peluquería canina y quieres la base del oficio",
+      "Ya bañas perros y quieres ordenar la técnica",
+      "No es para ti si buscas un título veterinario o tratar la piel"
+    ],
+    "requisitos": [
+      "No se piden estudios previos",
+      "Cepillo, peine, cortaúñas para perros y champú canino",
+      "Toallas absorbentes y un secador para mascotas",
+      "Un perro tranquilo con quien practicar"
+    ],
+    "cuerpo": "El curso de estética canina online de MasterClasses.La (en Hotmart, «Estética Canina») enseña lo básico del oficio: conocer las herramientas y usarlas bien, bañar al perro, cepillarlo, cortarle las uñas, secarlo con distintas técnicas y planear su corte. Son unas 14 horas de video que ves a tu ritmo. Al oficio también se le llama peluquería canina o grooming.\n\n## Herramientas y cómo usarlas\n\nLa descripción del creador arranca por ahí: conocer las herramientas y usarlas correctamente. En el oficio eso significa tener cada cosa para su fin: cepillos y peines según el tipo de pelo, un cortaúñas hecho para perros, champú de uso canino (el de personas tiene otro pH y reseca la piel del perro), toallas absorbentes y un secador pensado para mascotas.\n\n## Un baño sin lastimar\n\nEl curso se propone evitar lesiones e infecciones por un mal baño. En la práctica ayuda usar agua tibia, que no entre agua al oído, enjuagar muy bien el jabón de los pliegues y secar por completo, porque la humedad que queda bajo el pelo irrita la piel y favorece los hongos. Si la piel está roja, con heridas o con mal olor persistente, eso es asunto del veterinario, no de la peluquería.\n\n## Cepillado, uñas y secado\n\nSe cepilla antes del baño: el pelo mojado con nudos se apelmaza y después cuesta más deshacerlo. Para las uñas, la regla es cortar solo la punta; más adentro está la parte viva, con vasos sanguíneos, y si se corta duele y sangra. En perros de uñas oscuras se avanza de a poco. En el secado, el aire va tibio, nunca caliente, y a cierta distancia de la piel. El curso trata el cepillado, el corte de uñas y el secado con distintas técnicas.\n\n## Planear el corte\n\nEl último punto de la descripción es planear cómo harás el corte de cada perro. En la práctica es mirar el tipo de pelo, el largo que pide su dueño y cómo se comporta el animal antes de tomar la máquina o las tijeras. La descripción no detalla estilos por raza ni técnicas de corte concretas, así que no esperes un repertorio de cortes.\n\n## Si piensas en concursos\n\nEl creador menciona los concursos de belleza canina como una meta posible para quien perfecciona la técnica. Es una posibilidad que cita, no una promesa del curso, y no hay ingresos ni premios asegurados.\n\n## Qué necesitas para practicar\n\nUn perro tranquilo, el tuyo o el de alguien de confianza, un cepillo y un peine, un cortaúñas para perros, champú canino, toallas y un secador. Empieza por el cepillado y el baño antes de usar tijeras. Si tienes perro en casa, el [curso de primeros auxilios para mascotas](/{cc}/curso-de-primeros-auxilios-para-mascotas/) también te sirve, y el resto de opciones del área está en [cursos de cuidado animal](/{cc}/cursos/cuidado-animal/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de estética canina?",
+        "a": "Son unas 14 horas de video que ves a tu ritmo, sin horarios. Cuánto tardas en tomarle la mano al oficio depende de la práctica: el baño, el cepillado y el corte de uñas salen mejor después de repetirlos con varios perros. Conviene practicar con uno tranquilo mientras avanzas en las clases."
+      },
+      {
+        "q": "¿El curso de estética canina da certificado?",
+        "a": "Al terminar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La), el creador. Sirve para mostrar que hiciste la formación. No es un título oficial ni de veterinaria, y no te habilita para tratar problemas de salud o de piel de un animal."
+      },
+      {
+        "q": "¿Dónde puedo estudiar peluquería canina?",
+        "a": "Puedes tomarlo online: en Sably está este curso de MasterClasses.La, con las clases en video en Hotmart y el pago en la moneda de tu país. Es un curso libre, no una carrera técnica. Se ve a tu ritmo y no pide horarios, aunque la práctica con perros reales la tienes que organizar tú."
+      },
+      {
+        "q": "¿Qué materiales necesito para empezar?",
+        "a": "Un cepillo y un peine, un cortaúñas hecho para perros, champú de uso canino, toallas absorbentes y un secador para mascotas. Con eso haces las primeras prácticas. Las tijeras y la máquina de corte pueden esperar hasta que el baño, el cepillado y el secado te salgan con soltura."
+      },
+      {
+        "q": "¿Qué se necesita para abrir una estética canina?",
+        "a": "Según la descripción del creador, el curso se centra en la técnica: herramientas, baño, cepillado, uñas, secado y planeación del corte. Los permisos, el local y los equipos dependen de cada ciudad, y conviene consultarlos con la autoridad local antes de invertir. El curso no promete ingresos."
+      },
+      {
+        "q": "¿Cómo se baña a un perro sin lastimarlo?",
+        "a": "Con agua tibia, un champú hecho para perros, cuidando que no le entre agua al oído y enjuagando bien todos los pliegues. Después, secarlo por completo, porque la humedad irrita la piel. Evitar lesiones e infecciones por un mal baño es uno de los puntos que plantea el curso. Si la piel se ve dañada, consulta al veterinario."
+      },
+      {
+        "q": "¿Necesito experiencia previa con perros?",
+        "a": "La descripción del creador no pide experiencia previa. El curso parte del conocimiento de las herramientas y su uso, y sigue con el baño, el cepillado, el corte de uñas, el secado y la planeación del corte. Si nunca has arreglado un perro, empieza con uno tranquilo y conocido, mejor el tuyo."
+      },
+      {
+        "q": "¿El curso de estética canina es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Persona enjuagando a un perro mediano en una tina con agua tibia y una mano sosteniéndole el pecho",
+      "Mesa de trabajo con cepillo, peine, cortaúñas para perros y toallas dobladas"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de primeros auxilios para mascotas",
+        "url": "/{cc}/curso-de-primeros-auxilios-para-mascotas/",
+        "motivo": "misma categoría (cuidado animal); C09: no se enlaza a peluquería canina profesional hasta que JP decida"
+      },
+      {
+        "ancla": "cursos de cuidado animal",
+        "url": "/{cc}/cursos/cuidado-animal/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar todas las lecciones recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial ni de veterinaria.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de estética y peluquería canina online: herramientas, baño, cepillado, corte de uñas, secado y planeación del corte de cada perro.",
+      "meta_title": "Curso de estética canina y peluquería canina online"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "estetica": "estética y peluquería canina"
+      },
+      "meta_title": "Curso de peluquería canina online: baño, uñas y secado",
+      "meta_description": "Curso de estética y peluquería canina en video: herramientas, baño, cepillado, uñas, secado y planeación del corte. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "estetica": "estética canina"
+      },
+      "meta_title": "Curso de estética canina online: baño, cepillado y corte",
+      "meta_description": "Curso de estética canina online: herramientas, baño sin lesiones, cepillado, uñas, secado y plan de corte, en video. Pagas en MXN y recibes constancia."
+    }
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "slug": "curso-de-decoracion-con-globos",
+  "estado": "revisado",
+  "fuentes": [
+    "Hotmart, checkout público del producto J42873379B «Diseño y Decoración con Globos» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: 4 módulos, cómo empezar, materiales y herramientas, técnicas de inflado, atado, encintado y calibrado, comentarios bajo cada video",
+    "CMS: durationHours 10 (no cotejado en Hotmart)",
+    "Clústeres: clusteres.csv (principal «curso de decoración con globos», 210 CO / 480 MX); canibalización C18 (esta es la dueña) y C19 (no usar «arreglos de globos» en title/H1)",
+    "Preguntas: faq-nuevas.csv (PAA de MX y todos: tipos de globos, rentabilidad, clases gratuitas)",
+    "Hotmart, checkout de los tres productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "El temario del CMS (guirnalda orgánica, arcos, baby shower, bodas y quinces, cotizar, Instagram, contratos) no sale de Hotmart, que solo habla de cómo empezar, materiales, herramientas y técnicas de inflado, atado, encintado y calibrado. El texto no lo promete.",
+    "El metaTitle del .mdx lleva «con Certificado»: los meta_title nuevos no.",
+    "Hotmart promete «libertad económica» y ganar dinero cuanto antes: no se repite. «Encintado» se nombra sin definirlo porque la descripción no lo explica.",
+    "Comprobar que los comentarios bajo cada video siguen activos en el área de miembros.",
+    "Revisión adversaria 25-nov: cambios menores de estilo (frase con la principal repetida, «chicos» por «pequeños», respuesta de constancia redundante). Sin errores de hechos frente a Hotmart."
+  ],
+  "base": {
+    "h1": "Curso de decoración con globos online en {pais}",
+    "subtitulo": "Aprendes los materiales y herramientas de la decoración con globos y la técnica de inflado, atado, encintado y calibrado para hacer tus propias creaciones.",
+    "beneficios": [
+      "Empezar en la decoración con globos con una base sólida",
+      "Elegir los materiales y herramientas que necesitas",
+      "Inflar, atar, encintar y calibrar globos con la técnica correcta",
+      "Preparar creaciones para fiestas y reuniones, a tu ritmo",
+      "Perfeccionar lo que ya sabes de eventos y fiestas",
+      "Resolver dudas en los comentarios bajo cada video"
+    ],
+    "para_quien": [
+      "Quieres empezar en la decoración con globos desde cero",
+      "Ya organizas fiestas o eventos y quieres sumar globos",
+      "Prefieres aprender en video y repetir cada clase",
+      "No es para ti si buscas un título técnico oficial"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Globos de látex de varios tamaños y colores para practicar",
+      "Inflador, cinta o hilo y tijeras",
+      "Celular o {computador} con internet para ver las clases"
+    ],
+    "cuerpo": "El curso de decoración con globos online de MasterClasses.La está pensado para tener una base sólida antes de montar un negocio de decoración. Según la descripción del creador, reúne en 4 módulos en video cómo empezar, los materiales y herramientas, y las técnicas correctas de inflado, atado, encintado y calibrado de los globos.\n\nSon unas 10 horas de video que ves a tu ritmo y puedes repetir cuantas veces haga falta. Parte de cero, y la descripción también lo propone para perfeccionar lo que ya sabes si organizas fiestas o eventos.\n\n## Cómo empezar en la decoración con globos\n\nEl primer paso es conocer el oficio: con qué se trabaja y qué hace falta para arrancar. El curso reúne los materiales y las herramientas, y plantea la decoración con globos como una oportunidad de negocio. Tenerlo claro ayuda a no comprar de más en la primera compra.\n\n## Inflado, atado, encintado y calibrado\n\nSon las técnicas que sostienen todo lo demás. Calibrar es dejar los globos del mismo tamaño para que el conjunto se vea parejo; en el oficio se hace con una plantilla o un medidor, porque una diferencia de un par de centímetros se nota desde lejos. El atado también se practica: un nudo mal hecho se suelta y deja el montaje a medias.\n\n## Los globos y el entorno\n\nEn decoración se trabaja sobre todo con globos de látex, de varios tamaños y calidades. El látex se dilata con el calor y se oxida con el sol, así que en montajes al aire libre conviene armar cerca de la hora del evento y evitar el sol directo. Los metalizados, hechos de otro material, aguantan más tiempo inflados.\n\n## Practicar con apoyo\n\nDebajo de cada video hay una zona de comentarios para dejar tu pregunta, que según el creador se responde. También puedes tomar notas y volver a las clases. Practicar mientras ves el video es, según la descripción, la mejor manera de aprender.\n\n## Qué necesitas para practicar\n\nUna bolsa de globos de látex de varios tamaños y colores, un inflador, cinta o hilo y tijeras. Con eso practicas inflado, atado y calibrado antes de gastar en un montaje completo.\n\n## Decoración, bouquets y lo demás\n\nAquí aprendes la base que sirve para cualquier montaje. Si te interesan las estructuras sobre una base, el [curso de bouquets y arreglos de globos](/{cc}/curso-de-bouquets-con-globos/) va directo a eso. Es un curso libre online: al terminar recibes una constancia de finalización, no un título, y no hay promesa de resultados. El resto de oficios para hacer con las manos están en [cursos de manualidades](/{cc}/cursos/manualidades/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de decoración con globos?",
+        "a": "Son unas 10 horas de video repartidas en 4 módulos, que ves a tu ritmo y puedes repetir cuantas veces quieras. La práctica es lo que más tiempo pide: inflar y calibrar a mano sale parejo después de muchos globos, así que conviene practicar con una bolsa de globos baratos mientras avanzas."
+      },
+      {
+        "q": "¿El curso de decoración con globos da certificado?",
+        "a": "Al terminar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La), el creador. Sirve para mostrar que hiciste la formación. No es un título oficial ni un registro profesional de decorador."
+      },
+      {
+        "q": "¿Qué materiales necesito para decorar con globos?",
+        "a": "Para empezar bastan globos de látex en varios tamaños y colores, un inflador, cinta o hilo y tijeras. Cuando los montajes crezcan se suman estructuras y soportes. El curso reúne los materiales y herramientas de la decoración con globos, así que no hace falta comprar todo antes de empezar."
+      },
+      {
+        "q": "¿Qué tipos de globos hay y cuáles son?",
+        "a": "Los más usados son los de látex, en tamaños pequeños y grandes, y los metalizados o de foil, con formas y letras. También hay globos burbuja, transparentes y de gran tamaño, y los largos para hacer figuras. El curso cubre los materiales y las técnicas de inflado, atado, encintado y calibrado."
+      },
+      {
+        "q": "¿Qué tan rentable es un negocio de globos?",
+        "a": "No hay una cifra que valga para todos. Depende de lo que te cueste cada montaje en materiales y tiempo, del precio que cobres y de cuántos pedidos consigas. El curso plantea la decoración con globos como oportunidad de negocio, pero Hotmart aclara que no garantiza resultados."
+      },
+      {
+        "q": "¿Puedo aprender decoración con globos sin experiencia?",
+        "a": "Sí. Según el creador, el curso enseña cómo empezar y las técnicas correctas desde la base, y tienes una zona de comentarios bajo cada video para dejar dudas. Practica con globos económicos antes de pasar a un cliente y repite cada clase hasta que el calibrado te salga parejo."
+      },
+      {
+        "q": "¿El curso de decoración con globos es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Globos de látex de distintos colores calibrados con una plantilla de medida sobre una mesa",
+      "Manos atando un globo inflado y sujetándolo con cinta"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de bouquets y arreglos de globos",
+        "url": "/{cc}/curso-de-bouquets-con-globos/",
+        "motivo": "C18/C19: bouquets conserva «arreglos de globos»"
+      },
+      {
+        "ancla": "cursos de manualidades",
+        "url": "/{cc}/cursos/manualidades/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar todas las lecciones recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de decoración con globos online: materiales, herramientas y técnicas de inflado, atado, encintado y calibrado, en 4 módulos de video.",
+      "meta_title": "Curso de decoración con globos: materiales y técnica"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador"
+      },
+      "meta_title": "Curso de decoración con globos: inflado y calibrado",
+      "meta_description": "Curso de decoración con globos online: materiales, inflado, atado, encintado y calibrado en 4 módulos de video. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora"
+      },
+      "meta_title": "Curso de decoración con globos: técnica desde cero",
+      "meta_description": "Curso de decoración con globos en video: materiales, inflado, atado, encintado y calibrado en 4 módulos. Pagas en MXN y recibes constancia."
+    }
+  }
+}

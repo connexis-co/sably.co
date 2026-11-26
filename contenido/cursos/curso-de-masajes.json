@@ -1,0 +1,117 @@
+{
+  "slug": "curso-de-masajes",
+  "estado": "piloto",
+  "fuentes": [
+    "Hotmart, checkout público del producto K63104274A «Masajista Master desde Cero» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 25-nov-2026: lista «¿Qué vas a lograr?»",
+    "CMS: durationHours 20 (no cotejado en Hotmart)",
+    "Clústeres: docs/equipo/2026-11-25/seo/datos/clusteres.csv (principal «curso de masajes», 210 CO / 320 MX)",
+    "Preguntas: datos/faq-nuevas.csv (PAA de CO, MX, PE, EC, AR)",
+    "Hotmart, checkout de los tres productos (25-nov-2026): warrantyDays = 7"
+  ],
+  "dudas": [
+    "El temario del CMS (5 módulos: maniobras base, relajante, descontracturante, servicio) no coincide con lo que declara Hotmart (reducción, estéticos, reflexología, nutrición). El texto nuevo solo usa lo de Hotmart. Falta cotejar el temario con el área de miembros.",
+    "lessonsCount 28 frente a 18 lecciones listadas: el texto no da número de lecciones.",
+    "Revisión adversaria 25-nov: title sin «relajante» (C07, es de terapéuticos) ni «reductor» (C06).",
+    "Pregunta de compra (pago único, acceso sin vencimiento, garantía de 7 días) conservada a pedido de la orquestadora: «acceso sin vencimiento» es lo que el sitio ya afirma en «Cómo se estudia»; Hotmart no lo dice en el checkout (producto tipo membership)."
+  ],
+  "base": {
+    "h1": "Curso de masajes online en {pais}",
+    "subtitulo": "Aprendes a valorar a cada persona y a dar masajes relajantes, estéticos y de reflexología, con estiramientos para prevenir molestias del oficio.",
+    "beneficios": [
+      "Valorar a cada persona antes de elegir qué masaje darle",
+      "Masaje relajante y sus variantes",
+      "Reducción, tonificación y moldeamiento por zonas del cuerpo",
+      "Las técnicas básicas de la reflexología",
+      "Estiramientos para prevenir molestias propias del masajista",
+      "Pros y contras de atender a domicilio o abrir un local"
+    ],
+    "para_quien": [
+      "Empiezas de cero y quieres aprender varios tipos de masaje",
+      "Ya das masajes a familiares o amigos y quieres ordenar la técnica",
+      "Piensas atender a domicilio o en un spa y quieres comparar opciones",
+      "No es para ti si buscas un título de fisioterapia o tratar lesiones"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Una superficie firme a buena altura; la camilla, cuando atiendas",
+      "Toallas o sábanas limpias y aceite o crema de masaje",
+      "Celular o {computador} con internet"
+    ],
+    "cuerpo": "El curso de masajes online de MasterClasses.La reúne tres cosas: lo que conviene saber antes de tocar a nadie (cómo está hecho el cuerpo y qué mirar en cada persona para decidir qué masaje le sirve), varias técnicas de masaje (relajante, estético y reductor, reflexología) y la parte de oficio: cómo tratar a cada cliente y si te conviene atender a domicilio o abrir un espacio propio.\n\nTodo está en video y lo ves a tu ritmo desde el celular o el {computador}. Es formación en masaje de bienestar y estética. No reemplaza una carrera de fisioterapia ni sirve para tratar lesiones; para eso hace falta un profesional de la salud.\n\n## Los tipos de masaje que aprendes\n\n- **Relajante y sus variantes.** Se trabaja con ritmo parejo, presión que sube poco a poco y una secuencia que no se corta a mitad de camino.\n- **Estético y reductor.** Maniobras de reducción, tonificación y moldeamiento, trabajadas por zonas del cuerpo. Si solo te interesa esta línea, el [curso de masaje reductor](/{cc}/curso-de-masaje-reductor/) se dedica a eso.\n- **Reflexología.** Qué es y cómo se aplican sus técnicas, que trabajan con presión sobre puntos de los pies y las manos.\n\n## Antes de la primera sesión: el cuerpo y la persona\n\nUna parte del curso es el cuerpo humano y lo que hay que tener en cuenta en cada persona antes de elegir el masaje. En la práctica empieza con una pregunta al llegar: si hay lesiones recientes, dolor fuerte, embarazo o algún tratamiento médico. Ante cualquiera de esas respuestas, lo prudente es no trabajar la zona y sugerir que consulte a su médico.\n\n## Las manos y la espalda del masajista\n\nQuien da varios masajes seguidos lo nota en las muñecas, los pulgares y la zona lumbar. El curso incluye estiramientos para prevenir esas molestias. Una costumbre del oficio que también ayuda: dejar que la presión salga del peso del cuerpo y no de apretar con los dedos.\n\n## De practicar a atender clientes\n\nLa última parte es para quien quiere trabajar como masajista. Compara atender a domicilio con montar un local, con lo bueno y lo malo de cada camino, y explica cómo tratar a los distintos tipos de cliente que llegan a un spa. También presenta herramientas tecnológicas útiles en el día a día e incluye un bloque de nutrición. No hay promesa de ingresos: lo que ganes depende de tu ciudad, tu tarifa y cuántas personas atiendas.\n\n## Qué necesitas para practicar\n\nPara practicar en casa basta una superficie firme a una altura cómoda, un par de toallas o sábanas limpias, aceite o crema de masaje y alguien de confianza que se deje practicar. La camilla puede esperar a que empieces a atender; si vas a ir a domicilio, una plegable y liviana es la más fácil de cargar.\n\n## ¿Es lo mismo que la masoterapia?\n\nSe parecen. En algunos países la masoterapia es una formación técnica con registro oficial; este curso no lo es. Es un curso libre online: al terminarlo tienes la técnica y una constancia de finalización, no un título. Si buscas sobre todo masaje relajante con protocolos de sesión, compara también con el [curso de masajes terapéuticos y relajantes](/{cc}/curso-de-masajes-terapeuticos-y-relajantes/). Y si quieres ver otros oficios del área, están en [cursos de bienestar](/{cc}/cursos/bienestar/).",
+    "faqs": [
+      {
+        "q": "¿Cuánto dura el curso de masajes?",
+        "a": "Son unas 20 horas de video que ves a tu ritmo, sin horarios ni fechas de entrega. Para ser masajista no hay un único camino: una formación técnica oficial lleva meses o años, y este es un curso libre online que se puede terminar en pocas semanas si le dedicas unas horas cada día."
+      },
+      {
+        "q": "¿Qué se necesita estudiar para dar masajes?",
+        "a": "Para tomar este curso no necesitas estudios previos: empieza por el cuerpo humano y por lo que hay que revisar en cada persona antes de masajear. Si quieres trabajar en el área de la salud, tratar lesiones o hacer rehabilitación, eso pide una carrera de fisioterapia, que este curso no reemplaza."
+      },
+      {
+        "q": "¿El curso de masajes da certificado?",
+        "a": "Al terminar el curso recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La), el creador. Te sirve para mostrar que hiciste la formación. No es un título oficial ni un registro profesional, así que no te habilita como fisioterapeuta ni como técnico en masoterapia."
+      },
+      {
+        "q": "¿Qué tipos de masaje enseña?",
+        "a": "Masaje relajante y sus variantes, masajes estéticos con técnicas de reducción, tonificación y moldeamiento por zonas, y reflexología. Antes de eso ves el cuerpo humano y cómo valorar a la persona. Al final viene la parte de negocio: atender a domicilio o en un local propio y cómo tratar a cada tipo de cliente."
+      },
+      {
+        "q": "¿Necesito camilla para empezar?",
+        "a": "No. Para practicar sirve una superficie firme, con una toalla encima, a una altura que no te obligue a encorvarte. La camilla hace falta cuando empiezas a atender. Si piensas trabajar a domicilio, una camilla plegable y liviana es la más cómoda de cargar de un lugar a otro."
+      },
+      {
+        "q": "¿Cuánto gana un masajista?",
+        "a": "Depende de la ciudad, de la tarifa y de cuántas personas atiendas, y este curso no promete ingresos. Lo que sí trata es la decisión de trabajar a domicilio o montar un local, con las ventajas y desventajas de cada opción, y cómo tratar a los distintos tipos de cliente."
+      },
+      {
+        "q": "¿El curso de masajes es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "alt_sugeridos": [
+      "Manos haciendo amasamiento en la zona lumbar de una persona acostada en camilla",
+      "Masajista presionando puntos de la planta del pie durante una sesión de reflexología"
+    ],
+    "enlaces_internos": [
+      {
+        "ancla": "curso de masaje reductor",
+        "url": "/{cc}/curso-de-masaje-reductor/",
+        "motivo": "C06: reductor tiene su propio principal"
+      },
+      {
+        "ancla": "curso de masajes terapéuticos y relajantes",
+        "url": "/{cc}/curso-de-masajes-terapeuticos-y-relajantes/",
+        "motivo": "C07: terapéuticos se queda «masajes relajantes»"
+      },
+      {
+        "ancla": "cursos de bienestar",
+        "url": "/{cc}/cursos/bienestar/",
+        "motivo": "categoría"
+      }
+    ],
+    "certificado": "Al completar todas las lecciones recibes una constancia digital de finalización, avalada por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que terminaste el curso; no es un título oficial ni te habilita como fisioterapeuta.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de masajes online: valoración de la persona, masaje relajante, estético y reductor, reflexología y cómo atender a domicilio o en local.",
+      "meta_title": "Curso de Masajes Online | Sably"
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador"
+      },
+      "meta_title": "Curso de masajes online: estético, reflexología y negocio",
+      "meta_description": "Curso de masajes online en video: masaje relajante y estético, reflexología y cómo atender a domicilio o en un local. Pagas en COP y recibes constancia."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora"
+      },
+      "meta_title": "Curso de masajes desde cero: estéticos y reflexología",
+      "meta_description": "Curso de masajes online: masaje relajante, estético con reducción y moldeamiento, y reflexología, en video a tu ritmo. Pagas en MXN y recibes constancia."
+    }
+  }
+}
