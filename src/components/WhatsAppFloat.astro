@@ -59,6 +59,8 @@ const url = buildWhatsAppUrl(country.whatsapp, message);
     position: fixed;
     right: var(--wa-x);
     bottom: calc(var(--wa-y) + var(--wa-carril) + env(safe-area-inset-bottom, 0px));
+    /* Sobre lo fijo abajo del tema V2 (--fijo-inferior); con translate, sin CLS. */
+    translate: 0 calc(-1 * var(--fijo-inferior, 0px));
     z-index: 50;
     display: inline-block;
     width: 56px;
