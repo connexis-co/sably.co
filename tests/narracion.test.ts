@@ -12,7 +12,7 @@ import { clasificar, ErrorProveedor, type Proveedor } from '../src/plugins/sably
 import { bloquesNarrables, camposBlog, guion, huella, normalizarParaVoz } from '../src/plugins/sably-narracion/src/texto';
 import { agrupar, procesar } from '../src/plugins/sably-narracion/src/trabajador';
 import { nodeEdgePolicy } from '../src/lib/public-delivery';
-import { createPlugin } from '../src/plugins/sably-narracion/index';
+import { createPlugin, olvidarCron } from '../src/plugins/sably-narracion/index';
 
 const seno = (segundos: number, amplitud: number, frecuencia = 24000, hz = 997): Pcm => {
   const muestras = new Float32Array(Math.round(segundos * frecuencia));
@@ -273,12 +273,12 @@ test('de fábrica: publicar, programar, activar el plugin y el cron no narran ni
     routes: Record<string, { handler: (ctx: unknown) => Promise<unknown> }> };
   const gancho = (nombre: string, evento: unknown) => plugin.hooks[nombre]!.handler(evento, ctx);
 
-  // Desplegar o recrear el contenedor (activar), publicar, volver a publicar, programar y varias pasadas del cron.
+  // Desplegar o recrear el contenedor (activar), publicar, volver a publicar y varias pasadas del cron.
+  olvidarCron();
   await gancho('plugin:activate', {});
   await gancho('content:afterPublish', { collection: 'blog', content: post });
   await gancho('content:afterUnpublish', { collection: 'blog', content: post });
   await gancho('content:afterPublish', { collection: 'blog', content: post });
-  await gancho('content:afterSchedule', { collection: 'blog', content: post });
   for (let i = 0; i < 3; i++) await gancho('cron', { name: 'narracion-cola' });
   await new Promise((ok) => setTimeout(ok, 20));
 
@@ -303,4 +303,37 @@ test('de fábrica: publicar, programar, activar el plugin y el cron no narran ni
   assert.equal((await cola.publicadasTodas()).length, 0);
 
   assert.deepEqual(peticiones, [], 'ninguna petición al proveedor de voz ni a R2');
+});
+
+test('cron: lo registra el primer gancho aunque EmDash no ejecute plugin:activate, y programar no narra', async () => {
+  olvidarCron();
+  const almacen = almacenEnMemoria();
+  const programados: { nombre: string; cada: string }[] = [];
+  const ctx = {
+    storage: { tomas: almacen.tomas, publicadas: almacen.publicadas, voces: almacen.voces, permisos: almacen.permisos },
+    kv: almacen.kv,
+    log: { info() {}, warn() {}, error() {}, debug() {} },
+    cron: { schedule: async (nombre: string, o: { schedule: string }) => { programados.push({ nombre, cada: o.schedule }); } },
+  } as never;
+  const plugin = createPlugin() as unknown as { hooks: Record<string, { handler: (e: unknown, ctx: unknown) => Promise<unknown> }> };
+  assert.equal(plugin.hooks['content:afterSchedule'], undefined, 'programar no es un gancho del plugin: solo se narra al publicar');
+  const cola = new Cola(almacen);
+  await cola.guardarConfig({ narrarAlPublicar: true, topeMensualUsd: 5 });
+  // Un artículo que el programador de EmDash publica a su hora: sin plugin:activate de por medio.
+  const post = { id: 'p2', slug: 'pan', status: 'published', data: { ...articulo, slug: 'pan' } };
+  await plugin.hooks['content:afterPublish']!.handler({ collection: 'blog', content: post }, ctx);
+  await plugin.hooks['content:afterPublish']!.handler({ collection: 'blog', content: post }, ctx);
+  assert.deepEqual(programados, [{ nombre: 'narracion-cola', cada: '*/10 * * * *' }], 'se registra una vez por proceso');
+  assert.equal((await almacen.tomas.query()).items.length, 1, 'al publicarse queda en la cola');
+  olvidarCron();
+});
+
+test('marca: «Sably» se dice «Sábli» sin tocar el texto escrito', () => {
+  const c = normalizarConfig(undefined);
+  assert.equal(c.pronunciaciones.Sably, 'Sábli');
+  const bloques = ['Esta es una propuesta del equipo Sably.', 'Sablyx y sably no cambian.'];
+  const leido = guion(bloques, { pronunciaciones: c.pronunciaciones }).map((f) => f.texto);
+  assert.equal(leido[0], 'Esta es una propuesta del equipo Sábli.');
+  assert.equal(leido[1], 'Sablyx y sably no cambian.');
+  assert.equal(bloques[0], 'Esta es una propuesta del equipo Sably.', 'el texto del artículo no cambia');
 });

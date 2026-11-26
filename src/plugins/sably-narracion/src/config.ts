@@ -62,7 +62,8 @@ export const CONFIG_INICIAL: Config = {
   topeLoteUsd: 0,
   incluirPreguntas: false,
   deposito: "auto",
-  pronunciaciones: { SMAW: "ese eme a doble ve", COP: "pesos colombianos", ARS: "pesos argentinos" },
+  // «Sably» se dice «Sábli» (llana, b suave), como JP. Sin esto la voz dudaba entre «Seibly» y «Savly».
+  pronunciaciones: { Sably: "Sábli", SMAW: "ese eme a doble ve", COP: "pesos colombianos", ARS: "pesos argentinos" },
   // Medido con es-419-csagent-9 el 25-nov-2026: 2.294 caracteres en 169,6 s (13,5 c/s).
   caracteresPorSegundo: 13.5,
 };
