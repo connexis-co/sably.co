@@ -7,10 +7,14 @@
  */
 import Ico from './Ico.astro';
 import type { PromoV2 } from '../promo-v2';
-interface Props { promo: PromoV2 | null }
-const { promo } = Astro.props;
+interface Props {
+  promo: PromoV2 | null;
+  /** Ajuste del panel: la × la oculta durante la sesión (de fábrica) o solo en esta vista. */
+  cierre?: 'sesion' | 'vista';
+}
+const { promo, cierre = 'sesion' } = Astro.props;
 ---
-<div data-promo-v2="barra" data-promo-ssr={promo?.ssr} hidden={!promo} class="v2-barra-campana relative z-50 bg-navy-950 text-white" role="region" aria-label="Promoción vigente">
+<div data-promo-v2="barra" data-promo-ssr={promo?.ssr} data-cierre={cierre} hidden={!promo} class="v2-barra-campana relative z-50 bg-navy-950 text-white" role="region" aria-label="Promoción vigente">
   <div class="v2-contenedor flex min-h-12 items-center gap-x-4 gap-y-1 py-1.5 max-lg:pr-10">
     <p class="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-0.5 text-t13 lg:text-t15">
       <span class="flex items-center gap-2 font-semibold"><span class="size-1.5 flex-none rounded-full bg-coral-500" aria-hidden="true"></span><span data-promo-gorro>{promo?.etiqueta}</span></span>
@@ -26,6 +30,13 @@ const { promo } = Astro.props;
     </button>
   </div>
 </div>
+{promo && cierre === 'sesion' && (
+  /* Cerrada antes en esta sesión: se oculta antes de pintar, no al cargar el módulo
+     (si no, la página salta hacia arriba al quitarla: CLS). */
+  <script is:inline define:vars={{ id: promo.id }}>
+    try { if (sessionStorage.getItem('sably:promo-cerrada') === id) document.querySelector('[data-promo-v2="barra"]').hidden = true; } catch (e) {}
+  </script>
+)}
 <script>
   /* Copiar el cupón, cerrar la barra (y recordarlo en la sesión), confirmar la campaña
      contra la caché del borde y retirarla al vencer: la misma lógica que el tema clásico

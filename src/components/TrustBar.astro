@@ -8,7 +8,7 @@ const stats = await publicStats(Astro.locals);
 const items = [
   { icon: '🎓', label: `Disponible en ${stats.countries} países` },
   ...(stats.rating ? [{ icon: '⭐', label: `${stats.rating} de media en ${stats.reviews.toLocaleString('es-CO')} valoraciones reales en Hotmart` }] : []),
-  { icon: '📜', label: 'Constancia de finalización' },
+  { icon: '📜', label: 'Certificado de finalización' },
   { icon: '🔥', label: 'Cursos vía Hotmart — acceso de por vida' },
 ];
 ---

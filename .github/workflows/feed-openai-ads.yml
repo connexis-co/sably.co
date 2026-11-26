@@ -1,0 +1,51 @@
+name: Feed de cursos para OpenAI Ads (CO)
+# Regenera el feed de productos desde las fichas públicas de sably.co/co y lo sube por SFTP al
+# feed de la cuenta de anuncios de ChatGPT. Dos veces al día para seguir los cambios de precio de
+# las promociones (que cambian a medianoche de Bogotá). Ver docs/equipo/2026-11-25/chatgpt/FEED.md.
+on:
+  schedule:
+    - cron: '20 5 * * *'   # 00:20 en Bogotá, justo después del cambio de promoción
+    - cron: '20 17 * * *'  # 12:20 en Bogotá
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: feed-openai-ads
+  cancel-in-progress: false
+jobs:
+  feed:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Comprobar que el feed está configurado
+        env:
+          SFTP_KEY: ${{ secrets.OPENAI_FEED_SFTP_KEY }}
+          SFTP_URI: ${{ vars.OPENAI_FEED_SFTP_URI }}
+        run: |
+          test -n "$SFTP_KEY" || { echo 'Falta el secreto OPENAI_FEED_SFTP_KEY'; exit 1; }
+          test -n "$SFTP_URI" || { echo 'Falta la variable OPENAI_FEED_SFTP_URI'; exit 1; }
+      - name: Pruebas del generador
+        run: node --test scripts/feed-openai-ads.test.mjs
+      - name: Generar y subir el feed
+        env:
+          SFTP_KEY: ${{ secrets.OPENAI_FEED_SFTP_KEY }}
+          OPENAI_FEED_SFTP_URI: ${{ vars.OPENAI_FEED_SFTP_URI }}
+          OPENAI_FEED_ID: ${{ vars.OPENAI_FEED_ID }}
+          OPENAI_ADS_API_KEY: ${{ secrets.OPENAI_ADS_API_KEY }}
+        run: |
+          umask 077
+          printf '%s\n' "$SFTP_KEY" > "$RUNNER_TEMP/feed_key"
+          export OPENAI_FEED_SFTP_KEY_FILE="$RUNNER_TEMP/feed_key"
+          node scripts/feed-openai-ads.mjs --out="$RUNNER_TEMP/sably-cursos-co.csv" --upload --min-rows=60
+          rm -f "$RUNNER_TEMP/feed_key"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sably-cursos-co
+          path: ${{ runner.temp }}/sably-cursos-co.csv
+          if-no-files-found: ignore
+          retention-days: 14

@@ -64,6 +64,13 @@ const reloj = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60))
         <input type="range" class="v2-medio-barra" data-medio-barra min="0" max={Math.max(1, Math.ceil(segundos))} step="1" value="0" aria-label="Posición del vídeo" />
         <span class="v2-medio-tiempo" data-medio-total aria-hidden="true">{reloj(segundos)}</span>
       </div>
+      <div class="v2-medio-sonido">
+        <button type="button" class="v2-medio-boton v2-medio-silenciar" data-medio-silenciar aria-pressed="false" aria-label="Silenciar">
+          <svg class="v2-medio-altavoz" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 7.5h3L10.5 4v12L6 12.5H3z" fill="currentColor" /><path d="M13.5 7a4 4 0 0 1 0 6M15.5 4.5a7.5 7.5 0 0 1 0 11" /></svg>
+          <svg class="v2-medio-mudo" width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 7.5h3L10.5 4v12L6 12.5H3z" fill="currentColor" /><path d="m13.5 8 4 4m0-4-4 4" /></svg>
+        </button>
+        <input type="range" class="v2-medio-barra v2-medio-volumen" data-medio-volumen min="0" max="100" step="5" value="100" aria-label="Volumen del vídeo" />
+      </div>
       <button type="button" class="v2-medio-boton" data-medio-pantalla aria-label="Pantalla completa">
         <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M3 7V3h4M13 3h4v4M17 13v4h-4M7 17H3v-4" /></svg>
       </button>

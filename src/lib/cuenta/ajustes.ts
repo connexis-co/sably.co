@@ -5,7 +5,7 @@
  * encendida: el HTML queda igual que sin cuenta.
  */
 const PREFIJO = 'plugin:sably-operations:settings:';
-export const CLAVES_CUENTA = { activa: 'cuentaActiva', google: 'cuentaGoogle', correo: 'cuentaCorreo', acceso: 'cuentaAcceso' } as const;
+export const CLAVES_CUENTA = { activa: 'cuentaActiva', google: 'cuentaGoogle', correo: 'cuentaCorreo', clave: 'cuentaClave', acceso: 'cuentaAcceso' } as const;
 
 export interface EntornoCuenta {
   SABLY_AUTH_SECRET?: string;
@@ -23,6 +23,8 @@ export interface EstadoCuenta {
    * proveedor de correo está listo (`envioCorreo`, que se comprueba en las rutas de cuenta).
    */
   correo: boolean;
+  /** Correo y contraseña pedidos: interruptor + clave de sesión. Necesita el correo (alta y olvido van por código). */
+  clave: boolean;
   /** Hay alguna forma de entrar: se pinta «Entrar» y existen las rutas de cuenta. */
   disponible: boolean;
   /** «Entrar» abre la ventana emergente o lleva a la página /ingresar/ (las dos funcionan siempre). */
@@ -41,7 +43,8 @@ export function leerEstadoCuenta(filas: { name: string; value: string }[], entor
   const activa = v[CLAVES_CUENTA.activa] !== false;
   const google = activa && clave && v[CLAVES_CUENTA.google] !== false && !!entorno.SABLY_GOOGLE_ID && !!entorno.SABLY_GOOGLE_SECRET;
   const correo = activa && clave && v[CLAVES_CUENTA.correo] !== false;
-  return { activa, google, correo, disponible: google || correo, acceso: v[CLAVES_CUENTA.acceso] === 'pagina' ? 'pagina' : 'ventana' };
+  const contrasena = correo && v[CLAVES_CUENTA.clave] !== false;
+  return { activa, google, correo, clave: contrasena, disponible: google || correo, acceso: v[CLAVES_CUENTA.acceso] === 'pagina' ? 'pagina' : 'ventana' };
 }
 
 async function filasCuenta(): Promise<{ name: string; value: string }[]> {
