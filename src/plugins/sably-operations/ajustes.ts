@@ -74,8 +74,8 @@ export const settingsSchema = {
   },
   mostrarCreador: {
     type: 'boolean',
-    label: 'Caja de compra · Mostrar quién dicta el curso',
-    description: '«Lo dicta …» en la cabeza de la ficha y en la caja. Apagado no deja hueco. Por defecto: encendido.',
+    label: 'Ficha · Mostrar el creador del curso',
+    description: 'La marca con que el curso figura en Hotmart: una línea junto al pago («En Hotmart el curso figura a nombre de …») y su tarjeta en «Creador y opiniones». Con docente real, la ficha y la caja presentan al docente. Apagado no deja hueco. Por defecto: encendido.',
     default: true,
   },
   mostrarDocente: {
@@ -175,9 +175,16 @@ export const settingsSchema = {
   opinionesExtractosMinimo: {
     type: 'select',
     label: 'Ficha · Extractos de Hotmart para enseñar la lista',
-    description: 'Cuántos extractos reales hacen falta para enseñarlos. Con menos, el bloque dice que aún no hay opiniones escritas que citar. Hoy hay 1 o 2 por curso. Por defecto: 1.',
+    description: 'Cuántos extractos reales hacen falta para enseñarlos. Con menos, el bloque dice que aún no hay opiniones escritas que citar. Por defecto: 1.',
     options: [{ value: '1', label: '1' }, { value: '2', label: '2' }, { value: '3', label: '3' }],
     default: '1',
+  },
+  opinionesExtractosMaximo: {
+    type: 'select',
+    label: 'Ficha · Extractos de Hotmart como máximo',
+    description: 'Cuántos extractos reales enseña la lista como mucho. Salen de las evaluaciones públicas de cada curso en Hotmart, con el texto literal y el nombre con que se publicaron. Por defecto: 4.',
+    options: [{ value: '2', label: '2' }, { value: '3', label: '3' }, { value: '4', label: '4' }],
+    default: '4',
   },
   opinionesPerfilNombre: {
     type: 'string',
@@ -485,7 +492,7 @@ export const NOSOTROS_CLAVES: ClaveAjuste[] = ['nosotrosDiseno', 'nosotrosCifras
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', ...CAMPANA_CLAVES] },
-  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
+  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación, y el diseño de la página «Nosotros».', claves: NOSOTROS_CLAVES },
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },

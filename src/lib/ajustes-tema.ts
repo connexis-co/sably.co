@@ -35,7 +35,7 @@ export interface AjustesV2 {
     /** C11: el reloj late, el segundero corre y la barra brilla (de fábrica; nunca con menos movimiento). */
     movimiento: boolean;
   };
-  /** «Lo dicta …» en la cabeza y en la caja. */
+  /** Marca del creador: línea junto al pago y tarjeta en «Creador y opiniones» (el docente va en la cabeza y la caja). */
   mostrarCreador: boolean;
   /** Bloque del docente real (C5): solo en cursos con docente con fuente. */
   mostrarDocente: boolean;
@@ -61,6 +61,8 @@ export interface AjustesV2 {
     estilo: 'lista' | 'compacto';
     /** Extractos de Hotmart que hacen falta para enseñar la lista (con menos, estado honesto sin citas). */
     minimoExtractos: number;
+    /** Tope de extractos en la lista (JP, 26-nov: 3–4). */
+    maximoExtractos: number;
     /** Perfil público de la fuente (Google u otra), si se configuró con una URL https válida. */
     perfil: { nombre: string; url: string } | null;
   };
@@ -161,6 +163,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     opiniones: {
       estilo: uno(v.opinionesEstilo, ['lista', 'compacto'] as const, 'lista'),
       minimoExtractos: Number(uno(v.opinionesExtractosMinimo, ['1', '2', '3'] as const, '1')),
+      maximoExtractos: Number(uno(v.opinionesExtractosMaximo, ['2', '3', '4'] as const, '4')),
       perfil: perfilOpiniones(texto('opinionesPerfilNombre', ''), texto('opinionesPerfilUrl', '')),
     },
     barraCampana: {
