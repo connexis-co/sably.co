@@ -26,6 +26,7 @@ const cursos = guardados.map(item => item.slice('curso:'.length)).filter(slug =>
 const codigoAviso = Astro.url.searchParams.get('aviso') ?? '';
 const aviso = codigoAviso === 'guardado' ? AVISOS.guardado : null;
 const nombre = cuenta.nombre || cuenta.email;
+const formas = await servidor.almacen.formasDeAcceso(cuenta.id);
 ---
 <BaseLayout title="Mi cuenta | Sably" description="Tu cuenta de Sably: datos, preferencias y sesión." {country} pathAfterCountry="/" pageType="cuenta" noindex temaV2>
   <section class="v2-contenedor py-10 lg:py-16">
@@ -48,9 +49,9 @@ const nombre = cuenta.nombre || cuenta.email;
           <dl class="mt-4 grid gap-3 text-t15 sm:grid-cols-[160px_1fr]">
             <dt class="text-navy-500">Nombre</dt><dd class="text-navy-950">{cuenta.nombre || '—'}</dd>
             <dt class="text-navy-500">Correo</dt><dd class="break-all text-navy-950">{cuenta.email}</dd>
-            <dt class="text-navy-500">Forma de acceso</dt><dd class="text-navy-950">Google</dd>
+            <dt class="text-navy-500">Formas de acceso</dt><dd class="text-navy-950">{formas.google ? 'Google y código por correo' : 'Código por correo'}</dd>
           </dl>
-          <p class="mt-4 text-t13 text-navy-500">Nombre, correo y foto vienen de tu cuenta de Google. Si los cambias allí, aquí se actualizan la próxima vez que entres.</p>
+          <p class="mt-4 text-t13 text-navy-500">{formas.google ? 'Nombre y foto vienen de tu cuenta de Google: si los cambias allí, aquí se actualizan la próxima vez que entres con Google. ' : ''}Con tu correo puedes entrar siempre: te enviamos un código.</p>
         </section>
 
         <section class="rounded-c-lg p-6 ring-1 ring-navy-100" aria-labelledby="cuenta-preferencias">

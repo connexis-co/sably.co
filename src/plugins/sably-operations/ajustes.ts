@@ -80,7 +80,14 @@ export const settingsSchema = {
   cuentaGoogle: {
     type: 'boolean',
     label: 'Cuenta · Entrar con Google',
-    description: 'Hoy es la única forma de entrar: apagado, no se puede entrar ni crear cuenta y el botón «Entrar» desaparece. Necesita SABLY_GOOGLE_ID y SABLY_GOOGLE_SECRET en el servidor (el cliente OAuth de Google). Por defecto: encendido.',
+    description: 'Botón «Continuar con Google» en el acceso. Apagado, solo queda el correo con código (si está encendido); con los dos apagados el botón «Ingresar» desaparece. Necesita SABLY_GOOGLE_ID y SABLY_GOOGLE_SECRET en el servidor (el cliente OAuth de Google). Por defecto: encendido.',
+    default: true,
+  },
+  // Clave nueva del 26-nov-2026.
+  cuentaCorreo: {
+    type: 'boolean',
+    label: 'Cuenta · Entrar con el correo (código)',
+    description: 'Entrar o crear la cuenta con un código de 6 dígitos que llega al correo, sin contraseña. Solo se ofrece si el correo del sitio está listo: proveedor elegido en Ajustes → Correo y, con «Sably · Brevo», su clave API y el remitente en los ajustes del plugin. Sin eso no aparece aunque esté encendido. Por defecto: encendido.',
     default: true,
   },
   cuentaAcceso: {
@@ -252,7 +259,7 @@ export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves:
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },
   { id: 'medios', titulo: 'Medios: audio y vídeo', resumen: 'Vídeo de presentación; narraciones y reproductor, cuando lleguen.', claves: [] },
   { id: 'seo', titulo: 'SEO y medición', resumen: 'Medición, conversiones y auditoría SEO.', claves: [] },
-  { id: 'cuenta', titulo: 'Cuenta', resumen: 'Cuentas de usuario y acceso con Google.', claves: ['cuentaActiva', 'cuentaGoogle', 'cuentaAcceso'] },
+  { id: 'cuenta', titulo: 'Cuenta', resumen: 'Cuentas de usuario y acceso con Google o con código por correo.', claves: ['cuentaActiva', 'cuentaGoogle', 'cuentaCorreo', 'cuentaAcceso'] },
   { id: 'integraciones', titulo: 'Integraciones', resumen: 'Correo del equipo, WhatsApp, Brevo y claves cifradas.', claves: ['notificationEmail'] },
   { id: 'avanzado', titulo: 'Avanzado', resumen: 'Revisar un tema sin cambiarlo, claves técnicas y formulario de respaldo.', claves: [] },
 ];
