@@ -1,0 +1,15 @@
+---
+/** Bloque «Pasos» del editor (sably_pasos): lista numerada con título de cada paso y explicación opcional. */
+interface Paso { titulo?: string; texto?: string }
+interface Props { node: { titulo?: string; pasos?: Paso[] } }
+const { titulo, pasos = [] } = Astro.props.node ?? {};
+const validos = (Array.isArray(pasos) ? pasos : []).filter(p => p?.titulo?.trim());
+---
+{validos.length > 0 && (
+  <div class="v2-pasos">
+    {titulo && <p class="v2-pasos-titulo">{titulo}</p>}
+    <ol role="list">
+      {validos.map(p => <li><p class="v2-paso-que">{p.titulo}</p>{p.texto?.trim() && <p class="v2-paso-como">{p.texto.trim()}</p>}</li>)}
+    </ol>
+  </div>
+)}

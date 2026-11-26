@@ -34,3 +34,17 @@ test('cabecera elegida: automática, la del artículo manda y nunca se inventa l
   assert.equal(cabeceraElegida({ ...base, panel: 'j' }), 'j');
   assert.equal(cabeceraElegida({ ...base, panel: 'z' }), 'b');
 });
+
+test('campos por artículo: índice, publicidad, curso relacionado y «actualizado el»; vacío o desconocido = heredar', () => {
+  assert.deepEqual(presentacionDeArticulo({ indice: 'Heredar del panel', publicidad: 'Heredar del panel', curso_relacionado: '', actualizado_el: null }), {});
+  const p = presentacionDeArticulo({ indice: 'Al inicio', publicidad: 'Ninguna en este artículo', curso_relacionado: 'https://sably.co/co/curso-de-modisteria/?x=1', actualizado_el: '2026-11-20T00:00:00.000Z' });
+  assert.equal(p.indice, 'inicio');
+  assert.equal(p.publicidad, 'ninguna');
+  assert.equal(p.cursoRelacionado, 'curso-de-modisteria');
+  assert.equal(p.actualizadoEl?.toISOString(), '2026-11-20T00:00:00.000Z');
+  assert.equal(presentacionDeArticulo({ indice: 'Lateral' }).indice, 'lateral');
+  assert.equal(presentacionDeArticulo({ indice: 'Ninguno' }).indice, 'ninguno');
+  assert.equal(presentacionDeArticulo({ curso_relacionado: '<script>' }).cursoRelacionado, undefined);
+  assert.equal(presentacionDeArticulo({ actualizado_el: 'no es fecha' }).actualizadoEl, undefined);
+  for (const slug of ['indice', 'publicidad', 'curso_relacionado', 'actualizado_el']) assert.ok(CAMPOS_BLOG.some(c => c.slug === slug), slug);
+});

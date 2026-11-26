@@ -1,0 +1,13 @@
+---
+/** Bloque «Aviso» del editor (sably_aviso): consejo, importante o cuidado. Texto plano con saltos de línea. */
+interface Props { node: { tono?: string; titulo?: string; texto?: string } }
+const { tono = 'consejo', titulo, texto = '' } = Astro.props.node ?? {};
+const tonoValido = ['consejo', 'importante', 'cuidado'].includes(tono) ? tono : 'consejo';
+const parrafos = String(texto).split(/\n{2,}/).map(p => p.trim()).filter(Boolean);
+---
+{(titulo || parrafos.length > 0) && (
+  <aside class="v2-aviso" data-tono={tonoValido} role="note">
+    {titulo && <p class="v2-aviso-titulo">{titulo}</p>}
+    {parrafos.map(p => <p>{p}</p>)}
+  </aside>
+)}

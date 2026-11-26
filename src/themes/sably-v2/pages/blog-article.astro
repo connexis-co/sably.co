@@ -44,6 +44,7 @@ import { posicionesCompartir, redesCompartir } from '@/lib/blog-ajustes';
 import { prepareRichContent } from '@/lib/rich-content';
 import { clusterDeCurso, cursosEnlazados, guiasSugeridas } from '@/lib/related-guides';
 import { preciosDeTarjetas } from '@/lib/precio-hoy';
+import { fijarPaisDeBloques } from '@/lib/bloques-contexto';
 import { getCategory, type Course, type RichBlock } from '@/lib/emdash-content';
 import { SITE, CDN_URL } from '@/lib/site';
 import type { load } from '@/lib/page-loaders/blog-article';
@@ -76,13 +77,18 @@ const minutos = minutosLectura(bodyText);
 const conProgreso = a.blogProgreso && palabras >= Number(a.blogProgresoMinimo);
 /* «Actualizado el…» sale del campo editorial `actualizado_el` (PR de opciones por artículo), nunca de la fecha de
    cualquier guardado: hoy todos los artículos tienen el 3-oct de la migración y lo dirían sin serlo. */
-const actualizado: Date | null = null;
-const conActualizado = false;
+const actualizado: Date | null = post.presentacion?.actualizadoEl ?? null;
+const conActualizado = Boolean(actualizado && actualizado > post.data.publishedAt);
+/* Los bloques del cuerpo que pintan precios (carrusel de cursos) necesitan el país de la página. */
+fijarPaisDeBloques(Astro.locals, country);
+const sinPublicidad = post.presentacion?.publicidad === 'ninguna';
 
 /* ---------- Índice ---------- */
 const apartados = a.blogIndiceNiveles === 'h2' ? toc.filter(h => h.depth === 2) : toc;
-const conIndice = apartados.length >= Number(a.blogIndiceMinimo);
-let escritorio = a.blogIndiceEscritorio;
+const indicePropio = post.presentacion?.indice;
+const conIndice = indicePropio !== 'ninguno' && apartados.length >= Number(a.blogIndiceMinimo);
+/* El campo «Índice» del artículo manda sobre el panel en escritorio (en móvil sigue el del panel). */
+let escritorio = indicePropio === 'lateral' ? 'lateral-fija' : indicePropio === 'inicio' ? 'abierto' : a.blogIndiceEscritorio;
 // Con el curso en el carril derecho, el índice lateral pasa al inicio del texto.
 if (a.blogCarrilDerecho === 'curso' && (escritorio === 'lateral-fija' || escritorio === 'lateral')) escritorio = 'abierto';
 let lateral = conIndice && (escritorio === 'lateral-fija' || escritorio === 'lateral');
@@ -94,7 +100,9 @@ const barraIndice = conIndice && a.blogIndiceMovil === 'plegable-barra';
 /* ---------- Curso relacionado: el primero que el texto enlaza (relación editorial, no una adivinanza) ---------- */
 const cursos = await cms.getCourses();
 const porId = new Map(cursos.map(c => [c.id, c]));
-const curso: Course | null = cursosEnlazados(post, SITE.url).map(s => porId.get(s)).find(Boolean) ?? null;
+/* El del campo «Curso relacionado» del editor si existe; si no, el primero que el texto enlaza. */
+const curso: Course | null = (post.presentacion?.cursoRelacionado ? porId.get(post.presentacion.cursoRelacionado) : undefined)
+  ?? cursosEnlazados(post, SITE.url).map(s => porId.get(s)).find(Boolean) ?? null;
 const categoriaCurso = curso ? await getCategory(curso.data.category) : null;
 const nSugeridos = Number(a.blogCursosSugeridos);
 const sugeridos = curso && nSugeridos > 0
@@ -192,7 +200,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
     </header>
 
     <HojaBlog />
-    <div class="v2-contenedor"><HuecoPublicidad posicion="articulo-arriba" /></div>
+    <div class="v2-contenedor"><HuecoPublicidad posicion="articulo-arriba" apagado={sinPublicidad} /></div>
 
     <div class="v2-contenedor v2-ba-rejilla">
       <aside class="v2-ba-carril-izq" aria-label="Compartir">{posiciones.includes('carril') && (
@@ -214,7 +222,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
 
         <div class="v2-ba-lectura">
           <div class="v2-prosa" data-cms data-prosa>
-            <PublicidadEnTexto>
+            <PublicidadEnTexto apagado={sinPublicidad}>
               {mitades
                 ? <><CmsRichBody value={mitades[0]} />{mitades[1].length > 0 && <CursoRelacionado course={curso!} {country} precio={precioCurso} categoriaSlug={categoriaCurso?.slug ?? ''} />}{mitades[1].length > 0 && <CmsRichBody value={mitades[1]} />}</>
                 : post.richBody ? <CmsRichBody value={post.richBody} /> : <Fragment set:html={renderMarkdown(post.body ?? '')} />}
@@ -226,7 +234,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
           )}
         </div>
 
-        <div class="v2-ba-cierre-pieza"><HuecoPublicidad posicion="articulo-final" /></div>
+        <div class="v2-ba-cierre-pieza"><HuecoPublicidad posicion="articulo-final" apagado={sinPublicidad} /></div>
         {conCierre && (
           <div class="v2-ba-cierre-pieza v2-ba-cierre">
             {a.blogValoracion && <Valoracion slug={post.id} {pulso} />}
@@ -246,7 +254,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
         <div class="v2-ba-pegado" data-fijo={escritorio === 'lateral' ? 'no' : undefined}>
           {lateral && a.blogCarrilDerecho !== 'curso' && <IndiceArticulo {apartados} estilo="lateral" solo="escritorio" porcentaje={a.blogIndiceProgreso} />}
           {carrilCurso && <div class:list={[lateral && a.blogCarrilDerecho !== 'curso' && 'mt-8']}><TarjetaCurso course={curso!} {country} precio={precioCurso} /></div>}
-          <HuecoPublicidad posicion="articulo-lateral" fija />
+          <HuecoPublicidad posicion="articulo-lateral" fija apagado={sinPublicidad} />
         </div>
       </aside>
     </div>

@@ -175,12 +175,31 @@ export function prepararArticulo() {
     a.addEventListener('click', () => { navigator.clipboard?.writeText(a.href).then(() => avisar('Enlace a la sección copiado'), () => {}); });
     h.insertAdjacentElement('beforeend', a);
   }
-  for (const t of $$('[data-prosa] .v2-tabla')) {
+  for (const t of $$('[data-prosa] :is(.v2-tabla, .emdash-table-wrapper)')) {
     if (t.scrollWidth <= t.clientWidth + 1) continue;
     t.toggleAttribute('data-desborda', true);
     const ayuda = document.createElement('p');
     ayuda.className = 'v2-tabla-ayuda'; ayuda.textContent = '↔ Desliza para ver toda la tabla';
     t.insertAdjacentElement('afterend', ayuda);
+  }
+  /* Carrusel de cursos dentro del texto: flechas a la tarjeta siguiente (sin JS queda el desplazamiento táctil). */
+  for (const c of $$('[data-carrusel]')) {
+    const fila = $('[data-carrusel-fila]', c);
+    const pasos = $$<HTMLButtonElement>('[data-carrusel-paso]', c);
+    if (!fila || pasos.length < 2 || fila.scrollWidth <= fila.clientWidth + 1) continue;
+    const pintar = () => {
+      pasos[0]!.disabled = fila.scrollLeft < 4;
+      pasos[1]!.disabled = fila.scrollLeft + fila.clientWidth > fila.scrollWidth - 4;
+    };
+    for (const b of pasos) {
+      b.hidden = false;
+      b.addEventListener('click', () => {
+        const ancho = (fila.firstElementChild as HTMLElement | null)?.offsetWidth ?? fila.clientWidth;
+        fila.scrollBy({ left: Number(b.dataset.carruselPaso) * (ancho + 16), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      });
+    }
+    fila.addEventListener('scroll', pintar, { passive: true });
+    pintar();
   }
   $('[data-escuchar]')?.addEventListener('click', () => {
     const boton = $<HTMLButtonElement>('#narracion [data-medio-alternar]');
