@@ -145,7 +145,7 @@ export function AjustesPage() {
         <OrdenPortada orden={borrador.portadaOrden} ocultos={borrador.portadaOcultos} onChange={(orden, ocultos) => setBorrador(b => ({ ...b, portadaOrden: orden, portadaOcultos: ocultos }))} />
         <button className="so-primary" disabled={ocupado} onClick={() => void guardar(['portadaOrden', 'portadaOcultos'])}>{ocupado ? 'Guardando…' : 'Guardar bloques'}</button>
       </section>
-      {seccion(['portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeMovil'], 'Héroe')}
+      {seccion(['portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeMovil', 'portadaAntetituloMovil'], 'Héroe')}
       {seccion(['portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio'], 'Prueba A/B del héroe', <EstadoPruebaAB valores={actuales} />)}
       {seccion(['portadaCategoriasVariante'], 'Categorías')}
       {seccion(['portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar'], 'Movimiento de los bloques')}

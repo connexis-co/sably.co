@@ -113,6 +113,8 @@ export interface AjustesV2 {
     categoriasVariante: 'fotos' | 'pila' | 'filas';
     comoFuncionaAnimado: boolean;
     heroeMovil: HeroeMovil;
+    /** «Cursos online para {país}» visible bajo 640 px (de fábrica no: queda solo para lectores de pantalla). */
+    antetituloMovil: boolean;
     oficioModo: 'automatico' | 'estatico';
     oficioIntervalo: number;
     guiasVariante: 'tarjetas' | 'lista';
@@ -240,7 +242,8 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       pruebaHeroe: leerPruebaHeroe(v.portadaHeroeAB, v.portadaHeroeABVariantes ?? 'muro, buscador', v.portadaHeroeABReparto, v.portadaHeroeABInicio),
       categoriasVariante: uno(v.portadaCategoriasVariante, ['fotos', 'pila', 'filas'] as const, 'fotos'),
       comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
-      heroeMovil: uno(v.portadaHeroeMovil, HEROE_MOVIL, 'tras-buscador'),
+      heroeMovil: uno(v.portadaHeroeMovil, HEROE_MOVIL, 'franja'),
+      antetituloMovil: v.portadaAntetituloMovil === true,
       oficioModo: uno(v.portadaOficioModo, ['automatico', 'estatico'] as const, 'automatico'),
       oficioIntervalo: Number(uno(v.portadaOficioIntervalo, ['7000', '9000', '12000'] as const, '9000')),
       guiasVariante: uno(v.portadaGuiasVariante, ['tarjetas', 'lista'] as const, 'tarjetas'),

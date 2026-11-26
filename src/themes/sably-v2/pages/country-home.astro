@@ -116,7 +116,7 @@ const masGuias = posts.slice(3);
 const narradas = portada.guiasVariante === 'tarjetas' ? await duracionesNarradas('blog') : new Map<string, number>();
 ---
 <BaseLayout {title} {description} {country} pathAfterCountry="/" alternates={await countryAlternates('/')} schemas={[faqSchema(faqs)]} pageType="home" {freshUntil} temaV2>
-  <Heroe textos={copy.hero} {base} locale={country.hreflang} areas={nav.areas} {celdas} oficios={oficiosHeroe} rotacion={portada.heroe} variante={portada.heroe.variante} fondo={portada.heroe.fondo} pruebaAB={portada.pruebaHeroe} movil={portada.heroeMovil} botones={portada.heroe.botones} tachar={portada.heroe.tachar} prueba={pruebaHeroe} extra={extraBusqueda} />
+  <Heroe textos={copy.hero} {base} locale={country.hreflang} areas={nav.areas} {celdas} oficios={oficiosHeroe} rotacion={portada.heroe} variante={portada.heroe.variante} fondo={portada.heroe.fondo} pruebaAB={portada.pruebaHeroe} movil={portada.heroeMovil} antetituloMovil={portada.antetituloMovil} botones={portada.heroe.botones} tachar={portada.heroe.tachar} prueba={pruebaHeroe} extra={extraBusqueda} />
   {/* Filas completas de las rejillas de tarjetas entre 1024 y 1279 px: una regla, en línea y solo si hace falta. */}
   {ajustes.columnasTarjetas === 'tres-completas' && (portada.bloques.includes('destacados') || portada.bloques.includes('valorados')) && <style is:inline set:html={CSS_FILAS_COMPLETAS}></style>}
   <!-- Interruptores de movimiento de la portada (panel → Portada): un envoltorio sin caja que no cambia la maqueta. -->
