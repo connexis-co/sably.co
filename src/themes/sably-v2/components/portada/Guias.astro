@@ -16,7 +16,7 @@ const copy = { blog: c };
       <a href="/blog/" class="v2-enlace mt-6 min-h-11">Ver blog <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
     </div>
     <div>
-      <ul class="border-t border-navy-100" role="list">
+      <ul class="border-t border-navy-100" role="list" data-entra="grupo">
         {guiasDestacadas.map(post => (
           <li><a href={`/blog/${post.id}/`} class="group flex items-center gap-5 border-b border-navy-100 py-5">
             <span class="min-w-0 flex-1">
@@ -31,7 +31,7 @@ const copy = { blog: c };
       {masGuias.length > 0 && (
         <div class="mt-8">
           <h3 class="text-t13 font-medium text-navy-500">Más guías</h3>
-          <ul class="mt-3 grid gap-x-8 gap-y-1 sm:grid-cols-2" role="list">
+          <ul class="mt-3 grid gap-x-8 gap-y-1 sm:grid-cols-2" role="list" data-entra="grupo">
             {masGuias.map(post => <li><a href={`/blog/${post.id}/`} class="v2-subrayado inline-flex min-h-11 items-center text-t15 font-medium text-navy-950">{post.data.title}</a></li>)}
           </ul>
         </div>
