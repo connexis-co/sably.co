@@ -11,10 +11,10 @@ const { cifras, country } = Astro.props;
 <!-- Cifras reales con fuente y fecha, y cómo se paga -->
 <section class="v2-contenedor pt-12 lg:pt-16" aria-label="Sably en cifras">
   <dl class="grid grid-cols-3 gap-x-4 gap-y-6 lg:flex lg:gap-x-12" data-entra="grupo">
-    <div><dt class="sr-only">Cursos</dt><dd class="v2-num font-display text-d28 font-semibold text-navy-950 lg:text-d56" data-cuenta={cifras.cursos}>{cifras.cursos}</dd><dd class="text-t13 text-navy-700 lg:text-t15">cursos en vídeo con inscripción abierta</dd></div>
-    <div class="border-navy-100 lg:border-l lg:pl-12"><dt class="sr-only">Países</dt><dd class="v2-num font-display text-d28 font-semibold text-navy-950 lg:text-d56">{cifras.paises}</dd><dd class="text-t13 text-navy-700 lg:text-t15">Disponible en {cifras.paises} países</dd></div>
+    <div><dt class="sr-only">Cursos</dt><dd class="v2-num font-display text-d28 max-[359px]:text-[24px] font-semibold text-navy-950 lg:text-d56" data-cuenta={cifras.cursos}>{cifras.cursos}</dd><dd class="text-t13 text-navy-700 lg:text-t15">cursos en vídeo con inscripción abierta</dd></div>
+    <div class="border-navy-100 lg:border-l lg:pl-12"><dt class="sr-only">Países</dt><dd class="v2-num font-display text-d28 max-[359px]:text-[24px] font-semibold text-navy-950 lg:text-d56">{cifras.paises}</dd><dd class="text-t13 text-navy-700 lg:text-t15">Disponible en {cifras.paises} países</dd></div>
     {cifras.calificaciones > 0 && cifras.mediaTexto && (
-      <div class="border-navy-100 lg:border-l lg:pl-12"><dt class="sr-only">Valoraciones</dt><dd class="v2-num font-display text-d28 font-semibold text-navy-950 lg:text-d56" data-cuenta={cifras.calificaciones}>{cifras.calificaciones.toLocaleString('es-CO')}</dd><dd class="text-t13 text-navy-700 lg:text-t15">{cifras.mediaTexto} de media en {cifras.calificaciones.toLocaleString('es-CO')} valoraciones reales en Hotmart</dd></div>
+      <div class="border-navy-100 lg:border-l lg:pl-12"><dt class="sr-only">Valoraciones</dt><dd class="v2-num font-display text-d28 max-[359px]:text-[24px] font-semibold text-navy-950 lg:text-d56" data-cuenta={cifras.calificaciones}>{cifras.calificaciones.toLocaleString('es-CO')}</dd><dd class="text-t13 text-navy-700 lg:text-t15">{cifras.mediaTexto} de media en {cifras.calificaciones.toLocaleString('es-CO')} valoraciones reales en Hotmart</dd></div>
     )}
   </dl>
   <NotaFuente class="mt-4">Cursos y países contados el {cifras.hoy}.{cifras.leidas && ` Valoraciones leídas en Hotmart el ${cifras.leidas}: son las que Hotmart publica en la página de cada curso.`}</NotaFuente>

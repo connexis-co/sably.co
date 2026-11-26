@@ -37,7 +37,9 @@ const DURACION = [30, 36, 33, 39];
       [data-heroe='muro'] .v2-heroe-caja { position: static; min-height: 680px; }
       [data-heroe='muro'] .v2-heroe-texto { position: relative; z-index: 3; }
     }
-    .v2-muro { --ang: -6deg; --rec: 6deg; position: relative; height: 300px; margin-inline: calc(50% - 50vw); overflow: clip; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
+    /* Sangra al borde comiéndose el relleno del contenedor (20 px bajo 1024), no con 100vw: 100vw cuenta la barra de
+       desplazamiento clásica y el muro sobresalía de la página (desborde horizontal, ronda 5). */
+    .v2-muro { --ang: -6deg; --rec: 6deg; position: relative; height: 300px; margin-inline: -20px; overflow: clip; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; }
     .v2-muro[data-arrastre] { cursor: grabbing; }
     .v2-muro a { -webkit-user-drag: none; }
     .v2-muro-giro { position: absolute; left: -8%; width: 116%; top: calc(50% - 22px); translate: 0 -50%; rotate: var(--ang); display: grid; gap: 12px; }
