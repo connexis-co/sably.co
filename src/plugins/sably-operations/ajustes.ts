@@ -478,15 +478,21 @@ export const settingsSchema = {
   portadaHeroeMovil: {
     type: 'select',
     label: 'Portada · Muro del héroe en el celular',
-    description: 'Dónde va el muro deslizable por debajo de 1024 px. «Tras el buscador» (de fábrica): a 390 × 844 se ven en la primera pantalla el titular, el buscador y el muro (dos filas más bajas); los botones quedan justo debajo. «Tras el titular»: el muro sube bajo el titular y empuja descripción y buscador. «Franja bajo la descripción»: una franja más baja entre la descripción y el buscador. «Tras los botones»: entre «Explorar cursos» y la línea de valoraciones. «Al final»: debajo de todo el texto. Solo afecta al muro.',
+    description: 'Dónde va el muro deslizable por debajo de 1024 px. «Tras la descripción» (de fábrica): titular, descripción, muro, buscador, botones y valoración; a 390 × 844, con la barra de campaña, caben todos en la primera pantalla. «Tras el titular»: el muro sube bajo el titular y empuja la descripción. «Tras el buscador»: titular, descripción, buscador y luego el muro. «Tras los botones»: entre «Explorar cursos» y la línea de valoraciones. «Al final»: debajo de todo el texto. Solo afecta al muro.',
     options: [
-      { value: 'tras-buscador', label: 'Tras el buscador (titular, buscador y muro a la vista)' },
+      { value: 'franja', label: 'Tras la descripción (titular, descripción, muro y buscador a la vista)' },
       { value: 'tras-titular', label: 'Tras el titular' },
-      { value: 'franja', label: 'Franja baja bajo la descripción' },
+      { value: 'tras-buscador', label: 'Tras el buscador' },
       { value: 'tras-botones', label: 'Tras los botones' },
       { value: 'final', label: 'Al final del héroe' },
     ],
-    default: 'tras-buscador',
+    default: 'franja',
+  },
+  portadaAntetituloMovil: {
+    type: 'boolean',
+    label: 'Portada · Antetítulo del héroe en el celular',
+    description: '«Cursos online para {país}» sobre el titular. Apagado (de fábrica): por debajo de 640 px no se ve, para que el titular, el muro y el buscador suban; sigue en la página para lectores de pantalla y buscadores. En tableta y escritorio se ve siempre.',
+    default: false,
   },
   portadaOficioModo: {
     type: 'select',
@@ -572,7 +578,7 @@ export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' 
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
 export const CAMPANA_CLAVES: ClaveAjuste[] = ['campanaBarra', 'campanaBanda', 'campanaMegamenu', 'campanaListado'];
-export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaHeroeMovil', 'portadaOficioModo', 'portadaOficioIntervalo', 'portadaBeneficiosModo', 'portadaGuiasVariante', 'portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
+export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaHeroeMovil', 'portadaAntetituloMovil', 'portadaOficioModo', 'portadaOficioIntervalo', 'portadaBeneficiosModo', 'portadaGuiasVariante', 'portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
 
 /** Ajustes de la página «Nosotros» (pestaña «Cursos y contenido»). */
 export const NOSOTROS_CLAVES: ClaveAjuste[] = ['nosotrosDiseno', 'nosotrosCifras', 'nosotrosMovimiento'];

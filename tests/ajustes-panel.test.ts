@@ -155,7 +155,8 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
       pruebaHeroe: null,
       categoriasVariante: 'fotos',
       comoFuncionaAnimado: true,
-      heroeMovil: 'tras-buscador', // valor de fábrica desde la ronda 5 (no está guardado en producción)
+      heroeMovil: 'franja', // de fábrica desde el héroe móvil compacto: tras la descripción (no está guardado en producción)
+      antetituloMovil: false,
       oficioModo: 'automatico',
       oficioIntervalo: 9000,
       guiasVariante: 'tarjetas',

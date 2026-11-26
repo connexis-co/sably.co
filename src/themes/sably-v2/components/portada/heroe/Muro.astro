@@ -5,7 +5,7 @@
  * duplicadas) detrás de un velo que las apaga hacia el texto. Cursor o foco en una fila la detiene y endereza la
  * tarjeta, que enseña curso, nota y precio; el muro se puede arrastrar (Pointer Events, solo `translate`).
  * Escritorio: capa absoluta en la mitad derecha de la banda, sangrando al borde, con alto fijo (CLS 0).
- * Móvil: dos filas BAJO los botones, con el precio siempre a la vista; un toque abre el curso.
+ * Móvil: dos filas dentro del texto (de fábrica, tras la descripción), con el precio siempre a la vista; un toque abre el curso.
  * Con «reducir movimiento»: filas quietas, sin copias, sin botón de pausa y sin giro animado.
  * Los 12 cursos van enlazados en el HTML (primera copia de cada pista); las copias del bucle son aria-hidden.
  * Orden aleatorio (D1, ajuste «Orden» de la portada, de fábrica): lo decide el navegador, no el servidor, para que la
@@ -55,6 +55,12 @@ const DURACION = [30, 36, 33, 39];
       [data-heroe='muro']:is([data-heroe-movil='franja'], [data-heroe-movil='tras-buscador']) .v2-muro { height: 196px; margin-top: 14px; }
       [data-heroe='muro']:is([data-heroe-movil='franja'], [data-heroe-movil='tras-buscador']) .v2-muro-tar > a { width: 120px; }
       [data-heroe='muro']:is([data-heroe-movil='franja'], [data-heroe-movil='tras-buscador']) .v2-muro-pausa { min-height: 36px; padding: 0 12px; font-size: 13px; }
+      /* Tras la descripción (de fábrica): 216 px y las filas centradas, para que la primera no pierda el precio por
+         arriba al girar; la pausa es un círculo de 40 px (el texto sigue para lectores de pantalla). */
+      [data-heroe='muro'][data-heroe-movil='franja'] .v2-muro { height: 216px; margin-top: 12px; }
+      [data-heroe='muro'][data-heroe-movil='franja'] .v2-muro-giro { top: 50%; }
+      [data-heroe='muro'][data-heroe-movil='franja'] .v2-muro-pausa { right: 16px; bottom: 6px; width: 40px; min-height: 40px; padding: 0; justify-content: center; }
+      [data-heroe='muro'][data-heroe-movil='franja'] [data-muro-pausa-texto] { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
       .v2-muro { mask-image: linear-gradient(90deg, transparent, #000 18px, #000 calc(100% - 18px), transparent); }
       [data-heroe='muro'] .v2-heroe-caja { padding-bottom: 20px; }
     }
