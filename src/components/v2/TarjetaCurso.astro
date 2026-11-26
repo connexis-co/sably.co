@@ -41,14 +41,14 @@ const resumen = resumenTarjeta(course.data.shortDescription);
 /* Para las tarjetas más estrechas (cuatro columnas a 1024–1279 en la portada): dos líneas de ~18 a 24 caracteres (contenido de 178 a 250 px). */
 const resumenCorto = resumenTarjeta(course.data.shortDescription, 34);
 ---
-<article data-fila-movil={filaEnMovil || undefined} data-tarjeta-curso={course.id} class="group relative flex h-full flex-col overflow-hidden rounded-c-lg bg-white ring-1 ring-navy-100 transition-shadow duration-(--t-lento) ease-(--e-sale) hover:shadow-s2 hover:ring-transparent">
+<article data-fila-movil={filaEnMovil || undefined} data-tarjeta-curso={course.id} class="v2-tc group relative flex h-full flex-col rounded-c-lg bg-white ring-1 ring-navy-100">
   <div class="v2-tc-foto relative aspect-[4/3] overflow-hidden bg-navy-50">
     <OptimizedImage
       src={cmsImageUrl(course.cardImage) ?? cmsImageUrl(course.coverImage) ?? courseCover(course.id, cat.slug, 'card')}
       alt={course.data.title} width={480} height={360}
       sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
       loading={eager ? 'eager' : 'lazy'} decoding="async"
-      class="h-full w-full object-cover transition-transform duration-(--t-lento) ease-(--e-sale) group-hover:scale-[1.03]" />
+      class="h-full w-full object-cover transition-transform duration-(--t-base) ease-(--e-sale) group-hover:scale-[1.03]" />
     <span class="v2-tc-placa absolute top-3 left-3 rounded-full bg-navy-950/85 px-3 py-1 text-t13 font-medium text-white">{cat.name}</span>
   </div>
   <div class="v2-tc-cuerpo flex flex-1 flex-col p-5">
@@ -65,12 +65,22 @@ const resumenCorto = resumenTarjeta(course.data.shortDescription, 34);
           {precio.normal !== null && <span class="v2-tc-normal text-t13 font-normal text-navy-500"><span class="sr-only">Precio normal: </span><Precio valor={precio.normal} moneda={precio.moneda} locale={country.hreflang} class="line-through decoration-[1.5px]" codigoClass="text-t13" /></span>}
         </span>
       ) : <span />}
-      <Icono nombre="arrow-right" class="v2-tc-flecha flex-none text-navy-950 transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" />
+      <Icono nombre="arrow-right" class="v2-tc-flecha flex-none text-navy-950 transition-transform duration-(--t-rapido) ease-(--e-sale) group-hover:translate-x-[3px]" />
     </p>
   </div>
 </article>
 <style>
   article:has(a:focus-visible) { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+  /* Cursor (C9, juez pieza 31): la sombra s2 vive en un ::after y solo cambia su opacidad (composición, 240 ms),
+     en vez de animar `box-shadow` 380 ms en la tarjeta. La foto recorta con su propio radio superior, así que la
+     tarjeta ya no necesita `overflow: hidden`, que habría cortado la sombra. */
+  .v2-tc-foto { border-radius: var(--radius-c-lg) var(--radius-c-lg) 0 0; }
+  .v2-tc::after {
+    content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+    box-shadow: var(--shadow-s2); opacity: 0; transition: opacity var(--t-base) var(--e-sale);
+  }
+  @media (hover: hover) { .v2-tc:hover::after { opacity: 1; } }
+  .v2-tc:has(a:focus-visible)::after { opacity: 1; }
   /* El precio de hoy y el normal tachado van siempre juntos en una línea: en las tarjetas estrechas
      (4 columnas a 1280–1440, 2 columnas a 640) la flecha, que es decorativa, cede su sitio.
      Ojo: el contenedor mide la caja de contenido, sin los 20 px de relleno de cada lado. */
@@ -88,7 +98,7 @@ const resumenCorto = resumenTarjeta(course.data.shortDescription, 34);
   }
   @media (width < 640px) {
     article[data-fila-movil] { display: grid; grid-template-columns: 112px minmax(0, 1fr); align-items: start; gap: 0 14px; padding: 14px 0; overflow: visible; border-radius: 0; background: transparent; box-shadow: none; }
-    article[data-fila-movil]:hover { box-shadow: none; }
+    article[data-fila-movil]::after { display: none; }
     article[data-fila-movil] .v2-tc-foto { border-radius: 12px; }
     article[data-fila-movil] :is(.v2-tc-placa, .v2-tc-desc) { display: none; }
     article[data-fila-movil] .v2-tc-cuerpo { padding: 0; }
