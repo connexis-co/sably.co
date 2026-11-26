@@ -81,8 +81,9 @@ export function iniciarPromos(): void {
       const pieza = cerrar.closest<HTMLElement>('[data-promo-v2]');
       if (pieza) {
         pieza.hidden = true;
-        // `data-cierre="vista"` (ajuste del panel): vuelve en la página siguiente.
-        if (pieza.dataset.cierre !== 'vista') {
+        // `data-al-cerrar="vista"` (ajuste del panel): vuelve en la página siguiente. No `data-cierre`:
+        // BarraFija.astro lo busca para la sección de cierre de la ficha y tomaba esta barra.
+        if (pieza.dataset.alCerrar !== 'vista') {
           try { sessionStorage.setItem(CLAVE_CERRADA, pintada(pieza)?.id ?? ''); } catch { /* sin almacenamiento: solo esta vista */ }
         }
       }
@@ -174,7 +175,7 @@ function pintar(el: HTMLElement, promo: Pintable): void {
   const v2 = el.dataset.promoV2 !== undefined;
   if (vence <= 0) { el.hidden = true; return; }
   // La barra V2 que se cerró en esta sesión no vuelve a salir en cada página.
-  el.hidden = v2 && el.dataset.promoV2 === 'barra' && el.dataset.cierre !== 'vista' && cerradaEnSesion(promo.id);
+  el.hidden = v2 && el.dataset.promoV2 === 'barra' && el.dataset.alCerrar !== 'vista' && cerradaEnSesion(promo.id);
   if (v2) {
     // Sin segundos ni reloj que corre: la fecha de fin va en texto. Al llegar, se retira sola.
     if (promo.endsAt && Number.isFinite(vence) && vence < 2 ** 31) setTimeout(() => { el.hidden = true; }, vence);
