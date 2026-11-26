@@ -5,6 +5,7 @@
  * sitio, así un tema nunca puede afirmar algo distinto que el otro.
  */
 import {readVerifiedCourseReviews} from '@/lib/verified-course-reviews';
+import { duracionCurso } from '@/lib/duracion';
 import {courseWatch} from '@/lib/course-watch';
 import {videoServido} from '@/lib/course-videos';
 import {videoDeCurso} from '@/lib/video';
@@ -354,7 +355,7 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
       creators: creadoresVisibles.map((c) => ({ slug: c.slug, nombre: c.nombre, bio: c.bio, url: urlCreador(SITE.url, country.code, c.slug) })),
       comprable: !sinProducto,
       category: category.name,
-      workloadHours: course.data.durationHours,
+      workload: duracionCurso.iso(course.id),
       teaches: course.data.learnings,
       level: course.data.level,
       syllabus: course.data.modules.map((m) => m.title),

@@ -151,7 +151,9 @@ function courseData(value: unknown, context: string): { data: Course['data']; so
   if (!['Principiante', 'Intermedio', 'Avanzado', 'Todos los niveles'].includes(data.level as string)) {
     invalid(context, 'level');
   }
-  for (const field of ['durationHours', 'priceUSD', 'originalPriceUSD']) positive(data[field], context, field);
+  for (const field of ['priceUSD', 'originalPriceUSD']) positive(data[field], context, field);
+  // Sin uso en pantalla (src/lib/duracion.ts): opcional, y si viene, positivo.
+  if (data.durationHours != null) positive(data.durationHours, context, 'durationHours');
   positive(data.lessonsCount, context, 'lessonsCount', true);
   if (typeof data.featured !== 'boolean') invalid(context, 'featured');
   for (const [field, editor] of [['learnings', 'learning_items'], ['audience', 'audience_items'], ['keywords', 'keyword_items']]) data[field!] = items(entry[editor!], data[field!], context, field!);

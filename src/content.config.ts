@@ -19,7 +19,8 @@ const courses = defineCollection({
     subcategory: z.string(),
     shortDescription: z.string().max(180),
     level: z.enum(['Principiante', 'Intermedio', 'Avanzado', 'Todos los niveles']),
-    durationHours: z.number().positive(),
+    /** Sin uso en pantalla: la duración visible es la de vídeo medida (src/lib/duracion.ts). */
+    durationHours: z.number().positive().optional(),
     lessonsCount: z.number().int().positive(),
     modules: z
       .array(
