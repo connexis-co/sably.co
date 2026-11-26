@@ -17,7 +17,7 @@ export const GET: APIRoute = async () => {
 > Plataforma de educación online en español para aprender oficios prácticos y habilidades que la IA
 > no puede reemplazar (belleza, panadería, electricidad, gastronomía, idiomas y más), en 8 países de
 > Latinoamérica y España.
-> Reúne ${courses.length} cursos seleccionados de creadores independientes, con constancia de finalización,
+> Reúne ${courses.length} cursos seleccionados de creadores independientes, con certificado de finalización,
 > acceso de por vida y garantía de 7 días; guías gratuitas en el blog, vídeos de presentación de cada curso,
 > orientación por WhatsApp antes de inscribirse y homologación de saberes con instituciones aliadas en Colombia.
 > Cada curso lo dicta su creador; la inscripción y el pago se hacen en Hotmart. Sably se financia con una
