@@ -26,6 +26,8 @@ const ANTES = {
     // Clave nueva (25-nov, ciudades en la ficha V2): tampoco reordena las anteriores.
     mostrarCiudades: ['boolean', null, true],
     estiloCampo: ['select', ['outlined', 'filled', 'underline'], 'outlined'],
+    // Clave nueva (26-nov, tarjetas de cursos entre 1024 y 1279 px): se añade, no sustituye a ninguna.
+    tarjetasColumnasMedio: ['select', ['tres-completas', 'tres', 'cuatro'], 'tres-completas'],
     // Claves nuevas (cuenta, 25-nov): se añaden, no sustituyen a ninguna.
     cuentaActiva: ['boolean', null, true],
     cuentaGoogle: ['boolean', null, true],
@@ -115,6 +117,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     mostrarDocente: true,
     mostrarCiudades: true,
     estiloCampo: 'outlined',
+    columnasTarjetas: 'tres-completas',
     sobreFotos: true,
     movimientoFicha: { ficha: 'sobrio', certificado: 'destello' },
     bloquesFicha: { temario: 'enfoca', queIncluye: true, relacionados: 'placa' },

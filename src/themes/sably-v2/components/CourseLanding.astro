@@ -50,6 +50,7 @@ import { fotoDeCurso, srcFoto } from '../fotos';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { plazoMasCorto, preciosDeTarjetas } from '@/lib/precio-hoy';
 import { CSS_CABEZA, RUTA_HOJA_FICHA } from '../ficha-hoja';
+import { rejillaTarjetas } from '../rejilla-tarjetas';
 
 type Props = FichaProps;
 const { country, city, content } = Astro.props;
@@ -72,6 +73,8 @@ const creador = ajustes.mostrarCreador && creadoresVisibles.length ? nombresCrea
    la marca queda solo donde el comprador la necesita para reconocer el cobro (junto al pago, en la caja). */
 const docente = ajustes.mostrarDocente && !sinProducto ? docenteReal(course.data.instructor) : null;
 const nota = notaHotmart(valoracion);
+/* Especializaciones y relacionados: 3 columnas entre 1024 y 1279 px (panel «Tarjetas de cursos»). */
+const rejilla = rejillaTarjetas(ajustes.columnasTarjetas);
 /* Tarjetas de especializaciones y relacionados: el precio de SU ficha, con la misma
    función que esta (src/lib/precio-hoy.ts). La página no vive en caché más que la
    cotización más corta que pinta. */
@@ -447,7 +450,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
         <div class="v2-contenedor">
           <h2 id="titulo-especializate" class="font-display text-d28 lg:text-d40">Especialízate después de este curso</h2>
           <p class="mt-3 max-w-2xl text-t17 text-navy-700">Este es el curso general. Cuando domines la base, estas especializaciones te dejan cobrar más por servicio.</p>
-          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{satellites.slice(0, 8).map(c => <TarjetaCurso course={c} {country} precio={tarjetas.precios.get(c.id) ?? null} />)}</div>
+          <div class={`mt-8 grid gap-6 sm:grid-cols-2 ${rejilla.columnas}`} data-filas-completas={rejilla.filasCompletas}>{satellites.slice(0, 8).map(c => <TarjetaCurso course={c} {country} precio={tarjetas.precios.get(c.id) ?? null} />)}</div>
         </div>
       </section>
     )}
@@ -478,8 +481,8 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
             <a href={`/${country.code}/cursos/${category.slug}/`} class="v2-enlace">Ver los cursos de {category.name} <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></a>
           </div>
           {relacionadosConPrecio
-            ? <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{related.map(c => <TarjetaCurso course={c} {country} precio={tarjetas.precios.get(c.id) ?? null} />)}</div>
-            : <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-relacionados-placa>{related.map(c => <TarjetaPlaca course={c} {country} />)}</div>}
+            ? <div class={`mt-8 grid gap-6 sm:grid-cols-2 ${rejilla.columnas}`} data-filas-completas={rejilla.filasCompletas}>{related.map(c => <TarjetaCurso course={c} {country} precio={tarjetas.precios.get(c.id) ?? null} />)}</div>
+            : <div class={`mt-8 grid gap-6 sm:grid-cols-2 ${rejilla.columnas}`} data-relacionados-placa data-filas-completas={rejilla.filasCompletas}>{related.map(c => <TarjetaPlaca course={c} {country} />)}</div>}
         </div>
       </section>
     )}

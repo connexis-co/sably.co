@@ -1,0 +1,8 @@
+/* Rejillas de tarjetas de cursos entre 1024 y 1279 px (decisión de JP del 26-nov): 3 columnas en vez de 4, para que la
+   tarjeta no quede tan estrecha que el precio tachado se monte encima del precio. Con «filas completas» (de fábrica) se
+   oculta en ese tramo la última fila si queda a medias (8 → 6, 4 → 3); el HTML no cambia y desde 1280 px vuelven todas.
+   Va en la hoja propia de la ficha (ficha-hoja.css) y en línea en la portada (rejilla-tarjetas.ts), nunca en la común. */
+@media (width >= 1024px) and (width < 1280px) {
+  [data-filas-completas] > :nth-child(3n + 4):nth-last-child(-n + 2),
+  [data-filas-completas] > :nth-child(3n + 4):nth-last-child(-n + 2) ~ * { display: none; }
+}

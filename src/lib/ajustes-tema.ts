@@ -12,6 +12,8 @@ import { leerAjustesBlog, type AjustesBlog } from './blog-ajustes';
 export type VarianteCaja = 'cuenta-clara' | 'cabecera-oscura';
 export type EstiloContador = 'barra' | 'casillas' | 'linea' | 'tique';
 export type EstiloCampo = 'outlined' | 'filled' | 'underline';
+/** Rejillas de tarjetas de cursos entre 1024 y 1279 px (portada y ficha): ver themes/sably-v2/rejilla-tarjetas.ts. */
+export type ColumnasTarjetas = 'tres-completas' | 'tres' | 'cuatro';
 
 export { VARIANTES_HEROE, VARIANTES_HEROE_AB, leerPruebaHeroe, type PruebaHeroe, type VarianteHeroe } from './prueba-heroe';
 import { VARIANTES_HEROE, leerPruebaHeroe, type PruebaHeroe, type VarianteHeroe } from './prueba-heroe';
@@ -42,6 +44,8 @@ export interface AjustesV2 {
   /** «Disponible online en {país}» con las ciudades del país, en texto y sin enlaces. */
   mostrarCiudades: boolean;
   estiloCampo: EstiloCampo;
+  /** Tarjetas de cursos entre 1024 y 1279 px: 3 columnas sin fila a medias (de fábrica), 3 con todas o 4. */
+  columnasTarjetas: ColumnasTarjetas;
   /** C5: en «Sobre este curso», una foto por pestaña con fundido (de fábrica). */
   sobreFotos: boolean;
   /** C6: movimiento de la ficha al bajar y animación del certificado (nunca con menos movimiento). */
@@ -133,6 +137,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     mostrarDocente: v.mostrarDocente !== false,
     mostrarCiudades: v.mostrarCiudades !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
+    columnasTarjetas: uno(v.tarjetasColumnasMedio, ['tres-completas', 'tres', 'cuatro'] as const, 'tres-completas'),
     sobreFotos: v.sobreFotosPestanas !== false,
     movimientoFicha: {
       ficha: uno(v.fichaMovimiento, ['sobrio', 'minimo', 'ninguno'] as const, 'sobrio'),
