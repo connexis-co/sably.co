@@ -11,6 +11,15 @@ import type { PublicPageContext } from './types';
  */
 export type CityRoute = 'catalog' | 'category' | 'course';
 
+/**
+ * Slugs de ciudad que nunca existieron pero reciben visitas, y la ciudad que quieren decir. Solo
+ * `/mx/ciudad-de-mexico/` (la de CDMX siempre fue `cdmx`): 404 con 2 peticiones en 8 días
+ * (docs/equipo/2026-11-25/seo/ciudades.md, propuesta E). Con el alias sigue el mismo 301 que las demás.
+ */
+const ALIAS_CIUDAD: Record<string, Record<string, string>> = { mx: { 'ciudad-de-mexico': 'cdmx' } };
+export const slugDeCiudad = (pais: string, item: string | undefined): string | undefined =>
+  (item && ALIAS_CIUDAD[pais]?.[item]) || item;
+
 /** El hub `/{país}/{ciudad}/` comparte ruta con las fichas de país y lo resuelve market-item. */
 export const cityRedirect = (Astro: Pick<PublicPageContext, 'url'>, path: string): Response =>
   new Response(null, { status: 301, headers: { Location: `${path}${Astro.url.search}` } });
@@ -18,7 +27,8 @@ export const cityRedirect = (Astro: Pick<PublicPageContext, 'url'>, path: string
 export async function load(Astro: PublicPageContext, route: CityRoute): Promise<Response> {
   const cms = await getContentRepository();
   const country = await cms.getCountry(Astro.params.country ?? '');
-  const city = country?.cities.find(c => c.slug === Astro.params.item);
+  const item = country ? slugDeCiudad(country.code, Astro.params.item) : undefined;
+  const city = country?.cities.find(c => c.slug === item);
   if (!country || !city) return new Response('Not found', { status: 404 });
   const base = `/${country.code}`;
   if (route === 'catalog') return cityRedirect(Astro, `${base}/cursos/`);

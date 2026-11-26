@@ -1,0 +1,32 @@
+---
+/**
+ * Bloque sably_story en «Nosotros» narrativo: el texto del CMS a la izquierda y, a la derecha, la foto del CMS con
+ * una segunda foto aprobada que la solapa (desde 768 px). Ambas entran escalonadas con el resto (`data-entra`).
+ */
+import { Image, type BlockValue } from 'emdash/ui';
+import type { MediaValue } from 'emdash';
+import type { RichBlock } from '@/lib/emdash-content';
+import CmsRichBody from '@/components/CmsRichBody.astro';
+import Foto from '../Foto.astro';
+interface Props { value: BlockValue & { eyebrow?: string; title?: string; content?: RichBlock[]; image?: MediaValue } }
+const { value } = Astro.props;
+---
+<section class="v2-contenedor grid items-center gap-12 py-16 lg:grid-cols-[minmax(0,1fr)_minmax(0,540px)] lg:gap-16 lg:py-24" data-cms>
+  <div>
+    {value.eyebrow && <p class="v2-antetitulo text-navy-700">{value.eyebrow}</p>}
+    {value.title && <h2 class:list={['font-display text-d28 lg:text-d40', value.eyebrow && 'mt-3']}>{value.title}</h2>}
+    <div class="v2-prosa mt-5 max-w-[680px]"><CmsRichBody value={value.content ?? []} /></div>
+  </div>
+  <div class="v2-nos-historia" data-entra="grupo">
+    {value.image
+      ? <Image image={value.image} sizes="(min-width: 1024px) 440px, 84vw" class="v2-nos-h1 aspect-[4/3] w-full rounded-c-xl object-cover" loading="lazy" />
+      : <div class="v2-nos-h1"><Foto nombre="foto-heroe-1" sizes="(min-width: 1024px) 440px, 84vw" class="aspect-[4/3] w-full rounded-c-xl object-cover" /></div>}
+    <div class="v2-nos-h2"><Foto nombre="foto-creador-1" sizes="(min-width: 1024px) 240px, 44vw" class="aspect-square w-full rounded-c-lg object-cover" /></div>
+  </div>
+</section>
+
+<style>
+  .v2-nos-historia { position: relative; padding-right: 12%; padding-bottom: 18%; }
+  .v2-nos-h2 { position: absolute; right: 0; bottom: 0; width: 44%; padding: 6px; border-radius: calc(var(--radius-c-lg) + 6px); background: var(--color-surface, #fff); box-shadow: var(--shadow-s3); }
+  .v2-nos-historia :global(picture) { display: block; }
+</style>

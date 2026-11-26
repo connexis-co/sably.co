@@ -9,7 +9,7 @@ const { videos } = Astro.props;
   <h2 id="videos-heading" class="font-display text-d28">Conoce los cursos en vídeo</h2>
   <p class="mt-2 text-t17 text-navy-700">Mira las presentaciones antes de consultar el programa y elegir tu curso.</p>
   {videos.length > 0 && (
-    <ul class="mt-6 flex flex-wrap gap-2" role="list">
+    <ul class="mt-6 flex flex-wrap gap-2" role="list" data-entra="grupo">
       {videos.map(video => <li><a href={video.path} class="v2-chip gap-2"><Ico nombre="circle-play" tamano={18} />{video.course.data.title}</a></li>)}
     </ul>
   )}
