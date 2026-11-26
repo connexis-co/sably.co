@@ -26,6 +26,7 @@ import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import { inventarioMosaico, mejorValorados, ordenarPorVisitas, repartirEnCeldas } from '../portada';
 import Valorados from '../components/portada/Valorados.astro';
 import Convergen from '../components/portada/Convergen.astro';
+import Movimiento from '../components/portada/Movimiento.astro';
 import { getHomeEditorial, getHomeSectionOptional } from '@/lib/home-editorial';
 import { monedasCobradas } from '@/lib/moneda-catalogo';
 import { countryAlternates, faqSchema } from '@/lib/seo';
@@ -33,6 +34,7 @@ import { preciosDeTarjetas } from '@/lib/precio-hoy';
 import { notaHotmart } from '@/lib/opiniones';
 import { readOperationalRatings } from '@/plugins/sably-operations/public';
 import { cifrasPortada } from '../cifras';
+import { duracionesNarradas } from '@/lib/narracion';
 import { datosNavegacion, comprable } from '../navegacion';
 import { promoDeLaPagina } from '../promo-v2';
 import { fotoDeCurso, OFICIOS_MOSAICO, OFICIOS_HEROE, type NombreFoto } from '../fotos';
@@ -109,9 +111,13 @@ const oficios = featured.filter(comprable).flatMap(c => {
 }).slice(0, 3);
 const guiasDestacadas = posts.slice(0, 3);
 const masGuias = posts.slice(3);
+/* «Escúchalo · N min» en las tarjetas de guías: solo las que tienen narración publicada (una consulta). */
+const narradas = portada.guiasVariante === 'tarjetas' ? await duracionesNarradas('blog') : new Map<string, number>();
 ---
 <BaseLayout {title} {description} {country} pathAfterCountry="/" alternates={await countryAlternates('/')} schemas={[faqSchema(faqs)]} pageType="home" {freshUntil} temaV2>
-  <Heroe textos={copy.hero} {base} locale={country.hreflang} areas={nav.areas} {celdas} oficios={oficiosHeroe} rotacion={portada.heroe} variante={portada.heroe.variante} fondo={portada.heroe.fondo} pruebaAB={portada.pruebaHeroe} botones={portada.heroe.botones} tachar={portada.heroe.tachar} prueba={pruebaHeroe} extra={extraBusqueda} />
+  <Heroe textos={copy.hero} {base} locale={country.hreflang} areas={nav.areas} {celdas} oficios={oficiosHeroe} rotacion={portada.heroe} variante={portada.heroe.variante} fondo={portada.heroe.fondo} pruebaAB={portada.pruebaHeroe} movil={portada.heroeMovil} botones={portada.heroe.botones} tachar={portada.heroe.tachar} prueba={pruebaHeroe} extra={extraBusqueda} />
+  <!-- Interruptores de movimiento de la portada (panel → Portada): un envoltorio sin caja que no cambia la maqueta. -->
+  <div class="contents" data-portada-bloques data-aparicion={portada.aparicion ? '' : undefined} data-cifras-cuentan={portada.cifrasCuentan ? '' : undefined} data-paralaje={portada.paralaje ? '' : undefined}>
   {portada.bloques.map(bloque => (
     bloque === 'cifras' ? <Cifras {cifras} {country} />
     : bloque === 'categorias' ? (portada.categoriasVariante === 'pila' ? <CategoriasPila copy={copy.categories} {base} {conFoto} {resto} {externas} total={nav.areas.length} />
@@ -121,16 +127,18 @@ const masGuias = posts.slice(3);
     : bloque === 'destacados' ? <Destacados copy={copy.courses} {featured} {country} {precios} {base} {moneda} totalCursos={nav.totalCursos} />
     : bloque === 'promo' ? <BandaPromo {promo} {base} class="pt-20 lg:pt-24" />
     : bloque === 'escenas' ? <Escenas textos={textosEscenas} {base} areas={nav.areas} atenuar={portada.escenasAtenuar} variante={portada.escenasVariante} />
-    : bloque === 'oficio' ? <Oficio {oficios} {base} />
+    : bloque === 'oficio' ? <Oficio {oficios} {base} modo={portada.oficioModo} intervalo={portada.oficioIntervalo} />
     : bloque === 'como-funciona' ? <ComoFunciona animado={portada.comoFuncionaAnimado} />
     : bloque === 'valorados' ? <Valorados cursos={valorados} {country} {precios} minimo={portada.valoradosMinimo} leidas={cifras.leidas} />
-    : bloque === 'beneficios' ? <Beneficios copy={copy['benefits-heading']} {benefits} />
+    : bloque === 'beneficios' ? <Beneficios copy={copy['benefits-heading']} {benefits} modo={portada.beneficiosModo} {cifras} />
     : bloque === 'videos' ? <Videos {videos} />
-    : bloque === 'guias' ? <Guias copy={copy.blog} {guiasDestacadas} {masGuias} />
+    : bloque === 'guias' ? <Guias copy={copy.blog} {guiasDestacadas} {masGuias} variante={portada.guiasVariante} {narradas} />
     : bloque === 'preguntas' ? <Preguntas antetitulo={copy['faq-heading'].eyebrow} titulo={copy['faq-heading'].title} {faqs} whatsapp={nav.whatsapp} class="pt-24 lg:pt-32" />
     : bloque === 'cierre' ? <Cierre {base} totalCursos={nav.totalCursos} />
     : null
   ))}
+  </div>
+  <Movimiento />
 </BaseLayout>
 
 <style is:global>

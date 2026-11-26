@@ -38,9 +38,9 @@ const helpUrl = marketMenuUrl(contact.help_button_url, country?.code ?? 'co');
         <span><span data-consent-text>{contact.consent_text}</span>{' '}<a data-privacy-link href={privacyUrl} class="font-medium text-navy-950 underline underline-offset-2">{contact.privacy_label}</a>.</span>
       </label>
       <span data-err="consent" class="mt-1.5 hidden text-t13 font-medium text-v2-error"></span>
-      <div class="mt-6 flex flex-wrap items-center gap-4">
-        <button type="submit" data-enviar class="v2-btn v2-btn-principal disabled:opacity-60" data-alto="52">{contact.submit_label}</button>
-        <span data-aviso role="status" class="text-sm"></span>
+      <div class="mt-8 flex flex-col items-center gap-3">
+        <button type="submit" data-enviar class="v2-btn v2-btn-principal w-full disabled:opacity-60 sm:w-[85%]">{contact.submit_label}</button>
+        <span data-aviso role="status" class="min-h-5 text-center text-sm"></span>
       </div>
     </fieldset>
     <noscript><p class="mt-4 rounded-c-md bg-navy-50 p-3 text-t15">El formulario necesita JavaScript. Escríbenos por WhatsApp mientras tanto.</p></noscript>
