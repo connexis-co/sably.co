@@ -42,10 +42,9 @@ const cuenta = await estadoCuenta(Astro.locals);
       <div class="v2-mega-raiz" data-mega>
         <a href={nav.enlaceCursos.href} class:list={['v2-nav-enlace', { 'v2-actual': enCursos }]} aria-current={ruta === nav.enlaceCursos.href ? 'page' : undefined} data-mega-gatillo>{nav.enlaceCursos.etiqueta}</a>
         <button type="button" class="v2-mega-boton" aria-expanded="false" aria-controls="v2-megamenu" aria-label="Mostrar las áreas de cursos" data-mega-boton><Ico nombre="chevron-down" tamano={16} class="v2-giro" /></button>
-        <div class="v2-mega-velo" aria-hidden="true"></div>
         <div class="v2-mega" id="v2-megamenu">
           <div class="v2-contenedor"><div class="v2-mega-panel">
-            <div class="grid grid-cols-[minmax(0,420px)_minmax(0,1fr)_280px]">
+            <div class="grid grid-cols-[minmax(0,360px)_minmax(0,1fr)] xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)_280px]">
               <div class="border-r border-navy-100 p-6 pr-5">
                 <p class="px-4 text-t13 font-medium text-navy-500">Áreas</p>
                 <ul class="mt-2 grid grid-flow-col grid-cols-2 gap-x-2" style={`grid-template-rows: repeat(${Math.ceil(areas.length / 2)}, auto)`} role="list">
@@ -76,7 +75,7 @@ const cuenta = await estadoCuenta(Astro.locals);
                 </div>
                 {areas.map(area => <MegaDetalle area={area} base={base} />)}
               </div>
-              <div class="v2-mega-foto p-6 pl-0">
+              <div class="v2-mega-foto p-6 pl-0 max-xl:hidden">
                 <div data-mega-foto="" class="h-full max-h-[420px] overflow-hidden rounded-c-lg bg-navy-50">
                   <Foto nombre="foto-estudiar-celular-1" sizes="280px" decorativa class="h-full w-full object-cover" />
                 </div>
@@ -103,8 +102,8 @@ const cuenta = await estadoCuenta(Astro.locals);
     </nav>
 
     <div class="ml-auto flex items-center gap-2">
-      <a href={buscar} class="v2-campo-falso max-lg:hidden" data-buscar-abrir aria-label="Buscar un curso (tecla /)"><Ico nombre="search" tamano={18} class="text-navy-700" />Busca un curso<kbd aria-hidden="true">/</kbd></a>
-      <a href={buscar} class="v2-icono-boton v2-sin-borde lg:hidden" data-buscar-abrir aria-label="Buscar un curso"><Ico nombre="search" /></a>
+      <a href={buscar} class="v2-campo-falso max-xl:hidden" data-buscar-abrir aria-label="Buscar un curso (tecla /)"><Ico nombre="search" tamano={18} class="text-navy-700" />Busca un curso<kbd aria-hidden="true">/</kbd></a>
+      <a href={buscar} class="v2-icono-boton v2-sin-borde xl:hidden" data-buscar-abrir aria-label="Buscar un curso"><Ico nombre="search" /></a>
       <button type="button" popovertarget="v2-pais" class="v2-icono-boton inline-flex items-center gap-2 px-3 [anchor-name:--v2-pais]" aria-label={`País: ${country.name}. Precios en ${country.currency}. Cambiar país`}>
         <Bandera codigo={country.code} /><span class="text-t15 font-semibold max-lg:hidden">{country.currency}</span><Ico nombre="chevron-down" tamano={16} class="max-lg:hidden" />
       </button>
@@ -113,6 +112,10 @@ const cuenta = await estadoCuenta(Astro.locals);
       <button type="button" popovertarget="v2-menu-movil" class="v2-icono-boton v2-sin-borde lg:hidden" aria-label="Abrir el menú"><Ico nombre="menu" /></button>
     </div>
   </div>
+  <!-- Velo: hijo directo de la cabecera (ancho completo). Dentro de la fila quedaba encerrado en el
+       contenedor de 1.200 px, porque la animación de la fila le pone `translate` y la convierte en
+       bloque contenedor de todo lo absoluto. -->
+  <div class="v2-mega-velo" aria-hidden="true" data-mega-velo></div>
 </header>
 
 <div id="v2-pais" popover class="v2-pais-panel" aria-label="País y moneda">
@@ -183,7 +186,22 @@ const cuenta = await estadoCuenta(Astro.locals);
     /* Teclado: «Cursos» es un enlace y Tab sigue de largo; el botón de la flecha abre y cierra
        (aria-expanded). Se cierra con Esc y cuando el foco sale del megamenú. El ratón lo abre al pasar. */
     const boton = raiz.querySelector<HTMLButtonElement>('[data-mega-boton]')!;
-    const abrir = (si: boolean) => { raiz.toggleAttribute('data-abierto', si); boton.setAttribute('aria-expanded', String(si)); };
+    const velo = document.querySelector<HTMLElement>('[data-mega-velo]');
+    const cabecera = raiz.closest<HTMLElement>('[data-cabecera]');
+    /* Abierto (ratón o teclado): el fondo no se desplaza y el panel cabe en la ventana. El hueco de
+       la barra de desplazamiento lo guarda `scrollbar-gutter`, así que no hay salto. */
+    const fondo = (si: boolean) => {
+      document.documentElement.toggleAttribute('data-mega-abierto', si);
+      const panel = raiz.querySelector<HTMLElement>('.v2-mega');
+      if (si && cabecera && panel) cabecera.style.setProperty('--v2-mega-tope', `${Math.ceil(panel.getBoundingClientRect().top)}px`);
+    };
+    const abrir = (si: boolean) => { raiz.toggleAttribute('data-abierto', si); boton.setAttribute('aria-expanded', String(si)); fondo(si); };
+    /* El ratón abre con :hover (sin guion también funciona); aquí solo se sigue el estado. */
+    let espera = 0;
+    raiz.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'mouse') return; clearTimeout(espera); espera = window.setTimeout(() => { if (!raiz.hasAttribute('data-cerrado')) fondo(true); }, 80); });
+    raiz.addEventListener('pointerleave', (e) => { if (e.pointerType !== 'mouse') return; clearTimeout(espera); if (!raiz.hasAttribute('data-abierto')) fondo(false); });
+    velo?.addEventListener('click', () => { abrir(false); raiz.setAttribute('data-cerrado', ''); });
+    document.addEventListener('click', (e) => { if (raiz.hasAttribute('data-abierto') && !raiz.contains(e.target as Node)) abrir(false); });
     boton.addEventListener('click', () => { const si = !raiz.hasAttribute('data-abierto'); abrir(si); raiz.removeAttribute('data-cerrado'); if (si) raiz.querySelector<HTMLElement>('[data-area]')?.focus(); });
     raiz.addEventListener('focusout', (e) => { if (!raiz.contains(e.relatedTarget as Node | null)) abrir(false); });
     raiz.addEventListener('pointerleave', () => raiz.removeAttribute('data-cerrado'));
@@ -191,6 +209,7 @@ const cuenta = await estadoCuenta(Astro.locals);
       if (e.key !== 'Escape') return;
       abrir(false);
       raiz.setAttribute('data-cerrado', '');
+      fondo(false);
       boton.focus();
     });
   }

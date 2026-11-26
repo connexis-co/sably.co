@@ -69,14 +69,17 @@
   visibility: hidden; opacity: 0; translate: 0 -4px;
   transition: opacity var(--t-rapido) var(--e-sale), translate var(--t-rapido) var(--e-sale), visibility 0s linear calc(150ms * var(--m));
 }
-/* Velo bajo la cabecera: hermano del panel (un `translate` en el panel lo encerraría). */
-.v2-mega-velo { position: absolute; inset-inline: 0; top: 100%; height: 100vh; background: rgb(27 27 58 / 0.45); pointer-events: none; opacity: 0; visibility: hidden; transition: opacity var(--t-base) var(--e-sale), visibility 0s linear calc(150ms * var(--m)); }
-.v2-mega-raiz:hover > .v2-mega-velo, .v2-mega-raiz[data-abierto] > .v2-mega-velo { opacity: 1; visibility: visible; transition-delay: calc(80ms * var(--m)), 0s; }
-.v2-mega-raiz[data-cerrado] > .v2-mega-velo { opacity: 0 !important; visibility: hidden !important; }
+/* Velo bajo la cabecera: hijo directo de <header> para cubrir todo el ancho (la fila lleva `translate`
+   por su animación y encerraría cualquier hijo absoluto). Cubre la ventana entera bajo la cabecera,
+   con fundido al entrar y al salir. Con el menú abierto el fondo no se desplaza. */
+.v2-mega-velo { position: absolute; z-index: -1; inset-inline: 0; top: 100%; height: 100vh; height: 100dvh; background: rgb(27 27 58 / 0.45); pointer-events: none; opacity: 0; visibility: hidden; transition: opacity var(--t-base) var(--e-sale), visibility 0s linear calc(200ms * var(--m)); }
+.v2-cabecera:has(.v2-mega-raiz:hover:not([data-cerrado]), .v2-mega-raiz[data-abierto]) > .v2-mega-velo { opacity: 1; visibility: visible; pointer-events: auto; transition-delay: calc(80ms * var(--m)), 0s; }
+html { scrollbar-gutter: stable; }
+html[data-mega-abierto] { overflow: hidden; }
 .v2-mega-raiz:hover > .v2-mega,
 .v2-mega-raiz[data-abierto] > .v2-mega { visibility: visible; opacity: 1; translate: 0 0; transition-delay: calc(80ms * var(--m)), calc(80ms * var(--m)), 0s; }
 .v2-mega-raiz[data-cerrado] > .v2-mega { visibility: hidden !important; opacity: 0 !important; }
-.v2-mega-panel { background: #fff; border-radius: 0 0 var(--radius-c-xl) var(--radius-c-xl); box-shadow: var(--shadow-s3); overflow: hidden; }
+.v2-mega-panel { background: #fff; border-radius: 0 0 var(--radius-c-xl) var(--radius-c-xl); box-shadow: var(--shadow-s3); overflow: hidden auto; overscroll-behavior: contain; max-height: calc(100dvh - var(--v2-mega-tope, 128px) - 16px); }
 .v2-mega-area {
   position: relative; display: flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 10px;
   font: 500 15px/22px var(--font-sans); color: var(--color-navy-950); text-decoration: none;
