@@ -192,6 +192,9 @@ export const FOTOS_PESTANA: Readonly<Record<string, Partial<Record<PestanaConFot
   'curso-de-barberia': {
     necesitas: 'Máquina de cortar, patillera, tijeras de corte y de entresacar, peine, brocha de afeitar y capa negra doblada sobre una mesa de madera',
   },
+  'curso-de-carpinteria-y-muebles': {
+    estudia: 'Hombre con gafas de seguridad que lija una tabla de pino con un taco de corcho en un banco de trabajo, con el celular en un soporte',
+  },
   'curso-de-cejas-y-pestanas': {
     necesitas: 'Pinzas, cepillos para cejas, tijeras pequeñas, lápiz, henna con pincel, lámina de silicona y bastoncillos sobre un paño rosado',
     estudia: 'Mujer que dibuja cejas de práctica con lápiz sobre una lámina de silicona en su mesa',
@@ -204,6 +207,17 @@ export const FOTOS_PESTANA: Readonly<Record<string, Partial<Record<PestanaConFot
     necesitas: 'Calentador de cera, bandas de tela, talco, loción, espátulas de madera y toalla sobre una mesa cubierta con una toalla blanca',
     estudia: 'Mujer que extiende cera tibia con una espátula sobre su antebrazo apoyado en una toalla',
   },
+  'curso-de-desayunos-sorpresa': {
+    necesitas: 'Bandeja redonda de mimbre con taza y jugo de naranja, croissants, fresas, uvas, cinta, tijeras, flores y una caja de cartón lisa sobre una mesa de baldosas',
+    estudia: 'Hombre con delantal que pone fresas en un cuenco sobre una bandeja de mimbre con jugo de naranja, junto al celular en un soporte',
+  },
+  'curso-de-drenaje-linfatico': {
+    necesitas: 'Camilla con toallas blancas dobladas, cepillo de cerdas naturales, cuenco con aceite, frasco esmerilado, cojín cilíndrico y piedra de madera para masaje',
+    estudia: 'Mujer que desliza la mano sobre su propio antebrazo apoyado en una toalla doblada, con el celular en un soporte sobre la mesa',
+  },
+  'curso-de-electricista': {
+    estudia: 'Mujer con gafas de seguridad que pela la punta de un cable con un pelacables en la mesa de su casa, con el celular en un soporte',
+  },
   'curso-de-estetica-canina': {
     necesitas: 'Carda, peine metálico, tijeras, máquina de corte, toalla, cortaúñas y frasco de champú sin etiqueta sobre una bandeja gris',
     estudia: 'Joven que cepilla el costado de su perro con una carda sobre una mesa en su casa',
@@ -212,8 +226,14 @@ export const FOTOS_PESTANA: Readonly<Record<string, Partial<Record<PestanaConFot
     necesitas: 'Mechones de cabello castaño, pinzas separadoras, peine de cola, aguja curva con hilo, microanillos y gancho de enhebrar sobre un mantel gris',
     estudia: 'Mujer que separa mechones con un peine de cola en una cabeza de maniquí sujeta a la mesa de su sala',
   },
+  'curso-de-globoflexia': {
+    estudia: 'Joven que retuerce un globo largo rojo para formar una figura, sentado a la mesa de su casa con el celular en un soporte',
+  },
   'curso-de-limpieza-facial': {
     estudia: 'Mujer que aplica una mascarilla de arcilla con brocha sobre una cabeza de práctica en la mesa de su casa',
+  },
+  'curso-de-macrame': {
+    necesitas: 'Dos rollos de cuerda de algodón, varillas de madera, tijeras, cuentas de madera, peine de madera y un pequeño tapiz de macramé empezado',
   },
   'curso-de-manicure-y-pedicure': {
     necesitas: 'Cuenco con agua, toalla, limas, alicate y empujador de cutícula, separadores de dedos, esmaltes sin etiqueta y discos de algodón sobre una mesa blanca',
@@ -225,6 +245,9 @@ export const FOTOS_PESTANA: Readonly<Record<string, Partial<Record<PestanaConFot
   },
   'curso-de-masajes': {
     necesitas: 'Camilla de masaje con toallas enrolladas, frascos de aceite sin etiqueta, cojín cilíndrico, piedras de masaje y un cuenco',
+  },
+  'curso-de-mecanica-de-bicicletas': {
+    necesitas: 'Llaves allen, dos llaves combinadas, tres desmontables, aceite en gotero, inflador de mano, dos cámaras de repuesto y un paño azul sobre una mesa de madera',
   },
   'curso-de-mecanica-de-motos': {
     necesitas: 'Llaves combinadas, trinquete con copas, dos destornilladores, alicate y una bujía ordenados sobre un banco de madera',
