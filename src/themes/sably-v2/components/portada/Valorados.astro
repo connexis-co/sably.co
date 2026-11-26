@@ -9,8 +9,11 @@ import NotaFuente from '@/components/v2/NotaFuente.astro';
 import type { Course } from '@/lib/emdash-content';
 import type { Country } from '@/lib/countries';
 import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
-interface Props { cursos: Course[]; country: Country; precios: Map<string, PrecioTarjeta | null>; minimo: number; leidas: string | null }
-const { cursos, country, precios, minimo, leidas } = Astro.props;
+import type { ColumnasTarjetas } from '@/lib/ajustes-tema';
+import { rejillaTarjetas } from '../../rejilla-tarjetas';
+interface Props { cursos: Course[]; country: Country; precios: Map<string, PrecioTarjeta | null>; minimo: number; leidas: string | null; columnas?: ColumnasTarjetas }
+const { cursos, country, precios, minimo, leidas, columnas = 'tres-completas' } = Astro.props;
+const rejilla = rejillaTarjetas(columnas);
 ---
 {cursos.length > 0 && (
   <section class="pt-24 lg:pt-32" aria-labelledby="valorados-titulo">
@@ -19,7 +22,7 @@ const { cursos, country, precios, minimo, leidas } = Astro.props;
       <h2 id="valorados-titulo" class="mt-3 font-display text-d28 lg:text-d40">Los mejor valorados</h2>
       <p class="mt-3 max-w-[640px] text-t17 text-navy-700">Ordenados por la nota media que les dan quienes los compraron en Hotmart.</p>
     </div>
-    <ul data-entra="grupo" class="v2-contenedor mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4" role="list">
+    <ul data-entra="grupo" class={`v2-contenedor mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible ${rejilla.columnas}`} role="list" data-filas-completas={rejilla.filasCompletas}>
       {cursos.map(course => <li class="w-[85%] flex-none snap-start sm:w-auto"><TarjetaCurso {course} {country} precio={precios.get(course.id) ?? null} /></li>)}
     </ul>
     <div class="v2-contenedor"><NotaFuente class="mt-4">Nota media y número de valoraciones que Hotmart publica en la página de cada curso{leidas ? `, leídos el ${leidas}` : ''}. Solo cursos con al menos {minimo} valoraciones.</NotaFuente></div>

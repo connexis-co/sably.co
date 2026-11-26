@@ -25,6 +25,14 @@ export const settingsSchema = {
     options: [{ value: 'outlined', label: 'Contorno' }, { value: 'filled', label: 'Relleno' }, { value: 'underline', label: 'Subrayado' }],
     default: 'outlined',
   },
+  // Tarjetas de cursos entre 1024 y 1279 px (26-nov-2026, decisión de JP: «lo más elegante»)
+  tarjetasColumnasMedio: {
+    type: 'select',
+    label: 'Sitio y tema · Tarjetas de cursos entre 1024 y 1279 px',
+    description: 'Columnas de las rejillas de cursos de la portada (destacados y mejor valorados) y de la ficha (especializaciones y relacionados) en pantallas medianas. Con 4 la tarjeta queda tan estrecha que el precio tachado se monta sobre el precio. «3, filas completas»: 3 columnas y, solo en ese tramo, sin la última fila a medias (8 tarjetas → 6, 4 → 3; desde 1280 px se ven todas). «3, todas»: 3 columnas con todas las tarjetas. «4»: como antes. El listado de cursos ya va a 3 en ese tramo. Por defecto: 3, filas completas.',
+    options: [{ value: 'tres-completas', label: '3, filas completas' }, { value: 'tres', label: '3, todas' }, { value: 'cuatro', label: '4' }],
+    default: 'tres-completas',
+  },
   // Barra de campaña V2 (26-nov-2026, ronda 2 de JP: C7)
   barraCampanaCierre: {
     type: 'select',
@@ -490,7 +498,7 @@ export const NOSOTROS_CLAVES: ClaveAjuste[] = ['nosotrosDiseno', 'nosotrosCifras
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
-  { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
+  { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo', 'tarjetasColumnasMedio'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', ...CAMPANA_CLAVES] },
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
