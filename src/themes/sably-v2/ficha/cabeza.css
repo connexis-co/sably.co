@@ -53,3 +53,30 @@
   /* `body #…` para ganar al `#sably-whatsapp{display:flex}` del plugin, que va después. */
   [data-wa-float], body #sably-whatsapp { display: none; }
 }
+/* Descripción corta antes de la caja en celular y tableta (panel → Caja de compra → «Cabeza de la ficha en el
+   celular»). Recorte solo con CSS; «Leer más» (<details>) encima del final de la última línea, fuera del flujo:
+   aparecer u ocultarse no mueve nada. En escritorio, la descripción entera bajo el título, como siempre. */
+.v2-desc-mas { display: none; }
+@media (width < 1024px) {
+  .v2-cabeza-rejilla:has(> [data-cabeza='descripcion']) { grid-template-areas: 'media' 'titulo' 'meta' 'promesa' 'caja' 'ver' 'datos'; }
+  [data-cabeza='descripcion'] { margin-top: -4px; }
+  [data-recorte] { position: relative; max-width: 560px; }
+  [data-recorte] .v2-promesa { display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; -webkit-line-clamp: var(--lineas); line-clamp: var(--lineas); }
+  [data-recorte='1'] { --lineas: 1; }
+  [data-recorte='2'] { --lineas: 2; }
+  [data-recorte='3'] { --lineas: 3; }
+  [data-recorte]:has(> .v2-desc-mas[open]) .v2-promesa { display: block; overflow: visible; -webkit-line-clamp: none; line-clamp: none; }
+  .v2-desc-mas { display: block; }
+  .v2-desc-mas[hidden] { display: none; }
+  .v2-desc-mas summary {
+    position: absolute; right: 0; bottom: 0; padding-left: 40px; list-style: none; cursor: pointer;
+    font-size: 17px; line-height: 28px; font-weight: 600; color: var(--color-navy-950);
+    background: linear-gradient(to right, transparent, #fff 32px);
+  }
+  .v2-desc-mas summary::-webkit-details-marker { display: none; }
+  .v2-desc-mas summary span { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+  .v2-desc-mas[open] summary { position: static; display: inline-block; padding-left: 0; background: none; }
+  .v2-desc-cerrar, .v2-desc-mas[open] .v2-desc-abrir { display: none; }
+  .v2-desc-mas[open] .v2-desc-cerrar { display: inline; }
+  .v2-desc-mas summary:focus-visible { outline: 2px solid var(--color-navy-950); outline-offset: 2px; border-radius: 4px; }
+}

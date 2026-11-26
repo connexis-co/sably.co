@@ -1,0 +1,33 @@
+---
+/**
+ * Descripción corta de la cabeza de la ficha (la promesa: `subtitulo` del país o `shortDescription` del curso).
+ * Es UN solo párrafo para todos los anchos: en escritorio va bajo el título, como siempre; en celular y tableta el
+ * panel decide si va antes de la caja (recortada a 1–3 líneas o entera) o después, como antes (cabeza.css).
+ *
+ * El texto entero está en el HTML inicial; el recorte es solo CSS (line-clamp), sin medir antes de pintar.
+ * «Leer más» es un <details> (funciona sin JavaScript y expone su estado expandido): va encima del final de la
+ * última línea, fuera del flujo, así que mostrarlo u ocultarlo no mueve nada (CLS 0). Un ResizeObserver lo
+ * oculta cuando el texto cabe entero.
+ */
+import type { AjustesV2 } from '@/lib/ajustes-tema';
+
+interface Props {
+  texto: string;
+  ajustes: AjustesV2['cabezaFicha'];
+}
+const { texto, ajustes } = Astro.props;
+const conDescripcion = ajustes.estilo === 'descripcion';
+const recorta = conDescripcion && ajustes.lineas !== 'completo';
+/* Un texto tan corto que cabe seguro en las líneas pedidas (≈30 caracteres por línea a 360 px) no lleva el enlace. */
+const leerMas = recorta && ajustes.leerMas === 'si-recorta' && texto.length > Number(ajustes.lineas) * 30;
+---
+
+<div class="v2-area-promesa" data-cabeza={ajustes.estilo} data-recorte={recorta ? ajustes.lineas : undefined}>
+  <p id="descripcion-curso" class="v2-promesa max-w-[560px] text-t17 text-navy-700 lg:text-t20 lg:text-white/80">{texto}</p>
+  {leerMas && (
+    <details class="v2-desc-mas">
+      <summary aria-controls="descripcion-curso"><span class="v2-desc-abrir">Leer más</span><span class="v2-desc-cerrar">Leer menos</span></summary>
+    </details>
+    <script is:inline>(()=>{const d=document.currentScript.previousElementSibling,p=d.previousElementSibling;if(!('ResizeObserver'in window))return;new ResizeObserver(()=>{d.hidden=!d.open&&p.scrollHeight<=p.clientHeight+1}).observe(p)})()</script>
+  )}
+</div>
