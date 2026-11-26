@@ -42,6 +42,9 @@ const ANTES = {
     cajaPrecioNormal: ['select', ['tachado', 'sin-tachar'], 'tachado'],
     cajaPais: ['boolean', null, false],
     cajaMovimiento: ['boolean', null, true],
+    // Claves nuevas (26-nov, movimiento de la ficha y del certificado, C6).
+    fichaMovimiento: ['select', ['sobrio', 'minimo', 'ninguno'], 'sobrio'],
+    certificadoAnimacion: ['select', ['destello', 'entrada', 'ninguna'], 'destello'],
     opinionesExtractosMinimo: ['select', ['1', '2', '3'], '1'],
     opinionesPerfilNombre: ['string', null, ''],
     opinionesPerfilUrl: ['string', null, ''],
@@ -104,6 +107,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     mostrarCiudades: true,
     estiloCampo: 'outlined',
     sobreFotos: true,
+    movimientoFicha: { ficha: 'sobrio', certificado: 'destello' },
     opiniones: { estilo: 'lista', minimoExtractos: 1, perfil: null },
     portada: {
       bloques: ['cifras', 'categorias', 'convergen', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],

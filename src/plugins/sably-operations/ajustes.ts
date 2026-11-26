@@ -102,6 +102,21 @@ export const settingsSchema = {
     description: 'El reloj late, el segundero corre y la barra de la campaña tiene un brillo que avanza. Siempre con la fecha real de fin del panel. Nadie lo ve si pidió menos movimiento en su equipo. Apagado: el reloj quieto de antes. Por defecto: encendido.',
     default: true,
   },
+  // Movimiento de la ficha (26-nov-2026, ronda 2 de JP: C6)
+  fichaMovimiento: {
+    type: 'select',
+    label: 'Ficha · Movimiento al bajar',
+    description: '«Sobrio»: los bloques aparecen al llegar a ellos y las listas (qué aprenderás, temario) entran en cascada. «Mínimo»: solo los bloques. «Ninguno»: todo quieto. Nadie lo ve si pidió menos movimiento en su equipo. Por defecto: Sobrio.',
+    options: [{ value: 'sobrio', label: 'Sobrio' }, { value: 'minimo', label: 'Mínimo' }, { value: 'ninguno', label: 'Ninguno' }],
+    default: 'sobrio',
+  },
+  certificadoAnimacion: {
+    type: 'select',
+    label: 'Ficha · Animación del certificado',
+    description: '«Destello»: al bajar, el certificado de ejemplo se endereza, un brillo lo cruza y el código de verificación entra como un sello. «Entrada»: solo sube con suavidad. «Ninguna»: quieto. Nadie lo ve si pidió menos movimiento. Por defecto: Destello.',
+    options: [{ value: 'destello', label: 'Destello' }, { value: 'entrada', label: 'Entrada' }, { value: 'ninguna', label: 'Ninguna' }],
+    default: 'destello',
+  },
   sobreFotosPestanas: {
     type: 'boolean',
     label: 'Ficha · Foto distinta en cada pestaña de «Sobre este curso»',
@@ -318,7 +333,7 @@ export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos.', claves: [] },
-  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
+  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },

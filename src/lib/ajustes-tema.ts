@@ -44,6 +44,8 @@ export interface AjustesV2 {
   estiloCampo: EstiloCampo;
   /** C5: en «Sobre este curso», una foto por pestaña con fundido (de fábrica). */
   sobreFotos: boolean;
+  /** C6: movimiento de la ficha al bajar y animación del certificado (nunca con menos movimiento). */
+  movimientoFicha: { ficha: 'sobrio' | 'minimo' | 'ninguno'; certificado: 'destello' | 'entrada' | 'ninguna' };
   /** Bloque de opiniones de la ficha V2 (ronda 2 de JP, C1 y C3). */
   opiniones: {
     /** `lista`: nota grande y extractos reales en lista editorial (`HVAlI`); `compacto`: una sola fila con la nota. */
@@ -114,6 +116,10 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     mostrarCiudades: v.mostrarCiudades !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
     sobreFotos: v.sobreFotosPestanas !== false,
+    movimientoFicha: {
+      ficha: uno(v.fichaMovimiento, ['sobrio', 'minimo', 'ninguno'] as const, 'sobrio'),
+      certificado: uno(v.certificadoAnimacion, ['destello', 'entrada', 'ninguna'] as const, 'destello'),
+    },
     opiniones: {
       estilo: uno(v.opinionesEstilo, ['lista', 'compacto'] as const, 'lista'),
       minimoExtractos: Number(uno(v.opinionesExtractosMinimo, ['1', '2', '3'] as const, '1')),
