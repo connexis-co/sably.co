@@ -30,6 +30,7 @@ const ANTES = {
     cuentaActiva: ['boolean', null, true],
     cuentaGoogle: ['boolean', null, true],
     cuentaCorreo: ['boolean', null, true],
+    cuentaClave: ['boolean', null, true],
     cuentaAcceso: ['select', ['ventana', 'pagina'], 'ventana'],
     // Claves nuevas (26-nov, barra de campaña V2, C7): se añaden, no sustituyen a ninguna.
     barraCampanaCierre: ['select', ['sesion', 'vista'], 'sesion'],
