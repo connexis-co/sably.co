@@ -13,24 +13,7 @@ import type { OficioMosaico } from '../Heroe.astro';
 interface Props { oficios: OficioMosaico[]; base: string; locale: string; tachar: boolean; rota: boolean; intervalo: number; aleatorio: boolean }
 const { oficios, base, locale, tachar, rota, intervalo, aleatorio } = Astro.props;
 ---
-<div class="v2-vivo" data-vivo-heroe={rota ? '' : undefined} data-intervalo={intervalo} data-orden={aleatorio ? 'aleatorio' : 'fijo'} role="group" aria-roledescription="oficio del momento" aria-label="Cursos para empezar">
-  <div class="v2-vivo-marco">
-    {oficios.map((o, i) => (
-      <a href={`${base}/${o.id}/`} class="v2-heroe-curso v2-rota-item" data-i={i} data-visible={i === 0 ? '' : undefined}>
-        <Foto nombre={o.foto} sizes="(min-width: 1024px) 540px, 92vw" decorativa class="v2-vivo-foto" />
-        <span class="v2-vivo-tarjeta">
-          <span class="text-t13 font-medium text-coral-700">Oficio de hoy</span>
-          <strong class="line-clamp-2 text-t17 font-semibold">{o.titulo}</strong>
-          {o.nota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
-          <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t17 text-navy-950" />
-        </span>
-      </a>
-    ))}
-    {rota && <button type="button" class="v2-vivo-pausa" data-rota-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" /><span class="sr-only" data-rota-pausa-texto>Pausar los cursos que cambian</span></button>}
-  </div>
-  {rota && <span class="v2-vivo-progreso" aria-hidden="true" hidden data-rota-progreso><span data-rota-reloj></span></span>}
-</div>
-
+<!-- CSS antes del HTML: si va después, con la CPU lenta se pinta sin él y luego salta (CLS de 0,45 a 390 y 0,75 a 1440 con el muro, 26-nov). -->
 <style is:inline>
   @layer components {
     .v2-vivo { position: relative; }
@@ -49,6 +32,24 @@ const { oficios, base, locale, tachar, rota, intervalo, aleatorio } = Astro.prop
     .v2-vivo-progreso > span { display: block; height: 100%; background: rgb(255 255 255 / .7); transform-origin: left; transform: scaleX(0); }
   }
 </style>
+<div class="v2-vivo" data-vivo-heroe={rota ? '' : undefined} data-intervalo={intervalo} data-orden={aleatorio ? 'aleatorio' : 'fijo'} role="group" aria-roledescription="oficio del momento" aria-label="Cursos para empezar">
+  <div class="v2-vivo-marco">
+    {oficios.map((o, i) => (
+      <a href={`${base}/${o.id}/`} class="v2-heroe-curso v2-rota-item" data-i={i} data-visible={i === 0 ? '' : undefined}>
+        <Foto nombre={o.foto} sizes="(min-width: 1024px) 540px, 92vw" decorativa class="v2-vivo-foto" />
+        <span class="v2-vivo-tarjeta">
+          <span class="text-t13 font-medium text-coral-700">Oficio de hoy</span>
+          <strong class="line-clamp-2 text-t17 font-semibold">{o.titulo}</strong>
+          {o.nota && <span class="flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" />{notaCorta(o.nota)}</span>}
+          <PrecioOficio precio={o.precio} {locale} {tachar} class="text-t17 text-navy-950" />
+        </span>
+      </a>
+    ))}
+    {rota && <button type="button" class="v2-vivo-pausa" data-rota-pausa aria-pressed="false" hidden><Ico nombre="pause" tamano={14} class="v2-ico-pausa" /><Ico nombre="play" tamano={14} class="v2-ico-seguir" /><span class="sr-only" data-rota-pausa-texto>Pausar los cursos que cambian</span></button>}
+  </div>
+  {rota && <span class="v2-vivo-progreso" aria-hidden="true" hidden data-rota-progreso><span data-rota-reloj></span></span>}
+</div>
+
 
 <script>
   import { rotacion } from '../../../heroe-rotacion';
