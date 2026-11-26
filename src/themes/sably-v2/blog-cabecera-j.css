@@ -1,0 +1,30 @@
+/* Cabecera J del artículo (título con el índice al lado): en línea solo cuando está elegida. DISENO.md §12.3. */
+@layer components {
+.v2-ba-cabeza[data-cabecera='j'] .v2-ba-titulos { max-width: none; }
+.v2-ba-indice-cabeza { margin-top: 24px; }
+.v2-ba-indice-cabeza .v2-indice-inicio[data-estilo='tarjeta'] { margin: 0; }
+@media (width >= 1024px) {
+  .v2-ba-cabeza[data-cabecera='j'] .v2-ba-cuadro { display: grid; grid-template-columns: minmax(0, 1fr) 400px; align-items: start; gap: 56px; }
+  .v2-ba-cabeza[data-cabecera='j'] .v2-ba-h1 { font-size: 52px; line-height: 56px; }
+  .v2-ba-indice-cabeza { margin-top: 48px; }
+}
+}
+/* El índice en tarjeta va en la cabecera, antes de la hoja del blog: sus reglas (copia de blog.css) van aquí para que no se mueva al cargarla. */
+@layer components {
+.v2-indice-lista { list-style: none; margin: 0; padding: 0; }
+.v2-indice-lista a { display: block; text-decoration: none; color: var(--color-navy-700); }
+.v2-indice-lista a:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 2px; border-radius: 4px; }
+.v2-indice-lista a[aria-current] { color: var(--color-navy-950); font-weight: 600; }
+@media (hover: hover) and (pointer: fine) { .v2-indice-lista a:hover { color: var(--color-navy-950); } }
+.v2-indice-inicio { border-radius: 16px; box-shadow: inset 0 0 0 1px var(--color-navy-100); background: #fff; }
+.v2-indice-inicio .v2-indice-lista { padding: 0 20px 16px; counter-reset: v2-ind; }
+.v2-indice-inicio .v2-indice-lista a { padding: 8px 0; font: 500 15px/22px var(--font-sans); }
+.v2-indice-inicio .v2-indice-lista li[data-nivel='3'] a { padding-left: 20px; font-weight: 400; }
+.v2-indice-inicio[data-estilo='tarjeta'] { background: var(--color-navy-50); box-shadow: none; padding: 24px; }
+.v2-indice-inicio[data-estilo='tarjeta'] > p { font: 600 13px/18px var(--font-sans); letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-navy-700); }
+.v2-indice-inicio[data-estilo='tarjeta'] .v2-indice-lista { padding: 8px 0 0; }
+.v2-indice-inicio[data-estilo='tarjeta'] li[data-nivel='2'] { counter-increment: v2-ind; }
+.v2-indice-inicio[data-estilo='tarjeta'] li[data-nivel='2'] a { display: flex; gap: 16px; align-items: baseline; font-weight: 600; color: var(--color-navy-950); }
+.v2-indice-inicio[data-estilo='tarjeta'] li[data-nivel='2'] a::before { content: counter(v2-ind); min-width: 24px; font: 600 28px/1 var(--font-display); color: var(--color-coral-600); }
+.v2-indice-inicio[data-estilo='tarjeta'] li[data-nivel='3'] a { padding-left: 40px; }
+}

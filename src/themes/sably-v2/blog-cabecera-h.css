@@ -1,0 +1,18 @@
+/* Cabecera H del artículo (color de la categoría): en línea solo cuando está elegida. DISENO.md §12.3, lámina 12.
+   El fondo y el título usan el tono de la categoría (--tono-fondo y --tono-texto, contraste ≥ 7:1). */
+@layer components {
+.v2-ba-cabeza[data-cabecera='h'] { padding: 0; }
+.v2-ba-cabeza[data-cabecera='h'] .v2-ba-banda { background: var(--tono-fondo); padding: 24px 0 32px; }
+.v2-ba-cabeza[data-cabecera='h'] .v2-ba-titulos { max-width: none; }
+.v2-ba-cabeza[data-cabecera='h'] .v2-ba-h1 { color: var(--tono-texto); }
+.v2-ba-cabeza[data-cabecera='h'] .v2-ba-meta { border-color: color-mix(in srgb, var(--tono-texto) 16%, transparent); border-bottom: 0; }
+.v2-ba-cabeza[data-cabecera='h'] .v2-ba-portada { margin-top: 24px; }
+@media (width >= 1024px) {
+  .v2-ba-cabeza[data-cabecera='h'] .v2-ba-banda { padding: 48px 0 56px; }
+  .v2-ba-cabeza[data-cabecera='h'] .v2-ba-cuadro { display: grid; grid-template-columns: minmax(0, 620px) 520px; justify-content: space-between; align-items: center; gap: 40px; }
+  .v2-ba-cabeza[data-cabecera='h'] .v2-ba-h1 { font-size: 52px; line-height: 56px; }
+  .v2-ba-cabeza[data-cabecera='h'] .v2-ba-portada { margin: 0; }
+  .v2-ba-cabeza[data-cabecera='h'] .v2-ba-portada img { aspect-ratio: 4 / 3; }
+  .v2-ba-cabeza[data-cabecera='h'] .v2-ba-portada figcaption { display: none; }
+}
+}
