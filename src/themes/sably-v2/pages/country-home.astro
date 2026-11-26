@@ -130,7 +130,7 @@ const narradas = portada.guiasVariante === 'tarjetas' ? await duracionesNarradas
     : bloque === 'oficio' ? <Oficio {oficios} {base} modo={portada.oficioModo} intervalo={portada.oficioIntervalo} />
     : bloque === 'como-funciona' ? <ComoFunciona animado={portada.comoFuncionaAnimado} />
     : bloque === 'valorados' ? <Valorados cursos={valorados} {country} {precios} minimo={portada.valoradosMinimo} leidas={cifras.leidas} />
-    : bloque === 'beneficios' ? <Beneficios copy={copy['benefits-heading']} {benefits} />
+    : bloque === 'beneficios' ? <Beneficios copy={copy['benefits-heading']} {benefits} modo={portada.beneficiosModo} {cifras} />
     : bloque === 'videos' ? <Videos {videos} />
     : bloque === 'guias' ? <Guias copy={copy.blog} {guiasDestacadas} {masGuias} variante={portada.guiasVariante} {narradas} />
     : bloque === 'preguntas' ? <Preguntas antetitulo={copy['faq-heading'].eyebrow} titulo={copy['faq-heading'].title} {faqs} whatsapp={nav.whatsapp} class="pt-24 lg:pt-32" />

@@ -1,26 +1,162 @@
 ---
-/** Por qué Sably: los beneficios del CMS junto a las fotos de estudiar donde estés (bloque `beneficios`). */
+/**
+ * «¿Por qué Sably?» (bloque `beneficios`, D5 de la ronda 2). Los cuatro beneficios del CMS (Secciones →
+ * sably-home-benefits) a la izquierda y dos fotos a la derecha que cambian con el punto activo.
+ *
+ * - Punto activo: el primero en el HTML. Cada título es un botón (`aria-pressed`) que lo activa a mano.
+ * - Panel → Portada → «¿Por qué Sably?» (`portadaBeneficiosModo`): «automático» avanza solo cada 6 s; una barra
+ *   coral (`scale`) marca el tiempo y su `animationend` pasa al siguiente, así que pausar la animación pausa el
+ *   avance. Se pausa al pasar el cursor, con el foco dentro, fuera de pantalla y con la pestaña oculta. Con
+ *   «reducir movimiento» nunca avanza solo ni hay fundidos. «Estático»: solo a mano.
+ * - Sin JavaScript: los cuatro textos completos y las fotos del primer punto.
+ * - Fotos apiladas en la misma celda de rejilla (sin `position: absolute`): el alto no cambia al cambiar (CLS 0).
+ *   Solo opacity y scale. Las del resto de puntos van diferidas (`loading="lazy"`).
+ * - Debajo, solo datos reales del catálogo y de Hotmart (los mismos de `cifrasPortada`, con su fecha).
+ */
 import Ico from '../Ico.astro';
 import Foto from '../Foto.astro';
-interface Props { copy: { eyebrow: string; title: string }; benefits: { title: string; text: string }[] }
-const { copy: c, benefits } = Astro.props;
-const copy = { 'benefits-heading': c };
+import type { NombreFoto } from '../../fotos';
+interface Props {
+  copy: { eyebrow: string; title: string };
+  benefits: { title: string; text: string }[];
+  modo?: 'automatico' | 'estatico';
+  cifras?: { cursos: number; paises: number; calificaciones: number; mediaTexto: string | null; leidas: string | null; hoy: string };
+}
+const { copy, benefits, modo = 'automatico', cifras } = Astro.props;
+
+/* Fotos por punto (en el orden del CMS: certificado, a tu ritmo, acompañamiento, garantía). Si el CMS trae más
+   puntos, se repiten. Los pies describen lo que se ve en la foto, no prometen nada. */
+const FOTOS: { a: NombreFoto; b: NombreFoto; pa: string; pb: string }[] = [
+  { a: 'foto-serie-4-ofrece', b: 'foto-oficio-pasteleria', pa: 'Entregando el primer encargo.', pb: 'Con la técnica ya en las manos.' },
+  { a: 'foto-estudiar-celular-1', b: 'foto-estudiar-celular-2', pa: 'En el bus, camino al trabajo.', pb: 'En la mesa de la cocina, con cuaderno.' },
+  { a: 'foto-idiomas-1', b: 'foto-serie-1-elige', pa: 'Preguntando antes de empezar.', pb: 'Eligiendo el curso desde casa.' },
+  { a: 'foto-serie-2-aprende', b: 'foto-heroe-1', pa: 'Tomando apuntes de la lección.', pb: 'La clase abierta al lado de la masa.' },
+];
+const sets = benefits.map((_, i) => FOTOS[i % FOTOS.length]!);
+const formato = (n: number) => n.toLocaleString('es-CO');
 ---
-<!-- Por qué Sably: los beneficios del CMS junto a las fotos de estudiar donde estés -->
-<section class="v2-contenedor pt-24 lg:pt-32" aria-labelledby="beneficios-titulo" data-cms>
-  <div class="grid gap-10 rounded-c-xl bg-navy-50 p-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:p-16">
+<!-- Por qué Sably: los beneficios del CMS con un punto activo y las fotos que cambian con él -->
+<section class="v2-contenedor pt-24 lg:pt-32" aria-labelledby="beneficios-titulo" data-cms data-beneficios data-modo={modo}>
+  <div class="grid gap-10 rounded-c-xl bg-navy-50 p-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14 lg:p-16">
     <div>
-      <p class="v2-antetitulo text-navy-700">{copy['benefits-heading'].eyebrow}</p>
-      <h2 id="beneficios-titulo" class="mt-3 font-display text-d28 lg:text-d40">{copy['benefits-heading'].title}</h2>
-      <ul class="mt-8 space-y-5" role="list" data-entra="grupo">
-        {benefits.map(b => (
-          <li class="flex gap-4"><span class="grid size-10 flex-none place-items-center rounded-c-sm bg-white text-navy-950"><Ico nombre="check" tamano={18} /></span><div><h3 class="text-t17 font-semibold">{b.title}</h3><p class="mt-1 text-t15 text-navy-700">{b.text}</p></div></li>
+      <p class="v2-antetitulo text-navy-700">{copy.eyebrow}</p>
+      <h2 id="beneficios-titulo" class="mt-3 font-display text-d28 lg:text-d40">{copy.title}</h2>
+      <ul class="mt-8 space-y-2" role="list" data-entra="grupo">
+        {benefits.map((b, i) => (
+          <li class="v2-ben-punto" data-punto={i} data-activo={i === 0 ? '' : undefined}>
+            <span class="v2-ben-marca" aria-hidden="true"><Ico nombre="check" tamano={18} /></span>
+            <div class="min-w-0 flex-1">
+              <h3 class="text-t17 font-semibold"><button type="button" class="v2-ben-boton" aria-pressed={i === 0 ? 'true' : 'false'} aria-controls="beneficios-fotos">{b.title}</button></h3>
+              <p class="mt-1 text-t15 text-navy-700">{b.text}</p>
+              <span class="v2-ben-barra" aria-hidden="true"><span></span></span>
+            </div>
+          </li>
         ))}
       </ul>
+      {cifras && cifras.cursos > 0 && (
+        <p class="mt-8 flex flex-wrap gap-x-5 gap-y-2 border-t border-navy-100 pt-5 text-t15 text-navy-700">
+          <span><strong class="v2-num inline-block font-semibold text-navy-950" data-cuenta={cifras.cursos}>{formato(cifras.cursos)}</strong> cursos con inscripción abierta</span>
+          <span><strong class="v2-num font-semibold text-navy-950">{cifras.paises}</strong> países con su precio</span>
+          {cifras.calificaciones > 0 && <span><strong class="v2-num inline-block font-semibold text-navy-950" data-cuenta={cifras.calificaciones}>{formato(cifras.calificaciones)}</strong> valoraciones en Hotmart{cifras.mediaTexto && <> ({cifras.mediaTexto} de media)</>}</span>}
+          <span class="w-full text-t13 text-navy-500">Catálogo a {cifras.hoy}{cifras.leidas && <>; valoraciones leídas en Hotmart el {cifras.leidas}</>}.</span>
+        </p>
+      )}
     </div>
-    <div class="grid grid-cols-2 items-start gap-4">
-      <figure class="v2-paralaje" style="--p: 24px"><div class="overflow-hidden rounded-c-lg"><Foto nombre="foto-estudiar-celular-1" sizes="(min-width: 1024px) 280px, 45vw" class="aspect-[3/4] w-full object-cover" /></div><figcaption class="mt-2 text-t13 text-navy-500">En el bus, camino al trabajo.</figcaption></figure>
-      <figure class="v2-paralaje mt-16" style="--p: 40px"><div class="overflow-hidden rounded-c-lg"><Foto nombre="foto-estudiar-celular-2" sizes="(min-width: 1024px) 280px, 45vw" class="aspect-[3/4] w-full object-cover" /></div><figcaption class="mt-2 text-t13 text-navy-500">En la mesa de la cocina, con cuaderno.</figcaption></figure>
+    <div class="grid grid-cols-2 items-start gap-4" id="beneficios-fotos">
+      <figure class="v2-paralaje" style="--p: 24px">
+        <div class="v2-ben-pila overflow-hidden rounded-c-lg">
+          {sets.map((s, i) => <div class="v2-ben-foto" data-set={i} data-activo={i === 0 ? '' : undefined}><Foto nombre={s.a} sizes="(min-width: 1024px) 280px, 45vw" decorativa={i !== 0} class="aspect-[3/4] w-full object-cover" /></div>)}
+        </div>
+        <figcaption class="v2-ben-pies mt-2 text-t13 text-navy-500">{sets.map((s, i) => <span data-set={i} data-activo={i === 0 ? '' : undefined}>{s.pa}</span>)}</figcaption>
+      </figure>
+      <figure class="v2-paralaje mt-16" style="--p: 40px">
+        <div class="v2-ben-pila overflow-hidden rounded-c-lg">
+          {sets.map((s, i) => <div class="v2-ben-foto v2-ben-foto-b" data-set={i} data-activo={i === 0 ? '' : undefined}><Foto nombre={s.b} sizes="(min-width: 1024px) 280px, 45vw" decorativa={i !== 0} class="aspect-[3/4] w-full object-cover" /></div>)}
+        </div>
+        <figcaption class="v2-ben-pies mt-2 text-t13 text-navy-500">{sets.map((s, i) => <span data-set={i} data-activo={i === 0 ? '' : undefined}>{s.pb}</span>)}</figcaption>
+      </figure>
     </div>
   </div>
 </section>
+
+<style is:global>
+  @layer components {
+    .v2-ben-punto { position: relative; isolation: isolate; display: flex; gap: 16px; padding: 12px; margin-inline: -12px; border-radius: var(--radius-c-lg); }
+    .v2-ben-punto::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: #fff; box-shadow: var(--shadow-s2); opacity: 0; pointer-events: none; z-index: -1; }
+    .v2-ben-punto[data-activo]::before { opacity: 1; }
+    .v2-ben-marca { display: grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: var(--radius-c-sm); background: #fff; color: var(--color-navy-950); }
+    .v2-ben-punto[data-activo] .v2-ben-marca { background: var(--color-coral-50); color: var(--color-coral-700); }
+    /* 44 px de alto táctil sin mover el texto (padding y margen negativos iguales). */
+    .v2-ben-boton { display: inline-block; min-height: 44px; padding-block: 8px; margin-block: -8px; text-align: left; font: inherit; color: inherit; cursor: pointer; border-radius: 4px; }
+    /* Todo el punto es pulsable; el foco se ve en el punto entero. */
+    .v2-ben-boton::after { content: ''; position: absolute; inset: -12px; border-radius: var(--radius-c-lg); }
+    .v2-ben-boton:focus-visible { outline: none; }
+    .v2-ben-punto:has(.v2-ben-boton:focus-visible) { outline: 2px solid var(--color-coral-600); outline-offset: 2px; }
+    .v2-ben-barra { display: none; }
+    /* Absoluta, al pie del punto: aparecer con el JavaScript no mueve nada (CLS 0). */
+    [data-auto] .v2-ben-barra { display: block; position: absolute; left: 68px; right: 16px; bottom: 5px; height: 3px; border-radius: 2px; background: var(--color-navy-100); overflow: hidden; visibility: hidden; }
+    [data-auto] .v2-ben-punto[data-activo] .v2-ben-barra { visibility: visible; }
+    .v2-ben-barra > span { display: block; height: 100%; background: var(--color-coral-500); transform-origin: 0 50%; scale: 0 1; }
+    [data-auto] .v2-ben-punto[data-activo] .v2-ben-barra > span { animation: v2-ben-barra 6000ms linear forwards; }
+    [data-auto][data-pausa] .v2-ben-barra > span { animation-play-state: paused; }
+    @keyframes v2-ben-barra { from { scale: 0 1; } to { scale: 1 1; } }
+
+    .v2-ben-pila { display: grid; }
+    .v2-ben-pila > * , .v2-ben-pies > * { grid-area: 1 / 1; }
+    .v2-ben-pies { display: grid; }
+    .v2-ben-foto, .v2-ben-pies > span { opacity: 0; }
+    .v2-ben-foto[data-activo], .v2-ben-pies > span[data-activo] { opacity: 1; }
+    .v2-ben-foto picture { display: block; }
+    @media (prefers-reduced-motion: no-preference) {
+      .v2-ben-punto::before, .v2-ben-pies > span { transition: opacity var(--t-base) var(--e-sale); }
+      .v2-ben-foto { transition: opacity var(--t-lento) var(--e-mueve); }
+      .v2-ben-foto img { scale: 1.06; transition: scale calc(var(--t-lento) * 2.4) var(--e-sale); }
+      .v2-ben-foto-b img { translate: 0 10px; transition: scale calc(var(--t-lento) * 2.4) var(--e-sale), translate calc(var(--t-lento) * 2.4) var(--e-sale); }
+      .v2-ben-foto[data-activo] img { scale: 1; translate: 0 0; }
+    }
+  }
+</style>
+
+<script>
+  /* Punto activo de «¿Por qué Sably?»: a mano siempre; solo, si el panel lo pide y el visitante no reduce el movimiento. */
+  const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  for (const raiz of document.querySelectorAll<HTMLElement>('[data-beneficios]')) {
+    const puntos = [...raiz.querySelectorAll<HTMLElement>('[data-punto]')];
+    if (puntos.length < 2) continue;
+    const marcados = [...raiz.querySelectorAll<HTMLElement>('[data-set]')];
+    let activo = 0;
+    const activar = (i: number) => {
+      activo = i;
+      puntos.forEach((p, k) => {
+        p.toggleAttribute('data-activo', k === i);
+        p.querySelector('button')?.setAttribute('aria-pressed', String(k === i));
+      });
+      for (const m of marcados) {
+        const es = Number(m.dataset.set) === i;
+        m.toggleAttribute('data-activo', es);
+        const img = m.querySelector('img');
+        if (es && img) img.loading = 'eager';
+      }
+    };
+    puntos.forEach((p, k) => p.querySelector('button')?.addEventListener('click', () => activar(k)));
+
+    if (raiz.dataset.modo !== 'automatico' || quieto) continue;
+    const motivos = new Set<string>();
+    const pausa = (motivo: string, si: boolean) => {
+      if (si) motivos.add(motivo); else motivos.delete(motivo);
+      raiz.toggleAttribute('data-pausa', motivos.size > 0);
+    };
+    raiz.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') pausa('cursor', true); });
+    raiz.addEventListener('pointerleave', () => pausa('cursor', false));
+    raiz.addEventListener('focusin', () => pausa('foco', true));
+    raiz.addEventListener('focusout', e => { if (!raiz.contains(e.relatedTarget as Node | null)) pausa('foco', false); });
+    document.addEventListener('visibilitychange', () => pausa('pestana', document.hidden));
+    pausa('fuera', true);
+    if ('IntersectionObserver' in window) new IntersectionObserver(es => { for (const e of es) pausa('fuera', !e.isIntersecting); }, { threshold: 0.35 }).observe(raiz);
+    raiz.addEventListener('animationend', e => {
+      if ((e as AnimationEvent).animationName !== 'v2-ben-barra') return;
+      activar((activo + 1) % puntos.length);
+    });
+    raiz.setAttribute('data-auto', '');
+  }
+</script>
