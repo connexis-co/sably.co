@@ -10,7 +10,7 @@ Fuentes: https://developers.openai.com/ads/llms-full.txt (secciones *Product Fee
 |---|---|
 | Feed en la cuenta | **Creado por API**: `fd_ae6b407a30a6de2eb2801f524f57f89f`, «Sably cursos CO», países `["CO"]` |
 | Acceso SFTP | **Activo** con clave SSH RSA 4096: `sftp://oaiproductfeedprod3.sftpe983a7c6a510468b83b9017e4ee094e8@sftp-prod3.commerce.openai.com:443/` |
-| Primera subida | `sably-cursos-co.csv`, 112 cursos, 26-nov 01:00 UTC → ver §6 |
+| Subidas | Tres a mano el 26-nov; la última con el flujo completo: 112 aceptadas, **104 indexados**, revisión en curso → §6 |
 | Regeneración automática | Workflow `.github/workflows/feed-openai-ads.yml`, dos veces al día (00:20 y 12:20 de Bogotá). **Empieza a correr cuando el PR llegue a `main`** (GitHub solo programa workflows de la rama por defecto) |
 | Secretos del repo | Cargados: `OPENAI_FEED_SFTP_KEY`, `OPENAI_ADS_API_KEY` (secretos), `OPENAI_FEED_SFTP_URI`, `OPENAI_FEED_ID` (variables) |
 | Campañas de feed | **No creadas** (lo decide la sesión de campañas; §7 tiene la receta) |
@@ -84,7 +84,8 @@ drenaje linfático, marketing digital, peluquería, pollo broaster y soldadura, 
 ## 3 · Automatización
 
 - `.github/workflows/feed-openai-ads.yml`: a las 05:20 y 17:20 UTC (y a mano con *Run workflow*) corre las pruebas,
-  genera el CSV, lo sube por SFTP con el mismo nombre (lo reemplaza) y marca agotados los cursos que ya no están.
+  genera el CSV, lo sube por SFTP con el mismo nombre (lo reemplaza), espera a que OpenAI lo procese y manda la
+  disponibilidad de todos los cursos por Delta API (es lo que los indexa; §6), con los retirados como agotados.
   Guarda el CSV como artefacto 14 días.
 - **Freno:** con menos de 60 cursos no sube nada (un fallo del sitio no publica un feed a medias) y el job falla, lo que
   avisa por correo de GitHub.
@@ -138,16 +139,32 @@ Permisos de la cuenta comprobados el 26-nov:
 | Reemplazo completo (`is_full_refresh`) | 403 «not enabled» |
 | URL alojada | 403 `product_feed_hosted_url_api_disabled` |
 | Estado de revisión por producto | 403 `product_feed_approval_status_api_disabled` |
-| Delta API (`PATCH /feeds/{id}/products`) | No da 403 (acceso no bloqueado), pero el 26-nov respondía `503 Product updates are temporarily unavailable` mientras el feed tenía 0 productos indexados |
+| Delta API (`PATCH /feeds/{id}/products`) | Funciona aunque responda `503` (aplica el cambio igual); es lo que hace indexar los productos |
 
-**Indexación pendiente.** A las 01:35 UTC, 35 min después de `completed`, `items/query`, `products/query` y el
-`product_count` del feed seguían en 0. Puede ser solo demora o que la indexación de productos aún no cubra Colombia (el
-esquema dice que el formato compartido hoy representa US, CA y MX). **Qué mirar:** `GET /v1/feeds?include[]=product_count`
-(`product_count` y `ready_count`) o Ads Manager › Feeds. Si a las 24 h sigue en 0 con la subida `completed`, es el
-mercado: pedir a OpenAI (Ads Manager › ayuda, o el equipo de cuenta) que habilite el feed de productos para CO en la
-cuenta `adacct_6b077b01c208819780ad747f8eac2255`, feed `fd_ae6b407a30a6de2eb2801f524f57f89f`. Hasta que haya productos,
-no se puede crear una campaña de feed útil. Si la retirada de cursos falla, el job lo deja como aviso (`::warning::`)
-y no se da por fallido: la subida ya está hecha.
+**La indexación la dispara el Delta API (hallazgo del 26-nov).** Dos subidas completas quedaron `completed` con 112
+filas aceptadas, y aun así 70 min después el feed tenía 0 productos indexados (`items/query`, `products/query` y
+`product_count` en 0). Los únicos que aparecieron fueron los dos cursos a los que mandé un `PATCH` de disponibilidad
+(`in_stock`, sin cambio real) por el Delta API: maquillaje a las 01:36 y uñas a las 02:13, este último indexado en
+**menos de un minuto**. El API respondía `503 Product updates are temporarily unavailable` y aun así aplicaba el cambio.
+Por eso el script, después de cada subida:
+
+1. espera a que OpenAI la procese (`GET /v1/feeds/uploads`, hasta 20 min);
+2. manda por Delta API la disponibilidad de **todos** los cursos (`in_stock` los del CSV, `out_of_stock` los que el
+   feed tiene y ya no salen del sitio), en lotes de 100, reintentando los 503;
+3. a los 90 s cuenta los indexados con `items/query` y deja aviso si son menos del 90 %.
+
+**Resultado de la pasada completa (26-nov, 02:15–02:24 UTC):** subida `sftp_8452083781404d568a977b289a80f102`
+`completed` (112 aceptadas, 0 rechazadas), disponibilidad enviada (HTTP 503, aplicada) y **104 de 112 indexados** a los
+90 s. `ready_count` (aprobados para servir) iba en 10 y subiendo: la revisión de políticas sigue. Los 8 que OpenAI no
+indexó: bartender, bartending y coctelería, cerveza artesanal (alcohol), defensa personal para mujeres, drenaje
+linfático, marketing digital, community manager y ventas por WhatsApp. Parece un filtro de políticas, pero la cuenta no
+puede ver motivos por API (403 en estado de revisión): mirarlo en Ads Manager › Feeds.
+
+Cualquier fallo de estos pasos queda como aviso (`::warning::`) en el job sin darlo por fallido: la subida ya está hecha.
+El producto indexado sale bien: precio de oferta `187430 COP`, la URL con `promo=ads50` y la UTM, la imagen copiada por
+OpenAI a su CDN y el cuerpo igual a la descripción del feed. **Qué mirar si algo falla:** `GET /v1/feeds?include[]=product_count`
+o Ads Manager › Feeds; si el Delta API pasa a dar 403 `product_feed_delta_api_disabled`, pedir a OpenAI que lo habilite
+para la cuenta `adacct_6b077b01c208819780ad747f8eac2255` (feed `fd_ae6b407a30a6de2eb2801f524f57f89f`).
 
 ## 7 · Cuando se decida la campaña de feed (no creada)
 

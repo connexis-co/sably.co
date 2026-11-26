@@ -297,20 +297,45 @@ export async function feedItemIds(feedId, api = adsApi) {
   return ids;
 }
 
+/** Espera a que OpenAI termine de procesar la última subida del feed (hasta `minutes`). */
+export async function waitForUpload(feedId, { api = adsApi, minutes = 20, pause = 20_000, since } = {}) {
+  const limite = Date.now() + minutes * 60_000;
+  for (;;) {
+    const { status, data } = await api('/feeds/uploads');
+    const u = status === 200 ? (data.uploads ?? []).find((x) => x.feed_id === feedId && (!since || x.uploaded_at >= since)) : null;
+    if (u && !['scanning', 'received', 'processing'].includes(u.status)) return u;
+    if (Date.now() > limite) return u ?? null;
+    await new Promise((r) => setTimeout(r, pause));
+  }
+}
+
 /**
- * La cuenta no tiene «reemplazo completo» (PATCH settings `is_full_refresh` da 403), así que un
- * curso que desaparece del CSV seguiría anunciándose con sus datos viejos. Se marca agotado.
+ * Envía por el Delta API la disponibilidad de cada curso: los del CSV `in_stock` y los que el
+ * feed tiene pero ya no salen del sitio `out_of_stock` (la cuenta no tiene «reemplazo completo»:
+ * PATCH settings `is_full_refresh` da 403, y un curso retirado seguiría anunciándose).
+ * Además, comprobado el 26-nov-2026: la subida completa queda `completed` pero OpenAI no indexa
+ * los productos hasta que reciben una actualización por este API. Ese día el API respondía
+ * `503 Product updates are temporarily unavailable` y aun así aplicaba el cambio en < 1 min, así
+ * que un 503 no se trata como fallo: se reintenta y, si persiste, se comprueba con items/query.
  */
-export async function retireStale(feedId, currentIds, api = adsApi) {
+export async function syncAvailability(feedId, currentIds, api = adsApi) {
   const vigentes = new Set(currentIds);
-  const viejos = (await feedItemIds(feedId, api)).filter((id) => !vigentes.has(id));
-  if (!viejos.length) return [];
-  const { status, data } = await api(`/feeds/${feedId}/products`, {
-    method: 'PATCH',
-    body: { products: viejos.map((id) => ({ id, variants: [{ id, availability: { status: 'out_of_stock' } }] })) },
-  });
-  if (status !== 200 || data.accepted !== true) throw new Error(`Delta API respondió ${status}: ${JSON.stringify(data).slice(0, 200)}`);
-  return viejos;
+  const retirados = (await feedItemIds(feedId, api)).filter((id) => !vigentes.has(id));
+  const productos = [
+    ...currentIds.map((id) => ({ id, variants: [{ id, availability: { status: 'in_stock' } }] })),
+    ...retirados.map((id) => ({ id, variants: [{ id, availability: { status: 'out_of_stock' } }] })),
+  ];
+  let ultimo;
+  for (let i = 0; i < productos.length; i += 100) {
+    const lote = productos.slice(i, i + 100);
+    for (let intento = 1; intento <= 3; intento++) {
+      ultimo = await api(`/feeds/${feedId}/products`, { method: 'PATCH', body: { products: lote } });
+      if (ultimo.status === 200 && ultimo.data.accepted === true) break;
+      if (ultimo.status !== 503) throw new Error(`Delta API respondió ${ultimo.status}: ${JSON.stringify(ultimo.data).slice(0, 200)}`);
+      await new Promise((r) => setTimeout(r, 2000 * intento));
+    }
+  }
+  return { retirados, status: ultimo?.status ?? 200 };
 }
 
 async function main() {
@@ -325,15 +350,23 @@ async function main() {
   if (args.upload) {
     const min = Number(args['min-rows'] ?? 20);
     if (rows.length < min) throw new Error(`Solo ${rows.length} cursos (< ${min}): no se sube para no vaciar el feed.`);
+    const inicio = new Date(Date.now() - 60_000).toISOString().replace(/\.\d+Z$/, 'Z');
     console.error(upload(out));
     const feedId = process.env.OPENAI_FEED_ID;
     if (feedId && process.env.OPENAI_ADS_API_KEY) {
-      // La subida ya está hecha: si falla la retirada, se avisa en el job sin darlo por fallido.
+      // La subida ya está hecha: si algo de aquí falla, se avisa en el job sin darlo por fallido.
       try {
-        const retirados = await retireStale(feedId, rows.map((r) => r.item_id));
-        console.error(retirados.length ? `Marcados agotados (ya no están en el sitio): ${retirados.join(', ')}` : 'Ningún curso que retirar del feed.');
+        const u = await waitForUpload(feedId, { since: inicio });
+        console.error(`Subida ${u?.upload_id ?? '¿?'}: ${u?.status ?? 'sin noticias'}, ${u?.rows_accepted ?? '?'} aceptadas, ${u?.rows_rejected ?? '?'} rechazadas.`);
+        if (u?.rows_rejected) console.log(`::warning::OpenAI rechazó ${u.rows_rejected} filas: ${JSON.stringify(u.diagnostics)}`);
+        const { retirados, status } = await syncAvailability(feedId, rows.map((r) => r.item_id));
+        console.error(`Disponibilidad enviada (HTTP ${status}).${retirados.length ? ` Marcados agotados: ${retirados.join(', ')}` : ''}`);
+        await new Promise((r) => setTimeout(r, 90_000));
+        const indexados = await feedItemIds(feedId);
+        console.error(`Indexados en OpenAI: ${indexados.length} de ${rows.length}.`);
+        if (indexados.length < rows.length * 0.9) console.log(`::warning::Solo ${indexados.length} de ${rows.length} cursos indexados en OpenAI.`);
       } catch (e) {
-        console.log(`::warning::No se pudieron retirar cursos del feed: ${e.message}`);
+        console.log(`::warning::Feed subido, pero falló la sincronización con OpenAI: ${e.message}`);
       }
     } else {
       console.error('Sin OPENAI_FEED_ID u OPENAI_ADS_API_KEY: no se revisan cursos retirados.');

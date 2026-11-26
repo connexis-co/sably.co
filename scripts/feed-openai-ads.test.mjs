@@ -50,14 +50,16 @@ test('CSV con comillas', () => {
   assert.match(toCsv([{ item_id: 'a', title: 'Uno, "dos"' }]), /"Uno, ""dos"""/);
 });
 
-test('retira del feed lo que ya no está en el sitio', async () => {
-  const { retireStale } = await import('./feed-openai-ads.mjs');
-  const calls = [];
+test('sincroniza disponibilidad: vigentes in_stock, retirados agotados, 503 se reintenta', async () => {
+  const { syncAvailability } = await import('./feed-openai-ads.mjs');
+  const patches = [];
   const api = async (path, opts = {}) => {
-    calls.push([path, opts]);
     if (path.endsWith('/items/query')) return { status: 200, data: { data: [{ item_id: 'co-a' }, { item_id: 'co-b' }], has_more: false } };
-    return { status: 200, data: { accepted: true } };
+    patches.push(opts.body);
+    return patches.length < 2 ? { status: 503, data: {} } : { status: 200, data: { accepted: true } };
   };
-  assert.deepEqual(await retireStale('fd_1', ['co-a'], api), ['co-b']);
-  assert.deepEqual(calls[1][1].body.products, [{ id: 'co-b', variants: [{ id: 'co-b', availability: { status: 'out_of_stock' } }] }]);
+  const r = await syncAvailability('fd_1', ['co-a', 'co-c'], api);
+  assert.deepEqual(r.retirados, ['co-b']);
+  assert.equal(patches.length, 2);
+  assert.deepEqual(patches[1].products.map((p) => [p.id, p.variants[0].availability.status]), [['co-a', 'in_stock'], ['co-c', 'in_stock'], ['co-b', 'out_of_stock']]);
 });
