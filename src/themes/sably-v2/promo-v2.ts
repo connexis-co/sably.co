@@ -8,6 +8,7 @@ import { env } from 'virtual:sably-runtime';
 import { campaignDePromocion, mejorPromocion } from '@/lib/promo';
 import { readActivePromosForRequest } from '@/plugins/sably-operations/public';
 import { fechaCorta } from '@/lib/cuenta-atras';
+import { temaDeLaPeticion, type MuestraCampana } from '@/lib/ajustes-tema';
 
 export interface PromoV2 {
   id: string;
@@ -17,6 +18,10 @@ export interface PromoV2 {
   cupon: string;
   /** «25 nov., 7:00 p. m.» en hora de Colombia; null si la promoción no tiene fin. */
   fin: string | null;
+  /** Fecha de fin en ms (para el contador); null sin fin. */
+  finMs: number | null;
+  /** Qué enseña cada aviso (panel → Campañas y cupones). */
+  muestra: Record<'barra' | 'banda' | 'megamenu' | 'listado', MuestraCampana>;
   /** JSON que lee el navegador para confirmar o retirar la pieza. */
   ssr: string;
 }
@@ -42,6 +47,7 @@ export function promoDeLaPagina(
     if (!elegida) return null;
     const c = campaignDePromocion(elegida);
     if (c.endsAt && Date.parse(c.endsAt) <= Date.now()) return null;
+    const { ajustes } = await temaDeLaPeticion(astro as { url: URL; locals: App.Locals });
     return {
       id: c.id,
       etiqueta: c.label,
@@ -49,6 +55,8 @@ export function promoDeLaPagina(
       pct: c.discountPct,
       cupon: c.couponCode,
       fin: c.endsAt ? fechaCorta(Date.parse(c.endsAt)) : null,
+      finMs: c.endsAt ? Date.parse(c.endsAt) : null,
+      muestra: ajustes.campana,
       ssr: JSON.stringify(c),
     };
   })();

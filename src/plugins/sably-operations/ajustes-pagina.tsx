@@ -8,7 +8,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { api, CSS_SO, Notice, Promotions, WidgetEditor } from './admin-comun';
 import { bloquesParaElPanel, ORDEN_DE_FABRICA } from '../../lib/portada-bloques';
 import { leerPruebaHeroe } from '../../lib/prueba-heroe';
-import { AJUSTES_PELIGROSOS, PESTANAS, cambiosAGuardar, settingsSchema, textoDeValor, valorDeFabrica, type ClaveAjuste, type IdPestana } from './ajustes';
+import { AJUSTES_PELIGROSOS, CAMPANA_CLAVES, PESTANAS, cambiosAGuardar, settingsSchema, textoDeValor, valorDeFabrica, type ClaveAjuste, type IdPestana } from './ajustes';
 
 const NATIVA = '/_emdash/api/admin/plugins/sably-operations/settings';
 const ADMIN = '/_emdash/admin';
@@ -134,7 +134,7 @@ export function AjustesPage() {
       </section>
       {seccion(['estiloCampo'], 'Formularios')}
     </>; break;
-    case 'campanas': cuerpo = <>{seccion(['barraCampanaCierre', 'barraCampanaFicha'], 'Barra de campaña')}<Promotions /></>; break;
+    case 'campanas': cuerpo = <>{seccion(['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija'], 'Barra de campaña')}{seccion(CAMPANA_CLAVES, 'Qué enseña cada aviso de campaña')}<Promotions /></>; break;
     case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'], 'Caja de compra')}{seccion(['sobreFotosPestanas', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'], 'Opiniones de la ficha')}{seccion(['fichaMovimiento', 'certificadoAnimacion'], 'Movimiento de la ficha')}{seccion(['temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta'], 'Temario y bloques de la ficha')}<WidgetEditor only="social" /></>; break;
     case 'portada': cuerpo = <>
       <section className="so-editor">
@@ -142,14 +142,17 @@ export function AjustesPage() {
         <OrdenPortada orden={borrador.portadaOrden} ocultos={borrador.portadaOcultos} onChange={(orden, ocultos) => setBorrador(b => ({ ...b, portadaOrden: orden, portadaOcultos: ocultos }))} />
         <button className="so-primary" disabled={ocupado} onClick={() => void guardar(['portadaOrden', 'portadaOcultos'])}>{ocupado ? 'Guardando…' : 'Guardar bloques'}</button>
       </section>
-      {seccion(['portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios'], 'Héroe')}
+      {seccion(['portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeMovil'], 'Héroe')}
       {seccion(['portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio'], 'Prueba A/B del héroe', <EstadoPruebaAB valores={actuales} />)}
       {seccion(['portadaCategoriasVariante'], 'Categorías')}
-      {seccion(['portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar'], 'Movimiento de los bloques')}
+      {seccion(['portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar'], 'Movimiento de los bloques')}
+      {seccion(['portadaOficioModo', 'portadaOficioIntervalo'], 'Oficio destacado')}
+      {seccion(['portadaBeneficiosModo'], '¿Por qué Sably?')}
       {seccion(['portadaValoradosMinimo'], 'Los mejor valorados')}
+      {seccion(['portadaGuiasVariante'], 'Guías del blog')}
       <Enlaces items={[['Textos de la portada', 'Titular, entradilla y textos de cada bloque (secciones sably-home-*).', `${ADMIN}/sections`]]} />
     </>; break;
-    case 'contenido': cuerpo = <Enlaces items={[
+    case 'contenido': cuerpo = <>{seccion(['nosotrosDiseno', 'nosotrosCifras', 'nosotrosMovimiento'], 'Página «Nosotros»')}<Enlaces items={[
       ['Cursos', 'Ficha general de cada curso.', `${ADMIN}/content/courses`],
       ['Cursos por país', 'Precio, enlace de compra y texto por país.', `${ADMIN}/content/course_locales`],
       ['Categorías', 'Oficios y su orden.', `${ADMIN}/content/categories`],
@@ -159,7 +162,7 @@ export function AjustesPage() {
       ['Artículos', 'Blog.', `${ADMIN}/content/blog`],
       ['Menús', 'Cabecera y pie.', `${ADMIN}/menus`],
       ['Moderación y contactos', 'Opiniones, calificaciones y solicitudes.', `${ADMIN}/plugins/sably-operations/operations`],
-    ]} />; break;
+    ]} /></>; break;
     case 'blog': cuerpo = <>
       {seccion(['blogTituloPortada', 'blogEntradillaPortada', 'blogBuscador', 'blogDestacado', 'blogRecientes', 'blogBandaCursos'], 'Portada del blog')}
       {seccion(['blogFiltrosEstilo', 'blogFiltrosMovil', 'blogFiltrosCuenta', 'blogPaginacion', 'blogVerMasAuto', 'blogPorPagina'], 'Portada · filtros y paginación')}

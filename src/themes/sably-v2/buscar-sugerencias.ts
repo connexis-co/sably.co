@@ -3,6 +3,7 @@
  * (`/search-index.json`) y el mismo criterio que el buscador de la cabecera (Buscador.astro), en una lista
  * desplegable bajo el campo. Combobox ARIA con flechas, Enter y Escape; sin JavaScript, el formulario sigue
  * enviando a /xx/cursos/?q=…
+ * `data-sug-max` en el formulario limita los cursos sugeridos (el listado, que ya filtra la rejilla debajo, enseña 3).
  */
 export type ItemIndice = { t: string; s: string; c: string; a?: string; k: string; i?: string; n?: string };
 /** Áreas y guías que se suman a las sugerencias (título, enlace y tipo). */
@@ -43,6 +44,7 @@ export function iniciarSugerencias(form: HTMLFormElement) {
   const base = new URL(form.action, location.href).pathname.replace(/\/cursos\/?$/, '');
   let extra: ExtraBusqueda[] = [];
   try { extra = JSON.parse(form.dataset.extra || '[]'); } catch { /* sin extras */ }
+  const maxCursos = Math.max(1, Number(form.dataset.sugMax) || 5);
   const id = `${campo.id}-sugerencias`;
   const panel = document.createElement('div');
   panel.className = 'v2-sugerencias';
@@ -75,7 +77,7 @@ export function iniciarSugerencias(form: HTMLFormElement) {
     const areas = otros.filter(o => o.c === 'Área'), guias = otros.filter(o => o.c === 'Guía');
     const filaExtra = (o: ExtraBusqueda, i: number) => `<li><a role="option" id="${id}-x${i}" aria-selected="false" href="${esc(o.u)}"><span class="v2-sug-tipo">${o.c}</span><span><strong>${esc(o.t)}</strong></span></a></li>`;
     lista.innerHTML = areas.map(filaExtra).join('')
-      + res.slice(0, 5).map((r, i) => `<li><a role="option" id="${id}-${i}" aria-selected="false" href="${base}/${r.s}/">${r.i ? `<img src="${esc(r.i)}" alt="" width="64" height="48" loading="lazy">` : ''}<span><strong>${esc(r.t)}</strong><small>${esc(r.c)}${r.n ? ` · ${esc(r.n)} en Hotmart` : ''}</small></span></a></li>`).join('')
+      + res.slice(0, maxCursos).map((r, i) => `<li><a role="option" id="${id}-${i}" aria-selected="false" href="${base}/${r.s}/">${r.i ? `<img src="${esc(r.i)}" alt="" width="64" height="48" loading="lazy">` : ''}<span><strong>${esc(r.t)}</strong><small>${esc(r.c)}${r.n ? ` · ${esc(r.n)} en Hotmart` : ''}</small></span></a></li>`).join('')
       + guias.map((o, i) => filaExtra(o, 10 + i)).join('');
     todos.href = `${base}/cursos/?q=${encodeURIComponent(bruto)}`;
     todos.textContent = res.length ? `Ver los ${res.length} resultados de «${bruto}»` : `Buscar «${bruto}» en todos los cursos`;

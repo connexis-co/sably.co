@@ -37,6 +37,24 @@
     .v2-cabecera-logo { transform-origin: left center; animation-name: v2-cabecera-logo; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); animation-range: 0 64px; }
   }
 }
+/* ---------- Transición entre páginas (I1) ----------
+   Fundido corto entre documentos del mismo sitio (los chips de área, la paginación y cualquier enlace interno);
+   la cabecera tiene nombre propio y no funde: solo cambia el contenido. Con `reduce`, en seco. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+  .v2-cabecera { view-transition-name: v2-cabecera; }
+  ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 180ms; animation-timing-function: var(--e-sale); }
+  ::view-transition-group(v2-cabecera) { animation-duration: 180ms; animation-timing-function: var(--e-sale); }
+}
+/* ---------- Carriles de la portada en móvil (I2) ----------
+   Áreas, mejor valorados y destacados: fundido tenue en los bordes (`.v2-fundido-x`, el mismo de los chips) y el
+   snap alineado con el relleno lateral, para que al inicio y al final la primera y la última tarjeta queden enteras. */
+@media (width < 1024px) {
+  #categorias > ul { margin-inline: -20px; padding-inline: 20px; scroll-padding-inline: 20px; mask-image: linear-gradient(90deg, transparent, #000 20px, #000 calc(100% - 20px), transparent); }
+}
+@media (width < 640px) {
+  section:is([aria-labelledby='valorados-titulo'], [aria-labelledby='destacados-titulo']) > ul { scroll-padding-inline: 20px; mask-image: linear-gradient(90deg, transparent, #000 20px, #000 calc(100% - 20px), transparent); }
+}
 .v2-nav-enlace {
   position: relative; display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 14px; border-radius: 999px;
   font: 500 15px/22px var(--font-sans); color: var(--color-navy-700); text-decoration: none;
@@ -148,6 +166,9 @@ html[data-mega-abierto] { overflow: hidden; }
 /* ---------- Pie ---------- */
 .v2-pie { position: relative; background: var(--color-navy-950); color: rgb(255 255 255 / 0.85); }
 .v2-pie[data-pie='completo'] { border-radius: 48px 48px 0 0; margin-top: 64px; }
+/* Segundo reborde bajo el corte redondeado (como el pie de visitvalle.travel): una franja coral tenue, liso y sin
+   degradado, que asoma 14 px por encima del pie con el mismo radio. */
+.v2-pie[data-pie='completo']::before { content: ''; position: absolute; z-index: -1; inset: -14px 0 auto; height: 96px; border-radius: inherit; background: var(--color-coral-100); pointer-events: none; }
 .v2-pie a:not(.v2-btn) { color: inherit; text-decoration: none; }
 .v2-pie-enlace { display: inline-flex; align-items: center; min-height: 32px; font: 400 15px/22px var(--font-sans); color: #fff; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size var(--t-rapido) var(--e-sale); }
 @media (hover: hover) and (pointer: fine) { .v2-pie-enlace:hover { background-size: 100% 1px; } }
