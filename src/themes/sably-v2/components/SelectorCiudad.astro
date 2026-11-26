@@ -131,6 +131,14 @@ const ciudades = [...new Map((country.cities ?? []).map(c => [c.slug, c.name.tri
     document.querySelectorAll<HTMLElement>('[data-geo-country]').forEach(a => a.addEventListener('click', () => {
       if (a.dataset.geoCountry && a.dataset.geoCountry !== pais) { try { sessionStorage.setItem(ABRIR, a.dataset.geoCountry); } catch { /* sin almacenamiento */ } }
     }));
+    // Llegada por una URL de ciudad antigua: el 301 trae `#ciudad=<slug>` (city-redirect.ts). Se guarda como su
+    // elección, si es de este país, y se quita el fragmento de la barra sin recargar.
+    const desdeRedireccion = /^#ciudad=([a-z0-9-]+)$/.exec(location.hash)?.[1];
+    if (desdeRedireccion) {
+      const o = opciones.find(x => x.dataset.ciudad === desdeRedireccion);
+      if (o) { try { localStorage.setItem(CLAVE, JSON.stringify({ p: pais, c: desdeRedireccion, n: (o.textContent ?? '').trim() })); } catch { /* sin almacenamiento */ } }
+      history.replaceState(history.state, '', location.pathname + location.search);
+    }
     let abrir = '';
     try { abrir = sessionStorage.getItem(ABRIR) ?? ''; sessionStorage.removeItem(ABRIR); } catch { /* sin almacenamiento */ }
     pintar();

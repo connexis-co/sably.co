@@ -53,6 +53,9 @@ Lo que se puede dar **sin inventar nada** (el curso es online e igual en todo el
 4. **Medición:** el evento `select_country` que ya existe lleva un campo `city` que hoy siempre vale `all`; pasa a
    llevar la ciudad elegida. Así se sabe si la ciudad importa antes de hacer nada más.
 
+Teléfono: `phoneDisplay` de los ocho países pasa a ser la línea real de Sably (+57 311 457 4788), que es la del
+WhatsApp de todos; los de México, Perú, Ecuador, Chile, Argentina y Estados Unidos eran números de relleno.
+
 Lo que **no** gana: precio, moneda, medios de pago y fichas son por país; no hay nada por ciudad que mostrar.
 «Medios de pago locales» por ciudad no existe (PSE y Nequi son de toda Colombia). Tampoco hay sedes, docentes ni
 horarios por ciudad: cualquier texto que lo sugiera sería falso.
@@ -84,12 +87,15 @@ horarios por ciudad: cualquier texto que lo sugiera sería falso.
 - **Pedir la ciudad con un aviso emergente**: es un dato que nadie necesita dar para comprar; debe ser opcional y
   estar donde ya se elige el país.
 
-## 6. Siguiente paso posible (decisión de JP, no incluido)
+## 6. La ciudad en el 301 de las URL de ciudad (aprobado por JP el 26-nov, incluido)
 
 El 301 de las URL de ciudad podría llevar la ciudad en el fragmento: `Location: /co/curso-de-velas/#ciudad=medellin`.
 Los buscadores ignoran el fragmento (no hay URL nueva ni cambia la canónica) y el navegador sí lo conserva, así que
 quien llega desde ChatGPT por «velas en Medellín» tendría su ciudad elegida sin tocar nada. Toca las redirecciones,
-que este encargo prohíbe cambiar: queda propuesto, no hecho.
+que el encargo prohibía cambiar; JP lo aprobó el 26-nov y va en este PR (`city-redirect.ts`, `market-item.ts`).
+Comprobado: `/co/medellin/curso-de-automaquillaje/?utm_source=chatgpt.com` → 301 a
+`/co/curso-de-automaquillaje/?utm_source=chatgpt.com#ciudad=medellin`; la página guarda Medellín, quita el fragmento
+de la barra y la canónica sigue siendo `https://sably.co/co/curso-de-automaquillaje/`. Mismo número de saltos (uno).
 
 ## 7. Recomendación sobre el interruptor
 

@@ -43,11 +43,11 @@ const context=(path:string,params:Record<string,string>)=>({params,url:new URL(`
 const category=(entries.categories??[]).find(c=>!(c.data as Record<string,unknown>).external_url)!.id;
 const query='?utm_source=chatgpt.com&utm_medium=referral';
 
-test('city course, catalog and category pages answer one 301 to their country page, keeping the query',async()=>{
+test('city course, catalog and category pages answer one 301 to their country page, keeping the query and the city in the fragment',async()=>{
   for(const [path,params,route,location] of [
-    [`/co/bogota/curso-de-barberia/${query}`,{country:'co',item:'bogota',slug:'curso-de-barberia'},'course',`/co/curso-de-barberia/${query}`],
-    [`/mx/cdmx/cursos/${query}`,{country:'mx',item:'cdmx'},'catalog',`/mx/cursos/${query}`],
-    [`/es/madrid/cursos/${category}/${query}`,{country:'es',item:'madrid',category},'category',`/es/cursos/${category}/${query}`],
+    [`/co/bogota/curso-de-barberia/${query}`,{country:'co',item:'bogota',slug:'curso-de-barberia'},'course',`/co/curso-de-barberia/${query}#ciudad=bogota`],
+    [`/mx/cdmx/cursos/${query}`,{country:'mx',item:'cdmx'},'catalog',`/mx/cursos/${query}#ciudad=cdmx`],
+    [`/es/madrid/cursos/${category}/${query}`,{country:'es',item:'madrid',category},'category',`/es/cursos/${category}/${query}#ciudad=madrid`],
   ] as const){
     const response:Response=await cityRedirect.load(context(path,params),route);
     assert.equal(response.status,301,path);
@@ -59,7 +59,7 @@ test('the city hub shares its route with country courses: hubs redirect, courses
   const hub=await marketItem.load(context(`/co/bogota/${query}`,{country:'co',item:'bogota'}));
   assert.ok(hub instanceof Response);
   assert.equal(hub.status,301);
-  assert.equal(hub.headers.get('location'),`/co/${query}`);
+  assert.equal(hub.headers.get('location'),`/co/${query}#ciudad=bogota`);
   const course=await marketItem.load(context('/co/curso-de-barberia/',{country:'co',item:'curso-de-barberia'}));
   assert.ok(!(course instanceof Response));
   assert.equal(course.content.course.id,'curso-de-barberia');

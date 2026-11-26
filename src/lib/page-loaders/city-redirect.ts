@@ -20,9 +20,14 @@ const ALIAS_CIUDAD: Record<string, Record<string, string>> = { mx: { 'ciudad-de-
 export const slugDeCiudad = (pais: string, item: string | undefined): string | undefined =>
   (item && ALIAS_CIUDAD[pais]?.[item]) || item;
 
-/** El hub `/{país}/{ciudad}/` comparte ruta con las fichas de país y lo resuelve market-item. */
-export const cityRedirect = (Astro: Pick<PublicPageContext, 'url'>, path: string): Response =>
-  new Response(null, { status: 301, headers: { Location: `${path}${Astro.url.search}` } });
+/**
+ * El hub `/{país}/{ciudad}/` comparte ruta con las fichas de país y lo resuelve market-item.
+ * Con `ciudad`, el destino lleva `#ciudad=<slug>`: los buscadores ignoran el fragmento (misma URL y misma canónica,
+ * nada nuevo que indexar) y el navegador lo conserva, así que quien llega desde ChatGPT por «… en Medellín» tiene su
+ * ciudad ya elegida en «País y moneda» (SelectorCiudad.astro la guarda y limpia el fragmento).
+ */
+export const cityRedirect = (Astro: Pick<PublicPageContext, 'url'>, path: string, ciudad?: string): Response =>
+  new Response(null, { status: 301, headers: { Location: `${path}${Astro.url.search}${ciudad ? `#ciudad=${encodeURIComponent(ciudad)}` : ''}` } });
 
 export async function load(Astro: PublicPageContext, route: CityRoute): Promise<Response> {
   const cms = await getContentRepository();
@@ -31,13 +36,13 @@ export async function load(Astro: PublicPageContext, route: CityRoute): Promise<
   const city = country?.cities.find(c => c.slug === item);
   if (!country || !city) return new Response('Not found', { status: 404 });
   const base = `/${country.code}`;
-  if (route === 'catalog') return cityRedirect(Astro, `${base}/cursos/`);
+  if (route === 'catalog') return cityRedirect(Astro, `${base}/cursos/`, city.slug);
   if (route === 'category') {
     const category = await cms.getCategory(Astro.params.category ?? '');
     return category && !category.externalUrl
-      ? cityRedirect(Astro, `${base}/cursos/${category.slug}/`)
+      ? cityRedirect(Astro, `${base}/cursos/${category.slug}/`, city.slug)
       : new Response('Not found', { status: 404 });
   }
   const content = await cms.resolveCourseContent(Astro.params.slug ?? '', country.code);
-  return content ? cityRedirect(Astro, `${base}/${content.course.id}/`) : new Response('Not found', { status: 404 });
+  return content ? cityRedirect(Astro, `${base}/${content.course.id}/`, city.slug) : new Response('Not found', { status: 404 });
 }
