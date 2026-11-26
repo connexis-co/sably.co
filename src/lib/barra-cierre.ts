@@ -23,7 +23,7 @@ export function cerrarBarraSuave(barra: HTMLElement, alFinal?: () => void): void
   // Lo que sigue a la cabecera en el flujo (el contenido y el pie), no lo fijo (WhatsApp, cookies, barras fijas).
   const resto = [...document.body.children].filter((el): el is HTMLElement =>
     el instanceof HTMLElement && el !== barra && el !== cab && !['SCRIPT', 'STYLE', 'TEMPLATE', 'DIALOG'].includes(el.tagName)
-    && !el.hidden && !['fixed', 'absolute'].includes(getComputedStyle(el).position) && el.compareDocumentPosition(barra) & Node.DOCUMENT_POSITION_PRECEDING);
+    && !el.hidden && !['fixed', 'absolute'].includes(getComputedStyle(el).position) && (el.compareDocumentPosition(barra) & Node.DOCUMENT_POSITION_PRECEDING) !== 0);
   const html = document.documentElement;
   const terminar = () => {
     // Quitarla de verdad y compensar: lo que estaba fuera de la vista por arriba no debe arrastrar la página.
