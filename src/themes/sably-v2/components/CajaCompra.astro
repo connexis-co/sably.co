@@ -170,8 +170,15 @@ const tituloId = 'titulo-compra';
           ? <Boton variante="precio" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago aria-label={`Inscribirme, ${precio(baseAmount).hablado}`} precio={{ cifra: precio(baseAmount).visible, moneda: currency }}>Inscribirme</Boton>
           : <Boton variante="principal" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago>Ver precio en Hotmart</Boton>}
       <p class="mt-3 text-t13 text-navy-700" data-bloque="pago-seguro">Pagas en <LogoHotmart alto={15} class="mx-0.5" /> en {currency} · sin crear cuenta en Sably</p>
-      {creador && <p class="text-t13 text-navy-500" data-bloque="cobro">En Hotmart el curso figura a nombre de {creador}.</p>}
       {hijo('confianza', 'acceso') && <p class="text-t13 text-navy-500">El acceso te llega por correo al instante.</p>}
+      {/* Junto al pago, en letra pequeña y en este orden: a nombre de quién figura el cobro en Hotmart (#324) y la
+         relación comercial, que la FTC (/us/) y la SIC piden visible donde está el enlace. Decisión de JP del 26-nov:
+         esta línea es la única mención de la comisión en el sitio (fuera del pie, de «Cómo funciona», del JSON-LD y
+         de llms.txt), sin la palabra «afiliado». Texto fijo: el validador de la caja veta «comisión» en los editables. */}
+      <div class="mt-2 text-t13 text-navy-500" data-bloque="cobro">
+        {creador && <p>En Hotmart el curso figura a nombre de {creador}.</p>}
+        {!sinProducto && <p data-nota-pago>Sably puede recibir una comisión de esta compra.</p>}
+      </div>
     </div>
 
     {docente && (
@@ -234,7 +241,7 @@ const tituloId = 'titulo-compra';
       ? <p class="text-t15 text-navy-950">¿Dudas antes de pagar? <a href={whatsapp} target="_blank" rel="noopener nofollow" class="font-semibold underline underline-offset-4">{whatsappBloque.textos?.etiqueta || 'Escríbenos por WhatsApp'}</a></p>
       : <><p class="text-t15 font-semibold text-navy-950">¿Dudas antes de pagar?</p>
         <Boton variante="whatsapp" completo href={whatsapp} target="_blank" rel="noopener nofollow" class="mt-3">{whatsappBloque.textos?.etiqueta || 'Escríbenos por WhatsApp'}</Boton></>)}
-    <p class:list={['text-t13 text-navy-500', whatsappBloque && 'mt-3']} data-bloque="nota_legal">Sably recibe una comisión cuando te inscribes desde aquí, sin costo extra para ti.{leida && ` Precio leído en Hotmart el ${leida}.`}</p>
+    {leida && <p class:list={['text-t13 text-navy-500', whatsappBloque && 'mt-3']} data-bloque="nota_legal">Precio leído en Hotmart el {leida}.</p>}
   </div>
 </section>
 

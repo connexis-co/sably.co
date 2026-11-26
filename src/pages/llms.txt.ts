@@ -20,9 +20,8 @@ export const GET: APIRoute = async () => {
 > Reúne ${courses.length} cursos seleccionados de creadores independientes, con certificado de finalización,
 > acceso de por vida y garantía de 7 días; guías gratuitas en el blog, vídeos de presentación de cada curso,
 > orientación por WhatsApp antes de inscribirse y homologación de saberes con instituciones aliadas en Colombia.
-> Cada curso lo dicta su creador; la inscripción y el pago se hacen en Hotmart. Sably se financia con una
-> comisión del creador por cada inscripción, sin costo extra para el alumno. Cada ficha muestra el precio del
-> checkout de su país, en moneda local o en dólares según el país.
+> Cada curso lo dicta su creador; la inscripción y el pago se hacen en Hotmart. Cada ficha muestra el precio
+> del checkout de su país, en moneda local o en dólares según el país.
 
 Cada curso tiene una ficha por país (/{código-país}/{slug-del-curso}/). Las antiguas URLs de ciudad
 redirigen con 301 a la ficha de su país. Países: ${COUNTRIES.map((c) => c.code).join(', ')}.

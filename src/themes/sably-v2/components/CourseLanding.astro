@@ -413,7 +413,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
                 </li>
               ))}
             </ol>
-            <NotaFuente class="mt-6 max-w-[620px]">El creador dicta el curso, Hotmart cobra y te da el acceso, y Sably elige los cursos y te orienta por WhatsApp. Si te inscribes desde este enlace, Sably recibe una comisión sin costo extra para ti.</NotaFuente>
+            <NotaFuente class="mt-6 max-w-[620px]">El creador dicta el curso, Hotmart cobra y te da el acceso, y Sably elige los cursos y te orienta por WhatsApp.</NotaFuente>
             <CiudadesPais {country} mostrar={ajustes.mostrarCiudades} class="mt-10 max-w-[620px]" />
           </div>
           <figure class="m-0 hidden lg:block">
@@ -504,7 +504,6 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
                 : <Boton variante="principal" href={enlacePago} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="cierre" data-pago data-btn-con={offer ? botonCon : undefined} data-btn-sin={botonSin} data-btn-sin-hablado={botonSinHablado}>{botonCon}</Boton>}
               {!sinProducto && <p class="text-t13 text-white/70">Pagas en <img src="/v2/logos/hotmart.svg" alt="Hotmart" width="56" height="16" loading="lazy" class="inline-block align-[-3px] brightness-0 invert" /> en {currency} · sin crear cuenta en Sably</p>}
             </div>
-            {!sinProducto && <p class="mt-4 text-t13 text-white/60">Si te inscribes desde este enlace, Sably recibe una comisión sin costo extra para ti.</p>}
           </div>
           {offer && (
             <div data-cierre-promo>
