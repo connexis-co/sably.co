@@ -14,6 +14,9 @@ import { fotoPropia } from './presentacion-v2';
  *
  * Datos y método: docs/equipo/2026-11-25/docentes/DOCENTES.md (fuera del repo).
  */
+/** «Imparte» o «Imparten»: hay cursos que dan dos personas («Wilmer Torres y Olga Amaya»). */
+export const verboImparte = (nombre: string) => (/\s(y|e)\s/i.test(nombre) ? 'Imparten' : 'Imparte');
+
 export interface Docente {
   slug: string;
   nombre: string;

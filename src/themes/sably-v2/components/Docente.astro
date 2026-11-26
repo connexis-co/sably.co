@@ -12,7 +12,7 @@
  * `lugar="cabeza"`: una línea en la cabeza de la ficha, bajo la promesa.
  * `lugar="ficha"`: la tarjeta completa en «Creador y opiniones».
  */
-import { docenteReal } from '@/lib/docente';
+import { docenteReal, verboImparte } from '@/lib/docente';
 import { iniciales } from '@/lib/presentacion-v2';
 
 interface Props {
@@ -31,7 +31,7 @@ const alt = d ? `Foto de ${d.nombre}` : '';
   <p class="flex items-center gap-3 text-t15 font-semibold text-navy-950 lg:text-white" data-docente={d.slug}>
     {d.foto ? <img src={d.foto} alt={alt} width="40" height="40" decoding="async" class="size-8 flex-none rounded-full bg-white object-cover ring-1 ring-navy-100 lg:size-10" />
       : <span class="grid size-8 flex-none place-items-center rounded-full bg-navy-100 text-t13 font-semibold text-navy-950 lg:size-10 lg:bg-white/15 lg:text-white" aria-hidden="true">{iniciales(d.nombre)}</span>}
-    <span>Imparte {d.nombre}{d.titulo && <span class="block text-t13 font-normal text-navy-500 lg:text-white/70">{d.titulo}</span>}</span>
+    <span>{verboImparte(d.nombre)} {d.nombre}{d.titulo && <span class="block text-t13 font-normal text-navy-500 lg:text-white/70">{d.titulo}</span>}</span>
   </p>
 )}
 {d && lugar === 'ficha' && (
@@ -39,7 +39,7 @@ const alt = d ? `Foto de ${d.nombre}` : '';
     {d.foto ? <img src={d.foto} alt={alt} width="96" height="96" loading="lazy" decoding="async" class="size-24 flex-none rounded-full bg-white object-cover ring-1 ring-navy-100" />
       : <span class="grid size-24 flex-none place-items-center rounded-full bg-navy-50 font-display text-d28 text-navy-950" aria-hidden="true">{iniciales(d.nombre)}</span>}
     <div class="min-w-0 flex-1">
-      <p class="text-t13 text-navy-500">Imparte el curso</p>
+      <p class="text-t13 text-navy-500">{verboImparte(d.nombre)} el curso</p>
       <h2 id={`docente-${d.slug}`} class="font-display text-d28">{d.nombre}</h2>
       {d.titulo && <p class="mt-1 text-t15 font-semibold text-navy-700">{d.titulo}</p>}
       {d.trayectoria && <p class="mt-2 max-w-[640px] text-t15 text-navy-700">{d.trayectoria}</p>}

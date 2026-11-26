@@ -12,6 +12,8 @@ test('solo se usan fotos servidas por Sably', () => {
 
 test('iniciales del creador', () => {
   assert.equal(iniciales('MasterClasses.La®'), 'MC');
+  assert.equal(iniciales('Estefania y Johan'), 'EJ', 'los conectores no cuentan');
+  assert.equal(iniciales('Cony Pantoja Montenegro'), 'CP');
   assert.equal(iniciales('Mauricio Duque Zuluaga'), 'MD');
   assert.equal(iniciales('Premium Academy'), 'PA');
 });

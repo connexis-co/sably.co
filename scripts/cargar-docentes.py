@@ -12,6 +12,10 @@ Uso (desde emdash-dev, con la sesión de la CLI de EmDash ya guardada):
       → guarda DIR/<curso>.json (el curso entero, antes de tocarlo) y actualiza con su `_rev`.
   python3 -I scripts/cargar-docentes.py --revertir DIR [--url …]
       → devuelve los cuatro campos de cada curso de DIR a su valor del respaldo.
+
+Fotos: un docente con `photo_file` (ruta relativa al JSON de datos) sube esa imagen a la mediateca con `emdash media
+upload` al aplicar y guarda el objeto en `photo` con `original` (de dónde salió). La reversión no borra la imagen subida
+(queda en la mediateca sin usar; su id va en DIR/_medios.json).
 """
 from __future__ import annotations
 
@@ -52,7 +56,22 @@ def validar(curso: str, d: dict) -> None:
         sys.exit(f'{curso}: docente sin fuente completa ({faltan})')
 
 
+def subir_foto(d: dict, base: pathlib.Path, url: str) -> dict:
+    archivo = (base / d['photo_file']).resolve()
+    r = cli('media', 'upload', str(archivo), '--url', url, '--json', '--alt', f"Foto de {d['name']}")
+    if r.returncode:
+        sys.exit(f"No pude subir la foto de {d['name']}: {r.stderr[-300:]}")
+    m = json.loads(r.stdout)
+    m = m.get('item', m.get('data', m)) if isinstance(m, dict) else m
+    foto = {k: m[k] for k in ('id', 'url', 'src', 'width', 'height', 'filename', 'mimeType', 'meta') if k in m}
+    if 'url' in foto and 'src' not in foto:
+        foto['src'] = foto.pop('url')
+    foto.update(provider='local', alt=f"Foto de {d['name']}", original=d.get('photo_original', ''))
+    return foto
+
+
 def nuevos_campos(d: dict) -> dict:
+    d = {k: v for k, v in d.items() if k not in ('photo_file', 'photo_original')}
     return {'instructor': d, 'instructor_name': d['name'], 'instructor_title': d.get('title') or None, 'instructor_bio': d.get('bio') or None}
 
 
@@ -66,7 +85,7 @@ def main() -> None:
     o = a.parse_args()
 
     if o.revertir:
-        for f in sorted(pathlib.Path(o.revertir).glob('*.json')):
+        for f in sorted(p for p in pathlib.Path(o.revertir).glob('*.json') if not p.name.startswith('_')):
             antes = json.loads(f.read_text('utf-8'))['data']
             e = leer(f.stem, o.url)
             data = e['data']
@@ -78,21 +97,34 @@ def main() -> None:
 
     if not o.datos:
         a.error('--datos es obligatorio salvo con --revertir')
+    base = pathlib.Path(o.datos).resolve().parent
     datos = json.loads(pathlib.Path(o.datos).read_text('utf-8'))['docentes']
     carpeta = pathlib.Path(o.respaldo)
+    medios = []
     for curso, d in datos.items():
         validar(curso, d)
+        if d.get('photo_file') and not (base / d['photo_file']).is_file():
+            sys.exit(f"{curso}: no existe la foto {d['photo_file']}")
         e = leer(curso, o.url)
         antes = {k: e['data'].get(k) for k in CAMPOS}
+        actual = e['data'].get('instructor') or {}
+        if d.get('photo_file') and isinstance(actual, dict) and (actual.get('photo') or {}).get('original') == d.get('photo_original'):
+            d = {**d, 'photo': actual['photo']}  # la foto ya se subió en una pasada anterior
         despues = nuevos_campos(d)
         if antes == despues:
             print(f'{curso}: ya estaba así')
             continue
-        print(f"{curso}: «{antes['instructor_name'] or '—'}» → «{d['name']}» · fuente {d['source_url']}")
+        foto = ' · con foto' if d.get('photo_file') or d.get('photo') else ''
+        print(f"{curso}: «{antes['instructor_name'] or '—'}» → «{d['name']}»{foto} · fuente {d['source_url']}")
         if not o.aplicar:
             continue
         carpeta.mkdir(parents=True, exist_ok=True)
         (carpeta / f'{curso}.json').write_text(json.dumps(e, ensure_ascii=False, indent=1), 'utf-8')
+        if d.get('photo_file') and not d.get('photo'):
+            d = {**d, 'photo': subir_foto(d, base, o.url)}
+            medios.append({'curso': curso, 'foto': d['photo']})
+            (carpeta / '_medios.json').write_text(json.dumps(medios, ensure_ascii=False, indent=1), 'utf-8')
+        despues = nuevos_campos(d)
         data = e['data']
         data.update(despues)
         escribir(curso, o.url, data, e['_rev'])

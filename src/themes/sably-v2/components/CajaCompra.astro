@@ -31,7 +31,7 @@ import { resolverZona } from '@/lib/caja/resolver';
 import type { Bloque, Condicion } from '@/lib/caja/model';
 import { notaHotmart } from '@/lib/opiniones';
 import { CSS_CAJA } from '../ficha-hoja';
-import { docenteReal } from '@/lib/docente';
+import { docenteReal, verboImparte } from '@/lib/docente';
 import type { Ficha } from '@/lib/ficha';
 import type { Country } from '@/lib/countries';
 
@@ -178,7 +178,7 @@ const tituloId = 'titulo-compra';
       <div class="mt-5 flex items-center gap-3 border-t border-navy-100 pt-5" data-bloque="docente">
         {docente.foto ? <img src={docente.foto} alt={`Foto de ${docente.nombre}`} width="40" height="40" loading="lazy" decoding="async" class="size-10 rounded-full object-cover ring-1 ring-navy-100" />
               : <span class="grid size-10 flex-none place-items-center rounded-full bg-navy-950 text-t13 font-semibold text-white" aria-hidden="true">{iniciales(docente.nombre)}</span>}
-        <p class="text-t15 font-semibold text-navy-950">Imparte {docente.nombre}{docente.titulo && <span class="block text-t13 font-normal text-navy-500">{docente.titulo}</span>}</p>
+        <p class="text-t15 font-semibold text-navy-950">{verboImparte(docente.nombre)} {docente.nombre}{docente.titulo && <span class="block text-t13 font-normal text-navy-500">{docente.titulo}</span>}</p>
       </div>
     )}
 

@@ -17,7 +17,8 @@ export function iniciales(nombre: string): string {
   const palabras = nombre.trim().split(/\s+/).filter(Boolean);
   const mayusculas = (palabras[0] ?? '').match(/\p{Lu}/gu) ?? [];
   if (mayusculas.length >= 2) return mayusculas.slice(0, 2).join('');
-  const letras = palabras.map(p => p.match(/\p{L}/u)?.[0] ?? '').filter(Boolean);
+  // «Estefania y Johan» → «EJ»: los conectores no son iniciales de nadie.
+  const letras = palabras.filter(p => !/^(y|e|de|del|la|las|los|da|do|dos)$/i.test(p)).map(p => p.match(/\p{L}/u)?.[0] ?? '').filter(Boolean);
   return (letras.length >= 2 ? letras[0]! + letras[1]! : (palabras[0] ?? '').slice(0, 2)).toUpperCase();
 }
 
