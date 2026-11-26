@@ -81,6 +81,15 @@ export interface AjustesV2 {
     /** Perfil público de la fuente (Google u otra), si se configuró con una URL https válida. */
     perfil: { nombre: string; url: string } | null;
   };
+  /** Cabeza de la ficha en celular y tableta (26-nov): descripción corta antes de la caja, recorte y «Leer más». */
+  cabezaFicha: {
+    /** `descripcion`: la descripción corta va entre las estrellas y la caja; `titulo`: solo título y valoración (va tras la caja). */
+    estilo: 'descripcion' | 'titulo';
+    /** Líneas visibles antes de «Leer más» (recorte con line-clamp, el texto entero en el HTML) o `completo`. */
+    lineas: '1' | '2' | '3' | 'completo';
+    /** `si-recorta`: «Leer más» solo cuando el texto no cabe; `nunca`: recorte sin enlace. */
+    leerMas: 'si-recorta' | 'nunca';
+  };
   /** Barra de campaña V2 («Ajustes del sitio → Campañas y cupones»). */
   barraCampana: {
     /** `sesion`: cerrada, no vuelve hasta cerrar la pestaña; `vista`: vuelve en la página siguiente. */
@@ -193,6 +202,11 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       minimoExtractos: Number(uno(v.opinionesExtractosMinimo, ['1', '2', '3'] as const, '1')),
       maximoExtractos: Number(uno(v.opinionesExtractosMaximo, ['2', '3', '4'] as const, '4')),
       perfil: perfilOpiniones(texto('opinionesPerfilNombre', ''), texto('opinionesPerfilUrl', '')),
+    },
+    cabezaFicha: {
+      estilo: uno(v.fichaCabezaMovil, ['descripcion', 'titulo'] as const, 'descripcion'),
+      lineas: uno(v.fichaDescripcionLineas, ['1', '2', '3', 'completo'] as const, '2'),
+      leerMas: uno(v.fichaLeerMas, ['si-recorta', 'nunca'] as const, 'si-recorta'),
     },
     barraCampana: {
       cierre: uno(v.barraCampanaCierre, ['sesion', 'vista'] as const, 'sesion'),

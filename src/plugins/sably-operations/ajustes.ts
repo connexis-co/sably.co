@@ -259,6 +259,28 @@ export const settingsSchema = {
     description: 'Dirección https del perfil (ficha de Google Business u otra). Sin nombre o sin https no se enseña.',
     default: '',
   },
+  // Cabeza de la ficha en móvil y tableta (26-nov-2026, pedido de JP): descripción corta antes de la caja.
+  fichaCabezaMovil: {
+    type: 'select',
+    label: 'Ficha · Cabeza en el celular',
+    description: '«Con descripción»: bajo el título y las estrellas va la descripción corta del curso (la misma frase que en escritorio sale bajo el título) y luego la caja de compra. «Solo título y valoración»: título y estrellas, y la descripción queda debajo de la caja, como antes. Vale para celular y tableta; en escritorio la descripción siempre va bajo el título. Por defecto: Con descripción.',
+    options: [{ value: 'descripcion', label: 'Con descripción' }, { value: 'titulo', label: 'Solo título y valoración' }],
+    default: 'descripcion',
+  },
+  fichaDescripcionLineas: {
+    type: 'select',
+    label: 'Ficha · Largo de la descripción en el celular',
+    description: 'Cuántas líneas enseña la descripción antes de la caja (con «Con descripción»). El texto entero está siempre en la página; el recorte es solo visual. «Párrafo completo» no recorta. Por defecto: 2 líneas, para que el botón de pago siga en la primera pantalla.',
+    options: [{ value: '1', label: '1 línea' }, { value: '2', label: '2 líneas' }, { value: '3', label: '3 líneas' }, { value: 'completo', label: 'Párrafo completo' }],
+    default: '2',
+  },
+  fichaLeerMas: {
+    type: 'select',
+    label: 'Ficha · «Leer más» de la descripción',
+    description: '«Solo si se recorta»: al final de la última línea sale «Leer más» cuando el texto no cabe, y al pulsarlo se despliega en el sitio, sin saltar (también sin JavaScript). «Nunca»: el texto queda recortado sin enlace (entero sigue en escritorio). Por defecto: Solo si se recorta.',
+    options: [{ value: 'si-recorta', label: 'Solo si se recorta' }, { value: 'nunca', label: 'Nunca' }],
+    default: 'si-recorta',
+  },
   // Cuenta (src/lib/cuenta): claves nuevas del 25-nov-2026, encendidas de fábrica.
   cuentaActiva: {
     type: 'boolean',
@@ -559,7 +581,7 @@ export const NOSOTROS_CLAVES: ClaveAjuste[] = ['nosotrosDiseno', 'nosotrosCifras
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo', 'tarjetasColumnasMedio', 'pieBorde', 'selectorCiudad'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', 'barraCampanaBoton', 'barraCampanaBotonTexto', 'barraCampanaBotonDestino', 'barraCampanaBotonFicha', ...CAMPANA_CLAVES] },
-  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'barraCompraEscritorio', 'menuInternoAlineacion', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
+  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'barraCompraEscritorio', 'menuInternoAlineacion', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl', 'fichaCabezaMovil', 'fichaDescripcionLineas', 'fichaLeerMas'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación, y el diseño de la página «Nosotros».', claves: NOSOTROS_CLAVES },
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },

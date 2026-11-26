@@ -63,6 +63,10 @@ const ANTES = {
     opinionesExtractosMaximo: ['select', ['2', '3', '4'], '4'],
     opinionesPerfilNombre: ['string', null, ''],
     opinionesPerfilUrl: ['string', null, ''],
+    // Claves nuevas (26-nov, descripción corta en la cabeza de la ficha en el celular): se añaden, no sustituyen a ninguna.
+    fichaCabezaMovil: ['select', ['descripcion', 'titulo'], 'descripcion'],
+    fichaDescripcionLineas: ['select', ['1', '2', '3', 'completo'], '2'],
+    fichaLeerMas: ['select', ['si-recorta', 'nunca'], 'si-recorta'],
     // Claves nuevas (26-nov, barra de campaña V2, C7): se añaden, no sustituyen a ninguna.
     barraCampanaCierre: ['select', ['sesion', 'vista'], 'sesion'],
     barraCampanaFicha: ['boolean', null, true],
@@ -142,6 +146,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     menuAlineacion: 'centro',
     bloquesFicha: { temario: 'enfoca', queIncluye: true, relacionados: 'placa' },
     opiniones: { estilo: 'lista', minimoExtractos: 1, maximoExtractos: 4, perfil: null },
+    cabezaFicha: { estilo: 'descripcion', lineas: '2', leerMas: 'si-recorta' },
     barraCampana: { cierre: 'sesion', enFicha: true, fija: true, boton: { activo: true, texto: 'Ver cursos con {pct}', destino: '', ficha: 'nada' } },
     campana: { barra: 'contador', banda: 'contador', megamenu: 'contador', listado: 'contador' },
     portada: {
@@ -224,4 +229,11 @@ test('prueba A/B del héroe: solo con dos o tres variantes válidas', async () =
   assert.deepEqual(p.variantes, ['collage', 'buscador', 'muro']);
   assert.equal(p.inicio, '');
   assert.ok(Math.abs(p.pesos.reduce((a, b) => a + b) - 1) < 1e-9 && p.pesos[0] === 0.7);
+});
+
+test('cabeza de la ficha: valores guardados raros vuelven a los de fábrica', () => {
+  const filas = (pares: Record<string, unknown>) => Object.entries(pares).map(([k, v]) => ({ name: `plugin:sably-operations:settings:${k}`, value: JSON.stringify(v) }));
+  assert.deepEqual(leerAjustesV2(filas({}), 'clasico').cabezaFicha, { estilo: 'descripcion', lineas: '2', leerMas: 'si-recorta' });
+  assert.deepEqual(leerAjustesV2(filas({ fichaCabezaMovil: 'titulo', fichaDescripcionLineas: 'completo', fichaLeerMas: 'nunca' }), 'clasico').cabezaFicha, { estilo: 'titulo', lineas: 'completo', leerMas: 'nunca' });
+  assert.deepEqual(leerAjustesV2(filas({ fichaCabezaMovil: 'otra', fichaDescripcionLineas: '7', fichaLeerMas: true }), 'clasico').cabezaFicha, { estilo: 'descripcion', lineas: '2', leerMas: 'si-recorta' });
 });
