@@ -125,6 +125,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     mostrarCiudades: true,
     estiloCampo: 'outlined',
     columnasTarjetas: 'tres-completas',
+    pieBorde: 'escalonado',
     sobreFotos: true,
     movimientoFicha: { ficha: 'sobrio', certificado: 'destello' },
     bloquesFicha: { temario: 'enfoca', queIncluye: true, relacionados: 'placa' },
