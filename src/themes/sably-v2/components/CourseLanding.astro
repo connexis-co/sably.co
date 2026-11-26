@@ -141,9 +141,10 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
           )}
           <Docente instructor={course.data.instructor} lugar="cabeza" mostrar={ajustes.mostrarDocente} {sinProducto} />
           {!sinProducto && nota && (
-            <p class="flex items-center gap-1.5 text-t15 text-navy-700 lg:text-white/80">
-              <Estrellas nota={valoracion!.rating} />
-              <strong class="v2-num ml-1 font-semibold text-navy-950 lg:text-white">{nota.cifra}</strong> · {nota.texto}
+            <p class="flex items-center gap-1.5 text-t15 whitespace-nowrap text-navy-700 lg:text-white/80" title={nota.accesible}>
+              <Estrellas nota={valoracion!.rating} class="flex-none" />
+              <span aria-hidden="true"><strong class="v2-num ml-1 font-semibold text-navy-950 lg:text-white">{nota.cifra}</strong> · {nota.corto}</span>
+              <span class="sr-only">{nota.accesible}</span>
             </p>
           )}
         </div>

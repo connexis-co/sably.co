@@ -93,7 +93,7 @@ const grupos = [...bySubcategory.map(g => ({ id: g.sub.slug, titulo: g.sub.name,
               <span class="v2-num grid size-9 place-items-center rounded-full bg-navy-950 text-t15 font-semibold text-white">{i + 1}</span>
               <strong class="mt-4 font-display text-t20 font-semibold text-navy-950 group-hover:underline group-hover:underline-offset-4">{c.data.title}</strong>
               <span class="mt-1 text-t13 text-navy-500">{c.data.level} · {c.data.durationHours} h</span>
-              {nota && <span class="mt-2 flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" /><span class="font-medium text-navy-950">{nota.cifra}</span> · {nota.texto.replace(/, leídas.*$/, '')}</span>}
+              {nota && <span class="mt-2 flex items-center gap-1 text-t13 text-navy-500"><Ico nombre="star" tamano={13} class="text-[#B87300]" /><span class="font-medium text-navy-950">{nota.cifra}</span> · {nota.numero}<span class="sr-only"> calificaciones en Hotmart</span></span>}
               <span class="mt-auto flex items-center gap-1 pt-4 text-t15 font-semibold text-navy-950">Ver el curso<Ico nombre="arrow-right" tamano={18} class="transition-transform duration-(--t-rapido) group-hover:translate-x-[3px]" /></span>
             </a></li>
           );

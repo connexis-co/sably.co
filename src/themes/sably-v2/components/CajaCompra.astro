@@ -172,7 +172,7 @@ const tituloId = 'titulo-compra';
       </div>
     )}
 
-    {nota && <p class="mt-5 flex items-center gap-1.5 text-t13 text-navy-700" data-bloque="calificacion"><Estrellas nota={valoracion!.rating} /><strong class="v2-num ml-1 font-semibold text-navy-950">{nota.cifra}</strong> · {nota.texto}</p>}
+    {nota && <p class="mt-5 flex items-center gap-1.5 text-t13 text-navy-700" data-bloque="calificacion"><Estrellas nota={valoracion!.rating} /><strong class="v2-num ml-1 font-semibold text-navy-950">{nota.cifra}</strong> · {nota.numero} calificaciones en Hotmart</p>}
 
     <ul class="mt-5 space-y-3 border-t border-navy-100 pt-5 text-t15 text-navy-950" data-bloque="confianza">
       {hijo('confianza', 'garantia') && <li class="flex items-center gap-3" data-item="garantia"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="shield-check" tamano={18} /></span>7 días para pedir reembolso</li>}
