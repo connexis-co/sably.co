@@ -2,9 +2,13 @@
 import { PortableText } from 'emdash/ui';
 import CmsTextBlock from './CmsTextBlock.astro';
 import CmsEnlace from './CmsEnlace.astro';
+/* Bloques propios del editor (src/plugins/sably-operations/bloques-articulo.mjs). */
+import Aviso from './bloques/Aviso.astro';
+import Pasos from './bloques/Pasos.astro';
+import CarruselCursos from './bloques/CarruselCursos.astro';
 import { prepareRichContent } from '@/lib/rich-content';
 import type { RichBlock } from '@/lib/emdash-content';
 interface Props { value:RichBlock[] }
 const {blocks}=prepareRichContent(Astro.props.value);
 ---
-<PortableText value={blocks} components={{block:CmsTextBlock, mark:{link:CmsEnlace}}} />
+<PortableText value={blocks} components={{block:CmsTextBlock, mark:{link:CmsEnlace}, type:{sably_aviso:Aviso, sably_pasos:Pasos, sably_cursos:CarruselCursos}}} />

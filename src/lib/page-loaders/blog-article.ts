@@ -61,7 +61,8 @@ const schemas = [
        deja intacta la absoluta y resuelve la relativa (entorno sin CDN). */
     image: new URL((cmsImageUrl(post.coverImage) ?? blogCover(post.data.category, 'hero')), SITE.url).href,
     datePublished: post.data.publishedAt.toISOString(),
-    dateModified: post.updatedAt,
+    // Con «Actualizado el» del editor, esa fecha (revisión real); sin él, la del último guardado como siempre.
+    dateModified: post.presentacion?.actualizadoEl?.toISOString() ?? post.updatedAt,
     inLanguage: 'es',
     wordCount: bodyText.trim().split(/\s+/).length,
     timeRequired: `PT${minutes}M`,
@@ -80,6 +81,6 @@ const schemas = [
   ...(post.data.faq?.length ? [faqSchema(post.data.faq)] : []),
 ];
 const articleSchema = schemas.find(schema => schema['@type'] === 'Article');
-const articleMeta = { publishedTime: post.data.publishedAt.toISOString(), modifiedTime: post.updatedAt, author: `${SITE.url}/#organization` };
+const articleMeta = { publishedTime: post.data.publishedAt.toISOString(), modifiedTime: post.presentacion?.actualizadoEl?.toISOString() ?? post.updatedAt, author: `${SITE.url}/#organization` };
 return {cms,post,country,headings,bodyText,toc,related,minutes,title,pageUrl,articleSchema,articleMeta,schemas:schemas.filter(schema => schema['@type'] !== 'Article')};
 }

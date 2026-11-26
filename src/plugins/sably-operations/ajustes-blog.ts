@@ -48,10 +48,10 @@ export const BLOG_SETTINGS = {
   blogIndiceEscritorio: opciones('Blog · Índice en escritorio',
     '«Lateral fija» acompaña al leer y marca el apartado actual; «Lateral» se queda arriba. Las demás lo ponen dentro del texto, antes del primer párrafo. Por defecto: Lateral fija.',
     [['lateral-fija', 'Lateral fija con el apartado actual'], ['lateral', 'Lateral que no acompaña'], ['plegable', 'Dentro del texto, desplegable cerrado'], ['abierto', 'Dentro del texto, desplegable abierto'], ['tarjeta', 'Dentro del texto, tarjeta numerada'], ['ninguno', 'Sin índice']], 'lateral-fija'),
-  blogIndiceProgreso: sino('Blog · Porcentaje leído en el índice lateral', '«38 %» en la cabeza del índice y una línea coral junto a la lista. Por defecto: encendido.', true),
+  blogIndiceProgreso: sino('Blog · Porcentaje leído en el índice lateral', '«38 %» en la cabeza del índice y la línea junto a la lista, que se llena de coral al leer. Por defecto: encendido.', true),
   blogIndiceMovil: opciones('Blog · Índice en móvil',
-    '«Plegable y botón flotante»: el índice va cerrado al inicio y, al bajar, una píldora «Índice · 2 de 4» abre la lista en una hoja. Por defecto: Plegable y botón flotante.',
-    [['plegable-flotante', 'Plegable y botón flotante'], ['plegable', 'Solo plegable al inicio'], ['abierto', 'Abierto al inicio'], ['ninguno', 'Sin índice']], 'plegable-flotante'),
+    '«Plegable y botón flotante»: el índice va cerrado al inicio y, al bajar, una píldora «Índice · 2 de 4» abre la lista en una hoja. «Plegable y barra superior»: al bajar, una franja fina bajo la cabecera dice en qué apartado vas y, al tocarla, despliega la lista; se esconde al subir. Por defecto: Plegable y botón flotante.',
+    [['plegable-flotante', 'Plegable y botón flotante'], ['plegable-barra', 'Plegable y barra superior con el apartado actual'], ['plegable', 'Solo plegable al inicio'], ['abierto', 'Abierto al inicio'], ['ninguno', 'Sin índice']], 'plegable-flotante'),
   blogIndiceNiveles: opciones('Blog · Niveles del índice', 'La hoja del móvil lleva siempre solo los apartados principales. Por defecto: H2 y H3.',
     [['h2-h3', 'Apartados y subapartados (H2 y H3)'], ['h2', 'Solo apartados (H2)']], 'h2-h3'),
   blogIndiceMinimo: opciones('Blog · Apartados mínimos para mostrar el índice', 'Con menos apartados no sale. Por defecto: 3.',
@@ -67,6 +67,7 @@ export const BLOG_SETTINGS = {
     description: 'Separadas por comas: metadatos (fila bajo el título), carril (columna fija a la izquierda, desde 1280 px) y final (bloque de cierre). Vacío: en ningún sitio. Por defecto: metadatos, carril, final.',
     default: 'metadatos, carril, final' },
   // Narración
+  blogNarracionSeguir: sino('Blog · «Seguir escuchando» en la página siguiente', 'Si alguien deja una narración a medias y pasa a otra página del sitio, una píldora abajo a la izquierda le deja seguir escuchándola allí mismo o volver al artículo en ese minuto. Sale durante la visita y se cierra con su ×. Por defecto: encendido.', true),
   blogNarracionFija: sino('Blog · Reproductor de la narración fijo al bajar', 'Mientras suena y el reproductor sale de la pantalla, queda una píldora abajo a la izquierda (barra en móvil) con pausa, tiempo y cerrar. Solo en artículos con narración. Por defecto: encendido.', true),
   // Cursos
   blogCursoMitad: sino('Blog · Curso relacionado a mitad del texto', 'Un solo bloque con foto, precio real del país y botón, tras el apartado que deja atrás el 40 % del texto. El curso es el primero que el artículo enlaza; sin curso enlazado no sale. Por defecto: encendido.', true),

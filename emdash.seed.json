@@ -1707,6 +1707,44 @@
           }
         },
         {
+          "slug": "indice",
+          "label": "Presentación · Índice",
+          "type": "select",
+          "defaultValue": "Heredar del panel",
+          "validation": {
+            "options": [
+              "Heredar del panel",
+              "Lateral",
+              "Al inicio",
+              "Ninguno"
+            ]
+          }
+        },
+        {
+          "slug": "publicidad",
+          "label": "Presentación · Publicidad",
+          "type": "select",
+          "defaultValue": "Heredar del panel",
+          "validation": {
+            "options": [
+              "Heredar del panel",
+              "Ninguna en este artículo"
+            ]
+          }
+        },
+        {
+          "slug": "curso_relacionado",
+          "label": "Presentación · Curso relacionado (dirección o slug; vacío = el primero que enlaza el texto)",
+          "type": "string",
+          "validation": {}
+        },
+        {
+          "slug": "actualizado_el",
+          "label": "Presentación · Actualizado el (solo si se revisó el contenido)",
+          "type": "datetime",
+          "validation": {}
+        },
+        {
           "slug": "keywords",
           "label": "Archivo — Palabras clave",
           "type": "json"

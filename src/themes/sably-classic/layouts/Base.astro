@@ -23,6 +23,7 @@ import { organizationSchema } from '@/lib/seo';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import CabeceraV2 from '@/themes/sably-v2/components/Cabecera.astro';
 import BarraCampanaV2 from '@/themes/sably-v2/components/BarraCampana.astro';
+import SeguirEscuchando from '@/components/v2/medios/SeguirEscuchando.astro';
 import BuscadorV2 from '@/themes/sably-v2/components/Buscador.astro';
 import PieV2, { type VariantePie } from '@/themes/sably-v2/components/Pie.astro';
 import { datosNavegacion } from '@/themes/sably-v2/navegacion';
@@ -225,6 +226,7 @@ const pageContext = { ...createPublicPageContext({
     {navV2 ? <PieV2 {country} nav={navV2} variante={pieV2} {pathAfterCountry} /> : <Footer {country} />}
     <WidgetArea name="footer_after" />
     <PruebaSocial temaV2={!!navV2} />
+    {navV2 && <SeguirEscuchando />}
     {navV2 ? <BuscadorV2 nav={navV2} /> : (
       <>
         <GeoDialog {pathAfterCountry} />
