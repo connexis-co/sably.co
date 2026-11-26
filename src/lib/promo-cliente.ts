@@ -18,6 +18,7 @@ import {
   type PromoTheme,
 } from '@/lib/promo';
 import { fechaCorta } from '@/lib/cuenta-atras';
+import { cerrarBarraSuave } from './barra-cierre';
 
 type Pintable = Omit<PromoCampaign, 'endsAt'> & { endsAt: string | null };
 
@@ -86,6 +87,9 @@ export function iniciarPromos(): void {
         if (pieza.dataset.alCerrar !== 'vista') {
           try { sessionStorage.setItem(CLAVE_CERRADA, pintada(pieza)?.id ?? ''); } catch { /* sin almacenamiento: solo esta vista */ }
         }
+        // La barra de arriba de V2 se va sin que la cabecera salte (E4); el resto, de golpe como siempre.
+        if (pieza.dataset.promoV2 === 'barra') cerrarBarraSuave(pieza);
+        else pieza.hidden = true;
       }
       return;
     }
@@ -102,9 +106,15 @@ export function iniciarPromos(): void {
     const texto = boton.querySelector<HTMLElement>('[data-promo-copiar-texto]');
     aviso?.classList.remove('hidden');
     if (texto) texto.textContent = 'Copiado';
+    // Marca ✓ que aparece y se va (E1, CSS en el tema V2) y aviso para lectores de pantalla.
+    boton.dataset.copiado = '';
+    const vivo = pieza.querySelector<HTMLElement>('[data-promo-aviso-vivo]');
+    if (vivo) vivo.textContent = `Cupón ${promo.couponCode} copiado`;
     setTimeout(() => {
       aviso?.classList.add('hidden');
       if (texto) texto.textContent = 'Copiar';
+      delete boton.dataset.copiado;
+      if (vivo) vivo.textContent = '';
     }, 1800);
   });
 
@@ -177,9 +187,10 @@ function pintar(el: HTMLElement, promo: Pintable): void {
   // La barra V2 que se cerró en esta sesión no vuelve a salir en cada página.
   el.hidden = v2 && el.dataset.promoV2 === 'barra' && el.dataset.alCerrar !== 'vista' && cerradaEnSesion(promo.id);
   if (v2) {
-    // Sin segundos ni reloj que corre: la fecha de fin va en texto. Al llegar, se retira sola.
+    // Al llegar la fecha de fin, se retira sola. Si el aviso lleva contador (panel → Campañas y cupones), corre
+    // con el mismo reloj del clásico; si no, la fecha va en texto y aquí termina.
     if (promo.endsAt && Number.isFinite(vence) && vence < 2 ** 31) setTimeout(() => { el.hidden = true; }, vence);
-    return;
+    if (!el.querySelector('[data-u]')) return;
   }
 
   const reloj = el.querySelector<HTMLElement>('[data-promo-reloj]');

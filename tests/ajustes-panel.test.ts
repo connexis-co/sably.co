@@ -35,6 +35,7 @@ const ANTES = {
     // Claves nuevas (26-nov, barra de campaña V2, C7): se añaden, no sustituyen a ninguna.
     barraCampanaCierre: ['select', ['sesion', 'vista'], 'sesion'],
     barraCampanaFicha: ['boolean', null, true],
+    barraCampanaFija: ['boolean', null, true],
     // Claves nuevas (26-nov, página «Nosotros»): se añaden, no sustituyen a ninguna.
     nosotrosDiseno: ['select', ['narrativo', 'sencillo'], 'narrativo'],
     nosotrosCifras: ['boolean', null, true],
@@ -67,8 +68,8 @@ const NUEVAS = {
     consentEurope: ['boolean', null, true],
   },
 } as const;
-/** Claves de la portada (25-nov): solo pueden ser nuevas y empezar por «portada». */
-const DE_PORTADA = /^(portada|blog)[A-Z]/;
+/** Claves nuevas desde el 25-nov (portada, blog y avisos de campaña): solo pueden ser nuevas y llevar su prefijo. */
+const DE_PORTADA = /^(portada|blog|campana)[A-Z]/;
 
 test('ninguna clave, tipo, opción ni valor de fábrica cambia al reordenar el panel', () => {
   const huellaOperaciones = huella(operaciones);
@@ -97,7 +98,8 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     mostrarDocente: true,
     mostrarCiudades: true,
     estiloCampo: 'outlined',
-    barraCampana: { cierre: 'sesion', enFicha: true },
+    barraCampana: { cierre: 'sesion', enFicha: true, fija: true },
+    campana: { barra: 'contador', banda: 'contador', megamenu: 'contador', listado: 'contador' },
     portada: {
       bloques: ['cifras', 'categorias', 'convergen', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],
       heroe: { variante: 'muro', fondo: 'liso', botones: 'dos', tachar: true, rota: true, intervalo: 4500, orden: 'aleatorio', cursos: [] },
