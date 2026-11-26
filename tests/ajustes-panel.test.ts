@@ -35,6 +35,7 @@ const ANTES = {
     // Claves nuevas (26-nov, barra de campaña V2, C7): se añaden, no sustituyen a ninguna.
     barraCampanaCierre: ['select', ['sesion', 'vista'], 'sesion'],
     barraCampanaFicha: ['boolean', null, true],
+    barraCampanaFija: ['boolean', null, true],
   },
   integraciones: {
     browserMode: ['select', ['off', 'gtm', 'direct'], 'off'],
@@ -93,7 +94,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     mostrarDocente: true,
     mostrarCiudades: true,
     estiloCampo: 'outlined',
-    barraCampana: { cierre: 'sesion', enFicha: true },
+    barraCampana: { cierre: 'sesion', enFicha: true, fija: true },
     campana: { barra: 'contador', banda: 'contador', megamenu: 'contador', listado: 'contador' },
     portada: {
       bloques: ['cifras', 'categorias', 'convergen', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],

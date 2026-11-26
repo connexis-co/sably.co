@@ -38,6 +38,8 @@ export interface AjustesV2 {
     cierre: 'sesion' | 'vista';
     /** En la ficha, solo si el curso tiene la oferta de la campaña (su creador acepta el cupón). */
     enFicha: boolean;
+    /** Pegada encima de la cabecera al desplazarse mientras esté abierta (E3). */
+    fija: boolean;
   };
   /** Qué enseña cada aviso de campaña («Campañas y cupones»): contador con segundero, cupón para copiar, ambos o la fecha. */
   campana: Record<'barra' | 'banda' | 'megamenu' | 'listado', MuestraCampana>;
@@ -96,6 +98,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     barraCampana: {
       cierre: uno(v.barraCampanaCierre, ['sesion', 'vista'] as const, 'sesion'),
       enFicha: v.barraCampanaFicha !== false,
+      fija: v.barraCampanaFija !== false,
     },
     campana: {
       barra: uno(v.campanaBarra, MUESTRAS, 'contador'),

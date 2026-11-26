@@ -215,7 +215,7 @@ const cssReloj = promoV2?.finMs && Object.values(promoV2.muestra).some(m => m ==
     </a>
     {navV2 ? (
       <>
-        <BarraCampanaV2 promo={promoV2} cierre={temaPeticion.ajustes.barraCampana.cierre} sinReloj={pageType === 'course'} />
+        <BarraCampanaV2 promo={promoV2} cierre={temaPeticion.ajustes.barraCampana.cierre} sinReloj={pageType === 'course'} fija={temaPeticion.ajustes.barraCampana.fija} />
         <CabeceraV2 {country} {pathAfterCountry} nav={navV2} promo={promoV2} />
       </>
     ) : (

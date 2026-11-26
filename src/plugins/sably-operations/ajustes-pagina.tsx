@@ -134,7 +134,7 @@ export function AjustesPage() {
       </section>
       {seccion(['estiloCampo'], 'Formularios')}
     </>; break;
-    case 'campanas': cuerpo = <>{seccion(['barraCampanaCierre', 'barraCampanaFicha'], 'Barra de campaña')}{seccion(CAMPANA_CLAVES, 'Qué enseña cada aviso de campaña')}<Promotions /></>; break;
+    case 'campanas': cuerpo = <>{seccion(['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija'], 'Barra de campaña')}{seccion(CAMPANA_CLAVES, 'Qué enseña cada aviso de campaña')}<Promotions /></>; break;
     case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'], 'Caja de compra')}<WidgetEditor only="social" /></>; break;
     case 'portada': cuerpo = <>
       <section className="so-editor">

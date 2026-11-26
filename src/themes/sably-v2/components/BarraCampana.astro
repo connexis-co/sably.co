@@ -5,6 +5,9 @@
  * en texto. Sin cupón visible, el texto no dice «con el cupón»: el cupón ya va en los enlaces de pago. Se pinta en el servidor para no
  * empujar la página; src/lib/promo-cliente.ts la confirma, la retira al vencer
  * y pone el cupón en los enlaces de pago. No nombra al creador de los cursos.
+ * Al copiar, una marca ✓ aparece sobre el icono y se va (E1). Con `fija` (de fábrica) queda pegada encima de la
+ * cabecera al desplazarse (E3); su alto va en `--v2-barra-alto` para que la cabecera y lo que cuelga de
+ * `--fijo-superior` se pongan debajo. Al cerrarla, la cabecera sube sin salto (E4, src/lib/barra-cierre.ts).
  */
 import Ico from './Ico.astro';
 import ContadorCampana from './ContadorCampana.astro';
@@ -15,14 +18,16 @@ interface Props {
   cierre?: 'sesion' | 'vista';
   /** En la ficha la caja de compra ya lleva su propio reloj con segundero: aquí, la fecha en texto (un solo reloj). */
   sinReloj?: boolean;
+  /** Ajuste del panel: pegada encima de la cabecera al desplazarse mientras esté abierta (de fábrica). */
+  fija?: boolean;
 }
-const { promo, cierre = 'sesion', sinReloj = false } = Astro.props;
+const { promo, cierre = 'sesion', sinReloj = false, fija = true } = Astro.props;
 const muestra = promo?.muestra.barra ?? 'contador';
 const conCupon = !promo || muestra === 'cupon' || muestra === 'ambos';
 const conReloj = !sinReloj && !!promo?.finMs && (muestra === 'contador' || muestra === 'ambos');
 const conFecha = !conReloj && muestra !== 'cupon';
 ---
-<div data-promo-v2="barra" data-promo-ssr={promo?.ssr} data-al-cerrar={cierre} hidden={!promo} class="v2-barra-campana relative z-50 bg-navy-950 text-white" role="region" aria-label="Promoción vigente">
+<div data-promo-v2="barra" data-promo-ssr={promo?.ssr} data-al-cerrar={cierre} data-fija={fija ? '' : undefined} hidden={!promo} class="v2-barra-campana z-50 bg-navy-950 text-white" role="region" aria-label="Promoción vigente">
   <div class="v2-contenedor flex min-h-12 flex-wrap items-center gap-x-4 gap-y-1.5 py-1.5 max-lg:pr-10">
     <p class:list={['flex min-w-0 flex-wrap items-center gap-x-3 gap-y-0.5 text-t13 lg:text-t15', conReloj && 'max-sm:w-full']}>
       <span class="flex items-center gap-2 font-semibold"><span class="size-1.5 flex-none rounded-full bg-coral-500" aria-hidden="true"></span><span data-promo-gorro>{promo?.etiqueta}</span></span>
@@ -34,9 +39,10 @@ const conFecha = !conReloj && muestra !== 'cupon';
     {conCupon && (
       <button type="button" data-promo-cupon class="v2-tique-mini group flex-none" aria-label={promo ? `Copiar el cupón ${promo.cupon}` : 'Copiar el cupón'}>
         <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{promo?.cupon}</span>
-        <span class="flex items-center gap-1 font-semibold text-coral-700"><Ico nombre="copy" tamano={14} /><span data-promo-copiar-texto>Copiar</span></span>
+        <span class="flex items-center gap-1 font-semibold text-coral-700"><span class="v2-tique-icono" aria-hidden="true"><Ico nombre="copy" tamano={14} class="v2-tique-copiar" /><Ico nombre="check" tamano={14} trazo={2.5} class="v2-tique-ok" /></span><span data-promo-copiar-texto>Copiar</span></span>
       </button>
     )}
+    <span class="sr-only" aria-live="polite" data-promo-aviso-vivo></span>
     {conFecha && <p data-promo-fin hidden={!promo?.fin} class="text-t13 text-white/70 max-lg:hidden">Termina el <span data-promo-fecha>{promo?.fin}</span> (hora de Colombia)</p>}
     <button type="button" data-promo-cerrar class="absolute right-2 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full text-white/80 hover:text-white lg:right-[max(8px,calc((100%-1200px)/2-48px))]" aria-label="Cerrar el aviso de la promoción">
       <Ico nombre="x" tamano={18} />
@@ -57,4 +63,12 @@ const conFecha = !conReloj && muestra !== 'cupon';
      ficha (25-nov). En la ficha (`data-sin-cupon`) la caja de compra lleva su propio cupón. */
   import { iniciarPromos } from '@/lib/promo-cliente';
   iniciarPromos();
+  /* Barra fija (E3): su alto real (una o dos líneas según el ancho) para colocar la cabecera debajo. */
+  const barra = document.querySelector<HTMLElement>('[data-promo-v2="barra"][data-fija]');
+  if (barra && 'ResizeObserver' in window) {
+    new ResizeObserver(() => {
+      if (barra.hidden) return;
+      document.documentElement.style.setProperty('--v2-barra-alto', `${Math.round(barra.offsetHeight)}px`);
+    }).observe(barra);
+  }
 </script>
