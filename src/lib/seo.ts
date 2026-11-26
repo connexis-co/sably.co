@@ -69,6 +69,14 @@ export function conMarca(titulo: string): string {
   return conSufijo.length <= LIMITE_TITULO ? conSufijo : t;
 }
 
+/** `creator` y `provider` del Course con el mismo nodo: quien hizo el curso es quien lo imparte. */
+function creadorComoProveedor(creador: { creator?: { '@id'?: string } | { '@id'?: string }[] }) {
+  if (!creador.creator) return {};
+  const ref = (n: { '@id'?: string }) => (n['@id'] ? { '@id': n['@id'] } : n);
+  const provider = Array.isArray(creador.creator) ? creador.creator.map(ref) : ref(creador.creator);
+  return { provider, ...creador };
+}
+
 export async function organizationSchema() {
   const [COUNTRIES, settings] = await Promise.all([getCountries(), getLiveSiteSettings()]);
   return {
@@ -197,9 +205,11 @@ export function courseSchema(c: CourseSchemaInput) {
     description: c.description,
     url: c.url,
     ...(c.image ? { image: [c.image] } : {}),
-    provider: { '@id': `${SITE.url}/#organization` },
     // Quién hizo el curso, con el mismo @id que el ProfilePage de su página.
-    ...creatorDelCurso(c.creators),
+    // `provider` es quien publica e imparte el curso: el creador, no Sably, que
+    // solo lo recomienda y se financia con una comisión. Sin creador conocido no
+    // se declara antes que atribuírselo a Sably.
+    ...creadorComoProveedor(creatorDelCurso(c.creators)),
     // Sin `instructor`: no hay un dato verificado de quién dicta cada curso
     // (el del contenido era de relleno). El creador real va en `creator`.
     about: c.category,
@@ -315,7 +325,6 @@ export function courseListSchema(cursos: CourseListEntry[]) {
         name: c.name,
         description: c.description,
         url: c.url,
-        provider: { '@id': `${SITE.url}/#organization` },
         ...(c.price === null
           ? {}
           : {
