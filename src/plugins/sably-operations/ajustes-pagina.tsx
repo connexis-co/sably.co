@@ -145,7 +145,7 @@ export function AjustesPage() {
       {seccion(['portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios'], 'Héroe')}
       {seccion(['portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio'], 'Prueba A/B del héroe', <EstadoPruebaAB valores={actuales} />)}
       {seccion(['portadaCategoriasVariante'], 'Categorías')}
-      {seccion(['portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar'], 'Movimiento de los bloques')}
+      {seccion(['portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar'], 'Movimiento de los bloques')}
       {seccion(['portadaValoradosMinimo'], 'Los mejor valorados')}
       <Enlaces items={[['Textos de la portada', 'Titular, entradilla y textos de cada bloque (secciones sably-home-*).', `${ADMIN}/sections`]]} />
     </>; break;

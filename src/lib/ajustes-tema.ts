@@ -41,6 +41,9 @@ export interface AjustesV2 {
     pruebaHeroe: PruebaHeroe | null;
     categoriasVariante: 'fotos' | 'pila' | 'filas';
     comoFuncionaAnimado: boolean;
+    aparicion: boolean;
+    cifrasCuentan: boolean;
+    paralaje: boolean;
     escenasAtenuar: boolean;
     escenasVariante: 'apiladas' | 'foto-fija';
     valoradosMinimo: number;
@@ -96,6 +99,9 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       pruebaHeroe: leerPruebaHeroe(v.portadaHeroeAB, v.portadaHeroeABVariantes ?? 'muro, buscador', v.portadaHeroeABReparto, v.portadaHeroeABInicio),
       categoriasVariante: uno(v.portadaCategoriasVariante, ['fotos', 'pila', 'filas'] as const, 'fotos'),
       comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
+      aparicion: v.portadaAparicion !== false,
+      cifrasCuentan: v.portadaCifrasCuentan !== false,
+      paralaje: v.portadaParalaje !== false,
       escenasAtenuar: v.portadaEscenasAtenuar !== false,
       escenasVariante: uno(v.portadaEscenasVariante, ['apiladas', 'foto-fija'] as const, 'apiladas'),
       valoradosMinimo: Number(uno(v.portadaValoradosMinimo, ['10', '20', '50'] as const, '20')),

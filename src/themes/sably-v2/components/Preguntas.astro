@@ -18,7 +18,7 @@ const H = nivel === 2 ? 'h2' : 'h3';
         <a href={whatsapp} target="_blank" rel="noopener nofollow" class="v2-btn v2-btn-whatsapp" data-alto="48"><img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" />Escríbenos por WhatsApp</a>
       </p>
     )}
-    <div class="mt-6 border-t border-navy-100">
+    <div class="mt-6 border-t border-navy-100" data-entra="grupo">
       {faqs.map(f => (
         <Acordeon titulo={f.q} grupo={id} icono="mas" class="border-b border-navy-100" tituloClass="min-h-16 py-4 text-left text-t17 font-semibold text-navy-950">
           <p class="max-w-[640px] pb-6 text-t17 whitespace-pre-line text-navy-700">{f.a}</p>

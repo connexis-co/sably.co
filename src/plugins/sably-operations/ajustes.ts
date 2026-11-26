@@ -211,6 +211,24 @@ export const settingsSchema = {
     description: 'Los números de los pasos se encienden al bajar y un carril coral avanza hasta el paso que lees. Con «reducir movimiento», sin desplazamientos. Apagado: los cuatro pasos encendidos y quietos. Por defecto: encendido.',
     default: true,
   },
+  portadaAparicion: {
+    type: 'boolean',
+    label: 'Portada · Bloques que entran al bajar',
+    description: 'Las cifras, las áreas, los cursos destacados y mejor valorados, las ventajas, los vídeos, las guías y las preguntas entran escalonados (fundido y 22 px hacia arriba) la primera vez que aparecen; lo que ya se ve al cargar no se mueve. Al abrir una pregunta, la respuesta entra con fundido. Con «reducir movimiento» o sin JavaScript, todo quieto y visible. Por defecto: encendido.',
+    default: true,
+  },
+  portadaCifrasCuentan: {
+    type: 'boolean',
+    label: 'Portada · Cifras que cuentan',
+    description: 'Los cursos con inscripción abierta y las valoraciones de Hotmart cuentan desde 0 hasta la cifra real una sola vez, al entrar en pantalla (1,1 s). En el HTML va la cifra final. Con «reducir movimiento», quietas. Por defecto: encendido.',
+    default: true,
+  },
+  portadaParalaje: {
+    type: 'boolean',
+    label: 'Portada · Paralaje suave',
+    description: 'Las dos fotos de «¿Por qué Sably?» se desplazan a distinta velocidad al bajar (24 y 40 px). Solo `translate`; con «reducir movimiento» o sin soporte, quietos. Por defecto: encendido.',
+    default: true,
+  },
   portadaEscenasVariante: {
     type: 'select',
     label: 'Portada · Cómo se recorre «De la primera clase a tu primer encargo»',
@@ -247,7 +265,7 @@ export type ValorAjuste = string | boolean;
 export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'blog' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
-export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
+export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [

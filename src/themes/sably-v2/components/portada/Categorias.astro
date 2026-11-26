@@ -15,7 +15,7 @@ const nav = { areas: { length: total } };
   <p class="v2-antetitulo text-navy-700">{copy.categories.eyebrow}</p>
   <h2 id="categorias-titulo" class="mt-3 font-display text-d28 lg:text-d40">{copy.categories.title}</h2>
   {copy.categories.description && <p class="mt-3 max-w-[640px] text-t17 text-navy-700">{copy.categories.description}</p>}
-  <ul class="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] lg:grid lg:grid-cols-6 lg:overflow-visible" role="list">
+  <ul data-entra="grupo" class="mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] lg:grid lg:grid-cols-6 lg:overflow-visible" role="list">
     {conFoto.map(a => (
       <li class="w-[44%] flex-none snap-start lg:w-auto">
         <a href={`${base}/cursos/${a.slug}/`} class="group block">
