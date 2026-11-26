@@ -7,7 +7,7 @@
  * `validar.ts` importa estas cuatro piezas de sus plugins. `tests/caja-paridad.test.ts`
  * comprueba que las dos copias no se separen.
  *
- * Sably: «constancia» (nunca «certificado»), «creador» (nunca «productor» ni
+ * Sably: «certificado» (nunca «constancia»), «creador» (nunca «productor» ni
  * «afiliado»), la comisión se declara; vetados como en la academia las promesas de
  * ingresos, los superlativos y la urgencia sin fecha.
  */
@@ -24,7 +24,11 @@ export const URGENCY_RE =
 	/tiempo limitado|[uú]ltimas? horas|[uú]ltimos? (cupos|d[ií]as|lugares)|s[oó]lo (por )?hoy|termina en|quedan \d|cuenta regresiva|se (acaba|agota)|antes de que se acabe|no te lo pierdas|[uú]ltima oportunidad/i;
 
 const REGLAS: ReadonlyArray<[RegExp, string]> = [
-	[/(?<![\p{L}])certificad[oa]s?(?![\p{L}])/iu, "«constancia», nunca «certificado»: lo que entrega el curso es una constancia de finalización"],
+	// Solo la fórmula del documento: «con constancia» a secas también es «perseverancia».
+	[
+		/(?<![\p{L}])constancias?\s+(?:digital|de\s+finalizaci[oó]n|al\s+(?:terminar|finalizar)|incluida)|(?<![\p{L}])(?:tu|una|incluye)\s+constancia(?![\p{L}])/iu,
+		"«certificado», nunca «constancia»: lo que entrega el curso es un certificado de finalización",
+	],
 	[/(?<![\p{L}])productor(?:a|es|as)?(?![\p{L}])/iu, "«creador», nunca «productor»"],
 	[/(?<![\p{L}])afiliad[oa]s?(?![\p{L}])/iu, "sin «afiliado» en texto público"],
 	[/(?<![\p{L}])cat[aá]logo(?![\p{L}])/iu, "«cursos», nunca «catálogo»"],

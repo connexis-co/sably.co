@@ -4,7 +4,7 @@ import { sinPromesas } from '../src/lib/sin-producto';
 
 // 24-nov-2026: /co/curso-de-tatuaje/ no se puede comprar y su subtítulo prometía
 // «Certificado y garantía de 7 días».
-test('un curso sin producto no promete constancia, garantía ni acceso', () => {
+test('un curso sin producto no promete certificado, garantía ni acceso', () => {
   assert.equal(sinPromesas('Aprende a tatuar desde cero con práctica guiada. Certificado y garantía de 7 días.'), 'Aprende a tatuar desde cero con práctica guiada.');
   assert.equal(
     sinPromesas('Curso de aire acondicionado para instalar, limpiar y reparar equipos split. Certificado incluido.'),
