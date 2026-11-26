@@ -213,6 +213,8 @@ export function auditarOnPage(url, html, opciones = {}) {
   const personasSinPerfil = [];
   const ofertas = [];
   const respuestas = [];
+  /* Valoración propia de un artículo (votos de lectores de Sably, ≥ 5 de ≥ 5 personas): decisión de JP del 26-nov. */
+  const propias = new Set();
   for (const m of documento.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try {
       const recorrer = (nodo) => {
@@ -226,6 +228,7 @@ export function auditarOnPage(url, html, opciones = {}) {
           if ([].concat(nodo['@type'] ?? []).includes('Offer')) ofertas.push(nodo);
           if ([].concat(nodo['@type'] ?? []).includes('EducationalOccupationalCredential')) credenciales.push(String(nodo.name ?? ''));
           if ([].concat(nodo['@type'] ?? []).includes('Answer') && typeof nodo.text === 'string') respuestas.push(nodo.text);
+          if ([].concat(nodo['@type'] ?? []).some((t) => ['Article', 'BlogPosting', 'NewsArticle'].includes(t)) && nodo.aggregateRating) propias.add(nodo.aggregateRating);
           Object.values(nodo).forEach(recorrer);
         }
       };
@@ -236,7 +239,12 @@ export function auditarOnPage(url, html, opciones = {}) {
   }
   if (personasSinPerfil.length)
     marcar('json-ld-person', 'error', `nodo Person sin perfil de creador (${personasSinPerfil.slice(0, 2).join(', ')}): no hay persona verificada`);
-  if (tipos.includes('AggregateRating')) marcar('json-ld-rating', 'error', 'AggregateRating con valoraciones de terceros');
+  const ratingsAjenos = tipos.filter((t) => t === 'AggregateRating').length - propias.size;
+  if (ratingsAjenos > 0) marcar('json-ld-rating', 'error', 'AggregateRating con valoraciones de terceros');
+  for (const r of propias) {
+    if (!(Number(r.ratingCount) >= 5) || !(Number(r.ratingValue) >= 1 && Number(r.ratingValue) <= 5)) marcar('json-ld-rating', 'error', `AggregateRating del artículo sin datos publicables (${r.ratingValue} con ${r.ratingCount} votos)`);
+    else marcar('json-ld-rating-articulo', 'aviso', 'AggregateRating en un Article: Google no da estrellas a este tipo y Search Console lo rechazó en ago-2026');
+  }
   // Sably no tiene reseñas propias publicadas: cualquier Review sería de otro sitio (Hotmart).
   if (tipos.includes('Review')) marcar('json-ld-review', 'error', 'Review en el JSON-LD sin reseñas propias que lo sostengan');
 

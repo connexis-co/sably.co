@@ -127,9 +127,13 @@ const carrilCurso = curso && (a.blogCarrilDerecho === 'curso' || a.blogCarrilDer
 const conComentarios = a.blogComentarios !== 'apagados';
 const pulsos = a.blogValoracion || conComentarios ? await pulsoDeArticulos([post.id, ...guias.map(g => g.id)]) : new Map();
 const pulso = pulsos.get(post.id);
+/* Estrellas en el marcado (decisión de JP del 26-nov, ajuste `blogMarcadoValoracion`): solo con media publicable (≥ 5
+   votos de ≥ 5 personas) y con los mismos datos horneados que se ven bajo el título, así que nunca se contradicen. */
+const conMarcado = a.blogValoracion && a.blogMarcadoValoracion && pulso?.publicable && pulso.media !== null && articleSchema;
+const articleSchemaFinal = conMarcado ? { ...articleSchema, aggregateRating: { '@type': 'AggregateRating', ratingValue: Math.round(pulso!.media! * 10) / 10, ratingCount: pulso!.votos, bestRating: 5, worstRating: 1 } } : articleSchema;
 const conCierre = a.blogValoracion || posiciones.includes('final');
 ---
-<BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} {articleSchema} {articleMeta} pageType="article" image={portada} {freshUntil} temaV2>
+<BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} articleSchema={articleSchemaFinal} {articleMeta} pageType="article" image={portada} {freshUntil} temaV2>
   <EstilosBlog parte="cabeza" />
   {cabecera === 'a' && <EstilosBlog parte="cabecera-a" />}
   {cabecera === 'c' && <EstilosBlog parte="cabecera-c" />}

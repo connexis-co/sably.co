@@ -40,6 +40,13 @@ test('detecta imágenes sin alt, marcado roto y nodos que se retiraron', () => {
   assert.deepEqual(errores(sana.replace('"name":"Curso de Masajes"', '"aggregateRating":{"@type":"AggregateRating"}')), ['json-ld-rating']);
 });
 
+test('la valoración propia de un artículo vale solo con datos publicables', () => {
+  const articulo = (r) => sana.replace('{"@type":["Product","Course"],"name":"Curso de Masajes"}', JSON.stringify({ '@type': 'Article', name: 'Curso de Masajes', aggregateRating: r }));
+  assert.ok(articulo({}).includes('"@type":"Article"'));
+  assert.deepEqual(errores(articulo({ '@type': 'AggregateRating', ratingValue: 4.6, ratingCount: 23, bestRating: 5, worstRating: 1 })), []);
+  assert.deepEqual(errores(articulo({ '@type': 'AggregateRating', ratingValue: 5, ratingCount: 2 })), ['json-ld-rating']);
+});
+
 test('los textos retirados por no ser ciertos no pueden volver', () => {
   for (const frase of ['<h2>Tu instructor</h2>', '<p>Enlace de afiliado</p>', '<p>¡Espera! Tu cupo sigue disponible</p>', '<p>50% solo hoy</p>',
     '<p>−50% en todos los cursos con el cupón 031016</p>', '<h2>El descuento más grande del año ya empezó</h2>',
