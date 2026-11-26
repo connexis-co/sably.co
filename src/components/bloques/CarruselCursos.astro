@@ -1,0 +1,41 @@
+---
+/**
+ * Bloque «Carrusel de cursos» del editor (sably_cursos; blog DISENO §12.7): las tarjetas de curso del kit con su precio
+ * real del país, en una fila con scroll-snap (tres a la vista en escritorio) y flechas a la tarjeta siguiente. Los
+ * cursos salen de la lista del editor (dirección o slug) o, sin lista, de la categoría. Un curso que no existe o no
+ * está publicado no sale; sin ninguno, no sale nada. El país lo deja la página en Astro.locals (paisDeBloques).
+ */
+import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
+import Ico from '@/themes/sably-v2/components/Ico.astro';
+import { getCourses } from '@/lib/emdash-content';
+import { preciosDeTarjetas } from '@/lib/precio-hoy';
+import { paisDeBloques } from '@/lib/bloques-contexto';
+interface Props { node: { _key?: string; titulo?: string; cursos?: string; categoria?: string } }
+const { _key, titulo, cursos: lista = '', categoria = '' } = Astro.props.node ?? {};
+const country = paisDeBloques(Astro.locals);
+const todos = country ? await getCourses() : [];
+const porId = new Map(todos.map(c => [c.id, c]));
+const slugDe = (linea: string) => linea.trim().replace(/[?#].*$/, '').replace(/\/+$/, '').split('/').pop() ?? '';
+const pedidos = [...new Set(String(lista).split(/\n|,/).map(slugDe).filter(Boolean))];
+const elegidos = pedidos.length
+  ? pedidos.map(s => porId.get(s)).filter(c => c !== undefined)
+  : categoria.trim() ? todos.filter(c => c.data.category === categoria.trim()).slice(0, 8) : [];
+const { precios } = country && elegidos.length ? await preciosDeTarjetas(elegidos, country, { url: Astro.url, locals: Astro.locals }) : { precios: new Map() };
+const id = `cursos-${_key ?? 'bloque'}`;
+---
+{country && elegidos.length > 0 && (
+  <section class="v2-carrusel-cursos" aria-labelledby={id} data-carrusel>
+    <div class="v2-cc-cabeza">
+      <p id={id} class="v2-cc-titulo">{titulo?.trim() || 'Cursos para practicarlo'}</p>
+      {elegidos.length > 1 && (
+        <div class="v2-cc-flechas">
+          <button type="button" class="v2-icono-boton" data-carrusel-paso="-1" aria-label="Curso anterior" hidden><Ico nombre="arrow-left" tamano={18} /></button>
+          <button type="button" class="v2-icono-boton" data-carrusel-paso="1" aria-label="Curso siguiente" hidden><Ico nombre="arrow-right" tamano={18} /></button>
+        </div>
+      )}
+    </div>
+    <ul class="v2-cc-fila" role="list" data-carrusel-fila tabindex="0" aria-label={titulo?.trim() || 'Cursos para practicarlo'}>
+      {elegidos.map(c => <li><TarjetaCurso course={c} {country} precio={precios.get(c.id) ?? null} /></li>)}
+    </ul>
+  </section>
+)}

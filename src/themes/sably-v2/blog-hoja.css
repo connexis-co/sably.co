@@ -1,0 +1,5 @@
+/* Hoja del blog que se emite como recurso con huella en /_astro/ (blog-hoja.ts la importa con ?url): Cloudflare la
+   guarda en el borde como el resto de /_astro/. No se importa como hoja normal: entraría en el CSS común del sitio. */
+@import './blog-cabeza.css';
+@import './blog.css';
+@import './blog-portada.css';

@@ -2,7 +2,7 @@
 /**
  * Comentarios del artículo con piel V2 (DISENO §4.9 y §12.4) sobre el componente de siempre: moderación previa,
  * Turnstile, campo trampa, consentimiento registrado, respuestas de un nivel y render con textContent.
- * Plegados por defecto (el texto de los comentarios aprobados sigue en el HTML). «Solo lectura» no pinta el
+ * En móvil, la fila plegada es un solo botón ancho «Comentarios (N) · Escribir uno». Plegados por defecto (el texto de los comentarios aprobados sigue en el HTML). «Solo lectura» no pinta el
  * formulario.
  */
 import Comentarios from '@/components/Comentarios.astro';
@@ -12,6 +12,7 @@ const { subject, modo, plegados, total } = Astro.props;
 ---
 <details class="v2-comentarios" data-modo={modo} open={!plegados || undefined}>
   <summary>
+    <span class="v2-com-movil">{modo === 'activados' && <Ico nombre="message-square-plus" tamano={20} />}<span>Comentarios{total > 0 && ` (${total})`} · {modo === 'activados' ? 'Escribir uno' : 'Ver'}</span><Ico nombre="chevron-down" tamano={20} class="v2-giro" /></span>
     <span class="v2-com-titulo">Comentarios{total > 0 && <span> ({total})</span>}</span>
     <span class="v2-com-accion">{modo === 'activados' ? <><Ico nombre="message-square-plus" tamano={18} />Escribir un comentario</> : <>Ver comentarios<Ico nombre="chevron-down" tamano={18} class="v2-giro" /></>}</span>
   </summary>

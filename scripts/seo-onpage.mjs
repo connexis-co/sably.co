@@ -63,10 +63,15 @@ export const INSTRUCTORES_RELLENO = (() => {
 })();
 
 /** Textos que se retiraron del sitio por no ser ciertos y no deben reaparecer. */
+/** «Constancia» como documento del curso (no como perseverancia ni como registro del consentimiento). */
+const CONSTANCIA_DOCUMENTO =
+  /\bconstancias?\s+(?:digital|de\s+finalizaci[oó]n|al\s+(?:terminar|finalizar)|incluida)|\b(?:tu|una|incluye)\s+constancia\b(?!\s+de\s+(?:tu|su)\s+consentimiento)/gi;
+
 /** Hechos que la plantilla V2 dice una sola vez fuera de la caja de compra (BRIEF-V2, «Reglas que no cambian»). */
 export const HECHOS_V2 = [
   ['garantía de 7 días', /garant[ií]a de 7 d[ií]as|7 d[ií]as para pedir (?:el )?reembolso/gi],
-  ['constancia de finalización', /constancia (?:digital )?de finalizaci[oó]n/gi],
+  // «constancia» por si vuelve la palabra anterior: cuenta como el mismo hecho.
+  ['certificado de finalización', /(?:certificado|constancia) (?:digital )?de finalizaci[oó]n/gi],
   ['acceso de por vida', /acceso de por vida/gi],
 ];
 
@@ -213,6 +218,8 @@ export function auditarOnPage(url, html, opciones = {}) {
   const personasSinPerfil = [];
   const ofertas = [];
   const respuestas = [];
+  /* Valoración propia de un artículo (votos de lectores de Sably, ≥ 5 de ≥ 5 personas): decisión de JP del 26-nov. */
+  const propias = new Set();
   for (const m of documento.matchAll(/<script\b[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)) {
     try {
       const recorrer = (nodo) => {
@@ -226,6 +233,7 @@ export function auditarOnPage(url, html, opciones = {}) {
           if ([].concat(nodo['@type'] ?? []).includes('Offer')) ofertas.push(nodo);
           if ([].concat(nodo['@type'] ?? []).includes('EducationalOccupationalCredential')) credenciales.push(String(nodo.name ?? ''));
           if ([].concat(nodo['@type'] ?? []).includes('Answer') && typeof nodo.text === 'string') respuestas.push(nodo.text);
+          if ([].concat(nodo['@type'] ?? []).some((t) => ['Article', 'BlogPosting', 'NewsArticle'].includes(t)) && nodo.aggregateRating) propias.add(nodo.aggregateRating);
           Object.values(nodo).forEach(recorrer);
         }
       };
@@ -236,7 +244,12 @@ export function auditarOnPage(url, html, opciones = {}) {
   }
   if (personasSinPerfil.length)
     marcar('json-ld-person', 'error', `nodo Person sin perfil de creador (${personasSinPerfil.slice(0, 2).join(', ')}): no hay persona verificada`);
-  if (tipos.includes('AggregateRating')) marcar('json-ld-rating', 'error', 'AggregateRating con valoraciones de terceros');
+  const ratingsAjenos = tipos.filter((t) => t === 'AggregateRating').length - propias.size;
+  if (ratingsAjenos > 0) marcar('json-ld-rating', 'error', 'AggregateRating con valoraciones de terceros');
+  for (const r of propias) {
+    if (!(Number(r.ratingCount) >= 5) || !(Number(r.ratingValue) >= 1 && Number(r.ratingValue) <= 5)) marcar('json-ld-rating', 'error', `AggregateRating del artículo sin datos publicables (${r.ratingValue} con ${r.ratingCount} votos)`);
+    else marcar('json-ld-rating-articulo', 'aviso', 'AggregateRating en un Article: Google no da estrellas a este tipo y Search Console lo rechazó en ago-2026');
+  }
   // Sably no tiene reseñas propias publicadas: cualquier Review sería de otro sitio (Hotmart).
   if (tipos.includes('Review')) marcar('json-ld-review', 'error', 'Review en el JSON-LD sin reseñas propias que lo sostengan');
 
@@ -277,17 +290,18 @@ export function auditarOnPage(url, html, opciones = {}) {
       marcar('oferta-precio', 'error', `el Offer dice ${oferta.price} y la caja ${crudo}`);
   }
 
-  // ── «Constancia», nunca «certificado» ────────────────────────────────────
-  // Lo que sale de plantilla es error. El texto del CMS (descripciones cortas,
-  // preguntas de las variantes de país, títulos) sigue pendiente de decisión y
-  // solo se cuenta, para que el número baje y no vuelva a subir. Las
-  // homologaciones son certificaciones de verdad, de una institución.
-  if (credenciales.some((nombre) => /certificad/i.test(nombre)))
-    marcar('constancia-json-ld', 'error', 'el JSON-LD llama «certificado» a la constancia de finalización');
+  // ── «Certificado», no «constancia» (JP, 26-nov-2026) ────────────────────
+  // El JSON-LD sale de plantilla: si vuelve «constancia», es error. En el texto
+  // visible solo se cuenta la fórmula del documento («constancia de
+  // finalización», «tu constancia»…), como aviso, porque puede venir del CMS y
+  // porque «practicar con constancia» es otra cosa. La imagen del certificado
+  // inventado (/certificado-sably.jpg) sigue vetada: no era el de Hotmart.
+  if (credenciales.some((nombre) => /constancia/i.test(nombre)))
+    marcar('constancia-json-ld', 'error', 'el JSON-LD llama «constancia» al certificado de finalización');
   if (/certificado-sably\.jpg/i.test(documento)) marcar('imagen-certificado', 'error', 'vuelve la imagen del certificado inventado');
-  if (!/\/homologaciones\//.test(url)) {
-    const veces = (visible.match(/\bcertificad[oa]s?\b/gi) ?? []).length;
-    if (veces) marcar('certificado', 'aviso', `«certificado» ${veces} veces en el texto visible (la regla es «constancia»)`);
+  {
+    const veces = (visible.match(CONSTANCIA_DOCUMENTO) ?? []).length;
+    if (veces) marcar('constancia', 'aviso', `«constancia» ${veces} veces en el texto visible como documento del curso (la regla es «certificado»)`);
   }
 
   // ── Instructores de relleno ──────────────────────────────────────────────
@@ -306,7 +320,7 @@ export function auditarOnPage(url, html, opciones = {}) {
     const plantilla = principal
       .replace(/<section\b[^>]*\sdata-purchase-panel\b[\s\S]*?<\/section>/gi, ' ')
       .replace(/<section\b[^>]*\sdata-cms\b[\s\S]*?<\/section>/gi, ' ')
-      // El documento de muestra de la constancia es una imagen ilustrativa, no una afirmación repetida.
+      // El documento de muestra del certificado es una imagen ilustrativa, no una afirmación repetida.
       .replace(/<figure\b[^>]*\sdata-constancia-ejemplo\b[\s\S]*?<\/figure>/gi, ' ');
     const enPlantilla = texto(plantilla);
     // ©, ® y ™ son «pictográficos» para Unicode pero son parte de nombres de marca.

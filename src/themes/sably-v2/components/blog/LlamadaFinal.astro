@@ -1,26 +1,91 @@
 ---
 /**
- * Llamada final «Siguiente paso» (DISENO §4.7): bloque azul noche con el curso relacionado y su TarjetaCurso.
- * Sin «acceso de por vida» ni «garantía» (pendiente de JP, punto A4). Sin curso relacionado, lleva a los cursos.
+ * Llamada final «Siguiente paso» (DISENO §4.7; pedido de JP del 26-nov, ENCARGO-PULIDO-V2-RONDA-2 A1).
+ * - Cursos: los que el artículo enlaza (relación editorial, en su orden), con la TarjetaCurso del kit sin tocar.
+ *   Con uno, la tarjeta grande al lado; con varios, un carrusel con desplazamiento táctil, `scroll-snap` y flechas.
+ * - Campaña: solo si la campaña vigente de la página aplica al curso principal (su precio trae ese cupón): nombre,
+ *   porcentaje, cupón que se copia (src/lib/promo-cliente.ts, el mismo de la barra), fecha real de fin y el precio de
+ *   hoy con el normal tachado. El cliente la confirma y la retira al vencer (`data-promo-v2`).
+ * - Precios: los del almacén de cotizaciones (preciosDeTarjetas), los mismos de la ficha. Nada inventado.
+ * Sin curso relacionado, lleva a los cursos. Sin «acceso de por vida» ni «garantía» (pendiente de JP, punto A4).
  */
 import type { Course } from '@/lib/emdash-content';
 import type { Country } from '@/lib/countries';
 import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
+import type { PromoV2 } from '../../promo-v2';
 import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
+import Precio from '@/components/v2/Precio.astro';
 import Ico from '../Ico.astro';
-interface Props { course?: Course | null; country: Country; precio: PrecioTarjeta | null; oficio?: string }
-const { course, country, precio, oficio } = Astro.props;
-const cubre = course?.data.shortDescription?.trim();
+interface Props { cursos: { course: Course; precio: PrecioTarjeta | null }[]; country: Country; oficio?: string; promo: PromoV2 | null }
+const { cursos, country, oficio, promo } = Astro.props;
+const principal = cursos[0];
+const varios = cursos.length > 1;
+const cubre = principal?.course.data.shortDescription?.trim();
+const p = principal?.precio;
+/* La campaña se enseña solo si su cupón es el que rebaja el curso principal (si no, anunciaría un descuento que ese
+   curso no tiene: otro creador, otro país o un curso excluido). */
+const campana = promo && p?.cupon && p.cupon === promo.cupon && p.normal !== null ? promo : null;
+const titulo = varios ? 'Empieza con uno de los cursos de esta guía' : principal ? (oficio ? `Aprende ${oficio} con un curso completo` : 'Aprende el oficio con un curso completo') : 'Aprende un oficio con un curso completo';
 ---
-<section class="v2-llamada-final" aria-labelledby="siguiente-paso">
-  <div>
+<section class="v2-llamada-final" data-cursos={varios ? 'varios' : principal ? 'uno' : 'ninguno'} aria-labelledby="siguiente-paso">
+  <div class="v2-lf-texto-col">
     <p class="v2-lf-ante">Siguiente paso</p>
-    <h2 id="siguiente-paso" class="mt-3">{course ? (oficio ? `Aprende ${oficio} con un curso completo` : 'Aprende el oficio con un curso completo') : 'Aprende un oficio con un curso completo'}</h2>
-    <p class="v2-lf-texto mt-3">{course ? (cubre || 'Lecciones en vídeo, a tu ritmo y con constancia de finalización.') : 'Cursos en vídeo para aprender a tu ritmo, con constancia de finalización. Pagas en tu moneda.'}</p>
-    {precio?.cupon && precio.ahorro ? <p class="v2-cm-tique mt-4">{precio.ahorro} % con el cupón {precio.cupon}</p> : null}
-    {course
-      ? <a href={`/${country.code}/cursos/`} class="v2-lf-todos mt-6">Ver todos los cursos <Ico nombre="arrow-right" tamano={16} /></a>
-      : <a href={`/${country.code}/cursos/`} class="v2-btn v2-btn-principal mt-6" data-alto="52">Ver los cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>}
+    <h2 id="siguiente-paso" class="mt-3">{titulo}</h2>
+    <p class="v2-lf-texto mt-3">{principal && !varios ? (cubre || 'Lecciones en vídeo, a tu ritmo y con certificado de finalización.') : 'Cursos en vídeo para aprender a tu ritmo, con certificado de finalización. Pagas en tu moneda.'}</p>
+    {campana && p && (
+      <div class="v2-lf-campana" data-promo-v2="llamada" data-promo-ssr={campana.ssr}>
+        <p class="v2-lf-campana-gorro"><span class="v2-lf-punto" aria-hidden="true"></span><span data-promo-gorro>{campana.etiqueta}</span>
+          <span data-promo-fin hidden={!campana.fin} class="v2-lf-fin">Termina el <span data-promo-fecha>{campana.fin}</span> (hora de Colombia)</span></p>
+        <div class="v2-lf-campana-fila">
+          <p class="v2-lf-pct"><b data-promo-pct-v2>{campana.pct} %</b> de descuento con el cupón</p>
+          <button type="button" data-promo-cupon class="v2-tique-mini" aria-label={`Copiar el cupón ${campana.cupon}`}>
+            <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{campana.cupon}</span>
+            <span class="flex items-center gap-1 font-semibold text-coral-700"><Ico nombre="copy" tamano={14} /><span data-promo-copiar-texto>Copiar</span></span>
+          </button>
+        </div>
+        {!varios && (
+          <p class="v2-lf-precio"><span class="v2-lf-precio-rotulo">{principal.course.data.title} hoy</span>
+            <span class="v2-lf-precio-hoy"><Precio valor={p.hoy} moneda={p.moneda} locale={country.hreflang} codigoClass="text-t13 font-medium" /></span>
+            <span class="v2-lf-precio-antes"><span class="sr-only">Precio normal: </span><Precio valor={p.normal!} moneda={p.moneda} locale={country.hreflang} class="line-through decoration-[1.5px]" codigoClass="text-t13" /></span></p>
+        )}
+      </div>
+    )}
+    <a href={`/${country.code}/cursos/`} class:list={principal ? 'v2-lf-todos mt-6' : 'v2-btn v2-btn-principal mt-6'} data-alto={principal ? undefined : '52'}>{principal ? 'Ver todos los cursos' : 'Ver los cursos'} <Ico nombre="arrow-right" tamano={principal ? 16 : 18} class={principal ? undefined : 'v2-flecha'} /></a>
   </div>
-  {course && <div class="v2-lf-tarjeta"><TarjetaCurso {course} {country} {precio} /></div>}
+  {principal && !varios && <div class="v2-lf-tarjeta"><TarjetaCurso course={principal.course} {country} precio={principal.precio} /></div>}
+  {varios && (
+    <div class="v2-lf-carrusel" data-carrusel>
+      <div class="v2-lf-carrusel-cabeza">
+        <p class="v2-lf-carrusel-titulo" id="siguiente-paso-cursos">Los {cursos.length} cursos de esta guía</p>
+        <div class="v2-lf-flechas">
+          <button type="button" class="v2-lf-flecha" data-carrusel-atras aria-label="Cursos anteriores" aria-controls="siguiente-paso-lista" disabled><Ico nombre="arrow-left" tamano={18} /></button>
+          <button type="button" class="v2-lf-flecha" data-carrusel-adelante aria-label="Cursos siguientes" aria-controls="siguiente-paso-lista"><Ico nombre="arrow-right" tamano={18} /></button>
+        </div>
+      </div>
+      <ul class="v2-lf-pista" id="siguiente-paso-lista" role="list" aria-labelledby="siguiente-paso-cursos" tabindex="0" data-carrusel-pista>
+        {cursos.map(c => <li><TarjetaCurso course={c.course} {country} precio={c.precio} /></li>)}
+      </ul>
+    </div>
+  )}
 </section>
+{varios && (
+  <script>
+    /* Flechas del carrusel: avanzan una tarjeta; el gesto táctil es el desplazamiento nativo con scroll-snap. */
+    for (const raiz of document.querySelectorAll<HTMLElement>('[data-carrusel]')) {
+      const pista = raiz.querySelector<HTMLElement>('[data-carrusel-pista]');
+      const atras = raiz.querySelector<HTMLButtonElement>('[data-carrusel-atras]');
+      const adelante = raiz.querySelector<HTMLButtonElement>('[data-carrusel-adelante]');
+      if (!pista || !atras || !adelante) continue;
+      const paso = () => (pista.firstElementChild as HTMLElement | null)?.getBoundingClientRect().width ?? pista.clientWidth;
+      const suave = () => (matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth');
+      const estado = () => {
+        atras.disabled = pista.scrollLeft <= 2;
+        adelante.disabled = pista.scrollLeft + pista.clientWidth >= pista.scrollWidth - 2;
+      };
+      atras.addEventListener('click', () => pista.scrollBy({ left: -(paso() + 16), behavior: suave() }));
+      adelante.addEventListener('click', () => pista.scrollBy({ left: paso() + 16, behavior: suave() }));
+      pista.addEventListener('scroll', () => requestAnimationFrame(estado), { passive: true });
+      estado();
+    }
+  </script>
+)}

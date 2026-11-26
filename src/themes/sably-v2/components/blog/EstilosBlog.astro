@@ -1,15 +1,22 @@
 ---
 /**
- * CSS crítico del blog EN LÍNEA antes del título (es el LCP): solo lo que pinta la cabecera elegida. Las cabeceras A
- * y C llevan su parte solo cuando están activas; la portada, su cabeza y el buscador. Todo lo demás va en la hoja
+ * CSS crítico del blog EN LÍNEA antes del título (es el LCP): solo lo que pinta la cabecera elegida. Las cabeceras A,
+ * C, E, F, G, H y J llevan su parte solo cuando están activas; la portada, su cabeza y el buscador. Todo lo demás va en la hoja
  * cacheable (HojaBlog.astro), después de la cabecera. Los tokens (colores, radios, movimiento) vienen de v2.css.
  */
 import cabeza from '../../blog-cabeza.css?raw';
 import cabeceraA from '../../blog-cabecera-a.css?raw';
 import cabeceraC from '../../blog-cabecera-c.css?raw';
+import cabeceraE from '../../blog-cabecera-e.css?raw';
+import cabeceraF from '../../blog-cabecera-f.css?raw';
+import cabeceraG from '../../blog-cabecera-g.css?raw';
+import cabeceraH from '../../blog-cabecera-h.css?raw';
+import cabeceraJ from '../../blog-cabecera-j.css?raw';
 import portadaCabeza from '../../blog-portada-cabeza.css?raw';
 import { minificar } from '../../blog-hoja';
-interface Props { parte: 'cabeza' | 'cabecera-a' | 'cabecera-c' | 'portada-cabeza' }
-const css = { cabeza, 'cabecera-a': cabeceraA, 'cabecera-c': cabeceraC, 'portada-cabeza': portadaCabeza }[Astro.props.parte];
+const partes = { cabeza, 'cabecera-a': cabeceraA, 'cabecera-c': cabeceraC, 'cabecera-e': cabeceraE, 'cabecera-f': cabeceraF,
+  'cabecera-g': cabeceraG, 'cabecera-h': cabeceraH, 'cabecera-j': cabeceraJ, 'portada-cabeza': portadaCabeza };
+interface Props { parte: keyof typeof partes }
+const css = partes[Astro.props.parte];
 ---
 <style is:inline set:html={minificar(css)}></style>

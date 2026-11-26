@@ -59,8 +59,30 @@ function despertar(ctx: PluginContext) {
     .finally(() => { enMarcha = undefined; });
 }
 
-/** Gancho de publicar o programar: solo encola con la narración automática encendida en el panel. */
+const CRON = { nombre: "narracion-cola", cada: "*/10 * * * *" };
+let cronAsegurado: Promise<unknown> | undefined;
+/**
+ * Registra la tarea del cron (es un upsert idempotente) la primera vez que el plugin recibe un gancho o una ruta en este
+ * proceso. EmDash solo ejecuta `plugin:activate` cuando un plugin se activa desde el panel, nunca con los que vienen en
+ * `astro.config.mjs`, así que el cron de respaldo no existía en producción (cola parada el 26-nov de 03:37 a 03:57).
+ */
+export function asegurarCron(ctx: Pick<PluginContext, "cron" | "log">) {
+  if (!ctx.cron) return Promise.resolve();
+  cronAsegurado ??= ctx.cron.schedule(CRON.nombre, { schedule: CRON.cada }).catch((e: Error) => {
+    cronAsegurado = undefined;
+    ctx.log.warn("No se pudo programar el cron de narraciones", { error: e.message });
+  });
+  return cronAsegurado;
+}
+/** Solo para pruebas: vuelve a intentar registrar el cron. */
+export const olvidarCron = () => { cronAsegurado = undefined; };
+
+/**
+ * Gancho de publicar (también cuando lo publica el programador de EmDash a su hora): solo encola con la narración
+ * automática encendida en el panel. Programar no narra: el audio nunca existe antes de la fecha de publicación.
+ */
 async function alPublicar(ctx: PluginContext, coleccion: string, contenido: Entrada) {
+  await asegurarCron(ctx);
   try {
     const cola = colaDe(ctx);
     const config = await cola.config();
@@ -145,6 +167,7 @@ function ruta(permission: "content:publish_any" | "settings:manage", method: "GE
     methods: [method], permission,
     request: { body: method === "GET" ? "none" : "json", ...(method === "POST" ? { maxBytes } : {}) },
     handler: async (ctx: RouteContext) => {
+      await asegurarCron(ctx);
       try {
         return await handler(ctx);
       } catch (e) {
@@ -165,13 +188,14 @@ export function createPlugin() {
     storage: ALMACENAMIENTO as never,
     admin: { pages: [{ path: "/narraciones", label: "Narraciones", icon: "headphones" }] },
     hooks: {
-      // Solo programa el cron; con la narración automática apagada el cron no encola ni genera nada.
+      // Solo programa el cron; con la narración automática apagada el cron no encola ni genera nada. Ojo: EmDash no lo
+      // ejecuta con plugins declarados en la configuración; por eso también lo asegura cualquier gancho o ruta.
       "plugin:activate": async (_event, ctx) => {
-        await ctx.cron?.schedule("narracion-cola", { schedule: "*/10 * * * *" });
+        await asegurarCron(ctx);
       },
       "content:afterPublish": async (event, ctx) => alPublicar(ctx, event.collection, event.content as Entrada),
-      "content:afterSchedule": async (event, ctx) => alPublicar(ctx, event.collection, event.content as Entrada),
       "content:afterUnpublish": async (event, ctx) => {
+        await asegurarCron(ctx);
         const { slug } = datosDe(event.content as Entrada);
         if (slug) await colaDe(ctx).retirar(event.collection, slug).catch(() => false);
       },
@@ -181,7 +205,7 @@ export function createPlugin() {
         if (slug) await colaDe(ctx).retirar(e.collection, slug).catch(() => false);
       },
       cron: async (event, ctx) => {
-        if (event.name !== "narracion-cola") return;
+        if (event.name !== CRON.nombre) return;
         const nuevas = await conciliar(ctx).catch((e: Error) => (ctx.log.warn("Conciliación fallida", { error: e.message }), 0));
         if (nuevas) ctx.log.info("Narraciones encoladas al conciliar", { nuevas });
         const r = await procesar(colaDe(ctx), { limite: 5, registro: (m, d) => ctx.log.info(m, d) });

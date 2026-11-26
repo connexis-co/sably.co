@@ -25,6 +25,7 @@ import MetaArticulo from '../components/blog/MetaArticulo.astro';
 import Compartir from '../components/blog/Compartir.astro';
 import IndiceArticulo from '../components/blog/IndiceArticulo.astro';
 import HojaIndice from '../components/blog/HojaIndice.astro';
+import BarraIndice from '../components/blog/BarraIndice.astro';
 import CursoRelacionado from '../components/blog/CursoRelacionado.astro';
 import LlamadaFinal from '../components/blog/LlamadaFinal.astro';
 import TarjetaArticulo from '../components/blog/TarjetaArticulo.astro';
@@ -32,15 +33,22 @@ import Valoracion from '../components/blog/Valoracion.astro';
 import EstrellasArticulo from '../components/blog/EstrellasArticulo.astro';
 import ComentariosV2 from '../components/blog/ComentariosV2.astro';
 import { pulsoDeArticulos } from '@/lib/blog-pulso';
+import { duracionesNarradas } from '@/lib/narracion';
 import { narracionVigente, duracionIso } from '@/lib/narracion';
-import { blogCover, minutosLectura, oficioDeCurso } from '@/lib/blog';
+import { blogCover, minutosLectura, oficioDeCurso, tonoDeCategoria } from '@/lib/blog';
+import { cabeceraElegida } from '@/lib/blog-presentacion';
+import { videoServido } from '@/lib/course-videos';
+import { videoDeCurso } from '@/lib/video';
+import VideoPresentacion from '../components/VideoPresentacion.astro';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import { posicionesCompartir, redesCompartir } from '@/lib/blog-ajustes';
 import { prepareRichContent } from '@/lib/rich-content';
 import { clusterDeCurso, cursosEnlazados, guiasSugeridas } from '@/lib/related-guides';
 import { preciosDeTarjetas } from '@/lib/precio-hoy';
+import { fijarPaisDeBloques } from '@/lib/bloques-contexto';
 import { getCategory, type Course, type RichBlock } from '@/lib/emdash-content';
-import { SITE } from '@/lib/site';
+import { SITE, CDN_URL } from '@/lib/site';
+import { promoDeLaPagina } from '../promo-v2';
 import type { load } from '@/lib/page-loaders/blog-article';
 import '../estilos.css';
 import EstilosBlog from '../components/blog/EstilosBlog.astro';
@@ -52,9 +60,6 @@ const a = (await temaDeLaPeticion(Astro)).ajustes.blog;
 /* ---------- Portada y cabecera ---------- */
 const propia = cmsImageUrl(post.coverImage);
 const portada = propia ?? blogCover(post.data.category, 'hero');
-// A, B y C necesitan foto propia: sin ella, la mínima (D). «Automática» = B con foto, D sin ella.
-const cabecera = !propia ? 'd' : a.blogCabecera === 'automatica' ? 'b' : a.blogCabecera;
-const oscura = cabecera === 'a' || cabecera === 'c';
 
 /* ---------- Narración (plugin sably-narracion): solo si su huella coincide con este texto. Nunca en vista previa. */
 const narracion = post.isPreview ? undefined : await narracionVigente('blog', post.id, {
@@ -74,33 +79,63 @@ const minutos = minutosLectura(bodyText);
 const conProgreso = a.blogProgreso && palabras >= Number(a.blogProgresoMinimo);
 /* «Actualizado el…» sale del campo editorial `actualizado_el` (PR de opciones por artículo), nunca de la fecha de
    cualquier guardado: hoy todos los artículos tienen el 3-oct de la migración y lo dirían sin serlo. */
-const actualizado: Date | null = null;
-const conActualizado = false;
+const actualizado: Date | null = post.presentacion?.actualizadoEl ?? null;
+const conActualizado = Boolean(actualizado && actualizado > post.data.publishedAt);
+/* Los bloques del cuerpo que pintan precios (carrusel de cursos) necesitan el país de la página. */
+fijarPaisDeBloques(Astro.locals, country);
+const sinPublicidad = post.presentacion?.publicidad === 'ninguna';
 
 /* ---------- Índice ---------- */
 const apartados = a.blogIndiceNiveles === 'h2' ? toc.filter(h => h.depth === 2) : toc;
-const conIndice = apartados.length >= Number(a.blogIndiceMinimo);
-let escritorio = a.blogIndiceEscritorio;
+const indicePropio = post.presentacion?.indice;
+const conIndice = indicePropio !== 'ninguno' && apartados.length >= Number(a.blogIndiceMinimo);
+/* El campo «Índice» del artículo manda sobre el panel en escritorio (en móvil sigue el del panel). */
+let escritorio = indicePropio === 'lateral' ? 'lateral-fija' : indicePropio === 'inicio' ? 'abierto' : a.blogIndiceEscritorio;
 // Con el curso en el carril derecho, el índice lateral pasa al inicio del texto.
 if (a.blogCarrilDerecho === 'curso' && (escritorio === 'lateral-fija' || escritorio === 'lateral')) escritorio = 'abierto';
-const lateral = conIndice && (escritorio === 'lateral-fija' || escritorio === 'lateral');
-const inicioEscritorio = conIndice && (escritorio === 'plegable' || escritorio === 'abierto' || escritorio === 'tarjeta') ? escritorio : null;
-const inicioMovil = conIndice && a.blogIndiceMovil !== 'ninguno' ? (a.blogIndiceMovil === 'abierto' ? 'abierto' : 'plegable') : null;
+let lateral = conIndice && (escritorio === 'lateral-fija' || escritorio === 'lateral');
+let inicioEscritorio = conIndice && (escritorio === 'plegable' || escritorio === 'abierto' || escritorio === 'tarjeta') ? escritorio : null;
+let inicioMovil: 'abierto' | 'plegable' | null = conIndice && a.blogIndiceMovil !== 'ninguno' ? (a.blogIndiceMovil === 'abierto' ? 'abierto' : 'plegable') : null;
 const flotante = conIndice && a.blogIndiceMovil === 'plegable-flotante';
-const unInicio = inicioEscritorio && inicioEscritorio === inicioMovil;
+const barraIndice = conIndice && a.blogIndiceMovil === 'plegable-barra';
 
 /* ---------- Curso relacionado: el primero que el texto enlaza (relación editorial, no una adivinanza) ---------- */
 const cursos = await cms.getCourses();
 const porId = new Map(cursos.map(c => [c.id, c]));
-const curso: Course | null = cursosEnlazados(post, SITE.url).map(s => porId.get(s)).find(Boolean) ?? null;
+const enlazados = [...new Set(cursosEnlazados(post, SITE.url))].map(s => porId.get(s)).filter((c): c is Course => Boolean(c));
+/* El del campo «Curso relacionado» del editor si existe; si no, el primero que el texto enlaza. */
+const elegido = post.presentacion?.cursoRelacionado ? porId.get(post.presentacion.cursoRelacionado) : undefined;
+const curso: Course | null = elegido ?? enlazados[0] ?? null;
+/* «Siguiente paso»: el curso relacionado y los que el artículo enlaza (hasta 8), en su orden; con varios, carrusel. */
+const enLlamada = a.blogLlamadaFinal
+  ? [...(elegido ? [elegido] : []), ...enlazados.filter(c => c !== elegido)].slice(0, 8)
+  : [];
 const categoriaCurso = curso ? await getCategory(curso.data.category) : null;
 const nSugeridos = Number(a.blogCursosSugeridos);
 const sugeridos = curso && nSugeridos > 0
   ? [...new Set([...clusterDeCurso(curso, cursos), ...cursos.filter(c => c.id !== curso.id && c.data.category === curso.data.category).map(c => c.id)])]
-      .map(id => porId.get(id)!).filter(Boolean).slice(0, nSugeridos)
+      .map(id => porId.get(id)!).filter(Boolean).filter(c => !enLlamada.includes(c)).slice(0, nSugeridos)
   : [];
-const { precios, freshUntil } = await preciosDeTarjetas(curso ? [curso, ...sugeridos] : [], country, { url: Astro.url, locals: Astro.locals });
+const { precios, freshUntil } = await preciosDeTarjetas([...new Set([...enLlamada, ...(curso ? [curso] : []), ...sugeridos])], country, { url: Astro.url, locals: Astro.locals });
+const promo = enLlamada.length ? await promoDeLaPagina(Astro, { pais: country.code }) : null;
 const precioCurso = curso ? precios.get(curso.id) ?? null : null;
+
+/* ---------- Cabecera: la del artículo (campo «Cabecera» del editor) o la del panel; ver cabeceraElegida ---------- */
+const pedida = post.presentacion?.cabecera ?? a.blogCabecera;
+/* F · el vídeo de presentación del curso relacionado (el mismo de su ficha), rotulado como tal. Solo si se pide F. */
+let video: { src: string; hls: string | null; subtitulos: string | null; proveedor: string } | null = null;
+if (pedida === 'f' && curso && CDN_URL) {
+  const biblioteca = await videoDeCurso(curso.id);
+  const clave = videoServido(curso.id, curso.data.videoKey);
+  const src = biblioteca?.mp4 ?? (clave ? `${CDN_URL}/videos/${clave}` : null);
+  if (src) video = { src, hls: biblioteca?.hls ?? null, subtitulos: biblioteca?.subtitulos ?? null, proveedor: biblioteca?.proveedor ?? 'r2' };
+}
+const cabecera = cabeceraElegida({ panel: a.blogCabecera, propia: post.presentacion?.cabecera, conPortada: Boolean(propia), conVideo: Boolean(video), conNarracion: Boolean(narracion), conIndice });
+const oscura = cabecera === 'a' || cabecera === 'c';
+const conBanda = cabecera === 'c' || cabecera === 'g' || cabecera === 'h';
+const dosColumnas = conBanda || cabecera === 'j';
+/* J lleva el índice en la cabecera: no se repite al inicio del texto ni en el carril. */
+const indiceEnCabecera = cabecera === 'j';
 
 /* Cuerpo partido antes del H2 que deja atrás ~40 % de los apartados, para meter ahí el curso. Los encabezados
    llevan su id fijado (`anchor`) para que las dos mitades conserven los mismos ids del índice. */
@@ -112,6 +147,8 @@ if (a.blogCursoMitad && curso && post.richBody && !post.isPreview) {
   const corte = h2.length >= 2 ? h2[Math.max(1, Math.round(h2.length * 0.4))] : undefined;
   mitades = corte ? [fijados.slice(0, corte), fijados.slice(corte)] : [fijados, []];
 }
+if (indiceEnCabecera) { lateral = false; inicioEscritorio = null; inicioMovil = null; }
+const unInicio = inicioEscritorio && inicioEscritorio === inicioMovil;
 const cursoAlFinalDelTexto = a.blogCursoMitad && curso && !mitades;
 
 /* ---------- Compartir y sugeridos ---------- */
@@ -127,29 +164,48 @@ const carrilCurso = curso && (a.blogCarrilDerecho === 'curso' || a.blogCarrilDer
 const conComentarios = a.blogComentarios !== 'apagados';
 const pulsos = a.blogValoracion || conComentarios ? await pulsoDeArticulos([post.id, ...guias.map(g => g.id)]) : new Map();
 const pulso = pulsos.get(post.id);
+/* Estrellas en el marcado (decisión de JP del 26-nov, ajuste `blogMarcadoValoracion`): solo con media publicable (≥ 5
+   votos de ≥ 5 personas) y con los mismos datos horneados que se ven bajo el título, así que nunca se contradicen. */
+const conMarcado = a.blogValoracion && a.blogMarcadoValoracion && pulso?.publicable && pulso.media !== null && articleSchema;
+const articleSchemaFinal = conMarcado ? { ...articleSchema, aggregateRating: { '@type': 'AggregateRating', ratingValue: Math.round(pulso!.media! * 10) / 10, ratingCount: pulso!.votos, bestRating: 5, worstRating: 1 } } : articleSchema;
+const narradas = guias.length ? await duracionesNarradas('blog') : new Map<string, number>();
 const conCierre = a.blogValoracion || posiciones.includes('final');
 ---
-<BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} {articleSchema} {articleMeta} pageType="article" image={portada} {freshUntil} temaV2>
+<BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} articleSchema={articleSchemaFinal} {articleMeta} pageType="article" image={portada} {freshUntil} temaV2>
   <EstilosBlog parte="cabeza" />
   {cabecera === 'a' && <EstilosBlog parte="cabecera-a" />}
   {cabecera === 'c' && <EstilosBlog parte="cabecera-c" />}
-  <div class="v2-blog-art" style={`--tamano-texto:${a.blogTamanoTexto}px`}>
+  {(cabecera === 'e' || cabecera === 'f' || cabecera === 'g' || cabecera === 'h' || cabecera === 'j') && <EstilosBlog parte={`cabecera-${cabecera}`} />}
+  <div class="v2-blog-art" style={`--tamano-texto:${a.blogTamanoTexto}px${conProgreso ? ';--alto-progreso:3px' : ''}`} data-con-barra-indice={barraIndice && !indiceEnCabecera ? '' : undefined}>
     {conProgreso && <div class="v2-progreso" aria-hidden="true" data-progreso></div>}
 
-    <header class:list={['v2-ba-cabeza', { 'v2-sobre-oscuro': oscura }]} data-cabecera={cabecera}>
+    <header class:list={['v2-ba-cabeza', { 'v2-sobre-oscuro': oscura }]} data-cabecera={cabecera} data-tono={cabecera === 'h' ? tonoDeCategoria(post.data.category) : undefined}>
       {cabecera === 'a' && <figure class="v2-ba-portada"><OptimizedImage src={portada} alt="" width={1600} height={711} fetchpriority="high" loading="eager" sizes="100vw" /></figure>}
-      <div class:list={[cabecera === 'c' && 'v2-ba-banda']}><div class:list={['v2-contenedor', cabecera === 'c' && 'v2-ba-cuadro']}>
+      {cabecera === 'f' && video && curso && (
+        <div class="v2-contenedor"><div class="v2-ba-video">
+          <VideoPresentacion src={video.src} hls={video.hls} subtitulos={video.subtitulos} proveedor={video.proveedor} poster={cmsImageUrl(curso.coverImage) ?? portada} titulo={curso.data.title} alt={curso.data.title} courseId={curso.id} />
+          <p class="v2-ba-video-pie">Vídeo de presentación del curso <a href={`/${country.code}/${curso.id}/`}>{curso.data.title}</a></p>
+        </div></div>
+      )}
+      <div class:list={[conBanda && 'v2-ba-banda']}><div class:list={['v2-contenedor', dosColumnas && 'v2-ba-cuadro']}>
         <div class="v2-ba-titulos">
           <div class="v2-ba-migas"><Migas items={migas} oscuro={oscura} class="v2-ba-migas-lista" /></div>
           <EtiquetaCategoria categoria={post.data.category} estilo={a.blogEtiquetaEstilo} etiqueta="p" class="mt-6" />
           <h1 {...post.edit.title} class="v2-ba-h1">{post.data.title}</h1>
           <p class="v2-ba-entradilla" data-estilo={a.blogEntradillaEstilo}>{post.data.description}</p>
-          {a.blogValoracion && a.blogEstrellasCabecera && <EstrellasArticulo {pulso} />}
+          {a.blogValoracion && a.blogEstrellasCabecera && <EstrellasArticulo {pulso} slug={post.id} />}
           <MetaArticulo publicado={post.data.publishedAt} actualizado={conActualizado ? actualizado : null} {minutos} duracion={narracion ? reloj(narracion.segundos) : undefined} compartir={posiciones.includes('metadatos')} {url} titulo={post.data.title} {redes} />
         </div>
-        {cabecera === 'c' && <figure class="v2-ba-portada"><OptimizedImage src={portada} alt="" width={1160} height={870} fetchpriority="high" loading="eager" sizes="(min-width: 1024px) 580px, 100vw" /></figure>}
+        {(cabecera === 'c' || (cabecera === 'h' && propia)) && <figure class="v2-ba-portada"><OptimizedImage src={portada} alt="" width={1160} height={870} fetchpriority="high" loading="eager" sizes="(min-width: 1024px) 580px, 100vw" /></figure>}
+        {cabecera === 'g' && narracion && (
+          <div class="v2-ba-narracion" id="narracion" data-narracion-fija={a.blogNarracionFija || undefined} data-seguir={a.blogNarracionSeguir || undefined}>
+            <ReproductorAudio src={narracion.url} segundos={narracion.segundos} titulo={post.data.title} caratula={portada} medioId={`blog:${post.id}`} proveedor={narracion.proveedor} />
+            {a.blogNarracionFija && <button type="button" class="v2-ba-narracion-cerrar" data-narracion-cerrar aria-label="Cerrar el reproductor fijo"><Ico nombre="x" tamano={16} /></button>}
+          </div>
+        )}
+        {indiceEnCabecera && <div class="v2-ba-indice-cabeza"><IndiceArticulo {apartados} estilo="tarjeta" /></div>}
       </div></div>
-      {cabecera === 'b' && (
+      {(cabecera === 'b' || cabecera === 'e' || cabecera === 'j') && (
         <div class="v2-contenedor"><figure class="v2-ba-portada">
           <OptimizedImage src={portada} alt="" width={1200} height={600} fetchpriority="high" loading="eager" sizes="(min-width: 1280px) 1200px, calc(100vw - 40px)" />
         </figure></div>
@@ -157,7 +213,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
     </header>
 
     <HojaBlog />
-    <div class="v2-contenedor"><HuecoPublicidad posicion="articulo-arriba" /></div>
+    <div class="v2-contenedor"><HuecoPublicidad posicion="articulo-arriba" apagado={sinPublicidad} /></div>
 
     <div class="v2-contenedor v2-ba-rejilla">
       <aside class="v2-ba-carril-izq" aria-label="Compartir">{posiciones.includes('carril') && (
@@ -165,8 +221,8 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
       )}</aside>
 
       <div class="v2-ba-columna">
-        {narracion && (
-          <div class="v2-ba-narracion" id="narracion" data-narracion-fija={a.blogNarracionFija || undefined}>
+        {narracion && cabecera !== 'g' && (
+          <div class="v2-ba-narracion" id="narracion" data-narracion-fija={a.blogNarracionFija || undefined} data-seguir={a.blogNarracionSeguir || undefined}>
             <ReproductorAudio src={narracion.url} segundos={narracion.segundos} titulo={post.data.title} caratula={portada} medioId={`blog:${post.id}`} proveedor={narracion.proveedor} />
             {a.blogNarracionFija && <button type="button" class="v2-ba-narracion-cerrar" data-narracion-cerrar aria-label="Cerrar el reproductor fijo"><Ico nombre="x" tamano={16} /></button>}
           </div>
@@ -179,7 +235,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
 
         <div class="v2-ba-lectura">
           <div class="v2-prosa" data-cms data-prosa>
-            <PublicidadEnTexto>
+            <PublicidadEnTexto apagado={sinPublicidad}>
               {mitades
                 ? <><CmsRichBody value={mitades[0]} />{mitades[1].length > 0 && <CursoRelacionado course={curso!} {country} precio={precioCurso} categoriaSlug={categoriaCurso?.slug ?? ''} />}{mitades[1].length > 0 && <CmsRichBody value={mitades[1]} />}</>
                 : post.richBody ? <CmsRichBody value={post.richBody} /> : <Fragment set:html={renderMarkdown(post.body ?? '')} />}
@@ -191,7 +247,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
           )}
         </div>
 
-        <div class="v2-ba-cierre-pieza"><HuecoPublicidad posicion="articulo-final" /></div>
+        <div class="v2-ba-cierre-pieza"><HuecoPublicidad posicion="articulo-final" apagado={sinPublicidad} /></div>
         {conCierre && (
           <div class="v2-ba-cierre-pieza v2-ba-cierre">
             {a.blogValoracion && <Valoracion slug={post.id} {pulso} />}
@@ -211,13 +267,13 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
         <div class="v2-ba-pegado" data-fijo={escritorio === 'lateral' ? 'no' : undefined}>
           {lateral && a.blogCarrilDerecho !== 'curso' && <IndiceArticulo {apartados} estilo="lateral" solo="escritorio" porcentaje={a.blogIndiceProgreso} />}
           {carrilCurso && <div class:list={[lateral && a.blogCarrilDerecho !== 'curso' && 'mt-8']}><TarjetaCurso course={curso!} {country} precio={precioCurso} /></div>}
-          <HuecoPublicidad posicion="articulo-lateral" fija />
+          <HuecoPublicidad posicion="articulo-lateral" fija apagado={sinPublicidad} />
         </div>
       </aside>
     </div>
 
     <div class="v2-contenedor v2-ba-secciones mt-16 lg:mt-24">
-      {a.blogLlamadaFinal && <LlamadaFinal course={curso} {country} precio={precioCurso} oficio={oficio ?? undefined} />}
+      {a.blogLlamadaFinal && <LlamadaFinal cursos={enLlamada.map(c => ({ course: c, precio: precios.get(c.id) ?? null }))} {country} oficio={oficio ?? undefined} {promo} />}
       {sugeridos.length > 0 && (
         <section aria-labelledby="cursos-sugeridos">
           <div class="v2-ba-seccion-titulo"><h2 id="cursos-sugeridos">{categoriaCurso ? `Cursos de ${categoriaCurso.name.toLowerCase()}` : 'Cursos relacionados'}</h2>
@@ -229,12 +285,13 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
         <section aria-labelledby="sigue-titulo">
           <div class="v2-ba-seccion-titulo"><h2 id="sigue-titulo">Sigue leyendo</h2></div>
           <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8" role="list">
-            {guias.map(p => <li><TarjetaArticulo post={p} variante={a.blogTarjeta} movil={a.blogTarjetaMovil} leerMas={a.blogTarjetaLeerMas} sinFoto={a.blogPortadaSinFoto} estiloEtiqueta={a.blogEtiquetaEstilo} pulso={pulsos.get(p.id)} estrellas={a.blogValoracion && a.blogTarjetaEstrellas} comentarios={conComentarios && a.blogTarjetaComentarios} /></li>)}
+            {guias.map(p => <li><TarjetaArticulo post={p} variante={a.blogTarjeta} movil={a.blogTarjetaMovil} leerMas={a.blogTarjetaLeerMas} sinFoto={a.blogPortadaSinFoto} estiloEtiqueta={a.blogEtiquetaEstilo} pulso={pulsos.get(p.id)} narrado={narradas.get(p.id)} estrellas={a.blogValoracion && a.blogTarjetaEstrellas} comentarios={conComentarios && a.blogTarjetaComentarios} /></li>)}
           </ul>
         </section>
       )}
     </div>
     {flotante && <HojaIndice {apartados} />}
+    {barraIndice && !indiceEnCabecera && <BarraIndice {apartados} />}
     <p class="v2-compartir-aviso" role="status" aria-live="polite" data-aviso></p>
   </div>
 </BaseLayout>

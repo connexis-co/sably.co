@@ -134,7 +134,7 @@ export function AjustesPage() {
       </section>
       {seccion(['estiloCampo'], 'Formularios')}
     </>; break;
-    case 'campanas': cuerpo = <Promotions />; break;
+    case 'campanas': cuerpo = <>{seccion(['barraCampanaCierre', 'barraCampanaFicha'], 'Barra de campaña')}<Promotions /></>; break;
     case 'caja': cuerpo = <>{seccion(['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'], 'Caja de compra')}<WidgetEditor only="social" /></>; break;
     case 'portada': cuerpo = <>
       <section className="so-editor">
@@ -165,10 +165,10 @@ export function AjustesPage() {
       {seccion(['blogFiltrosEstilo', 'blogFiltrosMovil', 'blogFiltrosCuenta', 'blogPaginacion', 'blogVerMasAuto', 'blogPorPagina'], 'Portada · filtros y paginación')}
       {seccion(['blogCabecera', 'blogEntradillaEstilo', 'blogTamanoTexto', 'blogProgreso', 'blogProgresoMinimo'], 'Artículo · cabecera y lectura')}
       {seccion(['blogIndiceEscritorio', 'blogIndiceProgreso', 'blogIndiceMovil', 'blogIndiceNiveles', 'blogIndiceMinimo', 'blogCarrilDerecho'], 'Artículo · índice')}
-      {seccion(['blogCompartirRedes', 'blogCompartirPosiciones', 'blogNarracionFija'], 'Artículo · compartir y narración')}
+      {seccion(['blogCompartirRedes', 'blogCompartirPosiciones', 'blogNarracionFija', 'blogNarracionSeguir'], 'Artículo · compartir y narración')}
       {seccion(['blogCursoMitad', 'blogLlamadaFinal', 'blogCursosSugeridos', 'blogArticulosSugeridos'], 'Artículo · cursos y sugeridos')}
       {seccion(['blogTarjeta', 'blogTarjetaMovil', 'blogTarjetaLeerMas', 'blogPortadaSinFoto', 'blogEtiquetaEstilo'], 'Tarjetas y etiquetas')}
-      {seccion(['blogValoracion', 'blogEstrellasCabecera', 'blogTarjetaEstrellas', 'blogComentarios', 'blogComentariosPlegados', 'blogTarjetaComentarios'], 'Valoración y comentarios')}
+      {seccion(['blogValoracion', 'blogEstrellasCabecera', 'blogMarcadoValoracion', 'blogTarjetaEstrellas', 'blogComentarios', 'blogComentariosPlegados', 'blogTarjetaComentarios'], 'Valoración y comentarios')}
       <Enlaces items={[['Artículos', 'Texto, portada, categoría y preguntas de cada artículo.', `${ADMIN}/content/blog`], ['Moderar comentarios y valoraciones', 'Los comentarios nacen pendientes: se publican al aprobarlos.', `${ADMIN}/plugins/sably-operations/operations`]]} />
     </>; break;
     case 'medios': cuerpo = <>
@@ -183,7 +183,7 @@ export function AjustesPage() {
       ['Redirecciones', 'Direcciones viejas que llevan a las nuevas.', `${ADMIN}/redirects`],
     ]} />; break;
     case 'cuenta': cuerpo = <>
-      {seccion(['cuentaActiva', 'cuentaGoogle', 'cuentaCorreo', 'cuentaAcceso'], 'Cuenta')}
+      {seccion(['cuentaActiva', 'cuentaGoogle', 'cuentaCorreo', 'cuentaClave', 'cuentaAcceso'], 'Cuenta')}
       <div className="so-hueco"><strong>Claves del servidor</strong><p>El identificador y la clave del cliente OAuth de Google y la clave de sesión no se escriben aquí: van en el entorno del servidor (<code>SABLY_GOOGLE_ID</code>, <code>SABLY_GOOGLE_SECRET</code>, <code>SABLY_AUTH_SECRET</code>). Sin ellas, la cuenta no aparece aunque esté encendida. El código por correo usa el proveedor de Ajustes → Correo (Sably · Brevo con su clave API). Detalle en docs/equipo/2026-11-25/cuenta/IMPLEMENTACION.md.</p></div>
     </>; break;
     case 'integraciones': cuerpo = <>
