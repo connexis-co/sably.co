@@ -1,65 +1,116 @@
 /*
  * Piezas comunes de los reproductores V2 (audio y vídeo). Nombres documentados en
- * docs/equipo/2026-11-25/narraciones/DISENO.md §6. Solo se animan opacity y transform, y nada con
- * prefers-reduced-motion. El alto de .v2-medio-audio está reservado: cambiar el reproductor nativo por los
- * controles propios no mueve nada (CLS 0).
+ * docs/equipo/2026-11-25/narraciones/DISENO.md §6 (rediseño: docs/equipo/2026-11-26/reproductor/). Solo se animan
+ * opacity y transform, y nada con prefers-reduced-motion. El alto de .v2-medio-audio está reservado: cambiar el
+ * reproductor nativo por los controles propios no mueve nada (CLS 0). Va en línea y solo con el reproductor.
  */
 @layer components {
   .v2-medio {
     --medio-acento: var(--color-coral-600);
-    --medio-pista: var(--color-navy-500);
+    --medio-pista: var(--color-navy-100);
     --medio-texto: var(--color-navy-950);
     --medio-suave: var(--color-navy-500);
+    --medio-fondo-boton: var(--color-navy-50);
     color: var(--medio-texto);
   }
+
+  /* ---------- Audio: tarjeta con cabecera (ondas + título) y dos filas de controles ---------- */
   .v2-medio-audio {
+    position: relative;
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    grid-template-rows: auto auto;
+    /* principal | atrás | línea | velocidad | sonido (la cabecera y los controles comparten la rejilla) */
+    grid-template-columns: 56px 44px minmax(0, 1fr) auto auto;
+    grid-template-rows: 44px 44px;
     align-items: center;
-    column-gap: 14px;
-    row-gap: 8px;
-    block-size: 132px;
-    padding: 16px;
+    column-gap: 12px;
+    row-gap: 4px;
+    block-size: 128px;
+    padding: 18px 20px;
     border-radius: var(--radius-c-lg);
     background: #fff;
-    box-shadow: inset 0 0 0 1px var(--color-navy-100);
+    box-shadow: inset 0 0 0 1px var(--color-navy-100), 0 1px 2px rgb(27 27 58 / 0.04);
     contain: layout;
   }
-  @media (min-width: 640px) {
-    .v2-medio-audio { block-size: 88px; grid-template-columns: max-content minmax(0, 1fr); grid-template-rows: auto; padding: 16px 20px; }
-    .v2-medio-titulo { white-space: nowrap; }
+  .v2-medio-cabeza { grid-column: 2 / 4; grid-row: 1; display: flex; align-items: center; gap: 10px; min-inline-size: 0; }
+  .v2-medio-titulo {
+    margin: 0; min-inline-size: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    font-size: var(--text-t15); line-height: var(--text-t15--line-height); font-weight: 600;
   }
-  .v2-medio-cabeza { min-inline-size: 0; }
-  .v2-medio-titulo { margin: 0; font-size: var(--text-t15); line-height: var(--text-t15--line-height); font-weight: 600; }
-  /* Sin JS: el reproductor del navegador ocupa la fila de los controles. */
-  .v2-medio-audio > audio { grid-column: 1 / -1; inline-size: 100%; block-size: 44px; }
-  @media (min-width: 640px) { .v2-medio-audio > audio { grid-column: 2; grid-row: 1; } }
+  /* Sin JS: el reproductor del navegador ocupa la segunda fila. */
+  .v2-medio-audio > audio { grid-column: 1 / -1; grid-row: 2; inline-size: 100%; block-size: 44px; }
   .v2-medio-audio > audio:not([controls]) { display: none; }
+  .v2-medio-audio > .v2-medio-controles:not([hidden]) {
+    display: grid; grid-column: 1 / -1; grid-row: 1 / -1; grid-template-columns: subgrid; grid-template-rows: subgrid;
+    align-items: center; pointer-events: none;
+  }
+  .v2-medio-audio > .v2-medio-controles > * { pointer-events: auto; }
+  .v2-medio-audio .v2-medio-principal { grid-column: 1; grid-row: 1 / -1; }
+  .v2-medio-audio .v2-medio-atras { grid-column: 2; grid-row: 2; }
+  .v2-medio-audio .v2-medio-linea { grid-column: 3 / 5; grid-row: 2; }
+  .v2-medio-audio .v2-medio-adelante { grid-column: 5; grid-row: 2; justify-self: end; }
+  .v2-medio-audio .v2-medio-ritmo { grid-column: 4; grid-row: 1; }
+  .v2-medio-audio .v2-medio-sonido { grid-column: 5; grid-row: 1; justify-self: end; }
 
-  .v2-medio-controles { display: flex; align-items: center; gap: 8px; grid-column: 1 / -1; min-inline-size: 0; }
+  /* Ondas: cuatro barras que solo se mueven mientras suena (transform, nada con «reducir movimiento»). */
+  .v2-medio-ondas { display: inline-flex; align-items: flex-end; gap: 2px; flex: none; inline-size: 16px; block-size: 14px; }
+  .v2-medio-ondas i {
+    flex: 1; block-size: 100%; border-radius: 1px; background: var(--medio-acento);
+    transform-origin: bottom; transform: scaleY(0.3);
+    transition: transform var(--t-base) var(--e-sale), opacity var(--t-base) var(--e-sale); opacity: 0.55;
+  }
+  .v2-medio-ondas i:nth-child(2) { transform: scaleY(0.55); }
+  .v2-medio-ondas i:nth-child(3) { transform: scaleY(0.4); }
+  .v2-medio-ondas i:nth-child(4) { transform: scaleY(0.7); }
+  [data-sonando="true"] .v2-medio-ondas i { opacity: 1; }
+  @media (prefers-reduced-motion: no-preference) {
+    [data-sonando="true"] .v2-medio-ondas i { animation: v2-medio-onda 0.9s cubic-bezier(.45,0,.55,1) infinite alternate; }
+    [data-sonando="true"] .v2-medio-ondas i:nth-child(2) { animation-duration: 0.7s; animation-delay: -0.3s; }
+    [data-sonando="true"] .v2-medio-ondas i:nth-child(3) { animation-duration: 1.05s; animation-delay: -0.5s; }
+    [data-sonando="true"] .v2-medio-ondas i:nth-child(4) { animation-duration: 0.8s; animation-delay: -0.15s; }
+  }
+  @keyframes v2-medio-onda { from { transform: scaleY(0.25); } to { transform: scaleY(1); } }
+
+  /* ---------- Piezas comunes (audio y vídeo) ---------- */
+  .v2-medio-controles { display: flex; align-items: center; gap: 8px; min-inline-size: 0; }
   .v2-medio-controles[hidden] { display: none; }
-  @media (min-width: 640px) { .v2-medio-controles { grid-column: 2; grid-row: 1; } }
 
   .v2-medio-boton {
     display: inline-grid; place-items: center; flex: none;
-    inline-size: 44px; block-size: 44px; border-radius: 999px;
-    color: var(--medio-texto); background: var(--color-navy-50);
+    inline-size: 44px; block-size: 44px; padding: 0; border: 0; border-radius: 999px;
+    color: var(--medio-texto); background: var(--medio-fondo-boton);
     font-size: var(--text-t13); font-weight: 600; font-variant-numeric: tabular-nums;
-    cursor: pointer; transition: transform var(--t-rapido) var(--e-sale);
+    cursor: pointer; transition: transform var(--t-rapido) var(--e-sale), background-color var(--t-rapido) var(--e-sale);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .v2-medio-audio .v2-medio-boton:not(.v2-medio-principal):hover, .v2-medio-velocidad:hover { background: var(--color-navy-100); }
+    .v2-medio-principal:hover { transform: scale(1.04); }
   }
   .v2-medio-boton:active { transform: scale(0.94); }
   .v2-medio-principal {
-    inline-size: 52px; block-size: 52px; color: #fff; background: var(--medio-acento);
+    inline-size: 56px; block-size: 56px; color: #fff; background: var(--medio-acento);
+    box-shadow: 0 8px 18px -8px color-mix(in oklab, var(--medio-acento) 70%, transparent);
   }
-  .v2-medio-principal .v2-medio-pausa, [data-sonando="true"] .v2-medio-principal .v2-medio-play { display: none; }
-  [data-sonando="true"] .v2-medio-principal .v2-medio-pausa { display: block; }
-  .v2-medio-boton:focus-visible, .v2-medio-velocidad:focus-visible, .v2-medio-barra:focus-visible {
-    outline: 3px solid var(--color-navy-950); outline-offset: 3px;
+  .v2-medio-video .v2-medio-principal { inline-size: 52px; block-size: 52px; }
+  /* Reproducir ⇄ pausar: los dos iconos en la misma celda, con fundido y giro corto. */
+  .v2-medio-principal > svg { grid-area: 1 / 1; transition: opacity var(--t-rapido) var(--e-sale), transform var(--t-base) var(--e-sale); }
+  .v2-medio-principal > .v2-medio-play { transform: translateX(1px); }
+  .v2-medio-principal > .v2-medio-pausa, [data-sonando="true"] .v2-medio-principal > .v2-medio-play { opacity: 0; transform: scale(0.6) rotate(-30deg); }
+  [data-sonando="true"] .v2-medio-principal > .v2-medio-pausa { opacity: 1; transform: none; }
+
+  .v2-medio-salto { position: relative; }
+  .v2-medio-salto > span {
+    position: absolute; inset: 0; display: grid; place-items: center; padding-block-start: 1px;
+    font-size: 9px; line-height: 1; font-weight: 700; letter-spacing: -0.02em;
   }
 
-  .v2-medio-linea { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 8px; flex: 1; min-inline-size: 0; }
-  .v2-medio-tiempo { font-size: var(--text-t13); color: var(--medio-suave); font-variant-numeric: tabular-nums; min-inline-size: 3.5ch; }
+  .v2-medio-boton:focus-visible, .v2-medio-velocidad:focus-visible, .v2-medio-barra:focus-visible, .v2-medio-menu button:focus-visible {
+    outline: 3px solid var(--color-navy-950); outline-offset: 2px;
+  }
+
+  /* Barra de posición con sus tiempos a los lados (nunca encima del tirador). */
+  .v2-medio-linea { display: grid; grid-template-columns: auto minmax(48px, 1fr) auto; align-items: center; column-gap: 10px; min-inline-size: 0; }
+  .v2-medio-tiempo { font-size: var(--text-t13); line-height: 1; color: var(--medio-suave); font-variant-numeric: tabular-nums; min-inline-size: 4ch; white-space: nowrap; }
+  .v2-medio-total { text-align: end; }
 
   .v2-medio-barra {
     --pista: 6px; --pulgar: 16px; --lleno: 0%;
@@ -71,41 +122,75 @@
   }
   .v2-medio-barra::-webkit-slider-thumb {
     -webkit-appearance: none; appearance: none; inline-size: var(--pulgar); block-size: var(--pulgar);
-    margin-block-start: calc((var(--pista) - var(--pulgar)) / 2); border: 0; border-radius: 50%; background: var(--medio-acento);
+    margin-block-start: calc((var(--pista) - var(--pulgar)) / 2); border: 3px solid #fff; border-radius: 50%; background: var(--medio-acento);
+    box-shadow: 0 1px 4px rgb(27 27 58 / 0.3); transition: transform var(--t-rapido) var(--e-sale);
   }
+  .v2-medio-barra:hover::-webkit-slider-thumb, .v2-medio-barra:active::-webkit-slider-thumb { transform: scale(1.15); }
   .v2-medio-barra::-moz-range-track { block-size: var(--pista); border-radius: 999px; background: var(--medio-pista); }
   .v2-medio-barra::-moz-range-progress { block-size: var(--pista); border-radius: 999px; background: var(--medio-acento); }
-  .v2-medio-barra::-moz-range-thumb { inline-size: var(--pulgar); block-size: var(--pulgar); border: 0; border-radius: 50%; background: var(--medio-acento); }
+  .v2-medio-barra::-moz-range-thumb { inline-size: 10px; block-size: 10px; border: 3px solid #fff; border-radius: 50%; background: var(--medio-acento); box-shadow: 0 1px 4px rgb(27 27 58 / 0.3); }
 
+  /* Velocidad: botón con el valor y un menú propio que se abre hacia arriba. */
+  .v2-medio-ritmo { position: relative; }
   .v2-medio-velocidad {
-    flex: none; block-size: 44px; padding: 0 8px; border-radius: var(--radius-c-sm);
-    background: var(--color-navy-50); color: var(--medio-texto); font-size: var(--text-t13); font-weight: 600; font-variant-numeric: tabular-nums;
+    display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+    min-inline-size: 64px; block-size: 36px; padding: 0 10px 0 12px; border: 0; border-radius: 999px;
+    background: var(--medio-fondo-boton); color: var(--medio-texto); cursor: pointer;
+    font-size: var(--text-t13); font-weight: 600; font-variant-numeric: tabular-nums;
+    transition: background-color var(--t-rapido) var(--e-sale);
   }
+  .v2-medio-velocidad > svg { transition: transform var(--t-rapido) var(--e-sale); color: var(--medio-suave); }
+  .v2-medio-velocidad[aria-expanded="true"] > svg { transform: rotate(180deg); }
+  .v2-medio-menu {
+    position: absolute; z-index: 5; inset-block-end: calc(100% + 8px); inset-inline-end: 0;
+    display: grid; min-inline-size: 132px; padding: 6px; border-radius: 14px;
+    background: #fff; box-shadow: 0 0 0 1px var(--color-navy-100), 0 16px 32px -12px rgb(27 27 58 / 0.35);
+    transform-origin: bottom right; animation: v2-medio-menu 0.16s var(--e-sale);
+  }
+  .v2-medio-menu[hidden] { display: none; }
+  .v2-medio-menu button {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; block-size: 40px; padding: 0 12px;
+    border: 0; border-radius: 10px; background: none; color: var(--color-navy-950); cursor: pointer;
+    font-size: var(--text-t15); font-weight: 500; font-variant-numeric: tabular-nums; text-align: start;
+  }
+  .v2-medio-menu button:hover, .v2-medio-menu button:focus-visible { background: var(--color-navy-50); }
+  .v2-medio-menu button > svg { color: var(--medio-acento); opacity: 0; }
+  .v2-medio-menu [aria-checked="true"] { font-weight: 700; }
+  .v2-medio-menu [aria-checked="true"] > svg { opacity: 1; }
+  @keyframes v2-medio-menu { from { opacity: 0; transform: translateY(4px) scale(0.97); } }
+
   /* Sonido: silenciar siempre; el volumen solo con ratón y pantalla ancha (en el móvil lo lleva el sistema). */
   .v2-medio-sonido { display: flex; align-items: center; gap: 4px; flex: none; }
   .v2-medio-volumen { inline-size: 76px; }
+  .v2-medio-silenciar { background: transparent; }
   @media (pointer: coarse), (max-width: 639px) { .v2-medio-volumen { display: none; } }
   .v2-medio-silenciar .v2-medio-mudo, [data-silenciado="true"] .v2-medio-silenciar .v2-medio-altavoz { display: none; }
   [data-silenciado="true"] .v2-medio-silenciar .v2-medio-mudo { display: block; }
   .v2-medio-estado { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  /* Móvil: botones en una fila y la barra con sus tiempos a todo el ancho debajo. */
+
+  /* ---------- Móvil: título arriba, botones en la segunda fila y la barra a todo el ancho abajo ---------- */
   @media (max-width: 639px) {
-    .v2-medio-audio { grid-template-columns: minmax(0, 1fr); block-size: 164px; }
-    .v2-medio-controles:not([hidden]) {
-      display: grid; grid-template-columns: auto auto 1fr auto auto auto; grid-template-areas: "principal atras . adelante velocidad sonido" "linea linea linea linea linea linea";
-      row-gap: 4px; column-gap: 8px;
+    .v2-medio-audio {
+      grid-template-columns: 52px auto auto minmax(0, 1fr) auto auto;
+      grid-template-rows: 24px 44px 44px;
+      column-gap: 8px; row-gap: 6px;
+      block-size: 162px; padding: 16px;
     }
-    .v2-medio-principal { grid-area: principal; }
-    [data-medio-saltar^="-"] { grid-area: atras; }
-    [data-medio-saltar]:not([data-medio-saltar^="-"]) { grid-area: adelante; }
-    .v2-medio-velocidad { grid-area: velocidad; }
-    .v2-medio-linea { grid-area: linea; }
-    .v2-medio-sonido { grid-area: sonido; }
+    .v2-medio-cabeza { grid-column: 2 / -1; }
+    .v2-medio-audio > audio { grid-row: 2 / -1; align-self: end; }
+    .v2-medio-audio .v2-medio-principal { grid-row: 1 / 3; inline-size: 52px; block-size: 52px; }
+    .v2-medio-audio .v2-medio-atras { grid-column: 2; grid-row: 2; }
+    .v2-medio-audio .v2-medio-adelante { grid-column: 3; grid-row: 2; justify-self: start; }
+    .v2-medio-audio .v2-medio-ritmo { grid-column: 5; grid-row: 2; }
+    .v2-medio-audio .v2-medio-sonido { grid-column: 6; grid-row: 2; }
+    .v2-medio-audio .v2-medio-linea { grid-column: 1 / -1; grid-row: 3; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .v2-medio-boton { transition: none; }
-    .v2-medio-boton:active { transform: none; }
+    .v2-medio-boton, .v2-medio-principal > svg, .v2-medio-ondas i, .v2-medio-velocidad > svg, .v2-medio-barra::-webkit-slider-thumb { transition: none; }
+    .v2-medio-boton:active, .v2-medio-principal:hover { transform: none; }
+    .v2-medio-principal > .v2-medio-pausa, [data-sonando="true"] .v2-medio-principal > .v2-medio-play { transform: none; }
+    .v2-medio-menu { animation: none; }
   }
   @media print { .v2-medio { display: none; } }
 }

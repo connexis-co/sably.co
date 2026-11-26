@@ -40,7 +40,7 @@
       return r.width > 0 && r.height > 0;
     };
     // Lo que flota abajo: el botón se pone encima de lo que ocupe su columna (los 76 px de la derecha).
-    const OBSTACULOS = '#sably-whatsapp, [data-wa-float], #sbc, #sbc-ico, [data-barra-fija]:not([data-oculta]), .v2-fija-compra, [data-sticky-cta]:not([data-oculta]), [data-prueba-social]:not([hidden]), .v2-seguir';
+    const OBSTACULOS = '#sably-whatsapp, [data-wa-float], #sbc, #sbc-ico, [data-barra-fija]:not([data-oculta]), .v2-fija-compra, [data-sticky-cta]:not([data-oculta]), [data-prueba-social]:not([hidden]), .v2-seguir, .v2-ba-narracion[data-fija] > .v2-medio';
     const colocar = () => {
       const ancho = innerWidth, alto = innerHeight;
       const base = alto - 16; // borde inferior del botón sin desplazar (16 px; el área segura la suma el CSS)

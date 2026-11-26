@@ -9,7 +9,9 @@
  *   data-medio-saltar="-15"   retroceder o avanzar esos segundos
  *   data-medio-barra          <input type="range"> de posición
  *   data-medio-actual, data-medio-total   tiempos
- *   data-medio-velocidad      <select> de velocidad
+ *   data-medio-velocidad      botón del menú de velocidad (aria-haspopup="menu"); data-medio-menu, el menú
+ *                             (role="menu"), y data-medio-velocidad-opcion="1.25", cada opción (menuitemradio).
+ *                             Flechas, Inicio, Fin, Intro y Escape como en un menú; la velocidad se recuerda.
  *   data-medio-estado         región aria-live para avisos
  *   data-medio-pantalla       pantalla completa (vídeo)
  *   data-medio-silenciar      silenciar / activar el sonido (M); data-medio-volumen, <input type="range"> 0–100
@@ -33,6 +35,7 @@ const enPalabras = (s: number) => {
 const leer = (clave: string) => { try { return Number(localStorage.getItem(clave)) || 0; } catch { return 0; } };
 /** Volumen y silencio elegidos por el visitante, comunes a todos los reproductores del sitio. */
 const CLAVE_SONIDO = 'sably:medio:sonido';
+const CLAVE_VELOCIDAD = 'sably:medio:velocidad';
 export function leerSonido(): { volumen: number; mudo: boolean } | undefined {
   try {
     const d = JSON.parse(localStorage.getItem(CLAVE_SONIDO) ?? 'null');
@@ -61,7 +64,10 @@ export function prepararMedio(raiz: HTMLElement) {
   const barra = raiz.querySelector<HTMLInputElement>('[data-medio-barra]');
   const actual = raiz.querySelector<HTMLElement>('[data-medio-actual]');
   const total = raiz.querySelector<HTMLElement>('[data-medio-total]');
-  const velocidad = raiz.querySelector('[data-medio-velocidad]') as HTMLSelectElement | null;
+  const velocidad = raiz.querySelector<HTMLButtonElement>('[data-medio-velocidad]');
+  const menu = raiz.querySelector<HTMLElement>('[data-medio-menu]');
+  const opciones = [...raiz.querySelectorAll<HTMLButtonElement>('[data-medio-velocidad-opcion]')];
+  const valorVelocidad = raiz.querySelector<HTMLElement>('[data-medio-velocidad-valor]');
   const estado = raiz.querySelector<HTMLElement>('[data-medio-estado]');
   const pantalla = raiz.querySelector<HTMLButtonElement>('[data-medio-pantalla]');
   const silenciar = raiz.querySelector<HTMLButtonElement>('[data-medio-silenciar]');
@@ -140,10 +146,52 @@ export function prepararMedio(raiz: HTMLElement) {
     e.preventDefault();
     ir((pendiente ?? medio.currentTime) + paso);
   });
-  velocidad?.addEventListener('change', () => {
-    medio.defaultPlaybackRate = medio.playbackRate = Number(velocidad.value) || 1;
+  // Velocidad: menú propio (botón + role="menu" con menuitemradio), recordado en este navegador.
+  const enComa = (v: number) => String(v).replace('.', ',');
+  function pintarVelocidad() {
+    const v = medio.playbackRate;
+    if (valorVelocidad) valorVelocidad.textContent = `${enComa(v)}×`;
+    velocidad?.setAttribute('aria-label', `Velocidad: ${v === 1 ? 'normal' : `${enComa(v)} veces`}`);
+    for (const o of opciones) o.setAttribute('aria-checked', String(Number(o.dataset.medioVelocidadOpcion) === v));
+  }
+  function cerrarMenu(devolverFoco = false) {
+    if (!menu || menu.hidden) return;
+    menu.hidden = true;
+    velocidad?.setAttribute('aria-expanded', 'false');
+    if (devolverFoco) velocidad?.focus();
+  }
+  function abrirMenu(foco: 'marcada' | 'primera' | 'ultima' = 'marcada') {
+    if (!menu || !velocidad) return;
+    menu.hidden = false;
+    velocidad.setAttribute('aria-expanded', 'true');
+    const marcada = opciones.find((o) => o.getAttribute('aria-checked') === 'true');
+    (foco === 'primera' ? opciones[0] : foco === 'ultima' ? opciones.at(-1) : marcada ?? opciones[0])?.focus();
+  }
+  function ponerVelocidad(v: number) {
+    if (!Number.isFinite(v) || v <= 0) return;
+    medio.defaultPlaybackRate = medio.playbackRate = v;
+    try { localStorage.setItem(CLAVE_VELOCIDAD, String(v)); } catch { /* sin almacenamiento */ }
+  }
+  velocidad?.addEventListener('click', () => (menu?.hidden ? abrirMenu() : cerrarMenu()));
+  velocidad?.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); abrirMenu(e.key === 'ArrowUp' ? 'ultima' : 'marcada'); }
   });
-  medio.addEventListener('ratechange', () => { if (velocidad) velocidad.value = String(medio.playbackRate); });
+  for (const o of opciones) o.addEventListener('click', () => { ponerVelocidad(Number(o.dataset.medioVelocidadOpcion)); cerrarMenu(true); });
+  menu?.addEventListener('keydown', (e) => {
+    const i = opciones.indexOf(document.activeElement as HTMLButtonElement);
+    const ir = (n: number) => { e.preventDefault(); opciones[(n + opciones.length) % opciones.length]?.focus(); };
+    if (e.key === 'ArrowDown') ir(i + 1);
+    else if (e.key === 'ArrowUp') ir(i - 1);
+    else if (e.key === 'Home') ir(0);
+    else if (e.key === 'End') ir(opciones.length - 1);
+    else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); cerrarMenu(true); }
+    else if (e.key === 'Tab') cerrarMenu();
+  });
+  document.addEventListener('pointerdown', (e) => { if (menu && !menu.hidden && !menu.parentElement?.contains(e.target as Node)) cerrarMenu(); });
+  medio.addEventListener('ratechange', pintarVelocidad);
+  const velocidadGuardada = (() => { try { return Number(localStorage.getItem(CLAVE_VELOCIDAD)); } catch { return 0; } })();
+  if (velocidad && opciones.some((o) => Number(o.dataset.medioVelocidadOpcion) === velocidadGuardada)) ponerVelocidad(velocidadGuardada);
+  pintarVelocidad();
   medio.addEventListener('loadedmetadata', () => {
     if (total && Number.isFinite(medio.duration)) total.textContent = reloj(medio.duration);
     if (barra && Number.isFinite(medio.duration)) barra.max = String(Math.ceil(medio.duration));
@@ -190,7 +238,7 @@ export function prepararMedio(raiz: HTMLElement) {
   // Atajos dentro del reproductor: espacio o K alterna; J y L retroceden y avanzan 15 s.
   raiz.addEventListener('keydown', (e) => {
     const destino = e.target as HTMLElement;
-    if (e.altKey || e.ctrlKey || e.metaKey || destino.matches('select, input[type=range]')) return;
+    if (e.altKey || e.ctrlKey || e.metaKey || destino.matches('select, input[type=range], [data-medio-velocidad]') || destino.closest('[data-medio-menu]')) return;
     const k = e.key.toLowerCase();
     if (k === 'k' || (k === ' ' && !destino.matches('button'))) { e.preventDefault(); alternar?.click(); }
     else if (k === 'j') { e.preventDefault(); ir(medio.currentTime - 15); }
