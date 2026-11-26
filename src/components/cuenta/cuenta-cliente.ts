@@ -2,7 +2,7 @@
  * Pinta la cuenta en la cabecera después de cargar, solo si existe la cookie pista. Nada personal
  * viaja en el HTML: nombre, foto y CSRF llegan de `/api/cuenta/yo` (`private, no-store`).
  */
-interface Yo { cuenta: { nombre: string; iniciales: string; foto: string | null; pais: string | null } | null; csrf?: string }
+interface Yo { cuenta: { nombre: string; correo: string; iniciales: string; foto: string | null; pais: string | null } | null; csrf?: string }
 
 const PISTA = /(?:^|;\s*)sably_cuenta_ui=1(?:;|$)/;
 
@@ -26,14 +26,18 @@ export async function pintarCuenta(): Promise<void> {
   if (!c) { olvidar(); return; }
   const nombre = document.querySelector<HTMLElement>('[data-cuenta-nombre]');
   if (nombre && c.nombre) nombre.textContent = c.nombre;
-  const iniciales = document.querySelector<HTMLElement>('[data-cuenta-iniciales]');
-  if (iniciales) iniciales.textContent = c.iniciales;
+  const correo = document.querySelector<HTMLElement>('[data-cuenta-correo]');
+  if (correo) correo.textContent = c.correo ?? '';
+  // El avatar sale dos veces: en el botón de la cabecera y en la cabeza del menú.
+  document.querySelectorAll<HTMLElement>('[data-cuenta-iniciales]').forEach(n => { n.textContent = c.iniciales; });
   const avatar = document.querySelector<HTMLElement>('[data-cuenta-con]');
   if (avatar) avatar.setAttribute('aria-label', c.nombre ? `Tu cuenta: ${c.nombre}` : 'Tu cuenta');
-  const foto = document.querySelector<HTMLImageElement>('[data-cuenta-foto]');
-  if (foto && c.foto) {
-    foto.addEventListener('load', () => { foto.hidden = false; if (iniciales) iniciales.hidden = true; }, { once: true });
-    foto.src = c.foto;
+  if (c.foto) {
+    for (const foto of document.querySelectorAll<HTMLImageElement>('[data-cuenta-foto]')) {
+      const iniciales = foto.parentElement?.querySelector<HTMLElement>('[data-cuenta-iniciales]');
+      foto.addEventListener('load', () => { foto.hidden = false; if (iniciales) iniciales.hidden = true; }, { once: true });
+      foto.src = c.foto;
+    }
   }
   const csrf = document.querySelector<HTMLInputElement>('[data-cuenta-salir] [name="csrf"]');
   if (csrf && datos.csrf) csrf.value = datos.csrf;

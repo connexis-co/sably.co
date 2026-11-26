@@ -1,0 +1,32 @@
+---
+/**
+ * Armazón de /mi-cuenta/ (diseño «Cuenta / Cabeza del área personal», `P3Nh6O`): franja con avatar, nombre y
+ * correo, y las pestañas del área. Solo hay pestañas de lo que existe: Inicio y Preferencias. Las del diseño sin
+ * datos (Mis cursos, Guardados, Mis opiniones, Pedidos) no se dibujan.
+ */
+import { RUTAS, iniciales } from '@/lib/cuenta/nucleo';
+import Avatar from './Avatar.astro';
+import css from './area.css?raw';
+interface Props { nombre: string; email: string; foto: string | null; activa: 'inicio' | 'preferencias' }
+const { nombre, email, foto, activa } = Astro.props;
+const pestanas = [
+  { id: 'inicio', href: RUTAS.cuenta, texto: 'Inicio' },
+  { id: 'preferencias', href: RUTAS.cuentaPreferencias, texto: 'Preferencias' },
+];
+---
+<style is:inline set:html={css}></style>
+<div class="cu-cabeza">
+  <div class="v2-contenedor cu-cabeza-fila">
+    <div class="cu-identidad">
+      <Avatar {foto} iniciales={iniciales(nombre, email)} />
+      <div class="cu-quien">
+        <p class="cu-nombre">{nombre || 'Tu cuenta'}</p>
+        <p class="cu-correo">{email}</p>
+      </div>
+    </div>
+    <nav class="cu-pestanas" aria-label="Tu cuenta">
+      {pestanas.map(p => <a href={p.href} rel="nofollow" aria-current={p.id === activa ? 'page' : undefined} data-no-prefetch>{p.texto}</a>)}
+    </nav>
+  </div>
+</div>
+<slot />

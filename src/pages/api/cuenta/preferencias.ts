@@ -22,5 +22,5 @@ export const POST: APIRoute = async (ctx) => {
   const pais = String(formulario.get('pais') ?? '');
   if (pais && !paisValido(pais)) return json({ error: 'pais' }, 400);
   const doc = await servidor.almacen.guardarPais(cuenta.id, pais || null, ahora());
-  return ctx.request.headers.get('sec-fetch-mode') === 'navigate' ? redirigir(`${RUTAS.cuenta}?aviso=guardado`) : json(doc);
+  return ctx.request.headers.get('sec-fetch-mode') === 'navigate' ? redirigir(`${RUTAS.cuentaPreferencias}?aviso=guardado#cuenta-pais-moneda`) : json(doc);
 };

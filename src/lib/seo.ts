@@ -7,6 +7,7 @@ import { creatorDelCurso } from './creadores';
 import { getCountries } from './emdash-content';
 import {verifiedReviewMarkup,type VerifiedReviews} from './verified-course-reviews';
 import { fechaColombia } from './fecha-promo';
+import { duracionCurso } from './duracion';
 
 export interface HreflangAlternate {
   hreflang: string;
@@ -152,7 +153,8 @@ interface CourseSchemaInput {
    */
   creators?: { slug: string; nombre: string; bio?: string; url: string }[];
   category: string;
-  workloadHours: number;
+  /** Duración real de vídeo en ISO 8601 (src/lib/duracion.ts). `null`: no se declara. */
+  workload: string | null;
   /** `learnings` del curso → `teaches`, que Google muestra en Course Info. */
   teaches?: string[];
   level?: string;
@@ -225,7 +227,7 @@ export function courseSchema(c: CourseSchemaInput) {
             credentialCategory: 'Certificate',
           },
         }),
-    timeRequired: `PT${c.workloadHours}H`,
+    ...(c.workload ? { timeRequired: c.workload } : {}),
     // Solo se declara «sin requisitos» donde es cierto: un curso marcado como
     // Intermedio o Avanzado sí parte de una base.
     ...(c.level === 'Principiante' || c.level === 'Todos los niveles'
@@ -250,7 +252,7 @@ export function courseSchema(c: CourseSchemaInput) {
     hasCourseInstance: {
       '@type': 'CourseInstance',
       courseMode: 'Online',
-      courseWorkload: `PT${c.workloadHours}H`,
+      ...(c.workload ? { courseWorkload: c.workload } : {}),
       location: { '@type': 'VirtualLocation', url: c.url },
     },
     inLanguage: 'es',
@@ -265,7 +267,8 @@ interface CourseListEntry {
   /** `null` cuando no hay nada que ofertar (curso sin checkout): sin `offers`. */
   price: number | null;
   priceCurrency: string;
-  workloadHours: number;
+  /** Duración real de vídeo en ISO 8601; `null` sin medición. */
+  workload: string | null;
 }
 
 /**
@@ -293,7 +296,7 @@ export async function cursoParaListado(course: CollectionEntry<'courses'>, count
     description: course.data.shortDescription,
     price: sinProducto ? null : real ? real.monto : localPrice(course.data.priceUSD, country),
     priceCurrency: real ? real.moneda : country.currency,
-    workloadHours: course.data.durationHours,
+    workload: duracionCurso.iso(course.id),
   };
 }
 
@@ -330,7 +333,7 @@ export function courseListSchema(cursos: CourseListEntry[]) {
         hasCourseInstance: {
           '@type': 'CourseInstance',
           courseMode: 'Online',
-          courseWorkload: `PT${c.workloadHours}H`,
+          ...(c.workload ? { courseWorkload: c.workload } : {}),
         },
       },
     })),

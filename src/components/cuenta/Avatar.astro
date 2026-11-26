@@ -1,0 +1,8 @@
+---
+/** Foto de la cuenta o, si no hay, sus iniciales. Decorativo: el nombre va escrito al lado. */
+interface Props { foto: string | null; iniciales: string }
+const { foto, iniciales } = Astro.props;
+---
+<span class:list={['cu-avatar', { 'cu-avatar-foto': foto }]} aria-hidden="true">
+  {foto ? <img src={foto} alt="" width="64" height="64" referrerpolicy="no-referrer" /> : iniciales}
+</span>

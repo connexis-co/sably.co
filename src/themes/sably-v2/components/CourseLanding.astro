@@ -11,6 +11,7 @@
  */
 import { Image as OptimizedImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { duracionCurso, minutosRedondeados, segundosDeVideo } from '@/lib/duracion';
 import { VerifiedReviews } from '@/themes';
 import ResenasCurso from '@/components/ResenasCurso.astro';
 import OpinionesFicha from './OpinionesFicha.astro';
@@ -52,6 +53,7 @@ import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { plazoMasCorto, preciosDeTarjetas } from '@/lib/precio-hoy';
 import { CSS_CABEZA, RUTA_HOJA_FICHA } from '../ficha-hoja';
 import { rejillaTarjetas } from '../rejilla-tarjetas';
+import { ogCategoria, ogDeCms } from '@/lib/og';
 
 type Props = FichaProps;
 const { country, city, content } = Astro.props;
@@ -100,9 +102,11 @@ const titulosPanel = (() => {
 })();
 const indiceTexto = texto ? texto.titulos : titulosPanel;
 
+/* Duración real de vídeo (src/lib/duracion.ts); sin medición, la ficha no muestra duración. */
+const duracion = duracionCurso.larga(course.id);
 const datos = [
   { icono: 'circle-play' as const, etiqueta: 'Lecciones', valor: `${course.data.lessonsCount} en vídeo` },
-  { icono: 'clock' as const, etiqueta: 'Duración', valor: `${course.data.durationHours} horas` },
+  ...(duracion ? [{ icono: 'clock' as const, etiqueta: 'Duración del vídeo', valor: duracionCurso.corta(course.id) }] : []),
   { icono: 'signal' as const, etiqueta: 'Nivel', valor: course.data.level },
   { icono: 'infinity' as const, etiqueta: 'Ritmo', valor: 'A tu ritmo' },
 ];
@@ -165,7 +169,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
   {alternates}
   {schemas}
   pageType={city ? 'course_city' : 'course'}
-  image={portada}
+  ogImagen={ogDeCms(course.coverImage, `${category.name}: ${course.data.title}`) ?? ogCategoria(category.slug)}
   noindex={sinProducto}
   freshUntil={vigencia}
   sinCupon={!offer || !ajustes.barraCampana.enFicha}
@@ -278,7 +282,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
             <div id="panel-estudia" class="v2-panel" role="region" aria-labelledby="titulo-estudia">
               <h3 id="titulo-estudia" class="font-display text-d28">Cómo se estudia</h3>
               <ul class="mt-6 divide-y divide-navy-100 border-y border-navy-100 text-t17 text-navy-950">
-                <li class="flex gap-4 py-4"><Icono nombre="circle-play" class="mt-1 flex-none text-navy-500" />{course.data.lessonsCount} lecciones en vídeo, unas {course.data.durationHours} horas, que ves a tu ritmo desde el celular o el computador.</li>
+                <li class="flex gap-4 py-4"><Icono nombre="circle-play" class="mt-1 flex-none text-navy-500" />{course.data.lessonsCount} lecciones en vídeo{duracion ? ` (${duracion} en total)` : ''}, que ves a tu ritmo desde el celular o el computador.</li>
                 {!sinProducto && <li class="flex gap-4 py-4"><Icono nombre="infinity" class="mt-1 flex-none text-navy-500" />Acceso de por vida, 24/7.</li>}
                 {!sinProducto && <li class="flex gap-4 py-4" data-constancia><Icono nombre="award" class="mt-1 flex-none text-navy-500" /><span><strong class="font-semibold">Certificado.</strong> Al completar el 100 % de las lecciones, Hotmart emite un certificado digital de finalización con tu nombre y el del curso.</span></li>}
               </ul>
@@ -309,7 +313,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
     </section>
 
     {ajustes.bloquesFicha.queIncluye && (
-      <QueIncluye lecciones={course.data.lessonsCount} horas={course.data.durationHours} modulos={course.data.modules}
+      <QueIncluye lecciones={course.data.lessonsCount} minutos={minutosRedondeados(segundosDeVideo(course.id))} modulos={course.data.modules}
         foto={fotoIncluye} fotoAlt={fotoIncluyeAlt} fotoPie={fotoIncluyePie} {cascada} {aparece} />
     )}
 
@@ -320,7 +324,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
         <div class="max-w-[880px]">
           <div class="flex flex-wrap items-end justify-between gap-3 border-b border-navy-100 pb-6">
             <h2 id="titulo-temario" class="font-display text-d28 lg:text-d40">{`Temario ${deNombre}`}</h2>
-            <p class="v2-num text-t15 text-navy-700">{course.data.modules.length} módulos · {course.data.lessonsCount} lecciones · {course.data.durationHours} horas</p>
+            <p class="v2-num text-t15 text-navy-700">{[`${course.data.modules.length} módulos`, `${course.data.lessonsCount} lecciones`, duracion].filter(Boolean).join(' · ')}</p>
           </div>
           <div class="divide-y divide-navy-100 border-b border-navy-100" data-temario={modoTemario}>
             {course.data.modules.map((mod, i) => (

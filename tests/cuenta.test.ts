@@ -183,6 +183,8 @@ test('sesión: 30 días deslizantes con tope de 90; caducada, revocada o ausente
   assert.equal(await a.cuenta(r2.token, T0 + 1), null, 'cerrar sesión');
   const [x, y] = [await a.entrarConGoogle(cuenta(), T0, CONSENT), await a.entrarConGoogle(cuenta(), T0, CONSENT)];
   assert.ok(x.ok && y.ok);
+  assert.equal(await a.sesionesAbiertas(x.cuenta, T0 + 1), 2, 'Preferencias cuenta las sesiones sin vencer');
+  assert.equal(await a.sesionesAbiertas(x.cuenta, T0 + 91 * DIA), 0, 'las vencidas no cuentan');
   await a.revocarTodas(x.cuenta);
   assert.equal(await a.cuenta(x.token, T0 + 1), null);
   assert.equal(await a.cuenta(y.token, T0 + 1), null, 'cerrar en todos los dispositivos');
@@ -279,7 +281,7 @@ test('formularios: solo urlencoded y como mucho 4 KiB', async () => {
 });
 
 test('retornos: solo rutas internas del sitio; lo demás va a Mi cuenta', () => {
-  for (const ok of ['/', '/co/', '/co/curso-de-unas/', '/mx/cursos/belleza/', '/blog/una-guia/', '/mi-cuenta/']) assert.equal(destinoSeguro(ok), ok, ok);
+  for (const ok of ['/', '/co/', '/co/curso-de-unas/', '/mx/cursos/belleza/', '/blog/una-guia/', '/mi-cuenta/', '/mi-cuenta/preferencias/']) assert.equal(destinoSeguro(ok), ok, ok);
   for (const malo of ['//evil.example/', 'https://evil.example/', '/\\evil.example/', '/co', '/co/?x=1', '/CO/', '/ingresar/', '/ingresar/google/inicio/', '/api/cuenta/yo/', '/admin/', '/_emdash/admin/', '/mi-cuenta/salir/', 'javascript:alert(1)', '', null, `/${'a'.repeat(250)}/`])
     assert.equal(destinoSeguro(malo as string), '/mi-cuenta/', String(malo));
   assert.equal(enlaceIngresar('/co/curso-de-unas/', 'google'), '/ingresar/?volver=%2Fco%2Fcurso-de-unas%2F&aviso=google');
@@ -289,7 +291,7 @@ test('retornos: solo rutas internas del sitio; lo demás va a Mi cuenta', () => 
 });
 
 test('caché: las rutas de cuenta nunca se guardan y las cookies de la cuenta no rompen la caché pública', () => {
-  for (const ruta of ['/ingresar/', '/ingresar/google/retorno/', '/mi-cuenta/', '/mi-cuenta/salir/', '/api/cuenta/yo']) {
+  for (const ruta of ['/ingresar/', '/ingresar/google/retorno/', '/mi-cuenta/', '/mi-cuenta/preferencias/', '/mi-cuenta/salir/', '/api/cuenta/yo']) {
     assert.ok(RUTA_PRIVADA.test(ruta), ruta);
     assert.equal(canCachePublicPage(new Request(`https://sably.co${ruta}`), 'production'), false, ruta);
   }

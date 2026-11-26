@@ -1,0 +1,17 @@
+/* Página /ingresar/ (diseño «A2 · Acceso», marco fhG4J): formulario de 440 y, en escritorio, foto con el panel
+   «Con tu cuenta». Se imprime en línea solo en esa página. */
+.ac-pagina { display: grid; grid-template-columns: minmax(0, 440px); justify-content: center; align-items: start; gap: 96px; padding-block: 32px 64px; }
+.ac-formulario { min-width: 0; }
+.ac-volver { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-bottom: 8px; font: 500 15px/22px var(--font-sans); color: var(--color-navy-700); text-decoration: none; }
+.ac-lado { display: none; }
+@media (width >= 1024px) {
+  .ac-pagina { grid-template-columns: minmax(0, 440px) minmax(0, 624px); justify-content: space-between; gap: 64px; padding-block: 64px 96px; }
+  .ac-lado { position: relative; display: block; aspect-ratio: 624 / 620; border-radius: var(--radius-c-xl); overflow: hidden; background: var(--color-navy-50); }
+  .ac-lado picture, .ac-lado img { display: block; width: 100%; height: 100%; }
+  .ac-lado img { object-fit: cover; object-position: 62% center; }
+  .ac-panel { position: absolute; left: 0; bottom: 0; width: min(360px, 100%); padding: 28px; border-radius: 0 var(--radius-c-lg) 0 var(--radius-c-xl); background: var(--color-navy-950); color: #fff; }
+  .ac-panel h2 { margin: 0 0 16px; font: 600 20px/28px var(--font-display); color: #fff; }
+  .ac-panel ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .ac-panel li { display: flex; gap: 12px; font: 400 15px/22px var(--font-sans); color: #fff; }
+  .ac-panel li svg { flex: none; margin-top: 3px; color: #FF8FA8; }
+}

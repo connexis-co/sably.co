@@ -15,6 +15,7 @@ import { courseCover } from '@/lib/categories';
 import { getCategory, type Course } from '@/lib/emdash-content';
 import type { Country } from '@/lib/countries';
 import { resumenTarjeta } from '@/lib/presentacion-v2';
+import { duracionCurso } from '@/lib/duracion';
 import Icono from '@/components/v2/Icono.astro';
 interface Props { course: Course; country: Country }
 const { course, country } = Astro.props;
@@ -23,7 +24,7 @@ const url = `/${country.code}/${course.id}/`;
 const promesa = resumenTarjeta(course.data.shortDescription, 120);
 const datos = [
   course.data.lessonsCount ? `${course.data.lessonsCount} lecciones` : null,
-  course.data.durationHours ? `${course.data.durationHours} horas` : null,
+  duracionCurso.corta(course.id) || null,
   course.data.level || null,
 ].filter(Boolean).join(' · ');
 ---
