@@ -69,6 +69,13 @@ const DURACION = [30, 36, 33, 39];
     .v2-muro-pista { display: flex; gap: 12px; width: max-content; margin: 0; padding: 0; list-style: none; }
     .v2-muro-tar { position: relative; flex: none; z-index: 1; }
     @media (max-width: 1023.98px) {
+      /* «Tras los botones» (panel → Portada): el texto se abre en la columna y el muro, más bajo, va entre los
+         botones y la línea de valoraciones; así asoma en la primera pantalla sin tocar el titular ni el buscador. */
+      [data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-caja { display: flex; flex-direction: column; gap: 0; }
+      [data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-texto { display: contents; }
+      [data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-muro { order: 1; height: 236px; margin-top: 18px; }
+      [data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-muro-tar > a { width: 132px; }
+      [data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-prueba { order: 2; }
       .v2-muro { mask-image: linear-gradient(90deg, transparent, #000 18px, #000 calc(100% - 18px), transparent); }
       [data-heroe='muro'] .v2-heroe-caja { padding-bottom: 20px; }
     }
@@ -182,12 +189,29 @@ const DURACION = [30, 36, 33, 39];
     };
 
     /* Arrastre con Pointer Events: el movimiento se proyecta sobre el eje de las filas y envuelve cada periodo. */
-    let ar: { x: number; y: number; base: number[]; mov: number; id: number } | null = null;
+    let ar: { x: number; y: number; base: number[]; mov: number; id: number; d: number; t: number; v: number } | null = null;
+    /* Inercia al soltar: la velocidad del último tramo se apaga en ~0,6 s (solo `translate`). */
+    let inercia = 0;
+    const mueve = (d: number) => filas.forEach((_, i) => { const w = periodo(i); desfase[i] = (((desfase[i]! + d) % w) - w) % w; pinta(i); });
+    const desliza = (v: number) => {
+      cancelAnimationFrame(inercia);
+      let t0 = performance.now();
+      const paso = (t: number) => {
+        const dt = Math.min(48, t - t0); t0 = t;
+        v *= Math.pow(0.94, dt / 16);
+        if (Math.abs(v) < 0.02) { raiz.removeAttribute('data-arrastre'); return; }
+        mueve(v * dt);
+        inercia = requestAnimationFrame(paso);
+      };
+      raiz.setAttribute('data-arrastre', '');
+      inercia = requestAnimationFrame(paso);
+    };
     let movio = false;
     raiz.addEventListener('dragstart', e => e.preventDefault());
     raiz.addEventListener('pointerdown', e => {
       if (e.button !== 0 || reducido.matches || (e.target as Element).closest('button')) return;
-      ar = { x: e.clientX, y: e.clientY, base: [...desfase], mov: 0, id: e.pointerId };
+      cancelAnimationFrame(inercia);
+      ar = { x: e.clientX, y: e.clientY, base: [...desfase], mov: 0, id: e.pointerId, d: 0, t: e.timeStamp, v: 0 };
     });
     raiz.addEventListener('pointermove', e => {
       if (!ar || e.pointerId !== ar.id) return;
@@ -198,11 +222,16 @@ const DURACION = [30, 36, 33, 39];
       const a = grados() * Math.PI / 180;
       const d = dx * Math.cos(a) - dy * Math.sin(a);  // eje de las filas, girado −grados
       filas.forEach((_, i) => { const w = periodo(i); desfase[i] = (((ar!.base[i]! + d) % w) - w) % w; pinta(i); });
+      const dt = e.timeStamp - ar.t;
+      if (dt > 0) { ar.v = 0.7 * ((d - ar.d) / dt) + 0.3 * ar.v; ar.d = d; ar.t = e.timeStamp; }
     });
     const suelta = () => {
       if (!ar) return;
-      movio = ar.mov > 6; ar = null;
+      movio = ar.mov > 6;
+      const v = ar.v;
+      ar = null;
       raiz.removeAttribute('data-arrastre');
+      if (movio && Math.abs(v) > 0.1) desliza(Math.max(-3, Math.min(3, v)));
       if (movio) setTimeout(() => { movio = false; }, 0);
     };
     raiz.addEventListener('pointerup', suelta);

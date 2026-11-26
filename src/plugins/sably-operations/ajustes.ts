@@ -243,6 +243,34 @@ export const settingsSchema = {
     description: 'Las dos fotos de «¿Por qué Sably?» se desplazan a distinta velocidad al bajar (24 y 40 px). Solo `translate`; con «reducir movimiento» o sin soporte, quietos. Por defecto: encendido.',
     default: true,
   },
+  portadaHeroeMovil: {
+    type: 'select',
+    label: 'Portada · Muro del héroe en el celular',
+    description: '«Tras los botones»: en el celular el muro (dos filas más bajas) va justo debajo de «Explorar cursos», antes de la línea de valoraciones, para que asome en la primera pantalla sin tapar el titular ni el buscador. «Al final»: debajo de todo el texto, como estaba. Solo afecta al muro y por debajo de 1024 px. Por defecto: Tras los botones.',
+    options: [{ value: 'tras-botones', label: 'Tras los botones (asoma en la primera pantalla)' }, { value: 'final', label: 'Al final del héroe' }],
+    default: 'tras-botones',
+  },
+  portadaOficioModo: {
+    type: 'select',
+    label: 'Portada · «Oficio destacado»: ¿rueda solo?',
+    description: '«Automático»: cada cierto tiempo la tarjeta cae y entra la siguiente, muy suave, con un botón visible para pausar o seguir; se para al pasar el cursor, con el foco dentro, fuera de pantalla o con la pestaña oculta, y nunca rueda con «reducir movimiento». «Estático»: solo cambia con las flechas, el teclado o el dedo. Por defecto: Automático (lo pidió JP el 26-nov).',
+    options: [{ value: 'automatico', label: 'Automático' }, { value: 'estatico', label: 'Estático (solo flechas)' }],
+    default: 'automatico',
+  },
+  portadaOficioIntervalo: {
+    type: 'select',
+    label: 'Portada · «Oficio destacado»: cada cuánto cambia',
+    description: 'Solo en modo automático. Da tiempo a leer el título y el texto de la tarjeta (unas 40 palabras). Por defecto: 9 segundos.',
+    options: [{ value: '7000', label: '7 segundos' }, { value: '9000', label: '9 segundos' }, { value: '12000', label: '12 segundos' }],
+    default: '9000',
+  },
+  portadaGuiasVariante: {
+    type: 'select',
+    label: 'Portada · Bloque de guías del blog',
+    description: '«Tarjetas»: las guías destacadas con su foto, la categoría con su color y «Escúchalo» si tienen narración; el resto, en lista. «Lista»: solo texto, como antes. Los enlaces son los mismos en las dos. Por defecto: Tarjetas.',
+    options: [{ value: 'tarjetas', label: 'Tarjetas con foto' }, { value: 'lista', label: 'Lista de texto' }],
+    default: 'tarjetas',
+  },
   portadaEscenasVariante: {
     type: 'select',
     label: 'Portada · Cómo se recorre «De la primera clase a tu primer encargo»',
@@ -279,7 +307,7 @@ export type ValorAjuste = string | boolean;
 export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'blog' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
-export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
+export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaHeroeMovil', 'portadaOficioModo', 'portadaOficioIntervalo', 'portadaGuiasVariante', 'portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [

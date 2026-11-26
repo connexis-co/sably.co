@@ -148,6 +148,9 @@ html[data-mega-abierto] { overflow: hidden; }
 /* ---------- Pie ---------- */
 .v2-pie { position: relative; background: var(--color-navy-950); color: rgb(255 255 255 / 0.85); }
 .v2-pie[data-pie='completo'] { border-radius: 48px 48px 0 0; margin-top: 64px; }
+/* Segundo reborde bajo el corte redondeado (como el pie de visitvalle.travel): una franja coral tenue, liso y sin
+   degradado, que asoma 14 px por encima del pie con el mismo radio. */
+.v2-pie[data-pie='completo']::before { content: ''; position: absolute; z-index: -1; inset: -14px 0 auto; height: 96px; border-radius: inherit; background: var(--color-coral-100); pointer-events: none; }
 .v2-pie a:not(.v2-btn) { color: inherit; text-decoration: none; }
 .v2-pie-enlace { display: inline-flex; align-items: center; min-height: 32px; font: 400 15px/22px var(--font-sans); color: #fff; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size var(--t-rapido) var(--e-sale); }
 @media (hover: hover) and (pointer: fine) { .v2-pie-enlace:hover { background-size: 100% 1px; } }
