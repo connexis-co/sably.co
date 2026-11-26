@@ -1,45 +1,27 @@
 ---
 /**
- * Presentación del curso: el póster es un <img fetchpriority="high"> (el LCP de
- * la ficha) y el vídeo solo se descarga al pulsar. Sin vídeo, la portada con la
- * misma proporción 16:9, para que la cabeza no cambie de alto entre cursos.
+ * Presentación del curso. Con vídeo: el reproductor común (ReproductorVideo, póster <img fetchpriority="high"> como
+ * LCP y el vídeo solo al pulsar). Sin vídeo: la portada con la misma proporción 16:9, para que la cabeza no cambie
+ * de alto entre cursos.
  */
 import { getImage } from 'astro:assets';
-import Icono from '@/components/v2/Icono.astro';
+import ReproductorVideo from '@/components/v2/ReproductorVideo.astro';
+import { COURSE_VIDEOS } from '@/lib/course-videos';
 interface Props { src: string | null; poster: string; titulo: string; alt: string; courseId: string; pie?: string | null }
 const { src, poster, titulo, alt, courseId, pie } = Astro.props;
 const anchos = [480, 780, 1200];
-const imagenes = await Promise.all(anchos.map(width => getImage({ src: poster, width, height: Math.round(width * 9 / 16) }).catch(() => null)));
+const imagenes = src ? [] : await Promise.all(anchos.map(width => getImage({ src: poster, width, height: Math.round(width * 9 / 16) }).catch(() => null)));
 const principal = imagenes[1] ?? imagenes[0];
 const srcset = imagenes.map((img, i) => img && `${img.src} ${anchos[i]}w`).filter(Boolean).join(', ');
 ---
-<figure class="v2-video m-0">
-  <div class="relative aspect-video overflow-hidden bg-navy-900 lg:rounded-c-xl lg:shadow-s3" data-video={src ?? undefined} data-course-video={courseId}>
-    <img src={principal?.src ?? poster} srcset={srcset || undefined} sizes="(min-width: 1024px) 780px, 100vw" alt={src ? '' : alt}
-      width="780" height="439" fetchpriority="high" decoding="async" class="h-full w-full object-cover" />
-    {src && (
-      <button type="button" data-video-play class="group absolute inset-0 grid place-items-center focus-visible:outline-none" aria-label={`Reproducir la presentación: ${titulo}`}>
-        <span class="grid size-14 place-items-center rounded-full bg-white text-navy-950 shadow-s2 transition-[scale] duration-(--t-rapido) ease-(--e-sale) group-hover:scale-105 group-focus-visible:outline-3 group-focus-visible:outline-offset-4 group-focus-visible:outline-white lg:size-[72px]">
-          <Icono nombre="play" tamano={28} class="translate-x-0.5" />
-        </span>
-        <span class="absolute bottom-4 left-4 inline-flex items-center gap-2 rounded-c-sm bg-white px-3 py-1.5 text-t13 font-semibold text-navy-950"><Icono nombre="circle-play" tamano={16} />Presentación</span>
-      </button>
-    )}
-  </div>
+<figure class="v2-video m-0" data-course-video={courseId}>
+  {src ? (
+    <ReproductorVideo {src} {poster} {titulo} medioId={`curso:${courseId}`} segundos={COURSE_VIDEOS[courseId]?.segundos} prioritario class="lg:shadow-s3" />
+  ) : (
+    <div class="relative aspect-video overflow-hidden bg-navy-900 lg:rounded-c-xl lg:shadow-s3">
+      <img src={principal?.src ?? poster} srcset={srcset || undefined} sizes="(min-width: 1024px) 780px, 100vw" alt={alt}
+        width="780" height="439" fetchpriority="high" decoding="async" class="h-full w-full object-cover" />
+    </div>
+  )}
   {pie && <figcaption class="mt-3 px-5 text-t13 text-navy-500 lg:px-0">{pie}</figcaption>}
 </figure>
-<script>
-  for (const caja of document.querySelectorAll<HTMLElement>('[data-video]')) {
-    caja.querySelector('[data-video-play]')?.addEventListener('click', () => {
-      const video = document.createElement('video');
-      video.src = caja.dataset.video!;
-      video.poster = caja.querySelector('img')!.currentSrc;
-      video.controls = true; video.playsInline = true; video.autoplay = true;
-      video.className = 'absolute inset-0 h-full w-full bg-black';
-      video.setAttribute('aria-label', 'Presentación del curso');
-      video.dataset.courseVideo = caja.dataset.courseVideo;
-      caja.querySelector('[data-video-play]')!.replaceWith(video);
-      video.focus();
-    }, { once: true });
-  }
-</script>

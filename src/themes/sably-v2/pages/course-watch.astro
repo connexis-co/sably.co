@@ -3,11 +3,11 @@
  * Página de un vídeo de presentación (V2). Mismo título, descripción, canónica,
  * imagen social y schemas (VideoObject + BreadcrumbList) que la clásica.
  */
-import { getImage } from 'astro:assets';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Migas from '@/components/v2/Migas.astro';
 import Bandera from '@/components/v2/Bandera.astro';
 import Ico from '../components/Ico.astro';
+import ReproductorVideo from '@/components/v2/ReproductorVideo.astro';
 import { breadcrumbSchema, videoSchema } from '@/lib/seo';
 import { conciseTitle } from '@/lib/seo-title';
 import { SITE } from '@/lib/site';
@@ -16,7 +16,6 @@ import '../estilos.css';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
 const { country, video, markets, related } = Astro.props;
 const title = conciseTitle(video.title);
-const cover = await getImage({ src: video.thumbnail, width: 1280, height: 720 });
 const schema = videoSchema({ name: video.title, description: video.description, thumbnailUrl: video.thumbnail, uploadDate: video.uploadedAt, duration: video.duration, contentUrl: video.contentUrl, pageUrl: video.url });
 const breadcrumbs = [{ name: 'Inicio', url: `${SITE.url}/${country.code}/` }, { name: video.title, url: video.url }];
 ---
@@ -26,10 +25,7 @@ const breadcrumbs = [{ name: 'Inicio', url: `${SITE.url}/${country.code}/` }, { 
       <Migas items={breadcrumbs} />
       <p class="mt-8 text-t15 text-white/70">Presentación del curso · {video.seconds} segundos</p>
       <h1 class="mt-2 font-display text-[30px]/[36px] !text-white lg:text-d40">{video.title}</h1>
-      <video controls playsinline preload="metadata" poster={cover.src} width="1280" height="720" class="mt-6 aspect-video w-full rounded-c-xl bg-black" aria-label={video.title}>
-        <source src={video.contentUrl} type="video/mp4" />
-        <p><a href={video.contentUrl}>Abrir el vídeo de presentación</a></p>
-      </video>
+      <ReproductorVideo src={video.contentUrl} poster={video.thumbnail} titulo={video.title} segundos={video.seconds} medioId={`curso:${video.course.id}`} prioritario class="mt-6 lg:rounded-c-xl" />
     </div>
   </section>
   <div class="v2-contenedor max-w-[1000px] space-y-12 py-12 lg:py-16">
