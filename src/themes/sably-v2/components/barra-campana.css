@@ -12,15 +12,13 @@
   --fijo-superior: calc(56px + var(--v2-barra-fija));
 }
 body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-cabecera { top: var(--v2-barra-fija); }
-@media (width < 1024px) {
-  body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-fija-nav { top: calc(56px + var(--v2-barra-fija)); }
-  html:has(body[data-con-barra]):has(.v2-barra-campana[data-fija]:not([hidden])) { scroll-padding-top: calc(112px + var(--v2-barra-fija)); }
-}
+/* Escritorio: sin barra, la cabecera de 72 px esconde 12 px por encima de la ventana (top: -12px) y queda en 60.
+   Con la barra no puede esconderlos debajo de ella: se montaba 12 px sobre la barra (tanda 13). Se pega entera
+   bajo la barra (72 px) y la fila no baja al compactarse. Las barras de la ficha, la caja, el muro, «convergen»,
+   las pilas y las anclas ya cuelgan de --fijo-superior: no necesitan reglas aquí. */
 @media (width >= 1024px) {
-  :root:has(.v2-barra-campana[data-fija]:not([hidden])) { --fijo-superior: calc(60px + var(--v2-barra-fija)); }
-  body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-cabecera { top: calc(var(--v2-barra-fija) - 12px); }
-  body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-fija { top: calc(60px + var(--v2-barra-fija)); }
-  body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-area-caja { --caja-top: calc(133px + var(--v2-barra-fija)); }
+  :root:has(.v2-barra-campana[data-fija]:not([hidden])) { --fijo-superior: calc(72px + var(--v2-barra-fija)); }
+  body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-cabecera-fila { animation: none; }
 }
 
 /* Copiar el cupón (E1): la marca ✓ sustituye un momento al icono de copiar y se va (`data-copiado`, promo-cliente.ts).

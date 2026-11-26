@@ -369,7 +369,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
               <figcaption class="mt-3 text-t13 text-navy-500">Las lecciones se ven desde el celular o el computador. Foto ilustrativa.</figcaption>
             </figure>
             {indiceTexto.length > 1 && (
-              <nav aria-label="En este texto" class="sticky top-40 mt-10" data-indice-texto>
+              <nav aria-label="En este texto" class="sticky top-[calc(var(--fijo-superior)+100px)] mt-10" data-indice-texto>
                 <p class="text-t13 font-semibold text-navy-500">En este texto</p>
                 <ul class="mt-3 border-l border-navy-100">
                   {indiceTexto.map(t => <li><a href={`#${t.id}`} class="v2-indice-enlace block border-l-2 border-transparent py-2 pl-4 -ml-px text-t15 text-navy-700 hover:border-coral-600 hover:text-navy-950" data-indice>{t.texto}</a></li>)}
