@@ -36,10 +36,9 @@ test('fuera si no hay precio o checkout', () => {
 });
 
 test('vocabulario de Sably', () => {
-  assert.equal(sanitize('Con certificado incluido. Obtén un certificado.'), 'Con constancia incluida. Obtén una constancia.');
+  assert.equal(sanitize('Con certificado incluido.'), 'Con certificado incluido.');
   assert.equal(sanitize('Un curso de MasterClasses.La. Aprende hoy.', ['MasterClasses.La®']), 'Aprende hoy.');
   assert.equal(sanitize('Del catálogo de afiliados. Aprende.'), 'Aprende.');
-  assert.deepEqual(validateRow({ title: 'Curso con certificado', description: 'x', url: 'https://a', image_url: 'https://b', price: '1 COP', ads_metadata: '{}' }).filter((p) => /certificado/.test(p)).length, 1);
 });
 
 test('título y descripción breves', () => {

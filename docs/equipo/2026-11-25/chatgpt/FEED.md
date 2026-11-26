@@ -73,9 +73,10 @@ Generado por `scripts/feed-openai-ads.mjs` desde lo que la ficha pública sirve 
 yoga, lencería, parrilla, patronaje, resina epóxica, tatuaje). También quedaría fuera un curso sin precio en COP, sin
 botón de pago a un host de Hotmart permitido (`allowedHotmartUrl`), no disponible o con portada rota.
 
-**Vocabulario** (lo aplica y lo valida el script): «certificado/certificación» → «constancia» (con concordancia:
-«constancia incluida»); fuera cualquier frase con «afiliado», «catálogo» o el nombre del creador. Una fila que aún los
-contenga no se publica.
+**Vocabulario** (lo aplica y lo valida el script): fuera cualquier frase con «afiliado», «catálogo» o el nombre del
+creador; una fila que aún los contenga no se publica. **«Certificado» se deja tal como lo dice la ficha**: decisión de
+JP del 26-nov-2026 («debe quedar como certificado»). La primera versión del script lo cambiaba a «constancia»; se quitó
+y el feed se resubió a las 01:42 UTC.
 
 El 26-nov: 112 cursos, 106 del creador con cupón (con `promo=ads50` y precio de oferta al 50 %) y 6 sin cupón (barista,
 drenaje linfático, marketing digital, peluquería, pollo broaster y soldadura, a precio de lista).
@@ -159,8 +160,3 @@ y no se da por fallido: la subida ya está hecha.
   El título del anuncio admite 50 caracteres y el cuerpo 100; dos títulos del feed tienen 51 y 77 descripciones
   pasan de 100: comprobar en la vista previa cómo los corta OpenAI.
 - Si la campaña define `utm_campaign`, pisa `co_feed`.
-
-## 8 · Fuera del alcance, visto de paso
-
-- La propia ficha pública dice «certificado» en el JSON-LD (`description`) y en el FAQ («¿El certificado tiene validez
-  oficial…?»), p. ej. `/co/curso-de-maquillaje/`. El feed lo corrige, la ficha no.

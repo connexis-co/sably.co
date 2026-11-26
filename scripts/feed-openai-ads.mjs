@@ -79,18 +79,11 @@ const isType = (node, t) => [].concat(node?.['@type'] ?? []).includes(t);
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /**
- * Vocabulario de Sably: «constancia», nunca «certificado»; sin «afiliado» ni «catálogo»; sin el
- * nombre del creador. Reescribe lo primero y quita las frases que contienen lo demás.
+ * Vocabulario de Sably: sin «afiliado» ni «catálogo» y sin el nombre del creador; se quitan las
+ * frases que los contienen. «Certificado» se deja como lo dice la ficha (JP, 26-nov-2026).
  */
 export function sanitize(text, creatorNames = []) {
-  const t = text.replace(/\s+/g, ' ').trim()
-    .replace(/\b(un|el) certificado\b/gi, (_, art) => {
-      const nuevo = art.toLowerCase() === 'un' ? 'una' : 'la';
-      return `${art[0] === art[0].toUpperCase() ? nuevo[0].toUpperCase() + nuevo.slice(1) : nuevo} constancia`;
-    })
-    .replace(/\bcertificad[oa]s?\b|\bcertificaci[oó]n(?:es)?\b/gi, (m) => (m[0] === 'C' ? 'Constancia' : 'constancia'))
-    // «certificado incluido» pasa a «constancia incluida»: el adjetivo concuerda con el nuevo sustantivo.
-    .replace(/\b(constancia(?: digital)?) (incluid|avalad|otorgad|emitid|oficial|propi)o\b/gi, '$1 $2a');
+  const t = text.replace(/\s+/g, ' ').trim();
   const prohibido = [
     /afiliad/i, /cat[aá]logo/i,
     ...creatorNames.filter(Boolean).map((n) => n.replace(/[®™©]/g, '').trim()).filter((n) => n.length > 2)
@@ -202,7 +195,6 @@ export function validateRow(row) {
   if (row.sale_price && !/^\d+ COP$/.test(row.sale_price)) problems.push('precio de oferta mal formado');
   for (const k of ['url', 'image_url']) if (!/^https:\/\//.test(row[k] ?? '')) problems.push(`${k} no es https`);
   const texto = `${row.title} ${row.description}`;
-  if (/certificad|certificaci/i.test(texto)) problems.push('dice «certificado»');
   if (/afiliad|cat[aá]logo|masterclasses/i.test(texto)) problems.push('vocabulario prohibido');
   if (/[?&]promo=ads50/.test(row.url ?? '') !== (row.ads_metadata ?? '').includes('"con_cupon"')) problems.push('promo en curso sin cupón');
   return problems;
