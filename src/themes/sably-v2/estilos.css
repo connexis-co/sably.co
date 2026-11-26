@@ -23,6 +23,13 @@
 .v2-tique-mini:focus-visible { outline: 3px solid var(--color-coral-500); outline-offset: 3px; }
 @media (hover: hover) and (pointer: fine) { .v2-tique-mini:hover > span + span { background: #fff; } }
 
+/* ---------- Lo fijo arriba: UNA variable ----------
+   --fijo-superior = alto ocupado arriba por lo fijo (cabecera compacta y, si está abierta, la barra de campaña,
+   que la sube con su alto real en barra-campana.css). Todo lo pegado (sticky), las anclas y el scroll narrativo
+   cuelgan de ella; nunca de un número a mano. Cambia sola al cerrar la barra y por punto de corte. */
+:root { --fijo-superior: 56px; }
+@media (width >= 1024px) { :root { --fijo-superior: 60px; } }
+
 /* ---------- Cabecera «Clásica»: 72 px; compacta (60) al desplazar ---------- */
 .v2-cabecera { position: sticky; top: -12px; z-index: 40; background: #fff; box-shadow: inset 0 -1px 0 var(--color-navy-100); }
 .v2-cabecera-fila { height: 72px; }
@@ -166,9 +173,17 @@ html[data-mega-abierto] { overflow: hidden; }
 /* ---------- Pie ---------- */
 .v2-pie { position: relative; background: var(--color-navy-950); color: rgb(255 255 255 / 0.85); }
 .v2-pie[data-pie='completo'] { border-radius: 48px 48px 0 0; margin-top: 64px; }
-/* Segundo reborde bajo el corte redondeado (como el pie de visitvalle.travel): una franja coral tenue, liso y sin
-   degradado, que asoma 14 px por encima del pie con el mismo radio. */
-.v2-pie[data-pie='completo']::before { content: ''; position: absolute; z-index: -1; inset: -14px 0 auto; height: 96px; border-radius: inherit; background: var(--color-coral-100); pointer-events: none; }
+/* Reborde bajo el corte redondeado (como el pie de visitvalle.travel), panel → Sitio → «Pie» (`pieBorde`): bandas
+   planas de coral, sin degradado, que asoman por encima del pie con su mismo radio. Son sombras sin difuminar de una
+   copia del corte desplazada hacia arriba: ni ocupan sitio (CLS 0) ni ensanchan la página. --b es el paso de cada banda. */
+.v2-pie[data-pie='completo'] { --b: 5px; --c1: var(--color-coral-600); --c2: var(--color-coral-500); --c3: color-mix(in oklab, var(--color-coral-500) 45%, var(--color-coral-100)); --c4: var(--color-coral-100); }
+@media (width >= 1024px) { .v2-pie[data-pie='completo'] { --b: 8px; } }
+.v2-pie[data-pie='completo']::before { content: ''; position: absolute; z-index: -1; inset: 0 0 auto; height: 96px; border-radius: inherit; pointer-events: none; box-shadow: 0 -14px 0 var(--c4); }
+.v2-pie[data-borde='escalonado']::before { box-shadow: 0 calc(var(--b) * -1) 0 var(--c1), 0 calc(var(--b) * -2) 0 var(--c2), 0 calc(var(--b) * -3) 0 var(--c3); }
+.v2-pie[data-borde='inverso']::before { box-shadow: 0 calc(var(--b) * -1) 0 var(--c3), 0 calc(var(--b) * -2) 0 var(--c2), 0 calc(var(--b) * -3) 0 var(--c1); }
+.v2-pie[data-borde='anchas']::before { box-shadow: 0 calc(var(--b) * -1.6) 0 var(--c1), 0 calc(var(--b) * -3.2) 0 var(--c3); }
+.v2-pie[data-borde='finas']::before { box-shadow: 0 calc(var(--b) * -0.7) 0 var(--c1), 0 calc(var(--b) * -1.4) 0 var(--c2), 0 calc(var(--b) * -2.1) 0 var(--c3), 0 calc(var(--b) * -2.8) 0 var(--c4); }
+.v2-pie[data-borde='ninguno']::before { content: none; }
 .v2-pie a:not(.v2-btn) { color: inherit; text-decoration: none; }
 .v2-pie-enlace { display: inline-flex; align-items: center; min-height: 32px; font: 400 15px/22px var(--font-sans); color: #fff; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size var(--t-rapido) var(--e-sale); }
 @media (hover: hover) and (pointer: fine) { .v2-pie-enlace:hover { background-size: 100% 1px; } }
@@ -203,8 +218,8 @@ html[data-mega-abierto] { overflow: hidden; }
 @media (hover: hover) and (pointer: fine) { .v2-subrayado:hover { text-decoration-color: currentColor; } }
 .v2-prosa { color: var(--color-navy-700); font: 400 17px/28px var(--font-sans); }
 .v2-prosa > * + * { margin-top: 1.1em; }
-.v2-prosa :is(h2) { margin-top: 2em; font: 600 28px/34px var(--font-display); color: var(--color-navy-950); scroll-margin-top: 96px; }
-.v2-prosa :is(h3) { margin-top: 1.6em; font: 600 20px/28px var(--font-display); color: var(--color-navy-950); scroll-margin-top: 96px; }
+.v2-prosa :is(h2) { margin-top: 2em; font: 600 28px/34px var(--font-display); color: var(--color-navy-950); scroll-margin-top: calc(var(--fijo-superior) + 36px); }
+.v2-prosa :is(h3) { margin-top: 1.6em; font: 600 20px/28px var(--font-display); color: var(--color-navy-950); scroll-margin-top: calc(var(--fijo-superior) + 36px); }
 .v2-prosa a { color: var(--color-coral-700); text-decoration: underline; text-underline-offset: 3px; }
 .v2-prosa :is(ul, ol) { padding-left: 1.25em; }
 .v2-prosa ul > li { list-style: disc; }

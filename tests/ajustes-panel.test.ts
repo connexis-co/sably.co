@@ -28,6 +28,8 @@ const ANTES = {
     estiloCampo: ['select', ['outlined', 'filled', 'underline'], 'outlined'],
     // Clave nueva (26-nov, tarjetas de cursos entre 1024 y 1279 px): se añade, no sustituye a ninguna.
     tarjetasColumnasMedio: ['select', ['tres-completas', 'tres', 'cuatro'], 'tres-completas'],
+    // Clave nueva (26-nov, reborde coral del pie).
+    pieBorde: ['select', ['escalonado', 'inverso', 'anchas', 'finas', 'tenue', 'ninguno'], 'escalonado'],
     // Claves nuevas (cuenta, 25-nov): se añaden, no sustituyen a ninguna.
     cuentaActiva: ['boolean', null, true],
     cuentaGoogle: ['boolean', null, true],
@@ -47,7 +49,10 @@ const ANTES = {
     cajaMovimiento: ['boolean', null, true],
     // Claves nuevas (26-nov, movimiento de la ficha y del certificado, C6).
     fichaMovimiento: ['select', ['sobrio', 'minimo', 'ninguno'], 'sobrio'],
-    certificadoAnimacion: ['select', ['destello', 'entrada', 'ninguna'], 'destello'],
+    certificadoAnimacion: ['select', ['arma', 'lateral', 'revela', 'destello', 'entrada', 'ninguna'], 'arma'],
+    // Clave nueva (26-nov, barra de compra abajo también en escritorio): se añade, no sustituye a ninguna.
+    barraCompraEscritorio: ['select', ['menu-abajo', 'ambas', 'arriba', 'abajo'], 'menu-abajo'],
+    menuInternoAlineacion: ['select', ['centro', 'izquierda', 'derecha'], 'centro'],
     // Claves nuevas (26-nov, temario y bloques de la ficha: C7, C10a, C10b).
     temarioEnfoque: ['select', ['enfoca', 'encuadra', 'nada'], 'enfoca'],
     fichaQueIncluye: ['boolean', null, true],
@@ -60,6 +65,10 @@ const ANTES = {
     barraCampanaCierre: ['select', ['sesion', 'vista'], 'sesion'],
     barraCampanaFicha: ['boolean', null, true],
     barraCampanaFija: ['boolean', null, true],
+    barraCampanaBoton: ['boolean', null, true],
+    barraCampanaBotonTexto: ['string', null, 'Ver cursos con {pct}'],
+    barraCampanaBotonDestino: ['string', null, ''],
+    barraCampanaBotonFicha: ['select', ['nada', 'enlace'], 'nada'],
     // Claves nuevas (26-nov, página «Nosotros»): se añaden, no sustituyen a ninguna.
     nosotrosDiseno: ['select', ['narrativo', 'sencillo'], 'narrativo'],
     nosotrosCifras: ['boolean', null, true],
@@ -123,11 +132,14 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     mostrarCiudades: true,
     estiloCampo: 'outlined',
     columnasTarjetas: 'tres-completas',
+    pieBorde: 'escalonado',
     sobreFotos: true,
-    movimientoFicha: { ficha: 'sobrio', certificado: 'destello' },
+    movimientoFicha: { ficha: 'sobrio', certificado: 'arma' },
+    barraEscritorio: 'menu-abajo',
+    menuAlineacion: 'centro',
     bloquesFicha: { temario: 'enfoca', queIncluye: true, relacionados: 'placa' },
     opiniones: { estilo: 'lista', minimoExtractos: 1, maximoExtractos: 4, perfil: null },
-    barraCampana: { cierre: 'sesion', enFicha: true, fija: true },
+    barraCampana: { cierre: 'sesion', enFicha: true, fija: true, boton: { activo: true, texto: 'Ver cursos con {pct}', destino: '', ficha: 'nada' } },
     campana: { barra: 'contador', banda: 'contador', megamenu: 'contador', listado: 'contador' },
     portada: {
       bloques: ['cifras', 'categorias', 'convergen', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],

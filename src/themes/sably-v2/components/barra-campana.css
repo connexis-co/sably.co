@@ -12,15 +12,13 @@
   --fijo-superior: calc(56px + var(--v2-barra-fija));
 }
 body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-cabecera { top: var(--v2-barra-fija); }
-@media (width < 1024px) {
-  body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-fija-nav { top: calc(56px + var(--v2-barra-fija)); }
-  html:has(body[data-con-barra]):has(.v2-barra-campana[data-fija]:not([hidden])) { scroll-padding-top: calc(112px + var(--v2-barra-fija)); }
-}
+/* Escritorio: sin barra, la cabecera de 72 px esconde 12 px por encima de la ventana (top: -12px) y queda en 60.
+   Con la barra no puede esconderlos debajo de ella: se montaba 12 px sobre la barra (tanda 13). Se pega entera
+   bajo la barra (72 px) y la fila no baja al compactarse. Las barras de la ficha, la caja, el muro, «convergen»,
+   las pilas y las anclas ya cuelgan de --fijo-superior: no necesitan reglas aquí. */
 @media (width >= 1024px) {
-  :root:has(.v2-barra-campana[data-fija]:not([hidden])) { --fijo-superior: calc(60px + var(--v2-barra-fija)); }
-  body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-cabecera { top: calc(var(--v2-barra-fija) - 12px); }
-  body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-fija { top: calc(60px + var(--v2-barra-fija)); }
-  body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-area-caja { --caja-top: calc(133px + var(--v2-barra-fija)); }
+  :root:has(.v2-barra-campana[data-fija]:not([hidden])) { --fijo-superior: calc(72px + var(--v2-barra-fija)); }
+  body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-cabecera-fila { animation: none; }
 }
 
 /* Copiar el cupón (E1): la marca ✓ sustituye un momento al icono de copiar y se va (`data-copiado`, promo-cliente.ts).
@@ -32,4 +30,26 @@ body:has(.v2-barra-campana[data-fija]:not([hidden])) .v2-cabecera { top: var(--v
 [data-copiado] .v2-tique-copiar { opacity: 0; scale: 0.4; }
 @media (prefers-reduced-motion: no-preference) {
   .v2-tique-icono > * { transition: opacity var(--t-base) var(--e-sale), scale var(--t-base) cubic-bezier(0.34, 1.56, 0.64, 1); }
+}
+
+/* Botón «Ver cursos con N %» y orden de la barra (BarraCampana.astro). Alto 32 px: cabe en la fila de 48 sin crecer.
+   Móvil (< 640): fila 1 = la campaña como título, centrada, con la × a su altura (arriba a la derecha) y sitio
+   simétrico para ella; fila 2 = contador y botón centrados; si el botón no cabe, baja solo y ocupa el ancho. */
+.v2-barra-ir { display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 32px; padding-inline: 14px 10px; border-radius: 999px; background: #fff; color: var(--color-navy-950); font-size: 13px; font-weight: 600; white-space: nowrap; }
+.v2-barra-ir:hover { background: var(--color-coral-50, #fef1f4); }
+.v2-barra-ir:focus-visible { outline: 3px solid var(--color-coral-500); outline-offset: 2px; }
+@media (640px <= width < 1024px) { .v2-barra-fila { padding-right: 48px; } }
+/* Bajo 1024 px: contador algo más estrecho y «Termina en» solo para lectores de pantalla (el reloj lleva la fecha en
+   su etiqueta), para que quepa en una línea a 768 y el botón vaya junto al contador desde 390 (a 360 baja solo). */
+@media (width < 1024px) {
+  .v2-barra-campana .v2-reloj { gap: 3px; }
+  .v2-barra-campana .v2-reloj-u { min-width: 36px; padding-inline: 4px; }
+}
+@media (width < 640px) {
+  .v2-barra-fila { column-gap: 8px; padding-block: 6px 8px; }
+  /* La × va a la altura del título (que le deja su hueco), así que la fila no necesita los 48 px de contador.css. */
+  .v2-barra-campana:has(.v2-reloj) > .v2-barra-fila.v2-contenedor { padding-right: 20px; }
+  .v2-barra-titulo { width: 100%; min-height: 32px; padding-inline: 28px; text-wrap: balance; }
+  .v2-barra-ir { flex: 1 0 auto; max-width: 100%; gap: 4px; padding-inline: 12px 8px; }
+  .v2-barra-campana [data-promo-cerrar] { top: 0; translate: none; }
 }

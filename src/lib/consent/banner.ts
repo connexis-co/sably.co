@@ -88,7 +88,8 @@ export const CONSENT_CSS = [
   // Móvil: hoja compacta pegada al borde, por encima de la barra fija (V2 mide 72 px; en el clásico, --barra-alto).
   '@media (max-width:39.99rem){#sbc{left:8px;right:8px;width:auto;bottom:calc(8px + env(safe-area-inset-bottom,0px));padding:14px 14px 12px;gap:8px;border-radius:16px}.sbc-t{font-size:1rem}#sbc .sbc-b{font-size:13px;line-height:1.4}.sbc-btn{min-height:44px;padding:0 6px;font-size:14px}.sbc-in{padding:20px 20px 24px}}',
   // Sube con `translate` y no con `bottom`: mover `bottom` cuenta como desplazamiento de diseño (CLS).
-  '@media (max-width:63.99rem){body:has([data-barra-fija]:not([data-oculta])) #sbc{translate:0 -72px}}',
+  // `--fijo-inferior`: alto de lo fijo abajo (barra de compra de la ficha en móvil, narración del blog); 0 si no hay nada.
+  '#sbc{translate:0 calc(-1 * var(--fijo-inferior,0px))}',
   'body:has([data-sticky-cta]:not([data-oculta])) #sbc{translate:0 calc(-1 * var(--barra-alto,57px))}',
   // Arriba, bajo la cabecera, cuando abajo taparía la compra o el foco (lo decide el script; también con translate).
   '#sbc[data-arriba]{translate:0 var(--sbc-ty,0px)!important}',
@@ -107,7 +108,7 @@ export const CONSENT_ICON_CSS = [
   '#sbc:not([hidden])~#sbc-ico,#sbc-ico[data-aparte],body:has([data-prueba-social]:not([hidden])) #sbc-ico{visibility:hidden;opacity:0}',
   // Si el panel de WhatsApp lo pone a la izquierda, el icono se va a la derecha.
   'body:has(#sably-whatsapp[style*="left"]) #sbc-ico{left:auto;right:16px}',
-  '@media (max-width:63.99rem){body:has([data-barra-fija]:not([data-oculta])) #sbc-ico{translate:0 -72px}}',
+  '#sbc-ico{translate:0 calc(-1 * var(--fijo-inferior,0px))}',
   'body:has([data-sticky-cta]:not([data-oculta])) #sbc-ico{translate:0 calc(-1 * var(--barra-alto,57px))}',
   '@media (prefers-reduced-motion:no-preference){#sbc-ico{transition:opacity .2s,visibility .2s}}',
   // Apartarse para no tapar el foco o la compra es inmediato.

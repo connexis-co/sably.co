@@ -71,7 +71,7 @@ const fuenteNotas = fuenteDeNotas(cursos.map(c => valoraciones[c.id] ?? null));
       <li class="v2-franja col-span-full" data-promo-v2="franja" data-promo-ssr={promo.ssr} style="--o-rec:23;--o-nota:23;--o-precio:23">
         <div class="flex flex-wrap items-center gap-x-8 gap-y-3 rounded-c-lg bg-coral-50 px-6 py-5 ring-1 ring-coral-100">
           <p class="font-display text-d40 font-semibold text-coral-600"><span data-promo-pct-v2>{promo.pct} %</span></p>
-          <div class="min-w-0 flex-1">
+          <div class="min-w-0 flex-1 max-[359px]:basis-full">
             <p class="text-t17 font-semibold text-navy-950">{(promo.muestra.listado === 'cupon' || promo.muestra.listado === 'ambos') ? <>Con el cupón <span data-promo-codigo>{promo.cupon}</span>, en cursos seleccionados</> : 'En cursos seleccionados: el precio de cada ficha ya lleva el descuento'}</p>
             {(promo.muestra.listado === 'contador' || promo.muestra.listado === 'ambos') && promo.finMs ? <p class="mt-2 flex flex-wrap items-center gap-2.5 text-t13 text-navy-500">Termina en <ContadorCampana finMs={promo.finMs} fin={promo.fin} tono="claro" /></p> : promo.fin && <p data-promo-fin class="text-t13 text-navy-500">Hasta el <span data-promo-fecha>{promo.fin}</span> (hora de Colombia). El precio de cada ficha ya lo indica.</p>}
           </div>
