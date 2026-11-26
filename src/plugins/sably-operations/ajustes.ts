@@ -124,6 +124,34 @@ export const settingsSchema = {
     description: 'Ids de los bloques que no se muestran, separados por comas. Apagar un bloque quita su texto y sus enlaces de la portada: ojo con lo que leen ChatGPT y Google. Por defecto: vacío (todos encendidos).',
     default: '',
   },
+  campanaBarra: {
+    type: 'select',
+    label: 'Campaña · Barra de arriba',
+    description: 'Qué enseña la barra de arriba de todas las páginas durante una campaña. «Contador»: cuánto falta hasta la fecha de fin real de la campaña, con segundero; sin fecha de fin no sale. «Cupón»: el código con el botón «Copiar» (el cupón ya va puesto en los enlaces de pago, así que no hace falta copiarlo para tener el descuento). «Solo la fecha»: como antes. Por defecto: Contador.',
+    options: [{ value: 'contador', label: 'Contador (días, horas, minutos y segundos)' }, { value: 'cupon', label: 'Cupón para copiar' }, { value: 'ambos', label: 'Contador y cupón' }, { value: 'fecha', label: 'Solo la fecha de fin en texto' }],
+    default: 'contador',
+  },
+  campanaBanda: {
+    type: 'select',
+    label: 'Campaña · Banda de la portada',
+    description: 'Qué enseña la banda de la campaña en la portada durante una campaña. «Contador»: cuánto falta hasta la fecha de fin real de la campaña, con segundero; sin fecha de fin no sale. «Cupón»: el código con el botón «Copiar» (el cupón ya va puesto en los enlaces de pago, así que no hace falta copiarlo para tener el descuento). «Solo la fecha»: como antes. Por defecto: Contador.',
+    options: [{ value: 'contador', label: 'Contador (días, horas, minutos y segundos)' }, { value: 'cupon', label: 'Cupón para copiar' }, { value: 'ambos', label: 'Contador y cupón' }, { value: 'fecha', label: 'Solo la fecha de fin en texto' }],
+    default: 'contador',
+  },
+  campanaMegamenu: {
+    type: 'select',
+    label: 'Campaña · Tarjeta del megamenú',
+    description: 'Qué enseña la tarjeta de la campaña del menú «Cursos» durante una campaña. «Contador»: cuánto falta hasta la fecha de fin real de la campaña, con segundero; sin fecha de fin no sale. «Cupón»: el código con el botón «Copiar» (el cupón ya va puesto en los enlaces de pago, así que no hace falta copiarlo para tener el descuento). «Solo la fecha»: como antes. Por defecto: Contador.',
+    options: [{ value: 'contador', label: 'Contador (días, horas, minutos y segundos)' }, { value: 'cupon', label: 'Cupón para copiar' }, { value: 'ambos', label: 'Contador y cupón' }, { value: 'fecha', label: 'Solo la fecha de fin en texto' }],
+    default: 'contador',
+  },
+  campanaListado: {
+    type: 'select',
+    label: 'Campaña · Franja del listado',
+    description: 'Qué enseña la franja de la campaña entre las tarjetas del listado de cursos durante una campaña. «Contador»: cuánto falta hasta la fecha de fin real de la campaña, con segundero; sin fecha de fin no sale. «Cupón»: el código con el botón «Copiar» (el cupón ya va puesto en los enlaces de pago, así que no hace falta copiarlo para tener el descuento). «Solo la fecha»: como antes. Por defecto: Contador.',
+    options: [{ value: 'contador', label: 'Contador (días, horas, minutos y segundos)' }, { value: 'cupon', label: 'Cupón para copiar' }, { value: 'ambos', label: 'Contador y cupón' }, { value: 'fecha', label: 'Solo la fecha de fin en texto' }],
+    default: 'contador',
+  },
   portadaHeroeVariante: {
     type: 'select',
     label: 'Portada · Variante del héroe',
@@ -307,12 +335,13 @@ export type ValorAjuste = string | boolean;
 export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'blog' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
+export const CAMPANA_CLAVES: ClaveAjuste[] = ['campanaBarra', 'campanaBanda', 'campanaMegamenu', 'campanaListado'];
 export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaHeroeMovil', 'portadaOficioModo', 'portadaOficioIntervalo', 'portadaGuiasVariante', 'portadaComoFuncionaAnimado', 'portadaAparicion', 'portadaCifrasCuentan', 'portadaParalaje', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
-  { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, y la barra de arriba.', claves: ['barraCampanaCierre', 'barraCampanaFicha'] },
+  { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', ...CAMPANA_CLAVES] },
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },

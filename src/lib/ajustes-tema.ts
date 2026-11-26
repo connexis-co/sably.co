@@ -39,6 +39,8 @@ export interface AjustesV2 {
     /** En la ficha, solo si el curso tiene la oferta de la campaña (su creador acepta el cupón). */
     enFicha: boolean;
   };
+  /** Qué enseña cada aviso de campaña («Campañas y cupones»): contador con segundero, cupón para copiar, ambos o la fecha. */
+  campana: Record<'barra' | 'banda' | 'megamenu' | 'listado', MuestraCampana>;
   /** Portada de país V2 («Ajustes del sitio → Portada»). */
   portada: {
     /** Bloques visibles, en orden (el héroe va siempre primero y no está aquí). */
@@ -79,6 +81,9 @@ function decodificar(valor: string): unknown {
 }
 
 /** Puro: filas de `options` (+ variable de entorno) → ajustes con sus valores por defecto. */
+const MUESTRAS = ['contador', 'cupon', 'ambos', 'fecha'] as const;
+export type MuestraCampana = (typeof MUESTRAS)[number];
+
 export function leerAjustesV2(filas: { name: string; value: string }[], entornoTema?: string): AjustesV2 {
   const v: Record<string, unknown> = {};
   for (const fila of filas) if (fila.name.startsWith(PREFIJO)) v[fila.name.slice(PREFIJO.length)] = decodificar(fila.value);
@@ -98,6 +103,12 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     barraCampana: {
       cierre: uno(v.barraCampanaCierre, ['sesion', 'vista'] as const, 'sesion'),
       enFicha: v.barraCampanaFicha !== false,
+    },
+    campana: {
+      barra: uno(v.campanaBarra, MUESTRAS, 'contador'),
+      banda: uno(v.campanaBanda, MUESTRAS, 'contador'),
+      megamenu: uno(v.campanaMegamenu, MUESTRAS, 'contador'),
+      listado: uno(v.campanaListado, MUESTRAS, 'contador'),
     },
     portada: {
       bloques: bloquesVisibles(v.portadaOrden, v.portadaOcultos),

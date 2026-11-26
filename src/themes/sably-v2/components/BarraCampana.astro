@@ -1,11 +1,13 @@
 ---
 /**
- * Barra de campaña V2: una línea en azul noche con el tique mini copiable y la
- * fecha de fin en texto (sin reloj que corre). Se pinta en el servidor para no
+ * Barra de campaña V2 en azul noche. Qué enseña lo decide el panel (Campañas y cupones → «Barra de arriba»):
+ * contador con segundero hasta el fin real de la campaña (de fábrica), el tique mini copiable, ambos o la fecha
+ * en texto. Sin cupón visible, el texto no dice «con el cupón»: el cupón ya va en los enlaces de pago. Se pinta en el servidor para no
  * empujar la página; src/lib/promo-cliente.ts la confirma, la retira al vencer
  * y pone el cupón en los enlaces de pago. No nombra al creador de los cursos.
  */
 import Ico from './Ico.astro';
+import ContadorCampana from './ContadorCampana.astro';
 import type { PromoV2 } from '../promo-v2';
 interface Props {
   promo: PromoV2 | null;
@@ -13,18 +15,27 @@ interface Props {
   cierre?: 'sesion' | 'vista';
 }
 const { promo, cierre = 'sesion' } = Astro.props;
+const muestra = promo?.muestra.barra ?? 'contador';
+const conCupon = !promo || muestra === 'cupon' || muestra === 'ambos';
+const conReloj = !!promo?.finMs && (muestra === 'contador' || muestra === 'ambos');
+const conFecha = !conReloj && muestra !== 'cupon';
 ---
 <div data-promo-v2="barra" data-promo-ssr={promo?.ssr} data-cierre={cierre} hidden={!promo} class="v2-barra-campana relative z-50 bg-navy-950 text-white" role="region" aria-label="Promoción vigente">
-  <div class="v2-contenedor flex min-h-12 items-center gap-x-4 gap-y-1 py-1.5 max-lg:pr-10">
-    <p class="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-0.5 text-t13 lg:text-t15">
+  <div class="v2-contenedor flex min-h-12 flex-wrap items-center gap-x-4 gap-y-1.5 py-1.5 max-lg:pr-12">
+    <p class:list={['flex min-w-0 flex-wrap items-center gap-x-3 gap-y-0.5 text-t13 lg:text-t15', conReloj && 'max-sm:w-full']}>
       <span class="flex items-center gap-2 font-semibold"><span class="size-1.5 flex-none rounded-full bg-coral-500" aria-hidden="true"></span><span data-promo-gorro>{promo?.etiqueta}</span></span>
-      <span class="text-white/85"><span data-promo-pct-v2>{promo ? `${promo.pct} %` : ''}</span> <span class="max-sm:hidden">en cursos seleccionados </span>con el cupón</span>
+      <span class="text-white/85"><span data-promo-pct-v2>{promo ? `${promo.pct} %` : ''}</span> {conCupon ? <><span class="max-sm:hidden">en cursos seleccionados </span>con el cupón</> : 'en cursos seleccionados'}</span>
     </p>
-    <button type="button" data-promo-cupon class="v2-tique-mini group flex-none" aria-label={promo ? `Copiar el cupón ${promo.cupon}` : 'Copiar el cupón'}>
-      <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{promo?.cupon}</span>
-      <span class="flex items-center gap-1 font-semibold text-coral-700"><Ico nombre="copy" tamano={14} /><span data-promo-copiar-texto>Copiar</span></span>
-    </button>
-    <p data-promo-fin hidden={!promo?.fin} class="text-t13 text-white/70 max-lg:hidden">Termina el <span data-promo-fecha>{promo?.fin}</span> (hora de Colombia)</p>
+    {conReloj && promo?.finMs && (
+      <p class="flex items-center gap-2.5 text-t13 text-white/75"><span class="max-[359px]:hidden">Termina en</span><ContadorCampana finMs={promo.finMs} fin={promo.fin} /></p>
+    )}
+    {conCupon && (
+      <button type="button" data-promo-cupon class="v2-tique-mini group flex-none" aria-label={promo ? `Copiar el cupón ${promo.cupon}` : 'Copiar el cupón'}>
+        <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{promo?.cupon}</span>
+        <span class="flex items-center gap-1 font-semibold text-coral-700"><Ico nombre="copy" tamano={14} /><span data-promo-copiar-texto>Copiar</span></span>
+      </button>
+    )}
+    {conFecha && <p data-promo-fin hidden={!promo?.fin} class="text-t13 text-white/70 max-lg:hidden">Termina el <span data-promo-fecha>{promo?.fin}</span> (hora de Colombia)</p>}
     <button type="button" data-promo-cerrar class="absolute right-2 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full text-white/80 hover:text-white lg:right-[max(8px,calc((100%-1200px)/2-48px))]" aria-label="Cerrar el aviso de la promoción">
       <Ico nombre="x" tamano={18} />
     </button>

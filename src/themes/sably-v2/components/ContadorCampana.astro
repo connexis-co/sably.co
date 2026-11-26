@@ -1,0 +1,16 @@
+---
+/**
+ * Contador de campaña V2: días, horas, minutos y segundos hasta la fecha de fin REAL de la campaña del panel.
+ * El servidor pinta los valores del momento (mismo ancho, cifras tabulares: sin salto al empezar a correr) y
+ * src/lib/promo-cliente.ts lo actualiza cada segundo y retira el aviso al vencer. Nunca se reinicia.
+ * `role="timer"` no se anuncia cada segundo; la etiqueta da la fecha de fin.
+ */
+import { formatCountdown } from '@/lib/promo';
+interface Props { finMs: number; fin: string | null; tono?: 'oscuro' | 'claro'; tamano?: 'mini' | 'grande'; class?: string }
+const { finMs, fin, tono = 'oscuro', tamano = 'mini', class: clase } = Astro.props;
+const t = formatCountdown(Math.max(0, finMs - Date.now()));
+const UNIDADES = [['d', 'días'], ['h', 'horas'], ['m', 'min'], ['s', 'seg']] as const;
+---
+<span class:list={['v2-reloj', clase]} data-promo-reloj data-tono={tono} data-tamano={tamano} role="timer" aria-label={fin ? `Termina el ${fin}, hora de Colombia` : 'Tiempo que queda de la campaña'}>
+  {UNIDADES.map(([u, nombre]) => <span class="v2-reloj-u" aria-hidden="true"><b data-u={u}>{t[u]}</b><small>{nombre}</small></span>)}
+</span>
