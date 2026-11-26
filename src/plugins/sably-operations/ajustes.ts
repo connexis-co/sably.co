@@ -26,6 +26,13 @@ export const settingsSchema = {
     default: 'outlined',
   },
   // Tarjetas de cursos entre 1024 y 1279 px (26-nov-2026, decisión de JP: «lo más elegante»)
+  pieBorde: {
+    type: 'select',
+    label: 'Pie · Reborde coral sobre el corte redondeado',
+    description: 'Bandas planas de coral que asoman por encima del pie con su mismo radio, como capas detrás de él (estilo visitvalle). «Escalonado»: tres bandas, la más fuerte pegada al pie. «Inverso»: tres bandas, la más clara pegada al pie. «Dos anchas»: dos bandas gruesas. «Cuatro finas»: cuatro bandas delgadas. «Tenue»: una sola franja rosada clara (la de antes). «Sin reborde»: nada. Por defecto: Escalonado.',
+    options: [{ value: 'escalonado', label: 'Escalonado' }, { value: 'inverso', label: 'Inverso' }, { value: 'anchas', label: 'Dos anchas' }, { value: 'finas', label: 'Cuatro finas' }, { value: 'tenue', label: 'Tenue' }, { value: 'ninguno', label: 'Sin reborde' }],
+    default: 'escalonado',
+  },
   tarjetasColumnasMedio: {
     type: 'select',
     label: 'Sitio y tema · Tarjetas de cursos entre 1024 y 1279 px',
@@ -523,7 +530,7 @@ export const NOSOTROS_CLAVES: ClaveAjuste[] = ['nosotrosDiseno', 'nosotrosCifras
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
-  { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo', 'tarjetasColumnasMedio'] },
+  { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo', 'tarjetasColumnasMedio', 'pieBorde'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', 'barraCampanaBoton', 'barraCampanaBotonTexto', 'barraCampanaBotonDestino', 'barraCampanaBotonFicha', ...CAMPANA_CLAVES] },
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },

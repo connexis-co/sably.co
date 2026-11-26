@@ -46,6 +46,8 @@ export interface AjustesV2 {
   estiloCampo: EstiloCampo;
   /** Tarjetas de cursos entre 1024 y 1279 px: 3 columnas sin fila a medias (de fábrica), 3 con todas o 4. */
   columnasTarjetas: ColumnasTarjetas;
+  /** Reborde del pie: bandas de coral sobre el corte redondeado (de fábrica, escalonado). */
+  pieBorde: 'escalonado' | 'inverso' | 'anchas' | 'finas' | 'tenue' | 'ninguno';
   /** C5: en «Sobre este curso», una foto por pestaña con fundido (de fábrica). */
   sobreFotos: boolean;
   /** C6: movimiento de la ficha al bajar y animación del certificado (nunca con menos movimiento). */
@@ -163,6 +165,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     mostrarCiudades: v.mostrarCiudades !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
     columnasTarjetas: uno(v.tarjetasColumnasMedio, ['tres-completas', 'tres', 'cuatro'] as const, 'tres-completas'),
+    pieBorde: uno(v.pieBorde, ['escalonado', 'inverso', 'anchas', 'finas', 'tenue', 'ninguno'] as const, 'escalonado'),
     sobreFotos: v.sobreFotosPestanas !== false,
     movimientoFicha: {
       ficha: uno(v.fichaMovimiento, ['sobrio', 'minimo', 'ninguno'] as const, 'sobrio'),
