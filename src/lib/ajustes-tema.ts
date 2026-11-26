@@ -24,6 +24,8 @@ export interface AjustesV2 {
     /** Texto del bloque `titulo` del núcleo común: variables {curso} y {escuela} (el creador); sin cifras. Vacío = sin título. */
     titulo: string;
     subtitulo: string;
+    /** C4: contorno, sombra honda y filete coral para que la caja destaque del fondo (de fábrica). */
+    resaltada: boolean;
   };
   /** «Lo dicta …» en la cabeza y en la caja. */
   mostrarCreador: boolean;
@@ -91,6 +93,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       contador: uno(v.cajaContador, ['barra', 'casillas', 'linea', 'tique'] as const, 'barra'),
       titulo: texto('cajaTitulo', TITULO_CAJA_POR_DEFECTO),
       subtitulo: texto('cajaSubtitulo', SUBTITULO_CAJA_POR_DEFECTO),
+      resaltada: v.cajaResaltada !== false,
     },
     mostrarCreador: v.mostrarCreador !== false,
     mostrarDocente: v.mostrarDocente !== false,

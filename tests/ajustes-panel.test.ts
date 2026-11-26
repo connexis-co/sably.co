@@ -33,6 +33,8 @@ const ANTES = {
     cuentaAcceso: ['select', ['ventana', 'pagina'], 'ventana'],
     // Claves nuevas (26-nov, opiniones de la ficha V2, C1 y C3): se añaden, no sustituyen a ninguna.
     opinionesEstilo: ['select', ['lista', 'compacto'], 'lista'],
+    // Clave nueva (26-nov, caja con contraste, C4).
+    cajaResaltada: ['boolean', null, true],
     opinionesExtractosMinimo: ['select', ['1', '2', '3'], '1'],
     opinionesPerfilNombre: ['string', null, ''],
     opinionesPerfilUrl: ['string', null, ''],
@@ -89,7 +91,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
   const { filas } = JSON.parse(readFileSync(new URL('./fixtures/opciones-produccion-2026-11-25.json', import.meta.url), 'utf8')) as { filas: { name: string; value: string }[] };
   assert.deepEqual(leerAjustesV2(filas, 'clasico'), {
     temaPorDefecto: 'v2',
-    caja: { variante: 'cuenta-clara', contador: 'barra', titulo: 'Empieza {curso}', subtitulo: 'Lecciones en vídeo, a tu ritmo.' },
+    caja: { variante: 'cuenta-clara', contador: 'barra', titulo: 'Empieza {curso}', subtitulo: 'Lecciones en vídeo, a tu ritmo.', resaltada: true },
     mostrarCreador: true,
     mostrarDocente: true,
     mostrarCiudades: true,
