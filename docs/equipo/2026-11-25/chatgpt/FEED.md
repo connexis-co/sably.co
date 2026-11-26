@@ -137,7 +137,16 @@ Permisos de la cuenta comprobados el 26-nov:
 | Reemplazo completo (`is_full_refresh`) | 403 «not enabled» |
 | URL alojada | 403 `product_feed_hosted_url_api_disabled` |
 | Estado de revisión por producto | 403 `product_feed_approval_status_api_disabled` |
-| Delta API | Ver la nota de indexación al final |
+| Delta API (`PATCH /feeds/{id}/products`) | No da 403 (acceso no bloqueado), pero el 26-nov respondía `503 Product updates are temporarily unavailable` mientras el feed tenía 0 productos indexados |
+
+**Indexación pendiente.** A las 01:35 UTC, 35 min después de `completed`, `items/query`, `products/query` y el
+`product_count` del feed seguían en 0. Puede ser solo demora o que la indexación de productos aún no cubra Colombia (el
+esquema dice que el formato compartido hoy representa US, CA y MX). **Qué mirar:** `GET /v1/feeds?include[]=product_count`
+(`product_count` y `ready_count`) o Ads Manager › Feeds. Si a las 24 h sigue en 0 con la subida `completed`, es el
+mercado: pedir a OpenAI (Ads Manager › ayuda, o el equipo de cuenta) que habilite el feed de productos para CO en la
+cuenta `adacct_6b077b01c208819780ad747f8eac2255`, feed `fd_ae6b407a30a6de2eb2801f524f57f89f`. Hasta que haya productos,
+no se puede crear una campaña de feed útil. Si la retirada de cursos falla, el job lo deja como aviso (`::warning::`)
+y no se da por fallido: la subida ya está hecha.
 
 ## 7 · Cuando se decida la campaña de feed (no creada)
 

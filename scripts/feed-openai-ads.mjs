@@ -336,8 +336,13 @@ async function main() {
     console.error(upload(out));
     const feedId = process.env.OPENAI_FEED_ID;
     if (feedId && process.env.OPENAI_ADS_API_KEY) {
-      const retirados = await retireStale(feedId, rows.map((r) => r.item_id));
-      console.error(retirados.length ? `Marcados agotados (ya no están en el sitio): ${retirados.join(', ')}` : 'Ningún curso que retirar del feed.');
+      // La subida ya está hecha: si falla la retirada, se avisa en el job sin darlo por fallido.
+      try {
+        const retirados = await retireStale(feedId, rows.map((r) => r.item_id));
+        console.error(retirados.length ? `Marcados agotados (ya no están en el sitio): ${retirados.join(', ')}` : 'Ningún curso que retirar del feed.');
+      } catch (e) {
+        console.log(`::warning::No se pudieron retirar cursos del feed: ${e.message}`);
+      }
     } else {
       console.error('Sin OPENAI_FEED_ID u OPENAI_ADS_API_KEY: no se revisan cursos retirados.');
     }
