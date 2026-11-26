@@ -1,0 +1,19 @@
+/* Controles del vídeo: se inyectan con el controlador (estilos-video.ts) al acercarse o pulsar, nunca en la hoja común. */
+@layer components {
+  .v2-medio-video { --medio-acento: var(--color-coral-500, var(--color-coral-600)); --medio-pista: rgb(255 255 255 / 0.35); --medio-texto: #fff; }
+  .v2-medio-video > video { object-fit: contain; background: #000; }
+  .v2-medio-video .v2-medio-controles {
+    position: absolute; inset-inline: 0; inset-block-end: 0; padding: 32px 12px 10px;
+    background: linear-gradient(to top, rgb(0 0 0 / 0.7), transparent);
+    transition: opacity var(--t-rapido) var(--e-sale);
+  }
+  .v2-medio-video .v2-medio-boton { background: rgb(255 255 255 / 0.16); }
+  .v2-medio-video .v2-medio-principal { background: var(--medio-acento); }
+  .v2-medio-video .v2-medio-tiempo { color: rgb(255 255 255 / 0.85); }
+  .v2-medio-video .v2-medio-boton:focus-visible, .v2-medio-video .v2-medio-barra:focus-visible { outline-color: #fff; }
+  /* Mientras suena y sin interacción, los controles se apartan; vuelven con el puntero, el foco o la pausa. */
+  .v2-medio-video[data-sonando="true"]:not(:hover):not(:focus-within) .v2-medio-controles { opacity: 0; }
+  .v2-medio-video[data-pantalla="true"] { border-radius: 0; }
+  @media (max-width: 639px) { .v2-medio-video .v2-medio-controles:not([hidden]) { display: flex; } }
+  @media (prefers-reduced-motion: reduce) { .v2-medio-video .v2-medio-controles { transition: none; } }
+}

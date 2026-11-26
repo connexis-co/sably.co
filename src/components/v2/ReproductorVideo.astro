@@ -9,7 +9,7 @@
  */
 import { getImage } from 'astro:assets';
 import Icono from '@/components/v2/Icono.astro';
-import './medios/medios.css';
+import cssFachada from './medios/video-fachada.css?raw';
 interface Props {
   src: string;
   poster: string;
@@ -30,8 +30,11 @@ const anchos = [480, 780, 1200];
 const imagenes = await Promise.all(anchos.map(width => getImage({ src: poster, width, height: Math.round(width * 9 / 16) }).catch(() => null)));
 const principal = imagenes[1] ?? imagenes[0];
 const srcset = imagenes.map((img, i) => img && `${img.src} ${anchos[i]}w`).filter(Boolean).join(', ');
+/* Solo la fachada, en línea y solo donde hay vídeo; los controles llegan con el controlador (estilos-video.ts). */
+const estilos = cssFachada.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\s+/g, ' ').trim();
 const reloj = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}`;
 ---
+<style is:inline set:html={estilos}></style>
 <div class:list={['v2-medio v2-medio-video', clase]} data-medio-fachada data-medio-tipo="video" data-medio-id={medioId}
   data-medio-proveedor={proveedor} data-medio-titulo={titulo} data-medio-artista="Sably" data-medio-album="Presentaciones de cursos"
   data-medio-caratula={principal?.src ?? poster} data-medio-verbo="Ver" data-medio-nombre="el vídeo" data-medio-fin="Vídeo terminado.">
@@ -67,14 +70,15 @@ const reloj = (s: number) => `${Math.floor(s / 60)}:${String(Math.round(s % 60))
     const plantilla = raiz.querySelector<HTMLTemplateElement>('[data-medio-plantilla]');
     if (!abrir || !plantilla) continue;
     // Precarga al acercarse: así el play() sigue dentro del gesto de la persona (Safari lo exige).
-    const precargar = () => void import('./medios/controlador');
+    const cargar = () => Promise.all([import('./medios/controlador'), import('./medios/estilos-video').then((m) => m.ponerEstilosVideo())]);
+    const precargar = () => void cargar();
     for (const ev of ['pointerenter', 'focus', 'touchstart']) abrir.addEventListener(ev, precargar, { once: true, passive: true });
     abrir.addEventListener('click', async (e) => {
       e.preventDefault();
       if (raiz.dataset.medio !== undefined) return;
-      raiz.appendChild(plantilla.content.cloneNode(true));
       raiz.dataset.medio = '';
-      const { prepararMedio } = await import('./medios/controlador');
+      const [{ prepararMedio }] = await cargar();
+      raiz.appendChild(plantilla.content.cloneNode(true));
       prepararMedio(raiz);
       abrir.hidden = true;
       raiz.querySelector<HTMLButtonElement>('[data-medio-alternar]')?.click();
