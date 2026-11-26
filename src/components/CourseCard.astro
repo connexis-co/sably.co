@@ -2,6 +2,7 @@
 import { Image as OptimizedImage } from 'astro:assets';
 import { env } from 'virtual:sably-runtime';
 import { cmsImageUrl } from '@/lib/cms-media';
+import { duracionCurso } from '@/lib/duracion';
 import type { Course } from '@/lib/emdash-content';
 import { courseCover } from '@/lib/categories';
 import { getCategory } from '@/lib/emdash-content';
@@ -63,7 +64,7 @@ const url = `/${country.code}/${course.id}/`;
           </div>
         )
       }
-      <p class="mt-1 text-xs text-muted">{course.data.durationHours} h · {course.data.level}</p>
+      <p class="mt-1 text-xs text-muted">{[duracionCurso.corta(course.id), course.data.level].filter(Boolean).join(' · ')}</p>
       <div class="mt-auto flex items-baseline gap-2 pt-3">
         <span class="text-lg font-extrabold whitespace-nowrap text-primary">
           {real ? formatMonto(real.monto, real.moneda) : formatPrice(course.data.priceUSD, country)}

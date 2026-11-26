@@ -19,6 +19,7 @@
 import { Image as OptimizedImage } from 'astro:assets';
 import { env } from 'virtual:sably-runtime';
 import { cmsImageUrl } from '@/lib/cms-media';
+import { duracionCurso } from '@/lib/duracion';
 import type { Course } from '@/lib/emdash-content';
 import { courseCover } from '@/lib/categories';
 import { getCategory } from '@/lib/emdash-content';
@@ -55,7 +56,7 @@ const resumenCorto = resumenTarjeta(course.data.shortDescription, 34);
     <h3 class="v2-tc-titulo line-clamp-2 min-h-[2lh] text-t17 leading-6 font-semibold text-balance text-navy-950 transition-colors duration-(--t-rapido) group-hover:text-coral-700"><a href={url} class="after:absolute after:inset-0 focus-visible:outline-none">{course.data.title}</a></h3>
     <hr class="v2-tc-raya mt-3 border-0 border-t border-navy-100" aria-hidden="true" />
     <p class="v2-tc-desc mt-3 line-clamp-2 min-h-[2lh] text-t15 leading-[22px] text-navy-700">{resumenCorto === resumen ? resumen : <><span class="v2-tc-r-largo">{resumen}</span><span class="v2-tc-r-corto hidden">{resumenCorto}</span></>}</p>
-    <p class="v2-tc-meta mt-3 truncate text-t13 leading-5 text-navy-500">{course.data.durationHours} h · {course.data.level}</p>
+    <p class="v2-tc-meta mt-3 truncate text-t13 leading-5 text-navy-500">{[duracionCurso.corta(course.id), course.data.level].filter(Boolean).join(' · ')}</p>
     {nota
       ? <p class="v2-tc-nota mt-1 flex h-5 items-center gap-1.5 text-t13 text-navy-500" title={nota.accesible}><Estrellas nota={valoracion!.rating} tamano={13} class="flex-none" /><span aria-hidden="true"><span class="font-semibold text-navy-950">{nota.cifra}</span> · {nota.numero}</span><span class="sr-only">{nota.accesible}</span></p>
       : <p class="v2-tc-nota mt-1 h-5" aria-hidden="true" data-sin-nota></p>}

@@ -10,10 +10,10 @@
  */
 import Icono from '@/components/v2/Icono.astro';
 interface Props {
-  lecciones: number; horas: number; modulos: { title: string }[]; foto: string; fotoAlt: string; fotoPie: string;
+  lecciones: number; /** Minutos reales de vídeo, ya redondeados (src/lib/duracion.ts); `null` sin medición. */ minutos: number | null; modulos: { title: string }[]; foto: string; fotoAlt: string; fotoPie: string;
   cascada?: boolean; aparece?: string;
 }
-const { lecciones, horas, modulos, foto, fotoAlt, fotoPie, cascada = false, aparece } = Astro.props;
+const { lecciones, minutos, modulos, foto, fotoAlt, fotoPie, cascada = false, aparece } = Astro.props;
 const n = modulos.length;
 ---
 <section id="incluye" class="scroll-mt-36" aria-labelledby="titulo-incluye" data-aparece={aparece} data-que-incluye>
@@ -31,9 +31,9 @@ const n = modulos.length;
             <dd>Las ves desde el celular o el computador, a tu ritmo.</dd>
           </div>
         )}
-        {horas > 0 && (
+        {minutos != null && minutos > 0 && (
           <div class:list={['v2-incluye-fila', cascada && 'v2-cascada']}>
-            <dt><span class="v2-incluye-cifra v2-num">{horas}<small>h</small></span><span class="v2-incluye-hecho">De contenido</span></dt>
+            <dt><span class="v2-incluye-cifra v2-num">{minutos >= 60 && <>{Math.floor(minutos / 60)}<small>h</small></>}{minutos >= 60 && minutos % 60 ? ' ' : ''}{minutos % 60 ? <>{minutos % 60}<small>min</small></> : null}</span><span class="v2-incluye-hecho">De vídeo</span></dt>
             <dd>Sin horarios ni fecha de inicio: avanzas cuando puedes.</dd>
           </div>
         )}
