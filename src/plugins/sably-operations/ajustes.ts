@@ -25,6 +25,20 @@ export const settingsSchema = {
     options: [{ value: 'outlined', label: 'Contorno' }, { value: 'filled', label: 'Relleno' }, { value: 'underline', label: 'Subrayado' }],
     default: 'outlined',
   },
+  // Barra de campaña V2 (26-nov-2026, ronda 2 de JP: C7)
+  barraCampanaCierre: {
+    type: 'select',
+    label: 'Campañas · Al cerrar la barra de campaña',
+    description: 'Qué pasa cuando alguien toca la × de la barra de arriba. «Durante la sesión»: no vuelve a salir hasta que cierre la pestaña. «Solo en esa página»: vuelve en la página siguiente. Por defecto: Durante la sesión.',
+    options: [{ value: 'sesion', label: 'Durante la sesión' }, { value: 'vista', label: 'Solo en esa página' }],
+    default: 'sesion',
+  },
+  barraCampanaFicha: {
+    type: 'boolean',
+    label: 'Campañas · Barra de campaña en la ficha del curso',
+    description: 'Solo en los cursos cuyo creador acepta el cupón de la campaña (en los demás nunca sale, para no anunciar un descuento que el pago no aplica). La caja de compra sigue llevando su propio cupón. Por defecto: encendido.',
+    default: true,
+  },
   // Caja de compra
   cajaVariante: {
     type: 'select',
@@ -252,7 +266,7 @@ export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
-  { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos.', claves: [] },
+  { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, y la barra de arriba.', claves: ['barraCampanaCierre', 'barraCampanaFicha'] },
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
