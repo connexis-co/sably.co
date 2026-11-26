@@ -19,6 +19,15 @@ export const RETORNO_SEGUNDOS = 10 * 60;
 export const LIMITE_IP_HORA = 30;
 export const LIMITE_TOTAL_HORA = 600;
 
+/** Código por correo (contrato §3): 6 dígitos, 10 min, 5 intentos, 60 s entre envíos. */
+export const CODIGO_SEGUNDOS = 10 * 60;
+export const CODIGO_INTENTOS = 5;
+export const CODIGO_ESPERA = 60;
+/** Envíos de código por hora: por correo, por IP y del sitio entero. */
+export const LIMITE_CODIGO_CORREO_HORA = 4;
+export const LIMITE_CODIGO_IP_HORA = 20;
+export const LIMITE_CODIGO_TOTAL_HORA = 160;
+
 export const ahora = () => Math.floor(Date.now() / 1000);
 
 /** 32 bytes aleatorios en base64url (43 caracteres). */
@@ -26,6 +35,18 @@ export const base64url = (bytes: Uint8Array) => btoa(String.fromCharCode(...byte
 export const bytesAleatorios = (n: number) => crypto.getRandomValues(new Uint8Array(n));
 export const tokenAleatorio = () => base64url(bytesAleatorios(32));
 export const tokenValido = (valor: unknown): valor is string => typeof valor === 'string' && /^[A-Za-z0-9_-]{43}$/.test(valor);
+
+/** Código de 6 dígitos uniforme (rechazo por encima del último múltiplo de 10⁶). */
+export function codigoAleatorio(): string {
+  const tope = Math.floor(0x1_0000_0000 / 1_000_000) * 1_000_000;
+  for (;;) {
+    const n = crypto.getRandomValues(new Uint32Array(1))[0]!;
+    if (n < tope) return String(n % 1_000_000).padStart(6, '0');
+  }
+}
+/** Lo que escribe la persona: se quitan espacios y guiones («482 915»). */
+export const limpiarCodigo = (valor: unknown) => String(valor ?? '').replace(/[\s-]/g, '');
+export const codigoValido = (valor: string) => /^\d{6}$/.test(valor);
 
 /** HMAC-SHA256(secreto, ámbito \0 valor) en hex: lo único que se guarda de tokens, `state` e IP. */
 export function resumen(secreto: string, ambito: string, valor: string): string {
@@ -49,6 +70,8 @@ export const RUTAS = {
   ingresar: '/ingresar/',
   googleInicio: '/ingresar/google/inicio/',
   googleRetorno: '/ingresar/google/retorno/',
+  correoEnviar: '/ingresar/correo/enviar/',
+  correoVerificar: '/ingresar/correo/verificar/',
   cuenta: '/mi-cuenta/',
   salir: '/mi-cuenta/salir/',
   borrar: '/mi-cuenta/borrar/',
@@ -76,7 +99,16 @@ export function destinoSeguro(valor: string | null | undefined): string {
 /** Avisos de /ingresar/ (contrato §9) y los de Mi cuenta. */
 export const AVISOS: Record<string, string> = {
   google: 'Google no completó el acceso. Vuelve a intentarlo.',
-  'google-otra': 'Ese correo ya tiene una cuenta en Sably creada con otra forma de acceso. Entra con la que usaste la primera vez.',
+  'google-otra': 'Ese correo ya tiene una cuenta en Sably. Entra con tu correo: te enviamos un código.',
+  'correo-invalido': 'Escribe un correo válido, por ejemplo nombre@gmail.com.',
+  'correo-espera': 'Ya te enviamos un código hace menos de un minuto. Revisa tu correo o espera un momento para pedir otro.',
+  'correo-envio': 'No pudimos enviar el correo. Vuelve a intentarlo en unos minutos o entra con Google.',
+  'correo-apagado': 'El acceso con correo no está disponible ahora. Entra con Google.',
+  'codigo-malo': 'Ese código no es correcto. Revisa el último correo que te enviamos.',
+  'codigo-caducado': 'El código venció o ya se usó. Pide uno nuevo.',
+  'codigo-intentos': 'Demasiados intentos con este código. Pide uno nuevo.',
+  reenviado: 'Te enviamos un código nuevo.',
+  'sin-acceso': 'Ahora no se puede entrar. Vuelve a intentarlo más tarde.',
   espera: 'Hubo demasiados intentos seguidos. Espera unos minutos y vuelve a intentarlo.',
   salida: 'Cerraste la sesión.',
   borrada: 'Tu cuenta y sus datos se borraron de Sably.',
@@ -92,6 +124,15 @@ export function enlaceIngresar(destino?: string | null, aviso?: string): string 
   if (ruta !== RUTAS.cuenta) params.set('volver', ruta);
   if (aviso) params.set('aviso', aviso);
   return RUTAS.ingresar + (params.size ? `?${params}` : '');
+}
+
+/** Paso 2 del acceso con correo: /ingresar/?paso=codigo con su retorno y aviso. */
+export function enlaceCodigo(destino?: string | null, aviso?: string): string {
+  const ruta = destinoSeguro(destino);
+  const params = new URLSearchParams({ paso: 'codigo' });
+  if (ruta !== RUTAS.cuenta) params.set('volver', ruta);
+  if (aviso) params.set('aviso', aviso);
+  return `${RUTAS.ingresar}?${params}`;
 }
 
 /** Clave estable de un curso guardado (contrato §6). */
@@ -111,6 +152,6 @@ export function iniciales(nombre: string, correo: string): string {
  * (Ley 1581 de 2012 y RGPD). Si cambia, sube la versión.
  */
 export const CONSENTIMIENTO = {
-  version: 'cuenta-2026-11-25',
-  texto: 'Al continuar creas tu cuenta en Sably o entras en ella. Guardamos tu correo, tu nombre y tu foto de Google para identificarte, recordar tus preferencias y los cursos que guardes. No los usamos para publicidad ni los compartimos. Puedes borrar tu cuenta cuando quieras desde Mi cuenta.',
+  version: 'cuenta-2026-11-26',
+  texto: 'Al continuar creas tu cuenta en Sably o entras en ella. Guardamos tu correo y, si entras con Google, tu nombre y tu foto de Google, para identificarte, recordar tus preferencias y los cursos que guardes. No los usamos para publicidad ni los compartimos. Puedes borrar tu cuenta cuando quieras desde Mi cuenta.',
 } as const;
