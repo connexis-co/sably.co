@@ -5,22 +5,24 @@
  *   marco) y deja ver la de debajo, cuyas piezas (antetítulo, título, texto y botón) entran en cascada;
  *   con «anterior» la tarjeta vuelve a subir;
  * - la foto de fondo cambia con un fundido sobre la anterior (la siguiente se precarga antes de fundir).
- * Flechas, teclas ← y →, deslizar con el dedo y contador «1 de N» con aviso a lectores de pantalla. Sin rotación
- * automática. Con «reducir movimiento» el cambio es inmediato. Todos los oficios y sus enlaces van en el HTML.
+ * Flechas, teclas ← y →, deslizar con el dedo y contador «1 de N» con aviso a lectores de pantalla. Panel →
+ * Portada: «Automático» (rueda sola cada `intervalo` ms, con botón visible de pausa; se para con el cursor encima,
+ * con el foco dentro, fuera de pantalla o con la pestaña oculta) o «Estático» (solo flechas). Con «reducir movimiento» el cambio es inmediato. Todos los oficios y sus enlaces van en el HTML.
  * Solo se animan `transform` (translate/rotate) y `opacity`.
  */
 import Ico from '../Ico.astro';
 import Foto from '../Foto.astro';
 import type { Course } from '@/lib/emdash-content';
 import { FOTOS, type NombreFoto } from '../../fotos';
-interface Props { oficios: { c: Course; nota: { cifra: string; texto: string } | null; foto: NombreFoto }[]; base: string }
-const { oficios, base } = Astro.props;
+interface Props { oficios: { c: Course; nota: { cifra: string; texto: string } | null; foto: NombreFoto }[]; base: string; modo?: 'automatico' | 'estatico'; intervalo?: number }
+const { oficios, base, modo = 'automatico', intervalo = 9000 } = Astro.props;
+const auto = modo === 'automatico' && oficios.length > 1;
 const n = oficios.length;
 ---
 {n > 0 && (
   <section class="v2-contenedor pt-24 lg:pt-32" aria-labelledby="oficio-titulo">
     <h2 id="oficio-titulo" class="sr-only">Oficio destacado</h2>
-    <div class="v2-ofi" data-ofi aria-roledescription="carrusel" aria-label="Oficios destacados">
+    <div class="v2-ofi" data-ofi data-ofi-auto={auto ? intervalo : undefined} aria-roledescription="carrusel" aria-label="Oficios destacados">
       <div class="v2-ofi-fotos">
         {oficios.map((o, i) => (
           <div class="v2-ofi-foto" data-i={i} data-activa={i === 0 ? '' : undefined} aria-hidden={i === 0 ? undefined : 'true'}>
@@ -38,6 +40,7 @@ const n = oficios.length;
               <a href={`${base}/${o.c.id}/`} class="v2-btn v2-btn-principal whitespace-nowrap" data-alto="52">Ver el curso <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
               {n > 1 && (
                 <span class="flex gap-2">
+                  {auto && <button type="button" class="v2-ofi-flecha v2-ofi-pausa" data-ofi-pausa aria-pressed="false" aria-label="Pausar el cambio automático"><Ico nombre="pause" tamano={16} class="v2-ico-pausa" /><Ico nombre="play" tamano={16} class="v2-ico-seguir" /></button>}
                   <button type="button" class="v2-ofi-flecha" data-ofi-ir="-1" aria-label="Oficio anterior"><Ico nombre="arrow-left" tamano={18} /></button>
                   <button type="button" class="v2-ofi-flecha" data-ofi-ir="1" aria-label="Oficio siguiente"><Ico nombre="arrow-right" tamano={18} /></button>
                 </span>
@@ -54,7 +57,9 @@ const n = oficios.length;
 <style is:global>
   @layer components {
     /* Móvil: foto 4:3 arriba y la pila de tarjetas debajo, montada 64 px sobre la foto. */
-    .v2-ofi { position: relative; overflow: clip; overflow-clip-margin: 24px; touch-action: pan-y; }
+    /* Sin overflow-clip-margin: lo que asoma fuera del recorte cuenta como ancho desplazable (la página se ensanchaba
+       4 px en el celular). La sombra de abajo cabe en el relleno inferior. */
+    .v2-ofi { position: relative; overflow: clip; padding-bottom: 24px; margin-bottom: -24px; touch-action: pan-y; }
     .v2-ofi-fotos { display: grid; overflow: hidden; border-radius: var(--radius-c-xl); aspect-ratio: 4 / 3; background: var(--color-navy-100); }
     .v2-ofi-foto { grid-area: 1 / 1; opacity: 0; }
     .v2-ofi-foto[data-activa] { opacity: 1; z-index: 2; }
@@ -70,11 +75,14 @@ const n = oficios.length;
     .v2-ofi-tar[data-estado='debajo'] { visibility: hidden; }
     .v2-ofi-flecha { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 999px; color: #fff; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .4); cursor: pointer; transition: box-shadow var(--t-rapido) var(--e-sale), background-color var(--t-rapido) var(--e-sale); }
     .v2-ofi-flecha:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+    .v2-ofi-pausa .v2-ico-seguir, .v2-ofi-pausa[aria-pressed='true'] .v2-ico-pausa { display: none; }
+    .v2-ofi-pausa[aria-pressed='true'] .v2-ico-seguir { display: block; }
+    @media (prefers-reduced-motion: reduce) { .v2-ofi-pausa { display: none; } }
     @media (hover: hover) { .v2-ofi-flecha:hover { box-shadow: inset 0 0 0 1px #fff; background: rgb(255 255 255 / .08); } }
 
     /* Escritorio: foto a todo el contenedor y la tarjeta dentro, abajo a la izquierda (como visitvalle). */
     @media (min-width: 1024px) {
-      .v2-ofi { border-radius: var(--radius-c-xl); overflow: hidden; overflow-clip-margin: 0; }
+      .v2-ofi { border-radius: var(--radius-c-xl); overflow: hidden; padding-bottom: 0; margin-bottom: 0; }
       .v2-ofi-fotos { aspect-ratio: 1200 / 660; }
       /* Cada tarjeta va del lado libre de su foto (FOTOS[…].tarjeta), para no tapar la cara ni las manos. */
       .v2-ofi-pila { position: absolute; inset: 40px; margin: 0; pointer-events: none; }
@@ -148,11 +156,31 @@ const n = oficios.length;
       precarga(d + 1); precarga(d - 1);
     };
 
-    raiz.querySelectorAll<HTMLButtonElement>('[data-ofi-ir]').forEach(b => b.addEventListener('click', () => ir(actual + Number(b.dataset.ofiIr))));
+    /* Rotación automática (modo «Automático»): un temporizador que se rearma tras cada cambio y que no corre si el
+       usuario pausó, si el cursor o el foco están dentro, si el bloque no se ve o si la pestaña está oculta. */
+    const cada = Number(raiz.dataset.ofiAuto) || 0;
+    const pausas = [...raiz.querySelectorAll<HTMLButtonElement>('[data-ofi-pausa]')];
+    let pausado = false, encima = false, dentro = false, visible = false, reloj: ReturnType<typeof setTimeout> | undefined;
+    const puede = () => cada > 0 && !pausado && !encima && !dentro && visible && !document.hidden && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const arma = () => { clearTimeout(reloj); if (puede()) reloj = setTimeout(() => { void ir(actual + 1).then(arma); }, cada); };
+    if (cada) {
+      pausas.forEach(b => b.addEventListener('click', () => {
+        pausado = !pausado;
+        pausas.forEach(x => { x.setAttribute('aria-pressed', String(pausado)); x.setAttribute('aria-label', pausado ? 'Seguir con el cambio automático' : 'Pausar el cambio automático'); });
+        arma();
+      }));
+      raiz.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') { encima = true; arma(); } });
+      raiz.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') { encima = false; arma(); } });
+      raiz.addEventListener('focusin', () => { dentro = true; arma(); });
+      raiz.addEventListener('focusout', e => { if (!raiz.contains(e.relatedTarget as Node | null)) { dentro = false; arma(); } });
+      new IntersectionObserver(([e]) => { visible = !!e?.isIntersecting && e.intersectionRatio > 0.4; arma(); }, { threshold: [0, 0.4, 0.6] }).observe(raiz);
+      document.addEventListener('visibilitychange', arma);
+    }
+    raiz.querySelectorAll<HTMLButtonElement>('[data-ofi-ir]').forEach(b => b.addEventListener('click', () => { void ir(actual + Number(b.dataset.ofiIr)).then(arma); }));
     raiz.addEventListener('keydown', e => {
       if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
       e.preventDefault();
-      ir(actual + (e.key === 'ArrowRight' ? 1 : -1));
+      void ir(actual + (e.key === 'ArrowRight' ? 1 : -1)).then(arma);
     });
     /* Deslizar con el dedo: a la izquierda, siguiente; a la derecha, anterior. */
     let toque: { x: number; y: number } | null = null;
@@ -161,7 +189,7 @@ const n = oficios.length;
       if (!toque) return;
       const dx = e.clientX - toque.x, dy = e.clientY - toque.y;
       toque = null;
-      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) ir(actual + (dx < 0 ? 1 : -1));
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) void ir(actual + (dx < 0 ? 1 : -1)).then(arma);
     });
     raiz.addEventListener('pointercancel', () => { toque = null; });
   }
