@@ -1,6 +1,7 @@
 ---
 import { Image as OptimizedImage } from 'astro:assets';
 import { cmsImageUrl } from '@/lib/cms-media';
+import { ogDeCms, ogEstatica } from '@/lib/og';
 import CmsRichBody from '@/components/CmsRichBody.astro';
 import { renderMarkdown } from '@/lib/markdown';
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -23,7 +24,7 @@ const {post, country, toc, related, minutes, title, schemas, articleSchema, arti
   {articleSchema}
   {articleMeta}
   pageType="article"
-  image={(cmsImageUrl(post.coverImage) ?? blogCover(post.data.category, 'hero'))}
+  ogImagen={ogDeCms(post.coverImage, post.data.title) ?? ogEstatica('blog')}
 >
   <ReadingProgress />
 

@@ -38,3 +38,4 @@ deployment/backups/
 !.env.example
 
 DEV_ACCESS.txt
+scripts/.og-cache/

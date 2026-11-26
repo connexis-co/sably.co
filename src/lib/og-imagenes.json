@@ -1,0 +1,313 @@
+{
+ "version": 1,
+ "imagenes": [
+  {
+   "id": "sably",
+   "titulo": "Aprende un oficio real.|Emprende tu futuro.",
+   "sub": "Educación online para aprender oficios en español",
+   "fotos": [
+    "v2:foto-heroe-1@60",
+    "v2:foto-heroe-2@78"
+   ],
+   "alt": "Sably: aprende un oficio real, emprende tu futuro. Educación online para aprender oficios en español."
+  },
+  {
+   "id": "portada-co",
+   "titulo": "Aprende un oficio real.|Emprende tu futuro.",
+   "sub": "Cursos online para Colombia",
+   "fotos": [
+    "v2:foto-barberia-vertical-1",
+    "v2:foto-costura-1@70"
+   ],
+   "alt": "Sably: aprende un oficio real, emprende tu futuro. Cursos online para Colombia."
+  },
+  {
+   "id": "portada-mx",
+   "titulo": "Aprende un oficio real.|Emprende tu futuro.",
+   "sub": "Cursos online para México",
+   "fotos": [
+    "v2:foto-heroe-2@78",
+    "v2:foto-panaderia-1@50"
+   ],
+   "alt": "Sably: aprende un oficio real, emprende tu futuro. Cursos online para México."
+  },
+  {
+   "id": "portada-pe",
+   "titulo": "Aprende un oficio real.|Emprende tu futuro.",
+   "sub": "Cursos online para Perú",
+   "fotos": [
+    "v2:foto-heroe-1@60",
+    "v2:foto-celulares-1@60"
+   ],
+   "alt": "Sably: aprende un oficio real, emprende tu futuro. Cursos online para Perú."
+  },
+  {
+   "id": "portada-ec",
+   "titulo": "Aprende un oficio real.|Emprende tu futuro.",
+   "sub": "Cursos online para Ecuador",
+   "fotos": [
+    "v2:foto-masajes-vertical-1",
+    "v2:foto-maquillaje-vertical-1"
+   ],
+   "alt": "Sably: aprende un oficio real, emprende tu futuro. Cursos online para Ecuador."
+  },
+  {
+   "id": "portada-cl",
+   "titulo": "Aprende un oficio real.|Emprende tu futuro.",
+   "sub": "Cursos online para Chile",
+   "fotos": [
+    "v2:foto-electricidad-vertical-1",
+    "v2:foto-cocina-vertical-1"
+   ],
+   "alt": "Sably: aprende un oficio real, emprende tu futuro. Cursos online para Chile."
+  },
+  {
+   "id": "portada-ar",
+   "titulo": "Aprende un oficio real.|Emprende tu futuro.",
+   "sub": "Cursos online para Argentina",
+   "fotos": [
+    "v2:foto-velas-1@45",
+    "v2:foto-soldadura-1@28"
+   ],
+   "alt": "Sably: aprende un oficio real, emprende tu futuro. Cursos online para Argentina."
+  },
+  {
+   "id": "portada-es",
+   "titulo": "Aprende un oficio real.|Emprende tu futuro.",
+   "sub": "Cursos online para España",
+   "fotos": [
+    "v2:foto-unas-acrilicas-vertical-1",
+    "v2:foto-estudiar-celular-2@82"
+   ],
+   "alt": "Sably: aprende un oficio real, emprende tu futuro. Cursos online para España."
+  },
+  {
+   "id": "portada-us",
+   "titulo": "Aprende un oficio real.|Emprende tu futuro.",
+   "sub": "Cursos online para Estados Unidos",
+   "fotos": [
+    "v2:foto-creador-1@75",
+    "v2:foto-estudiar-celular-1@47"
+   ],
+   "alt": "Sably: aprende un oficio real, emprende tu futuro. Cursos online para Estados Unidos."
+  },
+  {
+   "id": "cursos",
+   "titulo": "Aprende un oficio|a tu ritmo",
+   "fotos": [
+    "v2:foto-estudiar-celular-1@47",
+    "v2:foto-cocina-vertical-1"
+   ],
+   "kicker": "Todos los cursos",
+   "sub": "Explora los oficios",
+   "alt": "Sably: todos los cursos online para aprender un oficio en español."
+  },
+  {
+   "id": "nosotros",
+   "titulo": "Aprende oficios|en español",
+   "fotos": [
+    "v2:foto-creador-1@75",
+    "v2:foto-costura-1@70"
+   ],
+   "kicker": "Sobre Sably",
+   "alt": "Sably es una plataforma de educación online para aprender oficios en español.",
+   "sub": "Plataforma de educación online"
+  },
+  {
+   "id": "blog",
+   "titulo": "Guías para aprender|y vivir de un oficio",
+   "fotos": [
+    "v2:foto-estudiar-celular-2@82",
+    "v2:foto-cocina-vertical-1"
+   ],
+   "kicker": "Blog de Sably",
+   "alt": "Blog de Sably: guías para aprender y vivir de un oficio."
+  },
+  {
+   "id": "homologaciones",
+   "titulo": "Ya sabes el oficio.|Ahora certifícalo.",
+   "fotos": [
+    "v2:foto-maquillaje-vertical-1",
+    "v2:foto-barberia-vertical-1"
+   ],
+   "kicker": "Homologaciones",
+   "acento": 2,
+   "alt": "Sably: homologaciones para certificar el oficio que ya sabes."
+  },
+  {
+   "id": "contacto",
+   "titulo": "¿Hablamos?",
+   "fotos": [
+    "v2:foto-estudiar-celular-2@82",
+    "v2:foto-masajes-vertical-1"
+   ],
+   "kicker": "Contacto",
+   "sub": "Te ayudamos a elegir tu curso",
+   "alt": "Contacto de Sably: escríbenos y te ayudamos a elegir tu curso."
+  },
+  {
+   "id": "ofertas",
+   "titulo": "Cursos con oferta",
+   "fotos": [
+    "v2:foto-unas-acrilicas-vertical-1",
+    "v2:foto-panaderia-1@50"
+   ],
+   "kicker": "Ofertas",
+   "sub": "Mira las ofertas vigentes",
+   "alt": "Sably: cursos online con oferta vigente."
+  },
+  {
+   "id": "legal",
+   "titulo": "Información legal",
+   "fotos": [
+    "v2:foto-heroe-1@60",
+    "v2:foto-heroe-2@78"
+   ],
+   "kicker": "Sably",
+   "sub": "Términos, privacidad y reembolsos",
+   "alt": "Sably: términos, privacidad y reembolsos."
+  },
+  {
+   "id": "videos",
+   "titulo": "Conoce cada curso|en video",
+   "fotos": [
+    "v2:foto-celulares-1@60",
+    "v2:foto-masajes-vertical-1"
+   ],
+   "kicker": "Videos",
+   "alt": "Sably: presentaciones en video de los cursos."
+  },
+  {
+   "id": "categoria-belleza-online",
+   "kicker": "Cursos online de",
+   "titulo": "Belleza online",
+   "sub": "Aprende un oficio real",
+   "fotos": [
+    "cms:01M89NZWGK6M9QXNAV90ECZPE8.jpg@38",
+    "cms:01M89VC7T0HRRVZEWNH2BNFGT7.jpg@45"
+   ],
+   "alt": "Sably: cursos online de belleza online, para aprender un oficio en español."
+  },
+  {
+   "id": "categoria-bienestar",
+   "kicker": "Cursos online de",
+   "titulo": "Bienestar",
+   "sub": "Aprende un oficio real",
+   "fotos": [
+    "cms:01M8B51BKDN0YV1M3K0DXK86E3.jpg@45",
+    "cms:01M8BXZM0Y2Y05PWG3269N1805.jpg@50"
+   ],
+   "alt": "Sably: cursos online de bienestar, para aprender un oficio en español."
+  },
+  {
+   "id": "categoria-cuidado-animal",
+   "kicker": "Cursos online de",
+   "titulo": "Cuidado|animal",
+   "sub": "Aprende un oficio real",
+   "fotos": [
+    "cms:01M8B1G6TF1JM9YDM2GQC487XK.jpg@70",
+    "cms:01M89NVSQQCK4BQF0EENAVMJ19.jpg@70"
+   ],
+   "alt": "Sably: cursos online de cuidado animal, para aprender un oficio en español."
+  },
+  {
+   "id": "categoria-emprendimiento",
+   "kicker": "Cursos online de",
+   "titulo": "Emprendimiento",
+   "sub": "Aprende un oficio real",
+   "fotos": [
+    "cms:01M8B25M93VFZNHEX7YR4WYJHF.jpg@45",
+    "cms:01M8B40AH6Y1F5D49FDEFQXDFH.jpg@55"
+   ],
+   "alt": "Sably: cursos online de emprendimiento, para aprender un oficio en español."
+  },
+  {
+   "id": "categoria-gastronomia",
+   "kicker": "Cursos online de",
+   "titulo": "Gastronomía",
+   "sub": "Aprende un oficio real",
+   "fotos": [
+    "cms:01M8B3ZVQS9ESZ886C8PN5TGTM.jpg@33",
+    "cms:01M89VCK082F66TQ2ZPTJ6XRA3.jpg@45"
+   ],
+   "alt": "Sably: cursos online de gastronomía, para aprender un oficio en español."
+  },
+  {
+   "id": "categoria-hospitalidad",
+   "kicker": "Cursos online de",
+   "titulo": "Hospitalidad",
+   "sub": "Aprende un oficio real",
+   "fotos": [
+    "cms:01M8B6VYAVC6HRV58AK51F5W1T.jpg@80",
+    "cms:01M89T7D640CN3FTM2KFPAWDNN.jpg@60"
+   ],
+   "alt": "Sably: cursos online de hospitalidad, para aprender un oficio en español."
+  },
+  {
+   "id": "categoria-idiomas",
+   "kicker": "Cursos online de",
+   "titulo": "Idiomas",
+   "sub": "Aprende un oficio real",
+   "fotos": [
+    "cms:01M89RG9AR53BSG35661JH4MQ9.jpg@75",
+    "cms:01M8BXE91HQN0A4F8RJ85J1QXD.jpg@80"
+   ],
+   "alt": "Sably: cursos online de idiomas, para aprender un oficio en español."
+  },
+  {
+   "id": "categoria-manualidades",
+   "kicker": "Cursos online de",
+   "titulo": "Manualidades",
+   "sub": "Aprende un oficio real",
+   "fotos": [
+    "cms:01M89TN24G4E4NVKC074E45VPW.jpg@50",
+    "cms:01M8B36TMP7E9RY4WJQRFP7HR8.jpg@50"
+   ],
+   "alt": "Sably: cursos online de manualidades, para aprender un oficio en español."
+  },
+  {
+   "id": "categoria-moda-y-confeccion",
+   "kicker": "Cursos online de",
+   "titulo": "Moda y|confección",
+   "sub": "Aprende un oficio real",
+   "fotos": [
+    "cms:01M8B6KXARNASZDZZ7ZPY6FGA2.jpg@60",
+    "cms:01M89P1C0XN2NWSZ0RYNVPCBH3.jpg@60"
+   ],
+   "alt": "Sably: cursos online de moda y confección, para aprender un oficio en español."
+  },
+  {
+   "id": "categoria-musica",
+   "kicker": "Cursos online de",
+   "titulo": "Música",
+   "sub": "Aprende un oficio real",
+   "fotos": [
+    "cms:01M8BXDZV6M4CTHCK16BQ2J2HK.jpg@50",
+    "cms:01M89RHZSF9T2RRVNCXEZNJPRT.jpg@50"
+   ],
+   "alt": "Sably: cursos online de música, para aprender un oficio en español."
+  },
+  {
+   "id": "categoria-oficios",
+   "kicker": "Cursos online de",
+   "titulo": "Oficios",
+   "sub": "Aprende un oficio real",
+   "fotos": [
+    "cms:01M8B0VTQBTWTQ98FVAYFE97MA.jpg@55",
+    "cms:01M8B6KAX7TPZJKYJ5RBA8FDNT.jpg@45"
+   ],
+   "alt": "Sably: cursos online de oficios, para aprender un oficio en español."
+  },
+  {
+   "id": "categoria-panaderia-y-pasteleria",
+   "kicker": "Cursos online de",
+   "titulo": "Panadería y|pastelería",
+   "sub": "Aprende un oficio real",
+   "fotos": [
+    "cms:01M89P2MBNVGXK18XZC05FC0KT.jpg@50",
+    "cms:01M89TR4Q65W3RD03BCMR9B7JE.jpg@65"
+   ],
+   "alt": "Sably: cursos online de panadería y pastelería, para aprender un oficio en español."
+  }
+ ]
+}

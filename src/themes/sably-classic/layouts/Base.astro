@@ -20,6 +20,7 @@ import SearchModal from '@/components/SearchModal.astro';
 import type { Country, City } from '@/lib/countries';
 import type { HreflangAlternate } from '@/lib/seo';
 import { organizationSchema } from '@/lib/seo';
+import { ogGenerica, ogPorPagina, type OgImagen } from '@/lib/og';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import CabeceraV2 from '@/themes/sably-v2/components/Cabecera.astro';
 import BarraCampanaV2 from '@/themes/sably-v2/components/BarraCampana.astro';
@@ -66,8 +67,10 @@ export interface Props {
   proveedor?: string;
   whatsappContext?: string;
   noindex?: boolean;
-  /** Imagen social de la página (og:image). */
+  /** Imagen social de la página (og:image), solo la URL. Preferir `ogImagen`, que lleva alt y medidas. */
   image?: string;
+  /** Imagen social con alt y medidas (ver src/lib/og.ts). Gana sobre `image` y sobre la de la página principal. */
+  ogImagen?: OgImagen;
   /** Canonical explícito (override). Las variantes de ciudad canonican a país. */
   canonical?: string;
   /**
@@ -108,6 +111,7 @@ const {
   whatsappContext,
   noindex = false,
   image,
+  ogImagen,
   canonical,
   noindexGoogle = false,
   freshUntil = null,
@@ -132,11 +136,24 @@ const allSchemas = [organization, ...schemas];
    promoción ve cada país, que es una decisión de negocio y no de SEO. */
 const dePais = Astro.url.pathname.startsWith(`/${country.code}/`);
 const ogLocale = dePais ? country.hreflang.replace('-', '_') : 'es_CO';
+/* Imagen para compartir. Prioridad: SEO propio de la entrada (lo resuelve getSeoMeta) > imagen de la
+   página (ficha, artículo) > imagen de su tipo de página > ajuste global del panel > genérica de Sably. */
+const ajusteGlobal = settings.seo?.defaultOgImage;
+const ogElegida: OgImagen = ogImagen
+  ?? (image ? { url: image, alt: title } : undefined)
+  ?? ogPorPagina(pageType, country.code, Astro.url.pathname)
+  ?? (ajusteGlobal?.url ? { url: ajusteGlobal.url, ancho: ajusteGlobal.width, alto: ajusteGlobal.height, tipo: ajusteGlobal.contentType, alt: ajusteGlobal.alt || title } : undefined)
+  ?? ogGenerica();
 const seo = getSeoMeta({ data: { seo: Astro.locals.sablySeo } }, {
   siteUrl: SITE.url, defaultTitle: title, defaultDescription: description,
-  defaultOgImage: new URL(image || settings.seo?.defaultOgImage?.url || '/covers/oficios.jpg', SITE.url).href,
+  defaultOgImage: new URL(ogElegida.url, SITE.url).href,
   path: Astro.url.pathname,
 });
+/* Si el editor fijó otra imagen en el SEO de la entrada, no se le atribuyen medidas ni alt que no son suyos. */
+const ogUrl = seo.ogImage ? new URL(seo.ogImage, SITE.url).href : undefined;
+const ogFinal: OgImagen | undefined = ogUrl
+  ? ogUrl === new URL(ogElegida.url, SITE.url).href ? ogElegida : { url: ogUrl, alt: title }
+  : undefined;
 const development = import.meta.env.SITE?.replace(/\/+$/, '') !== 'https://sably.co';
 if (canCachePublicPage(Astro.request, development ? 'development' : 'production')) {
   // La barra de promoción se pinta en el servidor: la copia no puede sobrevivir a su inicio o fin.
@@ -165,7 +182,7 @@ const pageContext = { ...createPublicPageContext({
   content: Astro.locals.sablyContent, pageType, title: seo.title,
   pageTitle: seo.title, description: seo.description,
   canonical: seo.canonical && Astro.locals.sablySeo?.canonical ? seo.canonical : canonical ?? new URL(Astro.url.pathname, SITE.url).href,
-  image: seo.ogImage, siteName: settings.title || SITE.name, siteUrl: SITE.url,
+  image: ogUrl, siteName: settings.title || SITE.name, siteUrl: SITE.url,
   articleMeta,
   seo: { robots: development ? 'noindex, nofollow, noarchive' : noindex || temaForzado ? 'noindex, follow' : seo.robots || 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' },
 }), ...(articleSchema ? { sablyArticle: articleSchema } : {}) };
@@ -186,7 +203,7 @@ const cssBarra = promoV2 ? minificar(cssBarraCampana) : '';
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#1B1B3A" />
     <meta name="generator" content={Astro.generator} />
-    <Seo title={seo.title} page={pageContext} {alternates} schemas={allSchemas} {noindexGoogle} {ogLocale} />
+    <Seo title={seo.title} page={pageContext} {alternates} schemas={allSchemas} {noindexGoogle} {ogLocale} ogImagen={ogFinal} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     {(cssBarra || cssReloj) && <style is:inline set:html={cssBarra + cssReloj}></style>}
     {/* Navegación casi instantánea: el navegador pide la página de un enlace interno al pasar el

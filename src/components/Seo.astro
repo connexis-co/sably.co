@@ -6,12 +6,20 @@ import type { HreflangAlternate } from '@/lib/seo';
 interface Props {
   title: string; page: PublicPageContext; alternates?: HreflangAlternate[];
   schemas?: object[]; noindexGoogle?: boolean; ogLocale?: string;
+  /** Alt y medidas de la imagen que EmDashHead ya declara como og:image / twitter:image. */
+  ogImagen?: { ancho?: number; alto?: number; tipo?: string; alt: string };
 }
-const { title, page, alternates = [], schemas = [], noindexGoogle = false, ogLocale = 'es_CO' } = Astro.props;
+const { title, page, alternates = [], schemas = [], noindexGoogle = false, ogLocale = 'es_CO', ogImagen } = Astro.props;
 ---
 <title>{title}</title>
 <EmDashHead {page} />
 <meta property="og:locale" content={ogLocale} />
+{ogImagen && <>
+  <meta property="og:image:alt" content={ogImagen.alt} />
+  {ogImagen.tipo && <meta property="og:image:type" content={ogImagen.tipo} />}
+  {ogImagen.ancho && ogImagen.alto && <><meta property="og:image:width" content={String(ogImagen.ancho)} /><meta property="og:image:height" content={String(ogImagen.alto)} /></>}
+  <meta name="twitter:image:alt" content={ogImagen.alt} />
+</>}
 {noindexGoogle && <meta name="googlebot" content="noindex, follow" />}
 {alternates.map(alt => <link rel="alternate" hreflang={alt.hreflang} href={alt.href} />)}
 {schemas.map(schema => <script type="application/ld+json" set:html={safeJsonLdSerialize(schema)} />)}
