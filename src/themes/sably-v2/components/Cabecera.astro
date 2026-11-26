@@ -19,6 +19,7 @@ import MegaDetalle from './MegaDetalle.astro';
 import type { Country } from '@/lib/countries';
 import type { DatosNavegacion } from '../navegacion';
 import type { PromoV2 } from '../promo-v2';
+import ContadorCampana from './ContadorCampana.astro';
 import CuentaCabecera from '@/components/cuenta/CuentaCabecera.astro';
 import CuentaHoja from '@/components/cuenta/CuentaHoja.astro';
 import { estadoCuenta } from '@/lib/cuenta/ajustes';
@@ -56,11 +57,14 @@ const cuenta = await estadoCuenta(Astro.locals);
                   <div data-promo-v2="tarjeta" data-promo-ssr={promo.ssr} class="mt-5 rounded-c-lg bg-coral-50 p-4">
                     <p class="flex items-center gap-2 text-t13 font-semibold text-coral-700"><span class="size-1.5 rounded-full bg-coral-500" aria-hidden="true"></span><span data-promo-gorro>{promo.etiqueta}</span></p>
                     <p class="mt-1 font-display text-t20 font-semibold text-navy-950"><span data-promo-pct-v2>{promo.pct} %</span> en cursos seleccionados</p>
-                    <button type="button" data-promo-cupon class="v2-tique-mini mt-3 bg-white" aria-label={`Copiar el cupón ${promo.cupon}`}>
-                      <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{promo.cupon}</span>
-                      <span class="gap-1 font-semibold text-coral-700"><Ico nombre="copy" tamano={14} /><span data-promo-copiar-texto>Copiar</span></span>
-                    </button>
-                    {promo.fin && <p data-promo-fin class="mt-2 text-t13 text-navy-500">Termina el <span data-promo-fecha>{promo.fin}</span> (hora de Colombia)</p>}
+                    {(promo.muestra.megamenu === 'contador' || promo.muestra.megamenu === 'ambos') && promo.finMs && <div class="mt-3"><p class="text-t13 text-navy-500">Termina en</p><ContadorCampana finMs={promo.finMs} fin={promo.fin} tono="claro" class="mt-1.5" /></div>}
+                    {(promo.muestra.megamenu === 'cupon' || promo.muestra.megamenu === 'ambos') && (
+                      <button type="button" data-promo-cupon class="v2-tique-mini mt-3 bg-white" aria-label={`Copiar el cupón ${promo.cupon}`}>
+                        <span class="v2-num font-semibold tracking-wide" data-promo-codigo>{promo.cupon}</span>
+                        <span class="gap-1 font-semibold text-coral-700"><Ico nombre="copy" tamano={14} /><span data-promo-copiar-texto>Copiar</span></span>
+                      </button>
+                    )}
+                    {promo.fin && promo.muestra.megamenu !== 'contador' && promo.muestra.megamenu !== 'ambos' && <p data-promo-fin class="mt-2 text-t13 text-navy-500">Termina el <span data-promo-fecha>{promo.fin}</span> (hora de Colombia)</p>}
                   </div>
                 )}
               </div>

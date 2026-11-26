@@ -24,7 +24,7 @@ const nav = { totalCursos };
       </div>
       {!copy.courses.description && <p class="text-t15 text-navy-500">Precios para {country.name}, en {moneda}</p>}
     </div>
-    <ul class={`v2-contenedor mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible ${rejilla.columnas}`} role="list" data-filas-completas={rejilla.filasCompletas}>
+    <ul data-entra="grupo" class={`v2-contenedor mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible ${rejilla.columnas}`} role="list" data-filas-completas={rejilla.filasCompletas}>
       {featured.map(course => <li class="w-[85%] flex-none snap-start sm:w-auto"><TarjetaCurso {course} {country} precio={precios.get(course.id) ?? null} /></li>)}
     </ul>
     <div class="v2-contenedor mt-8"><a href={`${base}/cursos/`} class="v2-btn v2-btn-secundario max-sm:w-full" data-alto="52">Ver todos los {nav.totalCursos} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a></div>

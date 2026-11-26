@@ -1,6 +1,6 @@
 import {courseSeo} from '../cms-indexability';
 import { getContentRepository } from '@/lib/emdash-content';
-import { cityRedirect } from './city-redirect';
+import { cityRedirect, slugDeCiudad } from './city-redirect';
 import type { PublicPageContext } from './types';
 
 export async function load(Astro:PublicPageContext) {
@@ -12,7 +12,7 @@ const country = await cms.getCountry(Astro.params.country ?? '');
 if (!country) return new Response('Not found', {status:404});
 
 // Hub de ciudad: consolidado en la portada del país (ver city-redirect).
-if (country.cities.some(c => c.slug === Astro.params.item)) return cityRedirect(Astro, `/${country.code}/`);
+if (country.cities.some(c => c.slug === slugDeCiudad(country.code, Astro.params.item))) return cityRedirect(Astro, `/${country.code}/`);
 
 const content = await cms.resolveCourseContent(Astro.params.item ?? '', country.code);
 
