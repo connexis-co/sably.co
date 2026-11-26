@@ -21,7 +21,7 @@ if (Astro.request.method === 'POST') {
   await cerrarSesion(Astro, servidor.almacen);
   // Desde el menú de la cabecera se vuelve a la misma página; desde Mi cuenta, a /ingresar/ con el aviso.
   const volver = destinoSeguro(String(formulario.get('volver') ?? ''));
-  return redirigir(volver !== RUTAS.cuenta ? volver : enlaceIngresar(null, 'salida'));
+  return redirigir(volver.startsWith(RUTAS.cuenta) ? enlaceIngresar(null, 'salida') : volver);
 }
 const cuenta = await cuentaActual(Astro, servidor.almacen);
 if (!cuenta) return redirigir('/');

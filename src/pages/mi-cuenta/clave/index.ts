@@ -11,7 +11,7 @@ import { LIMITE_CLAVE_CORREO_HORA, RUTAS, SESION_SEGUNDOS, ahora, enlaceIngresar
 
 export const prerender = false;
 
-const volverA = (aviso: string, extra = '') => redirigir(`${RUTAS.cuenta}?aviso=${aviso}${extra}#cuenta-clave`);
+const volverA = (aviso: string, extra = '') => redirigir(`${RUTAS.cuentaPreferencias}?aviso=${aviso}${extra}#cuenta-clave`);
 
 export const GET: APIRoute = async (ctx) => (await cuentaServidor(ctx)) ? redirigir(RUTAS.cuenta) : noEncontrada();
 
@@ -52,5 +52,5 @@ export const POST: APIRoute = async (ctx) => {
     await almacen.olvidarCodigo(flujo);
     return volverA('correo-envio');
   }
-  return redirigir(`${RUTAS.cuenta}?paso=codigo#cuenta-clave`);
+  return redirigir(`${RUTAS.cuentaPreferencias}?paso=codigo#cuenta-clave`);
 };

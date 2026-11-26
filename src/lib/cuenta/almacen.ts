@@ -344,6 +344,12 @@ export class CuentaAlmacen {
     return { id: Number(r.id), email: r.email, nombre: r.nombre ?? '', foto: r.foto, quedan: expires - ahora, renovada };
   }
 
+  /** Cuántas sesiones sin vencer tiene la cuenta (solo lectura: lo enseña Preferencias). */
+  async sesionesAbiertas(cuenta: number, ahora: number): Promise<number> {
+    const r = fila<{ n: number }>(await this.db.prepare('SELECT count(*) AS n FROM account_sessions WHERE account = ? AND expires > ?').bind(cuenta, ahora).first());
+    return Number(r?.n ?? 0);
+  }
+
   async revocar(token: string): Promise<void> {
     if (tokenValido(token)) await this.db.prepare('DELETE FROM account_sessions WHERE token = ?').bind(this.h('sesion', token)).run();
   }

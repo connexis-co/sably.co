@@ -80,6 +80,7 @@ export const RUTAS = {
   claveNueva: '/ingresar/clave/nueva/',
   cuentaClave: '/mi-cuenta/clave/',
   cuenta: '/mi-cuenta/',
+  cuentaPreferencias: '/mi-cuenta/preferencias/',
   salir: '/mi-cuenta/salir/',
   borrar: '/mi-cuenta/borrar/',
   yo: '/api/cuenta/yo',

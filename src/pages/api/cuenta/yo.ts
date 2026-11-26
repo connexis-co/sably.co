@@ -1,5 +1,5 @@
 /**
- * Lo que pinta la cabecera con sesión: nombre, iniciales, foto, país preferido y el token CSRF para
+ * Lo que pinta la cabecera con sesión: nombre, correo, iniciales, foto, país preferido y el token CSRF para
  * «Salir». Solo lo pide el script de la cabecera cuando existe la cookie pista. `private, no-store`.
  */
 import type { APIRoute } from 'astro';
@@ -15,7 +15,7 @@ export const GET: APIRoute = async (ctx) => {
   if (!cuenta) return json({ cuenta: null }, 401);
   const prefs = await servidor.almacen.preferencias(cuenta.id);
   return json({
-    cuenta: { nombre: cuenta.nombre, iniciales: iniciales(cuenta.nombre, cuenta.email), foto: cuenta.foto, pais: prefs.pais ?? null },
+    cuenta: { nombre: cuenta.nombre, correo: cuenta.email, iniciales: iniciales(cuenta.nombre, cuenta.email), foto: cuenta.foto, pais: prefs.pais ?? null },
     csrf: tokenCsrf(ctx, servidor.secreto),
   });
 };
