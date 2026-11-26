@@ -81,12 +81,18 @@
     flex: none; block-size: 44px; padding: 0 8px; border-radius: var(--radius-c-sm);
     background: var(--color-navy-50); color: var(--medio-texto); font-size: var(--text-t13); font-weight: 600; font-variant-numeric: tabular-nums;
   }
+  /* Sonido: silenciar siempre; el volumen solo con ratón y pantalla ancha (en el móvil lo lleva el sistema). */
+  .v2-medio-sonido { display: flex; align-items: center; gap: 4px; flex: none; }
+  .v2-medio-volumen { inline-size: 76px; }
+  @media (pointer: coarse), (max-width: 639px) { .v2-medio-volumen { display: none; } }
+  .v2-medio-silenciar .v2-medio-mudo, [data-silenciado="true"] .v2-medio-silenciar .v2-medio-altavoz { display: none; }
+  [data-silenciado="true"] .v2-medio-silenciar .v2-medio-mudo { display: block; }
   .v2-medio-estado { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   /* Móvil: botones en una fila y la barra con sus tiempos a todo el ancho debajo. */
   @media (max-width: 639px) {
     .v2-medio-audio { grid-template-columns: minmax(0, 1fr); block-size: 164px; }
     .v2-medio-controles:not([hidden]) {
-      display: grid; grid-template-columns: auto auto 1fr auto auto; grid-template-areas: "principal atras . adelante velocidad" "linea linea linea linea linea";
+      display: grid; grid-template-columns: auto auto 1fr auto auto auto; grid-template-areas: "principal atras . adelante velocidad sonido" "linea linea linea linea linea linea";
       row-gap: 4px; column-gap: 8px;
     }
     .v2-medio-principal { grid-area: principal; }
@@ -94,6 +100,7 @@
     [data-medio-saltar]:not([data-medio-saltar^="-"]) { grid-area: adelante; }
     .v2-medio-velocidad { grid-area: velocidad; }
     .v2-medio-linea { grid-area: linea; }
+    .v2-medio-sonido { grid-area: sonido; }
   }
 
   @media (prefers-reduced-motion: reduce) {

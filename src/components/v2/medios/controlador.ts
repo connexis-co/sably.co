@@ -12,6 +12,8 @@
  *   data-medio-velocidad      <select> de velocidad
  *   data-medio-estado         región aria-live para avisos
  *   data-medio-pantalla       pantalla completa (vídeo)
+ *   data-medio-silenciar      silenciar / activar el sonido (M); data-medio-volumen, <input type="range"> 0–100
+ *                             (flechas arriba y abajo en el reproductor). La elección se recuerda en este navegador.
  * Textos (por defecto, los de la narración): data-medio-verbo («Escuchar»), data-medio-nombre («la narración»),
  * data-medio-fin («Narración terminada.») y data-medio-album («Artículos narrados», para Media Session).
  * Sin JS queda el reproductor nativo. Si algo falla, vuelve al nativo. Recuerda el punto en localStorage.
@@ -29,6 +31,18 @@ const enPalabras = (s: number) => {
   return `${m} ${m === 1 ? 'minuto' : 'minutos'} ${seg} ${seg === 1 ? 'segundo' : 'segundos'}`;
 };
 const leer = (clave: string) => { try { return Number(localStorage.getItem(clave)) || 0; } catch { return 0; } };
+/** Volumen y silencio elegidos por el visitante, comunes a todos los reproductores del sitio. */
+const CLAVE_SONIDO = 'sably:medio:sonido';
+export function leerSonido(): { volumen: number; mudo: boolean } | undefined {
+  try {
+    const d = JSON.parse(localStorage.getItem(CLAVE_SONIDO) ?? 'null');
+    const volumen = Number(d?.volumen);
+    return Number.isFinite(volumen) && volumen >= 0 && volumen <= 1 ? { volumen, mudo: d.mudo === true } : undefined;
+  } catch { return undefined; }
+}
+const guardarSonido = (volumen: number, mudo: boolean) => {
+  try { localStorage.setItem(CLAVE_SONIDO, JSON.stringify({ volumen, mudo })); } catch { /* sin almacenamiento */ }
+};
 const guardar = (clave: string, valor: number | null) => {
   try { if (valor === null) localStorage.removeItem(clave); else localStorage.setItem(clave, String(Math.floor(valor))); } catch { /* sin almacenamiento */ }
 };
@@ -50,6 +64,8 @@ export function prepararMedio(raiz: HTMLElement) {
   const velocidad = raiz.querySelector('[data-medio-velocidad]') as HTMLSelectElement | null;
   const estado = raiz.querySelector<HTMLElement>('[data-medio-estado]');
   const pantalla = raiz.querySelector<HTMLButtonElement>('[data-medio-pantalla]');
+  const silenciar = raiz.querySelector<HTMLButtonElement>('[data-medio-silenciar]');
+  const volumen = raiz.querySelector<HTMLInputElement>('[data-medio-volumen]');
   const verbo = raiz.dataset.medioVerbo ?? 'Escuchar';
   const nombre = raiz.dataset.medioNombre ?? 'la narración';
   const clave = `sably:medio:${new URL(medio.currentSrc || medio.src, location.href).pathname}`;
@@ -143,6 +159,34 @@ export function prepararMedio(raiz: HTMLElement) {
   medio.addEventListener('ended', () => { guardar(clave, null); avisar(raiz.dataset.medioFin ?? 'Narración terminada.'); sincronizar(); });
   medio.addEventListener('error', nativo);
 
+  // Sonido: silenciar y volumen, recordados en este navegador para todos los reproductores (vídeo y audio).
+  function pintarSonido() {
+    const mudo = medio.muted || medio.volume === 0;
+    raiz.dataset.silenciado = String(mudo);
+    silenciar?.setAttribute('aria-pressed', String(mudo));
+    silenciar?.setAttribute('aria-label', mudo ? 'Activar el sonido' : 'Silenciar');
+    if (volumen) {
+      const v = Math.round((medio.muted ? 0 : medio.volume) * 100);
+      volumen.value = String(v);
+      volumen.style.setProperty('--lleno', `${v}%`);
+      volumen.setAttribute('aria-valuetext', mudo ? 'Silenciado' : `${v} %`);
+    }
+  }
+  function ponerVolumen(v: number) {
+    const nuevo = Math.min(1, Math.max(0, Math.round(v * 20) / 20));
+    medio.volume = nuevo;
+    medio.muted = nuevo === 0;
+  }
+  const sonido = leerSonido();
+  if (sonido) { medio.volume = sonido.volumen; medio.muted = sonido.mudo; }
+  silenciar?.addEventListener('click', () => {
+    if (medio.muted || medio.volume === 0) { if (medio.volume === 0) medio.volume = 0.5; medio.muted = false; }
+    else medio.muted = true;
+  });
+  volumen?.addEventListener('input', () => ponerVolumen(Number(volumen.value) / 100));
+  medio.addEventListener('volumechange', () => { pintarSonido(); guardarSonido(medio.volume, medio.muted); });
+  pintarSonido();
+
   // Atajos dentro del reproductor: espacio o K alterna; J y L retroceden y avanzan 15 s.
   raiz.addEventListener('keydown', (e) => {
     const destino = e.target as HTMLElement;
@@ -152,6 +196,12 @@ export function prepararMedio(raiz: HTMLElement) {
     else if (k === 'j') { e.preventDefault(); ir(medio.currentTime - 15); }
     else if (k === 'l') { e.preventDefault(); ir(medio.currentTime + 15); }
     else if (k === 'f' && pantalla) { e.preventDefault(); pantalla.click(); }
+    else if (k === 'm' && silenciar) { e.preventDefault(); silenciar.click(); avisar(medio.muted ? 'Silenciado.' : 'Sonido activado.'); }
+    else if ((e.key === 'ArrowUp' || e.key === 'ArrowDown') && silenciar) {
+      e.preventDefault();
+      ponerVolumen((medio.muted ? 0 : medio.volume) + (e.key === 'ArrowUp' ? 0.1 : -0.1));
+      avisar(medio.muted ? 'Silenciado.' : `Volumen ${Math.round(medio.volume * 100)} %.`);
+    }
   });
 
   // Vídeo: pulsar la imagen alterna, y pantalla completa sobre la raíz (para conservar los controles propios);

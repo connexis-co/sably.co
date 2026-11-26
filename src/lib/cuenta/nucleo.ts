@@ -27,6 +27,10 @@ export const CODIGO_ESPERA = 60;
 export const LIMITE_CODIGO_CORREO_HORA = 4;
 export const LIMITE_CODIGO_IP_HORA = 20;
 export const LIMITE_CODIGO_TOTAL_HORA = 160;
+/** Intentos de entrar con contraseña por hora: por correo (la cuenta), por IP y del sitio entero. */
+export const LIMITE_CLAVE_CORREO_HORA = 10;
+export const LIMITE_CLAVE_IP_HORA = 30;
+export const LIMITE_CLAVE_TOTAL_HORA = 600;
 
 export const ahora = () => Math.floor(Date.now() / 1000);
 
@@ -72,6 +76,9 @@ export const RUTAS = {
   googleRetorno: '/ingresar/google/retorno/',
   correoEnviar: '/ingresar/correo/enviar/',
   correoVerificar: '/ingresar/correo/verificar/',
+  claveEntrar: '/ingresar/clave/entrar/',
+  claveNueva: '/ingresar/clave/nueva/',
+  cuentaClave: '/mi-cuenta/clave/',
   cuenta: '/mi-cuenta/',
   salir: '/mi-cuenta/salir/',
   borrar: '/mi-cuenta/borrar/',
@@ -109,6 +116,14 @@ export const AVISOS: Record<string, string> = {
   'codigo-intentos': 'Demasiados intentos con este código. Pide uno nuevo.',
   reenviado: 'Te enviamos un código nuevo.',
   'sin-acceso': 'Ahora no se puede entrar. Vuelve a intentarlo más tarde.',
+  'clave-mala': 'Correo o contraseña incorrectos.',
+  'clave-corta': 'La contraseña debe tener al menos 10 caracteres.',
+  'clave-larga': 'La contraseña puede tener como mucho 128 caracteres.',
+  'clave-correo': 'La contraseña no puede ser tu correo.',
+  'clave-filtrada': 'Esa contraseña aparece en filtraciones públicas de datos. Elige otra que no uses en ningún otro sitio.',
+  'clave-actual': 'La contraseña actual no es correcta.',
+  'clave-cambiada': 'Contraseña guardada. Cerramos tu sesión en los demás dispositivos.',
+  'clave-apagada': 'Entrar con contraseña no está disponible ahora. Entra con Google o con un código.',
   espera: 'Hubo demasiados intentos seguidos. Espera unos minutos y vuelve a intentarlo.',
   salida: 'Cerraste la sesión.',
   borrada: 'Tu cuenta y sus datos se borraron de Sably.',
@@ -117,10 +132,15 @@ export const AVISOS: Record<string, string> = {
   guardado: 'Preferencias guardadas.',
 };
 
-/** Enlace a /ingresar/ con su retorno y aviso. */
-export function enlaceIngresar(destino?: string | null, aviso?: string): string {
+/** Formas del paso 1: código por correo (de fábrica), contraseña, o crear/cambiar la contraseña. */
+export type ModoAcceso = 'codigo' | 'clave' | 'nueva';
+export const modoValido = (valor: unknown): ModoAcceso => (valor === 'clave' || valor === 'nueva' ? valor : 'codigo');
+
+/** Enlace a /ingresar/ con su retorno, aviso y forma de entrar. */
+export function enlaceIngresar(destino?: string | null, aviso?: string, modo: ModoAcceso = 'codigo'): string {
   const ruta = destinoSeguro(destino);
   const params = new URLSearchParams();
+  if (modo !== 'codigo') params.set('modo', modo);
   if (ruta !== RUTAS.cuenta) params.set('volver', ruta);
   if (aviso) params.set('aviso', aviso);
   return RUTAS.ingresar + (params.size ? `?${params}` : '');

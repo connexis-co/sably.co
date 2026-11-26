@@ -1,31 +1,34 @@
 /**
- * «Constancia», nunca «certificado» (regla de JP, 4-nov-2026).
+ * «Certificado», no «constancia» (decisión de JP, 26-nov-2026: «debe quedar como
+ * certificado»). Antes la regla era la contraria (4-nov-2026); el nombre de la
+ * función se conserva para no tocar a quien la importa.
  *
- * Lo que se entrega al terminar un curso es una constancia de finalización que
- * emite Hotmart: no es un título ni una certificación. Las plantillas ya lo
- * dicen así; las descripciones cortas del CMS siguen con la coletilla
- * «Certificado incluido.» y esta función la corrige al pintar donde el texto
- * sale tal cual hacia fuera (llms-full.txt).
+ * Lo que se entrega al terminar un curso es un certificado de finalización que
+ * emite Hotmart o el creador del curso, no Sably: no es un título oficial ni una
+ * certificación profesional. Las plantillas ya lo dicen así; si algún texto corto
+ * del CMS quedó con la fórmula de «constancia» de la regla anterior, esta función
+ * la devuelve a «certificado» al pintar donde el texto sale tal cual hacia fuera
+ * (llms-full.txt, textos de la caja).
  *
  * Es deliberadamente corta de miras: solo toca las fórmulas en las que
- * «certificado» es el documento del curso. «Electricista certificado»,
- * «certifícate» o las certificaciones de las homologaciones no se tocan, porque
- * ahí la palabra es otra cosa y un reemplazo ciego cambiaría el sentido o
- * dejaría la frase sin concordancia.
+ * «constancia» es el documento del curso. «Practicar con constancia» o «la
+ * constancia del consentimiento» no se tocan, porque ahí la palabra es otra cosa
+ * y un reemplazo ciego cambiaría el sentido.
  */
 const FORMULAS: [RegExp, string][] = [
-  [/\bcertificado y garantía de 7 días incluidos\b/gi, 'constancia y garantía de 7 días incluidas'],
-  [/\bcertificado digital incluido\b/gi, 'constancia digital incluida'],
-  [/\bcertificado incluido\b/gi, 'constancia incluida'],
-  [/\bun certificado digital\b/gi, 'una constancia digital'],
-  [/\bel certificado digital\b/gi, 'la constancia digital'],
-  [/\bcertificado digital\b/gi, 'constancia digital'],
-  [/\b(con|tu|incluye) certificado\b(?! de\b)/gi, '$1 constancia'],
-  [/^certificado y garantía\b/gi, 'constancia y garantía'],
-  [/(?<=[.!?]\s)certificado y garantía\b/gi, 'constancia y garantía'],
+  [/\bconstancia y garantía de 7 días incluidas\b/gi, 'certificado y garantía de 7 días incluidos'],
+  [/\bconstancia digital incluida\b/gi, 'certificado digital incluido'],
+  [/\bconstancia incluida\b/gi, 'certificado incluido'],
+  [/\buna constancia (digital|de finalizaci[oó]n)\b/gi, 'un certificado $1'],
+  [/\bla constancia (digital|de finalizaci[oó]n)\b/gi, 'el certificado $1'],
+  [/\bconstancia (digital|de finalizaci[oó]n)\b/gi, 'certificado $1'],
+  [/\b(tu|incluye) constancia\b/gi, '$1 certificado'],
+  [/\bcon constancia (al terminar|al finalizar)\b/gi, 'con certificado $1'],
+  [/^constancia y garantía\b/gi, 'certificado y garantía'],
+  [/(?<=[.!?]\s)constancia y garantía\b/gi, 'certificado y garantía'],
 ];
 
-/** Reescribe las fórmulas de «certificado» de un texto corto conservando la mayúscula inicial. */
+/** Reescribe las fórmulas de «constancia» de un texto corto a «certificado» conservando la mayúscula inicial. */
 export function conConstancia(texto: string): string {
   let salida = texto;
   for (const [patron, reemplazo] of FORMULAS) {

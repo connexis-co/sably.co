@@ -39,7 +39,7 @@ export function prepararArticulo() {
   const lectura = $('.v2-ba-lectura');
   const barra = $('[data-progreso]');
   const porcentaje = $('[data-porcentaje]');
-  const sinLinea = !CSS.supports('animation-timeline: view()');
+  const sinLinea = !CSS.supports('animation-timeline: view()') && !matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- Progreso y porcentaje ---------- */
   if (lectura && (barra || porcentaje)) {

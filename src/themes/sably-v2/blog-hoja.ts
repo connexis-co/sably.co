@@ -20,5 +20,8 @@ function huella(texto: string): string {
   for (let i = 0; i < texto.length; i++) { h ^= texto.charCodeAt(i); h = Math.imul(h, 0x01000193); }
   return (h >>> 0).toString(36);
 }
+/** Nombre que sigue sirviendo /v2-blog/ para las páginas guardadas antes de que la hoja pasara a /_astro/. */
 export const ARCHIVO_HOJA = `blog.${huella(CSS_HOJA)}.css`;
-export const RUTA_HOJA = `/v2-blog/${ARCHIVO_HOJA}`;
+/* La hoja que enlazan las páginas: recurso estático con huella en /_astro/, inmutable y guardado en el borde de
+   Cloudflare (la ruta dinámica /v2-blog/ salía «cf-cache-status: BYPASS» aunque pidiera un año de caché). */
+export { default as RUTA_HOJA } from './blog-hoja.css?url';

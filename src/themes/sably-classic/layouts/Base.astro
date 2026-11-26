@@ -48,6 +48,11 @@ export interface Props {
    */
   sinCupon?: boolean;
   /**
+   * La página lleva su propio cupón (la caja de compra de la ficha V2, que deja
+   * quitarlo y reponerlo): la barra de campaña se ve, pero no toca los enlaces de pago.
+   */
+  cuponPropio?: boolean;
+  /**
    * Id del proveedor del curso (ver src/lib/proveedores.ts). Va en el <body>
    * para que el banner y el repintado de precio sepan a qué proveedor pertenece
    * la página y apliquen solo las promociones que lo tienen como objetivo. En
@@ -93,6 +98,7 @@ const {
   articleMeta,
   articleSchema,
   sinCupon = false,
+  cuponPropio = false,
   proveedor,
   whatsappContext,
   noindex = false,
@@ -191,6 +197,7 @@ const pageContext = { ...createPublicPageContext({
     data-country={country.code}
     data-page-type={pageType}
     data-sin-cupon={sinCupon ? '' : undefined}
+    data-cupon-propio={cuponPropio && !sinCupon ? '' : undefined}
     data-proveedor={proveedor || undefined}
   >
     <EmDashBodyStart page={pageContext} />
@@ -202,7 +209,7 @@ const pageContext = { ...createPublicPageContext({
     </a>
     {navV2 ? (
       <>
-        <BarraCampanaV2 promo={promoV2} />
+        <BarraCampanaV2 promo={promoV2} cierre={temaPeticion.ajustes.barraCampana.cierre} />
         <CabeceraV2 {country} {pathAfterCountry} nav={navV2} promo={promoV2} />
       </>
     ) : (

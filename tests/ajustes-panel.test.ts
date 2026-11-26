@@ -30,6 +30,7 @@ const ANTES = {
     cuentaActiva: ['boolean', null, true],
     cuentaGoogle: ['boolean', null, true],
     cuentaCorreo: ['boolean', null, true],
+    cuentaClave: ['boolean', null, true],
     cuentaAcceso: ['select', ['ventana', 'pagina'], 'ventana'],
     // Claves nuevas (26-nov, opiniones de la ficha V2, C1 y C3): se añaden, no sustituyen a ninguna.
     opinionesEstilo: ['select', ['lista', 'compacto'], 'lista'],
@@ -52,6 +53,9 @@ const ANTES = {
     opinionesExtractosMinimo: ['select', ['1', '2', '3'], '1'],
     opinionesPerfilNombre: ['string', null, ''],
     opinionesPerfilUrl: ['string', null, ''],
+    // Claves nuevas (26-nov, barra de campaña V2, C7): se añaden, no sustituyen a ninguna.
+    barraCampanaCierre: ['select', ['sesion', 'vista'], 'sesion'],
+    barraCampanaFicha: ['boolean', null, true],
   },
   integraciones: {
     browserMode: ['select', ['off', 'gtm', 'direct'], 'off'],
@@ -114,6 +118,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     movimientoFicha: { ficha: 'sobrio', certificado: 'destello' },
     bloquesFicha: { temario: 'enfoca', queIncluye: true, relacionados: 'placa' },
     opiniones: { estilo: 'lista', minimoExtractos: 1, perfil: null },
+    barraCampana: { cierre: 'sesion', enFicha: true },
     portada: {
       bloques: ['cifras', 'categorias', 'convergen', 'destacados', 'promo', 'como-funciona', 'escenas', 'oficio', 'valorados', 'beneficios', 'videos', 'guias', 'preguntas', 'cierre'],
       heroe: { variante: 'muro', fondo: 'liso', botones: 'dos', tachar: true, rota: true, intervalo: 4500, orden: 'aleatorio', cursos: [] },
