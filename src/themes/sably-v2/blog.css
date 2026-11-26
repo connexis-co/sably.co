@@ -333,3 +333,16 @@ body:has(#sbc-ico:not([hidden])) .v2-indice-pildora { left: 68px; }
 .v2-tarjeta-art[data-variante='suelta'] .v2-ta-pie { border-top: 0; }
 }
 @media (prefers-reduced-motion: no-preference) { html:has(.v2-blog-art) { scroll-behavior: smooth; } }
+
+/* ---------- Distintivo «narrado» (DISENO §12.11): solo con narración publicada ---------- */
+@layer components {
+.v2-narrado { display: inline-flex; align-items: center; gap: 6px; min-height: 24px; padding: 0 10px; border-radius: 99px; background: var(--color-coral-50); color: var(--color-coral-700); font: 600 12px/16px var(--font-sans); white-space: nowrap; }
+.v2-narrado-foto { position: absolute; left: 12px; bottom: 12px; }
+.v2-narrado-linea { display: none; margin-left: 8px; vertical-align: middle; }
+.v2-tarjeta-art[data-variante='horizontal'] .v2-narrado-foto { display: none; }
+.v2-tarjeta-art[data-variante='horizontal'] .v2-narrado-linea { display: inline-flex; }
+@media (width < 640px) {
+  .v2-tarjeta-art[data-movil='horizontal'] .v2-narrado-foto { display: none; }
+  .v2-tarjeta-art[data-movil='horizontal'] .v2-narrado-linea { display: inline-flex; }
+}
+}
