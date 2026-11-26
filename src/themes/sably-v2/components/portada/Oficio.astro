@@ -1,50 +1,168 @@
 ---
-/** Oficio destacado: foto grande con panel azul, con radios y sin JavaScript (bloque `oficio`). */
+/**
+ * Oficio destacado (bloque `oficio`), con el comportamiento del bloque de visitvalle.travel que pidió JP:
+ * - las tarjetas forman una pila; con «siguiente» la de encima cae (gira desde su esquina y baja fuera del
+ *   marco) y deja ver la de debajo, cuyas piezas (antetítulo, título, texto y botón) entran en cascada;
+ *   con «anterior» la tarjeta vuelve a subir;
+ * - la foto de fondo cambia con un fundido sobre la anterior (la siguiente se precarga antes de fundir).
+ * Flechas, teclas ← y →, deslizar con el dedo y contador «1 de N» con aviso a lectores de pantalla. Sin rotación
+ * automática. Con «reducir movimiento» el cambio es inmediato. Todos los oficios y sus enlaces van en el HTML.
+ * Solo se animan `transform` (translate/rotate) y `opacity`.
+ */
 import Ico from '../Ico.astro';
 import Foto from '../Foto.astro';
 import type { Course } from '@/lib/emdash-content';
-import type { NombreFoto } from '../../fotos';
+import { FOTOS, type NombreFoto } from '../../fotos';
 interface Props { oficios: { c: Course; nota: { cifra: string; texto: string } | null; foto: NombreFoto }[]; base: string }
 const { oficios, base } = Astro.props;
+const n = oficios.length;
 ---
-<!-- Oficio destacado: foto grande con panel azul (radios, sin JavaScript) -->
-{oficios.length > 0 && (
+{n > 0 && (
   <section class="v2-contenedor pt-24 lg:pt-32" aria-labelledby="oficio-titulo">
     <h2 id="oficio-titulo" class="sr-only">Oficio destacado</h2>
-    <div class="v2-oficios relative">
-      {oficios.map((o, i) => <input type="radio" name="oficio" id={`oficio-${i}`} class="sr-only" checked={i === 0} aria-label={`Oficio destacado ${i + 1} de ${oficios.length}: ${o.c.data.title}`} />)}
-      {oficios.map((o, i) => (
-        <article class="v2-oficio relative" data-i={i}>
-          <div class="overflow-hidden rounded-c-xl"><Foto nombre={o.foto!} sizes="(min-width: 1024px) 1200px, 100vw" class="aspect-[4/3] w-full object-cover lg:aspect-[1200/660]" /></div>
-          <div class="relative -mt-16 mx-3 rounded-c-xl bg-navy-950 p-6 text-white shadow-s3 lg:absolute lg:right-10 lg:-bottom-10 lg:m-0 lg:w-[448px] lg:p-8">
-            <p class="flex items-center justify-between border-b border-white/15 pb-4 text-t15"><span class="flex items-center gap-2"><span class="size-1.5 rounded-full bg-coral-500" aria-hidden="true"></span>Oficio destacado</span><span class="text-t13 text-white/60">{i + 1} de {oficios.length}</span></p>
-            <h3 class="mt-5 font-display text-d28 !text-white lg:text-d40">{o.c.data.title}</h3>
-            <p class="mt-3 text-t17 text-white/80">{o.c.data.shortDescription}{o.nota && ` Tiene ${o.nota.cifra} de 5 en ${o.nota.texto}.`}</p>
-            <div class="mt-6 flex items-center justify-between gap-4">
-              <a href={`${base}/${o.c.id}/`} class="v2-btn v2-btn-principal" data-alto="52">Ver el curso <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
-              {oficios.length > 1 && (
+    <div class="v2-ofi" data-ofi aria-roledescription="carrusel" aria-label="Oficios destacados">
+      <div class="v2-ofi-fotos">
+        {oficios.map((o, i) => (
+          <div class="v2-ofi-foto" data-i={i} data-activa={i === 0 ? '' : undefined} aria-hidden={i === 0 ? undefined : 'true'}>
+            <Foto nombre={o.foto} sizes="(min-width: 1024px) 1200px, 100vw" class="h-full w-full object-cover" />
+          </div>
+        ))}
+      </div>
+      <div class="v2-ofi-pila">
+        {oficios.map((o, i) => (
+          <article class="v2-ofi-tar" data-i={i} data-lado={FOTOS[o.foto].tarjeta === 'derecha' ? 'derecha' : undefined} data-estado={i === 0 ? 'activa' : 'debajo'} style={`z-index: ${n - i}`} role="group" aria-roledescription="diapositiva" aria-label={`${i + 1} de ${n}`}>
+            <p class="v2-ofi-pieza flex items-center justify-between gap-2 border-b border-white/15 pb-4 text-t15" style="--k: 0"><span class="flex items-center gap-2"><span class="size-1.5 rounded-full bg-coral-500" aria-hidden="true"></span>Oficio destacado</span>{n > 1 && <span class="text-t13 text-white/60 tabular-nums">{i + 1} de {n}</span>}</p>
+            <h3 class="v2-ofi-pieza mt-5 font-display text-d28 !text-white lg:text-d40" style="--k: 1">{o.c.data.title}</h3>
+            <p class="v2-ofi-pieza mt-3 text-t17 text-white/80" style="--k: 2">{o.c.data.shortDescription}{o.nota && ` Tiene ${o.nota.cifra} de 5 en ${o.nota.texto}.`}</p>
+            <div class="v2-ofi-pieza mt-auto flex items-center justify-between gap-4 pt-6" style="--k: 3">
+              <a href={`${base}/${o.c.id}/`} class="v2-btn v2-btn-principal whitespace-nowrap" data-alto="52">Ver el curso <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+              {n > 1 && (
                 <span class="flex gap-2">
-                  <label for={`oficio-${(i - 1 + oficios.length) % oficios.length}`} class="grid size-12 cursor-pointer place-items-center rounded-full ring-1 ring-white/40 hover:ring-white" title="Anterior"><Ico nombre="arrow-left" tamano={18} /><span class="sr-only">Oficio anterior</span></label>
-                  <label for={`oficio-${(i + 1) % oficios.length}`} class="grid size-12 cursor-pointer place-items-center rounded-full ring-1 ring-white/40 hover:ring-white" title="Siguiente"><Ico nombre="arrow-right" tamano={18} /><span class="sr-only">Oficio siguiente</span></label>
+                  <button type="button" class="v2-ofi-flecha" data-ofi-ir="-1" aria-label="Oficio anterior"><Ico nombre="arrow-left" tamano={18} /></button>
+                  <button type="button" class="v2-ofi-flecha" data-ofi-ir="1" aria-label="Oficio siguiente"><Ico nombre="arrow-right" tamano={18} /></button>
                 </span>
               )}
             </div>
-          </div>
-        </article>
-      ))}
+          </article>
+        ))}
+        {n > 1 && <p class="sr-only" aria-live="polite" data-ofi-aviso></p>}
+      </div>
     </div>
   </section>
 )}
 
 <style is:global>
   @layer components {
-    .v2-oficios .v2-oficio { display: none; }
-    .v2-oficios:has(#oficio-0:checked) .v2-oficio[data-i='0'],
-    .v2-oficios:has(#oficio-1:checked) .v2-oficio[data-i='1'],
-    .v2-oficios:has(#oficio-2:checked) .v2-oficio[data-i='2'] { display: block; }
-    /* Sin :has() se ven los tres seguidos: no se pierde nada. */
-    @supports not selector(:has(*)) { .v2-oficios .v2-oficio { display: block; margin-bottom: 48px; } }
-    .v2-oficios input:focus-visible ~ .v2-oficio label { outline: 2px solid #fff; outline-offset: 2px; }
-    @media (prefers-reduced-motion: no-preference) { .v2-oficio { animation: v2-funde var(--t-base) var(--e-sale); } }
+    /* Móvil: foto 4:3 arriba y la pila de tarjetas debajo, montada 64 px sobre la foto. */
+    .v2-ofi { position: relative; overflow: clip; overflow-clip-margin: 24px; touch-action: pan-y; }
+    .v2-ofi-fotos { display: grid; overflow: hidden; border-radius: var(--radius-c-xl); aspect-ratio: 4 / 3; background: var(--color-navy-100); }
+    .v2-ofi-foto { grid-area: 1 / 1; opacity: 0; }
+    .v2-ofi-foto[data-activa] { opacity: 1; z-index: 2; }
+    .v2-ofi-foto[data-saliente] { opacity: 1; z-index: 1; }
+    .v2-ofi-foto picture { display: block; height: 100%; }
+    .v2-ofi-pila { position: relative; z-index: 3; display: grid; margin: -64px 12px 0; }
+    .v2-ofi-tar {
+      grid-area: 1 / 1; display: flex; flex-direction: column; padding: 24px;
+      border-radius: var(--radius-c-xl); background: var(--color-navy-950); color: #fff; box-shadow: var(--shadow-s3);
+      transform-origin: 100% 0;
+    }
+    .v2-ofi-tar[data-estado='cayo'] { translate: 0 125%; rotate: 9deg; opacity: 0; visibility: hidden; }
+    .v2-ofi-tar[data-estado='debajo'] { visibility: hidden; }
+    .v2-ofi-flecha { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 999px; color: #fff; box-shadow: inset 0 0 0 1px rgb(255 255 255 / .4); cursor: pointer; transition: box-shadow var(--t-rapido) var(--e-sale), background-color var(--t-rapido) var(--e-sale); }
+    .v2-ofi-flecha:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+    @media (hover: hover) { .v2-ofi-flecha:hover { box-shadow: inset 0 0 0 1px #fff; background: rgb(255 255 255 / .08); } }
+
+    /* Escritorio: foto a todo el contenedor y la tarjeta dentro, abajo a la izquierda (como visitvalle). */
+    @media (min-width: 1024px) {
+      .v2-ofi { border-radius: var(--radius-c-xl); overflow: hidden; overflow-clip-margin: 0; }
+      .v2-ofi-fotos { aspect-ratio: 1200 / 660; }
+      /* Cada tarjeta va del lado libre de su foto (FOTOS[…].tarjeta), para no tapar la cara ni las manos. */
+      .v2-ofi-pila { position: absolute; inset: 40px; margin: 0; pointer-events: none; }
+      .v2-ofi-tar { width: 448px; padding: 32px; justify-self: start; pointer-events: auto; }
+      .v2-ofi-tar[data-lado='derecha'] { justify-self: end; transform-origin: 0 0; }
+      .v2-ofi-tar[data-lado='derecha'][data-estado='cayo'] { rotate: -9deg; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      /* Caída: gira desde la esquina superior derecha y baja fuera del marco; al volver, sube por el mismo camino. */
+      .v2-ofi-tar { transition: translate 720ms cubic-bezier(.55, 0, .7, .2), rotate 720ms cubic-bezier(.55, 0, .7, .2), opacity 300ms linear 420ms, visibility 0s linear 720ms; }
+      .v2-ofi-tar[data-estado='activa'] { transition: translate 640ms cubic-bezier(.2, .8, .25, 1), rotate 640ms cubic-bezier(.2, .8, .25, 1), opacity 160ms linear, visibility 0s; }
+      .v2-ofi-tar[data-estado='debajo'] { transition: visibility 0s linear 720ms; }
+      /* Piezas de la tarjeta que queda arriba: entran en cascada, 75 ms entre una y otra. */
+      .v2-ofi[data-cascada] .v2-ofi-tar[data-estado='activa'] .v2-ofi-pieza { animation: v2-ofi-pieza 520ms cubic-bezier(.2, .8, .25, 1) both; animation-delay: calc(160ms + var(--k) * 75ms); }
+      @keyframes v2-ofi-pieza { from { opacity: 0; translate: 0 18px; } }
+      .v2-ofi-foto { transition: opacity 700ms ease; }
+      .v2-ofi-foto[data-saliente] { transition: none; }
+    }
   }
 </style>
+
+<script>
+  for (const raiz of document.querySelectorAll<HTMLElement>('[data-ofi]')) {
+    const tarjetas = [...raiz.querySelectorAll<HTMLElement>('.v2-ofi-tar')];
+    const fotos = [...raiz.querySelectorAll<HTMLElement>('.v2-ofi-foto')];
+    const n = tarjetas.length;
+    if (n < 2) continue;
+    const aviso = raiz.querySelector<HTMLElement>('[data-ofi-aviso]');
+    let actual = 0;
+    tarjetas.forEach((t, i) => { if (i) t.inert = true; });
+
+    /* La foto que viene ya está descargada y decodificada antes del fundido (máximo 700 ms de espera). */
+    const img = (i: number) => fotos[i]?.querySelector('img') ?? null;
+    const precarga = (i: number) => { const im = img((i + n) % n); if (im && im.loading !== 'eager') im.loading = 'eager'; };
+    const lista = (i: number) => {
+      const im = img(i);
+      if (!im) return Promise.resolve();
+      precarga(i);
+      return Promise.race([im.decode().catch(() => undefined), new Promise(r => setTimeout(r, 700))]);
+    };
+    new IntersectionObserver((es, o) => {
+      if (es.some(e => e.isIntersecting)) { precarga(1); precarga(n - 1); o.disconnect(); }
+    }, { rootMargin: '600px 0px' }).observe(raiz);
+
+    let espera: ReturnType<typeof setTimeout> | undefined;
+    const ir = async (destino: number) => {
+      const d = (destino + n) % n;
+      if (d === actual) return;
+      await lista(d);
+      // Si el foco estaba en una flecha de la tarjeta que se va, pasa a la misma flecha de la que llega.
+      const foco = document.activeElement as HTMLElement | null;
+      const flecha = foco && tarjetas[actual]?.contains(foco) ? foco.dataset.ofiIr : undefined;
+      raiz.toggleAttribute('data-cascada', d > actual);
+      tarjetas.forEach((t, i) => {
+        t.dataset.estado = i < d ? 'cayo' : i === d ? 'activa' : 'debajo';
+        t.inert = i !== d;
+      });
+      // Fundido: la foto anterior queda debajo, opaca, hasta que la nueva termina de aparecer.
+      fotos.forEach(f => f.removeAttribute('data-saliente'));
+      fotos[actual]?.setAttribute('data-saliente', '');
+      fotos[actual]?.removeAttribute('data-activa');
+      fotos[actual]?.setAttribute('aria-hidden', 'true');
+      fotos[d]?.setAttribute('data-activa', '');
+      fotos[d]?.removeAttribute('aria-hidden');
+      clearTimeout(espera);
+      espera = setTimeout(() => fotos.forEach(f => f.removeAttribute('data-saliente')), 760);
+      actual = d;
+      if (flecha) tarjetas[d]?.querySelector<HTMLElement>(`[data-ofi-ir="${flecha}"]`)?.focus({ preventScroll: true });
+      if (aviso) aviso.textContent = `${d + 1} de ${n}: ${tarjetas[d]?.querySelector('h3')?.textContent ?? ''}`;
+      precarga(d + 1); precarga(d - 1);
+    };
+
+    raiz.querySelectorAll<HTMLButtonElement>('[data-ofi-ir]').forEach(b => b.addEventListener('click', () => ir(actual + Number(b.dataset.ofiIr))));
+    raiz.addEventListener('keydown', e => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      e.preventDefault();
+      ir(actual + (e.key === 'ArrowRight' ? 1 : -1));
+    });
+    /* Deslizar con el dedo: a la izquierda, siguiente; a la derecha, anterior. */
+    let toque: { x: number; y: number } | null = null;
+    raiz.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') toque = { x: e.clientX, y: e.clientY }; });
+    raiz.addEventListener('pointerup', e => {
+      if (!toque) return;
+      const dx = e.clientX - toque.x, dy = e.clientY - toque.y;
+      toque = null;
+      if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.4) ir(actual + (dx < 0 ? 1 : -1));
+    });
+    raiz.addEventListener('pointercancel', () => { toque = null; });
+  }
+</script>
