@@ -1,0 +1,99 @@
+---
+/**
+ * Bloque de opiniones de la ficha V2 (ronda 2 de JP, C1 y C3; lámina `HVAlI`, lista editorial).
+ * - A la izquierda, la nota pública del curso en Hotmart en grande, con su número de calificaciones, la fuente y la
+ *   fecha de lectura: es el único sitio de la ficha que las dice enteras (la cabeza solo dice «4,8 · 661 calificaciones»).
+ * - A la derecha, extractos reales de opiniones publicadas en Hotmart (`sably_public_review`), cada uno con el nombre
+ *   que su autor publicó y rotulado como extracto. Sin extractos, un estado honesto, sin citas de relleno.
+ * - Con un perfil público configurado en el panel (Google u otro), un enlace a ese perfil. La nota sigue siendo la de
+ *   Hotmart: el enlace no la cambia ni la mezcla.
+ * La sección lleva `tabindex="-1"`: las estrellas de la cabeza (`a[href="#opiniones"]`) bajan aquí con desplazamiento
+ * suave (o directo con `prefers-reduced-motion`) y le dan el foco. Nada de esto entra en el JSON-LD.
+ */
+import { env } from 'virtual:sably-runtime';
+import { readPublicReviews } from '@/plugins/sably-operations/public';
+import { extractosDelCurso } from '@/lib/resenas';
+import type { AjustesV2 } from '@/lib/ajustes-tema';
+import type { notaHotmart } from '@/lib/opiniones';
+import Estrellas from '@/components/v2/Estrellas.astro';
+import LogoHotmart from '@/components/v2/LogoHotmart.astro';
+import Icono from '@/components/v2/Icono.astro';
+interface Props {
+  slug: string;
+  rating: number;
+  nota: NonNullable<ReturnType<typeof notaHotmart>>;
+  ajustes: AjustesV2['opiniones'];
+  /** Aún no hay opiniones de compradores de Sably (las verificadas van debajo, en su propio bloque). */
+  sinPropias: boolean;
+}
+const { slug, rating, nota, ajustes, sinPropias } = Astro.props;
+const db = (env as unknown as { SABLY_DB: D1Database }).SABLY_DB;
+const extractos = ajustes.estilo === 'lista'
+  ? extractosDelCurso(await readPublicReviews(db, slug).catch(() => []), slug, ajustes.minimoExtractos)
+  : [];
+const perfil = ajustes.perfil;
+---
+{ajustes.estilo === 'compacto' ? (
+  <section id="opiniones" tabindex="-1" aria-labelledby="titulo-opiniones" class="v2-opiniones flex scroll-mt-36 flex-col gap-4 rounded-c-lg bg-white p-6 sm:flex-row sm:items-center lg:px-10">
+    <h2 id="titulo-opiniones" class="font-display text-t20 font-semibold sm:w-36 sm:flex-none">Opiniones</h2>
+    <div class="flex flex-wrap items-center gap-x-4 gap-y-2">
+      <LogoHotmart alto={16} />
+      <span class="flex items-center gap-2"><Estrellas nota={rating} tamano={18} /><strong class="v2-num text-t20 font-semibold text-navy-950">{nota.cifra} de 5</strong></span>
+    </div>
+    <p class="text-t13 text-navy-700 sm:ml-auto sm:text-right">{nota.texto}{sinPropias && <span class="block text-navy-500">Aún no hay opiniones de compradores publicadas en Sably.</span>}{perfil && <a href={perfil.url} target="_blank" rel="noopener" class="v2-enlace mt-1 text-t13">Ver las opiniones en {perfil.nombre}<span class="sr-only"> (se abre en otra pestaña)</span><Icono nombre="arrow-right" tamano={14} class="v2-flecha" /></a>}</p>
+  </section>
+) : (
+  <section id="opiniones" tabindex="-1" aria-labelledby="titulo-opiniones" class="v2-opiniones scroll-mt-36 rounded-c-lg bg-white p-6 sm:p-8 lg:p-10">
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,260px)_minmax(0,1fr)] lg:gap-14">
+      <div class="v2-op-resumen">
+        <h2 id="titulo-opiniones" class="font-display text-t20 font-semibold">Opiniones</h2>
+        <p class="mt-5 flex items-baseline gap-2"><strong class="v2-num font-display text-d56 leading-none font-semibold text-navy-950">{nota.cifra}</strong><span class="text-t17 text-navy-500">de 5</span></p>
+        <Estrellas nota={rating} tamano={20} class="mt-3" />
+        <p class="mt-3 text-t15 text-navy-700"><span class="font-semibold text-navy-950">{nota.numero}</span> calificaciones en</p>
+        <LogoHotmart alto={16} class="mt-1.5" />
+        {nota.fecha && <p class="mt-3 text-t13 text-navy-500">Nota pública del curso en Hotmart, leída el {nota.fecha}.</p>}
+        {perfil && <a href={perfil.url} target="_blank" rel="noopener" class="v2-enlace mt-4 text-t15">Ver las opiniones en {perfil.nombre}<span class="sr-only"> (se abre en otra pestaña)</span><Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></a>}
+      </div>
+      {extractos.length > 0 ? (
+        <div class="min-w-0">
+          <p class="text-t13 font-semibold tracking-wide text-navy-500 uppercase">Extractos de opiniones publicadas en Hotmart</p>
+          <ul role="list" class="mt-2 divide-y divide-navy-100">
+            {extractos.map(e => (
+              <li class="v2-op-extracto py-6 last:pb-0">
+                <figure class="m-0">
+                  <Estrellas nota={e.rating} tamano={14} /><span class="sr-only">{e.rating} de 5.</span>
+                  <blockquote class="mt-3 font-display text-t20 leading-[30px] text-pretty text-navy-950">«{e.texto}»</blockquote>
+                  <figcaption class="mt-4 flex items-center gap-3 text-t13 text-navy-500">
+                    <span class="grid size-9 flex-none place-items-center rounded-full bg-navy-50 text-t15 font-semibold text-navy-950" aria-hidden="true">{e.nombre.charAt(0).toLocaleUpperCase('es')}</span>
+                    <span><span class="block text-t15 font-semibold text-navy-950">{e.nombre}</span>Extracto publicado en Hotmart</span>
+                  </figcaption>
+                </figure>
+              </li>
+            ))}
+          </ul>
+          {sinPropias && <p class="mt-6 text-t13 text-navy-500">Aún no hay opiniones de compradores publicadas en Sably.</p>}
+        </div>
+      ) : (
+        <div class="v2-op-vacio self-start rounded-c-md bg-navy-50 p-6 text-t15 text-navy-700">
+          <p class="font-semibold text-navy-950">Aún no hay opiniones escritas que podamos citar.</p>
+          <p class="mt-2">La nota es la que Hotmart publica con {nota.numero} calificaciones de quienes compraron el curso. {sinPropias ? 'Cuando compradores de Sably dejen su opinión, aparecerá aquí.' : ''}</p>
+        </div>
+      )}
+    </div>
+  </section>
+)}
+<script>
+  /* Estrellas de la cabeza → bloque de opiniones: desplazamiento suave (directo si se pide menos movimiento) y foco,
+     para que el teclado y el lector de pantalla sigan desde aquí. Sin JavaScript, el ancla funciona igual. */
+  document.addEventListener('click', (evento) => {
+    const enlace = (evento.target as Element).closest<HTMLAnchorElement>('a[href="#opiniones"]');
+    const destino = enlace && document.getElementById('opiniones');
+    if (!destino) return;
+    evento.preventDefault();
+    // `instant`, no `auto`: el `html { scroll-behavior: smooth }` global haría suave también el `auto`.
+    const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    destino.scrollIntoView({ behavior: quieto ? 'instant' : 'smooth', block: 'start' });
+    destino.focus({ preventScroll: true });
+    history.replaceState(null, '', '#opiniones');
+  });
+</script>

@@ -17,6 +17,9 @@ import type { Course } from '@/lib/emdash-content';
 import type { Country } from '@/lib/countries';
 import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
 import type { PromoV2 } from '../promo-v2';
+import { env } from 'virtual:sably-runtime';
+import { readOperationalRatings } from '@/plugins/sably-operations/public';
+import { fuenteDeNotas } from '@/lib/opiniones';
 interface Props {
   id: string;
   cursos: Course[];
@@ -44,6 +47,9 @@ const puestoNota = puestoLocal(ordenNota);
 const puestoPrecio = puestoLocal(ordenPrecio);
 const ocultos = Math.max(0, cursos.length - visibles);
 const conFranja = !!promo && cursos.length > 12;
+/* Fuente y fecha de las notas, una vez para todo el listado (las tarjetas solo dicen «4,4 · 27»). */
+const valoraciones = await readOperationalRatings((env as unknown as { SABLY_DB: D1Database }).SABLY_DB, Astro.locals).catch(() => ({} as Record<string, never>));
+const fuenteNotas = fuenteDeNotas(cursos.map(c => valoraciones[c.id] ?? null));
 ---
 <div class="v2-rejilla-raiz" data-rejilla={filtrable ? id : undefined}>
   {conOrden && cursos.length > 2 && (
@@ -79,6 +85,7 @@ const conFranja = !!promo && cursos.length > 12;
       </li>
     )}
   </ul>
+  {fuenteNotas && <p class="v2-rejilla-fuente mt-6 max-w-[720px] text-t13 text-navy-500">{fuenteNotas}</p>}
   {filtrable && <p class="py-10 text-t17 text-navy-700" data-rejilla-vacia hidden>Ningún curso de esta lista coincide con «<span data-rejilla-termino></span>». <a href={`${base}/cursos/`} class="font-semibold text-navy-950 underline underline-offset-4">Ver todos los cursos</a></p>}
   {ocultos > 0 && (
     <div class="v2-ver-mas mt-10 flex flex-col items-center gap-3">

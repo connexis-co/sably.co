@@ -32,6 +32,27 @@ const ANTES = {
     cuentaCorreo: ['boolean', null, true],
     cuentaClave: ['boolean', null, true],
     cuentaAcceso: ['select', ['ventana', 'pagina'], 'ventana'],
+    // Claves nuevas (26-nov, opiniones de la ficha V2, C1 y C3): se añaden, no sustituyen a ninguna.
+    opinionesEstilo: ['select', ['lista', 'compacto'], 'lista'],
+    // Clave nueva (26-nov, caja con contraste, C4).
+    cajaResaltada: ['boolean', null, true],
+    // Clave nueva (26-nov, foto por pestaña en «Sobre este curso», C5).
+    sobreFotosPestanas: ['boolean', null, true],
+    // Claves nuevas (26-nov, caja de compra, C8 a C11).
+    cajaTituloCentrado: ['boolean', null, true],
+    cajaPrecioNormal: ['select', ['tachado', 'sin-tachar'], 'tachado'],
+    cajaPais: ['boolean', null, false],
+    cajaMovimiento: ['boolean', null, true],
+    // Claves nuevas (26-nov, movimiento de la ficha y del certificado, C6).
+    fichaMovimiento: ['select', ['sobrio', 'minimo', 'ninguno'], 'sobrio'],
+    certificadoAnimacion: ['select', ['destello', 'entrada', 'ninguna'], 'destello'],
+    // Claves nuevas (26-nov, temario y bloques de la ficha: C7, C10a, C10b).
+    temarioEnfoque: ['select', ['enfoca', 'encuadra', 'nada'], 'enfoca'],
+    fichaQueIncluye: ['boolean', null, true],
+    relacionadosTarjeta: ['select', ['placa', 'precio'], 'placa'],
+    opinionesExtractosMinimo: ['select', ['1', '2', '3'], '1'],
+    opinionesPerfilNombre: ['string', null, ''],
+    opinionesPerfilUrl: ['string', null, ''],
     // Claves nuevas (26-nov, barra de campaña V2, C7): se añaden, no sustituyen a ninguna.
     barraCampanaCierre: ['select', ['sesion', 'vista'], 'sesion'],
     barraCampanaFicha: ['boolean', null, true],
@@ -93,11 +114,15 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
   const { filas } = JSON.parse(readFileSync(new URL('./fixtures/opciones-produccion-2026-11-25.json', import.meta.url), 'utf8')) as { filas: { name: string; value: string }[] };
   assert.deepEqual(leerAjustesV2(filas, 'clasico'), {
     temaPorDefecto: 'v2',
-    caja: { variante: 'cuenta-clara', contador: 'barra', titulo: 'Empieza {curso}', subtitulo: 'Lecciones en vídeo, a tu ritmo.' },
+    caja: { variante: 'cuenta-clara', contador: 'barra', titulo: 'Empieza {curso}', subtitulo: 'Lecciones en vídeo, a tu ritmo.', resaltada: true, tituloCentrado: true, precioNormal: 'tachado', pais: false, movimiento: true },
     mostrarCreador: true,
     mostrarDocente: true,
     mostrarCiudades: true,
     estiloCampo: 'outlined',
+    sobreFotos: true,
+    movimientoFicha: { ficha: 'sobrio', certificado: 'destello' },
+    bloquesFicha: { temario: 'enfoca', queIncluye: true, relacionados: 'placa' },
+    opiniones: { estilo: 'lista', minimoExtractos: 1, perfil: null },
     barraCampana: { cierre: 'sesion', enFicha: true, fija: true },
     campana: { barra: 'contador', banda: 'contador', megamenu: 'contador', listado: 'contador' },
     portada: {

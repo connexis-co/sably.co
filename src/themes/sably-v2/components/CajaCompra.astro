@@ -30,6 +30,7 @@ import { docConAjustes } from '@/lib/caja/sably';
 import { resolverZona } from '@/lib/caja/resolver';
 import type { Bloque, Condicion } from '@/lib/caja/model';
 import { notaHotmart } from '@/lib/opiniones';
+import { CSS_CAJA } from '../ficha-hoja';
 import type { Ficha } from '@/lib/ficha';
 import type { Country } from '@/lib/countries';
 
@@ -80,6 +81,8 @@ const nota = bloque('calificacion') ? notaHotmart(valoracion) : null;
 const preguntas = hijos('acordeon');
 const tituloId = 'titulo-compra';
 ---
+{/* CSS de la caja y su contador, en línea al abrirla (primera pantalla en el celular): ficha-hoja.ts. */}
+<style is:inline set:html={CSS_CAJA}></style>
 <section id="compra" tabindex="-1" aria-labelledby={tituloId}
   class:list={['v2-caja scroll-mt-28 overflow-hidden rounded-c-lg bg-white shadow-s2 outline-none', variante === 'cabecera-oscura' && 'v2-caja-oscura']}
   data-purchase-panel data-base={conPrecio ? conMoneda(baseAmount) : undefined} data-reduced={reducido ? conMoneda(reducido) : undefined}
@@ -87,7 +90,8 @@ const tituloId = 'titulo-compra';
   data-discount-url={offer ? discounted.href : undefined} data-until={offer?.end} data-precio-hasta={offer ? (offer.hastaPrecio ?? 'nunca') : undefined}
   data-currency={currency} data-base-amount={conPrecio ? baseAmount : undefined} data-reduced-amount={reducido ?? undefined}
   data-quote-source={quote?.fuente ?? 'respaldo'} data-quote-at={quote?.at ?? undefined}
-  data-estado={estado} data-cupon={offer ? 'aplicado' : undefined} data-variante={variante}
+  data-estado={estado} data-cupon={offer ? 'aplicado' : undefined} data-variante={variante} data-resaltada={ajustes.caja.resaltada ? '' : undefined}
+  data-precio-normal={ajustes.caja.precioNormal}
   data-codigo={offer?.coupon} data-pct={offer?.saving} data-campana={campana ?? undefined} data-preajuste={zona.preajuste}>
 
   {variante === 'cabecera-oscura' && offer ? (
@@ -100,7 +104,7 @@ const tituloId = 'titulo-compra';
           {campana && <p class="text-t13 font-semibold text-coral-500">{campana}</p>}
           <p class="v2-num font-display text-d40 font-semibold">{offer.saving} % <span class="text-t15 font-normal text-white/75">menos</span></p>
         </div>
-        {offer.end && reloj && <Contador hasta={offer.end} desde={promoRow?.desde} estilo="casillas" oscuro class="[&_p]:hidden" />}
+        {offer.end && reloj && <Contador hasta={offer.end} desde={promoRow?.desde} estilo="casillas" oscuro vivo={ajustes.caja.movimiento} class="[&_p]:hidden" />}
       </div>
       {bloque('cupon') && <p class="mt-3 flex items-center gap-2 text-t13 font-semibold" data-bloque="cupon"><Icono nombre="circle-check" tamano={16} class="text-whatsapp" /><span data-cupon-texto>Cupón {offer.coupon} aplicado</span>
         <button type="button" data-toggle class="ml-auto min-h-9 font-medium text-white underline underline-offset-4">Quitar</button></p>}
@@ -108,15 +112,18 @@ const tituloId = 'titulo-compra';
     </div>
   ) : (
     (titulo || subtitulo) ? (
-      <div class="v2-caja-titulo px-6 pt-6" data-bloque="titulo">
-        {titulo ? <h2 id={tituloId} class="text-t20 font-semibold">{titulo}</h2> : <h2 id={tituloId} class="sr-only">Inscripción al curso</h2>}
+      <div class:list={['v2-caja-titulo px-6 pt-6', ajustes.caja.tituloCentrado && 'v2-caja-titulo-centro text-center']} data-bloque="titulo">
+        {titulo ? <h2 id={tituloId} class="text-t20 font-semibold text-balance">{titulo}</h2> : <h2 id={tituloId} class="sr-only">Inscripción al curso</h2>}
         {subtitulo && <p class="mt-1 text-t15 text-navy-700 max-lg:hidden">{subtitulo}</p>}
+        {/* C8 (añadido de JP a la ronda 2): línea corta y centrada bajo el subtítulo, del 45 % del ancho. */}
+        {ajustes.caja.tituloCentrado && (titulo || subtitulo) && <span class="v2-caja-filete mx-auto mt-4 block h-0.5 w-[45%] rounded-full bg-navy-100" aria-hidden="true"></span>}
       </div>
     ) : <h2 id={tituloId} class="sr-only">Inscripción al curso</h2>
   )}
 
   <div class="v2-caja-cuerpo px-6 pt-5 pb-6">
-    <p class="flex items-center gap-2 text-t13 text-navy-700" data-bloque="pais"><Bandera codigo={country.code} />Precio para {country.name}</p>
+    {/* C10: la fila del país, de fábrica oculta (el país y la moneda siguen en «País y moneda» y en la cabecera). */}
+    {ajustes.caja.pais && <p class="flex items-center gap-2 text-t13 text-navy-700" data-bloque="pais"><Bandera codigo={country.code} />Precio para {country.name}</p>}
 
     {estado === 'campana' && variante === 'cuenta-clara' && descuento && (
       <dl class="mt-4 space-y-2 border-b border-navy-100 pb-4 text-t15" data-bloque="precio">
@@ -146,7 +153,7 @@ const tituloId = 'titulo-compra';
     </div>
 
     {estado === 'campana' && variante === 'cuenta-clara' && reloj && offer?.end && (
-      <Contador hasta={offer.end} desde={promoRow?.desde} estilo={ajustes.caja.contador === 'tique' ? 'linea' : ajustes.caja.contador} campana={campana} despues={despues} sigueOtra={Boolean(promoSiguiente)} cupon={offer.coupon} class="mt-4" />
+      <Contador hasta={offer.end} desde={promoRow?.desde} estilo={ajustes.caja.contador === 'tique' ? 'linea' : ajustes.caja.contador} campana={campana} despues={despues} sigueOtra={Boolean(promoSiguiente)} cupon={offer.coupon} vivo={ajustes.caja.movimiento} class="mt-4" />
     )}
     {offer && (
       <p class="mt-4 hidden rounded-c-md bg-navy-50 p-3 text-t13 text-navy-700" data-aviso-fin>
@@ -172,7 +179,7 @@ const tituloId = 'titulo-compra';
       </div>
     )}
 
-    {nota && <p class="mt-5 flex items-center gap-1.5 text-t13 text-navy-700" data-bloque="calificacion"><Estrellas nota={valoracion!.rating} /><strong class="v2-num ml-1 font-semibold text-navy-950">{nota.cifra}</strong> · {nota.texto}</p>}
+    {nota && <p class="mt-5 flex items-center gap-1.5 text-t13 text-navy-700" data-bloque="calificacion"><Estrellas nota={valoracion!.rating} /><strong class="v2-num ml-1 font-semibold text-navy-950">{nota.cifra}</strong> · {nota.numero} calificaciones en Hotmart</p>}
 
     <ul class="mt-5 space-y-3 border-t border-navy-100 pt-5 text-t15 text-navy-950" data-bloque="confianza">
       {hijo('confianza', 'garantia') && <li class="flex items-center gap-3" data-item="garantia"><span class="grid size-8 place-items-center rounded-c-sm bg-navy-50"><Icono nombre="shield-check" tamano={18} /></span>7 días para pedir reembolso</li>}
@@ -228,32 +235,6 @@ const tituloId = 'titulo-compra';
   </div>
 </section>
 
-<style>
-  .v2-tachado { text-decoration: line-through; text-decoration-thickness: 1.5px; }
-  .v2-caja[data-cupon='retirado'] [data-cupon-icono] { opacity: 0.4; }
-  .v2-caja[data-cupon='retirado'] [data-cupon-cifra] { color: var(--color-navy-500); font-weight: 400; }
-  .v2-caja:not([data-cupon='retirado']) [data-sin-cupon], .v2-caja[data-cupon='retirado'] [data-con-cupon] { display: none; }
-  .v2-caja[data-cupon='retirado'] .v2-tachado { text-decoration: none; }
-  .v2-caja[data-cupon='retirado'] :global([data-contador-despues]) { display: none; }
-  .v2-caja[data-cupon='retirado'] :global([data-contador-sigue]) { display: inline; }
-  .v2-caja[data-estado='vencida'] :global(:is([data-bloque='cupon'], [data-contador], [data-savings])) { display: none; }
-  .v2-caja[data-estado='vencida'] :global([data-aviso-fin]) { display: block; }
-  /* Móvil: precio y botón primero (dentro de los primeros 844 px); la cuenta y el contador, después. */
-  @media (width < 1024px) {
-    .v2-caja-cuerpo { display: flex; flex-direction: column; }
-    .v2-caja-cuerpo > :global(*) { order: 5; }
-    .v2-caja-cuerpo > :global([data-bloque='pais']) { order: 0; }
-    .v2-caja-cuerpo > :global([data-bloque='importe']) { order: 1; }
-    .v2-caja-cuerpo > :global([data-bloque='boton']) { order: 2; }
-    .v2-caja-cuerpo > :global([data-bloque='precio']) { order: 3; margin-top: 20px; border-top: 1px solid var(--color-navy-100); padding-top: 16px; }
-    .v2-caja-cuerpo > :global(:is([data-contador], [data-aviso-fin])) { order: 4; }
-    /* El H1 ya está encima: en móvil el título de la caja solo lo leen los lectores de pantalla. */
-    .v2-caja-titulo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-    .v2-caja-titulo + .v2-caja-cuerpo { padding-top: 24px; }
-  }
-  [data-amount-cifra].cambia { animation: v2-cambia var(--t-base) var(--e-sale); }
-  @keyframes v2-cambia { from { opacity: 0.2; translate: 0 0.25em; } }
-</style>
 
 <script>
   import { trackEvent } from '@/lib/analytics';

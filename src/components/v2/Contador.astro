@@ -5,6 +5,13 @@
  * dentro del tique. Días, horas y minutos; sin segundos. El servidor pinta el
  * primer valor y el navegador lo corrige cada 30 s; al llegar la fecha se
  * oculta y la caja vuelve al precio normal (ver CajaCompra).
+ *
+ * `vivo` (C11 de la ronda 2 de JP, ajuste `cajaMovimiento`): el reloj late, un segundero
+ * («4 d 00:12:05») corre con la cifra de los segundos que rueda y un brillo recorre la barra.
+ * Solo `transform` y `opacity`. Las dos versiones (quieta y viva) van en el HTML y el CSS
+ * elige: con `prefers-reduced-motion: reduce` se ve la quieta, sin saltos al arrancar.
+ * Sus estilos viven en themes/sably-v2/ficha/caja.css (en línea con la caja, su único uso), no en la hoja común.
+ * La fecha es la misma de siempre: la real del panel.
  */
 import Icono from './Icono.astro';
 import { fechaCorta, fechaDia, fraccionRestante, restante, textoRestante } from '@/lib/cuenta-atras';
@@ -20,24 +27,30 @@ interface Props {
   /** Código del cupón: si se retira, el texto lo recuerda en vez de «después vuelve a…». */
   cupon?: string | null;
   oscuro?: boolean;
+  /** C11: reloj que late, segundero y brillo en la barra (nunca con menos movimiento). */
+  vivo?: boolean;
   class?: string;
 }
-const { hasta, desde = null, estilo = 'barra', campana, despues, sigueOtra = false, cupon = null, oscuro = false, class: clase } = Astro.props;
+const { hasta, desde = null, estilo = 'barra', campana, despues, sigueOtra = false, cupon = null, oscuro = false, vivo = false, class: clase } = Astro.props;
 const ahora = Date.now();
 const r = restante(hasta, ahora);
 const fraccion = fraccionRestante(desde, hasta, ahora);
 const fin = `${fechaCorta(hasta)}, hora de Colombia`;
+/* Segundero: «4 d 00:12:05» o «00:12:05» (el navegador lo corrige al cargar y cada segundo). */
+const dos = (n: number) => String(n).padStart(2, '0');
+const s = Math.max(0, Math.floor((hasta - ahora) / 1000));
+const reloj = { dias: Math.floor(s / 86400), hms: `${dos(Math.floor((s % 86400) / 3600))}:${dos(Math.floor((s % 3600) / 60))}:`, seg: dos(s % 60) };
 ---
 {r && (
-  <div class:list={['v2-contador', clase]} data-contador data-hasta={hasta} data-desde={desde ?? undefined} data-estilo={estilo}>
+  <div class:list={['v2-contador', clase]} data-contador data-hasta={hasta} data-desde={desde ?? undefined} data-estilo={estilo} data-vivo={vivo ? '' : undefined}>
     {estilo === 'barra' && (
       <div class:list={['rounded-c-md px-4 py-3', oscuro ? 'bg-white/8' : 'bg-navy-50']}>
-        <div class="flex items-center gap-2">
-          <Icono nombre="timer" tamano={18} class={oscuro ? 'text-white' : 'text-navy-950'} />
-          <p class:list={['text-t15', oscuro ? 'text-white/80' : 'text-navy-700']}>Quedan <strong class:list={['v2-num text-t17 font-semibold', oscuro ? 'text-white' : 'text-navy-950']} data-contador-texto>{textoRestante(r)}</strong></p>
-          {campana && <p class="ml-auto text-t13 font-semibold text-coral-700">{campana}</p>}
+        <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+          <span class="v2-contador-icono inline-flex flex-none"><Icono nombre="timer" tamano={18} class={oscuro ? 'text-white' : 'text-navy-950'} /></span>
+          <p class:list={['text-t15 whitespace-nowrap', oscuro ? 'text-white/80' : 'text-navy-700']}>Quedan <strong class:list={['v2-num v2-contador-quieto text-t17 font-semibold', oscuro ? 'text-white' : 'text-navy-950']} data-contador-texto>{textoRestante(r)}</strong>{vivo && <><strong class:list={['v2-num v2-contador-vivo text-t17 font-semibold whitespace-nowrap', oscuro ? 'text-white' : 'text-navy-950']} aria-hidden="true" data-contador-reloj>{reloj.dias > 0 && <span data-r="d">{reloj.dias} d </span>}<span data-r="hms">{reloj.hms}</span><span class="v2-contador-seg" data-r="s">{reloj.seg}</span></strong><span class="sr-only" data-contador-texto>{textoRestante(r)}</span></>}</p>
+          {campana && <p class="ml-auto text-t13 font-semibold whitespace-nowrap text-coral-700">{campana}</p>}
         </div>
-        <div class="v2-barra mt-2.5" role="presentation"><span data-contador-barra style={`width:${(fraccion * 100).toFixed(1)}%`}></span></div>
+        <div class="v2-barra mt-2.5" role="presentation"><span data-contador-barra style={`width:${(fraccion * 100).toFixed(1)}%`}>{vivo && <i class="v2-contador-brillo" aria-hidden="true"></i>}</span></div>
         <p class:list={['mt-2.5 text-t13', oscuro ? 'text-white/70' : 'text-navy-500']}>{sigueOtra ? `${campana ?? 'La promoción'} termina el ${fechaDia(hasta)}` : <>Termina el {fin}.</>}{despues && !sigueOtra && <span data-contador-despues> {despues}</span>}{cupon && <span data-contador-sigue hidden> El cupón {cupon} sigue disponible hasta entonces.</span>}</p>
       </div>
     )}
@@ -54,7 +67,7 @@ const fin = `${fechaCorta(hasta)}, hora de Colombia`;
     )}
     {(estilo === 'linea' || estilo === 'tique') && (
       <p class:list={['flex flex-wrap items-center gap-x-1.5 text-t13', oscuro ? 'text-white/80' : 'text-navy-700']}>
-        <Icono nombre="timer" tamano={16} />Termina en <strong class:list={['v2-num font-semibold', oscuro ? 'text-white' : 'text-navy-950']} data-contador-texto>{textoRestante(r)}</strong>
+        <span class="v2-contador-icono inline-flex flex-none"><Icono nombre="timer" tamano={16} /></span>Termina en <strong class:list={['v2-num v2-contador-quieto font-semibold', oscuro ? 'text-white' : 'text-navy-950']} data-contador-texto>{textoRestante(r)}</strong>{vivo && <><strong class:list={['v2-num v2-contador-vivo font-semibold whitespace-nowrap', oscuro ? 'text-white' : 'text-navy-950']} aria-hidden="true" data-contador-reloj>{reloj.dias > 0 && <span data-r="d">{reloj.dias} d </span>}<span data-r="hms">{reloj.hms}</span><span class="v2-contador-seg" data-r="s">{reloj.seg}</span></strong><span class="sr-only" data-contador-texto>{textoRestante(r)}</span></>}
         <span class:list={['w-full', oscuro ? 'text-white/70' : 'text-navy-500']}>{fin}</span>
       </p>
     )}
@@ -79,4 +92,34 @@ const fin = `${fechaCorta(hasta)}, hora de Colombia`;
     }
   }
   if (contadores.length) { pintar(); setInterval(pintar, 30_000); }
+
+  /* C11: segundero de los contadores vivos. Cada segundo, la cifra de los segundos rueda. Corre aunque se pida menos
+     movimiento, pero entonces el CSS enseña la versión quieta. */
+  const vivos = contadores.filter(c => c.hasAttribute('data-vivo'));
+  const dos = (n: number) => String(n).padStart(2, '0');
+  const quieto = matchMedia('(prefers-reduced-motion: reduce)');
+  const RUEDA: Keyframe[] = [{ transform: 'translateY(-55%)', opacity: 0 }, { transform: 'none', opacity: 1 }];
+  function segundero(rodar = true) {
+    const ahora = Date.now();
+    for (const c of vivos) {
+      const s = Math.floor((Number(c.dataset.hasta) - ahora) / 1000);
+      if (s < 0) continue;
+      const dias = Math.floor(s / 86400);
+      c.querySelectorAll<HTMLElement>('[data-contador-reloj]').forEach(r => {
+        const d = r.querySelector<HTMLElement>('[data-r="d"]');
+        if (d) { d.textContent = dias > 0 ? `${dias} d ` : ''; }
+        const hms = r.querySelector<HTMLElement>('[data-r="hms"]');
+        if (hms) hms.textContent = `${dos(Math.floor((s % 86400) / 3600))}:${dos(Math.floor((s % 3600) / 60))}:`;
+        const seg = r.querySelector<HTMLElement>('[data-r="s"]');
+        if (seg && seg.textContent !== dos(s % 60)) {
+          seg.textContent = dos(s % 60);
+          /* La cifra rueda con la Web Animations API: reiniciar una clase obligaba a recalcular el diseño de toda la
+             página cada segundo (`offsetWidth`), también en el primer fotograma. Sin movimiento si se pidió menos. */
+          if (rodar && !quieto.matches) seg.animate(RUEDA, { duration: 360, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)' });
+        }
+      });
+    }
+  }
+  /* La primera pasada solo corrige la cifra que pintó el servidor (sin animar, nada en el primer fotograma). */
+  if (vivos.length) { segundero(false); setInterval(() => segundero(), 1000); }
 </script>

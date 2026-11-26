@@ -1,0 +1,2 @@
+.v2-opiniones:focus { outline: none; }
+.v2-opiniones:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 4px; }

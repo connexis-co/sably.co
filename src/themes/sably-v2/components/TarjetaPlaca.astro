@@ -1,0 +1,46 @@
+---
+/**
+ * Tarjeta de curso con «placa que crece sobre la foto» (lámina `fEaNY` · widget 6, 312 × 416), para «Cursos
+ * relacionados» de la ficha. En reposo, foto alta y una placa blanca abajo con el título y el oficio; con el cursor o
+ * el foco la placa crece hacia arriba (`grid-template-rows: 0fr → 1fr`, 300 ms) con la promesa, los datos y «Ver el
+ * curso», y la foto escala 1,03. Sin cursor (táctil) la placa sale abierta: ningún dato depende de un gesto que no
+ * existe. Todo en el HTML (la parte plegada se recoge con grid, no con `display: none`, así el lector de pantalla la
+ * lee). La tarjeta mide siempre lo mismo y la placa está anclada abajo: CLS 0. 0 KB de JavaScript.
+ * No lleva precio a propósito (la lámina lo dice: el precio vive en la caja y en la tarjeta de listado); la otra
+ * opción del panel (`relacionadosTarjeta`) vuelve a la tarjeta con precio.
+ */
+import { Image as OptimizedImage } from 'astro:assets';
+import { cmsImageUrl } from '@/lib/cms-media';
+import { courseCover } from '@/lib/categories';
+import { getCategory, type Course } from '@/lib/emdash-content';
+import type { Country } from '@/lib/countries';
+import { resumenTarjeta } from '@/lib/presentacion-v2';
+import Icono from '@/components/v2/Icono.astro';
+interface Props { course: Course; country: Country }
+const { course, country } = Astro.props;
+const cat = (await getCategory(course.data.category))!;
+const url = `/${country.code}/${course.id}/`;
+const promesa = resumenTarjeta(course.data.shortDescription, 120);
+const datos = [
+  course.data.lessonsCount ? `${course.data.lessonsCount} lecciones` : null,
+  course.data.durationHours ? `${course.data.durationHours} horas` : null,
+  course.data.level || null,
+].filter(Boolean).join(' · ');
+---
+<article class="v2-placa-tarjeta group" data-tarjeta-placa={course.id}>
+  <OptimizedImage
+    src={cmsImageUrl(course.cardImage) ?? cmsImageUrl(course.coverImage) ?? courseCover(course.id, cat.slug, 'card')}
+    alt="" width={480} height={640} sizes="(min-width: 1024px) 312px, (min-width: 640px) 50vw, 100vw"
+    loading="lazy" decoding="async" class="v2-placa-foto" />
+  <div class="v2-placa">
+    <h3 class="v2-placa-titulo"><a href={url} class="v2-placa-enlace">{course.data.title}</a></h3>
+    <p class="v2-placa-oficio">{cat.name}</p>
+    <div class="v2-placa-mas">
+      <div>
+        {promesa && <p class="v2-placa-promesa">{promesa}</p>}
+        <p class="v2-placa-datos">{datos}</p>
+        <p class="v2-placa-ver" aria-hidden="true">Ver el curso <Icono nombre="arrow-right" tamano={16} /></p>
+      </div>
+    </div>
+  </div>
+</article>
