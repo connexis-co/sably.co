@@ -92,6 +92,10 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
     s.setAttribute('data-heroe', e); s.setAttribute('data-heroe-ab', e);
   </script>}
   {ab && <style set:html={`[data-heroe-rama]{display:none}${cssRamas}`} />}
+  {/* Muro «tras los botones» en el celular: la caja pasa a columna flex y el texto a `display: contents`, para que el
+     muro (order 1) quede entre los botones y la línea de valoraciones (order 2). Va aquí, antes del texto: si llegara
+     con el muro (que va después), con el HTML a trozos el texto ya pintado saltaría (CLS 0,45 a 390). */}
+  {nueva && oficios.length > 0 && ramas.includes('muro') && movil === 'tras-botones' && <style is:inline set:html={"@layer components{@media (max-width:1023.98px){[data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-caja{display:flex;flex-direction:column;gap:0}[data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-texto{display:contents}[data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-prueba{order:2}}}"}></style>}
   {conAurora && <div class="v2-heroe-fondo" aria-hidden="true"><Aurora /></div>}
   <div class="v2-heroe-caja v2-contenedor grid items-center gap-10 pt-10 pb-14 lg:gap-14 lg:pt-24 lg:pb-24">
     <div class="v2-heroe-texto">

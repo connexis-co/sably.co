@@ -38,13 +38,10 @@ const DURACION = [30, 36, 33, 39];
     .v2-muro-pista { display: flex; gap: 12px; width: max-content; margin: 0; padding: 0; list-style: none; }
     .v2-muro-tar { position: relative; flex: none; z-index: 1; }
     @media (max-width: 1023.98px) {
-      /* «Tras los botones» (panel → Portada): el texto se abre en la columna y el muro, más bajo, va entre los
-         botones y la línea de valoraciones; así asoma en la primera pantalla sin tocar el titular ni el buscador. */
-      [data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-caja { display: flex; flex-direction: column; gap: 0; }
-      [data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-texto { display: contents; }
+      /* «Tras los botones» (panel → Portada): el muro, más bajo, va entre los botones y la línea de valoraciones; así
+         asoma en la primera pantalla. Las reglas que abren la caja y el texto van en Heroe.astro, ANTES del texto. */
       [data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-muro { order: 1; height: 236px; margin-top: 18px; }
       [data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-muro-tar > a { width: 132px; }
-      [data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-prueba { order: 2; }
       .v2-muro { mask-image: linear-gradient(90deg, transparent, #000 18px, #000 calc(100% - 18px), transparent); }
       [data-heroe='muro'] .v2-heroe-caja { padding-bottom: 20px; }
     }
