@@ -72,7 +72,9 @@ const tarjetas = guias.map(post => {
   .v2-guia-cuerpo { display: flex; flex: 1; flex-direction: column; gap: 8px; padding: 20px 24px 24px; }
   .v2-guia-cat { font: 600 13px/18px var(--font-sans); color: var(--color-coral-700); }
   .v2-guia-titulo { font: 600 20px/27px var(--font-display); color: var(--color-navy-950); text-wrap: balance; }
-  .v2-guia-resumen { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; font-size: 15px; line-height: 22px; color: var(--color-navy-700); }
+  .v2-guia-resumen { font-size: 15px; line-height: 22px; color: var(--color-navy-700); }
+  /* En columnas, tres líneas para que las tarjetas queden parejas; una sola guía tiene sitio para el resumen entero. */
+  .v2-guias:not([data-cuantas='1']) .v2-guia-resumen { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .v2-guia-datos { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; font-size: 13px; line-height: 20px; color: var(--color-navy-500); }
   .v2-guia-mas { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 8px; font: 600 15px/22px var(--font-sans); color: var(--color-navy-950); }
   .v2-guia-narrada {
