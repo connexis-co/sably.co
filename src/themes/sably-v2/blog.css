@@ -321,6 +321,8 @@ body:has(#sbc-ico:not([hidden])) .v2-indice-pildora { left: 68px; }
 .v2-valorar-estrellas svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; }
 .v2-valorar-estrellas button[data-llena] { color: var(--color-ambar); }
 .v2-valorar-estrellas button[data-llena] svg { fill: currentColor; }
+@keyframes v2-estrella-salta { 0% { scale: 1; } 40% { scale: 1.35; } 100% { scale: 1; } }
+@media (prefers-reduced-motion: no-preference) { .v2-valorar[data-salto] button[data-llena] { animation: v2-estrella-salta 420ms var(--e-sale) calc(var(--i, 0) * 60ms) both; } }
 .v2-valorar-estrellas button:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 1px; }
 @media (hover: hover) and (pointer: fine) {
   .v2-valorar-estrellas:hover button { color: var(--color-ambar); }
@@ -332,13 +334,6 @@ body:has(#sbc-ico:not([hidden])) .v2-indice-pildora { left: 68px; }
 .v2-valorar-rotulo { min-height: 18px; margin-top: 4px; font: 600 13px/18px var(--font-sans); color: var(--color-navy-950); }
 .v2-valorar-estado { margin-top: 4px; font: 400 13px/18px var(--font-sans); color: var(--color-navy-500); }
 .v2-valorar-media { margin-top: 8px; font: 600 15px/22px var(--font-sans); color: var(--color-navy-950); }
-.v2-ba-estrellas { display: inline-flex; align-items: center; gap: 8px; min-height: 32px; margin-top: 12px; font: 400 14px/20px var(--font-sans); color: var(--color-navy-700); text-decoration: none; }
-.v2-ba-estrellas b { font-weight: 600; color: var(--color-navy-950); }
-.v2-ba-estrellas .v2-estrellas-vacias { color: var(--color-navy-300); }
-.v2-ba-estrellas-invita { color: var(--color-coral-700); text-decoration: underline; text-underline-offset: 3px; }
-.v2-ba-estrellas:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 2px; border-radius: 6px; }
-.v2-sobre-oscuro .v2-ba-estrellas, .v2-sobre-oscuro .v2-ba-estrellas b { color: #fff; }
-.v2-sobre-oscuro .v2-ba-estrellas-invita { color: #fff; }
 .v2-comentarios { border-radius: 16px; box-shadow: inset 0 0 0 1px var(--color-navy-100); }
 .v2-comentarios > summary { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; padding: 12px 20px; cursor: pointer; list-style: none; }
 .v2-comentarios > summary::-webkit-details-marker { display: none; }

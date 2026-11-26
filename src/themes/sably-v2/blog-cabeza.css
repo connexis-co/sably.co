@@ -77,4 +77,35 @@
   .v2-ba-carril-izq .v2-compartir { flex-direction: column; align-items: flex-start; }
 }
 
+/* ---------- Estrellas bajo el título (en línea: van antes de la hoja del blog y no pueden moverse al cargarla) ---------- */
+.v2-ba-estrellas { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; min-height: 36px; margin-top: 12px; font: 400 14px/20px var(--font-sans); color: var(--color-navy-700); text-decoration: none; }
+.v2-ba-estrellas b { font-weight: 600; color: var(--color-navy-950); }
+a.v2-ba-estrellas:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 2px; border-radius: 6px; }
+.v2-sobre-oscuro .v2-ba-estrellas, .v2-sobre-oscuro .v2-ba-estrellas b { color: #fff; }
+/* Sin media publicable: se puntúa aquí mismo. Botones de 36 px de alto (táctil) con la estrella de 20. */
+.v2-bp-estrellas { display: inline-flex; margin-left: -6px; }
+.v2-bp-estrellas button { display: grid; place-items: center; width: 32px; height: 36px; padding: 0; border: 0; border-radius: 8px; background: none; color: var(--color-navy-300); cursor: pointer; transition: scale var(--t-rapido) var(--e-sale), color var(--t-rapido) var(--e-sale); }
+.v2-bp-estrellas svg { fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; transition: fill var(--t-rapido) var(--e-sale); }
+.v2-bp-estrellas button[data-llena] { color: var(--color-ambar); }
+.v2-bp-estrellas button[data-llena] svg { fill: currentColor; }
+.v2-bp-estrellas button:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: -2px; }
+@media (hover: hover) and (pointer: fine) {
+  .v2-ba-puntuar:hover .v2-bp-estrellas button { color: var(--color-ambar); }
+  .v2-ba-puntuar:hover .v2-bp-estrellas button svg { fill: currentColor; }
+  .v2-ba-puntuar .v2-bp-estrellas button:hover ~ button { color: var(--color-navy-300); }
+  .v2-ba-puntuar .v2-bp-estrellas button:hover ~ button svg { fill: none; }
+  .v2-ba-puntuar .v2-bp-estrellas button:hover { scale: 1.18; }
+}
+.v2-bp-rotulo { font: 500 14px/20px var(--font-sans); color: var(--color-navy-700); letter-spacing: 0.005em; }
+.v2-ba-puntuar[data-votado] .v2-bp-rotulo { color: var(--color-navy-950); font-weight: 600; }
+.v2-sobre-oscuro .v2-bp-estrellas button { color: rgb(255 255 255 / 0.5); }
+.v2-sobre-oscuro .v2-bp-estrellas button[data-llena], .v2-sobre-oscuro .v2-ba-puntuar:hover .v2-bp-estrellas button { color: #f5b54a; }
+.v2-sobre-oscuro .v2-bp-rotulo { color: rgb(255 255 255 / 0.85); }
+@keyframes v2-estrella-ola { 0%, 100% { scale: 1; } 50% { scale: 1.2; } }
+@keyframes v2-estrella-salta { 0% { scale: 1; } 40% { scale: 1.35; } 100% { scale: 1; } }
+@media (prefers-reduced-motion: no-preference) {
+  .v2-ba-puntuar[data-invita]:not([data-votado], :hover, :focus-within) button { animation: v2-estrella-ola 520ms var(--e-sale) calc(var(--i) * 70ms) 1 both; }
+  .v2-ba-puntuar[data-salto] button[data-llena] { animation: v2-estrella-salta 420ms var(--e-sale) calc(var(--i) * 60ms) 1 both; }
+}
+
 }
