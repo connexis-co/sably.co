@@ -1,0 +1,15 @@
+/* Cabecera G del artículo (narración protagonista): en línea solo cuando está elegida. DISENO.md §12.3, lámina 12. */
+@layer components {
+.v2-ba-cabeza[data-cabecera='g'] { padding: 0; }
+.v2-ba-cabeza[data-cabecera='g'] .v2-ba-banda { background: var(--color-navy-50); padding: 24px 0 32px; }
+.v2-ba-cabeza[data-cabecera='g'] .v2-ba-titulos { max-width: none; }
+.v2-ba-cabeza[data-cabecera='g'] .v2-ba-meta { border-bottom: 0; }
+.v2-ba-cabeza[data-cabecera='g'] .v2-ba-narracion { margin-top: 8px; }
+.v2-ba-cabeza[data-cabecera='g'] .v2-ba-narracion:not([data-fija]) > .v2-medio { box-shadow: var(--shadow-s2); }
+@media (width >= 1024px) {
+  .v2-ba-cabeza[data-cabecera='g'] .v2-ba-banda { padding: 40px 0 56px; }
+  .v2-ba-cabeza[data-cabecera='g'] .v2-ba-cuadro { display: grid; grid-template-columns: minmax(0, 1fr) 440px; align-items: center; gap: 56px; }
+  .v2-ba-cabeza[data-cabecera='g'] .v2-ba-h1 { font-size: 48px; line-height: 52px; }
+  .v2-ba-cabeza[data-cabecera='g'] .v2-ba-narracion { margin-top: 0; }
+}
+}

@@ -25,6 +25,20 @@ export const settingsSchema = {
     options: [{ value: 'outlined', label: 'Contorno' }, { value: 'filled', label: 'Relleno' }, { value: 'underline', label: 'Subrayado' }],
     default: 'outlined',
   },
+  // Barra de campaña V2 (26-nov-2026, ronda 2 de JP: C7)
+  barraCampanaCierre: {
+    type: 'select',
+    label: 'Campañas · Al cerrar la barra de campaña',
+    description: 'Qué pasa cuando alguien toca la × de la barra de arriba. «Durante la sesión»: no vuelve a salir hasta que cierre la pestaña. «Solo en esa página»: vuelve en la página siguiente. Por defecto: Durante la sesión.',
+    options: [{ value: 'sesion', label: 'Durante la sesión' }, { value: 'vista', label: 'Solo en esa página' }],
+    default: 'sesion',
+  },
+  barraCampanaFicha: {
+    type: 'boolean',
+    label: 'Campañas · Barra de campaña en la ficha del curso',
+    description: 'Solo en los cursos cuyo creador acepta el cupón de la campaña (en los demás nunca sale, para no anunciar un descuento que el pago no aplica). La caja de compra sigue llevando su propio cupón. Por defecto: encendido.',
+    default: true,
+  },
   // Caja de compra
   cajaVariante: {
     type: 'select',
@@ -127,6 +141,13 @@ export const settingsSchema = {
     type: 'boolean',
     label: 'Cuenta · Entrar con el correo (código)',
     description: 'Entrar o crear la cuenta con un código de 6 dígitos que llega al correo, sin contraseña. Solo se ofrece si el correo del sitio está listo: proveedor elegido en Ajustes → Correo y, con «Sably · Brevo», su clave API y el remitente en los ajustes del plugin. Sin eso no aparece aunque esté encendido. Por defecto: encendido.',
+    default: true,
+  },
+  // Clave nueva del 26-nov-2026.
+  cuentaClave: {
+    type: 'boolean',
+    label: 'Cuenta · Entrar con correo y contraseña',
+    description: 'Entrar con correo y contraseña, crear la cuenta con contraseña, «¿Olvidaste tu contraseña?» y cambiarla en Mi cuenta. El alta y el olvido se confirman con un código al correo, así que necesita lo mismo que el acceso con código (y ese interruptor encendido). Contraseñas con Argon2id, de 10 caracteres o más y comprobadas contra filtraciones públicas. Apagado, nadie entra con contraseña, pero las guardadas no se borran. Por defecto: encendido.',
     default: true,
   },
   cuentaAcceso: {
@@ -291,14 +312,14 @@ export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
-  { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos.', claves: [] },
+  { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, y la barra de arriba.', claves: ['barraCampanaCierre', 'barraCampanaFicha'] },
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaResaltada', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },
   { id: 'medios', titulo: 'Medios: audio y vídeo', resumen: 'Vídeo de presentación; narraciones y reproductor, cuando lleguen.', claves: [] },
   { id: 'seo', titulo: 'SEO y medición', resumen: 'Medición, conversiones y auditoría SEO.', claves: [] },
-  { id: 'cuenta', titulo: 'Cuenta', resumen: 'Cuentas de usuario y acceso con Google o con código por correo.', claves: ['cuentaActiva', 'cuentaGoogle', 'cuentaCorreo', 'cuentaAcceso'] },
+  { id: 'cuenta', titulo: 'Cuenta', resumen: 'Cuentas de usuario y acceso con Google, con código por correo o con contraseña.', claves: ['cuentaActiva', 'cuentaGoogle', 'cuentaCorreo', 'cuentaClave', 'cuentaAcceso'] },
   { id: 'integraciones', titulo: 'Integraciones', resumen: 'Correo del equipo, WhatsApp, Brevo y claves cifradas.', claves: ['notificationEmail'] },
   { id: 'avanzado', titulo: 'Avanzado', resumen: 'Revisar un tema sin cambiarlo, claves técnicas y formulario de respaldo.', claves: [] },
 ];

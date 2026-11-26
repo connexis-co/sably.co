@@ -8,16 +8,24 @@
 import BotonGoogle from './BotonGoogle.astro';
 import Boton from '@/components/v2/Boton.astro';
 import Campo from '@/components/v2/Campo.astro';
-import { CONSENTIMIENTO, RUTAS, enlaceIngresar } from '@/lib/cuenta/nucleo';
+import { CONSENTIMIENTO, RUTAS, enlaceIngresar, type ModoAcceso } from '@/lib/cuenta/nucleo';
+import { CLAVE_MIN, CLAVE_MAX } from '@/lib/cuenta/clave';
 interface Props {
   csrf: string; volver: string; aviso?: string | null; tono?: 'alerta' | 'info';
   google: boolean; correo: boolean;
-  /** Paso 2: correo al que se envió el código y segundos que faltan para poder pedir otro. */
-  codigo?: { email: string; reenviarEn: number } | null;
+  /** Correo y contraseña disponibles (necesita el correo: el alta y el olvido van por código). */
+  clave?: boolean;
+  /** Paso 1: código por correo, contraseña, o crear/cambiar la contraseña. */
+  modo?: ModoAcceso;
+  /** Paso 2: correo al que se envió el código, segundos para poder pedir otro y si espera una contraseña nueva. */
+  codigo?: { email: string; reenviarEn: number; clave?: boolean } | null;
   /** Página: h1. Ventana: párrafo con el id que nombra el diálogo. */
   titulo: 'pagina' | 'ventana';
 }
-const { csrf, volver, aviso, tono = 'alerta', google, correo, codigo, titulo } = Astro.props;
+const { csrf, volver, aviso, tono = 'alerta', google, correo, clave = false, codigo, titulo } = Astro.props;
+const modo: ModoAcceso = clave ? (Astro.props.modo ?? 'codigo') : 'codigo';
+const titulos: Record<ModoAcceso, string> = { codigo: 'Ingresa o crea tu cuenta', clave: 'Ingresa con tu contraseña', nueva: 'Crea o cambia tu contraseña' };
+const enlace = (m: ModoAcceso) => enlaceIngresar(volver, undefined, m);
 const Titulo = titulo === 'pagina' ? 'h1' : 'p';
 const idTitulo = titulo === 'ventana' ? 'v2-cuenta-dialogo-titulo' : undefined;
 // En la ventana, el título deja sitio a la X de cerrar.
@@ -49,7 +57,7 @@ const claseTitulo = `font-display text-[28px]/[34px] font-semibold text-navy-950
         <input type="hidden" name="volver" value={volver} />
         <label for="cuenta-codigo" class="sr-only">Código de 6 dígitos</label>
         <input id="cuenta-codigo" name="codigo" class="v2-cuenta-codigo" inputmode="numeric" autocomplete="one-time-code" pattern="\s*\d{3}\s?\d{3}\s*" maxlength="7" required aria-describedby="cuenta-codigo-ayuda" />
-        <p id="cuenta-codigo-ayuda" class="mt-2 text-t13 text-navy-500">Vence en 10 minutos. Si no lo ves, busca en spam o promociones.</p>
+        <p id="cuenta-codigo-ayuda" class="mt-2 text-t13 text-navy-500">Vence en 10 minutos. Si no lo ves, busca en spam o promociones.{codigo.clave && ' Al confirmarlo guardamos tu contraseña y cerramos la sesión en tus otros dispositivos.'}</p>
         <Boton tipo="submit" alto={52} completo flecha={false} class="mt-5">Verificar y entrar</Boton>
       </form>
       <form method="post" action={RUTAS.correoEnviar} class="mt-4 flex flex-wrap items-center gap-x-2 text-t15 text-navy-700" data-cuenta-paso>
@@ -64,10 +72,12 @@ const claseTitulo = `font-display text-[28px]/[34px] font-semibold text-navy-950
     </>
   ) : (
     <>
-      <Titulo id={idTitulo} class={claseTitulo}>Ingresa o crea tu cuenta</Titulo>
-      <p class="mt-2 text-t15 text-navy-700">{correo ? 'Con Google o con un código que te enviamos al correo, sin contraseñas.' : 'Con tu cuenta de Google. Si es la primera vez, se crea tu cuenta en el momento.'}</p>
+      <Titulo id={idTitulo} class={claseTitulo}>{titulos[modo]}</Titulo>
+      <p class="mt-2 text-t15 text-navy-700">{modo === 'nueva'
+        ? 'Escribe tu correo y la contraseña que quieres usar. Te enviamos un código para confirmar que el correo es tuyo; si ya tienes cuenta, la nueva reemplaza a la anterior.'
+        : correo ? 'Con Google, con un código que te enviamos al correo o con tu contraseña.' : 'Con tu cuenta de Google. Si es la primera vez, se crea tu cuenta en el momento.'}</p>
       {aviso && <p role={tono === 'alerta' ? 'alert' : 'status'} class:list={['mt-5 rounded-c-md px-4 py-3 text-t15', tono === 'alerta' ? 'bg-coral-50 text-coral-700' : 'bg-navy-50 text-navy-900']}>{aviso}</p>}
-      {google && (
+      {google && modo !== 'nueva' && (
         <form method="post" action={RUTAS.googleInicio} class="mt-6" data-cuenta-ingresar>
           <input type="hidden" name="csrf" value={csrf} />
           <input type="hidden" name="volver" value={volver} />
@@ -75,7 +85,7 @@ const claseTitulo = `font-display text-[28px]/[34px] font-semibold text-navy-950
           <BotonGoogle />
         </form>
       )}
-      {correo && (
+      {correo && modo === 'codigo' && (
         <>
           {google && <p class="v2-cuenta-separador" role="presentation"><span>o con tu correo</span></p>}
           <form method="post" action={RUTAS.correoEnviar} class:list={[google ? 'mt-4' : 'mt-6']} data-cuenta-paso>
@@ -86,6 +96,45 @@ const claseTitulo = `font-display text-[28px]/[34px] font-semibold text-navy-950
             <Boton tipo="submit" alto={52} completo flecha={false} class="mt-4">Enviarme un código</Boton>
           </form>
           <p class="mt-3 text-t13 text-navy-500">¿Primera vez? Tu cuenta se crea al confirmar el código.</p>
+          {clave && <p class="mt-2 text-t15"><a href={enlace('clave')} rel="nofollow" class="font-semibold text-navy-950 underline underline-offset-4" data-cuenta-paso-atras>Entrar con contraseña</a></p>}
+        </>
+      )}
+      {modo === 'clave' && (
+        <>
+          {google && <p class="v2-cuenta-separador" role="presentation"><span>o con tu correo y contraseña</span></p>}
+          <form method="post" action={RUTAS.claveEntrar} class:list={[google ? 'mt-4' : 'mt-6']} data-cuenta-paso>
+            <input type="hidden" name="csrf" value={csrf} />
+            <input type="hidden" name="volver" value={volver} />
+            <Campo id="cuenta-correo" nombre="email" etiqueta="Correo electrónico" tipo="email" requerido autocompletar="username" maximo={254} />
+            <div class="v2-campo mt-4">
+              <input id="cuenta-clave" name="clave" type="password" placeholder=" " required autocomplete="current-password" minlength={1} maxlength={CLAVE_MAX} />
+              <label for="cuenta-clave">Contraseña</label>
+              
+            </div>
+            <Boton tipo="submit" alto={52} completo flecha={false} class="mt-4">Entrar</Boton>
+          </form>
+          <p class="mt-3 flex flex-wrap gap-x-5 gap-y-1 text-t15">
+            <a href={enlace('nueva')} rel="nofollow" class="font-semibold text-navy-950 underline underline-offset-4" data-cuenta-paso-atras>¿Olvidaste tu contraseña?</a>
+            <a href={enlace('codigo')} rel="nofollow" class="font-semibold text-navy-950 underline underline-offset-4" data-cuenta-paso-atras>Entrar con un código</a>
+          </p>
+          <p class="mt-2 text-t13 text-navy-500">¿Primera vez? <a href={enlace('nueva')} rel="nofollow" class="underline underline-offset-2" data-cuenta-paso-atras>Crea tu cuenta con contraseña</a>.</p>
+        </>
+      )}
+      {modo === 'nueva' && (
+        <>
+          <form method="post" action={RUTAS.claveNueva} class="mt-6" data-cuenta-paso>
+            <input type="hidden" name="csrf" value={csrf} />
+            <input type="hidden" name="volver" value={volver} />
+            <input type="hidden" name="pais" value="" data-cuenta-pais />
+            <Campo id="cuenta-correo" nombre="email" etiqueta="Correo electrónico" tipo="email" requerido autocompletar="username" maximo={254} />
+            <div class="v2-campo mt-4">
+              <input id="cuenta-clave-nueva" name="clave" type="password" placeholder=" " required autocomplete="new-password" minlength={CLAVE_MIN} maxlength={CLAVE_MAX} aria-describedby="cuenta-clave-nueva-ayuda" />
+              <label for="cuenta-clave-nueva">Contraseña nueva</label>
+              <span id="cuenta-clave-nueva-ayuda" class="v2-campo-ayuda">Al menos 10 caracteres. Mejor una frase que no uses en otros sitios.</span>
+            </div>
+            <Boton tipo="submit" alto={52} completo flecha={false} class="mt-4">Enviarme el código</Boton>
+          </form>
+          <p class="mt-3 text-t15"><a href={enlace('clave')} rel="nofollow" class="font-semibold text-navy-950 underline underline-offset-4" data-cuenta-paso-atras>Volver a entrar con contraseña</a></p>
         </>
       )}
       <p class="mt-4 text-t13 text-navy-500">{CONSENTIMIENTO.texto} Más detalles en la <a href="/legal/privacidad/" class="underline underline-offset-2">política de privacidad</a>.</p>

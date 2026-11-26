@@ -1,9 +1,9 @@
 ---
 /**
- * Constancia de muestra, tratamiento E «Con talón de verificación» (lámina
+ * Certificado de muestra, tratamiento E «Con talón de verificación» (lámina
  * constancia-secciones/kmJmq). Es un documento ilustrativo de Sably: no lleva
  * firmas, sellos, horas ni avales, y el código y el QR son de ejemplo (el QR es
- * un dibujo decorativo, no codifica nada). La constancia real la emite Hotmart.
+ * un dibujo decorativo, no codifica nada). El certificado real lo emite Hotmart.
  * Para un lector de pantalla es una sola imagen con una frase; el contenido
  * visual interno no se lee.
  * Escritorio: panel azul noche, centro blanco y talón perforado a la derecha.
@@ -32,13 +32,13 @@ for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
   const lleno = e !== null ? e : separador(x, y) ? false : azar() > 0.52;
   if (lleno) qr += `M${x} ${y}h1v1h-1z`;
 }
-const etiqueta = `Ejemplo ilustrativo de la constancia de finalización del curso ${curso}. Lleva un nombre de muestra, un código de verificación de ejemplo y un código QR de ejemplo. La constancia real la emite Hotmart.`;
+const etiqueta = `Ejemplo ilustrativo del certificado de finalización del curso ${curso}. Lleva un nombre de muestra, un código de verificación de ejemplo y un código QR de ejemplo. El certificado real lo emite Hotmart.`;
 ---
 <figure role="img" aria-label={etiqueta} class:list={['v2-const', clase]} data-constancia-ejemplo>
   <div class="v2-const-panel" aria-hidden="true">
     <svg class="v2-const-emblema" viewBox="110 110 467 520" width="26" height="28" focusable="false"><g transform="translate(80 610) scale(1 -1)"><path d="M456 305H346Q346 341 317 363Q288 385 240 385Q201 385 175.5 368.5Q150 352 150 327Q150 302 175 283.5Q200 265 237.5 247Q275 229 318.5 209Q362 189 399.5 161Q437 133 462 94Q487 55 487 0H377Q377 37 352 61.5Q327 86 289.5 106Q252 126 208.5 144.5Q165 163 127.5 187Q90 211 65 244.5Q40 278 40 327Q40 362 55.5 392Q71 422 98.5 444Q126 466 163.5 478Q201 490 246 490Q293 490 331.5 476.5Q370 463 397.5 438.5Q425 414 440.5 380Q456 346 456 305Z" fill="#fff"/><path d="M110 130Q140 130 160 110Q180 90 180 60Q180 30 160 10Q140 -10 110 -10Q80 -10 60 10Q40 30 40 60Q40 90 60 110Q80 130 110 130Z" fill="#e8456b"/></g></svg>
     <svg class="v2-const-trama" viewBox="-100 -100 200 200" focusable="false"><g fill="none" stroke="currentColor" stroke-width="0.6">{Array.from({ length: 18 }, (_, i) => <ellipse rx="92" ry="34" transform={`rotate(${i * 10})`} />)}</g></svg>
-    <p class="v2-const-titulo"><span class="v2-const-filete"></span>Constancia de finalización</p>
+    <p class="v2-const-titulo"><span class="v2-const-filete"></span>Certificado de finalización</p>
   </div>
   <div class="v2-const-centro" aria-hidden="true">
     <p class="v2-const-rotulo">Ejemplo ilustrativo</p>

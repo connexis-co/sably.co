@@ -109,16 +109,18 @@ test('el título del listado no vuelve a decir «Catálogo de 120+ cursos»', ()
   assert.deepEqual(errores(sana.replace('</main>', '<p>Arma tu primer catálogo de postres para vender.</p></main>')), []);
 });
 
-test('«constancia», nunca «certificado»: error en lo que sale de plantilla, aviso en el texto del CMS', () => {
+test('«certificado», no «constancia»: error en el JSON-LD, aviso en el texto visible', () => {
   const credencial = (nombre) => sana.replace('"name":"Curso de Masajes"', `"name":"Curso de Masajes","educationalCredentialAwarded":{"@type":"EducationalOccupationalCredential","name":"${nombre}","credentialCategory":"Certificate"}`);
-  assert.deepEqual(errores(credencial('Constancia digital de finalización')), []);
-  assert.deepEqual(errores(credencial('Certificado digital de finalización')), ['constancia-json-ld']);
+  assert.deepEqual(errores(credencial('Certificado digital de finalización')), []);
+  assert.deepEqual(errores(credencial('Constancia digital de finalización')), ['constancia-json-ld']);
   assert.deepEqual(errores(sana.replace('src="/a.jpg"', 'src="/certificado-sably.jpg"')), ['imagen-certificado']);
-  const conTexto = sana.replace('</main>', '<p>Certificado incluido. Obtén tu certificado digital.</p></main>');
+  const avisos = (html) => auditarOnPage(url, html).filter((h) => h.regla === 'constancia').map((h) => [h.nivel, h.detalle.match(/\d+/)[0]]);
+  const conTexto = sana.replace('</main>', '<p>Constancia incluida. Obtén tu constancia digital.</p></main>');
   assert.deepEqual(errores(conTexto), []);
-  assert.deepEqual(auditarOnPage(url, conTexto).filter((h) => h.regla === 'certificado').map((h) => [h.nivel, h.detalle.match(/\d+/)[0]]), [['aviso', '2']]);
-  // Las homologaciones sí son certificaciones de una institución.
-  assert.deepEqual(auditarOnPage('https://sably.co/homologaciones/tecnico-laboral/', conTexto).filter((h) => h.regla === 'certificado'), []);
+  assert.deepEqual(avisos(conTexto), [['aviso', '2']]);
+  // «Certificado» ya no avisa, y «constancia» en otro sentido tampoco.
+  assert.deepEqual(avisos(sana.replace('</main>', '<p>Certificado incluido. Obtén tu certificado digital.</p></main>')), []);
+  assert.deepEqual(avisos(sana.replace('</main>', '<p>Practica con constancia. Guardamos la constancia de tu consentimiento.</p></main>')), []);
 });
 
 // 24-nov-2026: masajes CO decía «Andrés Villamil explica cada maniobra» y la
@@ -135,7 +137,7 @@ test('un instructor de relleno no puede aparecer en la página ni en su FAQPage'
 
 test('tema V2: sin emojis de interfaz, cada hecho una vez fuera de la caja y el texto largo en el HTML', () => {
   const v2 = (cuerpo) => pagina(`<main><h1>Curso de masajes</h1>
-<section id="compra" data-purchase-panel data-base="191.012 COP"><h2>Caja</h2><p>7 días para pedir reembolso</p><p>Constancia de finalización</p></section>
+<section id="compra" data-purchase-panel data-base="191.012 COP"><h2>Caja</h2><p>7 días para pedir reembolso</p><p>Certificado de finalización</p></section>
 ${cuerpo}
 <section id="mas"><h2>Más sobre el curso</h2><div data-texto-largo><p>${'palabra '.repeat(200)}</p></div></section></main>`).replace('<body>', '<body data-tema="v2">');
   assert.deepEqual(errores(v2('<h2>Cómo funciona</h2><p>Garantía de 7 días</p>')), []);
@@ -161,10 +163,11 @@ test('tema V2: las reglas cubren también la cabecera y el pie (todo el <body>)'
   const v2 = (fuera) => pagina(`<header>${fuera}</header><main><h1>Cursos online en Colombia</h1><h2>Áreas</h2></main>`).replace('<body>', '<body data-tema="v2">');
   assert.ok(errores(v2('<p>🎓 Cursos</p>')).includes('v2-emoji'), 'un emoji en la cabecera V2 es un error');
   assert.ok(errores(v2('<p>Acceso de por vida</p><p>Acceso de por vida</p>')).includes('v2-hecho-repetido'));
-  // El documento de muestra de la constancia es ilustrativo: no cuenta como hecho repetido.
-  const doc = '<figure role="img" data-constancia-ejemplo><p>Constancia de finalización</p></figure>';
-  assert.ok(!errores(v2(`<p>Hotmart emite una constancia digital de finalización</p>${doc}`)).includes('v2-hecho-repetido'));
-  assert.ok(errores(v2(`<p>Constancia de finalización</p><p>Constancia de finalización</p>${doc}`)).includes('v2-hecho-repetido'));
+  // El documento de muestra del certificado es ilustrativo: no cuenta como hecho repetido.
+  const doc = '<figure role="img" data-constancia-ejemplo><p>Certificado de finalización</p></figure>';
+  assert.ok(!errores(v2(`<p>Hotmart emite un certificado digital de finalización</p>${doc}`)).includes('v2-hecho-repetido'));
+  assert.ok(errores(v2(`<p>Certificado de finalización</p><p>Certificado de finalización</p>${doc}`)).includes('v2-hecho-repetido'));
+  assert.ok(errores(v2(`<p>Certificado de finalización</p><p>Constancia de finalización</p>${doc}`)).includes('v2-hecho-repetido'), 'las dos palabras son el mismo hecho');
 });
 
 test('enlaces internos: ruta y ancla, sin consulta, sin rutas técnicas ni externas', () => {

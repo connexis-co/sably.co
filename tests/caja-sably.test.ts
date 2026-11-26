@@ -16,7 +16,7 @@ test('el documento de Sably pasa el validador común sin errores', () => {
   // Lleva todos los de fábrica de la academia (no se pueden borrar) y la Cabecera oscura.
   for (const f of PREAJUSTES_FABRICA) assert.ok(doc.preajustes.some((p) => p.id === f().id), f().id);
   assert.ok(doc.preajustes.some((p) => p.id === 'cabecera-oscura'));
-  assert.ok(!JSON.stringify(doc).match(/certificad/i), 'sin «certificado» en los textos de fábrica de Sably');
+  assert.ok(!JSON.stringify(doc).match(/constancia/i), 'sin «constancia» en los textos de fábrica de Sably');
 });
 
 test('«cabecera-oscura» tiene la forma de Preajuste y bloques válidos', () => {
@@ -39,11 +39,13 @@ test('la caja resuelta de Sably trae los obligatorios en el orden de «Cuenta cl
 });
 
 test('vocabulario de Sably en el validador', () => {
-  assert.ok(textProblems('Con certificado al terminar').length);
+  assert.ok(textProblems('Con constancia al terminar').length);
+  assert.ok(textProblems('Incluye una constancia digital').length);
   assert.ok(textProblems('Te lo vende el productor').length);
   assert.ok(textProblems('El mejor curso del país').length);
   assert.ok(textProblems('Gana dinero desde el primer mes').length);
   assert.ok(textProblems('Apúrate, cupos limitados').length);
-  assert.deepEqual(textProblems('Lecciones en vídeo, a tu ritmo y con constancia al terminar.'), []);
+  assert.deepEqual(textProblems('Lecciones en vídeo, a tu ritmo y con certificado al terminar.'), []);
+  assert.deepEqual(textProblems('Practica con constancia cada semana.'), []);
   assert.deepEqual(textProblems('Electricista con experiencia'), []);
 });

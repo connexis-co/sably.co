@@ -4,7 +4,7 @@
  */
 import type { APIRoute } from 'astro';
 import { abrirSesion, cookieFlujo, cuentaServidor, ipCliente, leerFormulario, noEncontrada, postValido, prohibido, redirigir, tomarRetorno } from '@/lib/cuenta/http';
-import { CONSENTIMIENTO, SESION_SEGUNDOS, ahora, destinoSeguro, enlaceCodigo, enlaceIngresar, limpiarCodigo } from '@/lib/cuenta/nucleo';
+import { CONSENTIMIENTO, RUTAS, SESION_SEGUNDOS, ahora, destinoSeguro, enlaceCodigo, enlaceIngresar, limpiarCodigo } from '@/lib/cuenta/nucleo';
 
 export const prerender = false;
 
@@ -20,9 +20,14 @@ export const POST: APIRoute = async (ctx) => {
   const t = ahora();
   const verificado = await servidor.almacen.verificarCodigo(cookieFlujo(ctx), limpiarCodigo(formulario.get('codigo')), t);
   if (!verificado.ok) return redirigir(verificado.aviso === 'codigo-malo' ? enlaceCodigo(volver, 'codigo-malo') : enlaceIngresar(volver, verificado.aviso));
+  // Alta u «olvidé mi contraseña»: la contraseña que esperaba a este código se guarda ahora.
+  const claveNueva = await servidor.almacen.tomarClavePendiente(cookieFlujo(ctx), t);
   const { pais } = tomarRetorno(ctx);
   const resultado = await servidor.almacen.entrarConCorreo(verificado.email, t, { ...CONSENTIMIENTO, ip: ipCliente(ctx.request) }, pais || undefined);
   if (!resultado.ok) return redirigir(enlaceIngresar(volver, resultado.aviso));
+  // Contraseña nueva: se cierran las demás sesiones de la cuenta; queda solo la de este navegador.
+  if (claveNueva) await servidor.almacen.fijarClave(resultado.cuenta, claveNueva, t, resultado.token);
   await abrirSesion(ctx, servidor.almacen, resultado.token, SESION_SEGUNDOS);
-  return redirigir(destinoSeguro(volver));
+  const destino = destinoSeguro(volver);
+  return redirigir(claveNueva && destino === RUTAS.cuenta ? `${RUTAS.cuenta}?aviso=clave-cambiada` : destino);
 };

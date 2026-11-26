@@ -34,8 +34,9 @@ export const BLOG_SETTINGS = {
   blogBandaCursos: sino('Blog · Banda «De la guía al oficio»', 'Bloque azul con el número real de cursos y un botón a los cursos, tras la segunda fila. Por defecto: encendida.', true),
   // Artículo · cabecera y lectura
   blogCabecera: opciones('Blog · Cabecera del artículo',
-    '«Automática»: título primero (B) si el artículo tiene portada propia, mínima (D) si no. A = foto a sangre con el título encima; C = banda azul con la foto montada (la de antes, terminada). El orden del HTML no cambia (un solo H1, primero). Por defecto: Automática.',
-    [['automatica', 'Automática (B o D)'], ['b', 'B · Título primero'], ['a', 'A · Foto a sangre'], ['c', 'C · Dos columnas'], ['d', 'D · Mínima, sin foto']], 'automatica'),
+    '«Automática»: título primero (B) si el artículo tiene portada propia, mínima (D) si no. A = foto a sangre con el título encima; C = banda azul con la foto montada; E = titular grande y foto panorámica; F = el vídeo del curso relacionado arriba (sin vídeo, B); G = la narración junto al título (sin narración, B); H = banda del color de la categoría; J = título con el índice al lado (con menos apartados de los mínimos, B). Sin portada propia, las que usan foto pasan a D (H se queda, sin foto). Cada artículo puede elegir la suya en el editor («Cabecera»). El orden del HTML no cambia (un solo H1, primero). Por defecto: Automática.',
+    [['automatica', 'Automática (B o D)'], ['b', 'B · Título primero'], ['a', 'A · Foto a sangre'], ['c', 'C · Dos columnas'], ['d', 'D · Mínima, sin foto'],
+     ['e', 'E · Editorial, titular grande'], ['f', 'F · Vídeo protagonista'], ['g', 'G · Narración protagonista'], ['h', 'H · Color de la categoría'], ['j', 'J · Título con el índice al lado']], 'automatica'),
   blogEntradillaEstilo: opciones('Blog · Estilo de la entradilla', 'La frase de resumen bajo el título. Por defecto: Simple.',
     [['simple', 'Simple'], ['filete', 'Con filete coral a la izquierda']], 'simple'),
   blogTamanoTexto: opciones('Blog · Tamaño del texto del artículo', 'Cuerpo del artículo en escritorio (en móvil, un punto menos). Por defecto: 18.',
