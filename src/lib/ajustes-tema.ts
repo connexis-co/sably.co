@@ -48,6 +48,10 @@ export interface AjustesV2 {
     pruebaHeroe: PruebaHeroe | null;
     categoriasVariante: 'fotos' | 'pila' | 'filas';
     comoFuncionaAnimado: boolean;
+    heroeMovil: 'tras-botones' | 'final';
+    oficioModo: 'automatico' | 'estatico';
+    oficioIntervalo: number;
+    guiasVariante: 'tarjetas' | 'lista';
     aparicion: boolean;
     cifrasCuentan: boolean;
     paralaje: boolean;
@@ -110,6 +114,10 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
       pruebaHeroe: leerPruebaHeroe(v.portadaHeroeAB, v.portadaHeroeABVariantes ?? 'muro, buscador', v.portadaHeroeABReparto, v.portadaHeroeABInicio),
       categoriasVariante: uno(v.portadaCategoriasVariante, ['fotos', 'pila', 'filas'] as const, 'fotos'),
       comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
+      heroeMovil: uno(v.portadaHeroeMovil, ['tras-botones', 'final'] as const, 'tras-botones'),
+      oficioModo: uno(v.portadaOficioModo, ['automatico', 'estatico'] as const, 'automatico'),
+      oficioIntervalo: Number(uno(v.portadaOficioIntervalo, ['7000', '9000', '12000'] as const, '9000')),
+      guiasVariante: uno(v.portadaGuiasVariante, ['tarjetas', 'lista'] as const, 'tarjetas'),
       aparicion: v.portadaAparicion !== false,
       cifrasCuentan: v.portadaCifrasCuentan !== false,
       paralaje: v.portadaParalaje !== false,
