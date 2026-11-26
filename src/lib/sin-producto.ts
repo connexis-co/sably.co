@@ -13,7 +13,7 @@ const PROMESA = /certific|constancia|diploma|garant[ií]a|reembolso|devoluci[oó
 const MIN_PALABRAS = 4;
 
 /**
- * Quita de un texto las frases que prometen constancia, garantía, acceso o
+ * Quita de un texto las frases que prometen certificado, garantía, acceso o
  * inscripción. Si la promesa es solo un inciso («…desde cero y obtén tu
  * certificado»), se cae el inciso y se conserva el resto de la frase.
  */

@@ -8,6 +8,7 @@ import { contactDefaults } from '../src/lib/contact-page.mjs';
 import { structureInstitutionalPage } from './institutional-pages.mjs';
 import { parse as parseAstro } from '@astrojs/compiler';
 import { markdownToPortableText } from 'emdash/client';
+import { CAMPOS_BLOG } from './blog-campos-articulo.mjs';
 
 export const field = (slug, label, type = 'string', extra = {}) => ({ slug, label, type, ...extra });
 const textItems = (slug, label) => field(slug, label, 'repeater', {
@@ -81,6 +82,7 @@ export function extendCollections(base) {
   bySlug.get('blog').fields.push(
     template(), field('body', 'Artículo', 'portableText'), faqs(), textItems('keyword_items', 'Palabras clave'),
     media('cover_image', 'Portada principal'), media('card_image', 'Portada de tarjeta'),
+    ...CAMPOS_BLOG.map(campo => ({ ...campo, validation: { ...campo.validation } })),
   );
   // Keep existing field types intact. Archived JSON never blocks creation in the friendly editor.
   const archived = {

@@ -9,7 +9,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { getCountry } from '@/lib/countries';
 import { aplicarCabecerasPrivadas, cookieFlujo, cuentaActual, cuentaServidor, tokenCsrf, redirigir } from '@/lib/cuenta/http';
-import { AVISOS, ahora, destinoSeguro } from '@/lib/cuenta/nucleo';
+import { AVISOS, ahora, destinoSeguro, modoValido } from '@/lib/cuenta/nucleo';
 import FormularioAcceso from '@/components/cuenta/FormularioAcceso.astro';
 import '@/themes/sably-v2/estilos.css';
 
@@ -28,17 +28,20 @@ const codigo = Astro.url.searchParams.get('paso') === 'codigo' && servidor.estad
   ? await servidor.almacen.codigoPendiente(cookieFlujo(Astro), ahora()) : null;
 if (Astro.url.searchParams.get('paso') === 'codigo' && !codigo && !codigoAviso) codigoAviso = 'codigo-caducado';
 const google = !!servidor.google;
+// Contraseña: solo con el correo listo (el alta y «olvidé mi contraseña» van por código).
+const clave = servidor.estado.clave && correo;
+const modo = modoValido(Astro.url.searchParams.get('modo'));
 if (!google && !correo && !codigo && !codigoAviso) codigoAviso = 'sin-acceso';
 const aviso = Object.hasOwn(AVISOS, codigoAviso) ? AVISOS[codigoAviso] : null;
-const tono = ['salida', 'borrada', 'guardado', 'reenviado'].includes(codigoAviso) ? 'info' : 'alerta';
+const tono = ['salida', 'borrada', 'guardado', 'reenviado', 'clave-cambiada'].includes(codigoAviso) ? 'info' : 'alerta';
 const fragmento = Astro.request.headers.get('x-account-form') === '1';
 const country = getCountry('co');
 ---
-{fragmento ? <FormularioAcceso {csrf} {volver} {aviso} {tono} {google} {correo} {codigo} titulo="ventana" /> : (
+{fragmento ? <FormularioAcceso {csrf} {volver} {aviso} {tono} {google} {correo} {clave} {modo} {codigo} titulo="ventana" /> : (
   <BaseLayout title="Entrar | Sably" description="Entra en tu cuenta de Sably o créala con Google o con un código en tu correo." {country} pathAfterCountry="/" pageType="cuenta" noindex temaV2>
     <section class="v2-contenedor flex justify-center py-10 lg:py-20">
       <div class="w-full max-w-[440px] lg:rounded-c-xl lg:bg-white lg:p-10 lg:shadow-s2">
-        <FormularioAcceso {csrf} {volver} {aviso} {tono} {google} {correo} {codigo} titulo="pagina" />
+        <FormularioAcceso {csrf} {volver} {aviso} {tono} {google} {correo} {clave} {modo} {codigo} titulo="pagina" />
       </div>
     </section>
     <script is:inline>

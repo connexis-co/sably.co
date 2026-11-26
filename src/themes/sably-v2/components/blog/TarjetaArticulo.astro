@@ -20,11 +20,14 @@ interface Props {
   nivel?: 'h2' | 'h3'; eager?: boolean; sizes?: string;
   /** Datos reales (sably.db) y si se enseñan: estrellas solo con la valoración encendida, comentarios solo si hay. */
   pulso?: PulsoArticulo; estrellas?: boolean; comentarios?: boolean;
+  /** Segundos de la narración publicada (`duracionesNarradas`): distintivo «Escúchalo · N min». Sin narración, nada. */
+  narrado?: number;
 }
-const { pulso, estrellas = false, comentarios = false, post, variante = 'borde', movil = 'horizontal', leerMas = true, sinFoto = 'tipografica', estiloEtiqueta = 'punto', nivel: H = 'h3', eager = false,
+const { narrado, pulso, estrellas = false, comentarios = false, post, variante = 'borde', movil = 'horizontal', leerMas = true, sinFoto = 'tipografica', estiloEtiqueta = 'punto', nivel: H = 'h3', eager = false,
   sizes = '(min-width: 1024px) 380px, (min-width: 640px) 50vw, 96px' } = Astro.props;
 const propia = cmsImageUrl(post.cardImage) ?? cmsImageUrl(post.coverImage);
 const foto = propia ?? (sinFoto === 'foto' ? blogCover(post.data.category, 'card') : undefined);
+const escuchar = narrado ? `Escúchalo · ${Math.max(1, Math.round(narrado / 60))} min` : null;
 const minutos = minutosLectura(post.richBody ? richText(post.richBody) : post.body ?? '');
 ---
 <a href={`/blog/${post.id}/`} class="v2-tarjeta-art group" data-variante={variante} data-movil={movil === 'horizontal' ? 'horizontal' : undefined}>
@@ -32,12 +35,13 @@ const minutos = minutosLectura(post.richBody ? richText(post.richBody) : post.bo
     {foto
       ? <OptimizedImage src={foto} alt="" width={640} height={400} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} {sizes} />
       : <div class="v2-portada-tipo" data-tono={tonoDeCategoria(post.data.category)} aria-hidden="true"><b>{titularPortada(post.data.title)}</b><span>{post.data.category ?? 'Guía'}</span></div>}
+    {escuchar && <span class="v2-narrado v2-narrado-foto"><Ico nombre="headphones" tamano={14} />{escuchar}</span>}
   </div>
   <div class="v2-ta-cuerpo">
     <EtiquetaCategoria categoria={post.data.category} estilo={estiloEtiqueta} />
     <H class="v2-ta-titulo">{post.data.title}</H>
     <p class="v2-ta-resumen">{post.data.description}</p>
-    <p class="v2-ta-datos"><time datetime={post.data.publishedAt.toISOString()}>{fechaCorta(post.data.publishedAt)}</time> · {minutos} min de lectura</p>
+    <p class="v2-ta-datos"><time datetime={post.data.publishedAt.toISOString()}>{fechaCorta(post.data.publishedAt)}</time> · {minutos} min de lectura{escuchar && <span class="v2-narrado v2-narrado-linea"><Ico nombre="headphones" tamano={14} />{escuchar}</span>}</p>
     {(estrellas || (comentarios && pulso?.comentarios)) ? (
       <p class="v2-ta-pie">
         {estrellas && (pulso?.publicable && pulso.media !== null

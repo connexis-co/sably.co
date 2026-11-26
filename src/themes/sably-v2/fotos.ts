@@ -115,14 +115,14 @@ export const FOTOS: Record<NombreFoto, Foto> = {
   'foto-unas-acrilicas-vertical-1': { ancho: 1200, alto: 1600, alt: 'Manos con guantes negros que aplican acrílico con pincel sobre un molde de uña' },
   'foto-motos-1': { ancho: 1600, alto: 1200, alt: 'Mecánico que ajusta la cadena de una moto en un taller abierto a la calle' },
   'foto-motos-vertical-1': { ancho: 1200, alto: 1600, alt: 'Mecánico que ajusta la cadena de una moto en un taller abierto a la calle' },
-  'foto-curso-reposteria-mascotas': { ancho: 480, alto: 321, alt: 'Repostera que rellena una manga pastelera para decorar galletas de hueso para perros, con un golden retriever mirando desde la esquina de la mesa' },
-  'foto-curso-cejas-pestanas': { ancho: 480, alto: 321, alt: 'Técnica que practica la colocación de extensiones de pestañas con pinzas sobre una cabeza de maniquí, con el estuche de pestañas y los cepillos al lado' },
-  'foto-curso-drenaje-linfatico': { ancho: 480, alto: 321, alt: 'Terapeuta que trabaja con ambas manos la pantorrilla de una persona recostada en una camilla, con aceites y helechos junto a la ventana' },
-  'foto-curso-decoracion-globos': { ancho: 480, alto: 321, alt: 'Decoradora que tuerce globos largos color terracota para armar una guirnalda en una mesa con inflador, cuaderno de bocetos y globos sueltos' },
-  'foto-curso-macrame': { ancho: 480, alto: 321, alt: 'Mujer que anuda cuerda de algodón en un tapiz de macramé sobre una mesa de madera, con un cuaderno de patrones, tijeras y madejas' },
-  'foto-curso-mecanica-motos': { ancho: 480, alto: 321, alt: 'Mecánico que desarma un carburador sobre un banco de taller con llaves y manuales, con el chasis de una moto al fondo' },
-  'foto-curso-mecanica-bicicletas': { ancho: 480, alto: 321, alt: 'Mecánico que revisa la horquilla de una bicicleta de montaña en un soporte de taller, con herramientas colgadas en el tablero' },
-  'foto-curso-desayunos-sorpresa': { ancho: 480, alto: 320, alt: 'Mujer con delantal que arma una canasta de desayuno sorpresa con croissants, fresas, jugo de naranja y una tarjeta, en una cocina con azulejos' },
+  'foto-curso-reposteria-mascotas': { ancho: 480, alto: 321, alt: 'Panadera con delantal gris que da una galleta con forma de hueso a un labrador sujeto con correa por su dueño, en una cocina con frascos de harina y avena y una bandeja de galletas' },
+  'foto-curso-cejas-pestanas': { ancho: 480, alto: 321, alt: 'Cosmetóloga con mascarilla y guantes aplica la solución de un lifting de pestañas sobre el escudo de silicona en el párpado de una clienta recostada, en una cabina blanca luminosa.' },
+  'foto-curso-drenaje-linfatico': { ancho: 480, alto: 321, alt: 'Terapeuta de pelo gris corto realiza maniobras suaves con las palmas sobre la pantorrilla de una clienta, en una cabina de paredes claras con carrito de aceite y toalla.' },
+  'foto-curso-decoracion-globos': { ancho: 480, alto: 321, alt: 'Decorador que arma una columna de globos naranjas, mostaza y crema en un salón, junto a una escalera plegable, un inflador eléctrico y una caja de globos' },
+  'foto-curso-macrame': { ancho: 480, alto: 321, alt: 'Manos anudan un nudo plano con cuerda de algodón crudo sobre una varilla gris en un puesto de feria bajo una carpa, con colgantes y tapices de macramé al fondo.' },
+  'foto-curso-mecanica-motos': { ancho: 480, alto: 321, alt: 'Mecánico con guantes que ajusta el carburador de una moto con una llave en un taller abierto a la calle' },
+  'foto-curso-mecanica-bicicletas': { ancho: 480, alto: 321, alt: 'Mecánica con delantal negro centra una rueda en un soporte de ajuste y afloja un radio con una llave, en un taller con cuadros verde lima y naranja colgados y una pared de herramientas.' },
+  'foto-curso-desayunos-sorpresa': { ancho: 480, alto: 320, alt: 'Mujer con delantal a rayas acomoda fresas y croissants en una bandeja de mimbre con jugo de naranja, una tarjeta en blanco y un lazo, en una cocina de azulejos blancos y azules.' },
 };
 
 /**
