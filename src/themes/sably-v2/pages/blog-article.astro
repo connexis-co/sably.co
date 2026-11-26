@@ -32,15 +32,20 @@ import Valoracion from '../components/blog/Valoracion.astro';
 import EstrellasArticulo from '../components/blog/EstrellasArticulo.astro';
 import ComentariosV2 from '../components/blog/ComentariosV2.astro';
 import { pulsoDeArticulos } from '@/lib/blog-pulso';
+import { duracionesNarradas } from '@/lib/narracion';
 import { narracionVigente, duracionIso } from '@/lib/narracion';
-import { blogCover, minutosLectura, oficioDeCurso } from '@/lib/blog';
+import { blogCover, minutosLectura, oficioDeCurso, tonoDeCategoria } from '@/lib/blog';
+import { cabeceraElegida } from '@/lib/blog-presentacion';
+import { videoServido } from '@/lib/course-videos';
+import { videoDeCurso } from '@/lib/video';
+import VideoPresentacion from '../components/VideoPresentacion.astro';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import { posicionesCompartir, redesCompartir } from '@/lib/blog-ajustes';
 import { prepareRichContent } from '@/lib/rich-content';
 import { clusterDeCurso, cursosEnlazados, guiasSugeridas } from '@/lib/related-guides';
 import { preciosDeTarjetas } from '@/lib/precio-hoy';
 import { getCategory, type Course, type RichBlock } from '@/lib/emdash-content';
-import { SITE } from '@/lib/site';
+import { SITE, CDN_URL } from '@/lib/site';
 import { promoDeLaPagina } from '../promo-v2';
 import type { load } from '@/lib/page-loaders/blog-article';
 import '../estilos.css';
@@ -53,9 +58,6 @@ const a = (await temaDeLaPeticion(Astro)).ajustes.blog;
 /* ---------- Portada y cabecera ---------- */
 const propia = cmsImageUrl(post.coverImage);
 const portada = propia ?? blogCover(post.data.category, 'hero');
-// A, B y C necesitan foto propia: sin ella, la mínima (D). «Automática» = B con foto, D sin ella.
-const cabecera = !propia ? 'd' : a.blogCabecera === 'automatica' ? 'b' : a.blogCabecera;
-const oscura = cabecera === 'a' || cabecera === 'c';
 
 /* ---------- Narración (plugin sably-narracion): solo si su huella coincide con este texto. Nunca en vista previa. */
 const narracion = post.isPreview ? undefined : await narracionVigente('blog', post.id, {
@@ -84,11 +86,10 @@ const conIndice = apartados.length >= Number(a.blogIndiceMinimo);
 let escritorio = a.blogIndiceEscritorio;
 // Con el curso en el carril derecho, el índice lateral pasa al inicio del texto.
 if (a.blogCarrilDerecho === 'curso' && (escritorio === 'lateral-fija' || escritorio === 'lateral')) escritorio = 'abierto';
-const lateral = conIndice && (escritorio === 'lateral-fija' || escritorio === 'lateral');
-const inicioEscritorio = conIndice && (escritorio === 'plegable' || escritorio === 'abierto' || escritorio === 'tarjeta') ? escritorio : null;
-const inicioMovil = conIndice && a.blogIndiceMovil !== 'ninguno' ? (a.blogIndiceMovil === 'abierto' ? 'abierto' : 'plegable') : null;
+let lateral = conIndice && (escritorio === 'lateral-fija' || escritorio === 'lateral');
+let inicioEscritorio = conIndice && (escritorio === 'plegable' || escritorio === 'abierto' || escritorio === 'tarjeta') ? escritorio : null;
+let inicioMovil: 'abierto' | 'plegable' | null = conIndice && a.blogIndiceMovil !== 'ninguno' ? (a.blogIndiceMovil === 'abierto' ? 'abierto' : 'plegable') : null;
 const flotante = conIndice && a.blogIndiceMovil === 'plegable-flotante';
-const unInicio = inicioEscritorio && inicioEscritorio === inicioMovil;
 
 /* ---------- Curso relacionado: el primero que el texto enlaza (relación editorial, no una adivinanza) ---------- */
 const cursos = await cms.getCourses();
@@ -107,6 +108,23 @@ const { precios, freshUntil } = await preciosDeTarjetas([...new Set([...enLlamad
 const promo = enLlamada.length ? await promoDeLaPagina(Astro, { pais: country.code }) : null;
 const precioCurso = curso ? precios.get(curso.id) ?? null : null;
 
+/* ---------- Cabecera: la del artículo (campo «Cabecera» del editor) o la del panel; ver cabeceraElegida ---------- */
+const pedida = post.presentacion?.cabecera ?? a.blogCabecera;
+/* F · el vídeo de presentación del curso relacionado (el mismo de su ficha), rotulado como tal. Solo si se pide F. */
+let video: { src: string; hls: string | null; subtitulos: string | null; proveedor: string } | null = null;
+if (pedida === 'f' && curso && CDN_URL) {
+  const biblioteca = await videoDeCurso(curso.id);
+  const clave = videoServido(curso.id, curso.data.videoKey);
+  const src = biblioteca?.mp4 ?? (clave ? `${CDN_URL}/videos/${clave}` : null);
+  if (src) video = { src, hls: biblioteca?.hls ?? null, subtitulos: biblioteca?.subtitulos ?? null, proveedor: biblioteca?.proveedor ?? 'r2' };
+}
+const cabecera = cabeceraElegida({ panel: a.blogCabecera, propia: post.presentacion?.cabecera, conPortada: Boolean(propia), conVideo: Boolean(video), conNarracion: Boolean(narracion), conIndice });
+const oscura = cabecera === 'a' || cabecera === 'c';
+const conBanda = cabecera === 'c' || cabecera === 'g' || cabecera === 'h';
+const dosColumnas = conBanda || cabecera === 'j';
+/* J lleva el índice en la cabecera: no se repite al inicio del texto ni en el carril. */
+const indiceEnCabecera = cabecera === 'j';
+
 /* Cuerpo partido antes del H2 que deja atrás ~40 % de los apartados, para meter ahí el curso. Los encabezados
    llevan su id fijado (`anchor`) para que las dos mitades conserven los mismos ids del índice. */
 let mitades: [RichBlock[], RichBlock[]] | null = null;
@@ -117,6 +135,8 @@ if (a.blogCursoMitad && curso && post.richBody && !post.isPreview) {
   const corte = h2.length >= 2 ? h2[Math.max(1, Math.round(h2.length * 0.4))] : undefined;
   mitades = corte ? [fijados.slice(0, corte), fijados.slice(corte)] : [fijados, []];
 }
+if (indiceEnCabecera) { lateral = false; inicioEscritorio = null; inicioMovil = null; }
+const unInicio = inicioEscritorio && inicioEscritorio === inicioMovil;
 const cursoAlFinalDelTexto = a.blogCursoMitad && curso && !mitades;
 
 /* ---------- Compartir y sugeridos ---------- */
@@ -132,18 +152,26 @@ const carrilCurso = curso && (a.blogCarrilDerecho === 'curso' || a.blogCarrilDer
 const conComentarios = a.blogComentarios !== 'apagados';
 const pulsos = a.blogValoracion || conComentarios ? await pulsoDeArticulos([post.id, ...guias.map(g => g.id)]) : new Map();
 const pulso = pulsos.get(post.id);
+const narradas = guias.length ? await duracionesNarradas('blog') : new Map<string, number>();
 const conCierre = a.blogValoracion || posiciones.includes('final');
 ---
 <BaseLayout {title} description={post.data.description} {country} pathAfterCountry="/" {schemas} {articleSchema} {articleMeta} pageType="article" image={portada} {freshUntil} temaV2>
   <EstilosBlog parte="cabeza" />
   {cabecera === 'a' && <EstilosBlog parte="cabecera-a" />}
   {cabecera === 'c' && <EstilosBlog parte="cabecera-c" />}
+  {(cabecera === 'e' || cabecera === 'f' || cabecera === 'g' || cabecera === 'h' || cabecera === 'j') && <EstilosBlog parte={`cabecera-${cabecera}`} />}
   <div class="v2-blog-art" style={`--tamano-texto:${a.blogTamanoTexto}px`}>
     {conProgreso && <div class="v2-progreso" aria-hidden="true" data-progreso></div>}
 
-    <header class:list={['v2-ba-cabeza', { 'v2-sobre-oscuro': oscura }]} data-cabecera={cabecera}>
+    <header class:list={['v2-ba-cabeza', { 'v2-sobre-oscuro': oscura }]} data-cabecera={cabecera} data-tono={cabecera === 'h' ? tonoDeCategoria(post.data.category) : undefined}>
       {cabecera === 'a' && <figure class="v2-ba-portada"><OptimizedImage src={portada} alt="" width={1600} height={711} fetchpriority="high" loading="eager" sizes="100vw" /></figure>}
-      <div class:list={[cabecera === 'c' && 'v2-ba-banda']}><div class:list={['v2-contenedor', cabecera === 'c' && 'v2-ba-cuadro']}>
+      {cabecera === 'f' && video && curso && (
+        <div class="v2-contenedor"><div class="v2-ba-video">
+          <VideoPresentacion src={video.src} hls={video.hls} subtitulos={video.subtitulos} proveedor={video.proveedor} poster={cmsImageUrl(curso.coverImage) ?? portada} titulo={curso.data.title} alt={curso.data.title} courseId={curso.id} />
+          <p class="v2-ba-video-pie">Vídeo de presentación del curso <a href={`/${country.code}/${curso.id}/`}>{curso.data.title}</a></p>
+        </div></div>
+      )}
+      <div class:list={[conBanda && 'v2-ba-banda']}><div class:list={['v2-contenedor', dosColumnas && 'v2-ba-cuadro']}>
         <div class="v2-ba-titulos">
           <div class="v2-ba-migas"><Migas items={migas} oscuro={oscura} class="v2-ba-migas-lista" /></div>
           <EtiquetaCategoria categoria={post.data.category} estilo={a.blogEtiquetaEstilo} etiqueta="p" class="mt-6" />
@@ -152,9 +180,16 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
           {a.blogValoracion && a.blogEstrellasCabecera && <EstrellasArticulo {pulso} />}
           <MetaArticulo publicado={post.data.publishedAt} actualizado={conActualizado ? actualizado : null} {minutos} duracion={narracion ? reloj(narracion.segundos) : undefined} compartir={posiciones.includes('metadatos')} {url} titulo={post.data.title} {redes} />
         </div>
-        {cabecera === 'c' && <figure class="v2-ba-portada"><OptimizedImage src={portada} alt="" width={1160} height={870} fetchpriority="high" loading="eager" sizes="(min-width: 1024px) 580px, 100vw" /></figure>}
+        {(cabecera === 'c' || (cabecera === 'h' && propia)) && <figure class="v2-ba-portada"><OptimizedImage src={portada} alt="" width={1160} height={870} fetchpriority="high" loading="eager" sizes="(min-width: 1024px) 580px, 100vw" /></figure>}
+        {cabecera === 'g' && narracion && (
+          <div class="v2-ba-narracion" id="narracion" data-narracion-fija={a.blogNarracionFija || undefined}>
+            <ReproductorAudio src={narracion.url} segundos={narracion.segundos} titulo={post.data.title} caratula={portada} medioId={`blog:${post.id}`} proveedor={narracion.proveedor} />
+            {a.blogNarracionFija && <button type="button" class="v2-ba-narracion-cerrar" data-narracion-cerrar aria-label="Cerrar el reproductor fijo"><Ico nombre="x" tamano={16} /></button>}
+          </div>
+        )}
+        {indiceEnCabecera && <div class="v2-ba-indice-cabeza"><IndiceArticulo {apartados} estilo="tarjeta" /></div>}
       </div></div>
-      {cabecera === 'b' && (
+      {(cabecera === 'b' || cabecera === 'e' || cabecera === 'j') && (
         <div class="v2-contenedor"><figure class="v2-ba-portada">
           <OptimizedImage src={portada} alt="" width={1200} height={600} fetchpriority="high" loading="eager" sizes="(min-width: 1280px) 1200px, calc(100vw - 40px)" />
         </figure></div>
@@ -170,7 +205,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
       )}</aside>
 
       <div class="v2-ba-columna">
-        {narracion && (
+        {narracion && cabecera !== 'g' && (
           <div class="v2-ba-narracion" id="narracion" data-narracion-fija={a.blogNarracionFija || undefined}>
             <ReproductorAudio src={narracion.url} segundos={narracion.segundos} titulo={post.data.title} caratula={portada} medioId={`blog:${post.id}`} proveedor={narracion.proveedor} />
             {a.blogNarracionFija && <button type="button" class="v2-ba-narracion-cerrar" data-narracion-cerrar aria-label="Cerrar el reproductor fijo"><Ico nombre="x" tamano={16} /></button>}
@@ -234,7 +269,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
         <section aria-labelledby="sigue-titulo">
           <div class="v2-ba-seccion-titulo"><h2 id="sigue-titulo">Sigue leyendo</h2></div>
           <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8" role="list">
-            {guias.map(p => <li><TarjetaArticulo post={p} variante={a.blogTarjeta} movil={a.blogTarjetaMovil} leerMas={a.blogTarjetaLeerMas} sinFoto={a.blogPortadaSinFoto} estiloEtiqueta={a.blogEtiquetaEstilo} pulso={pulsos.get(p.id)} estrellas={a.blogValoracion && a.blogTarjetaEstrellas} comentarios={conComentarios && a.blogTarjetaComentarios} /></li>)}
+            {guias.map(p => <li><TarjetaArticulo post={p} variante={a.blogTarjeta} movil={a.blogTarjetaMovil} leerMas={a.blogTarjetaLeerMas} sinFoto={a.blogPortadaSinFoto} estiloEtiqueta={a.blogEtiquetaEstilo} pulso={pulsos.get(p.id)} narrado={narradas.get(p.id)} estrellas={a.blogValoracion && a.blogTarjetaEstrellas} comentarios={conComentarios && a.blogTarjetaComentarios} /></li>)}
           </ul>
         </section>
       )}

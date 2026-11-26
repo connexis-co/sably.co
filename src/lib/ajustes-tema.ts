@@ -32,6 +32,13 @@ export interface AjustesV2 {
   /** «Disponible online en {país}» con las ciudades del país, en texto y sin enlaces. */
   mostrarCiudades: boolean;
   estiloCampo: EstiloCampo;
+  /** Barra de campaña V2 («Ajustes del sitio → Campañas y cupones»). */
+  barraCampana: {
+    /** `sesion`: cerrada, no vuelve hasta cerrar la pestaña; `vista`: vuelve en la página siguiente. */
+    cierre: 'sesion' | 'vista';
+    /** En la ficha, solo si el curso tiene la oferta de la campaña (su creador acepta el cupón). */
+    enFicha: boolean;
+  };
   /** Portada de país V2 («Ajustes del sitio → Portada»). */
   portada: {
     /** Bloques visibles, en orden (el héroe va siempre primero y no está aquí). */
@@ -81,6 +88,10 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     mostrarDocente: v.mostrarDocente !== false,
     mostrarCiudades: v.mostrarCiudades !== false,
     estiloCampo: uno(v.estiloCampo, ['outlined', 'filled', 'underline'] as const, 'outlined'),
+    barraCampana: {
+      cierre: uno(v.barraCampanaCierre, ['sesion', 'vista'] as const, 'sesion'),
+      enFicha: v.barraCampanaFicha !== false,
+    },
     portada: {
       bloques: bloquesVisibles(v.portadaOrden, v.portadaOcultos),
       heroe: {

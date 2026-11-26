@@ -3,7 +3,8 @@
  *
  * - Parte del documento de fábrica común (`docFabrica`): `validarCaja` exige que estén
  *   todos los preajustes de fábrica, y así la academia y Sably hablan de los mismos ids.
- * - Los textos de fábrica pasan al vocabulario de Sably («constancia», no «certificado»).
+ * - Los textos de fábrica pasan al vocabulario de Sably («certificado», no «constancia»:
+ *   decisión de JP del 26-nov-2026; la fábrica ya dice «certificado» y se queda así).
  * - La caja del sitio es `cuenta-clara` (variante E de la lámina RGZQ7 de Sably, D de la
  *   V3.6 de la academia: en el código manda el id, no la letra).
  * - `cabecera-oscura` (variante B de Sably) se crea aquí primero, con la forma de
@@ -72,7 +73,7 @@ export function docSably(): CajaDoc {
 	const doc = docFabrica();
 	const preajustes = doc.preajustes.map((p) => ({
 		...p,
-		...(p.descripcion ? { descripcion: p.descripcion.replace(/Certificad([oa])/g, "Constancia").replace(/certificad([oa])/g, "constancia") } : {}),
+		...(p.descripcion ? { descripcion: conConstancia(p.descripcion) } : {}),
 		zonas: Object.fromEntries(Object.entries(p.zonas).map(([z, bloques]) => [z, bloques.map(aSably)])) as Preajuste["zonas"],
 	}));
 	const cuenta = preajustes.find((p) => p.id === "cuenta-clara");

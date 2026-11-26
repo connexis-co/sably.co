@@ -24,12 +24,12 @@ export const GET: APIRoute = async () => {
         items
           .map(
             (c) =>
-              // La descripción corta viene del CMS con «Certificado incluido.»: se dice constancia.
+              // La descripción corta viene del CMS: si quedó alguna fórmula de «constancia», se dice certificado.
               `- [${c.data.title}](${SITE.url}/co/${c.id}/): ${conConstancia(c.data.shortDescription)}`,
           )
           .join('\n'),
     )
     .join('\n\n');
-  const body = `# Sably — Cursos de la plataforma\n\n> Sably es una plataforma de educación online para aprender oficios en español. ${courses.length} cursos seleccionados de creadores independientes, con inscripción disponible y constancia de finalización, para Latinoamérica y España.\n\n${sections}\n`;
+  const body = `# Sably — Cursos de la plataforma\n\n> Sably es una plataforma de educación online para aprender oficios en español. ${courses.length} cursos seleccionados de creadores independientes, con inscripción disponible y certificado de finalización, para Latinoamérica y España.\n\n${sections}\n`;
   return new Response(body, { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 };

@@ -3,6 +3,7 @@ import { normalizePagePath } from './page-path';
 import { asignarCursos } from './creadores';
 import { autorDe } from './hotmartLive';
 import type { ContentSeo } from 'emdash';
+import { presentacionDeArticulo, type PresentacionArticulo } from './blog-presentacion';
 import type { CollectionEntry } from 'astro:content';
 import type { Country, City } from './countries';
 import type { Category } from './categories';
@@ -14,7 +15,7 @@ export interface RichBlock { _type: string; _key?: string; [key: string]: unknow
 export interface CmsMeta { isPreview?:boolean; coverImage?:unknown;cardImage?:unknown;template?:string; seo?: ContentSeo; contentRef: ContentRef; updatedAt: string; richBody: RichBlock[] | null; edit: Record<string, Record<string,string>> }
 export type Course = CollectionEntry<'courses'> & CmsMeta;
 export type CourseLocale = CollectionEntry<'courseLocales'> & CmsMeta;
-export type BlogPost = CollectionEntry<'blog'> & CmsMeta;
+export type BlogPost = CollectionEntry<'blog'> & CmsMeta & { presentacion?: PresentacionArticulo };
 export type CmsCountry = Country & CmsMeta & {heroImage?:unknown;template?:string};
 export type CmsCity = City & CmsMeta;
 export type CmsCategory = Category & CmsMeta & {coverImage?:unknown;cardImage?:unknown};
@@ -256,7 +257,7 @@ export function createContentRepository(reader:ContentReader=liveReader,options:
     return {id:e.id,collection:'courses',data,body:sourceBody,...meta(e,'courses')};
   };
   const locale=(e:CmsEntry):CourseLocale=>{const d=record(e.data,'course_locales','data');return {id:e.id,collection:'courseLocales',data:localeData(d,text(d.course_slug,e.id,'course_slug'),text(d.country,e.id,'country')),...meta(e,'course_locales')};};
-  const blog=(e:CmsEntry):BlogPost=>{const d=record(e.data,'blog','data');const publishedAt=new Date(text(d.original_published_at,e.id,'original_published_at'));if(!Number.isFinite(publishedAt.valueOf())) invalid(e.id,'original_published_at');return {id:e.id,collection:'blog',body:typeof d.source_body==='string'?d.source_body:'',data:{title:text(d.title,e.id,'title'),description:text(d.description,e.id,'description'),category:optional(d.category),keywords:items(d.keyword_items,d.keywords,e.id,'keywords'),publishedAt,faq:d.faq_items!=null?faqs(d.faq_items,e.id):d.faq!=null?faqs(d.faq,e.id):undefined},...meta(e,'blog')};};
+  const blog=(e:CmsEntry):BlogPost=>{const d=record(e.data,'blog','data');const publishedAt=new Date(text(d.original_published_at,e.id,'original_published_at'));if(!Number.isFinite(publishedAt.valueOf())) invalid(e.id,'original_published_at');return {id:e.id,collection:'blog',body:typeof d.source_body==='string'?d.source_body:'',data:{title:text(d.title,e.id,'title'),description:text(d.description,e.id,'description'),category:optional(d.category),keywords:items(d.keyword_items,d.keywords,e.id,'keywords'),publishedAt,faq:d.faq_items!=null?faqs(d.faq_items,e.id):d.faq!=null?faqs(d.faq,e.id):undefined},presentacion:presentacionDeArticulo(d),...meta(e,'blog')};};
   const program=(e:CmsEntry):CmsProgram=>{const d=record(e.data,'homologaciones','data');return {...meta(e,'homologaciones'),slug:e.id,name:text(d.name,e.id,'name'),emoji:text(d.emoji,e.id,'emoji'),coverCategory:text(d.cover_category,e.id,'cover_category'),shortDescription:text(d.short_description,e.id,'short_description'),keyword:text(d.keyword,e.id,'keyword'),audience:items(d.audience_items,[],e.id,'audience'),evaluacion:items(d.evaluation_items,[],e.id,'evaluation'),locations:rows(d.locations??[],e.id,'locations').map(v=>({city:text(v.city,e.id,'city'),region:text(v.region,e.id,'region')})),coverImage:d.cover_image};};
   const page=(e:CmsEntry):CmsPage=>{const d=record(e.data,'pages','data');return {...meta(e,'pages'),id:e.id,title:text(d.title,e.id,'title'),description:text(d.description,e.id,'description'),heroHeading:text(d.hero_heading||d.title,e.id,'hero_heading'),heroLabel:optional(d.hero_label)??'',heroText:optional(d.hero_text)??'',path:text(d.path,e.id,'path'),template:text(d.template,e.id,'template'),layout:rows(d.layout??[],e.id,'layout') as RichBlock[]};};
   const localizedEntries=new Map<string,Promise<CourseLocale[]>>();

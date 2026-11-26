@@ -174,13 +174,13 @@ const {
             </>
           )
         }
-        {/* Acceso, constancia, garantía y pago solo existen si hay checkout: en
+        {/* Acceso, certificado, garantía y pago solo existen si hay checkout: en
             «Próximamente» la lista entera prometía algo que todavía no se
             puede comprar (tatuaje anunciaba acceso de por vida y certificado). */}
         {!sinProducto && (
           <ul class="mt-5 space-y-2 text-sm text-body" role="list">
             <li>✅ Acceso de por vida, 24/7</li>
-            <li>✅ Constancia digital de finalización</li>
+            <li>✅ Certificado digital de finalización</li>
             <li>✅ Garantía de 7 días</li>
             <li>✅ Pago seguro vía Hotmart</li>
           </ul>
@@ -250,15 +250,15 @@ const {
         </div>
       </section>
 
-      {/* Constancia: una línea de texto. Aquí había una sección entera con la
+      {/* Certificado: una línea de texto. Aquí había una sección entera con la
           imagen /certificado-sably.jpg, un «diploma» generado («Nivel Avanzado ·
           120 horas», sello dorado y dos firmas) presentado como «ejemplo del
           certificado digital que recibirás». No era el documento que emite
-          Hotmart. Sin producto no hay constancia que anunciar. */}
+          Hotmart. Sin producto no hay certificado que anunciar. */}
       {!sinProducto && (
         <p data-constancia class="rounded-lg bg-off-white p-5 text-sm leading-relaxed text-body">
-          <strong class="text-heading">Constancia de finalización.</strong> Al completar el 100 % de las lecciones,
-          Hotmart emite una constancia digital de finalización con tu nombre y el del curso.
+          <strong class="text-heading">Certificado de finalización.</strong> Al completar el 100 % de las lecciones,
+          Hotmart emite un certificado digital de finalización con tu nombre y el del curso.
         </p>
       )}
 
@@ -468,7 +468,7 @@ const {
       {
         !sinProducto && (
           <p class="mt-4 text-sm text-white/60">
-            Garantía de 7 días · Acceso de por vida · Constancia de finalización
+            Garantía de 7 días · Acceso de por vida · Certificado de finalización
           </p>
         )
       }
