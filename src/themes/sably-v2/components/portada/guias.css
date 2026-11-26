@@ -1,0 +1,22 @@
+/* Estilos de Guias.astro (solo portada). Van en línea antes de su marcado y no en la hoja común de todo el
+   sitio: un <style is:global> de componente acaba en la hoja que cargan todas las páginas. */
+@layer components {
+  .v2-guias-fila { display: flex; gap: 16px; margin: 0; padding: 4px 0 8px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; list-style: none; }
+  .v2-guias-fila > li { flex: none; width: min(300px, 80vw); scroll-snap-align: start; }
+  @media (min-width: 900px) { .v2-guias-fila { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; overflow: visible; } .v2-guias-fila > li { width: auto; } }
+  .v2-guia { --tono: var(--color-navy-950); --tono-suave: var(--color-navy-50); display: flex; flex-direction: column; height: 100%; overflow: hidden; border-radius: var(--radius-c-xl); background: #fff; box-shadow: inset 0 0 0 1px var(--color-navy-100); text-decoration: none; transition: box-shadow var(--t-rapido) var(--e-sale), translate var(--t-base) var(--e-sale); }
+  .v2-guia[data-tono='coral'] { --tono: var(--color-coral-700); --tono-suave: var(--color-coral-50); }
+  .v2-guia[data-tono='ambar'] { --tono: #8a5300; --tono-suave: #fdf3e1; }
+  .v2-guia[data-tono='verde'] { --tono: #1f6b45; --tono-suave: #e9f5ee; }
+  .v2-guia[data-tono='noche'] { --tono: var(--color-navy-950); --tono-suave: var(--color-navy-100); }
+  .v2-guia-foto { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--tono-suave); }
+  .v2-guia-foto img { width: 100%; height: 100%; object-fit: cover; transition: scale var(--t-lento) var(--e-sale); }
+  .v2-guia-cuerpo { display: flex; flex: 1; flex-direction: column; padding: 20px; }
+  .v2-guia-cat { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 999px; background: var(--tono-suave); color: var(--tono); font-size: 13px; font-weight: 600; }
+  .v2-guia-audio { display: inline-flex; align-items: center; gap: 5px; min-height: 26px; padding: 0 10px; border-radius: 999px; background: var(--color-navy-950); color: #fff; font-size: 13px; font-weight: 600; }
+  .v2-guia:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
+  @media (hover: hover) and (pointer: fine) {
+    .v2-guia:hover { box-shadow: inset 0 0 0 1px var(--color-navy-300), var(--shadow-s3); translate: 0 -3px; }
+    .v2-guia:hover .v2-guia-foto img { scale: 1.04; }
+  }
+}

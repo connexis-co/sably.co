@@ -29,6 +29,8 @@ import type { ExtraBusqueda } from '../../buscar-sugerencias';
 
 export interface OficioMosaico { id: string; titulo: string; foto: NombreFoto; precio: PrecioTarjeta | null; nota: { cifra: string; texto: string } | null }
 interface Props {
+  /** Muro en el celular: tras los botones (asoma en la primera pantalla) o al final del héroe. */
+  movil?: 'tras-botones' | 'final';
   textos: { eyebrow: string; title: string; accent: string; description: string; button: string; secondary: string };
   base: string;
   locale: string;
@@ -49,7 +51,7 @@ interface Props {
   /** Áreas y guías para las sugerencias del buscador. */
   extra?: ExtraBusqueda[];
 }
-const { textos, base, locale, areas, celdas, oficios, rotacion, variante: elegida = 'collage', fondo = 'liso', botones = 'dos', tachar = true, prueba = null, extra = [], pruebaAB = null } = Astro.props;
+const { textos, base, locale, areas, celdas, oficios, rotacion, variante: elegida = 'collage', fondo = 'liso', botones = 'dos', tachar = true, prueba = null, extra = [], pruebaAB = null, movil = 'tras-botones' } = Astro.props;
 const ab = pruebaAB;
 /* Con la prueba encendida, la de control (la primera) es la que llevan el HTML y los bots; el guion en línea la cambia. */
 const variante: VarianteHeroe = ab ? ab.variantes[0]! : elegida;
@@ -70,7 +72,7 @@ const SIZES = ['(min-width: 1024px) 300px, 92vw', '(min-width: 1024px) 228px, 45
 const corto = (t: string) => { const r = t.replace(/^curso\s+(online\s+)?(de|del)\s+/i, ''); return r.charAt(0).toUpperCase() + r.slice(1); };
 const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.replace(/ calificaciones.*$/, '')} en Hotmart`;
 ---
-<section class="v2-heroe relative isolate overflow-x-clip" data-heroe={variante} data-heroe-ab={ab ? variante : undefined}>
+<section class="v2-heroe relative isolate overflow-x-clip" data-heroe={variante} data-heroe-movil={movil} data-heroe-ab={ab ? variante : undefined}>
   {ab && <script is:inline define:vars={{ AB: { v: ab.variantes, p: ab.pesos, i: ab.inicio || 'sin-fecha' } }}>
     /* Prueba A/B del héroe (HEROES-X §11). Corre al leer la apertura de la sección, antes de que exista ni se pinte
        nada de dentro: elige la rama sin salto de maquetación. El HTML es el mismo para todos (caché del borde). */
@@ -90,6 +92,10 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
     s.setAttribute('data-heroe', e); s.setAttribute('data-heroe-ab', e);
   </script>}
   {ab && <style set:html={`[data-heroe-rama]{display:none}${cssRamas}`} />}
+  {/* Muro «tras los botones» en el celular: la caja pasa a columna flex y el texto a `display: contents`, para que el
+     muro (order 1) quede entre los botones y la línea de valoraciones (order 2). Va aquí, antes del texto: si llegara
+     con el muro (que va después), con el HTML a trozos el texto ya pintado saltaría (CLS 0,45 a 390). */}
+  {nueva && oficios.length > 0 && ramas.includes('muro') && movil === 'tras-botones' && <style is:inline set:html={"@layer components{@media (max-width:1023.98px){[data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-caja{display:flex;flex-direction:column;gap:0}[data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-texto{display:contents}[data-heroe='muro'][data-heroe-movil='tras-botones'] .v2-heroe-prueba{order:2}}}"}></style>}
   {conAurora && <div class="v2-heroe-fondo" aria-hidden="true"><Aurora /></div>}
   <div class="v2-heroe-caja v2-contenedor grid items-center gap-10 pt-10 pb-14 lg:gap-14 lg:pt-24 lg:pb-24">
     <div class="v2-heroe-texto">
@@ -111,7 +117,7 @@ const notaCorta = (n: OficioMosaico['nota']) => n && `${n.cifra} · ${n.texto.re
           <a href="#categorias" class="v2-enlace min-h-11 !text-white/80">{textos.secondary}</a>
         </p>
       )}
-      {nueva && prueba && <p class="v2-ht-tenue mt-5 flex items-center gap-2 text-t15"><Ico nombre="star" tamano={15} class="text-[#F5B544]" />{prueba}</p>}
+      {nueva && prueba && <p class="v2-heroe-prueba v2-ht-tenue mt-5 flex items-center gap-2 text-t15"><Ico nombre="star" tamano={15} class="text-[#F5B544]" />{prueba}</p>}
     </div>
     {nueva && oficios.length > 0 && ramas.map(v => {
       const Escaparate = ESCAPARATE[v as keyof typeof ESCAPARATE];
