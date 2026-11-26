@@ -32,6 +32,8 @@ export interface LegacyBindings extends OperationalBindings {
   SABLY_META_TEST_EVENT_CODE?: string;
   SABLY_GA4_API_SECRET?: string;
   SABLY_GA4_MEASUREMENT_ID?: string;
+  SABLY_OPENAI_PIXEL_ID?: string;
+  SABLY_OPENAI_CAPI_KEY?: string;
 }
 
 interface BridgeEnv extends LegacyEnv {
@@ -41,6 +43,8 @@ interface BridgeEnv extends LegacyEnv {
   META_TEST_EVENT_CODE?: string;
   GA4_API_SECRET?: string;
   GA4_MEASUREMENT_ID?: string;
+  OPENAI_PIXEL_ID?: string;
+  OPENAI_CAPI_KEY?: string;
 }
 
 type Method = 'GET' | 'POST';
@@ -151,6 +155,8 @@ export async function dispatchLegacyApi(
     env.META_TEST_EVENT_CODE = bindings.SABLY_META_TEST_EVENT_CODE;
     env.GA4_API_SECRET = bindings.SABLY_GA4_API_SECRET;
     env.GA4_MEASUREMENT_ID = bindings.SABLY_GA4_MEASUREMENT_ID;
+    env.OPENAI_PIXEL_ID = bindings.SABLY_OPENAI_PIXEL_ID;
+    env.OPENAI_CAPI_KEY = bindings.SABLY_OPENAI_CAPI_KEY;
   }
 
   try {
