@@ -31,6 +31,10 @@ import BarraFija from './BarraFija.astro';
 import VideoPresentacion from './VideoPresentacion.astro';
 import Docente from './Docente.astro';
 import CiudadesPais from './CiudadesPais.astro';
+import GuiasFicha from './GuiasFicha.astro';
+import QueIncluye from './QueIncluye.astro';
+import TarjetaPlaca from './TarjetaPlaca.astro';
+import { prepareRichContent } from '@/lib/rich-content';
 import { cargarFicha, type FichaProps } from '@/lib/ficha';
 import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import { mostrarPromedio, notaHotmart } from '@/lib/opiniones';
@@ -68,7 +72,9 @@ const nota = notaHotmart(valoracion);
 /* Tarjetas de especializaciones y relacionados: el precio de SU ficha, con la misma
    función que esta (src/lib/precio-hoy.ts). La página no vive en caché más que la
    cotización más corta que pinta. */
-const tarjetas = await preciosDeTarjetas([...satellites.slice(0, 8), ...related], country, { url: Astro.url, locals: Astro.locals });
+/* Con la placa (C10b, sin precio) los relacionados no piden cotización. */
+const relacionadosConPrecio = ajustes.bloquesFicha.relacionados === 'precio';
+const tarjetas = await preciosDeTarjetas([...satellites.slice(0, 8), ...(relacionadosConPrecio ? related : [])], country, { url: Astro.url, locals: Astro.locals });
 const vigencia = plazoMasCorto(freshUntil, tarjetas.freshUntil);
 const whatsapp = buildWhatsAppUrl(country.whatsapp, `Hola, tengo una duda antes de inscribirme en «${course.data.title}»`);
 
@@ -77,6 +83,15 @@ const whatsapp = buildWhatsAppUrl(country.whatsapp, `Hola, tengo una duda antes 
    antes de un subtítulo pasadas ~300 palabras. Las dos mitades van en el HTML. */
 const textoHtml = content.richBody ? null : (localeHtml ?? courseHtml ?? '');
 const texto = textoHtml ? dividirTexto(textoHtml, 300) : null;
+/* C10d: índice «En este texto» también cuando el texto viene del panel (rich text), con los mismos id que pinta
+   CmsRichBody (prepareRichContent). Solo el nivel más alto que aparezca, y solo con dos títulos o más. */
+const titulosPanel = (() => {
+  if (!content.richBody) return [];
+  const todos = prepareRichContent(content.richBody).headings.filter(h => h.depth >= 2 && h.depth <= 3 && h.text.trim());
+  const nivel = Math.min(...todos.map(h => h.depth));
+  return todos.filter(h => h.depth === nivel).map(h => ({ id: h.slug, texto: h.text.trim() }));
+})();
+const indiceTexto = texto ? texto.titulos : titulosPanel;
 
 const datos = [
   { icono: 'circle-play' as const, etiqueta: 'Lecciones', valor: `${course.data.lessonsCount} en vídeo` },
@@ -94,6 +109,12 @@ const aparece = ajustes.movimientoFicha.ficha === 'ninguno' ? undefined : '';
 const cascada = ajustes.movimientoFicha.ficha === 'sobrio';
 const fotoTarjeta = cmsImageUrl(course.cardImage);
 const fotoOficio = fotoDeCurso(course.id, '');
+/* C10a: foto de «Qué incluye»: la del oficio si existe; si no, estudiar con el celular (la otra va en «Más sobre»). */
+const fotoIncluye = fotoOficio ? srcFoto(fotoOficio) : srcFoto('foto-estudiar-celular-1');
+const fotoIncluyeAlt = fotoOficio ? '' : 'Una mujer mira una lección en el celular mientras viaja en bus';
+const fotoIncluyePie = fotoOficio ? `${category.name}. Foto ilustrativa del oficio.` : 'Las lecciones se ven desde el celular o el computador. Foto ilustrativa.';
+/* C7: temario que enfoca (panel: temarioEnfoque). Con «enfoca», `<details name>` deja un solo módulo abierto aun sin JS. */
+const modoTemario = ajustes.bloquesFicha.temario;
 const candidatasSobre = [...new Set([
   fotoTarjeta && fotoTarjeta !== portada ? fotoTarjeta : null,
   fotoOficio ? srcFoto(fotoOficio) : null,
@@ -272,7 +293,13 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
       </div>
     </section>
 
-    <!-- Temario: el primer módulo abierto; todas las lecciones en el HTML. -->
+    {ajustes.bloquesFicha.queIncluye && (
+      <QueIncluye lecciones={course.data.lessonsCount} horas={course.data.durationHours} modulos={course.data.modules} vendible={!sinProducto}
+        foto={fotoIncluye} fotoAlt={fotoIncluyeAlt} fotoPie={fotoIncluyePie} {cascada} {aparece} />
+    )}
+
+    <!-- Temario: el primer módulo abierto; todas las lecciones en el HTML. C7: abrir un módulo lo encuadra bajo la
+         cabecera y la navegación (y con «enfoca», cierra el anterior: `<details name>`). -->
     <section id="temario" class="scroll-mt-36" aria-labelledby="titulo-temario" data-aparece={aparece}>
       <div class="v2-contenedor py-16 lg:py-24">
         <div class="max-w-[880px]">
@@ -280,9 +307,9 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
             <h2 id="titulo-temario" class="font-display text-d28 lg:text-d40">{`Temario ${deNombre}`}</h2>
             <p class="v2-num text-t15 text-navy-700">{course.data.modules.length} módulos · {course.data.lessonsCount} lecciones · {course.data.durationHours} horas</p>
           </div>
-          <div class="divide-y divide-navy-100 border-b border-navy-100">
+          <div class="divide-y divide-navy-100 border-b border-navy-100" data-temario={modoTemario}>
             {course.data.modules.map((mod, i) => (
-              <details class:list={['v2-acordeon v2-modulo group', cascada && 'v2-cascada']} open={i === 0}>
+              <details class:list={['v2-acordeon v2-modulo group', cascada && 'v2-cascada']} open={i === 0} name={modoTemario === 'enfoca' ? 'temario' : undefined}>
                 <summary class="flex min-h-[72px] items-center gap-4 py-3">
                   <span class="v2-num grid size-10 flex-none place-items-center rounded-c-sm bg-navy-50 text-t15 font-semibold text-navy-950 group-open:bg-navy-950 group-open:text-white">{i + 1}</span>
                   <span class="flex-1 text-t17 font-semibold text-navy-950 lg:text-t20">{mod.title}</span>
@@ -336,11 +363,11 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
               <img src="/v2/fotos/foto-estudiar-celular-2.webp" alt="Una joven estudia en la mesa de la cocina con el celular apoyado y un cuaderno" width="480" height="600" loading="lazy" decoding="async" class="aspect-[4/5] w-full rounded-c-xl object-cover" />
               <figcaption class="mt-3 text-t13 text-navy-500">Las lecciones se ven desde el celular o el computador. Foto ilustrativa.</figcaption>
             </figure>
-            {texto && texto.titulos.length > 1 && (
-              <nav aria-label="En este texto" class="sticky top-40 mt-10">
+            {indiceTexto.length > 1 && (
+              <nav aria-label="En este texto" class="sticky top-40 mt-10" data-indice-texto>
                 <p class="text-t13 font-semibold text-navy-500">En este texto</p>
                 <ul class="mt-3 border-l border-navy-100">
-                  {texto.titulos.map(t => <li><a href={`#${t.id}`} class="block border-l-2 border-transparent py-2 pl-4 -ml-px text-t15 text-navy-700 hover:border-coral-600 hover:text-navy-950" data-indice>{t.texto}</a></li>)}
+                  {indiceTexto.map(t => <li><a href={`#${t.id}`} class="v2-indice-enlace block border-l-2 border-transparent py-2 pl-4 -ml-px text-t15 text-navy-700 hover:border-coral-600 hover:text-navy-950" data-indice>{t.texto}</a></li>)}
                 </ul>
               </nav>
             )}
@@ -410,22 +437,8 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
       </div>
     </section>
 
-    {guides.length > 0 && (
-      <section class="py-16" aria-labelledby="titulo-guias" data-aparece={aparece}>
-        <div class="v2-contenedor">
-          <h2 id="titulo-guias" class="font-display text-d28 lg:text-d40">Guías para seguir aprendiendo</h2>
-          <div class="mt-8 grid gap-6 sm:grid-cols-2">
-            {guides.map(post => (
-              <a href={`/blog/${post.id}/`} class="group flex flex-col rounded-c-lg p-6 ring-1 ring-navy-100 transition-shadow duration-(--t-base) hover:shadow-s2 hover:ring-transparent">
-                <h3 class="text-t20 font-semibold text-navy-950">{post.data.title}</h3>
-                <p class="mt-2 text-t15 text-navy-700">{post.data.description}</p>
-                <span class="v2-enlace mt-4">Leer la guía <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-    )}
+    <!-- C8: guías del blog con foto, categoría y «Escúchalo» si están narradas; se ve bien con una, dos o tres. -->
+    <GuiasFicha guias={guides} {aparece} />
 
     {satellites.length > 0 && (
       <section class="py-16" aria-labelledby="titulo-especializate" data-aparece={aparece} data-cms>
@@ -462,7 +475,9 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
             </div>
             <a href={`/${country.code}/cursos/${category.slug}/`} class="v2-enlace">Ver los cursos de {category.name} <Icono nombre="arrow-right" tamano={16} class="v2-flecha" /></a>
           </div>
-          <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{related.map(c => <TarjetaCurso course={c} {country} precio={tarjetas.precios.get(c.id) ?? null} />)}</div>
+          {relacionadosConPrecio
+            ? <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">{related.map(c => <TarjetaCurso course={c} {country} precio={tarjetas.precios.get(c.id) ?? null} />)}</div>
+            : <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-relacionados-placa>{related.map(c => <TarjetaPlaca course={c} {country} />)}</div>}
         </div>
       </section>
     )}
@@ -634,6 +649,13 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
     }
   }
 
+  /* C7: el módulo que se cierra arriba al abrir otro lo hace sin animar (el script compensa el desplazamiento). */
+  .v2-modulo[data-sin-animar]::details-content { transition: none; }
+  /* Señal de «aquí está lo que abriste»: el número se tiñe un momento (color, no movimiento). */
+  .v2-modulo[data-recien] > summary > span:first-child { box-shadow: 0 0 0 3px var(--color-coral-100, #fbd9e2); }
+  /* C10d: el apartado en lectura se marca en el índice. */
+  .v2-indice-enlace[aria-current='true'] { border-color: var(--color-coral-600); color: var(--color-navy-950); font-weight: 600; }
+
   /* Cierre: el «50» como ilustración tipográfica recortada por el borde. */
   .v2-cierre-cifra {
     position: absolute; right: -40px; bottom: -110px; font: 600 360px/1 var(--font-display); color: var(--color-navy-900);
@@ -672,6 +694,98 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
   }
   document.querySelectorAll<HTMLAnchorElement>('[data-cta-hotmart]').forEach(cta =>
     cta.addEventListener('click', () => trackEvent('click_cta_hotmart', { page: location.pathname, cta_position: cta.dataset.ctaPosition ?? 'unknown' })));
+  const reducido = matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* C7 · Temario que enfoca (prototipo 04 del estudio de animación). Solo se encuadra lo que abrió la persona (clic,
+     Enter o Espacio), nunca al cargar ni por un #ancla, y el foco se queda en el título del módulo. */
+  const temario = document.querySelector<HTMLElement>('[data-temario]');
+  const modo = temario?.dataset.temario;
+  if (temario && (modo === 'enfoca' || modo === 'encuadra')) {
+    const modulos = [...temario.querySelectorAll<HTMLDetailsElement>('details.v2-modulo')];
+    /* Lo fijo arriba (cabecera y pestañas de secciones) y abajo (barra de compra del celular), medido al momento. */
+    const tapaArriba = () => {
+      let borde = 0;
+      for (const el of document.querySelectorAll<HTMLElement>('[data-cabecera], .v2-fija-nav, div[data-barra-fija]')) {
+        const r = el.getBoundingClientRect();
+        if (r.height > 0 && r.top < 200 && getComputedStyle(el).visibility !== 'hidden') borde = Math.max(borde, r.bottom);
+      }
+      return borde + 16;
+    };
+    const tapaAbajo = () => {
+      const compra = document.querySelector<HTMLElement>('div[data-barra-fija]:not([data-oculta]) .v2-fija-compra');
+      const r = compra?.getBoundingClientRect();
+      return (r && r.height > 0 && r.top < innerHeight ? innerHeight - r.top : 0) + 16;
+    };
+    let pedido: HTMLDetailsElement | null = null;
+    temario.addEventListener('click', e => {
+      const summary = (e.target as Element).closest('summary');
+      if (!summary) return;
+      const nuevo = summary.parentElement as HTMLDetailsElement;
+      pedido = nuevo;
+      if (modo !== 'enfoca' || nuevo.open) return;
+      /* Si el abierto está ARRIBA, `<details name>` lo cerraría y el título pulsado saltaría hacia arriba: lo
+         cerramos nosotros sin animar, en el mismo fotograma, y compensamos el desplazamiento. */
+      const abierto = modulos.find(m => m.open && m !== nuevo);
+      if (abierto && modulos.indexOf(abierto) < modulos.indexOf(nuevo)) {
+        e.preventDefault();
+        const antes = summary.getBoundingClientRect().top;
+        abierto.setAttribute('data-sin-animar', '');
+        abierto.open = false;
+        nuevo.open = true;
+        window.scrollBy({ top: summary.getBoundingClientRect().top - antes, behavior: 'instant' });
+        requestAnimationFrame(() => requestAnimationFrame(() => abierto.removeAttribute('data-sin-animar')));
+      }
+    });
+    for (const m of modulos) m.addEventListener('toggle', () => {
+      if (!m.open || pedido !== m) return;
+      pedido = null;
+      m.setAttribute('data-recien', '');
+      setTimeout(() => m.removeAttribute('data-recien'), 700);
+      /* Esperar a que la altura termine de crecer (::details-content con interpolate-size), si la hay. */
+      const espera = reducido.matches || !CSS.supports('interpolate-size', 'allow-keywords') ? 0 : 260;
+      setTimeout(() => {
+        const r = m.getBoundingClientRect(), arriba = tapaArriba(), abajo = innerHeight - tapaAbajo();
+        let delta = 0;
+        if (r.top < arriba) delta = r.top - arriba;                                     // título tapado
+        else if (r.bottom > abajo) delta = Math.min(r.bottom - abajo, r.top - arriba);  // cabe: lo justo; si no, título arriba
+        if (Math.abs(delta) > 4) window.scrollBy({ top: delta, behavior: reducido.matches ? 'instant' : 'smooth' });
+      }, espera);
+    });
+  }
+
+  /* C10d · Índice «En este texto»: un enlace a un apartado plegado despliega antes el texto, y el apartado en lectura
+     queda marcado. */
+  const indice = document.querySelector<HTMLElement>('[data-indice-texto]');
+  const leerTodo = document.querySelector<HTMLInputElement>('#leer-todo');
+  if (indice) {
+    const enlaces = [...indice.querySelectorAll<HTMLAnchorElement>('a[data-indice]')];
+    for (const a of enlaces) a.addEventListener('click', e => {
+      const destino = document.getElementById(decodeURIComponent(a.hash.slice(1)));
+      if (!destino || !leerTodo || leerTodo.checked) return;
+      if (destino.closest('.v2-plegado, .v2-prosa-altura')) {
+        const caja = destino.closest('.v2-prosa-altura');
+        const oculto = destino.closest('.v2-plegado') || (caja && destino.getBoundingClientRect().top > caja.getBoundingClientRect().bottom - 8);
+        if (oculto) {
+          e.preventDefault();
+          leerTodo.checked = true;
+          destino.scrollIntoView({ behavior: reducido.matches ? 'instant' : 'smooth', block: 'start' });
+          history.replaceState(null, '', a.hash);
+        }
+      }
+    });
+    const porId = new Map(enlaces.map(a => [decodeURIComponent(a.hash.slice(1)), a]));
+    const visibles = new Set<string>();
+    const marcar = () => {
+      const actual = enlaces.map(a => decodeURIComponent(a.hash.slice(1))).filter(id => visibles.has(id))[0];
+      if (actual) for (const a of enlaces) a.setAttribute('aria-current', String(porId.get(actual) === a));
+    };
+    const io = new IntersectionObserver(entradas => {
+      for (const en of entradas) en.isIntersecting ? visibles.add(en.target.id) : visibles.delete(en.target.id);
+      marcar();
+    }, { rootMargin: '-140px 0px -55% 0px' });
+    for (const id of porId.keys()) { const t = document.getElementById(id); if (t) io.observe(t); }
+  }
+
   const marcas = [25, 50, 75, 100], hechas = new Set<number>();
   addEventListener('scroll', () => {
     const profundidad = ((scrollY + innerHeight) / document.body.scrollHeight) * 100;

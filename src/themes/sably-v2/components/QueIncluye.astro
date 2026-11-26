@@ -1,0 +1,97 @@
+---
+/**
+ * «Qué incluye el curso» (lámina `jYRD5`, «Lista de características con imagen»): cada hecho lleva su cifra como
+ * titular y una línea que la explica; la fila de módulos es un desplegable con la lista de módulos. Solo datos reales
+ * de la ficha: lecciones, horas y módulos del temario, los 7 días de garantía de Hotmart y el certificado que emite
+ * Hotmart al completar el 100 % (estos dos, solo si el curso se vende). Una `<dl>`: cada cifra es un `<dt>` y su
+ * explicación un `<dd>`; todo en el HTML inicial, 0 KB de JavaScript.
+ * La lámina monta una «placa de fotogramas» sobre la foto: no hay fotogramas reales de las lecciones, así que no se
+ * pinta (nada de relleno). La foto es la del oficio si existe y si no, una de estudiar con el celular; el pie lo dice.
+ */
+import Icono from '@/components/v2/Icono.astro';
+interface Props {
+  lecciones: number; horas: number; modulos: { title: string }[]; vendible: boolean; foto: string; fotoAlt: string; fotoPie: string;
+  cascada?: boolean; aparece?: string;
+}
+const { lecciones, horas, modulos, vendible, foto, fotoAlt, fotoPie, cascada = false, aparece } = Astro.props;
+const n = modulos.length;
+---
+<section id="incluye" class="scroll-mt-36" aria-labelledby="titulo-incluye" data-aparece={aparece} data-que-incluye>
+  <div class="v2-contenedor grid gap-10 py-16 lg:grid-cols-[minmax(0,480px)_minmax(0,1fr)] lg:gap-24 lg:py-24">
+    <figure class="m-0">
+      <img src={foto} alt={fotoAlt} width="480" height="480" loading="lazy" decoding="async" class="aspect-[16/10] w-full rounded-c-xl object-cover lg:aspect-[480/600]" />
+      <figcaption class="mt-3 text-t13 text-navy-500">{fotoPie}</figcaption>
+    </figure>
+    <div class="min-w-0 lg:self-center">
+      <h2 id="titulo-incluye" class="border-b-2 border-navy-950 pb-5 font-display text-d28 lg:text-d40">Qué incluye el curso</h2>
+      <dl class="v2-incluye">
+        {lecciones > 0 && (
+          <div class:list={['v2-incluye-fila', cascada && 'v2-cascada']}>
+            <dt><span class="v2-incluye-cifra v2-num">{lecciones}</span><span class="v2-incluye-hecho">Lecciones en vídeo</span></dt>
+            <dd>Las ves desde el celular o el computador, a tu ritmo.</dd>
+          </div>
+        )}
+        {horas > 0 && (
+          <div class:list={['v2-incluye-fila', cascada && 'v2-cascada']}>
+            <dt><span class="v2-incluye-cifra v2-num">{horas}<small>h</small></span><span class="v2-incluye-hecho">De contenido</span></dt>
+            <dd>Sin horarios ni fecha de inicio: avanzas cuando puedes.</dd>
+          </div>
+        )}
+        {n > 0 && (
+          <div class:list={['v2-incluye-fila', cascada && 'v2-cascada']}>
+            <dt class="sr-only">{n} {n === 1 ? 'módulo' : 'módulos'}</dt>
+            <dd class="v2-incluye-dd-modulos">
+              <details class="v2-acordeon v2-incluye-modulos">
+                <summary>
+                  <span class="v2-incluye-cifra v2-num" aria-hidden="true">{n}</span>
+                  <span class="v2-incluye-hecho">{n === 1 ? 'Módulo' : 'Módulos'}<span class="v2-incluye-ayuda">{n === 1 ? 'Ábrelo para ver el módulo.' : `Ábrelo para ver los ${n} módulos.`}</span></span>
+                  <span class="v2-incluye-signo" aria-hidden="true"><Icono nombre="plus" tamano={18} class="v2-giro-45" /></span>
+                </summary>
+                <ol class="v2-incluye-lista">
+                  {modulos.map((m, i) => <li><span class="v2-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>{m.title}</li>)}
+                </ol>
+              </details>
+            </dd>
+          </div>
+        )}
+        {vendible && (
+          <div class:list={['v2-incluye-fila', cascada && 'v2-cascada']}>
+            <dt><span class="v2-incluye-cifra v2-num">7<small>días</small></span><span class="v2-incluye-hecho">Para pedir el reembolso</span></dt>
+            <dd>Si el curso no es lo que esperabas, pides el reembolso del 100 % en Hotmart dentro de los 7 días siguientes a la compra.</dd>
+          </div>
+        )}
+        {vendible && (
+          <div class:list={['v2-incluye-fila', cascada && 'v2-cascada']}>
+            <dt><span class="v2-incluye-icono" aria-hidden="true"><Icono nombre="award" tamano={22} /></span><span class="v2-incluye-hecho">Certificado de finalización</span></dt>
+            <dd>Hotmart lo emite con tu nombre y el del curso cuando completas el 100 % de las lecciones.</dd>
+          </div>
+        )}
+      </dl>
+    </div>
+  </div>
+</section>
+<style>
+  .v2-incluye { margin: 0; }
+  .v2-incluye-fila { display: grid; grid-template-columns: 72px minmax(0, 1fr); column-gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--color-navy-100); }
+  @media (width >= 1024px) { .v2-incluye-fila { grid-template-columns: 152px minmax(0, 1fr); padding: 26px 0; } }
+  /* El <dt> se reparte en dos celdas (cifra | hecho) con `display: contents`; el <dd> va bajo el hecho. */
+  .v2-incluye-fila > dt { display: contents; }
+  .v2-incluye-cifra { grid-row: span 2; font: 600 28px/1 var(--font-display); color: var(--color-navy-950); letter-spacing: -0.01em; white-space: nowrap; }
+  .v2-incluye-cifra small { margin-left: 4px; font: 600 15px/1 var(--font-sans); color: var(--color-navy-700); }
+  @media (width >= 1024px) { .v2-incluye-cifra { font-size: 40px; } }
+  .v2-incluye-hecho { font: 600 17px/24px var(--font-sans); color: var(--color-navy-950); }
+  .v2-incluye-fila > dd { grid-column: 2; margin: 4px 0 0; font-size: 15px; line-height: 22px; color: var(--color-navy-700); }
+  .v2-incluye-icono { grid-row: span 2; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 99px; background: var(--color-navy-50); color: var(--color-navy-950); }
+
+  /* Fila de módulos: el <summary> ocupa las dos columnas (cifra | hecho + signo). */
+  .v2-incluye-fila > .v2-incluye-dd-modulos { grid-column: 1 / -1; margin: 0; }
+  .v2-incluye-modulos > summary { display: grid; grid-template-columns: 72px minmax(0, 1fr) auto; column-gap: 16px; align-items: start; min-height: 44px; }
+  @media (width >= 1024px) { .v2-incluye-modulos > summary { grid-template-columns: 152px minmax(0, 1fr) auto; } }
+  .v2-incluye-modulos .v2-incluye-cifra { grid-row: auto; }
+  .v2-incluye-ayuda { display: block; margin-top: 4px; font: 400 15px/22px var(--font-sans); color: var(--color-navy-500); }
+  .v2-incluye-signo { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 99px; background: var(--color-navy-50); color: var(--color-navy-950); }
+  .v2-incluye-lista { margin: 16px 0 0; padding: 0 0 0 88px; list-style: none; }
+  @media (width >= 1024px) { .v2-incluye-lista { padding-left: 168px; } }
+  .v2-incluye-lista li { display: flex; gap: 12px; padding: 8px 0; font-size: 15px; line-height: 22px; color: var(--color-navy-950); }
+  .v2-incluye-lista li span { flex: none; width: 2ch; color: var(--color-navy-300); }
+</style>

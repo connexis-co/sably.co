@@ -117,6 +117,27 @@ export const settingsSchema = {
     options: [{ value: 'destello', label: 'Destello' }, { value: 'entrada', label: 'Entrada' }, { value: 'ninguna', label: 'Ninguna' }],
     default: 'destello',
   },
+  // Temario y bloques de la ficha (26-nov-2026, paquete 2 del pulido: C7, C10a, C10b)
+  temarioEnfoque: {
+    type: 'select',
+    label: 'Ficha · Temario al abrir un módulo',
+    description: '«Enfoca»: al abrir un módulo se cierra el que estaba abierto y la página se desplaza lo justo para que el módulo quede a la vista bajo la cabecera. «Solo encuadra»: se desplaza, pero los demás siguen abiertos. «Nada»: acordeón libre, sin desplazamiento. Con «reducir movimiento» el encuadre es directo, sin animación. Por defecto: Enfoca.',
+    options: [{ value: 'enfoca', label: 'Enfoca' }, { value: 'encuadra', label: 'Solo encuadra' }, { value: 'nada', label: 'Nada' }],
+    default: 'enfoca',
+  },
+  fichaQueIncluye: {
+    type: 'boolean',
+    label: 'Ficha · Bloque «Qué incluye el curso»',
+    description: 'Cifras reales de la ficha como titular: lecciones, horas, módulos (con su lista), los 7 días de garantía de Hotmart y el certificado. Va antes del temario. Por defecto: encendido.',
+    default: true,
+  },
+  relacionadosTarjeta: {
+    type: 'select',
+    label: 'Ficha · Tarjeta de «Cursos relacionados»',
+    description: '«Placa»: foto alta con una placa blanca (título y creador) que crece al pasar el cursor o con el foco y muestra la promesa, los datos y «Ver el curso»; en el celular sale abierta. No lleva precio: el precio vive en la ficha de cada curso. «Con precio»: la tarjeta del listado. Por defecto: Placa.',
+    options: [{ value: 'placa', label: 'Placa' }, { value: 'precio', label: 'Con precio' }],
+    default: 'placa',
+  },
   sobreFotosPestanas: {
     type: 'boolean',
     label: 'Ficha · Foto distinta en cada pestaña de «Sobre este curso»',
@@ -333,7 +354,7 @@ export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
   { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos.', claves: [] },
-  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
+  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },

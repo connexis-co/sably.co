@@ -46,6 +46,15 @@ export interface AjustesV2 {
   sobreFotos: boolean;
   /** C6: movimiento de la ficha al bajar y animación del certificado (nunca con menos movimiento). */
   movimientoFicha: { ficha: 'sobrio' | 'minimo' | 'ninguno'; certificado: 'destello' | 'entrada' | 'ninguna' };
+  /** Temario y bloques de la ficha (paquete 2 del pulido: C7, C10a, C10b). */
+  bloquesFicha: {
+    /** `enfoca`: abrir un módulo cierra el anterior y lo encuadra; `encuadra`: solo lo encuadra; `nada`: acordeón libre. */
+    temario: 'enfoca' | 'encuadra' | 'nada';
+    /** «Qué incluye el curso» (lámina `jYRD5`): cifras reales de la ficha como titular. */
+    queIncluye: boolean;
+    /** Tarjeta de «Cursos relacionados»: `placa` que crece sobre la foto (`fEaNY` · 6, sin precio) o la de listado con precio. */
+    relacionados: 'placa' | 'precio';
+  };
   /** Bloque de opiniones de la ficha V2 (ronda 2 de JP, C1 y C3). */
   opiniones: {
     /** `lista`: nota grande y extractos reales en lista editorial (`HVAlI`); `compacto`: una sola fila con la nota. */
@@ -119,6 +128,11 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     movimientoFicha: {
       ficha: uno(v.fichaMovimiento, ['sobrio', 'minimo', 'ninguno'] as const, 'sobrio'),
       certificado: uno(v.certificadoAnimacion, ['destello', 'entrada', 'ninguna'] as const, 'destello'),
+    },
+    bloquesFicha: {
+      temario: uno(v.temarioEnfoque, ['enfoca', 'encuadra', 'nada'] as const, 'enfoca'),
+      queIncluye: v.fichaQueIncluye !== false,
+      relacionados: uno(v.relacionadosTarjeta, ['placa', 'precio'] as const, 'placa'),
     },
     opiniones: {
       estilo: uno(v.opinionesEstilo, ['lista', 'compacto'] as const, 'lista'),
