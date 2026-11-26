@@ -10,6 +10,8 @@
 import Ico from '../Ico.astro';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { blogCover, tonoDeCategoria } from '@/lib/blog';
+import cssGuias from './guias.css?raw';
+import { minificar } from '../../blog-hoja';
 type Post = { id: string; data: { title: string; description?: string; category?: string | null }; cardImage?: unknown; coverImage?: unknown };
 interface Props { copy: { eyebrow: string; title: string }; guiasDestacadas: Post[]; masGuias: Post[]; variante?: 'tarjetas' | 'lista'; narradas?: Map<string, number> }
 const { copy: c, guiasDestacadas, masGuias, variante = 'tarjetas', narradas = new Map() } = Astro.props;
@@ -17,6 +19,7 @@ const copy = { blog: c };
 const fotoDe = (p: Post) => cmsImageUrl(p.cardImage) ?? cmsImageUrl(p.coverImage) ?? blogCover(p.data.category ?? undefined, 'card');
 const minutos = (p: Post) => { const s = narradas.get(p.id); return s ? Math.max(1, Math.round(s / 60)) : 0; };
 ---
+<style is:inline set:html={minificar(cssGuias)}></style>
 <!-- Guías gratuitas del blog -->
 {guiasDestacadas.length > 0 && (
   <section class:list={['v2-contenedor grid gap-10 pt-24 lg:gap-16 lg:pt-32', variante === 'tarjetas' ? 'v2-guias-tarjetas grid-cols-[minmax(0,1fr)]' : 'lg:grid-cols-[360px_minmax(0,1fr)]']} aria-labelledby="guias-titulo">
@@ -72,25 +75,3 @@ const minutos = (p: Post) => { const s = narradas.get(p.id); return s ? Math.max
   </section>
 )}
 
-<style is:global>
-  @layer components {
-    .v2-guias-fila { display: flex; gap: 16px; margin: 0; padding: 4px 0 8px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; list-style: none; }
-    .v2-guias-fila > li { flex: none; width: min(300px, 80vw); scroll-snap-align: start; }
-    @media (min-width: 900px) { .v2-guias-fila { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; overflow: visible; } .v2-guias-fila > li { width: auto; } }
-    .v2-guia { --tono: var(--color-navy-950); --tono-suave: var(--color-navy-50); display: flex; flex-direction: column; height: 100%; overflow: hidden; border-radius: var(--radius-c-xl); background: #fff; box-shadow: inset 0 0 0 1px var(--color-navy-100); text-decoration: none; transition: box-shadow var(--t-rapido) var(--e-sale), translate var(--t-base) var(--e-sale); }
-    .v2-guia[data-tono='coral'] { --tono: var(--color-coral-700); --tono-suave: var(--color-coral-50); }
-    .v2-guia[data-tono='ambar'] { --tono: #8a5300; --tono-suave: #fdf3e1; }
-    .v2-guia[data-tono='verde'] { --tono: #1f6b45; --tono-suave: #e9f5ee; }
-    .v2-guia[data-tono='noche'] { --tono: var(--color-navy-950); --tono-suave: var(--color-navy-100); }
-    .v2-guia-foto { display: block; aspect-ratio: 16 / 10; overflow: hidden; background: var(--tono-suave); }
-    .v2-guia-foto img { width: 100%; height: 100%; object-fit: cover; transition: scale var(--t-lento) var(--e-sale); }
-    .v2-guia-cuerpo { display: flex; flex: 1; flex-direction: column; padding: 20px; }
-    .v2-guia-cat { display: inline-flex; align-items: center; min-height: 26px; padding: 0 10px; border-radius: 999px; background: var(--tono-suave); color: var(--tono); font-size: 13px; font-weight: 600; }
-    .v2-guia-audio { display: inline-flex; align-items: center; gap: 5px; min-height: 26px; padding: 0 10px; border-radius: 999px; background: var(--color-navy-950); color: #fff; font-size: 13px; font-weight: 600; }
-    .v2-guia:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
-    @media (hover: hover) and (pointer: fine) {
-      .v2-guia:hover { box-shadow: inset 0 0 0 1px var(--color-navy-300), var(--shadow-s3); translate: 0 -3px; }
-      .v2-guia:hover .v2-guia-foto img { scale: 1.04; }
-    }
-  }
-</style>
