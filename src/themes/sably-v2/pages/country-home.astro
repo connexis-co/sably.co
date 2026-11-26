@@ -26,6 +26,7 @@ import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import { inventarioMosaico, mejorValorados, ordenarPorVisitas, repartirEnCeldas } from '../portada';
 import Valorados from '../components/portada/Valorados.astro';
 import Convergen from '../components/portada/Convergen.astro';
+import Movimiento from '../components/portada/Movimiento.astro';
 import { getHomeEditorial, getHomeSectionOptional } from '@/lib/home-editorial';
 import { monedasCobradas } from '@/lib/moneda-catalogo';
 import { countryAlternates, faqSchema } from '@/lib/seo';
@@ -112,6 +113,8 @@ const masGuias = posts.slice(3);
 ---
 <BaseLayout {title} {description} {country} pathAfterCountry="/" alternates={await countryAlternates('/')} schemas={[faqSchema(faqs)]} pageType="home" {freshUntil} temaV2>
   <Heroe textos={copy.hero} {base} locale={country.hreflang} areas={nav.areas} {celdas} oficios={oficiosHeroe} rotacion={portada.heroe} variante={portada.heroe.variante} fondo={portada.heroe.fondo} pruebaAB={portada.pruebaHeroe} botones={portada.heroe.botones} tachar={portada.heroe.tachar} prueba={pruebaHeroe} extra={extraBusqueda} />
+  <!-- Interruptores de movimiento de la portada (panel → Portada): un envoltorio sin caja que no cambia la maqueta. -->
+  <div class="contents" data-portada-bloques data-aparicion={portada.aparicion ? '' : undefined} data-cifras-cuentan={portada.cifrasCuentan ? '' : undefined} data-paralaje={portada.paralaje ? '' : undefined}>
   {portada.bloques.map(bloque => (
     bloque === 'cifras' ? <Cifras {cifras} {country} />
     : bloque === 'categorias' ? (portada.categoriasVariante === 'pila' ? <CategoriasPila copy={copy.categories} {base} {conFoto} {resto} {externas} total={nav.areas.length} />
@@ -131,6 +134,8 @@ const masGuias = posts.slice(3);
     : bloque === 'cierre' ? <Cierre {base} totalCursos={nav.totalCursos} />
     : null
   ))}
+  </div>
+  <Movimiento />
 </BaseLayout>
 
 <style is:global>

@@ -1,0 +1,75 @@
+---
+/**
+ * Movimiento de toda la portada que no es de un solo bloque (panel → Portada → «Movimiento de los bloques»).
+ * Los interruptores van como atributos en el envoltorio `[data-portada-bloques]` de country-home:
+ * - `data-aparicion`: los grupos marcados con `data-entra="grupo"` (cifras, áreas, destacados, valorados,
+ *   ventajas, vídeos, guías y preguntas) entran escalonados, 70 ms por hijo, la primera vez que asoman. Lo que ya
+ *   está a la vista al cargar no se mueve (sin parpadeo ni efecto en el LCP). Tiempo, no scroll: nunca se queda a
+ *   medio fundir si se para de bajar. Además, la respuesta de una pregunta entra con fundido al abrirla.
+ * - `data-cifras-cuentan`: las cifras `[data-cuenta]` cuentan de 0 a la real una vez (en el HTML, la final). El
+ *   ancho se fija antes de contar: sin desplazar a sus vecinas (CLS 0).
+ * - `data-paralaje`: `.v2-paralaje` (fotos de «¿Por qué Sably?») se desplazan con el scroll a distinta velocidad.
+ *   (El «50 %» gigante de la banda se probó y se quitó: con CPU ×4 doblaba los fotogramas perdidos.)
+ * Solo opacity y translate. Con «reducir movimiento», sin JavaScript o sin IntersectionObserver: todo quieto y visible.
+ */
+---
+<style is:global>
+  @layer components {
+    [data-portada-bloques] .v2-acordeon[open] > summary { color: var(--color-coral-700); }
+    @media (prefers-reduced-motion: no-preference) {
+      .v2-entrada-lista [data-entra='grupo']:not(.v2-visto) > * { opacity: 0; translate: 0 22px; }
+      .v2-entrada-lista [data-entra='grupo'] > * {
+        transition: opacity 520ms var(--e-sale), translate 640ms cubic-bezier(.2, .7, .3, 1);
+        transition-delay: calc(var(--k, 0) * 70ms);
+      }
+      [data-aparicion] .v2-acordeon[open] > :not(summary) { animation: v2-respuesta 360ms var(--e-sale) both; }
+      @keyframes v2-respuesta { from { opacity: 0; translate: 0 -6px; } }
+      @supports (animation-timeline: view()) {
+        @keyframes v2-paralaje { from { translate: 0 var(--p, 24px); } to { translate: 0 calc(var(--p, 24px) * -1); } }
+        [data-paralaje] .v2-paralaje { animation-name: v2-paralaje; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+      }
+    }
+  }
+</style>
+
+<script>
+  const raiz = document.querySelector<HTMLElement>('[data-portada-bloques]');
+  const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (raiz && !quieto && 'IntersectionObserver' in window) {
+    const aVista = (el: Element) => { const r = el.getBoundingClientRect(); return r.top < innerHeight && r.bottom > 0; };
+    const grupos = raiz.hasAttribute('data-aparicion') ? [...raiz.querySelectorAll<HTMLElement>('[data-entra]')] : [];
+    const cifras = raiz.hasAttribute('data-cifras-cuentan') ? [...raiz.querySelectorAll<HTMLElement>('[data-cuenta]')].filter(c => !aVista(c)) : [];
+    const pendientes = grupos.filter(g => {
+      if (aVista(g)) { g.classList.add('v2-visto'); return false; }
+      [...g.children].forEach((c, i) => (c as HTMLElement).style.setProperty('--k', String(Math.min(i, 7))));
+      return true;
+    });
+    raiz.classList.add('v2-entrada-lista');
+
+    const formato = new Intl.NumberFormat('es-CO');
+    const contar = (el: HTMLElement) => {
+      const fin = Number(el.dataset.cuenta);
+      const t0 = performance.now();
+      const paso = (t: number) => {
+        const x = Math.min(1, (t - t0) / 1100);
+        el.textContent = formato.format(Math.round(fin * (1 - (1 - x) ** 3)));
+        if (x < 1) requestAnimationFrame(paso);
+      };
+      requestAnimationFrame(paso);
+    };
+    // Ancho fijo antes de bajar a 0: las vecinas no se mueven mientras cuenta.
+    for (const c of cifras) { c.style.minWidth = `${c.getBoundingClientRect().width}px`; c.textContent = '0'; }
+
+    const io = new IntersectionObserver(entradas => {
+      for (const e of entradas) {
+        if (!e.isIntersecting) continue;
+        const el = e.target as HTMLElement;
+        io.unobserve(el);
+        if (el.hasAttribute('data-entra')) el.classList.add('v2-visto');
+        if (el.dataset.cuenta) contar(el);
+      }
+    }, { rootMargin: '0px 0px -8% 0px' });
+    pendientes.forEach(g => io.observe(g));
+    cifras.forEach(c => io.observe(c));
+  }
+</script>
