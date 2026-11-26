@@ -30,6 +30,7 @@ import CajaCompra from './CajaCompra.astro';
 import BarraFija from './BarraFija.astro';
 import VideoPresentacion from './VideoPresentacion.astro';
 import Docente from './Docente.astro';
+import { docenteReal } from '@/lib/docente';
 import CiudadesPais from './CiudadesPais.astro';
 import GuiasFicha from './GuiasFicha.astro';
 import QueIncluye from './QueIncluye.astro';
@@ -67,8 +68,9 @@ const conPrecio = Boolean(quote || real);
 const precioHoy = offer && quote?.reduced ? quote.reduced : baseAmount;
 const portada = cmsImageUrl(course.coverImage) ?? courseCover(course.id, category.slug);
 const creador = ajustes.mostrarCreador && creadoresVisibles.length ? nombresCreadores(creadoresVisibles.map(c => c.nombre)) : null;
-const fotoCreador = ajustes.mostrarCreador ? creadoresVisibles.map(c => c.foto).find(fotoPropia) ?? null : null;
-const siglas = creador ? iniciales(creadoresVisibles[0]!.nombre) : '';
+/* Decisión 5 de JP (26-nov): con docente real (con fuente) la ficha lo presenta a él y no a la marca del creador;
+   la marca queda solo donde el comprador la necesita para reconocer el cobro (junto al pago, en la caja). */
+const docente = ajustes.mostrarDocente && !sinProducto ? docenteReal(course.data.instructor) : null;
 const nota = notaHotmart(valoracion);
 /* Tarjetas de especializaciones y relacionados: el precio de SU ficha, con la misma
    función que esta (src/lib/precio-hoy.ts). La página no vive en caché más que la
@@ -135,7 +137,7 @@ const pestanas = [
 const secciones = [
   { id: 'sobre', etiqueta: 'Sobre este curso' },
   { id: 'temario', etiqueta: 'Temario' },
-  ...(creador || (!sinProducto && nota) ? [{ id: 'creador', etiqueta: creador && nota ? 'Creador y opiniones' : creador ? 'Quién lo dicta' : 'Opiniones' }] : []),
+  ...(creador || (!sinProducto && nota) ? [{ id: 'creador', etiqueta: docente ? (nota ? 'Docente y opiniones' : 'Docente') : creador && nota ? 'Creador y opiniones' : creador ? 'Creador' : 'Opiniones' }] : []),
   ...(texto || content.richBody ? [{ id: 'mas', etiqueta: 'Más sobre el curso' }] : []),
   { id: 'preguntas', etiqueta: 'Preguntas' },
 ];
@@ -167,8 +169,8 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
   temaV2
 >
   <div class="v2-ficha" data-content-source={content.source} data-content-locale-source={content.localeSource}>
-    <!-- Cabeza: migas, H1, promesa, quién lo dicta, nota; vídeo; caja a la derecha. Su CSS va en línea delante
-         (ficha-hoja.ts): la hoja común no lo lleva y la propia de la ficha llega después de la cabeza. -->
+    <!-- Cabeza: migas, H1, promesa, docente (si tiene fuente), nota; vídeo; caja a la derecha. Su CSS va en línea
+         delante (ficha-hoja.ts): la hoja común no lo lleva y la propia de la ficha llega después de la cabeza. -->
     <style is:inline set:html={CSS_CABEZA}></style>
     <section class="v2-cabeza pb-12 lg:pb-16" aria-labelledby="titulo-curso">
       <div class="v2-contenedor v2-cabeza-rejilla">
@@ -178,13 +180,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
         </div>
         {subtitulo && <p class="v2-area-promesa max-w-[560px] text-t17 text-navy-700 lg:mt-5 lg:text-t20 lg:text-white/80">{subtitulo}</p>}
         <div class="v2-area-meta flex flex-col gap-3 lg:mt-6">
-          {creador && (
-            <p class="flex items-center gap-3 text-t15 font-semibold text-navy-950 lg:text-white" data-creado-por>
-              {fotoCreador ? <img src={fotoCreador} alt="" width="40" height="40" class="size-8 rounded-full bg-white object-cover ring-1 ring-navy-100 lg:size-10" />
-                : <span class="grid size-8 flex-none place-items-center rounded-full bg-navy-950 text-t13 font-semibold text-white lg:size-10 lg:bg-white lg:text-navy-950" aria-hidden="true">{siglas}</span>}
-              <span>Lo dicta {creador}<span class="block text-t13 font-normal text-navy-500 lg:text-white/70">Es el nombre que verás en Hotmart</span></span>
-            </p>
-          )}
+          {/* Sin docente con fuente, la cabeza no nombra a nadie: la marca del creador va junto al pago y en su bloque. */}
           <Docente instructor={course.data.instructor} lugar="cabeza" mostrar={ajustes.mostrarDocente} {sinProducto} />
           {!sinProducto && nota && (
             <p class="text-t15 text-navy-700 lg:text-white/80">
@@ -333,24 +329,23 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
       </div>
     </section>
 
-    <!-- Quién lo dicta y opiniones propias (solo con tres o más). -->
+    <!-- Docente, creador y opiniones. -->
     {(creador || !sinProducto) && (
-      <section id="creador" class="v2-bloque-tinta scroll-mt-36" aria-labelledby={creador ? 'titulo-creador' : undefined} data-aparece={aparece} data-cms>
+      <section id="creador" class="v2-bloque-tinta scroll-mt-36" aria-labelledby={docente ? `docente-${docente.slug}` : creador ? 'titulo-creador' : undefined} data-aparece={aparece} data-cms>
         <div class="v2-contenedor space-y-10 py-16 lg:py-24">
+          <Docente instructor={course.data.instructor} lugar="ficha" mostrar={ajustes.mostrarDocente} {sinProducto} />
           {creadoresVisibles.length > 0 && ajustes.mostrarCreador && creadoresVisibles.map(c => (
             <article class="flex flex-col gap-6 rounded-c-lg bg-white p-6 sm:flex-row sm:items-center lg:p-10">
               {fotoPropia(c.foto) ? <img src={c.foto} alt="" width="96" height="96" loading="lazy" class="size-24 flex-none rounded-full bg-white object-contain ring-1 ring-navy-100" />
                 : <span class="grid size-24 flex-none place-items-center rounded-full bg-navy-50 font-display text-d28 text-navy-950" aria-hidden="true">{iniciales(c.nombre)}</span>}
               <div class="min-w-0 flex-1">
-                <p class="text-t13 text-navy-500">Lo dicta</p>
+                <p class="text-t13 text-navy-500">{docente ? 'Publica el curso' : 'Creador del curso'}</p>
                 <h2 id="titulo-creador" class="font-display text-d28">{c.nombre}</h2>
                 {c.bio && <p class="mt-2 line-clamp-4 max-w-[640px] text-t15 text-navy-700">{c.bio}</p>}
-                <p class="mt-2 text-t13 text-navy-500">En Hotmart el curso figura a nombre de {c.nombre}: es el nombre que verás al pagar.</p>
               </div>
               <a href={`/${country.code}/creadores/${c.slug}/`} class="v2-btn v2-btn-secundario flex-none self-start sm:self-center" data-alto="48">Ver sus cursos en Sably</a>
             </article>
           ))}
-          <Docente instructor={course.data.instructor} lugar="ficha" mostrar={ajustes.mostrarDocente} {sinProducto} />
           {/* Opiniones (ronda 2 de JP, C3): nota de Hotmart con su fuente y su fecha, y extractos reales en lista
               editorial, o la fila compacta, según el panel. Con menos de 5 calificaciones no se pinta. */}
           {!sinProducto && nota && <OpinionesFicha slug={course.id} rating={valoracion!.rating} {nota} ajustes={ajustes.opiniones} sinPropias={!verifiedReviews.reviews.length} />}

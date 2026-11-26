@@ -24,19 +24,20 @@ import Precio from '@/components/v2/Precio.astro';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { fechaCorta } from '@/lib/cuenta-atras';
 import { nombresCreadores } from '@/lib/creadores';
-import { importe, fotoPropia, iniciales } from '@/lib/presentacion-v2';
+import { importe, iniciales } from '@/lib/presentacion-v2';
 import { rellenarPlantilla, type AjustesV2 } from '@/lib/ajustes-tema';
 import { docConAjustes } from '@/lib/caja/sably';
 import { resolverZona } from '@/lib/caja/resolver';
 import type { Bloque, Condicion } from '@/lib/caja/model';
 import { notaHotmart } from '@/lib/opiniones';
 import { CSS_CAJA } from '../ficha-hoja';
+import { docenteReal } from '@/lib/docente';
 import type { Ficha } from '@/lib/ficha';
 import type { Country } from '@/lib/countries';
 
 interface Props { f: Ficha; country: Country; ajustes: AjustesV2 }
 const { f, country, ajustes } = Astro.props;
-const { offer, quote, real, baseAmount, currency, localCheckout, marketLinks, promoRow, promoSiguiente, creadoresVisibles, course, proveedor, nombreEnFrase, valoracion } = f;
+const { offer, quote, real, baseAmount, currency, localCheckout, marketLinks, promoRow, promoSiguiente, creadoresVisibles, course, proveedor, nombreEnFrase, valoracion, sinProducto } = f;
 
 /* Qué bloques lleva la caja, en qué variante y con qué textos: el núcleo común con la
    academia (src/lib/caja/, copia exacta de la suya) sobre el documento de Sably. */
@@ -66,8 +67,9 @@ const variante = zona.preajuste === 'cabecera-oscura' && offer && bloque('promoc
 const leida = quote?.at ? new Intl.DateTimeFormat('es-CO', { timeZone: 'America/Bogota', day: 'numeric', month: 'short', year: 'numeric' }).format(quote.at).replace(/ de /g, ' ') : null;
 const whatsapp = buildWhatsAppUrl(country.whatsapp, `Hola, tengo una duda antes de inscribirme en «${course.data.title}»`);
 const creador = ajustes.mostrarCreador && creadoresVisibles.length ? nombresCreadores(creadoresVisibles.map(c => c.nombre)) : null;
-const foto = ajustes.mostrarCreador ? creadoresVisibles.map(c => c.foto).find(fotoPropia) ?? null : null;
-const siglas = creador ? iniciales(creadoresVisibles[0]!.nombre) : '';
+/* Decisión 5 de JP (26-nov): la caja presenta al docente real (con fuente) y no a la marca del creador. La marca
+   queda en una sola línea junto al pago, que es donde el comprador la necesita para reconocer el cobro en Hotmart. */
+const docente = ajustes.mostrarDocente && !sinProducto ? docenteReal(course.data.instructor) : null;
 /* Si a la misma hora empieza otra campaña con descuento (Black Friday → Cyber Monday),
    no se promete la vuelta al precio normal: solo cuándo termina esta. */
 const despues = descuento && !promoSiguiente ? `Después vuelve a ${conMoneda(baseAmount)}.` : null;
@@ -168,14 +170,15 @@ const tituloId = 'titulo-compra';
           ? <Boton variante="precio" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago aria-label={`Inscribirme, ${precio(baseAmount).hablado}`} precio={{ cifra: precio(baseAmount).visible, moneda: currency }}>Inscribirme</Boton>
           : <Boton variante="principal" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago>Ver precio en Hotmart</Boton>}
       <p class="mt-3 text-t13 text-navy-700" data-bloque="pago-seguro">Pagas en <LogoHotmart alto={15} class="mx-0.5" /> en {currency} · sin crear cuenta en Sably</p>
+      {creador && <p class="text-t13 text-navy-500" data-bloque="cobro">En Hotmart el curso figura a nombre de {creador}.</p>}
       {hijo('confianza', 'acceso') && <p class="text-t13 text-navy-500">El acceso te llega por correo al instante.</p>}
     </div>
 
-    {creador && (
+    {docente && (
       <div class="mt-5 flex items-center gap-3 border-t border-navy-100 pt-5" data-bloque="docente">
-        {foto ? <img src={foto} alt="" width="40" height="40" loading="lazy" class="size-10 rounded-full object-cover ring-1 ring-navy-100" />
-              : <span class="grid size-10 flex-none place-items-center rounded-full bg-navy-950 text-t13 font-semibold text-white" aria-hidden="true">{siglas}</span>}
-        <p class="text-t15 font-semibold text-navy-950">Lo dicta {creador}<span class="block text-t13 font-normal text-navy-500">Es el nombre que verás en Hotmart al pagar.</span></p>
+        {docente.foto ? <img src={docente.foto} alt={`Foto de ${docente.nombre}`} width="40" height="40" loading="lazy" decoding="async" class="size-10 rounded-full object-cover ring-1 ring-navy-100" />
+              : <span class="grid size-10 flex-none place-items-center rounded-full bg-navy-950 text-t13 font-semibold text-white" aria-hidden="true">{iniciales(docente.nombre)}</span>}
+        <p class="text-t15 font-semibold text-navy-950">Imparte {docente.nombre}{docente.titulo && <span class="block text-t13 font-normal text-navy-500">{docente.titulo}</span>}</p>
       </div>
     )}
 

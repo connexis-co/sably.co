@@ -1,14 +1,15 @@
 ---
 /**
  * Docente real del curso (punto C5 del encargo de pulido): quién imparte el
- * curso, junto al creador («Lo dicta {creador}» no cambia).
+ * curso. Con docente, la ficha y la caja lo presentan a él; la marca del creador queda junto al pago (decisión 5
+ * de JP, 26-nov).
  *
  * Solo se pinta con un docente que trae fuente y fecha (`docenteReal`, en
  * src/lib/docente.ts) y con el interruptor «Mostrar el docente del curso» del
  * panel encendido. Sin docente no deja hueco. Todo va en el HTML inicial, sin
  * JavaScript, y la foto tiene medidas fijas (CLS 0). Sin foto propia, iniciales.
  *
- * `lugar="cabeza"`: una línea bajo «Lo dicta …» en la cabeza de la ficha.
+ * `lugar="cabeza"`: una línea en la cabeza de la ficha, bajo la promesa.
  * `lugar="ficha"`: la tarjeta completa en «Creador y opiniones».
  */
 import { docenteReal } from '@/lib/docente';
@@ -39,7 +40,7 @@ const alt = d ? `Foto de ${d.nombre}` : '';
       : <span class="grid size-24 flex-none place-items-center rounded-full bg-navy-50 font-display text-d28 text-navy-950" aria-hidden="true">{iniciales(d.nombre)}</span>}
     <div class="min-w-0 flex-1">
       <p class="text-t13 text-navy-500">Imparte el curso</p>
-      <h3 id={`docente-${d.slug}`} class="font-display text-d28">{d.nombre}</h3>
+      <h2 id={`docente-${d.slug}`} class="font-display text-d28">{d.nombre}</h2>
       {d.titulo && <p class="mt-1 text-t15 font-semibold text-navy-700">{d.titulo}</p>}
       {d.trayectoria && <p class="mt-2 max-w-[640px] text-t15 text-navy-700">{d.trayectoria}</p>}
       {d.acreditaciones && (
