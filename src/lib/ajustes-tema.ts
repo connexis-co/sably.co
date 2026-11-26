@@ -49,7 +49,7 @@ export interface AjustesV2 {
   /** C5: en «Sobre este curso», una foto por pestaña con fundido (de fábrica). */
   sobreFotos: boolean;
   /** C6: movimiento de la ficha al bajar y animación del certificado (nunca con menos movimiento). */
-  movimientoFicha: { ficha: 'sobrio' | 'minimo' | 'ninguno'; certificado: 'destello' | 'entrada' | 'ninguna' };
+  movimientoFicha: { ficha: 'sobrio' | 'minimo' | 'ninguno'; certificado: 'arma' | 'lateral' | 'revela' | 'destello' | 'entrada' | 'ninguna' };
   /** Temario y bloques de la ficha (paquete 2 del pulido: C7, C10a, C10b). */
   bloquesFicha: {
     /** `enfoca`: abrir un módulo cierra el anterior y lo encuadra; `encuadra`: solo lo encuadra; `nada`: acordeón libre. */
@@ -158,7 +158,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     sobreFotos: v.sobreFotosPestanas !== false,
     movimientoFicha: {
       ficha: uno(v.fichaMovimiento, ['sobrio', 'minimo', 'ninguno'] as const, 'sobrio'),
-      certificado: uno(v.certificadoAnimacion, ['destello', 'entrada', 'ninguna'] as const, 'destello'),
+      certificado: uno(v.certificadoAnimacion, ['arma', 'lateral', 'revela', 'destello', 'entrada', 'ninguna'] as const, 'arma'),
     },
     bloquesFicha: {
       temario: uno(v.temarioEnfoque, ['enfoca', 'encuadra', 'nada'] as const, 'enfoca'),

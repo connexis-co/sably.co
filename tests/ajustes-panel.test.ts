@@ -47,7 +47,7 @@ const ANTES = {
     cajaMovimiento: ['boolean', null, true],
     // Claves nuevas (26-nov, movimiento de la ficha y del certificado, C6).
     fichaMovimiento: ['select', ['sobrio', 'minimo', 'ninguno'], 'sobrio'],
-    certificadoAnimacion: ['select', ['destello', 'entrada', 'ninguna'], 'destello'],
+    certificadoAnimacion: ['select', ['arma', 'lateral', 'revela', 'destello', 'entrada', 'ninguna'], 'arma'],
     // Claves nuevas (26-nov, temario y bloques de la ficha: C7, C10a, C10b).
     temarioEnfoque: ['select', ['enfoca', 'encuadra', 'nada'], 'enfoca'],
     fichaQueIncluye: ['boolean', null, true],
@@ -124,7 +124,7 @@ test('los ajustes guardados en la copia de producción se leen igual', async () 
     estiloCampo: 'outlined',
     columnasTarjetas: 'tres-completas',
     sobreFotos: true,
-    movimientoFicha: { ficha: 'sobrio', certificado: 'destello' },
+    movimientoFicha: { ficha: 'sobrio', certificado: 'arma' },
     bloquesFicha: { temario: 'enfoca', queIncluye: true, relacionados: 'placa' },
     opiniones: { estilo: 'lista', minimoExtractos: 1, maximoExtractos: 4, perfil: null },
     barraCampana: { cierre: 'sesion', enFicha: true, fija: true },

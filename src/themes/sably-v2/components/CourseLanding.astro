@@ -282,8 +282,8 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
         </div>
         {!sinProducto && (
           <div class="mt-12 grid gap-6 lg:mt-16 lg:grid-cols-[minmax(0,620px)_1fr] lg:items-center lg:gap-12">
-            {/* C6: el certificado de ejemplo se endereza, lo cruza un brillo y el QR entra como un sello, ligado al
-                desplazamiento (panel: certificadoAnimacion). La escena da la perspectiva y la línea de tiempo. */}
+            {/* C6 (panel: certificadoAnimacion). «armado» (de fábrica), «lateral» y «revela» corren una vez al asomar (guion al
+                final); «destello» y «entrada» van ligados al desplazamiento. La escena da la perspectiva y la línea de tiempo. */}
             <div class="v2-cert-escena" data-cert={ajustes.movimientoFicha.certificado}>
               <div class="v2-cert-hoja relative">
                 <Constancia curso={course.data.title} creador={creador} class="[--constancia-fondo:var(--color-navy-50)]" />
@@ -534,6 +534,23 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
 <script>
   import { trackEvent } from '@/lib/analytics';
   trackEvent('view_course', { page: location.pathname, theme: 'v2' });
+  // C6: las animaciones del certificado por tiempo (lateral, revela, arma) corren UNA vez, al asomar el certificado.
+  // Sin JavaScript, sin IntersectionObserver o con «reducir movimiento» no se oculta nada (la CSS espera a data-listo).
+  const escenaCert = document.querySelector<HTMLElement>('.v2-cert-escena:is([data-cert="lateral"], [data-cert="revela"], [data-cert="arma"])');
+  if (escenaCert && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    escenaCert.querySelectorAll<HTMLElement>('.v2-const-centro > p, .v2-const-centro > div > p, .v2-const-centro > dl')
+      .forEach((pieza, i) => pieza.style.setProperty('--i', String(i)));
+    const r = escenaCert.getBoundingClientRect();
+    if (r.top > innerHeight * 0.8 || r.bottom < 0) {
+      escenaCert.setAttribute('data-listo', '');
+      const io = new IntersectionObserver(([e]) => {
+        if (!e!.isIntersecting) return;
+        io.disconnect();
+        escenaCert.setAttribute('data-visto', '');
+      }, { rootMargin: '0px 0px -25% 0px' });
+      io.observe(escenaCert);
+    }
+  }
   // Escritorio: la caja solo se pega si cabe entera bajo la cabecera y la barra de secciones.
   const caja = document.querySelector<HTMLElement>('.v2-area-caja');
   if (caja) {

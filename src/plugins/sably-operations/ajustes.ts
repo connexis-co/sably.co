@@ -141,9 +141,9 @@ export const settingsSchema = {
   certificadoAnimacion: {
     type: 'select',
     label: 'Ficha · Animación del certificado',
-    description: '«Destello»: al bajar, el certificado de ejemplo se endereza, un brillo lo cruza y el código de verificación entra como un sello. «Entrada»: solo sube con suavidad. «Ninguna»: quieto. Nadie lo ve si pidió menos movimiento. Por defecto: Destello.',
-    options: [{ value: 'destello', label: 'Destello' }, { value: 'entrada', label: 'Entrada' }, { value: 'ninguna', label: 'Ninguna' }],
-    default: 'destello',
+    description: '«Armado»: al asomar, el certificado de ejemplo se arma por piezas (marco, banda, texto línea a línea, talón y el QR como un sello), una sola vez. «Lateral»: entra desde un lado con un leve giro. «Revela»: una cortina se recoge y lo descubre. «Destello» y «Entrada»: ligados al desplazamiento (se enderezan o suben al bajar). Nunca se mueve con «reducir movimiento». Por defecto: Armado.',
+    options: [{ value: 'arma', label: 'Armado' }, { value: 'lateral', label: 'Lateral' }, { value: 'revela', label: 'Revela' }, { value: 'destello', label: 'Destello' }, { value: 'entrada', label: 'Entrada' }, { value: 'ninguna', label: 'Ninguna' }],
+    default: 'arma',
   },
   // Temario y bloques de la ficha (26-nov-2026, paquete 2 del pulido: C7, C10a, C10b)
   temarioEnfoque: {
