@@ -29,6 +29,7 @@ import PieV2, { type VariantePie } from '@/themes/sably-v2/components/Pie.astro'
 import { datosNavegacion } from '@/themes/sably-v2/navegacion';
 import { promoDeLaPagina } from '@/themes/sably-v2/promo-v2';
 import cssContador from '@/themes/sably-v2/components/contador.css?raw';
+import cssBarraCampana from '@/themes/sably-v2/components/barra-campana.css?raw';
 import { minificar } from '@/themes/sably-v2/blog-hoja';
 
 export interface Props {
@@ -160,6 +161,8 @@ const pageContext = { ...createPublicPageContext({
 }), ...(articleSchema ? { sablyArticle: articleSchema } : {}) };
 /* CSS del contador de campaña (contador.css): una vez y solo si algún aviso de la campaña lleva contador. */
 const cssReloj = promoV2?.finMs && Object.values(promoV2.muestra).some(m => m === 'contador' || m === 'ambos') ? minificar(cssContador) : '';
+/* CSS de la barra de campaña (posición y modo fijo, barra-campana.css): solo si hay campaña. */
+const cssBarra = promoV2 ? minificar(cssBarraCampana) : '';
 ---
 
 <!doctype html>
@@ -175,7 +178,7 @@ const cssReloj = promoV2?.finMs && Object.values(promoV2.muestra).some(m => m ==
     <meta name="generator" content={Astro.generator} />
     <Seo title={seo.title} page={pageContext} {alternates} schemas={allSchemas} {noindexGoogle} {ogLocale} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    {cssReloj && <style is:inline set:html={cssReloj}></style>}
+    {(cssBarra || cssReloj) && <style is:inline set:html={cssBarra + cssReloj}></style>}
     {/* Navegación casi instantánea: el navegador pide la página de un enlace interno al pasar el
         cursor o empezar a tocarlo, y la respuesta sale de la caché del borde. Speed Brain de
         Cloudflare solo precarga con el clic ya iniciado. */}
