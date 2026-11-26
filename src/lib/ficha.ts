@@ -260,8 +260,8 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
         },
         ...baseFaqs,
         {
-          q: `¿La constancia sirve en ${city.name}?`,
-          a: `La constancia de finalización la emite Hotmart al completar el curso y acredita que lo terminaste, en ${city.name} o en cualquier otro lugar. No es un título oficial ni una certificación profesional.`,
+          q: `¿El certificado sirve en ${city.name}?`,
+          a: `El certificado de finalización lo emite Hotmart al completar el curso y acredita que lo terminaste, en ${city.name} o en cualquier otro lugar. No es un título oficial ni una certificación profesional.`,
         },
       ]
     : baseFaqs;
@@ -316,7 +316,7 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
   const descColisiona = locale
     ? localesDelCurso.filter((l) => l.data.meta_description === locale.data.meta_description).length > 1
     : localesDelCurso.length < COUNTRIES.length - 1;
-  /* Sin producto, la descripción y el subtítulo no pueden prometer constancia,
+  /* Sin producto, la descripción y el subtítulo no pueden prometer certificado,
      garantía ni acceso: no hay nada que comprar (ver src/lib/sin-producto.ts). */
   const sinPromesa = (texto: string): string => (sinProducto ? sinPromesas(texto) : texto);
   const descripcionCurso = sinPromesa(course.data.shortDescription);
