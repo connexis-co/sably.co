@@ -8,7 +8,7 @@ import type { APIRoute } from 'astro';
 import { cookieFlujo, cuentaServidor, ipCliente, leerFormulario, noEncontrada, postValido, prohibido, recordarRetorno, redirigir } from '@/lib/cuenta/http';
 import { correoCodigo } from '@/lib/cuenta/correo';
 import { hashClave, revisarClaveNueva } from '@/lib/cuenta/clave';
-import { ahora, enlaceCodigo, enlaceIngresar, normalizarCorreo } from '@/lib/cuenta/nucleo';
+import { ahora, enlaceCodigo, enlaceIngresar, normalizarCorreo, LIMITE_CLAVE_CORREO_HORA, LIMITE_CLAVE_IP_HORA, LIMITE_CLAVE_TOTAL_HORA } from '@/lib/cuenta/nucleo';
 
 export const prerender = false;
 
@@ -25,10 +25,18 @@ export const POST: APIRoute = async (ctx) => {
   const email = normalizarCorreo(String(formulario.get('email') ?? ''));
   if (!email) return redirigir(enlaceIngresar(volver, 'correo-invalido', 'nueva'));
   const clave = String(formulario.get('clave') ?? '');
+  if (clave.length > 512) return redirigir(enlaceIngresar(volver, 'clave-mala', 'nueva'));
+  // El límite va antes de revisar la contraseña (consulta de filtraciones) y de calcular su hash (Argon2id, caro
+  // en CPU y memoria): sin él, una ráfaga de peticiones podía agotar el servidor antes de llegar a `pedirCodigo`.
+  const t = ahora();
+  const ip = ipCliente(ctx.request);
+  if (!(await servidor.almacen.permitir('clave-nueva:total', LIMITE_CLAVE_TOTAL_HORA, t))
+    || !(await servidor.almacen.permitir(`clave-nueva:ip:${ip}`, LIMITE_CLAVE_IP_HORA, t))
+    || !(await servidor.almacen.permitir(`clave-nueva:correo:${email}`, LIMITE_CLAVE_CORREO_HORA, t))) return redirigir(enlaceIngresar(volver, 'espera', 'nueva'));
   const fallo = await revisarClaveNueva(clave, email);
   if (fallo) return redirigir(enlaceIngresar(volver, fallo, 'nueva'));
   const flujo = cookieFlujo(ctx);
-  const pedido = await servidor.almacen.pedirCodigo(flujo, email, ipCliente(ctx.request), ahora(), await hashClave(clave));
+  const pedido = await servidor.almacen.pedirCodigo(flujo, email, ip, t, await hashClave(clave));
   if (!pedido.ok) return redirigir(pedido.aviso === 'correo-espera' ? enlaceCodigo(volver, 'correo-espera') : enlaceIngresar(volver, 'espera', 'nueva'));
   try {
     await enviar(correoCodigo(email, pedido.codigo));

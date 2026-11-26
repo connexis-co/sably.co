@@ -17,6 +17,7 @@ import { getLiveSiteSettings } from '@/lib/live-site-settings';
 import { SITE } from '@/lib/site';
 import type { Country } from '@/lib/countries';
 import type { DatosNavegacion } from '../navegacion';
+import { temaDeLaPeticion } from '@/lib/ajustes-tema';
 import '../estilos.css';
 export type VariantePie = 'completo' | 'compacto';
 interface Props { country: Country; nav: DatosNavegacion; variante?: VariantePie; pathAfterCountry: string }
@@ -38,8 +39,9 @@ const sably = [...nav.pie.filter(e => !esLegal(e.href)), { etiqueta: 'Guías gra
 const legal = nav.pie.filter(e => esLegal(e.href));
 const RED_ICONO: Record<string, string> = { instagram: 'instagram', tiktok: 'tiktok', facebook: 'facebook', youtube: 'youtube', x: 'x' };
 const compacto = variante === 'compacto';
+const { ajustes } = await temaDeLaPeticion(Astro);
 ---
-<footer class="v2-pie" data-pie={variante}>
+<footer class="v2-pie" data-pie={variante} data-borde={compacto ? undefined : ajustes.pieBorde}>
   <div class:list={['v2-contenedor', compacto ? 'py-10' : 'pt-14 pb-8 lg:pt-20']}>
     <div class="v2-pie-rejilla">
       <div class="flex flex-col items-start gap-5">

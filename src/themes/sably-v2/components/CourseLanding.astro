@@ -46,7 +46,7 @@ import { importe, fotoPropia, iniciales } from '@/lib/presentacion-v2';
 import Precio from '@/components/v2/Precio.astro';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { courseCover } from '@/lib/categories';
-import { fotoDeCurso, srcFoto } from '../fotos';
+import { fotoDeCurso, fotoDePestana, srcFoto } from '../fotos';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { plazoMasCorto, preciosDeTarjetas } from '@/lib/precio-hoy';
 import { CSS_CABEZA, RUTA_HOJA_FICHA } from '../ficha-hoja';
@@ -130,7 +130,10 @@ const fotosSobre = [
   { id: 'para-quien', src: candidatasSobre[0] },
   { id: 'necesitas', src: candidatasSobre[1] },
   { id: 'estudia', src: srcFoto('foto-estudiar-celular-1') },
-].filter((f): f is { id: string; src: string } => Boolean(f.src));
+]
+  /* «Qué necesitas» y «Cómo se estudia» con la foto propia del curso cuando existe; si no, la de arriba. */
+  .map(f => ({ ...f, propia: fotoDePestana(course.id, f.id) }))
+  .filter(f => f.propia || f.src);
 const pestanas = [
   { id: 'aprende', etiqueta: 'Qué aprenderás' },
   { id: 'para-quien', etiqueta: 'Para quién es' },
@@ -239,7 +242,12 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
             <OptimizedImage src={portada} alt={`${category.name}: ${course.data.title}`} width={600} height={600} sizes="(min-width: 1024px) 600px, 100vw" loading="lazy" decoding="async" class="v2-sobre-foto aspect-[4/5] w-full rounded-c-xl object-cover lg:aspect-square" data-foto="aprende" />
             {/* C5 (ronda 2 de JP): una foto por pestaña, con fundido. Todas están en el HTML y cargan con la sección,
                 así el cambio no espera a la red. Las de serie son decorativas (alt vacío): el texto está en el panel. */}
-            {ajustes.sobreFotos && fotosSobre.map(f => <img src={f.src} alt="" width="600" height="600" loading="lazy" decoding="async" class="v2-sobre-foto absolute inset-0 h-full w-full rounded-c-xl object-cover" data-foto={f.id} />)}
+            {ajustes.sobreFotos && fotosSobre.map(f => f.propia
+              ? <picture style="display: contents">
+                  <source type="image/avif" srcset={f.propia.avif} sizes="(min-width: 1024px) 600px, 100vw" />
+                  <img src={f.propia.src} srcset={f.propia.webp} sizes="(min-width: 1024px) 600px, 100vw" alt={f.propia.alt} width="960" height="1200" loading="lazy" decoding="async" class="v2-sobre-foto absolute inset-0 h-full w-full rounded-c-xl object-cover" data-foto={f.id} />
+                </picture>
+              : <img src={f.src} alt="" width="600" height="600" loading="lazy" decoding="async" class="v2-sobre-foto absolute inset-0 h-full w-full rounded-c-xl object-cover" data-foto={f.id} />)}
             <fieldset class="absolute inset-x-3 bottom-3 flex min-w-0 justify-center">
               <legend class="sr-only">Apartados de «Sobre este curso»</legend>
               <div class="v2-pildoras">
@@ -282,8 +290,8 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
         </div>
         {!sinProducto && (
           <div class="mt-12 grid gap-6 lg:mt-16 lg:grid-cols-[minmax(0,620px)_1fr] lg:items-center lg:gap-12">
-            {/* C6: el certificado de ejemplo se endereza, lo cruza un brillo y el QR entra como un sello, ligado al
-                desplazamiento (panel: certificadoAnimacion). La escena da la perspectiva y la línea de tiempo. */}
+            {/* C6 (panel: certificadoAnimacion). «armado» (de fábrica), «lateral» y «revela» corren una vez al asomar (guion al
+                final); «destello» y «entrada» van ligados al desplazamiento. La escena da la perspectiva y la línea de tiempo. */}
             <div class="v2-cert-escena" data-cert={ajustes.movimientoFicha.certificado}>
               <div class="v2-cert-hoja relative">
                 <Constancia curso={course.data.title} creador={creador} class="[--constancia-fondo:var(--color-navy-50)]" />
@@ -369,7 +377,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
               <figcaption class="mt-3 text-t13 text-navy-500">Las lecciones se ven desde el celular o el computador. Foto ilustrativa.</figcaption>
             </figure>
             {indiceTexto.length > 1 && (
-              <nav aria-label="En este texto" class="sticky top-40 mt-10" data-indice-texto>
+              <nav aria-label="En este texto" class="sticky top-[calc(var(--fijo-superior)+100px)] mt-10" data-indice-texto>
                 <p class="text-t13 font-semibold text-navy-500">En este texto</p>
                 <ul class="mt-3 border-l border-navy-100">
                   {indiceTexto.map(t => <li><a href={`#${t.id}`} class="v2-indice-enlace block border-l-2 border-transparent py-2 pl-4 -ml-px text-t15 text-navy-700 hover:border-coral-600 hover:text-navy-950" data-indice>{t.texto}</a></li>)}
@@ -488,7 +496,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
     )}
 
     <!-- Cierre: botón de pago real (no un ancla), precio y garantía. -->
-    <section class="px-0 pb-16 lg:px-[60px] lg:pb-24" aria-labelledby="titulo-cierre" data-cierre>
+    <section class="px-0 pb-16 lg:px-[60px] lg:pb-24" aria-labelledby="titulo-cierre" data-cierre data-aparece={aparece}>
       <div class="v2-cierre relative overflow-hidden bg-navy-950 px-5 py-14 text-white lg:rounded-c-xl lg:px-[60px] lg:py-20">
         {offer && <span class="v2-cierre-cifra" aria-hidden="true">{offer.saving}</span>}
         <div class="relative grid gap-10 lg:grid-cols-[1fr_384px] lg:items-center">
@@ -538,6 +546,23 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
 <script>
   import { trackEvent } from '@/lib/analytics';
   trackEvent('view_course', { page: location.pathname, theme: 'v2' });
+  // C6: las animaciones del certificado por tiempo (lateral, revela, arma) corren UNA vez, al asomar el certificado.
+  // Sin JavaScript, sin IntersectionObserver o con «reducir movimiento» no se oculta nada (la CSS espera a data-listo).
+  const escenaCert = document.querySelector<HTMLElement>('.v2-cert-escena:is([data-cert="lateral"], [data-cert="revela"], [data-cert="arma"])');
+  if (escenaCert && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    escenaCert.querySelectorAll<HTMLElement>('.v2-const-centro > p, .v2-const-centro > div > p, .v2-const-centro > dl')
+      .forEach((pieza, i) => pieza.style.setProperty('--i', String(i)));
+    const r = escenaCert.getBoundingClientRect();
+    if (r.top > innerHeight * 0.8 || r.bottom < 0) {
+      escenaCert.setAttribute('data-listo', '');
+      const io = new IntersectionObserver(([e]) => {
+        if (!e!.isIntersecting) return;
+        io.disconnect();
+        escenaCert.setAttribute('data-visto', '');
+      }, { rootMargin: '0px 0px -25% 0px' });
+      io.observe(escenaCert);
+    }
+  }
   // Escritorio: la caja solo se pega si cabe entera bajo la cabecera y la barra de secciones.
   const caja = document.querySelector<HTMLElement>('.v2-area-caja');
   if (caja) {

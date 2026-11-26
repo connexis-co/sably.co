@@ -52,6 +52,11 @@
 /legal/cookies /legal/privacidad/ 301
 /legal/cookies/ /legal/privacidad/ 301
 
+# /black-university/ fue una página de campaña antigua (Black Friday) que ya no existe
+# y Google aún recuerda (404). JP aprobó mandarla a la portada el 26-nov-2026.
+/black-university /co/ 301
+/black-university/ /co/ 301
+
 # Portada: permanente. Con 302 Google no toma /co/ como canónica de la raíz y el
 # nombre de sitio («Sably») sale del destino de la redirección. /index.html va
 # directo a /co/: antes encadenaba 308 (/index.html → /) y luego 302 (/ → /co/).

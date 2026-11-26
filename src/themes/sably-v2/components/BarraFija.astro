@@ -93,10 +93,35 @@ const { secciones, precio, moneda, nota, href, boton, whatsapp, curso, precioNor
     const enlaces = [...barra.querySelectorAll<HTMLAnchorElement>('[data-subnav]')];
     const secciones = enlaces.map(a => document.getElementById(a.dataset.subnav!)).filter(Boolean) as HTMLElement[];
     // La pestaña activa se desliza a la vista, centrada, sin mover la página en vertical.
+    const lista = barra.querySelector<HTMLElement>('.v2-fija-lista');
+    // Marca deslizante: posición y ancho de la pestaña activa como variables (la CSS solo anima transform).
+    const marcar = () => {
+      const activa = enlaces.find(a => a.getAttribute('aria-current') === 'true');
+      if (!lista || !activa || barra.hasAttribute('data-oculta')) return;
+      lista.style.setProperty('--x', `${activa.offsetLeft}px`);
+      lista.style.setProperty('--w', String(activa.offsetWidth));
+      lista.setAttribute('data-marca', '');
+    };
     const mostrarActiva = () => {
       const activa = enlaces.find(a => a.getAttribute('aria-current') === 'true');
       activa?.scrollIntoView({ inline: 'center', block: 'nearest', behavior: reducido.matches ? 'auto' : 'smooth' });
+      marcar();
     };
+    addEventListener('resize', marcar, { passive: true });
+    // Al llegar por la navegación interna, el título del apartado se señala una vez (CSS: [data-llega]).
+    barra.addEventListener('click', ev => {
+      const a = (ev.target as Element).closest<HTMLAnchorElement>('[data-subnav]');
+      const titulo = a && document.getElementById(a.dataset.subnav!)?.querySelector<HTMLElement>('h2');
+      if (!titulo || reducido.matches) return;
+      let hecho = false;
+      const senalar = () => {
+        if (hecho) return; hecho = true;
+        titulo.removeAttribute('data-llega'); void titulo.offsetWidth; titulo.setAttribute('data-llega', '');
+        setTimeout(() => titulo.removeAttribute('data-llega'), 900);
+      };
+      if ('onscrollend' in window) addEventListener('scrollend', senalar, { once: true });
+      setTimeout(senalar, 1400);
+    });
     const observador = new IntersectionObserver(entradas => {
       let cambio = false;
       for (const e of entradas) if (e.isIntersecting) { cambio = true; enlaces.forEach(a => a.setAttribute('aria-current', String(a.dataset.subnav === e.target.id))); }
