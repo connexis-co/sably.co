@@ -17,6 +17,7 @@ import HojaBlog from '../components/blog/HojaBlog.astro';
 import TarjetaArticulo from '../components/blog/TarjetaArticulo.astro';
 import EtiquetaCategoria from '../components/blog/EtiquetaCategoria.astro';
 import BuscadorBlog from '../components/blog/BuscadorBlog.astro';
+import { pulsoDeArticulos } from '@/lib/blog-pulso';
 import { Image as OptimizedImage } from 'astro:assets';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { blogCover, fechaCorta, minutosLectura, slugCategoria, titularPortada, tonoDeCategoria } from '@/lib/blog';
@@ -80,7 +81,9 @@ const entradilla = a.blogEntradillaPortada.slice(0, 200) || 'Guías prácticas p
 const ultima = posts[0]?.data.publishedAt;
 const nCursos = a.blogBandaCursos ? (await cms.getCourses()).length : 0;
 const minutos = (p: (typeof posts)[number]) => minutosLectura(p.richBody ? richText(p.richBody) : p.body ?? '');
-const tarjeta = { variante: a.blogTarjeta, movil: a.blogTarjetaMovil, leerMas: a.blogTarjetaLeerMas, sinFoto: a.blogPortadaSinFoto, estiloEtiqueta: a.blogEtiquetaEstilo } as const;
+const conComentarios = a.blogComentarios !== 'apagados';
+const pulsos = a.blogValoracion || conComentarios ? await pulsoDeArticulos([...recientes, ...enPagina].map(p => p.id)) : new Map();
+const tarjeta = { estrellas: a.blogValoracion && a.blogTarjetaEstrellas, comentarios: conComentarios && a.blogTarjetaComentarios, variante: a.blogTarjeta, movil: a.blogTarjetaMovil, leerMas: a.blogTarjetaLeerMas, sinFoto: a.blogPortadaSinFoto, estiloEtiqueta: a.blogEtiquetaEstilo } as const;
 const filaBanda = (Math.min(enPagina.length, 6)) - 1;
 const migas = [{ name: 'Inicio', url: `/${country.code}/` }, { name: 'Blog', url: '/blog/' }];
 ---
@@ -122,7 +125,7 @@ const migas = [{ name: 'Inicio', url: `/${country.code}/` }, { name: 'Blog', url
           {recientes.length > 0 && (
             <div class="v2-bp-recientes">
               <h2>Lo más reciente</h2>
-              <ul role="list">{recientes.map(p => <li><TarjetaArticulo post={p} {...tarjeta} variante="horizontal" leerMas={false} sizes="120px" /></li>)}</ul>
+              <ul role="list">{recientes.map(p => <li><TarjetaArticulo post={p} {...tarjeta} pulso={pulsos.get(p.id)} variante="horizontal" leerMas={false} sizes="120px" /></li>)}</ul>
             </div>
           )}
         </section>
@@ -154,7 +157,7 @@ const migas = [{ name: 'Inicio', url: `/${country.code}/` }, { name: 'Blog', url
           <ul class="v2-bp-rejilla" role="list" data-blog-rejilla data-movil={a.blogTarjetaMovil}>
             {enPagina.map((p, i) => (
               <>
-                <li style={`view-transition-name:t-${p.id}`}><TarjetaArticulo post={p} {...tarjeta} eager={!verDestacado && i < 2} /></li>
+                <li style={`view-transition-name:t-${p.id}`}><TarjetaArticulo post={p} {...tarjeta} pulso={pulsos.get(p.id)} eager={!verDestacado && i < 2} /></li>
                 <HuecoPublicidad posicion="blog-rejilla" indice={i} etiqueta="li" />
                 {a.blogBandaCursos && nCursos > 0 && i === filaBanda && (
                   <li class="v2-bp-ancho" data-banda>

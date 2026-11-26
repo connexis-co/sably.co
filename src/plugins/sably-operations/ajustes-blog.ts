@@ -86,6 +86,14 @@ export const BLOG_SETTINGS = {
     [['tipografica', 'Tipográfica con trama'], ['foto', 'Foto de la categoría']], 'tipografica'),
   blogEtiquetaEstilo: opciones('Blog · Estilo de la etiqueta de categoría', 'Por defecto: Punto de color.',
     [['punto', 'Punto de color'], ['pastilla', 'Pastilla de color'], ['filete', 'Texto con filete']], 'punto'),
+  // Valoración y comentarios: encendidos de fábrica, como estaban antes del rediseño (mismo backend y mismos datos)
+  blogValoracion: sino('Blog · Valoración con estrellas', 'Bloque «¿Te sirvió esta guía?» al final del artículo: sin registrarse, un voto por persona (y por conexión cada 24 h). La media solo se enseña con 5 votos o más de 5 personas distintas y nunca va en el marcado para Google. Usa los mismos votos guardados que la valoración anterior. Por defecto: encendida.', true),
+  blogEstrellasCabecera: sino('Blog · Estrellas bajo el título del artículo', 'Solo con la valoración encendida: la media real o «Sé el primero en valorar», que lleva al bloque de valoración. Por defecto: encendido.', true),
+  blogTarjetaEstrellas: sino('Blog · Estrellas en las tarjetas', 'Solo con la valoración encendida: la media real o «Sin valoraciones aún». Por defecto: encendido.', true),
+  blogComentarios: opciones('Blog · Comentarios', '«Activados»: se ven los aprobados y se puede escribir (con moderación previa, Turnstile y consentimiento). «Solo lectura»: se ven los aprobados y el formulario no sale. Son los mismos comentarios guardados de siempre. Por defecto: Activados.',
+    [['apagados', 'Apagados'], ['lectura', 'Solo lectura (sin formulario)'], ['activados', 'Activados']], 'activados'),
+  blogComentariosPlegados: sino('Blog · Comentarios plegados', 'El bloque sale cerrado con «Escribir un comentario»; el texto de los comentarios sigue en el HTML. Por defecto: encendido.', true),
+  blogTarjetaComentarios: sino('Blog · Número de comentarios en las tarjetas', 'Solo con comentarios encendidos y si hay alguno aprobado. Por defecto: encendido.', true),
 } as const satisfies Record<string, SettingField>;
 
 export type ClaveBlog = keyof typeof BLOG_SETTINGS;

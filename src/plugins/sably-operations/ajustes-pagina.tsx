@@ -168,7 +168,8 @@ export function AjustesPage() {
       {seccion(['blogCompartirRedes', 'blogCompartirPosiciones', 'blogNarracionFija'], 'Artículo · compartir y narración')}
       {seccion(['blogCursoMitad', 'blogLlamadaFinal', 'blogCursosSugeridos', 'blogArticulosSugeridos'], 'Artículo · cursos y sugeridos')}
       {seccion(['blogTarjeta', 'blogTarjetaMovil', 'blogTarjetaLeerMas', 'blogPortadaSinFoto', 'blogEtiquetaEstilo'], 'Tarjetas y etiquetas')}
-      <Enlaces items={[['Artículos', 'Texto, portada, categoría y preguntas de cada artículo.', `${ADMIN}/content/blog`]]} />
+      {seccion(['blogValoracion', 'blogEstrellasCabecera', 'blogTarjetaEstrellas', 'blogComentarios', 'blogComentariosPlegados', 'blogTarjetaComentarios'], 'Valoración y comentarios')}
+      <Enlaces items={[['Artículos', 'Texto, portada, categoría y preguntas de cada artículo.', `${ADMIN}/content/blog`], ['Moderar comentarios y valoraciones', 'Los comentarios nacen pendientes: se publican al aprobarlos.', `${ADMIN}/plugins/sably-operations/operations`]]} />
     </>; break;
     case 'medios': cuerpo = <>
       <WidgetEditor only="video" />
