@@ -16,6 +16,12 @@ export const CAMPOS_BLOG = [
   { slug: 'cabecera', label: 'Presentación · Cabecera', type: 'select', defaultValue: 'Heredar del panel',
     validation: { options: ['Heredar del panel', 'A · Foto a sangre', 'B · Título primero', 'C · Dos columnas', 'D · Mínima, sin foto',
       'E · Editorial, titular grande', 'F · Vídeo protagonista', 'G · Narración protagonista', 'H · Color de la categoría', 'J · Título con el índice al lado'] } },
+  { slug: 'indice', label: 'Presentación · Índice', type: 'select', defaultValue: 'Heredar del panel',
+    validation: { options: ['Heredar del panel', 'Lateral', 'Al inicio', 'Ninguno'] } },
+  { slug: 'publicidad', label: 'Presentación · Publicidad', type: 'select', defaultValue: 'Heredar del panel',
+    validation: { options: ['Heredar del panel', 'Ninguna en este artículo'] } },
+  { slug: 'curso_relacionado', label: 'Presentación · Curso relacionado (dirección o slug; vacío = el primero que enlaza el texto)', type: 'string' },
+  { slug: 'actualizado_el', label: 'Presentación · Actualizado el (solo si se revisó el contenido)', type: 'datetime' },
 ];
 
 export async function camposQueFaltan(registry) {

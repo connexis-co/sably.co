@@ -4,7 +4,8 @@
  *  - Progreso: si el navegador no tiene `animation-timeline: view()`, escribe --avance en la barra; además pone el
  *    porcentaje leído en el índice lateral. Un solo listener de scroll pasivo con requestAnimationFrame.
  *  - Índice: apartado activo = último encabezado que cruzó el 24 % superior de la ventana (aria-current="location"),
- *    indicador coral que se desliza, píldora «Índice · 2 de 4» y hoja <dialog> en móvil.
+ *    indicador coral que se desliza, línea de progreso vertical en el lateral, píldora «Índice · 2 de 4» y hoja
+ *    <dialog> en móvil, o barra superior con el apartado actual que despliega la lista.
  *  - Compartir: copiar enlace con aviso en role="status"; «Compartir» del sistema solo con puntero táctil.
  *  - Ancla «#» junto a cada apartado, ayuda «Desliza…» en tablas que desbordan, «Escuchar» que lleva al reproductor.
  *  - Narración fija: mientras suena y el reproductor salió por arriba, queda abajo (barra en móvil, píldora en
@@ -39,16 +40,18 @@ export function prepararArticulo() {
   const lectura = $('.v2-ba-lectura');
   const barra = $('[data-progreso]');
   const porcentaje = $('[data-porcentaje]');
+  const progresoIndice = $('[data-progreso-indice]');
   const sinLinea = !CSS.supports('animation-timeline: view()') && !matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- Progreso y porcentaje ---------- */
-  if (lectura && (barra || porcentaje)) {
+  if (lectura && (barra || porcentaje || progresoIndice)) {
     medirAlQuieto(() => {
       const r = lectura.getBoundingClientRect();
       const total = r.height - innerHeight;
       const v = Math.min(1, Math.max(0, -r.top / (total > 0 ? total : 1)));
       if (barra && sinLinea) barra.style.setProperty('--avance', v.toFixed(4));
       if (porcentaje) porcentaje.textContent = `${Math.round(v * 100)} %`;
+      progresoIndice?.style.setProperty('--avance-indice', v.toFixed(4));
     });
   }
 
@@ -59,6 +62,8 @@ export function prepararArticulo() {
   const lateral = $('[data-indice-lateral]');
   const indicador = $('[data-indicador]');
   const pildoraTexto = $('[data-pildora-texto]');
+  const barraTexto = $('[data-barra-texto]');
+  const barraN = $('[data-barra-n]');
   const principales = encabezados.filter(h => h.tagName === 'H2');
   let activo = '';
   const marcar = (id: string) => {
@@ -74,9 +79,11 @@ export function prepararArticulo() {
       const caja = lateral!.closest<HTMLElement>('.v2-ba-pegado');
       if (caja && caja.scrollHeight > caja.clientHeight) caja.scrollTo({ top: enLateral.offsetTop - caja.clientHeight / 3 });
     }
-    if (pildoraTexto && principales.length) {
-      const n = principales.filter(h => h.getBoundingClientRect().top < innerHeight * 0.24).length;
-      pildoraTexto.textContent = `Índice · ${Math.max(1, n)} de ${principales.length}`;
+    if ((pildoraTexto || barraTexto) && principales.length) {
+      const n = Math.max(1, principales.filter(h => h.getBoundingClientRect().top < innerHeight * 0.24).length);
+      if (pildoraTexto) pildoraTexto.textContent = `Índice · ${n} de ${principales.length}`;
+      if (barraTexto) barraTexto.textContent = principales[n - 1]!.textContent?.replace(/#$/, '').trim() ?? '';
+      if (barraN) barraN.textContent = `${n}/${principales.length}`;
     }
   };
   if (encabezados.length) {
@@ -87,6 +94,8 @@ export function prepararArticulo() {
     };
     const io = new IntersectionObserver(recalcular, { rootMargin: '0px 0px -76% 0px' });
     encabezados.forEach(h => io.observe(h));
+    // Un salto (ancla, «Volver arriba», teclado Inicio/Fin) no cruza la línea fotograma a fotograma y el observador no avisa.
+    addEventListener('scrollend', recalcular, { passive: true });
     recalcular();
   }
 
@@ -104,6 +113,40 @@ export function prepararArticulo() {
     pildora.addEventListener('click', () => hoja.showModal());
     $('[data-cerrar-hoja]', hoja)?.addEventListener('click', () => hoja.close());
     hoja.addEventListener('click', e => { if (e.target === hoja || (e.target as Element).closest('a')) hoja.close(); });
+  }
+
+  /* ---------- Barra superior del índice (móvil) ---------- */
+  const franja = $('[data-indice-barra]');
+  const boton = franja && $<HTMLButtonElement>('[data-indice-barra-boton]', franja);
+  const lista = franja && $('[data-indice-barra-lista]', franja);
+  if (franja && boton && lista && inicio) {
+    let pasado = false, subiendo = false, escribiendo = false, ultimoY = scrollY;
+    const abierta = () => boton.getAttribute('aria-expanded') === 'true';
+    const abrir = (si: boolean) => { boton.setAttribute('aria-expanded', String(si)); lista.hidden = !si; };
+    const pintar = () => {
+      const visible = pasado && (!subiendo || abierta()) && !escribiendo;
+      if (!visible && abierta()) abrir(false);
+      franja.toggleAttribute('data-visible', visible);
+      franja.inert = !visible;
+    };
+    // Pasado = el índice del inicio quedó por encima de la ventana. Se mide al desplazar (no con un observador: un
+    // salto de ancla lo deja atrás sin «cruzarlo»). Se esconde al subir, con 8 px de margen contra el temblor del dedo.
+    const medir = () => {
+      const y = scrollY, d = y - ultimoY;
+      const ahora = inicio.getBoundingClientRect().bottom < 0;
+      const cambio = ahora !== pasado || (Math.abs(d) >= 8 && subiendo !== d < 0);
+      if (Math.abs(d) >= 8) { subiendo = d < 0; ultimoY = y; }
+      pasado = ahora;
+      if (cambio) pintar();
+    };
+    medirAlQuieto(medir);
+    addEventListener('scrollend', medir, { passive: true });
+    document.addEventListener('focusin', e => { escribiendo = (e.target as Element).matches('textarea, input:not([type=checkbox]):not([type=radio])'); pintar(); });
+    document.addEventListener('focusout', () => { escribiendo = false; pintar(); });
+    boton.addEventListener('click', () => abrir(!abierta()));
+    lista.addEventListener('click', e => { if ((e.target as Element).closest('a')) { abrir(false); subiendo = false; } });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && abierta()) { abrir(false); boton.focus(); } });
+    document.addEventListener('click', e => { if (abierta() && !franja.contains(e.target as Node)) abrir(false); });
   }
 
   /* ---------- Compartir ---------- */
@@ -132,12 +175,31 @@ export function prepararArticulo() {
     a.addEventListener('click', () => { navigator.clipboard?.writeText(a.href).then(() => avisar('Enlace a la sección copiado'), () => {}); });
     h.insertAdjacentElement('beforeend', a);
   }
-  for (const t of $$('[data-prosa] .v2-tabla')) {
+  for (const t of $$('[data-prosa] :is(.v2-tabla, .emdash-table-wrapper)')) {
     if (t.scrollWidth <= t.clientWidth + 1) continue;
     t.toggleAttribute('data-desborda', true);
     const ayuda = document.createElement('p');
     ayuda.className = 'v2-tabla-ayuda'; ayuda.textContent = '↔ Desliza para ver toda la tabla';
     t.insertAdjacentElement('afterend', ayuda);
+  }
+  /* Carrusel de cursos dentro del texto: flechas a la tarjeta siguiente (sin JS queda el desplazamiento táctil). */
+  for (const c of $$('[data-carrusel]')) {
+    const fila = $('[data-carrusel-fila]', c);
+    const pasos = $$<HTMLButtonElement>('[data-carrusel-paso]', c);
+    if (!fila || pasos.length < 2 || fila.scrollWidth <= fila.clientWidth + 1) continue;
+    const pintar = () => {
+      pasos[0]!.disabled = fila.scrollLeft < 4;
+      pasos[1]!.disabled = fila.scrollLeft + fila.clientWidth > fila.scrollWidth - 4;
+    };
+    for (const b of pasos) {
+      b.hidden = false;
+      b.addEventListener('click', () => {
+        const ancho = (fila.firstElementChild as HTMLElement | null)?.offsetWidth ?? fila.clientWidth;
+        fila.scrollBy({ left: Number(b.dataset.carruselPaso) * (ancho + 16), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+      });
+    }
+    fila.addEventListener('scroll', pintar, { passive: true });
+    pintar();
   }
   $('[data-escuchar]')?.addEventListener('click', () => {
     const boton = $<HTMLButtonElement>('#narracion [data-medio-alternar]');
@@ -163,5 +225,26 @@ export function prepararArticulo() {
     audio.addEventListener('pause', pintar);
     audio.addEventListener('ended', pintar);
     $('[data-narracion-cerrar]', caja)?.addEventListener('click', () => { audio.pause(); cerrado = true; pintar(); });
+  }
+
+  /* ---------- «Seguir escuchando» en la página siguiente ---------- */
+  // Solo se anota QUÉ narración quedó a medias; el punto lo guarda el controlador de medios en su propia clave
+  // (sably:medio:<ruta del audio>) y lo borra al terminar. La píldora la pinta SeguirEscuchando.astro.
+  const seguir = $('[data-seguir]');
+  const audioSeguir = seguir && $<HTMLAudioElement>('audio', seguir);
+  if (seguir && audioSeguir) {
+    const anotar = () => {
+      const src = new URL(audioSeguir.currentSrc || audioSeguir.src, location.href);
+      const medio = $('[data-medio]', seguir);
+      try {
+        localStorage.setItem('sably:seguir', JSON.stringify({
+          u: location.pathname, t: medio?.dataset.medioTitulo ?? document.title, a: src.href, s: src.pathname,
+          d: Number.isFinite(audioSeguir.duration) ? Math.round(audioSeguir.duration) : Number($<HTMLInputElement>('[data-medio-barra]', seguir)?.max) || 0,
+          h: Date.now(),
+        }));
+      } catch { /* sin almacenamiento */ }
+    };
+    audioSeguir.addEventListener('play', anotar);
+    audioSeguir.addEventListener('pause', anotar);
   }
 }

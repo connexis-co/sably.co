@@ -48,10 +48,10 @@ export const BLOG_SETTINGS = {
   blogIndiceEscritorio: opciones('Blog · Índice en escritorio',
     '«Lateral fija» acompaña al leer y marca el apartado actual; «Lateral» se queda arriba. Las demás lo ponen dentro del texto, antes del primer párrafo. Por defecto: Lateral fija.',
     [['lateral-fija', 'Lateral fija con el apartado actual'], ['lateral', 'Lateral que no acompaña'], ['plegable', 'Dentro del texto, desplegable cerrado'], ['abierto', 'Dentro del texto, desplegable abierto'], ['tarjeta', 'Dentro del texto, tarjeta numerada'], ['ninguno', 'Sin índice']], 'lateral-fija'),
-  blogIndiceProgreso: sino('Blog · Porcentaje leído en el índice lateral', '«38 %» en la cabeza del índice y una línea coral junto a la lista. Por defecto: encendido.', true),
+  blogIndiceProgreso: sino('Blog · Porcentaje leído en el índice lateral', '«38 %» en la cabeza del índice y la línea junto a la lista, que se llena de coral al leer. Por defecto: encendido.', true),
   blogIndiceMovil: opciones('Blog · Índice en móvil',
-    '«Plegable y botón flotante»: el índice va cerrado al inicio y, al bajar, una píldora «Índice · 2 de 4» abre la lista en una hoja. Por defecto: Plegable y botón flotante.',
-    [['plegable-flotante', 'Plegable y botón flotante'], ['plegable', 'Solo plegable al inicio'], ['abierto', 'Abierto al inicio'], ['ninguno', 'Sin índice']], 'plegable-flotante'),
+    '«Plegable y botón flotante»: el índice va cerrado al inicio y, al bajar, una píldora «Índice · 2 de 4» abre la lista en una hoja. «Plegable y barra superior»: al bajar, una franja fina bajo la cabecera dice en qué apartado vas y, al tocarla, despliega la lista; se esconde al subir. Por defecto: Plegable y botón flotante.',
+    [['plegable-flotante', 'Plegable y botón flotante'], ['plegable-barra', 'Plegable y barra superior con el apartado actual'], ['plegable', 'Solo plegable al inicio'], ['abierto', 'Abierto al inicio'], ['ninguno', 'Sin índice']], 'plegable-flotante'),
   blogIndiceNiveles: opciones('Blog · Niveles del índice', 'La hoja del móvil lleva siempre solo los apartados principales. Por defecto: H2 y H3.',
     [['h2-h3', 'Apartados y subapartados (H2 y H3)'], ['h2', 'Solo apartados (H2)']], 'h2-h3'),
   blogIndiceMinimo: opciones('Blog · Apartados mínimos para mostrar el índice', 'Con menos apartados no sale. Por defecto: 3.',
@@ -67,6 +67,7 @@ export const BLOG_SETTINGS = {
     description: 'Separadas por comas: metadatos (fila bajo el título), carril (columna fija a la izquierda, desde 1280 px) y final (bloque de cierre). Vacío: en ningún sitio. Por defecto: metadatos, carril, final.',
     default: 'metadatos, carril, final' },
   // Narración
+  blogNarracionSeguir: sino('Blog · «Seguir escuchando» en la página siguiente', 'Si alguien deja una narración a medias y pasa a otra página del sitio, una píldora abajo a la izquierda le deja seguir escuchándola allí mismo o volver al artículo en ese minuto. Sale durante la visita y se cierra con su ×. Por defecto: encendido.', true),
   blogNarracionFija: sino('Blog · Reproductor de la narración fijo al bajar', 'Mientras suena y el reproductor sale de la pantalla, queda una píldora abajo a la izquierda (barra en móvil) con pausa, tiempo y cerrar. Solo en artículos con narración. Por defecto: encendido.', true),
   // Cursos
   blogCursoMitad: sino('Blog · Curso relacionado a mitad del texto', 'Un solo bloque con foto, precio real del país y botón, tras el apartado que deja atrás el 40 % del texto. El curso es el primero que el artículo enlaza; sin curso enlazado no sale. Por defecto: encendido.', true),
@@ -89,6 +90,7 @@ export const BLOG_SETTINGS = {
     [['punto', 'Punto de color'], ['pastilla', 'Pastilla de color'], ['filete', 'Texto con filete']], 'punto'),
   // Valoración y comentarios: encendidos de fábrica, como estaban antes del rediseño (mismo backend y mismos datos)
   blogValoracion: sino('Blog · Valoración con estrellas', 'Bloque «¿Te sirvió esta guía?» al final del artículo: sin registrarse, un voto por persona (y por conexión cada 24 h). La media solo se enseña con 5 votos o más de 5 personas distintas y nunca va en el marcado para Google. Usa los mismos votos guardados que la valoración anterior. Por defecto: encendida.', true),
+  blogMarcadoValoracion: sino('Blog · Estrellas del artículo en los datos para Google', 'Añade la valoración media al marcado del artículo (AggregateRating), solo con 5 votos o más de 5 personas distintas y con los mismos datos que se ven en la página. Ojo: Google no muestra estrellas para artículos y Search Console rechazó este marcado en agosto de 2026; si vuelve a dar error, apágalo aquí. Por defecto: encendido (decisión de JP, 26-nov).', true),
   blogEstrellasCabecera: sino('Blog · Estrellas bajo el título del artículo', 'Solo con la valoración encendida: la media real o «Sé el primero en valorar», que lleva al bloque de valoración. Por defecto: encendido.', true),
   blogTarjetaEstrellas: sino('Blog · Estrellas en las tarjetas', 'Solo con la valoración encendida: la media real o «Sin valoraciones aún». Por defecto: encendido.', true),
   blogComentarios: opciones('Blog · Comentarios', '«Activados»: se ven los aprobados y se puede escribir (con moderación previa, Turnstile y consentimiento). «Solo lectura»: se ven los aprobados y el formulario no sale. Son los mismos comentarios guardados de siempre. Por defecto: Activados.',

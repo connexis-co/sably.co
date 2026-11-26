@@ -165,10 +165,10 @@ export function AjustesPage() {
       {seccion(['blogFiltrosEstilo', 'blogFiltrosMovil', 'blogFiltrosCuenta', 'blogPaginacion', 'blogVerMasAuto', 'blogPorPagina'], 'Portada · filtros y paginación')}
       {seccion(['blogCabecera', 'blogEntradillaEstilo', 'blogTamanoTexto', 'blogProgreso', 'blogProgresoMinimo'], 'Artículo · cabecera y lectura')}
       {seccion(['blogIndiceEscritorio', 'blogIndiceProgreso', 'blogIndiceMovil', 'blogIndiceNiveles', 'blogIndiceMinimo', 'blogCarrilDerecho'], 'Artículo · índice')}
-      {seccion(['blogCompartirRedes', 'blogCompartirPosiciones', 'blogNarracionFija'], 'Artículo · compartir y narración')}
+      {seccion(['blogCompartirRedes', 'blogCompartirPosiciones', 'blogNarracionFija', 'blogNarracionSeguir'], 'Artículo · compartir y narración')}
       {seccion(['blogCursoMitad', 'blogLlamadaFinal', 'blogCursosSugeridos', 'blogArticulosSugeridos'], 'Artículo · cursos y sugeridos')}
       {seccion(['blogTarjeta', 'blogTarjetaMovil', 'blogTarjetaLeerMas', 'blogPortadaSinFoto', 'blogEtiquetaEstilo'], 'Tarjetas y etiquetas')}
-      {seccion(['blogValoracion', 'blogEstrellasCabecera', 'blogTarjetaEstrellas', 'blogComentarios', 'blogComentariosPlegados', 'blogTarjetaComentarios'], 'Valoración y comentarios')}
+      {seccion(['blogValoracion', 'blogEstrellasCabecera', 'blogMarcadoValoracion', 'blogTarjetaEstrellas', 'blogComentarios', 'blogComentariosPlegados', 'blogTarjetaComentarios'], 'Valoración y comentarios')}
       <Enlaces items={[['Artículos', 'Texto, portada, categoría y preguntas de cada artículo.', `${ADMIN}/content/blog`], ['Moderar comentarios y valoraciones', 'Los comentarios nacen pendientes: se publican al aprobarlos.', `${ADMIN}/plugins/sably-operations/operations`]]} />
     </>; break;
     case 'medios': cuerpo = <>

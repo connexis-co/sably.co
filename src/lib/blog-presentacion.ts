@@ -9,6 +9,14 @@ export type Cabecera = (typeof CABECERAS)[number];
 export interface PresentacionArticulo {
   /** Cabecera propia del artículo; sin ella, la del panel (`blogCabecera`). */
   cabecera?: Cabecera;
+  /** Índice propio: lateral, al inicio del texto o ninguno; sin él, el del panel. */
+  indice?: 'lateral' | 'inicio' | 'ninguno';
+  /** `ninguna`: ningún hueco de publicidad en este artículo. */
+  publicidad?: 'ninguna';
+  /** Slug del curso relacionado elegido a mano; sin él, el primero que enlaza el texto. */
+  cursoRelacionado?: string;
+  /** Fecha de la última revisión del contenido («Actualizado el…» y dateModified). */
+  actualizadoEl?: Date;
 }
 
 /** Los select de EmDash guardan el texto de la opción («A · Foto a sangre»): vale la letra de delante. */
@@ -26,6 +34,15 @@ export function presentacionDeArticulo(d: Record<string, unknown>): Presentacion
   const salida: PresentacionArticulo = {};
   const cabecera = letra(d.cabecera, CABECERAS);
   if (cabecera) salida.cabecera = cabecera;
+  const indice = typeof d.indice === 'string' ? d.indice.trim().toLowerCase() : '';
+  if (indice === 'lateral') salida.indice = 'lateral';
+  else if (indice === 'al inicio') salida.indice = 'inicio';
+  else if (indice === 'ninguno') salida.indice = 'ninguno';
+  if (typeof d.publicidad === 'string' && /^ninguna/i.test(d.publicidad.trim())) salida.publicidad = 'ninguna';
+  const curso = typeof d.curso_relacionado === 'string' ? d.curso_relacionado.trim().replace(/[?#].*$/, '').replace(/\/+$/, '').split('/').pop() : '';
+  if (curso && /^[a-z0-9-]+$/.test(curso)) salida.cursoRelacionado = curso;
+  const fecha = typeof d.actualizado_el === 'string' || d.actualizado_el instanceof Date ? new Date(d.actualizado_el) : null;
+  if (fecha && Number.isFinite(fecha.valueOf())) salida.actualizadoEl = fecha;
   return salida;
 }
 

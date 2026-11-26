@@ -11,6 +11,7 @@ import { sqlite } from 'emdash/db';
 import { d1, r2, sandbox, kvCache } from '@emdash-cms/cloudflare';
 import { targetConfig } from './scripts/environment-config.mjs';
 import { brevoPlugin } from './src/plugins/sably-brevo/index.mjs';
+import { BLOQUES_ARTICULO } from './src/plugins/sably-operations/bloques-articulo.mjs';
 const target = targetConfig();
 const nodeRuntime = process.env.SABLY_RUNTIME === 'node';
 const dataDirectory = process.env.SABLY_DATA_DIR || './data';
@@ -61,7 +62,7 @@ export default defineConfig({
       plugins: [
         // Orden del menú: «Ajustes del sitio» primero. Mover sably-operations no cambia el orden de los page:fragments
         // (solo lo registran integrations y whatsapp, que siguen en el mismo orden relativo).
-        { id: 'sably-operations', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-operations/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-operations/admin.tsx', import.meta.url)), adminPages: [{ path: '/ajustes', label: 'Ajustes del sitio', icon: 'settings' }, { path: '/operations', label: 'Moderación y contactos', icon: 'sliders' }] },
+        { id: 'sably-operations', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-operations/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-operations/admin.tsx', import.meta.url)), adminPages: [{ path: '/ajustes', label: 'Ajustes del sitio', icon: 'settings' }, { path: '/operations', label: 'Moderación y contactos', icon: 'sliders' }], portableTextBlocks: BLOQUES_ARTICULO },
         { id: 'sably-integrations', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-integrations/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-integrations/admin.tsx', import.meta.url)), adminPages: [{ path: '/integrations', label: 'Medición y conversiones', icon: 'chart-bar' }] },
         { id: 'sably-seo', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-seo/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-seo/admin.tsx', import.meta.url)), adminPages: [{ path: '/seo', label: 'Auditoría SEO', icon: 'search' }] },
         { id: 'sably-narracion', version: '1.0.0', entrypoint: fileURLToPath(new URL('./src/plugins/sably-narracion/index.ts', import.meta.url)), adminEntry: fileURLToPath(new URL('./src/plugins/sably-narracion/admin.tsx', import.meta.url)), adminPages: [{ path: '/narraciones', label: 'Narraciones', icon: 'headphones' }] },
