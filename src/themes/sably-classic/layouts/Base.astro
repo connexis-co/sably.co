@@ -150,6 +150,15 @@ for (const font of [interFont, outfitFont]) Astro.response.headers.append('Link'
 const [navV2, promoV2] = temaV2
   ? await Promise.all([datosNavegacion(country, Astro.locals), promoDeLaPagina(Astro, { pais: country.code, proveedor, sinCupon })])
   : [null, null];
+/* Botón de la barra a los cursos de la campaña (panel → Campañas y cupones). En la ficha, según su ajuste. */
+const ajBoton = temaPeticion.ajustes.barraCampana.boton;
+const botonBarra = (() => {
+  if (!promoV2 || !ajBoton.activo || (pageType === 'course' && ajBoton.ficha === 'nada')) return undefined;
+  const destino = new URL((ajBoton.destino || '/{pais}/cursos/?oferta=1').replaceAll('{pais}', country.code), SITE.url);
+  const clave = Astro.url.searchParams.get('promo');
+  if (clave && !destino.searchParams.has('promo')) destino.searchParams.set('promo', clave);
+  return { texto: ajBoton.texto, href: destino.pathname + destino.search + destino.hash, discreto: pageType === 'course' };
+})();
 const pieV2: VariantePie = pie ?? (pageType === 'course' ? 'compacto' : 'completo');
 const pageContext = { ...createPublicPageContext({
   Astro, kind: Astro.locals.sablyContent ? 'content' : 'custom',
@@ -219,7 +228,7 @@ const cssBarra = promoV2 ? minificar(cssBarraCampana) : '';
     </a>
     {navV2 ? (
       <>
-        <BarraCampanaV2 promo={promoV2} cierre={temaPeticion.ajustes.barraCampana.cierre} sinReloj={pageType === 'course'} fija={temaPeticion.ajustes.barraCampana.fija} />
+        <BarraCampanaV2 promo={promoV2} cierre={temaPeticion.ajustes.barraCampana.cierre} sinReloj={pageType === 'course'} fija={temaPeticion.ajustes.barraCampana.fija} boton={botonBarra} />
         <CabeceraV2 {country} {pathAfterCountry} nav={navV2} promo={promoV2} />
       </>
     ) : (

@@ -50,6 +50,7 @@ test('ajustes del panel con sus valores por defecto', () => {
   assert.equal(vacios.mostrarCreador, true);
   assert.equal(vacios.mostrarDocente, true, 'el docente real se ve por defecto');
   assert.equal(vacios.mostrarCiudades, true, 'la lista de ciudades se ve por defecto');
+  assert.equal(vacios.selectorCiudad, true, 'la ciudad en «País y moneda» está encendida por defecto');
   assert.equal(vacios.estiloCampo, 'outlined');
   const filas = [
     { name: 'plugin:sably-operations:settings:temaPorDefecto', value: '"v2"' },
@@ -58,6 +59,7 @@ test('ajustes del panel con sus valores por defecto', () => {
     { name: 'plugin:sably-operations:settings:mostrarCreador', value: 'false' },
     { name: 'plugin:sably-operations:settings:mostrarDocente', value: 'false' },
     { name: 'plugin:sably-operations:settings:mostrarCiudades', value: 'false' },
+    { name: 'plugin:sably-operations:settings:selectorCiudad', value: 'false' },
     { name: 'plugin:sably-operations:settings:cajaTitulo', value: '""' },
     { name: 'plugin:otro:settings:temaPorDefecto', value: '"clasico"' },
   ];
@@ -68,6 +70,7 @@ test('ajustes del panel con sus valores por defecto', () => {
   assert.equal(a.mostrarCreador, false);
   assert.equal(a.mostrarDocente, false);
   assert.equal(a.mostrarCiudades, false);
+  assert.equal(a.selectorCiudad, false);
   assert.equal(a.caja.titulo, '', 'el título vacío apaga el título de la caja');
 });
 

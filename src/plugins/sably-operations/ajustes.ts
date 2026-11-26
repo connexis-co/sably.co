@@ -26,6 +26,19 @@ export const settingsSchema = {
     default: 'outlined',
   },
   // Tarjetas de cursos entre 1024 y 1279 px (26-nov-2026, decisión de JP: «lo más elegante»)
+  pieBorde: {
+    type: 'select',
+    label: 'Pie · Reborde coral sobre el corte redondeado',
+    description: 'Bandas planas de coral que asoman por encima del pie con su mismo radio, como capas detrás de él (estilo visitvalle). «Escalonado»: tres bandas, la más fuerte pegada al pie. «Inverso»: tres bandas, la más clara pegada al pie. «Dos anchas»: dos bandas gruesas. «Cuatro finas»: cuatro bandas delgadas. «Tenue»: una sola franja rosada clara (la de antes). «Sin reborde»: nada. Por defecto: Escalonado.',
+    options: [{ value: 'escalonado', label: 'Escalonado' }, { value: 'inverso', label: 'Inverso' }, { value: 'anchas', label: 'Dos anchas' }, { value: 'finas', label: 'Cuatro finas' }, { value: 'tenue', label: 'Tenue' }, { value: 'ninguno', label: 'Sin reborde' }],
+    default: 'escalonado',
+  },
+  selectorCiudad: {
+    type: 'boolean',
+    label: 'Sitio y tema · Ciudad en «País y moneda»',
+    description: 'Debajo del país, «Tu ciudad (opcional)» con las ciudades del país y «Solo el país». La elección se guarda solo en el navegador del visitante: escribe la ciudad en los mensajes de WhatsApp, la marca en «Disponible online en {país}» y la manda en el evento select_country. No crea páginas ni cambia lo que ven los buscadores. Apagado no deja nada en la página. Por defecto: encendido.',
+    default: true,
+  },
   tarjetasColumnasMedio: {
     type: 'select',
     label: 'Sitio y tema · Tarjetas de cursos entre 1024 y 1279 px',
@@ -52,6 +65,31 @@ export const settingsSchema = {
     label: 'Campañas · Barra de campaña fija al desplazarse',
     description: 'La barra de arriba se queda pegada encima de la cabecera mientras se baja por la página, hasta que alguien la cierre con la ×. Apagado: se va con el resto de la página al bajar. Por defecto: encendido.',
     default: true,
+  },
+  barraCampanaBoton: {
+    type: 'boolean',
+    label: 'Campañas · Botón «Ver cursos» en la barra',
+    description: 'Un botón en la barra de arriba que lleva a los cursos a los que aplica la campaña vigente, en el listado del país del visitante. En escritorio va en la misma línea que el contador; en móvil, debajo del nombre de la campaña junto al contador (a 360 px, debajo a todo el ancho). El clic se mide en GA4 como select_promotion. Por defecto: encendido.',
+    default: true,
+  },
+  barraCampanaBotonTexto: {
+    type: 'string',
+    label: 'Campañas · Texto del botón de la barra',
+    description: 'Variable {pct}: el porcentaje de la campaña vigente (sale de la campaña, nunca va fijo). Hasta 32 caracteres; si se pasa o va vacío, se usa el de fábrica. Por defecto: «Ver cursos con {pct}».',
+    default: 'Ver cursos con {pct}',
+  },
+  barraCampanaBotonDestino: {
+    type: 'string',
+    label: 'Campañas · Destino del botón de la barra',
+    description: 'Ruta del sitio que empieza por / (nada de dominios externos). Variable {pais}: el país de la página (co, mx…). Si la página trae ?promo=<clave> se conserva. Vacío: el listado del país filtrado a los cursos de la campaña, /{pais}/cursos/?oferta=1 (no se indexa y su canónica es el listado normal). Por defecto: vacío.',
+    default: '',
+  },
+  barraCampanaBotonFicha: {
+    type: 'select',
+    label: 'Campañas · Botón de la barra en la ficha del curso',
+    description: 'En la ficha el botón de pago manda: llevar a otros cursos le quita foco. «Nada»: la barra de la ficha no lleva botón. «Enlace discreto»: un enlace de texto pequeño, sin forma de botón (solo desde 640 px: en el celular no sale). Por defecto: Nada.',
+    options: [{ value: 'nada', label: 'Nada' }, { value: 'enlace', label: 'Enlace discreto' }],
+    default: 'nada',
   },
   // Caja de compra
   cajaVariante: {
@@ -141,9 +179,24 @@ export const settingsSchema = {
   certificadoAnimacion: {
     type: 'select',
     label: 'Ficha · Animación del certificado',
-    description: '«Destello»: al bajar, el certificado de ejemplo se endereza, un brillo lo cruza y el código de verificación entra como un sello. «Entrada»: solo sube con suavidad. «Ninguna»: quieto. Nadie lo ve si pidió menos movimiento. Por defecto: Destello.',
-    options: [{ value: 'destello', label: 'Destello' }, { value: 'entrada', label: 'Entrada' }, { value: 'ninguna', label: 'Ninguna' }],
-    default: 'destello',
+    description: '«Armado»: al asomar, el certificado de ejemplo se arma por piezas (marco, banda, texto línea a línea, talón y el QR como un sello), una sola vez. «Lateral»: entra desde un lado con un leve giro. «Revela»: una cortina se recoge y lo descubre. «Destello» y «Entrada»: ligados al desplazamiento (se enderezan o suben al bajar). Nunca se mueve con «reducir movimiento». Por defecto: Armado.',
+    options: [{ value: 'arma', label: 'Armado' }, { value: 'lateral', label: 'Lateral' }, { value: 'revela', label: 'Revela' }, { value: 'destello', label: 'Destello' }, { value: 'entrada', label: 'Entrada' }, { value: 'ninguna', label: 'Ninguna' }],
+    default: 'arma',
+  },
+  // Barra de compra fija en escritorio (26-nov-2026, decisión de JP: «arriba y abajo», como en el celular)
+  barraCompraEscritorio: {
+    type: 'select',
+    label: 'Ficha · Barra de compra en escritorio',
+    description: 'Desde 1024 px de ancho, al pasar la caja de compra. «Menú arriba y compra abajo»: arriba solo el menú interno (Sobre este curso, Temario…), centrado, y abajo una barra flotante con la foto del curso, el ahorro, el precio de hoy y el botón de pago. «Arriba y abajo»: el menú de arriba lleva además precio y botón, y sigue la barra de abajo. «Solo arriba»: menú con precio y botón, sin barra abajo (como antes del 26-nov). «Solo abajo»: sin menú arriba. Todo se oculta al volver a la caja o al llegar al cierre de la ficha. En el celular no cambia nada. Por defecto: Menú arriba y compra abajo.',
+    options: [{ value: 'menu-abajo', label: 'Menú arriba y compra abajo' }, { value: 'ambas', label: 'Arriba y abajo' }, { value: 'arriba', label: 'Solo arriba' }, { value: 'abajo', label: 'Solo abajo' }],
+    default: 'menu-abajo',
+  },
+  menuInternoAlineacion: {
+    type: 'select',
+    label: 'Ficha · Alineación del menú interno en escritorio',
+    description: 'Dónde van las secciones (Sobre este curso, Temario…) en el menú fijo de arriba cuando va solo, sin precio ni botón («Menú arriba y compra abajo»). Centrado equilibra la barra con la cabecera y con la píldora de compra de abajo, que también va centrada. Por defecto: Centrado.',
+    options: [{ value: 'centro', label: 'Centrado' }, { value: 'izquierda', label: 'A la izquierda' }, { value: 'derecha', label: 'A la derecha' }],
+    default: 'centro',
   },
   // Temario y bloques de la ficha (26-nov-2026, paquete 2 del pulido: C7, C10a, C10b)
   temarioEnfoque: {
@@ -425,9 +478,15 @@ export const settingsSchema = {
   portadaHeroeMovil: {
     type: 'select',
     label: 'Portada · Muro del héroe en el celular',
-    description: '«Tras los botones»: en el celular el muro (dos filas más bajas) va justo debajo de «Explorar cursos», antes de la línea de valoraciones, para que asome en la primera pantalla sin tapar el titular ni el buscador. «Al final»: debajo de todo el texto, como estaba. Solo afecta al muro y por debajo de 1024 px. Por defecto: Tras los botones.',
-    options: [{ value: 'tras-botones', label: 'Tras los botones (asoma en la primera pantalla)' }, { value: 'final', label: 'Al final del héroe' }],
-    default: 'tras-botones',
+    description: 'Dónde va el muro deslizable por debajo de 1024 px. «Tras el buscador» (de fábrica): a 390 × 844 se ven en la primera pantalla el titular, el buscador y el muro (dos filas más bajas); los botones quedan justo debajo. «Tras el titular»: el muro sube bajo el titular y empuja descripción y buscador. «Franja bajo la descripción»: una franja más baja entre la descripción y el buscador. «Tras los botones»: entre «Explorar cursos» y la línea de valoraciones. «Al final»: debajo de todo el texto. Solo afecta al muro.',
+    options: [
+      { value: 'tras-buscador', label: 'Tras el buscador (titular, buscador y muro a la vista)' },
+      { value: 'tras-titular', label: 'Tras el titular' },
+      { value: 'franja', label: 'Franja baja bajo la descripción' },
+      { value: 'tras-botones', label: 'Tras los botones' },
+      { value: 'final', label: 'Al final del héroe' },
+    ],
+    default: 'tras-buscador',
   },
   portadaOficioModo: {
     type: 'select',
@@ -520,9 +579,9 @@ export const NOSOTROS_CLAVES: ClaveAjuste[] = ['nosotrosDiseno', 'nosotrosCifras
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
-  { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo', 'tarjetasColumnasMedio'] },
-  { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', ...CAMPANA_CLAVES] },
-  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl', 'fichaCabezaMovil', 'fichaDescripcionLineas', 'fichaLeerMas'] },
+  { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo', 'tarjetasColumnasMedio', 'pieBorde', 'selectorCiudad'] },
+  { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', 'barraCampanaBoton', 'barraCampanaBotonTexto', 'barraCampanaBotonDestino', 'barraCampanaBotonFicha', ...CAMPANA_CLAVES] },
+  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'barraCompraEscritorio', 'menuInternoAlineacion', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl', 'fichaCabezaMovil', 'fichaDescripcionLineas', 'fichaLeerMas'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación, y el diseño de la página «Nosotros».', claves: NOSOTROS_CLAVES },
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },

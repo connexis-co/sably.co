@@ -12,7 +12,7 @@ const country = await cms.getCountry(Astro.params.country ?? '');
 if (!country) return new Response('Not found', {status:404});
 
 // Hub de ciudad: consolidado en la portada del país (ver city-redirect).
-if (country.cities.some(c => c.slug === slugDeCiudad(country.code, Astro.params.item))) return cityRedirect(Astro, `/${country.code}/`);
+if (country.cities.some(c => c.slug === slugDeCiudad(country.code, Astro.params.item))) return cityRedirect(Astro, `/${country.code}/`, slugDeCiudad(country.code, Astro.params.item));
 
 const content = await cms.resolveCourseContent(Astro.params.item ?? '', country.code);
 

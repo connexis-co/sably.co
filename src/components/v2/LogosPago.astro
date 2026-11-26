@@ -3,21 +3,44 @@
  * Logos de los medios de pago. Tarjeta y PayPal valen en todos los países; los
  * locales salen de la lista verificada de Hotmart (src/lib/medios-de-pago.ts) y
  * dependen de que el curso los tenga activados, por eso van aparte (`locales`).
+ *
+ * `fichas` (portada, ronda 5): cada medio en una ficha del mismo tamaño, y TODOS los
+ * locales verificados del país: con su logotipo si lo tenemos, si no con su nombre
+ * (nunca un logotipo inventado ni de un medio que no conste para ese país).
  */
-interface Props { pais: string; locales?: boolean; alto?: number; class?: string }
-const { pais, locales = true, alto = 20, class: clase } = Astro.props;
+import { LOCALES } from '@/lib/medios-de-pago';
+interface Props { pais: string; locales?: boolean; alto?: number; class?: string; fichas?: boolean }
+const { pais, locales = true, alto = 20, class: clase, fichas = false } = Astro.props;
 const LOGOS: Record<string, { src: string; alt: string; ancho: number }> = {
   visa: { src: '/v2/logos/visa.svg', alt: 'Visa', ancho: 3.08 },
   mastercard: { src: '/v2/logos/mastercard.svg', alt: 'Mastercard', ancho: 1.62 },
-  paypal: { src: '/v2/logos/paypal.svg', alt: 'PayPal', ancho: 3.15 },
+  paypal: { src: '/v2/logos/paypal.svg', alt: 'PayPal', ancho: 2.98 },
   pse: { src: '/v2/logos/pse.jpg', alt: 'PSE', ancho: 1 },
   nequi: { src: '/v2/logos/nequi.svg', alt: 'Nequi', ancho: 3.15 },
   oxxo: { src: '/v2/logos/oxxo.svg', alt: 'OXXO', ancho: 1.97 },
   'mercado-pago': { src: '/v2/logos/mercado-pago.png', alt: 'Mercado Pago', ancho: 1 },
 };
 const PORPAIS: Record<string, string[]> = { co: ['pse', 'nequi'], mx: ['oxxo', 'mercado-pago'], ar: ['mercado-pago'] };
-const lista = ['visa', 'mastercard', 'paypal', ...(locales ? PORPAIS[pais] ?? [] : [])];
+const clave = (nombre: string) => nombre.toLowerCase().replace(/\s+/g, '-');
+type Medio = { logo?: (typeof LOGOS)[string]; nombre: string };
+const lista: Medio[] = fichas
+  ? [...['visa', 'mastercard', 'paypal'], ...(locales ? LOCALES[pais] ?? [] : [])].map(n => ({ logo: LOGOS[clave(n)], nombre: LOGOS[clave(n)]?.alt ?? n }))
+  : ['visa', 'mastercard', 'paypal', ...(locales ? PORPAIS[pais] ?? [] : [])].map(k => ({ logo: LOGOS[k]!, nombre: LOGOS[k]!.alt }));
+/* En ficha: alto fijo y ancho máximo, para que un logotipo cuadrado (PSE) y uno apaisado (PayPal) pesen igual. */
+const altoFicha = (l: (typeof LOGOS)[string]) => Math.min(l.ancho < 1.5 ? alto + 4 : alto, Math.round(64 / l.ancho));
 ---
-<ul class:list={['flex flex-wrap items-center gap-x-4 gap-y-2', clase]} aria-label="Medios de pago">
-  {lista.map(clave => { const l = LOGOS[clave]!; return <li><img src={l.src} alt={l.alt} height={alto} width={Math.round(alto * l.ancho)} decoding="async" class="block object-contain" style={`height:${alto}px;width:auto`} /></li>; })}
-</ul>
+{fichas ? (
+  <ul class:list={['v2-pagos flex flex-wrap items-center gap-2', clase]} aria-label="Medios de pago">
+    {lista.map(m => (
+      <li class="v2-pago-ficha inline-flex h-10 min-w-[64px] items-center justify-center rounded-c-md bg-white px-3 ring-1 ring-navy-100">
+        {m.logo
+          ? <img src={m.logo.src} alt={m.nombre} height={altoFicha(m.logo)} width={Math.round(altoFicha(m.logo) * m.logo.ancho)} loading="lazy" decoding="async" class="block" style={`height:${altoFicha(m.logo)}px;width:auto`} />
+          : <span class="text-t13 font-semibold whitespace-nowrap text-navy-800">{m.nombre}</span>}
+      </li>
+    ))}
+  </ul>
+) : (
+  <ul class:list={['flex flex-wrap items-center gap-x-4 gap-y-2', clase]} aria-label="Medios de pago">
+    {lista.map(m => <li><img src={m.logo!.src} alt={m.nombre} height={alto} width={Math.round(alto * m.logo!.ancho)} decoding="async" class="block object-contain" style={`height:${alto}px;width:auto`} /></li>)}
+  </ul>
+)}

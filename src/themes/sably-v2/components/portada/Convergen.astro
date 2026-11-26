@@ -28,7 +28,7 @@ const desde = (i: number) => {
     <!-- Texto fijo que cambia por fases mientras las fotos se juntan; el H2 (la cifra real) es el que queda. -->
     <div class="v2-converge-fases">
       <p class="v2-converge-fase font-display" data-fase="1" aria-hidden="true">Empieza por <b>un oficio.</b></p>
-      <p class="v2-converge-fase font-display" data-fase="2" aria-hidden="true"><b>Doce oficios,</b> un solo catálogo.</p>
+      <p class="v2-converge-fase font-display" data-fase="2" aria-hidden="true"><b>Doce oficios,</b> una sola plataforma.</p>
       <h2 id="converge-titulo" class="v2-converge-cifra font-display"><b>{cursos} cursos</b> de {areas} áreas, con el precio de {paises} países.</h2>
     </div>
     <ul class="v2-converge-rejilla" role="list" aria-label="Algunos oficios de Sably">
@@ -75,8 +75,12 @@ const desde = (i: number) => {
     @media (prefers-reduced-motion: no-preference) {
       @supports (animation-timeline: view()) and (animation-range: contain 0% contain 100%) {
         .v2-converge { height: 200vh; height: 200svh; }
-        .v2-converge-escena { position: sticky; top: 0; min-height: 100vh; min-height: 100svh; align-content: center; padding-block: 72px 24px; }
+        .v2-converge-escena { position: sticky; top: var(--fijo-superior); min-height: calc(100vh - var(--fijo-superior)); min-height: calc(100svh - var(--fijo-superior)); align-content: center; padding-block: 12px 24px; }
         .v2-converge-fase { display: block; }
+        /* Pantallas bajas (portátil con la barra de campaña): la escena fijada tiene que caber bajo lo fijo de arriba,
+           o se va antes de terminar y el título queda cortado. La rejilla (4 columnas, fotos 4:3, 3 filas) se estrecha (sin bajar de 600 px:
+           las fotos tienen que leerse) para que quepa en 100svh − --fijo-superior. Con 900 px de alto no cambia nada. */
+        @media (min-width: 700px) { .v2-converge-rejilla { max-width: max(600px, calc((100svh - var(--fijo-superior) - 220px) * 1.78 + 36px)); margin-inline: auto; } }
         @keyframes v2-junta { from { translate: var(--x) var(--y); rotate: var(--r); scale: .82; } }
         .v2-converge-rejilla li { animation-name: v2-junta; animation-duration: auto; animation-timing-function: cubic-bezier(.2, .7, .3, 1); animation-fill-mode: both; animation-timeline: --converge; animation-range: contain 0% contain var(--fin); }
         /* Fases del texto, sin cruzarse: 1 hasta el 20 %, 2 del 20 al 48 %, la cifra desde el 48 %; luego el botón. */
