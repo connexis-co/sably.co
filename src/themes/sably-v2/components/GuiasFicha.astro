@@ -1,0 +1,61 @@
+---
+/**
+ * «Guías para seguir aprendiendo» de la ficha (C8 del pulido de JP): las tarjetas de guía del blog, con foto (la
+ * propia de la guía o la de su categoría), categoría, título, resumen, minutos de lectura y «Escúchalo · N min» solo
+ * si la guía tiene narración publicada. Se ve bien con una, dos o tres guías (`relatedGuides` da tres como máximo):
+ * una sola va en horizontal a lo ancho; dos o tres, en columnas. En el celular, una guía va con la foto arriba y
+ * varias pasan a filas con miniatura, para no alargar la ficha. Todo el texto en el HTML; 0 KB de JavaScript.
+ * Estilos en themes/sably-v2/ficha/guias.css, dentro de la hoja propia de la ficha (la del blog no se carga aquí).
+ */
+import { Image as OptimizedImage } from 'astro:assets';
+import { cmsImageUrl } from '@/lib/cms-media';
+import { blogCover, minutosLectura } from '@/lib/blog';
+import { richText } from '@/lib/rich-content';
+import { duracionesNarradas } from '@/lib/narracion';
+import type { BlogPost } from '@/lib/emdash-content';
+import Ico from './Ico.astro';
+interface Props { guias: BlogPost[]; aparece?: string }
+const { guias, aparece } = Astro.props;
+const narradas = guias.length ? await duracionesNarradas('blog') : new Map<string, number>();
+const tarjetas = guias.map(post => {
+  const segundos = narradas.get(post.id);
+  return {
+    post,
+    foto: cmsImageUrl(post.cardImage) ?? cmsImageUrl(post.coverImage) ?? blogCover(post.data.category, 'card'),
+    minutos: minutosLectura(post.richBody ? richText(post.richBody) : post.body ?? ''),
+    escuchar: segundos ? `Escúchalo · ${Math.max(1, Math.round(segundos / 60))} min` : null,
+  };
+});
+---
+{tarjetas.length > 0 && (
+  <section class="py-16 lg:py-24" aria-labelledby="titulo-guias" data-aparece={aparece} data-guias-ficha>
+    <div class="v2-contenedor">
+      <div class="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <h2 id="titulo-guias" class="font-display text-d28 lg:text-d40">Guías para seguir aprendiendo</h2>
+          <p class="mt-3 max-w-2xl text-t15 text-navy-700">Del blog de Sably, gratis y sin registro.</p>
+        </div>
+        <a href="/blog/" class="v2-enlace">Ver todas las guías <Ico nombre="arrow-right" tamano={16} class="v2-flecha" /></a>
+      </div>
+      <ul class="v2-guias mt-8" data-cuantas={tarjetas.length} role="list">
+        {tarjetas.map(({ post, foto, minutos, escuchar }) => (
+          <li class="min-w-0">
+            <a href={`/blog/${post.id}/`} class="v2-guia group">
+              <span class="v2-guia-foto">
+                <OptimizedImage src={foto} alt="" width={640} height={400} loading="lazy" decoding="async" sizes="(min-width: 1024px) 560px, (min-width: 640px) 50vw, 112px" />
+                {escuchar && <span class="v2-guia-narrada v2-guia-narrada-foto"><Ico nombre="headphones" tamano={14} />{escuchar}</span>}
+              </span>
+              <span class="v2-guia-cuerpo">
+                <span class="v2-guia-cat">{post.data.category ?? 'Guía'}</span>
+                <h3 class="v2-guia-titulo">{post.data.title}</h3>
+                {post.data.description && <span class="v2-guia-resumen">{post.data.description}</span>}
+                <span class="v2-guia-datos">{minutos} min de lectura{escuchar && <span class="v2-guia-narrada v2-guia-narrada-linea"><Ico nombre="headphones" tamano={14} />{escuchar}</span>}</span>
+                <span class="v2-guia-mas" aria-hidden="true">Leer la guía <Ico nombre="arrow-right" tamano={16} class="v2-flecha" /></span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+)}

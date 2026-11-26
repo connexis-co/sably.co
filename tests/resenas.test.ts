@@ -54,3 +54,25 @@ test('el nombre en mayúsculas se escribe como nombre', () => {
   assert.equal(nombreLegible('María José'), 'María José');
   assert.equal(nombreLegible('J'), 'J');
 });
+
+test('extractos del curso: hasta 4, los de texto entero primero y sin volver a cortarlos', async () => {
+  const { extractosDelCurso, MAX_EXTRACTOS } = await import('../src/lib/resenas');
+  const largo = 'Me encantó la forma de explicar de la profesora, paso a paso y con mucha paciencia. Ya hice mis primeros trabajos y quedaron muy bien, lo recomiendo a quien empieza.';
+  const filas = [
+    { id: 'hotmart-aaa', slug: 'c', nombre: 'ANA', rating: 5, texto: 'Texto de la captura vieja cortado a ciento veinte caracteres para comprobar que se cierra en una frase completa. Y aquí sig', source: 'hotmart-public' },
+    { id: 'hotmart-ask-1', slug: 'c', nombre: 'Luis', rating: 5, texto: largo, source: 'hotmart-public' },
+    { id: 'hotmart-ask-2', slug: 'c', nombre: 'Rosa', rating: 4, texto: 'Muy completo y claro.', source: 'hotmart-public' },
+    { id: 'hotmart-ask-3', slug: 'c', nombre: 'Juan', rating: 5, texto: 'Aprendí muchísimo, gracias.', source: 'hotmart-public' },
+    { id: 'hotmart-ask-4', slug: 'c', nombre: 'Eva', rating: 5, texto: 'Excelente curso de principio a fin.', source: 'hotmart-public' },
+    { id: 'hotmart-ask-5', slug: 'otro', nombre: 'Pía', rating: 5, texto: 'De otro curso, no debe salir.', source: 'hotmart-public' },
+  ];
+  const e = extractosDelCurso(filas, 'c');
+  assert.equal(MAX_EXTRACTOS, 4);
+  assert.equal(e.length, 4);
+  assert.equal(e[0]!.texto, largo, 'el extracto nuevo se pinta entero');
+  assert.ok(e.every((x) => x.id!.startsWith('hotmart-ask-')), 'los de la captura vieja quedan detrás del tope');
+  assert.equal(extractosDelCurso(filas, 'c', 1, 2).length, 2, 'el panel puede bajar el tope');
+  assert.equal(extractosDelCurso(filas, 'c', 6).length, 0, 'con menos del mínimo, estado vacío');
+  assert.equal(extractosDelCurso(filas, 'c', 1, 9).length, 5);
+  assert.equal(extractosDelCurso([filas[0]!], 'c')[0]!.texto.endsWith('sig'), false, 'la captura vieja sigue sin cortar a media palabra');
+});

@@ -35,7 +35,7 @@ const pagos = [...PAGOS.todos!, ...(PAGOS[country.code] ?? [])];
 const esLegal = (href: string) => /^\/(legal|sitemap)\//.test(href);
 const sably = [...nav.pie.filter(e => !esLegal(e.href)), { etiqueta: 'Guías gratuitas', href: '/blog/', target: undefined }]
   .filter((e, i, todos) => todos.findIndex(x => x.href === e.href && x.etiqueta === e.etiqueta) === i);
-const legal = [...nav.pie.filter(e => esLegal(e.href)), { etiqueta: 'Cómo se financia Sably', href: '/legal/terminos/#afiliacion', target: undefined }];
+const legal = nav.pie.filter(e => esLegal(e.href));
 const RED_ICONO: Record<string, string> = { instagram: 'instagram', tiktok: 'tiktok', facebook: 'facebook', youtube: 'youtube', x: 'x' };
 const compacto = variante === 'compacto';
 ---
@@ -109,8 +109,8 @@ const compacto = variante === 'compacto';
 
     <div class="mt-8 grid gap-3 border-t border-white/15 pt-6 text-t13 text-white/60 lg:grid-cols-[1fr_1.3fr] lg:gap-8">
       <p>© {year} Sably — Todos los derechos reservados. Plataforma de educación online para aprender oficios en español. Sably es un proyecto de Connexis.</p>
-      {/* Aviso de comisión en todo el sitio, con las mismas palabras que el pie clásico (FTC, SIC, LSSI, Google Ads). No nombra un vínculo con Hotmart. */}
-      <p>Cada curso lo dicta su creador; el pago y el acceso los gestiona Hotmart. Sably se financia con una comisión cuando te inscribes desde aquí, sin costo extra para ti. <a href="/legal/terminos/#afiliacion" class="underline decoration-white/30 underline-offset-2">Cómo se financia Sably</a></p>
+      {/* La relación comercial se declara junto al botón de pago de la caja (decisión de JP del 26-nov: solo allí). */}
+      <p>Cada curso lo dicta su creador; el pago y el acceso los gestiona Hotmart.</p>
     </div>
   </div>
 </footer>

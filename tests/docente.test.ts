@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { docenteReal } from '../src/lib/docente';
+import { docenteReal, verboImparte } from '../src/lib/docente';
 
 const real = {
   slug: 'roy-el-pinta-carros',
@@ -39,4 +39,11 @@ test('la foto de un tercero no se usa: quedan las iniciales', () => {
 
 test('sin slug se deriva del nombre', () => {
   assert.equal(docenteReal({ ...real, slug: undefined, name: 'Darío Ortiz' })?.slug, 'dario-ortiz');
+});
+
+test('«Imparten» cuando el curso lo dan dos personas', () => {
+  assert.equal(verboImparte('Jefferson'), 'Imparte');
+  assert.equal(verboImparte('Wilmer Torres y Olga Amaya'), 'Imparten');
+  assert.equal(verboImparte('Diana Rojas y Leonardo Ramírez'), 'Imparten');
+  assert.equal(verboImparte('Yolanda Amado'), 'Imparte');
 });

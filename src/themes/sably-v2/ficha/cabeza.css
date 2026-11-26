@@ -1,0 +1,55 @@
+/* Ficha · cabeza (primera pantalla): va EN LÍNEA antes de la cabeza (CourseLanding.astro), nunca en la hoja común. */
+/* Cabeza: en móvil, el vídeo a sangre arriba y la caja dentro del primer
+   pantallazo; en escritorio, banda azul noche hasta la mitad del vídeo y la
+   caja fija a la derecha (sticky, botón por encima de 640 px). */
+.v2-cabeza-rejilla {
+  display: grid;
+  grid-template-areas: 'media' 'titulo' 'meta' 'caja' 'promesa' 'ver' 'datos';
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 16px;
+}
+.v2-area-titulo { grid-area: titulo; }
+.v2-area-promesa { grid-area: promesa; margin-top: 8px; }
+.v2-area-meta { grid-area: meta; }
+.v2-area-media { grid-area: media; }
+.v2-area-caja { grid-area: caja; margin-top: 8px; }
+.v2-area-datos { grid-area: datos; }
+.v2-area-ver { grid-area: ver; }
+.v2-area-titulo { padding-top: 8px; }
+@media (width < 1024px) {
+  .v2-area-titulo .v2-migas { display: none; }
+}
+@media (width >= 1024px) {
+  /* Banda azul noche hasta la mitad del vídeo, sin JavaScript: un
+     pseudo-elemento del vídeo a sangre, recortado por la sección
+     (overflow: clip no crea contenedor de scroll, la caja sigue fija). */
+  .v2-cabeza { position: relative; isolation: isolate; overflow: clip; }
+  .v2-area-media { position: relative; }
+  .v2-area-media::before {
+    content: ''; position: absolute; z-index: -1; left: -100vw; right: -100vw; top: -2000px; bottom: 50%;
+    background: var(--color-navy-950);
+  }
+  .v2-cabeza-rejilla {
+    grid-template-columns: minmax(0, 1fr) 400px;
+    grid-template-areas: 'titulo caja' 'promesa caja' 'meta caja' 'media caja' 'ver caja' 'datos caja';
+    grid-template-rows: auto auto auto auto auto 1fr;
+    column-gap: 40px; row-gap: 0;
+  }
+  /* Pegada bajo la cabecera (60 px al bajar) y la barra de secciones (65 px), no debajo de ellas:
+     con 88 px el título de la caja quedaba tapado al saltar al temario (juez UX, M4). Si la caja no
+     cabe entera en la ventana, no se pega (data-sin-pegar, script de abajo): no se cortaría su pie. */
+  .v2-area-caja { --caja-top: 133px; align-self: start; position: sticky; top: var(--caja-top); margin-top: 24px; z-index: 2; }
+  .v2-area-caja[data-sin-pegar] { position: relative; top: auto; }
+}
+/* La barra fija no tapa el pie ni el último botón en móvil. */
+@media (width < 1024px) {
+  body[data-con-barra] { padding-bottom: 72px; }
+  /* Lo que se enfoca o se desplaza solo no queda debajo de la barra fija. */
+  html:has(body[data-con-barra]) { scroll-padding-bottom: 88px; scroll-padding-top: 112px; }
+  /* La caja y la barra ya traen WhatsApp: el botón flotante sobraba y en 390 tapaba la
+     flecha de «Inscribirme» en el primer pantallazo. Hoy la burbuja la pinta el plugin
+     sably-whatsapp (#sably-whatsapp), no WhatsAppFloat: con solo [data-wa-float] seguía a
+     la vista y se montaba 14 px sobre la barra de compra (25-nov). */
+  /* `body #…` para ganar al `#sably-whatsapp{display:flex}` del plugin, que va después. */
+  [data-wa-float], body #sably-whatsapp { display: none; }
+}

@@ -1,0 +1,12 @@
+/* Hoja de la ficha que se emite como recurso con huella en /_astro/ (ficha-hoja.ts la importa con ?url): cacheable en
+   el borde y enlazada DESPUÉS de la cabeza, así no retrasa el H1 (el LCP). Importada como hoja normal, Astro la
+   metería en el CSS común de todo el sitio (themes/index.ts importa todas las vistas): eso hacía crecer la hoja
+   global de todas las páginas. Lo de la primera pantalla (cabeza.css y caja.css) va en línea, no aquí. */
+@import './resto.css';
+@import './constancia.css';
+@import './opiniones.css';
+@import './guias.css';
+@import './incluye.css';
+@import './placa.css';
+@import './barra-fija.css';
+@import '../filas-completas.css';

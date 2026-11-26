@@ -38,10 +38,24 @@ test('specific legacy courses precede the wildcard and remaining paths use its f
     ['/cursos/curso-de-peinados/', '/co/curso-de-peinados/'],
     ['/cursos/otra-categoria/otro-curso/', '/co/'],
     ['/legal/cookies', '/legal/privacidad/'],
+    ['/black-university', '/co/'],
+    ['/black-university/', '/co/'],
     ['/index.html', '/co/'],
   ]) {
     assert.equal(resolveLegacyRedirect(request(from!), rules)?.headers.get('location'), `https://dev.sably.co${to}`);
   }
+});
+
+test('the old /black-university/ campaign page goes to /co/ keeping the query, and nothing under it', () => {
+  for (const path of ['/black-university', '/black-university/']) {
+    const response = resolveLegacyRedirect(request(`${path}?utm_source=google&gclid=a%2Bb`), rules);
+    assert.equal(response?.status, 301, path);
+    assert.equal(response?.headers.get('location'), 'https://dev.sably.co/co/?utm_source=google&gclid=a%2Bb');
+  }
+  for (const path of ['/black-university/curso/', '/co/black-university/', '/black-universityx/']) {
+    assert.equal(resolveLegacyRedirect(request(path), rules), null, path);
+  }
+  assert.equal(productionOriginRedirect(new Request('http://www.sably.co/black-university/?utm_source=gsc'), 'production', rules)?.headers.get('location'), 'https://sably.co/co/?utm_source=gsc');
 });
 
 test('production origin normalizes HTTPS, hostname and legacy destinations without touching staging or write requests',()=>{

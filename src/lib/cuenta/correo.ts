@@ -47,6 +47,18 @@ export function correoCodigo(para: string, codigo: string): MensajeCorreo {
 }
 
 /**
+ * ¿Hay un secreto guardado en este ajuste? EmDash guarda los ajustes de tipo `secret` cifrados, como
+ * un sobre `{ $emdash, v, kid, iv, ciphertext }`, no como texto: aquí solo se comprueba que exista
+ * (el plugin lo descifra al enviar). Se admite también el texto, por si viene de una siembra antigua.
+ */
+export function secretoPuesto(valor: unknown): boolean {
+  if (typeof valor === 'string') return valor.trim() !== '';
+  if (!valor || typeof valor !== 'object') return false;
+  const cifrado = (valor as { ciphertext?: unknown }).ciphertext;
+  return typeof cifrado === 'string' && cifrado !== '';
+}
+
+/**
  * Cómo enviar en esta petición, o null si no hay proveedor listo.
  * Solo en `astro dev` sobre localhost (`local`): `SABLY_CORREO_EMULADOR` (ruta de un archivo donde se
  * escriben los correos, para las pruebas) o `SABLY_CORREO_BREVO_LOCAL` (clave de Brevo para un envío
@@ -83,7 +95,7 @@ export async function envioCorreo(local: boolean, entorno: EntornoCorreo): Promi
       const elegido = await opciones.get<string>('emdash:exclusive_hook:email:deliver');
       if (elegido === 'sably-brevo') {
         const [clave, remitente] = await Promise.all([opciones.get<unknown>('plugin:sably-brevo:settings:apiKey'), opciones.get<unknown>('plugin:sably-brevo:settings:fromEmail')]);
-        if (typeof clave !== 'string' || !clave.trim() || typeof remitente !== 'string' || !remitente.trim()) return null;
+        if (!secretoPuesto(clave) || typeof remitente !== 'string' || !remitente.trim()) return null;
       }
       return (m: MensajeCorreo) => email.send(m, 'system');
     });

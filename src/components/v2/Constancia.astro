@@ -50,7 +50,7 @@ const etiqueta = `Ejemplo ilustrativo del certificado de finalización del curso
     </div>
     <dl class="v2-const-filas">
       <div><dt>Fecha</dt><dd>El día que terminas</dd></div>
-      {creador && <div><dt>Lo dicta</dt><dd>{creador}</dd></div>}
+      {creador && <div><dt>Creador</dt><dd>{creador}</dd></div>}
     </dl>
   </div>
   <div class="v2-const-talon" aria-hidden="true">
@@ -60,54 +60,3 @@ const etiqueta = `Ejemplo ilustrativo del certificado de finalización del curso
     <p class="v2-const-emite"><span>Se emite en</span><strong>Hotmart</strong></p>
   </div>
 </figure>
-<style>
-  .v2-const {
-    --fondo-muesca: var(--constancia-fondo, #fff);
-    position: relative; display: grid; grid-template-columns: 170px minmax(0, 1fr) 150px; width: 100%; max-width: 620px; min-height: 420px; margin: 0;
-    overflow: hidden; border-radius: var(--radius-c-lg); background: #fff; box-shadow: var(--shadow-s2);
-  }
-  .v2-const-panel { position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 28px 22px; overflow: hidden; background: var(--color-navy-950); border-left: 4px solid var(--color-coral-600); color: #fff; }
-  .v2-const-emblema { position: relative; z-index: 1; }
-  .v2-const-trama { position: absolute; left: -40px; bottom: -30px; width: 240px; color: rgb(255 255 255 / 0.1); pointer-events: none; }
-  .v2-const-titulo { position: relative; z-index: 1; font: 600 20px/24px var(--font-display); }
-  .v2-const-filete { display: block; width: 28px; height: 2px; margin-bottom: 14px; background: var(--color-coral-600); }
-  .v2-const-centro { display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: 24px; min-width: 0; }
-  .v2-const-rotulo { align-self: flex-start; padding: 3px 10px; border-radius: 999px; background: var(--color-coral-50); box-shadow: inset 0 0 0 1px var(--color-coral-100); font-size: 12px; line-height: 18px; font-weight: 600; color: var(--color-coral-700); }
-  .v2-const-nombre { margin-top: 2px; padding-bottom: 10px; border-bottom: 1px solid var(--color-navy-100); font: 600 32px/38px var(--font-display); letter-spacing: -0.01em; color: var(--color-navy-950); overflow-wrap: anywhere; }
-  .v2-const-curso { margin-top: 2px; font: 600 20px/26px var(--font-display); color: var(--color-navy-950); text-wrap: balance; }
-  .v2-const-filas { margin: 0; }
-  .v2-const-filas > div { display: flex; justify-content: space-between; gap: 12px; padding: 7px 0; border-bottom: 1px solid var(--color-navy-100); font-size: 13px; line-height: 18px; }
-  .v2-const-filas dt { color: var(--color-navy-500); }
-  .v2-const-filas dd { margin: 0; text-align: right; font-weight: 600; color: var(--color-navy-950); }
-  .v2-const-talon {
-    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 14px; padding: 24px 14px; text-align: center;
-    background: var(--color-coral-50); border-left: 2px dotted var(--color-coral-500);
-  }
-  .v2-const-talon::before, .v2-const-talon::after { content: ''; position: absolute; left: -9px; width: 16px; height: 16px; border-radius: 50%; background: var(--fondo-muesca); }
-  .v2-const-talon::before { top: -8px; }
-  .v2-const-talon::after { bottom: -8px; }
-  .v2-const-verif { font-size: 13px; line-height: 18px; font-weight: 600; color: var(--color-coral-600); }
-  .v2-const-qr { padding: 6px; border-radius: var(--radius-c-sm); background: #fff; box-shadow: inset 0 0 0 1px var(--color-coral-100); box-sizing: content-box; }
-  .v2-const-codigo { display: flex; flex-direction: column; gap: 2px; font-size: 12px; line-height: 16px; color: var(--color-navy-500); }
-  .v2-const-codigo .v2-num { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-weight: 500; color: var(--color-navy-950); }
-  .v2-const-emite { display: flex; flex-direction: column; font-size: 12px; line-height: 16px; color: var(--color-navy-500); }
-  .v2-const-emite strong { font: 600 15px/20px var(--font-display); color: var(--color-navy-950); }
-  @media (width < 640px) {
-    .v2-const { grid-template-columns: 1fr; min-height: 0; }
-    .v2-const-panel { flex-direction: row; align-items: center; justify-content: flex-start; gap: 14px; padding: 18px 20px; border-left: 0; border-top: 4px solid var(--color-coral-600); }
-    .v2-const-trama { left: auto; right: -50px; bottom: -70px; }
-    .v2-const-titulo { font-size: 17px; line-height: 22px; }
-    .v2-const-filete { display: none; }
-    .v2-const-centro { padding: 20px; gap: 18px; }
-    .v2-const-nombre { font-size: 28px; line-height: 34px; }
-    .v2-const-talon { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: 'verif verif verif' 'qr codigo emite'; align-items: center; justify-items: start; gap: 10px 14px; padding: 20px; text-align: left; border-left: 0; border-top: 2px dotted var(--color-coral-500); }
-    .v2-const-talon::before, .v2-const-talon::after { top: -9px; bottom: auto; }
-    .v2-const-talon::before { left: -8px; }
-    .v2-const-talon::after { left: auto; right: -8px; }
-    .v2-const-verif { grid-area: verif; }
-    .v2-const-qr { grid-area: qr; width: 72px; height: 72px; }
-    .v2-const-codigo { grid-area: codigo; }
-    .v2-const-emite { grid-area: emite; text-align: right; justify-self: end; }
-  }
-  @media print { .v2-const { box-shadow: none; outline: 1px solid var(--color-navy-100); } }
-</style>

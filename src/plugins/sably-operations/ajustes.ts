@@ -25,6 +25,14 @@ export const settingsSchema = {
     options: [{ value: 'outlined', label: 'Contorno' }, { value: 'filled', label: 'Relleno' }, { value: 'underline', label: 'Subrayado' }],
     default: 'outlined',
   },
+  // Tarjetas de cursos entre 1024 y 1279 px (26-nov-2026, decisión de JP: «lo más elegante»)
+  tarjetasColumnasMedio: {
+    type: 'select',
+    label: 'Sitio y tema · Tarjetas de cursos entre 1024 y 1279 px',
+    description: 'Columnas de las rejillas de cursos de la portada (destacados y mejor valorados) y de la ficha (especializaciones y relacionados) en pantallas medianas. Con 4 la tarjeta queda tan estrecha que el precio tachado se monta sobre el precio. «3, filas completas»: 3 columnas y, solo en ese tramo, sin la última fila a medias (8 tarjetas → 6, 4 → 3; desde 1280 px se ven todas). «3, todas»: 3 columnas con todas las tarjetas. «4»: como antes. El listado de cursos ya va a 3 en ese tramo. Por defecto: 3, filas completas.',
+    options: [{ value: 'tres-completas', label: '3, filas completas' }, { value: 'tres', label: '3, todas' }, { value: 'cuatro', label: '4' }],
+    default: 'tres-completas',
+  },
   // Barra de campaña V2 (26-nov-2026, ronda 2 de JP: C7)
   barraCampanaCierre: {
     type: 'select',
@@ -74,8 +82,8 @@ export const settingsSchema = {
   },
   mostrarCreador: {
     type: 'boolean',
-    label: 'Caja de compra · Mostrar quién dicta el curso',
-    description: '«Lo dicta …» en la cabeza de la ficha y en la caja. Apagado no deja hueco. Por defecto: encendido.',
+    label: 'Ficha · Mostrar el creador del curso',
+    description: 'La marca con que el curso figura en Hotmart: una línea junto al pago («En Hotmart el curso figura a nombre de …») y su tarjeta en «Creador y opiniones». Con docente real, la ficha y la caja presentan al docente. Apagado no deja hueco. Por defecto: encendido.',
     default: true,
   },
   mostrarDocente: {
@@ -89,6 +97,114 @@ export const settingsSchema = {
     label: 'Ficha · Mostrar «Disponible online en {país}»',
     description: 'Las ciudades del país en texto, sin enlaces ni páginas propias, dentro de «Cómo funciona Sably». Ayuda a ChatGPT a ver que el curso se estudia desde cualquier ciudad. Apagado no deja hueco. Por defecto: encendido.',
     default: true,
+  },
+  cajaResaltada: {
+    type: 'boolean',
+    label: 'Caja de compra · Resaltar la caja',
+    description: 'Contorno, sombra más honda y un filete coral arriba para que el pago destaque del fondo, sobre todo en el celular. Sirve con las dos variantes. Apagado: la caja blanca con sombra suave de antes. Por defecto: encendido.',
+    default: true,
+  },
+  // Caja de compra (26-nov-2026, añadido de JP a la ronda 2: C8 a C11)
+  cajaTituloCentrado: {
+    type: 'boolean',
+    label: 'Caja de compra · Título centrado con línea',
+    description: 'Título y subtítulo de la caja centrados, con una línea corta y centrada debajo (en computador; en el celular el título ya está arriba). Apagado: alineados a la izquierda y sin línea. Por defecto: encendido.',
+    default: true,
+  },
+  cajaPrecioNormal: {
+    type: 'select',
+    label: 'Caja de compra · «Precio normal» con campaña',
+    description: 'Cómo se ve el precio de antes cuando hay campaña con cupón: tachado (se nota el descuento) o sin tachar. Al quitar el cupón nunca va tachado. Por defecto: tachado.',
+    options: [{ value: 'tachado', label: 'Tachado' }, { value: 'sin-tachar', label: 'Sin tachar' }],
+    default: 'tachado',
+  },
+  cajaPais: {
+    type: 'boolean',
+    label: 'Caja de compra · Fila «Precio para {país}»',
+    description: 'La bandera y «Precio para Colombia» encima del precio. El país y la moneda siguen en el pie de la caja («País y moneda») y en la cabecera. Por defecto: oculta.',
+    default: false,
+  },
+  cajaMovimiento: {
+    type: 'boolean',
+    label: 'Caja de compra · Movimiento en el reloj de la promoción',
+    description: 'El reloj late, el segundero corre y la barra de la campaña tiene un brillo que avanza. Siempre con la fecha real de fin del panel. Nadie lo ve si pidió menos movimiento en su equipo. Apagado: el reloj quieto de antes. Por defecto: encendido.',
+    default: true,
+  },
+  // Movimiento de la ficha (26-nov-2026, ronda 2 de JP: C6)
+  fichaMovimiento: {
+    type: 'select',
+    label: 'Ficha · Movimiento al bajar',
+    description: '«Sobrio»: los bloques aparecen al llegar a ellos y las listas (qué aprenderás, temario) entran en cascada. «Mínimo»: solo los bloques. «Ninguno»: todo quieto. Nadie lo ve si pidió menos movimiento en su equipo. Por defecto: Sobrio.',
+    options: [{ value: 'sobrio', label: 'Sobrio' }, { value: 'minimo', label: 'Mínimo' }, { value: 'ninguno', label: 'Ninguno' }],
+    default: 'sobrio',
+  },
+  certificadoAnimacion: {
+    type: 'select',
+    label: 'Ficha · Animación del certificado',
+    description: '«Destello»: al bajar, el certificado de ejemplo se endereza, un brillo lo cruza y el código de verificación entra como un sello. «Entrada»: solo sube con suavidad. «Ninguna»: quieto. Nadie lo ve si pidió menos movimiento. Por defecto: Destello.',
+    options: [{ value: 'destello', label: 'Destello' }, { value: 'entrada', label: 'Entrada' }, { value: 'ninguna', label: 'Ninguna' }],
+    default: 'destello',
+  },
+  // Temario y bloques de la ficha (26-nov-2026, paquete 2 del pulido: C7, C10a, C10b)
+  temarioEnfoque: {
+    type: 'select',
+    label: 'Ficha · Temario al abrir un módulo',
+    description: '«Enfoca»: al abrir un módulo se cierra el que estaba abierto y la página se desplaza lo justo para que el módulo quede a la vista bajo la cabecera. «Solo encuadra»: se desplaza, pero los demás siguen abiertos. «Nada»: acordeón libre, sin desplazamiento. Con «reducir movimiento» el encuadre es directo, sin animación. Por defecto: Enfoca.',
+    options: [{ value: 'enfoca', label: 'Enfoca' }, { value: 'encuadra', label: 'Solo encuadra' }, { value: 'nada', label: 'Nada' }],
+    default: 'enfoca',
+  },
+  fichaQueIncluye: {
+    type: 'boolean',
+    label: 'Ficha · Bloque «Qué incluye el curso»',
+    description: 'Cifras reales de la ficha como titular: lecciones, horas y módulos (con su lista desplegable), junto a una foto del oficio. Va antes del temario. Por defecto: encendido.',
+    default: true,
+  },
+  relacionadosTarjeta: {
+    type: 'select',
+    label: 'Ficha · Tarjeta de «Cursos relacionados»',
+    description: '«Placa»: foto alta con una placa blanca (título y creador) que crece al pasar el cursor o con el foco y muestra la promesa, los datos y «Ver el curso»; en el celular sale abierta. No lleva precio: el precio vive en la ficha de cada curso. «Con precio»: la tarjeta del listado. Por defecto: Placa.',
+    options: [{ value: 'placa', label: 'Placa' }, { value: 'precio', label: 'Con precio' }],
+    default: 'placa',
+  },
+  sobreFotosPestanas: {
+    type: 'boolean',
+    label: 'Ficha · Foto distinta en cada pestaña de «Sobre este curso»',
+    description: 'Al cambiar de pestaña (Qué aprenderás, Para quién es, Qué necesitas, Cómo se estudia) la foto cambia con un fundido corto. Apagado: queda la portada del curso en las cuatro. Por defecto: encendido.',
+    default: true,
+  },
+  // Opiniones de la ficha V2 (26-nov-2026, ronda 2 de JP: C1 y C3)
+  opinionesEstilo: {
+    type: 'select',
+    label: 'Ficha · Estilo del bloque de opiniones',
+    description: '«Lista editorial»: la nota de Hotmart en grande y, al lado, extractos reales de opiniones publicadas en Hotmart con el nombre de quien las escribió. «Compacto»: una sola fila con la nota. Las estrellas de la cabeza de la ficha llevan a este bloque. Por defecto: Lista editorial.',
+    options: [{ value: 'lista', label: 'Lista editorial' }, { value: 'compacto', label: 'Compacto' }],
+    default: 'lista',
+  },
+  opinionesExtractosMinimo: {
+    type: 'select',
+    label: 'Ficha · Extractos de Hotmart para enseñar la lista',
+    description: 'Cuántos extractos reales hacen falta para enseñarlos. Con menos, el bloque dice que aún no hay opiniones escritas que citar. Por defecto: 1.',
+    options: [{ value: '1', label: '1' }, { value: '2', label: '2' }, { value: '3', label: '3' }],
+    default: '1',
+  },
+  opinionesExtractosMaximo: {
+    type: 'select',
+    label: 'Ficha · Extractos de Hotmart como máximo',
+    description: 'Cuántos extractos reales enseña la lista como mucho. Salen de las evaluaciones públicas de cada curso en Hotmart, con el texto literal y el nombre con que se publicaron. Por defecto: 4.',
+    options: [{ value: '2', label: '2' }, { value: '3', label: '3' }, { value: '4', label: '4' }],
+    default: '4',
+  },
+  opinionesPerfilNombre: {
+    type: 'string',
+    label: 'Ficha · Opiniones: nombre del perfil público',
+    description: 'Por ejemplo «Google». Con nombre y URL, el bloque de opiniones enlaza a ese perfil («Ver las opiniones en Google»). No cambia la nota, que sigue siendo la de Hotmart. Vacío = sin enlace.',
+    default: '',
+  },
+  opinionesPerfilUrl: {
+    type: 'string',
+    label: 'Ficha · Opiniones: URL del perfil público',
+    description: 'Dirección https del perfil (ficha de Google Business u otra). Sin nombre o sin https no se enseña.',
+    default: '',
   },
   // Cuenta (src/lib/cuenta): claves nuevas del 25-nov-2026, encendidas de fábrica.
   cuentaActiva: {
@@ -382,9 +498,9 @@ export const NOSOTROS_CLAVES: ClaveAjuste[] = ['nosotrosDiseno', 'nosotrosCifras
 
 /** Pestañas de «Ajustes del sitio», en orden, con los ajustes guardados que muestra cada una. */
 export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves: ClaveAjuste[] }[] = [
-  { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo'] },
+  { id: 'sitio', titulo: 'Sitio y tema', resumen: 'El diseño que ven todos y el estilo de los formularios.', claves: ['temaPorDefecto', 'estiloCampo', 'tarjetasColumnasMedio'] },
   { id: 'campanas', titulo: 'Campañas y cupones', resumen: 'Calendario de campañas, cupón, países y cursos incluidos, la barra de arriba y qué enseña cada aviso (contador o cupón).', claves: ['barraCampanaCierre', 'barraCampanaFicha', 'barraCampanaFija', ...CAMPANA_CLAVES] },
-  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'] },
+  { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'cajaTituloCentrado', 'cajaResaltada', 'cajaPrecioNormal', 'cajaPais', 'cajaMovimiento', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades', 'sobreFotosPestanas', 'fichaMovimiento', 'certificadoAnimacion', 'temarioEnfoque', 'fichaQueIncluye', 'relacionadosTarjeta', 'opinionesEstilo', 'opinionesExtractosMinimo', 'opinionesExtractosMaximo', 'opinionesPerfilNombre', 'opinionesPerfilUrl'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación, y el diseño de la página «Nosotros».', claves: NOSOTROS_CLAVES },
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },

@@ -18,7 +18,7 @@ import type { Course } from '@/lib/emdash-content';
 import { CATEGORIES } from '@/lib/categories';
 import { FOTO_DE_AREA, type NombreFoto } from './fotos';
 
-export interface CursoMenu { slug: string; titulo: string; area: string; nota: { cifra: string; texto: string } | null }
+export interface CursoMenu { slug: string; titulo: string; area: string; nota: ReturnType<typeof notaHotmart> }
 export interface AreaMenu {
   slug: string;
   nombre: string;
