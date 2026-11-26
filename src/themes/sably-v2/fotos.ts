@@ -51,10 +51,11 @@ export type NombreFoto =
   | 'foto-curso-mecanica-bicicletas'
   | 'foto-curso-desayunos-sorpresa';
 
-interface Foto { ancho: number; alto: number; alt: string }
+/** `tarjeta: 'derecha'`: el protagonista está a la izquierda; un texto encima (oficio destacado) va a la derecha. */
+interface Foto { ancho: number; alto: number; alt: string; tarjeta?: 'derecha' }
 
 export const FOTOS: Record<NombreFoto, Foto> = {
-  'foto-barberia-1': { ancho: 1200, alto: 900, alt: 'Barbero que hace un degradado con máquina a un cliente en una barbería de pared turquesa' },
+  'foto-barberia-1': { ancho: 1200, alto: 900, alt: 'Barbero que hace un degradado con máquina a un cliente en una barbería de pared turquesa', tarjeta: 'derecha' },
   'foto-celulares-1': { ancho: 1200, alto: 900, alt: 'Manos que reparan un celular abierto sobre un tapete antiestático, con pinzas y destornilladores de precisión' },
   'foto-cocina-1': { ancho: 1200, alto: 900, alt: 'Mujer que mueve un guiso en una olla de barro en una cocina familiar con azulejos de talavera' },
   'foto-costura-1': { ancho: 1200, alto: 900, alt: 'Manos de una costurera que guían tela de jean bajo el prensatelas de una máquina recta industrial' },
@@ -71,7 +72,7 @@ export const FOTOS: Record<NombreFoto, Foto> = {
   'foto-panaderia-1': { ancho: 1200, alto: 900, alt: 'Bandeja de conchas recién horneadas en una panadería, con el horno de pisos al fondo' },
   'foto-soldadura-1': { ancho: 1200, alto: 900, alt: 'Soldador con careta, chaqueta y guantes de cuero que suelda el marco de una reja en un taller' },
   'foto-unas-acrilicas-1': { ancho: 1200, alto: 900, alt: 'Manos con guantes negros que aplican acrílico con pincel sobre un molde de uña' },
-  'foto-velas-1': { ancho: 1200, alto: 900, alt: 'Manos que vierten cera desde una jarra de acero en un frasco con la mecha sujeta por una barra' },
+  'foto-velas-1': { ancho: 1200, alto: 900, alt: 'Manos que vierten cera desde una jarra de acero en un frasco con la mecha sujeta por una barra', tarjeta: 'derecha' },
   'foto-oficio-masajes': { ancho: 1200, alto: 900, alt: 'Masajista que trabaja con el antebrazo la espalda de un cliente en una camilla' },
   'foto-oficio-unas': { ancho: 1200, alto: 900, alt: 'Manos con guantes negros que esculpen una uña acrílica rosa con pincel' },
   'foto-oficio-carroceria': { ancho: 1200, alto: 900, alt: 'Técnica con careta que suelda un panel de carrocería en un taller automotriz' },
