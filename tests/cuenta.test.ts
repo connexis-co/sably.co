@@ -16,7 +16,7 @@ import { leerEstadoCuenta } from '../src/lib/cuenta/ajustes.ts';
 import { canCachePublicPage, sharedPublicRequest } from '../src/lib/public-delivery.ts';
 
 const SECRETO = 'x'.repeat(48);
-const ESQUEMA = ['0011_cuenta.sql', '0012_cuenta_codigo.sql'].map(f => readFileSync(new URL(`../migrations/${f}`, import.meta.url), 'utf8')).join(';\n');
+const ESQUEMA = ['0011_cuenta.sql', '0013_cuenta_codigo.sql'].map(f => readFileSync(new URL(`../migrations/${f}`, import.meta.url), 'utf8')).join(';\n');
 const CLIENTE = { id: 'cliente-123.apps.googleusercontent.com', secreto: 'no-es-un-secreto', retorno: 'https://sably.co/ingresar/google/retorno/' };
 const T0 = 1_800_000_000;
 const CONSENT = { ...CONSENTIMIENTO, ip: '203.0.113.7' };

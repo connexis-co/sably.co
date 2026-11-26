@@ -61,8 +61,8 @@ tags(ch);if(C.t&&prev&&prev.a&&!ch.a){w.clarity('consent',false);wipe(/^(_ga|_gi
 if(prev&&prev.m&&!ch.m)wipe(/^(_gcl_|_gac_|_fbp|_fbc)/);
 d.dispatchEvent(new CustomEvent('sably:consent',{detail:{analytics:ch.a,ads:ch.m}}))}
 /* País resuelto: fuera de la zona y sin respuesta, se suelta todo; dentro, se refuerza el denegado por si Google
-   ubicó al visitante en otro país. */
-function settle(v){if(strict!==null)return;strict=v;if(!ch){if(v)gtag('consent','update',upd({a:0,m:0}));else tags({a:1,m:1})}later.splice(0).forEach(function(f){f()})}
+   ubicó al visitante en otro país. Se avisa con sably:consent-ready (lo espera el píxel de OpenAI). */
+function settle(v){if(strict!==null)return;strict=v;if(!ch){if(v)gtag('consent','update',upd({a:0,m:0}));else tags({a:1,m:1});d.dispatchEvent(new CustomEvent('sably:consent-ready',{detail:{analytics:!v,ads:!v}}))}later.splice(0).forEach(function(f){f()})}
 if(strict===null){var fb=function(){settle(/^\\/es(\\/|$)/.test(location.pathname))};setTimeout(fb,3000);
 try{fetch('/cdn-cgi/trace',{credentials:'omit',cache:'no-store'}).then(function(r){return r.ok?r.text():''}).then(function(t){var m=/(?:^|\\n)loc=([A-Z]{2})\\s/.exec(t+'\\n'),k=m&&m[1];if(!k||k==='XX')return fb();try{sessionStorage.setItem('sably_pais',k)}catch(e){}settle(C.r.indexOf(k)>-1)},fb)}catch(e){fb()}}
 if(e0)meta(e0.m);

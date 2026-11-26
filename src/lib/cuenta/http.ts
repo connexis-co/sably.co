@@ -64,7 +64,7 @@ export async function cuentaServidor(ctx: Contexto): Promise<ServidorCuenta | nu
   const { env } = await import('virtual:sably-runtime');
   const secreto = entorno.SABLY_AUTH_SECRET!;
   const [{ default: base }, { default: codigos }] = await Promise.all([
-    import('../../../migrations/0011_cuenta.sql?raw'), import('../../../migrations/0012_cuenta_codigo.sql?raw'),
+    import('../../../migrations/0011_cuenta.sql?raw'), import('../../../migrations/0013_cuenta_codigo.sql?raw'),
   ]);
   const almacen = new CuentaAlmacen(env.SABLY_DB, secreto, `${base};\n${codigos}`);
   esquemaListo ??= almacen.asegurarEsquema().catch(error => { esquemaListo = null; throw error; });
