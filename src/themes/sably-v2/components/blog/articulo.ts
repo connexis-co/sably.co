@@ -207,4 +207,25 @@ export function prepararArticulo() {
     audio.addEventListener('ended', pintar);
     $('[data-narracion-cerrar]', caja)?.addEventListener('click', () => { audio.pause(); cerrado = true; pintar(); });
   }
+
+  /* ---------- «Seguir escuchando» en la página siguiente ---------- */
+  // Solo se anota QUÉ narración quedó a medias; el punto lo guarda el controlador de medios en su propia clave
+  // (sably:medio:<ruta del audio>) y lo borra al terminar. La píldora la pinta SeguirEscuchando.astro.
+  const seguir = $('[data-seguir]');
+  const audioSeguir = seguir && $<HTMLAudioElement>('audio', seguir);
+  if (seguir && audioSeguir) {
+    const anotar = () => {
+      const src = new URL(audioSeguir.currentSrc || audioSeguir.src, location.href);
+      const medio = $('[data-medio]', seguir);
+      try {
+        localStorage.setItem('sably:seguir', JSON.stringify({
+          u: location.pathname, t: medio?.dataset.medioTitulo ?? document.title, a: src.href, s: src.pathname,
+          d: Number.isFinite(audioSeguir.duration) ? Math.round(audioSeguir.duration) : Number($<HTMLInputElement>('[data-medio-barra]', seguir)?.max) || 0,
+          h: Date.now(),
+        }));
+      } catch { /* sin almacenamiento */ }
+    };
+    audioSeguir.addEventListener('play', anotar);
+    audioSeguir.addEventListener('pause', anotar);
+  }
 }

@@ -177,7 +177,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
         </div>
         {(cabecera === 'c' || (cabecera === 'h' && propia)) && <figure class="v2-ba-portada"><OptimizedImage src={portada} alt="" width={1160} height={870} fetchpriority="high" loading="eager" sizes="(min-width: 1024px) 580px, 100vw" /></figure>}
         {cabecera === 'g' && narracion && (
-          <div class="v2-ba-narracion" id="narracion" data-narracion-fija={a.blogNarracionFija || undefined}>
+          <div class="v2-ba-narracion" id="narracion" data-narracion-fija={a.blogNarracionFija || undefined} data-seguir={a.blogNarracionSeguir || undefined}>
             <ReproductorAudio src={narracion.url} segundos={narracion.segundos} titulo={post.data.title} caratula={portada} medioId={`blog:${post.id}`} proveedor={narracion.proveedor} />
             {a.blogNarracionFija && <button type="button" class="v2-ba-narracion-cerrar" data-narracion-cerrar aria-label="Cerrar el reproductor fijo"><Ico nombre="x" tamano={16} /></button>}
           </div>
@@ -201,7 +201,7 @@ const conCierre = a.blogValoracion || posiciones.includes('final');
 
       <div class="v2-ba-columna">
         {narracion && cabecera !== 'g' && (
-          <div class="v2-ba-narracion" id="narracion" data-narracion-fija={a.blogNarracionFija || undefined}>
+          <div class="v2-ba-narracion" id="narracion" data-narracion-fija={a.blogNarracionFija || undefined} data-seguir={a.blogNarracionSeguir || undefined}>
             <ReproductorAudio src={narracion.url} segundos={narracion.segundos} titulo={post.data.title} caratula={portada} medioId={`blog:${post.id}`} proveedor={narracion.proveedor} />
             {a.blogNarracionFija && <button type="button" class="v2-ba-narracion-cerrar" data-narracion-cerrar aria-label="Cerrar el reproductor fijo"><Ico nombre="x" tamano={16} /></button>}
           </div>

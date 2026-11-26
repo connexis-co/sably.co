@@ -67,6 +67,7 @@ export const BLOG_SETTINGS = {
     description: 'Separadas por comas: metadatos (fila bajo el título), carril (columna fija a la izquierda, desde 1280 px) y final (bloque de cierre). Vacío: en ningún sitio. Por defecto: metadatos, carril, final.',
     default: 'metadatos, carril, final' },
   // Narración
+  blogNarracionSeguir: sino('Blog · «Seguir escuchando» en la página siguiente', 'Si alguien deja una narración a medias y pasa a otra página del sitio, una píldora abajo a la izquierda le deja seguir escuchándola allí mismo o volver al artículo en ese minuto. Sale durante la visita y se cierra con su ×. Por defecto: encendido.', true),
   blogNarracionFija: sino('Blog · Reproductor de la narración fijo al bajar', 'Mientras suena y el reproductor sale de la pantalla, queda una píldora abajo a la izquierda (barra en móvil) con pausa, tiempo y cerrar. Solo en artículos con narración. Por defecto: encendido.', true),
   // Cursos
   blogCursoMitad: sino('Blog · Curso relacionado a mitad del texto', 'Un solo bloque con foto, precio real del país y botón, tras el apartado que deja atrás el 40 % del texto. El curso es el primero que el artículo enlaza; sin curso enlazado no sale. Por defecto: encendido.', true),
