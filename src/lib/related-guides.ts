@@ -45,6 +45,23 @@ export function clusterDeCurso(course:{id:string;data:{pillar?:string|null}},cou
  return courses.filter(c=>c.id!==course.id&&(c.id===root||c.data.pillar===root)).map(c=>c.id);
 }
 
+/** Courses a post links to, in reading order (the first one is the post's related course). */
+export function cursosEnlazados(post:BlogPost,siteUrl:string):string[] {
+ return [...linkedCourses(post.richBody,siteUrl)];
+}
+
+/**
+ * «Sigue leyendo» of a post: first guides that link to the same course, then the same category, then the newest.
+ * Only indexable guides; never the post itself.
+ */
+export function guiasSugeridas(posts:BlogPost[],post:BlogPost,courseSlug:string|null,siteUrl:string,max:number):BlogPost[] {
+ const candidates=posts
+  .filter(p=>p.id!==post.id&&indexableAtPath(p.seo,`/blog/${p.id}/`,siteUrl))
+  .sort((a,b)=>b.data.publishedAt.getTime()-a.data.publishedAt.getTime());
+ const score=(p:BlogPost)=>(courseSlug&&linkedCourses(p.richBody,siteUrl).has(courseSlug)?2:0)+(p.data.category===post.data.category?1:0);
+ return candidates.map((p,i)=>({p,i,s:score(p)})).sort((a,b)=>b.s-a.s||a.i-b.i).slice(0,max).map(x=>x.p);
+}
+
 /** Every indexable guide, newest first: what a country home links to. */
 export function guiasDePortada(posts:BlogPost[],siteUrl:string):BlogPost[] {
  return posts

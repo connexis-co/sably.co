@@ -1,0 +1,26 @@
+---
+/**
+ * Llamada final «Siguiente paso» (DISENO §4.7): bloque azul noche con el curso relacionado y su TarjetaCurso.
+ * Sin «acceso de por vida» ni «garantía» (pendiente de JP, punto A4). Sin curso relacionado, lleva a los cursos.
+ */
+import type { Course } from '@/lib/emdash-content';
+import type { Country } from '@/lib/countries';
+import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
+import TarjetaCurso from '@/components/v2/TarjetaCurso.astro';
+import Ico from '../Ico.astro';
+interface Props { course?: Course | null; country: Country; precio: PrecioTarjeta | null; oficio?: string }
+const { course, country, precio, oficio } = Astro.props;
+const cubre = course?.data.shortDescription?.trim();
+---
+<section class="v2-llamada-final" aria-labelledby="siguiente-paso">
+  <div>
+    <p class="v2-lf-ante">Siguiente paso</p>
+    <h2 id="siguiente-paso" class="mt-3">{course ? (oficio ? `Aprende ${oficio} con un curso completo` : 'Aprende el oficio con un curso completo') : 'Aprende un oficio con un curso completo'}</h2>
+    <p class="v2-lf-texto mt-3">{course ? (cubre || 'Lecciones en vídeo, a tu ritmo y con constancia de finalización.') : 'Cursos en vídeo para aprender a tu ritmo, con constancia de finalización. Pagas en tu moneda.'}</p>
+    {precio?.cupon && precio.ahorro ? <p class="v2-cm-tique mt-4">{precio.ahorro} % con el cupón {precio.cupon}</p> : null}
+    {course
+      ? <a href={`/${country.code}/cursos/`} class="v2-lf-todos mt-6">Ver todos los cursos <Ico nombre="arrow-right" tamano={16} /></a>
+      : <a href={`/${country.code}/cursos/`} class="v2-btn v2-btn-principal mt-6" data-alto="52">Ver los cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>}
+  </div>
+  {course && <div class="v2-lf-tarjeta"><TarjetaCurso {course} {country} {precio} /></div>}
+</section>

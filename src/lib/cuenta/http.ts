@@ -7,6 +7,7 @@ import type { APIContext, AstroCookies } from 'astro';
 import { CuentaAlmacen, type CuentaActual } from './almacen';
 import { entornoCuenta, estadoCuenta, type EstadoCuenta } from './ajustes';
 import type { ClienteGoogle } from './google';
+import { envioCorreo, type Enviar } from './correo';
 import { COUNTRIES } from '../countries';
 import { FLUJO_SEGUNDOS, RETORNO_SEGUNDOS, ahora, destinoSeguro, mismoValor, resumen, tokenAleatorio, tokenValido, RUTAS } from './nucleo';
 
@@ -50,14 +51,22 @@ export const cookieFlujo = (ctx: Contexto) => leer(ctx, 'flow');
 let esquemaListo: Promise<void> | null = null;
 
 /** Configuración del servidor y almacén; null si la cuenta está apagada o sin configurar. */
-export async function cuentaServidor(ctx: Contexto): Promise<{ estado: EstadoCuenta; almacen: CuentaAlmacen; secreto: string; google: ClienteGoogle | null } | null> {
+export interface ServidorCuenta {
+  estado: EstadoCuenta; almacen: CuentaAlmacen; secreto: string; google: ClienteGoogle | null;
+  /** Envío del código por correo, o null si el acceso con correo está apagado o sin proveedor listo. Se calcula una vez. */
+  correo: () => Promise<Enviar | null>;
+}
+
+export async function cuentaServidor(ctx: Contexto): Promise<ServidorCuenta | null> {
   const estado = await estadoCuenta(ctx.locals);
   if (!estado.disponible) return null;
   const entorno = await entornoCuenta();
   const { env } = await import('virtual:sably-runtime');
   const secreto = entorno.SABLY_AUTH_SECRET!;
-  const { default: esquema } = await import('../../../migrations/0011_cuenta.sql?raw');
-  const almacen = new CuentaAlmacen(env.SABLY_DB, secreto, esquema);
+  const [{ default: base }, { default: codigos }] = await Promise.all([
+    import('../../../migrations/0011_cuenta.sql?raw'), import('../../../migrations/0013_cuenta_codigo.sql?raw'),
+  ]);
+  const almacen = new CuentaAlmacen(env.SABLY_DB, secreto, `${base};\n${codigos}`);
   esquemaListo ??= almacen.asegurarEsquema().catch(error => { esquemaListo = null; throw error; });
   await esquemaListo;
   const origen = esLocal(ctx.url) ? ctx.url.origin : ORIGEN_PRODUCCION;
@@ -67,7 +76,9 @@ export async function cuentaServidor(ctx: Contexto): Promise<{ estado: EstadoCue
   if (google && import.meta.env?.DEV && esLocal(ctx.url) && emulador && /^http:\/\/(?:localhost|127\.0\.0\.1):\d+$/.test(emulador)) {
     google.puntos = { autorizar: `${emulador}/auth`, token: `${emulador}/token`, certificados: `${emulador}/certs`, emisor: emulador };
   }
-  return { estado, almacen, secreto, google };
+  let envio: Promise<Enviar | null> | null = null;
+  const correo = () => (envio ??= estado.correo ? envioCorreo(esLocal(ctx.url), env as Record<string, string | undefined>) : Promise.resolve(null));
+  return { estado, almacen, secreto, google, correo };
 }
 
 /** Token CSRF derivado de la cookie `flow`; la crea si falta (30 min). */

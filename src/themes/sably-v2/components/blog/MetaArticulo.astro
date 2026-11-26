@@ -1,0 +1,26 @@
+---
+/**
+ * Metadatos del artículo: autor (sin autor real, «Equipo editorial de Sably» con sello y enlace a /nosotros/),
+ * fechas («actualizado el…» solo si es posterior en más de 7 días), minutos de lectura, «Escuchar · 2:40» solo con
+ * narración vigente (lleva al reproductor y lo pone en marcha) y la fila de compartir.
+ */
+import { fechaCorta } from '@/lib/blog';
+import type { Red } from '@/lib/blog-ajustes';
+import Compartir from './Compartir.astro';
+import Ico from '../Ico.astro';
+interface Props { publicado: Date; actualizado: Date | null; minutos: number; duracion?: string; compartir: boolean; url: string; titulo: string; redes: Red[] }
+const { publicado, actualizado, minutos, duracion, compartir, url, titulo, redes } = Astro.props;
+---
+<div class="v2-ba-meta">
+  <div class="v2-ba-autor">
+    <span class="v2-ba-sello" aria-hidden="true">S</span>
+    <div><a href="/nosotros/">Equipo editorial de Sably</a>
+      <p class="v2-ba-fechas"><time datetime={publicado.toISOString()}>{fechaCorta(publicado)}</time>{actualizado && <> · actualizado el <time datetime={actualizado.toISOString()}>{fechaCorta(actualizado, actualizado.getFullYear() === publicado.getFullYear())}</time></>}</p>
+    </div>
+  </div>
+  <div class="v2-ba-datos">
+    <span><Ico nombre="clock" tamano={16} />{minutos} min de lectura</span>
+    {duracion && <a href="#narracion" class="v2-ba-escuchar" data-escuchar><i aria-hidden="true"><Ico nombre="headphones" tamano={14} /></i>Escuchar · {duracion}</a>}
+    {compartir && <Compartir {url} {titulo} {redes} />}
+  </div>
+</div>

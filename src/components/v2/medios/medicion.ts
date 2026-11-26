@@ -32,10 +32,24 @@ export interface MedioMedible extends EventTarget {
 
 export const HITOS = [10, 25, 50, 75, 90] as const;
 
-/** Envía al dataLayer solo si la medición está aceptada. */
-export function enviarConConsentimiento(w: { dataLayer?: unknown[]; sablyConsent?: { get(): { analytics?: boolean } | null } } = globalThis as never): Enviar {
+type Ventana = {
+  dataLayer?: unknown[]; sablyConsent?: { get(): { analytics?: boolean } | null };
+  location?: { search: string }; sablyMedicionPrueba?: unknown[]; console?: Console;
+};
+
+/**
+ * Envía al dataLayer solo si la medición está aceptada. Para comprobar los eventos en local sin consentimiento, abrir
+ * la página con `?medicion=prueba`: cada evento se guarda en `window.sablyMedicionPrueba` y sale en la consola con
+ * `console.info`, sin ir al dataLayer ni a GA4.
+ */
+export function enviarConConsentimiento(w: Ventana = globalThis as never): Enviar {
   return (evento) => {
     try {
+      if (/[?&]medicion=prueba\b/.test(w.location?.search ?? '')) {
+        (w.sablyMedicionPrueba ??= []).push(evento);
+        w.console?.info('[medición de prueba]', evento.event, evento);
+        return;
+      }
       if (w.sablyConsent?.get()?.analytics !== true) return;
       (w.dataLayer ??= []).push(evento);
     } catch { /* la medición nunca interrumpe */ }

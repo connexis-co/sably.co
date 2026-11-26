@@ -7,6 +7,7 @@
 import {readVerifiedCourseReviews} from '@/lib/verified-course-reviews';
 import {courseWatch} from '@/lib/course-watch';
 import {videoServido} from '@/lib/course-videos';
+import {videoDeCurso} from '@/lib/video';
 import {clusterDeCurso,relatedGuides} from '@/lib/related-guides';
 import {urlCreador} from '@/lib/creadores';
 import {courseSeo,indexableAtPath} from '@/lib/cms-indexability';
@@ -203,7 +204,13 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
   /* Video de presentación: vive en R2 (cdn.sably.co). Sin CDN configurado no se
      pinta el reproductor, así el entorno local no queda con un <video> roto. */
   const videoKey = videoServido(course.id, course.data.videoKey);
-  const videoSrc = videoKey && CDN_URL ? `${CDN_URL}/videos/${videoKey}` : null;
+  const legado = videoKey && CDN_URL ? `${CDN_URL}/videos/${videoKey}` : null;
+  /* Biblioteca de vídeo (plugin sably-video): si el curso tiene vídeo asignado, manda; si no, lo de siempre. */
+  const biblioteca = CDN_URL ? await videoDeCurso(course.id) : undefined;
+  const videoSrc = biblioteca?.mp4 ?? legado;
+  const videoHls = biblioteca?.hls ?? null;
+  const videoSubtitulos = biblioteca?.subtitulos ?? null;
+  const videoProveedor = biblioteca?.proveedor ?? 'r2';
   const watch = courseWatch(course,SITE.url,CDN_URL);
 
   /* FAQs: las del curso + banco estándar (garantiza ≥8 por página, con FAQPage schema). */
@@ -366,7 +373,7 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
     return indexableAtPath(courseSeo(course.seo,variant?.seo),alt.href,SITE.url);
   });
 
-  return { cms, COUNTRIES, course, locale, category, base, coursePath, localeHtml, courseHtml, learnings, audience, requisitos, localesDelCurso, tituloColisiona, conCupon, proveedor, ctaUrl, allCourses, creators, pillar, satellites, guides, related, discountPct, sinProducto, creadoresVisibles, operationalDb, verifiedReviews, real, valoracion, montoBase, monedaBase, activePromos, promoRow, promoSiguiente, coupon, quote, freshUntil, currency, displayMoney, baseAmount, saving, offer, precioTexto, marketQuery, marketLinks, localCheckout, videoSrc, watch, FAQ_PAGO, baseFaqs, faqs, pageUrl, canonicalUrl, h1, esCurso, nombreEnFrase, deNombre, title, description, descripcionCurso, subtitulo, breadcrumb, schemas, alternates };
+  return { cms, COUNTRIES, course, locale, category, base, coursePath, localeHtml, courseHtml, learnings, audience, requisitos, localesDelCurso, tituloColisiona, conCupon, proveedor, ctaUrl, allCourses, creators, pillar, satellites, guides, related, discountPct, sinProducto, creadoresVisibles, operationalDb, verifiedReviews, real, valoracion, montoBase, monedaBase, activePromos, promoRow, promoSiguiente, coupon, quote, freshUntil, currency, displayMoney, baseAmount, saving, offer, precioTexto, marketQuery, marketLinks, localCheckout, videoSrc, videoHls, videoSubtitulos, videoProveedor, watch, FAQ_PAGO, baseFaqs, faqs, pageUrl, canonicalUrl, h1, esCurso, nombreEnFrase, deNombre, title, description, descripcionCurso, subtitulo, breadcrumb, schemas, alternates };
 }
 
 export type Ficha = Awaited<ReturnType<typeof cargarFicha>>;

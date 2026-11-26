@@ -13,45 +13,80 @@ import { corto } from './heroe/comun';
 import type { OficioMosaico } from './Heroe.astro';
 interface Props { oficios: OficioMosaico[]; base: string; cursos: number; areas: number; paises: number; hoy: string }
 const { oficios, base, cursos, areas, paises, hoy } = Astro.props;
-/* Punto de partida de cada foto (vw, vh, grados), el del prototipo. */
-const DESDE: [number, number, number][] = [[-38, -30, -9], [-12, -42, 6], [14, -38, -5], [40, -26, 10], [-44, 2, 7], [-16, 8, -12], [18, 4, 8], [44, 6, -6], [-36, 34, -8], [-10, 44, 5], [16, 40, -10], [40, 32, 9]];
+/* Punto de partida de cada foto: un montón suelto y girado que llena el escenario (las de los extremos asoman
+   por su borde) y se ordena en su celda una tras otra. `--x4` para la rejilla de 4 columnas y `--x3` para la de 3. */
+const desde = (i: number) => {
+  const c4 = i % 4, c3 = i % 3, fila = Math.floor(i / 4);
+  const x4 = [-26, -9, 9, 26][c4]!, x3 = [-24, i % 2 ? 12 : -12, 24][c3]!;
+  const y0 = [-9, 7, -5, 11][(i + fila) % 4]!, y = i < 4 ? Math.abs(y0) + 3 : y0, // la primera fila (3 o 4 fotos) no sube hasta el texto
+    r = [-11, 8, -7, 12, 9, -13][i % 6]!;
+  return `--x4: ${x4}vw; --x3: ${x3}vw; --y: ${y}vh; --r: ${r}deg; --fin: ${38 + i * 2}%`;
+};
 ---
-<section class="v2-converge mt-24 lg:mt-32" aria-labelledby="converge-titulo">
+<section class="v2-converge mt-10 lg:mt-14" aria-labelledby="converge-titulo">
   <div class="v2-converge-escena v2-contenedor">
+    <!-- Texto fijo que cambia por fases mientras las fotos se juntan; el H2 (la cifra real) es el que queda. -->
+    <div class="v2-converge-fases">
+      <p class="v2-converge-fase font-display" data-fase="1" aria-hidden="true">Empieza por <b>un oficio.</b></p>
+      <p class="v2-converge-fase font-display" data-fase="2" aria-hidden="true"><b>Doce oficios,</b> un solo catálogo.</p>
+      <h2 id="converge-titulo" class="v2-converge-cifra font-display"><b>{cursos} cursos</b> de {areas} áreas, con el precio de {paises} países.</h2>
+    </div>
     <ul class="v2-converge-rejilla" role="list" aria-label="Algunos oficios de Sably">
       {oficios.slice(0, 12).map((o, i) => (
-        <li style={`--x: ${DESDE[i]![0]}vw; --y: ${DESDE[i]![1]}vh; --r: ${DESDE[i]![2]}deg`}>
-          <a href={`${base}/${o.id}/`}><Foto nombre={o.foto} sizes="(min-width: 1024px) 260px, 30vw" decorativa class="h-full w-full object-cover" /><span>{corto(o.titulo)}</span></a>
+        <li style={desde(i)}>
+          <a href={`${base}/${o.id}/`}><Foto nombre={o.foto} sizes="(min-width: 1024px) 230px, 30vw" decorativa class="h-full w-full object-cover" /><span>{corto(o.titulo)}</span></a>
         </li>
       ))}
     </ul>
-    <h2 id="converge-titulo" class="v2-converge-cifra font-display"><b>{cursos} cursos</b> de {areas} áreas, con el precio de {paises} países.</h2>
-    <a href={`${base}/cursos/`} class="v2-btn v2-btn-principal v2-converge-cta" data-alto="52">Ver los {cursos} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
-    <NotaFuente class="v2-converge-fuente">Cursos, áreas y países contados el {hoy}.</NotaFuente>
+    <div class="v2-converge-final">
+      <a href={`${base}/cursos/`} class="v2-btn v2-btn-principal v2-converge-cta" data-alto="52">Ver los {cursos} cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+      <NotaFuente class="v2-converge-fuente">Cursos, áreas y países contados el {hoy}.</NotaFuente>
+    </div>
   </div>
 </section>
 
 <style is:global>
   @layer components {
-    .v2-converge { position: relative; overflow-x: clip; view-timeline-name: --converge; view-timeline-axis: block; }
-    .v2-converge-escena { display: grid; gap: 28px; justify-items: center; padding-block: 48px; text-align: center; max-width: 1100px; }
-    .v2-converge-rejilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%; }
-    @media (min-width: 700px) { .v2-converge-rejilla { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; } }
+    /* Recorte en los dos ejes: ninguna foto sale de la sección ni pisa el bloque de antes («También: …»). */
+    .v2-converge { position: relative; overflow: clip; view-timeline-name: --converge; view-timeline-axis: block; }
+    .v2-converge-escena { display: grid; gap: 24px; justify-items: center; padding-block: 40px; text-align: center; max-width: 1000px; }
+    .v2-converge-fases { display: grid; width: 100%; }
+    .v2-converge-fases > * { grid-area: 1 / 1; align-self: center; }
+    .v2-converge-fase { display: none; margin: 0; color: var(--color-navy-950); font-size: clamp(28px, 4.4vw, 48px); line-height: 1.1; letter-spacing: -.02em; text-wrap: balance; }
+    .v2-converge-fase b { color: var(--color-coral-600); font-weight: inherit; }
+    .v2-converge-rejilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%; margin: 0; padding: 0; list-style: none; }
+    .v2-converge-rejilla li { --x: var(--x3); }
+    @media (min-width: 700px) {
+      .v2-converge-rejilla { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+      .v2-converge-rejilla li { --x: var(--x4); }
+    }
     .v2-converge-rejilla a { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius-c-lg); background: var(--color-navy-50); color: #fff; text-decoration: none; }
+    .v2-converge-rejilla a:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 3px; }
     .v2-converge-rejilla picture { display: contents; }
+    .v2-converge-rejilla img { transition: scale var(--t-lento) var(--e-mueve); }
+    @media (hover: hover) { .v2-converge-rejilla a:hover img { scale: 1.05; } }
     .v2-converge-rejilla span { position: absolute; inset: auto 0 0 0; padding: 18px 8px 6px; background: linear-gradient(transparent, rgb(27 27 58 / .82)); font: 600 13px/17px var(--font-sans); text-align: left; }
     @media (min-width: 700px) { .v2-converge-rejilla span { font-size: 14px; padding: 22px 10px 8px; } }
     .v2-converge-cifra { margin: 0; color: var(--color-navy-950); font-size: clamp(28px, 4.4vw, 48px); line-height: 1.1; letter-spacing: -.02em; text-wrap: balance; }
     .v2-converge-cifra b { color: var(--color-coral-600); font-weight: inherit; }
-    /* Mejora: solo con soporte y sin «reducir movimiento». Longhands: el minificador funde animation-timeline en la abreviada. */
+    .v2-converge-final { display: grid; gap: 12px; justify-items: center; }
+    /* Mejora: solo con soporte y sin «reducir movimiento». Longhands, y animation-timeline después de la
+       abreviada: el minificador funde animation-timeline en la abreviada. Sin soporte: rejilla quieta y la cifra. */
     @media (prefers-reduced-motion: no-preference) {
       @supports (animation-timeline: view()) and (animation-range: contain 0% contain 100%) {
-        .v2-converge { height: 260vh; }
-        .v2-converge-escena { position: sticky; top: 0; min-height: 100vh; align-content: center; }
-        @keyframes v2-junta { from { translate: var(--x) var(--y); rotate: var(--r); scale: .72; } }
-        .v2-converge-rejilla li { animation-name: v2-junta; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --converge; animation-range: contain 0% contain 55%; }
-        @keyframes v2-converge-aparece { from { opacity: 0; translate: 0 16px; } }
-        .v2-converge-cifra, .v2-converge-cta, .v2-converge-fuente { animation-name: v2-converge-aparece; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --converge; animation-range: contain 50% contain 70%; }
+        .v2-converge { height: 200vh; height: 200svh; }
+        .v2-converge-escena { position: sticky; top: 0; min-height: 100vh; min-height: 100svh; align-content: center; padding-block: 72px 24px; }
+        .v2-converge-fase { display: block; }
+        @keyframes v2-junta { from { translate: var(--x) var(--y); rotate: var(--r); scale: .82; } }
+        .v2-converge-rejilla li { animation-name: v2-junta; animation-duration: auto; animation-timing-function: cubic-bezier(.2, .7, .3, 1); animation-fill-mode: both; animation-timeline: --converge; animation-range: contain 0% contain var(--fin); }
+        /* Fases del texto, sin cruzarse: 1 hasta el 20 %, 2 del 20 al 48 %, la cifra desde el 48 %; luego el botón. */
+        @keyframes v2-fase-1 { 0%, 65% { opacity: 1; translate: 0 0; } 100% { opacity: 0; translate: 0 -14px; } }
+        @keyframes v2-fase-2 { 0% { opacity: 0; translate: 0 14px; } 22%, 78% { opacity: 1; translate: 0 0; } 100% { opacity: 0; translate: 0 -14px; } }
+        @keyframes v2-fase-3 { from { opacity: 0; translate: 0 14px; } }
+        .v2-converge-fase[data-fase='1'] { animation-name: v2-fase-1; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --converge; animation-range: contain 0% contain 20%; }
+        .v2-converge-fase[data-fase='2'] { animation-name: v2-fase-2; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --converge; animation-range: contain 17% contain 48%; }
+        .v2-converge-cifra { animation-name: v2-fase-3; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --converge; animation-range: contain 48% contain 58%; }
+        .v2-converge-final { animation-name: v2-fase-3; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --converge; animation-range: contain 56% contain 70%; }
       }
     }
   }

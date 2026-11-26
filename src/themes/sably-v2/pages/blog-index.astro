@@ -1,90 +1,202 @@
 ---
 /**
- * Índice del blog V2. Mismo loader, título, descripción y schemas que la
- * plantilla clásica. Destacado grande, rejilla de guías, buscador y chips por
- * tema que filtran sin recargar (~0,6 KB); sin JavaScript se ven todas.
+ * Portada del blog V2 (DISENO.md §4.1 y §12.1, láminas 02, 03 y 11). Mismo loader que la clásica.
+ * Cabeza con H1 y buscador con sugerencias · destacado + «Lo más reciente» (solo página 1, sin filtros) · filtros
+ * fijos con el color de cada área · rejilla de tarjetas · banda «De la guía al oficio» · paginación con URL propia.
+ * Todo funciona sin JS: el filtro es ?categoria= (canónica a /blog/), la búsqueda ?q= (noindex, follow) y cada
+ * página ?pagina=N (canónica propia). Con JS (portada.ts, ~1,5 KB) el filtro y «Ver más» cambian sin recargar,
+ * con View Transition. Las opciones salen de «Ajustes del sitio → Blog».
  */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Migas from '@/components/v2/Migas.astro';
+import HuecoPublicidad from '@/components/publicidad/HuecoPublicidad.astro';
+import Ico from '../components/Ico.astro';
+import Foto from '../components/Foto.astro';
+import EstilosBlog from '../components/blog/EstilosBlog.astro';
+import HojaBlog from '../components/blog/HojaBlog.astro';
+import TarjetaArticulo from '../components/blog/TarjetaArticulo.astro';
+import EtiquetaCategoria from '../components/blog/EtiquetaCategoria.astro';
+import BuscadorBlog from '../components/blog/BuscadorBlog.astro';
+import { pulsoDeArticulos } from '@/lib/blog-pulso';
 import { Image as OptimizedImage } from 'astro:assets';
 import { cmsImageUrl } from '@/lib/cms-media';
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import CabezaPagina from '../components/CabezaPagina.astro';
-import Ico from '../components/Ico.astro';
-import { blogCover, readingTime } from '@/lib/blog';
+import { blogCover, fechaCorta, minutosLectura, slugCategoria, titularPortada, tonoDeCategoria } from '@/lib/blog';
+import { richText } from '@/lib/rich-content';
+import { temaDeLaPeticion } from '@/lib/ajustes-tema';
+import { SITE } from '@/lib/site';
 import type { load } from '@/lib/page-loaders/blog-index';
 import '../estilos.css';
 type Props = Exclude<Awaited<ReturnType<typeof load>>, Response>;
-const { country, posts, facets, featured, rest, title, description, schemas } = Astro.props;
-const fecha = (d: Date, mes: 'long' | 'short') => d.toLocaleDateString('es-CO', { day: 'numeric', month: mes, year: 'numeric' });
-const buscar = (p: (typeof posts)[number]) => `${p.data.title} ${p.data.description} ${(p.data.keywords ?? []).join(' ')}`.toLowerCase();
+const { country, posts, facets, title, description, schemas, cms } = Astro.props;
+const a = (await temaDeLaPeticion(Astro)).ajustes.blog;
+
+/* ---------- Petición: ?categoria=, ?q= y ?pagina= ---------- */
+const sinTildes = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+const params = Astro.url.searchParams;
+const q = (params.get('q') ?? '').trim().slice(0, 80);
+const categorias = facets.map(f => ({ ...f, slug: slugCategoria(f.name), tono: tonoDeCategoria(f.name) }));
+const categoria = categorias.find(c => c.slug === params.get('categoria')) ?? null;
+const pedida = Number.parseInt(params.get('pagina') ?? '1', 10);
+const pagina = Number.isFinite(pedida) && pedida > 1 ? pedida : 1;
+const palabras = sinTildes(q).split(/\s+/).filter(p => p.length > 1);
+const filtrados = posts
+  .filter(p => !categoria || (p.data.category ?? 'Guía') === categoria.name)
+  .filter(p => !palabras.length || palabras.every(w => sinTildes(`${p.data.title} ${p.data.description} ${p.data.category ?? ''} ${(p.data.keywords ?? []).join(' ')}`).includes(w)));
+
+/* ---------- Destacado y «Lo más reciente»: solo en la portada limpia (página 1, sin filtro ni búsqueda) ---------- */
+const limpia = !categoria && !q;
+const conDestacado = limpia && a.blogDestacado !== 'ninguno' && filtrados.length > 3;
+const destacado = conDestacado ? filtrados[0] : undefined;
+const recientes = conDestacado && a.blogDestacado === 'destacado-recientes' ? filtrados.slice(1, 1 + Number(a.blogRecientes)) : [];
+const resto = filtrados.slice(destacado ? 1 + recientes.length : 0);
+const porPagina = Number(a.blogPorPagina);
+const paginas = Math.max(1, Math.ceil(resto.length / porPagina));
+const fuera = pagina > paginas;
+const enPagina = fuera ? [] : resto.slice((pagina - 1) * porPagina, pagina * porPagina);
+const verDestacado = pagina === 1 && destacado;
+// «Ver más»: cuántas guías se han visto hasta esta página (el destacado y «Lo más reciente» cuentan).
+const vistas = (destacado ? 1 + recientes.length : 0) + Math.min(pagina * porPagina, resto.length);
+const fotoDestacado = destacado ? cmsImageUrl(destacado.coverImage) ?? cmsImageUrl(destacado.cardImage) ?? (a.blogPortadaSinFoto === 'foto' ? blogCover(destacado.data.category, 'hero') : null) : null;
+
+/* ---------- URL, canónica y título por página ---------- */
+const urlDe = (n: number, cat = categoria?.slug) => {
+  const u = new URLSearchParams();
+  if (cat) u.set('categoria', cat);
+  if (q) u.set('q', q);
+  if (n > 1) u.set('pagina', String(n));
+  const s = u.toString();
+  return `/blog/${s ? `?${s}` : ''}`;
+};
+// Página N: canónica y título propios. Filtro de categoría: canónica a /blog/ (páginas finas). Búsqueda: noindex.
+const canonical = limpia && !fuera ? `${SITE.url}${urlDe(pagina)}` : `${SITE.url}/blog/`;
+const titulo = limpia && pagina > 1 ? title.replace(' | ', ` · página ${pagina} | `) : title;
+const noindex = Boolean(q) || fuera;
+const esquemas = schemas.map(s => s['@type'] === 'Blog' && limpia && pagina > 1
+  ? { ...s, url: `${SITE.url}${urlDe(pagina)}`, blogPost: ((s as { blogPost?: { url: string }[] }).blogPost ?? []).filter(b => enPagina.some(p => b.url.endsWith(`/blog/${p.id}/`))) }
+  : s);
+
+/* ---------- Textos ---------- */
+const h1 = a.blogTituloPortada.slice(0, 60) || 'Guías para empezar un oficio desde cero';
+const entradilla = a.blogEntradillaPortada.slice(0, 200) || 'Guías prácticas para empezar un oficio, entender lo que cuesta y emprender en Latinoamérica.';
+const ultima = posts[0]?.data.publishedAt;
+const nCursos = a.blogBandaCursos ? (await cms.getCourses()).length : 0;
+const minutos = (p: (typeof posts)[number]) => minutosLectura(p.richBody ? richText(p.richBody) : p.body ?? '');
+const conComentarios = a.blogComentarios !== 'apagados';
+const pulsos = a.blogValoracion || conComentarios ? await pulsoDeArticulos([...recientes, ...enPagina].map(p => p.id)) : new Map();
+const tarjeta = { estrellas: a.blogValoracion && a.blogTarjetaEstrellas, comentarios: conComentarios && a.blogTarjetaComentarios, variante: a.blogTarjeta, movil: a.blogTarjetaMovil, leerMas: a.blogTarjetaLeerMas, sinFoto: a.blogPortadaSinFoto, estiloEtiqueta: a.blogEtiquetaEstilo } as const;
+const filaBanda = (Math.min(enPagina.length, 6)) - 1;
+const migas = [{ name: 'Inicio', url: `/${country.code}/` }, { name: 'Blog', url: '/blog/' }];
 ---
-<BaseLayout {title} {description} {country} pathAfterCountry="/" {schemas} pageType="blog" temaV2>
-  <CabezaPagina titulo="Blog de Sably" antetitulo="Guías gratuitas" entradilla={description} migas={[{ name: 'Inicio', url: `/${country.code}/` }, { name: 'Blog', url: '/blog/' }]} />
-
-  <section class="sticky top-[60px] z-30 border-b border-navy-100 bg-white/95 backdrop-blur max-lg:top-14" aria-label="Buscar y filtrar artículos">
-    <div class="v2-contenedor flex flex-col gap-3 py-3 lg:flex-row lg:items-center lg:justify-between">
-      <label class="flex h-11 w-full items-center gap-2.5 rounded-full bg-navy-50 px-4 focus-within:ring-2 focus-within:ring-coral-600 lg:max-w-sm">
-        <Ico nombre="search" tamano={18} class="text-navy-700" />
-        <span class="sr-only">Buscar artículos</span>
-        <input type="search" data-blog-search placeholder="Buscar en el blog…" autocomplete="off" class="h-11 w-full bg-transparent text-t15 text-navy-950 outline-none placeholder:text-navy-500" />
-      </label>
-      <div class="-mx-5 flex gap-2 overflow-x-auto px-5 [scrollbar-width:none] lg:mx-0 lg:flex-wrap lg:px-0" role="group" aria-label="Filtrar por tema">
-        <button type="button" data-blog-filter="all" aria-pressed="true" class="v2-chip flex-none">Todos ({posts.length})</button>
-        {facets.map(f => <button type="button" data-blog-filter={f.name} aria-pressed="false" class="v2-chip flex-none">{f.name} ({f.count})</button>)}
-      </div>
-    </div>
-  </section>
-
-  <section class="v2-contenedor py-10 lg:py-14" data-cms>
-    {posts.length === 0 ? <p class="text-t17 text-navy-700">Muy pronto publicaremos nuestras primeras guías.</p> : (
-      <>
-        {featured && (
-          <a href={`/blog/${featured.id}/`} data-blog-card data-category={featured.data.category ?? 'Guía'} data-search={buscar(featured)} class="group mb-12 grid overflow-hidden rounded-c-xl ring-1 ring-navy-100 transition-shadow duration-(--t-lento) hover:shadow-s2 hover:ring-transparent lg:grid-cols-2">
-            <div class="aspect-[16/10] overflow-hidden bg-navy-50 lg:aspect-auto">
-              <OptimizedImage src={cmsImageUrl(featured.coverImage) ?? blogCover(featured.data.category, 'hero')} alt={featured.data.title} width={800} height={533} fetchpriority="high" sizes="(min-width: 1024px) 600px, 100vw" class="h-full w-full object-cover transition-transform duration-(--t-lento) ease-(--e-sale) group-hover:scale-[1.03]" />
-            </div>
-            <div class="flex flex-col justify-center p-6 lg:p-10">
-              <p class="text-t13 font-medium text-navy-500">{featured.data.category ?? 'Guía'} · Destacado</p>
-              <h2 class="mt-3 font-display text-d28 group-hover:underline group-hover:underline-offset-4 lg:text-d40">{featured.data.title}</h2>
-              <p class="mt-3 line-clamp-3 text-t17 text-navy-700">{featured.data.description}</p>
-              <p class="mt-5 text-t13 text-navy-500">{fecha(featured.data.publishedAt, 'long')} · {readingTime(featured.body ?? '')} min de lectura</p>
-            </div>
-          </a>
-        )}
-        <div data-blog-grid class="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-          {rest.map(post => (
-            <a href={`/blog/${post.id}/`} data-blog-card data-category={post.data.category ?? 'Guía'} data-search={buscar(post)} class="group flex flex-col">
-              <div class="aspect-[3/2] overflow-hidden rounded-c-lg bg-navy-50">
-                <OptimizedImage src={cmsImageUrl(post.cardImage) ?? cmsImageUrl(post.coverImage) ?? blogCover(post.data.category, 'card')} alt={post.data.title} width={480} height={320} loading="lazy" sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" class="h-full w-full object-cover transition-transform duration-(--t-lento) ease-(--e-sale) group-hover:scale-[1.03]" />
-              </div>
-              <p class="mt-4 text-t13 font-medium text-navy-500">{post.data.category ?? 'Guía'}</p>
-              <h2 class="mt-1 font-display text-t20 font-semibold text-navy-950 group-hover:underline group-hover:underline-offset-4">{post.data.title}</h2>
-              <p class="mt-2 line-clamp-3 text-t15 text-navy-700">{post.data.description}</p>
-              <p class="mt-auto pt-3 text-t13 text-navy-500">{fecha(post.data.publishedAt, 'short')} · {readingTime(post.body ?? '')} min</p>
-            </a>
-          ))}
+<BaseLayout title={titulo} {description} {country} pathAfterCountry="/" schemas={esquemas} pageType="blog" {canonical} {noindex} temaV2>
+  <EstilosBlog parte="portada-cabeza" />
+  <div class="v2-blog-portada">
+    <header class="v2-contenedor v2-bp-cabeza">
+      <Migas items={migas} oscuro={false} />
+      <div class="v2-bp-cuadro">
+        <div>
+          <p class="v2-bp-ante">Blog de Sably</p>
+          <h1 class="v2-bp-h1">{h1}</h1>
+          <p class="v2-bp-entradilla">{entradilla}</p>
         </div>
-        <p data-blog-empty hidden class="py-12 text-t17 text-navy-700">No encontramos artículos con esa búsqueda. Prueba con otra palabra.</p>
-      </>
-    )}
-  </section>
+        {a.blogBuscador && (
+          <div>
+            <BuscadorBlog valor={q} />
+            {ultima && <p class="v2-bb-dato">{posts.length} {posts.length === 1 ? 'guía' : 'guías'} · la más reciente, del {fechaCorta(ultima)}</p>}
+          </div>
+        )}
+      </div>
+    </header>
+    <HojaBlog />
+
+    <div data-blog-resultados>
+      {verDestacado && (
+        <section class="v2-contenedor v2-bp-destacado pb-12 lg:pb-16" aria-label="Destacado y lo más reciente">
+          <a href={`/blog/${destacado.id}/`} class="v2-bp-grande">
+            <div class="v2-bp-foto">
+              {fotoDestacado
+                ? <OptimizedImage src={fotoDestacado} alt="" width={1140} height={720} fetchpriority="high" loading="eager" sizes="(min-width: 1024px) 760px, 100vw" />
+                : <div class="v2-portada-tipo" data-tono={tonoDeCategoria(destacado.data.category)} aria-hidden="true"><b>{titularPortada(destacado.data.title)}</b><span>{destacado.data.category}</span></div>}
+            </div>
+            <p class="v2-bp-fila"><EtiquetaCategoria categoria={destacado.data.category} estilo={a.blogEtiquetaEstilo} /><span>Destacado</span></p>
+            <h2>{destacado.data.title}</h2>
+            <p>{destacado.data.description}</p>
+            <p class="v2-bp-meta"><time datetime={destacado.data.publishedAt.toISOString()}>{fechaCorta(destacado.data.publishedAt)}</time> · {minutos(destacado)} min de lectura</p>
+          </a>
+          {recientes.length > 0 && (
+            <div class="v2-bp-recientes">
+              <h2>Lo más reciente</h2>
+              <ul role="list">{recientes.map(p => <li><TarjetaArticulo post={p} {...tarjeta} pulso={pulsos.get(p.id)} variante="horizontal" leerMas={false} sizes="120px" /></li>)}</ul>
+            </div>
+          )}
+        </section>
+      )}
+
+      <nav class="v2-bp-filtros" aria-label="Categorías del blog" data-estilo={a.blogFiltrosEstilo} data-movil={a.blogFiltrosMovil}>
+        <div class="v2-contenedor v2-bp-filtros-fila">
+          <div class="v2-bp-pastillas" data-filtros>
+            <a href={q ? `/blog/?q=${encodeURIComponent(q)}` : '/blog/'} class="v2-bp-pastilla" aria-current={!categoria ? 'page' : undefined} data-filtro="">Todos{a.blogFiltrosCuenta && <span>{posts.length}</span>}</a>
+            {categorias.map(c => <a href={urlDe(1, c.slug)} class="v2-bp-pastilla" data-tono={c.tono} aria-current={categoria?.slug === c.slug ? 'page' : undefined} data-filtro={c.slug}>{c.name}{a.blogFiltrosCuenta && <span>{c.count}</span>}</a>)}
+          </div>
+          <form class="v2-bp-select" action="/blog/" method="get">
+            <label for="filtro-movil">Categoría</label>
+            <select id="filtro-movil" name="categoria" data-filtro-select>
+              <option value="">Todas ({posts.length})</option>
+              {categorias.map(c => <option value={c.slug} selected={categoria?.slug === c.slug}>{c.name} ({c.count})</option>)}
+            </select>
+            <noscript><button type="submit" class="v2-btn v2-btn-secundario" data-alto="48">Ver</button></noscript>
+          </form>
+        </div>
+      </nav>
+
+      <section class="v2-contenedor pt-8 pb-4 lg:pt-12" aria-labelledby="rejilla-titulo">
+        <h2 id="rejilla-titulo" class="sr-only">{q ? `Resultados para «${q}»` : categoria ? `Guías de ${categoria.name}` : 'Todas las guías'}</h2>
+        <p class="sr-only" role="status" aria-live="polite" data-cuenta>{filtrados.length} {filtrados.length === 1 ? 'guía' : 'guías'}{categoria ? ` en ${categoria.name}` : ''}{q ? ` con «${q}»` : ''}</p>
+        {enPagina.length === 0 ? (
+          <p class="v2-bp-vacio">{q ? <>No hay guías con «{q}». Prueba con el nombre del oficio.</> : fuera ? <>Esta página no existe. <a class="text-coral-700 underline" href="/blog/">Ver todas las guías</a>.</> : 'Muy pronto publicaremos guías de esta categoría.'}</p>
+        ) : (
+          <ul class="v2-bp-rejilla" role="list" data-blog-rejilla data-movil={a.blogTarjetaMovil}>
+            {enPagina.map((p, i) => (
+              <>
+                <li style={`view-transition-name:t-${p.id}`}><TarjetaArticulo post={p} {...tarjeta} pulso={pulsos.get(p.id)} eager={!verDestacado && i < 2} /></li>
+                <HuecoPublicidad posicion="blog-rejilla" indice={i} etiqueta="li" />
+                {a.blogBandaCursos && nCursos > 0 && i === filaBanda && (
+                  <li class="v2-bp-ancho" data-banda>
+                    <aside class="v2-bp-banda" aria-labelledby="banda-titulo">
+                      <div>
+                        <h2 id="banda-titulo">De la guía al oficio</h2>
+                        <p>{nCursos} cursos online en español, con constancia de finalización. Pagas en tu moneda.</p>
+                        <a href={`/${country.code}/cursos/`} class="v2-btn v2-btn-principal" data-alto="48">Ver los cursos <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+                      </div>
+                      <Foto nombre="foto-heroe-2" sizes="(min-width: 768px) 520px, 100vw" decorativa />
+                    </aside>
+                  </li>
+                )}
+              </>
+            ))}
+          </ul>
+        )}
+
+        {paginas > 1 && !fuera && (a.blogPaginacion === 'ver-mas' ? (
+          <div class="v2-bp-vermas" data-ver-mas data-auto={a.blogVerMasAuto || undefined}>
+            <p data-ver-mas-cuenta>Has visto {vistas} de {filtrados.length} guías</p>
+            <span class="v2-bp-barra" aria-hidden="true"><i style={`--hecho:${(vistas / filtrados.length).toFixed(3)}`}></i></span>
+            {pagina < paginas && <a href={urlDe(pagina + 1)} class="v2-btn v2-btn-secundario" data-alto="52" data-ver-mas-boton>Ver más guías</a>}
+          </div>
+        ) : (
+          <nav class="v2-bp-paginas" aria-label="Páginas del blog">
+            {pagina > 1 ? <a href={urlDe(pagina - 1)} rel="prev"><Ico nombre="arrow-left" tamano={16} />Anterior</a> : <span class="v2-bp-inactivo" aria-hidden="true"><Ico nombre="arrow-left" tamano={16} />Anterior</span>}
+            {Array.from({ length: paginas }, (_, i) => i + 1).map(n => n === pagina
+              ? <span class="v2-bp-num" aria-current="page">{n}</span>
+              : <a class="v2-bp-num" href={urlDe(n)} aria-label={`Página ${n}`}>{n}</a>)}
+            <span class="v2-bp-de">Página {pagina} de {paginas}</span>
+            {pagina < paginas ? <a href={urlDe(pagina + 1)} rel="next">Siguiente<Ico nombre="arrow-right" tamano={16} /></a> : <span class="v2-bp-inactivo" aria-hidden="true">Siguiente<Ico nombre="arrow-right" tamano={16} /></span>}
+          </nav>
+        ))}
+      </section>
+    </div>
+  </div>
 </BaseLayout>
 <script>
-  import { trackEvent } from '@/lib/analytics';
-  const search = document.querySelector<HTMLInputElement>('[data-blog-search]');
-  const filtros = [...document.querySelectorAll<HTMLButtonElement>('[data-blog-filter]')];
-  const tarjetas = [...document.querySelectorAll<HTMLElement>('[data-blog-card]')];
-  const vacio = document.querySelector<HTMLElement>('[data-blog-empty]');
-  if (tarjetas.length) {
-    const norm = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
-    let categoria = 'all';
-    const aplicar = () => {
-      const q = norm(search?.value.trim() ?? '');
-      let n = 0;
-      for (const t of tarjetas) { const ok = (categoria === 'all' || t.dataset.category === categoria) && (q.length < 2 || norm(t.dataset.search ?? '').includes(q)); t.hidden = !ok; if (ok) n++; }
-      if (vacio) vacio.hidden = n > 0;
-    };
-    let espera: ReturnType<typeof setTimeout>;
-    search?.addEventListener('input', () => { clearTimeout(espera); espera = setTimeout(() => { aplicar(); const q = search.value.trim(); if (q.length >= 2) trackEvent('blog_search', { query: q }); }, 160); });
-    filtros.forEach(b => b.addEventListener('click', () => { categoria = b.dataset.blogFilter!; filtros.forEach(x => x.setAttribute('aria-pressed', String(x === b))); aplicar(); trackEvent('blog_filter', { category: categoria }); }));
-  }
+  import { prepararPortada } from '../components/blog/portada';
+  prepararPortada();
 </script>

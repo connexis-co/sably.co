@@ -6,6 +6,7 @@
  * (lo comprueba `tests/ajustes-panel.test.ts`).
  */
 import type { SettingField } from 'emdash';
+import { BLOG_CLAVES, BLOG_SETTINGS } from './ajustes-blog';
 
 export const settingsSchema = {
   // Sitio y tema
@@ -79,7 +80,14 @@ export const settingsSchema = {
   cuentaGoogle: {
     type: 'boolean',
     label: 'Cuenta · Entrar con Google',
-    description: 'Hoy es la única forma de entrar: apagado, no se puede entrar ni crear cuenta y el botón «Entrar» desaparece. Necesita SABLY_GOOGLE_ID y SABLY_GOOGLE_SECRET en el servidor (el cliente OAuth de Google). Por defecto: encendido.',
+    description: 'Botón «Continuar con Google» en el acceso. Apagado, solo queda el correo con código (si está encendido); con los dos apagados el botón «Ingresar» desaparece. Necesita SABLY_GOOGLE_ID y SABLY_GOOGLE_SECRET en el servidor (el cliente OAuth de Google). Por defecto: encendido.',
+    default: true,
+  },
+  // Clave nueva del 26-nov-2026.
+  cuentaCorreo: {
+    type: 'boolean',
+    label: 'Cuenta · Entrar con el correo (código)',
+    description: 'Entrar o crear la cuenta con un código de 6 dígitos que llega al correo, sin contraseña. Solo se ofrece si el correo del sitio está listo: proveedor elegido en Ajustes → Correo y, con «Sably · Brevo», su clave API y el remitente en los ajustes del plugin. Sin eso no aparece aunque esté encendido. Por defecto: encendido.',
     default: true,
   },
   cuentaAcceso: {
@@ -105,10 +113,10 @@ export const settingsSchema = {
   portadaHeroeVariante: {
     type: 'select',
     label: 'Portada · Variante del héroe',
-    description: 'Solo cambia el escaparate de cursos junto al titular: el H1, el buscador con sugerencias, los botones y los 12 cursos enlazados son los mismos en todas (lo que leen Google y ChatGPT no cambia). «Collage»: recortes de foto con cinta y pegatina de precio sobre fondo arena; se dispersan al bajar. «Muro inclinado»: cuatro filas de tarjetas que se deslizan; al pasar el cursor la tarjeta se endereza con su precio (idea de gurwi.com). «Cintas»: dos cintas diagonales con los oficios. «Órbita»: el buscador al centro y los oficios girando alrededor, con fondo aurora. «Anillo 3D»: cilindro de cursos en 3D (en móvil, carril plano). «Vitrina viva», «Buscador primero», «Abanico» y «Mosaico»: las de la ronda anterior. Todas se quedan quietas con «reducir movimiento» y llevan botón de pausa. Si la prueba A/B del héroe está encendida, manda la prueba. Por defecto: Collage.',
+    description: 'Solo cambia el escaparate de cursos junto al titular: el H1, el buscador con sugerencias, los botones y los 12 cursos enlazados son los mismos en todas (lo que leen Google y ChatGPT no cambia). «Collage»: recortes de foto con cinta y pegatina de precio sobre fondo arena; se dispersan al bajar. «Muro inclinado»: cuatro filas de tarjetas que se deslizan; al pasar el cursor la tarjeta se endereza con su precio (idea de gurwi.com). «Cintas»: dos cintas diagonales con los oficios. «Órbita»: el buscador al centro y los oficios girando alrededor, con fondo aurora. «Anillo 3D»: cilindro de cursos en 3D (en móvil, carril plano). «Vitrina viva», «Buscador primero», «Abanico» y «Mosaico»: las de la ronda anterior. Todas se quedan quietas con «reducir movimiento» y llevan botón de pausa. Si la prueba A/B del héroe está encendida, manda la prueba. Por defecto: Muro inclinado (elegido el 25-nov en la tercera ronda: el más cercano a gurwi.com y con el precio a la vista).',
     options: [
-      { value: 'collage', label: 'Collage (cuaderno del oficio)' },
       { value: 'muro', label: 'Muro inclinado interactivo' },
+      { value: 'collage', label: 'Collage (cuaderno del oficio)' },
       { value: 'cintas', label: 'Cintas cinéticas' },
       { value: 'orbita', label: 'Órbita alrededor del buscador (fondo aurora)' },
       { value: 'anillo3d', label: 'Anillo 3D' },
@@ -117,7 +125,7 @@ export const settingsSchema = {
       { value: 'abanico', label: 'Abanico de cursos' },
       { value: 'mosaico', label: 'Mosaico de tres fotos' },
     ],
-    default: 'collage',
+    default: 'muro',
   },
   portadaHeroeFondo: {
     type: 'select',
@@ -174,8 +182,8 @@ export const settingsSchema = {
   portadaHeroeABVariantes: {
     type: 'string',
     label: 'Portada · Variantes de la prueba A/B',
-    description: 'Dos o tres valores separados por comas, de entre: collage, muro, cintas, orbita, anillo3d, vitrina, buscador, abanico (el mosaico no entra: cambia los botones). La primera es la de control y la que ven bots y navegadores sin JavaScript. Por defecto: collage, buscador (14 contra 06).',
-    default: 'collage, buscador',
+    description: 'Dos o tres valores separados por comas, de entre: collage, muro, cintas, orbita, anillo3d, vitrina, buscador, abanico (el mosaico no entra: cambia los botones). La primera es la de control y la que ven bots y navegadores sin JavaScript. Por defecto: muro, buscador (el muro de fábrica contra el buscador, el mejor del juez en móvil).',
+    default: 'muro, buscador',
   },
   portadaHeroeABReparto: {
     type: 'select',
@@ -223,6 +231,8 @@ export const settingsSchema = {
     options: [{ value: '10', label: '10 valoraciones' }, { value: '20', label: '20 valoraciones' }, { value: '50', label: '50 valoraciones' }],
     default: '20',
   },
+  // Blog (ajustes-blog.ts)
+  ...BLOG_SETTINGS,
   // Integraciones
   notificationEmail: {
     type: 'email',
@@ -234,7 +244,7 @@ export const settingsSchema = {
 export type ClaveAjuste = keyof typeof settingsSchema;
 export type ValorAjuste = string | boolean;
 
-export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
+export type IdPestana = 'sitio' | 'campanas' | 'caja' | 'portada' | 'contenido' | 'blog' | 'medios' | 'seo' | 'cuenta' | 'integraciones' | 'avanzado';
 
 /** Ajustes de la pestaña «Portada», en el orden en que se ven. */
 export const PORTADA_CLAVES: ClaveAjuste[] = ['portadaOrden', 'portadaOcultos', 'portadaHeroeVariante', 'portadaHeroeFondo', 'portadaHeroeBotones', 'portadaHeroeTachado', 'portadaHeroeRota', 'portadaHeroeIntervalo', 'portadaHeroeOrden', 'portadaHeroeOficios', 'portadaHeroeAB', 'portadaHeroeABVariantes', 'portadaHeroeABReparto', 'portadaHeroeABInicio', 'portadaCategoriasVariante', 'portadaComoFuncionaAnimado', 'portadaEscenasVariante', 'portadaEscenasAtenuar', 'portadaValoradosMinimo'];
@@ -246,9 +256,10 @@ export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves:
   { id: 'caja', titulo: 'Caja de compra', resumen: 'Cómo se ve la caja de la ficha y el aviso de prueba social.', claves: ['cajaVariante', 'cajaContador', 'cajaTitulo', 'cajaSubtitulo', 'mostrarCreador', 'mostrarDocente', 'mostrarCiudades'] },
   { id: 'portada', titulo: 'Portada', resumen: 'Orden y visibilidad de los bloques de la portada de cada país, y el movimiento del héroe. Los textos nuevos se editan en «Secciones».', claves: PORTADA_CLAVES },
   { id: 'contenido', titulo: 'Cursos y contenido', resumen: 'Accesos a las colecciones y a la moderación.', claves: [] },
+  { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },
   { id: 'medios', titulo: 'Medios: audio y vídeo', resumen: 'Vídeo de presentación; narraciones y reproductor, cuando lleguen.', claves: [] },
   { id: 'seo', titulo: 'SEO y medición', resumen: 'Medición, conversiones y auditoría SEO.', claves: [] },
-  { id: 'cuenta', titulo: 'Cuenta', resumen: 'Cuentas de usuario y acceso con Google.', claves: ['cuentaActiva', 'cuentaGoogle', 'cuentaAcceso'] },
+  { id: 'cuenta', titulo: 'Cuenta', resumen: 'Cuentas de usuario y acceso con Google o con código por correo.', claves: ['cuentaActiva', 'cuentaGoogle', 'cuentaCorreo', 'cuentaAcceso'] },
   { id: 'integraciones', titulo: 'Integraciones', resumen: 'Correo del equipo, WhatsApp, Brevo y claves cifradas.', claves: ['notificationEmail'] },
   { id: 'avanzado', titulo: 'Avanzado', resumen: 'Revisar un tema sin cambiarlo, claves técnicas y formulario de respaldo.', claves: [] },
 ];

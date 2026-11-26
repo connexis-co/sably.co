@@ -51,7 +51,7 @@ const { ajustes } = await temaDeLaPeticion(Astro);
 const {
   course, locale, category, localeHtml, courseHtml, learnings, audience, requisitos, proveedor, pillar, satellites, guides, related,
   sinProducto, creadoresVisibles, verifiedReviews, valoracion, quote, real, freshUntil, currency, baseAmount,
-  offer, videoSrc, watch, faqs, h1, nombreEnFrase, deNombre, title, description, subtitulo, schemas, alternates, breadcrumb,
+  offer, videoSrc, videoHls, videoSubtitulos, videoProveedor, watch, faqs, h1, nombreEnFrase, deNombre, title, description, subtitulo, schemas, alternates, breadcrumb,
 } = f;
 
 /* Un solo formato de precio (símbolo + cifra del país + código): src/lib/presentacion-v2.ts. */
@@ -148,7 +148,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
           )}
         </div>
         <div class="v2-area-media -mx-5 lg:mx-0 lg:mt-10" data-course-media>
-          <VideoPresentacion src={videoSrc} poster={portada} titulo={course.data.title} alt={`${category.name}: ${course.data.title}`} courseId={course.id} />
+          <VideoPresentacion src={videoSrc} hls={videoHls} subtitulos={videoSubtitulos} proveedor={videoProveedor} poster={portada} titulo={course.data.title} alt={`${category.name}: ${course.data.title}`} courseId={course.id} />
         </div>
         {/* Pie y enlace a la página del vídeo: bajo el vídeo en escritorio; en móvil, después de la
             caja, para que el precio y el botón queden en el primer pantallazo. */}

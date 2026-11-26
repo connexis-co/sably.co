@@ -23,7 +23,7 @@ async function nativa<T>(method: 'GET' | 'PUT', body?: unknown): Promise<T> {
 
 /** Estado de la prueba A/B del héroe con lo guardado (no con el borrador). */
 function EstadoPruebaAB({ valores }: { valores: Valores }) {
-  const p = leerPruebaHeroe(valores.portadaHeroeAB, valores.portadaHeroeABVariantes ?? 'collage, buscador', valores.portadaHeroeABReparto, valores.portadaHeroeABInicio);
+  const p = leerPruebaHeroe(valores.portadaHeroeAB, valores.portadaHeroeABVariantes ?? 'muro, buscador', valores.portadaHeroeABReparto, valores.portadaHeroeABInicio);
   if (valores.portadaHeroeAB !== true) return <p>Estado: <strong>apagada</strong>. Manda «Variante del héroe». Primera prueba propuesta: collage contra buscador primero (14 contra 06), 14 días como mínimo.</p>;
   if (!p) return <p role="alert">Estado: <strong>encendida pero sin efecto</strong>: hacen falta dos o tres variantes válidas (el mosaico no entra). Mientras tanto manda «Variante del héroe».</p>;
   const dias = p.inicio ? Math.floor((Date.now() - Date.parse(`${p.inicio}T00:00:00Z`)) / 86_400_000) : null;
@@ -160,6 +160,17 @@ export function AjustesPage() {
       ['Menús', 'Cabecera y pie.', `${ADMIN}/menus`],
       ['Moderación y contactos', 'Opiniones, calificaciones y solicitudes.', `${ADMIN}/plugins/sably-operations/operations`],
     ]} />; break;
+    case 'blog': cuerpo = <>
+      {seccion(['blogTituloPortada', 'blogEntradillaPortada', 'blogBuscador', 'blogDestacado', 'blogRecientes', 'blogBandaCursos'], 'Portada del blog')}
+      {seccion(['blogFiltrosEstilo', 'blogFiltrosMovil', 'blogFiltrosCuenta', 'blogPaginacion', 'blogVerMasAuto', 'blogPorPagina'], 'Portada · filtros y paginación')}
+      {seccion(['blogCabecera', 'blogEntradillaEstilo', 'blogTamanoTexto', 'blogProgreso', 'blogProgresoMinimo'], 'Artículo · cabecera y lectura')}
+      {seccion(['blogIndiceEscritorio', 'blogIndiceProgreso', 'blogIndiceMovil', 'blogIndiceNiveles', 'blogIndiceMinimo', 'blogCarrilDerecho'], 'Artículo · índice')}
+      {seccion(['blogCompartirRedes', 'blogCompartirPosiciones', 'blogNarracionFija'], 'Artículo · compartir y narración')}
+      {seccion(['blogCursoMitad', 'blogLlamadaFinal', 'blogCursosSugeridos', 'blogArticulosSugeridos'], 'Artículo · cursos y sugeridos')}
+      {seccion(['blogTarjeta', 'blogTarjetaMovil', 'blogTarjetaLeerMas', 'blogPortadaSinFoto', 'blogEtiquetaEstilo'], 'Tarjetas y etiquetas')}
+      {seccion(['blogValoracion', 'blogEstrellasCabecera', 'blogTarjetaEstrellas', 'blogComentarios', 'blogComentariosPlegados', 'blogTarjetaComentarios'], 'Valoración y comentarios')}
+      <Enlaces items={[['Artículos', 'Texto, portada, categoría y preguntas de cada artículo.', `${ADMIN}/content/blog`], ['Moderar comentarios y valoraciones', 'Los comentarios nacen pendientes: se publican al aprobarlos.', `${ADMIN}/plugins/sably-operations/operations`]]} />
+    </>; break;
     case 'medios': cuerpo = <>
       <WidgetEditor only="video" />
       <div className="so-hueco"><strong>Narraciones (audio)</strong><p>Reservado. Llega con la sesión de narraciones (docs/equipo/2026-11-25/narraciones/DISENO.md).</p></div>
@@ -172,8 +183,8 @@ export function AjustesPage() {
       ['Redirecciones', 'Direcciones viejas que llevan a las nuevas.', `${ADMIN}/redirects`],
     ]} />; break;
     case 'cuenta': cuerpo = <>
-      {seccion(['cuentaActiva', 'cuentaGoogle', 'cuentaAcceso'], 'Cuenta')}
-      <div className="so-hueco"><strong>Claves del servidor</strong><p>El identificador y la clave del cliente OAuth de Google y la clave de sesión no se escriben aquí: van en el entorno del servidor (<code>SABLY_GOOGLE_ID</code>, <code>SABLY_GOOGLE_SECRET</code>, <code>SABLY_AUTH_SECRET</code>). Sin ellas, la cuenta no aparece aunque esté encendida. Detalle en docs/equipo/2026-11-25/cuenta/IMPLEMENTACION.md.</p></div>
+      {seccion(['cuentaActiva', 'cuentaGoogle', 'cuentaCorreo', 'cuentaAcceso'], 'Cuenta')}
+      <div className="so-hueco"><strong>Claves del servidor</strong><p>El identificador y la clave del cliente OAuth de Google y la clave de sesión no se escriben aquí: van en el entorno del servidor (<code>SABLY_GOOGLE_ID</code>, <code>SABLY_GOOGLE_SECRET</code>, <code>SABLY_AUTH_SECRET</code>). Sin ellas, la cuenta no aparece aunque esté encendida. El código por correo usa el proveedor de Ajustes → Correo (Sably · Brevo con su clave API). Detalle en docs/equipo/2026-11-25/cuenta/IMPLEMENTACION.md.</p></div>
     </>; break;
     case 'integraciones': cuerpo = <>
       {seccion(['notificationEmail'], 'Correo del equipo')}

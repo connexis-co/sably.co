@@ -1,0 +1,20 @@
+---
+/**
+ * Buscador del blog con sugerencias (DISENO §4.1, prototipo 03): combobox ARIA 1.2. Sin JS es un formulario GET a
+ * /blog/?q= (el servidor filtra; esa página lleva noindex, follow). Con JS (portada.ts) pide /blog/indice.json al
+ * primer foco y sugiere guías, categorías y cursos con su precio; ↑ ↓ Inicio Fin Intro Esc y el atajo «/».
+ */
+import Ico from '../Ico.astro';
+interface Props { valor?: string }
+---
+<form class="v2-bb" action="/blog/" method="get" role="search" aria-label="Buscar en el blog" data-buscador-blog>
+  <label class="v2-bb-campo">
+    <Ico nombre="search" tamano={20} />
+    <span class="sr-only">Busca una guía, un oficio o un curso</span>
+    <input type="search" name="q" value={Astro.props.valor} placeholder="Busca una guía, un oficio o un curso" autocomplete="off" enterkeyhint="search"
+      role="combobox" aria-expanded="false" aria-controls="bb-lista" aria-autocomplete="list" data-bb-campo />
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <div class="v2-bb-lista" id="bb-lista" role="listbox" aria-label="Sugerencias" hidden data-bb-lista></div>
+  <p class="sr-only" role="status" aria-live="polite" data-bb-estado></p>
+</form>

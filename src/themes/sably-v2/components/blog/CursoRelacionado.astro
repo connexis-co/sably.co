@@ -1,0 +1,29 @@
+---
+/**
+ * Curso relacionado a mitad del texto (DISENO §4.7): foto, «CURSO RELACIONADO», título, precio real del país
+ * (el mismo de la ficha, con el normal tachado si hay campaña), tique del cupón y botón. Es un <aside> hijo directo
+ * del texto: los anuncios del texto (PublicidadEnTexto) nunca se acercan a menos de dos párrafos de él.
+ * Sin precio de Hotmart no se enseña cifra (nunca una de relleno).
+ */
+import { Image as OptimizedImage } from 'astro:assets';
+import { cmsImageUrl } from '@/lib/cms-media';
+import { courseCover } from '@/lib/categories';
+import type { Course } from '@/lib/emdash-content';
+import type { Country } from '@/lib/countries';
+import type { PrecioTarjeta } from '@/lib/precio-tarjeta';
+import Precio from '@/components/v2/Precio.astro';
+import Ico from '../Ico.astro';
+interface Props { course: Course; country: Country; precio: PrecioTarjeta | null; categoriaSlug: string; class?: string }
+const { course, country, precio, categoriaSlug, class: clase } = Astro.props;
+const url = `/${country.code}/${course.id}/`;
+---
+<aside class:list={['v2-curso-mitad', clase]} aria-labelledby={`curso-mitad-${course.id}`} data-curso-mitad>
+  <div class="v2-cm-foto"><OptimizedImage src={cmsImageUrl(course.cardImage) ?? cmsImageUrl(course.coverImage) ?? courseCover(course.id, categoriaSlug, 'card')} alt="" width={440} height={440} loading="lazy" sizes="(min-width: 640px) 220px, 100vw" /></div>
+  <div class="v2-cm-texto">
+    <p class="v2-cm-ante">Curso relacionado</p>
+    <p class="v2-cm-titulo" id={`curso-mitad-${course.id}`}>{course.data.title}</p>
+    {precio && <p class="v2-cm-precio"><Precio valor={precio.hoy} moneda={precio.moneda} locale={country.hreflang} codigoClass="text-t15 font-semibold" />{precio.normal !== null && <s><span class="sr-only">Precio normal: </span><Precio valor={precio.normal} moneda={precio.moneda} locale={country.hreflang} codigoClass="text-t13" /></s>}</p>}
+    {precio?.cupon && precio.ahorro ? <p class="v2-cm-tique">{precio.ahorro} % con el cupón {precio.cupon}</p> : null}
+    <a href={url} class="v2-btn v2-btn-principal" data-alto="48">Ver el curso <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>
+  </div>
+</aside>

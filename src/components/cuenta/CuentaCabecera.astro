@@ -12,11 +12,14 @@ import DialogoCuenta from './DialogoCuenta.astro';
 /** `ventana`: «Entrar» abre la ventana emergente (panel → Cuenta → Cómo se abre «Entrar»); si no, la página. */
 interface Props { ruta: string; ventana: boolean }
 ---
-<div class="v2-cuenta max-lg:hidden" data-cuenta-caja>
-  <a href={RUTAS.ingresar} rel="nofollow" class="v2-cuenta-entrar" data-cuenta-entrar data-cuenta-abrir={Astro.props.ventana ? '' : undefined} data-no-prefetch>Entrar</a>
+<div class="v2-cuenta" data-cuenta-caja>
+  <a href={RUTAS.ingresar} rel="nofollow" class="v2-cuenta-entrar" data-cuenta-entrar data-cuenta-abrir={Astro.props.ventana ? '' : undefined} data-no-prefetch aria-label="Ingresar a tu cuenta">
+    <svg class="v2-cuenta-icono" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+    <span class="v2-cuenta-etiqueta" aria-hidden="true">Ingresar</span>
+  </a>
   <button type="button" popovertarget="v2-cuenta-menu" class="v2-cuenta-avatar [anchor-name:--v2-cuenta]" data-cuenta-con aria-label="Tu cuenta">
-    <span data-cuenta-iniciales aria-hidden="true"></span>
-    <img data-cuenta-foto alt="" width="36" height="36" referrerpolicy="no-referrer" hidden />
+    <span class="v2-cuenta-circulo"><span data-cuenta-iniciales aria-hidden="true"></span><img data-cuenta-foto alt="" width="32" height="32" referrerpolicy="no-referrer" hidden /></span>
+    <svg class="v2-cuenta-flecha" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
   </button>
 </div>
 <script is:inline>if (/(?:^|;\s*)sably_cuenta_ui=1(?:;|$)/.test(document.cookie)) document.documentElement.setAttribute('data-cuenta', '1');
@@ -35,21 +38,37 @@ for (const t of ['pointerdown', 'click']) document.addEventListener(t, e => { co
 {Astro.props.ventana && <DialogoCuenta />}
 
 <style is:inline>
-  /* Solo escritorio: en móvil la cuenta va dentro del menú. Fuera de capa, este CSS ganaría a `max-lg:hidden`. */
-  .v2-cuenta { display: none; justify-content: flex-end; align-items: center; width: 96px; height: 44px; flex: none; }
-  @media (width >= 1024px) { .v2-cuenta { display: flex; } }
-  .v2-cuenta-entrar {
-    display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 18px; border-radius: 999px;
-    font: 600 15px/22px var(--font-sans); color: var(--color-navy-950); text-decoration: none; box-shadow: inset 0 0 0 1px var(--color-navy-100);
+  /* Diseño «Cuenta / Botón de cuenta» (GEHan) y «Cabecera móvil» (vsCHQ, sg7Ua): caja fija para no mover nada.
+     Escritorio: píldora con icono y «Ingresar» (115 × 44); con sesión, avatar de 32 y flecha (70 × 44).
+     Móvil: solo el icono o el avatar, en un área táctil de 44 × 44 entre el país y el menú. */
+  .v2-cuenta { display: flex; justify-content: flex-end; align-items: center; width: 44px; height: 44px; flex: none; }
+  .v2-cuenta-entrar, .v2-cuenta-avatar {
+    display: inline-flex; align-items: center; justify-content: center; height: 44px; border-radius: 999px; cursor: pointer;
+    color: var(--color-navy-950); text-decoration: none; background: none; border: 0;
   }
-  @media (hover: hover) and (pointer: fine) { .v2-cuenta-entrar:hover { box-shadow: inset 0 0 0 1.5px var(--color-navy-300); } }
-  .v2-cuenta-avatar {
-    display: none; place-items: center; width: 44px; height: 44px; border-radius: 999px; overflow: hidden; cursor: pointer;
-    background: var(--color-navy-900); color: #fff; font: 600 15px/1 var(--font-display);
+  .v2-cuenta-entrar { width: 44px; }
+  .v2-cuenta-icono { width: 22px; height: 22px; flex: none; }
+  .v2-cuenta-etiqueta, .v2-cuenta-flecha { display: none; }
+  .v2-cuenta-avatar { display: none; width: 44px; gap: 6px; }
+  .v2-cuenta-circulo {
+    display: grid; place-items: center; width: 32px; height: 32px; border-radius: 999px; overflow: hidden; flex: none;
+    background: var(--color-navy-950); color: #fff; font: 600 13px/1 var(--font-display);
   }
-  .v2-cuenta-avatar img { width: 44px; height: 44px; object-fit: cover; }
+  .v2-cuenta-circulo img { width: 32px; height: 32px; object-fit: cover; }
+  @media (width >= 1024px) {
+    .v2-cuenta { width: 115px; }
+    .v2-cuenta-entrar { width: auto; gap: 8px; padding: 0 16px 0 12px; font: 600 15px/22px var(--font-sans); box-shadow: inset 0 0 0 1.5px var(--color-navy-950); }
+    .v2-cuenta-icono { width: 18px; height: 18px; }
+    .v2-cuenta-etiqueta { display: inline; }
+    .v2-cuenta-avatar { width: auto; padding: 0 10px 0 6px; box-shadow: inset 0 0 0 1.5px var(--color-navy-100); }
+    .v2-cuenta-flecha { display: block; color: var(--color-navy-700); }
+    @media (hover: hover) and (pointer: fine) {
+      .v2-cuenta-entrar:hover { background: var(--color-navy-950); color: #fff; }
+      .v2-cuenta-avatar:hover { box-shadow: inset 0 0 0 1.5px var(--color-navy-300); }
+    }
+  }
   html[data-cuenta='1'] .v2-cuenta-entrar { display: none; }
-  html[data-cuenta='1'] .v2-cuenta-avatar { display: grid; }
+  html[data-cuenta='1'] .v2-cuenta-avatar { display: inline-flex; }
   .v2-cuenta-entrar:focus-visible, .v2-cuenta-avatar:focus-visible, .v2-cuenta-fila:focus-visible { outline: 3px solid var(--color-coral-600); outline-offset: 2px; }
   .v2-cuenta-menu {
     margin: 0; padding: 8px; border: 0; border-radius: var(--radius-c-lg); background: #fff; box-shadow: var(--shadow-s3); color: var(--color-navy-950);

@@ -7,6 +7,7 @@
 import { resolverTema, temaPorDefecto, type Tema, type TemaResuelto } from './tema';
 import { SUBTITULO_SABLY, TITULO_SABLY } from './caja/sably';
 import { bloquesVisibles, listaDeTexto, type BloquePortada } from './portada-bloques';
+import { leerAjustesBlog, type AjustesBlog } from './blog-ajustes';
 
 export type VarianteCaja = 'cuenta-clara' | 'cabecera-oscura';
 export type EstiloContador = 'barra' | 'casillas' | 'linea' | 'tique';
@@ -44,6 +45,8 @@ export interface AjustesV2 {
     escenasVariante: 'apiladas' | 'foto-fija';
     valoradosMinimo: number;
   };
+  /** Blog V2 («Ajustes del sitio → Blog»): claves `blog*` con sus valores de fábrica. */
+  blog: AjustesBlog;
 }
 
 export interface TemaDeLaPeticion extends TemaResuelto {
@@ -81,7 +84,7 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
     portada: {
       bloques: bloquesVisibles(v.portadaOrden, v.portadaOcultos),
       heroe: {
-        variante: uno(v.portadaHeroeVariante, VARIANTES_HEROE, 'collage'),
+        variante: uno(v.portadaHeroeVariante, VARIANTES_HEROE, 'muro'),
         fondo: uno(v.portadaHeroeFondo, ['liso', 'aurora'] as const, 'liso'),
         botones: uno(v.portadaHeroeBotones, ['dos', 'uno'] as const, 'dos'),
         tachar: v.portadaHeroeTachado !== false,
@@ -90,13 +93,14 @@ export function leerAjustesV2(filas: { name: string; value: string }[], entornoT
         orden: uno(v.portadaHeroeOrden, ['aleatorio', 'fijo'] as const, 'aleatorio'),
         cursos: listaDeTexto(v.portadaHeroeOficios).slice(0, 12),
       },
-      pruebaHeroe: leerPruebaHeroe(v.portadaHeroeAB, v.portadaHeroeABVariantes ?? 'collage, buscador', v.portadaHeroeABReparto, v.portadaHeroeABInicio),
+      pruebaHeroe: leerPruebaHeroe(v.portadaHeroeAB, v.portadaHeroeABVariantes ?? 'muro, buscador', v.portadaHeroeABReparto, v.portadaHeroeABInicio),
       categoriasVariante: uno(v.portadaCategoriasVariante, ['fotos', 'pila', 'filas'] as const, 'fotos'),
       comoFuncionaAnimado: v.portadaComoFuncionaAnimado !== false,
       escenasAtenuar: v.portadaEscenasAtenuar !== false,
       escenasVariante: uno(v.portadaEscenasVariante, ['apiladas', 'foto-fija'] as const, 'apiladas'),
       valoradosMinimo: Number(uno(v.portadaValoradosMinimo, ['10', '20', '50'] as const, '20')),
     },
+    blog: leerAjustesBlog(v),
   };
 }
 

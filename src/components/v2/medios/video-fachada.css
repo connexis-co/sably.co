@@ -1,0 +1,14 @@
+/* Fachada del vídeo (ReproductorVideo.astro), en línea solo en páginas con vídeo: caja 16:9 fija (CLS 0), póster y botón. */
+.v2-medio-video { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: var(--color-navy-950); contain: layout paint; }
+@media (min-width: 1024px) { .v2-medio-video { border-radius: var(--radius-c-xl); } }
+.v2-medio-poster, .v2-medio-video > video { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.v2-medio-portada { position: absolute; inset: 0; display: grid; place-items: center; color: var(--color-navy-950); }
+.v2-medio-portada[hidden] { display: none; }
+.v2-medio-gran-play { display: grid; place-items: center; inline-size: 56px; block-size: 56px; border-radius: 999px; background: #fff; box-shadow: 0 8px 24px rgb(0 0 0 / 0.25); transition: transform var(--t-rapido) var(--e-sale); }
+@media (min-width: 1024px) { .v2-medio-gran-play { inline-size: 72px; block-size: 72px; } }
+.v2-medio-portada:hover .v2-medio-gran-play { transform: scale(1.05); }
+.v2-medio-portada:focus-visible { outline: none; }
+.v2-medio-portada:focus-visible .v2-medio-gran-play { outline: 3px solid #fff; outline-offset: 4px; }
+.v2-medio-rotulo { position: absolute; inset-block-end: 16px; inset-inline-start: 16px; display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: var(--radius-c-sm); background: #fff; font-size: var(--text-t13); font-weight: 600; color: var(--color-navy-950); }
+@media (prefers-reduced-motion: reduce) { .v2-medio-gran-play { transition: none; } .v2-medio-portada:hover .v2-medio-gran-play { transform: none; } }
+@media print { .v2-medio-video { display: none; } }

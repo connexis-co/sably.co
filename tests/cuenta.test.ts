@@ -9,13 +9,14 @@ import { createLocalJWKSet, exportJWK, generateKeyPair, SignJWT } from 'jose';
 import { SqliteD1Database } from '../src/lib/node/d1-sqlite.ts';
 import { CuentaAlmacen, desafioPkce, type IdentidadGoogle } from '../src/lib/cuenta/almacen.ts';
 import { canjearGoogle, identidadComprobada, urlGoogle, verificarIdToken } from '../src/lib/cuenta/google.ts';
-import { DIA, SESION_SEGUNDOS, destinoSeguro, enlaceIngresar, iniciales, resumen, tokenAleatorio, RUTA_PRIVADA, CONSENTIMIENTO } from '../src/lib/cuenta/nucleo.ts';
+import { DIA, SESION_SEGUNDOS, destinoSeguro, enlaceIngresar, iniciales, resumen, tokenAleatorio, RUTA_PRIVADA, CONSENTIMIENTO, codigoAleatorio, limpiarCodigo, enlaceCodigo } from '../src/lib/cuenta/nucleo.ts';
+import { correoCodigo } from '../src/lib/cuenta/correo.ts';
 import { COOKIE_PISTA, leerFormulario, postValido, tokenCsrf } from '../src/lib/cuenta/http.ts';
 import { leerEstadoCuenta } from '../src/lib/cuenta/ajustes.ts';
 import { canCachePublicPage, sharedPublicRequest } from '../src/lib/public-delivery.ts';
 
 const SECRETO = 'x'.repeat(48);
-const ESQUEMA = readFileSync(new URL('../migrations/0011_cuenta.sql', import.meta.url), 'utf8');
+const ESQUEMA = ['0011_cuenta.sql', '0013_cuenta_codigo.sql'].map(f => readFileSync(new URL(`../migrations/${f}`, import.meta.url), 'utf8')).join(';\n');
 const CLIENTE = { id: 'cliente-123.apps.googleusercontent.com', secreto: 'no-es-un-secreto', retorno: 'https://sably.co/ingresar/google/retorno/' };
 const T0 = 1_800_000_000;
 const CONSENT = { ...CONSENTIMIENTO, ip: '203.0.113.7' };
@@ -45,7 +46,7 @@ async function idToken(claims: Record<string, unknown> = {}, opciones: { aud?: s
 test('el esquema de la migración crea todas las tablas de la cuenta', async () => {
   const { db } = await almacen();
   const tablas = db.database.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name LIKE 'account%' ORDER BY name").all().map(r => r.name);
-  assert.deepEqual(tablas, ['account_consents', 'account_identities', 'account_oauth', 'account_prefs', 'account_profiles', 'account_rates', 'account_saves', 'account_sessions', 'accounts']);
+  assert.deepEqual(tablas, ['account_codes', 'account_consents', 'account_identities', 'account_oauth', 'account_prefs', 'account_profiles', 'account_rates', 'account_saves', 'account_sessions', 'accounts']);
 });
 
 test('PKCE S256 coincide con el ejemplo del RFC 7636', () => {
@@ -299,14 +300,111 @@ test('caché: las rutas de cuenta nunca se guardan y las cookies de la cuenta no
   assert.equal(sharedPublicRequest(new Request('https://sably.co/mi-cuenta/', { headers: { cookie: `${COOKIE_PISTA}=1` } }), 'production'), null);
 });
 
-test('interruptores: encendidos de fábrica, pero sin clave o sin cliente de Google no hay cuenta', () => {
+test('interruptores: encendidos de fábrica, pero sin clave, o sin Google y sin correo, no hay cuenta', () => {
   const entorno = { SABLY_AUTH_SECRET: SECRETO, SABLY_GOOGLE_ID: 'id', SABLY_GOOGLE_SECRET: 's' };
   const fila = (clave: string, valor: boolean | string) => ({ name: `plugin:sably-operations:settings:${clave}`, value: JSON.stringify(valor) });
-  assert.deepEqual(leerEstadoCuenta([], entorno), { activa: true, google: true, disponible: true, acceso: 'ventana' });
-  assert.deepEqual(leerEstadoCuenta([fila('cuentaActiva', false)], entorno), { activa: false, google: false, disponible: false, acceso: 'ventana' });
-  assert.deepEqual(leerEstadoCuenta([fila('cuentaGoogle', false)], entorno), { activa: true, google: false, disponible: false, acceso: 'ventana' });
+  assert.deepEqual(leerEstadoCuenta([], entorno), { activa: true, google: true, correo: true, disponible: true, acceso: 'ventana' });
+  assert.deepEqual(leerEstadoCuenta([fila('cuentaActiva', false)], entorno), { activa: false, google: false, correo: false, disponible: false, acceso: 'ventana' });
+  assert.deepEqual(leerEstadoCuenta([fila('cuentaGoogle', false)], entorno), { activa: true, google: false, correo: true, disponible: true, acceso: 'ventana' });
   assert.equal(leerEstadoCuenta([{ name: 'plugin:sably-operations:settings:cuentaAcceso', value: '"pagina"' }], entorno).acceso, 'pagina');
   assert.equal(leerEstadoCuenta([], {}).disponible, false, 'producción hoy: sin variables, nada cambia');
   assert.equal(leerEstadoCuenta([], { ...entorno, SABLY_AUTH_SECRET: 'corta' }).disponible, false);
-  assert.equal(leerEstadoCuenta([], { ...entorno, SABLY_GOOGLE_SECRET: '' }).disponible, false);
+  const sinGoogle = leerEstadoCuenta([], { ...entorno, SABLY_GOOGLE_SECRET: '' });
+  assert.equal(sinGoogle.google, false);
+  assert.equal(sinGoogle.disponible, true, 'sin Google queda el correo con código');
+  const nada = leerEstadoCuenta([{ name: 'plugin:sably-operations:settings:cuentaCorreo', value: 'false' }], { ...entorno, SABLY_GOOGLE_SECRET: '' });
+  assert.deepEqual([nada.correo, nada.disponible], [false, false], 'sin Google y con el correo apagado no hay cuenta');
+  assert.equal(leerEstadoCuenta([], entorno).correo, true, 'el correo viene encendido de fábrica');
+});
+
+// ---------- Acceso con código por correo ----------
+const ip = '203.0.113.9';
+
+test('código: 6 dígitos uniformes; se escribe con espacios o guiones', () => {
+  const vistos = new Set(Array.from({ length: 200 }, () => codigoAleatorio()));
+  for (const c of vistos) assert.match(c, /^\d{6}$/);
+  assert.ok(vistos.size > 190, 'no se repiten');
+  assert.equal(limpiarCodigo(' 482 915 '), '482915');
+  assert.equal(limpiarCodigo('482-915'), '482915');
+  assert.equal(enlaceCodigo('/co/cursos/', 'codigo-malo'), '/ingresar/?paso=codigo&volver=%2Fco%2Fcursos%2F&aviso=codigo-malo');
+});
+
+test('código: la primera vez crea la cuenta; la siguiente entra en la misma; y entra en la cuenta creada con Google', async () => {
+  const { db, a } = await almacen();
+  const flujo = tokenAleatorio();
+  const pedido = await a.pedirCodigo(flujo, ' Luz@Correo.CO ', ip, T0);
+  assert.ok(pedido.ok);
+  const fila = db.database.prepare('SELECT email, code FROM account_codes').get() as { email: string; code: string };
+  assert.equal(fila.email, 'luz@correo.co');
+  assert.ok(!fila.code.includes(pedido.codigo), 'del código solo se guarda su HMAC');
+  assert.deepEqual(await a.codigoPendiente(flujo, T0 + 10), { email: 'luz@correo.co', reenviarEn: 50 });
+  const v = await a.verificarCodigo(flujo, pedido.codigo, T0 + 30);
+  assert.deepEqual(v, { ok: true, email: 'luz@correo.co' });
+  assert.equal(contar(db, 'account_codes'), 0, 'un solo uso');
+  const r1 = await a.entrarConCorreo('luz@correo.co', T0 + 30, CONSENT, 'co');
+  assert.ok(r1.ok && r1.nueva);
+  assert.equal(contar(db, 'account_consents'), 1);
+  assert.equal(contar(db, 'account_identities'), 0, 'el correo es el método base: no necesita identidad');
+  const sesion = await a.cuenta(r1.token, T0 + 31);
+  assert.equal(sesion?.email, 'luz@correo.co');
+  assert.equal(sesion?.nombre, '');
+  const r2 = await a.entrarConCorreo('luz@correo.co', T0 + 99, CONSENT);
+  assert.ok(r2.ok && !r2.nueva && r2.cuenta === r1.cuenta);
+  // Una cuenta creada con Google: el código prueba el correo y entra en ella (una cuenta por correo).
+  const g = await a.entrarConGoogle(cuenta(), T0, CONSENT);
+  assert.ok(g.ok);
+  const r3 = await a.entrarConCorreo('ana@gmail.com', T0 + 5, CONSENT);
+  assert.ok(r3.ok && !r3.nueva && r3.cuenta === g.cuenta);
+  assert.deepEqual(await a.formasDeAcceso(g.cuenta), { google: true });
+  assert.deepEqual(await a.formasDeAcceso(r1.cuenta), { google: false });
+  // Un Google no autoritativo con el correo de una cuenta existente sigue sin mezclarse: entra con el código.
+  assert.deepEqual(await a.entrarConGoogle(cuenta({ email: 'luz@correo.co', sub: 'g-9', autoritativo: false }), T0, CONSENT), { ok: false, aviso: 'google-otra' });
+});
+
+test('código: 5 intentos; caducado a los 10 minutos; solo en el navegador que lo pidió', async () => {
+  const { db, a } = await almacen();
+  const flujo = tokenAleatorio();
+  const p = await a.pedirCodigo(flujo, 'luz@correo.co', ip, T0);
+  assert.ok(p.ok);
+  const malo = p.codigo === '000000' ? '000001' : '000000';
+  assert.deepEqual(await a.verificarCodigo(tokenAleatorio(), p.codigo, T0 + 1), { ok: false, aviso: 'codigo-caducado' }, 'otro navegador');
+  for (let i = 0; i < 4; i++) assert.deepEqual(await a.verificarCodigo(flujo, malo, T0 + 2), { ok: false, aviso: 'codigo-malo' });
+  assert.deepEqual(await a.verificarCodigo(flujo, malo, T0 + 3), { ok: false, aviso: 'codigo-intentos' });
+  assert.deepEqual(await a.verificarCodigo(flujo, p.codigo, T0 + 4), { ok: false, aviso: 'codigo-caducado' }, 'agotado, ni el bueno vale');
+  assert.equal(contar(db, 'account_codes'), 0);
+  const f2 = tokenAleatorio();
+  const p2 = await a.pedirCodigo(f2, 'luz@correo.co', ip, T0 + 100);
+  assert.ok(p2.ok);
+  assert.deepEqual(await a.verificarCodigo(f2, p2.codigo, T0 + 100 + 600), { ok: false, aviso: 'codigo-caducado' });
+  assert.deepEqual(await a.verificarCodigo(f2, 'abc', T0 + 101), { ok: false, aviso: 'codigo-caducado' }, 'tras caducar, la fila se borró');
+});
+
+test('código: 60 s entre envíos; 4 por correo y 20 por IP cada hora; misma respuesta exista o no la cuenta', async () => {
+  const { a } = await almacen();
+  const flujo = tokenAleatorio();
+  assert.ok((await a.pedirCodigo(flujo, 'luz@correo.co', ip, T0)).ok);
+  assert.deepEqual(await a.pedirCodigo(flujo, 'luz@correo.co', ip, T0 + 30), { ok: false, aviso: 'correo-espera' });
+  assert.ok((await a.pedirCodigo(flujo, 'luz@correo.co', ip, T0 + 61)).ok, 'reenvío tras la espera');
+  assert.ok((await a.pedirCodigo(tokenAleatorio(), 'luz@correo.co', ip, T0 + 62)).ok);
+  assert.ok((await a.pedirCodigo(tokenAleatorio(), 'luz@correo.co', ip, T0 + 63)).ok);
+  assert.deepEqual(await a.pedirCodigo(tokenAleatorio(), 'luz@correo.co', ip, T0 + 64), { ok: false, aviso: 'espera' }, 'quinto del mismo correo en la hora');
+  for (let i = 0; i < 15; i++) assert.ok((await a.pedirCodigo(tokenAleatorio(), `otro${i}@correo.co`, ip, T0 + 70)).ok);
+  assert.deepEqual(await a.pedirCodigo(tokenAleatorio(), 'nuevo@correo.co', ip, T0 + 71), { ok: false, aviso: 'espera' }, 'vigésimo primero de la IP');
+  assert.ok((await a.pedirCodigo(tokenAleatorio(), 'nuevo@correo.co', '198.51.100.1', T0 + 72)).ok, 'otra IP sí');
+  assert.ok((await a.pedirCodigo(tokenAleatorio(), 'luz@correo.co', '198.51.100.2', T0 + 3601 + 64)).ok, 'pasada la hora, otra vez');
+  // Sin enumeración: con o sin cuenta, la respuesta tiene la misma forma.
+  await a.entrarConCorreo('existe@correo.co', T0, CONSENT);
+  const conCuenta = await a.pedirCodigo(tokenAleatorio(), 'existe@correo.co', '198.51.100.3', T0);
+  const sinCuenta = await a.pedirCodigo(tokenAleatorio(), 'noexiste@correo.co', '198.51.100.3', T0);
+  assert.deepEqual([conCuenta.ok, Object.keys(conCuenta)], [sinCuenta.ok, Object.keys(sinCuenta)]);
+  await assert.rejects(a.pedirCodigo(tokenAleatorio(), 'no-es-correo', ip, T0));
+});
+
+test('correo del código: asunto con el código, texto y HTML sin imágenes ni enlaces de seguimiento', () => {
+  const m = correoCodigo('luz@correo.co', '482915');
+  assert.equal(m.subject, '482915 es tu código de Sably');
+  assert.match(m.text, /482 915/);
+  assert.match(m.html, /482 915/);
+  assert.match(m.text, /Vence en 10 minutos/);
+  assert.doesNotMatch(m.html, /<img|<script|https?:\/\/(?!sably\.co)/);
 });

@@ -1,0 +1,16 @@
+---
+/**
+ * Estrellas bajo el título del artículo (DISENO §12.2): con media publicable, «4,6 · 23 valoraciones»; sin ella,
+ * cinco estrellas vacías y «Sé el primero en valorar». Siempre es un enlace al bloque de valoración. Horneado en el
+ * HTML (sin CLS). Nada en el JSON-LD.
+ */
+import Estrellas from '@/components/v2/Estrellas.astro';
+import { notaCorta, type PulsoArticulo } from '@/lib/blog-pulso';
+interface Props { pulso?: PulsoArticulo }
+const p = Astro.props.pulso;
+const con = p?.publicable && p.media !== null;
+---
+<a href="#valorar" class="v2-ba-estrellas" aria-label={con ? `Valoración media ${notaCorta(p!.media!)} de 5, ${p!.votos} valoraciones. Ir a valorar` : 'Todavía sin valoraciones. Ir a valorar'}>
+  <Estrellas nota={con ? p!.media! : 0} tamano={16} class={con ? '' : 'v2-estrellas-vacias'} />
+  {con ? <span><b>{notaCorta(p!.media!)}</b> · {p!.votos} valoraciones</span> : <span class="v2-ba-estrellas-invita">Sé el primero en valorar</span>}
+</a>

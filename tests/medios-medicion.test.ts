@@ -89,3 +89,10 @@ test('medición: el salto antes de empezar (recuperar el punto guardado) no cuen
   medio.reproducir();
   assert.deepEqual(nombres(), ['audio_start']);
 });
+
+test('con ?medicion=prueba los eventos quedan en window.sablyMedicionPrueba y no van al dataLayer', () => {
+  const w: { location: { search: string }; dataLayer?: unknown[]; sablyMedicionPrueba?: unknown[]; console: Console } = { location: { search: '?x=1&medicion=prueba' }, console: { info() {} } as unknown as Console };
+  enviarConConsentimiento(w)({ event: 'video_start' });
+  assert.deepEqual(w.sablyMedicionPrueba, [{ event: 'video_start' }]);
+  assert.equal(w.dataLayer, undefined);
+});

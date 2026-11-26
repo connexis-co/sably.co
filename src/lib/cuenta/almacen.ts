@@ -5,6 +5,8 @@
  */
 import { createHash } from 'node:crypto';
 import {
+  CODIGO_ESPERA, CODIGO_INTENTOS, CODIGO_SEGUNDOS, LIMITE_CODIGO_CORREO_HORA, LIMITE_CODIGO_IP_HORA, LIMITE_CODIGO_TOTAL_HORA,
+  codigoAleatorio, codigoValido,
   LIMITE_IP_HORA, LIMITE_TOTAL_HORA, OAUTH_SEGUNDOS, SESION_RENOVAR_SI_QUEDAN, SESION_SEGUNDOS, SESION_TOPE,
   base64url, bytesAleatorios, mismoValor, normalizarCorreo, resumen, tokenAleatorio, tokenValido,
 } from './nucleo';
@@ -33,6 +35,9 @@ export type ResultadoEntrada =
   | { ok: true; token: string; nueva: boolean; cuenta: number }
   | { ok: false; aviso: 'google-otra' | 'bloqueada' };
 
+export type ResultadoCodigo = { ok: true; codigo: string } | { ok: false; aviso: 'correo-espera' | 'espera' };
+export type ResultadoVerificacion = { ok: true; email: string } | { ok: false; aviso: 'codigo-malo' | 'codigo-caducado' | 'codigo-intentos' };
+
 export interface Consentimiento { texto: string; version: string; ip: string | null }
 
 /** Documento de preferencias (preferencias.md §5.1); Sably ofrece solo `pais`. */
@@ -50,7 +55,7 @@ export class CuentaAlmacen {
   /** Crea las tablas si faltan (todo IF NOT EXISTS): el servidor Node no aplica migraciones de D1. */
   async asegurarEsquema(): Promise<void> {
     if (!this.esquema) return;
-    if (await this.db.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name='account_consents'").first()) return;
+    if (await this.db.prepare("SELECT 1 FROM sqlite_master WHERE type='table' AND name='account_codes'").first()) return;
     // El esquema no lleva «;» dentro de textos: se parte por sentencias y va en un solo lote.
     const sentencias = this.esquema.replace(/--[^\n]*/g, '').split(';').map(s => s.trim()).filter(Boolean);
     await this.db.batch(sentencias.map(s => this.db.prepare(s)));
@@ -79,8 +84,9 @@ export class CuentaAlmacen {
     if (!tokenValido(flujo)) throw new Error('Flujo inválido.');
     const state = tokenAleatorio(), nonce = tokenAleatorio(), verifier = base64url(bytesAleatorios(48));
     await this.db.batch([
-      // Limpieza de paso (índices o claves primarias pequeñas): flujos, límites y sesiones caducados.
+      // Limpieza de paso (índices o claves primarias pequeñas): flujos, códigos, límites y sesiones caducados.
       this.db.prepare('DELETE FROM account_oauth WHERE expires <= ?').bind(ahora),
+      this.db.prepare('DELETE FROM account_codes WHERE expires <= ?').bind(ahora),
       this.db.prepare('DELETE FROM account_rates WHERE started <= ?').bind(ahora - 3600),
       this.db.prepare('DELETE FROM account_sessions WHERE expires <= ?').bind(ahora),
       this.db.prepare('INSERT OR REPLACE INTO account_oauth (flow, state, nonce, verifier, expires) VALUES (?, ?, ?, ?, ?)')
@@ -113,7 +119,7 @@ export class CuentaAlmacen {
    * Una sola cuenta por correo (contrato §3): la identidad de Google ya enlazada entra;
    * si no, un correo autoritativo se enlaza a la cuenta que ya tenga ese correo; si no
    * hay cuenta, se crea. Un correo no autoritativo que ya tiene cuenta necesita el código
-   * por correo (fase siguiente): hasta entonces no se mezcla nada.
+   * por correo: se le pide entrar con su correo (aviso «google-otra»).
    */
   async entrarConGoogle(id: IdentidadGoogle, ahora: number, consentimiento: Consentimiento, pais?: string): Promise<ResultadoEntrada> {
     const email = normalizarCorreo(id.email);
@@ -133,28 +139,11 @@ export class CuentaAlmacen {
     if (estado === 'blocked') return { ok: false, aviso: 'bloqueada' };
 
     if (cuenta === null) {
-      const creada = fila<{ id: number }>(await this.db.prepare('INSERT INTO accounts (email, created, last_login) VALUES (?, ?, ?) RETURNING id').bind(email, ahora, ahora).first());
-      if (!creada) throw new Error('No se pudo crear la cuenta.');
-      cuenta = Number(creada.id);
-      const sesion = this.nuevaSesion(cuenta, ahora);
-      const iniciales: D1PreparedStatement[] = [
+      return this.crear(email, ahora, consentimiento, pais, nueva => [
         this.db.prepare('INSERT INTO account_identities (account, provider, subject, email, name, picture, linked) VALUES (?, ?, ?, ?, ?, ?, ?)')
-          .bind(cuenta, 'google', id.sub, email, id.nombre, id.foto, ahora),
-        this.db.prepare('INSERT INTO account_profiles (account, display_name) VALUES (?, ?)').bind(cuenta, id.nombre),
-        this.db.prepare('INSERT INTO account_consents (account, purpose, text_version, text, granted_at, ip_hash) VALUES (?, ?, ?, ?, ?, ?)')
-          .bind(cuenta, 'cuenta', consentimiento.version, consentimiento.texto, ahora, consentimiento.ip ? this.h('ip', consentimiento.ip) : null),
-        sesion.sentencia,
-      ];
-      // Preferencias: se siembran con lo que la persona ya eligió en este dispositivo (preferencias.md §5.4).
-      if (pais) iniciales.push(this.db.prepare('INSERT INTO account_prefs (account, doc, version, updated) VALUES (?, ?, 1, ?)')
-        .bind(cuenta, JSON.stringify({ v: 1, pais, t: { pais: ahora } } satisfies Preferencias), ahora));
-      try {
-        await this.db.batch(iniciales);
-      } catch (error) {
-        await this.db.prepare('DELETE FROM accounts WHERE id = ?').bind(cuenta).run();
-        throw error;
-      }
-      return { ok: true, token: sesion.token, nueva: true, cuenta };
+          .bind(nueva, 'google', id.sub, email, id.nombre, id.foto, ahora),
+        this.db.prepare('INSERT INTO account_profiles (account, display_name) VALUES (?, ?)').bind(nueva, id.nombre),
+      ]);
     }
 
     const sesion = this.nuevaSesion(cuenta, ahora);
@@ -167,6 +156,115 @@ export class CuentaAlmacen {
       sesion.sentencia,
     ]);
     return { ok: true, token: sesion.token, nueva: false, cuenta };
+  }
+
+  /** Crea la cuenta con su constancia de consentimiento, sus preferencias iniciales y la primera sesión. */
+  private async crear(email: string, ahora: number, consentimiento: Consentimiento, pais: string | undefined,
+    extra: (cuenta: number) => D1PreparedStatement[]): Promise<ResultadoEntrada> {
+    const creada = fila<{ id: number }>(await this.db.prepare('INSERT INTO accounts (email, created, last_login) VALUES (?, ?, ?) RETURNING id').bind(email, ahora, ahora).first());
+    if (!creada) throw new Error('No se pudo crear la cuenta.');
+    const cuenta = Number(creada.id);
+    const sesion = this.nuevaSesion(cuenta, ahora);
+    const iniciales: D1PreparedStatement[] = [
+      ...extra(cuenta),
+      this.db.prepare('INSERT INTO account_consents (account, purpose, text_version, text, granted_at, ip_hash) VALUES (?, ?, ?, ?, ?, ?)')
+        .bind(cuenta, 'cuenta', consentimiento.version, consentimiento.texto, ahora, consentimiento.ip ? this.h('ip', consentimiento.ip) : null),
+      sesion.sentencia,
+    ];
+    // Preferencias: se siembran con lo que la persona ya eligió en este dispositivo (preferencias.md §5.4).
+    if (pais) iniciales.push(this.db.prepare('INSERT INTO account_prefs (account, doc, version, updated) VALUES (?, ?, 1, ?)')
+      .bind(cuenta, JSON.stringify({ v: 1, pais, t: { pais: ahora } } satisfies Preferencias), ahora));
+    try {
+      await this.db.batch(iniciales);
+    } catch (error) {
+      await this.db.prepare('DELETE FROM accounts WHERE id = ?').bind(cuenta).run();
+      throw error;
+    }
+    return { ok: true, token: sesion.token, nueva: true, cuenta };
+  }
+
+  /**
+   * Pide un código para entrar con el correo. Mismo resultado exista o no la cuenta (sin enumeración):
+   * la cuenta se crea al validar el primer código. Espera de 60 s entre envíos en el mismo navegador y
+   * límites por hora: 4 por correo, 20 por IP y 160 en el sitio.
+   */
+  async pedirCodigo(flujo: string, email: string, ip: string, ahora: number): Promise<ResultadoCodigo> {
+    const correo = normalizarCorreo(email);
+    if (!tokenValido(flujo) || !correo) throw new Error('Petición de código inválida.');
+    const clave = this.h('codigo-flujo', flujo);
+    const previo = fila<{ sent: number }>(await this.db.prepare('SELECT sent FROM account_codes WHERE flow = ?').bind(clave).first());
+    if (previo && previo.sent + CODIGO_ESPERA > ahora) return { ok: false, aviso: 'correo-espera' };
+    if (!(await this.permitir('codigo:total', LIMITE_CODIGO_TOTAL_HORA, ahora))
+      || !(await this.permitir(`codigo:ip:${ip}`, LIMITE_CODIGO_IP_HORA, ahora))
+      || !(await this.permitir(`codigo:correo:${correo}`, LIMITE_CODIGO_CORREO_HORA, ahora))) return { ok: false, aviso: 'espera' };
+    const codigo = codigoAleatorio();
+    await this.db.batch([
+      this.db.prepare('DELETE FROM account_codes WHERE expires <= ?').bind(ahora),
+      this.db.prepare('INSERT OR REPLACE INTO account_codes (flow, email, code, expires, attempts, sent) VALUES (?, ?, ?, ?, 0, ?)')
+        .bind(clave, correo, this.h('codigo', `${flujo}\0${correo}\0${codigo}`), ahora + CODIGO_SEGUNDOS, ahora),
+    ]);
+    return { ok: true, codigo };
+  }
+
+  /** Si el correo no salió, el código se descarta para poder pedir otro sin esperar. */
+  async olvidarCodigo(flujo: string): Promise<void> {
+    if (tokenValido(flujo)) await this.db.prepare('DELETE FROM account_codes WHERE flow = ?').bind(this.h('codigo-flujo', flujo)).run();
+  }
+
+  /** El código pendiente de este navegador: a qué correo se envió y cuánto falta para poder reenviar. */
+  async codigoPendiente(flujo: string, ahora: number): Promise<{ email: string; reenviarEn: number } | null> {
+    if (!tokenValido(flujo)) return null;
+    const r = fila<{ email: string; expires: number; sent: number }>(await this.db.prepare('SELECT email, expires, sent FROM account_codes WHERE flow = ?')
+      .bind(this.h('codigo-flujo', flujo)).first());
+    return r && r.expires > ahora ? { email: r.email, reenviarEn: Math.max(0, r.sent + CODIGO_ESPERA - ahora) } : null;
+  }
+
+  /** Cinco intentos por código; al acertar, el código se borra (un solo uso). Comparación en tiempo constante. */
+  async verificarCodigo(flujo: string, codigo: string, ahora: number): Promise<ResultadoVerificacion> {
+    if (!tokenValido(flujo)) return { ok: false, aviso: 'codigo-caducado' };
+    const clave = this.h('codigo-flujo', flujo);
+    // El intento se cuenta antes de comparar y de forma atómica: dos peticiones a la vez no ganan intentos.
+    const r = fila<{ email: string; code: string; attempts: number }>(await this.db.prepare(
+      'UPDATE account_codes SET attempts = attempts + 1 WHERE flow = ? AND attempts < ? AND expires > ? RETURNING email, code, attempts',
+    ).bind(clave, CODIGO_INTENTOS, ahora).first());
+    if (!r) {
+      const resto = fila<{ attempts: number; expires: number }>(await this.db.prepare('SELECT attempts, expires FROM account_codes WHERE flow = ?').bind(clave).first());
+      await this.db.prepare('DELETE FROM account_codes WHERE flow = ?').bind(clave).run();
+      return { ok: false, aviso: resto && resto.expires > ahora && resto.attempts >= CODIGO_INTENTOS ? 'codigo-intentos' : 'codigo-caducado' };
+    }
+    const acierto = codigoValido(codigo) && mismoValor(r.code, this.h('codigo', `${flujo}\0${r.email}\0${codigo}`));
+    if (!acierto) {
+      if (r.attempts < CODIGO_INTENTOS) return { ok: false, aviso: 'codigo-malo' };
+      await this.db.prepare('DELETE FROM account_codes WHERE flow = ?').bind(clave).run();
+      return { ok: false, aviso: 'codigo-intentos' };
+    }
+    await this.db.prepare('DELETE FROM account_codes WHERE flow = ?').bind(clave).run();
+    return { ok: true, email: r.email };
+  }
+
+  /**
+   * Entrar con un correo ya confirmado por código. El código prueba que la persona controla ese correo,
+   * así que entra en la cuenta que tenga ese correo, la creara con Google o con código (una cuenta por correo).
+   */
+  async entrarConCorreo(email: string, ahora: number, consentimiento: Consentimiento, pais?: string): Promise<ResultadoEntrada> {
+    const correo = normalizarCorreo(email);
+    if (!correo) throw new Error('Correo inválido.');
+    const existente = fila<{ id: number; status: string }>(await this.db.prepare('SELECT id, status FROM accounts WHERE email = ?').bind(correo).first());
+    if (!existente) return this.crear(correo, ahora, consentimiento, pais, () => []);
+    if (existente.status === 'blocked') return { ok: false, aviso: 'bloqueada' };
+    const cuenta = Number(existente.id);
+    const sesion = this.nuevaSesion(cuenta, ahora);
+    await this.db.batch([
+      this.db.prepare('UPDATE accounts SET last_login = ? WHERE id = ?').bind(ahora, cuenta),
+      this.db.prepare('DELETE FROM account_sessions WHERE account = ? AND expires <= ?').bind(cuenta, ahora),
+      sesion.sentencia,
+    ]);
+    return { ok: true, token: sesion.token, nueva: false, cuenta };
+  }
+
+  /** Formas de acceso de la cuenta: el correo siempre; Google si hay identidad enlazada. */
+  async formasDeAcceso(cuenta: number): Promise<{ google: boolean }> {
+    return { google: !!(await this.db.prepare("SELECT 1 FROM account_identities WHERE account = ? AND provider = 'google'").bind(cuenta).first()) };
   }
 
   /** La cuenta de una sesión vigente; renueva a 30 días si quedan menos de 15, sin pasar del tope de 90. */

@@ -92,7 +92,8 @@ const capitulos = t.capitulos.slice(0, EXTRA.length).map((c, i) => ({ ...c, ...E
     /* Tarjetas apiladas (como visitvalle.travel/pueblos-magicos): cada capítulo se queda pegado bajo la cabecera,
        un poco más abajo que el anterior, y la siguiente sube por encima. Las de atrás se encogen un 4 % y se
        oscurecen (solo transform y opacity). Sin «sticky» o con «reducir movimiento», se apilan igual sin encoger. */
-    .v2-pila { display: grid; gap: 24px; padding-bottom: 28vh; }
+    /* Tras la última tarjeta, solo el aire justo para que la pila se suelte (antes 28vh: ~300 px de azul vacío). */
+    .v2-pila { display: grid; gap: 24px; padding-bottom: clamp(32px, 8vh, 80px); }
     .v2-pila-carta { position: sticky; top: calc(var(--fijo-superior, 72px) + 16px + var(--i) * 14px); }
     .v2-pila-cara {
       position: relative; display: grid; gap: 20px; padding: 20px; border-radius: var(--radius-c-xl); background: var(--fondo); color: var(--color-navy-950);
