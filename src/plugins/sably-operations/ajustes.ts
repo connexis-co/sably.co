@@ -90,6 +90,13 @@ export const settingsSchema = {
     description: 'Entrar o crear la cuenta con un código de 6 dígitos que llega al correo, sin contraseña. Solo se ofrece si el correo del sitio está listo: proveedor elegido en Ajustes → Correo y, con «Sably · Brevo», su clave API y el remitente en los ajustes del plugin. Sin eso no aparece aunque esté encendido. Por defecto: encendido.',
     default: true,
   },
+  // Clave nueva del 26-nov-2026.
+  cuentaClave: {
+    type: 'boolean',
+    label: 'Cuenta · Entrar con correo y contraseña',
+    description: 'Entrar con correo y contraseña, crear la cuenta con contraseña, «¿Olvidaste tu contraseña?» y cambiarla en Mi cuenta. El alta y el olvido se confirman con un código al correo, así que necesita lo mismo que el acceso con código (y ese interruptor encendido). Contraseñas con Argon2id, de 10 caracteres o más y comprobadas contra filtraciones públicas. Apagado, nadie entra con contraseña, pero las guardadas no se borran. Por defecto: encendido.',
+    default: true,
+  },
   cuentaAcceso: {
     type: 'select',
     label: 'Cuenta · Cómo se abre «Entrar»',
@@ -259,7 +266,7 @@ export const PESTANAS: { id: IdPestana; titulo: string; resumen: string; claves:
   { id: 'blog', titulo: 'Blog', resumen: 'Cómo se ven la portada del blog y los artículos: cabecera, índice, compartir, cursos y tarjetas.', claves: BLOG_CLAVES },
   { id: 'medios', titulo: 'Medios: audio y vídeo', resumen: 'Vídeo de presentación; narraciones y reproductor, cuando lleguen.', claves: [] },
   { id: 'seo', titulo: 'SEO y medición', resumen: 'Medición, conversiones y auditoría SEO.', claves: [] },
-  { id: 'cuenta', titulo: 'Cuenta', resumen: 'Cuentas de usuario y acceso con Google o con código por correo.', claves: ['cuentaActiva', 'cuentaGoogle', 'cuentaCorreo', 'cuentaAcceso'] },
+  { id: 'cuenta', titulo: 'Cuenta', resumen: 'Cuentas de usuario y acceso con Google, con código por correo o con contraseña.', claves: ['cuentaActiva', 'cuentaGoogle', 'cuentaCorreo', 'cuentaClave', 'cuentaAcceso'] },
   { id: 'integraciones', titulo: 'Integraciones', resumen: 'Correo del equipo, WhatsApp, Brevo y claves cifradas.', claves: ['notificationEmail'] },
   { id: 'avanzado', titulo: 'Avanzado', resumen: 'Revisar un tema sin cambiarlo, claves técnicas y formulario de respaldo.', claves: [] },
 ];

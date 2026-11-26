@@ -30,6 +30,7 @@ const ANTES = {
     cuentaActiva: ['boolean', null, true],
     cuentaGoogle: ['boolean', null, true],
     cuentaCorreo: ['boolean', null, true],
+    cuentaClave: ['boolean', null, true],
     cuentaAcceso: ['select', ['ventana', 'pagina'], 'ventana'],
   },
   integraciones: {
