@@ -400,3 +400,17 @@ test('without the Hotmart sale the OpenAI purchase is deferred instead of locked
   assert.equal(payload.results.openai, 'deferred:no-hotmart-sale');
   assert.ok(!urls.some(u => u.includes('bzr.openai.com')));
 });
+
+test('without Hotmart API credentials the webhook keeps sending the purchase as before', async (t) => {
+  const urls: string[] = [];
+  t.mock.method(globalThis, 'fetch', async (input: RequestInfo | URL) => { urls.push(String(input)); return Response.json({ accepted_events: 1 }); });
+  const legacy = database();
+  const response = await dispatchLegacyApi(productionRequest('hotmart-webhook', 'POST', {
+    event: 'PURCHASE_APPROVED', data: { purchase: { transaction: 'HP0000000003', status: 'APPROVED' } },
+  }, { 'x-hotmart-hottok': 'hottok-fixture' }), { ...productionBindings(legacy.db), SABLY_HOTMART_HOTTOK: 'hottok-fixture',
+    SABLY_OPENAI_PIXEL_ID: 'Q4xWyKhiMTwnc1PFCmKg7q', SABLY_OPENAI_CAPI_KEY: 'capi-fixture' }, 'hotmart-webhook');
+  const payload = await response.json() as { results: Record<string, string> };
+  assert.equal(payload.results.hotmart, 'no-credentials');
+  assert.equal(payload.results.openai, 'ok:1');
+  assert.deepEqual(urls.map(u => new URL(u).host), ['bzr.openai.com']);
+});

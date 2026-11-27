@@ -170,7 +170,10 @@ export async function onRequestPost({ request, env }) {
   // Compras: lo que el webhook de afiliado no trae se completa con la API de ventas de Hotmart.
   const conversion = event === 'PURCHASE_APPROVED' || status === 'APPROVED' || status === 'COMPLETE';
   let enriched = 'not-needed';
-  if (conversion && (!(value > 0) || !currency || !sckRaw)) {
+  if (conversion && (!(value > 0) || !currency || !sckRaw) && !(env.HOTMART_CLIENT_ID && env.HOTMART_CLIENT_SECRET)) {
+    // Sin credenciales se comporta como v4: envía lo que trae el webhook (aunque sea sin valor).
+    enriched = 'no-credentials';
+  } else if (conversion && (!(value > 0) || !currency || !sckRaw)) {
     try {
       const sale = await hotmartSale(env, transaction);
       enriched = sale ? 'ok' : 'unavailable';
