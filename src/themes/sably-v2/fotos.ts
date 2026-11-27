@@ -55,7 +55,13 @@ export type NombreFoto =
   | 'foto-estudiar-portatil-2'
   | 'foto-estudiar-celular-3'
   | 'foto-velas-2'
-  | 'foto-cejas-1';
+  | 'foto-cejas-1'
+  | 'foto-portada-elige-1'
+  | 'foto-portada-aprende-1'
+  | 'foto-portada-aprende-vertical-1'
+  | 'foto-portada-practica-1'
+  | 'foto-portada-practica-vertical-1'
+  | 'foto-portada-ofrece-1';
 
 /** `tarjeta: 'derecha'`: el protagonista está a la izquierda; un texto encima (oficio destacado) va a la derecha. */
 interface Foto { ancho: number; alto: number; alt: string; tarjeta?: 'derecha' }
@@ -134,6 +140,12 @@ export const FOTOS: Record<NombreFoto, Foto> = {
   'foto-estudiar-celular-3': { ancho: 1200, alto: 1500, alt: 'Mujer que escribe en un cuaderno mientras mira el celular apoyado en un soporte de madera junto a la ventana' },
   'foto-velas-2': { ancho: 1600, alto: 1200, alt: 'Manos que añaden gotas de aceite aromático a la cera teñida de coral en una jarra de acero mientras la revuelven' },
   'foto-cejas-1': { ancho: 1600, alto: 1200, alt: 'Cuenco de henna para cejas junto a un pincel biselado, un carrete de hilo blanco y un cepillo de cejas sobre un mantel de lino' },
+  'foto-portada-elige-1': { ancho: 1600, alto: 1067, alt: 'Mujer que sonríe mirando su celular con una taza de café en la mano, en el comedor luminoso de su casa con flores sobre la mesa' },
+  'foto-portada-aprende-1': { ancho: 1600, alto: 1067, alt: 'Mujer que sonríe frente a un portátil en la mesa redonda de una cocina de baldosas verdes, con una taza de café al lado' },
+  'foto-portada-aprende-vertical-1': { ancho: 1200, alto: 1600, alt: 'Mujer que sonríe frente a un portátil en la mesa redonda de una cocina de baldosas verdes, con una taza de café al lado' },
+  'foto-portada-practica-1': { ancho: 1600, alto: 1067, alt: 'Mujer con delantal azul que decora galletas con glaseado en la mesa del comedor, junto a una rejilla de galletas de colores' },
+  'foto-portada-practica-vertical-1': { ancho: 1200, alto: 1600, alt: 'Mujer con delantal azul que decora galletas con glaseado en la mesa del comedor, junto a una rejilla de galletas de colores' },
+  'foto-portada-ofrece-1': { ancho: 1600, alto: 1067, alt: 'Mujer con delantal azul que entrega una vela en una bolsa de papel a una clienta en su puesto de una feria artesanal' },
   'foto-curso-desayunos-sorpresa': { ancho: 480, alto: 320, alt: 'Mujer con delantal a rayas acomoda fresas y croissants en una bandeja de mimbre con jugo de naranja, una tarjeta en blanco y un lazo, en una cocina de azulejos blancos y azules.' },
 };
 
