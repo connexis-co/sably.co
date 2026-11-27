@@ -28,9 +28,9 @@ const { copy, benefits, modo = 'automatico', cifras } = Astro.props;
    puntos, se repiten. Los pies describen lo que se ve en la foto, no prometen nada. */
 const FOTOS: { a: NombreFoto; b: NombreFoto; pa: string; pb: string }[] = [
   { a: 'foto-serie-4-ofrece', b: 'foto-oficio-pasteleria', pa: 'Entregando el primer encargo.', pb: 'Con la técnica ya en las manos.' },
-  { a: 'foto-estudiar-celular-1', b: 'foto-estudiar-celular-2', pa: 'En el bus, camino al trabajo.', pb: 'En la mesa de la cocina, con cuaderno.' },
+  { a: 'foto-portada-aprende-vertical-1', b: 'foto-estudiar-celular-2', pa: 'Con el portátil, a la hora que puedas.', pb: 'En la mesa de la cocina, con cuaderno.' },
   { a: 'foto-idiomas-1', b: 'foto-serie-1-elige', pa: 'Preguntando antes de empezar.', pb: 'Eligiendo el curso desde casa.' },
-  { a: 'foto-serie-2-aprende', b: 'foto-heroe-1', pa: 'Tomando apuntes de la lección.', pb: 'La clase abierta al lado de la masa.' },
+  { a: 'foto-serie-2-aprende', b: 'foto-portada-practica-vertical-1', pa: 'Tomando apuntes de la lección.', pb: 'Repitiendo la técnica en la mesa de casa.' },
 ];
 const sets = benefits.map((_, i) => FOTOS[i % FOTOS.length]!);
 const formato = (n: number) => n.toLocaleString('es-CO');

@@ -48,7 +48,7 @@ import { importe, fotoPropia, iniciales } from '@/lib/presentacion-v2';
 import Precio from '@/components/v2/Precio.astro';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { courseCover } from '@/lib/categories';
-import { fotoDeCurso, fotoDePestana, fotoMasSobre, srcFoto } from '../fotos';
+import { FOTOS, fotoDeCurso, fotoDePestana, fotoMasSobre, srcFoto } from '../fotos';
 import Foto from './Foto.astro';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { plazoMasCorto, preciosDeTarjetas } from '@/lib/precio-hoy';
@@ -122,8 +122,8 @@ const cascada = ajustes.movimientoFicha.ficha === 'sobrio';
 const fotoTarjeta = cmsImageUrl(course.cardImage);
 const fotoOficio = fotoDeCurso(course.id, '');
 /* C10a: foto de «Qué incluye»: la del oficio si existe; si no, estudiar con el celular (la otra va en «Más sobre»). */
-const fotoIncluye = fotoOficio ? srcFoto(fotoOficio) : srcFoto('foto-estudiar-celular-1');
-const fotoIncluyeAlt = fotoOficio ? '' : 'Una mujer mira una lección en el celular mientras viaja en bus';
+const fotoIncluye = fotoOficio ? srcFoto(fotoOficio) : srcFoto('foto-portada-aprende-1');
+const fotoIncluyeAlt = fotoOficio ? '' : FOTOS['foto-portada-aprende-1'].alt;
 const fotoIncluyePie = fotoOficio ? `${category.name}. Foto ilustrativa del oficio.` : 'Las lecciones se ven desde el celular o el computador. Foto ilustrativa.';
 /* C7: temario que enfoca (panel: temarioEnfoque). Con «enfoca», `<details name>` deja un solo módulo abierto aun sin JS. */
 const modoTemario = ajustes.bloquesFicha.temario;
@@ -135,7 +135,7 @@ const candidatasSobre = [...new Set([
 const fotosSobre = [
   { id: 'para-quien', src: candidatasSobre[0] },
   { id: 'necesitas', src: candidatasSobre[1] },
-  { id: 'estudia', src: srcFoto('foto-estudiar-celular-1') },
+  { id: 'estudia', src: srcFoto('foto-portada-aprende-1') },
 ]
   /* «Qué necesitas» y «Cómo se estudia» con la foto propia del curso cuando existe; si no, la de arriba. */
   .map(f => ({ ...f, propia: fotoDePestana(course.id, f.id) }))
@@ -434,8 +434,8 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
             <CiudadesPais {country} mostrar={ajustes.mostrarCiudades} class="mt-10 max-w-[620px]" />
           </div>
           <figure class="m-0 hidden lg:block">
-            <img src="/v2/fotos/foto-estudiar-celular-1.webp" alt="Una mujer mira una lección en el celular mientras viaja en bus" width="480" height="600" loading="lazy" decoding="async" class="aspect-[4/5] w-full rounded-c-xl object-cover" />
-            <figcaption class="mt-3 text-t13 text-navy-500">La lección en el celular, cuando tengas un rato. Foto ilustrativa.</figcaption>
+            <img src={srcFoto('foto-portada-aprende-vertical-1')} alt={FOTOS['foto-portada-aprende-vertical-1'].alt} width="480" height="640" loading="lazy" decoding="async" class="aspect-[4/5] w-full rounded-c-xl object-cover" />
+            <figcaption class="mt-3 text-t13 text-navy-500">La lección en el computador, cuando tengas un rato. Foto ilustrativa.</figcaption>
           </figure>
         </div>
       </section>

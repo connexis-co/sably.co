@@ -82,4 +82,7 @@ test('bubble markup: hidden until scroll, two waves, accessible link, flotante o
  assert.match(CSS,/prefers-reduced-motion:reduce\)\{\.sw-onda\{display:none\}/);
  assert.match(CSS,/translate:0 calc\(-1 \* var\(--fijo-inferior,0px\)\)/);
  assert.match(SCRIPT,/event:'click_whatsapp'[^}]*whatsapp_origen:'flotante'/);
+ // Con la píldora de compra de escritorio visible, el aviso va encima de la burbuja (no al lado, sobre «Inscribirme»).
+ assert.match(CSS,/body:has\(\.v2-fija-abajo:not\(\[data-oculta\]\)\) #sably-whatsapp \.sw-aviso\{top:auto;bottom:calc\(100% \+ 12px\)/);
+ assert.match(CSS,/:has\(\.v2-subir:not\(\[hidden\]\)\) #sably-whatsapp \.sw-aviso\{display:none!important\}/);
 });

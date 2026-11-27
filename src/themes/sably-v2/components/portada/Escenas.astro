@@ -33,10 +33,10 @@ const FABRICA: TextosEscenas = {
 const t = textos && textos.capitulos.length >= 2 ? { ...FABRICA, ...Object.fromEntries(Object.entries(textos).filter(([, v]) => v && (!Array.isArray(v) || v.length))) } as TextosEscenas : FABRICA;
 const emprender = areas.find(a => a.slug === 'emprendimiento');
 const EXTRA: { foto: NombreFoto; enlace?: { href: string; texto: string } }[] = [
-  { foto: 'foto-panaderia-1', enlace: { href: `${base}/cursos/`, texto: 'Ver las áreas' } },
-  { foto: 'foto-estudiar-celular-1', enlace: { href: '/videos/', texto: 'Mira las presentaciones en vídeo' } },
-  { foto: 'foto-heroe-1' },
-  { foto: 'foto-barberia-1', enlace: emprender ? { href: `${base}/cursos/${emprender.slug}/`, texto: `Cursos de ${emprender.nombre.toLowerCase()}` } : { href: `${base}/cursos/`, texto: 'Ver los cursos' } },
+  { foto: 'foto-portada-elige-1', enlace: { href: `${base}/cursos/`, texto: 'Ver las áreas' } },
+  { foto: 'foto-portada-aprende-1', enlace: { href: '/videos/', texto: 'Mira las presentaciones en vídeo' } },
+  { foto: 'foto-portada-practica-1' },
+  { foto: 'foto-portada-ofrece-1', enlace: emprender ? { href: `${base}/cursos/${emprender.slug}/`, texto: `Cursos de ${emprender.nombre.toLowerCase()}` } : { href: `${base}/cursos/`, texto: 'Ver los cursos' } },
 ];
 const capitulos = t.capitulos.slice(0, EXTRA.length).map((c, i) => ({ ...c, ...EXTRA[i]! }));
 ---
@@ -56,7 +56,7 @@ const capitulos = t.capitulos.slice(0, EXTRA.length).map((c, i) => ({ ...c, ...E
                 <p class="mt-3 max-w-[460px] text-t17 text-navy-700">{c.texto}</p>
                 {c.enlace && <a href={c.enlace.href} class="v2-enlace mt-5 min-h-11">{c.enlace.texto} <Ico nombre="arrow-right" tamano={18} class="v2-flecha" /></a>}
               </div>
-              <div class="v2-pila-foto"><Foto nombre={c.foto} sizes="(min-width: 900px) 560px, 92vw" decorativa class="h-full w-full object-cover" /></div>
+              <div class="v2-pila-foto"><Foto nombre={c.foto} sizes="(min-width: 900px) 560px, 92vw" decorativa class="h-full w-full object-cover object-[50%_30%]" /></div>
             </div>
           </li>
         ))}
