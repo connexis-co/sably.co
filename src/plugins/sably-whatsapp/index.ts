@@ -23,6 +23,12 @@ export const CSS = [
   '@keyframes sw-onda{0%{scale:1;opacity:.5}100%{scale:1.85;opacity:0}}',
   '.sw-aviso{display:none;position:absolute;top:50%;right:calc(100% + 12px);translate:0 -50%;align-items:center;gap:2px;padding:4px 4px 4px 14px;border-radius:999px;background:#fff;color:#1b1b3a;box-shadow:0 0 0 1px #e3e4ee,0 10px 24px -10px rgb(27 27 58/.45);font:600 14px/20px var(--font-sans,system-ui,sans-serif);white-space:nowrap}',
   '#sably-whatsapp[data-lado=left] .sw-aviso{right:auto;left:calc(100% + 12px)}',
+  // Con la píldora de compra de escritorio a la vista (ficha), al lado se montaba sobre «Inscribirme»: va encima de
+  // la burbuja, pegado a su borde exterior (por encima de los 80 px de la píldora). Si además está «Volver arriba»,
+  // que ocupa ese sitio, no se muestra.
+  'body:has(.v2-fija-abajo:not([data-oculta])) #sably-whatsapp .sw-aviso{top:auto;bottom:calc(100% + 12px);right:0;left:auto;translate:none}',
+  'body:has(.v2-fija-abajo:not([data-oculta])) #sably-whatsapp[data-lado=left] .sw-aviso{right:auto;left:0}',
+  'body:has(.v2-fija-abajo:not([data-oculta])):has(.v2-subir:not([hidden])) #sably-whatsapp .sw-aviso{display:none!important}',
   '.sw-aviso button{display:grid;place-items:center;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:none;color:#5b5d78;cursor:pointer}',
   '.sw-aviso button:hover{background:#f1f2f7}.sw-aviso button:focus-visible{outline:2px solid #1b1b3a}.sw-aviso svg{width:14px;height:14px}',
   '@media(min-width:1024px) and (hover:hover){#sably-whatsapp[data-aviso]:not([data-oculta]) .sw-aviso{display:flex}}',
