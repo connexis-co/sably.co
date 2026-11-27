@@ -117,6 +117,63 @@ const TRACKING_PARAM = /^(?:utm_[a-z0-9_]+|gclid|gclsrc|gbraid|wbraid|gad_source
 /** EmDash session/edit state and Cloudflare Access: these requests render personally. */
 const PERSONAL_COOKIE = /(?:^|;\s*)(?:astro-session|emdash[-_][^=;]*|CF_Authorization)=/i;
 
+/**
+ * Parámetros de SOLO seguimiento que la página puede ignorar en el origen: el
+ * servidor no los lee (los lee el navegador: GA4, píxeles, decorador del `sck`)
+ * y el HTML es el mismo que el de la URL limpia. Lista blanca cerrada: cualquier
+ * otro parámetro (`promo`, `oferta`, `q`, `pagina`, `categoria`, `tema`, `v`…)
+ * conserva el render propio y sin caché de siempre.
+ */
+export const IGNORED_ORIGIN_PARAMS = [
+  'utm_*', 'fbclid', 'gclid', 'gclsrc', 'gbraid', 'wbraid', 'gad_source', 'gad_campaignid', 'dclid',
+  'msclkid', 'ttclid', 'twclid', 'li_fat_id', 'igshid', 'mc_cid', 'mc_eid', '_gl', 'srsltid', 'yclid',
+  'rdt_cid', 'epik', 's_kwcid', 'ef_id', 'hsa_*', 'sck', 'src', 'ref',
+] as const;
+const ORIGIN_IGNORED_PARAM = /^(?:utm_[a-z0-9_]+|gclid|gclsrc|gbraid|wbraid|gad_source|gad_campaignid|dclid|fbclid|msclkid|ttclid|twclid|li_fat_id|igshid|mc_cid|mc_eid|_gl|srsltid|yclid|rdt_cid|epik|s_kwcid|ef_id|hsa_[a-z]+|sck|src|ref)$/i;
+
+/** ¿Este parámetro es solo de seguimiento (no cambia el HTML)? */
+export function isIgnoredOriginParam(name: string): boolean {
+  return ORIGIN_IGNORED_PARAM.test(name);
+}
+
+/**
+ * Cookies de analítica y píxeles que pone el navegador y el servidor nunca lee.
+ * Cualquier otra cookie (sesión de EmDash, Cloudflare Access, cuenta `__Host-sably-*`,
+ * preferencias propias) deja la petición fuera de la caché, como hasta ahora.
+ */
+const ANALYTICS_COOKIE = /^(?:_ga|_ga_[a-z0-9]+|_gid|_gat(?:_[a-z0-9_]+)?|_gcl_[a-z]+|_fbp|_fbc|_clck|_clsk|_uetsid|_uetvid|_ttp|_tt_enable_cookie|_scid|_rdt_uuid|_pin_unauth|__oppref|__obref)$/i;
+
+function onlyAnalyticsCookies(cookie: string): boolean {
+  return cookie.split(';').map(part => part.trim()).filter(Boolean)
+    .every(part => ANALYTICS_COOKIE.test(part.slice(0, part.indexOf('=') === -1 ? part.length : part.indexOf('='))));
+}
+
+/**
+ * La petición limpia (sin parámetros de seguimiento ni cookies de analítica) que
+ * comparte copia en el almacén de páginas del origen, o `null` si no hay nada que
+ * quitar o la visita puede ver un render propio. Los anuncios llegan siempre con
+ * `utm_*` y un `fbclid`/`gclid` distinto por clic: sin esto, cada clic pagado
+ * renderizaba de cero (27-nov-2026: `private, no-store`, BYPASS y 5–8 s).
+ */
+export function trackingFreeRequest(request: Request, environment: string | undefined): Request | null {
+  if (environment !== 'production' || request.method !== 'GET') return null;
+  const url = new URL(request.url);
+  const params = [...url.searchParams.keys()];
+  const cookie = request.headers.get('cookie') ?? '';
+  if (!params.length && !cookie) return null;
+  if (!params.every(isIgnoredOriginParam) || (cookie && !onlyAnalyticsCookies(cookie))) return null;
+  url.search = '';
+  const headers = new Headers(request.headers);
+  headers.delete('cookie');
+  const clean = new Request(url, { method: 'GET', headers });
+  return canCachePublicPage(clean, environment) ? clean : null;
+}
+
+/** La petición con la que el origen decide caché y cabeceras: la limpia si la hay, si no la original. */
+export function originCacheRequest(request: Request, environment: string | undefined): Request {
+  return canCachePublicPage(request, environment) ? request : trackingFreeRequest(request, environment) ?? request;
+}
+
 export interface DeliveryPolicy {
   /** A permanent redirect produced by Sably's own fast path, safe to share. */
   redirect?: boolean;

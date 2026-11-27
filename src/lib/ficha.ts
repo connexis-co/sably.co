@@ -18,6 +18,7 @@ import { renderMarkdown } from '@/lib/markdown';
 import type { ResolvedCourseContent } from '@/lib/emdash-content';
 import { cotizarCurso } from '@/lib/precio-hoy';
 import { enlaceDeCompra } from '@/lib/enlace-compra';
+import { isIgnoredOriginParam } from '@/lib/public-delivery';
 import type { Country, City } from '@/lib/countries';
 import { courseCover } from '@/lib/categories';
 import { readOperationalRating } from '@/plugins/sably-operations/public';
@@ -193,7 +194,9 @@ export async function cargarFicha({ country, city, content }: FichaProps, ctx: F
   /* Precio de lista para la pregunta «¿Cuánto cuesta?»: siempre el importe sin
      cupón. El rebajado va aparte, con su cupón y su fecha (ver faq-honestas). */
   const precioTexto = conPrecio ? displayMoney(baseAmount) : null;
-  const marketQuery = new URLSearchParams(ctx.url.search);
+  /* Los enlaces a otros países conservan los parámetros que cambian la página (`promo`…), no los de
+     seguimiento: la ficha con `utm_*`/`fbclid` es la misma copia que la limpia (public-delivery). */
+  const marketQuery = new URLSearchParams([...new URLSearchParams(ctx.url.search)].filter(([name]) => !isIgnoredOriginParam(name)));
   const marketLinks = COUNTRIES.filter(item => item.code !== country.code).map(item => ({
     label: item.name,
     href: '/' + item.code + '/' + course.id + '/' + (marketQuery.size ? '?' + marketQuery : '') + '#compra'
