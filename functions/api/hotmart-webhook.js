@@ -67,20 +67,21 @@ export const payloadShape = (node, prefix = '', out = [], depth = 0) => {
 
 /**
  * Venta según la API de Hotmart: precio, moneda y sck (`tracking.source_sck`). Dos intentos: la venta puede tardar
- * un instante en aparecer tras el webhook. Devuelve null sin credenciales o si no la encuentra.
+ * un instante en aparecer tras el webhook. Devuelve null sin credenciales o si no la encuentra. Cada llamada corta a
+ * los 4 s (en total ≤ 14,5 s) para que una API de Hotmart lenta no deje colgado el webhook.
  */
 export const hotmartSale = async (env, transaction, wait = (ms) => new Promise((r) => setTimeout(r, ms))) => {
   if (!env.HOTMART_CLIENT_ID || !env.HOTMART_CLIENT_SECRET || !/^HP/i.test(transaction)) return null;
   const basic = btoa(`${env.HOTMART_CLIENT_ID}:${env.HOTMART_CLIENT_SECRET}`);
   const auth = await fetch(`https://api-sec-vlc.hotmart.com/security/oauth/token?grant_type=client_credentials&client_id=${encodeURIComponent(env.HOTMART_CLIENT_ID)}&client_secret=${encodeURIComponent(env.HOTMART_CLIENT_SECRET)}`, {
-    method: 'POST', headers: { authorization: `Basic ${basic}` },
+    method: 'POST', headers: { authorization: `Basic ${basic}` }, signal: AbortSignal.timeout(4000),
   });
   const token = (await auth.json().catch(() => ({}))).access_token;
   if (!token) return null;
   for (let attempt = 0; attempt < 2; attempt++) {
     if (attempt) await wait(2500);
     const r = await fetch(`https://developers.hotmart.com/payments/api/v1/sales/history?transaction=${encodeURIComponent(transaction)}`, {
-      headers: { authorization: `Bearer ${token}` },
+      headers: { authorization: `Bearer ${token}` }, signal: AbortSignal.timeout(4000),
     });
     const item = (await r.json().catch(() => ({})))?.items?.[0];
     if (item?.purchase) {
