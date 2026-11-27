@@ -73,6 +73,11 @@
     addEventListener('resize', pedir, { passive: true });
     // La barra fija aparece y se va con el desplazamiento, y el aviso de cookies con un clic: ambos llegan aquí.
     addEventListener('click', pedir, { passive: true });
+    // El aviso de cookies sube la burbuja de WhatsApp escribiendo --sbc-wa en <html>, y la burbuja aparece al bajar
+    // (data-oculta): sin esto el botón se quedaba debajo de ella hasta el siguiente desplazamiento.
+    new MutationObserver(pedir).observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+    const burbuja = document.getElementById('sably-whatsapp');
+    if (burbuja) new MutationObserver(pedir).observe(burbuja, { attributes: true, attributeFilter: ['data-oculta'] });
     boton.addEventListener('click', () => {
       const suave = !matchMedia('(prefers-reduced-motion: reduce)').matches;
       scrollTo({ top: 0, behavior: suave ? 'smooth' : 'auto' });
