@@ -191,7 +191,7 @@ test('normalización en el origen: solo la lista blanca de seguimiento se ignora
   for (const name of ['promo', 'oferta', 'ads', 'ads50', 'q', 'pagina', 'categoria', 'tema', 'v', '_edit', 'preview', 'volver', 'aviso',
     'paso', 'modo', 'heroe_ab', 'referer', 'refx', 'utm', 'fbclid2', '']) assert.equal(isIgnoredOriginParam(name), false, name);
   // La lista publicada (PR) y la expresión dicen lo mismo.
-  for (const name of IGNORED_ORIGIN_PARAMS) assert.equal(isIgnoredOriginParam(name.replace('*', 'x')), true, name);
+  for (const name of IGNORED_ORIGIN_PARAMS) assert.equal(isIgnoredOriginParam(name.replace(/\*/g, 'x')), true, name);
 });
 
 test('trackingFreeRequest: quita seguimiento y cookies de analítica; nada más', () => {
