@@ -48,7 +48,8 @@ import { importe, fotoPropia, iniciales } from '@/lib/presentacion-v2';
 import Precio from '@/components/v2/Precio.astro';
 import { cmsImageUrl } from '@/lib/cms-media';
 import { courseCover } from '@/lib/categories';
-import { fotoDeCurso, fotoDePestana, srcFoto } from '../fotos';
+import { fotoDeCurso, fotoDePestana, fotoMasSobre, srcFoto } from '../fotos';
+import Foto from './Foto.astro';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { plazoMasCorto, preciosDeTarjetas } from '@/lib/precio-hoy';
 import { CSS_CABEZA, RUTA_HOJA_FICHA } from '../ficha-hoja';
@@ -378,7 +379,7 @@ const botonSinHablado = offer ? `Inscribirme, ${precio(baseAmount).hablado}` : u
         <div class="v2-contenedor grid gap-10 py-16 lg:grid-cols-[480px_1fr] lg:gap-24 lg:py-24">
           <div class="hidden lg:block">
             <figure class="m-0">
-              <img src="/v2/fotos/foto-estudiar-celular-2.webp" alt="Una joven estudia en la mesa de la cocina con el celular apoyado y un cuaderno" width="480" height="600" loading="lazy" decoding="async" class="aspect-[4/5] w-full rounded-c-xl object-cover" />
+              <Foto nombre={fotoMasSobre(course.id)} sizes="480px" class="aspect-[4/5] w-full rounded-c-xl object-cover" />
               <figcaption class="mt-3 text-t13 text-navy-500">Las lecciones se ven desde el celular o el computador. Foto ilustrativa.</figcaption>
             </figure>
             {indiceTexto.length > 1 && (
