@@ -39,6 +39,8 @@ const endDate = offer?.end ? new Date(offer.end) : null;
     <button hidden type="button" data-toggle data-code={offer.coupon} class="min-h-11 font-semibold text-accent underline">Quitar el cupón</button>
   </div>}
   <a href={offer ? discounted.href : checkout} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" class="mt-4 block rounded-md bg-accent px-4 py-3 text-center font-bold text-white">Inscribirme ahora</a>
+  {/* Bajo el botón: enlace secundario de WhatsApp (EnlaceWhatsAppFicha), lo pasa la ficha. */}
+  <slot />
 </section>
 <script>
   const panel = document.querySelector<HTMLElement>('[data-purchase-panel]');

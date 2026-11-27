@@ -1,0 +1,38 @@
+---
+/**
+ * «¿Tienes dudas? Escríbenos por WhatsApp»: enlace de texto bajo el botón de compra de la ficha, para quien llega
+ * de un anuncio y quiere preguntar antes de pagar. Secundario a propósito: texto con el icono, sin fondo ni borde.
+ *
+ * Número, reglas y horario salen del plugin `sably-whatsapp` (src/lib/whatsapp-ficha.ts): con la burbuja apagada
+ * en el panel no se pinta, y respeta sus casillas «móvil» y «escritorio» (mismo corte de 768 px). El clic lo
+ * recoge el guion del plugin por `data-whatsapp-origen` y envía el `click_whatsapp` de siempre con
+ * `whatsapp_origen: 'ficha_precio'`. Área táctil de 44 px en todos los anchos; centrado bajo el botón.
+ */
+import { enlaceWhatsAppFicha } from '@/lib/whatsapp-ficha';
+import type { Country } from '@/lib/countries';
+
+interface Props {
+  course: { id: string; data: { title: string; category?: string | null } };
+  country: Country;
+  /** «del Curso de Uñas» (ficha.ts, `deNombre`): va en el mensaje precargado. */
+  deNombre: string;
+  tema?: 'v2' | 'clasico';
+  class?: string;
+}
+const { course, country, deNombre, tema = 'v2', class: clase } = Astro.props;
+const enlace = await enlaceWhatsAppFicha({ url: Astro.url, course, country, deNombre });
+const v2 = tema === 'v2';
+---
+{enlace && (
+  <p class:list={['text-center', !enlace.mobile && 'max-md:hidden', !enlace.desktop && 'md:hidden', clase]} data-whatsapp-ficha>
+    <a href={enlace.url} target="_blank" rel="noopener nofollow" data-whatsapp-origen={enlace.origin} data-whatsapp-rule={enlace.rule}
+      class:list={['group', v2 ? 'v2-enlace min-h-11 text-left font-normal text-navy-700 hover:no-underline' : 'inline-flex min-h-11 items-center gap-2 text-left text-sm text-muted']}>
+      <img src="/v2/logos/whatsapp.svg" alt="" width="20" height="20" class="flex-none" />
+      {/* En el celular, dos renglones cortos y centrados: no llegan a las esquinas de abajo (cookies y burbuja). */}
+      <span class="max-sm:flex max-sm:flex-col">
+        <span>¿Tienes dudas?</span>{' '}
+        <span class:list={['font-semibold whitespace-nowrap underline underline-offset-4', v2 ? 'text-navy-950 group-hover:text-coral-700' : 'text-accent group-hover:text-accent-hover']}>Escríbenos por WhatsApp</span>
+      </span>
+    </a>
+  </p>
+)}
