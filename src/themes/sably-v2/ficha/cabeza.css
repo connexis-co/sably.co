@@ -46,12 +46,10 @@
   body[data-con-barra] { padding-bottom: 72px; }
   /* Lo que se enfoca o se desplaza solo no queda debajo de la barra fija. */
   html:has(body[data-con-barra]) { scroll-padding-bottom: 88px; scroll-padding-top: calc(var(--fijo-superior) + 56px); }
-  /* La caja y la barra ya traen WhatsApp: el botón flotante sobraba y en 390 tapaba la
-     flecha de «Inscribirme» en el primer pantallazo. Hoy la burbuja la pinta el plugin
-     sably-whatsapp (#sably-whatsapp), no WhatsAppFloat: con solo [data-wa-float] seguía a
-     la vista y se montaba 14 px sobre la barra de compra (25-nov). */
-  /* `body #…` para ganar al `#sably-whatsapp{display:flex}` del plugin, que va después. */
-  [data-wa-float], body #sably-whatsapp { display: none; }
+  /* La burbuja de WhatsApp (plugin sably-whatsapp) vuelve a la ficha en el celular (27-nov, JP): ya no está en el
+     primer pantallazo (aparece al bajar, así no tapa «Inscribirme») y sube sobre la barra de compra con
+     --fijo-inferior. El viejo WhatsAppFloat sigue fuera. */
+  [data-wa-float] { display: none; }
 }
 /* Descripción corta antes de la caja en celular y tableta (panel → Caja de compra → «Cabeza de la ficha en el
    celular»). Recorte solo con CSS; «Leer más» (<details>) encima del final de la última línea, fuera del flujo:

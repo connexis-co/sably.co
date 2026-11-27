@@ -49,10 +49,14 @@
       // Borde inferior del botón ya subido por --fijo-inferior (16 px; el área segura la suma el CSS).
       const base = alto - 16 - (parseFloat(getComputedStyle(boton).getPropertyValue('--fijo-inferior')) || 0);
       let tope = base, dx = 0;
-      for (const el of document.querySelectorAll(OBSTACULOS)) {
-        if (!visible(el)) continue;
-        const r = el.getBoundingClientRect();
-        if (r.right < ancho - 76 || r.top > alto || r.bottom < alto - 240) continue; // no está en su columna ni abajo
+      // De abajo arriba: cada pieza de su columna que pisaría el botón (44 px) lo empuja encima de ella. Así cuenta
+      // también la burbuja que el aviso de cookies subió más de 240 px (antes quedaba fuera y el botón, debajo).
+      const enColumna = [...document.querySelectorAll(OBSTACULOS)].filter(visible)
+        .map((el) => ({ el, r: el.getBoundingClientRect() }))
+        .filter(({ r }) => r.right >= ancho - 76 && r.top <= alto)
+        .sort((a, b) => b.r.bottom - a.r.bottom);
+      for (const { el, r } of enColumna) {
+        if (r.bottom <= tope - 44 - SEPARACION || r.top >= tope) continue; // no la toca
         if (el.id === 'sably-whatsapp' || el.matches('[data-wa-float]')) dx = -((ancho - r.right) + r.width / 2 - 16 - 22); // centrado con la burbuja
         tope = Math.min(tope, r.top - SEPARACION);
       }
@@ -73,6 +77,11 @@
     addEventListener('resize', pedir, { passive: true });
     // La barra fija aparece y se va con el desplazamiento, y el aviso de cookies con un clic: ambos llegan aquí.
     addEventListener('click', pedir, { passive: true });
+    // El aviso de cookies sube la burbuja de WhatsApp escribiendo --sbc-wa en <html>, y la burbuja aparece al bajar
+    // (data-oculta): sin esto el botón se quedaba debajo de ella hasta el siguiente desplazamiento.
+    new MutationObserver(pedir).observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
+    const burbuja = document.getElementById('sably-whatsapp');
+    if (burbuja) new MutationObserver(pedir).observe(burbuja, { attributes: true, attributeFilter: ['data-oculta'] });
     boton.addEventListener('click', () => {
       const suave = !matchMedia('(prefers-reduced-motion: reduce)').matches;
       scrollTo({ top: 0, behavior: suave ? 'smooth' : 'auto' });

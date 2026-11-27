@@ -8,6 +8,12 @@ El descriptor declara `sably-whatsapp`, `index.ts` como entrada de servidor, `ad
 
 El formulario permite activar el botón, elegir móvil/escritorio, número internacional, mensaje, etiqueta accesible, lado, separación, color, animación, demora y rutas ocultas. El número vacío mantiene el número del país configurado en el CMS; no lo sustituye por un único contacto global.
 
+### Burbuja flotante (27-nov)
+
+Círculo de 52 px (móvil), 56 px (tableta) y 58 px (escritorio) con dos ondas que se expanden tres veces al aparecer y se detienen al pasar el ratón o enfocarlo; con `prefers-reduced-motion` no hay ondas ni transiciones. De fábrica aparece al bajar 400 px («Aparecer al desplazarse» y «Aparece tras bajar (px)»; si la página es más corta, desde que carga) y se esconde mientras el pie está a la vista para no tapar sus enlaces. En escritorio, el aviso «¿Dudas? Escríbenos» sale una vez por visita a su lado, se va solo a los 8 s y tiene botón de cerrar; vacío, no hay aviso. No aparece en `/ingresar/` ni en `/mi-cuenta/` aunque el panel no los liste.
+
+Apilado: `#sably-whatsapp` es el contenedor fijo y sube con `translate` lo que publiquen las barras fijas en `--fijo-inferior` (compra de la ficha en el celular, narración del blog); el aviso de cookies lo sube aparte con `--sbc-wa` y el botón «Volver arriba» se pone encima de él. Lo guardado antes de estos campos hereda los valores de fábrica. El clic envía el `click_whatsapp` de siempre con `whatsapp_origen: 'flotante'` (y el enlace lleva `data-whatsapp-origen="flotante"`).
+
 Los mensajes admiten `{titulo}`, `{curso}`, `{categoria}`, `{pais}` y `{url}`. El hook entrega a `{url}` el origen y la ruta, sin parámetros de consulta. Los valores se codifican para el enlace de WhatsApp, y los atributos HTML se escapan.
 
 El horario usa una zona IANA como `America/Bogota`, días de semana y horas. Ambas horas vacías significan todo el día en los días seleccionados. En un horario nocturno, por ejemplo lunes de 22:00 a 02:00, las primeras horas del martes pertenecen a la jornada del lunes. Sin días seleccionados, el botón se oculta.

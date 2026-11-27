@@ -7,6 +7,10 @@ export interface WhatsAppSettings {
   enabled: boolean; number: string; message: string; label: string;
   position: 'left' | 'right'; x: number; y: number; delay: number;
   mobile: boolean; desktop: boolean; animate: boolean; color: string;
+  /** Aparece al desplazarse `revealAfter` px (no en el primer pantallazo); si no, desde que carga. */
+  reveal: boolean; revealAfter: number;
+  /** Aviso corto junto al botón, una vez por sesión y solo en escritorio. Vacío: sin aviso. */
+  tooltip: string;
   hiddenPaths: string[]; timezone: string; weekdays: number[];
   startTime: string; endTime: string; rules: WhatsAppRule[];
 }
@@ -28,10 +32,17 @@ export function courseSlugFromPage(page: { url: string; pageType: string; conten
 }
 export const DEFAULT_SETTINGS: WhatsAppSettings = {
   enabled: true, number: '', message: 'Hola, estoy interesado(a) y quiero más información sobre {titulo}',
-  label: 'Escríbenos por WhatsApp', position: 'right', x: 21, y: 58, delay: 0,
-  mobile: true, desktop: true, animate: true, color: '#00e676', hiddenPaths: [],
+  label: 'Escríbenos por WhatsApp', position: 'right', x: 20, y: 20, delay: 0,
+  mobile: true, desktop: true, animate: true, color: '#00e676',
+  reveal: true, revealAfter: 400, tooltip: '¿Dudas? Escríbenos', hiddenPaths: [],
   timezone: 'America/Bogota', weekdays: [0,1,2,3,4,5,6], startTime: '', endTime: '', rules: [],
 };
+/** Rutas sin burbuja aunque el panel no las liste: entrar y la cuenta (ahí no se vende ni se pregunta). */
+export const ALWAYS_HIDDEN_PATHS = ['/ingresar', '/ingresar/*', '/mi-cuenta', '/mi-cuenta/*'];
+/** Lo guardado antes de que existiera un campo hereda su valor de fábrica. */
+export function withDefaults(stored: Partial<WhatsAppSettings> | null | undefined): WhatsAppSettings {
+  return { ...DEFAULT_SETTINGS, ...(stored ?? {}) };
+}
 export function matchesPath(path: string, pattern: string): boolean {
   if (!pattern.includes('*')) return path.replace(/\/$/, '') === pattern.replace(/\/$/, '');
   // Match a glob without compiling repeated .* into a backtracking RegExp.
@@ -85,6 +96,9 @@ export function validateSettings(input: unknown): WhatsAppSettings {
     x: integer(v.x, 'Separación horizontal', 0, 300), y: integer(v.y, 'Separación vertical', 0, 500),
     delay: integer(v.delay, 'Espera', 0, 120), mobile: bool(v.mobile, 'Móvil'), desktop: bool(v.desktop, 'Escritorio'),
     animate: bool(v.animate, 'Animación'), color: boundedText(v.color, 'Color', 7),
+    reveal: v.reveal === undefined ? DEFAULT_SETTINGS.reveal : bool(v.reveal, 'Aparecer al desplazarse'),
+    revealAfter: v.revealAfter === undefined ? DEFAULT_SETTINGS.revealAfter : integer(v.revealAfter, 'Desplazamiento para aparecer', 0, 3000),
+    tooltip: v.tooltip === undefined ? DEFAULT_SETTINGS.tooltip : boundedText(v.tooltip, 'Aviso junto al botón', 40),
     hiddenPaths: paths(v.hiddenPaths, 'Rutas ocultas'), timezone: boundedText(v.timezone, 'Zona horaria', 60),
     weekdays: Array.isArray(v.weekdays) ? [...new Set(v.weekdays.map(d => integer(d, 'Días', 0, 6)))] : [],
     startTime: boundedText(v.startTime, 'Inicio de horario', 5), endTime: boundedText(v.endTime, 'Fin de horario', 5), rules: [],
@@ -122,7 +136,7 @@ export function inSchedule(settings: WhatsAppSettings, now: Date): boolean {
   return time >= settings.startTime ? settings.weekdays.includes(day) : time < settings.endTime && settings.weekdays.includes((day + 6) % 7);
 }
 export function resolveWhatsApp(settings: WhatsAppSettings, context: WhatsAppContext, now = new Date()) {
-  if (!settings.enabled || (!settings.mobile && !settings.desktop) || settings.hiddenPaths.some(p => matchesPath(context.path,p)) || !inSchedule(settings,now)) return null;
+  if (!settings.enabled || (!settings.mobile && !settings.desktop) || [...ALWAYS_HIDDEN_PATHS, ...settings.hiddenPaths].some(p => matchesPath(context.path,p)) || !inSchedule(settings,now)) return null;
   const matches = settings.rules.filter(r => r.enabled &&
     (!r.startsAt || now.valueOf() >= Date.parse(r.startsAt)) && (!r.endsAt || now.valueOf() < Date.parse(r.endsAt)) &&
     (!r.courses.length || r.courses.includes(context.course)) && (!r.categories.length || r.categories.includes(context.category)) &&
