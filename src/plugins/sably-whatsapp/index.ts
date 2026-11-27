@@ -50,7 +50,8 @@ const CLOSE = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><pa
 /**
  * Muestra la burbuja al bajar (o desde que carga si es corta la página), la esconde con el pie a la vista, apaga
  * las ondas tras la primera aparición y enseña el aviso una vez por sesión. Clic: evento `click_whatsapp` de
- * siempre con `whatsapp_origen: 'flotante'`.
+ * siempre con `whatsapp_origen: 'flotante'`; los demás enlaces marcados con `data-whatsapp-origen` (el de la caja de
+ * compra: `ficha_precio`) envían el mismo evento con su origen y su regla.
  */
 export const SCRIPT = `(()=>{const w=document.getElementById('sably-whatsapp');if(!w)return;const a=w.querySelector('a'),u=+w.dataset.umbral||0,e=(+w.dataset.espera||0)*1e3,baja=w.hasAttribute('data-al-bajar');let listo=!e,pie=!1,visto=!1,raf=0;`
   + `const corta=()=>document.documentElement.scrollHeight-innerHeight<u+120;`
@@ -59,7 +60,10 @@ export const SCRIPT = `(()=>{const w=document.getElementById('sably-whatsapp');i
   + `const p=document.querySelector('footer.v2-pie')||document.querySelector('footer');if(p&&'IntersectionObserver'in window)new IntersectionObserver(x=>{pie=x[0].isIntersecting;pedir()},{rootMargin:'0px 0px -64px 0px'}).observe(p);`
   + `function primera(){setTimeout(()=>w.removeAttribute('data-ondas'),7e3);const t=w.querySelector('.sw-aviso'),k='sably:wa-aviso';if(!t||!matchMedia('(min-width:1024px) and (hover:hover)').matches)return;try{if(sessionStorage.getItem(k))return;sessionStorage.setItem(k,'1')}catch(_){}`
   + `const q=setTimeout(()=>{w.setAttribute('data-aviso','');setTimeout(()=>w.removeAttribute('data-aviso'),8e3)},1500);t.querySelector('button').addEventListener('click',()=>{clearTimeout(q);w.removeAttribute('data-aviso');a.focus()})}`
-  + `a.addEventListener('click',()=>{w.removeAttribute('data-aviso');window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'click_whatsapp',page_type:document.body.dataset.pageType||'unknown',whatsapp_rule:w.dataset.rule,whatsapp_origen:'flotante'})});pedir()})();`;
+  + `const enviar=(regla,origen)=>{window.dataLayer=window.dataLayer||[];window.dataLayer.push({event:'click_whatsapp',page_type:document.body.dataset.pageType||'unknown',whatsapp_rule:regla,whatsapp_origen:origen})};`
+  + `a.addEventListener('click',()=>{w.removeAttribute('data-aviso');enviar(w.dataset.rule,'flotante')});`
+  // Otros enlaces de WhatsApp que salen de esta misma configuración (el de la caja de compra de la ficha).
+  + `document.querySelectorAll('a[data-whatsapp-origen]').forEach(l=>{if(l!==a)l.addEventListener('click',()=>enviar(l.dataset.whatsappRule||w.dataset.rule,l.dataset.whatsappOrigen))});pedir()})();`;
 const ICON = 'M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.7 14.1c-.2.7-1.4 1.3-1.9 1.3-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-2.9-1.3-4.8-4.2-5-4.4-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.3-.3.6-.4.8-.4h.6c.2 0 .4-.1.7.5.2.6.8 2 .9 2.1.1.2.1.3 0 .5-.1.2-.2.4-.3.5l-.5.6c-.2.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.2 1.4 2.5 1.5.3.2.5.1.7-.1l1-1.2c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.6.3 0 .2 0 .7-.2 1.3Z';
 
 /** Marcado de la burbuja. Oculta de entrada si espera al desplazamiento o a la demora: aparecer no mueve nada. */

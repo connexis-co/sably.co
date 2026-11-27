@@ -12,6 +12,7 @@ import RatingInteractivo from '@/components/RatingInteractivo.astro';
 import CourseCard from '@/components/CourseCard.astro';
 import FaqAccordion from '@/components/FaqAccordion.astro';
 import PurchasePanel from '@/components/PurchasePanel.astro';
+import EnlaceWhatsAppFicha from '@/components/EnlaceWhatsAppFicha.astro';
 import CoursePlayer from '@/components/CoursePlayer.astro';
 import LeadModal from '@/components/LeadModal.astro';
 import { courseCover } from '@/lib/categories';
@@ -141,7 +142,9 @@ const {
         </div>
         <div class="order-5 rounded-lg bg-white p-4 lg:p-0">
         {sinProducto ? <p class="mt-5 font-bold">Próximamente</p> : <PurchasePanel markets={marketLinks} country={country.name} price={displayMoney(baseAmount)} checkout={localCheckout.href} {offer}
-          evidence={{currency, base:baseAmount, reduced:offer && quote?.reduced ? quote.reduced : null, source:quote?.fuente ?? 'respaldo', at:quote?.at ?? null}} />}
+          evidence={{currency, base:baseAmount, reduced:offer && quote?.reduced ? quote.reduced : null, source:quote?.fuente ?? 'respaldo', at:quote?.at ?? null}}>
+          <EnlaceWhatsAppFicha {course} {country} {deNombre} tema="clasico" class="mt-1" />
+        </PurchasePanel>}
         {
           /* Sin producto no hay checkout al que mandar a nadie: `hotmartUrl`
              sigue siendo el marcador `PENDIENTE` y ese enlace acaba en la

@@ -21,6 +21,7 @@ import Bandera from '@/components/v2/Bandera.astro';
 import LogosPago from '@/components/v2/LogosPago.astro';
 import LogoHotmart from '@/components/v2/LogoHotmart.astro';
 import Precio from '@/components/v2/Precio.astro';
+import EnlaceWhatsAppFicha from '@/components/EnlaceWhatsAppFicha.astro';
 import { buildWhatsAppUrl } from '@/lib/hotmart';
 import { fechaCorta } from '@/lib/cuenta-atras';
 import { nombresCreadores } from '@/lib/creadores';
@@ -37,7 +38,7 @@ import type { Country } from '@/lib/countries';
 
 interface Props { f: Ficha; country: Country; ajustes: AjustesV2 }
 const { f, country, ajustes } = Astro.props;
-const { offer, quote, real, baseAmount, currency, localCheckout, marketLinks, promoRow, promoSiguiente, creadoresVisibles, course, proveedor, nombreEnFrase, valoracion, sinProducto } = f;
+const { offer, quote, real, baseAmount, currency, localCheckout, marketLinks, promoRow, promoSiguiente, creadoresVisibles, course, proveedor, nombreEnFrase, deNombre, valoracion, sinProducto } = f;
 
 /* Qué bloques lleva la caja, en qué variante y con qué textos: el núcleo común con la
    academia (src/lib/caja/, copia exacta de la suya) sobre el documento de Sably. */
@@ -169,6 +170,9 @@ const tituloId = 'titulo-compra';
         : estado === 'normal'
           ? <Boton variante="precio" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago aria-label={`Inscribirme, ${precio(baseAmount).hablado}`} precio={{ cifra: precio(baseAmount).visible, moneda: currency }}>Inscribirme</Boton>
           : <Boton variante="principal" completo href={localCheckout.href} target="_blank" rel="noopener nofollow sponsored" data-cta-hotmart data-cta-position="panel" data-pago>Ver precio en Hotmart</Boton>}
+      {/* Quien llega de un anuncio y duda antes de pagar: enlace de texto, secundario, con el número y las reglas
+         de la burbuja (plugin sably-whatsapp). No toca el botón ni su enlace de pago. */}
+      <EnlaceWhatsAppFicha {course} {country} {deNombre} class="mt-2" />
       <p class="mt-3 text-t13 text-navy-700" data-bloque="pago-seguro">Pagas en <LogoHotmart alto={15} class="mx-0.5" /> en {currency} · sin crear cuenta en Sably</p>
       {hijo('confianza', 'acceso') && <p class="text-t13 text-navy-500">El acceso te llega por correo al instante.</p>}
       {/* Junto al pago, en letra pequeña y en este orden: a nombre de quién figura el cobro en Hotmart (#324) y la
