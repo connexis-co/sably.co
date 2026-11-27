@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-panaderia",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto H57693901U «Panadería desde Casa» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Marina Rodríguez (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de panadería online en {pais}",
+    "subtitulo": "Aprende las bases de la panadería desde casa para amasar con levadura, preparar panes rellenos y glaseados, hacer conchas mexicanas en tonos pastel, roles de canela y pan de hamburguesa.",
+    "beneficios": [
+      "Conoce los ingredientes habituales para preparar panes suaves en casa",
+      "Amasa y da forma a distintos tipos de piezas",
+      "Elabora panes rellenos y con glaseado",
+      "Hornea pan casero sin químicos ni conservadores artificiales",
+      "Identifica la textura exacta del amasado al trabajar con levadura",
+      "Prepara conchas mexicanas, roles de canela y pan de hamburguesa"
+    ],
+    "para_quien": [
+      "Personas que buscan hornear su propio pan suave en casa",
+      "Aficionados que quieren trabajar masas con levadura sin temor",
+      "Emprendedores caseros interesados en elaborar piezas dulces y saladas",
+      "No es para ti si buscas panificación industrial con maquinaria pesada"
+    ],
+    "requisitos": [
+      "Horno doméstico e implementos básicos para mezclar y hornear en casa",
+      "Harina, levadura y los ingredientes de las recetas que vayas a practicar",
+      "Mesa o superficie limpia para trabajar y bolear las masas",
+      "Conexión a internet desde un {computador} o {celular}"
+    ],
+    "cuerpo": "El curso de panadería online de MasterClasses.La enseña las bases para preparar tu propio pan desde casa junto a la chef mexicana Marina Rodríguez, docente de gastronomía y repostería formada en la Universidad Iberoamericana. Trabajas con los ingredientes habituales del oficio para lograr piezas suaves, sin añadir químicos ni conservadores artificiales.\n\n## Cómo hacer pan casero y reconocer el punto de la masa\n\nTrabajar con levadura intimida al principio cuando la mezcla se pega a las manos. En este curso de panadería estudias la función de los ingredientes y el proceso de amasado hasta identificar la textura que pide cada preparación. En el oficio conviene pesar los insumos secos y líquidos con báscula antes de mezclar para mantener la misma miga de una horneada a otra. Cuando reconoces al tacto la elasticidad de la masa, pierdes el temor a la fermentación y pasas al formado con seguridad.\n\n## Piezas dulces, rellenas y saladas que vas a hornear\n\nUna vez que controlas la base, aplicas técnicas de boleado y formado para dar figura a distintas piezas de mesa y de dulce. Entre las recetas de pan casero que trabajas se encuentran:\n\n- Conchas mexicanas en colores pastel.\n- Roles de canela listos para acompañar con chocolate caliente.\n- Pan de hamburguesa de miga suave.\n- Piezas rellenas y panes terminados con glaseado.\n\nEn panadería doméstica conviene dejar enfriar las piezas sobre una rejilla al sacarlas del horno para que el vapor escape y la base no se humedezca.\n\n## Panes limpios para tu mesa o para emprender desde casa\n\nPreparar tus propias masas te permite decidir cada insumo que entra al tazón y prescindir por completo de aditivos o mejoradores comerciales. Dominar un repertorio corto de piezas suaves, rellenas y glaseadas abre dos caminos claros: hornear para tus invitados en reuniones familiares o montar un emprendimiento gastronómico desde tu cocina. En ambos casos, conocer el comportamiento de la levadura te da la confianza para repetir las horneadas manteniendo el sabor y la suavidad.\n\n## Alcance frente a otras especialidades dulces\n\nEstas clases de panadería se centran en masas con levadura pensadas para hacerse en una cocina doméstica. Si además de hornear conchas o roles buscas batidos, cremas y decoración de pasteles, te conviene revisar aparte un [curso de repostería](/{cc}/curso-de-pasteleria/) o un [curso de postres](/{cc}/curso-de-reposteria/) enfocados en dulces de vitrina.\n\nQuienes arman mesas dulces para eventos suelen complementar el horneado casero con especialidades puntuales, como un [curso de galletas decoradas](/{cc}/curso-de-galletas-decoradas/). Y si quieres comparar este enfoque casero con otras opciones del mismo rubro antes de decidir, puedes ver todos los [cursos de panadería y pastelería](/{cc}/cursos/panaderia-y-pasteleria/) reunidos en un solo lugar.\n\nEl enfoque completo del curso de panadería está puesto en que domines la mezcla, el amasado, el formado y el horneado con herramientas caseras, logrando panes libres de conservadores artificiales.",
+    "faqs": [
+      {
+        "q": "¿Cómo aprender a hacer pan de panadería?",
+        "a": "Se aprende entendiendo primero la función de los ingredientes base y la acción de la levadura, para luego practicar el amasado manual hasta distinguir al tacto la textura elástica que necesita la masa. En el curso aplicas esa técnica en tu cocina para bolear, rellenar, dar forma y hornear piezas suaves."
+      },
+      {
+        "q": "¿Dónde puedo encontrar un curso de panadería online?",
+        "a": "En Sably accedes al curso de panadería dictado por la chef Marina Rodríguez y creado por MasterClasses.La. Está pensado para seguirse desde casa usando tu propio horno, con enfoque en masas suaves con levadura, panes rellenos, glaseados y recetas sin conservadores ni químicos artificiales."
+      },
+      {
+        "q": "¿Qué tengo que estudiar para ser panadero?",
+        "a": "Para iniciarte necesitas dominar la función de las harinas, grasas, azúcares y levaduras, además de las técnicas manuales de amasado, fermentado, formado y horneado. Conviene empezar por masas directas suaves y panes rellenos antes de pasar a fermentaciones largas o laminados de pastelería."
+      },
+      {
+        "q": "¿Qué es el oficio de panadería?",
+        "a": "Es el trabajo gastronómico dedicado a transformar harina, agua, sal, levadura y otros ingredientes en piezas horneadas dulces o saladas. En la práctica diaria implica pesar insumos con precisión, controlar la textura durante el amasado, dar forma pareja a cada porción y cuidar la cocción."
+      },
+      {
+        "q": "¿Qué se necesita para iniciar una panadería?",
+        "a": "Para empezar a producir desde casa necesitas dominar recetas estables, contar con un horno confiable, balanza para pesar ingredientes, bandejas, rejillas de enfriamiento y una mesa firme para amasar. En el oficio conviene estandarizar pocas variedades bien logradas antes de ampliar el surtido."
+      },
+      {
+        "q": "¿El curso de panadería da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de panadería es gratis o tiene mensualidades?",
+        "a": "No es gratis y tampoco cobra mensualidad: haces un pago único en Hotmart. El acceso llega a tu correo cuando se confirma la compra y no tiene fecha de vencimiento. Tienes 7 días de garantía para pedir en Hotmart la devolución total si el curso no te sirve."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de panadería online para amasar con levadura, formar conchas mexicanas, roles de canela, pan de hamburguesa y panes rellenos en casa."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de panadería online: aprende a amasar con levadura y hornear conchas, roles de canela y pan de hamburguesa. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de panadería desde casa para preparar masas suaves, panes rellenos, conchas y roles de canela. Incluye certificado y el pago se realiza en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de panadería online con Marina Rodríguez: amasa conchas mexicanas, roles de canela y panes rellenos en casa. Se paga en MXN y da certificado."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de panadería online para trabajar levaduras, amasar pan de hamburguesa, roles de canela y piezas glaseadas. Abonas en EUR e incluye certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de panadería desde casa: domina el amasado con levadura, panes rellenos, conchas y roles de canela. Pagas en USD y obtienes tu certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de panadería online para elaborar panes suaves sin conservadores, conchas, roles de canela y pan de hamburguesa. Pagas en COP con certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de panadería desde casa: técnicas de amasado, formado de pan de hamburguesa, conchas y panes glaseados. Incluye certificado y pagas en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de panadería online para amasar con levadura y hornear panes rellenos, roles de canela y conchas en casa. Se abona en ARS y suma certificado."
+    }
+  }
+}

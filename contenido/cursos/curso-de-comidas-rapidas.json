@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-comidas-rapidas",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto Q63819733V «El Rentable Negocio de la Comida Rápida» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Kevin Andrés Solís (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de comidas rapidas online en {pais}",
+    "subtitulo": "Conceptualiza, administra y lidera un restaurante de comida rápida controlando costos, negociando con proveedores y estructurando tu proyecto para buscar inversión o franquiciar.",
+    "beneficios": [
+      "Conceptualizar tu restaurante de comida rápida de principio a fin",
+      "Crear, mantener y renovar la propuesta de valor del local",
+      "Identificar las fuentes de ingresos, costos y gastos operativos",
+      "Negociar con proveedores evaluando condiciones más allá del precio",
+      "Presentar tu proyecto comercial ante posibles inversionistas privados",
+      "Conocer el modelo de franquicias para expandir el restaurante"
+    ],
+    "para_quien": [
+      "Personas que planean abrir y administrar un local de comidas rápidas",
+      "Dueños de pequeños restaurantes que necesitan ordenar costos, gastos e ingresos",
+      "Emprendedores gastronómicos interesados en levantar capital o franquiciar su marca",
+      "No es para ti si buscas recetas o técnicas de cocina"
+    ],
+    "requisitos": [
+      "Conexión estable a internet para seguir el contenido",
+      "Un {computador} o {celular} para revisar el caso práctico",
+      "Cuaderno u hoja de cálculo para anotar costos y gastos",
+      "Idea de restaurante o negocio gastronómico propio para aterrizar conceptos"
+    ],
+    "cuerpo": "El curso de comidas rápidas online de MasterClasses.La enseña a conceptualizar, administrar y liderar un restaurante desde la gestión comercial y financiera, sin entrar en recetas ni preparación de platos. Está dictado por Kevin Andrés Solís, licenciado en Contabilidad y Auditoría y asesor financiero del sector gastronómico.\n\n## Cómo empezar un negocio de comida desde el concepto\n\nAntes de alquilar un local o comprar equipos de cocina, un negocio de comida rápida necesita una idea clara y diferenciada. En este curso trabajas la conceptualización del restaurante de principio a fin y defines cómo crear, mantener e innovar su propuesta de valor frente a la competencia.\n\nSi lo que necesitas es aprender a cocinar los productos del menú, te conviene revisar aparte un [curso de hamburguesas](/{cc}/curso-de-hamburguesas-gourmet/), un [curso de pollo broaster](/{cc}/curso-de-pollo-broaster/) o un [curso de pizzas](/{cc}/curso-de-pizza-artesanal/), ya que el trabajo de Kevin Andrés Solís se centra por completo en la administración y los números del local.\n\n## Control de ingresos, costos, gastos y proveedores\n\nEn el sector gastronómico conviene separar desde el primer día el costo directo de los insumos de los gastos fijos del local para saber qué deja margen real. Durante el curso de comidas rápidas revisas cómo identificar con rapidez las fuentes de ingresos, los costos y los gastos operativos, buscando formas de mejorar la entrada de dinero y reducir salidas innecesarias.\n\nTambién estudias la negociación con proveedores sin basarte únicamente en el precio de lista. En la operación diaria de comidas rápidas, acordar plazos de entrega puntuales, calidad constante en la materia prima y condiciones de pago claras suele pesar tanto como conseguir un insumo barato.\n\n## Caso práctico Crip Food\n\nPara bajar los temas administrativos a un ejemplo concreto, el contenido aplica lo visto en un caso práctico llamado Restaurante Crip Food, planteado como un local de comidas rápidas enfocado en la temática de criptomonedas. A través de ese ejercicio observas cómo se conectan el concepto del restaurante, su propuesta de valor y sus números.\n\n## Levantamiento de capital y modelo de franquicias\n\nCuando el modelo administrativo está ordenado, un restaurante puede crecer con recursos externos o replicarse en otros puntos. Este curso de comidas rápidas aborda dos caminos de crecimiento empresarial:\n\n- Preparación y presentación del proyecto gastronómico para buscar capital de inversionistas privados.\n- Bases para expandir el restaurante mediante el modelo de franquicias.\n\nAl estructurar una franquicia en el rubro gastronómico, conviene estandarizar primero los procesos operativos y financieros del primer local antes de ofrecer la marca a terceros. Si quieres complementar la parte administrativa con técnicas culinarias de distintos rubros, puedes explorar otros [cursos de gastronomía](/{cc}/cursos/gastronomia/).",
+    "faqs": [
+      {
+        "q": "¿Qué se aprende en este curso de comidas rápidas?",
+        "a": "Aprendes la gestión empresarial y financiera de un restaurante de comida rápida. El contenido abarca la conceptualización del local de principio a fin, el diseño e innovación de la propuesta de valor, el control de ingresos, costos y gastos, el trato con proveedores, la búsqueda de capital y las franquicias."
+      },
+      {
+        "q": "¿Enseña cómo hacer comidas rápidas?",
+        "a": "No, el curso no cubre preparación de alimentos ni armado de recetas en cocina. El alcance se limita a liderar y administrar el restaurante como empresa. Si aún no dominas el producto que vas a vender, en el oficio conviene formarse aparte en panadería, frituras o parrilla antes de abrir."
+      },
+      {
+        "q": "¿Quién dicta las clases y qué experiencia tiene?",
+        "a": "El docente es Kevin Andrés Solís, licenciado en Contabilidad y Auditoría que trabaja como asesor financiero del sector gastronómico. Cuenta con trayectoria asesorando negocios de comida en áreas de finanzas, contabilidad e impuestos, por lo que aborda el restaurante desde la rentabilidad operativa y el orden administrativo."
+      },
+      {
+        "q": "¿Qué se trabaja sobre negociación con proveedores y control de costos?",
+        "a": "Revisas criterios para negociar con tus proveedores sin fijarte únicamente en conseguir el precio más bajo. Junto con eso, aprendes a distinguir con rapidez las entradas de dinero, los costos y los gastos del restaurante para detectar dónde recortar salidas innecesarias y cómo mejorar las principales fuentes de ingresos."
+      },
+      {
+        "q": "¿Sirve para saber cómo emprender un negocio de comida con inversionistas?",
+        "a": "Sí, incluye el armado y la presentación del proyecto para salir a buscar capital de inversionistas privados. Además, explica cómo funciona la expansión comercial a través del modelo de franquicias, pensando en quienes buscan escalar un concepto gastronómico más allá de un único punto de venta."
+      },
+      {
+        "q": "¿El curso de comidas rapidas da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de comidas rapidas es gratis o tiene mensualidades?",
+        "a": "No es gratis y tampoco cobra mensualidad: haces un pago único en Hotmart. El acceso llega a tu correo cuando se confirma la compra y no tiene fecha de vencimiento. Tienes 7 días de garantía para pedir en Hotmart la devolución total si el curso no te sirve."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de comidas rápidas enfocado en administrar tu restaurante: propuesta de valor, costos, proveedores, inversión privada y franquicias."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de comidas rápidas enfocado en el negocio: conceptualiza tu local, controla costos y negocia con proveedores. Pagas en USD con certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de comidas rápidas online sobre gestión: propuesta de valor, costos del local, proveedores y franquicias. Incluye certificado y pago en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de comidas rápidas para administrar tu restaurante: costos, trato con proveedores y búsqueda de capital. Se paga en MXN e incluye certificado."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de comidas rápidas centrado en gestión: conceptualiza el local, ordena gastos y evalúa franquiciar. Pagas en EUR y recibes certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de comidas rápidas sobre administración gastronómica: propuesta de valor, costos, proveedores e inversión. Pago en USD y entrega certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de comidas rápidas para dirigir tu local: control de ingresos y costos, proveedores y modelo de franquicias. Pagas en COP con certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de comidas rápidas enfocado en gestión: conceptualización del restaurante, costos y trato con proveedores. Se abona en CLP con certificado."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de comidas rápidas sobre el negocio gastronómico: propuesta de valor, costos, proveedores y franquicias. Pagas en ARS y recibes certificado."
+    }
+  }
+}

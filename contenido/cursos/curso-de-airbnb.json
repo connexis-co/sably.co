@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-airbnb",
+  "estado": "listo",
+  "generado_con": "borrador del 25-nov revisado con gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto S39174613C «Airbnb Como Oportunidad de Negocio» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Javier Curtidor y María Alejandra Núñez (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de airbnb online en {pais}",
+    "subtitulo": "Aprende a preparar, decorar y posicionar un espacio en Airbnb, gestionar tu reputación como anfitrión y recibir huéspedes en tu propiedad.",
+    "beneficios": [
+      "Rentar tus inmuebles disponibles dentro de tu casa o apartamento",
+      "Decorar el espacio en alquiler para darle un ambiente acogedor",
+      "Posicionar tu anuncio usando el algoritmo de búsqueda de Airbnb",
+      "Fortalecer tu reputación para que los huéspedes te recomienden",
+      "Desarrollar habilidades de atención para desempeñarte como buen anfitrión",
+      "Adaptar el alojamiento a las condiciones actuales y posteriores a pandemia"
+    ],
+    "para_quien": [
+      "Personas con un espacio libre en su casa o apartamento",
+      "Anfitriones principiantes en Airbnb que buscan mejorar su anuncio",
+      "Quienes desean compartir su techo con viajeros de distintas culturas",
+      "No es para ti si buscas ofrecer actividades sin alojar huéspedes"
+    ],
+    "requisitos": [
+      "Un espacio en casa o apartamento disponible para poner en alquiler",
+      "Cuenta activa en la plataforma de Airbnb para publicar tu anuncio",
+      "Elementos básicos de decoración y equipamiento para recibir huéspedes",
+      "Conexión a internet desde un {computador} o {celular}"
+    ],
+    "cuerpo": "El curso de Airbnb online de MasterClasses.La enseña a rentar tus inmuebles o compartir un espacio disponible en tu casa o apartamento, decorando el lugar, atendiendo como anfitrión y posicionando tu anuncio. Está a cargo de Javier Curtidor, especialista en marketing digital y huésped frecuente en distintos países, junto a María Alejandra Núñez, diseñadora gráfica, anfitriona Súper Host y mentora de anfitriones.\n\n## Cómo ser anfitrión en Airbnb\n\nConvertir un espacio desocupado de tu casa o apartamento en alojamiento exige criterio comercial y trato directo con el viajero. En el curso revisas cómo organizar este negocio manteniendo tu independencia y adaptando la operación a las condiciones surgidas durante y después del Covid. Si te interesa ampliar tus habilidades de atención al recibir viajeros, puedes revisar también un [curso de barista](/{cc}/curso-de-barista/) o un [curso de coctelería](/{cc}/curso-de-bartending-y-cocteleria-profesional/) para complementar servicios de bienvenida.\n\n## Convivencia cultural bajo el mismo techo\n\nRecibir personas de otros lugares abre la puerta al intercambio cotidiano cuando comparten tu mismo techo. A través del contacto con viajeros de distintas procedencias conoces nuevas costumbres y formas de pensar, sumas vivencias con cada estadía e incluso practicas una lengua extranjera desde casa.\n\nEn el oficio de la hospitalidad conviene definir normas de convivencia claras antes de aceptar una reserva; eso evita malentendidos sobre horarios, uso de zonas comunes o visitas.\n\n## Decoración del espacio y reputación\n\nUn cuarto vacío no basta para destacar entre otros alojamientos de la misma zona. En el curso aprendes cómo decorar el área que vas a alquilar para lograr un ambiente acogedor que reciba bien a tus huéspedes sin improvisar. En la práctica del hospedaje, elegir ropa de cama neutra, buena iluminación y muebles resistentes al uso continuo facilita la limpieza entre una salida y la siguiente llegada.\n\nEl trato atento sostiene el negocio a largo plazo. Trabajas en los detalles que te forman como anfitrión y fortalecen tu reputación dentro de la aplicación, de modo que quienes se hospedan hablen bien de ti y dejen recomendaciones visibles para futuros viajeros. Quienes disfrutan organizando cada detalle para terceros suelen explorar oficios afines como el de un [curso de wedding planner](/{cc}/curso-de-wedding-planner-y-eventos/).\n\n## Algoritmo y posicionamiento del anuncio\n\nTener un espacio bien puesto sirve de poco si nadie lo ve al buscar alojamiento en tu ciudad. Este curso de Airbnb muestra cómo posicionar el algoritmo de la plataforma para ubicar tu publicación en los primeros lugares de los resultados de búsqueda.\n\nEn este oficio conviene responder con rapidez las consultas previas a la reserva, porque los motores de búsqueda internos valoran la atención ágil al usuario. Si estás empezando en Airbnb y todavía no obtienes los resultados que buscabas, revisar estas variables te permite ajustar tu anuncio con criterio comercial. Puedes conocer otras opciones relacionadas en la categoría de [cursos de hospitalidad](/{cc}/cursos/hospitalidad/).",
+    "faqs": [
+      {
+        "q": "¿Qué se aprende en este curso de Airbnb?",
+        "a": "Aprendes a preparar y decorar el espacio que vas a alquilar, atender a los viajeros como anfitrión, cuidar tu reputación para sumar recomendaciones y trabajar el algoritmo de Airbnb para ubicar tu anuncio en los primeros lugares. También aborda la adaptación del alojamiento a la etapa posterior al Covid."
+      },
+      {
+        "q": "¿Cómo empezar en Airbnb si tengo un espacio libre?",
+        "a": "Empiezas acondicionando la habitación o el apartamento disponible para que resulte acogedor y definiendo cómo vas a gestionar la convivencia o la entrega del lugar. El curso te guía desde ese punto inicial y sirve también si ya abriste tu anuncio pero todavía no logras reservas."
+      },
+      {
+        "q": "¿Cómo hacer que mi Airbnb tenga más visitas?",
+        "a": "La visibilidad dentro de la aplicación depende de cómo te evalúa su buscador interno frente a otros alojamientos cercanos. El curso explica cómo posicionar tu publicación mediante el algoritmo para aparecer en los primeros lugares de búsqueda y cómo sostener esa posición gracias a las recomendaciones de quienes ya se hospedaron contigo."
+      },
+      {
+        "q": "¿Cómo puedo ofrecer experiencias en Airbnb?",
+        "a": "En la plataforma las actividades guiadas se registran en una sección independiente del hospedaje, sujetas a revisión de calidad y permisos locales según el oficio. En este curso trabajas el alquiler de inmuebles o espacios en tu casa o apartamento, junto con el intercambio cultural al recibir huéspedes bajo tu mismo techo."
+      },
+      {
+        "q": "¿Puedo alquilar en Airbnb sin licencia turística?",
+        "a": "Cada municipio, edificio y región exige permisos o registros distintos para el alquiler de corta estancia, y el curso no sustituye la consulta legal local. En el oficio conviene revisar el reglamento de copropiedad y la normativa municipal de tu ciudad antes de recibir al primer huésped."
+      },
+      {
+        "q": "¿El curso de airbnb da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de airbnb es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de Airbnb online para preparar y decorar tu espacio, atender huéspedes, mejorar tu reputación y posicionar tu anuncio en búsquedas."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Airbnb online: aprende a decorar tu espacio, posicionarte en el algoritmo y gestionar tu reputación como anfitrión. Pagas en USD."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Airbnb para anfitriones: decora tu inmueble, cuida tu reputación y ubica tu anuncio primero en las búsquedas. Disponible con pago en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Airbnb online: prepara y decora tu alojamiento, atiende a tus huéspedes y posiciona tu anuncio en el buscador. Se paga en MXN desde casa."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de Airbnb: aprende a decorar el espacio en alquiler, fortalecer tu reputación y subir en el buscador de viajeros. Inscripción online en EUR."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Airbnb online para decorar tu alojamiento, recibir viajeros en casa y posicionar tu anuncio en las búsquedas. Pago directo en moneda USD."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Airbnb: prepara tu casa o apartamento, fortalece tu reputación y ubica tu anuncio arriba en el algoritmo. Pagas en COP de forma online."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Airbnb online: aprende decoración del espacio en arriendo, trato al huésped y posicionamiento del anuncio en búsquedas. Se paga en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Airbnb para acondicionar tu inmueble, sumar recomendaciones de viajeros y aparecer primero en las búsquedas. Abonas tu inscripción en ARS."
+    }
+  }
+}

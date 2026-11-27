@@ -1,0 +1,85 @@
+{
+  "slug": "curso-de-pizza-artesanal",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto D55969511R «Pizza Artesanal» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Carlos Alberto Franco Aroca (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "variantes": false,
+  "base": {
+    "h1": "Curso de pizzas online en {pais}",
+    "subtitulo": "Prepara masa madurada sin conservantes, cocina salsa napolitana tradicional, prepara pollo y pierna de cerdo y hornea variados sabores artesanales con ingredientes frescos.",
+    "beneficios": [
+      "Conoce los implementos necesarios para hacer pizza artesanal",
+      "Prepara una masa madurada natural y sin conservantes",
+      "Cocina el pollo y la pierna de cerdo para tus preparaciones",
+      "Elabora las salsas habituales como la napolitana italiana",
+      "Hornea variados sabores de pizzas en la práctica",
+      "Aplica criterios gastronómicos para lograr sabores naturales"
+    ],
+    "para_quien": [
+      "Personas que quieren hornear pizzas caseras con masa madurada",
+      "Cocineros que buscan sumar recetas tradicionales italianas a su menú",
+      "Emprendedores interesados en iniciar un negocio de pizzería artesanal",
+      "No es para ti si buscas elaborar masas industriales con conservantes"
+    ],
+    "requisitos": [
+      "Ingredientes frescos fáciles de conseguir en comercios locales",
+      "Implementos básicos de cocina y un horno para las preparaciones",
+      "Espacio limpio en tu cocina para amasar y estirar",
+      "Conexión a internet desde tu {computador} o {celular}"
+    ],
+    "cuerpo": "El curso de pizzas online de MasterClasses.La enseña a elaborar preparaciones artesanales con ingredientes frescos y sabores tradicionales de Italia. El chef Carlos Alberto Franco Aroca, administrador de empresas y fundador de una pizzería gourmet en el Meta, guía cada preparación a partir de su trayectoria en restaurantes colombianos. Trabajas con insumos fáciles de encontrar en comercios habituales para lograr preparaciones naturales libres de conservantes.\n\n## Implementos e ingredientes para pizza\n\nAntes de encender el horno, revisas las herramientas de trabajo necesarias para montar tu estación de amasado y cocción. Conocer el equipo adecuado desde el principio facilita el manejo de las masas y el armado ordenado en la mesa de trabajo. En este curso para hacer pizza aprendes a seleccionar productos frescos de uso cotidiano que respetan el sabor clásico italiano sin depender de insumos difíciles de conseguir. En el oficio pizzero conviene pesar los insumos secos y líquidos con balanza digital en lugar de usar tazas medidoras, porque pequeñas variaciones alteran la hidratación de la masa.\n\n## Masa madurada y salsas tradicionales\n\nLa base de una buena preparación artesanal está en la fermentación y en el fondo líquido que la acompaña. Elaboras desde tu cocina una masa madurada natural de alta calidad, pensada para obtener buena textura sin añadir químicos ni aditivos artificiales. También cocinas las bases más utilizadas en este curso de pizzería, destacando la auténtica salsa napolitana con su receta tradicional italiana. Si te interesa acompañar tus horneados con bebidas hechas en casa, puedes revisar el [curso de cerveza artesanal](/{cc}/curso-de-cerveza-artesanal/).\n\n## Carnes y tipos de pizza en la práctica\n\nUna carta variada exige saber tratar las proteínas antes de llevarlas al horno para que no queden secas ni crudas. Durante este curso de pizzero aprendes a preparar el pollo y la pierna de cerdo que luego integras para ejecutar las diferentes recetas del repertorio. Con esas bases listas, pasas a cocinar directamente en la práctica una amplia variedad de sabores artesanales cuidando el equilibrio entre los ingredientes frescos de la cubierta. En el trabajo diario de cocina conviene precalentar bien la superficie de cocción antes de meter la pala, pues ese golpe inicial de calor asegura un piso firme y dorado. Quienes arman menús variados para negocios nocturnos suelen complementar estas recetas con el [curso de hamburguesas gourmet](/{cc}/curso-de-hamburguesas-gourmet/) o el [curso de comidas rápidas](/{cc}/curso-de-comidas-rapidas/).\n\n## Oficio gastronómico y sabores naturales\n\nEl docente reúne los secretos recogidos durante su recorrido en la industria gastronómica y en la administración de su propia pizzería gourmet para lograr sabores auténticos. Este curso de pizzas entrega los conocimientos y recursos técnicos necesarios tanto para hornear recetas italianas en casa como para montar un negocio propio enfocado en productos artesanales sin conservantes. Si deseas ampliar tus habilidades culinarias en otras áreas de cocina, explora otros [cursos de gastronomía](/{cc}/cursos/gastronomia/).",
+    "faqs": [
+      {
+        "q": "¿Qué aprendo a preparar en este curso de pizzas?",
+        "a": "Aprendes a seleccionar los implementos de trabajo, amasar y fermentar una base madurada sin conservantes, cocinar salsa napolitana de receta italiana y alistar carnes como pollo y pierna de cerdo. Con esas bases horneas en la práctica un amplio repertorio de sabores artesanales con ingredientes frescos."
+      },
+      {
+        "q": "¿Qué clases de pizzas hay dentro de las preparaciones?",
+        "a": "El curso se enfoca en el estilo artesanal con los sabores tradicionales de Italia, dejando de lado las premezclas industriales. Cocinas en la práctica una variedad amplia de recetas elaboradas con ingredientes frescos de fácil acceso y cortes preparados en tu propia cocina, como el pollo y la pierna de cerdo."
+      },
+      {
+        "q": "¿Qué es una pizza de especialidad o artesanal?",
+        "a": "Es una preparación elaborada desde cero con masa madurada de forma natural, libre de conservantes industriales, cubierta con salsas cocinadas en casa e ingredientes frescos seleccionados. En el oficio se distingue de la comida rápida comercial por el reposo de la masa y el cuidado en las cocciones previas."
+      },
+      {
+        "q": "¿Cuáles son las pizzas más vendidas en una pizzería?",
+        "a": "En las pizzerías suelen salir con mucha frecuencia las recetas clásicas de base napolitana y las combinaciones que llevan carnes bien sazonadas como pollo o cerdo. En el oficio conviene dominar primero estas preparaciones tradicionales antes de ofrecer mezclas de autor, porque sostienen los pedidos diarios."
+      },
+      {
+        "q": "¿Necesito ingredientes importados para hacer las recetas?",
+        "a": "No necesitas productos difíciles de hallar. Todas las salsas, masas maduradas y cubiertas que enseña el chef Carlos Alberto Franco Aroca están pensadas para ejecutarse con ingredientes frescos que consigues en mercados y tiendas habituales de tu localidad, manteniendo la técnica tradicional italiana."
+      },
+      {
+        "q": "¿El curso de pizzas da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de pizzas es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de pizzas online para preparar masa madurada sin conservantes, salsa napolitana, carnes como pollo y cerdo, y recetas artesanales italianas."
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de pizzas online para preparar masa madurada sin conservantes, salsa napolitana, carnes como pollo y cerdo, y recetas artesanales italianas."
+    }
+  }
+}

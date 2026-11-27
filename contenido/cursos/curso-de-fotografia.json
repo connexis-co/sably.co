@@ -1,0 +1,138 @@
+{
+  "slug": "curso-de-fotografia",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto B77656721C «Fotógrafo, de Novato a Profesional» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Pablo Villarroel Rocabado (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de fotografía online en {pais}",
+    "subtitulo": "Mide pasos de luz, gestiona los valores de tu cámara, calcula factores de recorte y aplica esquemas de iluminación y principios de composición con cualquier cámara.",
+    "beneficios": [
+      "Dominar el triángulo de la exposición",
+      "Medir los pasos de luz en cada escena",
+      "Aplicar principios de composición y angulación",
+      "Gestionar los valores de ajuste de tu cámara",
+      "Identificar deformaciones de lente y ángulos de visión",
+      "Reconocer factores de recorte del sensor y esquemas lumínicos"
+    ],
+    "para_quien": [
+      "Principiantes que empiezan de novatos con cualquier tipo de cámara",
+      "Aficionados que quieren entender el control manual de la exposición",
+      "Emprendedores que toman fotos de sus productos y buscan iluminar mejor",
+      "No es para ti si ya dominas exposición, óptica y esquemas de luz"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa, el contenido arranca desde nivel novato",
+      "Cualquier tipo de cámara fotográfica disponible para practicar los ajustes",
+      "Conexión estable a internet para seguir las explicaciones",
+      "Un {computador} o {celular} para ver el contenido"
+    ],
+    "cuerpo": "El curso de fotografía online de MasterClasses.La, dictado por el fotógrafo publicitario Pablo Villarroel Rocabado, enseña a controlar la luz, el lente y el encuadre sin importar qué tipo de cámara uses. Partes de nivel novato para entender qué ocurre cuando presionas el disparador y cómo cada ajuste altera la imagen final.\n\n## Exposición y ajustes en fotografía para principiantes\n\nSalir del modo automático empieza por comprender el triángulo de la exposición y cómo se miden los pasos de luz. Con esa base aprendes a gestionar los valores de tu cámara según la escena que tienes enfrente. En el oficio conviene leer primero la luz disponible antes de mover cualquier rueda de ajuste, porque un paso de más o de menos cambia por completo la textura de las sombras y las altas luces.\n\nSi únicamente quieres hacer fotos de producto para redes sociales con tu teléfono, revisa el [curso de fotos con {celular}](/{cc}/curso-de-fotografia-con-celular/). En cambio, estas clases de fotografía trabajan la base óptica y lumínica aplicable a distintos equipos.\n\n## Óptica, sensores y encuadre\n\nCada objetivo dibuja el espacio de forma distinta. Estudias los ángulos de visión y las deformaciones de lente para saber cuándo acercarte al sujeto y cuándo tomar distancia. También aprendes a reconocer los factores de recorte del sensor, un dato técnico que define el encuadre real que obtienes con cada distancia focal.\n\nA la parte óptica se suman los principios de composición y angulación. Ubicar la cámara unos centímetros más arriba o más abajo modifica el peso visual del sujeto tanto como cambiar de lente.\n\n## Comportamiento y esquemas de la luz\n\nFotografiar consiste en medir y dirigir la luz. En este curso de fotografía en línea revisas los temas físicos que determinan cómo se ve una escena:\n\n- Características, tipos y esquemas de la luz.\n- Aplicación de la ley de la inversa al cuadrado para calcular cómo cae la iluminación al alejar una lámpara o el flash.\n- Lectura de los índices de reproducción cromática para respetar los colores reales.\n\nEn el oficio, comprobar el índice de reproducción cromática de las lámparas antes de armar un esquema evita dominantes verdosas o magentas difíciles de corregir después.\n\n## Cómo aprovechar lo aprendido si vendes un servicio\n\nQuien toma un curso de fotografía suele hacerlo por afición o para mostrar mejor su trabajo comercial. Si usas la cámara para un emprendimiento propio, puedes complementar la parte visual con un [curso de marketing digital](/{cc}/curso-de-marketing-digital/), un [curso de community manager](/{cc}/curso-de-community-manager/) para publicar con orden tus imágenes o revisar otros [cursos de emprendimiento](/{cc}/cursos/emprendimiento/). Controlar la angulación, la distancia del lente y los esquemas de iluminación te permite retratar productos, espacios o personas con colores fieles desde la toma.",
+    "faqs": [
+      {
+        "q": "¿Cómo puedo aprender fotografía desde cero?",
+        "a": "Empieza por entender el triángulo de la exposición, los pasos de luz y los valores de tu cámara antes de comprar accesorios costosos. Este curso parte de nivel novato con Pablo Villarroel Rocabado y te lleva por composición, lentes, sensores y esquemas de luz usando cualquier tipo de cámara."
+      },
+      {
+        "q": "¿Qué debo estudiar si quiero ser fotógrafo?",
+        "a": "Para trabajar con criterio propio debes aprender a leer la luz y a elegir la óptica adecuada antes de disparar. En el oficio importa saber cómo se comporta un lente frente a las deformaciones y cómo cae la iluminación con la distancia aplicando la ley de la inversa al cuadrado."
+      },
+      {
+        "q": "¿Qué cámara necesito para este curso de fotografía?",
+        "a": "Puedes usar cualquier tipo de cámara fotográfica que tengas a mano, porque los principios ópticos y lumínicos que se estudian aplican a distintos equipos. Aprenderás a reconocer el factor de recorte de tu propio sensor y a gestionar los valores manuales que tu equipo permita ajustar."
+      },
+      {
+        "q": "¿Qué temas de iluminación incluye este curso?",
+        "a": "Estudias las características, los tipos y los esquemas de la luz junto con cómo medir pasos lumínicos en tus escenas. Además aprendes la ley de la inversa al cuadrado para entender la caída de intensidad con la distancia y los índices de reproducción cromática para cuidar los colores."
+      },
+      {
+        "q": "¿Quién dicta las clases y qué experiencia tiene?",
+        "a": "El docente es Pablo Villarroel Rocabado, fotógrafo publicitario y mentor de principiantes, bajo el sello de MasterClasses.La. Su oficio en publicidad exige precisión al medir la luz y reproducir colores fieles, temas que aborda al explicar esquemas lumínicos e índices de reproducción cromática."
+      },
+      {
+        "q": "¿El curso de fotografía da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de fotografía es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de fotografía online desde cero: domina el triángulo de exposición, pasos de luz, lentes, composición y esquemas de iluminación."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de fotografía online: aprende triángulo de exposición, composición y esquemas de luz con cualquier cámara. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de fotografía desde cero: domina pasos de luz, lentes, sensores y composición con tu cámara. Incluye certificado y se paga en PEN."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de fotografía para principiantes: controla exposición, ángulos de visión e iluminación paso a paso. Se paga en EUR e incluye certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de fotografía en línea: mide pasos de luz, ajusta valores de cámara y aplica esquemas lumínicos. Recibes certificado y pagas en USD."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de fotografía online: domina exposición, recorte de sensor, lentes y esquemas de luz desde novato. Pagas en COP y obtienes certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de fotografía desde novato: aprende exposición, angulación, óptica y reproducción cromática. Incluye certificado con pago en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de fotografía para principiantes: maneja valores de cámara, pasos de luz y composición fotográfica. Pagas en ARS y recibes certificado."
+    }
+  }
+}

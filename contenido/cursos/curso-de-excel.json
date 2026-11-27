@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-excel",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto Y42316068A «Excel para Principiantes» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Fabio Montes (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de excel online en {pais}",
+    "subtitulo": "Organiza presupuestos, gastos del hogar, facturas, cuentas bancarias e inventarios cotidianos desde cero en hojas de cálculo.",
+    "beneficios": [
+      "Controlar los gastos del hogar por día, mes o año",
+      "Registrar facturas por pagar para anticipar salidas de dinero",
+      "Administrar pagos de préstamos, hipotecas y tarjetas de crédito",
+      "Crear presupuestos mensuales de ingresos y gastos estimados",
+      "Inventariar alimentos de la cocina con fechas de vencimiento",
+      "Armar listas de contactos, compras del supermercado y colecciones"
+    ],
+    "para_quien": [
+      "Personas sin experiencia que quieren ordenar sus gastos y ahorros personales",
+      "Quienes buscan llevar cuentas claras de su hogar o pequeño negocio",
+      "Usuarios con nociones mínimas que desean organizar datos y horarios diarios",
+      "No es para ti si buscas macros, programación o modelado financiero corporativo"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa porque empiezas desde cero",
+      "Tener instalado Microsoft Excel para practicar en tus propias hojas",
+      "Contar con un {computador} o {celular} para seguir las explicaciones",
+      "Conexión estable a internet para acceder al contenido"
+    ],
+    "cuerpo": "El curso de Excel online de MasterClasses.La enseña desde cero a utilizar esta hoja de cálculo para administrar información cotidiana, presupuestos y cuentas. Dictado por Fabio Montes, especialista en Microsoft Excel y fundador de Mi Club Digital, este curso de Excel básico se centra en resolver necesidades reales del día a día: desde ordenar horarios y gastos familiares hasta llevar los números de un negocio pequeño.\n\n## Excel para principiantes desde cero aplicado a tus finanzas\n\nLlevar los números en la cabeza o en papeles sueltos suele terminar en olvidos de fechas de corte. Al aprender en Excel a registrar tus movimientos, pasas a controlar los gastos del hogar de forma diaria, mensual y anual. Separar lo que destinas a energía, teléfono, comida o viajes te muestra con exactitud adónde va tu dinero.\n\nTambién trabajas el seguimiento de tu cuenta bancaria, los ahorros para la jubilación y la administración de pagos de hipotecas, préstamos y tarjetas de crédito. Registrar todas las facturas por pagar te permite prever salidas de dinero y armar un presupuesto mensual de ingresos y gastos estimados para frenar compras innecesarias. En el trabajo diario con hojas de cálculo, conviene dedicar una fila a cada movimiento y no mezclar texto con importes en la misma celda para que las sumas no fallen. Si además manejas caja comercial, puedes complementar esta base con un [curso de finanzas para no financieros](/{cc}/curso-de-finanzas-para-tu-negocio/) o un [curso de contabilidad básica](/{cc}/curso-de-contabilidad-basica/).\n\n## Listas, inventarios domésticos y registros personales\n\nMás allá del dinero, una hoja bien armada sirve para ordenar datos que consultas a menudo en casa. En el curso de Excel ves cómo estructurar distintos registros prácticos:\n\n- Directorio de contactos con nombre, teléfono y dirección.\n- Lista de teléfonos de emergencia lista para imprimir y pegar en la nevera.\n- Apuntes de compras pendientes para el supermercado.\n- Inventario de productos en la cocina con fecha de compra y de vencimiento.\n- Registro personal de colecciones de libros, música y películas.\n- Control de peso corporal y seguimiento de tu dieta.\n\n## Cuentas claras en casa y en pequeños negocios\n\nQuien vende por cuenta propia suele mezclar el dinero familiar con el del trabajo. Aplicar lo visto en el curso para separar las cuentas de tu negocio de los gastos domésticos evita confusiones al cerrar el mes. Cuando anotas fechas en una tabla, lo recomendable en el oficio es escribir siempre con el mismo formato de día, mes y año para poder ordenar los vencimientos sin errores.\n\nOrdenar clientes, compras de insumos y horarios en celdas limpias te da una base administrativa útil si luego decides formarte en un [curso de ventas por WhatsApp y redes](/{cc}/curso-de-ventas-por-whatsapp-y-redes/) o explorar otros [cursos de emprendimiento](/{cc}/cursos/emprendimiento/).",
+    "faqs": [
+      {
+        "q": "¿Qué se aprende en un curso de Excel como este?",
+        "a": "Aprendes desde cero a usar hojas de cálculo para administrar información personal y doméstica. Vas a crear presupuestos mensuales, controlar gastos diarios o anuales, llevar el registro de cuentas bancarias, tarjetas, préstamos y facturas, además de armar inventarios de cocina, listas de contactos y seguimiento de ahorros."
+      },
+      {
+        "q": "¿Qué es lo primero que se debe aprender en Excel?",
+        "a": "Lo primero al empezar desde cero es ubicarte en la cuadrícula de celdas, distinguir filas de columnas y aprender a introducir textos, fechas y números. Con ese manejo inicial ya puedes armar listas simples de compras o contactos antes de pasar a registrar presupuestos y facturas."
+      },
+      {
+        "q": "¿Dónde me recomiendan estudiar Excel si empiezo de cero?",
+        "a": "Conviene elegir una propuesta pensada para principiantes que aplique la herramienta a datos que ya manejas a diario, como tus cuentas o tus horarios. En este curso trabajas con el docente Fabio Montes sobre casos cotidianos de ahorro, pagos del hogar e inventarios, sin tecnicismos de oficina."
+      },
+      {
+        "q": "¿Qué es lo más difícil de aprender en Excel al principio?",
+        "a": "Para quien recién arranca, lo más costoso suele ser traducir un problema cotidiano a una tabla clara: decidir qué encabezados usar y ser constante al anotar cada gasto o vencimiento. Empezar con listas reales de tu casa, como facturas del mes o compras del supermercado, facilita esa práctica."
+      },
+      {
+        "q": "¿Cómo funciona BUSCARV y se incluye en este nivel?",
+        "a": "BUSCARV es una función de Excel que localiza un dato en la primera columna de una tabla y devuelve un valor de esa misma fila, útil para cruzar listados grandes. La propuesta de este curso se enfoca en el manejo inicial para gastos, presupuestos, listas e inventarios domésticos."
+      },
+      {
+        "q": "¿El curso de excel da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de excel es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de Excel desde cero para organizar gastos del hogar, presupuestos mensuales, pagos de deudas, cuentas bancarias e inventarios diarios."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Excel desde cero para controlar gastos del hogar, armar presupuestos mensuales y llevar inventarios. Se paga en USD e incluye certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Excel básico para organizar presupuestos, cuentas bancarias, facturas y listas desde cero. Pagas en PEN y recibes certificado al terminar."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Excel desde cero: aprende a registrar gastos diarios, pagos de tarjetas, ahorros e inventarios en casa. Incluye certificado y pago en MXN."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de Excel básico desde cero para administrar presupuestos, facturas, cuentas del hogar y listas cotidianas. Pago en EUR y certificado incluido."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Excel para organizar desde cero tus gastos mensuales, pagos de préstamos, ahorros e inventarios. Pagas en USD y obtienes tu certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Excel básico para llevar presupuestos del hogar, control de facturas, ahorros y listas desde cero. Pagas en COP y recibes tu certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Excel desde cero para registrar gastos familiares, cuentas bancarias, deudas e inventarios diarios. Incluye certificado y se paga en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de Excel básico desde cero: organiza presupuestos mensuales, gastos del hogar, pagos de tarjetas y listas. Pago en ARS con certificado final."
+    }
+  }
+}

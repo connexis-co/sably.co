@@ -1,0 +1,137 @@
+{
+  "slug": "curso-de-modisteria",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto U59313744J «Modistería en Casa» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «● Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de modistería online en {pais}",
+    "subtitulo": "Aprende desde cero a reconocer materiales básicos, diseñar estilos según cada persona, cortar telas y confeccionar tus propias prendas de vestir en casa.",
+    "beneficios": [
+      "Empezar desde cero en diseño, corte y confección",
+      "Identificar las necesidades del cliente al definir estilos",
+      "Conocer los materiales básicos para elaborar ropa",
+      "Trabajar en casa sin máquinas ni implementos costosos",
+      "Diseñar y coser tus propias prendas de vestir",
+      "Estudiar a tu ritmo desde la comodidad del hogar"
+    ],
+    "para_quien": [
+      "Personas sin experiencia previa que quieren diseñar y coser su propia ropa",
+      "Quienes buscan confeccionar prendas de vestir para otras personas desde casa",
+      "Principiantes que prefieren iniciarse en el oficio sin comprar maquinaria costosa",
+      "No es para ti si buscas manejar maquinaria industrial costosa"
+    ],
+    "requisitos": [
+      "Ninguna experiencia previa, ya que empiezas desde lo más básico",
+      "Telas e insumos elementales de costura para practicar en tus prendas",
+      "Espacio despejado en casa donde extender y cortar los géneros",
+      "Conexión a internet desde un {celular} o un {computador}"
+    ],
+    "cuerpo": "El curso de modistería online de MasterClasses.La enseña desde cero el diseño, el corte y la confección de prendas de vestir para trabajar desde casa. Conoces los materiales básicos del oficio, defines estilos según lo que busca cada persona y elaboras ropa propia o por encargo sin depender de maquinaria costosa.\n\n## Diseño y lectura de lo que pide cada clienta\n\nAntes de poner la tijera sobre la tela, en modistería toca entender para quién es la prenda y qué espera recibir. El curso enseña a identificar las necesidades del cliente para definir los estilos y diseños de cada pieza de vestir. Ese criterio evita rehacer costuras y te sirve tanto al armar tu guardarropa como al atender encargos.\n\nSi buscas otra alternativa para iniciarte en este oficio textil, revisa también el [curso de costura desde cero](/{cc}/curso-de-corte-y-confeccion/).\n\n## Herramientas de una costurera y materiales de inicio\n\nEn este curso de modistería para principiantes comienzas reconociendo los materiales elementales con los que se construye una prenda, sin necesidad de comprar implementos ni equipos caros desde el primer día. En el taller doméstico conviene separar unas tijeras solo para tela y otras para papel, porque el cartón desafila la hoja y estropea el corte en tejidos finos.\n\nCuando decides aprender modistería y practicas en casa, te familiarizas con lo que suele haber en una mesa de trabajo:\n\n- Cinta métrica flexible, tiza de sastre o jaboncillo para marcar sin manchar el género.\n- Alfileres de cabeza fina, agujas de mano e hilos acordes al grosor del tejido.\n- Plancha doméstica para asentar costuras abiertas entre paso y paso.\n\n## Corte y confección de prendas a tu propio ritmo\n\nEl enfoque de este curso de modista online es práctico y pensado para avanzar desde tu casa, organizando tus tiempos de práctica. Pasas de las bases del diseño al corte y armado de distintas piezas de vestir. En el oficio conviene lavar y planchar los tejidos de algodón antes de cortarlos, así encogen en el lavado y no cuando la prenda ya está terminada.\n\nQuien más adelante quiera profundizar solo en el trazado técnico de moldes por talla puede complementar con un [curso de patronaje](/{cc}/curso-de-molderia-y-confeccion/), o pasar al manejo de taller pesado en un [curso de máquina plana](/{cc}/curso-de-costura-industrial/).\n\n## Salidas del oficio desde un espacio doméstico\n\nCon un curso de modistería virtual adquieres criterio para coser ropa propia y elaborar piezas a medida para clientas cercanas desde una habitación o mesa familiar. Tener claras las etapas de diseño, elección de insumos y confección te permite organizar cada encargo con orden. Si quieres comparar este enfoque con especialidades como lencería o ropa de baño, puedes ver otros [cursos de moda y confección](/{cc}/cursos/moda-y-confeccion/).",
+    "faqs": [
+      {
+        "q": "¿Qué se aprende en este curso de modistería?",
+        "a": "Aprendes desde cero las bases del diseño, el corte y la confección de prendas de vestir. El contenido cubre el reconocimiento de los materiales básicos, la lectura de las necesidades del cliente para definir estilos y la elaboración práctica de ropa para ti o para otras personas desde casa."
+      },
+      {
+        "q": "¿Qué estudian las costureras cuando empiezan desde cero?",
+        "a": "En el oficio se estudia cómo tomar medidas sobre el cuerpo, reconocer el comportamiento de distintos tejidos, preparar el corte respetando el sentido del hilo y unir piezas con prolijidad. En casa conviene llevar un cuaderno de medidas por persona para consultar cada vez que repitas un encargo."
+      },
+      {
+        "q": "¿Necesito comprar máquinas caras para tomar este curso de modista?",
+        "a": "No necesitas máquinas ni implementos costosos para empezar. El curso está pensado para iniciarte en casa con recursos accesibles y empeño, aprovechando utensilios sencillos de mesa antes de invertir en equipos grandes de taller, tanto si quieres coser tu propia ropa como atender primeros pedidos."
+      },
+      {
+        "q": "¿Hace falta saber coser antes de inscribirse?",
+        "a": "No hace falta experiencia previa porque empiezas de cero con lo más elemental del oficio. En costura doméstica conviene ensayar primero sobre retazos de tela firme antes de pasar a tejidos resbaladizos, acomodando el ritmo de estudio a las horas libres que tengas cada semana en tu hogar."
+      },
+      {
+        "q": "¿Dónde puedo encontrar clases de diseño de moda y confección online?",
+        "a": "Este curso reúne en modalidad virtual la creación de estilos para distintas prendas y su armado práctico para que avances a tu propio tiempo desde casa. Si prefieres dedicarte a una rama puntual, como corsetería o ropa interior, dentro de la sección textil tienes cursos enfocados en cada prenda."
+      },
+      {
+        "q": "¿El curso de modistería da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de modistería es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de modistería online desde cero: aprende materiales básicos, diseño de estilos, corte y confección de prendas de vestir desde tu casa."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de modistería online desde cero: aprende materiales básicos, diseño de estilos, corte y confección de ropa. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de modistería desde casa para aprender diseño de prendas, materiales básicos, corte y confección desde cero. Se paga en PEN e incluye certificado."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de modista online: aprende desde cero materiales básicos, diseño, corte y confección de prendas en casa. Incluye certificado y se paga en MXN."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de modistería para principiantes: aprende en casa diseño de estilos, materiales, corte y confección de ropa. Pago en EUR con certificado incluido."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de modistería virtual para aprender desde cero materiales básicos, diseño, corte y confección de prendas. Pagas en USD con certificado al acabar."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de modistería en casa: aprende desde cero diseño de estilos, materiales básicos, corte y confección de ropa. Pagas en COP y recibes certificado."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de modista desde cero: aprende en casa materiales básicos, diseño de estilos, corte y confección de prendas. Abonas en ARS y recibes certificado."
+    }
+  }
+}

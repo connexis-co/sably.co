@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-corte-y-confeccion",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto H29604575U «Costura Premium» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Irene Isabel Villagómez (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de costura online en {pais}",
+    "subtitulo": "Toma medidas, traza patrones, selecciona telas y cose faldas, blusas, pantalones y shorts con cuellos, cierres, pinzas y acabados limpios.",
+    "beneficios": [
+      "Organiza el área de trabajo e identifica implementos necesarios",
+      "Distingue las máquinas y realiza ejercicios prácticos de costura",
+      "Selecciona telas según su textura, silueta y combinación de color",
+      "Toma medidas corporales y traza diferentes tipos de patrones",
+      "Ejecuta falsos, pinzas, cierres, dobladillos, pretinas y sesgos",
+      "Confecciona faldas, blusas, pantalones, shorts y variados cuellos"
+    ],
+    "para_quien": [
+      "Personas que quieren aprender a coser faldas, blusas y pantalones",
+      "Quienes buscan trazar sus propios patrones a partir de medidas",
+      "Aficionados que necesitan dominar cierres, pretinas, cuellos y acabados",
+      "No es para ti si buscas diseño de calzado o marroquinería"
+    ],
+    "requisitos": [
+      "Máquina de coser e implementos básicos de corte y trazo",
+      "Telas, hilos y cierres para practicar los ejercicios y prendas",
+      "Espacio despejado con mesa para extender papel y cortar",
+      "Conexión a internet desde tu {celular} o {computador}"
+    ],
+    "cuerpo": "El curso de costura online de MasterClasses.La, dictado por Irene Isabel Villagómez, enseña a preparar tu mesa de trabajo, elegir telas, trazar moldes y coser prendas exteriores completas. Empiezas reconociendo las máquinas y los implementos necesarios para aprender a coser a máquina mediante ejercicios de control antes de pasar a la tela definitiva.\n\n## Materiales, máquinas y preparación del espacio\n\nAntes de cortar una pieza, revisas cómo disponer y cuidar tu área de trabajo para mantener el orden al medir, trazar y coser. El curso repasa los tipos de máquinas disponibles y te ayuda a distinguir las herramientas útiles de aquellas que resultan innecesarias al armar tu equipo de costura. En el oficio conviene probar la tensión del hilo y el largo de puntada en un retazo de la misma tela que vas a confeccionar para evitar frunces o puntadas flojas.\n\nSi más adelante tu objetivo es trabajar con equipos de taller pesado, puedes revisar este [curso de máquina plana](/{cc}/curso-de-costura-industrial/).\n\n## Telas, siluetas y toma de medidas\n\nConocer el tejido evita errores de caída al vestir. Estudias las texturas de los distintos tipos de telas, cómo combinar colores con criterio y qué cortes se utilizan en cada tipo de silueta. Con esa base visual pasas a la toma de medidas sobre el cuerpo y a la elaboración de los diferentes tipos de patrones que sirven de guía en el corte. En sastrería y modistería conviene alinear siempre el molde con el hilo de la tela antes de prender alfileres para que la prenda no se gire al caminar. Si luego quieres dedicarte exclusivamente al trazado de moldes, tienes disponible un [curso de patronaje](/{cc}/curso-de-molderia-y-confeccion/).\n\n## Ensamblaje, cierres y acabados de confección\n\nUn curso de corte y confección requiere resolver las uniones internas que dan forma y sujeción a la ropa. Practicas operaciones concretas de armado para lograr un terminado limpio:\n\n- Elaboración de los distintos tipos de pinzas y de falsos.\n- Colocación de diferentes cierres y armado de pretinas.\n- Remate de bordes mediante dobladillos y aplicación de sesgos.\n- Confección de variados tipos de cuellos con técnicas específicas.\n\nEn el taller, planchar cada costura abierta o asentada antes de cruzarla con otra pieza marca la diferencia en la prolijidad final de la prenda.\n\n## Prendas que vas a confeccionar\n\nTodo lo practicado en este curso de costura se aplica en la hechura completa de diferentes tipos de faldas, blusas, pantalones y shorts, uniendo el patronaje previo con los detalles de cierre y cuello que pide cada diseño. Si tu interés principal son las composturas y los arreglos de prendas ya hechas, te servirá más un [curso de modistería](/{cc}/curso-de-modisteria/). En cambio, para explorar prendas íntimas o elásticas cuando completes este curso de coser, puedes mirar el [curso de lencería](/{cc}/curso-de-confeccion-de-ropa-interior/) o revisar los demás [cursos de moda y confección](/{cc}/cursos/moda-y-confeccion/).",
+    "faqs": [
+      {
+        "q": "¿Qué abarca este curso de costura frente al diseño o los arreglos?",
+        "a": "Este curso de costura abarca el proceso completo de crear ropa exterior a medida desde la tela en rollo hasta el acabado final. Cubre el análisis de siluetas y tejidos, el trazado de moldes propios y el armado en máquina, sin limitarse a composturas de ropa ya hecha."
+      },
+      {
+        "q": "¿Qué se necesita para corte y confección?",
+        "a": "Necesitas un espacio ordenado para trazar y cortar, una máquina de coser, telas e implementos básicos de medición y corte. Dentro del curso se revisan cuáles herramientas son necesarias y cuáles resultan innecesarias, para que no compres accesorios de costura que no vas a utilizar."
+      },
+      {
+        "q": "¿Qué es corte y confección?",
+        "a": "En el oficio textil, el corte comprende tomar medidas, trazar el patrón sobre papel y cortar las piezas en la tela respetando el hilo del tejido. La confección consiste en unir esas piezas en la máquina aplicando pinzas, cierres, pretinas, cuellos y dobladillos hasta terminar la prenda."
+      },
+      {
+        "q": "¿Qué son las costuras y qué piezas se practican?",
+        "a": "Las costuras son las uniones de dos o más capas de tela mediante puntadas para dar estructura, forma y resistencia a una prenda. En el curso comienzas con ejercicios para ganar control al coser y luego resuelves las terminaciones internas, los bordes y las aberturas propias de la ropa exterior."
+      },
+      {
+        "q": "¿Qué se hace en un taller textil al confeccionar ropa?",
+        "a": "En un taller de confección a medida se mantiene limpio el puesto de costura, se eligen las telas, se toman medidas, se trazan moldes y se arman las prendas pieza por pieza. Este curso cubre esas tareas enfocándose en blusas, faldas, pantalones y shorts."
+      },
+      {
+        "q": "¿El curso de costura da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de costura es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de costura online para tomar medidas, trazar patrones, colocar cierres y pretinas y confeccionar faldas, blusas, pantalones y shorts."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de costura online: toma medidas, traza patrones y confecciona faldas, blusas, pantalones y shorts. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de corte y confección: aprende patronaje, cierres, cuellos y armado de blusas, faldas y pantalones. Incluye certificado y pago en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de costura online para trazar patrones, coser cierres y pretinas y hacerblusas, faldas y shorts. Pagas en MXN y recibes certificado."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de coser online: selección de telas, toma de medidas, patrones y armado de blusas, faldas y shorts. Pago en EUR e incluye certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de costura: aprende toma de medidas, patronaje, cuellos y cierres para armar blusas y pantalones. Incluye certificado y se paga en USD."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de corte y confección online: traza moldes, cose pinzas y cierres y arma faldas, blusas y pantalones. Pagas en COP y recibes certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de costura online: uso de máquinas, patronaje, pretinas y confección de blusas, pantalones y faldas. Incluye certificado y pago en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de coser: toma medidas, elabora patrones y confecciona blusas, faldas, shorts y pantalones. Se abona en ARS e incluye certificado."
+    }
+  }
+}

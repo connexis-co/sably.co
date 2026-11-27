@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-joyeria-artesanal",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto C56618940A «Tu Marca de Joyería, Bisutería y Accesorios» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Erika Esmeralda Hernandez de Luca (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de joyería online en {pais}",
+    "subtitulo": "Identifica las técnicas para crear accesorios, elige un modelo de negocio, define el nombre y el empaque de tu marca, y calcula el precio de venta de tus piezas.",
+    "beneficios": [
+      "Conoce los modelos de negocio del sector joyero actual",
+      "Identifica y diferencia las técnicas de fabricación para especializarte",
+      "Localiza tutoriales básicos para diseñar piezas desde cero",
+      "Crea el nombre, el estilo y la historia de tu marca",
+      "Define los precios de tus creaciones con visión financiera",
+      "Diseña el empaque y la presentación para tus clientes"
+    ],
+    "para_quien": [
+      "Personas sin experiencia previa que quieren iniciar desde cero en accesorios",
+      "Creadores que buscan dar nombre, identidad y empaque a su marca",
+      "Artesanos que necesitan calcular precios y elegir un modelo de negocio",
+      "No es para ti si no te interesa gestionar una marca propia"
+    ],
+    "requisitos": [
+      "No requieres conocimientos previos porque el contenido parte desde cero",
+      "Cuaderno o documento digital para bocetar ideas, costos y nombres",
+      "Insumos básicos de armado y empaque según la técnica que elijas",
+      "Conexión a internet estable desde un {computador} o un {celular}"
+    ],
+    "cuerpo": "El curso de joyería online de MasterClasses.La enseña a estructurar una marca propia de joyería, bisutería y accesorios combinando diseño inicial y gestión comercial. Lo imparte Erika Esmeralda Hernandez de Luca, emprendedora mexicana radicada en Alemania dedicada al desarrollo de negocios creativos en este sector. Trabajarás desde la diferenciación de técnicas hasta el cálculo de precios y la presentación del producto terminado.\n\n## Técnicas y primeros pasos en la joyería artesanal\n\nAntes de comprar herramientas conviene conocer qué ramas existen en el oficio. En este curso de joyería para principiantes aprendes a identificar y diferenciar las técnicas actuales del sector para elegir en cuál especializarte. También ves dónde buscar y cómo seleccionar tutoriales con técnicas básicas para empezar desde cero el diseño de tus primeros accesorios.\n\nSi al explorar materiales decides fabricar tus propios dijes o cordones desde cero, puedes complementar lo aprendido con un [curso de resina epóxica](/{cc}/curso-de-resina-epoxica/), un [curso de porcelana fría](/{cc}/curso-de-porcelana-fria/) o un [curso de macramé](/{cc}/curso-de-macrame/), oficios habituales al armar colecciones hechas a mano.\n\n## Modelos de negocio e identidad de marca\n\nVender piezas sueltas sin una línea clara suele frenar a quien recién empieza. Este curso de bisutería revisa los modelos de negocio vigentes en el mercado para que escojas el formato que se ajuste a tus recursos. A partir de esa base trabajas tres elementos de identidad:\n\n- El nombre comercial (naming) pensado para tus colecciones.\n- El estilo visual que unifica tus piezas y accesorios.\n- La narrativa o storytelling para comunicar el origen de tu propuesta.\n\nEn el oficio conviene definir primero a qué tipo de uso se destinan los accesorios antes de encargar insumos por mayor, así evitas acumular fornituras o piedras que no encajan entre sí.\n\n## Cálculo de precios, empaque y comercialización\n\nAdemás de orientarte en la parte creativa, este curso de diseño de joyas enseña a cobrar el trabajo sin perder margen. Verás cómo fijar los precios de tus creaciones para ordenar las finanzas de tu taller y qué estudios de mercado y estrategias de comercialización aplicar al salir a vender.\n\nTambién trabajas el empaque (packaging) y la presentación física de cada entrega. En bisutería y joyería un cartón exhibidor firme y una bolsa o caja limpia protegen los cierres de golpes durante el envío y facilitan que el comprador guarde la pieza sin que se raye ni se enrede.\n\nAl inscribirte tienes acceso a una comunidad enfocada en el sector joyero donde puedes hacer consultas y pedir apoyo a otros miembros. Si te interesa combinar tus accesorios con otros oficios hechos a mano, revisa otros [cursos de manualidades](/{cc}/cursos/manualidades/) disponibles.",
+    "faqs": [
+      {
+        "q": "¿Qué es joyería artesanal y qué abarca este curso?",
+        "a": "La joyería artesanal abarca la elaboración cuidada de piezas y accesorios en lotes pequeños, atendiendo el diseño y los acabados de cada entrega. Este curso se enfoca en convertir ese trabajo en una marca propia: eliges un modelo de negocio, defines el estilo visual, creas el empaque de presentación y calculas tus precios."
+      },
+      {
+        "q": "¿Qué se debe estudiar para hacer joyas?",
+        "a": "Para empezar a crear piezas hace falta conocer qué ramas técnicas existen hoy en el oficio, aprender a diferenciarlas y elegir una sola para especializarse con criterio. Este curso cubre esa etapa inicial y te muestra cómo localizar tutoriales de técnicas básicas con los que practicar el diseño creativo de accesorios desde cero."
+      },
+      {
+        "q": "¿Dónde aprender joyería si empiezo desde cero?",
+        "a": "Puedes estudiarla de forma online desde casa con este curso de joyería dictado por Erika Esmeralda Hernandez de Luca. No pide experiencia previa: revisas desde las bases creativas hasta la gestión comercial de tus colecciones y cuentas con una comunidad del sector joyero para hacer consultas y pedir apoyo a otros miembros."
+      },
+      {
+        "q": "¿Qué hay que estudiar para trabajar en una joyería propia?",
+        "a": "Gestionar una marca propia requiere criterio comercial además del diseño manual. En las lecciones trabajas la elección del modelo de negocio, los estudios de mercado, las estrategias de comercialización y la fijación de precios con enfoque financiero, junto con la creación del nombre comercial, el storytelling y el empaque de entrega."
+      },
+      {
+        "q": "¿Cómo aborda el curso las técnicas de joyería y bisutería?",
+        "a": "El enfoque combina panorama técnico y creación de marca, en lugar de centrarse en un único oficio manual aislado. Aprendes a identificar y diferenciar las técnicas vigentes en el mundo de la joyería para decidir en cuál especializarte, y ves dónde buscar tutoriales básicos para iniciar tus propios diseños."
+      },
+      {
+        "q": "¿El curso de joyería da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de joyería es gratis o tiene mensualidades?",
+        "a": "No es gratis y tampoco cobra mensualidad: haces un pago único en Hotmart. El acceso llega a tu correo cuando se confirma la compra y no tiene fecha de vencimiento. Tienes 7 días de garantía para pedir en Hotmart la devolución total si el curso no te sirve."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de joyería y bisutería online: diferencia técnicas, diseña desde cero y crea el nombre, empaque y precios de tu marca de accesorios."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de joyería online: diferencia técnicas, crea el nombre y empaque de tu marca y define precios de venta. Pagas en USD con acceso a comunidad."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de bisutería y joyería: identifica técnicas, diseña desde cero y define precios y packaging de marca. Incluye comunidad y se paga en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de joyería para principiantes: reconoce técnicas, arma la identidad de tu marca y calcula tus precios. Pago en MXN y acceso a la comunidad."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de diseño de joyas y marca: diferencia técnicas, crea tu naming y packaging y fija precios de venta. Pagas en EUR e ingresas a la comunidad."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de joyería y accesorios: explora técnicas básicas, elige modelo de negocio y calcula precios y empaque. Pago en USD y comunidad de apoyo."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de joyería online: distingue técnicas de armado, define nombre y packaging de marca y fija tus precios. Pagas en COP con apoyo en comunidad."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de bisutería y marca propia: conoce técnicas, crea tu identidad comercial y calcula precios y empaques. Se paga en CLP e incluye comunidad."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de joyería para principiantes: diferencia técnicas, arma el estilo y empaque de tu marca y fija precios. Se abona en ARS con comunidad online."
+    }
+  }
+}

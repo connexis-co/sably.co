@@ -1,0 +1,129 @@
+{
+  "slug": "curso-de-electricista",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto N61163479L «Electricista como Negocio» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: José Olinder Saldarriaga Cano (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de electricidad online en {pais}",
+    "subtitulo": "Planea instalaciones de baja tensión para casas o empresas, diseña planos eléctricos, arma tu tablero didáctico, instala puntos de luz y cotiza tus servicios.",
+    "beneficios": [
+      "Emplea medidas de protección y seguridad en trabajos eléctricos",
+      "Comprende qué es la electricidad, cómo se genera y funciona",
+      "Calcula, lee y diseña planos eléctricos de forma práctica",
+      "Construye un tablero eléctrico didáctico y una lámpara de pruebas",
+      "Instala tomacorrientes, interruptores, plafones y breakers con las herramientas adecuadas",
+      "Elabora cotizaciones acertadas al cobrar por tus servicios eléctricos"
+    ],
+    "para_quien": [
+      "Personas sin experiencia previa que quieren aprender a instalar desde cero",
+      "Quienes tienen nociones básicas de electricidad y buscan completar su técnica",
+      "Interesados en hacer instalaciones propias o prestar el servicio de instalador",
+      "No es para ti si buscas trabajar en media o alta tensión"
+    ],
+    "requisitos": [
+      "No necesitas conocimientos previos sobre instalaciones eléctricas",
+      "Herramientas básicas de electricista y materiales para armar el tablero didáctico",
+      "Tomacorrientes, interruptores, plafones y breakers para practicar las conexiones",
+      "Conexión a internet desde un {computador} o un {celular}"
+    ],
+    "cuerpo": "El curso de electricidad online de MasterClasses.La enseña a planear y ejecutar instalaciones eléctricas de baja tensión para viviendas o empresas, tanto si empiezas sin experiencia como si ya tienes bases y quieres trabajar prestando servicios de instalador. Está dictado por José Olinder Saldarriaga Cano, empresario industrial dedicado a las redes eléctricas y a la fabricación de equipos eléctricos y electrónicos.\n\n## Cómo funciona un circuito eléctrico y medidas de seguridad\n\nAntes de intervenir una red, necesitas entender desde el punto de vista técnico qué es la electricidad, cómo se genera y de qué manera circula. Esta base te sirve también si más adelante decides aprender electrónica o pasarte a un [curso de paneles solares](/{cc}/curso-de-energia-solar/). Junto con los fundamentos técnicos, aplicas las medidas de protección y seguridad para trabajar sin accidentes y usar las herramientas y equipos necesarios como corresponde. En el oficio conviene verificar siempre la ausencia de tensión en los bornes antes de tocar cualquier conductor, incluso después de haber bajado el corte general.\n\n## Lectura de planos y planeación de la obra\n\nUn curso de electricista orientado al trabajo real requiere pasar del papel al muro con criterio. Aprendes a leer, calcular y diseñar planos eléctricos para planear la instalación completa de una residencia o de un local comercial. Si únicamente buscas resolver arreglos domésticos puntuales sin enfocarte en empresas ni presupuestos, puedes revisar el curso de [electricidad residencial desde cero](/{cc}/curso-de-electricidad-residencial-certificado/).\n\n## Práctica en tablero didáctico y puntos de instalación\n\nPara soltar la mano antes de intervenir un inmueble, armas una lámpara de pruebas y un tablero eléctrico didáctico donde ensayas los empalmes y circuitos reales. Sobre esa estructura practicas el montaje de los puntos habituales de una obra:\n\n- Tomacorrientes para alimentar equipos\n- Interruptores o switches de encendido\n- Plafones para iluminación\n- Breakers o disyuntores de protección en el tablero\n\nAl conectar estos accesorios en obra, un buen hábito del oficio es apretar con firmeza cada tornillo de las borneras, ya que un contacto flojo recalienta el aislamiento del cable con el uso diario.\n\n## Cotización de servicios de instalación y mantenimiento\n\nQuien decide estudiar electricidad para ofrecer servicios independientes suele fallar al calcular cuánto cobrar por su mano de obra y materiales. En este curso de electricidad trabajas la elaboración de cotizaciones acertadas para presupuestar instalaciones o mantenimientos sin sufrir pérdidas económicas al cerrar un trabajo. Muchos técnicos complementan estas salidas a terreno con un [curso de instalación de cámaras de seguridad](/{cc}/curso-de-instalacion-de-camaras-de-seguridad/) o exploran otros [cursos de oficios](/{cc}/cursos/oficios/) afines a la construcción y el mantenimiento de inmuebles.",
+    "faqs": [
+      {
+        "q": "¿Dónde puedo encontrar un curso de electricidad en línea?",
+        "a": "Este curso de electricidad online de MasterClasses.La, dictado por José Olinder Saldarriaga Cano, se cursa por internet desde un {computador} o {celular}. Todo el contenido está enfocado en instalaciones de baja tensión para viviendas y empresas, lectura de planos, armado de un tablero de pruebas y elaboración de presupuestos."
+      },
+      {
+        "q": "¿Qué tan difícil es estudiar electricidad si empiezo de cero?",
+        "a": "No hace falta experiencia previa porque empiezas entendiendo qué es la electricidad, cómo se genera y cómo funciona. Antes de intervenir una pared real, armas una lámpara de pruebas y un tablero eléctrico didáctico que te permiten practicar las conexiones con medidas de seguridad claras."
+      },
+      {
+        "q": "¿Qué instalaciones enseña a hacer este curso de electricista?",
+        "a": "Trabajas sobre instalaciones eléctricas de baja tensión tanto para viviendas familiares como para empresas, abarcando obras nuevas y mantenimientos. Aprendes a planear el circuito completo desde el diseño y cálculo del plano hasta el montaje de los puntos de luz, alimentación y protección con las herramientas necesarias."
+      },
+      {
+        "q": "¿Este curso sirve para obtener una matrícula oficial de técnico electricista?",
+        "a": "No, este curso enseña el oficio técnico y la cotización de trabajos en baja tensión, pero no otorga habilitación ni matrícula estatal. En el oficio conviene consultar la normativa municipal o nacional de tu localidad para saber qué licencias exigen al firmar planos."
+      },
+      {
+        "q": "¿Qué materiales necesito para hacer las prácticas en casa?",
+        "a": "Para aprovechar las prácticas conviene contar con herramientas manuales de electricista, cables y los elementos necesarios para construir tu lámpara de pruebas y el tablero didáctico: breakers, interruptores, plafones y tomacorrientes. En el oficio siempre se recomienda usar destornilladores y alicates con mango aislado."
+      },
+      {
+        "q": "¿El curso de electricidad da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de electricidad es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de electricidad online de baja tensión: diseña planos, arma un tablero didáctico, instala puntos de luz y cotiza servicios eléctricos."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de electricidad online en baja tensión: lee planos, instala tomacorrientes y breakers y cotiza trabajos. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de electricista online: planea redes de baja tensión, diseña planos eléctricos y arma tu tablero. Incluye certificado y se paga en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de electricidad online para casas y empresas: calcula planos, instala puntos de luz y cotiza servicios. Pago en MXN con certificado."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de electricista online en baja tensión: diseña planos, monta interruptores y breakers y presupuesta obras. Pagas en EUR con certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de electricidad online: arma un tablero didáctico, lee planos e instala plafones y tomacorrientes. Se paga en USD e incluye certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de electricista online: planea instalaciones de baja tensión, calcula planos y cotiza tus servicios. Pagas en COP y recibes certificado."
+    }
+  }
+}
