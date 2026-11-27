@@ -34,6 +34,8 @@ export interface LegacyBindings extends OperationalBindings {
   SABLY_GA4_MEASUREMENT_ID?: string;
   SABLY_OPENAI_PIXEL_ID?: string;
   SABLY_OPENAI_CAPI_KEY?: string;
+  SABLY_HOTMART_CLIENT_ID?: string;
+  SABLY_HOTMART_CLIENT_SECRET?: string;
 }
 
 interface BridgeEnv extends LegacyEnv {
@@ -45,6 +47,8 @@ interface BridgeEnv extends LegacyEnv {
   GA4_MEASUREMENT_ID?: string;
   OPENAI_PIXEL_ID?: string;
   OPENAI_CAPI_KEY?: string;
+  HOTMART_CLIENT_ID?: string;
+  HOTMART_CLIENT_SECRET?: string;
 }
 
 type Method = 'GET' | 'POST';
@@ -157,6 +161,8 @@ export async function dispatchLegacyApi(
     env.GA4_MEASUREMENT_ID = bindings.SABLY_GA4_MEASUREMENT_ID;
     env.OPENAI_PIXEL_ID = bindings.SABLY_OPENAI_PIXEL_ID;
     env.OPENAI_CAPI_KEY = bindings.SABLY_OPENAI_CAPI_KEY;
+    env.HOTMART_CLIENT_ID = bindings.SABLY_HOTMART_CLIENT_ID;
+    env.HOTMART_CLIENT_SECRET = bindings.SABLY_HOTMART_CLIENT_SECRET;
   }
 
   try {
