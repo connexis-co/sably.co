@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-bartending-y-cocteleria-profesional",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto W37136311U «BarTender» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Luis Caruci (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de coctelería online en {pais}",
+    "subtitulo": "Aprende a nivel básico cómo combinar sabores, licores y texturas para preparar cócteles propios, cuidar la presentación y comunicarte con el vocabulario propio de la barra.",
+    "beneficios": [
+      "Desarrollar cócteles propios que capten la atención de los invitados",
+      "Combinar sabores, licores y texturas en una misma copa",
+      "Cuidar la presentación final de cada bebida servida",
+      "Comunicarte con el lenguaje técnico que se usa detrás de barra",
+      "Preparar bebidas especiales para compartir con tu pareja o amigos",
+      "Acercarte al trabajo real de barra desde un nivel básico"
+    ],
+    "para_quien": [
+      "Personas con curiosidad por iniciarse desde un nivel básico en cócteles",
+      "Aficionados que quieren preparar bebidas bien presentadas para amigos o pareja",
+      "Interesados en entender cómo se combinan licores, sabores y texturas",
+      "No es para ti si buscas recetarios avanzados o técnicas de alta competencia"
+    ],
+    "requisitos": [
+      "No requiere experiencia previa, ya que parte de un nivel básico",
+      "Conexión estable a internet desde un {computador} o {celular}",
+      "Vasos, hielo y utensilios caseros o básicos para mezclar bebidas",
+      "Licores, jugos e ingredientes a elección para ensayar tus mezclas"
+    ],
+    "cuerpo": "El curso de coctelería online de MasterClasses.La enseña a nivel básico cómo combinar licores, sabores y texturas para preparar bebidas propias con buena presentación. Está dirigido a quienes sienten curiosidad por lo que ocurre alrededor de una copa bien servida y quieren ir más allá de mezclar ingredientes al azar, ya sea para recibir amigos en casa o entender la lógica creativa detrás del servicio.\n\n## Cómo hacer cócteles combinando sabores, licores y texturas\n\nPreparar una buena bebida parte de entender qué aporta cada ingrediente en boca y a la vista. En este curso de cócteles trabajas la combinación de destilados, matices de sabor y distintas texturas para desarrollar preparaciones propias que llamen la atención de quien las recibe. También revisas la presentación final, porque el aspecto del vaso y sus elementos visuales acompañan la experiencia desde antes del primer sorbo.\n\nEn el oficio conviene probar siempre las mezclas con hielo limpio y macizo, ya que un hielo poroso se derrite rápido y diluye los aromas antes de tiempo. Si tu objetivo principal es formarte en el oficio operativo de barra para trabajar en locales nocturnos, revisa también este [curso de bartender](/{cc}/curso-de-bartender/).\n\n## El lenguaje de la barra y la presentación creativa\n\nQuien sirve bebidas maneja términos propios y recursos visuales para explicar qué lleva cada copa y por qué funciona esa mezcla. Durante este curso de coctelería y mixología aprendes a comunicarte con ese vocabulario técnico y a incorporar los elementos creativos que acompañan el servicio. Esto resulta útil al preparar tragos especiales en reuniones íntimas con tu pareja o amigos, donde explicar la bebida forma parte del momento.\n\nCuando armes tu primer rincón de práctica en casa, en el oficio se aconseja empezar con pocos utensilios bien lavados y secar la cristalería con paños que no suelten pelusa antes de servir. Quienes organizan celebraciones completas suelen complementar el servicio de bebidas con un [curso de wedding planner y eventos](/{cc}/curso-de-wedding-planner-y-eventos/).\n\n## Quién imparte este curso de bebidas y cócteles\n\nLas lecciones están a cargo de Luis Caruci, egresado de la Academia de Bartender de Venezuela. Cuenta con más de cinco años de trayectoria trabajando en discotecas de su país, experiencia a partir de la cual montó su propia barra portátil para fiestas y reuniones privadas. A lo largo de su recorrido profesional ha atendido barras en eventos corporativos para empresas como Alimentos Polar y Pepsi.\n\n## Alcance básico para practicar a tu ritmo\n\nEste curso de coctelería parte de un enfoque básico pensado para personas atraídas por el mundo de las mezclas que aún no dominan el oficio. Te acerca a lo que vive un profesional frente a sus invitados sin exigir experiencia previa en barras comerciales. Si además de los destilados te interesan las preparaciones sin alcohol a base de café, puedes mirar el [curso de barista](/{cc}/curso-de-barista/) o explorar otros [cursos de hospitalidad](/{cc}/cursos/hospitalidad/).",
+    "faqs": [
+      {
+        "q": "¿Qué incluye este curso de coctelería?",
+        "a": "Es un curso de nivel básico enfocado en combinar sabores, licores y texturas para desarrollar cócteles propios con buena presentación. También enseña el lenguaje habitual de la barra y los elementos creativos que acompañan el servicio para preparar bebidas en reuniones con amigos o pareja."
+      },
+      {
+        "q": "¿Cómo se llama el curso para aprender a hacer cócteles?",
+        "a": "En gastronomía suele llamarse curso de coctelería cuando enseña a preparar, equilibrar y servir bebidas mezcladas, o curso de mixología cuando profundiza en el análisis de los ingredientes y sus reacciones en copa. Para quien empieza desde cero, ambos nombres suelen cubrir las mismas bases prácticas."
+      },
+      {
+        "q": "¿Cómo puedo aprender a hacer cócteles en casa?",
+        "a": "Puedes empezar con un nivel básico donde entiendas cómo interactúan los licores con otros sabores y texturas antes de memorizar recetas largas. Para practicar en casa conviene contar con hielo en buen estado, vasos limpios y algunos ingredientes base para probar tus primeras mezclas."
+      },
+      {
+        "q": "¿Qué hay que estudiar para iniciarse como coctelero?",
+        "a": "En el oficio conviene empezar reconociendo las familias principales de destilados, el uso correcto de los utensilios de medición y las técnicas básicas como agitar, refrescar o servir directo en vaso. Dominar el orden de servicio y la temperatura del hielo te da base antes de crear recetas."
+      },
+      {
+        "q": "¿Qué utensilios lleva un kit de coctelería para empezar?",
+        "a": "En el oficio se suele arrancar con herramientas sencillas como una coctelera, un medidor para controlar las partes de licor, una cuchara larga para refrescar mezclas y un colador. Conviene lavar cada pieza con agua templada tras usarla para no arrastrar olores entre bebidas."
+      },
+      {
+        "q": "¿El curso de coctelería da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de coctelería es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de coctelería básico online con Luis Caruci para combinar licores, sabores y texturas, cuidar la presentación y dominar el lenguaje de barra."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de coctelería básico online: combina licores, sabores y texturas, y cuida la presentación en copa. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de coctelería y mixología básico: desarrolla cócteles propios, combina sabores y aprende lenguaje de barra. Incluye certificado y pago en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de mixología y coctelería básico: mezcla licores y texturas, cuida la presentación y el lenguaje de barra. Se paga en MXN con certificado."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de coctelería online de nivel básico: combina sabores y licores, y presenta cócteles propios. Abonas en EUR e incluye certificado al finalizar."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cócteles básico online: aprende a combinar licores, sabores y texturas con buena presentación. Pagas en USD e incluye certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de coctelería básico: combina licores y texturas, desarrolla cócteles propios y domina el lenguaje de barra. Pagas en COP con certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de bebidas y cócteles básico: mezcla sabores y licores, cuida la presentación y el vocabulario de barra. Pago en CLP y recibes certificado."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de coctelería online básico: desarrolla cócteles propios combinando licores, sabores y texturas. Se abona en ARS y entrega certificado."
+    }
+  }
+}

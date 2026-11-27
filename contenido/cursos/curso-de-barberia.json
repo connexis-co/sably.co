@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-barberia",
+  "estado": "listo",
+  "generado_con": "borrador del 25-nov revisado con gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto H43635981L «Barber Shop Basics» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Carlos Guerrero (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de barbería online en {pais}",
+    "subtitulo": "Maneja máquinas y medidas desde cero para ejecutar cortes masculinos comunes, degradados, desvanecidos, peinados complementarios y estética facial paso a paso.",
+    "beneficios": [
+      "Preparar las herramientas básicas necesarias para el trabajo diario",
+      "Distinguir la medida de las máquinas según el corte elegido",
+      "Ejecutar paso a paso los cortes masculinos más comunes",
+      "Aplicar técnicas de degradado y desvanecido en distintos diseños",
+      "Combinar el manejo de máquinas con peinados complementarios",
+      "Trabajar conceptos teóricos y prácticos de la estética facial"
+    ],
+    "para_quien": [
+      "Principiantes que quieren estudiar barbería desde cero en casa",
+      "Personas sin experiencia previa interesadas en cortes masculinos y estética facial",
+      "Barberos iniciales que buscan afianzar medidas de máquina y desvanecidos",
+      "No es para ti si buscas técnicas avanzadas de colorimetría capilar"
+    ],
+    "requisitos": [
+      "No necesitas conocimientos previos porque parte desde cero",
+      "Máquina de corte para cuando quieras practicar los diseños",
+      "Disposición para reunir las herramientas básicas que se indican",
+      "Conexión a internet desde tu {celular} o {computador}"
+    ],
+    "cuerpo": "El curso de barbería online de MasterClasses.La enseña desde cero el manejo de herramientas básicas, medidas de máquina, cortes masculinos habituales y degradados. Carlos Guerrero, barbero y conferencista con trayectoria en belleza y estética en Latinoamérica, conduce las clases de barbería enfocadas en quienes empiezan sin base previa.\n\n## Materiales para barbería y medidas de máquina\n\nAntes de encender el motor conviene conocer el equipo de trabajo. Vas a aprender qué herramientas básicas necesitas tener a la mano para trabajar como barbero mientras practicas desde la comodidad de tu casa. El docente explica con claridad cómo varían las medidas de las máquinas dependiendo del diseño que vayas a realizar, un punto que evita escalones involuntarios al cambiar de ajuste. En el oficio conviene limpiar y lubricar las cuchillas tras cada sesión para que el cabezal no tire del cabello ni se recaliente.\n\n## Cortes comunes y cómo hacer un fade paso a paso\n\nUn buen corte masculino exige orden en las pasadas. Revisarás mediante una explicación paso a paso los cortes más comunes en el mercado, los estilos más solicitados por los clientes y aquellos que siguen las últimas tendencias. Esta base técnica te sirve para ganar destreza inicial y mejorar tus habilidades como barbero practicando a tu ritmo.\n\nEn el terreno del sombreado, trabajarás los siguientes aspectos del corte:\n\n- Técnicas de barbería aplicadas a los estilos actuales que piden los clientes.\n- Ejecución guiada de las siluetas clásicas y comerciales más habituales.\n- Uso de la creatividad para armar diseños innovadores y originales basados en el degradado y el desvanecido.\n\nAl practicar un desvanecido, en el oficio siempre ayuda sacudir con cepillo el cabello suelto entre pasada y pasada para ver con claridad dónde queda peso oscuro.\n\n## Estética facial y peinados de cierre\n\nEl servicio masculino suele cerrar con el arreglo del rostro y el peinado. Este curso de barbería profesional aborda la definición de conceptos teóricos y prácticos de la estética facial junto con el manejo de máquinas para lograr peinados complementarios. Si te interesa sumar el trabajo sobre cabello largo o femenino, en vez de un solo curso de peluquería y barbería te conviene revisar aparte el [curso de peluquería](/{cc}/curso-de-peluqueria/).\n\n## Alcance del oficio y ramas específicas\n\nEste curso de barbería cubre los conceptos básicos para principiantes que quieren conocer el oficio desde cero y soltar la mano con las máquinas. Cuando ya dominas los cortes clásicos y el degradado base, el trabajo se abre en especialidades concretas que se aprenden aparte: tienes la opción de [corte de cabello para niños](/{cc}/curso-de-barberia-infantil/), la de [diseños en barbería y freestyle](/{cc}/curso-de-barberia-artistica/), y la enfocada en [cómo montar una barbería](/{cc}/curso-de-barberia-como-negocio/). También puedes explorar otros oficios afines dentro de los [cursos de belleza online](/{cc}/cursos/belleza-online/).",
+    "faqs": [
+      {
+        "q": "¿Es difícil aprender barbería desde cero?",
+        "a": "No requiere experiencia previa porque está orientado a principiantes que empiezan desde cero. El aprendizaje avanza paso a paso desde el reconocimiento de las herramientas básicas y la medida de las máquinas hasta la ejecución de los cortes comunes, los degradados y los peinados complementarios, practicando a tu ritmo desde casa."
+      },
+      {
+        "q": "¿Qué no debe faltar en una barbería para empezar a practicar?",
+        "a": "En las lecciones verás qué herramientas básicas necesitas tener a la mano y cómo emplear las distintas medidas de las máquinas para trabajar largos y desvanecidos. En el oficio también conviene sumar tijeras, peines de apoyo, cepillo limpiador y capa protectora antes de empezar a cortar sobre un modelo."
+      },
+      {
+        "q": "¿Qué tienes que estudiar para ser barbero?",
+        "a": "Para iniciarte necesitas aprender los conceptos básicos del oficio, el uso de herramientas y la ejecución de cortes masculinos. En este curso de barbería con Carlos Guerrero estudias desde cero las medidas de las máquinas, los estilos más solicitados paso a paso, técnicas de degradado, peinados complementarios y estética facial."
+      },
+      {
+        "q": "¿Cómo hacer un fade o desvanecido si soy principiante?",
+        "a": "Un desvanecido se logra cambiando de forma progresiva la medida de la máquina para unir largos distintos sin dejar líneas marcadas. Dentro del contenido aprenderás a distinguir qué medida usar según el diseño elegido y cómo aplicar las técnicas de degradado para crear transiciones limpias sobre el cabello."
+      },
+      {
+        "q": "¿Qué tipos de peine para barbería y máquinas se manejan?",
+        "a": "En el oficio se suelen emplear alzas o peines guía para graduar el corte, peines planos para apoyar la tijera y cepillos para moldear. Dentro del curso trabajarás el manejo de las máquinas, la elección de su medida según el diseño buscado y la realización de peinados complementarios."
+      },
+      {
+        "q": "¿El curso de barbería da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de barbería es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de barbería online desde cero: aprende medidas de máquina, cortes masculinos comunes, degradados, peinados y bases de estética facial."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería online desde cero: aprende manejo de máquinas, cortes comunes, degradados y estética facial. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería desde cero: domina medidas de máquina, desvanecidos, cortes actuales y peinados. Incluye certificado y el pago se hace en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería profesional desde cero: practica cortes masculinos, degradados, máquinas y estética facial. Se paga en MXN e incluye certificado."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de barbería online para principiantes: manejo de máquinas, cortes paso a paso, desvanecidos y peinados. Abonas en EUR y obtienes certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería desde cero en casa: aprende medidas de máquina, degradados, cortes comunes y estética facial. Pago en USD con certificado final."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería online paso a paso: trabaja máquinas, desvanecidos, cortes masculinos y estética facial. Pagas en COP y recibes tu certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería para empezar de cero: medidas de máquina, cortes solicitados, degradados y peinados finales. Incluye certificado y pago en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería online desde cero: aprende cortes masculinos, uso de máquinas, desvanecidos y estética facial. Pagas en ARS con certificado final."
+    }
+  }
+}

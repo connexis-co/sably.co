@@ -1,0 +1,85 @@
+{
+  "slug": "curso-de-sushi",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto G46888691K «Sushi en Casa» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Wilson Baquero (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "variantes": false,
+  "base": {
+    "h1": "Curso de sushi online en {pais}",
+    "subtitulo": "Aprende a armar rollos crudos y tempurizados en tu propia cocina con explicaciones paso a paso, sin requerir conocimientos culinarios previos.",
+    "beneficios": [
+      "Preparar rollos crudos siguiendo explicaciones paso a paso",
+      "Elaborar rollos tempurizados con distintas combinaciones de sabor",
+      "Aprender el método de preparación sin experiencia previa",
+      "Servir platos ligeros y de presentación colorida",
+      "Dar un toque elegante y tradicional a tus reuniones",
+      "Capturar la esencia de la comida asiática oriental"
+    ],
+    "para_quien": [
+      "Personas sin experiencia en cocina que quieren preparar rollos en casa",
+      "Aficionados a la comida asiática oriental que cocinan para sus invitados",
+      "Quienes buscan una base casera para armar rollos crudos y tempurizados",
+      "No es para ti si buscas cocina japonesa tradicional de restaurante"
+    ],
+    "requisitos": [
+      "No necesitas conocimientos culinarios previos para empezar",
+      "Utensilios e ingredientes básicos para armar y freír los rollos",
+      "Espacio limpio en tu cocina para cortar, enrollar y emplatar",
+      "Conexión a internet desde un {computador} o un {celular}"
+    ],
+    "cuerpo": "El curso de sushi online de MasterClasses.La enseña a preparar rollos crudos y tempurizados con explicaciones paso a paso pensadas para trabajar en una cocina doméstica. Lo dicta Wilson Baquero, sushero profesional formado en gastronomía en la Universidad de La Sabana y con trayectoria en cocinas de Panamá y Colombia. Está planteado para quien empieza sin conocimientos culinarios previos y quiere preparar comida asiática oriental en casa.\n\n## Rollos crudos y rollos tempurizados\n\nEste curso para hacer sushi trabaja la preparación paso a paso de rollos crudos y rollos tempurizados con distintas combinaciones de sabor, buscando lograr platos ligeros y de presentación colorida.\n\nEn el oficio, los rollos crudos exigen cortes limpios, ingredientes bien fríos y una presión pareja al enrollar para que cada bocado conserve su forma en el plato. En los rollos tempurizados, la práctica de barra busca un rebozado y una fritura breves que dejen una capa exterior crujiente sin recocinar el interior. Conviene además usar un cuchillo bien afilado y humedecer la hoja entre corte y corte para no desgarrar el alga ni aplastar el relleno. Si te interesa el manejo de pescado fresco en otras preparaciones frías, puedes revisar también el [curso de ceviche](/{cc}/curso-de-ceviche-peruano/).\n\n## Materiales y organización en tu cocina\n\nPara seguir cada clase de sushi solo hacen falta los materiales adecuados y una mesa despejada donde tengas a mano los ingredientes antes de empezar a armar. En una cocina casera ese orden previo marca la diferencia: cuando el arroz, las láminas de alga y los rellenos ya porcionados esperan en recipientes separados, el armado fluye sin pausas y el emplatado conserva la frescura y los colores vivos que caracterizan a estas preparaciones.\n\nContar con todo listo sobre la mesada evita que el alga absorba humedad de más mientras cortas a mitad del proceso y te deja concentrarte en cerrar bien cada pieza.\n\n## Quién te guía y qué alcance tiene\n\nWilson Baquero conduce este taller de sushi apoyado en su trayectoria como sushero profesional en Colombia y Panamá, llevando los gestos del oficio a los tiempos y utensilios de un hogar para que puedas cocinar con destreza aunque partas de cero. Si antes quieres reforzar bases generales de corte, cocción y manejo de alimentos, te servirá mirar el [curso de cocina](/{cc}/curso-de-cocina/).\n\n## Del uso en casa a un emprendimiento propio\n\nEl enfoque del curso de sushi está puesto en preparaciones de estilo casero y temático pensadas tanto para compartir con invitados en reuniones familiares o sociales como para quien busca una base culinaria con la que armar su propia propuesta de comida asiática. Para sumar otras recetas pensadas para agasajar en casa o ampliar tu carta, puedes complementar con el [curso de pizzas artesanales](/{cc}/curso-de-pizza-artesanal/) o recorrer otros [cursos de gastronomía](/{cc}/cursos/gastronomia/) según el tipo de platos que prefieras cocinar.",
+    "faqs": [
+      {
+        "q": "¿Cómo se le llama al experto en sushi?",
+        "a": "En japonés al cocinero especializado de barra se le llama itamae, mientras que en las cocinas de Latinoamérica se usan a diario los términos sushiman o sushero. En este curso de sushi te guía el sushero profesional Wilson Baquero para preparar tus propios rollos crudos y tempurizados en casa."
+      },
+      {
+        "q": "¿Cuál es el mejor sushi para principiantes?",
+        "a": "Para quien empieza en la cocina sin experiencia previa, conviene arrancar por rollos sencillos, tanto crudos como tempurizados, que permiten practicar el armado y el corte sin técnicas complejas. En el oficio se recomienda usar pocos rellenos al principio para cerrar bien el alga y lograr piezas firmes."
+      },
+      {
+        "q": "¿Qué es un sushi master?",
+        "a": "Es la forma popular de llamar a un cocinero con años de oficio en barra japonesa, capaz de seleccionar el pescado, dar el punto al arroz y cortar con precisión. Este curso no busca ese rango tradicional, sino enseñarte desde cero a preparar rollos crudos y tempurizados en casa."
+      },
+      {
+        "q": "¿Qué tan sano es comer sushi?",
+        "a": "El sushi es un plato ligero cuando se prepara con ingredientes frescos y cortes crudos, mientras que los rollos tempurizados suman el aporte calórico propio del rebozado y la fritura. Prepararlo en tu cocina te permite elegir cada relleno y controlar qué combinaciones llevas a la mesa."
+      },
+      {
+        "q": "¿Cómo abrir un restaurante de sushi?",
+        "a": "Abrir un local exige permisos sanitarios, proveedores de cadena de frío, equipamiento comercial y cálculo de costos que van mucho más allá de las recetas. Este curso se centra en el método de preparación de rollos crudos y tempurizados en casa, útil como primer acercamiento culinario al oficio."
+      },
+      {
+        "q": "¿El curso de sushi da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de sushi es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de sushi online para preparar en casa rollos crudos y tempurizados paso a paso, con distintas combinaciones y sin experiencia previa."
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de sushi online para preparar en casa rollos crudos y tempurizados paso a paso, con distintas combinaciones y sin experiencia previa."
+    }
+  }
+}

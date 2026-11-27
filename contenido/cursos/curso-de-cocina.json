@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-cocina",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto E54359930T «Cocina Casera desde Cero» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Arley Coronado (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de cocina online en {pais}",
+    "subtitulo": "Identifica los utensilios elementales, ejecuta diez cortes básicos, alista ingredientes y aplica distintos tipos de cocción para preparar platos caseros desde cero.",
+    "beneficios": [
+      "Identifica los utensilios elementales necesarios en cualquier cocina",
+      "Ejecuta los diez tipos de cortes más utilizados al cocinar",
+      "Prealista y manipula los alimentos de la forma adecuada",
+      "Reconoce los tipos de cocción empleados para distintos ingredientes",
+      "Prepara recetas sugeridas enfocadas en un desayuno saludable",
+      "Aplica habilidades y técnicas básicas en tus primeras preparaciones"
+    ],
+    "para_quien": [
+      "Personas sin experiencia previa que quieren cocinar sus propios platos en casa",
+      "Quienes dependen de pedir comida y buscan valerse por sí mismos",
+      "Principiantes que necesitan ordenar sus cortes, utensilios y métodos de cocción",
+      "No es para ti si buscas alta cocina o técnicas para restaurante"
+    ],
+    "requisitos": [
+      "Ninguna experiencia previa, ya que el contenido parte desde cero",
+      "Utensilios básicos de cocina, tabla para picar y cuchillo en casa",
+      "Ingredientes frescos de uso cotidiano para practicar cortes y cocciones",
+      "Conexión a internet estable desde tu {celular} o {computador}"
+    ],
+    "cuerpo": "El curso de cocina online de MasterClasses.La enseña a cocinar en casa partiendo desde cero, con la guía del chef profesional Arley Coronado. A lo largo del contenido revisas los utensilios elementales, conoces diez cortes de uso frecuente, organizas el alistamiento de los alimentos y aplicas métodos de cocción en tus primeras preparaciones y desayunos saludables.\n\n## Utensilios de cocina y alistamiento previo\n\nAntes de encender el fuego conviene reconocer con qué herramientas cuentas en casa. El curso repasa los utensilios elementales que se necesitan en cualquier cocina doméstica para resolver platos cotidianos sin llenarse de objetos innecesarios. También enseña cómo prealistar y manipular los alimentos de la forma adecuada antes de llevarlos al calor.\n\nEn el oficio, dejar los ingredientes lavados, medidos y separados en recipientes antes de calentar el sartén evita que las preparaciones se quemen y reduce la contaminación cruzada sobre la superficie de trabajo. Quien empieza a aprender a cocinar suele tropezar por picar a última hora mientras el aceite ya humea.\n\n## Tipos de corte en cocina\n\nUn corte parejo hace que todos los trozos de verdura o proteína reciban el calor por igual y estén listos al mismo tiempo. En este taller de cocina conoces los diez tipos de cortes más utilizados para realizar cualquier preparación casera, de modo que puedas picar y trocear ingredientes de diario con criterio propio.\n\nEn la práctica diaria conviene mantener la hoja del cuchillo bien afilada y colocar un paño húmedo debajo de la tabla para inmovilizarla; una hoja desafilada resbala sobre la piel de los vegetales y exige hacer fuerza de más con la muñeca.\n\n## Técnicas culinarias y métodos de cocción\n\nEntender cómo reacciona cada ingrediente frente a distintos medios de calor cambia por completo la textura y el sabor del plato terminado. Este curso de cocina explica los tipos de cocción utilizados para realizar cualquier alimento y te permite desarrollar habilidades y técnicas básicas para sacar adelante tus primeras preparaciones sin conocimientos previos.\n\n## Desayunos saludables para empezar el día\n\nSalir del apuro matutino ayuda a dejar de depender de pedidos a domicilio o compras improvisadas en la calle. El contenido incluye recetas sugeridas para preparar un desayuno saludable en casa, donde pones en práctica la manipulación limpia de los ingredientes, el prealistamiento y los métodos de cocción revisados.\n\n## Alcance casero y otras especialidades\n\nEl enfoque de este curso de cocina está puesto en la cocina casera desde cero: cubre las bases domésticas y no equivale a un estudio culinario comercial para trabajar en restaurante, más allá de que Arley Coronado aporte su experiencia en hoteles cinco estrellas, restaurantes y eventos. Si luego buscas especializarte en platos concretos, puedes revisar el [curso de repostería](/{cc}/curso-de-pasteleria/), amasar en el [curso de pizzas](/{cc}/curso-de-pizza-artesanal/), manejar brasas en el [curso de parrilla](/{cc}/curso-de-parrilla-y-asados-como-un-maestro/) o explorar otros [cursos de gastronomía](/{cc}/cursos/gastronomia/).",
+    "faqs": [
+      {
+        "q": "¿Cómo empezar a cocinar desde cero?",
+        "a": "Se empieza ordenando el espacio de trabajo y entendiendo qué hacer con el ingrediente antes de encender el fuego. Este curso de cocina está pensado para quienes no tienen experiencia previa y quieren dejar de pedir comida a domicilio, guiándote para prealistar los alimentos y sacar adelante tus primeras preparaciones caseras."
+      },
+      {
+        "q": "¿Dónde estudiar gastronomía a distancia si solo quiero cocinar en casa?",
+        "a": "Puedes hacerlo por internet mediante un curso orientado al hogar en lugar de inscribirte en escuelas largas pensadas para restaurantes. Estudias desde tu propia cocina con las indicaciones del chef Arley Coronado y practicas con tus ingredientes habituales para resolver comidas cotidianas sin salir de casa."
+      },
+      {
+        "q": "¿Qué diferencia hay entre este curso y un técnico de cocina?",
+        "a": "Un técnico de cocina se prepara para operar brigadas comerciales, estandarizar procesos y despachar grandes volúmenes en restaurantes u hoteles. En cambio, este curso se limita estrictamente a la cocina casera desde cero, pensado para personas que buscan valerse por sí mismas al preparar sus propios platos diarios."
+      },
+      {
+        "q": "¿Qué utensilios y tipos de corte en cocina se revisan?",
+        "a": "El contenido identifica cuáles son los utensilios elementales que hacen falta en cualquier cocina doméstica para trabajar sin complicaciones. Además, muestra los diez tipos de cortes más utilizados al preparar alimentos, una base necesaria para que los ingredientes tengan tamaños uniformes antes de cocinarlos."
+      },
+      {
+        "q": "¿Qué es un recetario de cocina y qué preparaciones incluye el curso?",
+        "a": "Un recetario reúne preparaciones con su lista de ingredientes y pasos ordenados para repetir un plato sin adivinar cantidades ni tiempos. Dentro del curso encuentras recetas sugeridas para armar un desayuno saludable, junto con pautas sobre los tipos de cocción aplicables a distintos alimentos cotidianos."
+      },
+      {
+        "q": "¿El curso de cocina da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de cocina es gratis o tiene mensualidades?",
+        "a": "No es gratis y tampoco cobra mensualidad: haces un pago único en Hotmart. El acceso llega a tu correo cuando se confirma la compra y no tiene fecha de vencimiento. Tienes 7 días de garantía para pedir en Hotmart la devolución total si el curso no te sirve."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de cocina casera desde cero: aprende utensilios básicos, 10 tipos de cortes, manipulación de alimentos, cocciones y desayunos."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cocina online desde cero: aprende utensilios básicos, 10 tipos de cortes, cocciones y desayunos. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cocina casera desde cero: domina 10 cortes básicos, manipulación de alimentos y tipos de cocción. Incluye certificado y pago en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cocina desde cero: conoce utensilios elementales, 10 cortes frecuentes y métodos de cocción en casa. Se paga en MXN con certificado."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de cocina online para principiantes: practica 10 cortes básicos, alistamiento de alimentos y cocciones. Abonas en EUR con certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cocina desde cero en casa: revisa utensilios, 10 tipos de cortes, cocciones y desayunos saludables. Pago en USD y da certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cocina casera online: aprende 10 cortes habituales, manipulación de ingredientes y tipos de cocción. Pagas en COP con certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cocina desde cero: identifica utensilios básicos, ejecuta 10 cortes y aplica métodos de cocción. Se paga en CLP y da certificado."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cocina online desde cero: practica 10 tipos de cortes, prealistamiento de alimentos y cocciones. Pagas en ARS e incluye certificado."
+    }
+  }
+}

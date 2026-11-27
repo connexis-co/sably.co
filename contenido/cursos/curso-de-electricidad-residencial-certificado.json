@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-electricidad-residencial-certificado",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto E54826911V «Electricista en Casa» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Jairo Carvajal (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de electricidad básica online en {pais}",
+    "subtitulo": "Mide con el voltímetro, identifica cables, cambia tomas de corriente, monta interruptores y plafones, e instala timbres y citófonos en redes domésticas.",
+    "beneficios": [
+      "Comprender cómo funciona el sistema eléctrico general de una casa",
+      "Identificar cables, tipos de conexiones y riesgos durante la labor",
+      "Manejar el voltímetro y las herramientas para reparaciones en casa",
+      "Intervenir y cambiar tomas de corriente y plafones eléctricos",
+      "Instalar interruptores sencillos, dobles y combinados, además de timbres",
+      "Calcular costos del trabajo y cotizar servicios para terceros"
+    ],
+    "para_quien": [
+      "Personas sin conocimientos previos que quieren arreglar fallas eléctricas en casa",
+      "Quienes buscan cambiar tomas, interruptores y plafones por su cuenta",
+      "Interesados en realizar mantenimientos domésticos y cotizar trabajos a terceros",
+      "No es para ti si buscas matrícula profesional o instalaciones industriales"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa porque empiezas por los aspectos básicos",
+      "Voltímetro y herramientas manuales para intervenir instalaciones de casa",
+      "Cables, tomas de corriente, interruptores o plafones para practicar",
+      "Conexión a internet desde tu {celular} o {computador}"
+    ],
+    "cuerpo": "El curso de electricidad básica online de MasterClasses.La enseña el funcionamiento de la red eléctrica de una vivienda y cómo intervenir sus puntos comunes con criterio seguro. A cargo del electricista Jairo Carvajal, está pensado para aprender electricidad desde cero y resolver averías cotidianas en el hogar sin improvisar empalmes ni exponerte a descargas.\n\n## Lectura de la red, cables y riesgos en electricidad residencial\n\nAntes de soltar un tornillo, hace falta entender el sistema eléctrico general de la casa. En este curso de electricidad residencial aprendes a identificar cables, distinguir los tipos de conexiones habituales y detectar los riesgos propios de la labor para controlarlos antes de tocar un conductor. En el oficio conviene cortar siempre la energía desde el tablero principal y comprobar ausencia de tensión antes de abrir cualquier caja de paso.\n\n## Uso del voltímetro y herramientas de trabajo\n\nEl manejo de las herramientas ocupa un lugar central para solucionar fallas que suelen complicarse en el hogar, en especial el uso del voltímetro al medir y diagnosticar dónde está el problema. Jairo Carvajal aporta su trayectoria como consultor y ejecutor de proyectos eléctricos completos en empresas transnacionales, edificios, bodegas y centros comerciales, aplicada a las reparaciones reales de una vivienda.\n\n## Instalación de tomas, interruptores, plafones y accesorios\n\nCon la red identificada y las herramientas claras, este curso de instalaciones eléctricas domiciliarias pasa a la intervención de los puntos y mecanismos que más se desgastan por el uso diario en una casa. Trabajarás sobre estos elementos concretos:\n\n- Cambio e intervención de tomas de corriente.\n- Montaje y reemplazo de plafones eléctricos para iluminación.\n- Instalación y sustitución de interruptores sencillos, dobles y combinados.\n- Conexión de otros accesorios de la vivienda como timbres y citófonos.\n\nAl apretar bornes en tomas e interruptores, los electricistas ajustan firme cada tornillo sobre el cobre limpio porque un contacto flojo recalienta el mecanismo con el paso del tiempo.\n\n## Mantenimiento del hogar y cotización de trabajos\n\nAdemás de sustituir piezas dañadas, este curso de electricidad domiciliaria aborda el mantenimiento de las redes eléctricas de una casa para conservar en buen estado las condiciones de seguridad en el hogar. También explica cómo calcular los costos de esta labor, armar cotizaciones y ofrecer estas reparaciones a terceros cuando decides atender arreglos fuera de tu propia vivienda.\n\nSi tu meta en este curso de electricidad básica va enfocada luego a ejercer el oficio completo con visión de negocio, revisa el [curso de electricista](/{cc}/curso-de-electricista/). Quienes ya atienden arreglos en viviendas suelen ampliar sus servicios con un [curso de paneles solares](/{cc}/curso-de-energia-solar/) para generación doméstica o con un [curso de instalación de cámaras de seguridad](/{cc}/curso-de-instalacion-de-camaras-de-seguridad/) al cablear accesos y citofonía. Para conocer otras opciones manuales y técnicas disponibles en Sably, visita todos los [cursos de oficios](/{cc}/cursos/oficios/).",
+    "faqs": [
+      {
+        "q": "¿Dónde puedo encontrar un curso de electricidad básica en línea?",
+        "a": "En Sably accedes a esta capacitación dictada por el electricista Jairo Carvajal junto a MasterClasses.La. Se realiza por internet desde tu {computador} o {celular}, enfocada en la red eléctrica de una casa, el manejo del voltímetro, el cambio de tomas e interruptores y la instalación de accesorios domésticos."
+      },
+      {
+        "q": "¿Qué es la electricidad básica y qué abarca en una vivienda?",
+        "a": "Comprende el funcionamiento general de la red doméstica, la identificación de cables, los tipos de conexiones y el control de riesgos al trabajar. Abarca mediciones con voltímetro, mantenimiento de circuitos del hogar y el montaje de plafones, tomas de corriente, interruptores sencillos, dobles o combinados, timbres y citófonos."
+      },
+      {
+        "q": "¿Cómo aprender electricidad para principiantes sin experiencia previa?",
+        "a": "Empiezas reconociendo cómo se distribuye el sistema eléctrico de una casa y cuáles son los riesgos antes de manipular herramientas. Luego aprendes a medir con el voltímetro y a identificar cables. En el oficio siempre se prueba primero en circuitos desenergizados antes de cambiar un interruptor o una toma."
+      },
+      {
+        "q": "¿Este curso de electricidad domiciliaria online otorga matrícula profesional?",
+        "a": "No, este curso no tramita ni equivale a una matrícula o habilitación oficial de instalador electricista ante organismos reguladores. Su alcance se centra en dominar los aspectos básicos de la electricidad en el hogar, hacer mantenimientos residenciales, instalar accesorios comunes y aprender a calcular costos para cotizar arreglos."
+      },
+      {
+        "q": "¿Qué herramientas necesito para practicar en casa?",
+        "a": "Necesitas un voltímetro para realizar las mediciones que se explican y las herramientas manuales de electricista destinadas a intervenir cajas y conductores en casa. Para ensayar las conexiones conviene contar con tramos de cable, tomas de corriente, plafones e interruptores sencillos, dobles o combinados."
+      },
+      {
+        "q": "¿El curso de electricidad básica da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de electricidad básica es gratis o tiene mensualidades?",
+        "a": "No es gratis y tampoco cobra mensualidad: haces un pago único en Hotmart. El acceso llega a tu correo cuando se confirma la compra y no tiene fecha de vencimiento. Tienes 7 días de garantía para pedir en Hotmart la devolución total si el curso no te sirve."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de electricidad básica para medir con voltímetro, identificar cables e instalar tomas, interruptores, plafones, timbres y citófonos en casa."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de electricidad básica: usa el voltímetro, identifica cables e instala tomas, interruptores y plafones. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de electricidad domiciliaria: mide con voltímetro, reconoce cables y cambia tomas, plafones y timbres. Se paga en PEN e incluye certificado."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de electricidad básica: maneja el voltímetro, revisa redes de casa y monta tomas, plafones e interruptores. Incluye certificado, pago en MXN."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de electricidad básica para medir con voltímetro, identificar conexiones y cambiar tomas e interruptores. Pagas en EUR y obtienes certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de electricidad domiciliaria para usar voltímetro, instalar plafones, tomas, interruptores y citófonos. Pago en USD y entrega de certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de electricidad básica: identifica cables, usa el voltímetro e instala tomas, interruptores y timbres. Pagas en COP y recibes certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de electricidad domiciliaria: revisa redes de casa, usa el voltímetro y monta tomas e interruptores. Se abona en CLP e incluye certificado."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de electricidad domiciliaria: maneja el voltímetro, cambia tomas, plafones, interruptores y citófonos. Pagas en ARS y obtienes certificado."
+    }
+  }
+}

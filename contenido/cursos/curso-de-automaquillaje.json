@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-automaquillaje",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto S42624359I «AutoMaquillaje» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Diana Zuleta (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de automaquillaje online en {pais}",
+    "subtitulo": "Reconoce las características de tu rostro, clasifica los cosméticos según tu tipo y color de piel y aplica técnicas para lograr un acabado natural.",
+    "beneficios": [
+      "Entiendes la importancia del cuidado facial para tu imagen personal",
+      "Adquieres conocimiento dermatológico básico sobre las características de tu rostro",
+      "Clasificas los diferentes cosméticos y artículos que usas al maquillarte",
+      "Seleccionas productos adecuados según el color y tipo de piel",
+      "Aplicas los cosméticos con las técnicas correctas sobre tu rostro",
+      "Usas trucos profesionales para conseguir un acabado limpio y natural"
+    ],
+    "para_quien": [
+      "Personas que quieren aprender a maquillarse sin confundirse con tutoriales sueltos",
+      "Quienes dudan qué marcas, tonos o cosméticos elegir al comprar",
+      "Personas que buscan cuidar su rostro y lograr un acabado natural",
+      "No es para ti si buscas caracterización artística o trabajar con clientas"
+    ],
+    "requisitos": [
+      "Espejo con buena luz para observar el tono real de tu piel",
+      "Productos de cuidado facial y cosméticos propios para practicar en casa",
+      "Brochas o artículos básicos de aplicación limpios para tu rostro",
+      "Conexión a internet desde un {celular} o {computador}"
+    ],
+    "cuerpo": "El curso de automaquillaje online de MasterClasses.La enseña a reconocer las características de la piel de tu rostro, seleccionar los cosméticos adecuados y aplicarlos con criterio. A cargo de Diana Zuleta, parte del cuidado facial antes de pasar al uso del color.\n\n## Lectura de la piel y cuidado facial previo\n\nAntes de abrir una base o un corrector, el curso estudia las características dermatológicas de tu rostro y el peso que tiene el cuidado facial en la imagen personal y en la relación con la autoestima. Entender cómo se comporta tu piel cambia por completo lo que conviene ponerle encima y evita usar fórmulas que no le sientan bien. En el oficio siempre se insiste en preparar e hidratar la piel limpia antes de maquillar, porque el cosmético se asienta mejor y no marca texturas innecesarias.\n\n## Cómo elegir cosméticos sin perderse al comprar\n\nUno de los bloqueos habituales en perfumerías y tiendas es pararse frente a decenas de marcas y colores sin saber qué llevar a casa. En este curso para aprender a maquillarse clasificas los distintos productos y artículos que intervienen en el arreglo del rostro, y los filtras con criterio según tu tipo y tu color de piel.\n\n- Identificación de las características dermatológicas propias de tu rostro.\n- Clasificación de los diferentes cosméticos y artículos de uso facial.\n- Selección consciente de tonos y productos acordes a tu piel.\n\nEn la práctica conviene probar el tono de la base cerca de la mandíbula y con luz natural, nunca en la muñeca ni en el dorso de la mano, para verificar que se funda de verdad con el cuello.\n\n## Aplicación de productos y acabado natural\n\nUna vez claros los materiales y para qué sirve cada artículo, trabajas las técnicas correctas de aplicación de los productos cosméticos sobre tus facciones. El objetivo del curso de automaquillaje es lograr un acabado prolijo pero natural, sin exceso de producto ni capas pesadas. Te apoyas en trucos de uso profesional llevados a tu rutina personal, un criterio práctico que también te sirve para orientar a tus amigas cuando dudan al comprar o al usar sus propios cosméticos.\n\n## Alcance frente a otras ramas de la estética\n\nEste taller de automaquillaje está pensado para el cuidado facial y la imagen personal, no para atender terceros en cabina o eventos sociales. Si tu meta es dedicarte al oficio con clientas, te conviene revisar el curso de [maquillaje profesional](/{cc}/curso-de-maquillaje/) o especializarte con un [curso de maquillaje para novias](/{cc}/curso-de-maquillaje-profesional-de-novias/). Y si buscas efectos especiales o caracterizaciones como catrina o zombie, ese trabajo corresponde al [curso de maquillaje artístico](/{cc}/curso-de-maquillaje-de-fantasia/). También puedes ver otros [cursos de belleza online](/{cc}/cursos/belleza-online/) para complementar tu arreglo personal.",
+    "faqs": [
+      {
+        "q": "¿Qué se ve en un curso de automaquillaje?",
+        "a": "En este curso de automaquillaje ves el cuidado facial, el reconocimiento dermatológico de las características de tu rostro, la clasificación de cosméticos y artículos, cómo elegirlos según tu color y tipo de piel, y las técnicas de aplicación para obtener un acabado natural."
+      },
+      {
+        "q": "¿Qué debo comprar para aprender a maquillarme?",
+        "a": "No conviene comprar un kit grande a ciegas antes de empezar. Justamente una parte del curso consiste en clasificar los productos cosméticos y saber cuáles corresponden a tu tipo y color de piel, para que elijas marcas y tonos sin confundirte."
+      },
+      {
+        "q": "¿Qué es el automaquillaje?",
+        "a": "El automaquillaje es el conjunto de técnicas de cuidado facial y aplicación de cosméticos pensadas para trabajar sobre tu propio rostro. En lugar de enfocarse en terceros, se centra en conocer tus facciones, tu tono y las necesidades particulares de tu piel."
+      },
+      {
+        "q": "¿Qué debe incluir un curso de automaquillaje?",
+        "a": "Antes de pasar a las brochas, debe cubrir el reconocimiento dermatológico del rostro y el cuidado facial previo. Además, tiene que enseñarte a diferenciar los cosméticos disponibles, seleccionar los que van con tu tono y aplicarlos con técnicas de acabado natural."
+      },
+      {
+        "q": "¿Quién dicta este curso y qué experiencia tiene?",
+        "a": "Lo dicta Diana Zuleta, estilista integral con quince años de experiencia en su propia sala de belleza. También es diseñadora de modas, asesora de imagen y tallerista de maquillaje, con un enfoque centrado en conocer primero la piel antes de elegir cosméticos."
+      },
+      {
+        "q": "¿El curso de automaquillaje da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de automaquillaje es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de automaquillaje online para conocer tu tipo de piel, elegir cosméticos según tu tono y aplicarlos con técnicas de acabado natural."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de automaquillaje online: conoce tu tipo de piel, clasifica cosméticos y aplica técnicas de acabado natural. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de automaquillaje online para identificar tu piel, elegir cosméticos por tono y lograr un acabado natural. Incluye certificado y se paga en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de automaquillaje online: aprende a conocer tu piel, seleccionar cosméticos y aplicar técnicas naturales. Se paga en MXN e incluye certificado."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de automaquillaje online: conoce la piel de tu rostro, clasifica cosméticos y logra un maquillaje natural. Pagas en EUR y recibes certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de automaquillaje online: identifica tu tipo de piel, elige tus cosméticos y aplica un acabado natural. Pago en USD con certificado al finalizar."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de automaquillaje online para conocer tu rostro, elegir cosméticos adecuados y aplicar técnicas naturales. Pagas en COP y recibes certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de automaquillaje online: reconoce tu tipo de piel, clasifica cosméticos y logra un maquillaje natural. Se paga en CLP y entrega certificado."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de automaquillaje online para evaluar tu piel, seleccionar cosméticos y aplicar un acabado natural. Abonas en ARS y recibes certificado al final."
+    }
+  }
+}

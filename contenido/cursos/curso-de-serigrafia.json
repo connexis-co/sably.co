@@ -1,0 +1,85 @@
+{
+  "slug": "curso-de-serigrafia",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto K66027541H «El Negocio de los Estampados con Serigrafía» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Jefferson Martinez Ruiz (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "variantes": false,
+  "base": {
+    "h1": "Curso de serigrafía online en {pais}",
+    "subtitulo": "Crea diseños vectoriales desde cero y estampa con serigrafía sobre camisetas, cartón, bolsas de papel, vidrio, madera e icopor trabajando en casa sin maquinaria costosa.",
+    "beneficios": [
+      "Estampar camisetas, cajas de cartón y bolsas de papel",
+      "Trabajar sobre superficies rígidas como vidrio, madera e icopor",
+      "Crear diseños vectoriales desde cero en software de diseño gráfico",
+      "Conocer los elementos mínimos para montar un taller sin maquinaria costosa",
+      "Recorrer el proceso completo desde el archivo digital hasta la pieza",
+      "Armar las bases de un taller casero de estampado multipropósito"
+    ],
+    "para_quien": [
+      "Personas sin experiencia en diseño gráfico que quieren estampar desde casa",
+      "Emprendedores que buscan personalizar empaques, bolsas y prendas con baja inversión",
+      "Artesanos que desean estampar sus propias piezas de madera o vidrio",
+      "No es para ti si buscas operar pulpos industriales automatizados"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa en diseño gráfico",
+      "Un {computador} para instalar y usar programas de diseño vectorial",
+      "Materiales básicos de serigrafía y soportes de prueba como tela o cartón",
+      "Conexión a internet estable en {computador} o {celular} para ver las lecciones"
+    ],
+    "cuerpo": "El curso de serigrafía online de MasterClasses.La enseña a crear diseños vectoriales desde cero y a transferirlos mediante malla sobre tela y soportes rígidos desde casa. Dictado por Jefferson Martinez Ruiz, contador público y emprendedor con taller propio de estampado textil, abarca el trabajo completo desde que armas el archivo en la pantalla hasta que la tinta queda aplicada en la pieza, sin depender de maquinaria costosa.\n\n## Cómo hacer serigrafía en casa con equipo básico\n\nMontar una mesa de trabajo casera no exige grandes equipos industriales. En este curso de estampado revisas cuáles son los elementos mínimos necesarios para empezar desde casa con la menor inversión posible. En el oficio conviene organizar el espacio doméstico con una superficie firme, plana y fácil de limpiar para sujetar la prenda o el objeto sin que se mueva durante la pasada de tinta.\n\nSi además de trabajar con mallas te interesa transferir imágenes fotográficas con calor sobre poliéster o cerámica tratada, puedes revisar el [curso de sublimación](/{cc}/curso-de-sublimacion/) para comparar qué técnica se ajusta mejor a los artículos que piensas producir.\n\n## Diseño vectorial desde cero para estampar\n\nAntes de entintar una pantalla hace falta un arte limpio y bien definido. En las lecciones utilizas programas de diseño gráfico para trazar vectores listos para serigrafía aunque nunca hayas tocado ese tipo de software. Trabajar con trazos vectoriales permite escalar logotipos, textos y figuras sin que los bordes pierdan nitidez al preparar el arte.\n\n## Superficies textiles, empaques y materiales rígidos\n\nEl alcance de esta técnica va bastante más allá del textil y permite elaborar productos variados. A lo largo del curso de serigrafía trabajas la aplicación sobre distintos elementos y materiales:\n\n- Camisetas.\n- Cajas de cartón y bolsas de papel para personalizar empaques comerciales.\n- Piezas de vidrio y de madera.\n- Superficies de icopor.\n\nEn el oficio conviene elegir la tinta según la porosidad y rigidez de cada soporte y hacer siempre una prueba sobre un retazo del mismo material antes de estampar el lote definitivo. Esa versatilidad resulta útil para quienes ya elaboran artículos propios, por ejemplo tras tomar un [curso de velas artesanales](/{cc}/curso-de-velas-artesanales-y-aromaticas/) o un [curso de jabones artesanales](/{cc}/curso-de-jabones-artesanales-para-vender/), y quieren estampar sus propios frascos, cajas y bolsas sin depender de terceros.\n\n## Un taller casero para personalizar productos\n\nEste curso de estampado textil también funciona como punto de partida para diversificar un emprendimiento casero con líneas de ropa, empaques a medida o artículos decorativos hechos con baja inversión. Si quieres explorar otros oficios manuales que puedes desarrollar desde tu hogar, visita la sección de [cursos de manualidades](/{cc}/cursos/manualidades/).",
+    "faqs": [
+      {
+        "q": "¿Dónde puedo estudiar serigrafía?",
+        "a": "Puedes estudiarla online desde casa con este curso impartido por Jefferson Martinez Ruiz. Solo necesitas conexión a internet en tu {computador} o {celular} para seguir las explicaciones y un espacio doméstico sencillo donde practicar el diseño vectorial y el estampado sobre distintas superficies."
+      },
+      {
+        "q": "¿Cómo hacer serigrafía textil?",
+        "a": "El proceso parte de crear un diseño vectorial limpio en el {computador} y llevarlo a los elementos básicos de estampado para aplicarlo sobre la prenda. En el curso ves todo ese recorrido desde cero aplicado a camisetas, sin requerir maquinaria industrial costosa ni conocimientos previos."
+      },
+      {
+        "q": "¿Cuáles son los tipos de serigrafía según el material?",
+        "a": "En la práctica del oficio la serigrafía cambia según el soporte que recibe la tinta: textil, papel y cartón, o materiales rígidos. Este curso de serigrafía cubre el estampado sobre camisetas, cajas de cartón, bolsas de papel, vidrio, madera e icopor con equipamiento básico casero."
+      },
+      {
+        "q": "¿Qué es mejor, DTF textil o serigrafía?",
+        "a": "Depende del trabajo que busques hacer en tu taller. En el oficio, el DTF suele usarse para imágenes de muchos colores sobre tela, mientras que la serigrafía permite estampar tintas directas tanto en prendas textiles como en empaques de papel o cartón y soportes rígidos."
+      },
+      {
+        "q": "¿Qué material para serigrafía necesito para empezar?",
+        "a": "No hace falta maquinaria costosa para dar los primeros pasos. En el curso conoces cuáles son exactamente los elementos mínimos necesarios para armar tu espacio en casa con baja inversión, además de usar un {computador} para preparar tus propios diseños vectoriales desde cero."
+      },
+      {
+        "q": "¿El curso de serigrafía da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de serigrafía es gratis o tiene mensualidades?",
+        "a": "No es gratis y tampoco cobra mensualidad: haces un pago único en Hotmart. El acceso llega a tu correo cuando se confirma la compra y no tiene fecha de vencimiento. Tienes 7 días de garantía para pedir en Hotmart la devolución total si el curso no te sirve."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de serigrafía online para crear diseños vectoriales desde cero y estampar camisetas, cartón, papel, vidrio, madera e icopor en casa."
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de serigrafía online para crear diseños vectoriales desde cero y estampar camisetas, cartón, papel, vidrio, madera e icopor en casa."
+    }
+  }
+}

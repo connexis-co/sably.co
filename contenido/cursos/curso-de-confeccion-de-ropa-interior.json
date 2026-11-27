@@ -1,0 +1,138 @@
+{
+  "slug": "curso-de-confeccion-de-ropa-interior",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto M75288465W «Costura de Ropa Intima de Cero a Experto» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Sofía La Sala (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de lencería online en {pais}",
+    "subtitulo": "Toma medidas, traza patrones en distintas tallas, corta la tela y cose prendas íntimas usando una máquina de coser familiar básica desde cero.",
+    "beneficios": [
+      "Tomar medidas corporales e interpretar las tallas de prendas íntimas",
+      "Identificar herramientas, telas y avíos propios del patronaje y costura",
+      "Enhebrar la máquina familiar con carga frontal o carga superior",
+      "Practicar velocidad, atraques y giros mediante ejercicios de costura",
+      "Configurar las puntadas y adaptar las terminaciones a tu máquina",
+      "Trazar patrones, cortar piezas y confeccionar distintos tipos de prendas"
+    ],
+    "para_quien": [
+      "Personas sin experiencia previa que quieren aprender a hacer ropa interior",
+      "Quienes tienen una máquina familiar básica y desean coser prendas íntimas",
+      "Aficionados a la costura que buscan trazar sus propios patrones",
+      "No es para ti si buscas manejar maquinaria industrial especializada"
+    ],
+    "requisitos": [
+      "No necesitas conocimientos previos de costura ni de patronaje",
+      "Una máquina de coser hogareña básica en condiciones de uso",
+      "Papel para moldes, telas, hilos, agujas y avíos de lencería",
+      "Conexión a internet desde tu {celular} o {computador}"
+    ],
+    "cuerpo": "El curso de lencería online de MasterClasses.La enseña a diseñar, patronar y confeccionar prendas íntimas desde cero utilizando una máquina de coser familiar básica. La docente es Sofía La Sala, diseñadora de indumentaria y textil especializada en lencería y trajes de baño en Córdoba, Argentina. Trabajas desde el reconocimiento de tus herramientas hasta el corte y el armado completo de distintas prendas.\n\n## Manejo y mantenimiento de la máquina hogareña\n\nAntes de coser sobre la tela definitiva, en este curso de ropa interior conoces las partes de tu máquina familiar y su funcionamiento. Aprendes a enhebrarla tanto si trabaja con bobina de carga frontal como de carga superior. Mediante ejercicios prácticos controlas la velocidad del pedal, ensayas el método de atraque y practicas los giros de la aguja. También revisas el mantenimiento básico del equipo para conservarlo limpio y evitar saltos de puntada.\n\nSi en cambio te interesa operar equipos de taller a gran escala, puedes revisar el [curso de máquina plana](/{cc}/curso-de-costura-industrial/).\n\n## Cómo hacer moldes de ropa interior y elegir materiales\n\nUn buen calce empieza en la mesa de trazado. En el curso de confección de lencería estudias los materiales, herramientas y avíos específicos del rubro, como elásticos, breteles y telas de punto. Aprendes a tomar medidas corporales, interpretar las tablas de tallas y trazar patrones en diferentes medidas listos para pasar al corte.\n\nEn el oficio conviene dejar reposar las telas con rebote sobre la mesa antes de tizar y cortar, para que las piezas no se encojan al retirar los alfileres. Si buscas enfocarte en corsetería o brasieres a medida, tienes disponible el [curso de corsetería](/{cc}/curso-de-lenceria-y-ropa-interior-a-medida/).\n\n## Puntadas y regulación para tejidos elásticos\n\nCoser tejidos elásticos con máquina familiar exige seleccionar las puntadas adecuadas para que la costura ceda con el cuerpo sin reventarse. En este curso de costura de ropa interior ves qué puntadas requiere cada unión y cómo adaptar las terminaciones según las funciones que traiga tu máquina. Conviene usar agujas de punta bolita al coser tejidos de punto para separar las fibras sin picar la malla.\n\n## Corte y confección de prendas íntimas\n\nCon el molde trazado y la máquina regulada, pasas a cortar las piezas y confeccionar diferentes tipos de prendas íntimas con acabados prolijos. Este curso de lencería te da una base práctica en tejidos elásticos que sirve de punto de partida si más adelante decides ver un [curso de trajes de baño](/{cc}/curso-de-confeccion-de-trajes-de-bano/).\n\nSi quieres comparar esta propuesta con otras ramas textiles, explora todos los [cursos de moda y confección](/{cc}/cursos/moda-y-confeccion/) disponibles.",
+    "faqs": [
+      {
+        "q": "¿Qué necesito saber antes de empezar este curso de lencería?",
+        "a": "No necesitas experiencia previa en costura ni en moldería porque el aprendizaje parte desde cero. Empiezas por familiarizarte con el funcionamiento de tu máquina doméstica y las herramientas del oficio, de modo que adquieres destreza manual en retazos de prueba antes de cortar las telas definitivas."
+      },
+      {
+        "q": "¿Qué tipo de tela se utiliza para hacer ropa interior?",
+        "a": "En el oficio se emplean tejidos de punto con elasticidad, encajes elásticos, tules y algodón para los refuerzos íntimos, acompañados de avíos como elásticos afelpados y breteles. Dentro del curso estudias en detalle los materiales, avíos y herramientas específicos para patronar y confeccionar estas prendas."
+      },
+      {
+        "q": "¿Qué se necesita para corte y confección de prendas íntimas en casa?",
+        "a": "Te basta una máquina de coser hogareña básica, papel e instrumentos de trazado para los patrones, tijeras, agujas, hilos, telas y avíos de lencería. En el oficio conviene reservar una tijera solo para tela, ya que cortar papel desafila las hojas y muerde los tejidos finos."
+      },
+      {
+        "q": "¿Se enseña a hacer los patrones o solo a coser?",
+        "a": "Aprendes ambas tareas completas. El contenido abarca la toma de medidas, la interpretación de tallas y el trazado de patrones en diferentes medidas. Después pasas al corte de las piezas en tela y a la confección de distintos tipos de prendas adaptando las terminaciones a tu máquina."
+      },
+      {
+        "q": "¿Qué se hace en un taller textil dedicado a la ropa íntima?",
+        "a": "El trabajo diario en el oficio reúne el diseño, el trazado de moldes por tallas, el tendido y corte de las telas, la costura con puntadas elásticas y el pegado de avíos. En estas lecciones reproduces ese proceso a escala doméstica utilizando una máquina de coser familiar."
+      },
+      {
+        "q": "¿El curso de lencería da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de lencería es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de lencería online desde cero: aprende a tomar medidas, trazar patrones por tallas, cortar y coser ropa íntima con máquina familiar."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de lencería online: aprende a trazar patrones por tallas, cortar y coser ropa íntima con máquina familiar. Pagas en USD y recibes certificado."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de ropa interior desde cero: toma medidas, traza patrones y cose prendas íntimas en máquina familiar. Incluye certificado y se paga en MXN."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de lencería desde cero: patronaje por tallas, manejo de máquina familiar y costura de prendas íntimas. Pago en EUR y entrega de certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de confección de lencería: aprende toma de medidas, moldes y costura en máquina familiar básica. Se abona en USD e incluye tu certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de costura de ropa interior: traza moldes, regula tu máquina familiar y confecciona prendas íntimas. Pagas en COP y obtienes un certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de lencería online desde cero: aprende patronaje, corte y confección de ropa íntima con máquina hogareña. Pago en CLP y recibes certificado."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de ropa interior online: traza patrones en distintas tallas y cose lencería con tu máquina hogareña. Se paga en ARS e incluye certificado."
+    }
+  }
+}

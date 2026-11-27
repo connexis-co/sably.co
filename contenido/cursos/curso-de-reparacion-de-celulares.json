@@ -1,0 +1,85 @@
+{
+  "slug": "curso-de-reparacion-de-celulares",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto F56098099R «Reparación de Celulares Xpert » (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Ismael Arciniegas Vargas (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "variantes": false,
+  "base": {
+    "h1": "Curso de reparación de celulares online en {pais}",
+    "subtitulo": "Aprende a diagnosticar fallas de hardware, desensamblar equipos, sustituir componentes defectuosos y realizar mantenimiento preventivo y correctivo en smartphones y tabletas.",
+    "beneficios": [
+      "Diagnosticar y predecir fallas de hardware en teléfonos y tabletas",
+      "Desensamblar y ensamblar distintos modelos de teléfonos y smartphones",
+      "Realizar mantenimiento preventivo y correctivo en equipos comerciales",
+      "Sustituir componentes físicos defectuosos o en mal estado",
+      "Actualizar dispositivos durante las tareas de servicio técnico",
+      "Aplicar procedimientos de reparación desde tareas sencillas de taller"
+    ],
+    "para_quien": [
+      "Personas interesadas en desarmar electrónica y entender su funcionamiento físico",
+      "Quienes buscan oficio de técnico enfocado en el hardware",
+      "Aficionados a la tecnología que quieren reparar smartphones y tabletas",
+      "No es para ti si buscas reparación exclusiva de software avanzado"
+    ],
+    "requisitos": [
+      "Herramientas manuales de precisión para abrir y manipular teléfonos",
+      "Un smartphone o tableta en desuso para practicar el desensamble",
+      "Espacio de trabajo limpio, iluminado y libre de estática",
+      "Conexión a internet desde un {computador} o {celular}"
+    ],
+    "cuerpo": "El curso de reparación de {celular} online de MasterClasses.La enseña el servicio técnico enfocado en el hardware de teléfonos, smartphones y tabletas comerciales. Dictado por Ismael Arciniegas Vargas, especialista con larga trayectoria en el oficio, el contenido abarca el diagnóstico de fallas físicas, el desensamble y ensamble de equipos, el cambio de piezas dañadas y las tareas de actualización.\n\n## Mantenimiento preventivo y correctivo en el taller\n\nEl trabajo de banco se divide entre evitar averías futuras y solucionar daños presentes. En este curso de reparación de {celular} aprendes a ejecutar rutinas de mantenimiento preventivo antes de que una pieza falle por desgaste o acumulación de residuos internos, además de aplicar mantenimiento correctivo cuando el aparato ya presenta un defecto físico evidente. Diferenciar cuándo basta con limpiar contactos y cuándo toca reemplazar un módulo ahorra intervenciones innecesarias sobre la placa. Si también te interesa el trabajo de taller con equipos de escritorio y portátiles, puedes revisar aparte un [curso de reparación de {computador}](/{cc}/curso-de-reparacion-de-computadoras/).\n\n## Cómo reparar un {celular} desde el desensamble\n\nAbrir un dispositivo moderno exige orden y pulso firme para no romper flexores ni trabas de la carcasa. En el oficio conviene clasificar cada tornillo según su ubicación exacta sobre un tapete magnético, ya que mezclar largos distintos al cerrar puede perforar la placa base y dejar el teléfono inutilizable. Durante el curso trabajas las siguientes tareas prácticas de banco:\n\n- Desensamblar y volver a ensamblar distintos tipos de teléfonos y tabletas respetando el orden interno.\n- Identificar y sustituir componentes físicos que estén en mal estado o defectuosos.\n- Actualizar los dispositivos como parte complementaria de la revisión técnica.\n\n## Diagnóstico y predicción de fallas de hardware\n\nCambiar piezas a ciegas encarece cualquier arreglo y hace perder horas valiosas en la mesa de trabajo. Por eso un buen técnico aprende primero a revisar el hardware para diagnosticar el origen real del fallo y predecir qué otros componentes podrían agotarse pronto por fatiga o mal uso previo. Entender el comportamiento eléctrico de los circuitos ayuda mucho en esta inspección inicial; si buscas bases de corriente para instalaciones mayores, tienes disponible el [curso de electricidad básica](/{cc}/curso-de-electricidad-residencial-certificado/).\n\n## Alcance en smartphones y tabletas comerciales\n\nLas técnicas vistas sirven tanto para teléfonos sencillos como para smartphones y tabletas de uso comercial habitual. Empezarás con arreglos fáciles para tomar confianza con las herramientas manuales antes de abordar sustituciones más delicadas. En banco, un hábito profesional indispensable es desconectar siempre la batería antes de retirar pantallas, cámaras o cualquier otro conector interno para evitar cortocircuitos en la tarjeta principal.\n\nQuienes disfrutan el diagnóstico electrónico y la manipulación de componentes pequeños suelen ampliar sus servicios hacia otros oficios afines, como un [curso de instalación de cámaras de seguridad](/{cc}/curso-de-instalacion-de-camaras-de-seguridad/) o los demás [cursos de oficios](/{cc}/cursos/oficios/) disponibles en línea.",
+    "faqs": [
+      {
+        "q": "¿Qué se necesita estudiar para trabajar en servicio técnico telefónico?",
+        "a": "Para dedicarte al servicio técnico necesitas dominar la parte física del aparato, conocida como hardware. Debes aprender cómo abrir carcasas sin dañar flexores, localizar averías en piezas internas, hacer mantenimiento preventivo o correctivo y actualizar el sistema luego de dejar el teléfono bien ensamblado."
+      },
+      {
+        "q": "¿Dónde estudiar en un curso de reparación de {celular} desde cero?",
+        "a": "Puedes estudiar en línea con Ismael Arciniegas Vargas a través de esta capacitación técnica enfocada en hardware. Solo necesitas conexión a internet en tu {computador} o {celular} y contar en casa con herramientas manuales básicas junto a algún teléfono en desuso para practicar cada procedimiento."
+      },
+      {
+        "q": "¿Qué tan difícil es aprender a reparar smartphones y tabletas?",
+        "a": "El aprendizaje empieza por reparaciones sencillas desde el inicio para que tomes pulso con las herramientas antes de abordar fallas complejas. En el oficio la mayor exigencia es la paciencia y el cuidado manual al separar carcasas y conectores diminutos sin forzar plásticos ni pistas."
+      },
+      {
+        "q": "¿Este curso sirve para reparar iPhone o solo una marca específica?",
+        "a": "Las lecciones no se limitan a un único fabricante ni marca, ya que abarcan teléfonos sencillos, smartphones y tabletas comerciales en general. Al aprender a analizar cómo fallan los módulos físicos, puedes aplicar la misma lógica de revisión en distintos modelos que llegan al taller."
+      },
+      {
+        "q": "¿Se ve reparación de {computador} o limpieza de equipos mojados?",
+        "a": "No se enseña arreglo de portátiles ni equipos de escritorio, pues el trabajo se concentra en teléfonos y tabletas. Dentro del mantenimiento preventivo y correctivo aprendes a intervenir el hardware defectuoso, aunque si un aparato sufrió humedad conviene retirar la batería de inmediato antes de revisarlo."
+      },
+      {
+        "q": "¿El curso de reparación de celulares da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de reparación de celulares es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de reparación de celulares para diagnosticar fallas de hardware, ensamblar equipos, cambiar piezas y hacer mantenimiento en smartphones."
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de reparación de celulares para diagnosticar fallas de hardware, ensamblar equipos, cambiar piezas y hacer mantenimiento en smartphones."
+    }
+  }
+}

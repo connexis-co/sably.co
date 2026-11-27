@@ -1,0 +1,110 @@
+{
+  "slug": "curso-de-peluqueria",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto B28818422Q «Peluquería Básica y Avanzada» (Instituto Superior ISE), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «La cursada es 100% online, sin horarios fijos y con acceso a plataforma educativa desde cualquier dispositivo. Vas a contar con materiales descargables, evaluaciones en formato multiple choice y certificación final, para avanzar a tu ritmo y capacitarte de manera práctica, flexible y organizada en un área con alta demanda dentro del mundo de la belleza y la estética.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": true,
+  "base": {
+    "h1": "Curso de peluquería online en {pais}",
+    "subtitulo": "Aprende a diagnosticar la fibra capilar, lavar, cortar, peinar, aplicar colorimetría, decolorar y organizar las tareas básicas de un salón desde cero.",
+    "beneficios": [
+      "Diagnosticar y cuidar el cabello antes de trabajarlo",
+      "Lavar la cabeza y mantener la higiene del espacio",
+      "Ejecutar cortes y peinados con herramientas del oficio",
+      "Aplicar técnicas de colorimetría y decoloración capilar",
+      "Atender al cliente y llevar el manejo del salón",
+      "Estudiar con materiales descargables y evaluaciones de opción múltiple"
+    ],
+    "para_quien": [
+      "Principiantes que quieren aprender el oficio desde cero",
+      "Personas con base previa que buscan ampliar sus técnicas capilares",
+      "Quienes necesitan estudiar online sin horarios fijos",
+      "No es para ti si buscas clases presenciales con clientas reales"
+    ],
+    "requisitos": [
+      "No requiere experiencia previa porque empieza desde cero",
+      "Tijeras, peines y herramientas básicas para practicar en casa",
+      "Cabeza de práctica o modelo cuando quieras ensayar los procedimientos",
+      "Conexión a internet desde {celular} o {computador}"
+    ],
+    "cuerpo": "El curso de peluquería online enseña el cuidado, el diagnóstico y el embellecimiento del cabello desde cero o para quienes desean ampliar lo que ya hacen. Estudias peluquería online sin horarios fijos, con materiales descargables y evaluaciones de opción múltiple a los que accedes a tu ritmo desde cualquier dispositivo.\n\n## Diagnóstico, lavado e higiene capilar\n\nTodo servicio en el sillón arranca revisando el estado de la hebra antes de mojarla o aplicar químicos. En esta parte ves cómo diagnosticar el cabello, realizar el lavado y cuidar la higiene de los utensilios y del puesto de trabajo. Si al revisar una cabeza notas lesiones o alteraciones en el cuero cabelludo, corresponde derivar a un médico dermatólogo, ya que este curso no reemplaza la atención de un profesional de la salud.\n\n## Corte, peinado y herramientas de trabajo\n\nAl hacer un curso de corte de cabello aprendes a reconocer qué hace cada peine, cepillo y tijera sobre el mechón. El contenido aborda las herramientas de trabajo y las técnicas de cortes y peinados para dar forma a la melena. En el oficio conviene seccionar la cabellera limpia y húmeda con pinzas firmes para mantener guías parejas de principio a fin. Si más adelante quieres dedicarte al perfilado de barba y degradados masculinos, revisa este [curso de barbería](/{cc}/curso-de-barberia/). Y para trabajar recogidos de fiesta a fondo, tienes el [curso de peinados](/{cc}/curso-de-peinados/).\n\n## Colorimetría y decoloración\n\nCambiar el tono exige entender cómo reacciona el pigmento sobre la base natural o teñida de cada persona. Como curso de estilista completo, el estudio no se queda solo en la tijera: al estudiar peluquería por esta vía ves técnicas de colorimetría y decoloración junto con el cuidado capilar posterior. Entre profesionales del salón siempre se recomienda hacer una prueba de mechón antes de aclarar toda la cabellera para comprobar la resistencia de la fibra.\n\n## Atención al cliente y manejo básico de salón\n\nEste curso de peluquería incluye también atención al cliente y manejo básico de salón para organizar la labor frente al tocador. En el día a día del oficio, atender un salón suele implicar tareas cotidianas como estas:\n\n- Recepción y escucha de lo que pide cada persona para su cabello.\n- Limpieza y orden de las herramientas entre un turno y otro.\n- Organización de los insumos y de la mesa de trabajo.\n\nSi planeas sumar servicios de estética para eventos en tu mesa de trabajo, puedes mirar el [curso de maquillaje para novias](/{cc}/curso-de-maquillaje-profesional-de-novias/) o recorrer otros [cursos de belleza online](/{cc}/cursos/belleza-online/).",
+    "faqs": [
+      {
+        "q": "¿Qué hay que estudiar para trabajar en peluquería?",
+        "a": "Para trabajar en un salón hace falta aprender a revisar el estado de la hebra, lavar la cabeza manteniendo la higiene del puesto, manejar tijeras y cepillos, cortar, peinar y realizar cambios de tono. También necesitas saber recibir a cada persona, interpretar lo que pide y organizar las tareas diarias del espacio."
+      },
+      {
+        "q": "¿Se necesita experiencia previa para hacer el curso de peluquería?",
+        "a": "No hace falta tener experiencia previa porque este curso de peluquería parte desde cero para quienes recién se inician en el oficio capilar. Al mismo tiempo sirve a personas que ya trabajan con el cabello por su cuenta y buscan ampliar sus habilidades técnicas o incorporar un orden de trabajo más claro."
+      },
+      {
+        "q": "¿Qué materiales para peluquería convienen al empezar a practicar?",
+        "a": "El curso aborda las herramientas de trabajo propias del oficio capilar para que sepas con qué utensilios realizar cada tarea. Al momento de ensayar por tu cuenta en casa te servirán peines de corte y de cola, cepillos, pinzas separadoras, tijeras de filo liso, capa protectora y un cabezal de práctica."
+      },
+      {
+        "q": "¿El curso incluye colorimetría y decoloración además de cortes?",
+        "a": "Sí, abarca tanto los procesos químicos de color como la forma del cabello. Trabajas técnicas de colorimetría para modificar o emparejar tonos y procedimientos de decoloración para aclarar la base, siempre apoyándote en la revisión previa de la fibra capilar para cuidar el pelo antes y después de aplicar los productos."
+      },
+      {
+        "q": "¿Cómo se evalúa lo aprendido durante el estudio?",
+        "a": "Resuelves evaluaciones en formato de opción múltiple dentro de la plataforma educativa. Esas pruebas te permiten comprobar por tu cuenta si comprendiste los conceptos teóricos de diagnóstico, higiene, herramientas o química capilar antes de llevar cada procedimiento a la práctica en tu mesa de ensayo."
+      },
+      {
+        "q": "¿El curso de peluquería da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de peluquería es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de peluquería online desde cero: diagnóstico capilar, lavado, cortes, peinados, colorimetría, decoloración y manejo de salón."
+    }
+  },
+  "paises": {
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de peluquería online desde cero: aprende cortes, peinados, colorimetría y decoloración capilar. Incluye certificado y se paga en MXN."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de peluquería online: aprende diagnóstico capilar, cortes, peinados, colorimetría y manejo de salón. Pagas en EUR y recibes certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de corte de cabello y peluquería online: lavado, peinados, colorimetría y decoloración desde cero. Se abona en USD e incluye certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de estilista y peluquería online: aprende cortes, colorimetría, decoloración y atención en salón. Pagas en COP y obtienes tu certificado."
+    }
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-molderia-y-confeccion",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto P43660531G «Aprende Molderia y Confección» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Maureen Mihanovich (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de patronaje online en {pais}",
+    "subtitulo": "Toma medidas corporales, traza bases de corpiño, falda y vestido, modifica pinzas y confecciona camisas o vestidos en tallas estándar o a medida.",
+    "beneficios": [
+      "Tomar medidas corporales para corpiño base, falda base y vestido",
+      "Distinguir tipos de telas, marcar con tiza y cortar piezas",
+      "Trazar moldes para confeccionar camisas, faldas y vestidos completos",
+      "Modificar pinzas y moldes para ajustar prendas a la medida",
+      "Probar prendas en cuerpo o maniquí para corregir ajustes",
+      "Desarrollar prendas con medidas personalizadas o en tallas estándar"
+    ],
+    "para_quien": [
+      "Quienes tienen ideas de prendas y buscan trazarlas y confeccionarlas",
+      "Diseñadores o talleristas que necesitan resolver moldes simples y complejos",
+      "Emprendedores que planean desarrollar moldes propios para colecciones de ropa",
+      "No es para ti si buscas un título técnico oficial"
+    ],
+    "requisitos": [
+      "Cinta métrica, materiales para moldería, tiza de sastre y tijeras",
+      "Telas e implementos de costura para cortar y armar las prendas",
+      "Maniquí o una persona disponible para realizar las pruebas de calce",
+      "Conexión a internet desde tu {computador} o {celular}"
+    ],
+    "cuerpo": "El curso de patronaje online de MasterClasses.La enseña a pasar de la idea de una prenda a su confección completa, partiendo desde la elección del textil hasta la costura final. Está dictado por la diseñadora de modas Maureen Mihanovich, quien guía el proceso técnico para resolver moldería propia de uso personal o comercial.\n\n## Cómo hacer patrones de ropa desde las medidas\n\nTodo trabajo de moldería arranca con la cinta métrica. En este curso de moldería aprendes cómo tomar las medidas del cuerpo y cuáles necesitas exactamente para levantar un corpiño base, una falda base o un vestido. Trabajas tanto con medidas personalizadas para vestir a una persona concreta como con medidas estándar.\n\nEn el oficio conviene medir sobre ropa ligera y verificar que la cinta no quede floja ni apretada, porque cualquier desvío inicial altera el molde resultante. Si antes necesitas soltar la mano con las puntadas iniciales y el manejo general de telas, puedes revisar este [curso de costura desde cero](/{cc}/curso-de-corte-y-confeccion/).\n\n## Transformación de pinzas y prendas que trabajas\n\nA partir de las estructuras iniciales aprendes a modificar pinzas y transformar los moldes para adaptarlos al diseño buscado. Este curso de patronaje y confección abarca el desarrollo de moldes tanto simples como complejos, aplicados de forma concreta en:\n\n- Camisas\n- Faldas\n- Vestidos\n\nQuienes buscan escalado seriado por tallas para fábrica suelen complementar este trabajo con un [curso de patronaje industrial](/{cc}/curso-de-patronaje-profesional-de-ropa/), mientras que para prendas íntimas con aro conviene mirar un [curso de corsetería](/{cc}/curso-de-lenceria-y-ropa-interior-a-medida/).\n\n## Elección de telas, tizado y corte\n\nUn molde bien trazado falla si el textil no acompaña la caída o estructura de la prenda. En estas clases de patronaje ves qué tipos de telas existen y cómo distinguirlas antes de comprar o extender el rollo sobre la mesa. Luego pasas al tizado para marcar las piezas con precisión, cortar los paños y unir cada parte cosiendo la prenda completa.\n\nEn el taller siempre conviene respetar el hilo de la tela al apoyar el molde para evitar que las costuras laterales giren después del primer lavado.\n\n## Pruebas de calce en cuerpo o maniquí\n\nAntes de dar por cerrada una prenda, el curso de patronaje muestra cómo probar distintos moldes y prototipos sobre el maniquí o directamente sobre la persona. Esa prueba permite detectar arrugas de tensión, sobrantes de tela o desbalances, y corregir posibles errores o ajustes en el molde y la prenda. Así resuelves encargos para clientes propios, colecciones de marca o el desarrollo de moldería comercializable para otras empresas. Puedes explorar otros oficios textiles en la sección de [cursos de moda y confección](/{cc}/cursos/moda-y-confeccion/).",
+    "faqs": [
+      {
+        "q": "¿Qué es patronaje en modistería?",
+        "a": "Es el oficio de traducir las medidas de un cuerpo a moldes planos que guían el corte de la tela. En el trabajo a medida incluye levantar bases de corpiño, falda o vestido, mover pinzas según el diseño elegido y ajustar el calce sobre la persona antes de coser la prenda definitiva."
+      },
+      {
+        "q": "¿Qué prendas se aprenden a hacer en este curso de patronaje?",
+        "a": "Aprendes a trazar y confeccionar corpiños base, faldas base, camisas, faldas transformadas y vestidos, resolviendo propuestas tanto simples como complejas. El trabajo recorre el proceso completo desde la toma de medidas y la distinción de telas hasta el tizado, el corte, la costura y la prueba de calce sobre cuerpo o maniquí."
+      },
+      {
+        "q": "¿Cómo crear patrones de ropa a medida y en talla estándar?",
+        "a": "Se parte de identificar qué medidas corporales pide cada base y trasladarlas para construir la estructura inicial del molde. Con los contornos específicos de una persona obtienes un molde personalizado a su cuerpo; trabajando con medidas estándar generas moldes pensados para desarrollar líneas de colección de una marca o comercializar moldería."
+      },
+      {
+        "q": "¿Hace falta tener experiencia previa para seguir las clases?",
+        "a": "El contenido está planteado para quienes tienen la idea de un vestido o prenda y no saben por dónde empezar. Recorre el proceso entero desde cómo distinguir las telas y tomar medidas hasta tizar, cortar y coser, aunque necesitarás contar en casa con implementos de costura para armar las piezas."
+      },
+      {
+        "q": "¿Quién enseña la moldería y confección en este curso?",
+        "a": "Está a cargo de Maureen Mihanovich, diseñadora de modas graduada en la Universidad de Buenos Aires y docente de diseño e ilustración de moda en la Universidad de Palermo. También realizó estudios de moda en Polimoda, en Florencia, y en el Instituto Europeo de Diseño de Barcelona."
+      },
+      {
+        "q": "¿El curso de patronaje da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de patronaje es gratis o tiene mensualidades?",
+        "a": "No es gratis y tampoco cobra mensualidad: haces un pago único en Hotmart. El acceso llega a tu correo cuando se confirma la compra y no tiene fecha de vencimiento. Tienes 7 días de garantía para pedir en Hotmart la devolución total si el curso no te sirve."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de patronaje online para tomar medidas, trazar moldes de corpiño, camisa, falda y vestido, elegir telas, cortar y coser prendas."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de patronaje online: aprende a tomar medidas, trazar moldes de camisa, falda y vestido y coserlos. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de patronaje y confección para trazar bases de corpiño, falda y vestido, elegir telas y coser prendas. Incluye certificado y pago en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de moldería online: toma medidas, modifica pinzas y confecciona camisas, faldas y vestidos a medida. Se paga en MXN e incluye certificado."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de patronaje para medir, trazar moldes de vestidos, faldas y camisas, cortar tela y ajustar el calce. Pagas en EUR y obtienes certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de moldería textil: aprende a trazar moldes base, transformar pinzas, cortar telas y coser prendas. Pago disponible en USD con certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de patronaje online donde trazas moldes de corpiño, camisa, falda y vestido, cortas tela y confeccionas. Pagas en COP y recibes certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de moldería, corte y confección para levantar moldes de ropa, elegir telas, tizar y probar calce. Incluye certificado y se abona en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de moldería y confección: mide el cuerpo, traza moldes de camisas, faldas y vestidos y cose cada pieza. Abonas en ARS y suma certificado."
+    }
+  }
+}

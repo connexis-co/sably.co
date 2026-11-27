@@ -1,0 +1,138 @@
+{
+  "slug": "curso-de-barberia-como-negocio",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto C63857704B «Barbero Empresario, Cómo Montar Tu Propia Barbería» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Cristian Miguel Gómez García (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de barbería como negocio online en {pais}",
+    "subtitulo": "Aprende a elegir local, sillas y herramientas, contratar barberos, aplicar visagismo y ejecutar cortes desvanecidos para hombres mientras administras tu propio establecimiento desde cero.",
+    "beneficios": [
+      "Montar una barbería propia desde cero sin conocimientos previos",
+      "Conseguir el local adecuado y seleccionar las sillas según el estilo",
+      "Reclutar barberos y elegir las herramientas de trabajo del salón",
+      "Distinguir tipos de barberías para definir el enfoque del establecimiento",
+      "Aplicar visagismo y técnicas de corte masculino con desvanecidos",
+      "Implementar prácticas de atención orientadas a fidelizar a la clientela"
+    ],
+    "para_quien": [
+      "Personas sin experiencia previa que quieren abrir su propia barbería",
+      "Barberos que cortan cabello y desean pasar a administrar un local",
+      "Emprendedores interesados en el cuidado masculino y la gestión del salón",
+      "No es para ti si buscas únicamente técnicas avanzadas de diseño artístico"
+    ],
+    "requisitos": [
+      "No necesitas conocimientos previos de corte ni de administración",
+      "Máquina, tijeras y peines si deseas practicar los cortes masculinos",
+      "Cuaderno o documento para anotar criterios de local y mobiliario",
+      "Conexión a internet desde un {celular} o {computador}"
+    ],
+    "cuerpo": "El curso de barbería como negocio online de MasterClasses.La enseña a abrir y manejar un salón masculino desde cero, combinando la administración del establecimiento con técnicas de corte para hombre. Está a cargo de Cristian Miguel Gómez García, barbero y propietario de su propio local abierto al público. En él revisas tanto la puesta en marcha operativa como el trabajo en silla, pensado incluso para quien empieza sin experiencia en el rubro.\n\n## Cómo montar una barbería y elegir el equipamiento\n\nAbrir un salón exige tomar decisiones físicas antes de atender al primer cliente. El contenido aborda cómo buscar y conseguir el local, qué tipos de barberías existen y cómo definir el estilo que tendrá la tuya. A partir de esa identidad aprendes a elegir las sillas que mejor se acomodan al espacio y a seleccionar las herramientas de trabajo.\n\nEn el oficio conviene medir la distancia entre cada puesto de corte y los puntos de luz o desagüe antes de comprar el mobiliario, para que los barberos trabajen cómodos y el paso de espera quede despejado. Si más adelante necesitas ordenar las cuentas diarias del local, puedes apoyarte en un [curso de finanzas para tu negocio](/{cc}/curso-de-finanzas-para-tu-negocio/).\n\n## Gestión del negocio de barbería y equipo de trabajo\n\nUn dueño de salón coordina personas y servicio todos los días. En esta parte del curso de barbería como negocio trabajas criterios para conseguir barberos que se integren al local y revisas técnicas orientadas a fidelizar a quienes entran a cortarse. También se tratan distintas vías de ingreso vinculadas al cuidado y la imagen masculina dentro del mismo establecimiento.\n\nPara dar a conocer los servicios en tu zona y mantener la agenda activa por mensajería, resulta útil complementar esta base operativa con un [curso de ventas por WhatsApp y redes](/{cc}/curso-de-ventas-por-whatsapp-y-redes/).\n\n## Visagismo y cortes desvanecidos para hombre\n\nAunque el enfoque principal es empresarial, quien dirige un salón gana criterio cuando entiende el trabajo técnico que se hace frente al espejo. Por eso aprendes nociones de visagismo para adaptar el estilo al rostro del cliente y técnicas de corte masculino centradas en hacer desvanecidos. Conocer el proceso técnico te permite evaluar la calidad del servicio cuando reclutas personal o atender tú mismo una silla.\n\n## Cuándo iniciar un negocio de barbería o especializar el corte\n\nEmprender una barbería implica ocuparse del espacio comercial y del trato constante con los clientes para que regresen a mantener su imagen personal. Si prefieres centrarte primero en la destreza manual de tijera, navaja y máquina sin entrar en la búsqueda de local ni personal, revisa el [curso de barbería](/{cc}/curso-de-barberia/). Quienes ya planean abrir un local comercial también suelen explorar otros [cursos de emprendimiento](/{cc}/cursos/emprendimiento/) para organizar sus proyectos.",
+    "faqs": [
+      {
+        "q": "¿Qué incluye este curso de barbería como negocio?",
+        "a": "Abarca la apertura y administración del salón junto con bases técnicas de corte masculino. Aprenderás a elegir local, definir el tipo de barbería, comprar sillas y herramientas, conseguir barberos, aplicar visagismo, realizar cortes desvanecidos para hombre y poner en práctica acciones para fidelizar a los clientes."
+      },
+      {
+        "q": "¿Es difícil aprender barbería si empiezo desde cero?",
+        "a": "No hace falta experiencia previa porque el contenido parte desde cero, tanto en la gestión del local como en los cortes masculinos. En el oficio, la regularidad del desvanecido mejora con la repetición constante y manteniendo las cuchillas limpias y aceitadas entre cada práctica."
+      },
+      {
+        "q": "¿Qué no debe faltar en una barbería al iniciar un negocio?",
+        "a": "Necesitas un local acorde al flujo de clientes, sillas adaptadas al estilo del salón y las herramientas de corte y cuidado masculino. En el curso revisas cómo seleccionar ese mobiliario y equipamiento según el tipo de barbería que decidas montar antes de hacer compras."
+      },
+      {
+        "q": "¿Qué permisos necesito para abrir una barbería?",
+        "a": "Las habilitaciones comerciales y sanitarias cambian según la ciudad o el país donde instales el salón. En el oficio conviene consultar directamente en la municipalidad o autoridad local los trámites vigentes de uso de suelo, higiene y apertura al público antes de firmar cualquier contrato de arriendo."
+      },
+      {
+        "q": "¿Qué tienes que estudiar para emprender una barbería?",
+        "a": "Aprender solo a cortar prepara para trabajar en una silla, mientras que emprender una barbería exige estudiar cómo dirigir el establecimiento completo. En el oficio conviene prepararse para tomar decisiones sobre el espacio comercial, coordinar al equipo humano y organizar servicios de cuidado masculino más allá del corte individual."
+      },
+      {
+        "q": "¿El curso de barbería como negocio da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de barbería como negocio es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de barbería como negocio para montar tu salón desde cero: elección de local, sillas, herramientas, barberos, visagismo y desvanecidos."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería como negocio desde cero: elección de local, sillas, barberos, visagismo y desvanecidos. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería como negocio: aprende a elegir local, sillas y herramientas, reclutar barberos y hacer desvanecidos. Pago en PEN y certificado."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería como negocio para elegir local, sillas, barberos, aplicar visagismo y cortes desvanecidos. Incluye certificado y pago en MXN."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería como negocio: selección de local, sillas, herramientas, visagismo y cortes desvanecidos. Se paga en USD e incluye certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería como negocio desde cero: local, sillas, herramientas, selección de barberos y desvanecidos. Pagas en COP y recibes certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería como negocio: aprende a buscar local, elegir sillas, contratar barberos y hacer desvanecidos. Pago en CLP con certificado."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barbería como negocio para montar tu local desde cero: sillas, herramientas, visagismo y desvanecidos. Pagas en ARS con certificado."
+    }
+  }
+}

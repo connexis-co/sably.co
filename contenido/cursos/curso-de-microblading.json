@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-microblading",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto Y45079346E «Cejas Perfectas con Microblading» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Ariana Zamora (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": true,
+  "base": {
+    "h1": "Curso de microblading online en {pais}",
+    "subtitulo": "Aprende a rediseñar y pigmentar cejas con la técnica de microblading seleccionando agujas, pigmentos e insumos con criterios de bioseguridad.",
+    "beneficios": [
+      "Dominar la técnica de microblading combinando teoría y práctica",
+      "Aplicar medidas de bioseguridad durante el trabajo en cabina",
+      "Reconocer la anatomía de la piel para rediseñar cejas",
+      "Seleccionar los tipos de agujas, pigmentos e insumos necesarios",
+      "Manejar el resguardo jurídico previo a atender a una persona",
+      "Ejecutar el procedimiento completo sobre una persona paso a paso"
+    ],
+    "para_quien": [
+      "Esteticistas que buscan sumar el diseño y pigmentación de cejas",
+      "Maquilladores interesados en incorporar el trazo manual de vellos",
+      "Personas que desean aprender el procedimiento con bases de bioseguridad",
+      "No es para ti si buscas pigmentar ojos o labios"
+    ],
+    "requisitos": [
+      "Agujas para microblading, pigmentos e insumos básicos de práctica",
+      "Guantes desechables, {tapabocas} y elementos de higiene para tu mesa",
+      "Un {computador} o {celular} para ver el contenido",
+      "Conexión estable a internet para reproducir el material"
+    ],
+    "cuerpo": "El curso de microblading online de MasterClasses.La enseña a rediseñar y pigmentar cejas combinando teoría y práctica. Ariana Zamora, micropigmentadora de cejas y labios con su propio estudio de belleza, conduce la enseñanza reuniendo su experiencia en cabina para llevar el aprendizaje hasta la ejecución del servicio sobre una persona.\n\n## Cómo hacer microblading respetando la piel\n\nAntes de abrir un insumo, estudias la anatomía de la piel. Comprender cómo funciona el tejido permite abordar el rediseño de unas cejas que conecten miradas y aplicar el color con criterio.\n\nAl estudiar microblading combinas la base teórica con la práctica para ejecutar la secuencia completa del procedimiento sobre una persona. Revisas diferentes técnicas vinculadas con el oficio para desarrollar destreza manual. En la práctica profesional conviene ensayar primero la dirección y la presión de los trazos en piel sintética antes de atender a un modelo real.\n\n## Materiales para microblading y elección de pigmentos\n\nTrabajar con orden empieza por conocer cada elemento que conforma la mesa de estética. En este curso de microblading de cejas identificas los materiales necesarios para llevar a cabo cada sesión:\n\n- Tipos de agujas requeridas para realizar el procedimiento.\n- Pigmentos adecuados para dar color a las cejas.\n- Anestésicos que necesitas durante la atención.\n- Insumos generales de cabina y temas de bioseguridad.\n\nEn el oficio siempre se utiliza {tapabocas} durante toda la sesión, se comprueba que cada aguja venga en su empaque estéril sellado frente a quien atiendes y se descarta en un contenedor rígido al terminar.\n\n## Bioseguridad y resguardo jurídico en el estudio\n\nIntervenir la piel exige limpieza rigurosa y respaldo documental en el espacio de trabajo. Abordas temas de bioseguridad aplicados a la estética para mantener las condiciones higiénicas antes, durante y después de pigmentar.\n\nTambién estudias las contraindicaciones generales y el resguardo jurídico previo a realizar el procedimiento sobre una persona, asegurando que cada atención quede documentada. Ante cualquier afección cutánea o duda médica de quien consulta, corresponde derivarla a un profesional de la salud, ya que este curso estético no reemplaza el criterio clínico.\n\n## Alcance frente a otros servicios de mirada y rostro\n\nEste curso de microblading se enfoca en el procedimiento sobre las cejas. Si tu interés está puesto en trabajar ojos o labios con dermógrafo, revisa el [curso de micropigmentación](/{cc}/curso-de-maquillaje-permanente/) enfocado en maquillaje permanente.\n\nQuienes arman un estudio dedicado a la mirada suelen sumar servicios complementarios como el [curso de pestañas volumen ruso](/{cc}/curso-de-pestanas-volumen-ruso/) o preparar la piel del rostro con el [curso de limpieza facial](/{cc}/curso-de-limpieza-facial/). Si prefieres trabajar con productos cosméticos tradicionales para eventos, tienes disponible el [curso de maquillaje](/{cc}/curso-de-maquillaje/) dentro de la categoría de [cursos de belleza online](/{cc}/cursos/belleza-online/).",
+    "faqs": [
+      {
+        "q": "¿Qué se necesita para hacer el curso de microblading?",
+        "a": "Necesitas un {computador} o {celular} con conexión a internet para ver las explicaciones teóricas y demostraciones. Adentro se detallan los insumos específicos del oficio que conviene adquirir antes de practicar por tu cuenta, tales como agujas para cejas, pigmentos y elementos de higiene."
+      },
+      {
+        "q": "¿Qué diferencia hay entre microblading y micropigmentación de cejas?",
+        "a": "En el oficio, el microblading es una técnica manual donde dibujas trazos finos pelo a pelo empleando agujas agrupadas en un inductor o pluma. La micropigmentación utiliza un dermógrafo eléctrico que implanta el color mediante punciones continuas, permitiendo realizar tanto líneas como efectos de sombreado."
+      },
+      {
+        "q": "¿Qué materiales para microblading se estudian?",
+        "a": "Aprendes con qué criterios armar tu mesa antes de comprar herramientas sin orientación. El curso muestra los tipos de agujas, insumos, anestésicos y qué pigmentos usar para realizar el procedimiento correctamente sobre cejas, evitando gastos innecesarios al adquirir tus primeros materiales de trabajo."
+      },
+      {
+        "q": "¿Hace falta experiencia previa para tomar este curso?",
+        "a": "El contenido parte desde los fundamentos teóricos, como la anatomía de la piel y la selección de agujas, antes de pasar al procedimiento sobre una persona. Por eso sirve tanto si vienes de otra rama de la estética como si recién empiezas con cejas."
+      },
+      {
+        "q": "¿Qué temas legales y de cuidado incluye?",
+        "a": "Se revisan las contraindicaciones generales para identificar cuándo es viable realizar el servicio sobre una persona, junto con el resguardo jurídico aplicable a la estética y las pautas de bioseguridad. Con esa información registras el consentimiento previo y ordenas la atención en cabina."
+      },
+      {
+        "q": "¿El curso de microblading da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de microblading es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de microblading online para aprender diseño y pigmentación de cejas, anatomía de la piel, elección de agujas, pigmentos y bioseguridad."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de microblading online: aprende diseño y pigmentación de cejas, tipos de agujas, insumos y bioseguridad. Acceso online con pago en USD."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de microblading online para aprender anatomía de la piel, elección de agujas, pigmentos y bioseguridad. Inscripción online pagando en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de microblading de cejas online: aprende rediseño, elección de pigmentos, agujas y resguardo jurídico. Pagas tu inscripción en MXN."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de microblading online: aprende a pigmentar cejas, elegir agujas, anestésicos e insumos con bioseguridad. Pago disponible en EUR."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de microblading online para rediseñar y pigmentar cejas viendo anatomía de la piel, insumos y bioseguridad. Se paga online en USD."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de microblading online: aprende selección de agujas, pigmentos, anatomía de la piel y bioseguridad en cabina. Pago disponible en COP."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de microblading de cejas online para aprender el procedimiento, elección de insumos, pigmentos y bioseguridad. Inscripción en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de microblading online: aprende el procedimiento en cejas, tipos de agujas, pigmentos y resguardo jurídico. Se abona online en ARS."
+    }
+  }
+}

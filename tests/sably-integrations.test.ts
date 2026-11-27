@@ -6,7 +6,7 @@ import { createSettingsAccess, resolvePluginEncryptionKeys } from 'emdash/intern
 import type { OptionsRepository, SettingsAccess } from 'emdash';
 const reader=(values:Record<string,unknown>):Pick<SettingsAccess,'get'>=>({async get<T>(key:string){return (values[key]??null) as T|null;}});
 const configured={...defaults,browserMode:'gtm' as const,gtmId:'GTM-ABCDEFGH',ga4Id:'G-ABCDEFGHIJ',metaPixelId:'123456789',serverConversions:true};
-const secretValues={ga4ApiSecret:'FAKE_GA4',metaCapiToken:'FAKE_META',openaiCapiKey:'FAKE_OPENAI',hotmartHottok:'FAKE_HOTTOK'};
+const secretValues={ga4ApiSecret:'FAKE_GA4',metaCapiToken:'FAKE_META',openaiCapiKey:'FAKE_OPENAI',hotmartClientId:'FAKE_HM_ID',hotmartClientSecret:'FAKE_HM_SECRET',hotmartHottok:'FAKE_HOTTOK'};
 test('IDs reject pasted snippets, credentials, unexpected keys and invalid types',()=>{
   for(const input of [{gtmId:"GTM-X';alert(1)//"},{ga4Id:'<script>bad</script>'},{metaPixelId:'abc123'},{serverConversions:'true'},{arbitraryScript:'anything'},{browserMode:'both'}])assert.throws(()=>validateUpdates(input));
   assert.deepEqual(validateUpdates({gtmId:' GTM-ABCDEFGH '}),{gtmId:'GTM-ABCDEFGH'});
@@ -33,7 +33,7 @@ test('invalid settings written via the generic CMS form fail closed at rendering
 });
 test('admin response exposes presence but never plaintext secrets; fresh edits are visible',async()=>{
   const values={...configured,...secretValues};const access=reader(values);
-  assert.deepEqual((await adminConfig(access)).secretsSet,{ga4ApiSecret:true,metaCapiToken:true,openaiCapiKey:true,hotmartHottok:true});
+  assert.deepEqual((await adminConfig(access)).secretsSet,{ga4ApiSecret:true,metaCapiToken:true,openaiCapiKey:true,hotmartClientId:true,hotmartClientSecret:true,hotmartHottok:true});
   assert.doesNotMatch(JSON.stringify(await adminConfig(access)),/FAKE_/);
   values.gtmId='GTM-UPDATED1';assert.equal((await readPublic(access)).gtmId,'GTM-UPDATED1');
   values.hotmartHottok='';assert.equal((await adminConfig(access)).secretsSet.hotmartHottok,false);

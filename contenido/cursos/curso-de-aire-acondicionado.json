@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-aire-acondicionado",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto L60692881N «Mantenimiento de Aires Acondicionados (Hogar) como Negocio» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Elkin Suarez y Víctor Rangel (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de aire acondicionado online en {pais}",
+    "subtitulo": "Aprende a distinguir entre mantenimiento preventivo y correctivo en equipos residenciales, diferenciar sistemas convencionales e inverter, conocer los gases refrigerantes y usar las herramientas del oficio.",
+    "beneficios": [
+      "Identificar cuándo corresponde hacer un mantenimiento preventivo o correctivo",
+      "Utilizar las principales herramientas de la industria de refrigeración",
+      "Diferenciar el funcionamiento de un equipo convencional frente al inverter",
+      "Conocer los tipos de gas usados en los equipos domésticos",
+      "Sentar las bases para ofrecer servicios técnicos a hogares",
+      "Aplicar pautas para mostrar tu servicio técnico en medios digitales"
+    ],
+    "para_quien": [
+      "Quienes buscan iniciarse como técnico en aire acondicionado para hogares",
+      "Personas interesadas en organizar un servicio propio de mantenimiento residencial",
+      "Trabajadores de servicios domiciliarios que quieren sumar climatización doméstica",
+      "No es para ti si buscas mantenimiento de sistemas de climatización industrial"
+    ],
+    "requisitos": [
+      "Conexión a internet estable para ver el contenido",
+      "Un {celular} o {computador} para seguir las explicaciones",
+      "Herramientas básicas de refrigeración si deseas practicar por tu cuenta",
+      "Acceso a un equipo doméstico cuando quieras repasar lo aprendido"
+    ],
+    "cuerpo": "El curso de aire acondicionado online de MasterClasses.La enseña el mantenimiento de equipos domésticos y la organización de un servicio técnico enfocado en el hogar. A cargo de Elkin Suarez, técnico en refrigeración, y Víctor Rangel, tecnólogo en mantenimiento mecánico industrial, el contenido se centra en la atención preventiva y correctiva de unidades residenciales, el manejo de las herramientas del oficio y las bases para dar a conocer tu trabajo en medios digitales.\n\n## Mantenimiento de aire acondicionado preventivo y correctivo\n\nUna parte central del trabajo en domicilios consiste en diagnosticar qué intervención pide cada aparato antes de desarmarlo. En este curso de aire acondicionado aprendes a identificar cuándo basta con una rutina preventiva y cuándo hace falta una acción correctiva. En el oficio conviene escuchar el arranque del compresor y revisar el estado general de las serpentinas antes de abrir el circuito o tocar conexiones.\n\nSi al visitar viviendas también te interesa resolver fallas eléctricas del inmueble, puedes revisar este [curso de electricidad residencial](/{cc}/curso-de-electricidad-residencial-certificado/) para complementar tus servicios en el hogar.\n\n## Tipos de aire acondicionado doméstico y gases refrigerantes\n\nNo todos los equipos de casa trabajan bajo la misma lógica electrónica ni llevan la misma carga química. El contenido explica la diferencia entre un sistema convencional y uno con tecnología inverter, un punto básico antes de medir consumos o revisar placas. Además, conoces los tipos de gas que utilizan estos aparatos en el ámbito residencial. Al trabajar como técnico en climatización, verificar siempre la etiqueta técnica del fabricante evita mezclar refrigerantes incompatibles.\n\n## Herramientas de trabajo en refrigeración\n\nPara intervenir una unidad con orden hace falta conocer el instrumental propio del rubro. En el curso aprendes a identificar y utilizar las principales herramientas de la industria de la refrigeración durante el mantenimiento de equipos para el hogar.\n\nEn la práctica diaria conviene limpiar y guardar por separado los instrumentos de medición al terminar cada servicio para conservar su calibración, así como revisar el estado de las mangueras y sus sellos antes de trasladar el maletín a otro domicilio. Quienes ya reparan otros aparatos de línea blanca suelen aprovechar esa base manual; para ampliar tu alcance hacia el cuarto de lavado está el [curso de reparación de lavadoras](/{cc}/curso-de-reparacion-de-lavadoras/).\n\n## Presencia digital para ofrecer servicios al hogar\n\nAdemás de la parte operativa sobre los equipos, este curso de aire acondicionado aborda cómo estructurar una empresa de mantenimiento residencial y posicionarla en canales digitales. Se revisan herramientas y conocimientos orientados a impulsar y posicionar tu empresa de mantenimiento en medios digitales. Muchos técnicos de mantenimiento hogareño suman otras especialidades de ahorro energético, como las que se ven en el [curso de energía solar](/{cc}/curso-de-energia-solar/), o exploran distintos [cursos de oficios](/{cc}/cursos/oficios/) para diversificar sus visitas técnicas.",
+    "faqs": [
+      {
+        "q": "¿Cómo se llama el curso para arreglar el aire acondicionado?",
+        "a": "Se conoce habitualmente como curso de aire acondicionado o de mantenimiento residencial. Esta propuesta se enfoca de forma específica en el mantenimiento preventivo y correctivo de equipos para el hogar, el uso de herramientas de refrigeración, las diferencias entre tecnología convencional e inverter y los gases utilizados."
+      },
+      {
+        "q": "¿Qué es un curso de HVAC?",
+        "a": "La sigla HVAC viene del inglés y agrupa calefacción, ventilación y aire acondicionado. Dentro de ese campo amplio, este curso se enfoca en el mantenimiento preventivo y correctivo de aires acondicionados para el hogar, las diferencias entre unidades convencionales e inverter, los gases refrigerantes y el uso de herramientas del rubro."
+      },
+      {
+        "q": "¿Qué temas cubre este curso de mantenimiento residencial?",
+        "a": "El curso abarca la identificación de cuándo realizar un mantenimiento preventivo o correctivo en equipos para el hogar, el reconocimiento y uso de herramientas de refrigeración, las diferencias entre unidades convencionales e inverter, los tipos de gas refrigerante y el posicionamiento digital de una empresa del rubro."
+      },
+      {
+        "q": "¿Se incluye algún apartado sobre cómo impulsar el negocio en internet?",
+        "a": "Sí, además del trabajo técnico sobre los equipos, el curso abarca la creación de una empresa de mantenimiento para hogares y su posicionamiento en el entorno digital. Conoces herramientas y conocimientos orientados a impulsar tu empresa de servicio técnico en medios digitales."
+      },
+      {
+        "q": "¿Quiénes están a cargo y qué experiencia tienen en el oficio?",
+        "a": "El contenido está a cargo de Elkin Suarez y Víctor Rangel. Suarez se desempeña como técnico en refrigeración en el área de mantenimiento de aires acondicionados y dirige su propia empresa del sector, mientras que Rangel es tecnólogo en mantenimiento mecánico industrial."
+      },
+      {
+        "q": "¿El curso de aire acondicionado da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de aire acondicionado es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de aire acondicionado enfocado en mantenimiento preventivo y correctivo para el hogar, equipos inverter, gases y herramientas del oficio."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de aire acondicionado para hogar: mantenimiento preventivo y correctivo, equipos inverter y gases. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de aire acondicionado doméstico: herramientas de refrigeración, equipos inverter y tipos de gas. Incluye certificado y se paga en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de aire acondicionado residencial: mantenimiento preventivo, correctivo, gases y sistemas inverter. Se abona en MXN e incluye certificado."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de aire acondicionado para el hogar: diferencia equipos inverter, gases y usa herramientas del rubro. Pago en EUR con certificado final."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de aire acondicionado enfocado en mantenimiento doméstico, sistemas inverter, gases y herramientas. Abonas en USD y obtienes certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de aire acondicionado de hogar: mantenimiento preventivo y correctivo, gases y equipos inverter. Pagas en COP y recibes tu certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de aire acondicionado residencial: uso de herramientas, gases refrigerantes y tecnología inverter. Incluye certificado y pago en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de aire acondicionado doméstico: mantenimiento preventivo y correctivo, herramientas y gases. Se paga en ARS y cuenta con certificado."
+    }
+  }
+}

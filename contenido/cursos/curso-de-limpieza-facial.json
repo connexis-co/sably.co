@@ -1,0 +1,138 @@
+{
+  "slug": "curso-de-limpieza-facial",
+  "estado": "listo",
+  "generado_con": "borrador del 25-nov revisado con gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto U66774408M «9 Pasos para una Limpieza Facial Profesional» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Maylin Sánchez (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": true,
+  "base": {
+    "h1": "Curso de limpieza facial online en {pais}",
+    "subtitulo": "Aprendes una limpieza facial profesional en nueve pasos, con su teoría y su práctica, y lo necesario para empezar tu negocio.",
+    "beneficios": [
+      "Limpiar tu piel siguiendo nueve pasos claros",
+      "Detalle teórico de una limpieza facial profesional",
+      "Ejecución práctica de una limpieza facial profesional",
+      "Habilidades aplicadas al cuidado de la piel",
+      "Manera sencilla de realizar el servicio completo",
+      "Lo necesario para comenzar tu propio negocio"
+    ],
+    "para_quien": [
+      "Quieres aprender limpieza facial para ofrecerla como servicio",
+      "Empiezas en estética facial y buscas un procedimiento claro",
+      "Ya trabajas en belleza y quieres sumar faciales",
+      "No es para ti si buscas un título o un tratamiento médico"
+    ],
+    "requisitos": [
+      "Conexión a internet desde tu {celular} o {computador}",
+      "Productos básicos de limpieza facial para practicar los pasos",
+      "Insumos de higiene habitual como algodón y toallas limpias",
+      "Espacio limpio e iluminado para ensayar la atención"
+    ],
+    "cuerpo": "El curso de limpieza facial online de MasterClasses.La enseña una limpieza facial profesional en nueve pasos, con su detalle teórico y práctico, y aborda lo necesario para comenzar un negocio propio. Lo dicta Maylin Sánchez, cosmetóloga y cosmiatra con su propio centro de estética. En cabina, una higiene profesional ordena la atención del rostro desde la preparación inicial hasta la protección final.\n\n## Qué es una limpieza facial profesional\n\nEs un servicio de cabina para higienizar la piel del rostro con más detalle que la rutina diaria en casa. En un curso de estética facial se entiende como el procedimiento de entrada para quien acude por primera vez al gabinete. En el oficio suele incluir desmaquillado, higiene superficial, exfoliación suave, preparación de los poros, retiro cuidadoso de impurezas superficiales, aplicación de mascarilla, hidratación y protección solar final. Seguir una secuencia ordenada evita saturar el tejido con productos innecesarios y permite evaluar cómo responde el rostro en cada etapa de la sesión.\n\n## Teoría y práctica del cuidado de la piel\n\nEl curso muestra tanto la teoría como la práctica de la limpieza facial profesional de manera sencilla. En este oficio la base teórica orienta tus manos: observar si una piel tiende a seca, mixta, grasa o sensible define qué texturas elegir y cuándo retirar cada producto. También te ayuda a regular la presión de los dedos en pómulos, frente y mentón para no irritar la zona. Al trabajar de tan cerca sobre el rostro de otra persona conviene usar {tapabocas} y lavarse bien las manos antes de tocar la piel.\n\n## Alcance estético y cuándo derivar\n\nEste curso de cuidado de la piel se centra en estética cosmética y no reemplaza la consulta con un médico dermatólogo, a quien corresponde acudir ante afecciones o lesiones cutáneas.\n\n## Empezar un negocio de faciales\n\nEl curso contempla lo necesario para iniciar tu propio negocio de atención facial. En el trabajo real, quien abre un espacio de estética organiza sus insumos por servicio, calcula sus costos por sesión, cuida la presentación de su camilla y suele combinar la higiene facial con otras prestaciones de rostro; por ejemplo, puedes revisar el [curso de pestañas volumen ruso](/{cc}/curso-de-pestanas-volumen-ruso/), el [curso de microblading](/{cc}/curso-de-microblading/) o el [curso de maquillaje](/{cc}/curso-de-maquillaje/).\n\n## Cómo prepararte para ensayar\n\nAntes de atender público, en el oficio se acostumbra llevar un registro escrito simple donde anotas cosméticos que usa la persona en casa y qué productos aplicaste en la sesión. Contar con una mesa auxiliar ordenada a tu lado facilita tomar cada envase sin perder el ritmo del servicio. Dejar los recipientes, espátulas limpias y toallas listos en una bandeja lateral te permite trabajar sin interrumpir el trato con tu modelo. También conviene verificar la temperatura del agua y tener un basurero con pedal cerca para desechar algodones usados al instante. Si después de este curso de limpieza facial quieres revisar otras especialidades del sector, explora nuestros [cursos de belleza online](/{cc}/cursos/belleza-online/).",
+    "faqs": [
+      {
+        "q": "¿Qué se aprende en este curso de limpieza facial?",
+        "a": "Aprendes a realizar una limpieza facial profesional en nueve pasos de manera detallada y sencilla, integrando la parte teórica y la parte práctica del cuidado de la piel. También revisas lo necesario para comenzar tu propio negocio, bajo la guía de la cosmetóloga Maylin Sánchez."
+      },
+      {
+        "q": "¿Qué estudiar para limpieza facial?",
+        "a": "Puedes tomar un curso específico de faciales que combine fundamentos de la piel y práctica paso a paso, como este de nueve pasos. Si en cambio buscas tratar afecciones dermatológicas, necesitas cursar la carrera universitaria de medicina y la especialidad en dermatología."
+      },
+      {
+        "q": "¿Dónde puedo estudiar estética profesional orientada al rostro?",
+        "a": "Puedes estudiarla de forma online desde tu {computador} o {celular} empezando por procedimientos puntuales, como este curso enfocado en la limpieza facial profesional. Quienes aprenden estética facial a distancia suelen adquirir sus propios insumos básicos y practicar cada etapa sobre modelos en casa antes de atender clientes."
+      },
+      {
+        "q": "¿Cómo se llaman las que hacen limpieza facial?",
+        "a": "Quienes realizan este servicio estético suelen llamarse esteticistas, facialistas o cosmetólogas, según el país donde trabajen. Algunas personas se dedican de forma exclusiva al cuidado cosmético del rostro en cabinas especializadas, mientras que otras integran este servicio en salones de belleza y centros de estética."
+      },
+      {
+        "q": "¿Qué materiales para limpieza facial se usan en cabina?",
+        "a": "En el oficio se trabaja sobre una camilla o sillón reclinable con buena luz, usando limpiadores según el biotipo cutáneo, exfoliantes cosméticos, mascarillas, lociones tónicas, crema final y protector solar. También se emplean desechables como guantes, algodones, esponjas suaves y banda para sujetar el cabello."
+      },
+      {
+        "q": "¿El curso de limpieza facial da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de limpieza facial es gratis o tiene mensualidades?",
+        "a": "No es gratis y tampoco cobra mensualidad: haces un pago único en Hotmart. El acceso llega a tu correo cuando se confirma la compra y no tiene fecha de vencimiento. Tienes 7 días de garantía para pedir en Hotmart la devolución total si el curso no te sirve."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de limpieza facial online: aprende los nueve pasos de una limpieza profesional con teoría, práctica y bases para tu negocio."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de limpieza facial online: aprende los nueve pasos profesionales con teoría, práctica y bases de negocio. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de limpieza facial: domina nueve pasos prácticos y teóricos del cuidado facial y empieza tu negocio. Incluye certificado y se paga en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de faciales y limpieza facial en nueve pasos, con detalle teórico, práctico y bases de negocio. Pagas en MXN y recibes certificado al terminar."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de estética facial centrado en limpieza profesional en nueve pasos, teoría, práctica y negocio propio. Se paga en EUR e incluye certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cuidado de la piel y limpieza facial en nueve pasos: teoría, práctica y cómo iniciar tu negocio. Pagas en USD y recibes certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de limpieza facial online: nueve pasos de higiene profesional con teoría, práctica y bases de negocio. Pagas en COP y recibes certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de skincare y limpieza facial en nueve pasos: detalle práctico, teórico y bases para tu negocio. Incluye certificado y el pago es en CLP."
+    }
+  }
+}

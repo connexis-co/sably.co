@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-pasteleria",
+  "estado": "listo",
+  "generado_con": "borrador del 25-nov revisado con gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto N61635687U «Pastelería Desde Cero Para Emprender Desde Casa» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Daniela Jaramillo (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de repostería online en {pais}",
+    "subtitulo": "Aprendes a preparar bizcochos, postres fríos y galletas con recetas prácticas explicadas paso a paso, y tienes una clase en vivo cada mes.",
+    "beneficios": [
+      "Hornear distintos tipos de bizcochos paso a paso",
+      "Preparar postres fríos con recetas prácticas",
+      "Hacer una variedad de galletas",
+      "Seguir recetas explicadas para repetirlas en casa enseguida",
+      "Asistir a una clase en vivo cada mes",
+      "Conocer las nuevas tendencias de pastelería"
+    ],
+    "para_quien": [
+      "Quieres aprender pastelería desde cero, en casa",
+      "Ya horneas y quieres sumar bizcochos, postres fríos y galletas",
+      "Prefieres clases 100 % prácticas, con cada receta paso a paso",
+      "No es para ti si buscas un título de gastronomía"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa",
+      "Horno, refrigerador y utensilios básicos de cocina",
+      "Ingredientes habituales para bizcochos, galletas y postres fríos",
+      "Conexión a internet con {computador} o {celular}"
+    ],
+    "cuerpo": "El curso de repostería online de MasterClasses.La enseña recetas prácticas para preparar postres desde casa, a cargo de la cocinera profesional Daniela Jaramillo. Las clases son 100 % prácticas y cada una se explica paso a paso para que puedas hacer la receta enseguida: distintos tipos de bizcochos, postres fríos, variedad de galletas y más recetas.\n\nAdemás del contenido grabado, tienes acceso a una clase en vivo cada mes para seguir aprendiendo sobre nuevas tendencias.\n\n## Pastelería y repostería\n\nEn el oficio, la pastelería se centra en masas horneadas y pasteles armados sobre bizcocho, mientras que la repostería abarca preparaciones dulces más variadas, como postres de cuchara y galletas. Este curso de pastelería reúne ambos frentes a través de clases de repostería aplicadas a preparaciones caseras de ejecución directa.\n\n## Bizcochos\n\nEl bizcocho es la base de muchos pasteles con relleno. El curso incluye distintos tipos. En el oficio, un bizcocho sale parejo cuando pesas los ingredientes, precalientas el horno antes de meter el molde y evitas abrir la puerta mientras sube la masa.\n\n## Postres fríos\n\nLos postres fríos se arman y se dejan reposar en el refrigerador. Las mezclas frías necesitan reposo para tomar cuerpo, así que conviene prepararlas con antelación y mantenerlas refrigeradas hasta el momento de servir. Si vas a trasladar un postre frío a una reunión, llévalo refrigerado y sácalo del refrigerador poco antes de partirlo.\n\n## Galletas\n\nLas clases incluyen también una variedad de galletas. Al hornear galletas pesan el grosor de la masa, el reposo en frío y el calor parejo del horno: una pequeña diferencia de grosor cambia la cocción, por lo que en cocina conviene hornear primero una bandeja pequeña de prueba. Al sacarlas, déjalas enfriar sobre una rejilla antes de guardarlas en un recipiente hermético para que conserven su textura.\n\n## Si piensas vender desde casa\n\nLas recetas se plantean para emprender desde casa y empezar a vender lo que horneas. Conseguir pedidos y sostener las ventas depende de tu trabajo diario, la regularidad en el acabado y la demanda de tu entorno. Si decides ofrecer alimentos hechos en tu cocina, conviene averiguar antes qué permisos sanitarios exige tu municipio.\n\n## Otras opciones\n\nSi prefieres preparaciones de autor, revisa el curso de [repostería fina y postres gourmet](/{cc}/curso-de-reposteria/). Para enfocarte en el acabado exterior, tienes el [curso de tortas decoradas](/{cc}/curso-de-tortas-decoradas-desde-cero/) y el [curso de cupcakes](/{cc}/curso-de-cupcakes/). Este es un curso libre online, distinto de una carrera universitaria con título oficial. Puedes ver el resto del área en [cursos de panadería y pastelería](/{cc}/cursos/panaderia-y-pasteleria/).",
+    "faqs": [
+      {
+        "q": "¿Qué carrera puedo estudiar si me gusta la repostería?",
+        "a": "Quienes buscan un título oficial suelen cursar gastronomía o pastelería técnica en un instituto. Si prefieres ir directo a la práctica sin cursar materias teóricas largas, un curso de repostería libre como este te enseña a preparar bizcochos, postres fríos y galletas paso a paso desde tu cocina."
+      },
+      {
+        "q": "¿Qué incluye un curso de pastelería?",
+        "a": "Incluye clases 100 % prácticas explicadas paso a paso por la cocinera profesional Daniela Jaramillo para elaborar distintos tipos de bizcochos, una variedad de galletas, postres fríos y más recetas pensadas para hacer en casa de inmediato, junto con una clase en vivo cada mes sobre nuevas tendencias."
+      },
+      {
+        "q": "¿Qué materiales necesito para empezar?",
+        "a": "Necesitas horno para los bizcochos y las galletas, espacio en el refrigerador para los postres fríos y utensilios básicos de cocina como tazones, moldes y espátulas, junto con los ingredientes de cada preparación. Los implementos exactos dependen de cada receta, así que puedes ir sumándolos a medida que practicas."
+      },
+      {
+        "q": "¿Dónde estudiar repostería virtual?",
+        "a": "Puedes estudiarla desde casa con este curso online de repostería, viendo las explicaciones paso a paso en tu {computador} o {celular} y participando en la clase mensual en vivo. Como nadie corrige tus manos en persona, conviene observar bien la textura de cada masa y repetir las preparaciones."
+      },
+      {
+        "q": "¿Sirve para vender postres desde casa?",
+        "a": "Sí, el enfoque del curso está pensado para quienes quieren preparar bizcochos, galletas y postres fríos en su propia cocina para emprender desde casa, usando recetas prácticas de ejecución directa. Eso sí, comercializar alimentos por tu cuenta depende de tu dedicación en la cocina y de cumplir la normativa sanitaria local."
+      },
+      {
+        "q": "¿El curso de repostería da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de repostería es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de repostería online: aprende a hacer bizcochos, postres fríos y galletas paso a paso desde cero, con una clase en vivo cada mes."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de repostería online desde cero: prepara bizcochos, postres fríos y galletas paso a paso. Incluye certificado y se paga en USD."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de pastelería online: aprende a hacer bizcochos, galletas y postres fríos con recetas paso a paso. Pagas en PEN y recibes certificado."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de repostería desde cero: haz bizcochos, postres fríos, galletas y asiste a una clase mensual en vivo. Pagas en MXN con certificado."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de pastelería desde cero: elabora bizcochos, variedad de galletas y postres fríos desde casa. Se paga en EUR e incluye certificado."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso online de repostería: recetas paso a paso de bizcochos, postres fríos y galletas con clase mensual. Pagas en USD y recibes certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de repostería online: prepara bizcochos, postres fríos y galletas con recetas prácticas paso a paso. Pagas en COP y recibes certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso online de pastelería: aprende bizcochos, postres fríos y galletas paso a paso con clase mensual. Incluye certificado y pago en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de repostería desde casa: prepara distintos bizcochos, galletas y postres fríos paso a paso. Se abona en ARS e incluye certificado."
+    }
+  }
+}

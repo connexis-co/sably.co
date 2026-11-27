@@ -1,0 +1,84 @@
+{
+  "slug": "curso-de-reparacion-de-computadoras",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto P38540888T «Ensamble de Computadores» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Sebastián Gamboa (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de reparación de computadoras online en {pais}",
+    "subtitulo": "Aprende a elegir piezas, armar un PC de escritorio desde cero, reemplazar componentes defectuosos y actualizar el hardware según el uso requerido.",
+    "beneficios": [
+      "Armar un PC de escritorio completo partiendo desde cero",
+      "Identificar la función de cada componente interno del equipo",
+      "Seleccionar piezas para ofimática, videojuegos, animación 3D o edición",
+      "Instalar los componentes físicos dentro del gabinete de mesa",
+      "Reemplazar partes defectuosas sin depender de terceros",
+      "Actualizar tu equipo de escritorio con hardware moderno"
+    ],
+    "para_quien": [
+      "Personas sin experiencia previa que quieren armar su propio PC",
+      "Usuarios que buscan actualizar o reparar su equipo de escritorio",
+      "Interesados en iniciar un servicio de ensamblaje de PC de mesa",
+      "No es para ti si buscas reparar laptops o microsoldadura electrónica"
+    ],
+    "requisitos": [
+      "No requiere experiencia previa en hardware ni ensamblaje",
+      "Piezas o un PC de escritorio si deseas practicar el armado",
+      "Destornilladores básicos para montar y desmontar componentes",
+      "Conexión a internet desde un {computador} o {celular}"
+    ],
+    "cuerpo": "El curso de reparación de {computador} online de MasterClasses.La, dictado por el ingeniero industrial Sebastián Gamboa, enseña a ensamblar, actualizar y sustituir piezas en equipos de escritorio. Aprenderás cómo funciona el hardware interno de una torre y cómo armarla desde cero aunque hoy no conozcas sus partes. El alcance se centra de forma exclusiva en PC de mesa: selección de componentes, instalación física y cambio de piezas dañadas.\n\n## Qué piezas lleva un PC de escritorio y cómo elegirlas\n\nAbrir un gabinete sin saber qué hace cada parte suele llevar a compras innecesarias o incompatibles. Al estudiar este curso de ensamble de {computador} revisas a fondo cada componente del equipo de mesa y entiendes qué función cumple dentro del sistema.\n\nCon esa base, aprendes a elegir el hardware ajustado a la tarea real que tendrá la máquina:\n\n- Tareas de multimedia y ofimática para casa o trabajo.\n- Equipos orientados a videojuegos.\n- Estaciones para diseño o animación 3D.\n- Configuraciones para edición de video o fotografía.\n\nEn el oficio, antes de comprar cualquier pieza conviene revisar que la placa base, el procesador y la memoria compartan el mismo estándar de conexión para evitar devoluciones.\n\n## Armado desde cero y cambio de partes dañadas\n\nUna vez definidas las piezas, pasas al montaje físico. Este curso de armado de PC muestra cómo instalar los componentes hasta dejar el equipo de escritorio ensamblado. Sebastián Gamboa aporta su experiencia en hardware y ensamblaje de torres personalizadas para explicar el proceso a quienes empiezan sin conocimientos previos.\n\nEl mismo criterio sirve cuando un equipo falla en casa o en la oficina. En lugar de cambiar toda la máquina, un curso de armado y reparación de PC a nivel de partes te permite identificar y reemplazar componentes defectuosos por tu cuenta. Al trabajar dentro del gabinete, un buen técnico en reparación de PC descarga siempre la electricidad estática de sus manos tocando una superficie metálica sin pintar antes de manipular las placas.\n\n## Actualización de equipos de mesa\n\nConocer la arquitectura de la torre también resuelve el mantenimiento de equipos de cómputo cuando se quedan cortos de rendimiento. Aprenderás a actualizar un PC de mesa en cualquier momento incorporando componentes más modernos según lo que exija tu trabajo. Así aprovechas la base que ya tienes en vez de pagar de más por equipos prearmados cerrados.\n\n## Otros oficios técnicos relacionados\n\nQuienes prestan servicios técnicos suelen complementar la reparación de PC con otras áreas. Si te interesa reparar equipos portátiles de bolsillo, revisa el [curso de reparación de {celular}](/{cc}/curso-de-reparacion-de-celulares/). Para instalaciones de red y vigilancia que suelen conectarse a un {computador}, tienes el [curso de instalación de cámaras de seguridad](/{cc}/curso-de-instalacion-de-camaras-de-seguridad/), y para comprender las tomas donde se enchufan las torres está el [curso de electricidad básica](/{cc}/curso-de-electricidad-residencial-certificado/). También puedes ver más opciones en la categoría de [cursos de oficios](/{cc}/cursos/oficios/).",
+    "faqs": [
+      {
+        "q": "¿Qué incluye este curso de reparación de PC?",
+        "a": "Se enfoca en el hardware de equipos de escritorio. Enseña a conocer cada componente interno, elegir piezas según el uso (ofimática, videojuegos, diseño 3D o edición de video), ensamblar la torre desde cero, reemplazar partes defectuosas y actualizar el {computador} con piezas modernas."
+      },
+      {
+        "q": "¿Qué hay que estudiar para arreglar un {computador} de escritorio?",
+        "a": "Para arreglar equipos de mesa a nivel de piezas necesitas conocer qué función cumple cada componente, cómo se instala en el gabinete y qué partes son compatibles entre sí. Con esa base puedes diagnosticar qué pieza falló, sustituirla por un repuesto funcional o ampliar la capacidad del equipo."
+      },
+      {
+        "q": "¿Cómo se llama el técnico que repara un {computador}?",
+        "a": "Habitualmente se le llama técnico de soporte o ensamblador de hardware. En el área de equipos de escritorio, este especialista trabaja revisando fallas físicas en el gabinete, verificando la compatibilidad entre tarjetas o memorias y armando torres personalizadas para hogares, estudios creativos u oficinas."
+      },
+      {
+        "q": "¿Se enseña a reparar laptops o solo PC de mesa?",
+        "a": "El contenido trata de forma exclusiva sobre PC de escritorio (equipos de mesa). Aprenderás a ensamblar torres desde cero, cambiar sus componentes defectuosos y actualizar piezas para distintos usos. No incluye desarme, cambio de pantallas ni reparación electrónica de placas en laptops o equipos portátiles."
+      },
+      {
+        "q": "¿Necesito experiencia previa para aprender armado y reparación de PC?",
+        "a": "No hace falta experiencia previa. Este curso de reparación de PC y ensamblaje parte desde cero para personas que usan un equipo de escritorio en casa o en el trabajo pero desconocen sus piezas internas. Conocerás cada componente antes de pasar a la instalación y al reemplazo de partes."
+      },
+      {
+        "q": "¿El curso de reparación de computadoras da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de reparación de computadoras es gratis o tiene mensualidades?",
+        "a": "No es gratis y tampoco cobra mensualidad: haces un pago único en Hotmart. El acceso llega a tu correo cuando se confirma la compra y no tiene fecha de vencimiento. Tienes 7 días de garantía para pedir en Hotmart la devolución total si el curso no te sirve."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de reparación de computadoras y ensamble de PC de escritorio: conoce sus piezas, arma equipos a medida, cambia partes dañadas y actualiza."
+    }
+  },
+  "paises": {
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de reparación de computadoras de mesa: arma un PC desde cero, reemplaza piezas dañadas y actualiza hardware. Pagas en CLP y recibes certificado."
+    }
+  }
+}
