@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {DEFAULT_SETTINGS,courseSlugFromPage,resolveWhatsApp,validateSettings,inSchedule,matchesPath,type WhatsAppContext} from '../src/plugins/sably-whatsapp/model';
-import {createPlugin} from '../src/plugins/sably-whatsapp/index';
+import {DEFAULT_SETTINGS,courseSlugFromPage,resolveWhatsApp,validateSettings,inSchedule,matchesPath,withDefaults,type WhatsAppContext} from '../src/plugins/sably-whatsapp/model';
+import {createPlugin,renderButton,CSS,SCRIPT} from '../src/plugins/sably-whatsapp/index';
 const context:WhatsAppContext={path:'/co/curso-de-barberia/',course:'curso-de-barberia',title:'Barbería',category:'belleza-online',country:'co',countryName:'Colombia',countryNumber:'573114574788',url:'https://dev.sably.co/co/curso-de-barberia/'};
 test('course, category and country rules must all match; priority controls winner',()=>{
  const settings=validateSettings({...DEFAULT_SETTINGS,rules:[{id:'co',label:'Equipo Colombia',enabled:true,priority:10,courses:[],categories:[],countries:['co'],paths:[],number:'573000000000',message:'{titulo} en {pais}',startsAt:'',endsAt:''},{id:'course',label:'Barbería',enabled:true,priority:20,courses:['curso-de-barberia'],categories:['belleza-online'],countries:['co'],paths:[],number:'573100000000',message:'',startsAt:'',endsAt:''}]});
@@ -54,4 +54,32 @@ test('course context supports arbitrary slugs and does not mistake categories or
  assert.equal(courseSlugFromPage({url:'https://dev.sably.co/co/cursos/curso-belleza/',pageType:'category',content:{collection:'categories',slug:'curso-belleza'}}),'');
  assert.equal(courseSlugFromPage({url:'https://dev.sably.co/blog/curso-recomendado/',pageType:'article',content:{collection:'blog',slug:'curso-recomendado'}}),'');
  assert.equal(courseSlugFromPage({url:'https://dev.sably.co/co/bad%2Fslug/',pageType:'course'}),'');
+});
+test('floating bubble: scroll reveal, waves and label are configurable and old saved settings keep working',()=>{
+ const {reveal:_r,revealAfter:_a,tooltip:_t,...antiguo}=DEFAULT_SETTINGS;
+ const migrado=validateSettings(antiguo);
+ assert.equal(migrado.reveal,true);assert.equal(migrado.revealAfter,400);assert.equal(migrado.tooltip,'¿Dudas? Escríbenos');
+ assert.deepEqual(withDefaults({enabled:false}),{...DEFAULT_SETTINGS,enabled:false});
+ assert.equal(validateSettings({...DEFAULT_SETTINGS,reveal:false,revealAfter:0,tooltip:''}).tooltip,'');
+ for(const extra of [{revealAfter:-1},{revealAfter:5000},{revealAfter:1.5},{reveal:'si'},{tooltip:'x'.repeat(41)}])assert.throws(()=>validateSettings({...DEFAULT_SETTINGS,...extra}));
+});
+test('bubble never shows on sign-in or the account area',()=>{
+ for(const path of ['/ingresar/','/ingresar/correo/','/mi-cuenta/','/mi-cuenta/borrar/'])assert.equal(resolveWhatsApp(DEFAULT_SETTINGS,{...context,path}),null,path);
+ assert.ok(resolveWhatsApp(DEFAULT_SETTINGS,{...context,path:'/co/'}));
+});
+test('bubble markup: hidden until scroll, two waves, accessible link, flotante origin and escaped label',()=>{
+ const resolved=resolveWhatsApp(DEFAULT_SETTINGS,context)!;
+ const html=renderButton({...DEFAULT_SETTINGS,tooltip:'<b>¿Dudas?</b>'},resolved);
+ assert.match(html,/<div id="sably-whatsapp"[^>]*data-al-bajar[^>]*data-oculta[^>]*data-ondas/);
+ assert.match(html,/data-umbral="400"/);
+ assert.equal(html.match(/class="sw-onda"/g)?.length,2);
+ assert.match(html,/<a class="sw-a" href="https:\/\/wa\.me\/573114574788\?text=[^"]+" target="_blank" rel="noopener nofollow" aria-label="Escríbenos por WhatsApp" data-whatsapp-origen="flotante">/);
+ assert.doesNotMatch(html,/<b>/);
+ assert.match(html,/style="[^"]*right:20px"/);
+ const quieto=renderButton({...DEFAULT_SETTINGS,reveal:false,animate:false,tooltip:'',position:'left'},resolved).split('</style>')[1]!;
+ assert.doesNotMatch(quieto,/data-oculta|data-ondas|sw-onda"|sw-aviso/);
+ assert.match(quieto,/data-lado="left"[^>]*style="[^"]*left:20px"/);
+ assert.match(CSS,/prefers-reduced-motion:reduce\)\{\.sw-onda\{display:none\}/);
+ assert.match(CSS,/translate:0 calc\(-1 \* var\(--fijo-inferior,0px\)\)/);
+ assert.match(SCRIPT,/event:'click_whatsapp'[^}]*whatsapp_origen:'flotante'/);
 });
