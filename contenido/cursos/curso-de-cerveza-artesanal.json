@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-cerveza-artesanal",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto G57439951T «Cervecería Artesanal Casera» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Nicolás Lozano Escorcia (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de cerveza artesanal online en {pais}",
+    "subtitulo": "Aprende a distinguir los tipos Lager y Ale, seleccionar materias primas, controlar la fermentación y la maduración, elegir equipos y preparar cerveza en casa.",
+    "beneficios": [
+      "Distingues los tipos de cerveza Lager y Ale",
+      "Seleccionas las materias primas necesarias para cocinar tu lote",
+      "Ejecutas el paso a paso completo de cocción casera",
+      "Evalúas equipos según el espacio disponible y tu presupuesto",
+      "Comparas la producción casera, de microcervecería e industrial",
+      "Calculas los costos de producción y trabajas tu marca"
+    ],
+    "para_quien": [
+      "Personas sin experiencia previa que quieren elaborar cerveza en casa",
+      "Aficionados que desean diferenciar las familias Lager y Ale",
+      "Quienes planean emprender y necesitan calcular costos y definir equipos",
+      "No es para ti si buscas montar una planta industrial desde cero"
+    ],
+    "requisitos": [
+      "No requieres experiencia previa en cervecería",
+      "Espacio en tu cocina e insumos básicos cuando decidas cocinar",
+      "Ollas y utensilios domésticos o equipos adaptados a tu presupuesto",
+      "Conexión a internet desde tu {celular} o {computador}"
+    ],
+    "cuerpo": "El curso de cerveza artesanal online de MasterClasses.La enseña desde cero cómo preparar cerveza en casa, desde la elección de los ingredientes hasta el cálculo de costos. Está dictado por Nicolás Lozano Escorcia, ingeniero químico con grado de honor de la Universidad de América y experiencia en producción y control de calidad dentro del sector cervecero.\n\n## Tipos de cerveza artesanal y materias primas\n\nAntes de encender el fuego, revisas las dos grandes familias cerveceras que existen, Lager y Ale, junto con las materias primas necesarias para elaborar tu propia bebida. Entender qué aporta cada insumo te ayuda a preparar el lote con criterio desde la primera vez que cocinas en casa. En el oficio cervecero conviene revisar la frescura de los ingredientes y la calidad del agua antes de iniciar el proceso, porque determinan el perfil de aroma y sabor que obtendrás en el vaso.\n\n## Cómo se hace la cerveza artesanal paso a paso\n\nEste curso de elaboración de cerveza artesanal muestra el paso a paso completo para producir en tu cocina, prestando atención al proceso general, la fermentación y la maduración. Seguir el orden de cada etapa te permite cuidar la transformación de los ingredientes hasta llegar al producto terminado para compartir con tu familia o amigos. Limpiar y sanitizar bien cada recipiente que toca el líquido frío evita contaminaciones que arruinan el sabor de la tanda. Si buscas acompañar tus botellas con platos salados, puedes revisar el [curso de comidas rápidas](/{cc}/curso-de-comidas-rapidas/) o ampliar tu base culinaria en el [curso de cocina](/{cc}/curso-de-cocina/).\n\n## Equipos y escalas de producción\n\nNo hace falta comprar maquinaria costosa el primer día. En este curso para hacer cerveza artesanal conoces las herramientas del proceso cervecero y revisas múltiples alternativas de inversión tecnológica, de modo que escojas lo que se ajuste a lo que ya tienes en casa y a tu presupuesto.\n\nAdemás, observas un contraste directo entre tres niveles de trabajo: elaboración casera, microcervecería y cervecería industrial. Comparar estas escalas te deja claro qué debes hacer y qué errores evitar si más adelante decides llevar tu proyecto casero a un volumen mayor.\n\n## Costos, marca y comercialización\n\nPara quienes proyectan un emprendimiento hecho en casa, el curso de cervecería aborda también la gestión comercial alrededor de la bebida:\n\n- Identificación de todos los costos que intervienen al producir tu cerveza artesanal para que no se te escape ninguno.\n- Consejos prácticos enfocados en el desarrollo de tu propia marca.\n- Bases de marketing aplicadas a la industria cervecera para dar a conocer tu propuesta.\n\nSi después quieres trabajar canales digitales para mover tu marca, puedes complementar con el [curso de ventas por WhatsApp y redes](/{cc}/curso-de-ventas-por-whatsapp-y-redes/) o el [curso de marketing digital](/{cc}/curso-de-marketing-digital/).\n\nLlevar tus cuentas claras desde las primeras pruebas te ayuda a saber cuánto cuesta realmente cada tanda hecha en tu cocina. También puedes explorar otros oficios gastronómicos dentro de los [cursos de gastronomía](/{cc}/cursos/gastronomia/) disponibles en Sably.",
+    "faqs": [
+      {
+        "q": "¿Qué se necesita para elaborar cerveza artesanal?",
+        "a": "Requieres las materias primas cerveceras básicas y recipientes aptos para cocinar, fermentar y madurar la bebida en tu cocina. En el curso conoces cuáles son esos ingredientes indispensables y qué función cumple cada etapa del proceso antes de preparar tu primera tanda casera."
+      },
+      {
+        "q": "¿Hace falta experiencia previa para tomar el curso de cerveza artesanal?",
+        "a": "No necesitas experiencia previa. El ingeniero químico Nicolás Lozano Escorcia explica todo desde cero para quienes nunca han cocinado cerveza, combinando su recorrido en producción y control de calidad cervecera con una guía paso a paso pensada para trabajar desde casa."
+      },
+      {
+        "q": "¿Qué tipos de cerveza se estudian en este curso para hacer cerveza?",
+        "a": "Conoces acerca de los diferentes tipos de cerveza que existen a partir de sus dos grandes grupos: Lager y Ale. Distinguir ambas familias te da el contexto necesario para entender la cerveza tradicional antes de pasar a la preparación casera."
+      },
+      {
+        "q": "¿Debo comprar un kit para hacer cerveza artesanal antes de empezar?",
+        "a": "Conviene esperar a ver la parte de equipos antes de hacer compras. El curso muestra varias alternativas de inversión tecnológica para que adaptes el proceso a los utensilios que ya tienes en casa y elijas opciones acordes con tu presupuesto."
+      },
+      {
+        "q": "¿Cómo hacer cerveza casera pensando en un emprendimiento?",
+        "a": "Además de cuidar la receta, debes ordenar los números y la identidad comercial desde el inicio. En el curso revisas todos los costos de elaboración, consejos para crear tu marca, marketing del sector y las diferencias frente a microcervecerías y plantas industriales."
+      },
+      {
+        "q": "¿El curso de cerveza artesanal da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de cerveza artesanal es gratis o tiene mensualidades?",
+        "a": "No es gratis y tampoco cobra mensualidad: haces un pago único en Hotmart. El acceso llega a tu correo cuando se confirma la compra y no tiene fecha de vencimiento. Tienes 7 días de garantía para pedir en Hotmart la devolución total si el curso no te sirve."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de cerveza artesanal para elaborarla en casa desde cero, distinguir tipos Lager y Ale, elegir equipos y calcular todos tus costos."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cerveza artesanal online: tipos Lager y Ale, preparación en casa, equipos y cálculo de costos. Se paga en USD e incluye certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso para hacer cerveza artesanal desde cero: materias primas, fermentación, equipos y costos de producción. Pagas en PEN y recibes certificado."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de elaboración de cerveza artesanal en casa: estilos Lager y Ale, maduración y cálculo de costos. Incluye certificado y se paga en MXN."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de cervecería casera: conoce los tipos Lager y Ale, materias primas, fermentación, equipos y costos. Pago en EUR con certificado incluido."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cerveza artesanal desde cero: cocción en casa, fermentación, elección de equipos y costos por lote. Pagas en USD y obtienes certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso para hacer cerveza en casa: estilos Lager y Ale, materias primas, maduración y costos del lote. Se paga en COP y entrega certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cerveza en casa desde cero: tipos Lager y Ale, fermentación, selección de equipos y costos. Pagas en CLP e incluye certificado."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de cerveza artesanal casera: materias primas, cocción paso a paso, equipos según presupuesto y costos. Pago en ARS con certificado incluido."
+    }
+  }
+}

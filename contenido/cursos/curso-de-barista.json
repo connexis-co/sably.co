@@ -1,0 +1,146 @@
+{
+  "slug": "curso-de-barista",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto S42525676Y «Curso Barista Training Online» (CURSOSDECOCINA INC), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de barista online en {pais}",
+    "subtitulo": "Aprende a diferenciar granos, controlar temperaturas de extracción, preparar métodos de filtrado, texturizar espuma de leche y elaborar bebidas a base de café.",
+    "beneficios": [
+      "Diferencia los distintos tipos de grano de café",
+      "Reconoce cuándo una bebida está bien elaborada",
+      "Aplica técnicas de filtrado y extracción en taza",
+      "Controla las temperaturas adecuadas durante la preparación",
+      "Texturiza la espuma de leche para diversas recetas",
+      "Prepara mezclas y bebidas de fantasía con café"
+    ],
+    "para_quien": [
+      "Aficionados que quieren iniciarse como baristas amateur en casa",
+      "Personas interesadas en abrir su propia cafetería desde cero",
+      "Trabajadores gastronómicos que buscan mejorar sus preparaciones con café",
+      "No es para ti si buscas tueste industrial o catación profesional"
+    ],
+    "requisitos": [
+      "Granos de café y leche para ensayar las preparaciones",
+      "Cafetera o utensilios de filtrado disponibles en casa",
+      "Termómetro o jarra para practicar la espuma de leche",
+      "Conexión a internet desde un {computador} o {celular}"
+    ],
+    "cuerpo": "El curso de barista online enseña las técnicas de extracción, el filtrado, el control de temperaturas y la texturización de leche para preparar bebidas a base de café. Está pensado tanto para quien empieza como amateur en su cocina como para quien proyecta abrir su propia cafetería.\n\n## Reconocimiento del grano y evaluación en taza\n\nAntes de encender la cafetera o calentar el agua, el oficio exige entender la materia prima y su historia. En este curso de café aprendes a diferenciar las variedades y los distintos tipos de grano disponibles hoy en día, además de reconocer las cualidades de un buen producto. También desarrollas el criterio sensorial para darte cuenta de cuándo una bebida fue elaborada de forma correcta y cuándo falló algún paso en la preparación.\n\nEn la práctica diaria conviene moler el grano justo antes de preparar la infusión, porque el café molido pierde compuestos aromáticos con rapidez al entrar en contacto con el aire.\n\n## Extracción, filtrado y manejo de temperaturas\n\nUna buena taza depende de cómo se relacionan el agua y el café molido. A lo largo de este curso de barismo trabajas los aspectos técnicos que definen el sabor final de cada bebida:\n\n- Métodos de filtrado y técnicas de extracción.\n- Manejo y control de las temperaturas durante la preparación.\n- Elaboración de mezclas equilibradas a base de café.\n\nEn el oficio, precalentar las tazas y la jarra servidora de café filtrado con agua caliente evita choques térmicos que enfrían la bebida antes de tiempo. Elegir el tipo de taza adecuado para cada café también ayuda a conservar mejor la crema y el calor en la mesa.\n\n## Texturización de leche y bebidas de fantasía\n\nMuchas preparaciones habituales en una barra combinan el café con lácteos y otros ingredientes. Durante las clases de barista practicas la texturización de espuma de leche para integrarla de manera suave y uniforme en tus recetas. Además, aprendes a elaborar múltiples bebidas de fantasía pensadas para ampliar tu repertorio frente a familiares, invitados o clientes.\n\nSi te atrae el servicio de bebidas más allá de las infusiones calientes, puedes complementar lo aprendido con un [curso de coctelería](/{cc}/curso-de-bartending-y-cocteleria-profesional/) o revisar este [curso de bartender](/{cc}/curso-de-bartender/) para sumar tragos clásicos y de autor a tu carta.\n\n## Del uso doméstico al proyecto de cafetería\n\nTomar un curso de barista te entrega las herramientas iniciales para preparar mejor café todos los días en la comodidad de tu casa o dar los primeros pasos técnicos hacia un emprendimiento gastronómico. Si tu idea es abrir una cafetería y atraer público a tu local, te servirá apoyarte en un [curso de marketing digital](/{cc}/curso-de-marketing-digital/). También puedes explorar otros [cursos de hospitalidad](/{cc}/cursos/hospitalidad/) orientados a la atención al cliente y al servicio de alimentos y bebidas.",
+    "faqs": [
+      {
+        "q": "¿Qué es un barista y qué aprende en este curso?",
+        "a": "Un barista es la persona dedicada a preparar bebidas a base de café cuidando cada detalle del proceso. En este curso de barista aprendes a diferenciar tipos de grano, manejar temperaturas, aplicar técnicas de extracción y filtrado, texturizar espuma de leche y elaborar distintas mezclas y bebidas de fantasía."
+      },
+      {
+        "q": "¿Qué tan difícil es ser barista empezando como amateur?",
+        "a": "Dominar la preparación lleva práctica constante con el grano, el agua y la leche, pero cualquier persona puede iniciarse como amateur desde su propia casa. El curso enseña las bases técnicas para reconocer cuándo un café quedó bien elaborado y seguir mejorando tus preparaciones en cada taza."
+      },
+      {
+        "q": "¿Qué hay que hacer para ser barista y preparar buen café?",
+        "a": "Hace falta entrenar el paladar para evaluar cada bebida y adquirir hábitos ordenados en el área de trabajo. En el oficio conviene usar agua limpia sin olores extraños, almacenar el grano lejos de la humedad y limpiar los utensilios después de cada preparación para no arrastrar sabores rancios."
+      },
+      {
+        "q": "¿Qué tipos de bebidas con leche y café se trabajan?",
+        "a": "Trabajas la texturización de espuma de leche, la creación de mezclas y la preparación de bebidas de fantasía elaboradas a base de café. Estas técnicas de barismo te sirven para variar las recetas cotidianas en casa o armar una propuesta variada de tazas calientes y combinaciones especiales."
+      },
+      {
+        "q": "¿Sirve para abrir una cafetería o solo para uso personal?",
+        "a": "Sirve para ambos objetivos. El contenido está planteado tanto para quien busca preparar mejores bebidas en casa y compartir ese conocimiento con sus cercanos como para quien quiere adquirir las herramientas de preparación necesarias antes de emprender en el sector gastronómico con su propia cafetería."
+      },
+      {
+        "q": "¿El curso de barista da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de barista es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de barista online para diferenciar granos, controlar la extracción y el filtrado, texturizar espuma de leche y preparar bebidas de café."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barista online: aprende extracción, filtrado, tipos de grano y texturización de espuma de leche desde tu casa con pago disponible en USD."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barista para diferenciar granos, controlar temperaturas, filtrar café y texturizar espuma de leche. Estudia online desde casa y paga en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barismo online: practica filtrado, extracción, mezclas y bebidas con espuma de leche desde la comodidad de tu casa abonando en moneda MXN."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de barista desde casa sobre selección de grano, extracción, temperaturas y bebidas de fantasía con leche. Inscripción online con pago en EUR."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de café y barismo online: aprende a reconocer granos, extraer, filtrar y texturizar espuma de leche para tus recetas abonando tu acceso en USD."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barista online con técnicas de extracción, filtrado, manejo de temperaturas y espuma de leche. Aprende desde tu casa con pago local en COP."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barismo para reconocer granos de café, controlar la extracción y preparar espuma de leche y mezclas desde tu casa con pago directo en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de barista online: aprende filtrado, extracción, control de temperaturas y bebidas con espuma de leche desde casa abonando tu acceso en ARS."
+    }
+  }
+}

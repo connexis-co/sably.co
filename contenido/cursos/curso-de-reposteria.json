@@ -1,0 +1,85 @@
+{
+  "slug": "curso-de-reposteria",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto Y60359420X «Pastelería y Repostería como Negocio» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Yom Fredy Perdomo (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "variantes": false,
+  "base": {
+    "h1": "Curso de postres online en {pais}",
+    "subtitulo": "Hornea ponqués y pasteles desde cero, prepara cremas y rellenos, aplica tintes en la decoración y maneja batidoras y hornos.",
+    "beneficios": [
+      "Elaborar ponqués y tortas desde cero",
+      "Preparar cremas y rellenos propios para pasteles",
+      "Usar tintes de forma adecuada al decorar tortas",
+      "Decorar torta tres leches, macarrones y trufas de chocolate",
+      "Manejar hornos y batidoras con criterio industrial",
+      "Cocinar recetas de postres conocidos en el mundo"
+    ],
+    "para_quien": [
+      "Personas sin experiencia previa que quieren hornear y decorar pasteles",
+      "Quienes cocinan en casa y buscan manejar equipos de forma industrial",
+      "Emprendedores gastronómicos interesados en preparar sus propias masas y rellenos",
+      "No es para ti si buscas clases presenciales o panadería salada"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa, pues enseña desde cero",
+      "Horno, batidora y utensilios básicos para pesar, mezclar y decorar",
+      "Ingredientes de pastelería como harinas, huevos, grasas, chocolates y tintes",
+      "Conexión a internet desde tu {celular} o {computador}"
+    ],
+    "cuerpo": "El curso de postres online de MasterClasses.La enseña a hornear y decorar tortas, ponqués y pasteles desde cero, junto al pastelero Yom Fredy Perdomo. Vas a preparar tus propias masas, batir cremas y rellenos, aplicar colorantes y decorar piezas concretas como trufas, macarrones y torta tres leches, además de conocer el manejo industrial de equipos.\n\n## Masas, cremas y rellenos desde cero\n\nPartir de cero permite entender qué aporta cada ingrediente a la miga y a la humedad final. Elaboras ponqués y tortas base, además de las cremas y los rellenos que los acompañan, sin depender de premezclas comerciales. En el oficio conviene pesar todos los insumos con balanza antes de encender la batidora, porque medir con tazas o a ojo altera la textura de las preparaciones entre una tanda y otra. También resulta prudente llevar los ingredientes refrigerados a una temperatura pareja para que las grasas y los líquidos emulsionen bien durante el batido.\n\nSi buscas ampliar tu repertorio general de bases dulces, revisa también este [curso de repostería desde cero](/{cc}/curso-de-pasteleria/).\n\n## Recetas de postres y decoración con tintes\n\nUna parte central del trabajo consiste en dar acabado visual a piezas clásicas. Durante este curso de postres trabajas preparaciones conocidas a nivel mundial y prácticas específicas de presentación:\n\n- Decoración de tortas tres leches.\n- Decoración de macarrones.\n- Decoración de trufas de chocolate.\n- Uso adecuado de los tintes para decorar tortas.\n\nEn el taller diario conviene añadir el colorante poco a poco y dejar reposar la mezcla unos minutos, ya que varios tonos suben de intensidad tras integrarse. Quienes quieran profundizar solo en el trabajo del cacao pueden mirar el [curso de chocolatería](/{cc}/curso-de-chocolateria/), mientras que para cubiertas elásticas existe el [curso de fondant](/{cc}/curso-de-fondant/).\n\n## Manejo industrial de hornos y batidoras\n\nPasar de hacer una torta casera a producir varias tandas seguidas exige cuidar las máquinas y estandarizar cada horneada. Yom Fredy Perdomo explica la manipulación de batidoras y hornos de manera industrial, así como la técnica de horneado pensada para ese ritmo de producción. Conocer bien la respuesta del equipo ayuda a no forzar el motor con masas densas, aprovechar el espacio de las bandejas y evitar que se abra la puerta del horno antes de que la estructura interna del ponqué coagule.\n\n## Alcance frente a otras especialidades dulces\n\nLa propuesta reúne bases de horno, rellenos hechos en cocina y acabados concretos que suelen buscarse en una clase de postres pensada para emprender. El trabajo se concentra en hornear y decorar tortas, ponqués, pasteles y recetas dulces reconocidas, junto con la operación industrial de batidora y horno. Puedes comparar esta opción con otros [cursos de panadería y pastelería](/{cc}/cursos/panaderia-y-pasteleria/) disponibles según el tipo de producto que quieras sacar adelante en tu taller.",
+    "faqs": [
+      {
+        "q": "¿Dónde estudiar un curso de postres online?",
+        "a": "Puedes estudiarlo de forma virtual desde tu propia cocina con la guía del pastelero Yom Fredy Perdomo. Solo necesitas conexión a internet en tu {celular} o {computador}, junto con horno, batidora e ingredientes comunes de cocina para practicar a tu ritmo el horneado y la decoración de pasteles."
+      },
+      {
+        "q": "¿Hay alguna clase de postres virtual para aprender desde cero?",
+        "a": "Sí, este curso online parte desde cero para que aprendas a elaborar masas de ponqués y tortas, batir cremas y rellenos propios, y aplicar técnica de horneado industrial. Además trabajas recetas dulces conocidas a nivel mundial, el manejo correcto de tintes y la decoración de pasteles y bocados."
+      },
+      {
+        "q": "¿Qué diferencia hay entre pastelería y repostería?",
+        "a": "En el oficio suele llamarse pastelería al trabajo técnico de masas horneadas, tortas estructuradas y cremas base, mientras que la repostería abarca dulces tradicionales, confites y bocados pequeños. En la práctica diaria ambos campos se cruzan al combinar ponqués, rellenos batidos y piezas decoradas."
+      },
+      {
+        "q": "¿Qué es la repostería francesa?",
+        "a": "Se conoce así a la tradición dulce originada en Francia que codificó técnicas precisas de merengues, cremas emulsionadas, pastas de almendra y chocolatería. Un ejemplo clásico son los macarrones, cuya decoración forma parte de las preparaciones que aprendes a presentar durante el curso."
+      },
+      {
+        "q": "¿Qué se puede estudiar si te gusta hacer postres?",
+        "a": "Conviene empezar por las bases técnicas: batido de ponqués y tortas, preparación de cremas y rellenos desde cero, uso de tintes y control del horno. Dominar esos fundamentos te permite luego especializarte en ramas concretas como chocolatería artesanal, cubiertas laminadas, galletas decoradas o panadería."
+      },
+      {
+        "q": "¿El curso de postres da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de postres es gratis o tiene mensualidades?",
+        "a": "No es gratis y tampoco cobra mensualidad: haces un pago único en Hotmart. El acceso llega a tu correo cuando se confirma la compra y no tiene fecha de vencimiento. Tienes 7 días de garantía para pedir en Hotmart la devolución total si el curso no te sirve."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de postres online para hornear tortas y ponqués desde cero, batir cremas y decorar torta tres leches, macarrones y trufas de chocolate."
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de postres online para hornear tortas y ponqués desde cero, batir cremas y decorar torta tres leches, macarrones y trufas de chocolate."
+    }
+  }
+}

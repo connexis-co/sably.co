@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-energia-solar",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto M76021437N «Kits Solares como Negocio» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: José Olinder Saldarriaga Cano (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso de paneles solares online en {pais}",
+    "subtitulo": "Diseña, instala, supervisa y da mantenimiento preventivo y correctivo a sistemas de energía solar fotovoltaica aislados de la red eléctrica.",
+    "beneficios": [
+      "Diseñar sistemas solares fotovoltaicos aislados de la red eléctrica",
+      "Instalar kits solares según especificaciones técnicas del cliente",
+      "Supervisar el funcionamiento de instalaciones fotovoltaicas autónomas",
+      "Planear cada etapa del montaje de energía fotovoltaica",
+      "Establecer los recursos necesarios antes de ejecutar la obra",
+      "Realizar mantenimiento preventivo y correctivo en sistemas aislados"
+    ],
+    "para_quien": [
+      "Personas que quieren montar proyectos propios de energía solar aislada",
+      "Técnicos interesados en ofrecer mantenimiento a instalaciones solares autónomas",
+      "Perfiles que buscan trabajar en el área comercial del sector solar",
+      "No es para ti si buscas sistemas conectados a la red eléctrica"
+    ],
+    "requisitos": [
+      "Conexión a internet estable en tu {computador} o {celular}",
+      "Herramientas manuales de electricista e instrumento de medición eléctrica",
+      "Componentes de un kit solar aislado si decides practicar el montaje",
+      "Disposición para revisar fichas técnicas de equipos eléctricos"
+    ],
+    "cuerpo": "El curso de paneles solares online de MasterClasses.La enseña a diseñar, instalar y supervisar sistemas solares fotovoltaicos aislados de la red eléctrica. Quien imparte las clases es José Olinder Saldarriaga Cano, empresario industrial dedicado a las redes eléctricas y a la fabricación de equipos eléctricos y electrónicos. Todo el contenido se centra en instalaciones autónomas, conocidas en el oficio como sistemas fuera de red, pensadas para lugares sin suministro público o proyectos independientes.\n\n## Diseño y recursos en sistemas fotovoltaicos aislados\n\nAntes de subir a una cubierta o fijar un soporte, un proyecto autónomo exige cálculo y orden. En este curso de instalación de paneles solares aprendes a revisar las especificaciones técnicas y los requerimientos del cliente para definir qué recursos necesita la obra. En el oficio conviene levantar primero el consumo real de los aparatos que van a conectarse y las condiciones del sitio de montaje, porque un mal cálculo inicial compromete la autonomía del banco de energía.\n\nA partir de esos datos trabajas tres frentes técnicos:\n\n- Selección de recursos materiales y técnicos ajustados al requerimiento de cada instalación.\n- Planeación ordenada de las etapas del montaje fotovoltaico antes de intervenir el lugar.\n- Puesta en marcha de un proyecto propio de energía solar fotovoltaica aislado de la red.\n\nSi necesitas reforzar bases de cableado, tableros y empalmes antes de entrar en generación autónoma, puedes revisar el [curso de electricidad básica](/{cc}/curso-de-electricidad-residencial-certificado/) o profundizar en instalaciones generales con el [curso de electricidad](/{cc}/curso-de-electricista/).\n\n## Cómo instalar paneles solares fuera de la red\n\nDurante la ejecución en obra importa respetar el orden de conexión de los equipos para proteger los componentes electrónicos del kit solar. Este curso para instalar paneles solares abarca la supervisión del funcionamiento una vez armado el conjunto, verificando que la generación y la entrega de energía respondan a lo proyectado. En campo siempre conviene trabajar con guantes dieléctricos, calzado aislante y desconectar las protecciones antes de manipular terminales bajo carga.\n\nQuienes arman sus propias estructuras metálicas de soporte para cubiertas o suelo suelen complementar este oficio con un [curso de soldadura](/{cc}/curso-de-soldadura/).\n\n## Mantenimiento preventivo y correctivo de kits aislados\n\nUna instalación autónoma requiere revisiones periódicas para sostener su rendimiento con el paso de los años. Este curso de energía solar fotovoltaica cubre tanto el mantenimiento preventivo como el correctivo sobre instalaciones eléctricas alimentadas con kits aislados. En la práctica diaria del técnico en energía solar, limpiar la suciedad acumulada en la superficie captadora, revisar el apriete de bornes y comprobar el estado del cableado a la intemperie evita caídas de tensión y fallas prematuras.\n\n## Área comercial y servicios independientes\n\nAdemás del trabajo operativo en obra, el curso de paneles solares contempla los criterios técnicos necesarios para desempeñarte en el área comercial de empresas del sector o plantear servicios independientes de montaje y asistencia técnica. Si quieres comparar este oficio con otras especialidades técnicas manuales, explora más [cursos de oficios](/{cc}/cursos/oficios/).",
+    "faqs": [
+      {
+        "q": "¿Dónde estudiar para instalar paneles solares?",
+        "a": "Puedes estudiar online desde casa en este curso de paneles solares dictado por José Olinder Saldarriaga Cano. Al ser virtual, revisas los conceptos de sistemas fotovoltaicos autónomos en tu {computador} o {celular} a tu propio ritmo, preparando tus criterios eléctricos antes de intervenir equipos reales en una cubierta o terreno."
+      },
+      {
+        "q": "¿Qué hay que estudiar para ser instalador de placas solares?",
+        "a": "En un curso de instalador de paneles solares enfocado en sistemas autónomos conviene aprender a interpretar las especificaciones técnicas de cada equipo y calcular los recursos que exige la obra. También resulta muy útil contar con bases de electricidad general para comprender mejor las protecciones, los calibres de conductores y las conexiones seguras."
+      },
+      {
+        "q": "¿Dónde puedo encontrar un curso de paneles solares?",
+        "a": "MasterClasses.La ofrece este curso de paneles solares dedicado de forma exclusiva a kits eléctricos autónomos fuera de la red pública. Está pensado tanto para quien quiere montar una instalación solar propia en un sitio sin suministro como para quien busca ofrecer servicios técnicos independientes en su localidad."
+      },
+      {
+        "q": "¿Cómo trabajar en las placas solares?",
+        "a": "Dentro del rubro de la energía solar aislada existen salidas operativas y comerciales. Por un lado puedes dedicarte al trabajo de campo montando kits o atendiendo fallas eléctricas mediante revisiones periódicas; por otro, puedes integrarte al área de ventas de empresas del sector asesorando a clientes según sus consumos."
+      },
+      {
+        "q": "¿Este curso incluye sistemas conectados a la red eléctrica?",
+        "a": "No, el curso enseña únicamente sistemas solares fotovoltaicos aislados de la red eléctrica. Todo lo que aprendes sobre diseño, planeación de recursos, supervisión y mantenimiento se aplica a instalaciones autónomas que generan su propia energía en lugares sin suministro, sin cubrir medidores bidireccionales ni trámites ante compañías distribuidoras."
+      },
+      {
+        "q": "¿El curso de paneles solares da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de paneles solares es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de paneles solares online para diseñar, instalar, supervisar y dar mantenimiento a sistemas fotovoltaicos aislados de la red eléctrica."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de paneles solares online: aprende a diseñar, instalar y mantener sistemas fotovoltaicos aislados de la red. Pagas en USD y recibes certificado."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de instalación de paneles solares aislados: diseño, planeación de obra y mantenimiento eléctrico. Incluye certificado y se paga en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de paneles solares fuera de la red: aprende diseño, montaje, supervisión y mantenimiento de kits. Pagas en MXN y obtienes certificado."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de instalador de paneles solares aislados: planeación, recursos técnicos, montaje y mantenimiento. Incluye certificado con pago en EUR."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso para instalar paneles solares aislados de la red: diseño, montaje y mantenimiento preventivo y correctivo. Pago en USD con certificado."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de paneles solares autónomos: diseña, planea e instala sistemas fotovoltaicos fuera de la red. Pagas en COP y recibes tu certificado."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de energía solar fotovoltaica aislada: aprende diseño, puesta en marcha y mantenimiento de kits. Se paga en CLP e incluye certificado."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de instalación de paneles solares fuera de red: recursos, montaje y mantenimiento eléctrico. Obtienes certificado y abonas en ARS."
+    }
+  }
+}

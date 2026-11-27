@@ -1,0 +1,85 @@
+{
+  "slug": "curso-de-portugues",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto C61562578C «Portugués Para Principiantes» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: «Accederás al certificado avalado por Hotmart y Seminarios Online.» (página de Hotmart)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Alexander Pelissoni (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "variantes": false,
+  "base": {
+    "h1": "Curso de portugués online en {pais}",
+    "subtitulo": "Aprende la fonética del abecedario, el acento portugués, vocabulario de rutina diaria, saludos, verbos y la estructura para hacer preguntas y presentarte con claridad.",
+    "beneficios": [
+      "Dominar las formas correctas para saludar y despedirte",
+      "Reconocer la fonética del abecedario y manejar el acento",
+      "Identificar los días de la semana, meses, números y colores",
+      "Construir preguntas con la estructura adecuada en conversaciones iniciales",
+      "Hacer tu presentación personal y describir tu rutina diaria",
+      "Usar vocabulario de familia, verbos y comidas típicas de Brasil"
+    ],
+    "para_quien": [
+      "Hablantes de español que buscan iniciarse en el idioma desde nivel principiante",
+      "Personas que necesitan saludar, presentarse y hacer preguntas básicas en portugués",
+      "Viajeros o interesados en conocer vocabulario cotidiano y comidas típicas de Brasil",
+      "No es para ti si buscas preparación avanzada o redacción académica especializada"
+    ],
+    "requisitos": [
+      "Hablar español para aprovechar la cercanía entre ambas lenguas romances",
+      "Cuaderno y bolígrafo para anotar vocabulario, verbos y estructuras de preguntas",
+      "Audífonos recomendables para escuchar con precisión la fonética y el acento",
+      "Conexión a internet estable desde un {computador} o un {celular}"
+    ],
+    "cuerpo": "El curso de portugués online de MasterClasses.La enseña las palabras, las expresiones cotidianas y la pronunciación de este idioma a quienes parten como principiantes. Está dictado por Alexander Pelissoni, licenciado en portugués, nativo de São Paulo y docente universitario con máster en enseñanza de lengua extranjera. A lo largo del estudio trabajas desde el sonido de las letras hasta las frases necesarias para desenvolverte en situaciones habituales.\n\n## Fonética del abecedario y manejo del acento\n\nHablar español facilita el primer acercamiento al idioma, pero también suele llevar a pronunciar las palabras igual que en castellano. En la enseñanza de lenguas romances conviene entrenar el oído antes de memorizar listas largas, prestando atención a las vocales nasales y a las sílabas abiertas propias del habla brasileña. Por eso el curso trabaja la fonética del abecedario y el manejo del acento portugués como base para articular cada expresión con claridad.\n\nSi te interesan otras lenguas de la misma familia lingüística, puedes revisar también el [curso de francés](/{cc}/curso-de-frances/).\n\n## Saludos, presentación personal y estructura de preguntas\n\nPara sostener un primer diálogo necesitas abrir y cerrar la conversación con naturalidad. Al estudiar portugués en este nivel inicial aprendes las formas adecuadas de saludar y despedirte, junto con las pautas para armar tu presentación personal. Además, revisas la estructura gramatical necesaria para formular preguntas de manera comprensible sin calcar el orden del español.\n\n## Vocabulario cotidiano y comidas típicas de Brasil\n\nEl repertorio léxico abarca los elementos que aparecen todos los días al hablar con nativos o viajar. Quienes eligen aprender portugués online incorporan en estas lecciones términos agrupados en áreas concretas:\n\n- Números y colores para identificar objetos, cantidades y referencias básicas.\n- Días de la semana y meses del año para ubicar fechas y actividades.\n- Vocabulario sobre los integrantes de la familia.\n- Comidas más típicas de Brasil para reconocer platos de su gastronomía.\n\nQuienes complementan su perfil con un segundo idioma para el trabajo o los viajes suelen consultar también el [curso de inglés](/{cc}/curso-de-ingles/).\n\n## Verbos y descripción de la rutina diaria\n\nNombrar objetos no basta si no puedes expresar acciones. Este curso online de portugués incluye el vocabulario de los diferentes tipos de verbos para que logres describir tu rutina diaria de principio a fin. Al practicar la conjugación hablada en casa, resulta útil leer tus propias actividades cotidianas en voz alta para ganar soltura con el ritmo de las frases.\n\nSi en cambio buscas explorar alfabetos y estructuras gramaticales fuera de las lenguas latinas, tienes opciones como el [curso de japonés](/{cc}/curso-de-japones/). Con un curso de portugués enfocado en nivel principiante sientas las bases de vocabulario, oído y conversación cotidiana; puedes ver más alternativas en la categoría de [cursos de idiomas](/{cc}/cursos/idiomas/).",
+    "faqs": [
+      {
+        "q": "¿Dónde aprender portugués en línea?",
+        "a": "Puedes hacerlo con este curso online de MasterClasses.La conectándote a internet desde tu {computador} o tu {celular}. El profesor Alexander Pelissoni guía a hablantes de español en sus primeros pasos con el idioma para que reconozcan los sonidos del portugués y formen oraciones cotidianas sencillas."
+      },
+      {
+        "q": "¿Qué nivel enseña este curso de portugués?",
+        "a": "Está dirigido a principiantes que hablan español y desean aprovechar la cercanía entre ambas lenguas de alfabeto latino. Cubre los fundamentos para desenvolverte en intercambios cotidianos iniciales, desde articular bien los sonidos y el acento hasta armar frases sencillas sobre ti y tu entorno, sin abordar gramática avanzada."
+      },
+      {
+        "q": "¿Cómo se escribe aprender en portugués?",
+        "a": "Se escribe exactamente igual que en español: aprender. Esta coincidencia gráfica es habitual entre ambas lenguas de alfabeto latino, aunque el sonido final varía. Al estudiar el idioma conviene escuchar cómo pronuncia un nativo la erre final y las vocales antes de guiarse solo por la escritura."
+      },
+      {
+        "q": "¿Cómo se dice «estoy aprendiendo a hablar portugués»?",
+        "a": "En la variante de Brasil se dice «estou aprendendo a falar português», mientras que en Portugal suele usarse «estou a aprender a falar português». En la escritura lleva acento circunflejo sobre la última vocal de «português», un signo propio del idioma que indica timbre cerrado al pronunciar la sílaba tónica."
+      },
+      {
+        "q": "¿Cómo aprender portugués más rápido?",
+        "a": "Conviene aprovechar la cercanía con el español llevando un registro aparte de los falsos amigos, esas palabras que suenan parecido pero significan otra cosa en cada lengua. También ayuda incorporar el vocabulario de números, fechas y objetos en notas breves cotidianas en lugar de memorizar palabras sueltas."
+      },
+      {
+        "q": "¿El curso de portugués da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización avalado por Hotmart y por Seminarios Online (MasterClasses.La). Puedes mostrarlo a quien te contrate o a tus clientes para respaldar que hiciste la formación. No es un título oficial ni una certificación profesional."
+      },
+      {
+        "q": "¿El curso de portugués es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización, avalado por Hotmart y por Seminarios Online (MasterClasses.La). Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de portugués para principiantes: aprende fonética, saludos, presentación personal, preguntas, verbos, rutina diaria y comidas de Brasil."
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de portugués para principiantes: aprende fonética, saludos, presentación personal, preguntas, verbos, rutina diaria y comidas de Brasil."
+    }
+  }
+}

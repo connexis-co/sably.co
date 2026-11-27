@@ -1,0 +1,147 @@
+{
+  "slug": "curso-de-dj",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto C42523159O «DJ Urbano (Rap, Trap y Hip Hop)» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Dario Rebusque (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": false,
+  "base": {
+    "h1": "Curso dj online en {pais}",
+    "subtitulo": "Aprende a armar instrumentales de rap, trap y hip hop desde cero, diseñar baterías por estilo, aplicar texturas y manejar un software de creación de beats.",
+    "beneficios": [
+      "Maneja un software de edición de sonido para crear beats",
+      "Domina conceptos básicos de música y lenguaje de producción musical",
+      "Analiza canciones exitosas para replicar su estructura en tus pistas",
+      "Diseña baterías y elige sonidos para trap, hardcore y moderno",
+      "Observa el proceso creativo completo para terminar un instrumental",
+      "Aplica ambientes y texturas para dar contraste a tus pistas"
+    ],
+    "para_quien": [
+      "Artistas urbanos que buscan armar sus propios instrumentales sin comprar licencias",
+      "Principiantes interesados en producir pistas de rap, trap y hip hop",
+      "Músicos que desean darle un sello propio a sus bases rítmicas",
+      "No es para ti si buscas mezclar en vivo con controladora o tornamesas"
+    ],
+    "requisitos": [
+      "No necesitas experiencia previa porque enseña a armar pistas desde cero",
+      "Un {computador} capaz de ejecutar un software de edición de sonido",
+      "Audífonos o monitores de audio para distinguir texturas y baterías",
+      "Conexión a internet para ver las lecciones desde {computador} o {celular}"
+    ],
+    "cuerpo": "El curso de DJ online de MasterClasses.La, dictado por el beatmaker Dario Rebusque, enseña en realidad a crear instrumentales urbanos de rap, trap y hip hop desde cero. En lugar de mezclar pistas ajenas en fiestas, trabajas en la producción de tus propios beats para no depender de licencias externas costosas que impiden hacer modificaciones a tu gusto o conllevan el riesgo de que otro artista adquiera y utilice esa misma base.\n\n## Manejo del software y lenguaje musical\n\nEmpiezas por operar un software de edición de sonido enfocado en la creación de beats. A la par, revisas el vocabulario técnico y los conceptos básicos de la música aplicada a la producción para comunicarte con soltura en el entorno del estudio. Si más adelante quieres tocar tus propias líneas armónicas o grabar voces sobre tus bases, puedes complementar con un [curso de piano](/{cc}/curso-de-piano/) o un [curso de canto](/{cc}/curso-de-canto/).\n\n## Diseño de baterías para hip hop, trap y hardcore\n\nCada subgénero urbano exige timbres y golpes distintos para que la rítmica tenga el peso adecuado. En la producción de beats seleccionas los sonidos correspondientes y diseñas patrones de batería según la rama del hip hop que busques trabajar:\n\n- Trap\n- Hardcore\n- Hip hop moderno\n\nEn el oficio del beatmaking conviene elegir sonidos de bombo y caja que no compitan en el mismo rango antes de sumar melodías, porque una mala elección de muestras no se corrige saturando el canal.\n\n## Análisis de estructura y texturas sonoras\n\nPara que una pista funcione con un cantante encima, necesitas orden y espacio. Analizas canciones que han sido éxitos comerciales para entender cómo organizan sus secciones e implementas esa misma lógica estructural dentro de tus propios instrumentales. También aplicas diferentes ambientes y texturas a los beats con el fin de contextualizarlos, generar un contraste claro entre estrofas y estribillos y diferenciar tu sonido frente a otros beatmakers. Para sumar cuerdas acústicas o eléctricas a tus pistas tienes además el [curso de guitarra](/{cc}/curso-de-guitarra/).\n\n## De la idea en blanco al instrumental terminado\n\nUno de los bloqueos habituales al empezar como curso para DJ principiante orientado a la producción es quedarse atascado en un bucle corto sin saber cómo cerrarlo. Por eso observas el proceso creativo de Dario Rebusque dentro de la industria, viendo de principio a fin cómo arranca una idea en blanco y toma decisiones técnicas y musicales hasta terminar el instrumental por completo. En la producción urbana conviene descansar el oído unos minutos antes de dar por cerrada una pista, ya que la repetición continua acostumbra al cerebro y oculta choques de volumen entre la batería y los ambientes.\n\nSi quieres formarte en otros instrumentos, están los demás [cursos de música](/{cc}/cursos/musica/).",
+    "faqs": [
+      {
+        "q": "¿Qué se aprende en este curso de DJ?",
+        "a": "Aprendes producción de instrumentales urbanos de rap, trap y hip hop desde cero junto a Dario Rebusque. Trabajas el manejo de un software de creación de beats, conceptos musicales básicos, análisis estructural de canciones, selección de sonidos de batería por subgénero y aplicación de ambientes y texturas."
+      },
+      {
+        "q": "¿Qué necesito para comenzar a ser DJ y crear mis propios beats?",
+        "a": "Necesitas un {computador} donde instalar el software de edición de sonido para armar los beats, además de audífonos o altavoces que te permitan escuchar con claridad los graves y las baterías. Para reproducir el contenido solo requieres conexión a internet en tu {computador} o {celular}."
+      },
+      {
+        "q": "¿Qué estilos de música urbana se trabajan en las pistas?",
+        "a": "Te centras en el hip hop y sus distintas vertientes, seleccionando sonidos y armando baterías específicas para trap, hardcore y estilo moderno. Cada variante requiere timbres propios, por lo que aprendes a elegir las muestras adecuadas para que el instrumental encaje con el género que busca el vocalista."
+      },
+      {
+        "q": "¿Cómo se logra que un beat suene distinto al de otros creadores?",
+        "a": "Aplicas diferentes ambientes y texturas sobre la base rítmica para contextualizar la idea musical y darle contraste a cada sección. Además, analizas éxitos reales para tomar prestada su arquitectura comercial mientras imprimes tu propio gusto en la elección de baterías y arreglos."
+      },
+      {
+        "q": "¿Hace falta saber teoría musical antes de empezar?",
+        "a": "No hace falta tener conocimientos previos. Comienzas desde cero viendo los conceptos básicos de la música y el vocabulario propio de la producción musical. En el oficio ayuda entrenar el oído escuchando canciones de referencia para identificar cuándo entran y salen las baterías y los arreglos."
+      },
+      {
+        "q": "¿El curso dj da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso dj es gratis o tiene mensualidades?",
+        "a": "Es de pago único en Hotmart, sin mensualidades ni cobros posteriores. Al confirmarse el pago recibes el acceso por correo y el curso queda en tu cuenta sin fecha de vencimiento. Si en los primeros 7 días ves que no es lo que buscabas, pides allí el reembolso completo."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de DJ enfocado en crear beats de rap, trap y hip hop desde cero: software de sonido, diseño de baterías, estructura y texturas."
+    }
+  },
+  "paises": {
+    "us": {
+      "pais": "Estados Unidos",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de DJ enfocado en crear beats de rap, trap y hip hop desde cero, diseñar baterías y aplicar texturas sonoras. Pago disponible en USD."
+    },
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de DJ online para armar instrumentales de hip hop y trap desde cero con software de creación de beats y baterías. Se abona en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso para DJ principiante centrado en producir beats urbanos desde cero, diseñar baterías por estilo y estructurar pistas. Pagas en MXN."
+    },
+    "es": {
+      "pais": "España",
+      "vocabulario": {
+        "computador": "ordenador",
+        "tapabocas": "mascarilla",
+        "celular": "móvil"
+      },
+      "meta_description": "Curso de DJ orientado a producir instrumentales de rap, trap y hip hop desde cero, diseñar baterías y sumar ambientes. Pago fácil en EUR."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de DJ online donde aprendes a crear beats urbanos desde cero, elegir sonidos de batería y dar textura a tus pistas. Se paga en USD."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de DJ centrado en armar instrumentales de rap y trap desde cero, manejar software de beats y diseñar baterías. Pago directo en COP."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso para DJ principiante enfocado en crear beats de hip hop y trap desde cero, armar baterías y estructurar temas. Disponible en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de DJ para producir instrumentales de rap, trap y hip hop desde cero, diseñar baterías y aplicar texturas. Abonas el acceso en ARS."
+    }
+  }
+}

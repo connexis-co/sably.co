@@ -1,0 +1,129 @@
+{
+  "slug": "curso-de-estetica-canina",
+  "estado": "listo",
+  "generado_con": "borrador del 25-nov revisado con gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto V42089784L «Estética Canina» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Josué Rodrigo Torres Sánchez (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": true,
+  "base": {
+    "h1": "Curso de peluquería canina online en {pais}",
+    "subtitulo": "Aprende a elegir herramientas, bañar, cepillar, cortar uñas, aplicar técnicas de secado y planear el corte de pelo de los perros con criterio.",
+    "beneficios": [
+      "Conoce las herramientas de trabajo y su manejo correcto",
+      "Baña a tu mascota adecuadamente desde el inicio",
+      "Cepilla el pelaje del perro de forma ordenada",
+      "Corta las uñas del animal con el instrumental apropiado",
+      "Seca el pelaje del perro aplicando distintas técnicas",
+      "Planea cómo harás el corte de pelo canino"
+    ],
+    "para_quien": [
+      "Dueños que quieren arreglar y bañar a su perro en casa",
+      "Personas que buscan estudiar peluquería canina para dedicarse al oficio",
+      "Aficionados interesados en preparar perros para competencias de belleza canina",
+      "No es para ti si buscas medicina veterinaria o peluquería felina"
+    ],
+    "requisitos": [
+      "Un perro tranquilo para practicar el baño, cepillado y arreglo",
+      "Cepillos, cortaúñas canino, champú para perros, toallas y secador",
+      "Tijeras o máquina de corte si deseas practicar el arreglo",
+      "Conexión a internet desde un {computador} o un {celular}"
+    ],
+    "cuerpo": "El curso de peluquería canina online de MasterClasses.La enseña a manejar las herramientas del oficio, bañar al perro de manera adecuada, cepillarlo, cortarle las uñas, secar su manto y planificar el corte. Las lecciones están a cargo de Josué Rodrigo Torres Sánchez, estilista canino con experiencia en concursos de grooming en México.\n\n## Uso correcto de las herramientas en la estética canina\n\nAntes de abrir la llave del agua o encender una máquina, necesitas conocer cada instrumento de la mesa de trabajo y cómo sujetarlo. Un peine, una carda o un cortaúñas mal empleados lastiman al animal o estropean el manto. En este curso de estética canina revisas para qué sirve cada pieza del equipo y cómo manipularla con seguridad.\n\nEn el oficio conviene desenredar los nudos en seco antes de mojar al perro, porque el agua aprieta el pelo apelmazado y dificulta retirarlo con el cepillo.\n\n## Baño, cepillado y técnicas de secado\n\nUn baño mal hecho deja humedad atrapada o restos de jabón sobre el cuerpo del animal. El curso de peluquería canina muestra cómo lavar al perro paso a paso, cómo pasar el cepillo según el trabajo que estés haciendo y cómo aplicar distintas técnicas de secado para dejar el pelo listo antes de pasar a la tijera. Si encuentras heridas, bultos o problemas en la piel o los oídos, debes acudir a un médico veterinario, ya que este curso no reemplaza su atención.\n\nQuienes trabajan rodeados de animales también suelen formarse en comportamiento para manejar mejor la mesa; para eso puedes revisar el [curso de adiestramiento canino en positivo](/{cc}/curso-de-adiestramiento-canino-en-positivo/) o complementar tu preparación con el [curso de primeros auxilios para mascotas](/{cc}/curso-de-primeros-auxilios-para-mascotas/).\n\n## Corte de uñas y planeación del corte de pelo\n\nAdemás de la higiene, aprendes a recortar las uñas y a planear cómo harás el corte sobre el ejemplar. En este curso de grooming para perros entiendes el orden del arreglo completo: preparar el manto, dejarlo limpio y seco, y trazar el diseño antes de cortar, una base que sirve tanto para el arreglo cotidiano de una mascota como para pensar a futuro en competencias de belleza canina.\n\nEn la mesa de trabajo ayuda sujetar la pata siguiendo la postura natural de la articulación, sin torcerla hacia los lados mientras usas el cortaúñas.\n\n- Identificación y manejo de las herramientas básicas de arreglo.\n- Rutina completa de lavado, cepillado y secado con distintas técnicas.\n- Recorte de uñas y planificación previa del corte de pelo.\n\nSi quieres comparar otra opción del mismo oficio, revisa el [curso de peluquería canina profesional](/{cc}/curso-de-peluqueria-canina-profesional/). También puedes ver todos los [cursos de cuidado animal](/{cc}/cursos/cuidado-animal/) disponibles.",
+    "faqs": [
+      {
+        "q": "¿Dónde puedo estudiar estética canina?",
+        "a": "Puedes tomar este curso de peluquería canina online desde casa con un {computador} o un {celular} conectado a internet. Está a cargo de Josué Rodrigo Torres Sánchez, estilista canino con premios en concursos de grooming en México, quien muestra su forma real de trabajar."
+      },
+      {
+        "q": "¿Qué se aprende en este curso de peluquería canina?",
+        "a": "Cubres todo el proceso de preparación del ejemplar en la mesa, desde reconocer el instrumental y cuidar la higiene hasta dejar el manto listo para definir su estilo. Revisas en qué momento interviene cada herramienta antes de trazar las líneas del arreglo final."
+      },
+      {
+        "q": "¿Qué hay que estudiar para ser peluquero canino?",
+        "a": "En la mayoría de países no se exige un título universitario oficial para ejercer, sino oficio práctico sobre la mesa. Este curso de grooming aborda la preparación previa del ejemplar y cómo planificar la silueta del arreglo antes de trabajar sobre el pelaje."
+      },
+      {
+        "q": "¿Qué se necesita para montar una estética canina?",
+        "a": "El curso se centra en la parte técnica del arreglo; para tus prácticas basta un punto de agua, mesa firme, champú canino, toallas, secador, cepillos y cortaúñas. Si planeas abrir un local al público, deberás consultar aparte las licencias municipales y sanitarias exigidas donde vives."
+      },
+      {
+        "q": "¿Sirve para arreglar a mi propio perro en casa?",
+        "a": "Sí, el contenido sirve tanto para dueños que quieren atender a su propia mascota como para quienes buscan trabajar con ejemplares de terceros. Conocer el uso correcto de cada herramienta te permite mantener a tu perro limpio y arreglado en casa sin improvisar."
+      },
+      {
+        "q": "¿El curso de peluquería canina da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de peluquería canina es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de peluquería canina online para usar herramientas, bañar, cepillar, cortar uñas, secar con distintas técnicas y planear el corte de pelo."
+    }
+  },
+  "paises": {
+    "pe": {
+      "pais": "Perú",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de peluquería canina online: aprende uso de herramientas, baño, cepillado, corte de uñas, secado y planeación del corte. Pagas en PEN."
+    },
+    "mx": {
+      "pais": "México",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "cubrebocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de estética canina online sobre manejo de herramientas, baño, cepillado, uñas, técnicas de secado y diseño del corte. Se paga en MXN."
+    },
+    "ec": {
+      "pais": "Ecuador",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de peluquería canina: maneja herramientas, baña, cepilla, corta uñas, seca el manto y planea el corte del perro. Pago disponible en USD."
+    },
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de grooming para perros: aprende herramientas, baño adecuado, cepillado, corte de uñas, secado y planeación de corte. Se abona en COP."
+    },
+    "cl": {
+      "pais": "Chile",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "mascarilla",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de peluquería canina online para aprender baño, cepillado, corte de uñas, técnicas de secado y planeación del corte. Pago local en CLP."
+    },
+    "ar": {
+      "pais": "Argentina",
+      "vocabulario": {
+        "computador": "computadora",
+        "tapabocas": "barbijo",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de estética canina: aprende a elegir herramientas, bañar, cepillar, cortar uñas, secar el pelo y planear el corte. Abonas en moneda ARS."
+    }
+  }
+}

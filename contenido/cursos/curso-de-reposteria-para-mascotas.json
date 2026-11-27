@@ -1,0 +1,85 @@
+{
+  "slug": "curso-de-reposteria-para-mascotas",
+  "estado": "listo",
+  "generado_con": "gemini-4-carbon",
+  "fuentes": [
+    "Hotmart, checkout público del producto L39108716M «Pasteleria Canina y Felina» (MasterClasses.La Seminarios.Online Mauricio Duque Zuluaga), leído el 2026-11-26: descripción literal, warrantyDays = 7, tipo NORMAL",
+    "Certificado: la página de Hotmart no lo menciona; se apoya en la confirmación del propietario del sitio (25-nov)",
+    "Acceso sin fecha de vencimiento: confirmación del propietario del sitio (25-nov)",
+    "Docente: Diana Fonseca (equipo/2026-11-26/ficha-datos/docentes-carga.json)",
+    "Palabras clave: clusteres.csv, canibalizacion-decisiones.csv y faq-nuevas.csv del 25-nov"
+  ],
+  "sensible": true,
+  "variantes": false,
+  "base": {
+    "h1": "Curso de pastelería canina y felina online en {pais}",
+    "subtitulo": "Aprende a seleccionar ingredientes caseros, leer etiquetas de concentrados y preparar snacks frescos y recetas de pastelería artesanal para perros y gatos sin aditivos ni conservantes.",
+    "beneficios": [
+      "Seleccionar ingredientes caseros para preparar snacks para perros y gatos",
+      "Preparar bocados frescos y poco procesados sin conservantes ni aditivos",
+      "Desarrollar recetas de pastelería canina y felina revisadas en proporciones",
+      "Identificar las propiedades de los ingredientes empleados en cada receta",
+      "Leer etiquetas de concentrados comerciales y detectar componentes poco recomendables",
+      "Comprender cómo funciona la industria de la alimentación para animales"
+    ],
+    "para_quien": [
+      "Dueños de perros y gatos que prefieren cocinarles premios naturales",
+      "Personas enfocadas en mejorar la alimentación diaria de sus animales",
+      "Quienes quieren interpretar con criterio las etiquetas de alimentos comerciales",
+      "No es para ti si buscas repostería de consumo humano"
+    ],
+    "requisitos": [
+      "Ingredientes frescos de uso doméstico aptos para perros y gatos",
+      "Utensilios básicos de cocina para pesar, mezclar y hornear",
+      "Espacio limpio en casa para elaborar y conservar las preparaciones",
+      "Conexión a internet desde un {computador} o un {celular}"
+    ],
+    "cuerpo": "El curso de pastelería canina y felina online de MasterClasses.La, dictado por Diana Fonseca, enseña a elaborar preparaciones caseras para perros y gatos pensando en lo que requieren sus organismos. Trabajas con alimentos habituales de tu despensa para dejar de lado los premios industriales y mejorar su comida cotidiana.\n\n## Ingredientes caseros y preparaciones poco procesadas\n\nLa base de este curso de repostería para mascotas está en sustituir los bocados ultraprocesados por elaboraciones frescas libres de conservantes y aditivos. Diana Fonseca, bionutricionista dedicada a la alimentación natural de animales de compañía, explica qué ingredientes domésticos sirven para cocinar bocados apetecibles que los alimentan al mismo tiempo y qué aporta cada uno dentro de la preparación.\n\nEn el oficio conviene pesar cada ingrediente con báscula de cocina y lavar moldes o espátulas por separado de los utensilios donde se hayan usado endulzantes o coberturas de uso humano. Si tu interés va por las tortas y postres para personas, te corresponde el [curso de repostería desde cero](/{cc}/curso-de-pasteleria/) y no esta cocina formulada para animales.\n\n## Cómo hacer pasteles para perros y snacks felinos\n\nEn este curso de repostería canina y felina desarrollas recetas cuyas proporciones fueron revisadas y aprobadas por un veterinario especialista en nutrición, además de haber sido probadas en el mercado real. En la práctica de la pastelería canina y gatuna no basta con mezclar alimentos permitidos: hay que respetar el equilibrio de cada fórmula según el organismo de la especie a la que va dirigida.\n\nAl no llevar conservantes sintéticos, los premios caseros tienen una vida útil corta comparada con un paquete comercial. En cocina artesanal se suelen dividir en raciones pequeñas apenas se enfrían y guardarse en envases herméticos rotulados con la fecha de elaboración.\n\n## Alimentación diaria de perros y gatos\n\nMás allá del premio ocasional, revisas criterios para mejorar la alimentación diaria de ambas especies. Los bocados caseros se integran como parte de esa rutina sin desplazar sus comidas principales, algo útil cuando entregas premios pequeños durante sesiones prácticas como las que se trabajan en un [curso de adiestramiento canino en positivo](/{cc}/curso-de-adiestramiento-canino-en-positivo/).\n\n## Lectura de etiquetas e industria de alimentos concentrados\n\nAdemás de cocinar, en este curso de pastelería canina y felina estudias cómo funciona por dentro la industria de la alimentación comercial para mascotas. Aprendes a revisar con lupa las etiquetas de los concentrados comerciales:\n\n- Identificar ingredientes poco recomendables presentes en varias marcas.\n- Distinguir un producto altamente procesado de una opción más natural.\n- Elegir con criterio qué compras para el plato diario de tus animales.\n\nAnte cualquier patología diagnosticada, alergia o cambio de dieta en animales con condiciones previas, debes acudir siempre a un médico veterinario, ya que este curso no reemplaza su consulta clínica. Si quieres sumar criterios de atención ante imprevistos cotidianos, revisa el [curso de primeros auxilios para mascotas](/{cc}/curso-de-primeros-auxilios-para-mascotas/) o explora otros oficios dentro de los [cursos para mascotas](/{cc}/cursos/cuidado-animal/).",
+    "faqs": [
+      {
+        "q": "¿El curso de pastelería canina y felina sirve si solo tengo perro o solo gato?",
+        "a": "Sí, puedes aprovecharlo aunque convivas con una sola especie en casa. El curso aborda preparaciones, selección de ingredientes caseros y criterios de alimentación diaria para perros y gatos, de modo que aplicas las recetas y pautas que correspondan al animal que tengas bajo tu cuidado."
+      },
+      {
+        "q": "¿Hace falta tener horno industrial o comprar insumos especiales de pastelería?",
+        "a": "No necesitas maquinaria comercial ni insumos difíciles de hallar en tiendas especializadas. Partes de ingredientes habituales que ya guardas en la alacena o el refrigerador de tu cocina. Para trabajar con orden en casa alcanza con tener recipientes limpios, moldes sencillos y utensilios domésticos."
+      },
+      {
+        "q": "¿Solo se cocinan premios ocasionales o también se ve la comida de todos los días?",
+        "a": "Abordas ambos frentes, porque los premios no están desligados de lo que comen a diario. Además de cocinar bocados caseros poco procesados, adquieres criterios para revisar qué concentrado comercial eliges y cómo mejorar la pauta alimentaria cotidiana de tus animales en el hogar."
+      },
+      {
+        "q": "¿Se usan conservantes o aditivos en las preparaciones?",
+        "a": "No se emplean conservantes ni aditivos en las preparaciones que trabajas en el curso. El enfoque parte de alejarse de los snacks comerciales altamente procesados mediante elaboraciones frescas, naturales y poco procesadas, hechas con ingredientes caseros que les gustan y los alimentan al mismo tiempo."
+      },
+      {
+        "q": "¿Cómo funciona la industria de alimentos para mascotas y qué mirar al comprar?",
+        "a": "Gran parte de la oferta industrial recurre a fórmulas muy procesadas con aditivos y conservantes. En este curso conoces qué hay detrás de la industria de alimentos para mascotas y aprendes a leer las etiquetas de los concentrados para identificar ingredientes poco recomendables al comprar."
+      },
+      {
+        "q": "¿El curso de pastelería canina y felina da certificado?",
+        "a": "Sí. Al terminar recibes un certificado digital de finalización que acredita que completaste la formación. Puedes mostrarlo a quien te contrate o a tus clientes. No es un título oficial ni una certificación profesional, así que no reemplaza lo que la ley pida para ejercer."
+      },
+      {
+        "q": "¿El curso de pastelería canina y felina es gratis o tiene mensualidades?",
+        "a": "Se compra una sola vez en Hotmart, con pago único y sin cuotas mensuales de suscripción. Recibes el acceso por correo al confirmarse el pago y conservas el curso sin fecha de vencimiento. Durante 7 días puedes solicitar en Hotmart el reembolso del 100 %."
+      }
+    ],
+    "certificado": "Al completar el curso recibes un certificado digital de finalización. Acredita que lo terminaste; no es un título oficial.",
+    "garantia": "Tienes 7 días de garantía en Hotmart: si el curso no te convence, pides allí el reembolso del 100 %.",
+    "curso": {
+      "short_description": "Curso de pastelería canina y felina para preparar snacks naturales, recetas caseras sin aditivos y leer etiquetas de concentrados."
+    }
+  },
+  "paises": {
+    "co": {
+      "pais": "Colombia",
+      "vocabulario": {
+        "computador": "computador",
+        "tapabocas": "tapabocas",
+        "celular": "celular"
+      },
+      "meta_description": "Curso de pastelería canina y felina para preparar snacks naturales, recetas caseras sin aditivos y leer etiquetas de concentrados."
+    }
+  }
+}
