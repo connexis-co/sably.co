@@ -49,7 +49,11 @@ export type NombreFoto =
   | 'foto-curso-macrame'
   | 'foto-curso-mecanica-motos'
   | 'foto-curso-mecanica-bicicletas'
-  | 'foto-curso-desayunos-sorpresa';
+  | 'foto-curso-desayunos-sorpresa'
+  | 'foto-marca-caro-1'
+  | 'foto-estudiar-portatil-1'
+  | 'foto-estudiar-portatil-2'
+  | 'foto-estudiar-celular-3';
 
 /** `tarjeta: 'derecha'`: el protagonista está a la izquierda; un texto encima (oficio destacado) va a la derecha. */
 interface Foto { ancho: number; alto: number; alt: string; tarjeta?: 'derecha' }
@@ -122,6 +126,10 @@ export const FOTOS: Record<NombreFoto, Foto> = {
   'foto-curso-macrame': { ancho: 480, alto: 321, alt: 'Manos anudan un nudo plano con cuerda de algodón crudo sobre una varilla gris en un puesto de feria bajo una carpa, con colgantes y tapices de macramé al fondo.' },
   'foto-curso-mecanica-motos': { ancho: 480, alto: 321, alt: 'Mecánico con guantes que ajusta el carburador de una moto con una llave en un taller abierto a la calle' },
   'foto-curso-mecanica-bicicletas': { ancho: 480, alto: 321, alt: 'Mecánica infla la llanta trasera de una bicicleta sujeta en el soporte de reparación.' },
+  'foto-marca-caro-1': { ancho: 1200, alto: 1600, alt: 'Mujer sonriente con el celular en la mano, sentada en el brazo de un sofá gris en una sala luminosa con una planta junto a la ventana' },
+  'foto-estudiar-portatil-1': { ancho: 1200, alto: 1500, alt: 'Mujer que toma notas en un cuaderno frente a un portátil en la mesa de madera del comedor, con una taza y un vaso de agua' },
+  'foto-estudiar-portatil-2': { ancho: 1200, alto: 1500, alt: 'Mujer que sonríe frente a un portátil en la mesa redonda de una cocina de baldosas verdes' },
+  'foto-estudiar-celular-3': { ancho: 1200, alto: 1500, alt: 'Mujer que escribe en un cuaderno mientras mira el celular apoyado en un soporte de madera junto a la ventana' },
   'foto-curso-desayunos-sorpresa': { ancho: 480, alto: 320, alt: 'Mujer con delantal a rayas acomoda fresas y croissants en una bandeja de mimbre con jugo de naranja, una tarjeta en blanco y un lazo, en una cocina de azulejos blancos y azules.' },
 };
 
@@ -176,6 +184,16 @@ const POR_OFICIO: [RegExp, NombreFoto][] = [
 ];
 export function fotoDeCurso(slug: string, area: string): NombreFoto | null {
   return POR_OFICIO.find(([re]) => re.test(slug))?.[1] ?? FOTO_DE_AREA[area] ?? null;
+}
+
+/** Fotos genéricas de «Más sobre el curso» (4:5): dos con portátil y una con celular. */
+export const FOTOS_MAS_SOBRE = ['foto-estudiar-portatil-1', 'foto-estudiar-portatil-2', 'foto-estudiar-celular-3'] as const satisfies readonly NombreFoto[];
+
+/** Reparto estable por curso: el mismo slug da siempre la misma foto (hash FNV-1a, sin aleatoriedad en el render). */
+export function fotoMasSobre(slug: string): NombreFoto {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < slug.length; i++) h = Math.imul(h ^ slug.charCodeAt(i), 0x01000193);
+  return FOTOS_MAS_SOBRE[(h >>> 0) % FOTOS_MAS_SOBRE.length]!;
 }
 
 /**
