@@ -102,7 +102,7 @@ const resto = nav.areas.slice(6);
 const externas = CATEGORIES.filter(c => c.externalUrl);
 /* Oficio destacado: tres cursos destacados con nota publicada en Hotmart, cada uno con la foto de su área,
    sin repetir las tres que el mosaico enseña al cargar ni las de «Cómo funciona» y «Por qué Sably». */
-const EN_HEROE = new Set<NombreFoto>([...celdas.map(c => c[0]!.foto), 'foto-heroe-1', 'foto-estudiar-celular-1', 'foto-estudiar-celular-2']);
+const EN_HEROE = new Set<NombreFoto>([...celdas.map(c => c[0]!.foto), 'foto-portada-practica-vertical-1', 'foto-portada-aprende-vertical-1', 'foto-estudiar-celular-2']);
 const usadas = new Set<NombreFoto>(EN_HEROE);
 const oficios = featured.filter(comprable).flatMap(c => {
   const foto = fotoDeCurso(c.id, c.data.category);
