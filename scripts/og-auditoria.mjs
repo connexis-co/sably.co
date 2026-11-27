@@ -32,7 +32,7 @@ async function urlsDelSitio() {
 }
 
 function meta(html, clave) {
-  const re = new RegExp(`<meta\\s+[^>]*(?:property|name)=["']${clave.replace(/[:]/g, '\\:')}["'][^>]*>`, 'i');
+  const re = new RegExp(`<meta\\s+[^>]*(?:property|name)=["']${clave.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}["'][^>]*>`, 'i');
   const m = html.match(re);
   if (!m) return '';
   const c = m[0].match(/content=["']([^"']*)["']/i);
