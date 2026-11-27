@@ -22,6 +22,10 @@ Una regla combina curso, categoría, país, ruta y vigencia; todos sus filtros d
 
 Los cursos, categorías y países se seleccionan con búsqueda y casillas. Las rutas se escriben una por línea, desde `/`, y admiten `*`; no incluyen dominio ni parámetros. Las fechas de reglas indican expresamente que el editor usa la hora local del dispositivo y se almacenan con zona horaria.
 
+### Enlace junto al precio de la ficha (27-nov)
+
+Bajo el botón de compra de la ficha, los dos temas pintan «¿Tienes dudas? Escríbenos por WhatsApp» (`src/components/EnlaceWhatsAppFicha.astro`): enlace de texto con el icono, sin fondo. No tiene ajustes propios: sale de esta misma configuración (`resolvePriceLink` en `model.ts`, leída en `src/lib/whatsapp-ficha.ts`), así que usa el número y la regla que le tocan a la página y desaparece cuando la burbuja no se pinta (apagada, fuera de horario, ruta oculta, sin número); las casillas «móvil» y «escritorio» también le aplican. El mensaje es fijo, «Hola, quiero más información del {curso}», y no usa el del panel. El clic envía `click_whatsapp` con `whatsapp_origen: 'ficha_precio'` y la regla en `whatsapp_rule`, desde el mismo guion de la burbuja.
+
 ## Límite operativo y pruebas
 
 Guardar cambia el botón de las siguientes solicitudes de página. No envía mensajes a WhatsApp ni crea automatizaciones de contacto. Los cambios concurrentes en esta configuración KV usan la última escritura; conviene recargar antes de editar una configuración abierta en otra sesión.

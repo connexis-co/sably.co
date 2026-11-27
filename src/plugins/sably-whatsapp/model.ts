@@ -135,7 +135,11 @@ export function inSchedule(settings: WhatsAppSettings, now: Date): boolean {
   if (settings.startTime <= settings.endTime) return settings.weekdays.includes(day) && time >= settings.startTime && time < settings.endTime;
   return time >= settings.startTime ? settings.weekdays.includes(day) : time < settings.endTime && settings.weekdays.includes((day + 6) % 7);
 }
-export function resolveWhatsApp(settings: WhatsAppSettings, context: WhatsAppContext, now = new Date()) {
+/**
+ * Número, mensaje y enlace para una página. `fixedMessage` sustituye al mensaje del panel (sin variables) cuando
+ * el enlace no es la burbuja y lleva su propio texto; el número, las reglas, el horario y las rutas ocultas son los mismos.
+ */
+export function resolveWhatsApp(settings: WhatsAppSettings, context: WhatsAppContext, now = new Date(), fixedMessage?: string) {
   if (!settings.enabled || (!settings.mobile && !settings.desktop) || [...ALWAYS_HIDDEN_PATHS, ...settings.hiddenPaths].some(p => matchesPath(context.path,p)) || !inSchedule(settings,now)) return null;
   const matches = settings.rules.filter(r => r.enabled &&
     (!r.startsAt || now.valueOf() >= Date.parse(r.startsAt)) && (!r.endsAt || now.valueOf() < Date.parse(r.endsAt)) &&
@@ -145,6 +149,18 @@ export function resolveWhatsApp(settings: WhatsAppSettings, context: WhatsAppCon
   const number = rule?.number || settings.number || context.countryNumber;
   if (!/^[1-9]\d{6,14}$/.test(number)) return null;
   const tokens: Record<string,string> = { titulo: context.title || 'los cursos de Sably', curso: context.title, categoria: context.category, pais: context.countryName, url: context.url };
-  const message = (rule?.message || settings.message).replace(/\{(titulo|curso|categoria|pais|url)\}/g, (_, token: string) => tokens[token] ?? '');
+  const message = fixedMessage ?? (rule?.message || settings.message).replace(/\{(titulo|curso|categoria|pais|url)\}/g, (_, token: string) => tokens[token] ?? '');
   return { number, message, url: `https://wa.me/${number}?text=${encodeURIComponent(message)}`, rule: rule?.id ?? 'default' };
+}
+/** Valor de `whatsapp_origen` (evento `click_whatsapp`) del enlace junto al precio de la ficha. */
+export const PRICE_LINK_ORIGIN = 'ficha_precio';
+export interface WhatsAppPriceLink { url: string; rule: string; origin: string; mobile: boolean; desktop: boolean }
+/**
+ * Enlace «¿Tienes dudas? Escríbenos por WhatsApp» de la caja de compra. Sale de la misma configuración que la
+ * burbuja: si la burbuja no se pinta en esa página (apagada, fuera de horario, ruta oculta, sin número), no hay
+ * enlace, y respeta «móvil» y «escritorio». `ofCourse` es el nombre con su preposición («del Curso de Uñas»).
+ */
+export function resolvePriceLink(settings: WhatsAppSettings, context: WhatsAppContext, ofCourse: string, now = new Date()): WhatsAppPriceLink | null {
+  const resolved = resolveWhatsApp(settings, context, now, `Hola, quiero más información ${ofCourse}`);
+  return resolved && { url: resolved.url, rule: resolved.rule, origin: PRICE_LINK_ORIGIN, mobile: settings.mobile, desktop: settings.desktop };
 }

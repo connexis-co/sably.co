@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {DEFAULT_SETTINGS,courseSlugFromPage,resolveWhatsApp,validateSettings,inSchedule,matchesPath,withDefaults,type WhatsAppContext} from '../src/plugins/sably-whatsapp/model';
+import vm from 'node:vm';
+import {DEFAULT_SETTINGS,courseSlugFromPage,resolveWhatsApp,resolvePriceLink,PRICE_LINK_ORIGIN,validateSettings,inSchedule,matchesPath,withDefaults,type WhatsAppContext} from '../src/plugins/sably-whatsapp/model';
 import {createPlugin,renderButton,CSS,SCRIPT} from '../src/plugins/sably-whatsapp/index';
 const context:WhatsAppContext={path:'/co/curso-de-barberia/',course:'curso-de-barberia',title:'Barbería',category:'belleza-online',country:'co',countryName:'Colombia',countryNumber:'573114574788',url:'https://dev.sably.co/co/curso-de-barberia/'};
 test('course, category and country rules must all match; priority controls winner',()=>{
@@ -81,8 +82,45 @@ test('bubble markup: hidden until scroll, two waves, accessible link, flotante o
  assert.match(quieto,/data-lado="left"[^>]*style="[^"]*left:20px"/);
  assert.match(CSS,/prefers-reduced-motion:reduce\)\{\.sw-onda\{display:none\}/);
  assert.match(CSS,/translate:0 calc\(-1 \* var\(--fijo-inferior,0px\)\)/);
- assert.match(SCRIPT,/event:'click_whatsapp'[^}]*whatsapp_origen:'flotante'/);
+ assert.match(SCRIPT,/event:'click_whatsapp',page_type:[^}]*whatsapp_rule:regla,whatsapp_origen:origen/);
+ assert.match(SCRIPT,/enviar\(w\.dataset\.rule,'flotante'\)/);
  // Con la píldora de compra de escritorio visible, el aviso va encima de la burbuja (no al lado, sobre «Inscribirme»).
  assert.match(CSS,/body:has\(\.v2-fija-abajo:not\(\[data-oculta\]\)\) #sably-whatsapp \.sw-aviso\{top:auto;bottom:calc\(100% \+ 12px\)/);
  assert.match(CSS,/:has\(\.v2-subir:not\(\[hidden\]\)\) #sably-whatsapp \.sw-aviso\{display:none!important\}/);
+});
+test('price link: same number and rules as the bubble, fixed message, and gone whenever the bubble is',()=>{
+ const burbuja=resolveWhatsApp(DEFAULT_SETTINGS,context)!;
+ const enlace=resolvePriceLink(DEFAULT_SETTINGS,context,'del Curso de Barbería & Barba')!;
+ assert.equal(new URL(enlace.url).pathname,new URL(burbuja.url).pathname);
+ assert.equal(new URL(enlace.url).searchParams.get('text'),'Hola, quiero más información del Curso de Barbería & Barba');
+ assert.deepEqual({rule:enlace.rule,origin:enlace.origin,mobile:enlace.mobile,desktop:enlace.desktop},{rule:'default',origin:PRICE_LINK_ORIGIN,mobile:true,desktop:true});
+ assert.equal(PRICE_LINK_ORIGIN,'ficha_precio');
+ // El mensaje es fijo: no hereda el del panel ni sustituye llaves que traiga el nombre del curso.
+ assert.equal(new URL(resolvePriceLink({...DEFAULT_SETTINGS,message:'Otro {titulo}'},context,'de {titulo}')!.url).searchParams.get('text'),'Hola, quiero más información de {titulo}');
+ const regla={id:'co',label:'Equipo Colombia',enabled:true,priority:1,courses:[],categories:[],countries:['co'],paths:[],number:'573000000000',message:'Mensaje de la regla',startsAt:'',endsAt:''};
+ const conRegla=resolvePriceLink({...DEFAULT_SETTINGS,number:'573100000000',rules:[regla]},context,'del Curso')!;
+ assert.match(conRegla.url,/^https:\/\/wa\.me\/573000000000\?text=Hola/);assert.equal(conRegla.rule,'co');
+ assert.match(resolvePriceLink({...DEFAULT_SETTINGS,number:'573100000000'},{...context,country:'mx'},'del Curso')!.url,/wa\.me\/573100000000\?/);
+ assert.deepEqual([resolvePriceLink({...DEFAULT_SETTINGS,mobile:false},context,'del Curso')!.mobile,resolvePriceLink({...DEFAULT_SETTINGS,desktop:false},context,'del Curso')!.desktop],[false,false]);
+ for(const apagada of [{enabled:false},{mobile:false,desktop:false},{hiddenPaths:['/co/curso-*']},{weekdays:[]}])
+  assert.equal(resolvePriceLink({...DEFAULT_SETTINGS,...apagada},context,'del Curso'),null,JSON.stringify(apagada));
+ assert.equal(resolvePriceLink(DEFAULT_SETTINGS,{...context,countryNumber:''},'del Curso'),null);
+});
+test('click_whatsapp: the bubble sends flotante and marked links send their own origin and rule',()=>{
+ const oyentes=(el:any)=>{el.oyentes={};el.addEventListener=(tipo:string,f:()=>void)=>{(el.oyentes[tipo]??=[]).push(f);};el.click=()=>(el.oyentes.click??[]).forEach((f:()=>void)=>f());return el;};
+ const flotante=oyentes({dataset:{whatsappOrigen:'flotante'},focus(){}});
+ const ficha=oyentes({dataset:{whatsappOrigen:'ficha_precio',whatsappRule:'co'}});
+ const sinRegla=oyentes({dataset:{whatsappOrigen:'ficha_precio'}});
+ const w={dataset:{rule:'default',umbral:'400',espera:'0'},hasAttribute:()=>true,toggleAttribute(){},removeAttribute(){},setAttribute(){},querySelector:(q:string)=>q==='a'?flotante:null};
+ const window:any={};
+ const document={getElementById:(id:string)=>id==='sably-whatsapp'?w:null,querySelector:()=>null,querySelectorAll:(q:string)=>q==='a[data-whatsapp-origen]'?[flotante,ficha,sinRegla]:[],body:{dataset:{pageType:'course'}},documentElement:{scrollHeight:4000}};
+ vm.runInNewContext(SCRIPT,{window,document,addEventListener(){},requestAnimationFrame:()=>1,setTimeout,innerHeight:800,scrollY:0});
+ flotante.click();ficha.click();sinRegla.click();
+ // Los objetos nacen en otro contexto (vm): se comparan por valor.
+ assert.deepEqual(JSON.parse(JSON.stringify(window.dataLayer)),[
+  {event:'click_whatsapp',page_type:'course',whatsapp_rule:'default',whatsapp_origen:'flotante'},
+  {event:'click_whatsapp',page_type:'course',whatsapp_rule:'co',whatsapp_origen:'ficha_precio'},
+  {event:'click_whatsapp',page_type:'course',whatsapp_rule:'default',whatsapp_origen:'ficha_precio'},
+ ]);
+ assert.equal(flotante.oyentes.click.length,1,'la burbuja no envía el evento dos veces');
 });
