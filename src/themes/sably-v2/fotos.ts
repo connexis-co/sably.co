@@ -53,7 +53,9 @@ export type NombreFoto =
   | 'foto-marca-caro-1'
   | 'foto-estudiar-portatil-1'
   | 'foto-estudiar-portatil-2'
-  | 'foto-estudiar-celular-3';
+  | 'foto-estudiar-celular-3'
+  | 'foto-velas-2'
+  | 'foto-cejas-1';
 
 /** `tarjeta: 'derecha'`: el protagonista está a la izquierda; un texto encima (oficio destacado) va a la derecha. */
 interface Foto { ancho: number; alto: number; alt: string; tarjeta?: 'derecha' }
@@ -130,6 +132,8 @@ export const FOTOS: Record<NombreFoto, Foto> = {
   'foto-estudiar-portatil-1': { ancho: 1200, alto: 1500, alt: 'Mujer que toma notas en un cuaderno frente a un portátil en la mesa de madera del comedor, con una taza y un vaso de agua' },
   'foto-estudiar-portatil-2': { ancho: 1200, alto: 1500, alt: 'Mujer que sonríe frente a un portátil en la mesa redonda de una cocina de baldosas verdes' },
   'foto-estudiar-celular-3': { ancho: 1200, alto: 1500, alt: 'Mujer que escribe en un cuaderno mientras mira el celular apoyado en un soporte de madera junto a la ventana' },
+  'foto-velas-2': { ancho: 1600, alto: 1200, alt: 'Manos que añaden gotas de aceite aromático a la cera teñida de coral en una jarra de acero mientras la revuelven' },
+  'foto-cejas-1': { ancho: 1600, alto: 1200, alt: 'Cuenco de henna para cejas junto a un pincel biselado, un carrete de hilo blanco y un cepillo de cejas sobre un mantel de lino' },
   'foto-curso-desayunos-sorpresa': { ancho: 480, alto: 320, alt: 'Mujer con delantal a rayas acomoda fresas y croissants en una bandeja de mimbre con jugo de naranja, una tarjeta en blanco y un lazo, en una cocina de azulejos blancos y azules.' },
 };
 
@@ -179,8 +183,8 @@ export const srcFoto = (nombre: NombreFoto, ancho: 480 | 960 | 1600 = 960) => `/
 const POR_OFICIO: [RegExp, NombreFoto][] = [
   [/barber/, 'foto-barberia-1'], [/un(as|a)-|unas$|acrilic/, 'foto-unas-acrilicas-1'], [/maquill/, 'foto-maquillaje-1'],
   [/masaj|drenaje/, 'foto-masajes-1'], [/panader|pasteler|reposter/, 'foto-panaderia-1'], [/costura|confecci|corte-y/, 'foto-costura-1'],
-  [/soldad/, 'foto-soldadura-1'], [/electric/, 'foto-electricidad-1'], [/celular/, 'foto-celulares-1'], [/vela|jabon/, 'foto-velas-1'],
-  [/mascota|canin|perr/, 'foto-mascotas-1'], [/cocina|gastronom/, 'foto-cocina-1'], [/pestan|cejas/, 'foto-pestanas-1'], [/barista|cafe/, 'foto-barista-1'], [/tortas/, 'foto-tortas-1'], [/globo/, 'foto-globos-1'], [/guitarra/, 'foto-guitarra-1'], [/ingles|frances|portugues|japones|coreano|idioma/, 'foto-idiomas-1'], [/crochet|amigurumi|tejid/, 'foto-crochet-1'], [/moto/, 'foto-motos-1'],
+  [/soldad/, 'foto-soldadura-1'], [/electric/, 'foto-electricidad-1'], [/celular/, 'foto-celulares-1'], [/vela/, 'foto-velas-2'], [/jabon/, 'foto-velas-1'],
+  [/mascota|canin|perr/, 'foto-mascotas-1'], [/cocina|gastronom/, 'foto-cocina-1'], [/^(?!.*pestan).*cejas/, 'foto-cejas-1'], [/pestan|cejas/, 'foto-pestanas-1'], [/barista|cafe/, 'foto-barista-1'], [/tortas/, 'foto-tortas-1'], [/globo/, 'foto-globos-1'], [/guitarra/, 'foto-guitarra-1'], [/ingles|frances|portugues|japones|coreano|idioma/, 'foto-idiomas-1'], [/crochet|amigurumi|tejid/, 'foto-crochet-1'], [/moto/, 'foto-motos-1'],
 ];
 export function fotoDeCurso(slug: string, area: string): NombreFoto | null {
   return POR_OFICIO.find(([re]) => re.test(slug))?.[1] ?? FOTO_DE_AREA[area] ?? null;
@@ -300,15 +304,19 @@ export const FOTOS_PESTANA: Readonly<Record<string, Partial<Record<PestanaConFot
     estudia: 'Mujer joven con tapabocas que esculpe acrílico rosado con pincel sobre un tip de práctica',
   },
   'curso-de-velas-artesanales-y-aromaticas': {
-    necesitas: 'Cera en escamas, mechas con base metálica, frascos de vidrio, jarra de acero, palitos de madera, goteros ámbar y lavanda seca sobre una mesa de madera',
-    estudia: 'Mujer que vierte cera derretida desde una jarra de acero en un vaso con mecha en la cocina de su casa',
+    necesitas: 'Cera de soya en escamas, mechas con base metálica, frascos de vidrio, moldes de silicona, tintes de colores, goteros ámbar, jarra de acero, flores secas, canela y naranja deshidratada sobre una mesa de madera',
+    estudia: 'Mujer que centra la mecha de un frasco de vidrio con una barra de madera en la mesa de su cocina, con el celular en un soporte',
   },
 };
+
+/** La CDN guarda cada imagen un año: al cambiar las fotos de un curso se sube su versión, que entra en el nombre del archivo. */
+const VERSION_PESTANA: Readonly<Record<string, number>> = { 'curso-de-velas-artesanales-y-aromaticas': 2 };
 
 export function fotoDePestana(slug: string, pestana: string): { alt: string; src: string; avif: string; webp: string } | null {
   const alt = FOTOS_PESTANA[slug]?.[pestana as PestanaConFoto];
   if (!alt) return null;
-  const base = `/v2/fotos/curso/${slug}-${pestana}`;
+  const version = VERSION_PESTANA[slug];
+  const base = `/v2/fotos/curso/${slug}-${pestana}${version ? `-${version}` : ''}`;
   const juego = (formato: 'avif' | 'webp') => [480, 960].map(w => `${base}-${w}.${formato} ${w}w`).join(', ');
   return { alt, src: `${base}-960.webp`, avif: juego('avif'), webp: juego('webp') };
 }
