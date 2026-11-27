@@ -89,6 +89,9 @@ const ANTES = {
     // Claves nuevas (25-nov, ChatGPT Ads): se añaden, no sustituyen a ninguna.
     openaiPixelId: ['string', null, ''],
     openaiCapiKey: ['secret', null, undefined],
+    // Claves nuevas (26-nov, API de ventas de Hotmart para el webhook).
+    hotmartClientId: ['secret', null, undefined],
+    hotmartClientSecret: ['secret', null, undefined],
     serverConversions: ['boolean', null, false],
     ga4ApiSecret: ['secret', null, undefined],
     metaCapiToken: ['secret', null, undefined],

@@ -12,6 +12,11 @@
  * píxel `oaiq` del sitio) y correo/teléfono/nombre en SHA-256. El sck se busca en todo el payload: Hotmart no
  * lo manda siempre en `purchase.origin.sck`. Tabla `hotmart_atribucion` (migración 0012) con el resultado.
  *
+ * v5 — El webhook que Hotmart manda a Sably (afiliado) no trae precio, moneda, país, comprador ni sck (medido el
+ * 26-nov: todas las filas vacías). Para las compras aprobadas/completas se completan valor, moneda y sck desde la API
+ * de ventas de Hotmart (`sales/history?transaction=`) con HOTMART_CLIENT_ID/SECRET. Se guarda la forma del payload
+ * (solo las rutas de las claves, sin valores) en `hotmart_atribucion.payload_claves` para poder revisarlo.
+ *
  * Panel: /admin/ventas?key=<SNAPSHOT_TOKEN> · API: /api/v1/ventas?key=…
  * Vars en Pages: META_CAPI_TOKEN, GA4_API_SECRET (+ META_CAPI_PIXEL_ID,
  * GA4_MEASUREMENT_ID y HOTMART_HOTTOK; META_TEST_EVENT_CODE opcional).
@@ -50,6 +55,46 @@ export const findSck = (payload) => {
     return '';
   };
   return walk(payload, 0);
+};
+
+/** Rutas de las claves del payload, sin valores (para diagnosticar qué manda Hotmart sin guardar datos personales). */
+export const payloadShape = (node, prefix = '', out = [], depth = 0) => {
+  if (node && typeof node === 'object' && !Array.isArray(node) && depth < 6) {
+    for (const [key, value] of Object.entries(node)) payloadShape(value, prefix ? `${prefix}.${key}` : key, out, depth + 1);
+  } else if (prefix) out.push(prefix);
+  return out;
+};
+
+/**
+ * Venta según la API de Hotmart: precio, moneda y sck (`tracking.source_sck`). Dos intentos: la venta puede tardar
+ * un instante en aparecer tras el webhook. Devuelve null sin credenciales o si no la encuentra.
+ */
+export const hotmartSale = async (env, transaction, wait = (ms) => new Promise((r) => setTimeout(r, ms))) => {
+  if (!env.HOTMART_CLIENT_ID || !env.HOTMART_CLIENT_SECRET || !/^HP/i.test(transaction)) return null;
+  const basic = btoa(`${env.HOTMART_CLIENT_ID}:${env.HOTMART_CLIENT_SECRET}`);
+  const auth = await fetch(`https://api-sec-vlc.hotmart.com/security/oauth/token?grant_type=client_credentials&client_id=${encodeURIComponent(env.HOTMART_CLIENT_ID)}&client_secret=${encodeURIComponent(env.HOTMART_CLIENT_SECRET)}`, {
+    method: 'POST', headers: { authorization: `Basic ${basic}` },
+  });
+  const token = (await auth.json().catch(() => ({}))).access_token;
+  if (!token) return null;
+  for (let attempt = 0; attempt < 2; attempt++) {
+    if (attempt) await wait(2500);
+    const r = await fetch(`https://developers.hotmart.com/payments/api/v1/sales/history?transaction=${encodeURIComponent(transaction)}`, {
+      headers: { authorization: `Bearer ${token}` },
+    });
+    const item = (await r.json().catch(() => ({})))?.items?.[0];
+    if (item?.purchase) {
+      const p = item.purchase;
+      return {
+        value: Number(p.price?.value ?? 0),
+        currency: String(p.price?.currency_code ?? '').toUpperCase(),
+        sck: String(p.tracking?.source_sck ?? ''),
+        source: String(p.tracking?.source ?? ''),
+        approvedDate: Number(p.approved_date) || 0,
+      };
+    }
+  }
+  return null;
 };
 
 /**
@@ -103,16 +148,15 @@ export async function onRequestPost({ request, env }) {
   const purchase = data.purchase ?? {};
   const status = purchase.status ?? '';
   const transaction = purchase.transaction ?? `hm-${Date.now()}`;
-  const sckRaw = findSck(payload);
-  const sck = parseSck(sckRaw);
-  const clientId = /^\d+\.\d+$/.test(sck.cid ?? '') ? sck.cid : `hotmart.${transaction}`;
+  let sckRaw = findSck(payload);
   const mid = env.GA4_MEASUREMENT_ID;
 
   const buyerEmail = String(data?.buyer?.email ?? '').trim().toLowerCase();
   const buyerName = String(data?.buyer?.name ?? '').trim();
   const buyerPhone = String(data?.buyer?.checkout_phone ?? data?.buyer?.phone ?? '').replace(/\D/g, '');
-  const value = Number(purchase?.price?.value ?? purchase?.full_price?.value ?? 0);
-  const currency = purchase?.price?.currency_value ?? purchase?.price?.currency_code ?? '';
+  let value = Number(purchase?.price?.value ?? purchase?.full_price?.value ?? 0);
+  let currency = purchase?.price?.currency_value ?? purchase?.price?.currency_code ?? '';
+  let approvedDate = Number(purchase?.approved_date) || null;
   const productName = data?.product?.name ?? '';
   const productId = String(data?.product?.id ?? '');
   const countryIso = String(purchase?.checkout_country?.iso ?? '').toUpperCase();
@@ -123,7 +167,27 @@ export async function onRequestPost({ request, env }) {
     return Response.json({ ok: true, skipped: 'hotmart-test-payload' });
   }
 
-  const results = { db: null, capi: null, ga4: null, openai: null, attribution: Object.keys(sck).join(',') || 'none' };
+  // Compras: lo que el webhook de afiliado no trae se completa con la API de ventas de Hotmart.
+  const conversion = event === 'PURCHASE_APPROVED' || status === 'APPROVED' || status === 'COMPLETE';
+  let enriched = 'not-needed';
+  if (conversion && (!(value > 0) || !currency || !sckRaw)) {
+    try {
+      const sale = await hotmartSale(env, transaction);
+      enriched = sale ? 'ok' : 'unavailable';
+      if (sale) {
+        if (!(value > 0) && sale.value > 0) value = sale.value;
+        if (!currency && sale.currency) currency = sale.currency;
+        if (!sckRaw && sale.sck) sckRaw = sale.sck;
+        if (!approvedDate && sale.approvedDate) approvedDate = sale.approvedDate;
+      }
+    } catch {
+      enriched = 'error';
+    }
+  }
+  const sck = parseSck(sckRaw);
+  const clientId = /^\d+\.\d+$/.test(sck.cid ?? '') ? sck.cid : `hotmart.${transaction}`;
+
+  const results = { db: null, capi: null, ga4: null, openai: null, hotmart: enriched, attribution: Object.keys(sck).join(',') || 'none' };
 
   // ── D1: base de compradores/eventos (todo evento con datos útiles) ──
   if (env.DB && (buyerEmail || transaction.startsWith('hm-') === false)) {
@@ -140,7 +204,7 @@ export async function onRequestPost({ request, env }) {
         buyerPhone || null, countryIso || null, countryName || null,
         Number.isFinite(value) && value > 0 ? value : null, currency || null,
         sck.fbp ?? null, sck.fbc ?? null, sck.cid ?? null, sck.gcl ?? null,
-        Number(purchase?.approved_date) || null,
+        approvedDate,
       ).run();
       results.db = 'ok';
     } catch (e) {
@@ -169,7 +233,11 @@ export async function onRequestPost({ request, env }) {
   }
 
   // ── ChatGPT Ads · Conversions API de OpenAI ────────────────
-  if (env.OPENAI_CAPI_KEY && env.OPENAI_PIXEL_ID) {
+  // Sin precio no se envía: OpenAI se queda con el primer evento de cada id y la compra quedaría sin valor para siempre.
+  // Lo reenvía después el PURCHASE_COMPLETE o scripts/openai-capi-hotmart.mjs.
+  if (env.OPENAI_CAPI_KEY && env.OPENAI_PIXEL_ID && !(value > 0) && (enriched === 'unavailable' || enriched === 'error')) {
+    results.openai = 'deferred:no-hotmart-sale';
+  } else if (env.OPENAI_CAPI_KEY && env.OPENAI_PIXEL_ID) {
     try {
       const user = {};
       if (buyerEmail) user.emails_sha256 = [await sha256(buyerEmail)];
@@ -182,7 +250,7 @@ export async function onRequestPost({ request, env }) {
       if (lastName) user.last_names_sha256 = [await sha256(lastName)];
       if (/^[A-Z]{2}$/.test(countryIso)) user.countries = [countryIso];
       if (sck.obr) user.obref = sck.obr;
-      const approved = Number(purchase?.approved_date) || 0;
+      const approved = approvedDate || 0;
       const now = Date.now();
       const money = /^[A-Z]{3}$/.test(currency) && value > 0 ? { amount: minorUnits(value, currency), currency } : {};
       const event = {
@@ -280,19 +348,23 @@ export async function onRequestPost({ request, env }) {
     results.ga4 = 'skipped:missing-secret-or-measurement-id';
   }
 
-  if (env.DB && (sckRaw || String(results.openai).match(/^(ok|error)/))) {
+  if (env.DB && (sckRaw || conversion || String(results.openai).match(/^(ok|error)/))) {
     try {
       await env.DB.prepare(
         `CREATE TABLE IF NOT EXISTS hotmart_atribucion (transaction_code TEXT PRIMARY KEY, sck TEXT, oppref TEXT,
          obref TEXT, openai TEXT, updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP)`,
       ).run();
+      // Columna añadida en v5; en bases ya creadas se añade una vez (el error «duplicate column» se ignora).
+      await env.DB.prepare('ALTER TABLE hotmart_atribucion ADD COLUMN payload_claves TEXT').run().catch(() => {});
       await env.DB.prepare(
-        `INSERT INTO hotmart_atribucion (transaction_code, sck, oppref, obref, openai, updated_at)
-         VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+        `INSERT INTO hotmart_atribucion (transaction_code, sck, oppref, obref, openai, payload_claves, updated_at)
+         VALUES (?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
          ON CONFLICT(transaction_code) DO UPDATE SET sck = COALESCE(excluded.sck, sck), oppref = COALESCE(excluded.oppref, oppref),
            obref = COALESCE(excluded.obref, obref), openai = CASE WHEN openai LIKE 'ok%' THEN openai ELSE excluded.openai END,
+           payload_claves = COALESCE(excluded.payload_claves, payload_claves),
            updated_at = CURRENT_TIMESTAMP`,
-      ).bind(transaction, sckRaw || null, sck.opp ?? null, sck.obr ?? null, String(results.openai ?? '').slice(0, 200) || null).run();
+      ).bind(transaction, sckRaw || null, sck.opp ?? null, sck.obr ?? null, String(results.openai ?? '').slice(0, 200) || null,
+        payloadShape(payload).join(',').slice(0, 4000) || null).run();
     } catch (e) {
       results.attributionDb = `error:${String(e.message).slice(0, 120)}`;
     }
@@ -303,5 +375,5 @@ export async function onRequestPost({ request, env }) {
 }
 
 export async function onRequestGet() {
-  return Response.json({ service: 'hotmart-webhook', status: 'alive', version: 4 });
+  return Response.json({ service: 'hotmart-webhook', status: 'alive', version: 5 });
 }

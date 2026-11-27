@@ -15,13 +15,15 @@ export const settingsSchema = {
   metaCapiToken: { type:'secret',label:'Conversiones · Token de la API de conversiones de Meta',description:'Administrador de eventos → Configuración → API de conversiones. Se guarda cifrado.' },
   openaiPixelId: { type:'string',label:'ChatGPT Ads · ID del píxel de OpenAI',description:'Ads Manager → Conversiones → Fuente de datos (pixel_id, no el cds_…). Carga el píxel de medición en todas las páginas, con el mismo permiso de publicidad que Meta. Por defecto: vacío.',default:'' },
   openaiCapiKey: { type:'secret',label:'ChatGPT Ads · Clave de la Conversions API',description:'Envía cada compra aprobada de Hotmart a OpenAI (evento order_created). Solo se usa en el servidor. Se guarda cifrada.' },
+  hotmartClientId: { type:'secret',label:'Conversiones · Client ID de la API de Hotmart',description:'Hotmart → Herramientas → Credenciales de la API. El webhook de afiliado no trae precio ni sck: se leen de la venta en la API. Se guarda cifrado.' },
+  hotmartClientSecret: { type:'secret',label:'Conversiones · Client Secret de la API de Hotmart',description:'Va con el Client ID. No es el HOTTOK del webhook. Se guarda cifrado.' },
   hotmartHottok: { type:'secret',label:'Conversiones · HOTTOK del webhook de Hotmart',description:'Hotmart → Herramientas → Webhook → autenticación. No es el Client Secret de la API. Se guarda cifrado.' },
   consentNotice: { type:'select',label:'Cookies · Aviso de cookies',description:'Discreto: sin letrero, se mide desde la primera visita y un icono pequeño abajo a la izquierda abre las preferencias. Aviso completo: letrero y no se mide nada hasta que la persona acepte. Solo enlace en el pie: como el discreto, sin icono. Por defecto: Discreto.',default:CONSENT_OPTIONS_DEFAULT.mode,options:[{value:'discreto',label:'Discreto'},{value:'completo',label:'Aviso completo'},{value:'pie',label:'Solo enlace en el pie'}] },
   consentEurope: { type:'boolean',label:'Cookies · Mostrar el aviso a visitantes de Europa',description:'Unión Europea, resto del Espacio Económico Europeo, Reino Unido y Suiza ven el aviso completo y no se miden hasta aceptar, sea cual sea el modo. Por defecto: encendido.',default:CONSENT_OPTIONS_DEFAULT.europe },
 } satisfies Record<string, SettingField>;
 export type SettingKey = keyof typeof settingsSchema;
 export const publicKeys = ['browserMode','gtmId','gtmDelay','ga4Id','metaPixelId','openaiPixelId','serverConversions','consentNotice','consentEurope'] as const;
-export const secretKeys = ['ga4ApiSecret','metaCapiToken','openaiCapiKey','hotmartHottok'] as const;
+export const secretKeys = ['ga4ApiSecret','metaCapiToken','openaiCapiKey','hotmartClientId','hotmartClientSecret','hotmartHottok'] as const;
 export interface PublicSettings { browserMode:'off'|'gtm'|'direct';gtmId:string;gtmDelay:boolean;ga4Id:string;metaPixelId:string;openaiPixelId:string;serverConversions:boolean;consentNotice:ConsentNoticeMode;consentEurope:boolean }
 export const defaults:PublicSettings = {browserMode:'off',gtmId:'',gtmDelay:true,ga4Id:'',metaPixelId:'',openaiPixelId:'',serverConversions:false,consentNotice:CONSENT_OPTIONS_DEFAULT.mode,consentEurope:CONSENT_OPTIONS_DEFAULT.europe};
 const patterns = {gtmId:/^GTM-[A-Z0-9]{4,20}$/,ga4Id:/^G-[A-Z0-9]{4,20}$/,metaPixelId:/^\d{5,30}$/,openaiPixelId:/^[A-Za-z0-9_-]{8,64}$/};
@@ -136,7 +138,9 @@ export async function resolveIntegrationBindings(bindings:LegacyBindings,url:str
   if(bindings.SABLY_ENVIRONMENT!=='production'||!operationalEnvironmentEnabled(bindings,url))return bindings;
   const config=await readPublic(settings);
   const hottok=await settings.get<string>('hotmartHottok');
+  const [hotmartClientId,hotmartClientSecret]=await Promise.all([settings.get<string>('hotmartClientId'),settings.get<string>('hotmartClientSecret')]);
   const out={...bindings,SABLY_HOTMART_HOTTOK:hottok??bindings.SABLY_HOTMART_HOTTOK,
+    SABLY_HOTMART_CLIENT_ID:hotmartClientId||bindings.SABLY_HOTMART_CLIENT_ID,SABLY_HOTMART_CLIENT_SECRET:hotmartClientSecret||bindings.SABLY_HOTMART_CLIENT_SECRET,
     SABLY_GA4_MEASUREMENT_ID:config.ga4Id,SABLY_META_CAPI_PIXEL_ID:config.metaPixelId,
     SABLY_GA4_API_SECRET:undefined as string|undefined,SABLY_META_CAPI_TOKEN:undefined as string|undefined,
     SABLY_OPENAI_PIXEL_ID:undefined as string|undefined,SABLY_OPENAI_CAPI_KEY:undefined as string|undefined};

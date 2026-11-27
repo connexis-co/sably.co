@@ -251,7 +251,7 @@ test('production price refresh retains the registered-product gate and webhook s
   assert.equal(payload.results.db, 'ok');
   assert.equal(payload.results.ga4, 'error');
   assert.doesNotMatch(JSON.stringify(payload), /private-fixture|api_secret/);
-  assert.ok(legacy.calls.every(query => query.sql.includes('hotmart_eventos')));
+  assert.ok(legacy.calls.every(query => /hotmart_(eventos|atribucion)/.test(query.sql)));
   assert.equal(outbound.mock.callCount(), 1);
 });
 
@@ -346,4 +346,57 @@ test('approved purchases reach the OpenAI Conversions API with the ChatGPT click
   assert.doesNotMatch(JSON.stringify(body), /Persona|example\.invalid|3001234567|José/);
   assert.ok(legacy.calls.some(query => query.sql.includes('hotmart_atribucion')));
   assert.ok(legacy.calls.some(query => query.sql.includes('hotmart_eventos')));
+});
+
+test('affiliate webhook without price or sck is completed from the Hotmart sales API before reaching OpenAI', async (t) => {
+  const urls: string[] = [];
+  let openaiBody: any;
+  t.mock.method(globalThis, 'fetch', async (input: RequestInfo | URL, init?: RequestInit) => {
+    const url = String(input); urls.push(url);
+    if (url.includes('/security/oauth/token')) return Response.json({ access_token: 'hm-token' });
+    if (url.includes('/sales/history')) return Response.json({ items: [{ purchase: {
+      transaction: 'HP0000000001', approved_date: Date.now() - 30_000, price: { value: 187430, currency_code: 'COP' },
+      tracking: { source: 'sably', source_sck: 'opp~gAAAA_fixture|obr~obref-fixture|cid~1.2' },
+    } }] });
+    if (url.startsWith('https://bzr.openai.com/')) { openaiBody = JSON.parse(init!.body as string); return Response.json({ accepted_events: 1 }); }
+    throw new Error(`unexpected ${url}`);
+  });
+  const legacy = database();
+  const affiliatePayload = { event: 'PURCHASE_APPROVED', data: { product: { id: 1933347, name: 'Curso' }, purchase: { transaction: 'HP0000000001', status: 'APPROVED' } } };
+  const env = { ...productionBindings(legacy.db), SABLY_HOTMART_HOTTOK: 'hottok-fixture',
+    SABLY_OPENAI_PIXEL_ID: 'Q4xWyKhiMTwnc1PFCmKg7q', SABLY_OPENAI_CAPI_KEY: 'capi-fixture',
+    SABLY_HOTMART_CLIENT_ID: 'hm-id', SABLY_HOTMART_CLIENT_SECRET: 'hm-secret' };
+  const response = await dispatchLegacyApi(productionRequest('hotmart-webhook', 'POST', affiliatePayload, { 'x-hotmart-hottok': 'hottok-fixture' }), env, 'hotmart-webhook');
+  const payload = await response.json() as { results: Record<string, string> };
+  assert.equal(payload.results.hotmart, 'ok');
+  assert.equal(payload.results.openai, 'ok:1:oppref');
+  assert.equal(openaiBody.events[0].data.amount, 18743000);
+  assert.equal(openaiBody.events[0].data.currency, 'COP');
+  assert.equal(openaiBody.events[0].oppref, 'gAAAA_fixture');
+  assert.equal(openaiBody.events[0].user.obref, 'obref-fixture');
+  assert.ok(urls.some(u => u.includes('sales/history?transaction=HP0000000001')));
+  const stored = legacy.calls.find(q => q.sql.includes('INTO hotmart_eventos'));
+  assert.ok(stored?.values?.includes(187430), 'the purchase row keeps the value');
+  const shape = legacy.calls.find(q => q.sql.includes('INSERT INTO hotmart_atribucion'));
+  assert.ok(String(shape?.values?.at(-1)).includes('data.purchase.transaction'));
+  assert.doesNotMatch(String(shape?.values?.at(-1)), /HP0000000001/, 'only key paths, never values');
+});
+
+test('without the Hotmart sale the OpenAI purchase is deferred instead of locked in without value', async (t) => {
+  const urls: string[] = [];
+  t.mock.method(globalThis, 'fetch', async (input: RequestInfo | URL) => {
+    const url = String(input); urls.push(url);
+    if (url.includes('/security/oauth/token')) return Response.json({ access_token: 'hm-token' });
+    if (url.includes('/sales/history')) return Response.json({ items: [] });
+    throw new Error(`unexpected ${url}`);
+  });
+  const legacy = database();
+  const response = await dispatchLegacyApi(productionRequest('hotmart-webhook', 'POST', {
+    event: 'PURCHASE_APPROVED', data: { purchase: { transaction: 'HP0000000002', status: 'APPROVED' } },
+  }, { 'x-hotmart-hottok': 'hottok-fixture' }), { ...productionBindings(legacy.db), SABLY_HOTMART_HOTTOK: 'hottok-fixture',
+    SABLY_OPENAI_PIXEL_ID: 'Q4xWyKhiMTwnc1PFCmKg7q', SABLY_OPENAI_CAPI_KEY: 'capi-fixture',
+    SABLY_HOTMART_CLIENT_ID: 'hm-id', SABLY_HOTMART_CLIENT_SECRET: 'hm-secret' }, 'hotmart-webhook');
+  const payload = await response.json() as { results: Record<string, string> };
+  assert.equal(payload.results.openai, 'deferred:no-hotmart-sale');
+  assert.ok(!urls.some(u => u.includes('bzr.openai.com')));
 });
