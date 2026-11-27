@@ -1,7 +1,7 @@
 import { gateEnvironment, protectEnvironmentResponse, type RuntimeEnvironment } from '../runtime-environment';
 import { parseLegacyRedirects, productionOriginRedirect, publicCanonicalRedirect, resolveLegacyRedirect, rootCountryRedirect, crawlerArtifactRedirect } from '../legacy-redirects';
 import { PARAMETRO_TEMA } from '../tema';
-import { canCachePublicPage, FRESH_UNTIL_HEADER, invalidatedTags, isCrawlFile, nodeEdgePolicy, ORIGIN_EDGE_FRESH, protectDeliveryResponse } from '../public-delivery';
+import { canCachePublicPage, FRESH_UNTIL_HEADER, invalidatedTags, isCrawlFile, nodeEdgePolicy, ORIGIN_EDGE_FRESH, originCacheRequest, protectDeliveryResponse } from '../public-delivery';
 
 /** Preserve the Worker boundary while keeping all execution at the Node origin. */
 /** `Astro.locals` interno con la ruta pedida cuando se reescribe a la página 404 (la plantilla elige el país con ella). */
@@ -26,15 +26,18 @@ export function createNodeRequestHandler(options: {
   return async (request: Request, next: (rewrite?: string) => Promise<Response>, locals?: object): Promise<Response> => {
     const finish = (response: Response, redirect = false) => {
       const html = response.headers.get('content-type')?.includes('text/html');
-      const anonymous = html && response.status === 200 && canCachePublicPage(request, options.env.SABLY_ENVIRONMENT)
+      // Una página 200 con solo parámetros de seguimiento es la misma que la limpia:
+      // mismas cabeceras de caché. Redirecciones y errores conservan la petición tal cual.
+      const policyRequest = html && response.status === 200 ? originCacheRequest(request, options.env.SABLY_ENVIRONMENT) : request;
+      const anonymous = html && response.status === 200 && canCachePublicPage(policyRequest, options.env.SABLY_ENVIRONMENT)
         && !response.headers.has('set-cookie') && !/private|no-store/i.test(response.headers.get('cache-control') ?? '');
       const protectedResponse = protectEnvironmentResponse(
-        protectDeliveryResponse(request, response, options.env.SABLY_ENVIRONMENT, { redirect }), options.env);
+        protectDeliveryResponse(policyRequest, response, options.env.SABLY_ENVIRONMENT, { redirect }), options.env);
       const headers = new Headers(protectedResponse.headers);
       // The origin owns invalidation, so Cloudflare only keeps a short-lived
       // copy of anonymous pages, permanent redirects and crawl files, and serves
       // it beyond that only while the origin is down. Everything else: no-store.
-      const edge = nodeEdgePolicy(request, protectedResponse, options.env.SABLY_ENVIRONMENT, { anonymousPage: !!anonymous, redirect });
+      const edge = nodeEdgePolicy(policyRequest, protectedResponse, options.env.SABLY_ENVIRONMENT, { anonymousPage: !!anonymous, redirect });
       headers.set('Cloudflare-CDN-Cache-Control', edge);
       headers.delete(FRESH_UNTIL_HEADER);
       if (anonymous) headers.set('Cache-Control', 'max-age=0');

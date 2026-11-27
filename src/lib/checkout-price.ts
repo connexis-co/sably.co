@@ -57,8 +57,17 @@ export interface AlmacenCotizaciones {
 export const QUOTE_TTL_MS = 3_600_000;
 /** Tras un fallo de Hotmart: ni se le vuelve a preguntar ni se conserva la página más que esto. */
 export const QUOTE_RETRY_MS = 300_000;
-/** Lo que se espera a Hotmart en el render cuando ya hay una cotización guardada que enseñar. */
-export const QUOTE_WAIT_WITH_SAVED_MS = 600;
+/**
+ * Lo que se espera a Hotmart en el render cuando ya hay una cotización guardada que enseñar: nada.
+ * Sale la guardada (con su fecha y vida corta) y la lectura sigue en segundo plano. Antes eran
+ * 600 ms por render; con Hotmart caducando (27-nov-2026) cada clic pagado sin caché los pagaba.
+ */
+export const QUOTE_WAIT_WITH_SAVED_MS = 0;
+/**
+ * Guardada sin lectura con el cupón pedido (no se sabe si Hotmart lo rebaja): se espera lo de
+ * antes, para no pintar la ficha sin la oferta durante toda la vida de la página.
+ */
+export const QUOTE_WAIT_UNCONFIRMED_MS = 600;
 /** Lo que se espera a Hotmart en el render sin cotización guardada; la lectura sigue después. */
 export const QUOTE_WAIT_WITHOUT_SAVED_MS = 1500;
 /**
@@ -71,6 +80,12 @@ export const CARD_QUOTE_RETRY_MS = 120_000;
 /** Lecturas de fondo a la vez y pausa entre una y otra: un listado de 120 cursos no lanza 240 peticiones de golpe. */
 export const BACKGROUND_PARALLEL = 2;
 export const BACKGROUND_PAUSE_MS = 250;
+/**
+ * Retroceso tras fallos seguidos de Hotmart: 5 min, 10, 20 y como mucho esto. Un fallo
+ * repetido no vuelve a preguntar cada 5 min por cada curso, país y cupón (57 avisos en una
+ * hora el 27-nov-2026). Un acierto lo reinicia. La página sigue viviendo `QUOTE_RETRY_MS`.
+ */
+export const QUOTE_RETRY_MAX_MS = 1_800_000;
 /** Tiempo máximo de cada petición a Hotmart. */
 export const QUOTE_FETCH_TIMEOUT_MS = 2500;
 
@@ -100,8 +115,10 @@ export function createCheckoutPrice(options: {
   now?: () => number;
   /** Almacén persistente de la última cotización buena (puede faltar: entonces solo vive en memoria). */
   almacen?: () => AlmacenCotizaciones | null;
-  /** Espera máxima a Hotmart en el render cuando ya hay una cotización guardada. */
+  /** Espera máxima a Hotmart en el render cuando ya hay una cotización guardada completa. */
   esperaConGuardada?: number;
+  /** Espera máxima cuando la guardada no sabe qué hace Hotmart con el cupón pedido. */
+  esperaSinConfirmar?: number;
   /** Espera máxima a Hotmart en el render cuando no hay ninguna guardada. */
   esperaSinGuardada?: number;
   /** Aviso en el registro cuando Hotmart falla (para medir con qué frecuencia pasa). */
@@ -113,6 +130,7 @@ export function createCheckoutPrice(options: {
   const now = options.now ?? Date.now;
   const espera = options.esperaConGuardada ?? QUOTE_WAIT_WITH_SAVED_MS;
   const esperaSin = options.esperaSinGuardada ?? QUOTE_WAIT_WITHOUT_SAVED_MS;
+  const esperaConfirmar = options.esperaSinConfirmar ?? QUOTE_WAIT_UNCONFIRMED_MS;
   /** Espera al trabajo como mucho `ms`: si no llega, la lectura sigue en segundo plano. */
   const hasta = async (job: Promise<void>, ms: number) => {
     let temporizador: ReturnType<typeof setTimeout> | undefined;
@@ -124,6 +142,8 @@ export function createCheckoutPrice(options: {
      enseña (con su fecha) si Hotmart falla o tarda, en vez de caer a otra moneda. */
   const ultimas = new Map<string, Entry>();
   const retryAfter = new Map<string, number>();
+  /* Fallos seguidos por curso, país y cupón: alargan el retroceso. */
+  const fallos = new Map<string, number>();
   const pending = new Map<string, Promise<void>>();
   /* Lo leído del almacén se recuerda un minuto: un listado no repite 120 lecturas de la base por render. */
   const leidasAlmacen = new Map<string, {c: CotizacionGuardada | null; hasta: number}>();
@@ -147,11 +167,14 @@ export function createCheckoutPrice(options: {
     const at = now();
     const base = plain ? readAmount(plain, row, source, false) : null;
     if (!base || (row.coupon && !discounted)) {
-      retryAfter.set(id, at + QUOTE_RETRY_MS);
+      const seguidos = (fallos.get(id) ?? 0) + 1;
+      fallos.set(id, seguidos);
+      retryAfter.set(id, at + Math.min(QUOTE_RETRY_MAX_MS, QUOTE_RETRY_MS * 2 ** (seguidos - 1)));
       options.avisar?.(`[cotizacion] sin respuesta de Hotmart: ${id} · ${motivos.join(' · ') || 'respuesta ilegible'}`);
       return;
     }
     retryAfter.delete(id);
+    fallos.delete(id);
     // Hotmart respondió: si no aplica el cupón, eso también es un dato (null).
     const amount = row.coupon ? readAmount(discounted, row, source, true) : null;
     const reduced = amount && amount < base ? amount : null;
@@ -251,11 +274,13 @@ export function createCheckoutPrice(options: {
     if (known) return known;
     if ((retryAfter.get(id) ?? 0) > now()) return guardada(slug, market, currency, coupon);
     const job = lanzar(key, id, {product:source.product, market, currency, coupon}, source);
-    /* Con una cotización guardada, el render no espera a Hotmart más que un instante: si no
-       llega, sale la guardada (con su fecha) y la lectura sigue en segundo plano para la próxima. */
+    /* Con una cotización guardada, el render no espera a Hotmart (stale-while-revalidate): sale la
+       guardada (con su fecha y vida corta) y la lectura sigue en segundo plano, un solo vuelo por
+       curso, país y cupón (`lanzar`), con retroceso tras fallos (`retryAfter`). */
     const respaldo = await guardada(slug, market, currency, coupon);
     if (respaldo) {
-      await hasta(job, espera);
+      // Con espera 0 solo gana una respuesta ya resuelta (memoria); Hotmart nunca bloquea.
+      await hasta(job, respaldo.reducedKnown ? espera : esperaConfirmar);
       return read() ?? respaldo;
     }
     await hasta(job, esperaSin);

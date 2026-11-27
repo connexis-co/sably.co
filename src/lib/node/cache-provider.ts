@@ -1,6 +1,6 @@
 import memoryProvider from 'astro/cache/memory';
 import type { CacheProvider, CacheProviderFactory } from 'astro';
-import { canCachePublicPage, FRESH_UNTIL_HEADER, nodeEdgePolicy } from '../public-delivery';
+import { canCachePublicPage, FRESH_UNTIL_HEADER, nodeEdgePolicy, originCacheRequest } from '../public-delivery';
 
 const caches = new Set<() => void>();
 
@@ -32,8 +32,12 @@ const nodeCacheProvider: CacheProviderFactory = config => {
     async onRequest(context, next) {
       // Astro's generic memory provider only keys by URL. An editor/preview
       // must reach EmDash authentication even if an anonymous copy exists.
-      if (!canCachePublicPage(context.request, process.env.SABLY_ENVIRONMENT)) return next();
-      const response = await cache.onRequest!(context, async () => {
+      // Parámetros de solo seguimiento (utm_*, fbclid…) y cookies de analítica: la
+      // copia es la de la URL limpia (public-delivery `trackingFreeRequest`).
+      const shared = originCacheRequest(context.request, process.env.SABLY_ENVIRONMENT);
+      if (!canCachePublicPage(shared, process.env.SABLY_ENVIRONMENT)) return next();
+      const keyed = shared === context.request ? context : Object.create(context, { request: { value: shared } }) as typeof context;
+      const response = await cache.onRequest!(keyed, async () => {
         const rendered = await next();
         if (rendered.status !== 200 || /private|no-store/i.test(rendered.headers.get('cache-control') ?? '')) {
           rendered.headers.delete('CDN-Cache-Control');

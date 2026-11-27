@@ -3,7 +3,7 @@ import '@/styles/global.css';
 import interFont from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url';
 import outfitFont from '@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2?url';
 import { env } from 'virtual:sably-runtime';
-import { canCachePublicPage, earliestBoundary, pageMaxAge, PUBLIC_PAGE_SWR, PUBLIC_PAGE_TAGS } from '@/lib/public-delivery';
+import { canCachePublicPage, earliestBoundary, originCacheRequest, pageMaxAge, PUBLIC_PAGE_SWR, PUBLIC_PAGE_TAGS } from '@/lib/public-delivery';
 import { readNextPromoBoundary } from '@/plugins/sably-operations/public';
 import { EmDashBodyStart, EmDashBodyEnd, WidgetArea } from 'emdash/ui';
 import { createPublicPageContext } from 'emdash/page';
@@ -155,7 +155,9 @@ const ogFinal: OgImagen | undefined = ogUrl
   ? ogUrl === new URL(ogElegida.url, SITE.url).href ? ogElegida : { url: ogUrl, alt: title }
   : undefined;
 const development = import.meta.env.SITE?.replace(/\/+$/, '') !== 'https://sably.co';
-if (canCachePublicPage(Astro.request, development ? 'development' : 'production')) {
+const entornoCache = development ? 'development' : 'production';
+// Con solo parámetros de seguimiento (utm_*, fbclid…) la página es la misma que la limpia y entra en su copia.
+if (canCachePublicPage(originCacheRequest(Astro.request, entornoCache), entornoCache)) {
   // La barra de promoción se pinta en el servidor: la copia no puede sobrevivir a su inicio o fin.
   const boundary = await readNextPromoBoundary((env as unknown as { SABLY_DB: D1Database }).SABLY_DB, country.code).catch(() => null);
   // Tampoco a la cotización de Hotmart que pinta la ficha (`freshUntil`).

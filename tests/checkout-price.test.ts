@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import test from 'node:test';
-import { createCheckoutPrice, QUOTE_RETRY_MS, QUOTE_TTL_MS, quoteFreshUntil } from '../src/lib/checkout-price';
+import { createCheckoutPrice, QUOTE_RETRY_MAX_MS, QUOTE_RETRY_MS, QUOTE_TTL_MS, quoteFreshUntil, type AlmacenCotizaciones, type CotizacionGuardada } from '../src/lib/checkout-price';
 import { earliestBoundary, pageMaxAge, PUBLIC_PAGE_TTL } from '../src/lib/public-delivery';
 
 const KEY = 'oferta-de-prueba';
@@ -149,4 +149,57 @@ test('la ficha no vive en caché más que la cotización que pinta', () => {
   assert.equal(quoteFreshUntil(null, false), null);
   assert.equal(pageMaxAge(earliestBoundary(null, null), now), PUBLIC_PAGE_TTL);
   assert.equal(pageMaxAge(earliestBoundary(now + 900, undefined), now), 900);
+});
+
+test('un solo vuelo: cien renders a la vez con la cotización caducada no esperan y preguntan una vez', async () => {
+  const filas = new Map<string, CotizacionGuardada>();
+  const almacen: AlmacenCotizaciones = {
+    async leer(slug, market, coupon) { return filas.get(`${slug}|${market}|${coupon ?? ''}`) ?? filas.get(`${slug}|${market}|`) ?? null; },
+    async guardar(slug, market, c) { filas.set(`${slug}|${market}|${c.cupon ?? ''}`, c); },
+  };
+  await almacen.guardar('curso-de-prueba', 'CO', { currency: 'COP', base: 186134, reduced: 93067, cupon: '031016', at: 1 });
+  let llamadas = 0;
+  let soltar!: () => void;
+  const colgado = new Promise<void>((ok) => { soltar = ok; });
+  const { checkoutPrice } = createCheckoutPrice({
+    sources, now: () => 10_000_000, almacen: () => almacen,
+    // Hotmart colgado (como el 27-nov): la petición no vuelve hasta que el test la suelta.
+    load: async (row: { market: string; currency: string }, _s: unknown, coupon: string | null) => {
+      llamadas++; await colgado;
+      return respuesta(row.market, row.currency, coupon ? 95506 : 191012, Boolean(coupon));
+    },
+  });
+  const inicio = Date.now();
+  const renders = await Promise.all(Array.from({ length: 100 }, () => checkoutPrice('curso-de-prueba', URL_CURSO, 'co', '031016')));
+  assert.ok(Date.now() - inicio < 100, `ningún render espera a Hotmart (${Date.now() - inicio} ms)`);
+  assert.ok(renders.every(q => q?.fuente === 'guardada' && q.base === 186134 && q.reduced === 93067), 'precio y oferta guardados, sin cambios');
+  assert.equal(llamadas, 2, 'una lectura sin cupón y otra con cupón, no doscientas');
+  soltar();
+  await new Promise((ok) => setTimeout(ok, 5));
+  const despues = await checkoutPrice('curso-de-prueba', URL_CURSO, 'co', '031016');
+  assert.deepEqual([despues?.fuente, despues?.base, despues?.reduced], ['hotmart', 191012, 95506]);
+  assert.equal(llamadas, 2);
+});
+
+test('retroceso: fallos seguidos de Hotmart espacian las lecturas (5, 10, 20, 30 min) y un acierto lo reinicia', async () => {
+  const api = hotmart({ base: 186134, reduced: 93067 });
+  let clock = 50_000_000;
+  const { checkoutPrice } = createCheckoutPrice({ sources, load: api.load, now: () => clock, esperaSinGuardada: 5 });
+  api.apagar(true);
+  const lecturas = async () => { await checkoutPrice('curso-de-prueba', URL_CURSO, 'co', null); await new Promise((ok) => setTimeout(ok, 1)); return api.calls.length; };
+  assert.equal(await lecturas(), 1);
+  for (const [espera, total] of [[QUOTE_RETRY_MS, 2], [2 * QUOTE_RETRY_MS, 3], [4 * QUOTE_RETRY_MS, 4], [QUOTE_RETRY_MAX_MS, 5], [QUOTE_RETRY_MAX_MS, 6]] as const) {
+    clock += espera - 1;
+    assert.equal(await lecturas(), total - 1, `antes de ${espera} ms no se vuelve a preguntar`);
+    clock += 1;
+    assert.equal(await lecturas(), total, `a los ${espera} ms sí`);
+  }
+  api.apagar(false);
+  clock += QUOTE_RETRY_MAX_MS;
+  assert.equal((await checkoutPrice('curso-de-prueba', URL_CURSO, 'co', null))?.base, 186134);
+  api.apagar(true);
+  clock += QUOTE_TTL_MS;
+  const n = await lecturas();
+  clock += QUOTE_RETRY_MS;
+  assert.equal(await lecturas(), n + 1, 'tras un acierto el retroceso vuelve a 5 min');
 });

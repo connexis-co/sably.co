@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { rootCountryRedirect } from '../src/lib/legacy-redirects';
 import {
-  canCachePublicPage, invalidatedTags, pageMaxAge, protectDeliveryResponse, sharedPublicRequest,
+  canCachePublicPage, invalidatedTags, isIgnoredOriginParam, originCacheRequest, pageMaxAge, protectDeliveryResponse, sharedPublicRequest, trackingFreeRequest, IGNORED_ORIGIN_PARAMS,
   MEDIA_TAG, PUBLIC_DATA_EDGE, PUBLIC_PAGE_TAG,
 } from '../src/lib/public-delivery';
 
@@ -183,4 +183,38 @@ test('pages stay fresh a day but never past the next promotion start or end', ()
   assert.equal(pageMaxAge(now + 10, now), 60);
   assert.equal(pageMaxAge(now + 30 * 86_400, now), 86_400);
   assert.equal(pageMaxAge(Number.NaN, now), 86_400);
+});
+
+test('normalización en el origen: solo la lista blanca de seguimiento se ignora', () => {
+  for (const name of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id', 'UTM_Source', 'fbclid', 'gclid',
+    'gbraid', 'wbraid', 'msclkid', 'ttclid', 'sck', 'src', 'ref', 'gad_source', 'hsa_acc', '_gl', 'srsltid']) assert.equal(isIgnoredOriginParam(name), true, name);
+  for (const name of ['promo', 'oferta', 'ads', 'ads50', 'q', 'pagina', 'categoria', 'tema', 'v', '_edit', 'preview', 'volver', 'aviso',
+    'paso', 'modo', 'heroe_ab', 'referer', 'refx', 'utm', 'fbclid2', '']) assert.equal(isIgnoredOriginParam(name), false, name);
+  // La lista publicada (PR) y la expresión dicen lo mismo.
+  for (const name of IGNORED_ORIGIN_PARAMS) assert.equal(isIgnoredOriginParam(name.replace(/\*/g, 'x')), true, name);
+});
+
+test('trackingFreeRequest: quita seguimiento y cookies de analítica; nada más', () => {
+  const r = (path: string, headers: Record<string, string> = {}) => new Request('https://sably.co' + path, { headers: { accept: 'text/html', ...headers } });
+  const limpia = trackingFreeRequest(r('/co/curso-de-unas/?utm_source=meta&utm_medium=paid_social&fbclid=IwAR1', { cookie: '_ga=1; _fbp=2' }), 'production');
+  assert.equal(limpia?.url, 'https://sably.co/co/curso-de-unas/');
+  assert.equal(limpia?.headers.has('cookie'), false);
+  assert.equal(limpia?.headers.get('accept'), 'text/html');
+  assert.equal(canCachePublicPage(limpia!, 'production'), true);
+  assert.equal(originCacheRequest(r('/co/'), 'production').url, 'https://sably.co/co/');
+  for (const [path, headers] of [
+    ['/co/', {}], // ya limpia: nada que quitar
+    ['/co/?promo=ads50&utm_source=meta', {}], ['/co/?oferta=1', {}], ['/co/?ads=1', {}], ['/co/?v=123', {}],
+    ['/blog/?pagina=2&fbclid=1', {}], ['/co/?tema=v2', {}],
+    ['/co/?fbclid=1', { cookie: 'astro-session=abc' }], ['/co/?fbclid=1', { cookie: '_ga=1; emdash-edit-mode=true' }],
+    ['/co/?fbclid=1', { cookie: '__Host-sably-session=x' }], ['/co/?fbclid=1', { cookie: 'CF_Authorization=jwt' }],
+    ['/co/?fbclid=1', { authorization: 'Bearer x' }], ['/co/?fbclid=1', { 'x-sably-preview-token': 't' }],
+    ['/co/?fbclid=1', { 'cache-control': 'no-cache' }],
+    ['/mi-cuenta/?fbclid=1', {}], ['/ingresar/?utm_source=x', {}], ['/api/v1/config?fbclid=1', {}], ['/co?fbclid=1', {}],
+  ] as [string, Record<string, string>][]) {
+    assert.equal(trackingFreeRequest(r(path, headers), 'production'), null, `${path} ${JSON.stringify(headers)}`);
+    assert.equal(originCacheRequest(r(path, headers), 'production').url, 'https://sably.co' + path);
+  }
+  assert.equal(trackingFreeRequest(r('/co/?fbclid=1'), 'development'), null);
+  assert.equal(trackingFreeRequest(new Request('https://sably.co/co/?fbclid=1', { method: 'POST' }), 'production'), null);
 });

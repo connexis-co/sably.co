@@ -79,7 +79,8 @@ test('Cloudflare keeps shareable copies to serve while the origin is down, and n
   for (const [request,render] of [
     [new Request('https://sably.co/co/'),html()],
     [new Request('https://sably.co/co/',{headers:{cookie:'astro-session=abc'}}),html({'X-Sably-Fresh-Until':until(86400)})],
-    [new Request('https://sably.co/co/?gclid=1'),html({'X-Sably-Fresh-Until':until(86400)})],
+    [new Request('https://sably.co/co/?v=1'),html({'X-Sably-Fresh-Until':until(86400)})],
+    [new Request('https://sably.co/co/?promo=ads50&gclid=1'),html({'X-Sably-Fresh-Until':until(86400)})],
     [new Request('https://sably.co/co/'),html({'X-Sably-Fresh-Until':until(86400),'set-cookie':'a=b'})],
     [new Request('https://sably.co/co/no-existe/'),html({'X-Sably-Fresh-Until':until(86400)},404)],
     [new Request('https://sably.co/api/v1/config'),async()=>Response.json({})],
@@ -165,6 +166,73 @@ test('Node HTML cache bypasses credentials, previews and errors; writes retire i
     await cache.onRequest!(context('https://sably.co/co/private/'),privatePage);
     await cache.onRequest!(context('https://sably.co/co/private/'),privatePage);
     assert.equal(privateRenders,2);
+  } finally {
+    if (previous===undefined) delete process.env.SABLY_ENVIRONMENT;
+    else process.env.SABLY_ENVIRONMENT=previous;
+  }
+});
+
+test('clics de anuncios (utm_*, fbclid, gclid…): misma copia y mismas cabeceras que la URL limpia; el resto, como siempre', async () => {
+  const previous = process.env.SABLY_ENVIRONMENT;
+  process.env.SABLY_ENVIRONMENT='production';
+  try {
+    invalidateNodePages();
+    const cache=nodeCacheProvider(undefined);
+    const handle=createNodeRequestHandler({env:{SABLY_ENVIRONMENT:'production'},redirects:'',invalidate:()=>{}});
+    const until=String(Math.floor(Date.now()/1000)+86400);
+    let renders=0;
+    const vistas:string[]=[];
+    // El proveedor envuelve el límite de Node, que envuelve el render; Astro añade las cabeceras
+    // de caché (setHeaders) entre el límite y el proveedor: como en producción.
+    const pedir=(url:string,headers?:HeadersInit)=>{
+      const request=new Request(url,{headers});
+      return cache.onRequest!({request,url:new URL(url),logger:{info(){},warn(){},error(){}}} as never,async()=>{
+        const r=await handle(request,async()=>{
+          renders++; vistas.push(new URL(request.url).search);
+          return new Response(`render ${renders}`,{headers:{'content-type':'text/html'}});
+        });
+        r.headers.set('CDN-Cache-Control','max-age=300'); r.headers.set('X-Sably-Fresh-Until',until);
+        return r;
+      });
+    };
+    const limpia=await pedir('https://sably.co/co/curso-de-unas/');
+    assert.equal(await limpia.text(),'render 1');
+    const anuncios=[
+      '?utm_source=meta&utm_medium=paid_social&utm_campaign=x&fbclid=IwAR'+Math.random(),
+      '?fbclid='+Math.random(), '?gclid=abc&gbraid=1&wbraid=2', '?msclkid=1&ttclid=2', '?sck=fbp~1&src=ig&ref=X1',
+    ];
+    for (const query of anuncios) {
+      const r=await pedir('https://sably.co/co/curso-de-unas/'+query);
+      assert.equal(await r.text(),'render 1',query);
+      assert.match(r.headers.get('cloudflare-cdn-cache-control')??'',/^public, max-age=300, stale-while-revalidate=\d+, stale-if-error=604800$/,query);
+      assert.equal(r.headers.get('cache-control'),'max-age=0',query);
+    }
+    // Cookies de analítica (GA4, píxel de Meta, Clarity) tampoco abren un render propio.
+    assert.equal(await (await pedir('https://sably.co/co/curso-de-unas/?fbclid=1',{cookie:'_ga=GA1.1.1; _ga_ABC=GS1; _fbp=fb.1; _fbc=fb.1.x; _clck=1'})).text(),'render 1');
+    assert.equal(renders,1);
+    // Primer clic sin copia: se renderiza (con su URL) y la copia queda para la URL limpia.
+    const ficha=await pedir('https://sably.co/mx/curso-de-unas/?utm_source=meta&fbclid=1');
+    assert.equal(await ficha.text(),'render 2');
+    assert.equal(await (await pedir('https://sably.co/mx/curso-de-unas/')).text(),'render 2');
+    // Parámetros que cambian la página, cache-busters y cookies de sesión/cuenta: render propio y sin caché.
+    for (const [url,headers] of [
+      ['https://sably.co/co/curso-de-unas/?promo=ads50&utm_source=meta',undefined],
+      ['https://sably.co/co/curso-de-unas/?oferta=1&fbclid=1',undefined],
+      ['https://sably.co/co/curso-de-unas/?v=123',undefined],
+      ['https://sably.co/co/curso-de-unas/?q=unas',undefined],
+      ['https://sably.co/co/curso-de-unas/?tema=v2&utm_source=meta',undefined],
+      ['https://sably.co/co/curso-de-unas/?fbclid=1',{cookie:'_ga=1; astro-session=abc'}],
+      ['https://sably.co/co/curso-de-unas/?fbclid=1',{cookie:'_ga=1; __Host-sably-session=abc'}],
+      ['https://sably.co/co/curso-de-unas/?fbclid=1',{cookie:'sably_cuenta_ui=1'}],
+      ['https://sably.co/co/curso-de-unas/?fbclid=1',{authorization:'Bearer x'}],
+    ] as const) {
+      const antes=renders;
+      const r=await pedir(url,headers);
+      assert.equal(renders,antes+1,`${url} ${JSON.stringify(headers)}`);
+      assert.equal(r.headers.get('cloudflare-cdn-cache-control'),'no-store',url);
+      assert.equal(r.headers.get('cache-control'),'private, no-store',url);
+    }
+    assert.deepEqual(vistas.slice(0,2),['','?utm_source=meta&fbclid=1']);
   } finally {
     if (previous===undefined) delete process.env.SABLY_ENVIRONMENT;
     else process.env.SABLY_ENVIRONMENT=previous;
