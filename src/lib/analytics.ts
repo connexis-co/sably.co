@@ -14,13 +14,24 @@ declare global {
   }
 }
 
-/** Eventos propios → evento estándar de Meta (conversiones). */
+/**
+ * Eventos propios → evento estándar de Meta (conversiones). Solo valen para el modo «direct»: en modo «gtm» (producción)
+ * los emite el contenedor de Tag Manager (el clic de compra lo cuenta su etiqueta «Meta Pixel - AddToCart»).
+ * El clic de compra no es InitiateCheckout: ese ya lo envía Hotmart al mismo píxel y se contaría dos veces.
+ */
 const META_MAP: Record<string, string> = {
   view_course: 'ViewContent',
-  click_cta_hotmart: 'InitiateCheckout',
+  click_cta_hotmart: 'AddToCart',
   submit_lead_form: 'Lead',
   click_whatsapp: 'Contact',
 };
+
+/** Curso y país a partir de la ruta (/co/curso-de-unas/), como la etiqueta de Tag Manager. Sin valor ni moneda. */
+function datosCursoMeta(ruta: string): Record<string, string | string[]> {
+  const m = ruta.match(/^\/([a-z]{2})\/([a-z0-9-]+)\/?$/);
+  if (!m || m[2] === 'cursos') return {};
+  return { content_ids: [m[2]!], content_type: 'product', content_name: m[2]!, content_category: m[1]! };
+}
 
 /**
  * Prueba A/B del héroe de la portada (HEROES-X §11): si el visitante tiene variante asignada (cookie
@@ -57,5 +68,8 @@ export function trackEvent(event: string, params: EventParams = {}): void {
   if (window.sablyTrackingMode !== 'direct') return;
   window.gtag?.('event', event, params);
   const metaEvent = META_MAP[event];
-  if (metaEvent && window.fbq) window.fbq('track', metaEvent, params);
+  if (!metaEvent || !window.fbq) return;
+  try {
+    window.fbq('track', metaEvent, metaEvent === 'AddToCart' ? datosCursoMeta(location.pathname) : params);
+  } catch { /* el píxel nunca rompe la página */ }
 }
